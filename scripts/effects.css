@@ -1,0 +1,125 @@
+@media screen and (min-width: 1px) {
+
+	.modula .items .item h2 {
+		margin:0;
+	}
+	.modula .items .item p {
+		margin:0;
+		padding: 0;
+	}	
+	.modula .figc {
+		color: black;
+		text-align: center;
+		position: absolute;
+		left: 0;
+		width: 100%;
+		padding:2em;
+	}
+
+	.modula .item .jtg-social a {
+		text-decoration: none;
+		color: #fff;
+		display: inline-block;
+		margin:0 10px 0 0;
+		width: 20px;
+		padding: 6px 4px;
+		border: 0;
+		opacity: 0;
+		transition: opacity .3s;
+	}
+	.modula .item:hover .jtg-social a {
+		opacity: 1;
+	}
+	
+	/*---------------*/
+	/***** pufrobo *****/
+	/*---------------*/
+
+	.modula .items .jtg-social {
+		opacity: 0;
+		transition: opacity 0.1s;
+		right:30px;
+		position: absolute;
+		bottom:20px;
+		text-align: right;
+		transition:all .3s;
+	}
+	
+	.modula .items .jtg-social {
+		opacity: 1;
+	}
+	
+	.modula .items .jtg-social a:last-of-type {
+		margin-right: 0;	
+	}
+
+	.modula .item.effect-pufrobo p.description {
+		margin-bottom: 2em;
+	}
+
+	.modula .item.effect-pufrobo .figc {
+		text-align: right;
+	}
+
+	.modula .item.effect-pufrobo h2,
+	.modula .item.effect-pufrobo p {
+		position: absolute;
+		right: 30px;
+		left: 30px;
+		padding: 10px 0;
+	}
+	
+	.modula .item:hover img { opacity: .8 }
+	
+	.modula .item { background-color:#000; }
+
+	.modula .item.effect-pufrobo p {
+		bottom: 20%;  
+		line-height: 1.5;
+		-webkit-transform: translate3d(0,100%,0);
+		transform: translate3d(0,100%,0);
+		letter-spacing: 1px;
+	}
+
+	.modula .item.effect-pufrobo h2 {
+		/*top: 30px;*/
+		top: 10%;
+		-webkit-transition: -webkit-transform 0.35s;
+		transition: transform 0.35s;
+		-webkit-transform: translate3d(0,20px,0);
+		transform: translate3d(0,20px,0);
+	}
+
+	.modula .item.effect-pufrobo:hover h2 {
+		-webkit-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+	}
+
+	.modula .item.effect-pufrobo h2::after {
+		position: absolute;
+		top: 80%;
+		left: 0;
+		width: 100%;
+		height: 4px;
+		background: #fff;
+		content: '';
+		-webkit-transform: translate3d(0,40px,0);
+		transform: translate3d(0,40px,0);
+	}
+
+	.modula .item.effect-pufrobo h2::after,
+	.modula .item.effect-pufrobo p {
+		opacity: 0;
+		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+		transition: opacity 0.35s, transform 0.35s;
+	}
+
+	.modula .item.effect-pufrobo:hover h2::after,
+	.modula .item.effect-pufrobo:hover p {
+		margin-top: 10px;
+		margin-bottom: 5px;
+		opacity: 1;
+		-webkit-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+	}
+}

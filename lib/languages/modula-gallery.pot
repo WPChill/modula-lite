@@ -1,0 +1,231 @@
+# Copyright (C) 2015 Modula Grid Gallery Lite
+# This file is distributed under the same license as the Modula Grid Gallery Lite package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Modula Grid Gallery Lite 1.0.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/modula-best-grid-gallery\n"
+"POT-Creation-Date: 2015-11-05 22:40:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: Modula.php:339
+msgid "Modula >> Tutorial"
+msgstr ""
+
+#: Modula.php:339
+msgid "Tutorial"
+msgstr ""
+
+#: Modula.php:340
+msgid "Modula >> Add Gallery"
+msgstr ""
+
+#: Modula.php:340
+msgid "Add Gallery"
+msgstr ""
+
+#: Modula.php:341
+msgid "Modula >> Edit Gallery"
+msgstr ""
+
+#: Modula.php:341
+msgid "Edit Gallery"
+msgstr ""
+
+#: admin/add-gallery.php:2 admin/edit-gallery.php:2 admin/overview.php:2
+msgid "You are not allowed to call this page directly."
+msgstr ""
+
+#: admin/add-gallery.php:12
+msgid "Add New Gallery"
+msgstr ""
+
+#: admin/add-gallery.php:21
+msgid "Name of the gallery"
+msgstr ""
+
+#: admin/add-gallery.php:27
+msgid "Description of the gallery (for internal use)"
+msgstr ""
+
+#: admin/add-gallery.php:33
+msgid "Gallery width"
+msgstr ""
+
+#: admin/add-gallery.php:37
+msgid "Gallery height in pixels"
+msgstr ""
+
+#: admin/add-gallery.php:43
+msgid "WordPress field for titles:"
+msgstr ""
+
+#: admin/add-gallery.php:51
+msgid "WordPress field for captions:"
+msgstr ""
+
+#: admin/add-gallery.php:62
+msgid "Choose a default image size"
+msgstr ""
+
+#: admin/add-gallery.php:72
+msgid "You can customize each image later"
+msgstr ""
+
+#: admin/add-gallery.php:76 admin/edit-gallery.php:277
+msgid "Add images"
+msgstr ""
+
+#: admin/add-gallery.php:78
+msgid "You can add images now or later."
+msgstr ""
+
+#: admin/add-gallery.php:88
+msgid "Previous"
+msgstr ""
+
+#: admin/add-gallery.php:89
+msgid "Next"
+msgstr ""
+
+#: admin/add-gallery.php:95
+msgid "Success!"
+msgstr ""
+
+#: admin/add-gallery.php:96
+msgid "Your gallery"
+msgstr ""
+
+#: admin/add-gallery.php:96
+msgid "has been created. Copy the following shortcode:"
+msgstr ""
+
+#: admin/add-gallery.php:98
+msgid "and paste it inside a post or a page. Otherwise click"
+msgstr ""
+
+#: admin/add-gallery.php:98 admin/overview.php:20
+msgid "here"
+msgstr ""
+
+#: admin/add-gallery.php:98
+msgid ""
+"to customize\n"
+"                  the gallery."
+msgstr ""
+
+#: admin/add-gallery.php:103 admin/add-gallery.php:113
+#: admin/edit-gallery.php:406 admin/overview.php:83
+msgid "Close"
+msgstr ""
+
+#: admin/add-gallery.php:109
+msgid "Error!"
+msgstr ""
+
+#: admin/add-gallery.php:110
+msgid "For some reason it was not possible to save your gallery"
+msgstr ""
+
+#: admin/edit-gallery.php:80
+msgid "Jump to setting"
+msgstr ""
+
+#: admin/edit-gallery.php:255
+msgid "Images"
+msgstr ""
+
+#: admin/edit-gallery.php:262
+msgid "Image size"
+msgstr ""
+
+#: admin/edit-gallery.php:285
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin/edit-gallery.php:287
+msgid "Select all"
+msgstr ""
+
+#: admin/edit-gallery.php:288
+msgid "Deselect all"
+msgstr ""
+
+#: admin/edit-gallery.php:289
+msgid "Toggle selection"
+msgstr ""
+
+#: admin/edit-gallery.php:290
+msgid "Resize"
+msgstr ""
+
+#: admin/edit-gallery.php:291
+msgid "Remove"
+msgstr ""
+
+#: admin/edit-gallery.php:356
+msgid "Cancel"
+msgstr ""
+
+#: admin/edit-gallery.php:357
+msgid "Save"
+msgstr ""
+
+#: admin/edit-gallery.php:404
+msgid "Import"
+msgstr ""
+
+#: admin/edit-gallery.php:417
+msgid "OK"
+msgstr ""
+
+#: admin/overview.php:18
+msgid "Welcome to Modula Gallery!"
+msgstr ""
+
+#: admin/overview.php:20
+msgid "Create your first awesome gallery, click"
+msgstr ""
+
+#: admin/overview.php:66
+msgid "Confirmation"
+msgstr ""
+
+#: admin/overview.php:67
+msgid "Do you really want to delete the gallery"
+msgstr ""
+
+#: admin/overview.php:70
+msgid "Yes"
+msgstr ""
+
+#: admin/overview.php:71
+msgid "No"
+msgstr ""
+
+#: admin/overview.php:79
+msgid "Copy and paste the following shortcode inside a post, page or widget:"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Modula Grid Gallery Lite"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://modula.greentreelabs.net"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The Best Wordpress Gallery."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "GreenTreeLabs"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://modula.greentreelabs.net"
+msgstr ""
