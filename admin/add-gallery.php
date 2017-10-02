@@ -66,9 +66,12 @@
                         <label for="name"><?php _e('Minimum width or height of images','modula-gallery')?></label>
                     </div>
                 </div>
+
                 <label class="shortpixel">
                     <img src="<?php echo plugins_url('',__file__) ?>/images/icon-shortpixel.png" alt="ShortPixel">
-                  <a target="_blank" href="https://shortpixel.com/wp/af/N8LKGGT72393"><?php _e('We suggest you to use ShortPixel image optimization plugin for best SEO results.','modula-gallery')?></a></label>
+	                <a target="_blank" href="https://shortpixel.com/h/af/HUOYEBB31472"><?php _e( 'We suggest using the ShortPixel image optimization plugin to optimize your images and get the best possible SEO results & load speed..', 'modula-gallery' ) ?></a>
+                  </label>
+
              </div>
               <div class="field select-images">
                   <a class="waves-effect waves-light btn add-images">

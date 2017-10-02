@@ -247,7 +247,7 @@ var TG = function ($) {
                         TG.hide_loading();
                     }
                     else
-                        location.href = "?page=edit-modula-lite";
+                        location.href = "?page=modula-lite-edit";
                 }
             });
         },
@@ -349,7 +349,7 @@ var TG = function ($) {
 
                     $_success.find(".code").val("[Modula id='" + id + "']");
                     $_success.find(".gallery-name").text(name);
-                    $_success.find(".customize").attr("href", "?page=edit-modula-lite&galleryId="+id);
+                    $_success.find(".customize").attr("href", "?page=modula-lite-edit&galleryId="+id);
 
                     $_success.openModal();
                 });
@@ -890,7 +890,7 @@ var NewGalleryWizard = function($) {
                     $_success = $('#success');
                     $_success.find(".code").val("[Modula id='" + id + "']");
                     $_success.find(".gallery-name").text(name);
-                    $_success.find(".customize").attr("href", "?page=edit-modula-lite&galleryId="+id);
+                    $_success.find(".customize").attr("href", "?page=modula-lite-edit&galleryId="+id);
 
                     $_success.openModal();
                 }

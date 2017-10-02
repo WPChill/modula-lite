@@ -3,7 +3,7 @@
  *  Project: jQuery Modula 2
  *  Version: 1.0
  *  Description: Artistic gallery
- *  Author: Green Tree Labs
+ *  Author: Macho Themes
  */
 
 function tg_getURLParameter(name) {
