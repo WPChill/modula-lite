@@ -22,7 +22,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		private $loadedData;
 
-		private $version = "1.1.13";
+		private $version = "1.2.0";
 
 		private $defaultValues = array(
 			'width'            => 100,
