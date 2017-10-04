@@ -1,6 +1,6 @@
 <?php
 $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'getting_started';
-wp_enqueue_style( 'welcome-css', plugin_dir_url(__FILE__) . '/welcome-screen/assets/welcome.css' );
+wp_enqueue_style( 'welcome', plugin_dir_url(__FILE__) . 'welcome-screen/assets/welcome.css' );
 ?>
 
 <div class="wrap about-wrap modula-wrap">
@@ -19,10 +19,10 @@ wp_enqueue_style( 'welcome-css', plugin_dir_url(__FILE__) . '/welcome-screen/ass
 	<?php
 	switch ( $active_tab ) {
 		case 'getting_started':
-			require_once plugin_dir_path( __FILE__ ) . '/welcome-screen/sections/getting-started.php';
+			require_once plugin_dir_path( __FILE__ ) . 'welcome-screen/sections/getting-started.php';
 			break;
 		case 'comparison_table':
-			require_once plugin_dir_path( __FILE__ ) . '/welcome-screen/sections/comparison-table.php';
+			require_once plugin_dir_path( __FILE__ ) . 'welcome-screen/sections/comparison-table.php';
 			break;
 	}
 	?>
