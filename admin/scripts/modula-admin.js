@@ -924,7 +924,7 @@ var ImportWizard = function($) {
 
                 if (_curPage == 1) {
                     var source = $(".import-source").val();
-                    if (source.length == 0) {
+                    if ('undefined' === typeof source) {
                         $(".import-source").addClass("invalid");
                         return false;
                     }

@@ -75,7 +75,7 @@ if(strpos($imageUrl, '/wp-content') > 0)
 					<?php else : ?>
 					<h2>No images where updated</h2>
 				<?php endif ?>
-			<a class="btn" href="?page=ModulaLite-admin">Go to dashboard</a>
+			<a class="btn" href="?page=modula-lite-admin">Go to dashboard</a>
 			</div>
 		</div>
 	</div>

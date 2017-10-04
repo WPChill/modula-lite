@@ -57,10 +57,10 @@ if(empty($tg_subtitle))
 		<div class="modal-content">
 			<h4><?php _e('Success!','modula-gallery')?></h4>
 			<p><?php _e('All selected galleries have been imported!','modula-gallery')?></p>
-			<p>Go to the <a href="?page=ModulaLite-admin">dashboard page</a> and copy the shortcode to paste inside your pages and posts</p>
+			<p>Go to the <a href="?page=modula-lite-admin">dashboard page</a> and copy the shortcode to paste inside your pages and posts</p>
 		</div>
 		<div class="modal-'footer">
-			<a href="?page=ModulaLite-admin" id="modal-close" class="waves-effect waves-green btn-flat modal-action"><?php _e('Close','modula-gallery')?></a>
+			<a href="?page=modula-lite-admin" id="modal-close" class="waves-effect waves-green btn-flat modal-action"><?php _e('Close','modula-gallery')?></a>
 		</div>
 	</div>
 
@@ -70,7 +70,7 @@ if(empty($tg_subtitle))
 			<p><?php _e('For some reason it was not possible to import one or more galleries','modula-gallery')?></p>
 		</div>
 		<div class="modal-footer">
-			<a href="?page=ModulaLite-admin" class="waves-effect waves-green btn-flat modal-action"><?php _e('Close','modula-gallery')?></a>
+			<a href="?page=modula-lite-admin" class="waves-effect waves-green btn-flat modal-action"><?php _e('Close','modula-gallery')?></a>
 		</div>
 	</div>
 </div>

@@ -28,7 +28,7 @@ $idx = 0;
 				</div>
 			</div>
 		</div>
-		<script>location.href = "?page=ModulaLite-admin";</script>
+		<script>location.href = "?page=modula-lite-admin";</script>
 	<?php endif ?>
 
 	<?php if ( count( $galleries ) == 0 ) : ?>
