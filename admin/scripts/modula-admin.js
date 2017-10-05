@@ -240,7 +240,7 @@ var TG = function( $ ) {
         },
         success: function( r ) {
           if ( data.ftg_gallery_edit ) {
-            toast( 'Gallery Saved', 2000 );
+            Materialize.toast( 'Gallery Saved', 2000 );
             TG.hide_loading();
           }
           else

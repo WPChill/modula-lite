@@ -454,14 +454,14 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			wp_register_style( 'effects', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css' );
 			wp_enqueue_style( 'effects' );
 
-			wp_register_script( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/scripts/materialize.min.js', array( 'jquery' ) );
+			wp_register_script( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/scripts/materialize.js', array( 'jquery' ) );
 
 			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/admin/scripts/modula-admin.js', array(
 				'materialize',
 				'jquery',
 				'media-upload',
 				'thickbox',
-			), false, true );
+			), false, false );
 
 			wp_enqueue_script( 'modula' );
 

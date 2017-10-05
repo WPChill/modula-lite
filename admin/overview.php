@@ -141,7 +141,7 @@ $idx = 0;
           var data = { 'action': 'modula_clone_gallery', 'gid': id, 'Modula': $( '#Modula' ).val() };
           TG.show_loading();
           jQuery.post( ajaxurl, data, function( response ) {
-            toast( 'Gallery "' + name + '" cloned', 2000 );
+            Materialize.toast( 'Gallery "' + name + '" cloned', 2000 );
             location.reload();
             TG.hide_loading();
 
