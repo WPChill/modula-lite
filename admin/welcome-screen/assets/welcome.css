@@ -1,0 +1,87 @@
+.featured-section.features .row {
+	display: inline-block;
+	width: 97%;
+	padding: 15px;
+	border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+.featured-section.features .row .dashicons-yes {
+	color: #2cbe4e;
+}
+
+.featured-section.features .row .dashicons-no-alt {
+	color: #FF3D2E;
+}
+
+.featured-section.features .row > div {
+	display: inline-block;
+	float: left;
+	width: 15%;
+	text-align: center;
+}
+
+.featured-section.features .row > .feature {
+	width: 70%;
+	text-align: left;
+}
+
+.featured-section .free-pro-table {
+	border-spacing: 0;
+	width: 100%;
+	margin-top:40px;
+}
+
+.featured-section .free-pro-table th {
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.featured-section .free-pro-table td {
+	border-top: 1px solid #ccc;
+	padding: 20px 0 25px;
+}
+
+.featured-section .free-pro-table h3 {
+	margin: 0;
+}
+
+.featured-section .free-pro-table td p {
+	margin: 0;
+}
+
+.featured-section .free-pro-table .modula-feature,
+.featured-section .free-pro-table .modula-pro-feature{
+	text-align: center;
+	width: 15%;
+}
+
+.featured-section .free-pro-table .dashicons-yes {
+	color: #00A878;
+}
+
+.featured-section .free-pro-table .dashicons-no-alt {
+	color: #ff3439;
+}
+
+.featured-section .free-pro-table .dashicons-before:before,
+.featured-section .free-pro-table .dashicons-before:before {
+	font-size: 35px;
+	height: 35px;
+	width: 35px;
+}
+.modula-wrap .button-hero .dashicons{
+	font-size:16px;
+	vertical-align:middle;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}

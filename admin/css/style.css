@@ -589,7 +589,7 @@ strong {
 .update-gallery {
 	position: fixed;
 	bottom: 20px;
-	right: 120px;
+	right: 20px;
 }
 .collapsible li {
 	margin-bottom: 7px;
@@ -635,14 +635,13 @@ strong {
 }
 .collapsible li th,
 .collapsible li td {
-	vertical-align: top;
+	vertical-align: baseline;
 }
 .collapsible li th {
 	border-radius: 0;
 }
 .collapsible li th[scope=row] {
 	width: 200px;
-	padding-top: 30px;
 }
 .collapsible li tr.ui-slider {
 	height: auto;
@@ -886,11 +885,12 @@ strong {
 	padding: 10px 10px 10px 10px;
 	background: #242521;
 }
-#images .bulk {
-	padding: 10px 10px 10px 10px;
-	/*background: #444531;*/
-	/*border:1px solid #111;*/
-	margin-top: 2px;
+#images .bulk ,
+#images .actions {
+	background: #FAFAFA;
+	border:1px solid #EEE;
+	padding: 25px;
+	margin: 10px;
 }
 #images .bulk h4 {
 	margin:0 0 4px 0; 
@@ -960,11 +960,7 @@ strong {
 #image-panel .buttons a {
 	margin-left: 10px;
 }
-#images .actions {
-	background: rgba(255, 255, 255, 0.5);
-	padding: 10px;
-	margin: 10px;
-}
+
 #images .actions label {
 	font-weight: bold;
 	cursor: default;
@@ -1080,11 +1076,10 @@ strong {
 	display: block;
 }
 .pro-cell {
-	background: #DAA308;
-	font-size: 18px;
-	padding: 10px;
-	transition: all .15s;
-	opacity: 1;
+	padding: 15px 25px;
+	border: 1px solid #EEE;
+	background-color: #FAFAFA;
+	display: inline-block;
 }
 .button-bg {
 	background: #DAA308;
@@ -1432,29 +1427,7 @@ strong {
 	padding-left: 45px;
 	margin-bottom: 15px;
 }
-#modula-survey {
-	float: none;
-	height: auto;
-	background: none;
-	border:0;
-	box-shadow: none;
-	position: relative;
-	margin-top: 14px;
-}
-#modula-survey img {
-	position: relative;
-	z-index: 10;
-}
-#modula-survey span {
-	position: absolute;
-	z-index: 1;
-    top: 14px;
-    font-size: 14px;
-    background-color: #fff;
-    padding: 10px 20px 10px 40px;
-    left: 60px;
-    box-shadow: #ccc 0px 0px 4px;
-}
+
 #other-galleries .cta {
 	width:170px;
 	text-align: right;
@@ -1487,4 +1460,28 @@ strong {
 }
 #external-galleries input[type=checkbox] {
 	position: static;
+}
+
+/* Added in 1.2.0 */
+#toplevel_page_modula-lite-admin ul li:last-of-type a {
+	color: #7cc048 !important;
+}
+
+#toplevel_page_modula-lite-admin ul li:nth-child(4),
+#toplevel_page_modula-lite-admin ul li:nth-child(4):hover {
+	display: none;
+}
+
+body .modula-wrap .wp-badge {
+	background: url('../images/modula-logo.jpg') center 35px no-repeat #50ad31;
+	padding-top: 160px;
+	height: 0;
+	background-size: 80px 80px;
+}
+
+.shortpixel {
+	display: block;
+	background: #fafafa;
+	border: 1px solid #DDD;
+	padding: 20px;
 }
