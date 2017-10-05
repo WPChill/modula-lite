@@ -166,7 +166,7 @@ $idx = 0;
           TG.show_loading();
 
           jQuery.post( ajaxurl, data, function( response ) {
-            toast( 'Gallery "' + galleryName + '" deleted', 2000 );
+            Materialize.toast( 'Gallery "' + galleryName + '" deleted', 2000 );
             $( '#gallery-' + galleryId ).remove();
             TG.hide_loading();
             location.reload();
