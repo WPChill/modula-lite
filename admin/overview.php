@@ -156,7 +156,8 @@ $idx = 0;
           var name = $( this ).parents( '.data' ).find( '.card-title' ).text();
           $( '#shortcode-gallery-modal h4' ).text( name );
           $( '#shortcode-gallery-modal code' ).text( '[Modula id=\'' + id + '\']' );
-          $( '#shortcode-gallery-modal' ).openModal();
+          $( '#shortcode-gallery-modal' ).modal();
+          $( '#shortcode-gallery-modal' ).modal( 'open' );
         } );
 
         $( 'body' ).on( 'click', '#delete-gallery-modal .yes', function() {
