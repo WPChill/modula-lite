@@ -172,10 +172,10 @@ include( "header.php" );
 																		<p class="description">Quisque diam erat, mollis
 																			vitae enim eget</p>
 																		<div class="jtg-social">
-																			<a class="icon icon-twitter" href="#"></a>
-																			<a class="icon icon-facebook" href="#"></a>
-																			<a class="icon icon-google-plus" href="#"></a>
-																			<a class="icon icon-pinterest" href="#"></a>
+																			<a class="fa fa-twitter" href="#"></a>
+																			<a class="fa fa-facebook" href="#"></a>
+																			<a class="fa fa-google-plus" href="#"></a>
+																			<a class="fa fa-pinterest" href="#"></a>
 																		</div>
 																	</div>
 																</div>
@@ -233,8 +233,9 @@ include( "header.php" );
 
 			<li id="images">
 				<div class="collapsible-header white-text white darken-2">
-					<i class="mdi mdi-image-filter"></i> <span><?php _e( 'Images', 'Modula-gallery' ) ?> </span>
-					<i class="icon icon-chevron-right"></i>
+					<i class="mdi mdi-image-filter"></i>
+					<span><?php echo esc_html__( 'Images', 'Modula-gallery' ) ?> </span>
+					<i class="fa fa-chevron-right"></i>
 				</div>
 
 				<div class="collapsible-body white lighten-5">
@@ -341,7 +342,7 @@ include( "header.php" );
 							<div class="field buttons">
 								<a href="#" data-action="cancel" class="action modal-action modal-close waves-effect waves-yellow btn-flat"><i class="mdi-content-reply"></i> <?php echo esc_html__( 'Cancel', 'modula-gallery' ) ?>
 								</a>
-								<a href="#" data-action="save" class="action modal-action modal-close waves-effect waves-green btn-flat"><i class="icon icon-save-disk"></i> <?php echo esc_html__( 'Save', 'modula-gallery' ) ?>
+								<a href="#" data-action="save" class="action modal-action modal-close waves-effect waves-green btn-flat"><i class="fa fa-save-disk"></i> <?php echo esc_html__( 'Save', 'modula-gallery' ) ?>
 								</a>
 							</div>
 						</div>
@@ -353,7 +354,7 @@ include( "header.php" );
 </div>
 
 <a id="edit-gallery" data-tooltip="Update gallery" data-position="top" data-delay="10" class="tooltipped btn-floating btn-large waves-effect waves-light green update-gallery">
-	<i class="icon icon-save-disk"> </i> </a>
+	<i class="fa fa-save-disk"> </i> </a>
 
 <div class="preloader-wrapper big active" id="spinner">
 	<div class="spinner-layer spinner-blue-only">
