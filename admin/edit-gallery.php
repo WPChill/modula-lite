@@ -342,7 +342,7 @@ include( "header.php" );
 							<div class="field buttons">
 								<a href="#" data-action="cancel" class="action modal-action modal-close waves-effect waves-yellow btn-flat"><i class="mdi-content-reply"></i> <?php echo esc_html__( 'Cancel', 'modula-gallery' ) ?>
 								</a>
-								<a href="#" data-action="save" class="action modal-action modal-close waves-effect waves-green btn-flat"><i class="fa fa-save-disk"></i> <?php echo esc_html__( 'Save', 'modula-gallery' ) ?>
+								<a href="#" data-action="save" class="action modal-action modal-close waves-effect waves-green btn-flat"><i class="fa fa-save"></i> <?php echo esc_html__( 'Save', 'modula-gallery' ) ?>
 								</a>
 							</div>
 						</div>
