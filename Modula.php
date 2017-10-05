@@ -141,9 +141,9 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					switch ( $source ) {
 						case 'Envira':
 							$galleries = get_posts( array(
-								'post_type'      => 'envira',
-								'posts_per_page' => 1000,
-							) );
+								                        'post_type'      => 'envira',
+								                        'posts_per_page' => 1000,
+							                        ) );
 							foreach ( $galleries as $g ) {
 								$item                = array();
 								$item['id']          = $g->ID;
@@ -243,7 +243,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 								$images = array();
 								foreach ( $dbimages as $item ) {
 									$toAdd              = new stdClass();
-									$toAdd->imageId     = -1;
+									$toAdd->imageId     = - 1;
 									$toAdd->title       = $item->alttext;
 									$toAdd->description = $item->description;
 									$toAdd->imagePath   = plugins_url( 'image.php', __FILE__ ) . "?w=" . $this->defaultValues['img_size'] . "&src=" . $gallery->path . "/" . $item->filename;
@@ -454,15 +454,16 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			wp_register_style( 'effects', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css' );
 			wp_enqueue_style( 'effects' );
 
+			wp_register_script( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/scripts/materialize.min.js', array( 'jquery' ) );
+
 			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/admin/scripts/modula-admin.js', array(
+				'materialize',
 				'jquery',
 				'media-upload',
 				'thickbox',
-			) );
-			wp_enqueue_script( 'modula' );
+			), false, true );
 
-			wp_register_script( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/scripts/materialize.min.js', array( 'jquery' ) );
-			wp_enqueue_script( 'materialize' );
+			wp_enqueue_script( 'modula' );
 
 			wp_register_style( 'materialdesign-icons', plugins_url() . '/modula-best-grid-gallery/admin/css/materialdesignicons.css' );
 			wp_enqueue_style( 'materialdesign-icons' );
@@ -1030,7 +1031,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 						"name"        => "Rotate",
 						"description" => "",
 						"type"        => "PRO_FEATURE",
-						"min"         => -180,
+						"min"         => - 180,
 						"max"         => 180,
 						"default"     => 0,
 						"mu"          => "deg",
@@ -1040,7 +1041,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 						"name"        => "Horizontal slide",
 						"description" => "",
 						"type"        => "PRO_FEATURE",
-						"min"         => -100,
+						"min"         => - 100,
 						"max"         => 100,
 						"mu"          => "px",
 						"default"     => 0,
@@ -1050,7 +1051,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 						"name"        => "Vertical slide",
 						"description" => "",
 						"type"        => "PRO_FEATURE",
-						"min"         => -100,
+						"min"         => - 100,
 						"max"         => 100,
 						"mu"          => "px",
 						"default"     => 0,
