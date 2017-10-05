@@ -354,7 +354,7 @@ include( "header.php" );
 </div>
 
 <a id="edit-gallery" data-tooltip="Update gallery" data-position="top" data-delay="10" class="tooltipped btn-floating btn-large waves-effect waves-light green update-gallery">
-	<i class="fa fa-save-disk"> </i> </a>
+	<i class="icon icon-save-disk"> </i> </a>
 
 <div class="preloader-wrapper big active" id="spinner">
 	<div class="spinner-layer spinner-blue-only">
