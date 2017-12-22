@@ -37,7 +37,7 @@ $idx = 0;
 					<h5 class="cyan-text text-darken-3"><?php echo esc_html__( 'Welcome to Modula Gallery!', 'modula-gallery' ) ?></h5>
 					<p>
 						<?php echo esc_html__( 'Create your first awesome gallery, click', 'modula-gallery' ) ?>
-						<a href="?page=add-modula-lite"><?php echo esc_html__( 'here', 'modula-gallery' ) ?></a>. </p>
+						<a href="?page=modula-lite-add"><?php echo esc_html__( 'here', 'modula-gallery' ) ?></a>. </p>
 				</div>
 			</div>
 		</div>

@@ -2,8 +2,8 @@
 Contributors: machothemes, imagegallery, xphotogallery
 Tags: image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, lightbox gallery, masonry gallery, envira, envira gallery, nextgen, nextgen gallery, album, content gallery, fancy gallery, gallery widget,  media gallery, mosaic gallery, photo album, polaroid gallery, portfolio gallery, post gallery, thumbnail gallery, video gallery, youtube gallery, filterable portfolio, portfolio gallery, responsive portfolio, wordpress portfolio plugin
 Requires at least: 3.8
-Tested up to: 4.8
-Stable tag: 1.2.0
+Tested up to: 4.9
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 7. Admin panel with Material design
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed the broken link
+* Hid the Edit gallery menu item
 
 = 1.2 =
 * Removed sub-menu entry: Tutorial

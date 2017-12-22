@@ -1467,11 +1467,6 @@ strong {
 	color: #7cc048 !important;
 }
 
-#toplevel_page_modula-lite-admin ul li:nth-child(4),
-#toplevel_page_modula-lite-admin ul li:nth-child(4):hover {
-	display: none;
-}
-
 body .modula-wrap .wp-badge {
 	background: url('../images/modula-logo.jpg') center 35px no-repeat #50ad31;
 	padding-top: 160px;
