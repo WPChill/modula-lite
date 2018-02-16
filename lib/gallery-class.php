@@ -231,36 +231,35 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 
 			$html = "";
 
-			$html .= "<style>\n";
+			$html .= "<style>";
 
 			if ( $this->gallery->borderSize ) {
-				$html .= "#jtg-$this->id$rid .item { border: " . $this->gallery->borderSize . "px solid " . $this->gallery->borderColor . "; }\n";
+				$html .= "#jtg-$this->id$rid .item { border: " . $this->gallery->borderSize . "px solid " . $this->gallery->borderColor . "; }";
 			}
 
 			if ( $this->gallery->borderRadius ) {
-				$html .= "#jtg-$this->id$rid .item { border-radius: " . $this->gallery->borderRadius . "px; }\n";
+				$html .= "#jtg-$this->id$rid .item { border-radius: " . $this->gallery->borderRadius . "px; }";
 			}
 
 			if ( $this->gallery->shadowSize ) {
-				$html .= "#jtg-$this->id$rid .item { box-shadow: " . $this->gallery->shadowColor . " 0px 0px " . $this->gallery->shadowSize . "px; }\n";
+				$html .= "#jtg-$this->id$rid .item { box-shadow: " . $this->gallery->shadowColor . " 0px 0px " . $this->gallery->shadowSize . "px; }";
 			}
 
 			if ( $this->gallery->socialIconColor ) {
-				$html .= "#jtg-$this->id$rid .item .jtg-social a { color: " . $this->gallery->socialIconColor . " }\n";
+				$html .= "#jtg-$this->id$rid .item .jtg-social a { color: " . $this->gallery->socialIconColor . " }";
 			}
 
-			$html .= "#jtg-$this->id$rid .item .caption { background-color: " . $this->gallery->captionColor . ";  }\n";
+			$html .= "#jtg-$this->id$rid .item .caption { background-color: " . $this->gallery->captionColor . ";  }";
 
-			$html .= "#jtg-$this->id$rid .item .figc { color: " . $this->gallery->captionColor . "; font-size: " . $this->gallery->captionFontSize . "px; }\n";
+			$html .= "#jtg-$this->id$rid .item .figc { color: " . $this->gallery->captionColor . "; font-size: " . $this->gallery->captionFontSize . "px; }";
 
-			$html .= "#jtg-$this->id$rid .item .figc h2.jtg-title {  font-size: " . $this->gallery->titleFontSize . "px; }\n";
+			$html .= "#jtg-$this->id$rid .item .figc h2.jtg-title {  font-size: " . $this->gallery->titleFontSize . "px; }";
 
-			$html .= "#jtg-$this->id$rid .item { transform: scale(" . $gallery->loadedScale / 100 . ") translate(" . $gallery->loadedHSlide . 'px,' . $gallery->loadedVSlide . "px) rotate(" . $gallery->loadedRotate . "deg); }\n";
+			$html .= "#jtg-$this->id$rid .item { transform: scale(" . $gallery->loadedScale / 100 . ") translate(" . $gallery->loadedHSlide . 'px,' . $gallery->loadedVSlide . "px) rotate(" . $gallery->loadedRotate . "deg); }";
 
+			$html .= "#jtg-$this->id$rid .items { width:" . $this->gallery->width . "; height:" . $this->gallery->height . "px; }";
 
-			$html .= "#jtg-$this->id$rid .items { width:" . $this->gallery->width . "; height:" . $this->gallery->height . "px; }\n";
-
-			$html .= "#jtg-$this->id$rid .items .figc p.description { color:" . $this->gallery->captionColor . "; }\n";
+			$html .= "#jtg-$this->id$rid .items .figc p.description { color:" . $this->gallery->captionColor . "; }";
 
 
 			if ( strlen( $this->gallery->style ) ) {
@@ -271,9 +270,9 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 
 			$id   = $this->id;
 			$html .= "<a name='$id'> </a>";
-			$html .= "<div class='modula' id='jtg-$this->id$rid'>\n";
+			$html .= "<div class='modula' id='jtg-$this->id$rid'>";
 
-			$html .= "<div class='items'>\n";
+			$html .= "<div class='items'>";
 
 			foreach ( array_slice( $this->images, 0, 40 / 2 ) as $image ) {
 				$title = in_array( $this->gallery->lightbox, array(
@@ -298,49 +297,49 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$imgUrl     = $image->imagePath;
 				$image->alt = isset( $image->alt ) ? $image->alt : '';
 
-				$html       .= "\t<div class=\"item " . $hasTitle . " effect-" . $hoverEffect->code . "\">\n";
-				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='gallery'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . ( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . ">\n";
-				$html       .= "\t\t<img data-valign='$image->valign' alt='$image->alt' data-halign='$image->halign' class='pic' src='$imgUrl' data-src='$imgUrl' />\n";
-				$html       .= "\t\t<div class=\"figc\">\n";
-				$html       .= "\t\t\t<div class=\"figc-inner\">\n";
+				$html       .= "<div class=\"item " . $hasTitle . " effect-" . $hoverEffect->code . "\">";
+				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='gallery'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . ( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . "></a>";
+				$html       .= "<img data-valign='$image->valign' alt='$image->alt' data-halign='$image->halign' class='pic' src='$imgUrl' data-src='$imgUrl' />";
+				$html       .= "<div class=\"figc\">";
+				$html       .= "<div class=\"figc-inner\">";
 				if ( $this->gallery->hoverEffect != 'none' && ! empty( $image->title ) ) {
-					$html .= "\t\t\t\t<h2 class='jtg-title'>" . $image->title . "</h2>\n";
+					$html .= "<h2 class='jtg-title'>" . $image->title . "</h2>";
 				}
 
 				if ( ( $hoverEffect->allowSubtitle && ! empty( $image->description ) ) ||
 				     empty( $this->gallery->hoverEffect ) ) {
-					$html .= "\t\t\t\t\t<p class=\"description\">";
+					$html .= "<p class=\"description\">";
 					if ( $hoverEffect->allowSubtitle || empty( $this->gallery->hoverEffect ) ) {
 						$html .= $image->description;
 					}
-					$html .= "</p>\n";
+					$html .= "</p>";
 				}
-				$html .= "\t\t\t</div>\n";
-				$html .= "\t\t</div>\n";
-				$html .= "\t</a>\n";
-				$html .= "\t</div>\n";
+				$html .= "</div>";
+				$html .= "</div>";
+				$html .= "</a>";
+				$html .= "</div>";
 			}
 
 
-			$html .= "\t</div>\n";
-			$html .= "</div>\n";
+			$html .= "</div>";
+			$html .= "</div>";
 
-			$html .= "<script type='text/javascript'>\n";
-			$html .= "\tjQuery('#jtg-$this->id$rid').modulaGallery({\n";
+			$html .= "<script type='text/javascript'>";
+			$html .= "jQuery('#jtg-$this->id$rid').modulaGallery({";
 
 			if ( strlen( $this->gallery->script ) ) {
-				$html .= "\t\tonComplete: function () { " . stripslashes( $this->gallery->script ) . "},\n";
+				$html .= "onComplete: function () { " . stripslashes( $this->gallery->script ) . "},";
 			}
 
-			$html .= "\t\tresizer: '" . plugins_url( 'modula-best-grid-gallery/image.php', '' ) . "',\n";
-			$html .= "\t\tmargin: " . $this->gallery->margin . ",\n";
+			$html .= "resizer: '" . plugins_url( 'modula-best-grid-gallery/image.php', '' ) . "',";
+			$html .= "margin: " . $this->gallery->margin . ",";
 			// $html .= "\t\tkeepArea: " . ($this->gallery->keepArea == "T" ? "true" : "false") . ",\n";
-			$html .= "\t\tenableTwitter: " . ( $this->gallery->enableTwitter == "T" ? "true" : "false" ) . ",\n";
-			$html .= "\t\tenableFacebook: " . ( $this->gallery->enableFacebook == "T" ? "true" : "false" ) . ",\n";
-			$html .= "\t\tenablePinterest: " . ( $this->gallery->enablePinterest == "T" ? "true" : "false" ) . ",\n";
-			$html .= "\t\tenableGplus: " . ( $this->gallery->enableGplus == "T" ? "true" : "false" ) . ",\n";
-			$html .= "\t\trandomFactor: " . ( $this->gallery->randomFactor / 100 ) . ",\n";
-			$html .= "\t});\n";
+			$html .= "enableTwitter: " . ( $this->gallery->enableTwitter == "T" ? "true" : "false" ) . ",";
+			$html .= "enableFacebook: " . ( $this->gallery->enableFacebook == "T" ? "true" : "false" ) . ",";
+			$html .= "enablePinterest: " . ( $this->gallery->enablePinterest == "T" ? "true" : "false" ) . ",";
+			$html .= "enableGplus: " . ( $this->gallery->enableGplus == "T" ? "true" : "false" ) . ",";
+			$html .= "randomFactor: " . ( $this->gallery->randomFactor / 100 ) . ",";
+			$html .= "});";
 
 			$html .= "</script>";
 
