@@ -340,7 +340,6 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			$html .= "enableGplus: " . ( $this->gallery->enableGplus == "T" ? "true" : "false" ) . ",";
 			$html .= "randomFactor: " . ( $this->gallery->randomFactor / 100 ) . ",";
 			$html .= "});";
-
 			$html .= "</script>";
 
 

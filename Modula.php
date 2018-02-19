@@ -21,6 +21,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 	class ModulaLite {
 
 		private $loadedData;
+		private $fields = array();
 
 		private $version = "1.2.1";
 
@@ -101,6 +102,336 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 			add_filter( 'plugin_row_meta', array( $this, 'register_links' ), 10, 2 );
 			add_filter( 'admin_footer_text', array( $this, 'admin_footer' ), 1, 2 );
+
+
+			// Set fields
+			$this->fields[ __( 'General', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-settings",
+				"fields" => array(
+					"name"           => array(
+						"name"        => esc_html__( 'Name', 'modula-gallery' ),
+						"type"        => "text",
+						"description" => esc_html__( 'Name of the gallery, for internal use.', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"description"    => array(
+						"name"        => esc_html__( 'Description', 'modula-gallery' ),
+						"type"        => "text",
+						"description" => esc_html__( 'This description is for internal use.', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"width"          => array(
+						"name"        => esc_html__( 'Width', 'modula-gallery' ),
+						"type"        => "text",
+						"description" => esc_html__( 'Width of the gallery (i.e.: 100% or 500px)', 'modula-gallery' ),
+						"mu"          => "px or %",
+						"excludeFrom" => array(),
+					),
+					"height"         => array(
+						"name"        => esc_html__( 'Height', 'modula-gallery' ),
+						"type"        => "number",
+						"description" => esc_html__( 'Height of the gallery in pixels', 'modula-gallery' ),
+						"mu"          => "px",
+						"excludeFrom" => array(),
+					),
+					"img_size"       => array(
+						"name"        => esc_html__( 'Minimum image size', 'modula-gallery' ),
+						"type"        => "number",
+						"description" => esc_html__( 'Minimum width or height of the images', 'modula-gallery' ),
+						"mu"          => "px or %",
+						"excludeFrom" => array(),
+					),
+					"margin"         => array(
+						"name"        => esc_html__( 'Margin', 'modula-gallery' ),
+						"type"        => "number",
+						"description" => esc_html__( 'Margin between images', 'modula-gallery' ),
+						"mu"          => "px",
+						"excludeFrom" => array(),
+					),
+					"randomFactor"   => array(
+						"name"        => esc_html__( 'Random factor', 'modula-gallery' ),
+						"type"        => "ui-slider",
+						"description" => "",
+						"min"         => 0,
+						"max"         => 100,
+						"mu"          => "%",
+						"default"     => 20,
+						"excludeFrom" => array(),
+					),
+					"filters"        => array(
+						"name"        => esc_html__( 'Filters', 'modula-gallery' ),
+						"type"        => "PRO_FEATURE",
+						"description" => esc_html__( 'Add your own filters here. Each image can have one or more filters.', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"filterClick"    => array(
+						"name"        => esc_html__( 'Reload Page on filter click', 'modula-gallery' ),
+						"type"        => "PRO_FEATURE",
+						"description" => esc_html__( 'Turn this feature ON if you want to use filters with most lightboxes', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"allFilterLabel" => array(
+						"name"        => esc_html__( 'Text for "All" filter', 'modula-gallery' ),
+						"type"        => "PRO_FEATURE",
+						"description" => esc_html__( 'Write here the label for the "All" filter', 'modula-gallery' ),
+						"default"     => "All",
+						"excludeFrom" => array(),
+					),
+					"lightbox"       => array(
+						"name"        => esc_html__( 'Lightbox &amp; Links', 'modula-gallery' ),
+						"type"        => "select",
+						"description" => esc_html__( 'Define here what happens when user click on the images.', 'modula-gallery' ),
+						"values"      => array(
+							"Link"       => array( 
+								"|" . esc_html__( 'No link', 'modula-gallery' ),
+								"direct|" . esc_html__( 'Direct link to image', 'modula-gallery' ),
+								"|" . esc_html__( 'Attachment page', 'modula-gallery' )
+							),
+							"Lightboxes" => array( "lightbox2|Lightbox" ),
+						),
+						"disabled"    => array(
+							"Lightboxes with PRO license" => array(
+								"magnific|Magnific popup",
+								"prettyphoto|PrettyPhoto",
+								"fancybox|FancyBox",
+								"swipebox|SwipeBox",
+								"lightbox2|Lightbox",
+							),
+						),
+						"excludeFrom" => array(),
+					),
+					"shuffle"        => array(
+						"name"        => esc_html__( 'Shuffle images', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Flag it if you want to shuffle the gallery at each page load', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+				),
+			);
+			$this->fields[ esc_html__( 'Captions', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-comment-text-outline",
+				"fields" => array(
+					"captionColor"     => array(
+						"name"        => esc_html__( 'Caption color', 'modula-gallery' ),
+						"type"        => "color",
+						"description" => esc_html__( 'Color of the caption.', 'modula-gallery' ),
+						"default"     => "#ffffff",
+						"excludeFrom" => array(),
+					),
+					"wp_field_caption" => array(
+						"name"        => esc_html__( 'WordPress caption field', 'modula-gallery' ),
+						"type"        => "select",
+						"description" => __( 'WordPress field used for captions. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore captions just set it to <i>Don\'t use captions</i>.', 'modula-gallery' ),
+						"values"      => array(
+							"Field" => array(
+								"none|" . esc_html__( 'Don\'t use captions', 'modula-gallery' ),
+								"title|" . esc_html__( 'Title', 'modula-gallery' ),
+								"caption|" . esc_html__( 'Caption', 'modula-gallery' ),
+								"description|" . esc_html__( 'Description', 'modula-gallery' ),
+							),
+						),
+						"excludeFrom" => array( "shortcode" ),
+					),
+					"wp_field_title"   => array(
+						"name"        => esc_html__( 'WordPress title field', 'modula-gallery' ),
+						"type"        => "select",
+						"description" => __( 'WordPress field used for titles. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore titles just set it to <i>Don\'t use titles</i>.', 'modula-gallery' ),
+						"values"      => array(
+							"Field" => array(
+								"none|" . esc_html__( 'Don\'t use titles', 'modula-gallery' ),
+								"title|" . esc_html__( 'Title', 'modula-gallery' ),
+								"description|" . esc_html__( 'Description', 'modula-gallery' ),
+							),
+						),
+						"excludeFrom" => array( "shortcode" ),
+					),
+					"captionFontSize"  => array(
+						"name"        => esc_html__( 'Caption Font Size', 'modula-gallery' ),
+						"type"        => "number",
+						"description" => "",
+						"mu"          => "px",
+						"excludeFrom" => array(),
+					),
+					"titleFontSize"    => array(
+						"name"        => esc_html__( 'Title Font Size', 'modula-gallery' ),
+						"type"        => "number",
+						"description" => "",
+						"mu"          => "px",
+						"excludeFrom" => array(),
+					),
+				),
+			);
+
+			$this->fields[ esc_html__( 'Social', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-link-variant",
+				"fields" => array(
+					"enableTwitter"   => array(
+						"name"        => esc_html__( 'Add Twitter icon', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Enable Twitter Sharing', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"enableFacebook"  => array(
+						"name"        => esc_html__( 'Add Facebook icon', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Enable Facebook Sharing', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"enableGplus"     => array(
+						"name"        => esc_html__( 'Add Google Plus icon', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Enable Google Plus Sharing', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"enablePinterest" => array(
+						"name"        => esc_html__( 'Add Pinterest  icon', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Enable Pinterest Sharing', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"socialIconColor" => array(
+						"name"        => esc_html__( 'Color of social sharing icons', 'modula-gallery' ),
+						"type"        => "color",
+						"description" => esc_html__( 'Set the color of the social sharing icons', 'modula-gallery' ),
+						"default"     => "#ffffff",
+						"excludeFrom" => array(),
+					),
+				),
+
+			);
+			$this->fields[ esc_html__( 'Image loaded effects', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-reload",
+				"fields" => array(
+					"loadedScale"  => array(
+						"name"        => esc_html__( 'Scale', 'modula-gallery' ),
+						"description" => esc_html__( 'Choose a value below 100% for a zoom-in effect. Choose a value over 100% for a zoom-out effect', 'modula-gallery' ),
+						"type"        => "ui-slider",
+						"min"         => 0,
+						"max"         => 200,
+						"mu"          => "%",
+						"default"     => 100,
+						"excludeFrom" => array(),
+					),
+					"loadedRotate" => array(
+						"name"        => esc_html__( 'Rotate', 'modula-gallery' ),
+						"description" => "",
+						"type"        => "PRO_FEATURE",
+						"min"         => - 180,
+						"max"         => 180,
+						"default"     => 0,
+						"mu"          => "deg",
+						"excludeFrom" => array(),
+					),
+					"loadedHSlide" => array(
+						"name"        => esc_html__( 'Horizontal slide', 'modula-gallery' ),
+						"description" => "",
+						"type"        => "PRO_FEATURE",
+						"min"         => - 100,
+						"max"         => 100,
+						"mu"          => "px",
+						"default"     => 0,
+						"excludeFrom" => array(),
+					),
+					"loadedVSlide" => array(
+						"name"        => esc_html__( 'Vertical slide', 'modula-gallery' ),
+						"description" => "",
+						"type"        => "PRO_FEATURE",
+						"min"         => - 100,
+						"max"         => 100,
+						"mu"          => "px",
+						"default"     => 0,
+						"excludeFrom" => array(),
+					),
+
+				),
+			);
+			$this->fields[ esc_html__( 'Hover effect', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-blur",
+				"fields" => array(
+					"Effect" => array(
+						"name"        => esc_html__( 'Effect', 'modula-gallery' ),
+						"description" => esc_html__( 'Select an hover effect', 'modula-gallery' ),
+						"type"        => "hover-effect",
+						"excludeFrom" => array(),
+					),
+				),
+			);
+			$this->fields[ esc_html__( 'Style', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-format-paint",
+				"fields" => array(
+					"borderSize"   => array(
+						"name"        => esc_html__( 'Border Size', 'modula-gallery' ),
+						"type"        => "ui-slider",
+						"description" => "",
+						"mu"          => "px",
+						"min"         => 0,
+						"max"         => 10,
+						"default"     => 0,
+						"excludeFrom" => array(),
+					),
+					"borderRadius" => array(
+						"name"        => esc_html__( 'Border Radius', 'modula-gallery' ),
+						"type"        => "ui-slider",
+						"description" => "",
+						"mu"          => "px",
+						"min"         => 0,
+						"max"         => 100,
+						"default"     => 0,
+						"excludeFrom" => array(),
+					),
+					"borderColor"  => array(
+						"name"        => esc_html__( 'Border Color', 'modula-gallery' ),
+						"type"        => "color",
+						"description" => "",
+						"default"     => "#ffffff",
+						"excludeFrom" => array(),
+					),
+					"shadowSize"   => array(
+						"name"        => esc_html__( 'Shadow Size', 'modula-gallery' ),
+						"type"        => "ui-slider",
+						"description" => "",
+						"mu"          => "px",
+						"min"         => 0,
+						"max"         => 20,
+						"default"     => 0,
+						"excludeFrom" => array(),
+					),
+					"shadowColor"  => array(
+						"name"        => esc_html__( 'Shadow Color', 'modula-gallery' ),
+						"type"        => "color",
+						"description" => "",
+						"default"     => "#ffffff",
+						"excludeFrom" => array(),
+					),
+
+				),
+			);
+			$this->fields[ esc_html__( 'Customizations', 'modula-gallery' ) ] = array(
+				"icon"   => "mdi mdi-puzzle",
+				"fields" => array(
+					"script" => array(
+						"name"        => esc_html__( 'Custom scripts', 'modula-gallery' ),
+						"type"        => "textarea",
+						"description" => esc_html__( 'This script will be called after the gallery initialization. Useful for custom lightboxes.', 'modula-gallery' ) . "
+	                        <br />
+	                        <br />
+	                        <strong>Write just the code without using the &lt;script&gt;&lt;/script&gt; tags</strong>",
+						"excludeFrom" => array( "shortcode" ),
+					),
+					"style"  => array(
+						"name"        => esc_html__( 'Custom css', 'modula-gallery' ),
+						"type"        => "textarea",
+						"description" => '<strong>' . esc_html__( 'Write just the code without using the &lt;style&gt;&lt;/style&gt; tags', 'modula-gallery' ) . '</strong>',
+						"excludeFrom" => array( "shortcode" ),
+					),
+				),
+			);
+
 		}
 
 		//Define textdomain
@@ -266,7 +597,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		public function register_links( $links, $file ) {
 			$base = plugin_basename( __FILE__ );
 			if ( $file == $base ) {
-				$links[] = '<a href="admin.php?page=modula-lite-admin" title="Modula Grid Gallery Dashboard">Dashboard</a>';
+				$links[] = '<a href="admin.php?page=modula-lite-admin" title="' . esc_html__( 'Modula Grid Gallery Dashboard', 'modula-gallery' ) . '">' . esc_html__( 'Dashboard', 'modula-gallery' ) . '</a>';
 				$links[] = '<a href="https://twitter.com/MachoThemez" title="@MachoThemez on Twitter">Twitter</a>';
 				$links[] = '<a href="https://www.facebook.com/machothemes" title="MachoThemes on Facebook">Facebook</a>';
 			}
@@ -420,15 +751,14 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/scripts/jquery.modula.js', array( 'jquery' ) );
 			wp_enqueue_script( 'modula' );
 
-
 			wp_register_style( 'modula_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/modula.css' );
 			wp_enqueue_style( 'modula_stylesheet' );
 
 			wp_register_style( 'effects_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css', null, $this->version );
 			wp_enqueue_style( 'effects_stylesheet' );
 
-			wp_register_script( 'lightbox2_script', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/js/script.js', array( 'jquery' ) );
-			wp_register_style( 'lightbox2_stylesheet', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/css/style.css' );
+			wp_register_script( 'lightbox2_script', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/js/lightbox-plus-jquery.min.js', array( 'jquery' ) );
+			wp_register_style( 'lightbox2_stylesheet', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/css/lightbox.min.css' );
 		}
 
 		//Admin Section - register scripts and styles
@@ -482,7 +812,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		//Create Admin Menu
 		public function add_gallery_admin_menu() {
-			$overview = add_menu_page( 'Manage Galleries', 'Modula', 'edit_posts', 'modula-lite-admin', array(
+			$overview = add_menu_page( esc_html__( 'Manage Galleries', 'modula-gallery' ), esc_html__( 'Modula', 'modula-gallery' ), 'edit_posts', 'modula-lite-admin', array(
 				$this,
 				'add_overview',
 			), plugins_url() . '/modula-best-grid-gallery/admin/icon.png' );
@@ -502,7 +832,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 				if ( $imageUrl ) {
 					if ( strncmp( strtolower( $imageUrl ), strtolower( site_url() ), strlen( site_url() ) ) != 0 ) {
-						$fix = add_submenu_page( 'modula-lite-admin', __( 'Modula >> Fix', 'Modula' ), '❗️ ' . __( 'Fix', 'Modula' ), 'edit_posts', 'modula-lite-gallery-fix', array(
+						$fix = add_submenu_page( 'modula-lite-admin', __( 'Modula >> Fix', 'modula-gallery' ), '❗️ ' . __( 'Fix', 'modula-gallery' ), 'edit_posts', 'modula-lite-gallery-fix', array(
 							$this,
 							'fix',
 						) );
@@ -513,15 +843,15 @@ if ( ! class_exists( "ModulaLite" ) ) {
 				add_option( 'Modula_skip_fix', true );
 			}
 
-			$add_gallery  = add_submenu_page( 'modula-lite-admin', __( 'Modula - Add Gallery', 'Modula' ), __( 'Add Gallery', 'Modula' ), 'edit_posts', 'modula-lite-add', array(
+			$add_gallery  = add_submenu_page( 'modula-lite-admin', __( 'Modula - Add Gallery', 'modula-gallery' ), __( 'Add Gallery', 'modula-gallery' ), 'edit_posts', 'modula-lite-add', array(
 				$this,
 				'add_gallery',
 			) );
-			$edit_gallery = add_submenu_page( NULL, __( 'Modula - Edit Gallery', 'Modula' ), __( 'Edit Gallery', 'Modula' ), 'edit_posts', 'modula-lite-edit', array(
+			$edit_gallery = add_submenu_page( NULL, __( 'Modula - Edit Gallery', 'modula-gallery' ), __( 'Edit Gallery', 'modula-gallery' ), 'edit_posts', 'modula-lite-edit', array(
 				$this,
 				'edit_gallery',
 			) );
-			$upgrade      = add_submenu_page( 'modula-lite-admin', __( 'Modula - Upgrade to PRO', 'Modula' ), __( 'Upgrade to PRO', 'Modula' ), 'edit_posts', 'modula-lite-gallery-upgrade', array(
+			$upgrade      = add_submenu_page( 'modula-lite-admin', __( 'Modula - Upgrade to PRO', 'modula-gallery' ), __( 'Upgrade to PRO', 'modula-gallery' ), 'edit_posts', 'modula-lite-gallery-upgrade', array(
 				$this,
 				'upgrade',
 			) );
@@ -812,337 +1142,16 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					case "lightbox2":
 						wp_enqueue_style( 'lightbox2_stylesheet' );
 						wp_enqueue_script( 'lightbox2_script' );
+						wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula' ) . '"});});' );
 						break;
 				}
 
 				return $Modula->render();
 			} else {
-				return "Gallery not found.";
+				return esc_html__( 'Gallery not found.', 'modula-gallery' );
 			}
 		}
 
-		var $fields = array(
-
-			"General"              => array(
-				"icon"   => "mdi mdi-settings",
-				"fields" => array(
-					"name"           => array(
-						"name"        => "Name",
-						"type"        => "text",
-						"description" => "Name of the gallery, for internal use.",
-						"excludeFrom" => array(),
-					),
-					"description"    => array(
-						"name"        => "Description",
-						"type"        => "text",
-						"description" => "This description is for internal use.",
-						"excludeFrom" => array(),
-					),
-					"width"          => array(
-						"name"        => "Width",
-						"type"        => "text",
-						"description" => "Width of the gallery (i.e.: 100% or 500px)",
-						"mu"          => "px or %",
-						"excludeFrom" => array(),
-					),
-					"height"         => array(
-						"name"        => "Height",
-						"type"        => "number",
-						"description" => "Height of the gallery in pixels",
-						"mu"          => "px",
-						"excludeFrom" => array(),
-					),
-					"img_size"       => array(
-						"name"        => "Minimum image size",
-						"type"        => "number",
-						"description" => "Minimum width or height of the images",
-						"mu"          => "px or %",
-						"excludeFrom" => array(),
-					),
-					"margin"         => array(
-						"name"        => "Margin",
-						"type"        => "number",
-						"description" => "Margin between images",
-						"mu"          => "px",
-						"excludeFrom" => array(),
-					),
-					"randomFactor"   => array(
-						"name"        => "Random factor",
-						"type"        => "ui-slider",
-						"description" => "",
-						"min"         => 0,
-						"max"         => 100,
-						"mu"          => "%",
-						"default"     => 20,
-						"excludeFrom" => array(),
-					),
-					"filters"        => array(
-						"name"        => "Filters",
-						"type"        => "PRO_FEATURE",
-						"description" => "Add your own filters here. Each image can have one or more filters.",
-						"excludeFrom" => array(),
-					),
-					"filterClick"    => array(
-						"name"        => "Reload Page on filter click",
-						"type"        => "PRO_FEATURE",
-						"description" => "Turn this feature ON if you want to use filters with most lightboxes",
-						"excludeFrom" => array(),
-					),
-					"allFilterLabel" => array(
-						"name"        => "Text for 'All' filter",
-						"type"        => "PRO_FEATURE",
-						"description" => "Write here the label for the 'All' filter",
-						"default"     => "All",
-						"excludeFrom" => array(),
-					),
-					"lightbox"       => array(
-						"name"        => "Lightbox &amp; Links",
-						"type"        => "select",
-						"description" => "Define here what happens when user click on the images.",
-						"values"      => array(
-							"Link"       => array( "|No link", "direct|Direct link to image", "|Attachment page" ),
-							"Lightboxes" => array( "lightbox2|Lightbox" ),
-						),
-						"disabled"    => array(
-							"Lightboxes with PRO license" => array(
-								"magnific|Magnific popup",
-								"prettyphoto|PrettyPhoto",
-								"fancybox|FancyBox",
-								"swipebox|SwipeBox",
-								"lightbox2|Lightbox",
-							),
-						),
-						"excludeFrom" => array(),
-					),
-					"shuffle"        => array(
-						"name"        => "Shuffle images",
-						"type"        => "toggle",
-						"default"     => "T",
-						"description" => "Flag it if you want to shuffle the gallery at each page load",
-						"excludeFrom" => array(),
-					),
-				),
-			),
-			"Captions"             => array(
-				"icon"   => "mdi mdi-comment-text-outline",
-				"fields" => array(
-					"captionColor"     => array(
-						"name"        => "Caption  color",
-						"type"        => "color",
-						"description" => "Color of the caption.",
-						"default"     => "#ffffff",
-						"excludeFrom" => array(),
-					),
-					"wp_field_caption" => array(
-						"name"        => "WordPress caption field",
-						"type"        => "select",
-						"description" => "WordPress field used for captions. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore captions just set it to '<i>Don't use captions</i>'.",
-						"values"      => array(
-							"Field" => array(
-								"none|Don't use captions",
-								"title|Title",
-								"caption|Caption",
-								"description|Description",
-							),
-						),
-						"excludeFrom" => array( "shortcode" ),
-					),
-					"wp_field_title"   => array(
-						"name"        => "WordPress title field",
-						"type"        => "select",
-						"description" => "WordPress field used for titles. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore titles just set it to '<i>Don't use titles</i>'.",
-						"values"      => array(
-							"Field" => array( "none|Don't use titles", "title|Title", "description|Description" ),
-						),
-						"excludeFrom" => array( "shortcode" ),
-					),
-					"captionFontSize"  => array(
-						"name"        => "Caption Font Size",
-						"type"        => "number",
-						"description" => "",
-						"mu"          => "px",
-						"excludeFrom" => array(),
-					),
-					"titleFontSize"    => array(
-						"name"        => "Title Font Size",
-						"type"        => "number",
-						"description" => "",
-						"mu"          => "px",
-						"excludeFrom" => array(),
-					),
-				),
-
-			),
-			"Social"               => array(
-				"icon"   => "mdi mdi-link-variant",
-				"fields" => array(
-					"enableTwitter"   => array(
-						"name"        => "Add Twitter icon",
-						"type"        => "toggle",
-						"default"     => "T",
-						"description" => "Enable Twitter Sharing",
-						"excludeFrom" => array(),
-					),
-					"enableFacebook"  => array(
-						"name"        => "Add Facebook icon",
-						"type"        => "toggle",
-						"default"     => "T",
-						"description" => "Enable Facebook Sharing",
-						"excludeFrom" => array(),
-					),
-					"enableGplus"     => array(
-						"name"        => "Add Google Plus icon",
-						"type"        => "toggle",
-						"default"     => "T",
-						"description" => "Enable Google Plus Sharing",
-						"excludeFrom" => array(),
-					),
-					"enablePinterest" => array(
-						"name"        => "Add Pinterest  icon",
-						"type"        => "toggle",
-						"default"     => "T",
-						"description" => "Enable Pinterest Sharing",
-						"excludeFrom" => array(),
-					),
-					"socialIconColor" => array(
-						"name"        => "Color of social sharing icons",
-						"type"        => "color",
-						"description" => "Set the color of the social sharing icons",
-						"default"     => "#ffffff",
-						"excludeFrom" => array(),
-					),
-				),
-
-			),
-			"Image loaded effects" => array(
-				"icon"   => "mdi mdi-reload",
-				"fields" => array(
-					"loadedScale"  => array(
-						"name"        => "Scale",
-						"description" => "Choose a value below 100% for a zoom-in effect. Choose a value over 100% for a zoom-out effect",
-						"type"        => "ui-slider",
-						"min"         => 0,
-						"max"         => 200,
-						"mu"          => "%",
-						"default"     => 100,
-						"excludeFrom" => array(),
-					),
-					"loadedRotate" => array(
-						"name"        => "Rotate",
-						"description" => "",
-						"type"        => "PRO_FEATURE",
-						"min"         => - 180,
-						"max"         => 180,
-						"default"     => 0,
-						"mu"          => "deg",
-						"excludeFrom" => array(),
-					),
-					"loadedHSlide" => array(
-						"name"        => "Horizontal slide",
-						"description" => "",
-						"type"        => "PRO_FEATURE",
-						"min"         => - 100,
-						"max"         => 100,
-						"mu"          => "px",
-						"default"     => 0,
-						"excludeFrom" => array(),
-					),
-					"loadedVSlide" => array(
-						"name"        => "Vertical slide",
-						"description" => "",
-						"type"        => "PRO_FEATURE",
-						"min"         => - 100,
-						"max"         => 100,
-						"mu"          => "px",
-						"default"     => 0,
-						"excludeFrom" => array(),
-					),
-
-				),
-			),
-			"Hover effect"         => array(
-				"icon"   => "mdi mdi-blur",
-				"fields" => array(
-					"Effect" => array(
-						"name"        => "Effect",
-						"description" => "Select an hover effect",
-						"type"        => "hover-effect",
-						"excludeFrom" => array(),
-					),
-				),
-			),
-			"Style"                => array(
-				"icon"   => "mdi mdi-format-paint",
-				"fields" => array(
-					"borderSize"   => array(
-						"name"        => "Border Size",
-						"type"        => "ui-slider",
-						"description" => "",
-						"mu"          => "px",
-						"min"         => 0,
-						"max"         => 10,
-						"default"     => 0,
-						"excludeFrom" => array(),
-					),
-					"borderRadius" => array(
-						"name"        => "Border Radius",
-						"type"        => "ui-slider",
-						"description" => "",
-						"mu"          => "px",
-						"min"         => 0,
-						"max"         => 100,
-						"default"     => 0,
-						"excludeFrom" => array(),
-					),
-					"borderColor"  => array(
-						"name"        => "Border Color",
-						"type"        => "color",
-						"description" => "",
-						"default"     => "#ffffff",
-						"excludeFrom" => array(),
-					),
-					"shadowSize"   => array(
-						"name"        => "Shadow Size",
-						"type"        => "ui-slider",
-						"description" => "",
-						"mu"          => "px",
-						"min"         => 0,
-						"max"         => 20,
-						"default"     => 0,
-						"excludeFrom" => array(),
-					),
-					"shadowColor"  => array(
-						"name"        => "Shadow Color",
-						"type"        => "color",
-						"description" => "",
-						"default"     => "#ffffff",
-						"excludeFrom" => array(),
-					),
-
-				),
-			),
-			"Customizations"       => array(
-				"icon"   => "mdi mdi-puzzle",
-				"fields" => array(
-					"script" => array(
-						"name"        => "Custom scripts",
-						"type"        => "textarea",
-						"description" => "This script will be called after the gallery initialization. Useful for custom lightboxes.
-	                        <br />
-	                        <br />
-	                        <strong>Write just the code without using the &lt;script&gt;&lt;/script&gt; tags</strong>",
-						"excludeFrom" => array( "shortcode" ),
-					),
-					"style"  => array(
-						"name"        => "Custom css",
-						"type"        => "textarea",
-						"description" => "<strong>Write just the code without using the &lt;style&gt;&lt;/style&gt; tags</strong>",
-						"excludeFrom" => array( "shortcode" ),
-					),
-				),
-			),
-
-		);
 	}
 
 	class ModulaLiteHoverEffect {

@@ -58,10 +58,10 @@
 
                 <div class="card-action">
                     <a href="#" class="edit">
-                        <span>Edit</span>                       
+                        <span><?php echo esc_html__( 'Edit', 'modula-gallery' ) ?></span>                       
                     </a>
                        <a href="#" class="remove">
-                        <span>Remove</span>                       
+                        <span><?php echo esc_html__( 'Remove', 'modula-gallery' ) ?></span>                       
                       </a>
                 </div>
                                 

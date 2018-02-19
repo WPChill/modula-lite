@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title> Modula Grid Gallery </title>
+		<title> <?php _e( 'Modula Grid Gallery', 'modula-gallery' ) ?> </title>
 		<!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>-->
 		<script>
 		var wpColorPickerL10n = {"clear":"Clear","defaultString":"Default","pick":"Select Color","current":"Current Color"};
@@ -43,18 +43,18 @@
 		</style>
 	</head>
 	<body class="popup">
-		<h1> YOUR GALLERIES: </h1>
+		<h1> <?php _e( 'YOUR GALLERIES', 'modula-gallery' ) ?>: </h1>
 		<br>
 		<table id="galleries">
 			<!-- list here galleries -->
 			<!-- loop variable $galleries -->
 			<tr>
 				<td>
-					<b> ID </b>
+					<b> <?php _e( 'ID', 'modula-gallery' ) ?> </b>
 				</td>
 
 				<td>
-					<b> Name </b>
+					<b> <?php _e( 'Name', 'modula-gallery' ) ?> </b>
 				</td>
 				
 				

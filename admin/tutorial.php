@@ -1,5 +1,5 @@
 <?php
-	$tg_subtitle = "Video tutorial";
+	$tg_subtitle = esc_html__( 'Video tutorial', 'modula-gallery' );
 	include("header.php");
  ?>
 <div class='wrap'>    

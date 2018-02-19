@@ -4,7 +4,7 @@ if ( preg_match( '#' . basename( __FILE__ ) . '#', $_SERVER['PHP_SELF'] ) ) {
 }
 
 if ( empty( $tg_subtitle ) ) {
-	$tg_subtitle = "Import galleries";
+	$tg_subtitle = esc_html__( 'Import galleries', 'modula-gallery' );
 }
 
 ?>

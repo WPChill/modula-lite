@@ -30,7 +30,7 @@ include( "header.php" );
 <div class="container">
 	<div class="row collapsible">
 		<div class="card-panel light-green lighten-4">
-			<span> Shortcode: </span>
+			<span> <?php echo esc_html__( 'Shortcode', 'modula-lite' ); ?>: </span>
 			<input type="text" readonly value="[Modula id='<?php print $gallery->id; ?>']"> </input>
 		</div>
 	</div>

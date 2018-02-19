@@ -8,47 +8,47 @@ if ( ! defined( 'WPINC' ) ) {
 
 $features = array(
 	'post-formats'   => array(
-		'label'      => 'Images per gallery',
+		'label'      => __( 'Images per gallery', 'modula-gallery' ),
 		'modula'     => '20',
-		'modula-pro' => 'Unlimited',
+		'modula-pro' => __( 'Unlimited', 'modula-gallery' ),
 	),
 	'slider-layouts' => array(
-		'label'      => 'Filters',
+		'label'      => __( 'Filters', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'news-ticker'    => array(
-		'label'      => 'Reload page on filter click',
+		'label'      => __( 'Reload page on filter click', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'banner-ads'     => array(
-		'label'      => 'Change Filter Text',
+		'label'      => __( 'Change Filter Text', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'video-widgets'  => array(
-		'label'      => 'Multiple Included LightBox Scripts',
+		'label'      => __( 'Multiple Included LightBox Scripts', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'color-schemes'  => array(
-		'label'      => 'Image Loaded Effects',
+		'label'      => __( 'Image Loaded Effects', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'typography'     => array(
-		'label'      => 'Image Hoever Effects',
+		'label'      => __( 'Image Hoever Effects', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'updates'        => array(
-		'label'      => 'Feature & Security Updates',
+		'label'      => __( 'Feature & Security Updates', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
 	'suppoprt'       => array(
-		'label'      => 'Priority Support',
+		'label'      => __( 'Priority Support', 'modula-gallery' ),
 		'modula'     => '<span class="dashicons dashicons-no-alt"></span>',
 		'modula-pro' => '<span class="dashicons dashicons-yes"></span>',
 	),
@@ -83,7 +83,7 @@ $features = array(
 			<td></td>
 			<td colspan="2" class="text-right">
 				<a href="https://www.wp-modula.com/?utm_source=worg&utm_medium=about-page&utm_campaign=upsell" target="_blank"
-				   class="button button-primary button-hero"><span class="dashicons dashicons-cart"></span> Get Modula Pro!</a>
+				   class="button button-primary button-hero"><span class="dashicons dashicons-cart"></span> <?php echo __( 'Get Modula Pro!', 'modula-gallery' ) ?></a>
 			</td>
 		</tr>
 		</tbody>
