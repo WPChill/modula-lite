@@ -63,7 +63,8 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			$args = array(
 				'post_type'      => 'attachment',
 				'posts_per_page' => -1,
-				'include'        => $ids
+				'include'        => $ids,
+				'suppress_filters' => 0,
 			);
 
 			$this->wp_images = get_posts( $args );
