@@ -83,7 +83,8 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			add_action( 'admin_menu', array( $this, 'add_gallery_admin_menu' ) );
 
 			add_shortcode( 'Modula', array( $this, 'gallery_shortcode_handler' ) );
-
+			add_filter( 'the_content', array( $this, 'shortcode_empty_paragraph_fix' ), 99 );
+			
 			add_action( 'wp_ajax_modula_save_gallery', array( $this, 'save_gallery' ) );
 			add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 			add_action( 'wp_ajax_modula_add_image', array( $this, 'add_image' ) );
@@ -1150,6 +1151,20 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			} else {
 				return esc_html__( 'Gallery not found.', 'modula-gallery' );
 			}
+		}
+
+		public function shortcode_empty_paragraph_fix( $content ) {
+
+	        $array = array (
+	            '<p>[Modula' => '[Modula' ,
+	            '<p>[/Modula' => '[/Modula',
+	            'Modula]</p>' => 'Modula]',
+	            'Modula]<br />' => 'Modula]'
+	        );
+
+	        $content = strtr( $content, $array );
+
+		    return $content;
 		}
 
 	}
