@@ -147,10 +147,10 @@ include( "header.php" );
 													<select name="tg_hoverEffect" class="select-effect">
 														<?php $hoverEffectIdx = 0 ?>
 														<option value="none"><?php echo esc_html__( 'None', 'modula-gallery' ); ?></option>
+														<option <?php selected( 'pufrobo', $gallery->hoverEffect ) ?> value="pufrobo">Pufrobo</option>
 														<optgroup label="Buy a PRO license to unlock all hover effects">
-															<option disabled></option>
-															<?php foreach ( $this->hoverEffects as $effect ) : ?>
-																<option <?php echo $effect->code != "pufrobo" ? "disabled" : null ?> <?php echo( $gallery->hoverEffect == strtolower( $effect->code ) ? "selected" : null ) ?> value="<?php echo esc_attr( $effect->code ); ?>"><?php echo esc_attr( $effect->name ); ?></option>
+															<?php foreach ( $this->hoverEffects as $effect ) : if ( 'none' == $effect->code || 'pufrobo' == $effect->code ) { continue; } ?>
+																<option disabled value="<?php echo esc_attr( $effect->code ); ?>"><?php echo esc_attr( $effect->name ); ?></option>
 															<?php endforeach ?>
 														</optgroup>
 													</select>
@@ -183,20 +183,10 @@ include( "header.php" );
 
 															<div class="effect-compatibility">
 
-																<label class="effect-description"> <?php echo esc_html( 'This effect is
-																		compatible with:', 'modula-gallery' ); ?>
-																	<?php if ( $effect->allowTitle ): ?>
-																		<span><i class="fa fa-check"></i> <?php echo esc_html( 'Title', 'modula-gallery' ); ?></span>
-																	<?php endif; ?>
-
-																	<?php if ( $effect->allowSubtitle ): ?>
-																		<span><i class="fa fa-check"></i> <?php echo esc_html( 'Subtitle', 'modula-gallery' ); ?> </span>
-																	<?php endif; ?>
-
-																	<?php if ( $effect->maxSocial > 0 ): ?>
-																		<span><i class="fa fa-check"></i> <?php echo esc_html( 'Social Icons', 'modula-gallery' ); ?> </span>
-																	<?php endif; ?>
-
+																<label class="effect-description"> <?php echo esc_html( 'This effect is compatible with:', 'modula-gallery' ); ?>
+																	<span><i class="fa fa-check"></i> <?php echo esc_html( 'Title', 'modula-gallery' ); ?></span>
+																	<span><i class="fa fa-check"></i> <?php echo esc_html( 'Subtitle', 'modula-gallery' ); ?> </span>
+																	<span><i class="fa fa-check"></i> <?php echo esc_html( 'Social Icons', 'modula-gallery' ); ?> </span>
 																</label>
 
 															</div>

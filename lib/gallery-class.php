@@ -303,16 +303,13 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$html       .= "<img data-valign='$image->valign' alt='$image->alt' data-halign='$image->halign' class='pic' src='$imgUrl' data-src='$imgUrl' />";
 				$html       .= "<div class=\"figc\">";
 				$html       .= "<div class=\"figc-inner\">";
-				if ( $this->gallery->hoverEffect != 'none' && ! empty( $image->title ) ) {
+				if ( $this->gallery->hoverEffect != 'none' && ! empty( $image->title ) && 'T' != $this->gallery->hide_title ) {
 					$html .= "<h2 class='jtg-title'>" . $image->title . "</h2>";
 				}
 
-				if ( ( $hoverEffect->allowSubtitle && ! empty( $image->description ) ) ||
-				     empty( $this->gallery->hoverEffect ) ) {
+				if ( ( $this->gallery->hoverEffect != 'none' && ! empty( $image->description ) )  && 'T' != $this->gallery->hide_description ) {
 					$html .= "<p class=\"description\">";
-					if ( $hoverEffect->allowSubtitle || empty( $this->gallery->hoverEffect ) ) {
-						$html .= $image->description;
-					}
+					$html .= $image->description;
 					$html .= "</p>";
 				}
 				$html .= "</div>";

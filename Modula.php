@@ -62,6 +62,8 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			'hoverEffect'      => 'pufrobo',
 			'hasResizedImages' => false,
 			'importedFrom'     => '',
+			'hide_title'       => false,
+			'hide_description' => false,
 		);
 
 		public function __construct() {
@@ -221,31 +223,45 @@ if ( ! class_exists( "ModulaLite" ) ) {
 						"excludeFrom" => array(),
 					),
 					"wp_field_caption" => array(
-						"name"        => esc_html__( 'WordPress caption field', 'modula-gallery' ),
+						"name"        => esc_html__( 'Populate caption from', 'modula-gallery' ),
 						"type"        => "select",
-						"description" => __( 'WordPress field used for captions. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore captions just set it to <i>Don\'t use captions</i>.', 'modula-gallery' ),
+						"description" => __( '<strong>This field is used ONLY when images are added to the gallery. </strong> If you don\'t want to automatically populate the caption field select <i>Don\'t Populate</i>', 'modula-gallery' ),
 						"values"      => array(
 							"Field" => array(
-								"none|" . esc_html__( 'Don\'t use captions', 'modula-gallery' ),
-								"title|" . esc_html__( 'Title', 'modula-gallery' ),
-								"caption|" . esc_html__( 'Caption', 'modula-gallery' ),
-								"description|" . esc_html__( 'Description', 'modula-gallery' ),
+								"none|" . esc_html__( 'Don\'t Populate', 'modula-gallery' ),
+								"title|" . esc_html__( 'WP Image title', 'modula-gallery' ),
+								"caption|" . esc_html__( 'WP Image caption', 'modula-gallery' ),
+								"description|" . esc_html__( 'WP Image description', 'modula-gallery' ),
 							),
 						),
 						"excludeFrom" => array( "shortcode" ),
 					),
 					"wp_field_title"   => array(
-						"name"        => esc_html__( 'WordPress title field', 'modula-gallery' ),
+						"name"        => esc_html__( 'Populate title from', 'modula-gallery' ),
 						"type"        => "select",
-						"description" => __( 'WordPress field used for titles. <strong>This field is used ONLY when images are added to the gallery, </strong> however, if you want to ignore titles just set it to <i>Don\'t use titles</i>.', 'modula-gallery' ),
+						"description" => __( '<strong>This field is used ONLY when images are added to the gallery. </strong> If you don\'t want to automatically populate the title field select <i>Don\'t Populate</i>', 'modula-gallery' ),
 						"values"      => array(
 							"Field" => array(
-								"none|" . esc_html__( 'Don\'t use titles', 'modula-gallery' ),
-								"title|" . esc_html__( 'Title', 'modula-gallery' ),
-								"description|" . esc_html__( 'Description', 'modula-gallery' ),
+								"none|" . esc_html__( 'Don\'t Populate', 'modula-gallery' ),
+								"title|" . esc_html__( 'WP Image title', 'modula-gallery' ),
+								"description|" . esc_html__( 'WP Image description', 'modula-gallery' ),
 							),
 						),
 						"excludeFrom" => array( "shortcode" ),
+					),
+					"hide_title"        => array(
+						"name"        => esc_html__( 'Image Title', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Hide image title from frontend', 'modula-gallery' ),
+						"excludeFrom" => array(),
+					),
+					"hide_description"        => array(
+						"name"        => esc_html__( 'Image Description', 'modula-gallery' ),
+						"type"        => "toggle",
+						"default"     => "T",
+						"description" => esc_html__( 'Hide image description from frontend', 'modula-gallery' ),
+						"excludeFrom" => array(),
 					),
 					"captionFontSize"  => array(
 						"name"        => esc_html__( 'Caption Font Size', 'modula-gallery' ),
@@ -1013,6 +1029,8 @@ if ( ! class_exists( "ModulaLite" ) ) {
 				$lightbox           = $_POST['tg_lightbox'];
 				$wp_field_caption   = $_POST['tg_wp_field_caption'];
 				$wp_field_title     = $_POST['tg_wp_field_title'];
+				$hide_title         = $this->checkboxVal( 'tg_hide_title' );
+				$hide_description   = $this->checkboxVal( 'tg_hide_description' );
 				$captionColor       = $_POST['tg_captionColor'];
 				$borderSize         = intval( $_POST['tg_borderSize'] );
 				$loadedScale        = intval( $_POST['tg_loadedScale'] );
@@ -1041,6 +1059,8 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					'hasResizedImages' => true,
 					'wp_field_caption' => $wp_field_caption,
 					'wp_field_title'   => $wp_field_title,
+					'hide_title'       => $hide_title,
+					'hide_description' => $hide_description,
 					'margin'           => $margin,
 					'randomFactor'     => $_POST['tg_randomFactor'],
 					'shuffle'          => $shuffle,
