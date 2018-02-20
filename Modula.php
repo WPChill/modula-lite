@@ -950,9 +950,9 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			if ( check_admin_referer( 'Modula', 'Modula' ) ) {
 				$result = false;
 				// $type = $_POST['type'];
-				$imageUrl     = stripslashes( $_POST['img_url'] );
+				$imageUrl     = esc_url( $_POST['img_url'] );
 				$imageCaption = stripslashes( $_POST['description'] );
-				$title        = $_POST['title'];
+				$title        = stripslashes( $_POST['title'] );
 				$target       = $_POST['target'];
 				$link         = isset( $_POST['link'] ) ? stripslashes( $_POST['link'] ) : null;
 				$imageId      = intval( $_POST['img_id'] );

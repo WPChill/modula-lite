@@ -276,8 +276,6 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 
 			foreach ( array_slice( $this->images, 0, 40 / 2 ) as $image ) {
 
-				print_r( $image );
-
 				$title = in_array( $this->gallery->lightbox, array(
 					'prettyphoto',
 					'fancybox',

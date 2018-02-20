@@ -52,7 +52,7 @@
                             <input type="hidden" name="halign" value="<?php _e($image->halign) ?>" />
                             <input type="hidden" name="sortOrder" value="<?php _e($image->sortOrder) ?>" />
                             <pre><?php _e($image->description) ?></pre>
-                            <input id="img-title" value="<?php print $image->title ?>"> 
+                            <input id="img-title" value="<?php echo htmlentities($image->title) ?>"> 
                         </div>                       
                 </div>
 
