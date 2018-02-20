@@ -68,15 +68,13 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			);
 
 			$this->wp_images = get_posts( $args );
-			if ( $this->gallery->lightbox == "attachment-page" ) {
-				foreach ( $this->wp_images as $att ) {
-					$att->url = get_attachment_link( $att->ID );
+			foreach ( $this->wp_images as $att ) {
+				$att->url = get_attachment_link( $att->ID );
 
-					if ( $this->gallery->mode == MODULA_DB_MODE ) {
-						//$this->images[$att->ID]->imagePath = $att->guid;
-						$this->images[ $att->ID ]->url = $att->url;
-						$this->images[ $att->ID ]->alt = get_post_meta( $att->ID, '_wp_attachment_image_alt', true );
-					}
+				if ( $this->gallery->mode == MODULA_DB_MODE ) {
+					//$this->images[$att->ID]->imagePath = $att->guid;
+					$this->images[ $att->ID ]->url = $att->url;
+					$this->images[ $att->ID ]->alt = get_post_meta( $att->ID, '_wp_attachment_image_alt', true );
 				}
 			}
 		}
@@ -93,6 +91,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$image->Id        = $att->ID;
 				$image->imagePath = $att->guid;
 				$image->link      = get_post_meta( $att->ID, "_modula_link", true );
+				$image->alt       = get_post_meta( $att->ID, '_wp_attachment_image_alt', true );
 
 				switch ( $this->gallery->wp_field_caption ) {
 					case 'title':
@@ -276,6 +275,9 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			$html .= "<div class='items'>";
 
 			foreach ( array_slice( $this->images, 0, 40 / 2 ) as $image ) {
+
+				print_r( $image );
+
 				$title = in_array( $this->gallery->lightbox, array(
 					'prettyphoto',
 					'fancybox',
