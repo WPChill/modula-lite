@@ -374,8 +374,6 @@ function tg_getURLParameter(name) {
                         $(this).show();
                     }
                 });
-
-            instance.reset();                 
         }
     };
 
