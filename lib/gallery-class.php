@@ -299,7 +299,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$image->alt = isset( $image->alt ) ? $image->alt : '';
 
 				$html       .= "<div class=\"item " . $hasTitle . " effect-" . $hoverEffect->code . "\">";
-				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='gallery'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . ( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . "></a>";
+				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='$rel'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . ( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . "></a>";
 				$html       .= "<img data-valign='$image->valign' alt='$image->alt' data-halign='$image->halign' class='pic' src='$imgUrl' data-src='$imgUrl' />";
 				$html       .= "<div class=\"figc\">";
 				$html       .= "<div class=\"figc-inner\">";
