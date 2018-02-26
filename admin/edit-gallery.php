@@ -30,7 +30,7 @@ include( "header.php" );
 <div class="container">
 	<div class="row collapsible">
 		<div class="card-panel light-green lighten-4">
-			<span> <?php echo esc_html__( 'Shortcode', 'modula-lite' ); ?>: </span>
+			<span> <?php echo esc_html__( 'Shortcode', 'modula-gallery' ); ?>: </span>
 			<input type="text" readonly value="[Modula id='<?php print $gallery->id; ?>']"> </input>
 		</div>
 	</div>
@@ -127,7 +127,7 @@ include( "header.php" );
 											<?php elseif ( $data["type"] == "PRO_FEATURE" ) : ?>
 
 												<div class="pro-cell">
-													<h6><?php echo esc_html__( 'This feature is available only in the PRO version of Modula', 'modula-lite' ); ?></h6>
+													<h6><?php echo esc_html__( 'This feature is available only in the PRO version of Modula', 'modula-gallery' ); ?></h6>
 													<br/>
 													<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'admin.php?page=modula-lite-gallery-upgrade&tab=comparison_table' ) ); ?>" target="_blank">
 														<?php echo esc_html__( 'See LITE vs PRO Differences', 'modula-gallery' ); ?></a>
