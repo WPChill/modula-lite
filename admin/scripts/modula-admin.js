@@ -372,6 +372,7 @@ var TG = function( $ ) {
         var $item = $( this ).parents( '.item' );
 
         var panel = $( '#image-panel-model' ).clone().attr( 'id', 'image-panel' );
+        var image_url = $( '[name=img_url]', $item ).val();
         panel.css( {
           marginTop: $( window ).scrollTop() - (246 / 2)
         } );
@@ -383,6 +384,7 @@ var TG = function( $ ) {
         $( '#item-title', panel ).html( $( '#img-title', $item ).val() );
         $( '#item-description', panel ).val( $( 'pre', $item ).html() );
         $( '.copy', $item ).clone().appendTo( panel );
+        $( '.thumb', panel ).attr( 'src', image_url );
 
         $( 'body' ).append( '<div class=\'overlay\' style=\'display:none\' />' );
         $( '.overlay' ).fadeIn();

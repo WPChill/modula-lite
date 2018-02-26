@@ -10,6 +10,13 @@ function tg_getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
 
+// Compatibility with WPBakery Page Builder
+jQuery(document).on( 'vc-full-width-row-single', function( event, element ){
+    if( jQuery( element.el ).find( '.modula' ).length > 0 ){
+        jQuery( window ).trigger( 'modula-update' );
+    }
+});
+
 ; (function ($, window, document, undefined) {
 
 
@@ -333,6 +340,10 @@ function tg_getURLParameter(name) {
 
         var instance = this;
         $(window).resize(function () {
+            instance.onResize(instance);
+        });
+
+        $(window).on( 'modula-update', function () {
             instance.onResize(instance);
         });
 
