@@ -162,7 +162,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 * Fixed bugs with captions & titles
 * Localized all text strings
 * Fixed lightbox bug
-* For a more detailed changelog check : https://github.com/MachoThemes/modula-lite/milestone/2
+* For a more detailed changelog check : https://github.com/MachoThemes/modula-lite/milestone/2?closed=1
 
 = 1.2.1 =
 * Fixed the broken link
