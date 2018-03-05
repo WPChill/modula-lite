@@ -10,7 +10,7 @@ if ( empty( $tg_subtitle ) ) {
 ?>
 <?php include( "header.php" ); ?>
 
-<div id="modula-wizard">
+<div id="modula-wizard" class="import">
 	<h2>  <?php echo esc_html__( 'Import galleries', 'modula-gallery' ); ?> </h2>
 	<form action="#" method="post" onsubmit="return false;">
 		<?php wp_nonce_field( 'Modula', 'Modula' ); ?>

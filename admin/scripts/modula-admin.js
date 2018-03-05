@@ -698,7 +698,7 @@ var NewGalleryWizard = function( $ ) {
 
   return {
     init: function() {
-      $_wizard = $( '#modula-wizard' );
+      $_wizard = $( '#modula-wizard.add-gallery' );
       // $_wizard.find('select').material_select();
 
       /*! Wizard next */
@@ -791,6 +791,7 @@ var NewGalleryWizard = function( $ ) {
 
         $_wizard.find( 'fieldset' ).hide();
         var $fs = $_wizard.find( 'fieldset[data-step=' + _curPage + ']' );
+
         if ( _curPage == 3 ) {
           $fs = $fs.filter( '[data-branch=' + branch + ']' );
         }
@@ -900,7 +901,7 @@ var ImportWizard = function( $ ) {
 
   return {
     init: function() {
-      $_wizard = $( '#modula-wizard' );
+      $_wizard = $( '#modula-wizard.import' );
       $( '#external-galleries .js-select-all' ).on( 'click', function() {
         $( '#external-galleries .js-item' ).each( function() {
           this.checked = true;
@@ -1035,9 +1036,4 @@ jQuery( function() {
   NewGalleryWizard.init();
   ImportWizard.init();
 
-  jQuery( 'a[href$=modula-gallery-upgrade]' ).addClass( 'modula-jump-pro-menu' ).click( function( e ) {
-    e.preventDefault();
-
-    location.href = 'http://modula.greentreelabs.net/#buy';
-  } );
 } );

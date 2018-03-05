@@ -9,7 +9,7 @@ $tg_subtitle = "New Gallery";
 <?php include( "header.php" ) ?>
 
 
-<div id="modula-wizard">
+<div id="modula-wizard" class="add-gallery">
 	<h2>  <?php _e( 'Add New Gallery', 'modula-gallery' ); ?> </h2>
 	<form action="#" method="post">
 		<?php wp_nonce_field( 'Modula', 'Modula' ); ?>
