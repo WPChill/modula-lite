@@ -74,6 +74,9 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			$this->define_hover_effects();
 			$this->ModulaDB = $this->create_db_conn();
 
+			require_once 'lib/class-modula-feedback.php';
+			new Modula_Feedback( __FILE__ );
+
 			add_filter( 'widget_text', 'do_shortcode' );
 			add_filter( 'mce_buttons', array( $this, 'editor_button' ) );
 			add_filter( 'mce_external_plugins', array( $this, 'register_editor_plugin' ) );
