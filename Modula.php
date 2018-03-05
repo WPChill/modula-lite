@@ -23,7 +23,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		private $loadedData;
 		private $fields = array();
 
-		private $version = "1.2.1";
+		private $version = "1.3.0";
 
 		private $defaultValues = array(
 			'width'            => 100,
@@ -771,7 +771,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/scripts/jquery.modula.js', array( 'jquery' ) );
 			wp_enqueue_script( 'modula' );
 
-			wp_register_style( 'modula_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/modula.css' );
+			wp_register_style( 'modula_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/modula.css', null, $this->version );
 			wp_enqueue_style( 'modula_stylesheet' );
 
 			wp_register_style( 'effects_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css', null, $this->version );
