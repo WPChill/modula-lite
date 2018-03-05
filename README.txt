@@ -3,7 +3,7 @@ Contributors: machothemes, imagegallery, xphotogallery
 Tags: image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, lightbox gallery, masonry gallery, envira, envira gallery, nextgen, nextgen gallery, album, content gallery, fancy gallery, gallery widget,  media gallery, mosaic gallery, photo album, polaroid gallery, portfolio gallery, post gallery, thumbnail gallery, video gallery, youtube gallery, filterable portfolio, portfolio gallery, responsive portfolio, wordpress portfolio plugin
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,13 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 7. Admin panel with Material design
 
 == Changelog ==
+
+= 1.3.0 =
+* Added compatibility with : WPML/Visual Composer/Page Builder by SiteOrigin
+* Fixed bugs with captions & titles
+* Localized all text strings
+* Fixed lightbox bug
+* For a more detailed changelog check : https://github.com/MachoThemes/modula-lite/milestone/2
 
 = 1.2.1 =
 * Fixed the broken link
