@@ -11,8 +11,8 @@ function tg_getURLParameter(name) {
 }
 
 // Compatibility with WPBakery Page Builder
-jQuery(document).on( 'vc-full-width-row-single', function( event, element ){
-    if( jQuery( element.el ).find( '.modula' ).length > 0 ){
+jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( event, element ){
+    if( jQuery( 'body' ).find( '.modula' ).length > 0 ){
         jQuery( window ).trigger( 'modula-update' );
     }
 });
