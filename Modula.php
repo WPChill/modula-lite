@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Gallery - A WordPress Modula Gallery
+ * Plugin Name: Modula
  * Plugin URI: https://wp-modula.com/
  * Description: Modula is one of the best & most creative WordPress gallery plugins. Use it to create a great grid or
  * masonry image gallery.
