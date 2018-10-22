@@ -314,7 +314,6 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				}
 				$html .= "</div>";
 				$html .= "</div>";
-				$html .= "</a>";
 				$html .= "</div>";
 			}
 
