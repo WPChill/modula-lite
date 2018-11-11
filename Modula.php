@@ -5,7 +5,7 @@
  * Description: Modula is one of the best & most creative WordPress gallery plugins. Use it to create a great grid or
  * masonry image gallery.
  * Author: Macho Themes
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author URI: https://www.machothemes.com/
  */
 
@@ -23,7 +23,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		private $loadedData;
 		private $fields = array();
 
-		private $version = "1.3.2";
+		private $version = "1.3.3";
 
 		private $defaultValues = array(
 			'width'            => 100,
@@ -875,6 +875,10 @@ if ( ! class_exists( "ModulaLite" ) ) {
 				$this,
 				'upgrade',
 			) );
+			$v2 = add_submenu_page( 'modula-lite-admin', __( 'Try Modula 2.0', 'modula-gallery' ), __( 'Try Modula 2.0', 'modula-gallery' ), 'edit_posts', 'modula-lite-gallery-v2', array(
+				$this,
+				'new_modula',
+			) );
 
 
 			add_action( 'load-' . $overview, array( $this, 'gallery_admin_init' ) );
@@ -895,6 +899,10 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		public function add_gallery() {
 			include( "admin/add-gallery.php" );
+		}
+
+		public function new_modula() {
+			include( "admin/modula-v2.php" );
 		}
 
 		public function fix() {
