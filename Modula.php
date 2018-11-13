@@ -1308,3 +1308,10 @@ function modula_lite_check_for_review() {
 
 }
 modula_lite_check_for_review();
+
+// Add compatibility with AO
+add_filter('autoptimize_filter_js_exclude','modula_lite_override_jsexclude',90,1);
+function modula_lite_override_jsexclude( $exclude ) {
+	return $exclude . ", jquery.modula.js";
+}
+
