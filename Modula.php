@@ -1287,4 +1287,24 @@ if ( class_exists( "ModulaLite" ) ) {
 	global $ob_ModulaLite;
 	$ob_ModulaLite = new ModulaLite();
 }
-?>
+
+function modula_lite_check_for_review() {
+
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	require_once MODULA_PLUGIN_DIR_PATH . 'lib/class-modula-review.php';
+
+	Modula_Review::get_instance( array(
+	    'slug' => 'modula-best-grid-gallery',
+	    'messages' => array(
+	    	'notice'  => __( "Hey, I noticed you have created %s galleries - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'modula-gallery' ),
+			'rate'    => __( 'Ok, you deserve it', 'modula-gallery' ),
+			'rated'   => __( 'I already did', 'modula-gallery' ),
+			'no_rate' => __( 'No, not good enough', 'modula-gallery' ),
+	    ),
+	) );
+
+}
+modula_lite_check_for_review();
