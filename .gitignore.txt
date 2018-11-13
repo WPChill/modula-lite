@@ -1,0 +1,3 @@
+node_modules/*
+.idea/*
+modula-best-grid-gallery.zip

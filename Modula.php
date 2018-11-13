@@ -1260,8 +1260,9 @@ class ModulaLiteTools {
 			$metadata = wp_get_attachment_metadata( $img->imageId );
 
 			if ( $img->imageId > 0 ) {
-				$wpdata   = get_post( $img->imageId );
-				$baseurl  = str_replace( basename( $wpdata->guid ), "", $wpdata->guid );
+				$uploads  = wp_get_upload_dir();
+				$file     = get_post_meta( $img->imageId, '_wp_attached_file', true );
+				$baseurl  = $uploads['baseurl'] . '/' . str_replace( basename( $file ), "", $file );
 				$res_name = ModulaLiteTools::resize_image( $img->imageId, $size );
 
 				if ( ! ( array_key_exists( "image_meta", $metadata ) && array_key_exists( "resized_images", $metadata["image_meta"] ) && in_array( $size . "x" . $size, $metadata["image_meta"]["resized_images"] ) ) ) {

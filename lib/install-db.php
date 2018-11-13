@@ -1,9 +1,7 @@
-
 <?php
 
 
-function modula_lite_install_db() 
-{
+function modula_lite_install_db() {
   global $wpdb;			  
 
   $ModulaGalleries = $wpdb->ModulaGalleries;
