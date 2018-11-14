@@ -24,16 +24,17 @@
 	</div>
 	<div class="three-col">
 		<div class="col">
-			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-landscape-or-portrait.jpg" alt="">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-landscape-or-portrait.png" alt="">
 			<h4>Landscape or Portrait ?</h4>
 			<p>Now with Modula 2.0 you don't need to worry about Modula grid because you now can create your own grid an take care of how your images will look on your website.</p>
 		</div>
 		<div class="col">
-			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-helper-grid.jpg" alt="">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-helper-grid.png" alt="">
 			<h4>Helper Grid</h4>
 			<p>In order to create the perfect grid we added some blocks to help you when creating your grid</p>
 		</div>
 		<div class="col">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-live-preview.png" alt="">
 			<h4>Live Preview</h4>
 			<p>How it look in admin this is how it will look on your website.</p>
 		</div>
@@ -43,14 +44,17 @@
 	</div>
 	<div class="three-col">
 		<div class="col">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-familiar-dashboard.png" alt="">
 			<h4>Familiar dashboard</h4>
 			<p>We tried to blend our admin dahsboard with WordPress dashboard in order to be more intuitive for our users.</p>
 		</div>
 		<div class="col">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-drag-and-drop-upload.png" alt="">
 			<h4>Drag and Drop Upload</h4>
 			<p>Now you can drop your photographies into our gallery and they are uploaded.</p>
 		</div>
 		<div class="col">
+			<img src="<?php echo plugin_dir_url( __FILE__ ) ?>/images/modula-v2-intuitive-settings.png" alt="">
 			<h4>Intuitive Settings</h4>
 			<p>We redesigned our settings panel to make it more intuitive and</p>
 		</div>
