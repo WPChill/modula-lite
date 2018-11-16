@@ -1,6 +1,6 @@
-=== Gallery - Photo Gallery - Image Gallery ===
-Contributors: machothemes, imagegallery, xphotogallery
-Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, lightbox gallery, masonry gallery, envira, envira gallery, nextgen, nextgen gallery, album, content gallery, fancy gallery, gallery widget,  media gallery, mosaic gallery, photo album, polaroid gallery, portfolio gallery, post gallery, thumbnail gallery, video gallery, youtube gallery, filterable portfolio, portfolio gallery, responsive portfolio, wordpress portfolio plugin
+=== Modula Image Gallery ===
+Contributors: machothemes, silkalns
+Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
 Requires at least: 3.8
 Tested up to: 4.9
 Stable tag: 1.3.3

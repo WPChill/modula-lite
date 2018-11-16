@@ -1357,7 +1357,7 @@ function modula_beta_notices() {
 		<h3>Try Modula 2.0 !!</h3>
 		<p>We’ve been working on an awesome update to Modula over the last few months and can’t wait to release it to the public. But, before that can happen, we need the help of amazing users in the WordPress community (just like you) to improve Modula 2.0’s first beta.</p>
 		<p class="actions">
-			<a id="modula-beta-testing-dwn" href="https://wp-modula.com/beta/modula-2.0.0.zip" target="_blank" class="button button-primary modula-beta-testing-button"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
+			<a id="modula-beta-testing-dwn" href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank" class="button button-primary modula-beta-testing-button"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
 			<a id="modula-beta-testing-info" href="<?php echo admin_url( 'admin.php?page=modula-lite-gallery-v2' ) ?>" target="_blank" class="modula-beta-testing-button"><?php echo __( 'Find more', 'modula-gallery' ); ?></a>
 		</p>
 	</div>

@@ -25,7 +25,7 @@
 			<p><?php echo __( 'We’ve been working on an awesome update to Modula over the last few months and can’t wait to release it to the public. But, before that can happen, we need the help of amazing users in the WordPress community (just like you) to improve Modula 2.0’s first beta.', 'modula-gallery' ); ?></p>
 			<div class="center">
 				<br>
-				<a href="https://wp-modula.com/beta/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
+				<a href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
 				<a href="https://www.youtube.com/watch?v=NxrTXQNExh4" data-fancybox class="modula-video"><span class="dashicons dashicons-video-alt3"></span> See Video</a>
 				<br><br>
 				<p><?php echo __( 'Not convinced yet? Keep scrolling to take a look at what’s in store for Modula 2.0…', 'modula-gallery' ); ?></p>
@@ -59,7 +59,7 @@
 	</div>
 	<div class="center">
 		<br>
-		<a href="https://wp-modula.com/beta/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
+		<a href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
 		<br><br>
 	</div>
 	<div class="feature-section">
@@ -92,7 +92,7 @@
 	</div>
 	<div class="center">
 		<br>
-		<a href="https://wp-modula.com/beta/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
+		<a href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank" class="button button-primary button-hero"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
 		<br><br>
 	</div>
 
