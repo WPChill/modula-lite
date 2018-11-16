@@ -109,7 +109,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			add_filter( 'plugin_row_meta', array( $this, 'register_links' ), 10, 2 );
 			add_filter( 'admin_footer_text', array( $this, 'admin_footer' ), 1, 2 );
 
-			// Enqueu Fancybox for Modula 2.0 Page
+			// Enqueue Fancybox for Modula 2.0 Page
 			add_action( 'admin_enqueue_scripts', array( $this, 'modula_beta_scripts' ) );
 
 
