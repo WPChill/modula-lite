@@ -159,6 +159,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 = 1.3.3 =
 * Added notification for Modula 2.0
+* Added Compatibility with AO
 
 = 1.3.2 =
 * Validated HTML markup

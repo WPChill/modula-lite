@@ -109,6 +109,9 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			add_filter( 'plugin_row_meta', array( $this, 'register_links' ), 10, 2 );
 			add_filter( 'admin_footer_text', array( $this, 'admin_footer' ), 1, 2 );
 
+			// Enqueu Fancybox for Modula 2.0 Page
+			add_action( 'admin_enqueue_scripts', array( $this, 'modula_beta_scripts' ) );
+
 
 			// Set fields
 			$this->fields[ __( 'General', 'modula-gallery' ) ] = array(
@@ -451,6 +454,17 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					),
 				),
 			);
+
+		}
+
+		public function modula_beta_scripts( $hook ) {
+
+			if ( 'modula_page_modula-lite-gallery-v2' != $hook ) {
+				return;
+			}
+
+			wp_enqueue_script( 'modula-fancybox', plugins_url() . '/modula-best-grid-gallery/admin/fancybox/jquery.fancybox.min.js', array( 'jquery' ) );
+			wp_enqueue_style( 'modula-fancybox', plugins_url() . '/modula-best-grid-gallery/admin/fancybox/jquery.fancybox.min.css' );
 
 		}
 
@@ -1299,7 +1313,7 @@ function modula_lite_check_for_review() {
 	Modula_Review::get_instance( array(
 	    'slug' => 'modula-best-grid-gallery',
 	    'messages' => array(
-	    	'notice'  => __( "Hey, I noticed you have created %s galleries - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'modula-gallery' ),
+	    	'notice'  => __( "Hey, I noticed you have created %s galleries - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.<br><br><strong>~ Cristian Raiber</strong>,<br><strong>CEO Modula</strong>.", 'modula-gallery' ),
 			'rate'    => __( 'Ok, you deserve it', 'modula-gallery' ),
 			'rated'   => __( 'I already did', 'modula-gallery' ),
 			'no_rate' => __( 'No, not good enough', 'modula-gallery' ),
@@ -1312,6 +1326,86 @@ modula_lite_check_for_review();
 // Add compatibility with AO
 add_filter('autoptimize_filter_js_exclude','modula_lite_override_jsexclude',90,1);
 function modula_lite_override_jsexclude( $exclude ) {
-	return $exclude . ", jquery.modula.js";
+	if ( is_array( $exclude ) ) {
+		$exclude[] = 'jquery.modula.js';
+	}else{
+		$exclude .= ", jquery.modula.js";
+	}
+	return $exclude;
+}
+
+// Beta Testing.
+add_action( 'admin_notices', 'modula_beta_notices' );
+add_action( 'wp_ajax_modula_beta_testing', 'modula_beta_ajax' );
+add_action( 'admin_print_footer_scripts', 'modula_beta_ajax_script', 99 );
+
+function modula_beta_notices() {
+
+	$options = get_option( 'modula-checks', array() );
+
+	if ( isset( $options['beta-testing'] ) ) {
+		return;
+	}
+	?>
+	<style type="text/css">
+		#modula-beta-testing-info {
+			display: inline-block;
+			margin-left: 15px;
+		}
+	</style>
+	<div id="modula-beta-testing" class="notice notice-success is-dismissible">
+		<h3>Try Modula 2.0 !!</h3>
+		<p>We’ve been working on an awesome update to Modula over the last few months and can’t wait to release it to the public. But, before that can happen, we need the help of amazing users in the WordPress community (just like you) to improve Modula 2.0’s first beta.</p>
+		<p class="actions">
+			<a id="modula-beta-testing-dwn" href="https://wp-modula.com/beta/modula-2.0.0.zip" target="_blank" class="button button-primary modula-beta-testing-button"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
+			<a id="modula-beta-testing-info" href="<?php echo admin_url( 'admin.php?page=modula-lite-gallery-v2' ) ?>" target="_blank" class="modula-beta-testing-button"><?php echo __( 'Find more', 'modula-gallery' ); ?></a>
+		</p>
+	</div>
+	<?php
+}
+
+function modula_beta_ajax() {
+
+	check_ajax_referer( 'modula-beta-testing', 'security' );
+
+	$options = get_option( 'modula-checks', array() );
+	$options['beta-testing'] = 1;
+
+	update_option( 'modula-checks', $options );
+
+	wp_die( 'ok' );
+
+}
+
+function modula_beta_ajax_script() {
+
+	$ajax_nonce = wp_create_nonce( "modula-beta-testing" );
+
+	?>
+
+	<script type="text/javascript">
+		jQuery( document ).ready( function( $ ){
+
+			$( '.modula-beta-testing-button' ).click( function( evt ){
+				var href = $(this).attr('href'),
+					id = $(this).attr('id');
+
+				var data = {
+					action: 'modula_beta_testing',
+					security: '<?php echo $ajax_nonce; ?>',
+				};
+
+				$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function( response ) {
+					$( '#modula-beta-testing' ).slideUp( 'fast', function() {
+						$( this ).remove();
+					} );
+				});
+
+			} );
+
+		});
+	</script>
+
+	<?php
 }
 
