@@ -12,6 +12,11 @@
 define( 'MODULA_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 
+define( 'MODULA_VERSION', '1.3.3' );
+define( 'MODULA_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+define( 'MODULA_PREVIOUS_PLUGIN_VERSION', '1.3.2' );
+define( 'MODULA_FILE_', __FILE__ );
+
 function modula_lite_create_db_tables() {
 	include_once( WP_PLUGIN_DIR . '/modula-best-grid-gallery/lib/install-db.php' );
 	modula_lite_install_db();
@@ -1409,3 +1414,19 @@ function modula_beta_ajax_script() {
 	<?php
 }
 
+/* RollBack functionality */
+require MODULA_PLUGIN_DIR_PATH . '/lib/class-modula-plugin-rollback.php';
+require MODULA_PLUGIN_DIR_PATH . '/lib/class-modula-rollback.php';
+
+/**
+ * Insert Rollback link for plugin in plugins page
+ */
+
+function modula_lite_rollback_link( $links ) {
+
+	$links['rollback'] = sprintf( '<a href="%s" class="modula-rollback-button">%s</a>', wp_nonce_url( admin_url( 'admin-post.php?action=modula_rollback' ), 'modula_rollback' ), __( 'Rollback version', 'modula-gallery' ) );
+
+	return $links;
+}
+
+add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'modula_lite_rollback_link' );
