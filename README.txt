@@ -13,6 +13,14 @@ Photo Gallery by Modula - an advanced solution for Photo Gallery users. Create b
 
 Modula WordPress Photo Gallery, Image Gallery & Portfolio Gallery Plugin, the creative WordPress image gallery, photo gallery, portfolio gallery & responsive gallery, is now available also in Lite version. Modula is currently the easiest and fastest photo gallery plugin for WordPress. With its wizard you are able to build an image gallery in a few seconds, unlike many other WordPress gallery plugins.
 
+= Try Modula 2.0 Beta =
+
+We’ve been working on an awesome update to Modula over the last few months and can’t wait to release it to the public. But, before that can happen, we need the help of amazing users in the WordPress community (just like you) to improve Modula 2.0’s first beta. You can download our new plugin from <a href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank">here</a>.
+
+Below is a video that showcases the new features of Modula 2.0.
+
+https://www.youtube.com/watch?v=NxrTXQNExh4
+
 = See a 60s video of Modula in action =
 
 https://www.youtube.com/watch?v=tq8yUYxgtnA
