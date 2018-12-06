@@ -79,9 +79,6 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			$this->define_hover_effects();
 			$this->ModulaDB = $this->create_db_conn();
 
-			require_once 'lib/class-modula-feedback.php';
-			new Modula_Feedback( __FILE__ );
-
 			add_filter( 'widget_text', 'do_shortcode' );
 			add_filter( 'mce_buttons', array( $this, 'editor_button' ) );
 			add_filter( 'mce_external_plugins', array( $this, 'register_editor_plugin' ) );
@@ -468,8 +465,8 @@ if ( ! class_exists( "ModulaLite" ) ) {
 				return;
 			}
 
-			wp_enqueue_script( 'modula-fancybox', plugins_url() . '/modula-best-grid-gallery/admin/fancybox/jquery.fancybox.min.js', array( 'jquery' ) );
-			wp_enqueue_style( 'modula-fancybox', plugins_url() . '/modula-best-grid-gallery/admin/fancybox/jquery.fancybox.min.css' );
+			wp_enqueue_script( 'modula-fancybox', plugins_url( 'admin/fancybox/jquery.fancybox.min.js', __FILE__), array( 'jquery' ) );
+			wp_enqueue_style( 'modula-fancybox', plugins_url( 'admin/fancybox/jquery.fancybox.min.css', __FILE__) );
 
 		}
 
@@ -787,17 +784,17 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		public function add_gallery_scripts() {
 			wp_enqueue_script( 'jquery' );
 
-			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/scripts/jquery.modula.js', array( 'jquery' ) );
+			wp_register_script( 'modula', plugins_url( 'scripts/jquery.modula.js', __FILE__ ) , array( 'jquery' ) );
 			wp_enqueue_script( 'modula' );
 
-			wp_register_style( 'modula_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/modula.css', null, $this->version );
+			wp_register_style( 'modula_stylesheet', plugins_url( 'scripts/modula.css', __FILE__ ), null, $this->version );
 			wp_enqueue_style( 'modula_stylesheet' );
 
-			wp_register_style( 'effects_stylesheet', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css', null, $this->version );
+			wp_register_style( 'effects_stylesheet', plugins_url( 'scripts/effects.css', __FILE__ ), null, $this->version );
 			wp_enqueue_style( 'effects_stylesheet' );
 
-			wp_register_script( 'lightbox2_script', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/js/lightbox.min.js', array( 'jquery' ), $this->version, true );
-			wp_register_style( 'lightbox2_stylesheet', plugins_url() . '/modula-best-grid-gallery/lightbox/lightbox2/css/lightbox.min.css' );
+			wp_register_script( 'lightbox2_script', plugins_url( 'lightbox/lightbox2/js/lightbox.min.js', __FILE__ ), array( 'jquery' ), $this->version, true );
+			wp_register_style( 'lightbox2_stylesheet', plugins_url( 'lightbox/lightbox2/css/lightbox.min.css', __FILE__ ) );
 		}
 
 		//Admin Section - register scripts and styles
@@ -814,18 +811,18 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
 
-			wp_register_style( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/css/materialize.css' );
+			wp_register_style( 'materialize', plugins_url( 'admin/css/materialize.css', __FILE__ ) );
 			wp_enqueue_style( 'materialize' );
 
-			wp_register_style( 'styles', plugins_url() . '/modula-best-grid-gallery/admin/css/style.css' );
+			wp_register_style( 'styles', plugins_url( 'admin/css/style.css', __FILE__ ) );
 			wp_enqueue_style( 'styles' );
 
-			wp_register_style( 'effects', plugins_url() . '/modula-best-grid-gallery/scripts/effects.css' );
+			wp_register_style( 'effects', plugins_url( 'scripts/effects.css', __FILE__ ) );
 			wp_enqueue_style( 'effects' );
 
-			wp_register_script( 'materialize', plugins_url() . '/modula-best-grid-gallery/admin/scripts/materialize.js', array( 'jquery' ) );
+			wp_register_script( 'materialize', plugins_url( 'admin/scripts/materialize.js', __FILE__ ), array( 'jquery' ) );
 
-			wp_register_script( 'modula', plugins_url() . '/modula-best-grid-gallery/admin/scripts/modula-admin.js', array(
+			wp_register_script( 'modula', plugins_url( 'admin/scripts/modula-admin.js', __FILE__ ), array(
 				'materialize',
 				'jquery',
 				'media-upload',
@@ -834,7 +831,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 			wp_enqueue_script( 'modula' );
 
-			wp_register_style( 'materialdesign-icons', plugins_url() . '/modula-best-grid-gallery/admin/css/materialdesignicons.css' );
+			wp_register_style( 'materialdesign-icons', plugins_url( 'admin/css/materialdesignicons.css', __FILE__ ) );
 			wp_enqueue_style( 'materialdesign-icons' );
 
 			wp_enqueue_style( 'thickbox' );
@@ -854,7 +851,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			$overview = add_menu_page( esc_html__( 'Manage Galleries', 'modula-gallery' ), esc_html__( 'Modula', 'modula-gallery' ), 'edit_posts', 'modula-lite-admin', array(
 				$this,
 				'add_overview',
-			), plugins_url() . '/modula-best-grid-gallery/admin/icon.png' );
+			), plugins_url( 'admin/icon.png', __FILE__ ) );
 
 
 			if ( ! get_option( "Modula_skip_fix" ) && get_option( "Modula_db_version" ) && count( $this->ModulaDB->getGalleries() ) > 0 ) {
@@ -980,15 +977,35 @@ if ( ! class_exists( "ModulaLite" ) ) {
 			if ( check_admin_referer( 'Modula', 'Modula' ) ) {
 				$result = false;
 				// $type = $_POST['type'];
+
+				$target_values = array( '', '_self', '_blank' );
+				$halign_values = array( 'left', 'right', 'center' );
+				$valign_values = array( 'top', 'bottom', 'middle' );
+
 				$imageUrl     = esc_url( $_POST['img_url'] );
 				$imageCaption = stripslashes( $_POST['description'] );
 				$title        = stripslashes( $_POST['title'] );
-				$target       = $_POST['target'];
+				if ( in_array( $_POST['target'], $target_values ) ) {
+					$target   = sanitize_text_field($_POST['target']);
+				}else{
+					$target   = '';
+				}
+				
 				$link         = isset( $_POST['link'] ) ? stripslashes( $_POST['link'] ) : null;
 				$imageId      = intval( $_POST['img_id'] );
 				$sortOrder    = intval( $_POST['sortOrder'] );
-				$halign       = $_POST['halign'];
-				$valign       = $_POST['valign'];
+
+				if ( in_array( $_POST['halign'], $halign_values ) ) {
+					$halign   = sanitize_text_field($_POST['halign']);
+				}else{
+					$halign   = 'center';
+				}
+
+				if ( in_array( $_POST['valign'], $valign_values ) ) {
+					$valign   = sanitize_text_field($_POST['valign']);
+				}else{
+					$valign   = 'middle';
+				}
 
 				$data = array(
 					"target"      => $target,
@@ -1136,6 +1153,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					$result = $this->ModulaDB->addGallery( $data );
 					$id     = $this->ModulaDB->getNewGalleryId();
 				}
+
 
 				if ( $result ) {
 					print "{\"success\":true,\"id\":" . $id . "}";

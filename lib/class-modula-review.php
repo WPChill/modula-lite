@@ -19,10 +19,10 @@ class Modula_Review {
 		$this->value = $this->value();
 
 		$this->messages = array(
-			'notice'  => __( "Hey, I noticed you have installed our plugin for %s day - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'modula-gallery' ),
-			'rate'    => __( 'Ok, you deserve it', 'modula-gallery' ),
-			'rated'   => __( 'I already did', 'modula-gallery' ),
-			'no_rate' => __( 'No, not good enough', 'modula-gallery' ),
+			'notice'  => esc_html__( "Hey, I noticed you have installed our plugin for %s day - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'modula-gallery' ),
+			'rate'    => esc_html__( 'Ok, you deserve it', 'modula-gallery' ),
+			'rated'   => esc_html__( 'I already did', 'modula-gallery' ),
+			'no_rate' => esc_html__( 'No, not good enough', 'modula-gallery' ),
 		);
 
 		if ( isset( $args['messages'] ) ) {
@@ -88,7 +88,7 @@ class Modula_Review {
 		global $wpdb;
 		$galleries = $wpdb->get_var( 'SELECT count(Id) FROM ' . $wpdb->ModulaGalleries );
 
-		set_transient( 'modula-galleries-review', $galleries, 6 * HOUR_IN_SECONDS );
+		set_transient( 'modula-galleries-review', absint($galleries), 6 * HOUR_IN_SECONDS );
 
 		return $galleries;
 
@@ -99,7 +99,7 @@ class Modula_Review {
 		$url = sprintf( $this->link, $this->slug );
 
 		?>
-		<div id="<?php echo $this->slug ?>-epsilon-review-notice" class="notice notice-success is-dismissible">
+		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success is-dismissible">
 			<p><?php echo sprintf( wp_kses_post( $this->messages['notice'] ), $this->value ) ; ?></p>
 			<p class="actions">
 				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" class="button button-primary epsilon-review-button"><?php echo esc_html( $this->messages['rate'] ); ?></a>
@@ -119,7 +119,7 @@ class Modula_Review {
 		if ( isset( $_POST['epsilon-review'] ) ) {
 			$options['givemereview'] = 'already-rated';
 		}else{
-			$options['givemereview'] = $this->value;
+			$options['givemereview'] = absint($this->value);
 		}
 
 		update_option( 'modula-checks', $options );

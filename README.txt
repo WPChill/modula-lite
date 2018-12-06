@@ -11,7 +11,7 @@ Photo Gallery by Modula - an advanced solution for Photo Gallery users. Create b
 
 == Description ==
 
-Modula WordPress Photo Gallery, Image Gallery & Portfolio Gallery Plugin, the creative WordPress image gallery, photo gallery, portfolio gallery & responsive gallery, is now available also in Lite version. Modula is currently the easiest and fastest photo gallery plugin for WordPress. With its wizard you are able to build an image gallery in a few seconds, unlike many other WordPress gallery plugins.
+Modula Image Gallery is a creative and original WordPress plugin perfect for creating custom, unique, and responsive image galleries. Modula is available in both a Lite/free version and a premium version and it is currently the easiest and fastest photo gallery plugin for WordPress. Directly from its dashboard you are able to build stunning galleries in a few seconds, unlike many other WordPress plugins.
 
 = Try Modula 2.0 Beta =
 
@@ -142,6 +142,14 @@ If you get blurry and pixellated images then you need to raise the "Minimum imag
 = I want to use another lightbox instead of the provided one =
 
 The PRO license bundles 6 different lightboxes. However you can use any other lightbox you want also with the Lite license. If you have installed a lightbox plugin then you just need to select "Direct link to image" in the "Lightbox" settings.
+
+= How can I change the lightbox's background? =
+
+You can change the lightbox popup background color using the following code:
+
+  `body .lg-backdrop {
+    background-color: white;
+    }`
 
 = How can I get support? =
 

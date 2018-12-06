@@ -136,7 +136,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 
 		private function getLink( $image ) {
 			if ( ! empty( $image->link ) ) {
-				return "href='" . $image->link . "'";
+				return "href='" . esc_url($image->link) . "'";
 			}
 
 			if ( empty( $this->gallery->lightbox ) ) {
@@ -144,7 +144,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			}
 
 			if ( $this->gallery->lightbox == 'attachment-page' ) {
-				return "href='" . $image->url . "'";
+				return "href='" . esc_url($image->url) . "'";
 			}
 
 			return "href='" . wp_get_attachment_url( $image->imageId ) . "'";
@@ -152,7 +152,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 
 		private function getTarget( $image ) {
 			if ( ! empty( $image->target ) ) {
-				return "target='" . $image->target . "'";
+				return "target='" . esc_attr($image->target) . "'";
 			}
 
 			// if($this->gallery->blank == 'T')
@@ -234,43 +234,43 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			$html .= "<style>";
 
 			if ( $this->gallery->borderSize ) {
-				$html .= "#jtg-$this->id$rid .item { border: " . $this->gallery->borderSize . "px solid " . $this->gallery->borderColor . "; }";
+				$html .= "#jtg-$this->id$rid .item { border: " . absint($this->gallery->borderSize) . "px solid " . sanitize_hex_color($this->gallery->borderColor) . "; }";
 			}
 
 			if ( $this->gallery->borderRadius ) {
-				$html .= "#jtg-$this->id$rid .item { border-radius: " . $this->gallery->borderRadius . "px; }";
+				$html .= "#jtg-$this->id$rid .item { border-radius: " . absint($this->gallery->borderRadius) . "px; }";
 			}
 
 			if ( $this->gallery->shadowSize ) {
-				$html .= "#jtg-$this->id$rid .item { box-shadow: " . $this->gallery->shadowColor . " 0px 0px " . $this->gallery->shadowSize . "px; }";
+				$html .= "#jtg-$this->id$rid .item { box-shadow: " . absint($this->gallery->shadowColor) . " 0px 0px " . sanitize_hex_color($this->gallery->shadowSize) . "px; }";
 			}
 
 			if ( $this->gallery->socialIconColor ) {
-				$html .= "#jtg-$this->id$rid .item .jtg-social a { color: " . $this->gallery->socialIconColor . " }";
+				$html .= "#jtg-$this->id$rid .item .jtg-social a { color: " . sanitize_hex_color($this->gallery->socialIconColor) . " }";
 			}
 
-			$html .= "#jtg-$this->id$rid .item .caption { background-color: " . $this->gallery->captionColor . ";  }";
+			$html .= "#jtg-$this->id$rid .item .caption { background-color: " . sanitize_hex_color($this->gallery->captionColor) . ";  }";
 
-			$html .= "#jtg-$this->id$rid .item .figc { color: " . $this->gallery->captionColor . "; font-size: " . $this->gallery->captionFontSize . "px; }";
+			$html .= "#jtg-$this->id$rid .item .figc { color: " . sanitize_hex_color($this->gallery->captionColor) . "; font-size: " . $this->gallery->captionFontSize . "px; }";
 
-			$html .= "#jtg-$this->id$rid .item .figc h2.jtg-title {  font-size: " . $this->gallery->titleFontSize . "px; }";
+			$html .= "#jtg-$this->id$rid .item .figc h2.jtg-title {  font-size: " . absint($this->gallery->titleFontSize) . "px; }";
 
-			$html .= "#jtg-$this->id$rid .item { transform: scale(" . $gallery->loadedScale / 100 . ") translate(" . $gallery->loadedHSlide . 'px,' . $gallery->loadedVSlide . "px) rotate(" . $gallery->loadedRotate . "deg); }";
+			$html .= "#jtg-$this->id$rid .item { transform: scale(" . absint($gallery->loadedScale) / 100 . ") translate(" . absint($gallery->loadedHSlide) . 'px,' . absint($gallery->loadedVSlide) . "px) rotate(" . absint($gallery->loadedRotate) . "deg); }";
 
-			$html .= "#jtg-$this->id$rid .items { width:" . $this->gallery->width . "; height:" . $this->gallery->height . "px; }";
+			$html .= "#jtg-$this->id$rid .items { width:" . esc_html($this->gallery->width) . "; height:" . absint($this->gallery->height) . "px; }";
 
-			$html .= "#jtg-$this->id$rid .items .figc p.description { color:" . $this->gallery->captionColor . "; }";
+			$html .= "#jtg-$this->id$rid .items .figc p.description { color:" . sanitize_hex_color($this->gallery->captionColor) . "; }";
 
 
 			if ( strlen( $this->gallery->style ) ) {
-				$html .= $this->gallery->style;
+				$html .= esc_html($this->gallery->style);
 			}
 
 			$html .= "</style>\n";
 
 			$id   = $this->id;
 			$html .= "<a name='$id'> </a>";
-			$html .= "<div class='modula' id='jtg-$this->id$rid'>";
+			$html .= '<div class="modula" id="jtg-' . absint($this->id) . absint($rid) . '">';
 
 			$html .= "<div class='items'>";
 
@@ -282,7 +282,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 					'swipebox',
 					'lightbox2'
 				) ) ? "title" : "data-title";
-				$rel   = $this->gallery->lightbox == "prettyphoto" ? "prettyPhoto[jtg-$this->id$rid]" : "jtg-$this->id$rid";
+				$rel   = $this->gallery->lightbox == "prettyphoto" ? 'prettyPhoto[jtg-' . esc_attr($this->id) . esc_attr($rid) . ']' : 'jtg-' . esc_attr($this->id) . esc_attr($rid);
 
 				$hoverEffect = $this->getHoverEffect( $this->gallery->hoverEffect );
 
@@ -298,18 +298,18 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$imgUrl     = $image->imagePath;
 				$image->alt = isset( $image->alt ) ? $image->alt : '';
 
-				$html       .= "<div class=\"item " . $hasTitle . " effect-" . $hoverEffect->code . "\">";
-				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='$rel'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . ( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . "></a>";
+				$html       .= "<div class=\"item " . esc_attr($hasTitle) . " effect-" . esc_attr($hoverEffect->code) . "\">";
+				$html       .= "<a $title='$image->description' " . ( $this->gallery->lightbox == "lightbox2" && empty( $image->link ) ? "data-lightbox='$rel'" : "" ) . " rel='$rel' " . $this->getTarget( $image ) . " class='tile-inner " . esc_attr( $this->getLightboxClass( $image ) ) . "' " . $this->getLink( $image ) . "></a>";
 				$html       .= "<img data-valign='$image->valign' alt='$image->alt' data-halign='$image->halign' class='pic' src='$imgUrl' data-src='$imgUrl' />";
 				$html       .= "<div class=\"figc\">";
 				$html       .= "<div class=\"figc-inner\">";
 				if ( $this->gallery->hoverEffect != 'none' && ! empty( $image->title ) && 'T' != $this->gallery->hide_title ) {
-					$html .= "<h2 class='jtg-title'>" . $image->title . "</h2>";
+					$html .= "<h2 class='jtg-title'>" . esc_html($image->title) . "</h2>";
 				}
 
 				if ( ( $this->gallery->hoverEffect != 'none' && ! empty( $image->description ) )  && 'T' != $this->gallery->hide_description ) {
 					$html .= "<p class=\"description\">";
-					$html .= $image->description;
+					$html .= wp_kses_post($image->description);
 					$html .= "</p>";
 				}
 				$html .= "</div>";
@@ -329,7 +329,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 			}
 
 			$html .= "resizer: '" . plugins_url( 'modula-best-grid-gallery/image.php', '' ) . "',";
-			$html .= "margin: " . $this->gallery->margin . ",";
+			$html .= "margin: " . absint($this->gallery->margin) . ",";
 			// $html .= "\t\tkeepArea: " . ($this->gallery->keepArea == "T" ? "true" : "false") . ",\n";
 			$html .= "enableTwitter: " . ( $this->gallery->enableTwitter == "T" ? "true" : "false" ) . ",";
 			$html .= "enableFacebook: " . ( $this->gallery->enableFacebook == "T" ? "true" : "false" ) . ",";
