@@ -12,13 +12,13 @@
 define( 'MODULA_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 
-define( 'MODULA_VERSION', '1.3.3' );
+define( 'MODULA_VERSION', '1.3.4' );
 define( 'MODULA_PLUGIN_BASE', plugin_basename( __FILE__ ) );
-define( 'MODULA_PREVIOUS_PLUGIN_VERSION', '1.3.2' );
+define( 'MODULA_PREVIOUS_PLUGIN_VERSION', '1.3.3' );
 define( 'MODULA_FILE_', __FILE__ );
 
 function modula_lite_create_db_tables() {
-	include_once( WP_PLUGIN_DIR . '/modula-best-grid-gallery/lib/install-db.php' );
+	include_once( MODULA_PLUGIN_DIR_PATH . '/lib/install-db.php' );
 	modula_lite_install_db();
 }
 
@@ -645,7 +645,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		//delete gallery
 		function delete_gallery() {
 			if ( check_admin_referer( "Modula", "Modula" ) ) {
-				$id = intval( $_POST['gid'] );
+				$id = absint( $_POST['gid'] );
 				$this->ModulaDB->deleteGallery( $id );
 			}
 
@@ -654,7 +654,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		public function update_config() {
 			if ( check_admin_referer( "Modula", "Modula" ) ) {
-				$id     = $_POST['id'];
+				$id     = absint($_POST['id']);
 				$config = stripslashes( $_POST['config'] );
 
 				$this->ModulaDB->update_config( $id, $config );
@@ -665,7 +665,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		public function get_config() {
 			if ( check_admin_referer( "Modula", "Modula" ) ) {
-				$id = $_POST['id'];
+				$id = absint($_POST['id']);
 
 				$data = $this->ModulaDB->getConfig( $id );
 
@@ -681,11 +681,11 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		function create_gallery() {
 			if ( check_admin_referer( "Modula", "Modula" ) ) {
 				$data                     = $this->defaultValues;
-				$data["name"]             = $_POST['name'];
-				$data["description"]      = $_POST['description'];
-				$data["width"]            = $_POST['width'];
-				$data["height"]           = $_POST['height'];
-				$data["img_size"]         = intval( $_POST['img_size'] );
+				$data["name"]             = sanitize_text_field($_POST['name']);
+				$data["description"]      = wp_filter_post_kses($_POST['description']);
+				$data["width"]            = sanitize_text_field($_POST['width']);
+				$data["height"]           = absint($_POST['height']);
+				$data["img_size"]         = absint( $_POST['img_size'] );
 				$data["hasResizedImages"] = true;
 
 				$this->ModulaDB->addGallery( $data );
@@ -705,7 +705,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		//clone gallery
 		function clone_gallery() {
 			if ( check_admin_referer( 'Modula', 'Modula' ) ) {
-				$sourceId = intval( $_POST['gid'] );
+				$sourceId = absint( $_POST['gid'] );
 				$g        = $this->ModulaDB->getGalleryById( $sourceId, $this->defaultValues );
 				$g->name  .= "(copy)";
 				$this->ModulaDB->addGallery( $g );
@@ -929,7 +929,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 		public function delete_image() {
 			if ( check_admin_referer( 'Modula', 'Modula' ) ) {
 				foreach ( explode( ",", $_POST["id"] ) as $id ) {
-					$this->ModulaDB->deleteImage( intval( $id ) );
+					$this->ModulaDB->deleteImage( absint( $id ) );
 				}
 			}
 			die();
@@ -991,7 +991,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 					$target   = '';
 				}
 				
-				$link         = isset( $_POST['link'] ) ? stripslashes( $_POST['link'] ) : null;
+				$link         = isset( $_POST['link'] ) ? esc_url_raw( $_POST['link'] ) : null;
 				$imageId      = intval( $_POST['img_id'] );
 				$sortOrder    = intval( $_POST['sortOrder'] );
 
@@ -1166,7 +1166,7 @@ if ( ! class_exists( "ModulaLite" ) ) {
 
 		public function edit_gallery() {
 			if ( isset( $_GET['galleryId'] ) ) {
-				$this->loadedData   = $this->ModulaDB->getGalleryById( intval( $_GET['galleryId'] ), $this->defaultValues );
+				$this->loadedData   = $this->ModulaDB->getGalleryById( absint( $_GET['galleryId'] ), $this->defaultValues );
 				$modula_fields      = $this->fields;
 				$modula_parent_page = "dashboard";
 

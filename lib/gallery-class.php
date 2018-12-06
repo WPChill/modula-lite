@@ -328,7 +328,7 @@ if ( ! class_exists( "ModulaLiteFE" ) ) {
 				$html .= "onComplete: function () { " . stripslashes( $this->gallery->script ) . "},";
 			}
 
-			$html .= "resizer: '" . plugins_url( 'modula-best-grid-gallery/image.php', '' ) . "',";
+			$html .= "resizer: '" . plugins_url( 'image.php', dirname(__FILE__) ) . "',";
 			$html .= "margin: " . absint($this->gallery->margin) . ",";
 			// $html .= "\t\tkeepArea: " . ($this->gallery->keepArea == "T" ? "true" : "false") . ",\n";
 			$html .= "enableTwitter: " . ( $this->gallery->enableTwitter == "T" ? "true" : "false" ) . ",";
