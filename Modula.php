@@ -5,7 +5,7 @@
  * Description: Modula is one of the best & most creative WordPress gallery plugins. Use it to create a great grid or
  * masonry image gallery.
  * Author: Macho Themes
- * Version: 1.3.3
+ * Version: 1.3.4
  * Author URI: https://www.machothemes.com/
  */
 
