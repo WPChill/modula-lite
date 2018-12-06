@@ -309,5 +309,3 @@ class ModulaLiteDB {
 		return $gallery;
 	}
 }
-
-?>

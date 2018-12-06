@@ -8,10 +8,10 @@ function modula_print_value( $gallery, $field, $default = null ) {
 		if ( $default === null ) {
 			print "";
 		} else {
-			print stripslashes( $default );
+			print esc_html( $default );
 		}
 	} else {
-		print stripslashes( $gallery->$field );
+		print esc_html( $gallery->$field );
 	}
 }
 
