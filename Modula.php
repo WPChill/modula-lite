@@ -5,14 +5,14 @@
  * Description: Modula is one of the best & most creative WordPress gallery plugins. Use it to create a great grid or
  * masonry image gallery.
  * Author: Macho Themes
- * Version: 1.3.5
+ * Version: 1.3.6
  * Author URI: https://www.machothemes.com/
  */
 
 define( 'MODULA_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_PLUGIN_DIR_URL', plugin_dir_url( __FILE__ ) );
 
-define( 'MODULA_VERSION', '1.3.5' );
+define( 'MODULA_VERSION', '1.3.6' );
 define( 'MODULA_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 define( 'MODULA_PREVIOUS_PLUGIN_VERSION', '1.3.3' );
 define( 'MODULA_FILE_', __FILE__ );
@@ -27,7 +27,7 @@ class ModulaLite {
 	private $loadedData;
 	private $fields = array();
 
-	private $version = "1.3.5";
+	private $version = "1.3.6";
 
 	private $defaultValues = array(
 		'width'            => 100,
@@ -59,7 +59,6 @@ class ModulaLite {
 		'shadowSize'       => 0,
 		'shadowColor'      => '#ffffff',
 		'style'            => '',
-		'script'           => '',
 		'randomFactor'     => 50,
 		'hoverColor'       => '#000000',
 		'hoverOpacity'     => '50',
@@ -438,15 +437,6 @@ class ModulaLite {
 		$this->fields[ esc_html__( 'Customizations', 'modula-gallery' ) ] = array(
 			"icon"   => "mdi mdi-puzzle",
 			"fields" => array(
-				"script" => array(
-					"name"        => esc_html__( 'Custom scripts', 'modula-gallery' ),
-					"type"        => "textarea",
-					"description" => esc_html__( 'This script will be called after the gallery initialization. Useful for custom lightboxes.', 'modula-gallery' ) . "
-                        <br />
-                        <br />
-                        <strong>Write just the code without using the &lt;script&gt;&lt;/script&gt; tags</strong>",
-					"excludeFrom" => array( "shortcode" ),
-				),
 				"style"  => array(
 					"name"        => esc_html__( 'Custom css', 'modula-gallery' ),
 					"type"        => "textarea",
@@ -1092,7 +1082,6 @@ class ModulaLite {
 			$shadowColor        = sanitize_hex_color($_POST['tg_shadowColor']);
 			$shadowSize         = intval( $_POST['tg_shadowSize'] );
 			$style              = sanitize_text_field($_POST['tg_style']);
-			$script             = sanitize_text_field($_POST['tg_script']);
 
 			$id = isset( $_POST['ftg_gallery_edit'] ) ? intval( $_POST['ftg_gallery_edit'] ) : 0;
 
@@ -1131,7 +1120,6 @@ class ModulaLite {
 				'width'            => $width,
 				'height'           => $height,
 				'style'            => $style,
-				'script'           => $script,
 			);
 
 			header( "Content-type: application/json" );

@@ -323,10 +323,6 @@ class ModulaLiteFE {
 		$html .= "<script type='text/javascript'>";
 		$html .= "jQuery('#jtg-$this->id$rid').modulaGallery({";
 
-		if ( strlen( $this->gallery->script ) ) {
-			$html .= "onComplete: function () { " . esc_js( $this->gallery->script ) . "},";
-		}
-
 		$html .= "resizer: '" . plugins_url( 'image.php', dirname(__FILE__) ) . "',";
 		$html .= "margin: " . absint($this->gallery->margin) . ",";
 		// $html .= "\t\tkeepArea: " . ($this->gallery->keepArea == "T" ? "true" : "false") . ",\n";
