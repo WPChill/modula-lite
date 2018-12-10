@@ -3,7 +3,7 @@ Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
 Requires at least: 3.8
 Tested up to: 4.9
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -172,6 +172,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 7. Admin panel with Material design
 
 == Changelog ==
+
+= 1.3.7 =
+* fixed dismiss button from beta testing notice.
 
 = 1.3.6 =
 * removed custom js field.
