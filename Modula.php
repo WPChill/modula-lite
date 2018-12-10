@@ -1362,14 +1362,34 @@ function modula_beta_notices() {
 			margin-left: 15px;
 		}
 	</style>
-	<div id="modula-beta-testing" class="notice notice-success is-dismissible">
+	<div id="modula-beta-testing" class="notice notice-success" style="position:relative;">
 		<h3>Try Modula 2.0 !!</h3>
 		<p>We’ve been working on an awesome update to Modula over the last few months and can’t wait to release it to the public. But, before that can happen, we need the help of amazing users in the WordPress community (just like you) to improve Modula 2.0’s first beta.</p>
 		<p class="actions">
 			<a id="modula-beta-testing-dwn" href="https://machothemes.com/downloads/modula-2.0.0.zip" target="_blank" class="button button-primary modula-beta-testing-button"><?php echo __( 'Download Modula 2.0 Beta', 'modula-gallery' ); ?></a>
 			<a id="modula-beta-testing-info" href="<?php echo admin_url( 'admin.php?page=modula-lite-gallery-v2' ) ?>" target="_blank" class="modula-beta-testing-button"><?php echo __( 'Find more', 'modula-gallery' ); ?></a>
 		</p>
+		<button type="button" class="notice-dismiss" style="cursoir:pointer;"><span class="screen-reader-text">Dismiss this notice.</span></button>
 	</div>
+	<script>
+        jQuery(document).ready(function(){
+            jQuery( '#modula-beta-testing .notice-dismiss' ).click(function( evt ){
+                evt.preventDefault();
+                var ajaxData = {
+                    'action' : 'modula_beta_testing',
+                    'security' : '<?php echo wp_create_nonce( 'modula-beta-testing' ) ?>'
+                }
+                jQuery.ajax({
+                    url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                    method: "POST",
+                    data: ajaxData,
+                    dataType: "html"
+                }).done(function(){
+                    jQuery("#modula-beta-testing").hide();
+                });
+            });
+        })
+    </script>
 	<?php
 }
 
