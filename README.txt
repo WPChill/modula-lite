@@ -168,6 +168,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 = 2.0.2 =
 * Changed strings
 * Fixed open new tab checkbox
+* Fixed caption color
 
 = 2.0.1 - 12.17.2018 =
 * Major Update
