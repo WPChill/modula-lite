@@ -1,0 +1,47 @@
+.modula-addons-container {
+	display: flex;
+	margin-top: 20px;
+}
+.modula-addon {
+    width: 30%;
+    width: calc(33.1% - 8px);
+    margin: 0 8px 16px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.modula-addon:nth-child(odd) {
+    clear: both;
+    margin-left: 0;
+}
+.modula-addon:nth-child(3n+1) {
+    clear: both;
+    margin-left: 0;
+}
+.modula-addon:nth-child(even) {
+    margin-right: 8px;
+}
+.modula-addon .modula-addon-box {
+	display: flex;
+    padding: 20px 20px 10px;
+    text-align: left;
+}
+.modula-addon .modula-addon-box .modula-addon-content {
+	padding-left: 20px;
+}
+.modula-addon .modula-addon-box img {
+	display: block;
+	max-width: 128px;
+    max-height: 128px;
+}
+.modula-addon .modula-addon-box h3 {
+	margin-top: 0;
+	text-align: left;
+}
+.modula-addon .modula-addon-actions {
+    padding: 12px 20px;
+    background-color: #fafafa;
+    border-top: 1px solid #ddd;
+    overflow: hidden;
+    text-align: center;
+}

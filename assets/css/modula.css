@@ -1,0 +1,110 @@
+@charset "UTF-8";
+.modula .items .item {
+	position: absolute;
+	overflow: hidden;
+	transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
+	opacity: 0;
+}
+.modula .items .item > a {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
+.modula .items .item .jtg-social {
+	z-index: 10;
+}
+
+.modula .items .item.tg-loaded {
+	transform: scale(1) translate(0, 0) rotate(0deg) !important;
+	opacity: 1;
+}
+.modula .items .item.tg-loaded img.pic {
+	display: block;
+	opacity: 1;
+}
+
+.modula .items .item img.pic {
+	font-size:12px;
+	position:absolute;
+	display: none;
+	opacity: 0;
+	max-width:999em !important;
+	transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
+}
+
+.modula .items .item .description {
+	font-size:14px;
+}
+.modula .items .item .caption .icon {
+	font-size:14px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin:-12px 0 0 -8px;
+}
+.modula .items .item .figc {
+	color: #fff;
+	font-size:11px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	padding:0;
+}
+.modula .items .hidden .figc
+{
+	display: none; 
+}
+.modula .items .hidden:hover .figc
+{
+	display: block; 
+}
+
+.modula .items .visible .figc
+{
+	display: block; 
+}
+.modula .items .always-visible .figc
+{
+	display: block; 
+}
+.modula .items .visible:hover .figc
+{
+	display: none; 
+}
+.modula .items .caption span.text {
+	display: block;
+	padding: 10px;
+}
+.modula .items .caption span.title {
+	font-size:14px;
+	font-weight: bold;
+}
+.modula .filters {
+	margin:0 0 20px 0;
+}
+.modula .filters a {
+	text-decoration: none;
+	display: inline-block;
+	margin:0 10px 0 0;
+	color: #333;
+	border-bottom: 2px solid transparent;
+}
+.modula .filters a:hover,
+.modula .filters a.selected {
+	border-bottom-color: #333;
+}
+.modula .jtg-social a {
+	box-shadow: none;
+}
+
+.lightbox .lb-image { max-width:999em; }
+
+.modula .jtg-social svg {
+    width: 20px;
+    height: 16px;
+}
