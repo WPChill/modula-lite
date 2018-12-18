@@ -219,7 +219,9 @@ class Modula_CPT {
 								break;
 							case 'target':
 								if ( isset( $_POST['modula-images'][ $attribute ][ $index ] ) ) {
-									$new_image[ $attribute ] = '1';
+									$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
+								}else{
+									$new_image[ $attribute ] = 0;
 								}
 								break;
 							case 'halign' :
