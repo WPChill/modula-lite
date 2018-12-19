@@ -271,7 +271,7 @@ class Modula_Field_Builder {
 				$min  = isset( $field['min'] ) ? $field['min'] : 0;
 				$max  = isset( $field['max'] ) ? $field['max'] : 100;
 				$step = isset( $field['step'] ) ? $field['step'] : 1;
-				if ( '' == $value ) {
+				if ( '' === $value ) {
 					if ( isset( $field['default'] ) ) {
 						$value = $field['default'];
 					}else{
