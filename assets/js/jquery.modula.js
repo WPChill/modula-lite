@@ -63,9 +63,15 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
     	var size,
     		containerWidth = this.$element.width(),
-    		plugin = this;;
+    		plugin = this;
 
-    	size = Math.ceil( ( containerWidth - this.options.gutter * this.options.columns ) / this.options.columns );
+        console.log( containerWidth );
+
+        if ( this.options.gutter > 0 ) {
+            size = Math.trunc( ( containerWidth - this.options.gutter * this.options.columns ) / this.options.columns );
+        }else{
+            size = Math.trunc( containerWidth / this.options.columns );
+        }
 
     	this.$items.not(".jtg-hidden").each(function (i, item) {
             var slot = {}, widthColumns, heightColumns;
@@ -73,7 +79,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             widthColumns  = $( item ).data( 'width' );
             heightColumns = $( item ).data( 'height' );
 
-            if ( widthColumns > plugin.options.gutter ) {
+            if ( widthColumns > plugin.options.gutter && plugin.options.gutter > 0 ) {
             	widthColumns = plugin.options.gutter;
             }
 

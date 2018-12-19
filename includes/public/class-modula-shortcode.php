@@ -143,7 +143,7 @@ class Modula_Shortcode {
 			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
 			'type'            => isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery',
 			'columns'         => 12,
-			'gutter'          => isset( $settings['gutter'] ) ? $settings['gutter'] : 10,
+			'gutter'          => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
 		);
 
 		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );
