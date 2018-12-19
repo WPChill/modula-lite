@@ -65,8 +65,6 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     		containerWidth = this.$element.width(),
     		plugin = this;
 
-        console.log( containerWidth );
-
         if ( this.options.gutter > 0 ) {
             size = Math.trunc( ( containerWidth - this.options.gutter * this.options.columns ) / this.options.columns );
         }else{

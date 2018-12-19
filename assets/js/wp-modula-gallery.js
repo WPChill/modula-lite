@@ -254,7 +254,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 wp.Modula.Resizer = new wp.Modula.previewer['resizer']({ 'galleryView': this });
             }
 
-            console.log( '----- init packery ----' );
         	this.container.packery({
         		itemSelector: '.modula-single-image',
                 gutter: parseInt( wp.Modula.Resizer.get( 'gutter' ) ),
