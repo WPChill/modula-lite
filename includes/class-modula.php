@@ -180,8 +180,6 @@ class Modula {
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
-			
-			wp_enqueue_script( 'modula-cpt-script', MODULA_URL . 'assets/js/modula-cpt-scripts.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), '2.0.0', true );
 
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css' );
