@@ -77,8 +77,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             widthColumns  = $( item ).data( 'width' );
             heightColumns = $( item ).data( 'height' );
 
-            if ( widthColumns > plugin.options.gutter && plugin.options.gutter > 0 ) {
-            	widthColumns = plugin.options.gutter;
+            if ( widthColumns > 12 ) {
+            	widthColumns = 12;
             }
 
             slot.width = size * widthColumns + ( plugin.options.gutter * ( widthColumns - 1 ) );
