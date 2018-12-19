@@ -154,13 +154,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Screenshots ==
 
-1. Gallery with Appear effect
-2. Gallery with Crafty effect and round corners
-3. Gallery with Catinelle effect
-4. Gallery with Appear effect
-5. Gallery with Pufrobo effect
-6. Lightgallery lightbox
-7. Admin panel with Material design
+1. Custom Grid - Freely resize images
+2. Custom Grid - Helper Grid
+3. Back-end Options UI Walkthrough
+4. Responsive galleries created with Modula
 
 == Changelog ==
 
