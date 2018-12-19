@@ -17,7 +17,6 @@ Modula Image Gallery is a creative and original WordPress plugin perfect for cre
 
 https://www.youtube.com/watch?v=NxrTXQNExh4
 
-
 > **Time-saving features available in the FULL version:**
 >
 > * Use more than 20 images per gallery
@@ -169,13 +168,15 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 * Changed strings
 * Fixed open new tab checkbox
 * Fixed caption color
+* Fixed caption & title size
+* Fixed custom grid layout
 
 = 2.0.1 - 12.17.2018 =
 * Major Update
 * Build Custom Grids - Take full control of your galleries.
 * New Admin Interface - For a more intuitive user interface, we’ve blended Modula right into WordPress.
 * Drag & Drop to Upload Images
-* Guidelines to Help You Make the Perfect Gallery (edited) 
+* Guidelines to Help You Make the Perfect Gallery
 * Preview your Gallery Without the Hassle
 
 = 1.3.7 =
