@@ -20,11 +20,12 @@
 				e.preventDefault();
 				$(this).addClass( 'updating-message' );
 
-				var galleriesIDS = $('.modula-gallery-to-upgrade').val();
+				var galleriesIDS = jQuery('.modula-gallery-to-upgrade:checkbox:checked').map(function() { return this.value; }).get();
 				
 				modulaUpgrader.counts = galleriesIDS.length + 1;
             	modulaUpgrader.ajaxGalary( galleriesIDS );
 
+            	$('#modula-upgrade-v2').hide();
             	$('.modula-upgrader-progress-bar-container').show();
 
 			});

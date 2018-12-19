@@ -160,6 +160,8 @@ class Modula_Upgrades {
 		echo '<div class="modula-upgrader-progress-bar-container" style="display:none;width: 90%;border-radius: 50px;height: 40px;border: 1px solid #e5e5e5;box-shadow: 0 1px 1px rgba(0,0,0,.04);background: #fff;position: relative;text-align: center;line-height: 40px;font-size: 20px;"><div class="modula-upgrader-progress-bar" style="width: 0%;height: 100%;background: #008ec2;border-radius: 50px;position: absolute;left: 0;top: 0;"></div><span style="z-index: 9;position: relative;">0%</span></div>';
 		echo '<div class="modula-ajax-output"></div>';
 
+		echo '<div id="modula-upgrade-v2">';
+
 		if ( 'import-all' == $tab ) {
 			echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
@@ -173,16 +175,18 @@ class Modula_Upgrades {
 
 			foreach ( $galleries as $gallery ) {
 
-				echo '<label><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
+				echo '<label style="width:30%;padding-right:3%;"><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
 				$config = json_decode( $gallery->configuration, true );
 				echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
 				echo '</label>';
 
 			}
 
-			echo '<a href="#" id="modula-custom-upgrade-v2" class="button button-primary">' . esc_html__( 'Start importing', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<p><a href="#" id="modula-custom-upgrade-v2" class="button button-primary">' . esc_html__( 'Start importing', 'modula-best-grid-gallery' ) . '</a></p>';
 
 		}
+
+		echo '</div>';
 
 		
 		echo '</div>';
@@ -307,6 +311,10 @@ class Modula_Upgrades {
 			    'gutter'           => 10,
 			    'helpergrid'       => 0,
 			);
+
+			if ( isset( $modula_settings['filters'] ) ) {
+				$modula_settings['filters'] = explode( '|', $modula_settings['filters'] );
+			}
 
 			$modula_settings = wp_parse_args( $modula_settings, $default_gallery_settings );
 
