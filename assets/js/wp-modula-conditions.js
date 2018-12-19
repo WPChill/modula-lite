@@ -4,7 +4,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	initialize: function( args ){
 
-		var rows = $('.modula-settings-container tr[data-container]');
+		var rows = jQuery('.modula-settings-container tr[data-container]');
 		this.set( 'rows', rows );
 
 		this.initEvents();
@@ -44,7 +44,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	changedEffect: function( settings, value ){
-		var hoverBoxes = $( '.modula-effects-preview > div' );
+		var hoverBoxes = jQuery( '.modula-effects-preview > div' );
 
 		hoverBoxes.hide();
 		hoverBoxes.filter( '.panel-' + value ).show();
