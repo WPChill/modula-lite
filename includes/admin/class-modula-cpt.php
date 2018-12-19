@@ -239,7 +239,7 @@ class Modula_CPT {
 								}
 								break;
 							default:
-								$new_image[ $attribute ] = sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] );
+								$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] ), $_POST['modula-images'][ $attribute ][ $index ], $attribute );
 								break;
 						}
 
@@ -337,7 +337,7 @@ class Modula_CPT {
 								}
 								break;
 							default:
-								$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
+								$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( $_POST['modula-settings'][ $field_id ] ), $_POST['modula-settings'][ $field_id ] ,$field_id, $field );
 								break;
 						}
 

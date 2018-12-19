@@ -143,13 +143,48 @@ class Modula_Upgrades {
 
 	/* Pages functions */
 	public function modula_upgrade_v2() {
-		echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2.0.0', 'modula-best-grid-gallery' ) . '</h1>';
+
+		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'import-all';
+
+		echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2', 'modula-best-grid-gallery' ) . '</h1>';
 		echo '<p class="about-text">' . esc_html__( 'Since Modula V2.0.0 we changed how we stored data about your galleries so in order to have all the old galleries you need to run this updater.', 'modula-best-grid-gallery' ) . '</p>';
 		echo '<p class="about-text"><strong>' . esc_html__( 'Please don\'t close this window.', 'modula-best-grid-gallery' ) . '</strong></p>';
 
+		// Tabs
+		echo '<h2 class="nav-tab-wrapper wp-clearfix">';
+		echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2' ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
+		echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
+		echo '</h2>';
+
+
 		echo '<div class="modula-upgrader-progress-bar-container" style="display:none;width: 90%;border-radius: 50px;height: 40px;border: 1px solid #e5e5e5;box-shadow: 0 1px 1px rgba(0,0,0,.04);background: #fff;position: relative;text-align: center;line-height: 40px;font-size: 20px;"><div class="modula-upgrader-progress-bar" style="width: 0%;height: 100%;background: #008ec2;border-radius: 50px;position: absolute;left: 0;top: 0;"></div><span style="z-index: 9;position: relative;">0%</span></div>';
 		echo '<div class="modula-ajax-output"></div>';
-		echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
+
+		if ( 'import-all' == $tab ) {
+			echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
+			echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
+		}elseif ( 'custom-import' == $tab ) {
+			
+			global $wpdb;
+			$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula';
+			$galleries       = $wpdb->get_results( $galleries_query );
+
+			echo '<h3>' . esc_html__( 'Select wich galleries you want to import.', 'modula-best-grid-gallery' ) . '</h3>';
+
+			foreach ( $galleries as $gallery ) {
+
+				echo '<label><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
+				$config = json_decode( $gallery->configuration, true );
+				echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
+				echo '</label>';
+
+			}
+
+			echo '<a href="#" id="modula-custom-upgrade-v2" class="button button-primary">' . esc_html__( 'Start importing', 'modula-best-grid-gallery' ) . '</a>';
+
+		}
+
+		
 		echo '</div>';
 	}
 
@@ -212,7 +247,7 @@ class Modula_Upgrades {
 			$id = $gallery->Id;
 			$config = json_decode( $gallery->configuration, true );
 
-			$images_query = "SELECT * FROM {$wpdb->prefix}modula_images WHERE gid={$id}";
+			$images_query = "SELECT * FROM {$wpdb->prefix}modula_images WHERE gid={$id} ORDER BY sortOrder";
 			$images = $wpdb->get_results( $images_query, ARRAY_A );
 
 			// Insert the gallery post
@@ -237,6 +272,42 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
+			$default_gallery_settings = array(
+				'type'             => 'creative-gallery',
+				'width'            => '100%',
+				'height'           => '800',
+				'img_size'         => 300,
+				'margin'           => '10',
+				'randomFactor'     => '50',
+				'lightbox'         => 'lightbox2',
+				'shuffle'          => 0,
+				'captionColor'     => '#ffffff',
+				'wp_field_caption' => 'none',
+			    'wp_field_title'   => 'none',
+			    'hide_title'       => 0,
+			    'hide_description' => 0,
+			    'captionFontSize'  => '14',
+			    'titleFontSize'    => '16',
+			    'enableFacebook'   => 1,
+			    'enableGplus'      => 1,
+			    'enablePinterest'  => 1,
+			    'enableTwitter'    => 1,
+			    'filterClick'      => 0,
+			    'socialIconColor'  => '#ffffff',
+			    'loadedScale'      => '100',
+			    'effect'           => 'pufrobo',
+			    'borderColor'      => '#ffffff',
+			    'borderRadius'     => '0',
+			    'borderSize'       => '0',
+			    'shadowColor'      => '#ffffff',
+			    'shadowSize'       => 0,
+			    'script'           => '',
+			    'style'            => '',
+			    'columns'          => 6,
+			    'gutter'           => 10,
+			    'helpergrid'       => 0,
+			);
+
 			$modula_settings = wp_parse_args( $modula_settings, $default_gallery_settings );
 
 			add_post_meta( $gallery_id, 'modula-settings', $modula_settings, true );
@@ -256,14 +327,15 @@ class Modula_Upgrades {
 				}
 
 				$new_images[] = array(
-					'id'      => $image['imageId'],
+					'id'      => absint($image['imageId']),
 					'alt'     => '',
-					'title'   => $image['title'],
+					'title'   => sanitize_text_field($image['title']),
 					'caption' => $image['description'],
-					'halign'  => $image['halign'],
-					'valign'  => $image['valign'],
-					'link'    => $image['link'],
-					'target'  => $image['target'],
+					'halign'  => sanitize_text_field($image['halign']),
+					'valign'  => sanitize_text_field($image['valign']),
+					'link'    => esc_url_raw($image['link']),
+					'target'  => '_blank' == $image['target'] ? 1: 0,
+					'filters' => str_replace( '|', ',', $image['filters'] ),
 				);
 
 			}

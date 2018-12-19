@@ -111,16 +111,6 @@ class Modula_CPT_Fields_Helper {
 					),
 					'priority' => 10,
 				),
-				// "columns"   => array(
-				// 	"name"        => esc_html__( 'Number of columns', 'modula-best-grid-gallery' ),
-				// 	"type"        => "ui-slider",
-				// 	"description" => "",
-				// 	"min"         => 1,
-				// 	"max"         => 6,
-				// 	"step"        => 1,
-				// 	"default"     => 6,
-				// 	'priority'    => 20,
-				// ),
 				"gutter"   => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",

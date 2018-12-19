@@ -15,6 +15,19 @@
 				$(this).addClass( 'updating-message' );
 				modulaUpgrader.getGalleries();
 			});
+
+			$('#modula-custom-upgrade-v2').click(function(e){
+				e.preventDefault();
+				$(this).addClass( 'updating-message' );
+
+				var galleriesIDS = $('.modula-gallery-to-upgrade').val();
+				
+				modulaUpgrader.counts = galleriesIDS.length + 1;
+            	modulaUpgrader.ajaxGalary( galleriesIDS );
+
+            	$('.modula-upgrader-progress-bar-container').show();
+
+			});
 		},
 
 		getGalleries: function(){
