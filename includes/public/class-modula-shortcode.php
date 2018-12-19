@@ -183,9 +183,6 @@ class Modula_Shortcode {
 				if ( '' != $settings['captionColor'] ) {
 					$css .= 'color:' . sanitize_hex_color($settings['captionColor']) . ';';
 				}
-				if ( '' != $settings['captionFontSize'] && 0 != $settings['captionFontSize'] ) {
-					$css .= 'font-size:' . absint($settings['captionFontSize']) . 'px;';
-				}
 				$css .= '}';
 			}
 
@@ -199,8 +196,8 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id} .items { width:" . esc_attr($settings['width']) . "; height:" . absint( $settings['height'] ) . "px; }";
 			}
 
-			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
-			$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
+			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
+			$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
