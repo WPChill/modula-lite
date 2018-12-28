@@ -28,7 +28,7 @@ class Modula_Upsells {
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
 		$upsell_box .= '<a target="_blank" href="' . admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=provslite' ) . '"  class="button">' . esc_html__( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) . '</a>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/?utm_source=modula-lite&utm_medium=' . $tab . '-tab&utm_campaign=upsell" class="button-primary button">' . esc_html__( 'Get Modula Pro!', 'modula-best-grid-gallery' ) . '</a>';
+		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=' . $tab . '-tab&utm_campaign=upsell" class="button-primary button">' . esc_html__( 'Get Modula Pro!', 'modula-best-grid-gallery' ) . '</a>';
 		$upsell_box .= '</p>';
 		$upsell_box .= '</div>';
 
