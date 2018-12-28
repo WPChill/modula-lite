@@ -335,15 +335,15 @@ class Modula_Upgrades {
 				}
 
 				$new_images[] = array(
-					'id'      => absint($image['imageId']),
-					'alt'     => '',
-					'title'   => sanitize_text_field($image['title']),
-					'caption' => $image['description'],
-					'halign'  => sanitize_text_field($image['halign']),
-					'valign'  => sanitize_text_field($image['valign']),
-					'link'    => esc_url_raw($image['link']),
-					'target'  => '_blank' == $image['target'] ? 1: 0,
-					'filters' => str_replace( '|', ',', $image['filters'] ),
+					'id'          => absint($image['imageId']),
+					'alt'         => '',
+					'title'       => sanitize_text_field($image['title']),
+					'description' => $image['description'],
+					'halign'      => sanitize_text_field($image['halign']),
+					'valign'      => sanitize_text_field($image['valign']),
+					'link'        => esc_url_raw($image['link']),
+					'target'      => '_blank' == $image['target'] ? 1: 0,
+					'filters'     => str_replace( '|', ',', $image['filters'] ),
 				);
 
 			}
