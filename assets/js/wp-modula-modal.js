@@ -38,6 +38,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             // Append modulaModalView to wpMediaView
             wpMediaView.content( modulaModal );
             // Open wpMediaView
+            console.log( wpMediaView );
             wpMediaView.open();
 
         }
@@ -73,7 +74,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             'blur textarea':                                'updateItem',
             'change select':                                'updateItem',
 
-            'click .actions a.modula-gallery-meta-submit':  'saveItem',
+            'click .actions a.modula-gallery-meta-submit':       'saveItem',
+            'click .actions a.modula-gallery-meta-submit-close': 'saveItemAndClose',
 
             'keyup input#link-search':                      'searchLinks',
             'click div.query-results li':                   'insertLink',
@@ -288,6 +290,20 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             setTimeout( function() {
                 saved.fadeOut();
             }, 1500 );
+
+        },
+
+        saveItemAndClose: function ( event ){
+            var view;
+
+            event.preventDefault();
+
+            // Tell the View we're loading
+            this.trigger( 'loading' );
+
+            // Get item view and render it.
+            view = this.model.get( 'wpMediaView' );
+            view.close();
 
         },
 

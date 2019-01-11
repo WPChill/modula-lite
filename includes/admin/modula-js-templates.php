@@ -116,7 +116,10 @@
                 <!-- Actions -->
                 <div class="actions">
                     <a href="#" class="modula-gallery-meta-submit button media-button button-large button-primary media-button-insert" title="<?php esc_attr_e( 'Save Metadata', 'modula-best-grid-gallery' ); ?>">
-                        <?php esc_html_e( 'Save Metadata', 'modula-best-grid-gallery' ); ?>
+                        <?php esc_html_e( 'Save', 'modula-best-grid-gallery' ); ?>
+                    </a>
+                    <a href="#" class="modula-gallery-meta-submit-close button media-button button-large media-button-insert" title="<?php esc_attr_e( 'Save & Close', 'modula-best-grid-gallery' ); ?>">
+                        <?php esc_html_e( 'Save & Close', 'modula-best-grid-gallery' ); ?>
                     </a>
 
                     <!-- Save Spinner -->
