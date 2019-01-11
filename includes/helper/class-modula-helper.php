@@ -17,6 +17,11 @@ class Modula_Helper {
 	public static function generate_attributes( $attributes ) {
 		$return = '';
 		foreach ( $attributes as $name => $value ) {
+
+			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
+				$value = wp_strip_all_tags( $value );
+			}
+
 			$return .= ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
 		}
 

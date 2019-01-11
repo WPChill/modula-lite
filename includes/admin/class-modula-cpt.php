@@ -204,13 +204,13 @@ class Modula_CPT {
 
 						switch ( $attribute ) {
 							case 'alt':
-							case 'title':
 								$new_image[ $attribute ] = sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] );
 								break;
 							case 'width':
 							case 'height':
 								$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
 								break;
+							case 'title':
 							case 'description' : 
 								$new_image[ $attribute ] = wp_filter_post_kses( $_POST['modula-images'][ $attribute ][ $index ] );
 								break;
