@@ -3,7 +3,7 @@
 class Modula_Addons {
 
 	private $addons;
-	private $upgrade_url = 'https://wp-modula.com/';
+	private $upgrade_url = 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=video-addon&utm_campaign=upsell';
 	
 	function __construct() {
 		
@@ -17,7 +17,7 @@ class Modula_Addons {
 			array(
 				'image'       => '',
 				'name'        => esc_html__( 'Modula Video', 'modula-best-grid-gallery' ),
-				'description' => '',
+				'description' => esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ),
 			)
 		);
 

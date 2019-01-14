@@ -186,6 +186,8 @@ class Modula {
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/addons.css' );
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), '2.0.0', true );
+		}elseif ( 'edit.php' == $hook  ) {
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css' );
 		}
 
 	}

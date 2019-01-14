@@ -90,6 +90,9 @@ class Modula_CPT {
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
 
+		/*  */
+		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
+
 		/* Load Fields Helper */
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
 
@@ -361,5 +364,42 @@ class Modula_CPT {
 
 		}
 
+	}
+
+	public function add_extensions_tab( $views ) {
+		$this->display_extension_tab();
+		return $views;
+	}
+
+	public function display_extension_tab() {
+	?>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			$tabs = array(
+				'galleries' => array(
+					'name' => $this->labels['name'],
+					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
+				),
+				'extensions' => array(
+					'name' => __( 'Extensions', 'modula-best-grid-gallery' ),
+					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
+				),
+			);
+			$tabs       = apply_filters( 'modula_add_edit_tabs', $tabs );
+			$active_tab = 'galleries';
+			foreach( $tabs as $tab_id => $tab ) {
+				$active = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
+				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '">';
+				echo esc_html( $tab['name'] );
+				echo '</a>';
+			}
+			?>
+
+			<a href="<?php echo admin_url( 'post-new.php?post_type=' . $this->cpt_name ); ?>" class="page-title-action">
+				<?php esc_html_e( 'Add New', 'modula-best-grid-gallery' ); ?>
+			</a>
+		</h2>
+		<br />
+		<?php
 	}
 }
