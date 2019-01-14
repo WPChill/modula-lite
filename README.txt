@@ -3,7 +3,7 @@ Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
 Requires at least: 3.8
 Tested up to: 5.0
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -160,6 +160,14 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+
+= 2.0.3 =
+* All issues from here : https://github.com/MachoThemes/modula-lite/milestone/5?closed=1
+* Added a new button ( Save & Close ) in edit image modal ( James Leesley recomandation )
+* Renamed "Description" with "Caption" ( James Leesley recomandation )
+* Fixed error on resize
+* Fixed Shuffle
+* Generated .po file
 
 = 2.0.2 =
 * Changed strings
