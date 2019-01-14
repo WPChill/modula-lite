@@ -144,52 +144,68 @@ class Modula_Upgrades {
 	/* Pages functions */
 	public function modula_upgrade_v2() {
 
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'import-all';
-
-		echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2', 'modula-best-grid-gallery' ) . '</h1>';
-		echo '<p class="about-text">' . esc_html__( 'Since Modula V2.0.0 we changed how we stored data about your galleries so in order to have all the old galleries you need to run this updater.', 'modula-best-grid-gallery' ) . '</p>';
-		echo '<p class="about-text"><strong>' . esc_html__( 'Please don\'t close this window.', 'modula-best-grid-gallery' ) . '</strong></p>';
-
-		// Tabs
-		echo '<h2 class="nav-tab-wrapper wp-clearfix">';
-		echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2' ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
-		echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
-		echo '</h2>';
-
-
-		echo '<div class="modula-upgrader-progress-bar-container" style="display:none;width: 90%;border-radius: 50px;height: 40px;border: 1px solid #e5e5e5;box-shadow: 0 1px 1px rgba(0,0,0,.04);background: #fff;position: relative;text-align: center;line-height: 40px;font-size: 20px;"><div class="modula-upgrader-progress-bar" style="width: 0%;height: 100%;background: #008ec2;border-radius: 50px;position: absolute;left: 0;top: 0;"></div><span style="z-index: 9;position: relative;">0%</span></div>';
-		echo '<div class="modula-ajax-output"></div>';
-
-		echo '<div id="modula-upgrade-v2">';
-
-		if ( 'import-all' == $tab ) {
-			echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
-			echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
-		}elseif ( 'custom-import' == $tab ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix.'modula';
+		$galleries = $wpdb->get_var( "SELECT COUNT(Id) as galleries FROM $table_name" );
+		
+		if ( '0' == $galleries ) {
 			
-			global $wpdb;
-			$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula';
-			$galleries       = $wpdb->get_results( $galleries_query );
+			echo '<div class="wrap" style="text-align:center;margin-top:70px;"><h1>' . esc_html__( 'Hooray you don\'t have any Modula galleries to upgrade.', 'modula-best-grid-gallery' ) . '</h1>';
+			echo '<p class="about-text">' . esc_html__( 'It seems like you didn\'t create any galleries with Modula', 'modula-best-grid-gallery' ) . '</p>';
+			echo '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
+			echo '</div>';
 
-			echo '<h3>' . esc_html__( 'Select wich galleries you want to import.', 'modula-best-grid-gallery' ) . '</h3>';
+		}else{
 
-			foreach ( $galleries as $gallery ) {
+			$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'import-all';
 
-				echo '<label style="width:30%;padding-right:3%;"><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
-				$config = json_decode( $gallery->configuration, true );
-				echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
-				echo '</label>';
+			echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2', 'modula-best-grid-gallery' ) . '</h1>';
+			echo '<p class="about-text">' . esc_html__( 'Since Modula V2.0.0 we changed how we stored data about your galleries so in order to have all the old galleries you need to run this updater.', 'modula-best-grid-gallery' ) . '</p>';
+			echo '<p class="about-text"><strong>' . esc_html__( 'Please don\'t close this window.', 'modula-best-grid-gallery' ) . '</strong></p>';
+
+			// Tabs
+			echo '<h2 class="nav-tab-wrapper wp-clearfix">';
+			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2' ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
+			echo '</h2>';
+
+
+			echo '<div class="modula-upgrader-progress-bar-container" style="display:none;width: 90%;border-radius: 50px;height: 40px;border: 1px solid #e5e5e5;box-shadow: 0 1px 1px rgba(0,0,0,.04);background: #fff;position: relative;text-align: center;line-height: 40px;font-size: 20px;"><div class="modula-upgrader-progress-bar" style="width: 0%;height: 100%;background: #008ec2;border-radius: 50px;position: absolute;left: 0;top: 0;"></div><span style="z-index: 9;position: relative;">0%</span></div>';
+			echo '<div class="modula-ajax-output"></div>';
+
+			echo '<div id="modula-upgrade-v2">';
+
+			if ( 'import-all' == $tab ) {
+				echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
+				echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
+			}elseif ( 'custom-import' == $tab ) {
+				
+				global $wpdb;
+				$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula';
+				$galleries       = $wpdb->get_results( $galleries_query );
+
+				echo '<h3>' . esc_html__( 'Select wich galleries you want to import.', 'modula-best-grid-gallery' ) . '</h3>';
+
+				foreach ( $galleries as $gallery ) {
+
+					echo '<label style="width:30%;padding-right:3%;"><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
+					$config = json_decode( $gallery->configuration, true );
+					echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
+					echo '</label>';
+
+				}
+
+				echo '<p><a href="#" id="modula-custom-upgrade-v2" class="button button-primary">' . esc_html__( 'Start importing', 'modula-best-grid-gallery' ) . '</a></p>';
 
 			}
 
-			echo '<p><a href="#" id="modula-custom-upgrade-v2" class="button button-primary">' . esc_html__( 'Start importing', 'modula-best-grid-gallery' ) . '</a></p>';
+			echo '</div>';
+
+			
+			echo '</div>';
 
 		}
 
-		echo '</div>';
-
-		
-		echo '</div>';
 	}
 
 	/* Ajax Calls */
