@@ -38,7 +38,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             // Append modulaModalView to wpMediaView
             wpMediaView.content( modulaModal );
             // Open wpMediaView
-            console.log( wpMediaView );
             wpMediaView.open();
 
         }

@@ -7,6 +7,11 @@
 
 		foreach ( $data->images as $image ) {
 
+			$image_object = get_post( $image['id'] );
+			if ( is_wp_error( $image_object ) || get_post_type( $image_object ) != 'attachment' ) {
+				continue;
+			}
+
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
