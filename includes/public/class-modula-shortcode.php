@@ -85,6 +85,9 @@ class Modula_Shortcode {
 
 		/* Get gallery images */
 		$images   = get_post_meta( $atts['id'], 'modula-images', true );
+		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] ) {
+			shuffle( $images );
+		}
 
 		if ( empty( $settings ) || empty( $images ) ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
