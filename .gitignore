@@ -2,3 +2,4 @@ node_modules/*
 .idea/*
 package-lock.json
 modula-best-grid-gallery.zip
+.standard.json
