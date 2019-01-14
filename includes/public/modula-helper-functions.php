@@ -18,6 +18,11 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$image_full = $sizes['url'];
 	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 
+	// If we couldn't resize the image we will return the full image.
+	if ( is_wp_error( $image_url ) ) {
+		$image_url = $image_full;
+	}
+
 	$item_data['image_full'] = $image_full;
 	$item_data['image_url']  = $image_url;
 
