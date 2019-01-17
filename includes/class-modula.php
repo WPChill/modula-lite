@@ -24,7 +24,6 @@ class Modula {
 	public function __construct() {
 		
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -66,8 +65,8 @@ class Modula {
 
 	}
 
-	private function set_locale() {
-		
+	public function set_locale() {
+		load_plugin_textdomain( 'modula-best-grid-gallery', false, MODULA_PATH . '/languages' );
 	}
 
 	private function define_admin_hooks() {
@@ -75,6 +74,8 @@ class Modula {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
 		add_action( 'wp_ajax_modula-reload-addons', array( $this, 'reload_addons' ), 20 );
+
+		add_action( 'plugins_loaded', array( $this, 'set_locale' ));
 
 		new Modula_CPT();
 
