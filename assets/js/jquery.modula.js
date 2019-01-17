@@ -437,16 +437,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
                 text = $.trim($caption.text());
 
             var src = image.attr("src");
-            var url = "https://www.facebook.com/dialog/feed?app_id=1614610388804595&"+
-                            "link="+encodeURIComponent(location.href)+"&" +
-                            "display=popup&"+
-                            "name="+encodeURIComponent(document.title)+"&"+
-                            "caption=&"+
-                            "description="+encodeURIComponent(text)+"&"+
-                            "picture="+encodeURIComponent(qualifyURL(src))+"&"+
-                            "ref=share&"+
-                            "actions={%22name%22:%22View%20the%20gallery%22,%20%22link%22:%22"+encodeURIComponent(location.href)+"%22}&"+
-                            "redirect_uri=http://modula.greentreelabs.net/facebook_redirect.html";
+            var url = "//www.facebook.com/sharer.php?u=" + location.href;
 
             var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
