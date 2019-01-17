@@ -87,3 +87,9 @@
     text-align: center;
     /*width: 100%;*/
 }
+.about-wrap {
+    margin: 0;
+}
+.about-wrap h2 {
+    margin-top: 25px;
+}
