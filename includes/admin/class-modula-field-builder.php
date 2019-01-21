@@ -116,12 +116,23 @@ class Modula_Field_Builder {
 		echo '</div>';
 
 		// Helper Guildelines Toggle
-		echo '<div class="modula-helper-guidelines-container" style="display:none">';
-			echo '<div class="onoffswitch">';
-				echo '<input type="checkbox" id="modula-helper-guidelines" name="modula-settings[helpergrid]" data-setting="modula-helper-guidelines" class="onoffswitch-checkbox" value="1" ' . checked( 1, $helper_guidelines, false ) . ' >';
-				echo '<label class="onoffswitch-label" for="modula-helper-guidelines"></label>';
+		echo '<div class="modula-helper-guidelines-container">';
+
+			do_action( 'modula_before_helper_grid' );
+
+			echo '<div class="modula-toggle modula-helper-guidelines-wrapper">';
+				echo '<input class="modula-toggle__input" type="checkbox" id="modula-helper-guidelines" name="modula-settings[helpergrid]" data-setting="modula-helper-guidelines" value="1" ' . checked( 1, $helper_guidelines, false ) . '>';
+				echo '<div class="modula-toggle__items">';
+					echo '<span class="modula-toggle__track"></span>';
+					echo '<span class="modula-toggle__thumb"></span>';
+					echo '<svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>';
+					echo '<svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg>';
+				echo '</div>';
+				echo '<strong class="modula-helper-guidelines-label">' . esc_html__( 'Disable Helper Grid', 'modula-best-grid-gallery' ) . '</strong>';
 			echo '</div>';
-			echo '<strong>' . esc_html__( 'Disable Helper Grid', 'modula-best-grid-gallery' ) . '</strong>';
+		
+		do_action( 'modula_after_helper_grid' );
+
 		echo '</div>';
 
 		echo '</div>';
@@ -290,10 +301,6 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case "toggle":
-				// $html .= '<div class="onoffswitch">';
-				// 	$html .= '<input type="checkbox" id="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="onoffswitch-checkbox" value="1" ' . checked( 1, $value, false ) . ' >';
-				// 	$html .= '<label class="onoffswitch-label" for="' . esc_attr( $field['id'] ) . '"></label>';
-				// $html .= '</div>';
 				$html .= '<div class="modula-toggle">';
 					$html .= '<input class="modula-toggle__input" type="checkbox" data-setting="' . esc_attr( $field['id'] ) . ' id="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="1" ' . checked( 1, $value, false ) . '>';
 					$html .= '<div class="modula-toggle__items">';

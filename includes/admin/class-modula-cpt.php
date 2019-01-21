@@ -345,7 +345,11 @@ class Modula_CPT {
 						}
 
 					}else{
-						$modula_settings[ $field_id ] = '0';
+						if ( 'toggle' == $field['type'] ) {
+							$modula_settings[ $field_id ] = '0';
+						}else{
+							$modula_settings[ $field_id ] = '';
+						}
 					}
 
 				}

@@ -196,7 +196,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             		this.enableSortable();
             	}
 
-                this.helperGridContainer.hide();
+                this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).hide();
                 this.container.removeClass( 'modula-custom-grid' ).addClass( 'modula-creative-gallery' );
 
             }else if ( 'custom-grid' == type ) {
@@ -211,7 +211,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             		this.enableResizeble();
             	}
 
-                this.helperGridContainer.show();
+                this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).show();
                 if ( ! wp.Modula.Settings.get( 'helpergrid' ) ) {
                     this.helperGrid.show();
                 }

@@ -900,12 +900,6 @@ a.modula-tab-link {
 }
 
 /* Modula Helper Grid */
-
-.modula-helper-guidelines-container:after {
-  content: "";
-  display: block;
-  clear: both;
-}
 .modula-helper-guidelines-container {
   padding: 15px 20px;
   background-color: #f8fcfd;
@@ -915,6 +909,9 @@ a.modula-tab-link {
 }
 .modula-helper-guidelines-container .onoffswitch {
   margin-top: 0;
+}
+.modula-helper-guidelines-wrapper .modula-helper-guidelines-label {
+  margin-left: 5px;
 }
 
 /* Creative Grid */
@@ -951,9 +948,13 @@ a.modula-tab-link {
 }
 
 .modula-toggle__items {
-  box-sizing: border-box; }
-  .modula-toggle__items > * {
-    box-sizing: inherit; }
+  box-sizing: border-box;
+  display: inline-block;
+    position: relative;
+}
+.modula-toggle__items > * {
+  box-sizing: inherit;
+}
 
 .modula-toggle__input[type=checkbox] {
   border-radius: 2px;
