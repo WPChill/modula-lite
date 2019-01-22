@@ -1,6 +1,7 @@
 .modula-addons-container {
-	display: flex;
+    display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .modula-addon {
     width: 48%;

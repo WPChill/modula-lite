@@ -228,6 +228,8 @@ class Modula_Field_Builder {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
+		$format = apply_filters( "modula_field_type_{$field['type']}_format", $format, $field );
+
 		$default = '';
 
 		// Check if our field have a default value
@@ -386,9 +388,6 @@ class Modula_Field_Builder {
 				break;
 		}
 
-		// if ( isset( $field['description'] ) && '' != $field['description'] ) {
-		// 	$html .= '<p class="description">' . $field['description'] . '</p>';
-		// }
 		return $html;
 
 	}

@@ -27,7 +27,7 @@ class Modula_Admin {
 		uasort( $this->tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
 		if ( ! empty( $this->tabs ) ) {
-			add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Modula', 'modula-best-grid-gallery' ), esc_html__( 'Modula', 'modula-best-grid-gallery' ), 'manage_options', 'modula', array( $this, 'show_submenu' ) );
+			add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Settings', 'modula-best-grid-gallery' ), esc_html__( 'Settings', 'modula-best-grid-gallery' ), 'manage_options', 'modula', array( $this, 'show_submenu' ) );
 		}
 		
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ) );
