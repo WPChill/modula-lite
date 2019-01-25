@@ -77,12 +77,18 @@ class Modula_CPT_Fields_Helper {
 				"icon"        => "dashicons dashicons-admin-appearance",
 				'priority'    => 70,
 			),
+			'speedup' => array(
+	    		'label'       => esc_html__( 'Speed Up', 'modula-best-grid-gallery' ),
+				'title'       => esc_html__( 'Optimize your images', 'modula-best-grid-gallery' ),
+				"icon"        => "dashicons dashicons-chart-area",
+				'priority'    => 80,
+	    	),
 			'customizations' => array(
 				'label'       => esc_html__( 'Customizations', 'modula-best-grid-gallery' ),
 				'title'       => esc_html__( 'Customization Settings', 'modula-best-grid-gallery' ),
 				'description' => $customizations_description,
 				"icon"        => "dashicons dashicons-admin-tools",
-				'priority'    => 80,
+				'priority'    => 90,
 			),
 		) );
 
@@ -136,10 +142,10 @@ class Modula_CPT_Fields_Helper {
 					'priority' => 40,
 				),
 				"img_size"       => array(
-					"name"        => esc_html__( 'Image size', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Thumbnail Size', 'modula-best-grid-gallery' ),
 					"type"        => "text",
 					'default'     => 500,
-					"description" => esc_html__( 'Set the minimum width or height of the images in pixels.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Set the minimum width or height of the thumbnails in pixels.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
 				"margin"         => array(
@@ -196,14 +202,14 @@ class Modula_CPT_Fields_Helper {
 			),
 			'captions' => array(
 				"captionColor"     => array(
-					"name"        => esc_html__( 'Caption color', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
 					"description" => esc_html__( 'Set the color of captions.', 'modula-best-grid-gallery' ),
 					"default"     => "#ffffff",
 					'priority'    => 10,
 				),
 				"wp_field_title"   => array(
-					"name"        => esc_html__( 'Default title', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Default Title', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the title blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
 					"values"      => array(
@@ -214,7 +220,7 @@ class Modula_CPT_Fields_Helper {
 					'priority' => 20,
 				),
 				"wp_field_caption" => array(
-					"name"        => esc_html__( 'Default caption', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Default Caption', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the caption blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
 					"values"      => array(
@@ -229,14 +235,14 @@ class Modula_CPT_Fields_Helper {
 					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
-					"description" => esc_html__( 'Hide image titles from the gallery', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 40,
 				),
 				"hide_description"        => array(
 					"name"        => esc_html__( 'Hide Caption', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
-					"description" => esc_html__( 'Hide image descriptions from the gallery', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
 				"titleFontSize"    => array(
@@ -245,7 +251,7 @@ class Modula_CPT_Fields_Helper {
 					"min"         => 0,
 					"max"         => 100,
 					"default"     => 0,
-					"description" => esc_html__( 'The title font size in pixel. (set to 0 to use the theme defaults)', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults).', 'modula-best-grid-gallery' ),
 					'priority'    => 60,
 				),
 				"captionFontSize"  => array(
@@ -254,34 +260,34 @@ class Modula_CPT_Fields_Helper {
 					"min"         => 0,
 					"max"         => 100,
 					"default"     => 14,
-					"description" => esc_html__( 'The caption font size in pixels (set to 0 to use the theme defaults)', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults).', 'modula-best-grid-gallery' ),
 					'priority'    => 70,
 				),
 			),
 			'social' => array(
 				"enableTwitter"   => array(
-					"name"        => esc_html__( 'Add Twitter icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Add Twitter Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 10,
 				),
 				"enableFacebook"  => array(
-					"name"        => esc_html__( 'Add Facebook icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Add Facebook Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 20,
 				),
 				"enableGplus"     => array(
-					"name"        => esc_html__( 'Add Google Plus icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Add Google Plus Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 30,
 				),
 				"enablePinterest" => array(
-					"name"        => esc_html__( 'Add Pinterest icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Add Pinterest Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					'priority'    => 40,
@@ -308,6 +314,7 @@ class Modula_CPT_Fields_Helper {
 			'hover-effect' => array(
 				"effect" => array(
 					"name"        => esc_html__( 'Hover effect', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Select your preferred hover effect', 'modula-best-grid-gallery' ),
 					"type"        => "hover-effect",
 					'default'     => 'pufrobo',
 					'priority'    => 10,

@@ -18,11 +18,13 @@ class Modula_Addons {
 				'image'       => '',
 				'name'        => esc_html__( 'Modula Video', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ),
+				'slug'        => 'modula-video',
 			),
 			array(
 				'image'       => '',
 				'name'        => esc_html__( 'Modula Speed Up', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Optimize your images and served them from Modula CDN', 'modula-best-grid-gallery' ),
+				'slug'        => 'modula-speedup',
 			)
 		);
 

@@ -252,7 +252,7 @@ class Modula_CPT {
 				}
 
 				// Check if we need to resize this image
-				if ( isset( $_POST['modula-settings']['img_size'] ) ) {
+				if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
 					$img_size = absint( $_POST['modula-settings']['img_size'] );
 					$sizes = $this->resizer->get_image_size( $new_image['id'], $img_size, $gallery_type, $grid_sizes );
 					if ( ! is_wp_error( $sizes ) ) {

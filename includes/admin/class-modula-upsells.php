@@ -12,6 +12,7 @@ class Modula_Upsells {
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ) );
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ) );
 		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
+		add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
 
 	}
 
@@ -67,6 +68,17 @@ class Modula_Upsells {
 		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to add your stunning videos to your gallery...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'video' );
+
+		return $tab_content;
+
+	}
+
+	public function speedup_tab_upsell( $tab_content ) {
+
+		$upsell_title       = esc_html__( 'Looking to make your gallery load faster ?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula PRO today and enjoy unlimited CDN & unlimited, on-the-fly image optimization through ShortPixel\'s API.', 'modula-best-grid-gallery' );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'speedup' );
 
 		return $tab_content;
 
