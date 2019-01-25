@@ -340,7 +340,13 @@ class Modula_CPT {
 								}
 								break;
 							default:
-								$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( $_POST['modula-settings'][ $field_id ] ), $_POST['modula-settings'][ $field_id ] ,$field_id, $field );
+								if( is_array( $_POST['modula-settings'][ $field_id ] ) ){
+									$sanitized = array_map( 'sanitize_text_field', $_POST['modula-settings'][ $field_id ] );
+									$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', $sanitized, $_POST['modula-settings'][ $field_id ] ,$field_id, $field );
+								}else{
+									$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( $_POST['modula-settings'][ $field_id ] ), $_POST['modula-settings'][ $field_id ] ,$field_id, $field );
+								}
+
 								break;
 						}
 

@@ -175,9 +175,9 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= '<a href="https://wp-modula.com/docs/" target="_blank" class="button"><span class="dashicons dashicons-sos"></span>' . esc_html__( 'Explore our docs', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= '<a href="https://wp-modula.com/docs/" target="_blank" class="button"><span class="dashicons dashicons-sos"></span>' . esc_html__( 'Read The Documentation', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="button button-primary"><span class="dashicons dashicons-email-alt"></span>' . esc_html__( 'Contact our support team', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="button button-primary"><span class="dashicons dashicons-email-alt"></span>' . esc_html__( 'Need help? Get in touch', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
