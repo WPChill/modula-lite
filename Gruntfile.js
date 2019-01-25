@@ -102,7 +102,7 @@ module.exports = function( grunt ) {
 					'!composer.json',
 					'!composer.lock',
 					'!set_tags.sh',
-					'!simple-author-box.zip',
+					'!modula-best-grid-gallery.zip',
 					'!old/**',
 					'!nbproject/**'
 				],
