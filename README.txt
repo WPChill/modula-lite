@@ -3,6 +3,7 @@ Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
 Requires at least: 3.8
 Tested up to: 5.0
+Requires PHP: 5.6
 Stable tag: 2.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Photo Gallery by Modula - an advanced solution for Photo Gallery users. Create beautiful image galleries in minutes or less. 
 
 == Description ==
+
+**Modula Image Gallery** is a standalone plugin built, maintained & operated by the friendly folks over at [MachoThemes](https://www.machothemes.com/).
 
 Modula Image Gallery is a creative and original WordPress plugin perfect for creating custom, unique, and responsive image galleries. Modula is available in both a Lite/free version and a premium version and it is currently the easiest and fastest photo gallery plugin for WordPress. Directly from its dashboard you are able to build stunning galleries in a few seconds, unlike many other WordPress plugins.
 
@@ -91,12 +94,6 @@ Modula is also the best WordPress portfolio plugin, as it allows you to build go
 * travel
 * also wedding albums.
 
-If you're frustated because your current galleries looks boring and too standard then you can use the importer which is included with Modula. The importer is currently able to import Envira and NextGen galleries.
-
-> This plugin is maintained and supported by Macho Themes. 
-> Check out some of the other <a href="//machothemes.com/plugins/">WordPress plugins</a> we've developed. 
-> Check out some of the other <a href="//machothemes.com/themes/free/">free WordPress themes</a> we've developed.
-
 == Installation ==
 = For automatic installation: =
 
@@ -121,7 +118,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Frequently Asked Questions ==
 
-= The layout doesnt' look correct =
+= The layout doesn't look correct =
 
 Check the console of the browser and look if you see any error like: "Uncaught TypeError: undefined is not a function" 
 This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin. 
@@ -161,10 +158,17 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
+= 2.0.4 =
+* Fixed defaults ( Causing an issue on modula pro with filters )
+* Fixed translations
+* Prepared for Modula Speed Up
+* Changed the checkboxes' design
+* Fixed Facebook share link
+
 = 2.0.3 =
 * All issues from here : https://github.com/MachoThemes/modula-lite/milestone/5?closed=1
-* Added a new button ( Save & Close ) in edit image modal ( James Leesley recomandation )
-* Renamed "Description" with "Caption" ( James Leesley recomandation )
+* Added a new button ( Save & Close ) in edit image modal ( James Leesley recommendation )
+* Renamed "Description" with "Caption" ( James Leesley recommendation )
 * Fixed error on resize
 * Fixed Shuffle
 * Generated .po file
