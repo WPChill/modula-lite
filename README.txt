@@ -1,7 +1,7 @@
 === Modula Image Gallery ===
 Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
-Requires at least: 3.8
+Requires at least: 4.6
 Tested up to: 5.0
 Requires PHP: 5.6
 Stable tag: 2.0.4
@@ -10,89 +10,147 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Photo Gallery by Modula - an advanced solution for Photo Gallery users. Create beautiful image galleries in minutes or less. 
 
-== Description ==
+== Description == 
 
-**Modula Image Gallery** is a standalone plugin built, maintained & operated by the friendly folks over at [MachoThemes](https://www.machothemes.com/).
+**Modula Image Gallery** is a standalone plugin built, maintained & operated by the friendly folks over at [MachoThemes](https://www.machothemes.com/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite).
 
-Modula Image Gallery is a creative and original WordPress plugin perfect for creating custom, unique, and responsive image galleries. Modula is available in both a Lite/free version and a premium version and it is currently the easiest and fastest photo gallery plugin for WordPress. Directly from its dashboard you are able to build stunning galleries in a few seconds, unlike many other WordPress plugins.
+With Modula, it's easier than ever to build stunning [lightbox galleries](https://wp-modula.com/demo/lightbox-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite), masonry grids, custom grids and more in no more than a few clicks right from the WordPress dashboard. 
 
-= See a 60s video of Modula in action =
+Modula is the best WordPress gallery plugin for adding custom, unique and responsive galleries to your website. There is a free version of Modula available (Modula Lite) and a premium version (Modula Pro) both of which will allow you to add amazing, fast-loading galleries to your website. 
+
+
+= SEE HOW EASY IT IS TO CREATE A PHOTO GALLERY WITH MODULA =
 
 https://www.youtube.com/watch?v=NxrTXQNExh4
 
-> **Time-saving features available in the FULL version:**
+> **Premium features only available in Modula Pro:**
 >
-> * Use more than 20 images per gallery
-> * Get access to gallery filters. Each image can have one or more filters.
-> * Get access to 5 more lightbox libraries & effects with the PRO version.
-> * Image effects on finishing image loading. Rotate or Horizontally / Vertically slide the images.
-> * Get access to more than 15 hover image effects. 
-> * Priority email support from the developer of the plugin
-> * Support and updates for 12 months
+> * Add more than 20 images per gallery.
+> * Add videos to your galleries using the premium Modula Video Extension.
+> * Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
+> * Access to 5 more lightbox styles & effects with the Modula Pro.
+> * Add engaging Image loading animations: Rotate or Horizontally/Vertically animate the images on each page loads.
+> * Access to 12 built-in image hover effects.
+> * Priority email support 
+> * Support and updates for 12 months.
 >
-> **[Learn more about Modula Full version]( https://wp-modula.com/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite )**
+>**[Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
 
 
-= See how Modula can integrate with your website  =
-
-* [Modula Grid Gallery](http://wp-modula.com/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Example: Margins](https://wp-modula.com/demo/margins/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Example: Shuffle](https://wp-modula.com/demo/shuffle/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Example: Social icons](https://wp-modula.com/demo/social-effect/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Example: Custom styling](https://wp-modula.com/demo/styling/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Architecture portfolio](https://wp-modula.com/demo/applications/architecture/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Art showcase](https://wp-modula.com/demo/applications/art-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Photography portfolio](https://wp-modula.com/demo/applications/blackwhite-photography/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Food gallery](https://wp-modula.com/demo/applications/food/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Pets gallery](https://wp-modula.com/demo/applications/pets-animals/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Tattoo showcase](https://wp-modula.com/demo/applications/tattoo-attitude/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Travel gallery](https://wp-modula.com/demo/applications/travel-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-* [Wedding album](https://wp-modula.com/demo/applications/wedding-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)  
-
- = Shortcode Parameters =
-
-`
-* id
-`
+**SEE MODULA GALLERIES IN ACTION**
 
 
-**Plugin is now using the TinyMCE API to improve UI and makes it easy to insert shortcodes!**
+[Want to see how easy it is to create a filterable WordPress gallery with Modula? Click here.](https://wp-modula.com/demo/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+* [Modula Filterable Gallery Demo](https://wp-modula.com/demo/filters?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
 
 
-= Basic example =
+* [Custom Grid Gallery](https://wp-modula.com/demo/custom-grid?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
 
-`[Modula id="1"]`
+**[12 Built-In Hover Effects](https://wp-modula.com/demo/effects/appear?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
+
+The Modula [WordPress gallery plugin](https://wp-modula.com?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) comes with 12 stunning and creative hover effects built in. Using an effect is a great, simple way to engage your audience. All hover effects are unique and can be used with a title, short description and social icons, resulting in unique and contemporary galleries. The effects are designed to be cross-browser compatible and with the use of modern techniques like CSS3 animations, the effects work perfectly on mobile devices too.
+
+*   [Appear](https://wp-modula.com/demo/hover-effects/appear?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Cantinelle](https://wp-modula.com/demo/hover-effects/catinelle?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Comodo](https://wp-modula.com/demo/hover-effects/comodo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Crafty](https://wp-modula.com/demo/hover-effects/crafty?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Curtain](https://wp-modula.com/demo/hover-effects/curtain?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Fluid Up](https://wp-modula.com/demo/hover-effects/fluid-up?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Hide](https://wp-modula.com/demo/hover-effects/hide?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Lens](https://wp-modula.com/demo/hover-effects/lens?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Pufrobo](https://wp-modula.com/demo/hover-effects/pufrobo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Quiet](https://wp-modula.com/demo/hover-effects/quiet?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Reflex](https://wp-modula.com/demo/hover-effects/reflex?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
+*   [Seemo](https://wp-modula.com/demo/hover-effects/seemo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 
-= Some Modula demo applications / usages  =
+**[6 Lightbox Styles](https://wp-modula.com/demo/lightbox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
 
-Do you wonder why this gallery is the best one? Look at the other galleries, see their demos, you’ll notice something weird ... THEY ALL LOOK THE SAME! 
+Modula comes with 6 easy-to-use lightbox styles that seamlessly integrate with your galleries. You can choose from FancyBox, LightGallery, Lightbox, Magnific Popup, PrettyPhoto, and SwipeBox. 
 
-Modula is creative! Modula is dynamic! Modula doesn’t always look the same. Just have fun with it! Modula uses a new concept to build its internal grid. After you set a width and a height for the gallery, Modula will create a random but smart grid inside. The result is a dynamic, creative, interesting and attractive gallery.
+**Try them out to see which is your favorite!**
 
-You can control how much randomness to use in each gallery, so you can obtain a more traditional layout by switching off the “random factor,” or you can make something much more different by incrementing this factor.
 
-Modula is a justified grid gallery because YOU decide the width and the height of the gallery, and the images to put inside. Modula will think about everything else. Images will never exceed their container.
+* [Fancy Box](https://wp-modula.com/demo/lightbox-gallery/lightbox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [LightGallery](https://wp-modula.com/demo/lightbox-gallery/light-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [Lightbox](https://wp-modula.com/demo/lightbox-gallery/lightbox/)
+* [Magnific Popup](https://wp-modula.com/demo/lightbox-gallery/magnific-popup?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [PrettyPhoto](https://wp-modula.com/demo/lightbox-gallery/prettyphoto?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [SwipeBox](https://wp-modula.com/demo/lightbox-gallery/swipebox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [Modula: Margins](https://wp-modula.com/margins?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [Modula: Shuffle](https://wp-modula.com/shuffle?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [Modula: Social icons](https://wp-modula.com/social-sharing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+* [Modula: Custom styling](https://wp-modula.com/styling?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-To achieve such a result, images will be cropped, but that’s not a problem at all, because you can set a custom alignment for those images where the subject is not at the center of the image.
+To insert a gallery onto a WordPress post/page all you need to do is copy the shortcode from your Modula gallery edit page. 
 
-Modula Grid Gallery is not only responsive but also fluid, which means you’ll see images organize themselves with an impressive animation even on mobile devices thanks to the CSS3 engine.
+Your shortcode will look just like this:
 
-**Ease of use doesn’t mean trivial galleries, indeed!**
-By using the Modula Admin Panel you’re able to fine tune every aspect of the gallery. Choose a gallery size, margins between images, the color and the size of captions. Each photo can have a title and a subtitle so you’re able to best describe every image.
+> [Modula id="1192"]
 
-= What is Modula good for? =
+**SOME MODULA DEMO APPLICATIONS / USAGES**
 
-Modula is also the best WordPress portfolio plugin, as it allows you to build gorgeous, creative portfolios. Applications are: 
 
-* architecture
-* art
-* photography
-* food blogs
-* pets and animals
-* tattoos
-* travel
-* also wedding albums.
+Not sure if Modula is the right gallery plugin for you? We encourage you to take a look at other gallery plugins, but one thing you'll notice is that **they all look the same...**
+
+**Sick and tired of boring galleries? Make your own and stand out with Modula.** 
+
+Galleries created with Modula don't always look identical. With the Modula custom grid functionality, you can easily adjust the size and aspect ratio of each individual image by dragging from the bottom right-hand corner in the gallery edit area. 
+
+Custom grids give you greater flexibility over how you display the images on your website. Easily control the size and look of your gallery - choosing the images you want to stand out, rather than relying on an algorithm.
+
+Yes, that means you don't have to worry about your gallery awkwardly cropping out your subject or your subject not being at the center of the image.
+
+Modula is the most powerful, customizable and easy-to-use WordPress gallery plugin available because we give you the power to choose everything from the height and width of your gallery down to resizing individual images within the container that makes sure your images never exceed the content area. 
+
+**Ease-of-use shouldn't mean sample/basic Galleries**
+
+Modula has been designed to be user-friendly from the ground up so that users of varying WordPress experience can easily create the perfect WordPress photo and image galleries. If you don't want all the customization features, you can leave everything up to the algorithm, and if you do - they're there so you can easily choose gallery size, margins between images, the color and size of captions. 
+
+If you can't seem to figure something out, you can always check our [documentation](https://wp-modula.com/docs) or [get in touch](https://wp-modula.com/contact-us) - we're always happy to help...
+ 
+**What is Modula good for?** 
+
+Modula is also the best WordPress portfolio plugin as it allows you to easily showcase your amazing work in a stunning gallery. Other applications include:
+
+* [Architecture](https://wp-modula.com/demo/applications/architecture?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Modula is the perfect gallery to highlight the details of your architecture work. You can show your photos and drawings in a dynamic and fluid grid and add a short description to explain the subject of each item.
+
+* [Art Showcase](https://wp-modula.com/demo/applications/art-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Modula is the best gallery plugin to showcase your artistic, and creative work - it is extremely user-friendly, and offers a range of flexible customization options so you can make galleries just as amazing as your artwork.
+
+* [Photography Portfolio](https://wp-modula.com/demo/applications/blackwhite-photography?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Showcase your photography portfolio in a professional and creative way with Modula's ability to add captions, change lightbox styles, and add hover effects to each image.
+
+* [Food Gallery](https://wp-modula.com/demo/applications/food?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Modula is the perfect image gallery plugin for **food blogs** and **restaurant** websites. Let your delicious meals speak for themselves in your unique and creative galleries created with Modula. 
+
+
+* [Pets Gallery](https://wp-modula.com/demo/applications/pets-animals?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Give your **pet blog** a stylish and unique touch with Modula Grid Gallery.
+
+* [Tattoo Showcase](https://wp-modula.com/demo/applications/tattoo-attitude?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Whether you are a **tattooist** or a **tattoo enthusiast** blogger, Modula is the perfect portfolio gallery plugin to create galleries and show your artistic work. Easily and quickly create your stunning galleries and make people share your tattoos by using the built-in social sharing functionality.
+
+* [Travel Gallery](https://wp-modula.com/demo/applications/travel-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+**Who doesn't love traveling?** Use Modula to create stunning galleries to engage your travel blog or travel agency website's visitors.
+
+* [Wedding Album
+](https://wp-modula.com/demo/applications/wedding-album?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+Your **wedding** day has to be perfect, right? So, why not make the perfect **wedding album**? 
+
+Modula is the perfect WordPress photo gallery plugin if you're a wedding planner, wedding blogger or building your own wedding website. 
+
+*Be as proud of your wedding album as you are of your wedding.*
 
 == Installation ==
 = For automatic installation: =
@@ -141,7 +199,7 @@ You can change the lightbox popup background color using the following code:
 
 = How can I get support? =
 
-Free support is included only with a PRO license: [Buy Modula PRO](https://wp-modula.com/#buy "Buy Modula PRO")
+Free support is included only with a PRO license: [Buy Modula PRO](https://wp-modula.com/pricing/)
 
 = How can I say thanks? =
 
@@ -183,7 +241,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 = 2.0.1 - 12.17.2018 =
 * Major Update
 * Build Custom Grids - Take full control of your galleries.
-* New Admin Interface - For a more intuitive user interface, we’ve blended Modula right into WordPress.
+* New Admin Interface - For a more intuitive user interface, we've blended Modula right into WordPress.
 * Drag & Drop to Upload Images
 * Guidelines to Help You Make the Perfect Gallery
 * Preview your Gallery Without the Hassle

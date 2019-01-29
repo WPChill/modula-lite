@@ -9,6 +9,8 @@
 * License: 					GPLv3 or later
 * License URI:         		http://www.gnu.org/licenses/gpl-3.0.html
 * Requires PHP: 	    	5.6
+* Text Domain: 				modula-best-grid-gallery
+* Domain Path: 				/languages
 *
 * Copyright 2015-2017 		GreenTreeLabs 		diego@greentreelabs.net
 * Copyright 2017-2019 		MachoThemes 		office@machothemes.com
@@ -18,8 +20,9 @@
 * Original Author: 			https://profiles.wordpress.org/greentreelabs/
 *
 * NOTE:
-* GreenTreeLabs ceased ownership rights on: 03/29/2017 06:34:08 PM when ownership was turned over to MachoThemes
-* MachoThemes ownership started on: 03/29/2017 06:34:09 PM
+* GreenTreeLabs transferred ownership rights on: 03/29/2017 06:34:07 PM when ownership was handed over to MachoThemes
+* The MachoThemes ownership period started on: 03/29/2017 06:34:08 PM
+* SVN commit proof of ownership transferral: https://plugins.trac.wordpress.org/changeset/1607943/modula-best-grid-gallery
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License, version 3, as
@@ -31,7 +34,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
+* along with this program; if not, write to the Free software
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
