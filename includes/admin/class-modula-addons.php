@@ -4,9 +4,9 @@ class Modula_Addons {
 
 	private $addons;
 	private $upgrade_url = 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=video-addon&utm_campaign=upsell';
-	
+
 	function __construct() {
-		
+
 		$this->addons = $this->check_for_addons();
 
 	}
@@ -23,7 +23,7 @@ class Modula_Addons {
 			array(
 				'image'       => '',
 				'name'        => esc_html__( 'Modula Speed Up', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Optimize your images and served them from Modula CDN', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them and serving them from StackPath’s content delivery network.', 'modula-best-grid-gallery' ),
 				'slug'        => 'modula-speedup',
 			)
 		);
@@ -58,7 +58,7 @@ class Modula_Addons {
 			echo '<img src="' . MODULA_URL . 'assets/images/modula-logo.jpg">';
 			echo '<div class="modula-addon-content">';
 			echo '<h3>' . esc_html__( 'Feature Request', 'modula-best-grid-gallery' ) . '</h3>';
-			echo '<div class="modula-addon-description">' . esc_html__( 'Don\'t see what you’re looking for? Let us help you build it by making a suggestion!', 'modula-best-grid-gallery' ) . '</div>';
+			echo '<div class="modula-addon-description">' . esc_html__( 'Cant\'t find what you’re looking for? Let us know by making a suggestion!', 'modula-best-grid-gallery' ) . '</div>';
 			echo '</div>';
 			echo '</div>';
 			echo '<div class="modula-addon-actions">';
