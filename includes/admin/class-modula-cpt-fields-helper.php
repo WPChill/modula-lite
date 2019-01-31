@@ -1,13 +1,13 @@
 <?php
 
 /**
- * 
+ *
  */
 class Modula_CPT_Fields_Helper {
-	
+
 	public static function get_tabs() {
 
-		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own). Pick your favorite lightbox script and be done quickly.', 'modula-best-grid-gallery' ) . '</p>';
+		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own). Pick your favorite lightbox style and easily design your gallery.', 'modula-best-grid-gallery' ) . '</p>';
 		// $general_description .= self::generate_more_help_links();
 
 		$caption_description = '<p>' . esc_html__( 'The settings below adjust how the image title/description will appear on the front-end.', 'modula-best-grid-gallery' ) . '</p>';
@@ -171,7 +171,7 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Choose your preferred lightbox style. Some styles, such as LightGallery, allow for image downloads.', 'modula-best-grid-gallery' ),
 					'default'     => 'lightbox2',
 					"values"      => array(
-						esc_html__( 'Link', 'modula-best-grid-gallery' ) => array( 
+						esc_html__( 'Link', 'modula-best-grid-gallery' ) => array(
 							"no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
 							"direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
 							"attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' )
