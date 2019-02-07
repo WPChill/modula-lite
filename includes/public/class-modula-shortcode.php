@@ -1,12 +1,12 @@
 <?php
 
 /**
- * 
+ *
  */
 class Modula_Shortcode {
 
 	private $loader;
-	
+
 	function __construct() {
 
 		$this->loader  = new Modula_Template_Loader();
@@ -23,9 +23,9 @@ class Modula_Shortcode {
 	}
 
 	public function add_gallery_scripts() {
-		
+
 		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css' );
-		
+
 		// @todo: move effects to modula style
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, null );
 		wp_register_style( 'modula-effects', MODULA_URL . 'assets/css/effects.css', null, null );
@@ -33,7 +33,7 @@ class Modula_Shortcode {
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), null, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.pkgd.min.js', array( 'jquery' ), null, true );
-		
+
 
 		// @todo: minify all css & js for a better optimization.
 		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery.modula.js', array( 'jquery' ), null, true );
@@ -43,6 +43,7 @@ class Modula_Shortcode {
 	public function gallery_shortcode_handler( $atts ) {
 		$default_atts = array(
 			'id' => false,
+			'align' => '',
 		);
 
 		$atts = wp_parse_args( $atts, $default_atts );
@@ -126,6 +127,7 @@ class Modula_Shortcode {
 		}
 
 		$settings['gallery_id'] = $gallery_id;
+		$settings['align']      = $atts['align'];
 
 		$template_data = array(
 			'gallery_id' => $gallery_id,
@@ -194,7 +196,7 @@ class Modula_Shortcode {
 			}
 
 			$css .= "#{$gallery_id} .item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
-			
+
 			if ( 'custom-grid' != $settings['type'] ) {
 				$css .= "#{$gallery_id} .items { width:" . esc_attr($settings['width']) . "; height:" . absint( $settings['height'] ) . "px; }";
 			}
