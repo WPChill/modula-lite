@@ -103,16 +103,16 @@ class Modula_Field_Builder {
 		echo '</div>';
 		echo '</div>';
 		echo '<div class="buttons">';
-		echo '<a href="#" id="modula-uploader-browser" class="button">Upload image files</a><a href="#" id="modula-wp-gallery" class="button button-primary">Select from Library</a>';
+		echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
 		echo '</div>';
 		echo '</div>';
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';
 			echo '<div class="modula-error-container"></div>';
 			echo '<div class="modula-uploader-inline-content">';
-				echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>Drag & Drop files here!</h2>';
+				echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>' . esc_html__( 'Drag & Drop files here!', 'modula-best-grid-gallery' ) . '</h2>';
 				echo '<div id="modula-grid" style="display:none"></div>';
 			echo '</div>';
-			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>Drop files to upload</h1></div></div>';
+			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
 		echo '</div>';
 
 		// Helper Guildelines Toggle

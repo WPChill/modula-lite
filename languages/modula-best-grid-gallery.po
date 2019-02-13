@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Modula 2.0.4\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/modula-best-grid-gallery\n"
-"POT-Creation-Date: 2019-01-29 15:22:22+00:00\n"
+"POT-Creation-Date: 2019-02-05 12:01:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +40,10 @@ msgid "Modula Speed Up"
 msgstr ""
 
 #: includes/admin/class-modula-addons.php:26
-msgid "Optimize your images and served them from Modula CDN"
+msgid ""
+"Allow Modula to automatically optimize your images to load as fast as "
+"possible by reducing their file sizes, resizing them and serving them from "
+"StackPath’s content delivery network."
 msgstr ""
 
 #: includes/admin/class-modula-addons.php:49
@@ -52,9 +55,7 @@ msgid "Feature Request"
 msgstr ""
 
 #: includes/admin/class-modula-addons.php:61
-msgid ""
-"Don't see what you’re looking for? Let us help you build it by making a "
-"suggestion!"
+msgid "Cant't find what you’re looking for? Let us know by making a suggestion!"
 msgstr ""
 
 #: includes/admin/class-modula-addons.php:65
@@ -107,7 +108,7 @@ msgstr ""
 #: includes/admin/class-modula-cpt-fields-helper.php:10
 msgid ""
 "Choose between creative or custom grid (build your own). Pick your favorite "
-"lightbox script and be done quickly."
+"lightbox style and easily design your gallery."
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:13
@@ -649,88 +650,88 @@ msgstr ""
 msgid "of"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:131
+#: includes/admin/class-modula-field-builder.php:135
 msgid "Disable Helper Grid"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:178
+#: includes/admin/class-modula-field-builder.php:182
 msgid "Read The Documentation"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:180
+#: includes/admin/class-modula-field-builder.php:184
 msgid "Need help? Get in touch"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:325
+#: includes/admin/class-modula-field-builder.php:329
 msgid "None"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:326
+#: includes/admin/class-modula-field-builder.php:330
 msgid "Pufrobo"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:329
+#: includes/admin/class-modula-field-builder.php:333
 msgid "Fluid Up"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:330
+#: includes/admin/class-modula-field-builder.php:334
 msgid "Hide"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:331
+#: includes/admin/class-modula-field-builder.php:335
 msgid "Quiet"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:332
+#: includes/admin/class-modula-field-builder.php:336
 msgid "Catinelle"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:333
+#: includes/admin/class-modula-field-builder.php:337
 msgid "Reflex"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:334
+#: includes/admin/class-modula-field-builder.php:338
 msgid "Curtain"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:335
+#: includes/admin/class-modula-field-builder.php:339
 msgid "Lens"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:336
+#: includes/admin/class-modula-field-builder.php:340
 msgid "Appear"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:337
+#: includes/admin/class-modula-field-builder.php:341
 msgid "Crafty"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:338
+#: includes/admin/class-modula-field-builder.php:342
 msgid "Seemo"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:339
+#: includes/admin/class-modula-field-builder.php:343
 msgid "Comodo"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:347
+#: includes/admin/class-modula-field-builder.php:351
 msgid "Hover Effects with PRO license"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:356
+#: includes/admin/class-modula-field-builder.php:360
 msgid "Select an hover effect"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:371
+#: includes/admin/class-modula-field-builder.php:375
 msgid "This effect is compatible with:"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:372
+#: includes/admin/class-modula-field-builder.php:376
 #: includes/admin/modula-js-templates.php:53
 msgid "Title"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:373
+#: includes/admin/class-modula-field-builder.php:377
 msgid "Social Icons"
 msgstr ""
 

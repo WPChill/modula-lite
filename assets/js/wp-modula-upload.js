@@ -19,45 +19,14 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 		createToolbar: function() {
 			var LibraryViewSwitcher, Filters, toolbarOptions;
 
-			toolbarOptions = {
-				controller: this.controller
-			};
+			wp.media.view.AttachmentsBrowser.prototype.createToolbar.call(this);
 
-			if ( this.controller.isModeActive( 'grid' ) ) {
-				toolbarOptions.className = 'media-toolbar wp-filter';
-			}
-
-			/**
-			* @member {wp.media.view.Toolbar}
-			*/
-			this.toolbar = new wp.media.view.Toolbar( toolbarOptions );
-
-			this.views.add( this.toolbar );
-
-			this.toolbar.set( 'spinner', new wp.media.view.Spinner({
-				priority: -60
-			}) );
 
 			this.toolbar.set( 'modula-error', new modula.upload['errorview']({
 				controller: this.controller,
 				priority: -80
 			}) );
 
-			if ( this.options.search ) {
-				// Search is an input, screen reader text needs to be rendered before
-				this.toolbar.set( 'searchLabel', new wp.media.view.Label({
-					value: wp.media.view.l10n.searchMediaLabel,
-					attributes: {
-						'for': 'media-search-input'
-					},
-					priority:   60
-				}).render() );
-				this.toolbar.set( 'search', new wp.media.view.Search({
-					controller: this.controller,
-					model:      this.collection.props,
-					priority:   60
-				}).render() );
-			}
 		},
 	});
 
@@ -98,6 +67,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 			// Browse our library of attachments.
 			contentRegion.view = new modula.upload['attachmentsbrowser']({
+			// contentRegion.view = new wp.media.view.AttachmentsBrowser({
 				controller: this,
 				collection: state.get('library'),
 				selection:  state.get('selection'),
@@ -251,8 +221,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 				attachments,
 				limitExceeded = false,
 				modula_files_count = 0;
-
-			console.log( 'uploadHandler initialized' );
 
 			uploader = new wp.Uploader( modulaGalleryObject.uploaderOptions );
 

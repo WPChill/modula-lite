@@ -147,6 +147,9 @@ class Modula_Shortcode {
 			'type'            => isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery',
 			'columns'         => 12,
 			'gutter'          => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
+			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
+			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
+			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 		);
 
 		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );

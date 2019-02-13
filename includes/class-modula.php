@@ -71,7 +71,7 @@ class Modula {
 
 	private function define_admin_hooks() {
 		
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
 		add_action( 'wp_ajax_modula-reload-addons', array( $this, 'reload_addons' ), 20 );
 

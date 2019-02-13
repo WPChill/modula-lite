@@ -63,22 +63,44 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
     	var size,
     		containerWidth = this.$element.width(),
-    		plugin = this;
+    		plugin = this,
+            columns = this.options.columns,
+            viewport = document.documentElement.clientWidth;
+
+        if ( this.options.enableResponsive ) {
+
+            if ( viewport <= 568 ) {
+                columns = this.options.mobileColumns;
+            }else if ( viewport <= 768 ) {
+                columns = this.options.tabletColumns;
+            }
+
+        }
 
         if ( this.options.gutter > 0 ) {
-            size = Math.trunc( ( containerWidth - this.options.gutter * this.options.columns ) / this.options.columns );
+            size = Math.trunc( ( containerWidth - this.options.gutter * columns ) / columns );
         }else{
-            size = Math.trunc( containerWidth / this.options.columns );
+            size = Math.trunc( containerWidth / columns );
         }
 
     	this.$items.not(".jtg-hidden").each(function (i, item) {
-            var slot = {}, widthColumns, heightColumns;
+            var slot = {}, widthColumns, heightColumns, auxWidth, auxHeight;
 
             widthColumns  = $( item ).data( 'width' );
             heightColumns = $( item ).data( 'height' );
 
             if ( widthColumns > 12 ) {
             	widthColumns = 12;
+            }
+
+            if ( plugin.options.enableResponsive ) {
+                auxWidth = widthColumns;
+                auxHeight = heightColumns;
+
+                widthColumns = Math.trunc( columns * auxWidth / 12 );
+                if ( widthColumns < 1 ) { widthColumns = 1; }
+
+                heightColumns = Math.round( widthColumns * auxHeight / auxWidth );
             }
 
             slot.width = size * widthColumns + ( plugin.options.gutter * ( widthColumns - 1 ) );
@@ -376,6 +398,10 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         });
 
         $(window).on( 'modula-update', function () {
+            instance.onResize(instance);
+        });
+
+        $(window).on( 'scroll', function () {
             instance.onResize(instance);
         });
 
