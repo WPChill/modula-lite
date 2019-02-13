@@ -1,0 +1,50 @@
+.modula-block-preview {
+	background: #f3f3f5;
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+
+	.components-spinner {
+		display: block;
+		float: none;
+		margin: 0 auto;
+	}
+}
+
+.modula-block-preview__logo {
+	width: 100%;
+	height: 60px;
+	background:url(../images/block-preview-bg.svg) no-repeat 50% 0%;
+	background-size: 75%;
+}
+
+.modula-block-preview__content {
+	width: 100%;
+	max-width: 400px;
+	margin: 40px auto;
+	text-align: center;
+}
+
+.modula-block-preview--images {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -1%;
+	margin-right: -1%;
+}
+
+.modula-preview-image-wrap {
+	width: 23%;
+	height: 0px;
+	padding-bottom: 23%;
+	position: relative;
+	margin: 1%;
+
+	img {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
