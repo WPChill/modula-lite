@@ -119,8 +119,11 @@ module.exports = function( grunt ) {
 		concat: {
 			dist: {
 				src : [
-					'assets/js/lightbox/jquery.event.move.js',
-					'assets/js/lightbox/jquery.event.swipe.js',
+					// 'assets/js/lightbox/jquery.event.move.js',
+					// 'assets/js/lightbox/jquery.event.swipe.js',
+					// 'assets/js/lightbox/jquery-ui.js',
+					// 'assets/js/lightbox/hammer.js',
+					// 'assets/js/lightbox/jquery.hammer.js',
 					'assets/js/lightbox/lightbox.js',
 				],
 				dest: 'assets/js/lightbox.js'
@@ -169,7 +172,7 @@ module.exports = function( grunt ) {
 		'checktextdomain'
 	] );
 	grunt.registerTask( 'minjs', [  // Minify CSS
-		'concat',
+		// 'concat',
 		'clean:jsmin',
 		'uglify'
 	] );
