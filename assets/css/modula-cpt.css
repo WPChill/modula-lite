@@ -20,6 +20,26 @@
     width: 161px;
     position: relative;
 }
+.modula-settings-container .modula-tabs .modula-tab sup {
+  margin-left: 5px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 8px;
+  background: #9c9c9c;
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  top: -2px;
+}
+.modula-settings-container .modula-tabs .modula-tab:hover sup,
+.modula-settings-container .modula-tabs .modula-tab.active-tab sup {
+  background-color: #57a7c9;
+}
+.modula-settings-container .modula-tabs .modula-tab.modula-responsive:hover sup,
+.modula-settings-container .modula-tabs .modula-tab.modula-responsive.active-tab sup {
+  background:#dc3232;
+}
 .modula-settings-container .modula-tabs .modula-tab > i {
 	margin-right: 10px;
 	margin-left: 15px;

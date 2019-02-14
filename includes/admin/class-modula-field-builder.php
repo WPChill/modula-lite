@@ -216,10 +216,16 @@ class Modula_Field_Builder {
 	/* Create HMTL for a tab */
 	private function _render_tab( $tab, $first = false ) {
 		$icon = '';
+		$badge = '';
+
 		if ( isset( $tab['icon'] ) ) {
 			$icon = '<i class="' . esc_attr( $tab['icon'] ) . '"></i>';
 		}
-		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( $tab['label'] ) . '</div>';
+
+		if ( isset( $tab['badge'] ) ) {
+			$badge = '<sup>' . esc_html( $tab['badge'] ) . '</sup>';
+		}
+		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . ' modula-' . esc_attr( $tab['id'] ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( $tab['label'] ) . $badge . '</div>';
 	}
 
 	/* Create HMTL for a row */

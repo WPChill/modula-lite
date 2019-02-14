@@ -97,10 +97,23 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
                 auxWidth = widthColumns;
                 auxHeight = heightColumns;
 
-                widthColumns = Math.trunc( columns * auxWidth / 12 );
-                if ( widthColumns < 1 ) { widthColumns = 1; }
+                if ( 1 == columns ) {
 
-                heightColumns = Math.round( widthColumns * auxHeight / auxWidth );
+                    widthColumns = 1;
+                    heightColumns = widthColumns * auxHeight / auxWidth;
+
+                }else{
+
+                    // widthColumns = Math.trunc( columns * auxWidth / 12 );
+                    widthColumns = Math.round( columns * auxWidth / 12 );
+                    if ( widthColumns < 1 ) { widthColumns = 1; }
+
+                    heightColumns = Math.round( widthColumns * auxHeight / auxWidth );
+                    // heightColumns = widthColumns * auxHeight / auxWidth;
+                    if ( heightColumns < 1 ) { heightColumns = 1; }
+
+                }
+
             }
 
             slot.width = size * widthColumns + ( plugin.options.gutter * ( widthColumns - 1 ) );
@@ -128,7 +141,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         	itemSelector: '.item',
             gutter: parseInt( plugin.options.gutter ),
             columnWidth: size,
-            rowHeight: size,
+            // rowHeight: size,
             resize: false
         });
         this.isPackeryActive = true;
@@ -256,6 +269,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         if ( 'custom-grid' === instance.options.type ) {
         	instance.createCustomGallery();
+            instance.$itemsCnt.packery();
         }else{
         	instance.createGrid();
         }
