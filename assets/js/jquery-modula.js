@@ -360,7 +360,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         $image.css(cssProps);
     }
 
-    Plugin.prototype.loadImage = function (index) {
+    Plugin.prototype.loadImage = function(index) {
         var instance = this;
         var source = instance.$items.eq(index).find('.pic');
         var img = new Image();

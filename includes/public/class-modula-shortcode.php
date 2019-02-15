@@ -86,10 +86,12 @@ class Modula_Shortcode {
 		$type = 'creative-gallery';
 		if ( isset( $settings['type'] ) ) {
 			$type = $settings['type'];
+		}else{
+			$settings['type'] = 'creative-gallery';
 		}
 
 		/* Get gallery images */
-		$images   = get_post_meta( $atts['id'], 'modula-images', true );
+		$images = apply_filters( 'modula_gallery_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
 		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
 			shuffle( $images );
 		}
