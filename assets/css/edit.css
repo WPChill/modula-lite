@@ -5,3 +5,21 @@
 .post-type-modula-gallery .wrap .nav-tab-wrapper .page-title-action {
 	top: 7px;
 }
+.modula-feedback-notice {
+    padding: 22px;
+    border: 2px solid #2ebf91;
+}
+.notice p.modula-feedback-title {
+	font-size: 26px;
+	font-weight: bold;
+	display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+.modula-feedback-title svg {
+	width: 35px;
+	margin-right: 10px;
+}
+.modula-feedback-title svg path {
+	fill: #2ebf91;
+}

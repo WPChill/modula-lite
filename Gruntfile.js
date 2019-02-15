@@ -169,7 +169,8 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 
 	grunt.registerTask( 'textdomain', [
-		'checktextdomain'
+		'checktextdomain',
+		'makepot'
 	] );
 	grunt.registerTask( 'minjs', [  // Minify CSS
 		// 'concat',
