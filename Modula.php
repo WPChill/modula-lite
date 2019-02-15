@@ -4,7 +4,7 @@
 * Plugin URI: 				https://wp-modula.com/
 * Description: 				Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.
 * Author: 					MachoThemes
-* Version: 					2.0.4
+* Version: 					2.0.5
 * Author URI: 				https://www.machothemes.com/
 * License: 					GPLv3 or later
 * License URI:         		http://www.gnu.org/licenses/gpl-3.0.html
@@ -43,7 +43,7 @@
  *
  * @since    2.0.2
  */
-define( 'MODULA_LITE_VERSION', '2.0.3' );
+define( 'MODULA_LITE_VERSION', '2.0.5' );
 define( 'MODULA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_URL', plugin_dir_url( __FILE__ ) );
 
