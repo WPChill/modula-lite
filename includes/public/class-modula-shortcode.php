@@ -83,9 +83,14 @@ class Modula_Shortcode {
 		$default = Modula_CPT_Fields_Helper::get_defaults();
 		$settings = wp_parse_args( $settings, $default );
 
+		$type = 'creative-gallery';
+		if ( isset( $settings['type'] ) ) {
+			$type = $settings['type'];
+		}
+
 		/* Get gallery images */
 		$images   = get_post_meta( $atts['id'], 'modula-images', true );
-		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] ) {
+		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
 			shuffle( $images );
 		}
 
@@ -93,7 +98,7 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-		if ( isset( $settings['type'] ) && 'custom-grid' == $settings['type'] ) {
+		if ( 'custom-grid' == $type ) {
 			wp_enqueue_script( 'packery' );
 		}
 
@@ -144,7 +149,7 @@ class Modula_Shortcode {
 			"enablePinterest" => boolval( $settings['enablePinterest'] ),
 			"enableGplus"     => boolval( $settings['enableGplus'] ),
 			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
-			'type'            => isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery',
+			'type'            => $type,
 			'columns'         => 12,
 			'gutter'          => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
 			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
