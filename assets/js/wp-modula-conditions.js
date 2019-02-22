@@ -32,8 +32,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' ),
 			tabs = this.get( 'tabs' );
 
-		console.log( tabs );
-		
 		if ( 'custom-grid' == value ) {
 
 			// Show Responsive tab

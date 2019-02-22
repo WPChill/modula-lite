@@ -167,110 +167,27 @@ class Modula_CPT {
 			return $post_id;
 		}
 
-		// Here we will save gallery images
-		if ( isset( $_POST['modula-images'] ) ) {
+		// We need to resize our images
+		$images = get_post_meta( $post_id, 'modula-images', true );
+		if ( $images && is_array( $images ) ) {
+			if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
 
-			// This list will not contain id because we save our images based on image id.
-			$image_attributes = apply_filters( 'modula_gallery_image_attributes', array(
-				'alt',
-				'title',
-				'description',
-				'halign',
-				'valign',
-				'link',
-				'target',
-				'width',
-				'height',
-			) );
-
-			$modula_images = array();
-
-			$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field($_POST['modula-settings']['type']) : 'creative-gallery';
-			for ( $index=0; $index < count( $_POST['modula-images']['id'] ); $index++ ) {
-
-				if ( ! is_numeric( $_POST['modula-images']['id'][ $index ] ) ) {
-					continue;
-				}
-
-				$new_image = array();
-				$grid_sizes = array(
-					'width' => isset( $_POST['modula-images']['width'][ $index ] ) ? absint( $_POST['modula-images']['width'][ $index ] ) : 1,
-					'height' => isset( $_POST['modula-images']['height'][ $index ] ) ? absint( $_POST['modula-images']['height'][ $index ] ) : 1,
-				);
-
-				// Save the image's id
-				$new_image['id'] = absint( $_POST['modula-images']['id'][ $index ] );
-
-				// Get from the current image only accepted attributes
-				foreach ( $image_attributes as $attribute ) {
-					if ( isset( $_POST['modula-images'][ $attribute ][ $index ] ) ) {
-
-						switch ( $attribute ) {
-							case 'alt':
-								$new_image[ $attribute ] = sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'width':
-							case 'height':
-								$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'title':
-							case 'description' : 
-								$new_image[ $attribute ] = wp_filter_post_kses( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'link' : 
-								$new_image[ $attribute ] = esc_url_raw( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'target':
-								if ( isset( $_POST['modula-images'][ $attribute ][ $index ] ) ) {
-									$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
-								}else{
-									$new_image[ $attribute ] = 0;
-								}
-								break;
-							case 'halign' :
-								if ( in_array( $_POST['modula-images'][ $attribute ][ $index ], array( 'left', 'right', 'center' ) ) ) {
-									$new_image[ $attribute ] = $_POST['modula-images'][ $attribute ][ $index ];
-								}else{
-									$new_image[ $attribute ] = 'center';
-								}
-								break;
-							case 'valign' :
-								if ( in_array( $_POST['modula-images'][ $attribute ][ $index ], array( 'top', 'bottom', 'middle' ) ) ) {
-									$new_image[ $attribute ] = $_POST['modula-images'][ $attribute ][ $index ];
-								}else{
-									$new_image[ $attribute ] = 'middle';
-								}
-								break;
-							default:
-								$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] ), $_POST['modula-images'][ $attribute ][ $index ], $attribute );
-								break;
-						}
-
-					}else{
-						$new_image[ $attribute ] = '';
-					}
-				}
-
-				// Check if we need to resize this image
-				if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
-					$img_size = absint( $_POST['modula-settings']['img_size'] );
+				$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field($_POST['modula-settings']['type']) : 'creative-gallery';
+				$img_size = absint( $_POST['modula-settings']['img_size'] );
+				
+				foreach ( $images as $image ) {
+					$grid_sizes = array(
+						'width' => isset( $image['width'] ) ? absint( $image['width'] ) : 1,
+						'height' => isset( $image['height'] ) ? absint( $image['height'] ) : 1,
+					);
 					$sizes = $this->resizer->get_image_size( $new_image['id'], $img_size, $gallery_type, $grid_sizes );
 					if ( ! is_wp_error( $sizes ) ) {
 						$this->resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 					}
+
 				}
 
-				// Add new image to modula images
-				$modula_images[ $index ] = $new_image;
 			}
-
-			// Add images to gallery meta
-			update_post_meta( $post_id, 'modula-images', $modula_images );
-
-		}else{
-
-			delete_post_meta( $post_id, 'modula-images' );
-
 		}
 
 		if ( isset( $_POST['modula-settings'] ) ) {
