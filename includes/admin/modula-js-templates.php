@@ -7,19 +7,6 @@
             <a href="#" class="modula-edit-image""><span class="dashicons dashicons-edit"></span></a>
             <a href="#" class="modula-delete-image""><span class="dashicons dashicons-trash"></span></a>
         </div>
-        <div class="values">
-            <input type="hidden" name="modula-images[id][{{data.index}}]" class="modula-image-id" value="{{ data.id }}">
-            <input type="hidden" name="modula-images[alt][{{data.index}}]" class="modula-image-alt" value="{{ data.alt }}">
-            <input type="hidden" name="modula-images[title][{{data.index}}]" class="modula-image-title" value="{{ data.title }}">
-            <input type="hidden" name="modula-images[description][{{data.index}}]" class="modula-image-description" value="{{ data.description }}">
-            <input type="hidden" name="modula-images[halign][{{data.index}}]" class="modula-image-halign" value="{{ data.halign }}">
-            <input type="hidden" name="modula-images[valign][{{data.index}}]" class="modula-image-valign" value="{{ data.valign }}">
-            <input type="hidden" name="modula-images[link][{{data.index}}]" class="modula-image-link" value="{{ data.link }}">
-            <input type="hidden" name="modula-images[target][{{data.index}}]" class="modula-image-target" value="{{ data.target }}">
-            <input type="hidden" name="modula-images[width][{{data.index}}]" class="modula-image-width" value="{{ data.width }}">
-            <input type="hidden" name="modula-images[height][{{data.index}}]" class="modula-image-height" value="{{ data.height }}">
-            <?php do_action( 'modula_item_extra_fields' ) ?>
-        </div>
         <div class="segrip ui-resizable-handle ui-resizable-se"></div>
     </div>
 </script>

@@ -130,6 +130,9 @@ class Modula {
 	        	'strings' => array(
 	        		'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
 	        	),
+	        	'id' => $post_id,
+	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
+	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
 	        );
 
 	        // Get all items from current gallery.
