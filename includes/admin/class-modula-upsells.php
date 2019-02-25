@@ -76,7 +76,7 @@ class Modula_Upsells {
 	public function speedup_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Looking to make your gallery load faster ?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula PRO today and enjoy unlimited CDN & unlimited, on-the-fly image optimization through ShortPixel\'s API.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them and serving them from StackPath’s content delivery network.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'speedup' );
 
