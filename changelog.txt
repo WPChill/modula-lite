@@ -1,3 +1,10 @@
+= 2.0.6 =
+* Changed how we save images
+* Change some strings
+* Fixed "scroll issue"
+* Added shortcode column
+
+
 = 2.0.5 =
 * Added responsive options for custom grid
 * Compatibility with WP Real Media Library( https://matthias-web.com/wordpress/real-media-library/ )
