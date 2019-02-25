@@ -93,6 +93,10 @@ class Modula_CPT {
 		/*  */
 		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
 
+		// Post Table Columns
+		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
+		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
+
 		/* Load Fields Helper */
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
 
@@ -345,4 +349,24 @@ class Modula_CPT {
 
 		<?php
 	}
+
+	public function add_columns( $columns ){
+
+		$date = $columns['date'];
+		unset( $columns['date'] );
+		$columns['shortcode'] = esc_html__( 'Shortcode', 'modula-best-grid-gallery' );
+		$columns['date'] = $date;
+		return $columns;
+
+	}
+
+	public function outpu_column( $column, $post_id ){
+
+		if ( 'shortcode' == $column ) {
+			$shortcode = '[modula id="' . $post_id . '"]';
+			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
+		}
+
+	}
+
 }
