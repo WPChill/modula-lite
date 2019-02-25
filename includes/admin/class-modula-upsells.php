@@ -65,7 +65,7 @@ class Modula_Upsells {
 	public function video_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Trying to add a video to your gallery?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to add your stunning videos to your gallery...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'video' );
 
