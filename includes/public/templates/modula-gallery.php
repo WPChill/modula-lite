@@ -1,8 +1,24 @@
+<?php
+/** -------------------------------------------------------------------- *\
+ * 	edobees modification to address <style> inside <div>.
+ *	Feb. 27, 2019 - <edo_mod> is used to mark changes.
+ * 	see 'class-modula-shortcode.php' for more information.
+\** -------------------------------------------------------------------- */
+?>
 <div id="<?php echo esc_attr($data->gallery_id) ?>" class="modula modula-gallery" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
 
-	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
-
-	<div class='items'>
+	<?php do_action( 'modula_shortcode_before_items', $data->settings ); 
+	
+	// <edo_mod> begin: make inline-style attributes from settings
+	$style = "";
+	$g_settings = $data->settings;
+	if ( 'custom-grid' != $g_settings['type'] ) {
+		$style .= ' style="width:' . esc_attr($g_settings['width']) .
+		'; height:' . absint( $g_settings['height'] ) . 'px;"';
+	}
+	// <edo_mod> end: but don't forget to echo $style after class...
+	?>
+	<div class='items' <?php echo $style;?>>
 		<?php
 
 		foreach ( $data->images as $image ) {
@@ -44,6 +60,9 @@
 					'alt'         => esc_attr( $image['alt'] ),
 				),
 			);
+			
+			// <edo_mod>: add gallery 'settings' to $item_data
+			$item_data['g_settings'] = $g_settings;
 
 			/**
 			 * Hook: modula_shortcode_item_data.

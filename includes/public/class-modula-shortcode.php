@@ -1,5 +1,18 @@
 <?php
-
+/** -------------------------------------------------------------------- *\
+ * 	edobees modification to address <style> inside <div>.
+ *	Feb. 27, 2019 - <edo_mod> is used to mark changes.
+ *	
+ *	Summary of Modifications 
+ *	+ Do not 'generate_gallery_css( $gallery_id, $settings )'
+ *	  'generate_gallery_css' became obsolete, but was used for documentation.
+ *	+ Generate separate style attributes instead of <style> tag
+ *		- styling was moved into item.php & modula-gallery.php 
+ *		- That required passing 'settings' into tem.php
+ *	
+ *	NOTE: With this modifications 'apply_filters( 'modula_shortcode_css'...)'
+ *	is no longer supported! 
+\** -------------------------------------------------------------------- */
 /**
  * 
  */
@@ -161,7 +174,8 @@ class Modula_Shortcode {
 
 		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );
 
-		echo $this->generate_gallery_css( $gallery_id, $settings );
+		// <edo_mod> Do not insert <style> tag into a <div> tag!
+		// echo $this->generate_gallery_css( $gallery_id, $settings );
 		$this->loader->set_template_data( $template_data );
     	$this->loader->get_template_part( 'modula', 'gallery' );
 
@@ -174,23 +188,30 @@ class Modula_Shortcode {
 
 			$css = "<style>";
 
+			// <edo_mod> moved into item.php
 			if ( $settings['borderSize'] ) {
 				$css .= "#{$gallery_id} .item { border: " . absint($settings['borderSize']) . "px solid " . sanitize_hex_color($settings['borderColor']) . "; }";
 			}
 
+			// <edo_mod> moved into item.php
 			if ( $settings['borderRadius'] ) {
 				$css .= "#{$gallery_id} .item { border-radius: " . absint($settings['borderRadius']) . "px; }";
 			}
 
+			// <edo_mod> moved into item.php
 			if ( $settings['shadowSize'] ) {
 				$css .= "#{$gallery_id} .item { box-shadow: " . sanitize_hex_color($settings['shadowColor']) . " 0px 0px " . absint($settings['shadowSize']) . "px; }";
 			}
-
+			
+			// <edo_mod> moved into item.php
 			if ( $settings['socialIconColor'] ) {
 				$css .= "#{$gallery_id} .item .jtg-social a { color: " . sanitize_hex_color($settings['socialIconColor']) . " }";
 			}
 
+			// <edo_mod> ??? class 'caption' seems deprecated ???
 			$css .= "#{$gallery_id} .item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";
+			
+			// <edo_mod> --> ??? override below ???
 			if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {
 				$css .= "#{$gallery_id} .item .figc {";
 				if ( '' != $settings['captionColor'] ) {
@@ -199,17 +220,23 @@ class Modula_Shortcode {
 				$css .= '}';
 			}
 
+			// <edo_mod> moved into item.php
 			if ( '' != $settings['titleFontSize'] && 0 != $settings['titleFontSize'] ) {
 				$css .= "#{$gallery_id} .item .figc h2.jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
 			}
 
+			// <edo_mod> moved into item.php
 			$css .= "#{$gallery_id} .item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 			
+			// <edo_mod> moved into modula-gallery.php
 			if ( 'custom-grid' != $settings['type'] ) {
 				$css .= "#{$gallery_id} .items { width:" . esc_attr($settings['width']) . "; height:" . absint( $settings['height'] ) . "px; }";
 			}
 
+			// <edo_mod> moved into item.php
 			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
+			
+			// <edo_mod> moved into item.php
 			$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
