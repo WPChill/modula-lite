@@ -39,6 +39,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         checkSave: function() {
             var self = this;
+
+            $('#publishing-action .spinner').addClass( 'is-active' );
+            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
+
             if ( ! self.updateInterval ) {
                 self.updateInterval = setInterval( $.proxy( self.saveImages, self ), 1000);
             }else{
@@ -66,7 +70,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 data: ajaxData,
                 dataType: 'json',
             }).done(function( msg ) {
-                /* Maybe we should make some interactions ?!?! */
+                $('#publishing-action .spinner').removeClass( 'is-active' );
+                $('#publishing-action #publish').removeAttr( 'disabled' );
             });
 
         }
@@ -187,15 +192,17 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         },
 
-        checkSave: function( var1, var2 ) {
+        checkSave: function() {
 
             var self = this,
                 changedAttributes = _.keys( self.changedAttributes() );
 
             if ( changedAttributes.includes( 'index' ) ) {
-                console.log( 'changedAttribute Index' );
                 return;
             }
+
+            $('#publishing-action .spinner').addClass( 'is-active' );
+            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
 
             if ( ! self.updateInterval ) {
                 self.updateInterval = setInterval( $.proxy( self.saveImage, self ), 1000 );
@@ -218,7 +225,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 data: ajaxData,
                 dataType: 'json',
             }).done(function( msg ) {
-                /* Maybe we should make some interactions ?!?! */
+                $('#publishing-action .spinner').removeClass( 'is-active' );
+                $('#publishing-action #publish').removeAttr( 'disabled' );
             });
 
         }
