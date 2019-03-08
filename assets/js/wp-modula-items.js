@@ -135,9 +135,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             var attributes = this.toJSON(),
                 data = {};
 
-            console.log( attributes );
             jQuery.each( attributes, function( attribute, value ){
-
                 if ( 'object' != typeof value ) {
                     data[ attribute ] = value;
                 }
