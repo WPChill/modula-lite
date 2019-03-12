@@ -13,6 +13,7 @@ class Modula_Upsells {
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ) );
 		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
 		add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
+		add_filter( 'modula_filters_tab_content', array( $this, 'filters_tab_upsell' ) );
 
 	}
 
@@ -79,6 +80,17 @@ class Modula_Upsells {
 		$upsell_description = esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them and serving them from StackPath’s content delivery network.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'speedup' );
+
+		return $tab_content;
+
+	}
+
+	public function filters_tab_upsell( $tab_content ) {
+
+		$upsell_title       = esc_html__( 'Looking to add filters to your gallery?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to filters and separate the images in your gallery.', 'modula-best-grid-gallery' );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters' );
 
 		return $tab_content;
 
