@@ -166,9 +166,8 @@ class Modula {
 	        }
 
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css' );
-			// wp_enqueue_style( 'modula-icons', MODULA_URL . 'assets/css/materialdesignicons.css' );
-			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css' );
+			wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
 
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
@@ -187,12 +186,12 @@ class Modula {
 			do_action( 'modula_scripts_after_wp_modula' );
 
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css' );
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css', null, MODULA_LITE_VERSION );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/addons.css' );
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/addons.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}elseif ( 'edit.php' == $hook  ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css' );
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css', null, MODULA_LITE_VERSION );
 		}
 
 	}

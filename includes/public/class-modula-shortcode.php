@@ -24,18 +24,18 @@ class Modula_Shortcode {
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css' );
+		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
 
 		// @todo: move effects to modula style
-		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, null );
-		wp_register_style( 'modula-effects', MODULA_URL . 'assets/css/effects.css', null, null );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-effects', MODULA_URL . 'assets/css/effects.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), null, true );
-		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), null, true );
+		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), null, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 
