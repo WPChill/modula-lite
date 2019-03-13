@@ -91,10 +91,11 @@ class Modula_Shortcode {
 		}
 
 		/* Get gallery images */
+		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
 		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
 			shuffle( $images );
 		}
-		$images = apply_filters( 'modula_gallery_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
+		$images = apply_filters( 'modula_gallery_images', $images, $settings );
 
 		if ( empty( $settings ) || empty( $images ) ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
