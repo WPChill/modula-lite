@@ -393,7 +393,7 @@ class Modula_CPT_Fields_Helper {
 			),
 			'responsive' => array(
 				'enable_responsive' => array(
-					"name"        => esc_html__( 'Custom responsivness', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Custom responsiveness', 'modula-best-grid-gallery' ),
 					"description" => esc_html__( 'Force the gallery to show a certain number of column on tablet/mobile devices', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
