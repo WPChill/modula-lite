@@ -103,16 +103,16 @@ class Modula_Field_Builder {
 		echo '</div>';
 		echo '</div>';
 		echo '<div class="buttons">';
-		echo '<a href="#" id="modula-uploader-browser" class="button">Upload image files</a><a href="#" id="modula-wp-gallery" class="button button-primary">Select from Library</a>';
+		echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
 		echo '</div>';
 		echo '</div>';
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';
 			echo '<div class="modula-error-container"></div>';
 			echo '<div class="modula-uploader-inline-content">';
-				echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>Drag & Drop files here!</h2>';
+				echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>' . esc_html__( 'Drag & Drop files here!', 'modula-best-grid-gallery' ) . '</h2>';
 				echo '<div id="modula-grid" style="display:none"></div>';
 			echo '</div>';
-			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>Drop files to upload</h1></div></div>';
+			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
 		echo '</div>';
 
 		// Helper Guildelines Toggle
@@ -175,9 +175,9 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= '<a href="https://wp-modula.com/docs/" target="_blank" class="button"><span class="dashicons dashicons-sos"></span>' . esc_html__( 'Read The Documentation', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= '<a href="https://wp-modula.com/docs/" target="_blank" class="button"><span class="dashicons dashicons-sos"></span>' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="button button-primary"><span class="dashicons dashicons-email-alt"></span>' . esc_html__( 'Need help? Get in touch', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="button button-primary"><span class="dashicons dashicons-email-alt"></span>' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
@@ -216,10 +216,16 @@ class Modula_Field_Builder {
 	/* Create HMTL for a tab */
 	private function _render_tab( $tab, $first = false ) {
 		$icon = '';
+		$badge = '';
+
 		if ( isset( $tab['icon'] ) ) {
 			$icon = '<i class="' . esc_attr( $tab['icon'] ) . '"></i>';
 		}
-		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( $tab['label'] ) . '</div>';
+
+		if ( isset( $tab['badge'] ) ) {
+			$badge = '<sup>' . esc_html( $tab['badge'] ) . '</sup>';
+		}
+		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . ' modula-' . esc_attr( $tab['id'] ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( $tab['label'] ) . $badge . '</div>';
 	}
 
 	/* Create HMTL for a row */

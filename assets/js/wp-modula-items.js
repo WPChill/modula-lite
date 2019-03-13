@@ -4,6 +4,15 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
     var modulaItemsCollection = Backbone.Collection.extend({
         maxFiles: 20,
+        updateInterval: false,
+
+        initialize: function() {
+            
+            // Listen to remove items from collections
+            this.listenTo( this, 'remove', this.checkSave );
+            this.listenTo( this, 'add', this.checkSave );
+
+        },
 
         moveItem: function( model, index ){
             var currentIndex = this.indexOf( model );
@@ -25,6 +34,45 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             }
 
             this.add( model );
+
+        },
+
+        checkSave: function() {
+            var self = this;
+
+            $('#publishing-action .spinner').addClass( 'is-active' );
+            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
+
+            if ( ! self.updateInterval ) {
+                self.updateInterval = setInterval( $.proxy( self.saveImages, self ), 1000);
+            }else{
+                clearInterval( self.updateInterval );
+                self.updateInterval = setInterval( $.proxy( self.saveImages, self ), 1000);
+            }
+        },
+
+        saveImages: function() {
+            var images = [],
+                ajaxData, self = this;
+            clearInterval( this.updateInterval );
+
+            this.each( function( item ) {
+                var attributes = item.getAttributes();
+                images[ attributes['index'] ] = attributes;
+            });
+
+            ajaxData = { '_wpnonce' : modulaHelper['_wpnonce'], 'action' : 'modula_save_images', gallery : modulaHelper['id'] };
+            ajaxData['images'] = JSON.stringify( images );
+
+            $.ajax({
+                method: 'POST',
+                url: modulaHelper['ajax_url'],
+                data: ajaxData,
+                dataType: 'json',
+            }).done(function( msg ) {
+                $('#publishing-action .spinner').removeClass( 'is-active' );
+                $('#publishing-action #publish').removeAttr( 'disabled' );
+            });
 
         }
 
@@ -56,6 +104,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             'index':       '',
             'orientation': 'landscape'
         },
+        updateInterval: false,
 
         initialize: function( args ){
 
@@ -76,8 +125,23 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 this.set( 'resize', true );
                 this.resize();
             }
-         
+            
+            // save
+            this.listenTo( this, 'change', this.checkSave );
 
+        },
+
+        getAttributes: function(){
+            var attributes = this.toJSON(),
+                data = {};
+
+            jQuery.each( attributes, function( attribute, value ){
+                if ( 'object' != typeof value ) {
+                    data[ attribute ] = value;
+                }
+            });
+
+            return data;
         },
 
         resize: function() {
@@ -125,6 +189,45 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             modula.GalleryView.resetPackary();
 
         },
+
+        checkSave: function() {
+
+            var self = this,
+                changedAttributes = _.keys( self.changedAttributes() );
+
+            if ( changedAttributes.includes( 'index' ) ) {
+                return;
+            }
+
+            $('#publishing-action .spinner').addClass( 'is-active' );
+            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
+
+            if ( ! self.updateInterval ) {
+                self.updateInterval = setInterval( $.proxy( self.saveImage, self ), 1000 );
+            }else{
+                clearInterval( self.updateInterval );
+                self.updateInterval = setInterval( $.proxy( self.saveImage, self ), 1000 );
+            }
+        },
+
+        saveImage: function() {
+            var json = this.getAttributes();
+            clearInterval( this.updateInterval );
+
+            ajaxData = { '_wpnonce': modulaHelper['_wpnonce'], 'action': 'modula_save_image', 'gallery': modulaHelper['id'] };
+            ajaxData['image'] = JSON.stringify( json );
+
+            $.ajax({
+                method: 'POST',
+                url: modulaHelper['ajax_url'],
+                data: ajaxData,
+                dataType: 'json',
+            }).done(function( msg ) {
+                $('#publishing-action .spinner').removeClass( 'is-active' );
+                $('#publishing-action #publish').removeAttr( 'disabled' );
+            });
+
+        }
 
     } );
 
@@ -291,6 +394,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         updateIndex: function( event, data ) {
+
             this.model.set( 'index', data.index );
             modula.Items.moveItem( this.model, data.index );
             this.render();

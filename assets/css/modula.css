@@ -1,9 +1,9 @@
-@charset "UTF-8";
 .modula .items .item {
 	position: absolute;
 	overflow: hidden;
 	transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
 	opacity: 0;
+	box-sizing: border-box;
 }
 .modula .items .item > a {
 	display: block;

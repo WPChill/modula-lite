@@ -20,6 +20,26 @@
     width: 161px;
     position: relative;
 }
+.modula-settings-container .modula-tabs .modula-tab sup {
+  margin-left: 5px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 8px;
+  background: #9c9c9c;
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  top: -2px;
+}
+.modula-settings-container .modula-tabs .modula-tab:hover sup,
+.modula-settings-container .modula-tabs .modula-tab.active-tab sup {
+  background-color: #57a7c9;
+}
+.modula-settings-container .modula-tabs .modula-tab.modula-responsive:hover sup,
+.modula-settings-container .modula-tabs .modula-tab.modula-responsive.active-tab sup {
+  background:#dc3232;
+}
 .modula-settings-container .modula-tabs .modula-tab > i {
 	margin-right: 10px;
 	margin-left: 15px;
@@ -429,7 +449,53 @@ tr label.th-label {
     box-sizing: border-box;
 }
 .modula-upload-actions .buttons {
-  flex-shrink: 0;
+    flex-shrink: 0;
+    width: 275px;
+    display: flex;
+}
+.modula-sources-dropdown {
+  position: relative;
+  border-top: 1px solid rgba( 255,255,255,0 );
+    border-right: 1px solid rgba( 255,255,255,0 );
+    border-left: 1px solid rgba( 255,255,255,0 );
+}
+.modula-sources-dropdown:hover {
+  border-color: #ddd;
+  background: #f5f5f5;
+}
+.modula-sources-dropdown > span {
+  width: 28px;
+  height: 32px;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+}
+.modula-sources-dropdown .modula-sources-dropdown-content {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  transform: translateY( 100% );
+  display: none;
+  padding: 15px;
+  background-color: #f5f5f5;
+  box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+}
+.modula-sources-dropdown:hover .modula-sources-dropdown-content {
+  display: block;
+}
+.modula-sources-dropdown:hover .modula-sources-dropdown-content:before {
+  content: "";
+  height: 1px;
+  width: 28px;
+  background-color: #f5f5f5;
+  position: absolute;
+  top: -1px;
+  right: 0;
 }
 .segrip.ui-resizable-se {
 	width: 20px;
@@ -1023,5 +1089,3 @@ a.modula-tab-link {
 
 .modula-toggle__input[type=checkbox]:checked + .modula-toggle__items .modula-toggle__on {
   display: inline-block; }
-
-

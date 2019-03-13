@@ -71,8 +71,8 @@ class Modula {
 	}
 
 	private function define_admin_hooks() {
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+    
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
 		add_action( 'wp_ajax_modula-reload-addons', array( $this, 'reload_addons' ), 20 );
 
@@ -131,6 +131,9 @@ class Modula {
 	        	'strings' => array(
 	        		'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
 	        	),
+	        	'id' => $post_id,
+	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
+	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
 	        );
 
 	        // Get all items from current gallery.
@@ -167,18 +170,18 @@ class Modula {
 			// wp_enqueue_style( 'modula-icons', MODULA_URL . 'assets/css/materialdesignicons.css' );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css' );
 
-			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), '1.0.0', true );
-			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.pkgd.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), '2.0.0', true );
-			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), '2.0.0', true );
-			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/wp-modula-items.js', array(), '2.0.0', true );
-			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/wp-modula-modal.js', array(), '2.0.0', true );
-			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), '2.0.0', true );
-			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/wp-modula-gallery.js', array(), '2.0.0', true );
-			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/wp-modula-conditions.js', array(), '2.0.0', true );
+			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/wp-modula-items.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/wp-modula-modal.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/wp-modula-gallery.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/wp-modula-conditions.js', array(), MODULA_LITE_VERSION, true );
 
 			do_action( 'modula_scripts_before_wp_modula' );
 
-			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/wp-modula.js', array(), '2.0.0', true );
+			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/wp-modula.js', array(), MODULA_LITE_VERSION, true );
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
@@ -187,7 +190,7 @@ class Modula {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css' );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/addons.css' );
-			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), '2.0.0', true );
+			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}elseif ( 'edit.php' == $hook  ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css' );
 		}
