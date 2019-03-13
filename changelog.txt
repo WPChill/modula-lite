@@ -8,7 +8,7 @@
 * Added Filter tab as upsell
 * Added option to hide/show lightbox arrow on desktop/mobile
 * Fixed Custom responsiveness issue
-
+* Added Gutenberg block
 
 = 2.0.5 =
 * Added responsive options for custom grid
