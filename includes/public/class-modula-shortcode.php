@@ -32,11 +32,10 @@ class Modula_Shortcode {
 
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), null, true );
-		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.pkgd.min.js', array( 'jquery' ), null, true );
-
+		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), null, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery.modula.js', array( 'jquery' ), null, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), null, true );
 
 	}
 
@@ -84,17 +83,25 @@ class Modula_Shortcode {
 		$default = Modula_CPT_Fields_Helper::get_defaults();
 		$settings = wp_parse_args( $settings, $default );
 
+		$type = 'creative-gallery';
+		if ( isset( $settings['type'] ) ) {
+			$type = $settings['type'];
+		}else{
+			$settings['type'] = 'creative-gallery';
+		}
+
 		/* Get gallery images */
-		$images   = get_post_meta( $atts['id'], 'modula-images', true );
-		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] ) {
+		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
+		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
 			shuffle( $images );
 		}
+		$images = apply_filters( 'modula_gallery_images', $images, $settings );
 
 		if ( empty( $settings ) || empty( $images ) ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-		if ( isset( $settings['type'] ) && 'custom-grid' == $settings['type'] ) {
+		if ( 'custom-grid' == $type ) {
 			wp_enqueue_script( 'packery' );
 		}
 
@@ -103,7 +110,7 @@ class Modula_Shortcode {
 			case "lightbox2":
 				wp_enqueue_style( 'lightbox2_stylesheet' );
 				wp_enqueue_script( 'lightbox2_script' );
-				wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true});});' );
+				wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
 				break;
 			default:
 				do_action( 'modula_lighbox_shortcode', $settings['lightbox'] );
@@ -146,9 +153,12 @@ class Modula_Shortcode {
 			"enablePinterest" => boolval( $settings['enablePinterest'] ),
 			"enableGplus"     => boolval( $settings['enableGplus'] ),
 			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
-			'type'            => isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery',
+			'type'            => $type,
 			'columns'         => 12,
 			'gutter'          => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
+			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
+			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
+			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 		);
 
 		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );

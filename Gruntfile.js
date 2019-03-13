@@ -83,6 +83,12 @@ module.exports = function( grunt ) {
 			init: {
 				src: [ 'build/' ]
 			},
+			jsmin : {
+				src: [
+					'assets/js/*.min.js',
+					'assets/js/*.min.js.map',
+				]
+			}
 		},
 		copy: {
 			build: {
@@ -110,6 +116,40 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		concat: {
+			dist: {
+				src : [
+					// 'assets/js/lightbox/jquery.event.move.js',
+					// 'assets/js/lightbox/jquery.event.swipe.js',
+					// 'assets/js/lightbox/jquery-ui.js',
+					// 'assets/js/lightbox/hammer.js',
+					// 'assets/js/lightbox/jquery.hammer.js',
+					'assets/js/lightbox/lightbox.js',
+				],
+				dest: 'assets/js/lightbox.js'
+			},
+		},
+
+		uglify: {
+			jsfiles: {
+				files: [ {
+					expand: true,
+					cwd   : 'assets/js/',
+					src   : [
+						'*.js',
+						'!*.min.js',
+						'!Gruntfile.js',
+						'!wp-modula-*.js',
+						'!modula-addon.js',
+						'!modula-upgrade.js',
+						'!wp-modula.js'
+					],
+					dest  : 'assets/js/',
+					ext   : '.min.js'
+				} ]
+			},
+		},
+
 		compress: {
 			build: {
 				options: {
@@ -129,7 +169,13 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 
 	grunt.registerTask( 'textdomain', [
-		'checktextdomain'
+		'checktextdomain',
+		'makepot'
+	] );
+	grunt.registerTask( 'minjs', [  // Minify CSS
+		// 'concat',
+		'clean:jsmin',
+		'uglify'
 	] );
 	grunt.registerTask( 'mincss', [  // Minify CSS
 		'clean:css',

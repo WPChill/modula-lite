@@ -94,6 +94,10 @@ class Modula_CPT {
 		/*  */
 		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
 
+		// Post Table Columns
+		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
+		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
+
 		/* Load Fields Helper */
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
 
@@ -168,110 +172,27 @@ class Modula_CPT {
 			return $post_id;
 		}
 
-		// Here we will save gallery images
-		if ( isset( $_POST['modula-images'] ) ) {
+		// We need to resize our images
+		$images = get_post_meta( $post_id, 'modula-images', true );
+		if ( $images && is_array( $images ) ) {
+			if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
 
-			// This list will not contain id because we save our images based on image id.
-			$image_attributes = apply_filters( 'modula_gallery_image_attributes', array(
-				'alt',
-				'title',
-				'description',
-				'halign',
-				'valign',
-				'link',
-				'target',
-				'width',
-				'height',
-			) );
-
-			$modula_images = array();
-
-			$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field($_POST['modula-settings']['type']) : 'creative-gallery';
-			for ( $index=0; $index < count( $_POST['modula-images']['id'] ); $index++ ) {
-
-				if ( ! is_numeric( $_POST['modula-images']['id'][ $index ] ) ) {
-					continue;
-				}
-
-				$new_image = array();
-				$grid_sizes = array(
-					'width' => isset( $_POST['modula-images']['width'][ $index ] ) ? absint( $_POST['modula-images']['width'][ $index ] ) : 1,
-					'height' => isset( $_POST['modula-images']['height'][ $index ] ) ? absint( $_POST['modula-images']['height'][ $index ] ) : 1,
-				);
-
-				// Save the image's id
-				$new_image['id'] = absint( $_POST['modula-images']['id'][ $index ] );
-
-				// Get from the current image only accepted attributes
-				foreach ( $image_attributes as $attribute ) {
-					if ( isset( $_POST['modula-images'][ $attribute ][ $index ] ) ) {
-
-						switch ( $attribute ) {
-							case 'alt':
-								$new_image[ $attribute ] = sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'width':
-							case 'height':
-								$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'title':
-							case 'description' :
-								$new_image[ $attribute ] = wp_filter_post_kses( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'link' :
-								$new_image[ $attribute ] = esc_url_raw( $_POST['modula-images'][ $attribute ][ $index ] );
-								break;
-							case 'target':
-								if ( isset( $_POST['modula-images'][ $attribute ][ $index ] ) ) {
-									$new_image[ $attribute ] = absint( $_POST['modula-images'][ $attribute ][ $index ] );
-								}else{
-									$new_image[ $attribute ] = 0;
-								}
-								break;
-							case 'halign' :
-								if ( in_array( $_POST['modula-images'][ $attribute ][ $index ], array( 'left', 'right', 'center' ) ) ) {
-									$new_image[ $attribute ] = $_POST['modula-images'][ $attribute ][ $index ];
-								}else{
-									$new_image[ $attribute ] = 'center';
-								}
-								break;
-							case 'valign' :
-								if ( in_array( $_POST['modula-images'][ $attribute ][ $index ], array( 'top', 'bottom', 'middle' ) ) ) {
-									$new_image[ $attribute ] = $_POST['modula-images'][ $attribute ][ $index ];
-								}else{
-									$new_image[ $attribute ] = 'middle';
-								}
-								break;
-							default:
-								$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $_POST['modula-images'][ $attribute ][ $index ] ), $_POST['modula-images'][ $attribute ][ $index ], $attribute );
-								break;
-						}
-
-					}else{
-						$new_image[ $attribute ] = '';
-					}
-				}
-
-				// Check if we need to resize this image
-				if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
-					$img_size = absint( $_POST['modula-settings']['img_size'] );
+				$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field($_POST['modula-settings']['type']) : 'creative-gallery';
+				$img_size = absint( $_POST['modula-settings']['img_size'] );
+				
+				foreach ( $images as $image ) {
+					$grid_sizes = array(
+						'width' => isset( $image['width'] ) ? absint( $image['width'] ) : 1,
+						'height' => isset( $image['height'] ) ? absint( $image['height'] ) : 1,
+					);
 					$sizes = $this->resizer->get_image_size( $new_image['id'], $img_size, $gallery_type, $grid_sizes );
 					if ( ! is_wp_error( $sizes ) ) {
 						$this->resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 					}
+
 				}
 
-				// Add new image to modula images
-				$modula_images[ $index ] = $new_image;
 			}
-
-			// Add images to gallery meta
-			update_post_meta( $post_id, 'modula-images', $modula_images );
-
-		}else{
-
-			delete_post_meta( $post_id, 'modula-images' );
-
 		}
 
 		if ( isset( $_POST['modula-settings'] ) ) {
@@ -378,6 +299,7 @@ class Modula_CPT {
 	}
 
 	public function add_extensions_tab( $views ) {
+		$this->display_feedback_notice();
 		$this->display_extension_tab();
 		return $views;
 	}
@@ -413,4 +335,39 @@ class Modula_CPT {
 		<br />
 		<?php
 	}
+
+	public function display_feedback_notice() {
+		?>
+
+		<div class="notice modula-feedback-notice">
+			<p class="modula-feedback-title">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>
+				Modula Image Gallery
+			</p>
+			<p><?php esc_html_e( 'Do you enjoy using Modula? Please take a minute to suggest a feature or tell us what you think.', 'modula-best-grid-gallery' ); ?></p>
+			<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform"><?php esc_html_e( 'Submit Feedback', 'modula-best-grid-gallery' ); ?></a>
+		</div>
+
+		<?php
+	}
+
+	public function add_columns( $columns ){
+
+		$date = $columns['date'];
+		unset( $columns['date'] );
+		$columns['shortcode'] = esc_html__( 'Shortcode', 'modula-best-grid-gallery' );
+		$columns['date'] = $date;
+		return $columns;
+
+	}
+
+	public function outpu_column( $column, $post_id ){
+
+		if ( 'shortcode' == $column ) {
+			$shortcode = '[modula id="' . $post_id . '"]';
+			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
+		}
+
+	}
+
 }

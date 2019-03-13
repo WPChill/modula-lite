@@ -1,5 +1,5 @@
 {
-	"name": "modula-best-grid-gallery",
+  "name": "modula-best-grid-gallery",
 	"main": "Gruntfile.js",
 	"version": "2.1.0",
 	"author": "Macho Themes",
@@ -43,4 +43,5 @@
 	"dependencies": {
 		"npm": "^6.0.1"
 	}
+
 }
