@@ -1,4 +1,4 @@
-= 2.0.6 =
+= 2.0.6 - 13.03.2019 =
 * Changed how we save images
 * Change some strings
 * Fixed "scroll issue"
@@ -9,6 +9,8 @@
 * Added option to hide/show lightbox arrow on desktop/mobile
 * Fixed Custom responsiveness issue
 * Added Gutenberg block
+
+For more information : https://github.com/MachoThemes/modula-lite/milestone/8?closed=1
 
 = 2.0.5 =
 * Added responsive options for custom grid
