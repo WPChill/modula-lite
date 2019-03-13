@@ -321,6 +321,18 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         this.init();
     }
 
+    Plugin.prototype.trunc = function ( v ) {
+
+        if ( Math.trunc ) {
+            return Math.trunc( v );
+        }else{
+            v = +v;
+            if (!isFinite(v)) return v;
+            
+            return (v - v % 1)   ||   (v < 0 ? -0 : v === 0 ? v : 0);
+        }
+    }
+
     // Create custom grid gallery based on packery.
     Plugin.prototype.createCustomGallery = function () {
 
@@ -341,9 +353,9 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         }
 
         if ( this.options.gutter > 0 ) {
-            size = Math.trunc( ( containerWidth - this.options.gutter * columns ) / columns );
+            size = plugin.trunc( ( containerWidth - this.options.gutter * columns ) / columns );
         }else{
-            size = Math.trunc( containerWidth / columns );
+            size = plugin.trunc( containerWidth / columns );
         }
 
     	this.$items.not(".jtg-hidden").each(function (i, item) {
