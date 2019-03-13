@@ -12,7 +12,7 @@
  * @since      2.0.0
  */
 class Modula {
-	
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -22,7 +22,7 @@ class Modula {
 	 * @since    2.0.0
 	 */
 	public function __construct() {
-		
+
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -41,12 +41,13 @@ class Modula {
 		require_once MODULA_PATH . 'includes/admin/class-modula-admin.php';
 
 		require_once MODULA_PATH . 'includes/public/class-modula-shortcode.php';
+		require_once MODULA_PATH . 'includes/class-modula-gutenberg.php';
 
 		if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			// require_once MODULA_PATH . 'includes/admin/class-modula-admin-pointers.php';
-			
+
 			if ( ! class_exists( 'Epsilon_Review' ) ) {
 				require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 			}
@@ -70,7 +71,7 @@ class Modula {
 	}
 
 	private function define_admin_hooks() {
-		
+    
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
 		add_action( 'wp_ajax_modula-reload-addons', array( $this, 'reload_addons' ), 20 );
@@ -97,7 +98,7 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
-		
+
 	}
 
 	/* Enqueue Admin Scripts */
@@ -117,7 +118,7 @@ class Modula {
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 
 		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
-			
+
 			/* CPT Styles & Scripts */
 			// Media Scripts
 			wp_enqueue_media( array(
