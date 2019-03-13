@@ -3,6 +3,11 @@
 * Change some strings
 * Fixed "scroll issue"
 * Added shortcode column
+* Fixed error on IE
+* Fixed random images with max count issue
+* Added Filter tab as upsell
+* Added option to hide/show lightbox arrow on desktop/mobile
+* Fixed Custom responsiveness issue
 
 
 = 2.0.5 =
