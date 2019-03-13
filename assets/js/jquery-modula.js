@@ -330,7 +330,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             columns = this.options.columns,
             viewport = document.documentElement.clientWidth;
 
-        if ( this.options.enableResponsive ) {
+        if ( '1' == this.options.enableResponsive ) {
 
             if ( viewport <= 568 ) {
                 columns = this.options.mobileColumns;
@@ -356,7 +356,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             	widthColumns = 12;
             }
 
-            if ( plugin.options.enableResponsive ) {
+            if ( '1' == plugin.options.enableResponsive ) {
                 auxWidth = widthColumns;
                 auxHeight = heightColumns;
 
