@@ -62,6 +62,7 @@ class Modula_CPT {
 			'has_archive'           => false,
 			'exclude_from_search'   => true,
 			'rewrite'               => false,
+			'show_in_rest'          => true,
 		) );
 
 		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', array(
@@ -83,7 +84,7 @@ class Modula_CPT {
 		) );
 
 		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
-		
+
 		add_action( 'init', array( $this, 'register_cpt' ) );
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -152,7 +153,7 @@ class Modula_CPT {
 	public function output_gallery_images() {
 		$this->builder->render( 'gallery' );
 	}
-	
+
 	public function output_gallery_settings() {
 		$this->builder->render( 'settings' );
 	}
@@ -195,7 +196,7 @@ class Modula_CPT {
 		}
 
 		if ( isset( $_POST['modula-settings'] ) ) {
-			
+
 			$fields_with_tabs = Modula_CPT_Fields_Helper::get_fields( 'all' );
 
 			// Here we will save all our settings
