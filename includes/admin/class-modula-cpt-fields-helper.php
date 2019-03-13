@@ -208,6 +208,18 @@ class Modula_CPT_Fields_Helper {
 					),
 					'priority' => 110,
 				),
+				"show_navigation" => array(
+					"name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 1,
+					'priority'    => 111,
+				),
+				"show_navigation_on_mobile" => array(
+					"name"        => esc_html__( 'Show lightbox navigation on mobile', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					'priority'    => 112,
+				),
 				"shuffle"         => array(
 					"name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -440,6 +452,8 @@ class Modula_CPT_Fields_Helper {
 			'margin'           => '10',
 			'randomFactor'     => '50',
 			'lightbox'         => 'lightbox2',
+			'show_navigation'  => 1,
+			'show_navigation_on_mobile' => 0,
 			'shuffle'          => 0,
 			'captionColor'     => '#ffffff',
 			'wp_field_caption' => 'none',

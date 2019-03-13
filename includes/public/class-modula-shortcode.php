@@ -109,7 +109,7 @@ class Modula_Shortcode {
 			case "lightbox2":
 				wp_enqueue_style( 'lightbox2_stylesheet' );
 				wp_enqueue_script( 'lightbox2_script' );
-				wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true});});' );
+				wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
 				break;
 			default:
 				do_action( 'modula_lighbox_shortcode', $settings['lightbox'] );
