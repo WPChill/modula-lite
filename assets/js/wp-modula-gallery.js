@@ -9,6 +9,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             'containerSize': false,
             'size': false,
         },
+
         initialize: function( args ){
             var resizer = this;
 
@@ -30,6 +31,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 resizer.windowResize();
             });
         },
+        
         generateSize: function(){
         	var columns = this.get( 'columns' ),
         		gutter = this.get( 'gutter' ),
