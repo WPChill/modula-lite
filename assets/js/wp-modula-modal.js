@@ -269,7 +269,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         * Saves the image metadata
         */
         saveItem: function( event ) {
-            var view;
+            var view,
+                self = this,
+                item = this.model.get( 'item' );
 
             event.preventDefault();
 
@@ -280,29 +282,33 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             view = this.item.get( 'view' );
             view.render();
 
-            // Tell the view we've finished successfully
-            this.trigger( 'loaded loaded:success' );
-
             // Show the user the 'saved' notice for 1.5 seconds
             var saved = this.$el.find( '.saved' );
             saved.fadeIn();
-            setTimeout( function() {
+
+            wp.Modula.Save.saveImage( item.get( 'id' ), function(){
+                // Tell the view we've finished successfully
+                self.trigger( 'loaded loaded:success' );
                 saved.fadeOut();
-            }, 1500 );
+            });
 
         },
 
         saveItemAndClose: function ( event ){
-            var view;
+            var view,
+                self = this;
 
             event.preventDefault();
 
             // Tell the View we're loading
             this.trigger( 'loading' );
 
-            // Get item view and render it.
-            view = this.model.get( 'wpMediaView' );
-            view.close();
+            clearInterval( wp.Modula.Save.updateInterval );
+            wp.Modula.Save.saveImages( function(){
+                // Get item view and render it.
+                view = self.model.get( 'wpMediaView' );
+                view.close();
+            });
 
         },
 

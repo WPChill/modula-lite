@@ -7,18 +7,19 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         updateInterval: false,
 
         initialize: function() {
-            
             // Listen to remove items from collections
-            this.listenTo( this, 'remove', this.checkSave );
-            this.listenTo( this, 'add', this.checkSave );
+            this.listenTo( this, 'remove', $.proxy( wp.Modula.Save.checkSave, wp.Modula.Save ) );
+            this.listenTo( this, 'add', $.proxy( wp.Modula.Save.checkSave, wp.Modula.Save ) );
+        },
 
+        modelId: function( attrs ) {
+            return attrs.id;
         },
 
         moveItem: function( model, index ){
             var currentIndex = this.indexOf( model );
 
             if ( currentIndex != index ) {
-
                 // silence this to stop excess event triggers
                 this.remove(model, {silent: true}); 
                 this.add(model, {at: index-1});
@@ -32,49 +33,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 var removedItem = this.at( 0 );
                 removedItem.delete();
             }
-
             this.add( model );
 
         },
-
-        checkSave: function() {
-            var self = this;
-
-            $('#publishing-action .spinner').addClass( 'is-active' );
-            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
-
-            if ( ! self.updateInterval ) {
-                self.updateInterval = setInterval( $.proxy( self.saveImages, self ), 1000);
-            }else{
-                clearInterval( self.updateInterval );
-                self.updateInterval = setInterval( $.proxy( self.saveImages, self ), 1000);
-            }
-        },
-
-        saveImages: function() {
-            var images = [],
-                ajaxData, self = this;
-            clearInterval( this.updateInterval );
-
-            this.each( function( item ) {
-                var attributes = item.getAttributes();
-                images[ attributes['index'] ] = attributes;
-            });
-
-            ajaxData = { '_wpnonce' : modulaHelper['_wpnonce'], 'action' : 'modula_save_images', gallery : modulaHelper['id'] };
-            ajaxData['images'] = JSON.stringify( images );
-
-            $.ajax({
-                method: 'POST',
-                url: modulaHelper['ajax_url'],
-                data: ajaxData,
-                dataType: 'json',
-            }).done(function( msg ) {
-                $('#publishing-action .spinner').removeClass( 'is-active' );
-                $('#publishing-action #publish').removeAttr( 'disabled' );
-            });
-
-        }
 
     });
 
@@ -127,7 +88,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             }
             
             // save
-            this.listenTo( this, 'change', this.checkSave );
+            // this.listenTo( this, 'change', this.checkSave );
 
         },
 
@@ -189,45 +150,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             modula.GalleryView.resetPackary();
 
         },
-
-        checkSave: function() {
-
-            var self = this,
-                changedAttributes = _.keys( self.changedAttributes() );
-
-            if ( changedAttributes.includes( 'index' ) ) {
-                return;
-            }
-
-            $('#publishing-action .spinner').addClass( 'is-active' );
-            $('#publishing-action #publish').attr( 'disabled', 'disabled' );
-
-            if ( ! self.updateInterval ) {
-                self.updateInterval = setInterval( $.proxy( self.saveImage, self ), 1000 );
-            }else{
-                clearInterval( self.updateInterval );
-                self.updateInterval = setInterval( $.proxy( self.saveImage, self ), 1000 );
-            }
-        },
-
-        saveImage: function() {
-            var json = this.getAttributes();
-            clearInterval( this.updateInterval );
-
-            ajaxData = { '_wpnonce': modulaHelper['_wpnonce'], 'action': 'modula_save_image', 'gallery': modulaHelper['id'] };
-            ajaxData['image'] = JSON.stringify( json );
-
-            $.ajax({
-                method: 'POST',
-                url: modulaHelper['ajax_url'],
-                data: ajaxData,
-                dataType: 'json',
-            }).done(function( msg ) {
-                $('#publishing-action .spinner').removeClass( 'is-active' );
-                $('#publishing-action #publish').removeAttr( 'disabled' );
-            });
-
-        }
 
     } );
 
@@ -381,6 +303,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             // Render our view in order to update  width/height.
             this.render();
 
+            // Save Image
+            wp.Modula.Save.saveImage( this.model.get( 'id' ) );
             modula.GalleryView.resetPackary();
         },
 

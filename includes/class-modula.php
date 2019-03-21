@@ -172,6 +172,7 @@ class Modula {
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-save', MODULA_URL . 'assets/js/wp-modula-save.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/wp-modula-items.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/wp-modula-modal.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
