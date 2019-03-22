@@ -121,3 +121,22 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 	return $item_data;
 
 }
+
+function modula_enable_lazy_load( $item_data, $item, $settings ){
+
+	if ( '1' != $settings['lazy_load'] ) {
+		return $item_data;
+	}
+
+	if ( isset( $item_data['img_classes'] ) && is_array( $item_data['img_classes'] ) ) {
+		$item_data['img_classes'][] = 'lazyload';
+	}
+
+	if ( isset( $item_data['img_attributes']['src'] ) ) {
+		unset( $item_data['img_attributes']['src'] );
+	}
+
+	$item_data['img_attributes']['data-source'] = 'modula';
+
+	return $item_data;
+}

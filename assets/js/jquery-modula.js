@@ -295,7 +295,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             enableTwitter: false,
             enableFacebook: false,
             enableGplus: false,
-            enablePinterest: false
+            enablePinterest: false,
+            lazyLoad: 0,
         };
 
     // The actual plugin constructor
@@ -680,7 +681,9 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         }
 
         // Load Images
-        this.loadImage(0);
+        if ( '1' != instance.options.lazyLoad ) {
+            this.loadImage(0);
+        }
 
         $(window).resize(function () {
             instance.onResize(instance);
@@ -688,6 +691,20 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         $(window).on( 'modula-update', function () {
             instance.onResize(instance);
+        });
+
+        $( document ).on('lazyloaded', function( evt ){
+            var element = $( evt.target ),
+                parent, index;
+
+            if ( 'modula' == element.data( 'source' ) ) {
+                element.data('size', { width: element.width(), height: element.height() });
+                parent = element.parents( '.item' );
+                parent.addClass( 'tg-loaded' );
+                index = instance.$items.index( parent );
+                instance.placeImage(index);
+            }
+
         });
 
         new ResizeSensor( instance.$element, function() {

@@ -36,6 +36,11 @@
 	transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
+.modula .items .item img.pic.lazyloaded,
+.modula .items .item img.pic.lazyload {
+	display: block;
+}
+
 .modula .items .item .description {
 	font-size:14px;
 }
