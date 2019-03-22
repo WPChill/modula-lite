@@ -95,7 +95,6 @@ class Modula_CPT_Fields_Helper {
 	    	'responsive' => array(
 				'label'       => esc_html__( 'Responsive', 'modula-best-grid-gallery' ),
 				'title'       => esc_html__( 'Responsive Settings', 'modula-best-grid-gallery' ),
-				'badge'       => esc_html__( 'Beta', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-smartphone",
 				'priority'    => 90,
 			),
@@ -391,6 +390,15 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 50,
 				),
 			),
+			'speedup'    => array(
+				'lazy_load' => array(
+					"name"        => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Enable/Disable lazy load', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					'priority'    => 1,
+				),
+			),
 			'responsive' => array(
 				'enable_responsive' => array(
 					"name"        => esc_html__( 'Custom responsiveness', 'modula-best-grid-gallery' ),
@@ -480,6 +488,7 @@ class Modula_CPT_Fields_Helper {
 		    'columns'          => 6,
 		    'gutter'           => 10,
 		    'helpergrid'       => 0,
+		    'lazy_load'        => 0,
 		) );
 	}
 

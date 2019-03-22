@@ -20,6 +20,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_shortcode_item_data', 'modula_check_lightboxes_and_links', 15, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
+		add_filter( 'modula_shortcode_item_data', 'modula_enable_lazy_load', 30, 3 );
 	}
 
 	public function add_gallery_scripts() {
@@ -33,6 +34,7 @@ class Modula_Shortcode {
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
 		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -105,6 +107,10 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'packery' );
 		}
 
+		if ( '1' == $settings['lazy_load'] ) {
+			wp_enqueue_script( 'lazysizes' );
+		}
+
 		/* Enqueue lightbox related scripts & styles */
 		switch ( $settings['lightbox'] ) {
 			case "lightbox2":
@@ -159,6 +165,7 @@ class Modula_Shortcode {
 			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
 			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
+			'lazyLoad'        => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
 		);
 
 		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );
