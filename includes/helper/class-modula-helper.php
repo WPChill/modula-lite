@@ -19,10 +19,14 @@ class Modula_Helper {
 		foreach ( $attributes as $name => $value ) {
 
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
+				$value = str_replace('<', '&lt;', $value );
+				$value = strip_tags( htmlspecialchars( $value ) );
 				$value = wp_strip_all_tags( $value );
+			}else{
+				$value = esc_attr( $value );
 			}
 
-			$return .= ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
+			$return .= ' ' . esc_attr( $name ) . '="' . $value . '"';
 		}
 
 		return $return;
