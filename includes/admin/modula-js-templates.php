@@ -40,7 +40,7 @@
                         <span class="name"><?php esc_html_e( 'Title', 'modula-best-grid-gallery' ); ?></span>
                         <input type="text" name="title" value="{{ data.title }}" />
                         <div class="description">
-                            <?php esc_html_e( 'Image titles can take any type of HTML. You can adjust the position of the titles in the main Lightbox settings.', 'modula-best-grid-gallery' ); ?>
+                            <?php esc_html_e( 'Image titles can take any type of HTML.', 'modula-best-grid-gallery' ); ?>
                         </div>
                     </label>
                   
