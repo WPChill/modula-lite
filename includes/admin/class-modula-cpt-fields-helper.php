@@ -439,6 +439,16 @@ class Modula_CPT_Fields_Helper {
 			),
 		) );
 
+		if ( ! isset( $fields['speedup']['lazy_load'] ) ) {
+			$fields['speedup']['lazy_load'] = array(
+				"name"        => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
+				"description" => esc_html__( 'Enable/Disable lazy load', 'modula-best-grid-gallery' ),
+				"type"        => "toggle",
+				"default"     => 0,
+				'priority'    => 0,
+			);
+		}
+
 		if ( 'all' == $tab ) {
 			return $fields;
 		}
