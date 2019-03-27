@@ -26,10 +26,7 @@ class Modula_Shortcode {
 	public function add_gallery_scripts() {
 
 		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
-
-		// @todo: move effects to modula style
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modula-effects', MODULA_URL . 'assets/css/effects.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -125,7 +122,7 @@ class Modula_Shortcode {
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ) );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula', 'modula-effects' ) );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ) );
 
 		if ( ! empty( $necessary_scripts ) ) {
 			foreach ( $necessary_scripts as $script ) {

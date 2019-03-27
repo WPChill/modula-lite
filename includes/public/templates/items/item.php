@@ -12,7 +12,7 @@
 
 	<?php do_action( 'modula_item_after_image', $data ); ?>
 
-	<div class="figc">
+	<div class="figc<?php echo '' == $data->title ? ' no-title' : '' ?><?php echo '' == $data->description ? ' no-description' : '' ?>">
 		<div class="figc-inner">
 			<?php if ( ! $data->hide_title ): ?>
 				<h2 class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></h2>
