@@ -8,25 +8,16 @@ class Modula_CPT_Fields_Helper {
 	public static function get_tabs() {
 
 		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own). Pick your favorite lightbox style and easily design your gallery.', 'modula-best-grid-gallery' ) . '</p>';
-		// $general_description .= self::generate_more_help_links();
-
 		$caption_description = '<p>' . esc_html__( 'The settings below adjust how the image title/description will appear on the front-end.', 'modula-best-grid-gallery' ) . '</p>';
-		// $caption_description .= self::generate_more_help_links();
-
 		$social_description = '<p>' . esc_html__( 'Here you can add social sharing buttons to your the images in your gallery.', 'modula-best-grid-gallery' ) . '</p>';
-		// $social_description .= self::generate_more_help_links();
-
 		$loadingeffects_description = '<p>' . esc_html__( 'The settings below adjust the effect applied to the images after the page is fully loaded.', 'modula-best-grid-gallery' ) . '</p>';
-		// $loadingeffects_description .= self::generate_more_help_links();
-
 		$hover_description = '<p>' . esc_html__( 'Select how your images will behave on hover. Hover styles for your images.', 'modula-best-grid-gallery' ) . '</p>';
-		// $hover_description .= self::generate_more_help_links();
-
 		$style_description = '<p>' . esc_html__( 'Here you can style the look of your images.', 'modula-best-grid-gallery' ) . '</p>';
-		// $style_description .= self::generate_more_help_links();
-
 		$customizations_description = '<p>' . esc_html__( 'Use this section to add custom CSS to your gallery for advanced modifications.', 'modula-best-grid-gallery' ) . '</p>';
-		// $customizations_description .= self::generate_more_help_links();
+		$filters_description = sprintf( '<p><strong>%s</strong><br><br>%s</p>',
+			esc_html__( 'Easily let website visitors sort photos in your gallery by adding filters.', 'modula-best-grid-gallery' ),
+			esc_html__( 'Use this tab to create new filters which you can then start assigning filters to by editing images individually or by using the bulk edit option.', 'modula-best-grid-gallery' )
+		);
 
 		return apply_filters( 'modula_gallery_tabs', array(
 			'general' => array(
@@ -39,6 +30,7 @@ class Modula_CPT_Fields_Helper {
 			'filters' => array(
 				'label'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
 				'title'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
+				'description' => $filters_description,
 				"icon"     => "dashicons dashicons-filter",
 				'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
 				'priority' => 15,
