@@ -2,6 +2,7 @@
 * Improved save sistem
 * Added Lazy Load function
 * Fixed XSS issue
+* Fixed minor CSS isues
 
 = 2.0.6 - 13.03.2019 =
 * Changed how we save images
