@@ -1,4 +1,4 @@
-= 2.0.6 - 13.03.2019 =
+= 2.0.7 - 13.03.2019 =
 * Improved save sistem
 * Added Lazy Load function
 * Fixed XSS issue
