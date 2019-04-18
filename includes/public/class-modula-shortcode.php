@@ -31,7 +31,7 @@ class Modula_Shortcode {
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
 		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -79,7 +79,7 @@ class Modula_Shortcode {
 
 		/* Get gallery settings */
 		$settings = get_post_meta( $atts['id'], 'modula-settings', true );
-		$default = Modula_CPT_Fields_Helper::get_defaults();
+		$default  = Modula_CPT_Fields_Helper::get_defaults();
 		$settings = wp_parse_args( $settings, $default );
 
 		$type = 'creative-gallery';
@@ -105,7 +105,7 @@ class Modula_Shortcode {
 		}
 
 		if ( '1' == $settings['lazy_load'] ) {
-			wp_enqueue_script( 'lazysizes' );
+			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
 		/* Enqueue lightbox related scripts & styles */
@@ -154,7 +154,7 @@ class Modula_Shortcode {
 			"enableTwitter"   => boolval( $settings['enableTwitter'] ),
 			"enableFacebook"  => boolval( $settings['enableFacebook'] ),
 			"enablePinterest" => boolval( $settings['enablePinterest'] ),
-			"enableGplus"     => boolval( $settings['enableGplus'] ),
+			"enableLinkedin"  => boolval( $settings['enableLinkedin'] ),
 			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
 			'type'            => $type,
 			'columns'         => 12,

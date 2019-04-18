@@ -26,7 +26,7 @@
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
-				"enableGplus"      => boolval( $data->settings['enableGplus'] ),
+				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'item' ),

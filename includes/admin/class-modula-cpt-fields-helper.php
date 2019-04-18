@@ -298,8 +298,8 @@ class Modula_CPT_Fields_Helper {
 					"description" => "",
 					'priority'    => 20,
 				),
-				"enableGplus"     => array(
-					"name"        => esc_html__( 'Add Google Plus Icon', 'modula-best-grid-gallery' ),
+				"enableLinkedin"  => array(
+					"name"        => esc_html__( 'Add LinkedIN Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
@@ -473,7 +473,7 @@ class Modula_CPT_Fields_Helper {
 		    'captionFontSize'  => '14',
 		    'titleFontSize'    => '16',
 		    'enableFacebook'   => 1,
-		    'enableGplus'      => 1,
+		    'enableLinkedin'   => 1,
 		    'enablePinterest'  => 1,
 		    'enableTwitter'    => 1,
 		    'filterClick'      => 0,
