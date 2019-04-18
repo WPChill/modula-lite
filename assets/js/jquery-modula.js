@@ -296,6 +296,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             enableFacebook: false,
             enableGplus: false,
             enablePinterest: false,
+            enableLinkedin: false,
             lazyLoad: 0,
         };
 
@@ -725,14 +726,21 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     };
 
     Plugin.prototype.setupSocial = function () {
-        if (this.options.enableTwitter)
+        if (this.options.enableTwitter){
             setupTwitter(this.$items, this);
-        if (this.options.enableFacebook)
+        }
+        if (this.options.enableFacebook){
             setupFacebook(this.$items, this);
-        if (this.options.enableGplus)
+        }
+        if (this.options.enableGplus){
             setupGplus(this.$items, this);
-        if (this.options.enablePinterest)
+        }
+        if (this.options.enablePinterest){
             setupPinterest(this.$items, this);
+        }
+        if (this.options.enableLinkedin){
+            setupLinkedIN(this.$items, this);
+        }
     }
 
     //credits James Padolsey http://james.padolsey.com/
@@ -806,6 +814,18 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             e.preventDefault();
 
             var url = "https://plus.google.com/share?url=" + encodeURI(location.href);
+
+            var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
+            w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
+            return false;
+        });
+    }
+
+    var setupLinkedIN = function ($tiles, plugin) {
+        $tiles.find(".modula-icon-linkedin").click(function (e) {
+            e.preventDefault();
+
+            var url = "//linkedin.com/shareArticle?mini=true&url=" +  + encodeURI(location.href);
 
             var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));

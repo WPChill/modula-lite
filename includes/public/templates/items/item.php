@@ -28,11 +28,11 @@
 				<?php if ( $data->enableFacebook ): ?>
 				<a class="modula-icon-facebook" href="#"><?php echo Modula_Helper::get_icon( 'facebook' ) ?></a>
 				<?php endif ?>
-				<?php if ( $data->enableGplus ): ?>
-				<a class="modula-icon-google-plus" href="#"><?php echo Modula_Helper::get_icon( 'google' ) ?></a>
-				<?php endif ?>
 				<?php if ( $data->enablePinterest ): ?>
 				<a class="modula-icon-pinterest" href="#"><?php echo Modula_Helper::get_icon( 'pinterest' ) ?></a>
+				<?php endif ?>
+				<?php if ( $data->enableLinkedin ): ?>
+				<a class="modula-icon-linkedin" href="#"><?php echo Modula_Helper::get_icon( 'linkedin' ) ?></a>
 				<?php endif ?>
 			</div>
 			<?php endif ?>
