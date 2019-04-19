@@ -355,7 +355,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         }
 
         if ( this.options.gutter > 0 ) {
-            size = plugin.trunc( ( containerWidth - this.options.gutter * columns ) / columns );
+            size = plugin.trunc( ( containerWidth - this.options.gutter * (columns-1) ) / columns );
         }else{
             size = plugin.trunc( containerWidth / columns );
         }
