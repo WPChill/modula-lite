@@ -108,6 +108,9 @@ class Modula_CPT {
 		/* Initiate Image Resizer */
 		$this->resizer = new Modula_Image();
 
+		// Ajax for removing notices
+		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
+
 	}
 
 	public function register_cpt() {
@@ -337,6 +340,12 @@ class Modula_CPT {
 	}
 
 	public function display_feedback_notice() {
+
+		$modula_options = get_option( 'modula-checks', array() );
+		if ( isset( $modula_options['edit-notice'] ) ) {
+			return;
+		}
+
 		?>
 
 		<div class="notice modula-feedback-notice">
@@ -346,6 +355,7 @@ class Modula_CPT {
 			</p>
 			<p><?php esc_html_e( 'Do you enjoy using Modula? Please take a minute to suggest a feature or tell us what you think.', 'modula-best-grid-gallery' ); ?></p>
 			<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform"><?php esc_html_e( 'Submit Feedback', 'modula-best-grid-gallery' ); ?></a>
+			<a href="#" class="notice-dismiss"></a>
 		</div>
 
 		<?php
@@ -367,6 +377,16 @@ class Modula_CPT {
 			$shortcode = '[modula id="' . $post_id . '"]';
 			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
 		}
+
+	}
+
+	public function dismiss_edit_notice(){
+
+		$modula_options = get_option( 'modula-checks', array() );
+		$modula_options['edit-notice'] = 1;
+		update_option( 'modula-checks', $modula_options );
+
+		die( '1' );
 
 	}
 
