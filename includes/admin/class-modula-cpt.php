@@ -385,7 +385,6 @@ class Modula_CPT {
 		$modula_options = get_option( 'modula-checks', array() );
 		$modula_options['edit-notice'] = 1;
 		update_option( 'modula-checks', $modula_options );
-
 		die( '1' );
 
 	}
