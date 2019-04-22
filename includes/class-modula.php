@@ -193,6 +193,7 @@ class Modula {
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}elseif ( 'edit.php' == $hook  ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/modula-edit.js', array(), MODULA_LITE_VERSION, true );
 		}
 
 	}
