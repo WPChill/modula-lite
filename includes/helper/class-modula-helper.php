@@ -19,9 +19,9 @@ class Modula_Helper {
 		foreach ( $attributes as $name => $value ) {
 
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
-				$value = str_replace('<', '&lt;', $value );
+				$value = str_replace('<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
-				$value = wp_strip_all_tags( $value );
+				$value = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $value );
 			}else{
 				$value = esc_attr( $value );
 			}
