@@ -130,7 +130,7 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Use this slider to adjust the spacing of images in your gallery.', 'modula-best-grid-gallery' ),
 					"min"         => 0,
 					"max"         => 100,
-					"step"        => 5,
+					"step"        => 1,
 					"default"     => 10,
 					'priority'    => 30,
 				),
