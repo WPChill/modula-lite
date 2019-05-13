@@ -93,7 +93,7 @@
 Modula Filters
  */
 .modula .filters {
-	margin:0 0 20px 0;
+	margin:20px 0 20px 0;
 }
 .modula .filters a {
 	text-decoration: none;
@@ -199,9 +199,40 @@ Modula Filters
 	z-index: 1;
 	transition: .4s;
 }
-	/**
-    End Modula Filters
-     */
+
+.filter-by-wrapper {
+	text-align:center;
+	margin-bottom:25px;
+	text-transform: uppercase;
+}
+
+.filter-by-wrapper span {
+	cursor:pointer;
+}
+
+.filter-by-wrapper span:after {
+	content:"";
+	margin-left:15px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 20px 15px 0 15px;
+	border-color: #0470e3 transparent transparent transparent;
+	display:inline-block;
+}
+
+.filter-by-wrapper.opened span:after {
+	content:"";
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 15px 20px 15px;
+	border-color: transparent transparent #d500ff transparent;
+	display:inline-block;
+}
+/**
+ End Modula Filters
+ */
 .modula .jtg-social a {
 	box-shadow: none;
 }
