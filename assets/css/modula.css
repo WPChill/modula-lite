@@ -89,6 +89,9 @@
 	font-size:14px;
 	font-weight: bold;
 }
+/**
+Modula Filters
+ */
 .modula .filters {
 	margin:0 0 20px 0;
 }
@@ -98,11 +101,107 @@
 	margin:0 10px 0 0;
 	color: #333;
 	border-bottom: 2px solid transparent;
+	outline:none;
+	transition:350ms ease-in;
 }
+
+.modula .filters.colored a {
+	border:0;
+	color:#fff;
+}
+
 .modula .filters a:hover,
 .modula .filters a.selected {
 	border-bottom-color: #333;
 }
+
+.modula .filters.vertical-filters {
+	width:20%;
+	float:left;
+}
+
+.modula .filters.vertical-filters + .items {
+	width:80% !important;
+	float:right;
+}
+
+.modula .filters.vertical-filters a {
+	display:block;
+	margin-bottom:15px;
+	padding:0 15px;
+
+}
+
+.modula .filters.vertical-filters.colored a {
+	border-radius:5px;
+	border-top-left-radius:25px;
+	border-bottom-right-radius:25px;
+	text-align:center;
+	background:#3498db;
+}
+
+.modula .filters.vertical-filters.colored a:hover,
+.modula .filters.vertical-filters.colored a.selected {
+	background:#8e44ad;
+}
+
+.modula .filters.horizontal-filters.colored a {
+	display:inline-block;
+	padding:0 30px;
+	margin-right:2px;
+	background:#3498db;
+	color:#fff;
+	position: relative;
+	border:0px;
+}
+
+.modula .filters.horizontal-filters.colored a:hover,
+.modula .filters.horizontal-filters.colored a.selected {
+	background:#8e44ad;
+}
+
+.modula .filters.horizontal-filters.colored a:before {
+	position: absolute;
+	content: '';
+	left: 0;
+	top: 0;
+	width: 0;
+	height: 0;
+	border: none;
+	border-bottom-color: currentcolor;
+	border-bottom-style: none;
+	border-bottom-width: medium;
+	border-left-color: currentcolor;
+	border-left-style: none;
+	border-left-width: medium;
+	border-left: solid 17px white;
+	border-bottom: solid 41px transparent;
+	z-index: 1;
+	transition: .4s;
+}
+
+.modula .filters.horizontal-filters.colored a:after {
+	position: absolute;
+	content: '';
+	right: 0;
+	top: 0;
+	width: 0;
+	height: 0;
+	border: none;
+	border-bottom-color: currentcolor;
+	border-bottom-style: none;
+	border-bottom-width: medium;
+	border-left-color: currentcolor;
+	border-left-style: none;
+	border-left-width: medium;
+	border-left: solid 17px transparent;
+	border-bottom: solid 41px white;
+	z-index: 1;
+	transition: .4s;
+}
+	/**
+    End Modula Filters
+     */
 .modula .jtg-social a {
 	box-shadow: none;
 }
