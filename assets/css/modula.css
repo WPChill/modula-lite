@@ -216,7 +216,7 @@ Modula Filters
 	width: 0;
 	height: 0;
 	border-style: solid;
-	border-width: 20px 15px 0 15px;
+	border-width: 15px 10px 0 10px;
 	border-color: #0470e3 transparent transparent transparent;
 	display:inline-block;
 }
@@ -226,7 +226,7 @@ Modula Filters
 	width: 0;
 	height: 0;
 	border-style: solid;
-	border-width: 0 15px 20px 15px;
+	border-width: 0 10px 15px 10px;
 	border-color: transparent transparent #d500ff transparent;
 	display:inline-block;
 }
