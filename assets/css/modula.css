@@ -231,6 +231,16 @@ Modula Filters
 	border-color: transparent transparent #d500ff transparent;
 	display:inline-block;
 }
+
+@media all and (min-width:1025px){
+	.filter-by-wrapper {
+		display:none !important;
+	}
+
+	.modula-gallery .filters {
+		display:block !important;
+	}
+}
 /**
  End Modula Filters
  */

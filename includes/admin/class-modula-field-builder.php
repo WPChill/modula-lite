@@ -312,7 +312,7 @@ class Modula_Field_Builder {
 				break;
 			case "toggle":
 				$html .= '<div class="modula-toggle">';
-					$html .= '<input class="modula-toggle__input" type="checkbox" data-setting="' . esc_attr( $field['id'] ) . ' id="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="1" ' . checked( 1, $value, false ) . '>';
+					$html .= '<input class="modula-toggle__input" type="checkbox" data-setting="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="1" ' . checked( 1, $value, false ) . '>';
 					$html .= '<div class="modula-toggle__items">';
 						$html .= '<span class="modula-toggle__track"></span>';
 						$html .= '<span class="modula-toggle__thumb"></span>';
