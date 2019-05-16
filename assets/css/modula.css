@@ -134,15 +134,17 @@ Modula Filters
 
 .modula .filters.vertical-filters.colored a {
 	border-radius:5px;
-	border-top-left-radius:25px;
-	border-bottom-right-radius:25px;
 	text-align:center;
-	background:#3498db;
+	background:#fff;
+	border:1px solid #3498db;
+	color:#3498db;
 }
 
 .modula .filters.vertical-filters.colored a:hover,
 .modula .filters.vertical-filters.colored a.selected {
-	background:#8e44ad;
+	background:#fff;
+	color:#8e44ad;
+	border-color:#8e44ad;
 }
 
 .modula .filters.horizontal-filters.colored a {
@@ -150,7 +152,6 @@ Modula Filters
 	padding:0 30px;
 	margin-right:2px;
 	background:#3498db;
-	color:#fff;
 	position: relative;
 	border:0px;
 }
