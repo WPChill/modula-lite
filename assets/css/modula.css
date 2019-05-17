@@ -118,14 +118,18 @@ Modula Filters
 	border-bottom-color: #333;
 }
 
-.modula .filters.vertical-filters {
+.modula.vertical-filters .items {
+	width:80% !important;
+	float:left;
+}
+
+.modula.vertical-filters .filters {
 	width:20%;
 	float:left;
 }
 
-.modula .filters.vertical-filters + .items {
-	width:80% !important;
-	float:right;
+.modula .filters.vertical-filters.both-vertical + .items {
+	width:60% !important;
 }
 
 .modula .filters.vertical-filters a {
