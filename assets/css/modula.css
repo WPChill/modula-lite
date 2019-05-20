@@ -118,8 +118,8 @@ Modula Filters
 	color:#fff;
 }
 
-.modula .filters a:hover,
-.modula .filters a.selected {
+.modula .filters:not(.styled-menu) a:hover,
+.modula .filters:not(.styled-menu) a.selected {
 	border-bottom-color: #333;
 	border-bottom:1px solid;
 }
@@ -245,6 +245,10 @@ Modula Filters
 	display:inline-block;
 }
 
+.modula .filters.vertical-filters a {
+	margin-bottom:0;
+}
+
 @media all and (min-width:1025px){
 	.filter-by-wrapper {
 		display:none !important;
@@ -253,6 +257,17 @@ Modula Filters
 	.modula-gallery .filters {
 		display:block !important;
 	}
+}
+
+@media all and (max-width:1024px){
+
+	.modula.vertical-filters .filters,
+	.modula.vertical-filters .items,
+	.modula .filters.vertical-filters.both-vertical + .items{
+		width:100% !important;
+		float:none;
+	}
+
 }
 /**
  End Modula Filters
