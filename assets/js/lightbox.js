@@ -263,7 +263,7 @@
              * @TODO for George, part that was modified by Razvan. Please compare to original
              */
             var cycle_filter = self.album[self.currentImageIndex].cycleFilter;
-            console.log(cycle_filter);
+
             if (undefined == cycle_filter || cycle_filter == 'default') {
                 if (self.currentImageIndex === self.album.length - 1) {
                     self.changeImage(0);
