@@ -249,6 +249,10 @@ Modula Filters
 	margin-bottom:0;
 }
 
+.menu__list li.menu__item {
+	margin:15px;
+}
+
 @media all and (min-width:1025px){
 	.filter-by-wrapper {
 		display:none !important;
@@ -267,6 +271,14 @@ Modula Filters
 		width:100% !important;
 		float:none;
 	}
+
+	.menu__list {
+		padding:0px;
+	}
+	.menu__list li.menu__item {
+		margin:0;
+	}
+
 
 }
 /**
