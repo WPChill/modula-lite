@@ -95,6 +95,11 @@ Modula Filters
 .modula .filters {
 	margin:20px 0 20px 0;
 }
+
+.modula .filters.vertical-filters {
+	margin-top:0;
+}
+
 .modula .filters a {
 	text-decoration: none;
 	display: inline-block;
@@ -116,6 +121,7 @@ Modula Filters
 .modula .filters a:hover,
 .modula .filters a.selected {
 	border-bottom-color: #333;
+	border-bottom:1px solid;
 }
 
 .modula.vertical-filters .items {
