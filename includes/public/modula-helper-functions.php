@@ -83,8 +83,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['rel'] = $settings['gallery_id'];
 	}
 
-	$item_data = apply_filters('modula_lightboxes',$item_data);
-
 	return $item_data;
 }
 
