@@ -40,8 +40,6 @@ class Modula_Admin {
 		
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ) );
 
-		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'FAQ', 'modula-best-grid-gallery' ), esc_html__( 'FAQ', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_faq' ) );
-
 	}
 
 	public function show_submenu() {
@@ -287,10 +285,6 @@ class Modula_Admin {
 		update_post_meta( $gallery_id, 'modula-images', $old_images );
 		wp_send_json( array( 'status' => 'succes' ) );
 
-	}
-
-	public function show_faq(){
-		
 	}
 
 	public function admin_custom_css(){
