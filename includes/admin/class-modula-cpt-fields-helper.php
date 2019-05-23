@@ -220,6 +220,13 @@ class Modula_CPT_Fields_Helper {
 				),
 			),
 			'captions' => array(
+				"titleColor"     => array(
+					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
+					"type"        => "color",
+					"description" => esc_html__( 'Set the color of title.', 'modula-best-grid-gallery' ),
+					"default"     => "",
+					'priority'    => 5,
+				),
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -465,6 +472,7 @@ class Modula_CPT_Fields_Helper {
 			'show_navigation'  => 1,
 			'show_navigation_on_mobile' => 0,
 			'shuffle'          => 0,
+			'titleColor'       => '',
 			'captionColor'     => '#ffffff',
 			'wp_field_caption' => 'none',
 		    'wp_field_title'   => 'none',
