@@ -216,7 +216,11 @@ class Modula_Shortcode {
 			}
 
 			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
-			$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
+			if ( '' != $settings['titleColor'] ) {
+				$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['titleColor']) . "; }";
+			}else{
+				$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
+			}
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
