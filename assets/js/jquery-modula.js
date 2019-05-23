@@ -355,9 +355,9 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         }
 
         if ( this.options.gutter > 0 ) {
-            size = plugin.trunc( ( containerWidth - this.options.gutter * (columns-1) ) / columns );
+            size = ( containerWidth - this.options.gutter * ( columns - 1 ) ) / columns;
         }else{
-            size = plugin.trunc( containerWidth / columns );
+            size = Math.floor( containerWidth / columns );
         }
 
     	this.$items.not(".jtg-hidden").each(function (i, item) {
@@ -381,12 +381,10 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
                 }else{
 
-                    // widthColumns = Math.trunc( columns * auxWidth / 12 );
                     widthColumns = Math.round( columns * auxWidth / 12 );
                     if ( widthColumns < 1 ) { widthColumns = 1; }
 
                     heightColumns = Math.round( widthColumns * auxHeight / auxWidth );
-                    // heightColumns = widthColumns * auxHeight / auxWidth;
                     if ( heightColumns < 1 ) { heightColumns = 1; }
 
                 }
