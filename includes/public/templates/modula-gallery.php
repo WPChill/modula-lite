@@ -1,4 +1,7 @@
-<div id="<?php echo esc_attr($data->gallery_id) ?>" class="modula modula-gallery <?php echo ( $data->settings['align'] != '' ) ? esc_attr( 'align' . $data->settings['align'] ) : ''; ?>" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
+<?php
+$classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $data->settings );
+?>
+<div id="<?php echo esc_attr($data->gallery_id) ?>" class="<?php echo esc_attr($classes); ?> <?php echo ( $data->settings['align'] != '' ) ? esc_attr( 'align' . $data->settings['align'] ) : ''; ?>" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
 
 	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
 
