@@ -17,6 +17,9 @@ class Modula_Admin {
 		// Show general tab
 		add_action( 'modula_admin_tab_general', array( $this, 'show_general_tab' ) );
 
+		// Add CSS to admin menu
+		add_action( 'admin_head', array( $this, 'admin_custom_css' ) );
+
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 
@@ -288,6 +291,16 @@ class Modula_Admin {
 
 	public function show_faq(){
 		
+	}
+
+	public function admin_custom_css(){
+		?>
+
+		<style type="text/css">
+			li#menu-posts-modula-gallery .wp-submenu li:nth-child( 4 ) a {color: #52ad3a;}
+		</style>
+
+		<?php
 	}
 
 }
