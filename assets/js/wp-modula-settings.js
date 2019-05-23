@@ -87,7 +87,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         changeTabFromChild: function ( event ) {
 
-            console.log( jQuery( event.target ).parent() );
             var currentTab = jQuery( event.target ).parent().data( 'tab' );
 
             if ( this.tabContainers.filter( '#' + currentTab ).length < 1 ) {
