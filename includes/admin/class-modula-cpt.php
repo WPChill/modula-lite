@@ -346,6 +346,11 @@ class Modula_CPT {
 			return;
 		}
 
+		$galleries = get_posts( 'post_type=modula-gallery' );
+		if ( count( $galleries ) == 0 ) {
+			return;
+		}
+
 		?>
 
 		<div class="notice modula-feedback-notice">
