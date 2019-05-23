@@ -730,9 +730,6 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         if (this.options.enableFacebook){
             setupFacebook(this.$items, this);
         }
-        if (this.options.enableGplus){
-            setupGplus(this.$items, this);
-        }
         if (this.options.enablePinterest){
             setupPinterest(this.$items, this);
         }
@@ -800,18 +797,6 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
                 var src = image.attr("src");
                 url += ("&media=" + qualifyURL(src));
             }
-
-            var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
-            w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
-            return false;
-        });
-    }
-
-    var setupGplus = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-google-plus").click(function (e) {
-            e.preventDefault();
-
-            var url = "https://plus.google.com/share?url=" + encodeURI(location.href);
 
             var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
