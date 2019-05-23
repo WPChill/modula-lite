@@ -23,7 +23,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
     	events: {
     		// Tabs specific events
-    		'click .modula-tab':   'changeTab',
+    		'click .modula-tab':     'changeTab',
+            'click .modula-tab > *': 'changeTabFromChild',
 
     		// Settings specific events
             'keyup input':         'updateModel',
@@ -81,6 +82,22 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     		this.tabContainers.removeClass( 'active-tab' );
     		jQuery( event.target ).addClass( 'active-tab' );
     		this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' );
+
+        },
+
+        changeTabFromChild: function ( event ) {
+
+            console.log( jQuery( event.target ).parent() );
+            var currentTab = jQuery( event.target ).parent().data( 'tab' );
+
+            if ( this.tabContainers.filter( '#' + currentTab ).length < 1 ) {
+                return;
+            }
+
+            this.tabs.removeClass( 'active-tab' );
+            this.tabContainers.removeClass( 'active-tab' );
+            jQuery( event.target ).parent().addClass( 'active-tab' );
+            this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' );
 
         },
 
