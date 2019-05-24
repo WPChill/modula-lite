@@ -306,7 +306,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 20,
 				),
 				"enableLinkedin"  => array(
-					"name"        => esc_html__( 'Add LinkedIN Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Add LinkedIn Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
