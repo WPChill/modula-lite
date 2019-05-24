@@ -69,11 +69,8 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
 	}
 
-	if ( in_array( $settings['lightbox'], array( 'prettyphoto', 'fancybox', 'swipebox', 'lightbox2' ) ) ) {
-		$item_data['link_attributes']['title'] = $caption;
-	}else{
-		$item_data['link_attributes']['data-title'] = $caption;
-	}
+	$item_data['link_attributes']['title'] = strip_tags( $caption );
+	$item_data['link_attributes']['data-title'] = $caption;
 
 	if ( 'prettyphoto' == $settings['lightbox'] ) {
 		$item_data['link_attributes']['rel'] = 'prettyPhoto[' . $settings['gallery_id'] . ']';
