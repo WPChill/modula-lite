@@ -1,3 +1,17 @@
+= 2.0.8 - 24.05.2019 =
+* Added more options to the gutter's settings
+* Fixed galleries import/export
+* Added option to change the color of an image’s title
+* Removed Google+
+* Added LinkedIn
+* Fixed the issue when the gutter was big and the gallery not centered
+* Added compatibility with Flatsome
+* Fixed title and caption showing html
+* Minor css backend improvements
+* Added the option to dismiss feedback form
+
+For more information : https://github.com/MachoThemes/modula-lite/milestone/9
+
 = 2.0.7 - 13.03.2019 =
 * Improved save sistem
 * Added Lazy Load function
