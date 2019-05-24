@@ -161,6 +161,11 @@ class Modula_Importer_Exporter {
 			if ( is_array( $gallery_meta ) ) {
 				foreach ( $gallery_meta as $index => $modula_image ) {
 					
+					if ( ! isset( $this->processed_attachments[ $modula_image['id'] ] ) ) {
+						$modula_images[ $index ] = $modula_image;
+						continue;
+					}
+
 					if ( $this->processed_attachments[ $modula_image['id'] ] != $modula_image['id'] ) {
 						$modula_image['id'] = $this->processed_attachments[ $modula_image['id'] ];
 					}
