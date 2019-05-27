@@ -10,7 +10,8 @@ class Modula_Addons {
 
 	private function check_for_addons() {
 
-	 	if ( false !== ( $data = get_transient( 'modula_all_extensions' ) ) ) {
+		$data = get_transient( 'modula_all_extensions' );
+	 	if ( false !== $data ) {
 			return $data;
 		}
 

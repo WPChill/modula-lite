@@ -580,6 +580,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         var tSize = $tile.data('size');
         var iSize = $image.data('size');
 
+        if ( typeof tSize == 'undefined' ) { return; }
+        if ( typeof iSize == 'undefined' ) { return; }
 
         var tRatio = tSize.width / tSize.height;
         var iRatio = iSize.width / iSize.height;
