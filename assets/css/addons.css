@@ -4,11 +4,27 @@
     flex-wrap: wrap;
 }
 .modula-addon {
-    width: 48%;
-    margin: 0 0 16px;
+	width: 100%;
+    margin-bottom: 1rem;
     background-color: #fff;
     border: 1px solid #ddd;
     box-sizing: border-box;
+}
+
+@media screen and (min-width: 1100px) {
+	.modula-addons-container {
+		margin-right: -20px;
+	}
+	.modula-addon {
+		width: calc( 50% - 20px );
+		margin-right: 20px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.modula-addon {
+		width: calc( 33% - 20px );
+	}
 }
 
 .modula-addon .modula-addon-box {
