@@ -72,10 +72,12 @@ class Modula {
 	}
 
 	private function define_admin_hooks() {
-    
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
-		add_action( 'wp_ajax_modula-reload-addons', array( $this, 'reload_addons' ), 20 );
+
+		// Add ajax action to reload extensions
+		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 
 		add_action( 'plugins_loaded', array( $this, 'set_locale' ));
 
@@ -199,9 +201,13 @@ class Modula {
 
 	}
 
-	public function reload_addons() {
-		delete_transient( 'modula_addons' );
-		die( 'succes' );
+	public function reload_extensions() {
+		// Run a security check first.
+		check_admin_referer( 'modula-reload-extensions', 'nonce' );
+
+		delete_transient( 'modula_all_extensions' );
+
+		die;
 	}
 
 }

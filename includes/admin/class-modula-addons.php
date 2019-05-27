@@ -2,31 +2,36 @@
 
 class Modula_Addons {
 
-	private $addons;
-	private $upgrade_url = 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=video-addon&utm_campaign=upsell';
+	private $addons = array();
 
 	function __construct() {
-
 		$this->addons = $this->check_for_addons();
-
 	}
 
 	private function check_for_addons() {
 
-		$addons = array(
-			array(
-				'image'       => '',
-				'name'        => esc_html__( 'Modula Video', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ),
-				'slug'        => 'modula-video',
-			),
-			array(
-				'image'       => '',
-				'name'        => esc_html__( 'Modula Speed Up', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them and serving them from StackPath’s content delivery network.', 'modula-best-grid-gallery' ),
-				'slug'        => 'modula-speedup',
-			)
-		);
+	 	if ( false !== ( $data = get_transient( 'modula_all_extensions' ) ) ) {
+			return $data;
+		}
+
+		$addons = array();
+
+		$url = MODULA_PRO_STORE_URL . '/wp-json/mt/v1/get-all-extensions';
+
+		// Get data from the remote URL.
+		$response = wp_remote_get( $url );
+
+		if ( ! is_wp_error( $response ) ) {
+
+			// Decode the data that we got.
+			$data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			if ( ! empty( $data ) && is_array( $data ) ) {
+				$addons = $data;
+				// Store the data for a week.
+				set_transient( 'modula_all_extensions', $data, 7 * DAY_IN_SECONDS );
+			}
+		}
 
 	    return apply_filters( 'modula_addons', $addons );
 
@@ -46,7 +51,7 @@ class Modula_Addons {
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="modula-addon-actions">';
-				echo apply_filters( "modula_addon_button_action", '<a href="' . $this->upgrade_url . '" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to PRO', 'modula-best-grid-gallery' ) . '</a>', $addon );
+				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '?utm_source=modula-lite&utm_campaign=upsell&utm_medium=' . esc_attr( $addon['slug'] ) ) . '" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to PRO', 'modula-best-grid-gallery' ) . '</a>', $addon );
 				echo '</div>';
 				echo '</div>';
 			}
