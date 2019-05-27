@@ -46,6 +46,8 @@
 define( 'MODULA_LITE_VERSION', '2.0.8' );
 define( 'MODULA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_URL', plugin_dir_url( __FILE__ ) );
+defined( 'MODULA_PRO_STORE_URL' ) || define( 'MODULA_PRO_STORE_URL', 'https://wp-modula.com' );
+defined( 'MODULA_PRO_STORE_UPGRADE_URL' ) || define( 'MODULA_PRO_STORE_UPGRADE_URL', 'https://wp-modula.com/pricing' );
 
 /**
  * The code that runs during plugin activation.
