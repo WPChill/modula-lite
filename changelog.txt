@@ -1,3 +1,8 @@
+= 2.0.9 - 27.05.2019 =
+Fixed Extension menu color css
+Fixed PHP Notice
+Fixed undefined object javascript
+
 = 2.0.8 - 24.05.2019 =
 * Added more options to the gutter's settings
 * Fixed galleries import/export
