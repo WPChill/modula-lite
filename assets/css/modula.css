@@ -295,7 +295,7 @@ Modula Filters
     height: 16px;
 }
 
-.modula .items .item h2 {
+.modula .items .item .jtg-title {
 	margin:0;
 }
 .modula .items .item p {
@@ -355,7 +355,7 @@ Modula Filters
 	text-align: right;
 }
 
-.modula .item.effect-pufrobo h2,
+.modula .item.effect-pufrobo .jtg-title,
 .modula .item.effect-pufrobo p {
 	position: absolute;
 	right: 30px;
@@ -375,7 +375,7 @@ Modula Filters
 	letter-spacing: 1px;
 }
 
-.modula .item.effect-pufrobo h2 {
+.modula .item.effect-pufrobo .jtg-title {
 	/*top: 30px;*/
 	top: 10%;
 	-webkit-transition: -webkit-transform 0.35s;
@@ -384,12 +384,12 @@ Modula Filters
 	transform: translate3d(0,20px,0);
 }
 
-.modula .item.effect-pufrobo:hover h2 {
+.modula .item.effect-pufrobo:hover .jtg-title {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
 
-.modula .item.effect-pufrobo h2::after {
+.modula .item.effect-pufrobo .jtg-title::after {
 	position: absolute;
 	top: 80%;
 	left: 0;
@@ -401,14 +401,14 @@ Modula Filters
 	transform: translate3d(0,40px,0);
 }
 
-.modula .item.effect-pufrobo h2::after,
+.modula .item.effect-pufrobo .jtg-title::after,
 .modula .item.effect-pufrobo p {
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 
-.modula .item.effect-pufrobo:hover h2::after,
+.modula .item.effect-pufrobo:hover .jtg-title::after,
 .modula .item.effect-pufrobo:hover p {
 	margin-top: 10px;
 	margin-bottom: 5px;
@@ -417,22 +417,22 @@ Modula Filters
 	transform: translate3d(0,0,0);
 }
 
-.modula .items .item.effect-pufrobo .figc.no-title.no-description h2.jtg-title:after {
+.modula .items .item.effect-pufrobo .figc.no-title.no-description .jtg-title:after {
 	display: none;
 }
 
 /* TwnetyNintheen fix */
-.modula .items .item.effect-fluid-up .figc h2.jtg-title:before,
-.modula .items .item.effect-hide .figc h2.jtg-title:before,
-.modula .items .item.effect-quiet .figc h2.jtg-title:before,
-.modula .items .item.effect-reflex .figc h2.jtg-title:before,
-.modula .items .item.effect-curtain .figc h2.jtg-title:before,
-.modula .items .item.effect-lens .figc h2.jtg-title:before,
-.modula .items .item.effect-appear .figc h2.jtg-title:before,
-.modula .items .item.effect-crafty .figc h2.jtg-title:before,
-.modula .items .item.effect-seemo .figc h2.jtg-title:before,
-.modula .items .item.effect-comodo .figc h2.jtg-title:before,
-.modula .items .item.effect-pufrobo .figc h2.jtg-title:before {
+.modula .items .item.effect-fluid-up .figc .jtg-title:before,
+.modula .items .item.effect-hide .figc .jtg-title:before,
+.modula .items .item.effect-quiet .figc .jtg-title:before,
+.modula .items .item.effect-reflex .figc .jtg-title:before,
+.modula .items .item.effect-curtain .figc .jtg-title:before,
+.modula .items .item.effect-lens .figc .jtg-title:before,
+.modula .items .item.effect-appear .figc .jtg-title:before,
+.modula .items .item.effect-crafty .figc .jtg-title:before,
+.modula .items .item.effect-seemo .figc .jtg-title:before,
+.modula .items .item.effect-comodo .figc .jtg-title:before,
+.modula .items .item.effect-pufrobo .figc .jtg-title:before {
 	display: none;
 }
 

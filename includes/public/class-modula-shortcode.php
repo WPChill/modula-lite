@@ -21,12 +21,15 @@ class Modula_Shortcode {
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_enable_lazy_load', 30, 3 );
+
+		// Shortpixel fix
+		add_filter( 'modula_shortcode_item_data', array( $this, 'shortpixel_fix' ), 40, 3 );
 	}
 
 	public function add_gallery_scripts() {
 
 		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
 		/*@TODO modified from .min*/
@@ -35,7 +38,7 @@ class Modula_Shortcode {
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 
@@ -209,7 +212,7 @@ class Modula_Shortcode {
 			}
 
 			if ( '' != $settings['titleFontSize'] && 0 != $settings['titleFontSize'] ) {
-				$css .= "#{$gallery_id} .item .figc h2.jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
+				$css .= "#{$gallery_id} .item .figc .jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
 			}
 
 			$css .= "#{$gallery_id} .item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
@@ -220,9 +223,9 @@ class Modula_Shortcode {
 
 			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
 			if ( '' != $settings['titleColor'] ) {
-				$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['titleColor']) . "; }";
+				$css .= "#{$gallery_id} .items .figc .jtg-title { color:" . sanitize_hex_color($settings['titleColor']) . "; }";
 			}else{
-				$css .= "#{$gallery_id} .items .figc h2.jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
+				$css .= "#{$gallery_id} .items .figc .jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 			}
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
@@ -236,6 +239,31 @@ class Modula_Shortcode {
 
 			return $css;
 
+	}
+
+	public function shortpixel_fix( $item_data ){
+
+		if ( isset( $item_data['img_attributes']['src'] ) && strpos( $item_data['img_attributes']['src'], 'modula.shortpixel.ai' ) !== false ) {
+			$item_data['img_attributes']['src'] = str_replace( 'modula.shortpixel.ai', 'cdn.wp-modula.com', $item_data['img_attributes']['src'] );
+		}
+
+		if ( isset( $item_data['image_full'] ) && strpos( $item_data['image_full'], 'modula.shortpixel.ai' ) !== false ) {
+			$item_data['image_full'] = str_replace( 'modula.shortpixel.ai', 'cdn.wp-modula.com', $item_data['image_full'] );
+		}
+		
+		if ( isset( $item_data['image_url'] ) && strpos( $item_data['image_url'], 'modula.shortpixel.ai' ) !== false ) {
+			$item_data['image_url'] = str_replace( 'modula.shortpixel.ai', 'cdn.wp-modula.com', $item_data['image_url'] );
+		}
+
+		if ( isset( $item_data['img_attributes']['data-src'] ) && strpos( $item_data['img_attributes']['data-src'], 'modula.shortpixel.ai' ) !== false ) {
+			$item_data['img_attributes']['data-src'] = str_replace( 'modula.shortpixel.ai', 'cdn.wp-modula.com', $item_data['img_attributes']['data-src'] );
+		}
+
+		if ( isset( $item_data['link_attributes']['href'] ) && strpos( $item_data['link_attributes']['href'], 'modula.shortpixel.ai' ) !== false ) {
+			$item_data['link_attributes']['href'] = str_replace( 'modula.shortpixel.ai', 'cdn.wp-modula.com', $item_data['img_attributes']['data-src'] );
+		}
+
+		return $item_data;
 	}
 
 }
