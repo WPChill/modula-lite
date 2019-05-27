@@ -188,7 +188,7 @@ class Modula_CPT {
 						'width' => isset( $image['width'] ) ? absint( $image['width'] ) : 1,
 						'height' => isset( $image['height'] ) ? absint( $image['height'] ) : 1,
 					);
-					$sizes = $this->resizer->get_image_size( $new_image['id'], $img_size, $gallery_type, $grid_sizes );
+					$sizes = $this->resizer->get_image_size( $image['id'], $img_size, $gallery_type, $grid_sizes );
 					if ( ! is_wp_error( $sizes ) ) {
 						$this->resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 					}
