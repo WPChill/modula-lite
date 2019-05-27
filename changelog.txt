@@ -15,7 +15,7 @@ Fixed undefined object javascript
 * Minor css backend improvements
 * Added the option to dismiss feedback form
 
-For more information : https://github.com/MachoThemes/modula-lite/milestone/9
+For more information : https://github.com/MachoThemes/modula-lite/milestone/9?closed=1
 
 = 2.0.7 - 13.03.2019 =
 * Improved save sistem
