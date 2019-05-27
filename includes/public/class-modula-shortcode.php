@@ -53,8 +53,7 @@ class Modula_Shortcode {
 		}
 
 		/* Generate uniq id for this gallery */
-		$rid = rand( 1, 1000 );
-		$gallery_id = 'jtg-' . $atts['id'] . '-' . $rid;
+		$gallery_id = 'jtg-' . $atts['id'];
 
 		// Check if is an old Modula post or new.
 		$gallery = get_post( $atts['id'] );
