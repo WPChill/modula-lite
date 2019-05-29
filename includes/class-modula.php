@@ -206,6 +206,7 @@ class Modula {
 		check_admin_referer( 'modula-reload-extensions', 'nonce' );
 
 		delete_transient( 'modula_all_extensions' );
+		delete_transient( 'modula_pro_licensed_extensions' );
 
 		die;
 	}
