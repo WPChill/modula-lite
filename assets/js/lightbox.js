@@ -216,7 +216,7 @@
              */
             var cycle_filter = self.album[self.currentImageIndex].cycleFilter;
 
-            if (cycle_filter == 'default') {
+            if ( undefined == cycle_filter || 'default' == cycle_filter ) {
                 if (self.currentImageIndex === 0) {
                     self.changeImage(self.album.length - 1);
                 } else {
@@ -264,7 +264,7 @@
              */
             var cycle_filter = self.album[self.currentImageIndex].cycleFilter;
 
-            if (undefined == cycle_filter || cycle_filter == 'default') {
+            if (undefined == cycle_filter || 'default' == cycle_filter ) {
                 if (self.currentImageIndex === self.album.length - 1) {
                     self.changeImage(0);
                 } else {
