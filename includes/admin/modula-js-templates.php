@@ -1,13 +1,17 @@
 <script type="text/html" id="tmpl-modula-image">
     <div class="modula-single-image-content {{data.orientation}}" <# if ( data.full != '' ) { #> style="background-image:url({{ data.thumbnail }})" <# } #> >
+        <?php do_action( 'modula_admin_gallery_image_start' ) ?>
         <# if ( data.thumbnail != '' ) { #>
             <img src="{{ data.thumbnail }}">
         <# } #>
         <div class="actions">
-            <a href="#" class="modula-edit-image""><span class="dashicons dashicons-edit"></span></a>
-            <a href="#" class="modula-delete-image""><span class="dashicons dashicons-trash"></span></a>
+            <?php do_action( 'modula_admin_gallery_image_before_actions' ) ?>
+            <a href="#" class="modula-edit-image" title="<?php esc_attr_e( 'Edit Image', 'modula-pro' ) ?>"><span class="dashicons dashicons-edit"></span></a>
+            <?php do_action( 'modula_admin_gallery_image_after_actions' ) ?>
+            <a href="#" class="modula-delete-image" title="<?php esc_attr_e( 'Delete Image', 'modula-pro' ) ?>"><span class="dashicons dashicons-trash"></span></a>
         </div>
         <div class="segrip ui-resizable-handle ui-resizable-se"></div>
+        <?php do_action( 'modula_admin_gallery_image_end' ) ?>
     </div>
 </script>
 
