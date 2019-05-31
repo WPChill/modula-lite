@@ -1,3 +1,8 @@
+= 2.0.10 - 03.06.2019 =
+* Admin design improvements
+* Fixed missing image
+* Added sorting upsell
+
 = 2.0.9 - 27.05.2019 =
 * Fixed Extension menu color css
 * Fixed PHP Notice
