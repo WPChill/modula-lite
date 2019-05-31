@@ -107,6 +107,8 @@ module.exports = function( grunt ) {
 					'!package.json',
 					'!composer.json',
 					'!composer.lock',
+					'!postcss.config.js',
+					'!webpack.config.js',
 					'!set_tags.sh',
 					'!modula-best-grid-gallery.zip',
 					'!old/**',

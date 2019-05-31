@@ -6,9 +6,9 @@
         <# } #>
         <div class="actions">
             <?php do_action( 'modula_admin_gallery_image_before_actions' ) ?>
-            <a href="#" class="modula-edit-image" title="<?php esc_attr_e( 'Edit Image', 'modula-pro' ) ?>"><span class="dashicons dashicons-edit"></span></a>
+            <a href="#" class="modula-edit-image" title="<?php esc_attr_e( 'Edit Image', 'modula-best-grid-gallery' ) ?>"><span class="dashicons dashicons-edit"></span></a>
             <?php do_action( 'modula_admin_gallery_image_after_actions' ) ?>
-            <a href="#" class="modula-delete-image" title="<?php esc_attr_e( 'Delete Image', 'modula-pro' ) ?>"><span class="dashicons dashicons-trash"></span></a>
+            <a href="#" class="modula-delete-image" title="<?php esc_attr_e( 'Delete Image', 'modula-best-grid-gallery' ) ?>"><span class="dashicons dashicons-trash"></span></a>
         </div>
         <div class="segrip ui-resizable-handle ui-resizable-se"></div>
         <?php do_action( 'modula_admin_gallery_image_end' ) ?>
