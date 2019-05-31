@@ -13,6 +13,7 @@
 	width: 100%;
 	height: 100%;
 	z-index: 10;
+	background: transparent;
 }
 .modula .items .item .jtg-social {
 	z-index: 10;
