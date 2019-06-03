@@ -214,7 +214,8 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
-				$css .= "#{$gallery_id} .items { width:" . esc_attr($settings['width']) . "; height:" . absint( $settings['height'] ) . "px; }";
+				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
+				$css .= "#{$gallery_id} .items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
 			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";

@@ -124,10 +124,17 @@ Modula Filters
 	border-bottom-color: #333;
 	border-bottom:1px solid;
 }
-
-.modula.vertical-filters .items {
-	width:80% !important;
+body .modula .item {
+	width: 100%;
+}
+body .modula.vertical-filters .items {
+	width: 80%;
 	float:left;
+}
+body .modula:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 
 .modula.vertical-filters .filters {
@@ -135,8 +142,8 @@ Modula Filters
 	float:left;
 }
 
-.modula .filters.vertical-filters.both-vertical + .items {
-	width:60% !important;
+body .modula .filters.vertical-filters.both-vertical + .items {
+	width: 60%;
 }
 
 .modula .filters.vertical-filters a {
