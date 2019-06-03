@@ -199,6 +199,7 @@
         this.$lightbox.hide().on('click', function (event) {
             if ($(event.target).attr('id') === 'lightbox') {
                 self.end();
+                jQuery(document).trigger('modula_lightbox2_lightbox_close');
             }
             return false;
         });
@@ -254,7 +255,7 @@
                 }
 
             }
-
+            setTimeout(function(){jQuery(document).trigger('modula_lightbox2_lightbox_prev',[self,self.currentImageIndex])},600);
             return false;
         });
 
@@ -297,7 +298,7 @@
                 }
 
             }
-
+            setTimeout(function(){jQuery(document).trigger('modula_lightbox2_lightbox_next',[self,self.currentImageIndex])},600);
             return false;
         });
 
@@ -356,6 +357,7 @@
 
     // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
     Lightbox.prototype.start = function ($link) {
+
         var self = this;
         var $window = $(window);
 
@@ -421,6 +423,8 @@
         }
 
         this.changeImage(imageNumber);
+
+        setTimeout(function(){jQuery(document).trigger('modula_lightbox2_lightbox_open',[self,$link]);},600);
     };
 
     // Hide most UI elements in preparation for the animated resizing of the lightbox.
