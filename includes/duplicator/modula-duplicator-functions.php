@@ -1,13 +1,9 @@
 <?php
 
-/*
- * This function calls the creation of a new copy of the selected post (by default preserving the original publish status)
-* then redirects to the post list
-*/
 function modula_duplicate_gallery_save_as_new_post( $status = '' ) {
 
 	if ( ! ( isset( $_GET['post'] ) || isset( $_POST['post'] ) || ( isset( $_REQUEST['action'] ) && 'modula_duplicate_gallery_save_as_new_post' == $_REQUEST['action'] ) ) ) {
-		wp_die( esc_html__( 'No post to duplicate has been supplied!', 'duplicate-post' ) );
+		wp_die( esc_html__( 'No gallery to duplicate has been supplied!', 'modula' ) );
 	}
 
 	// Get the original post
@@ -90,7 +86,7 @@ function modula_duplicate_gallery_clone_post_link( $link = null, $before = '', $
 		return;
 	}
 
-	if ( ! $url = duplicate_post_get_clone_post_link( $post->ID ) ) {
+	if ( ! $url = modula_duplicate_gallery_get_clone_post_link( $post->ID ) ) {
 		return;
 	}
 
@@ -98,7 +94,7 @@ function modula_duplicate_gallery_clone_post_link( $link = null, $before = '', $
 }
 
 /**
- * Get original post .
+ * Get original gallery .
  *
  * @param int $post Optional. Post ID or Post object.
  * @param string $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
@@ -109,7 +105,7 @@ function modula_duplicate_gallery_get_original( $post = null, $output = OBJECT )
 	if ( ! $post = get_post( $post ) ) {
 		return;
 	}
-	$original_ID = get_post_meta( $post->ID, '_dp_original' );
+	$original_ID = get_post_meta( $post->ID, '_modula_original' );
 	if ( empty( $original_ID ) ) {
 		return null;
 	}
@@ -120,7 +116,7 @@ function modula_duplicate_gallery_get_original( $post = null, $output = OBJECT )
 
 
 /**
- * Create a duplicate from a post
+ * Create a duplicate from gallery
  */
 function modula_duplicate_gallery_create_duplicate( $post, $status = '', $parent_id = '' ) {
 
@@ -202,7 +198,7 @@ function modula_duplicate_gallery_create_duplicate( $post, $status = '', $parent
 
 
 /**
- * Copy the meta information of a post to another post
+ * Copy the meta information of a gallery to another gallery
  */
 function modula_duplicate_gallery_copy_post_meta_info( $new_id, $post ) {
 	$post_meta_keys = get_post_custom_keys( $post->ID );
