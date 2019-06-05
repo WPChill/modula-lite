@@ -74,7 +74,7 @@ function modula_duplicate_gallery_get_clone_post_link( $id = 0, $context = 'disp
 
 
 /**
- * Display duplicate post link for post.
+ * Display duplicate gallery link for gallery.
  *
  * @param string $link Optional. Anchor text.
  * @param string $before Optional. Display before edit link.
@@ -234,7 +234,7 @@ function modula_duplicate_gallery_copy_attachments( $new_id, $post ) {
 			continue;
 		}
 		$url = wp_get_attachment_url( $child->ID );
-		// Let's copy the actual file
+
 		$tmp = download_url( $url );
 		if ( is_wp_error( $tmp ) ) {
 			@unlink( $tmp );
@@ -246,7 +246,7 @@ function modula_duplicate_gallery_copy_attachments( $new_id, $post ) {
 		$file_array             = array();
 		$file_array['name']     = basename( $url );
 		$file_array['tmp_name'] = $tmp;
-		// "Upload" to the media collection
+
 		$new_attachment_id = media_handle_sideload( $file_array, $new_id, $desc );
 
 		if ( is_wp_error( $new_attachment_id ) ) {
