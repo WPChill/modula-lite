@@ -16,7 +16,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Modula', 'modula' );
+		return esc_html__( 'Modula', 'modula-best-grid-gallery' );
 	}
 
 	public function get_icon() {
@@ -32,7 +32,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'content_section',
 			array(
-				'label' => esc_html__( 'Content', 'modula' ),
+				'label' => esc_html__( 'Content', 'modula-best-grid-gallery' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
 			)
 		);
@@ -40,7 +40,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'modula_gallery_select',
 			array(
-				'label'   => esc_html__( 'Select Gallery', 'modula' ),
+				'label'   => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
 				'options' => $this->get_galleries(),
 				'default' => 'none',
@@ -63,7 +63,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 	public function get_galleries() {
 
 		$galleries     = get_posts( array( 'post_type' => 'modula-gallery' ) );
-		$gallery_array = array( 'none' => esc_html__( 'None', 'modula' ) );
+		$gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
 		foreach ( $galleries as $gallery ) {
 			$gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
 		}
