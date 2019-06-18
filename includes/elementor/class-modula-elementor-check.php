@@ -76,9 +76,9 @@ final class Modula_Elementor_Check {
 		}
 
 		$message = sprintf(
-			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'modula'),
-			'<strong>' . esc_html__('Modula Elementor widget', 'modula') . '</strong>',
-			'<strong>' . esc_html__('Elementor', 'modula') . '</strong>',
+			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'modula-best-grid-gallery'),
+			'<strong>' . esc_html__('Modula Elementor widget', 'modula-best-grid-gallery') . '</strong>',
+			'<strong>' . esc_html__('Elementor', 'modula-best-grid-gallery') . '</strong>',
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -99,9 +99,9 @@ final class Modula_Elementor_Check {
 		}
 
 		$message = sprintf(
-			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'modula'),
-			'<strong>' . esc_html__('Modula Elementor widget', 'modula') . '</strong>',
-			'<strong>' . esc_html__('PHP', 'modula') . '</strong>',
+			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'modula-best-grid-gallery'),
+			'<strong>' . esc_html__('Modula Elementor widget', 'modula-best-grid-gallery') . '</strong>',
+			'<strong>' . esc_html__('PHP', 'modula-best-grid-gallery') . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);
 
