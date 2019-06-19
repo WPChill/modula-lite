@@ -120,6 +120,8 @@ class Modula_Shortcode {
 				break;
 		}
 
+		do_action('modula_extra_scripts',$settings);
+
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ),$settings );
 		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
