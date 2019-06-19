@@ -41,8 +41,8 @@ class Modula_Elementor_Widget_Activation {
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
 
 		// Enqueue needed scripts and styles in Elementor preview
-		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
-		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ), 20 );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ), 20 );
 
 	}
 
@@ -52,13 +52,14 @@ class Modula_Elementor_Widget_Activation {
 	 */
 	public function modula_elementor_enqueue_scripts( ) {
 		wp_enqueue_script('modula');
+		wp_enqueue_script('lightbox2_script');
 	}
 
 	/**
 	 *  Enqueue styles in Elementor preview
 	 */
 	public function modula_elementor_enqueue_styles( ) {
-
+		wp_enqueue_style('modula');
 	}
 }
 
