@@ -41,25 +41,31 @@ class Modula_Elementor_Widget_Activation {
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
 
 		// Enqueue needed scripts and styles in Elementor preview
-		//add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
-		//add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
+		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
+		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
+		// Register required scripts
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_elementor_preview_scripts' ) );
 
+	}
+
+	public function register_elementor_preview_scripts() {
+		wp_register_script( 'modula-elementor-preview', MODULA_URL . 'assets/js/modula-elementor-preview.js', null, MODULA_LITE_VERSION, true );
 	}
 
 
 	/**
 	 * Enqueue scripts in Elementor preview
 	 */
-	public function modula_elementor_enqueue_scripts( ) {
-		wp_enqueue_script('modula');
-		wp_enqueue_script('lightbox2_script');
+	public function modula_elementor_enqueue_scripts() {
+		wp_enqueue_script( 'modula' );
+		wp_enqueue_script( 'modula-elementor-preview' );
 	}
 
 	/**
 	 *  Enqueue styles in Elementor preview
 	 */
-	public function modula_elementor_enqueue_styles( ) {
-		wp_enqueue_style('modula');
+	public function modula_elementor_enqueue_styles() {
+		wp_enqueue_style( 'modula' );
 	}
 }
 
