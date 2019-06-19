@@ -3,7 +3,7 @@
 function modula_duplicate_gallery_save_as_new_post( $status = '' ) {
 
 	if ( ! ( isset( $_GET['post'] ) || isset( $_POST['post'] ) || ( isset( $_REQUEST['action'] ) && 'modula_duplicate_gallery_save_as_new_post' == $_REQUEST['action'] ) ) ) {
-		wp_die( esc_html__( 'No gallery to duplicate has been supplied!', 'modula' ) );
+		wp_die( esc_html__( 'No gallery to duplicate has been supplied!', 'modula-best-grid-gallery' ) );
 	}
 
 	// Get the original post
@@ -45,7 +45,7 @@ function modula_duplicate_gallery_save_as_new_post( $status = '' ) {
 		exit;
 
 	} else {
-		wp_die( esc_html__( 'Copy creation failed, could not find original:', 'modula' ) . ' ' . htmlspecialchars( $id ) );
+		wp_die( esc_html__( 'Copy creation failed, could not find original:', 'modula-best-grid-gallery' ) . ' ' . htmlspecialchars( $id ) );
 	}
 }
 

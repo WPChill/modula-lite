@@ -41,8 +41,8 @@ class Modula_Elementor_Widget_Activation {
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
 
 		// Enqueue needed scripts and styles in Elementor preview
-		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ), 20 );
-		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ), 20 );
+		//add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
+		//add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
 
 	}
 
