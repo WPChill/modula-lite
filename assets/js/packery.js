@@ -649,16 +649,20 @@ utils.filterFindElements = function( elems, selector ) {
   elems = utils.makeArray( elems );
   var ffElems = [];
 
+
   elems.forEach( function( elem ) {
+
     // check that elem is an actual element
     if ( !( elem instanceof HTMLElement ) ) {
       return;
     }
+
     // add elem if no selector
     if ( !selector ) {
       ffElems.push( elem );
       return;
     }
+
     // filter & find items if we have a selector
     // filter
     if ( matchesSelector( elem, selector ) ) {

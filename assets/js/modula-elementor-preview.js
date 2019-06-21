@@ -1,12 +1,22 @@
 jQuery(function ($) {
-    elementor.hooks.addAction('panel/open_editor/widget/modula_elementor_gallery', function (panel, model, view) {
-        var gallery_select = panel.$el.find('select[data-setting="modula_gallery_select"]');
-        gallery_select.on('change', function () {
-            var option = $(this).find('option:selected');
-            if ('none' != option.val()) {
-                $(document).trigger('modula-update');
-                console.log(option.val());
+
+    elementorFrontend.hooks.addAction( 'frontend/element_ready/modula_elementor_gallery.default', function( $scope ) {
+
+        var $gallery = $scope.find( '.modula-gallery' );
+        if ( $gallery.length > 0 ) {
+            var galleryID = $gallery.attr( 'id' ),
+                modulaSettings = $gallery.data( 'config' ),
+                modulaInstance = jQuery( '#' + galleryID ).data( 'plugin_modulaGallery' );
+                
+            if ( modulaInstance ) {
+                modulaInstance.destroy();
+                jQuery( '#' + galleryID ).data( 'plugin_modulaGallery', null );
             }
-        });
-    });
+
+            $( '#' + galleryID ).modulaGallery( modulaSettings );
+
+        }
+
+    } );
+
 });
