@@ -31,11 +31,11 @@ class Modula_Shortcode {
 
 		// Scripts necessary for some galleries
 		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 

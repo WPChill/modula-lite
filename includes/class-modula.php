@@ -43,6 +43,10 @@ class Modula {
 		require_once MODULA_PATH . 'includes/public/class-modula-shortcode.php';
 		require_once MODULA_PATH . 'includes/class-modula-gutenberg.php';
 
+		require_once MODULA_PATH . 'includes/elementor/class-modula-elementor-check.php';
+
+		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
+
 		if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
