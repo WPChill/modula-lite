@@ -11,7 +11,6 @@ class Modula_Duplicator {
 		add_filter( 'post_row_actions', array( $this, 'duplicate_gallery_link' ), 10, 2 );
 		add_action( 'admin_action_modula_duplicate_gallery_save_as_new_post', 'modula_duplicate_gallery_save_as_new_post' );
 		add_action( 'modula_duplicate_gallery', 'modula_duplicate_gallery_copy_post_meta_info', 10, 2 );
-		add_action( 'modula_duplicate_gallery', 'modula_duplicate_gallery_copy_attachments', 30, 2 );
 	}
 
 	private function load_dependencies() {
