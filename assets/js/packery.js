@@ -644,6 +644,13 @@ utils.handleEvent = function( event ) {
 
 // ----- filterFindElements ----- //
 
+utils.isElement = function(o){
+  return (
+    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+      o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string"
+  );
+}
+
 utils.filterFindElements = function( elems, selector ) {
   // make array of elems
   elems = utils.makeArray( elems );
@@ -653,7 +660,7 @@ utils.filterFindElements = function( elems, selector ) {
   elems.forEach( function( elem ) {
 
     // check that elem is an actual element
-    if ( !( elem instanceof HTMLElement ) ) {
+    if (!utils.isElement(elem)) {
       return;
     }
 
