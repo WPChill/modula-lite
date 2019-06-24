@@ -94,28 +94,6 @@ function modula_duplicate_gallery_clone_post_link( $link = null, $before = '', $
 }
 
 /**
- * Get original gallery .
- *
- * @param int $post Optional. Post ID or Post object.
- * @param string $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
- *
- * @return mixed Post data
- */
-function modula_duplicate_gallery_get_original( $post = null, $output = OBJECT ) {
-	if ( ! $post = get_post( $post ) ) {
-		return;
-	}
-	$original_ID = get_post_meta( $post->ID, '_modula_original' );
-	if ( empty( $original_ID ) ) {
-		return null;
-	}
-	$original_post = get_post( $original_ID[0], $output );
-
-	return $original_post;
-}
-
-
-/**
  * Create a duplicate from gallery
  */
 function modula_duplicate_gallery_create_duplicate( $post, $status = '', $parent_id = '' ) {
@@ -210,61 +188,6 @@ function modula_duplicate_gallery_copy_post_meta_info( $new_id, $post ) {
 		foreach ( $meta_values as $meta_value ) {
 			$meta_value = maybe_unserialize( $meta_value );
 			add_post_meta( $new_id, $meta_key, modula_duplicate_gallery_wp_slash( $meta_value ) );
-		}
-	}
-}
-
-
-/**
- * Copy the attachments
- */
-function modula_duplicate_gallery_copy_attachments( $new_id, $post ) {
-	// get thumbnail ID
-	$old_thumbnail_id = get_post_thumbnail_id( $post->ID );
-	// get children
-	$children = get_posts( array(
-		'post_type'   => 'any',
-		'numberposts' => - 1,
-		'post_status' => 'any',
-		'post_parent' => $post->ID
-	) );
-	// clone old attachments
-	foreach ( $children as $child ) {
-		if ( $child->post_type != 'attachment' ) {
-			continue;
-		}
-		$url = wp_get_attachment_url( $child->ID );
-
-		$tmp = download_url( $url );
-		if ( is_wp_error( $tmp ) ) {
-			@unlink( $tmp );
-			continue;
-		}
-
-		$desc = wp_slash( $child->post_content );
-
-		$file_array             = array();
-		$file_array['name']     = basename( $url );
-		$file_array['tmp_name'] = $tmp;
-
-		$new_attachment_id = media_handle_sideload( $file_array, $new_id, $desc );
-
-		if ( is_wp_error( $new_attachment_id ) ) {
-			@unlink( $file_array['tmp_name'] );
-			continue;
-		}
-		$new_post_author = wp_get_current_user();
-		$cloned_child    = array(
-			'ID'           => $new_attachment_id,
-			'post_title'   => $child->post_title,
-			'post_exceprt' => $child->post_title,
-			'post_author'  => $new_post_author->ID
-		);
-		wp_update_post( wp_slash( $cloned_child ) );
-
-		$alt_title = get_post_meta( $child->ID, '_wp_attachment_image_alt', true );
-		if ( $alt_title ) {
-			update_post_meta( $new_attachment_id, '_wp_attachment_image_alt', wp_slash( $alt_title ) );
 		}
 	}
 }
