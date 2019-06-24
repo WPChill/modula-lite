@@ -212,92 +212,25 @@
         });
 
         this.$lightbox.find('.lb-prev').on('click', function () {
-            /**
-             * @TODO for George, part that was modified by Razvan. Please compare to original
-             */
-            var cycle_filter = self.album[self.currentImageIndex].cycleFilter;
 
-            if (undefined == cycle_filter || cycle_filter == 'default')  {
-                if (self.currentImageIndex === 0) {
-                    self.changeImage(self.album.length - 1);
-                } else {
-                    self.changeImage(self.currentImageIndex - 1);
-                }
-            } else if (cycle_filter == 'show' && self.currentImageIndex <= self.album.length - 1) {
-                // group shown items in array
-                var items = self.album;
-                var show_cycle_filter = [];
-                $.each(items,function(key,value){
-                    if ('show' == value.cycleFilter) {
-                        show_cycle_filter.push(key);
-                    }
-                });
-
-                // invert the array so that we can compare values from large to small
-                show_cycle_filter.sort(function(a, b){return b-a});
-
-                if (self.currentImageIndex === 0) {
-                    //in our case show_cycle_filter[0] being the larges value
-                    self.changeImage(show_cycle_filter[0]);
-                } else {
-
-                    var i = self.currentImageIndex;
-
-                    // cycle only the images that are shown
-                    $.each(show_cycle_filter, function (key,value) {
-                        if (i > value) {
-                            self.changeImage(value);
-                            return false;
-                        } else {
-                            self.changeImage(show_cycle_filter[show_cycle_filter.length-1]);
-                        }
-                    });
-                }
-
+            if (self.currentImageIndex === 0) {
+                self.changeImage(self.album.length - 1);
+            } else {
+                self.changeImage(self.currentImageIndex - 1);
             }
+
             setTimeout(function(){jQuery(document).trigger('modula_lightbox2_lightbox_prev',[self,self.currentImageIndex])},600);
             return false;
         });
 
         this.$lightbox.find('.lb-next').on('click', function () {
-            /**
-             * @TODO for George, part that was modified by Razvan. Please compare to original
-             */
-            var cycle_filter = self.album[self.currentImageIndex].cycleFilter;
 
-            if (undefined == cycle_filter || cycle_filter == 'default') {
-                if (self.currentImageIndex === self.album.length - 1) {
-                    self.changeImage(0);
-                } else {
-                    self.changeImage(self.currentImageIndex + 1);
-                }
-            } else if (cycle_filter == 'show' && self.currentImageIndex <= self.album.length - 1) {
-                // group shown items in array
-                var items = self.album;
-                var show_cycle_filter = [];
-                $.each(items,function(key,value){
-                    if ('show' == value.cycleFilter) {
-                        show_cycle_filter.push(key);
-                    }
-                });
-                if (self.currentImageIndex === self.album.length - 1) {
-                    self.changeImage(show_cycle_filter[0]);
-                } else {
-                    var i = self.currentImageIndex;
-
-
-                    // cycle only the images that are shown
-                    $.each(show_cycle_filter, function (key,value) {
-                        if (i < value) {
-                            self.changeImage(value);
-                            return false;
-                        } else {
-                            self.changeImage(show_cycle_filter[0]);
-                        }
-                    });
-                }
-
+            if (self.currentImageIndex === self.album.length - 1) {
+                self.changeImage(0);
+            } else {
+                self.changeImage(self.currentImageIndex + 1);
             }
+            
             setTimeout(function(){jQuery(document).trigger('modula_lightbox2_lightbox_next',[self,self.currentImageIndex])},600);
             return false;
         });
@@ -377,16 +310,20 @@
                 alt: $link.attr('data-alt'),
                 link: $link.attr('href'),
                 title: $link.attr('data-title') || $link.attr('title'),
-                cycleFilter: $link.attr('data-cyclefilter')
             });
         }
 
         // Support both data-lightbox attribute and rel attribute implementations
         var dataLightboxValue = $link.attr('data-lightbox');
-        var $links;
+        var $links, $filteredLinks;
 
         if (dataLightboxValue) {
             $links = $($link.prop('tagName') + '[data-lightbox="' + dataLightboxValue + '"]');
+            $filteredLinks = $links.filter( '[data-cyclefilter=show]' );
+            if ( $filteredLinks.length > 0 && $filteredLinks.length != $links.length ) {
+                $links = $filteredLinks;
+            }
+
             for (var i = 0; i < $links.length; i = ++i) {
                 addToAlbum($($links[i]));
                 if ($links[i] === $link[0]) {
@@ -400,6 +337,10 @@
             } else {
                 // If image is part of a set
                 $links = $($link.prop('tagName') + '[rel="' + $link.attr('rel') + '"]');
+                $filteredLinks = $links.filter( '[data-cyclefilter=show]' );
+                if ( $filteredLinks.length > 0 && $filteredLinks.length != $links.length ) {
+                    $links = $filteredLinks;
+                }
                 for (var j = 0; j < $links.length; j = ++j) {
                     addToAlbum($($links[j]));
                     if ($links[j] === $link[0]) {
