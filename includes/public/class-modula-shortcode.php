@@ -30,7 +30,7 @@ class Modula_Shortcode {
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
