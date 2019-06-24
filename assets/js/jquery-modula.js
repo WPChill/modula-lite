@@ -669,7 +669,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         this.$itemsCnt.css({
             position: 'relative',
-            zIndex: 1
+            zIndex: 1,
+            'min-height': '10px'
         });
         
         this.$items.addClass("tile");
@@ -738,6 +739,15 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         if (this.options.enableLinkedin){
             setupLinkedIN(this.$items, this);
         }
+    }
+
+    Plugin.prototype.destroy = function () {
+
+        if ( this.isPackeryActive ) {
+            this.$itemsCnt.packery( 'destroy' );
+            this.isPackeryActive = false;
+        }
+
     }
 
     //credits James Padolsey http://james.padolsey.com/
@@ -823,7 +833,6 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         if (options === undefined || typeof options === 'object') {
             return this.each(function () {
-
                 if (!$.data(this, 'plugin_' + pluginName)) {
                     $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
                 }
