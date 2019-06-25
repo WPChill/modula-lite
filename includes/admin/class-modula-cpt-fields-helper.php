@@ -91,8 +91,8 @@ class Modula_CPT_Fields_Helper {
 				'priority'    => 90,
 			),
 			'customizations' => array(
-				'label'       => esc_html__( 'Customizations', 'modula-best-grid-gallery' ),
-				'title'       => esc_html__( 'Customization Settings', 'modula-best-grid-gallery' ),
+				'label'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
+				'title'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
 				'description' => $customizations_description,
 				"icon"        => "dashicons dashicons-admin-tools",
 				'priority'    => 90,
