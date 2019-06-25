@@ -1,0 +1,1 @@
+jQuery(function(r){elementorFrontend.hooks.addAction("frontend/element_ready/modula_elementor_gallery.default",function(l){var e=l.find(".modula-gallery");if(0<e.length){var a=e.attr("id"),n=e.data("config"),d=jQuery("#"+a).data("plugin_modulaGallery");d&&(d.destroy(),jQuery("#"+a).data("plugin_modulaGallery",null)),r("#"+a).modulaGallery(n)}})});
