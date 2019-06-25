@@ -51,17 +51,27 @@ class Modula_Elementor_Widget_Activation {
 	 * Enqueue scripts in Elementor preview
 	 */
 	public function modula_elementor_enqueue_scripts() {
+
+		do_action( 'modula_elementor_before_enqueue_scripts' );
+
 		wp_enqueue_script( 'packery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
+
+		do_action( 'modula_elementor_before_enqueue_elementor-preview' );
+
 		wp_enqueue_script( 'modula-elementor-preview', MODULA_URL . 'assets/js/modula-elementor-preview.js', null, MODULA_LITE_VERSION, true );
+
+		do_action( 'modula_elementor_after_enqueue_scripts' );
 	}
 
 	/**
 	 *  Enqueue styles in Elementor preview
 	 */
 	public function modula_elementor_enqueue_styles() {
+		do_action( 'modula_elementor_before_enqueue_styles' );
 		wp_enqueue_style( 'modula' );
+		do_action( 'modula_elementor_after_enqueue_styles' );
 	}
 }
 
