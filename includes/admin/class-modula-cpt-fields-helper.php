@@ -81,7 +81,6 @@ class Modula_CPT_Fields_Helper {
 	    		'label'       => esc_html__( 'Speed Up', 'modula-best-grid-gallery' ),
 				'title'       => esc_html__( 'Optimize your images', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-dashboard",
-				'badge'       => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
 				'priority'    => 80,
 	    	),
 	    	'responsive' => array(
