@@ -88,6 +88,15 @@ class Modula_Shortcode {
 		}else{
 			$settings['type'] = 'creative-gallery';
 		}
+		
+		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', $settings, $atts['id'] );
+
+		if ( false !== $pre_gallery_html ) {
+
+			// If there is HTML, then we stop trying to display the gallery and return THAT HTML.
+			return apply_filters( 'modula_pre_output_filter', $settings, $atts['id'] );
+
+		}
 
 		/* Get gallery images */
 		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
