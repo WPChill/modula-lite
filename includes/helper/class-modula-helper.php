@@ -61,9 +61,9 @@ class Modula_Helper {
 
 	public static function hover_effects_elements( $effect ) {
 
-		$effects_with_title       = apply_filters( 'modula_effects_with_title', array( 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo' ) );
-		$effects_with_description = apply_filters( 'modula_effects_with_description', array( 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo'  ) );
-		$effects_with_social      = apply_filters( 'modula_effects_with_social', array( 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo' ) );
+		$effects_with_title       = apply_filters( 'modula_effects_with_title', array( 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo','lily','sadie','honey','layla','zoe','oscar','marley','ruby','roxy','bubba','romeo','dexter','sarah','chico','milo','julia','goliath','hera','winston','selena','terry','phoebe','apollo','kira','steve','moses','jazz','ming','lexi','duke','caption_1','caption_2','caption_3','caption_4','caption_5','caption_6','caption_7','tilt_1','tilt_2' ,'tilt_3' ,'tilt_4' ,'tilt_5' ,'tilt_6' ,'tilt_7' ,'tilt_8' ,'tilt_1_hover' ,'tilt_2_hover' ,'tilt_3_hover' ,'tilt_4_hover' ,'tilt_5_hover' ,'tilt_6_hover' ,'tilt_7_hover' ,'tilt_8_hover' ) );
+		$effects_with_description = apply_filters( 'modula_effects_with_description', array( 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo','lily','sadie','honey','layla','zoe','oscar','marley','ruby','roxy','bubba','romeo','dexter','sarah','chico','milo','julia','goliath','hera','winston','selena','terry','phoebe','apollo','kira','steve','moses','jazz','ming','lexi','duke','caption_1','caption_2','caption_3','caption_4','caption_5','caption_6','caption_7','tilt_1','tilt_2' ,'tilt_3' ,'tilt_4' ,'tilt_5' ,'tilt_6' ,'tilt_7' ,'tilt_8'  ) );
+		$effects_with_social      = apply_filters( 'modula_effects_with_social', array( 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo','lily','sadie','honey','layla','zoe','oscar','marley','ruby','roxy','bubba','romeo','dexter','sarah','chico','milo','julia','goliath','hera','winston','selena','terry','phoebe','apollo','kira','steve','moses','jazz','ming','lexi','duke','caption_1','caption_2','caption_3','caption_4','caption_5','caption_6','caption_7','tilt_1','tilt_2' ,'tilt_3' ,'tilt_4' ,'tilt_5' ,'tilt_6' ,'tilt_7' ,'tilt_8' ) );
 
 		return array(
 			'title'       => in_array( $effect, $effects_with_title ),
