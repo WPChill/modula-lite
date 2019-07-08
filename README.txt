@@ -152,6 +152,14 @@ Modula is the perfect WordPress photo gallery plugin if you're a wedding planner
 
 *Be as proud of your wedding album as you are of your wedding.*
 
+== 3rd party or external service disclaimer ==
+
+The plugin connects to our website through an API call (https://wp-modula.com/wp-json/mt/v1/get-all-extensions) in order to request a list of available extensions.
+
+IT DOES NOT SEND ANY DATA NOR DO WE COLLECT INFORMATION FROM THE REQUEST
+
+Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy/
+
 == Installation ==
 = For automatic installation: =
 
