@@ -89,7 +89,7 @@ class Modula_Shortcode {
 			$settings['type'] = 'creative-gallery';
 		}
 		
-		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', $settings, $atts['id'] );
+		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', false, $settings, $atts['id'] );
 
 		if ( false !== $pre_gallery_html ) {
 
