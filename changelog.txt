@@ -1,3 +1,8 @@
+= 2.1.2 - 10.07.2019 =
+Added more hooks
+Fixed swipe navigation on lightbox
+Fixed “Duplicate Gallery” showing on all post types.
+
 = 2.1.1 - 25.06.2019 =
 * Added Elementor Widget
 * Added option to duplicate gallery
