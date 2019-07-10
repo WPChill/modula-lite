@@ -21,6 +21,11 @@ class Modula_Duplicator {
 	 * Add the link to action list for post_row_actions
 	 */
 	public function duplicate_gallery_link( $actions, $post ) {
+
+		if ( 'modula-gallery' != get_post_type( $post ) ) {
+			return $actions;
+		}
+
 		$actions['duplicate_modula'] = '<a href="' . modula_duplicate_gallery_get_clone_post_link( $post->ID, 'display', false ) . '" title="' . esc_attr__( "Duplicate this gallery", 'modula-best-grid-gallery' ) . '">' . esc_html__( 'Duplicate gallery', 'modula-best-grid-gallery' ) . '</a>';
 
 		return $actions;
