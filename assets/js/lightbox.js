@@ -239,18 +239,16 @@
         self.swipedetect(lightboxContainer, function (swipedir) {
             // swipedir contains either "none", "left", "right", "top", or "down"
             if ('left' == swipedir) {
-
-                if (self.currentImageIndex === 0) {
-                    self.changeImage(self.album.length - 1);
-                } else {
-                    self.changeImage(self.currentImageIndex - 1);
-                }
-
-            } else if ('right' == swipedir) {
                 if (self.currentImageIndex === self.album.length - 1) {
                     self.changeImage(0);
                 } else {
                     self.changeImage(self.currentImageIndex + 1);
+                }
+            } else if ('right' == swipedir) {
+                if (self.currentImageIndex === 0) {
+                    self.changeImage(self.album.length - 1);
+                } else {
+                    self.changeImage(self.currentImageIndex - 1);
                 }
             }
 
