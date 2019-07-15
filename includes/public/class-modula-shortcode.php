@@ -94,7 +94,7 @@ class Modula_Shortcode {
 		if ( false !== $pre_gallery_html ) {
 
 			// If there is HTML, then we stop trying to display the gallery and return THAT HTML.
-			return apply_filters( 'modula_pre_output_filter', $settings, $atts['id'] );
+			return apply_filters( 'modula_pre_output_filter', '', $settings, $atts['id'] );
 
 		}
 
