@@ -5,8 +5,8 @@ $classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery
 <div id="<?php echo esc_attr($data->gallery_id) ?>" class="<?php echo esc_attr($classes); ?> <?php echo ( $data->settings['align'] != '' ) ? esc_attr( 'align' . $data->settings['align'] ) : ''; ?>" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
 
 	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
-
-	<div class='items'>
+<?php $items_attributes = apply_filters('modula_items_attribute','',$data->settings); ?>
+	<div class='items' <?php echo esc_attr($items_attributes); ?>>
 		<?php
 
 		foreach ( $data->images as $image ) {
