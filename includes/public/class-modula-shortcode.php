@@ -89,12 +89,13 @@ class Modula_Shortcode {
 			$settings['type'] = 'creative-gallery';
 		}
 		
-		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', false, $settings, $atts['id'] );
+		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', false, $settings, $gallery );
 
 		if ( false !== $pre_gallery_html ) {
 
 			// If there is HTML, then we stop trying to display the gallery and return THAT HTML.
-			return apply_filters( 'modula_pre_output_filter', '', $settings, $atts['id'] );
+			$pre_output =  apply_filters( 'modula_pre_output_filter','', $settings, $gallery );
+			return $pre_output;
 
 		}
 
