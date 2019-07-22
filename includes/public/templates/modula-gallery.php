@@ -49,6 +49,9 @@ $classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery
 				),
 			);
 
+			// need this to model the image attributes
+            $image = apply_filters('modula_shortcode_image_data',$image,$data->settings);
+
 			/**
 			 * Hook: modula_shortcode_item_data.
 			 *
@@ -58,7 +61,6 @@ $classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery
 			 * @hooked modula_check_custom_grid - 25
 			 */
 			$item_data = apply_filters( 'modula_shortcode_item_data', $item_data, $image, $data->settings, $data->images );
-
 			do_action( 'modula_shortcode_before_item', $data->settings, $item_data );
 			$data->loader->set_template_data( $item_data );
 			$data->loader->get_template_part( 'items/item', $data->settings['effect'] );
