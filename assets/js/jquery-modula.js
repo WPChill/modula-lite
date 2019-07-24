@@ -304,8 +304,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     function Plugin( element, options ) {
         this.element = element;
         this.$element = $(element);
-        this.$itemsCnt = this.$element.find(".items");
-        this.$items = this.$itemsCnt.find(".item");
+        this.$itemsCnt = this.$element.find(".modula-items");
+        this.$items = this.$itemsCnt.find(".modula-item");
 
         this.options = $.extend({}, defaults, options);
 
@@ -392,7 +392,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             }
 
             slot.width = size * widthColumns + ( plugin.options.gutter * ( widthColumns - 1 ) );
-            slot.height = size * heightColumns + ( plugin.options.gutter * ( heightColumns - 1 ) );
+            slot.height = Math.round( size ) * heightColumns + ( plugin.options.gutter * ( heightColumns - 1 ) );
 
             $(item)
 		   		.data('size', slot)
@@ -413,7 +413,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     	}
 
         this.$itemsCnt.packery({
-        	itemSelector: '.item',
+        	itemSelector: '.modula-item',
             gutter: parseInt( plugin.options.gutter ),
             columnWidth: size,
             // rowHeight: size,

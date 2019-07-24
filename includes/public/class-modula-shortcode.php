@@ -194,24 +194,24 @@ class Modula_Shortcode {
 			$css = "<style>";
 
 			if ( $settings['borderSize'] ) {
-				$css .= "#{$gallery_id} .item { border: " . absint($settings['borderSize']) . "px solid " . sanitize_hex_color($settings['borderColor']) . "; }";
+				$css .= "#{$gallery_id} .modula-item { border: " . absint($settings['borderSize']) . "px solid " . sanitize_hex_color($settings['borderColor']) . "; }";
 			}
 
 			if ( $settings['borderRadius'] ) {
-				$css .= "#{$gallery_id} .item { border-radius: " . absint($settings['borderRadius']) . "px; }";
+				$css .= "#{$gallery_id} .modula-item { border-radius: " . absint($settings['borderRadius']) . "px; }";
 			}
 
 			if ( $settings['shadowSize'] ) {
-				$css .= "#{$gallery_id} .item { box-shadow: " . sanitize_hex_color($settings['shadowColor']) . " 0px 0px " . absint($settings['shadowSize']) . "px; }";
+				$css .= "#{$gallery_id} .modula-item { box-shadow: " . sanitize_hex_color($settings['shadowColor']) . " 0px 0px " . absint($settings['shadowSize']) . "px; }";
 			}
 
 			if ( $settings['socialIconColor'] ) {
-				$css .= "#{$gallery_id} .item .jtg-social a { color: " . sanitize_hex_color($settings['socialIconColor']) . " }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social a { color: " . sanitize_hex_color($settings['socialIconColor']) . " }";
 			}
 
-			$css .= "#{$gallery_id} .item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";
+			$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";
 			if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {
-				$css .= "#{$gallery_id} .item .figc {";
+				$css .= "#{$gallery_id} .modula-item .figc {";
 				if ( '' != $settings['captionColor'] ) {
 					$css .= 'color:' . sanitize_hex_color($settings['captionColor']) . ';';
 				}
@@ -219,21 +219,21 @@ class Modula_Shortcode {
 			}
 
 			if ( '' != $settings['titleFontSize'] && 0 != $settings['titleFontSize'] ) {
-				$css .= "#{$gallery_id} .item .figc .jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
+				$css .= "#{$gallery_id} .modula-item .figc .jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
 			}
 
-			$css .= "#{$gallery_id} .item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
+			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
 				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
-				$css .= "#{$gallery_id} .items{height:" . absint( $settings['height'] ) . "px;}";
+				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
-			$css .= "#{$gallery_id} .items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
+			$css .= "#{$gallery_id} .modula-items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
 			if ( '' != $settings['titleColor'] ) {
-				$css .= "#{$gallery_id} .items .figc .jtg-title { color:" . sanitize_hex_color($settings['titleColor']) . "; }";
+				$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . sanitize_hex_color($settings['titleColor']) . "; }";
 			}else{
-				$css .= "#{$gallery_id} .items .figc .jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
+				$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 			}
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
