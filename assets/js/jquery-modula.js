@@ -580,6 +580,13 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         var tSize = $tile.data('size');
         var iSize = $image.data('size');
 
+        if ( $image.parent() != $tile ) {
+            tSize = {
+                'width' : $image.parent().width(),
+                'height' : $image.parent().height()
+            };
+        }
+
         if ( typeof tSize == 'undefined' ) { return; }
         if ( typeof iSize == 'undefined' ) { return; }
 

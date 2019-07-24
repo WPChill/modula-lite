@@ -225,12 +225,14 @@ tr label.th-label {
 }
 .modula-effects-preview .item {
     width: 400px;
-    height: 267px;
+    height: 300px;
     overflow: hidden;
     position: relative;
 }
 .modula-effects-preview .item img {
     position: absolute;
+    min-height: 100%;
+    min-width: 100%;
 }
 .modula-effects-preview .item .figc {
 	display: flex;
