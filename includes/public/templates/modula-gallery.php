@@ -6,7 +6,7 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 
 	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
 
-	<div class='items'<?php echo Modula_Helper::generate_attributes( $items_attributes ) ?>>
+	<div class='modula-items'<?php echo Modula_Helper::generate_attributes( $items_attributes ) ?>>
 		<?php
 
 		foreach ( $data->images as $image ) {
@@ -33,7 +33,7 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 
 				/* Item container attributes & classes */
-				'item_classes'     => array( 'item' ),
+				'item_classes'     => array( 'modula-item' ),
 				'item_attributes'  => array(),
 
 				/* Item link attributes & classes */
