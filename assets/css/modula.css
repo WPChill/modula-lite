@@ -369,7 +369,10 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	padding: 10px 0;
 }
 
-.modula .modula-item:hover img { opacity: .8 }
+.modula .modula-item:hover img,
+.modula .modula-items .modula-item.tg-loaded:hover img.pic {
+	opacity: .8
+}
 
 .modula .modula-item { background-color:#000; }
 
