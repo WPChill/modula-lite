@@ -708,7 +708,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
             if ( 'modula' == element.data( 'source' ) ) {
                 element.data('size', { width: element.width(), height: element.height() });
-                parent = element.parents( '.item' );
+                parent = element.parents( '.modula-item' );
                 parent.addClass( 'tg-loaded' );
                 index = instance.$items.index( parent );
                 instance.placeImage(index);
