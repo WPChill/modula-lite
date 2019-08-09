@@ -8,11 +8,13 @@ class Modula_Beaver_Block extends FLBuilderModule {
 
     public function __construct() {
         parent::__construct(array(
-            'name'        => __('Modula Block', 'modula-best-grid-gallery'),
-            'description' => __('A totally awesome module!', 'modula-best-grid-gallery'),
-            'category'    => __('Modula', 'modula-best-grid-gallery'),
-            'dir'         => MODULA_PATH . 'includes/modula-beaver-block/',
-            'url'         => MODULA_URL . 'includes/modula-beaver-block/',
+            'name'            => __('Modula Block', 'modula-best-grid-gallery'),
+            'description'     => __('A totally awesome module!', 'modula-best-grid-gallery'),
+            'category'        => __('Modula', 'modula-best-grid-gallery'),
+            'icon'            => 'format-image.svg',
+            'dir'             => MODULA_PATH . 'includes/modula-beaver-block/',
+            'url'             => MODULA_URL . 'includes/modula-beaver-block/',
+            'partial_refresh' => true,
         ));
     }
 }
@@ -28,7 +30,11 @@ FLBuilder::register_module('Modula_Beaver_Block', array(
                         'type'    => 'select',
                         'label'   => __('Select Modula Gallery', 'modula-best-grid-gallery'),
                         'default' => 'none',
-                        'options' => Modula_Helper::get_galleries()
+                        'options' => Modula_Helper::get_galleries(),
+                        /*'preview' => array(
+                            'type'     => 'callback',
+                            'callback' => 'myPreviewCallback',
+                        ),*/
                     )
                 )
             )
