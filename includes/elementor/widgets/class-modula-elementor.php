@@ -58,5 +58,5 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 		}
 
 	}
-	
+
 }
