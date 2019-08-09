@@ -47,11 +47,10 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
 
-        if (class_exists('FLBuilder')) {
-        require_once MODULA_PATH . 'includes/modula-beaver-block/modula-beaver-block.php';
-         }
+        require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
 
-		if ( is_admin() ) {
+
+        if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
