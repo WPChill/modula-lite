@@ -21,6 +21,8 @@ class Modula_Widget extends WP_Widget {
             // Widget description
             array('description' => __('Modula Gallery Widget.', 'modula-best-grid-gallery'),)
         );
+
+        add_action('admin_enqueue_scripts', array($this, 'enqueue_page_builder_scripts'));
     }
 
     /**
@@ -30,13 +32,14 @@ class Modula_Widget extends WP_Widget {
      * Widget Front End
      */
     public function widget($args, $instance) {
-        
+
         $title = apply_filters('widget_title', $instance['title']);
 
         if (!empty($title))
             echo $args['before_title'] . $title . $args['after_title'];
         // Output Modula Gallery
         echo do_shortcode('[modula id="' . $instance['modula_widget_gallery_select'] . '"]');
+
     }
 
     /**
@@ -92,6 +95,36 @@ class Modula_Widget extends WP_Widget {
         $instance['modula_widget_gallery_select'] = (!empty($new_instance['modula_widget_gallery_select'])) ? strip_tags($new_instance['modula_widget_gallery_select']) : '';
 
         return $instance;
+    }
+
+    /**
+     * Enqueue needed scripts in the admin required for pagebuilder preview
+     */
+    public function enqueue_page_builder_scripts() {
+        if (class_exists('SiteOrigin_Panels') || class_exists('FLBuilderLoader')) {
+
+            wp_register_style('lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION);
+            wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
+
+            // Scripts necessary for some galleries
+            wp_register_script('lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+            wp_register_script('packery', MODULA_URL . 'assets/js/packery.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+            wp_register_script('modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+
+            // @todo: minify all css & js for a better optimization.
+            wp_register_script('modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+
+            wp_enqueue_style('modula');
+            wp_enqueue_style('lightbox2_stylesheet');
+            wp_enqueue_script('lightbox2_script');
+            wp_enqueue_script('packery');
+            wp_enqueue_script('modula');
+        }
+
+        if (class_exists('SiteOrigin_Panels')) {
+            wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
+            wp_enqueue_script('modula-siteorigin-preview');
+        }
     }
 }
 
