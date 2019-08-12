@@ -27,6 +27,8 @@ class Modula {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+        add_action('widgets_init', array($this, 'modula_load_widget'));
+
 	}
 
 	private function load_dependencies() {
@@ -47,7 +49,10 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
 
-		if ( is_admin() ) {
+        require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
+
+
+        if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
@@ -214,5 +219,10 @@ class Modula {
 
 		die;
 	}
+
+    // Register and load the widget
+    public function modula_load_widget() {
+        register_widget('Modula_Widget');
+    }
 
 }
