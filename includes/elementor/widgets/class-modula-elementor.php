@@ -42,7 +42,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 			array(
 				'label'   => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
 				'type'    => \Elementor\Controls_Manager::SELECT,
-				'options' => $this->get_galleries(),
+				'options' => \Modula_Helper::get_galleries(),
 				'default' => 'none',
 			)
 		);
@@ -57,18 +57,6 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 			echo do_shortcode( '[Modula id="' . esc_attr( $gallery_id ) . '"]' );
 		}
 
-	}
-
-
-	public function get_galleries() {
-
-		$galleries     = get_posts( array( 'post_type' => 'modula-gallery' ) );
-		$gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
-		foreach ( $galleries as $gallery ) {
-			$gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
-		}
-
-		return $gallery_array;
 	}
 
 }
