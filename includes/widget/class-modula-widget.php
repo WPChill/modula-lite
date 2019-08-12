@@ -30,14 +30,13 @@ class Modula_Widget extends WP_Widget {
      * Widget Front End
      */
     public function widget($args, $instance) {
+        
         $title = apply_filters('widget_title', $instance['title']);
-        // before and after widget arguments are defined by themes
-        echo $args['before_widget'];
+
         if (!empty($title))
             echo $args['before_title'] . $title . $args['after_title'];
-        // This is where you run the code and display the output
+        // Output Modula Gallery
         echo do_shortcode('[modula id="' . $instance['modula_widget_gallery_select'] . '"]');
-        echo $args['after_widget'];
     }
 
     /**
@@ -57,7 +56,6 @@ class Modula_Widget extends WP_Widget {
             $title = __('Widget Title', 'wpb_widget_domain');
         }
 
-        // Widget admin form
         ?>
         <p xmlns="http://www.w3.org/1999/html">
             <!-- Widget Title -->
