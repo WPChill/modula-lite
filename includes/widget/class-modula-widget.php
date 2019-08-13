@@ -22,7 +22,7 @@ class Modula_Widget extends WP_Widget {
             array('description' => __('Modula Gallery Widget.', 'modula-best-grid-gallery'),)
         );
 
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_page_builder_scripts'));
+        add_action('siteorigin_panel_enqueue_admin_scripts', array($this, 'enqueue_page_builder_scripts'));
     }
 
     /**
@@ -107,8 +107,10 @@ class Modula_Widget extends WP_Widget {
             // get siteOrigin panel settings so that we enqueue scripts and styles only where we need them
             $siteorigin_post_types = get_option('siteorigin_panels_settings');
             $current_screen        = get_current_screen();
-            
-            if (in_array($current_screen->post_type, $siteorigin_post_types['post-types'])) {
+            // check if is set, else set to defaults
+            $so_posts = (isset($siteorigin_post_types['post-types'])) ? $siteorigin_post_types['post-types'] : array('post', 'page');
+
+            if (in_array($current_screen->post_type, $so_posts)) {
                 wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
                 wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
                 wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
