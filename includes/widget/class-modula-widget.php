@@ -101,13 +101,13 @@ class Modula_Widget extends WP_Widget {
      * Enqueue needed scripts in the admin required for pagebuilder preview
      */
     public function enqueue_page_builder_scripts() {
-
-        // get siteOrigin panel settings so that we enqueue scripts and styles only where we need them
-        $siteorigin_post_types = get_option('siteorigin_panels_settings');
-        $current_screen        = get_current_screen();
-
         // only enqueue for SiteOrigin page builder
         if (class_exists('SiteOrigin_Panels')) {
+
+            // get siteOrigin panel settings so that we enqueue scripts and styles only where we need them
+            $siteorigin_post_types = get_option('siteorigin_panels_settings');
+            $current_screen        = get_current_screen();
+            
             if (in_array($current_screen->post_type, $siteorigin_post_types['post-types'])) {
                 wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
                 wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);

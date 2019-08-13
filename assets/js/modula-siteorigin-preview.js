@@ -2,6 +2,7 @@ jQuery(function ($) {
     $(window).load(function () {
         setTimeout(function () {
             gallery_preview();
+            block_preview_image_click();
         }, 600);
         siteorigin_modula_gallery_change();
     });
@@ -23,6 +24,12 @@ jQuery(function ($) {
             $('#' + galleryID).modulaGallery(modulaSettings);
 
         }
+    }
+
+    function block_preview_image_click(){
+        $('.modula-gallery a.tile-inner').click(function(e){
+            e.preventDefault();
+        });
     }
 
     function siteorigin_modula_gallery_change() {
