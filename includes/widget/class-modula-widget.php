@@ -101,29 +101,22 @@ class Modula_Widget extends WP_Widget {
      * Enqueue needed scripts in the admin required for pagebuilder preview
      */
     public function enqueue_page_builder_scripts() {
-        if (class_exists('SiteOrigin_Panels') || class_exists('FLBuilderLoader')) {
 
-            wp_register_style('lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION);
-            wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
+        // get siteOrigin panel settings so that we enqueue scripts and styles only where we need them
+        $siteorigin_post_types = get_option('siteorigin_panels_settings');
+        $current_screen        = get_current_screen();
 
-            // Scripts necessary for some galleries
-            wp_register_script('lightbox2_script', MODULA_URL . 'assets/js/lightbox.min.js', array('jquery'), MODULA_LITE_VERSION, true);
-            wp_register_script('packery', MODULA_URL . 'assets/js/packery.min.js', array('jquery'), MODULA_LITE_VERSION, true);
-            wp_register_script('modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.min.js', array('jquery'), MODULA_LITE_VERSION, true);
-
-            // @todo: minify all css & js for a better optimization.
-            wp_register_script('modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
-
-            wp_enqueue_style('modula');
-            wp_enqueue_style('lightbox2_stylesheet');
-            wp_enqueue_script('lightbox2_script');
-            wp_enqueue_script('packery');
-            wp_enqueue_script('modula');
-        }
-
+        // only enqueue for SiteOrigin page builder
         if (class_exists('SiteOrigin_Panels')) {
-            wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
-            wp_enqueue_script('modula-siteorigin-preview');
+            if (in_array($current_screen->post_type, $siteorigin_post_types['post-types'])) {
+                wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
+                wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+                wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
+
+                wp_enqueue_style('modula');
+                wp_enqueue_script('modula-preview');
+                wp_enqueue_script('modula-siteorigin-preview');
+            }
         }
     }
 }
