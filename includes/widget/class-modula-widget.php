@@ -33,12 +33,13 @@ class Modula_Widget extends WP_Widget {
      */
     public function widget($args, $instance) {
 
-        $title = apply_filters('widget_title', $instance['title']);
+        $title = (isset($instance['title'])) ? apply_filters('widget_title', $instance['title']) : '';
 
         if (!empty($title))
             echo $args['before_title'] . $title . $args['after_title'];
+
         // Output Modula Gallery
-        echo do_shortcode('[modula id="' . $instance['modula_widget_gallery_select'] . '"]');
+        echo isset($instance['modula_widget_gallery_select']) ? do_shortcode('[modula id="' . $instance['modula_widget_gallery_select'] . '"]') : '';;
 
     }
 
