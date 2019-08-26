@@ -121,6 +121,14 @@ class Modula_CPT_Fields_Helper {
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 110,
             ),
+            'slideshow' => array(
+                'label'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
+                'title'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
+                //'description' => $slideshow_description,
+                "icon"        => "dashicons dashicons-images-alt2",
+                'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+                'priority'    => 110,
+            ),
 		) );
 
 	}
