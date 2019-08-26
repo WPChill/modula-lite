@@ -17,6 +17,7 @@ class Modula_Upsells {
         add_filter( 'modula_misc_tab_content', array( $this, 'misc_tab_upsell' ) );
         add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
         add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
+        add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
 
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -130,6 +131,17 @@ class Modula_Upsells {
 
         $upsell_title       = esc_html__( 'Looking to watermark your galleries?', 'modula-best-grid-gallery' );
         $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Watermark add-on and add a watermark to your gallery images.', 'modula-best-grid-gallery' );
+
+        $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters' );
+
+        return $tab_content;
+
+    }
+
+    public function slideshow_tab_upsell( $tab_content ) {
+
+        $upsell_title       = esc_html__( 'Want to make slideshows from your gallery?', 'modula-best-grid-gallery' );
+        $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Slidfeshow add-on create beautiful slideshows from your galleries.', 'modula-best-grid-gallery' );
 
         $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters' );
 
