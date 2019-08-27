@@ -243,6 +243,20 @@ class Modula_Shortcode {
 				$css .= esc_html($settings['style']);
 			}
 
+			// Responsive fixes
+
+            $css .= '@media screen and (max-width:480px){';
+
+            if ('' != $settings['mobileTitleFontSize'] && 0 != $settings['mobileTitleFontSize']) {
+
+                $css .= "#{$gallery_id} .modula-item .figc .jtg-title {  font-size: " . absint($settings['mobileTitleFontSize']) . "px; }";
+            }
+
+            $css .= "#{$gallery_id} .modula-items .figc p.description { color:" . sanitize_hex_color($settings['captionColor']) . ";font-size:" . absint($settings['mobileCaptionFontSize']) . "px; }";
+
+            $css .= '}';
+
+
 			$css .= "</style>\n";
 
 			return $css;
