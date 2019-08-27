@@ -211,6 +211,8 @@ class Modula_Field_Builder {
 	private function _render_shortcode_metabox( $post ) {
 		$shortcode = '[modula id="' . $post->ID . '"]';
 		echo '<input type="text" style="width:100%;" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
+		// Add Copy Shortcode button
+        echo '<a href="#" id="copy-modula-shortcode" class="button button-primary">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
 	}
 
 	/* Create HMTL for a tab */
