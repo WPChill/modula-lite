@@ -15,6 +15,17 @@
   			});
 
 		});
+
+		// Copy shortcode functionality
+		$('#copy-modula-shortcode').click(function (e) {
+			e.preventDefault();
+			var gallery_shortcode = $(this).parent().find('input');
+			gallery_shortcode.focus();
+			gallery_shortcode.select();
+			document.execCommand("copy");
+			$(this).next('span').text('Shortcode copied');
+
+		});
 	});
 
 })(jQuery);
