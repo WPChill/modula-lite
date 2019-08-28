@@ -381,7 +381,7 @@ class Modula_CPT {
 		if ( 'shortcode' == $column ) {
 			$shortcode = '[modula id="' . $post_id . '"]';
 			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
-            echo '<a href="#" id="copy-modula-shortcode" class="button button-primary" style="margin-left:15px;">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
+            echo '<a href="#" class="copy-modula-shortcode button button-primary" style="margin-left:15px;">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
 		}
 
 	}
