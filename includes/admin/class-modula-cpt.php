@@ -171,7 +171,7 @@ class Modula_CPT {
 		$post_type = get_post_type_object( $post->post_type );
 
 		/* Check if the current user has permission to edit the post. */
-		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' != $post_type->name ) {
 			return $post_id;
 		}
 

@@ -24,6 +24,7 @@
 			gallery_shortcode.select();
 			document.execCommand("copy");
 			$(this).next('span').text('Shortcode copied');
+			$('.copy-modula-shortcode').not($(this)).parent().find('span').text('');
 
 		});
 	});
