@@ -108,7 +108,7 @@ function modula_check_hover_effect( $item_data, $item, $settings ){
 
 function modula_check_custom_grid( $item_data, $item, $settings ) {
 
-	if ( 'custom-grid' != $settings['type'] ) {
+    if ( 'custom-grid' != $settings['type'] ) {
 		return $item_data;
 	}
 
