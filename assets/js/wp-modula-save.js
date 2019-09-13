@@ -50,6 +50,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         saveImage: function( id, callback = false ) {
+
             var image = wp.Modula.Items.get( id ),
             	json  = image.getAttributes();
 

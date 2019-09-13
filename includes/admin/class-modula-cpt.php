@@ -171,7 +171,7 @@ class Modula_CPT {
 		$post_type = get_post_type_object( $post->post_type );
 
 		/* Check if the current user has permission to edit the post. */
-		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
+		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' != $post_type->name ) {
 			return $post_id;
 		}
 
@@ -381,6 +381,7 @@ class Modula_CPT {
 		if ( 'shortcode' == $column ) {
 			$shortcode = '[modula id="' . $post_id . '"]';
 			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
+            echo '<a href="#" class="copy-modula-shortcode button button-primary" style="margin-left:15px;">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
 		}
 
 	}
