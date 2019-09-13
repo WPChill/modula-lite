@@ -47,7 +47,8 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
 
-        require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
+    require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
+    require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
 
 
         if ( is_admin() ) {
@@ -220,6 +221,7 @@ class Modula {
 
 		die;
 	}
+
 
     // Register and load the widget
     public function modula_load_widget() {
