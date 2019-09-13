@@ -1,3 +1,10 @@
+= 2.1.6 - 13.09.2019 =
+* Added option for mobile caption and title font size
+* Added Beaver Builder Block
+* Added SiteOrigin builder widget
+* Fixed Elementor block
+* Added "Copy Shortcode" option
+
 = 2.1.5 - 25.07.2019 =
 * Fixed lazy load.
 
