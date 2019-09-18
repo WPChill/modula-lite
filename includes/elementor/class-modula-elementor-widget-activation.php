@@ -47,6 +47,8 @@ class Modula_Elementor_Widget_Activation {
 		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
 
+		add_action('wp_ajax_modula_elementor_ajax_search',array($this,'modula_elementor_ajax_search'));
+
 	}
 
     public function modula_elementor_enqueue_editor_scripts() {
@@ -54,6 +56,9 @@ class Modula_Elementor_Widget_Activation {
         wp_localize_script('modula-elementor-editor','modula_elementor_ajax',array(
             'ajax_url' => admin_url( 'admin-ajax.php' )
         ));
+
+        wp_enqueue_script( 'modula-selectize', MODULA_URL . 'assets/js/selectize.js', null, MODULA_LITE_VERSION, true );
+        wp_enqueue_style( 'modula-selectize', MODULA_URL . 'assets/css/selectize.default.css' );
     }
 
 	/**
@@ -82,6 +87,38 @@ class Modula_Elementor_Widget_Activation {
 		wp_enqueue_style( 'modula' );
 		do_action( 'modula_elementor_after_enqueue_styles' );
 	}
+
+	public function modula_elementor_ajax_search() {
+
+        if('modula_elementor_ajax_search' == $_POST['action']){
+
+            $return = array();
+            $args = array(
+                'post_type' => 'modula-gallery',
+                'posts_per_page' => 20,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                's' => $_POST['search_value']
+            );
+
+            $galleries = new \WP_Query($args);
+
+            if($galleries->have_posts()){
+                while($galleries->have_posts()){
+                    $galleries->the_post();
+                    $id = get_the_ID();
+                    $title = get_the_title();
+                    $return[] = array(
+                        'value' => $id,
+                        'text' => $title
+                    );
+                }
+            }
+        }
+
+        echo json_encode($return);
+        wp_die();
+    }
 }
 
 // Instantiate Plugin Class
