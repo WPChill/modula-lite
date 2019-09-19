@@ -3,7 +3,7 @@ jQuery(function ($) {
     elementor.hooks.addAction('panel/open_editor/widget/modula_elementor_gallery', function (panel, model, view) {
 
         // Get search input
-        search_input = panel.$el.find('input[data-setting="modula_gallery_ajax"]');
+        search_input = panel.$el.find('select[data-setting="modula_gallery_select"]');
 
         var search_val, timer, selective_input;
 
@@ -26,6 +26,32 @@ jQuery(function ($) {
 
         // Get selectize search input
         selective_input = search_input.next().find('input');
+
+
+        jQuery.post(modula_elementor_ajax.ajax_url, {
+            action: 'modula_elementor_ajax_search',
+            search_value: selective_input.val()
+        }, function (data) {
+
+            // unfocus the input so that we could refresh the options
+            selective_input.blur().focus();
+
+            var e = jQuery.parseJSON(data);
+
+            jQuery.each(e, function (key, value) {
+
+                var selOpt = {
+                    'id': key,
+                    'title': value.text
+                };
+
+                // Add new options and refresh them
+                search_input[0].selectize.addOption(selOpt);
+                search_input[0].selectize.refreshOptions();
+                //search_input[0].selectize.$control.find('input').val(search_val);
+            });
+
+        });
 
         selective_input.on('keyup', function () {
 
