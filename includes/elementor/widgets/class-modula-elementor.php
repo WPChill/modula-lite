@@ -51,9 +51,8 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
             'modula_gallery_ajax',
             array(
                 'label'   => esc_html__( 'Search for Gallery', 'modula-best-grid-gallery' ),
-                'type'    => \Elementor\Controls_Manager::SELECT,
-                //'options' => \Modula_Helper::get_galleries(),
-                'default' => '',
+                'type'    => \Elementor\Controls_Manager::TEXT,
+                'default' => 'none',
             )
         );
 
