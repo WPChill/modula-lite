@@ -113,6 +113,11 @@ class Modula_Elementor_Widget_Activation {
                         'text' => $title
                     );
                 }
+            } else {
+                $return[] = array(
+                    'value' => 'none',
+                    'text' => __('No galleries found','modula-best-grid-gallery')
+                );
             }
         }
 

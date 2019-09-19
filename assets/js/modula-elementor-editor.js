@@ -12,6 +12,8 @@ jQuery(function ($) {
             create: false,
             labelField: 'title',
             valueField: 'id',
+            maxItems: 1,
+            closeAfterSelect: true,
             render: {
                 item: function (item, escape) {
                     return "<option id='" + item.id + "'>" + escape(item.title) + "</option>";
@@ -37,6 +39,7 @@ jQuery(function ($) {
                     if (search_input[0].selectize) {
                         search_input[0].selectize.clearOptions();
                         search_input[0].selectize.refreshOptions();
+
                     }
 
                     jQuery.post(modula_elementor_ajax.ajax_url, {
@@ -45,7 +48,7 @@ jQuery(function ($) {
                     }, function (data) {
 
                         // unfocus the input so that we could refresh the options
-                        selective_input.blur();
+                        selective_input.blur().focus();
 
                         var e = jQuery.parseJSON(data);
 
@@ -59,13 +62,15 @@ jQuery(function ($) {
                             // Add new options and refresh them
                             search_input[0].selectize.addOption(selOpt);
                             search_input[0].selectize.refreshOptions();
+                            //search_input[0].selectize.$control.find('input').val(search_val);
                         });
 
                     });
 
-                }, 800);
-
+                }, 1200);
                 search_val = jQuery(this).val();
+                //search_input.val(search_val);
+                //search_input[0].selectize.$control.find('input').val(search_val);
             }
 
         });
