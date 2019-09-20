@@ -22,8 +22,8 @@ jQuery(function ($) {
 
         jQuery.post(modula_elementor_ajax.ajax_url, {
             action: 'modula_elementor_ajax_search',
-            search_value: search_input_active,
-            search_title: false
+            search_value: ('none' != search_input_active) ? search_input_active : '',
+            search_title: ('none' != search_input_active) ? false : true
         }, function (data) {
 
             // unfocus the input so that we could refresh the options
