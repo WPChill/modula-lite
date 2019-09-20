@@ -119,6 +119,7 @@ class Modula_Elementor_Widget_Activation {
                     'text' => __('No galleries found','modula-best-grid-gallery')
                 );
             }
+            wp_reset_query();
         }
 
         echo json_encode($return);

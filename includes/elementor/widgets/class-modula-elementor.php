@@ -42,7 +42,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
             array(
                 'label'   => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
-                //'options' => will be loaded through ajax,
+               // 'options' => \Modula_Helper::get_galleries(), // will be loaded through ajax
                 'default' => 'none',
             )
         );

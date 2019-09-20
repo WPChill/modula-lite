@@ -5,6 +5,11 @@ jQuery(function ($) {
         // Get search input
         search_input = panel.$el.find('select[data-setting="modula_gallery_select"]');
 
+        var search_input_val = search_input.val();
+
+        console.log(search_input_val);
+
+
         var search_val, timer, selective_input;
 
         // Initialize the selectize
@@ -24,6 +29,11 @@ jQuery(function ($) {
             }
         });
 
+        // Add active item
+        search_input[0].selectize.addOption({'id' : search_input_val,'title':'test'});
+        search_input[0].selectize.addItem({'id' : search_input_val});
+        search_input[0].selectize.refreshOptions();
+
         // Get selectize search input
         selective_input = search_input.next().find('input');
 
@@ -41,7 +51,7 @@ jQuery(function ($) {
             jQuery.each(e, function (key, value) {
 
                 var selOpt = {
-                    'id': key,
+                    'id': value.value,
                     'title': value.text
                 };
 
@@ -81,7 +91,7 @@ jQuery(function ($) {
                         jQuery.each(e, function (key, value) {
 
                             var selOpt = {
-                                'id': key,
+                                'id': value.value,
                                 'title': value.text
                             };
 
