@@ -313,6 +313,8 @@
     border-style: solid;
     border-width: 5px 5px 0 5px;
     border-color: #808080 transparent transparent transparent;
+    /* Cutomization for select */
+    display:none;
 }
 .selectize-control.single .selectize-input.dropdown-active:after {
     margin-top: -4px;

@@ -40,7 +40,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
             'modula_gallery_select',
             array(
-                'label'   => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
+                'label'   => esc_html__( 'Select/Search Gallery', 'modula-best-grid-gallery' ),
                 'type'    => \Elementor\Controls_Manager::SELECT,
                // 'options' => \Modula_Helper::get_galleries(), // will be loaded through ajax
                 'default' => 'none',
