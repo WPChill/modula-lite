@@ -5,34 +5,16 @@ jQuery(function ($) {
         // Get search input
         search_input = panel.$el.find('select[data-setting="modula_gallery_select"]');
 
-        var search_input_val = search_input.val();
-
-        console.log(search_input_val);
-
+        var search_input_active = model.attributes.settings.attributes.modula_gallery_select;
 
         var search_val, timer, selective_input;
 
         // Initialize the selectize
         search_input.selectize({
             create: false,
-            labelField: 'title',
-            valueField: 'id',
             maxItems: 1,
             closeAfterSelect: true,
-            render: {
-                item: function (item, escape) {
-                    return "<option id='" + item.id + "'>" + escape(item.title) + "</option>";
-                },
-                option: function (item, escape) {
-                    return "<option id='" + item.id + "'>" + escape(item.title) + "</option>";
-                }
-            }
         });
-
-        // Add active item
-        search_input[0].selectize.addOption({'id' : search_input_val,'title':'test'});
-        search_input[0].selectize.addItem({'id' : search_input_val});
-        search_input[0].selectize.refreshOptions();
 
         // Get selectize search input
         selective_input = search_input.next().find('input');
@@ -40,7 +22,8 @@ jQuery(function ($) {
 
         jQuery.post(modula_elementor_ajax.ajax_url, {
             action: 'modula_elementor_ajax_search',
-            search_value: selective_input.val()
+            search_value: search_input_active,
+            search_title: false
         }, function (data) {
 
             // unfocus the input so that we could refresh the options
@@ -51,15 +34,18 @@ jQuery(function ($) {
             jQuery.each(e, function (key, value) {
 
                 var selOpt = {
-                    'id': value.value,
-                    'title': value.text
+                    value: value.value,
+                    text: value.text
                 };
 
                 // Add new options and refresh them
                 search_input[0].selectize.addOption(selOpt);
                 search_input[0].selectize.refreshOptions();
-                //search_input[0].selectize.$control.find('input').val(search_val);
             });
+
+            if (search_input_active) {
+                search_input[0].selectize.addItem(search_input_active);
+            }
 
         });
 
@@ -80,7 +66,8 @@ jQuery(function ($) {
 
                     jQuery.post(modula_elementor_ajax.ajax_url, {
                         action: 'modula_elementor_ajax_search',
-                        search_value: selective_input.val()
+                        search_value: selective_input.val(),
+                        search_title: true
                     }, function (data) {
 
                         // unfocus the input so that we could refresh the options
@@ -91,8 +78,8 @@ jQuery(function ($) {
                         jQuery.each(e, function (key, value) {
 
                             var selOpt = {
-                                'id': value.value,
-                                'title': value.text
+                                value: value.value,
+                                text: value.text
                             };
 
                             // Add new options and refresh them
@@ -105,8 +92,6 @@ jQuery(function ($) {
 
                 }, 1200);
                 search_val = jQuery(this).val();
-                //search_input.val(search_val);
-                //search_input[0].selectize.$control.find('input').val(search_val);
             }
 
         });

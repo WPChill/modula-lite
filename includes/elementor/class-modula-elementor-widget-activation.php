@@ -90,36 +90,45 @@ class Modula_Elementor_Widget_Activation {
 
 	public function modula_elementor_ajax_search() {
 
-        if('modula_elementor_ajax_search' == $_POST['action']){
+	    $return = array();
 
-            $return = array();
-            $args = array(
-                'post_type' => 'modula-gallery',
-                'posts_per_page' => 20,
-                'orderby' => 'title',
-                'order' => 'ASC',
-                's' => $_POST['search_value']
-            );
+        if ('modula_elementor_ajax_search' == $_POST['action']) {
 
-            $galleries = new \WP_Query($args);
+            if ('false' == $_POST['search_title']) {
 
-            if($galleries->have_posts()){
-                while($galleries->have_posts()){
-                    $galleries->the_post();
-                    $id = get_the_ID();
-                    $title = get_the_title();
+                $return[] = array(
+                    'value' => esc_attr($_POST['search_value']),
+                    'text'  => get_the_title($_POST['search_value']));
+            } else {
+
+                $args = array(
+                    'post_type'      => 'modula-gallery',
+                    'posts_per_page' => 20,
+                    'orderby'        => 'title',
+                    'order'          => 'ASC',
+                    's'              => $_POST['search_value']
+                );
+
+                $galleries = new \WP_Query($args);
+
+                if ($galleries->have_posts()) {
+                    while ($galleries->have_posts()) {
+                        $galleries->the_post();
+                        $id       = get_the_ID();
+                        $title    = get_the_title();
+                        $return[] = array(
+                            'value' => $id,
+                            'text'  => $title
+                        );
+                    }
+                } else {
                     $return[] = array(
-                        'value' => $id,
-                        'text' => $title
+                        'value' => 'none',
+                        'text'  => __('No galleries found', 'modula-best-grid-gallery')
                     );
                 }
-            } else {
-                $return[] = array(
-                    'value' => 'none',
-                    'text' => __('No galleries found','modula-best-grid-gallery')
-                );
+                wp_reset_query();
             }
-            wp_reset_query();
         }
 
         echo json_encode($return);
