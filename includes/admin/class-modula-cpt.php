@@ -371,6 +371,7 @@ class Modula_CPT {
 		$date = $columns['date'];
 		unset( $columns['date'] );
 		$columns['shortcode'] = esc_html__( 'Shortcode', 'modula-best-grid-gallery' );
+		$columns['limit']     = esc_html__('Images', 'modula-best-grid-gallery');
 		$columns['date'] = $date;
 		return $columns;
 
@@ -382,6 +383,12 @@ class Modula_CPT {
 			$shortcode = '[modula id="' . $post_id . '"]';
 			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
             echo '<a href="#" class="copy-modula-shortcode button button-primary" style="margin-left:15px;">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
+		}
+		if ( 'limit' == $column) {
+			$images_count   = count(get_post_meta( $post_id, 'modula-images', true ));
+			$image_limit    = "Hello";
+			echo $image_limit;
+			$image_limit = apply_filters( "manage_{$this->cpt_name}_posts_custom_column", $image_limit, $post_id );
 		}
 
 	}
