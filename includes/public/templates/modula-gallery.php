@@ -76,8 +76,8 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 	{
 		"@context": "http://schema.org",
 		"@type"   : "ImageGallery",
-		"id"      : "<?php echo $current_url;?>",
-		"url"     : "<?php echo $current_url;?>"
+		"id"      : "<?php echo esc_url($current_url);?>",
+		"url"     : "<?php echo esc_url($current_url);?>"
 	}
 
 </div>
