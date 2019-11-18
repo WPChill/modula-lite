@@ -112,7 +112,9 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
-
+		add_filter( 'mce_buttons', array( $this, 'editor_button' ) );
+        add_filter( 'mce_external_plugins', array( $this, 'register_editor_plugin' ) );
+		
 	}
 
 	/* Enqueue Admin Scripts */
@@ -228,4 +230,17 @@ class Modula {
         register_widget( 'Modula_Widget' );
     }
 
+	public function editor_button( $buttons )
+        {
+            array_push( $buttons, 'separator', 'modula_shortcode_editor' );
+            return $buttons;
+        }
+        
+    public function register_editor_plugin( $plugin_array )
+        {
+            $plugin_array['modula_shortcode_editor'] = plugins_url( 'editor-plugin.js', __FILE__ );
+            return $plugin_array;
+        }
+        
+    
 }
