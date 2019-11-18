@@ -28,5 +28,5 @@
             };
         }
     });
-    tinymce.PluginManager.add('modula_shortcode_editor', tinymce.plugin.Modula);
+    tinymce.PluginManager.add('modula_shortcode_editor', tinymce.plugins.Modula);
 })();

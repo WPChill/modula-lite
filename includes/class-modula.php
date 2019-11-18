@@ -240,7 +240,18 @@ class Modula {
         {
             $plugin_array['modula_shortcode_editor'] = plugins_url( 'editor-plugin.js', __FILE__ );
             return $plugin_array;
+		}
+		
+	public function modula_shortcode_editor()
+        {
+            $css_path = plugins_url( 'assets/css/edit.css', __FILE__ );
+            $admin_url = admin_url();
+            $galleries = $this->Modula->get_galleries();
+            
+            include '/includes/admin/tinymce-galleries.php';
+            wp_die();
         }
+
         
     
 }
