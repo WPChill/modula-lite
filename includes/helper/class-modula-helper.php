@@ -139,7 +139,7 @@ class Modula_Helper {
     public static function get_galleries() {
 
         $galleries     = get_posts( array( 'post_type' => 'modula-gallery','posts_per_page' => -1 ) );
-        $gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
+        $gallery_array = array();
         foreach ( $galleries as $gallery ) {
             $gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
         }

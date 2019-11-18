@@ -59,21 +59,21 @@
 					<b> ID </b>
 				</td>
 			</tr>
-			<?php foreach($galleries as $gallery): ?>				
+			<?php foreach($galleries as $gallery => $value): ?>				
 				<tr>
 					<td>
-						<label  id="<?php print 'gall_' . $gallery->Id ?>"> <?php print $gallery->name ?> </label>
+						<label  id="<?php print 'gall_' . $gallery ?>"> <?php print $value ?> </label>
 					</td>
 
 					<td>
-						<?php print !empty($gallery->source) ? $gallery->source : "images"; ?>
+						<?php print !empty($gallery->source) ? $gallery->source : "Images"; ?>
 					</td>
 
 					<td>
-						<?php print $gallery->Id ?>
+						<?php print $gallery ?>
 					</td>
 				</tr>
-			<?php endforeach ?>
+		<?php endforeach; ?>
 		</table>
 		<script>
 		jQuery("#galleries tr").click(function (e) {
