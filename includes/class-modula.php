@@ -113,7 +113,8 @@ class Modula {
 
 	private function define_public_hooks() {
 		add_filter( 'mce_buttons', array( $this, 'editor_button' ) );
-        add_filter( 'mce_external_plugins', array( $this, 'register_editor_plugin' ) );
+		add_filter( 'mce_external_plugins', array( $this, 'register_editor_plugin' ) );
+		add_action( 'wp_ajax_modula_shortcode_editor', array( $this, 'modula_shortcode_editor' ) );
 		
 	}
 
