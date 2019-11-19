@@ -147,7 +147,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         	this.trigger('destroy', this, this.collection, {});
         	this.get( 'view' ).remove();
-            modula.GalleryView.resetPackary();
+        	if('custom-grid' == modula.Settings.get( 'type' )){
+                modula.GalleryView.resetPackary();
+            }
+
 
         },
 
