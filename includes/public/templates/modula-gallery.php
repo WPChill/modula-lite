@@ -72,12 +72,14 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 	</div>
 
 	<?php do_action( 'modula_shortcode_after_items', $data->settings ) ?>
-	<script type="application/ld+json">
+    <script type="application/ld+json">
 	{
 		"@context": "http://schema.org",
 		"@type"   : "ImageGallery",
-		"id"      : "<?php echo esc_url($current_url);?>",
-		"url"     : "<?php echo esc_url($current_url);?>"
+		"id"      : "<?php echo esc_url($current_url); ?>",
+		"url"     : "<?php echo esc_url($current_url); ?>"
 	}
+
+    </script>
 
 </div>
