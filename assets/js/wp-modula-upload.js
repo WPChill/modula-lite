@@ -442,7 +442,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 			// Check from where to populate image caption
 			if ( 'none' == captionSource ) {
-				data['description'] = attachment['caption'];
+				data['description'] = attachment['title'];
 			}else if ( 'title' == captionSource ) {
 				data['description'] = attachment['title'];
 			}else if ( 'caption' == captionSource ) {
