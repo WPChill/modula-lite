@@ -15,7 +15,9 @@
                 
             });
 
-            ed.addButton('modula_shortcode_editor', {title: 'Modula Gallery', cmd : 'modula_shortcode_editor', image: '/wp-content/plugins/modula-best-grid-gallery/assets/images/modula-logo.jpg' });
+            var assets_url = url.split('assets/');
+
+            ed.addButton('modula_shortcode_editor', {title: 'Modula Gallery', cmd : 'modula_shortcode_editor', image: assets_url[0] + 'assets/images/modula-logo.jpg'});
         },
         getInfo : function()
         {
