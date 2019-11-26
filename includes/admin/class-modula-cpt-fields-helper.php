@@ -341,6 +341,13 @@ class Modula_CPT_Fields_Helper {
                 ),
 			),
 			'social' => array(
+				"disableAll"   => array(
+					"name"        => esc_html__( 'Disable All', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					"description" => "Enabling this you will disable all social icons.",
+					'priority'    => 10,
+				),
 				"enableTwitter"   => array(
 					"name"        => esc_html__( 'Add Twitter Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
