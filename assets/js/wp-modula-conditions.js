@@ -19,7 +19,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:type', this.changedType );
 		this.listenTo( wp.Modula.Settings, 'change:effect', this.changedEffect );
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
-		this.listenTo( wp.Modula.Settings, 'disable:social', this.disableSocial);
+		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial);
 	},
 
 	initValues: function(){
@@ -27,7 +27,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
 		this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
-		this.disableSocial (false, wp.Modula.Settings.get('disableAll'));
+		this.disableSocial (false, wp.Modula.Settings.get('disableSocial'));
 	},
 
 	changedType: function( settings, value ){
@@ -78,47 +78,16 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	disableSocial: function( settings, value){
-		disableButton = jQuery('#disableAll');
-
-		twitterButton = jQuery("#enableTwitter")
-		twitter = jQuery('.form-table > tbody > tr[data-container="enableTwitter"');
-
-		facebookButton = jQuery("#enableFacebook")
-		facebook = jQuery('.form-table > tbody > tr[data-container="enableFacebook"');
-
-		linkedinButton = jQuery("#enableLinkedin")
-		linkedin = jQuery('.form-table > tbody > tr[data-container="enableLinkedin"');
-
-		pinterestButton = jQuery("#enablePinterest")
-		pinterest = jQuery('.form-table > tbody > tr[data-container="enablePinterest"');
-
 		
-		socialColor = jQuery('.form-table > tbody > tr[data-container="socialIconColor"');
-		
-		if ( disableButton.is(":checked")) {
-			
-			twitterButton.prop('checked', 0);
-			facebookButton.prop('checked', 0);
-			linkedinButton.prop('checked', 0);
-			pinterestButton.prop('checked', 0);
+		var rows = this.get( 'rows' );
 
-            twitter.hide();
-            facebook.hide();
-            linkedin.hide();
-            pinterest.hide();
-			socialColor.hide();
+		if ( 1 == value ) {
+			console.log(value);
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]' ).prop('checked',0).hide();
 			
         }else {
-			
-			twitterButton.prop('checked', 1);
-			facebookButton.prop('checked', 1);
-			linkedinButton.prop('checked', 1);
-			pinterestButton.prop('checked', 1);
-            twitter.show();
-            facebook.show();
-            linkedin.show();
-            pinterest.show();
-			socialColor.show();
+			console.log(value);
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]').prop('checked',1).show();
 			
         }
 	}
