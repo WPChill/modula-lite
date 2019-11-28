@@ -27,7 +27,7 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => false,
+				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
