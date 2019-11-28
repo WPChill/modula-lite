@@ -341,7 +341,7 @@ class Modula_CPT_Fields_Helper {
                 ),
 			),
 			'social' => array(
-				"disableAll"   => array(
+				"disableSocial"   => array(
 					"name"        => esc_html__( 'Disable All', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,

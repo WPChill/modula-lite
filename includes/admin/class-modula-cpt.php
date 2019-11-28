@@ -240,7 +240,7 @@ class Modula_CPT {
 									$modula_settings[ $field_id ] = 'lightbox2';
 								}
 								break;
-							case 'disableAll':
+							case 'disableSocial':
 							case 'enableTwitter' :
 							case 'enableFacebook' :
 							case 'enableGplus' :
