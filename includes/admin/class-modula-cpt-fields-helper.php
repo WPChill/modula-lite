@@ -539,6 +539,7 @@ class Modula_CPT_Fields_Helper {
             'titleFontSize'             => '16',
             'mobileCaptionFontSize'     => '10',
             'mobileTitleFontSize'       => '12',
+            'disableSocial'             => 0,
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
