@@ -1129,3 +1129,7 @@ a.modula-tab-link {
 
 .modula-toggle__input[type=checkbox]:checked + .modula-toggle__items .modula-toggle__on {
   display: inline-block; }
+
+p.description.alert {
+    color:#ff0000;
+}
