@@ -30,7 +30,7 @@ if ('1' == $uninstall_option['delete_transients']) {
 if ('1' == $uninstall_option['delete_cpt']) {
     global $wpdb;
 
-    $galleries = get_posts(array('post_type'=>'modula-gallery'));
+    $galleries = get_posts(array('post_type'=>'modula-gallery','posts_per_page' => -1));
     $id_in     = '(';
     $i         = 1;
 
