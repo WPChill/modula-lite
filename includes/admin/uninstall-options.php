@@ -4,9 +4,9 @@ $delete_cpt = isset($uninstall_options['delete_cpt']) ? $uninstall_options['dele
 $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall_options['delete_transients'] : false;
 ?>
 <div class="row">
-    <h2 class="wp-clearfix"><?php echo esc_html__('Uninstall Modula options', 'modula-best-grid-gallery'); ?></h2>
-    <p><?php echo esc_html__('Check which options/posts you want to be deleted if you uninstall Modula Gallery plugin.','modula-best-grid-gallery'); ?></p>
-    <p class="description alert">CAUTION. THIS <strong>CAN NOT</strong> BE UNDONE!</p>
+    <h1 class="wp-clearfix"><?php echo esc_html__('Uninstall Modula options', 'modula-best-grid-gallery'); ?></h1>
+    <p><?php echo esc_html__('Select what you want to be deleted if you uninstall Modula.','modula-best-grid-gallery'); ?></p>
+    <p class="description alert"><?php _e('CAUTION. THIS <strong>CAN NOT</strong> BE UNDONE!','modula-best-grid-gallery'); ?></p>
 
     <form id="modula_uninstall_option" method="post">
         <table class="form-table">
