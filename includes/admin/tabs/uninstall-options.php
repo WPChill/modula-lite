@@ -107,7 +107,7 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
             <tr valign="top">
                 <td>
                     <div>
-                        <?php submit_button(__('Save', 'modula-importer'), 'primary', 'modula-uninstall-submit', false); ?>
+                        <?php submit_button(__('Save', 'modula-best-grid-gallery'), 'primary', 'modula-uninstall-submit', false); ?>
                     </div>
                 </td>
             </tr>

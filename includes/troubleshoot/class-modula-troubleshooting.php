@@ -10,6 +10,7 @@ class Modula_Troubleshooting {
     public function __construct() {
         $this->define_troubleshooting_admin_hooks();
         $this->define_troubleshooting_hooks();
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
     }
 
     /**
@@ -25,6 +26,14 @@ class Modula_Troubleshooting {
 
     }
 
+    public function admin_enqueue_scripts() {
+        $current_screen = get_current_screen();
+        if ('modula-gallery_page_modula-troubleshooting' == $current_screen->base) {
+            wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
+        }
+
+    }
+
     /**
      * Define public troubleshooting hooks
      */
@@ -37,7 +46,7 @@ class Modula_Troubleshooting {
      */
     public function define_troubleshooting_admin_hooks() {
 
-        add_action('admin_menu', array($this, 'register_troubleshoot_menu_item'),20);
+        add_action('admin_menu', array($this, 'register_troubleshoot_menu_item'), 20);
         add_action('admin_init', array($this, 'update_troubleshooting_options'));
 
     }
@@ -67,8 +76,24 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options['enqueue_css'] = isset($_POST['modula_troubleshooting_option']['enqueue_css']) ? $_POST['modula_troubleshooting_option']['enqueue_css'] : '';
-        $troubleshooting_options['enqueue_js']  = isset($_POST['modula_troubleshooting_option']['enqueue_js']) ? $_POST['modula_troubleshooting_option']['enqueue_js'] : '';
+        $troubleshooting_options['enqueue_files'] = isset($_POST['modula_troubleshooting_option']['enqueue_files']) ? $_POST['modula_troubleshooting_option']['enqueue_files'] : '';
+
+        // check if master toggle is set, else set all subelements on false
+        if ($troubleshooting_options['enqueue_files']) {
+
+            $troubleshooting_options['grid_type']        = isset($_POST['modula_troubleshooting_option']['grid_type']) ? $_POST['modula_troubleshooting_option']['grid_type'] : false;
+            $troubleshooting_options['lightbox']         = isset($_POST['modula_troubleshooting_option']['lightbox_type']) ? $_POST['modula_troubleshooting_option']['lightbox_type'] : false;
+            $troubleshooting_options['pass_protect']     = isset($_POST['modula_troubleshooting_option']['pass_protect']) ? $_POST['modula_troubleshooting_option']['pass_protect'] : false;
+            $troubleshooting_options['download_protect'] = isset($_POST['modula_troubleshooting_option']['download_protect']) ? $_POST['modula_troubleshooting_option']['download_protect'] : false;
+            $troubleshooting_options['deeplink']         = isset($_POST['modula_troubleshooting_option']['deeplink']) ? $_POST['modula_troubleshooting_option']['deeplink'] : false;
+        } else {
+
+            $troubleshooting_options['grid_type']        = false;
+            $troubleshooting_options['lightbox']         = false;
+            $troubleshooting_options['pass_protect']     = false;
+            $troubleshooting_options['download_protect'] = false;
+            $troubleshooting_options['deeplink']         = false;
+        }
 
 
         update_option('modula_troubleshooting_option', $troubleshooting_options);
