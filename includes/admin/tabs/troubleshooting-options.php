@@ -8,6 +8,7 @@ $deeplink                = isset($troubleshooting_options['deeplink']) ? $troubl
 $grid_type               = isset($troubleshooting_options['grid_type']) ? $troubleshooting_options['grid_type'] : false;
 $lightbox                = isset($troubleshooting_options['lightbox']) ? $troubleshooting_options['lightbox'] : false;
 
+$subfield_class = ($enqueue_files) ? '' : 'hide';
 
 ?>
 <div class="row">
@@ -51,7 +52,7 @@ $lightbox                = isset($troubleshooting_options['lightbox']) ? $troubl
             <?php
             foreach ($troubleshooting_fields as $ts_field) {
                 ?>
-                <tr valign="top" data-settings="subfields">
+                <tr valign="top" data-settings="subfields" class="troubleshoot-subfield <?php echo $subfield_class; ?>">
                     <th scope="row" valign="top">
                         <?php echo esc_html($ts_field['name']); ?>
                     </th>

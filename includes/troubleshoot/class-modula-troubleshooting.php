@@ -10,7 +10,6 @@ class Modula_Troubleshooting {
     public function __construct() {
         $this->define_troubleshooting_admin_hooks();
         $this->define_troubleshooting_hooks();
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
     }
 
     /**
@@ -26,18 +25,13 @@ class Modula_Troubleshooting {
 
     }
 
-    public function admin_enqueue_scripts() {
-        $current_screen = get_current_screen();
-        if ('modula-gallery_page_modula-troubleshooting' == $current_screen->base) {
-            wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
-        }
-
-    }
 
     /**
      * Define public troubleshooting hooks
      */
     public function define_troubleshooting_hooks() {
+
+        add_action('wp_enqueue_scripts', array($this, 'public_enqueue_scripts'), 99999);
 
     }
 
@@ -48,6 +42,50 @@ class Modula_Troubleshooting {
 
         add_action('admin_menu', array($this, 'register_troubleshoot_menu_item'), 20);
         add_action('admin_init', array($this, 'update_troubleshooting_options'));
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+
+    }
+
+    /**
+     * Enqueue admin scripts
+     */
+    public function admin_enqueue_scripts() {
+        $current_screen = get_current_screen();
+        if ('modula-gallery_page_modula-troubleshooting' == $current_screen->base) {
+            wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
+        }
+
+    }
+
+    /**
+     * Enqueue public scripts and styles
+     */
+    public function public_enqueue_scripts() {
+
+        $ts_opt = get_option('modula_troubleshooting_option');
+
+        if ('1' == $ts_opt['enqueue_files']) {
+
+            $scripts = $this::enqueued_front_scripts();
+
+            if (!isset($ts_opt['grid_type']) || 'custom-grid' != $ts_opt['grid_type']) {
+                unset($scripts['packery']);
+            }
+
+            if (!isset($ts_opt['lightbox']) || 'lightbox2' != $ts_opt['lightbox']) {
+                unset($scripts['lightbox2_script']);
+            }
+
+            if (!isset($ts_opt['lazy_load']) || '1' != $ts_opt['lazy_load']) {
+                unset($scripts['modula-lazysizes']);
+            }
+
+            foreach ($scripts as $script_slug => $name) {
+                if (!wp_script_is($script_slug, 'enqueued')) {
+                    wp_enqueue_script($script_slug);
+                }
+            }
+        }
 
     }
 
@@ -72,21 +110,23 @@ class Modula_Troubleshooting {
             'name'          => __('Select Grid type', 'modula-best-grid-gallery'),
             'data_settings' => 'grid_type',
             'type'          => 'select',
-            'values'        => $general_fields['type']['values']
+            'values'        => $general_fields['type']['values'],
+            'default'       => 'creative-gallery'
         );
 
         $troubleshooting_fields['lightbox'] = array(
             'name'          => __('Select Lightbox', 'modula-best-grid-gallery'),
             'data_settings' => 'lightbox',
             'type'          => 'select',
-            'values'        => $general_fields['lightbox']['values']['Lightboxes']
+            'values'        => $general_fields['lightbox']['values']['Lightboxes'],
+            'default'       => 'lightbox2'
         );
 
-        $troubleshooting_fields['test'] = array(
-            'name'          => __('Select test', 'modula-best-grid-gallery'),
-            'data_settings' => 'test',
+        $troubleshooting_fields['lazy_load'] = array(
+            'name'          => __('Enable Lazyload', 'modula-best-grid-gallery'),
+            'data_settings' => 'lazy_load',
             'type'          => 'toggle',
-            'values'        => $general_fields['lightbox']['values']['Lightboxes']
+            'default'       => 0
         );
 
         $troubleshooting_fields = apply_filters('modula_troubleshooting_fields', $troubleshooting_fields);
@@ -121,6 +161,23 @@ class Modula_Troubleshooting {
         }
 
         update_option('modula_troubleshooting_option', $ts_options);
+    }
+
+
+    /**
+     * @return mixed|void
+     *
+     * Enqueue frontend scripts
+     */
+    public static function enqueued_front_scripts() {
+        $scripts = apply_filters('modula_frontend_scripts', array(
+            'lightbox2_script' => 'Lightbox',
+            'packery'          => 'Packery',
+            'modula-lazysizes' => 'Lazy load',
+            'modula'           => 'Modula main js file'
+        ));
+
+        return $scripts;
     }
 
 }

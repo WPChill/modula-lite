@@ -1133,3 +1133,7 @@ a.modula-tab-link {
 p.description.alert {
     color:#ff0000;
 }
+
+tr.troubleshoot-subfield.hide {
+    display:none;
+}
