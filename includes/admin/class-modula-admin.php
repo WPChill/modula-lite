@@ -26,7 +26,6 @@ class Modula_Admin {
 		add_action('admin_init',array($this,'update_uninstall_options'));
 
 
-
 	}
 
 	public function register_submenus() {
@@ -40,9 +39,9 @@ class Modula_Admin {
 			add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Settings', 'modula-best-grid-gallery' ), esc_html__( 'Settings', 'modula-best-grid-gallery' ), 'manage_options', 'modula', array( $this, 'show_submenu' ) );
 		}
 
-		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), 'manage_options', 'modula-uninstall', array( $this, 'uninstall_options' ) );
-
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ) );
+
+		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), 'manage_options', 'modula-uninstall', array( $this, 'uninstall_options' ) );
 
 	}
 
@@ -261,7 +260,7 @@ class Modula_Admin {
 
 		<style type="text/css">
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-uninstall"] {color: #FF0000 !important;}
-			li#menu-posts-modula-gallery .wp-submenu li:last-child a {color: #52ad3a;}
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 		</style>
 
 		<?php
@@ -272,7 +271,7 @@ class Modula_Admin {
     */
 	public function uninstall_options(){
 	    wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
-        require_once MODULA_PATH . 'includes/admin/uninstall-options.php';
+        require_once MODULA_PATH . 'includes/admin/tabs/uninstall-options.php';
 	}
 
 	/**

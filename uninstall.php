@@ -15,6 +15,7 @@ $uninstall_option = get_option('modula_uninstall_option');
 // Delete options
 if ('1' == $uninstall_option['delete_options']) {
     delete_option('modula_uninstall_option');
+    delete_option('modula_troubleshooting_option');
     delete_option('modula-checks');
     delete_option('modula_version');
 }

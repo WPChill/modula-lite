@@ -11,7 +11,6 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
     <form id="modula_uninstall_option" method="post">
         <table class="form-table">
             <tbody>
-            <!-- If Envira gallery plugin is installed and active and there are galleries created -->
             <tr valign="top">
                 <th  scope="row" valign="top">
                     <?php echo esc_html__('Delete modula set options','modula-best-grid-gallery'); ?>
