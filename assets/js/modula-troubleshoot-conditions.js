@@ -12,8 +12,8 @@ jQuery(document).ready(function($){
 
 function mts_master_toggle(checked){
     if(checked){
-        jQuery('tr[data-settings="grid_type"], tr[data-settings="lightbox"],tr[data-settings="deeplink"]').show();
+        jQuery('tr[data-settings="subfields"]').show();
     } else {
-        jQuery('tr[data-settings="grid_type"], tr[data-settings="lightbox"],tr[data-settings="deeplink"]').hide();
+        jQuery('tr[data-settings="subfields"]').hide();
     }
 }

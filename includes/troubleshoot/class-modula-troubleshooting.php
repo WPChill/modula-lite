@@ -63,8 +63,43 @@ class Modula_Troubleshooting {
      * Add troubleshooting options section
      */
     public function troubleshooting_options() {
+
         wp_enqueue_style('modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION);
-        require_once MODULA_PATH . 'includes/admin/tabs/troubleshooting-options.php';
+
+        $general_fields = Modula_CPT_Fields_Helper::get_fields('general');
+
+        $troubleshooting_fields['grid_type'] = array(
+            'name'          => __('Select Grid type', 'modula-best-grid-gallery'),
+            'data_settings' => 'grid_type',
+            'type'          => 'select',
+            'values'        => $general_fields['type']['values']
+        );
+
+        $troubleshooting_fields['lightbox'] = array(
+            'name'          => __('Select Lightbox', 'modula-best-grid-gallery'),
+            'data_settings' => 'lightbox',
+            'type'          => 'select',
+            'values'        => $general_fields['lightbox']['values']['Lightboxes']
+        );
+
+        $troubleshooting_fields['test'] = array(
+            'name'          => __('Select test', 'modula-best-grid-gallery'),
+            'data_settings' => 'test',
+            'type'          => 'toggle',
+            'values'        => $general_fields['lightbox']['values']['Lightboxes']
+        );
+
+        $troubleshooting_fields = apply_filters('modula_troubleshooting_fields', $troubleshooting_fields);
+
+        ob_start();
+
+        include MODULA_PATH . 'includes/admin/tabs/troubleshooting-options.php';
+
+        $html = ob_get_contents();
+
+        ob_end_clean();
+
+        echo $html;
     }
 
     /**
@@ -76,27 +111,16 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options['enqueue_files'] = isset($_POST['modula_troubleshooting_option']['enqueue_files']) ? $_POST['modula_troubleshooting_option']['enqueue_files'] : '';
+        $troubleshooting_options = $_POST['modula_troubleshooting_option'];
+        $ts_options              = array();
 
-        // check if master toggle is set, else set all subelements on false
-        if ($troubleshooting_options['enqueue_files']) {
-
-            $troubleshooting_options['grid_type']        = isset($_POST['modula_troubleshooting_option']['grid_type']) ? $_POST['modula_troubleshooting_option']['grid_type'] : false;
-            $troubleshooting_options['lightbox']         = isset($_POST['modula_troubleshooting_option']['lightbox_type']) ? $_POST['modula_troubleshooting_option']['lightbox_type'] : false;
-            $troubleshooting_options['pass_protect']     = isset($_POST['modula_troubleshooting_option']['pass_protect']) ? $_POST['modula_troubleshooting_option']['pass_protect'] : false;
-            $troubleshooting_options['download_protect'] = isset($_POST['modula_troubleshooting_option']['download_protect']) ? $_POST['modula_troubleshooting_option']['download_protect'] : false;
-            $troubleshooting_options['deeplink']         = isset($_POST['modula_troubleshooting_option']['deeplink']) ? $_POST['modula_troubleshooting_option']['deeplink'] : false;
-        } else {
-
-            $troubleshooting_options['grid_type']        = false;
-            $troubleshooting_options['lightbox']         = false;
-            $troubleshooting_options['pass_protect']     = false;
-            $troubleshooting_options['download_protect'] = false;
-            $troubleshooting_options['deeplink']         = false;
+        if (is_array($troubleshooting_options) && !empty($troubleshooting_options)) {
+            foreach ($troubleshooting_options as $option => $value) {
+                $ts_options[$option] = $value;
+            }
         }
 
-
-        update_option('modula_troubleshooting_option', $troubleshooting_options);
+        update_option('modula_troubleshooting_option', $ts_options);
     }
 
 }
