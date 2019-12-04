@@ -64,7 +64,7 @@ class Modula_Troubleshooting {
 
         $ts_opt = get_option('modula_troubleshooting_option');
 
-        if ('1' == $ts_opt['enqueue_files']) {
+        if (isset($ts_opt['enqueue_files']) && '1' == $ts_opt['enqueue_files']) {
 
             $scripts = $this::enqueued_front_scripts();
 
@@ -80,8 +80,6 @@ class Modula_Troubleshooting {
             if (!isset($ts_opt['lazy_load']) || '1' != $ts_opt['lazy_load']) {
                 unset($scripts['scripts']['modula-lazysizes']);
             }
-
-
 
             foreach ($scripts['scripts'] as $script_slug => $name) {
                 if (!wp_script_is($script_slug, 'enqueued')) {
@@ -116,7 +114,7 @@ class Modula_Troubleshooting {
         $general_fields = Modula_CPT_Fields_Helper::get_fields('general');
 
         $troubleshooting_fields['grid_type'] = array(
-            'name'          => __('Select Grid type', 'modula-best-grid-gallery'),
+            'name'          => __('Select which grid type script to enqueue', 'modula-best-grid-gallery'),
             'data_settings' => 'grid_type',
             'type'          => 'select',
             'values'        => $general_fields['type']['values'],
@@ -124,7 +122,7 @@ class Modula_Troubleshooting {
         );
 
         $troubleshooting_fields['lightbox'] = array(
-            'name'          => __('Select Lightbox', 'modula-best-grid-gallery'),
+            'name'          => __('Select which Lightbox script to enqueue', 'modula-best-grid-gallery'),
             'data_settings' => 'lightbox',
             'type'          => 'select',
             'values'        => $general_fields['lightbox']['values']['Lightboxes'],
@@ -132,7 +130,7 @@ class Modula_Troubleshooting {
         );
 
         $troubleshooting_fields['lazy_load'] = array(
-            'name'          => __('Enable Lazyload', 'modula-best-grid-gallery'),
+            'name'          => __('Enqueue Lazyload script', 'modula-best-grid-gallery'),
             'data_settings' => 'lazy_load',
             'type'          => 'toggle',
             'default'       => 0
