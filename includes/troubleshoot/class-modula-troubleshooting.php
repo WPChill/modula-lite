@@ -69,20 +69,29 @@ class Modula_Troubleshooting {
             $scripts = $this::enqueued_front_scripts();
 
             if (!isset($ts_opt['grid_type']) || 'custom-grid' != $ts_opt['grid_type']) {
-                unset($scripts['packery']);
+                unset($scripts['scripts']['packery']);
             }
 
             if (!isset($ts_opt['lightbox']) || 'lightbox2' != $ts_opt['lightbox']) {
-                unset($scripts['lightbox2_script']);
+                unset($scripts['scripts']['lightbox2_script']);
+                unset($scripts['styles']['lightbox2_stylesheet']);
             }
 
             if (!isset($ts_opt['lazy_load']) || '1' != $ts_opt['lazy_load']) {
-                unset($scripts['modula-lazysizes']);
+                unset($scripts['scripts']['modula-lazysizes']);
             }
 
-            foreach ($scripts as $script_slug => $name) {
+
+
+            foreach ($scripts['scripts'] as $script_slug => $name) {
                 if (!wp_script_is($script_slug, 'enqueued')) {
-                    wp_enqueue_script($script_slug);
+                    wp_enqueue_script($script_slug, '', '', true);
+                }
+            }
+
+            foreach ($scripts['styles'] as $style_slug => $name) {
+                if (!wp_style_is($style_slug, 'enqueued')) {
+                    wp_enqueue_style($style_slug);
                 }
             }
         }
@@ -170,11 +179,16 @@ class Modula_Troubleshooting {
      * Enqueue frontend scripts
      */
     public static function enqueued_front_scripts() {
-        $scripts = apply_filters('modula_frontend_scripts', array(
-            'lightbox2_script' => 'Lightbox',
-            'packery'          => 'Packery',
-            'modula-lazysizes' => 'Lazy load',
+        $scripts['scripts'] = apply_filters('modula_frontend_scripts', array(
+            'lightbox2_script' => 'Lightbox2 script',
+            'packery'          => 'Packery script',
+            'modula-lazysizes' => 'Lazy load script',
             'modula'           => 'Modula main js file'
+        ));
+
+        $scripts['styles'] = apply_filters('modula_frontend_styles', array(
+            'lightbox2_stylesheet' => 'Lightbox2 style',
+            'modula'               => 'Modula main style'
         ));
 
         return $scripts;
