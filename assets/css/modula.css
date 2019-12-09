@@ -450,3 +450,13 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	top:50% !important;
 	transform: translateY(-50%);
 }
+
+@media all and (max-height: 680px) {
+	.lb-outerContainer,
+	.lb-container,
+	#lightbox.lightbox .lb-image {
+		max-height:80vh;
+		width:auto !important;
+		display:inline-block;
+	}
+}
