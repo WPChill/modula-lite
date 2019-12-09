@@ -21,6 +21,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_enable_lazy_load', 30, 3 );
+		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 
 	}
 
@@ -156,12 +157,23 @@ class Modula_Shortcode {
 			'settings'   => $settings,
 			'images'     => $images,
 			'loader'     => $this->loader,
+
+			// Gallery container attributes
+			'gallery_container' => array(
+				'id' => $gallery_id,
+				'class' => arraY( 'modula', 'modula-gallery' ),
+			),
+
+			// Items container attributes
+			'items_container' => array(
+				'class' => arraY( 'modula-items' ),
+			),
 		);
 
 		ob_start();
 
 		/* Config for gallery script */
-		$js_config = array(
+		$js_config = apply_filters( 'modula_gallery_settings', array(
 			"margin"          => absint( $settings['margin'] ),
 			"enableTwitter"   => boolval( $settings['enableTwitter'] ),
 			"enableFacebook"  => boolval( $settings['enableFacebook'] ),
@@ -175,10 +187,15 @@ class Modula_Shortcode {
 			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 			'lazyLoad'        => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
-		);
+		), $settings );
 
-		$template_data['js_config'] = apply_filters( 'modula_gallery_settings', $js_config, $settings );
-		$template_data              = apply_filters( 'modula_gallery_template_data', $template_data );
+		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
+		/**
+		 * Hook: modula_gallery_template_data.
+		 *
+		 * @hooked modula_add_align_classes - 99
+		 */
+		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
 
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		$this->loader->set_template_data( $template_data );
