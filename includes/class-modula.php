@@ -42,12 +42,16 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/public/class-modula-shortcode.php';
 		require_once MODULA_PATH . 'includes/class-modula-gutenberg.php';
-
+		
 		require_once MODULA_PATH . 'includes/elementor/class-modula-elementor-check.php';
 
 		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
 
-		if ( is_admin() ) {
+    require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
+    require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
+
+
+        if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
@@ -84,6 +88,9 @@ class Modula {
 		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 
 		add_action( 'plugins_loaded', array( $this, 'set_locale' ));
+
+		// SiteOrigin Widget
+		add_action('widgets_init', array( $this, 'modula_load_widget' ) );
 
 		new Modula_CPT();
 
@@ -214,5 +221,11 @@ class Modula {
 
 		die;
 	}
+
+
+    // Register and load the widget
+    public function modula_load_widget() {
+        register_widget( 'Modula_Widget' );
+    }
 
 }

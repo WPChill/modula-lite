@@ -61,14 +61,16 @@ class Modula_Helper {
 
 	public static function hover_effects_elements( $effect ) {
 
-		$effects_with_title       = apply_filters( 'modula_effects_with_title', array( 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo' ) );
-		$effects_with_description = apply_filters( 'modula_effects_with_description', array( 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo'  ) );
-		$effects_with_social      = apply_filters( 'modula_effects_with_social', array( 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo' ) );
+		$effects_with_title       = apply_filters( 'modula_effects_with_title', array( 'under', 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo','lily','sadie','honey','layla','zoe','oscar','marley','ruby','roxy','bubba','dexter','sarah','chico','milo','julia','hera','winston','selena','terry','phoebe','apollo','steve','jazz','ming','lexi','duke','tilt_1' ,'tilt_3' ,'tilt_7' ) );
+		$effects_with_description = apply_filters( 'modula_effects_with_description', array( 'under', 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo','lily','sadie','layla','zoe','oscar','marley','ruby','roxy','bubba','dexter','sarah','chico','milo','julia','selena','apollo','steve','jazz','ming','lexi','duke','tilt_1' ,'tilt_3' ,'tilt_7' ) );
+		$effects_with_social      = apply_filters( 'modula_effects_with_social', array( 'under', 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo','lily','sadie','zoe','ruby','roxy','bubba','dexter','sarah','chico','julia','hera','winston','selena','terry','phoebe','ming','tilt_1', 'tilt_3' , 'tilt_7' ) );
+		$effects_with_extra_scripts = apply_filters( 'modula_effects_with_scripts', array( 'tilt_1' ,'tilt_3' ,'tilt_7' ) );
 
 		return array(
 			'title'       => in_array( $effect, $effects_with_title ),
 			'description' => in_array( $effect, $effects_with_description ),
 			'social'      => in_array( $effect, $effects_with_social ),
+			'scripts'     => in_array( $effect, $effects_with_extra_scripts )
 		);
 
 	}
@@ -133,5 +135,16 @@ class Modula_Helper {
 		return $description;
 
 	}
+
+    public static function get_galleries() {
+
+        $galleries     = get_posts( array( 'post_type' => 'modula-gallery','posts_per_page' => -1 ) );
+        $gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
+        foreach ( $galleries as $gallery ) {
+            $gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
+        }
+
+        return $gallery_array;
+    }
 	
 }

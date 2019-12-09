@@ -1,3 +1,19 @@
+= 2.1.6 - 13.09.2019 =
+* Added option for mobile caption and title font size
+* Added Beaver Builder Block
+* Added SiteOrigin builder widget
+* Fixed Elementor block
+* Added "Copy Shortcode" option
+
+= 2.1.5 - 25.07.2019 =
+* Fixed lazy load.
+
+= 2.1.4 - 24.07.2019 =
+* Change modula CSS classes
+* Fixed hover effects ( https://github.com/MachoThemes/modula-lite/issues/201 )
+* Fixed how we calculate image height
+* Added more hooks
+
 = 2.1.3 - 10.07.2019 =
 * Fixed show array instead of modula's images
 

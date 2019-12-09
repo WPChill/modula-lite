@@ -17,7 +17,7 @@
     color: #9c9c9c;
     cursor: pointer;
     position: relative;
-    width: 161px;
+    width: 165px;
     position: relative;
 }
 .modula-settings-container .modula-tabs .modula-tab sup {
@@ -223,16 +223,18 @@ tr label.th-label {
 .modula-effects-preview {
 	margin-top: 20px;
 }
-.modula-effects-preview .item {
+.modula-effects-preview .modula-item {
     width: 400px;
-    height: 267px;
+    height: 300px;
     overflow: hidden;
     position: relative;
 }
-.modula-effects-preview .item img {
+.modula-effects-preview .modula-item img {
     position: absolute;
+    min-height: 100%;
+    min-width: 100%;
 }
-.modula-effects-preview .item .figc {
+.modula-effects-preview .modula-item .figc {
 	display: flex;
     align-items: center;
     justify-content: center;
@@ -245,20 +247,20 @@ tr label.th-label {
     height: 100%;
     padding: 0;
 }
-.modula-effects-preview .item .figc h2 {
+.modula-effects-preview .modula-item .figc h2 {
     font-size: 21px !important;
     color: #fff;
 }
-.modula-effects-preview .item .figc p {
+.modula-effects-preview .modula-item .figc p {
     color: #fff;
     font-size: 15px;
     font-style: normal;
 }
 
-.modula .items .item h2 {
+.modula .modula-items .modula-item h2 {
 	margin:0;
 }
-.modula .items .item p {
+.modula .modula-items .modula-item p {
 	margin:0;
 	padding: 0;
 }	
@@ -271,7 +273,7 @@ tr label.th-label {
 	padding:2em;
 }
 
-.modula .item .jtg-social a {
+.modula .modula-item .jtg-social a {
 	text-decoration: none;
 	color: #fff;
 	display: inline-block;
@@ -282,11 +284,11 @@ tr label.th-label {
 	opacity: 0;
 	transition: opacity .3s;
 }
-.modula .item .jtg-social svg {
+.modula .modula-item .jtg-social svg {
     width: 20px;
     height: 16px;
 }
-.modula .item:hover .jtg-social a {
+.modula .modula-item:hover .jtg-social a {
 	opacity: 1;
 }
 
@@ -294,7 +296,7 @@ tr label.th-label {
 /***** pufrobo *****/
 /*---------------*/
 
-.modula .items .jtg-social {
+.modula .modula-items .jtg-social {
 	opacity: 0;
 	transition: opacity 0.1s;
 	right:30px;
@@ -304,35 +306,35 @@ tr label.th-label {
 	transition:all .3s;
 }
 
-.modula .items .jtg-social {
+.modula .modula-items .jtg-social {
 	opacity: 1;
 }
 
-.modula .items .jtg-social a:last-of-type {
+.modula .modula-items .jtg-social a:last-of-type {
 	margin-right: 0;	
 }
 
-.modula .item.effect-pufrobo p.description {
+.modula .modula-item.effect-pufrobo p.description {
 	margin-bottom: 2em;
 }
 
-.modula .item.effect-pufrobo .figc {
+.modula .modula-item.effect-pufrobo .figc {
 	text-align: right;
 }
 
-.modula .item.effect-pufrobo h2,
-.modula .item.effect-pufrobo p {
+.modula .modula-item.effect-pufrobo h2,
+.modula .modula-item.effect-pufrobo p {
 	position: absolute;
 	right: 30px;
 	left: 30px;
 	padding: 10px 0;
 }
 
-.modula .item:hover img { opacity: .8 }
+.modula .modula-item:hover img { opacity: .8 }
 
-.modula .item { background-color:#000; }
+.modula .modula-item { background-color:#000; }
 
-.modula .item.effect-pufrobo p {
+.modula .modula-item.effect-pufrobo p {
 	bottom: 20%;  
 	line-height: 1.5;
 	-webkit-transform: translate3d(0,100%,0);
@@ -340,7 +342,7 @@ tr label.th-label {
 	letter-spacing: 1px;
 }
 
-.modula .item.effect-pufrobo h2 {
+.modula .modula-item.effect-pufrobo h2 {
 	/*top: 30px;*/
 	top: 10%;
 	-webkit-transition: -webkit-transform 0.35s;
@@ -349,12 +351,12 @@ tr label.th-label {
 	transform: translate3d(0,20px,0);
 }
 
-.modula .item.effect-pufrobo:hover h2 {
+.modula .modula-item.effect-pufrobo:hover h2 {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
 
-.modula .item.effect-pufrobo h2::after {
+.modula .modula-item.effect-pufrobo h2::after {
 	position: absolute;
 	top: 80%;
 	left: 0;
@@ -366,15 +368,15 @@ tr label.th-label {
 	transform: translate3d(0,40px,0);
 }
 
-.modula .item.effect-pufrobo h2::after,
-.modula .item.effect-pufrobo p {
+.modula .modula-item.effect-pufrobo h2::after,
+.modula .modula-item.effect-pufrobo p {
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 
-.modula .item.effect-pufrobo:hover h2::after,
-.modula .item.effect-pufrobo:hover p {
+.modula .modula-item.effect-pufrobo:hover h2::after,
+.modula .modula-item.effect-pufrobo:hover p {
 	margin-top: 10px;
 	margin-bottom: 5px;
 	opacity: 1;
