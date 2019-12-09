@@ -1,10 +1,13 @@
 <?php
+$data->settings = apply_filters('modula_gallery_data_settings',$data->settings);
 $classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $data->settings );
 $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$data->settings );
 ?>
 <div id="<?php echo esc_attr($data->gallery_id) ?>" class="<?php echo esc_attr($classes); ?> <?php echo ( $data->settings['align'] != '' ) ? esc_attr( 'align' . $data->settings['align'] ) : ''; ?>" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
 
 	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
+<?php $items_attributes = apply_filters('modula_items_attribute','',$data->settings); ?>
+	<div class='items' <?php echo esc_attr($items_attributes); ?>>
 
 	<div class='modula-items'<?php echo Modula_Helper::generate_attributes( $items_attributes ) ?>>
 		<?php
@@ -49,7 +52,10 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 				),
 			);
 
-            $image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
+
+			// need this to model the image attributes
+      $image = apply_filters('modula_shortcode_image_data',$image,$data->settings);
+
 
 			/**
 			 * Hook: modula_shortcode_item_data.
@@ -60,7 +66,6 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 			 * @hooked modula_check_custom_grid - 25
 			 */
 			$item_data = apply_filters( 'modula_shortcode_item_data', $item_data, $image, $data->settings, $data->images );
-
 			do_action( 'modula_shortcode_before_item', $data->settings, $item_data );
 			$data->loader->set_template_data( $item_data );
 			$data->loader->get_template_part( 'items/item', $data->settings['effect'] );
