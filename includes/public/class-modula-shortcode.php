@@ -161,12 +161,12 @@ class Modula_Shortcode {
 			// Gallery container attributes
 			'gallery_container' => array(
 				'id' => $gallery_id,
-				'class' => arraY( 'modula', 'modula-gallery' ),
+				'class' => array( 'modula', 'modula-gallery' ),
 			),
 
 			// Items container attributes
 			'items_container' => array(
-				'class' => arraY( 'modula-items' ),
+				'class' => array( 'modula-items' ),
 			),
 		);
 
