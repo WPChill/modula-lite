@@ -18,6 +18,10 @@ class Modula_Helper {
 		$return = '';
 		foreach ( $attributes as $name => $value ) {
 
+			if ( is_array( $value ) ) {
+				$value = implode( ' ', $value );
+			}
+			
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
 				$value = str_replace('<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
