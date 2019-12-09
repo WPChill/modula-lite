@@ -445,3 +445,8 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	display: none;
 }
 
+#lightbox.lightbox {
+	position: fixed;
+	top:50% !important;
+	transform: translateY(-50%);
+}
