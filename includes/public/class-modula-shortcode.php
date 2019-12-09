@@ -205,6 +205,14 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id} .modula-item { box-shadow: " . sanitize_hex_color($settings['shadowColor']) . " 0px 0px " . absint($settings['shadowSize']) . "px; }";
 			}
 
+            if (isset($settings['lightbox_background_color'])) {
+                $css .= '#lightboxOverlay.lightboxOverlay {background-color:' . sanitize_hex_color($settings['lightbox_background_color']) . '}';
+            }
+
+            if (isset($settings['lightbox_popup_opacity']) && '-0.1' != $settings['lightbox_popup_opacity'] ) {
+                $css .= '#lightboxOverlay.lightboxOverlay {opacity:' . $settings['lightbox_popup_opacity'] . '}';
+            }
+
 			if ( $settings['socialIconColor'] ) {
 				$css .= "#{$gallery_id} .modula-item .jtg-social a { color: " . sanitize_hex_color($settings['socialIconColor']) . " }";
 			}
