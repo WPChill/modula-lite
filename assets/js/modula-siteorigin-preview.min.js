@@ -1,0 +1,1 @@
+jQuery(function(e){e(window).load(function(){setTimeout(function(){!function(){var l=e(".modula-gallery");if(0<l.length){var a=l.attr("id"),n=l.data("config"),u=jQuery("#"+a).data("plugin_modulaGallery");u&&(u.destroy(),jQuery("#"+a).data("plugin_modulaGallery",null)),e("#"+a).modulaGallery(n)}}(),e(".modula-gallery a.tile-inner").click(function(l){l.preventDefault()})},600)})});
