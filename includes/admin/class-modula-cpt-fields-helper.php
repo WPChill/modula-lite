@@ -342,7 +342,7 @@ class Modula_CPT_Fields_Helper {
 			),
 			'social' => array(
 				"disableSocial"   => array(
-					"name"        => esc_html__( 'Disable All', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Disable Social Icons', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
 					"description" => "Enabling this you will disable all social icons.",
