@@ -445,6 +445,23 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "#ffffff",
 					'priority'    => 50,
 				),
+                "lightbox_background_color"  => array(
+                    "name"        => esc_html__( 'Lightbox popup background color', 'modula-best-grid-gallery' ),
+                    "type"        => "color",
+                    "description" => esc_html__( 'Set the background color of the lightbox popup', 'modula-best-grid-gallery' ),
+                    "default"     => "#000",
+                    'priority'    => 50,
+                ),
+                "lightbox_popup_opacity" => array(
+                    "name"        => esc_html__('Lightbox popup opacity ', 'modula-best-grid-gallery'),
+                    "type"        => "ui-slider",
+                    "description" => esc_html__('Set the opacity of the lightbox popup. Set it to -0.1 to take the default lightbox opacity.', 'modula-best-grid-gallery'),
+                    "min"         => -0.1,
+                    "max"         => 1,
+                    "step"        => 0.1,
+                    "default"     => -0.1,
+                    'priority'    => 50,
+                ),
 			),
 			'speedup'    => array(
 				'lazy_load' => array(
@@ -518,7 +535,7 @@ class Modula_CPT_Fields_Helper {
 	}
 
 	public static function get_defaults() {
-		return apply_filters( 'modula_lite_default_settings', array(
+        return apply_filters('modula_lite_default_settings', array(
             'type'                      => 'creative-gallery',
             'width'                     => '100%',
             'height'                    => '800',
@@ -552,6 +569,8 @@ class Modula_CPT_Fields_Helper {
             'borderRadius'              => '0',
             'borderSize'                => '0',
             'shadowColor'               => '#ffffff',
+            'lightbox_background_color' => '#000000',
+            'lightbox_popup_opacity'    => '-0.1',
             'shadowSize'                => 0,
             'script'                    => '',
             'style'                     => '',
@@ -559,7 +578,7 @@ class Modula_CPT_Fields_Helper {
             'gutter'                    => 10,
             'helpergrid'                => 0,
             'lazy_load'                 => 0,
-		) );
+        ));
 	}
 
 }
