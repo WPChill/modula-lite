@@ -47,8 +47,8 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/duplicator/class-modula-duplicator.php';
 
-    require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
-    require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
+        require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
+        require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
 
 
         if ( is_admin() ) {
@@ -92,6 +92,11 @@ class Modula {
 		// SiteOrigin Widget
 		add_action('widgets_init', array( $this, 'modula_load_widget' ) );
 
+		// Classic editor button for Modula Gallery
+        add_filter('mce_buttons', array($this, 'editor_button'));
+        add_filter('mce_external_plugins', array($this, 'register_editor_plugin'));
+        add_action('wp_ajax_modula_shortcode_editor', array($this, 'modula_shortcode_editor'));
+
 		new Modula_CPT();
 
 	}
@@ -112,7 +117,7 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
-
+		
 	}
 
 	/* Enqueue Admin Scripts */
@@ -222,10 +227,43 @@ class Modula {
 		die;
 	}
 
-
     // Register and load the widget
     public function modula_load_widget() {
         register_widget( 'Modula_Widget' );
     }
 
+    /**
+     * @param $buttons
+     * @return mixed
+     *
+     * Add tinymce button
+     */
+    public function editor_button($buttons) {
+        array_push($buttons, 'separator', 'modula_shortcode_editor');
+        return $buttons;
+    }
+
+    /**
+     * @param $plugin_array
+     * @return mixed
+     *
+     * Add plugin editor script
+     */
+    public function register_editor_plugin($plugin_array) {
+        $plugin_array['modula_shortcode_editor'] = MODULA_URL . 'assets/js/editor-plugin.js';
+        return $plugin_array;
+    }
+
+    /**
+     * Display galleries selection
+     */
+    public function modula_shortcode_editor() {
+        $css_path  = MODULA_URL . 'assets/css/edit.css';
+        $admin_url = admin_url();
+        $galleries = Modula_Helper::get_galleries();
+        include 'admin/tinymce-galleries.php';
+        wp_die();
+
+    }
+    
 }

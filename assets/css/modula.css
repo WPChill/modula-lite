@@ -444,3 +444,4 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	display: none;
 }
 
+.modula .modula-items .modula-item>a{cursor:zoom-in;}

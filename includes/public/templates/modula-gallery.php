@@ -1,4 +1,3 @@
-
 <!-- Gallery Container -->
 <div <?php echo Modula_Helper::generate_attributes( $data->gallery_container ) ?>>
 
@@ -25,7 +24,7 @@
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => false,
+				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
@@ -72,5 +71,14 @@
 	</div>
 
 	<?php do_action( 'modula_shortcode_after_items', $data->settings ) ?>
+    <script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type"   : "ImageGallery",
+		"id"      : "<?php echo esc_url($current_url); ?>",
+		"url"     : "<?php echo esc_url($current_url); ?>"
+	}
+
+    </script>
 
 </div>
