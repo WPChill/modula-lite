@@ -70,15 +70,16 @@
 		?>
 	</div>
 
-	<?php do_action( 'modula_shortcode_after_items', $data->settings ) ?>
-    <script type="application/ld+json">
-	{
-		"@context": "http://schema.org",
-		"@type"   : "ImageGallery",
-		"id"      : "<?php echo esc_url($current_url); ?>",
-		"url"     : "<?php echo esc_url($current_url); ?>"
-	}
+	
+	<?php
 
-    </script>
+	/**
+	 * Hook: modula_shortcode_after_items.
+	 *
+	 * @hooked modula_show_schemaorg - 90
+	 */
+	do_action( 'modula_shortcode_after_items', $data->settings );
+
+	?>
 
 </div>

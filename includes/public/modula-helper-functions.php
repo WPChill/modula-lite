@@ -146,3 +146,24 @@ function modula_add_align_classes( $template_data ){
 
 	return $template_data;
 }
+
+function modula_show_schemaorg( $settings ){
+	global $wp;
+
+	$current_url = home_url(add_query_arg(array(), $wp->request));
+
+	?>
+
+	<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type"   : "ImageGallery",
+		"id"      : "<?php echo esc_url($current_url); ?>",
+		"url"     : "<?php echo esc_url($current_url); ?>"
+	}
+
+    </script>
+
+	<?php
+
+}
