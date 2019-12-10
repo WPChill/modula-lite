@@ -18,6 +18,10 @@ class Modula_Helper {
 		$return = '';
 		foreach ( $attributes as $name => $value ) {
 
+			if ( is_array( $value ) ) {
+				$value = implode( ' ', $value );
+			}
+			
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
 				$value = str_replace('<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
@@ -139,7 +143,7 @@ class Modula_Helper {
     public static function get_galleries() {
 
         $galleries     = get_posts( array( 'post_type' => 'modula-gallery','posts_per_page' => -1 ) );
-        $gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
+        $gallery_array = array('none' => esc_html__( 'None', 'modula-best-grid-gallery' ));
         foreach ( $galleries as $gallery ) {
             $gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
         }

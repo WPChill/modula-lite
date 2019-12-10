@@ -193,6 +193,7 @@
         // Attach event handlers to the newly minted DOM elements
         this.$overlay.hide().on('click', function () {
             self.end();
+            jQuery(document).trigger('modula_lightbox2_lightbox_close');
             return false;
         });
 
@@ -207,6 +208,7 @@
         this.$outerContainer.on('click', function (event) {
             if ($(event.target).attr('id') === 'lightbox') {
                 self.end();
+                jQuery(document).trigger('modula_lightbox2_lightbox_close');
             }
             return false;
         });
@@ -282,6 +284,7 @@
 
         this.$lightbox.find('.lb-loader, .lb-close').on('click', function () {
             self.end();
+            jQuery(document).trigger('modula_lightbox2_lightbox_close');
             return false;
         });
     };

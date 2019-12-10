@@ -285,7 +285,6 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 		margin:0;
 	}
 
-
 }
 /**
  End Modula Filters
@@ -460,3 +459,5 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 		display:inline-block;
 	}
 }
+
+.modula .modula-items .modula-item>a{cursor:zoom-in;}

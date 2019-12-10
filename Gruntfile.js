@@ -87,6 +87,7 @@ module.exports = function( grunt ) {
 				src: [
 					'assets/js/*.min.js',
 					'assets/js/*.min.js.map',
+					'!assets/js/resizesensor.min.js'
 				]
 			}
 		},
@@ -133,6 +134,14 @@ module.exports = function( grunt ) {
 		},
 
 		uglify: {
+			options: {
+		      compress: {
+		        global_defs: {
+		          'DEBUG': true
+		        },
+		        dead_code: true
+		      }
+		    },
 			jsfiles: {
 				files: [ {
 					expand: true,
@@ -144,13 +153,21 @@ module.exports = function( grunt ) {
 						'!wp-modula-*.js',
 						'!modula-addon.js',
 						'!modula-upgrade.js',
-						'!wp-modula.js'
+						'!wp-modula.js',
+						'!resizesensor.js'
 					],
 					dest  : 'assets/js/',
 					ext   : '.min.js'
 				} ]
-			},
+			}
 		},
+
+		concat: {
+    		js: {
+      			src: [ 'assets/js/resizesensor.min.js', 'assets/js/jquery-modula.min.js' ],
+      			dest: 'assets/js/jquery-modula.min.js',
+    		},
+  		},
 
 		compress: {
 			build: {
@@ -175,9 +192,9 @@ module.exports = function( grunt ) {
 		'makepot'
 	] );
 	grunt.registerTask( 'minjs', [  // Minify CSS
-		// 'concat',
 		'clean:jsmin',
-		'uglify'
+		'uglify',
+		'concat:js'
 	] );
 	grunt.registerTask( 'mincss', [  // Minify CSS
 		'clean:css',
