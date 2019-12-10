@@ -258,6 +258,12 @@ class Modula_CPT {
 							case 'shadowColor':
 								$modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
 								break;
+                            case 'lightbox_background_color':
+                                $modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
+                                break;
+                            case 'lightbox_popup_opacity' :
+                                $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
+                                break;
 							case 'Effect' :
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
 									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
