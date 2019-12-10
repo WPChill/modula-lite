@@ -210,9 +210,9 @@ class Modula_Field_Builder {
 	/* Create HMTL for shortcode metabox */
 	private function _render_shortcode_metabox( $post ) {
 		$shortcode = '[modula id="' . $post->ID . '"]';
-		echo '<input type="text" style="width:100%;" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
+		echo '<input type="text" style="width:calc(100% - 50px);" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
 		// Add Copy Shortcode button
-        echo '<a href="#" id="copy-modula-shortcode" class="button button-primary">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
+        echo '<a href="#" title="Click to copy shortcode" id="copy-modula-shortcode" class="button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
 	}
 
 	/* Create HMTL for a tab */
@@ -375,21 +375,10 @@ class Modula_Field_Builder {
 					'ming'         => esc_html__( 'Ming', 'modula-best-grid-gallery' ),
 					'lexi'         => esc_html__( 'Lexi', 'modula-best-grid-gallery' ),
 					'duke'         => esc_html__( 'Duke', 'modula-best-grid-gallery' ),
-					'caption_1'    => esc_html__( 'Caption Effect 1', 'modula-best-grid-gallery' ),
-					'caption_2'    => esc_html__( 'Caption Effect 2', 'modula-best-grid-gallery' ),
-					'caption_3'    => esc_html__( 'Caption Effect 3', 'modula-best-grid-gallery' ),
-					'caption_4'    => esc_html__( 'Caption Effect 4', 'modula-best-grid-gallery' ),
-					'caption_5'    => esc_html__( 'Caption Effect 5', 'modula-best-grid-gallery' ),
-					'caption_6'    => esc_html__( 'Caption Effect 6', 'modula-best-grid-gallery' ),
-					'caption_7'    => esc_html__( 'Caption Effect 7', 'modula-best-grid-gallery' ),
 					'tilt_1'       => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
 					'tilt_2'       => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
-					'tilt_3'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
-					'tilt_4'       => esc_html__( 'Tilt Effect 4', 'modula-best-grid-gallery' ),
-					'tilt_5'       => esc_html__( 'Tilt Effect 5', 'modula-best-grid-gallery' ),
-					'tilt_6'       => esc_html__( 'Tilt Effect 6', 'modula-best-grid-gallery' ),
-					'tilt_7'       => esc_html__( 'Tilt Effect 7', 'modula-best-grid-gallery' ),
-					'tilt_8'       => esc_html__( 'Tilt Effect 8', 'modula-best-grid-gallery' )
+					'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
+
 				) );
 				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
 				foreach ( $hovers as $key => $option ) {
