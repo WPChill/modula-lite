@@ -90,49 +90,31 @@ class Modula_Elementor_Widget_Activation {
 
 	public function modula_elementor_ajax_search() {
 
-	    $return = array();
-
         if ('modula_elementor_ajax_search' == $_POST['action']) {
 
-            if ('false' == $_POST['search_title']) {
-
-                $return[] = array(
-                    'value' => esc_attr($_POST['search_value']),
-                    'text'  => get_the_title($_POST['search_value']));
-            } else {
+            if ('' != $_POST['s']) {
 
                 $args = array(
                     'post_type'      => 'modula-gallery',
-                    'posts_per_page' => 20,
+                    'posts_per_page' => -1,
                     'orderby'        => 'title',
                     'order'          => 'ASC',
-                    's'              => $_POST['search_value']
+                    's'              => sanitize_text_field($_POST['s'])
                 );
 
-                $galleries = new \WP_Query($args);
+                $query = new \WP_Query($args);
 
-                if ($galleries->have_posts()) {
-                    while ($galleries->have_posts()) {
-                        $galleries->the_post();
-                        $id       = get_the_ID();
-                        $title    = get_the_title();
-                        $return[] = array(
-                            'value' => $id,
-                            'text'  => $title
-                        );
-                    }
-                } else {
-                    $return[] = array(
-                        'value' => 'none',
-                        'text'  => __('No galleries found', 'modula-best-grid-gallery')
-                    );
+                if ( $query->have_posts() ) {
+                	$galleries = $query->posts;
+                    wp_send_json_success( $galleries );
                 }
-                wp_reset_query();
+
+                wp_send_json_success();
+                
             }
         }
 
-        echo json_encode($return);
-        wp_die();
+        wp_send_json_error();
     }
 }
 
