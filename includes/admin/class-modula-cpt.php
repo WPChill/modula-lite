@@ -382,8 +382,10 @@ class Modula_CPT {
 
 		if ( 'shortcode' == $column ) {
 			$shortcode = '[modula id="' . $post_id . '"]';
-			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
-            echo '<a href="#" title="Click to copy shortcode" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="margin-left:15px;width:40px;"></a><span style="margin-left:15px;"></span>';
+			echo '<div class="modula-copy-shortcode">';
+            echo '<input type="text" value="' . esc_attr($shortcode) . '"  onclick="select()" readonly>';
+            echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+            echo '</div>';
 		}
 
 		if ( 'limit' == $column) {

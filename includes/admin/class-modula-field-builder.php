@@ -210,9 +210,10 @@ class Modula_Field_Builder {
 	/* Create HMTL for shortcode metabox */
 	private function _render_shortcode_metabox( $post ) {
 		$shortcode = '[modula id="' . $post->ID . '"]';
-		echo '<input type="text" style="width:calc(100% - 50px);" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
-		// Add Copy Shortcode button
-        echo '<a href="#" title="Click to copy shortcode" id="copy-modula-shortcode" class="button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+		echo '<div class="modula-copy-shortcode">';
+        echo '<input type="text" value="' . esc_attr($shortcode) . '"  onclick="select()" readonly>';
+        echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+        echo '</div>';
 	}
 
 	/* Create HMTL for a tab */

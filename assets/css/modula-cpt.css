@@ -1129,3 +1129,24 @@ a.modula-tab-link {
 
 .modula-toggle__input[type=checkbox]:checked + .modula-toggle__items .modula-toggle__on {
   display: inline-block; }
+
+/* Copy Shortcode */
+.modula-copy-shortcode {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.modula-copy-shortcode input {
+    margin:0;
+    border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  flex-grow:1;
+}
+.modula-copy-shortcode span {
+  width: 100%;
+}
+.wp-core-ui .modula-copy-shortcode a.button-primary {
+  height: 30px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
