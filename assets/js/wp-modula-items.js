@@ -129,13 +129,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 view.$el.width( width );
                 view.$el.height( height );
 
-            }else{
-
-                width = ( size * 2 ) +  gutter;
-
-                view.$el.width( width );
-                view.$el.height( width );
-
             }
 
             // We need to render our view with new attributes

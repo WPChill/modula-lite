@@ -252,18 +252,11 @@ class Modula_CPT_Fields_Helper {
 				),
 			),
 			'captions' => array(
-				"titleColor"     => array(
-					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
-					"type"        => "color",
-					"description" => esc_html__( 'Set the color of title.', 'modula-best-grid-gallery' ),
-					"default"     => "",
-					'priority'    => 5,
-				),
-				"captionColor"     => array(
-					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
-					"type"        => "color",
-					"description" => esc_html__( 'Set the color of captions.', 'modula-best-grid-gallery' ),
-					"default"     => "#ffffff",
+				"hide_title"        => array(
+					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 				),
 				"wp_field_title"   => array(
@@ -277,6 +270,29 @@ class Modula_CPT_Fields_Helper {
 					),
 					'priority' => 20,
 				),
+				"titleColor"     => array(
+					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
+					"type"        => "color",
+					"description" => esc_html__( 'Set the color of title.', 'modula-best-grid-gallery' ),
+					"default"     => "",
+					'priority'    => 30,
+				),
+				"titleFontSize"    => array(
+					"name"        => esc_html__( 'Title Font Size', 'modula-best-grid-gallery' ),
+					"type"        => "ui-slider",
+					"min"         => 0,
+					"max"         => 100,
+					"default"     => 0,
+					"description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults).', 'modula-best-grid-gallery' ),
+					'priority'    => 40,
+				),
+				"hide_description"        => array(
+					"name"        => esc_html__( 'Hide Caption', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
+					'priority'    => 50,
+				),
 				"wp_field_caption" => array(
 					"name"        => esc_html__( 'Default Caption', 'modula-best-grid-gallery' ),
 					"type"        => "select",
@@ -287,30 +303,14 @@ class Modula_CPT_Fields_Helper {
 						"caption"     => esc_html__( 'WP Image caption', 'modula-best-grid-gallery' ),
 						"description" => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
 					),
-					'priority' => 30,
+					'priority' => 60,
 				),
-				"hide_title"        => array(
-					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
-					'priority'    => 40,
-				),
-				"hide_description"        => array(
-					"name"        => esc_html__( 'Hide Caption', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
-					'priority'    => 50,
-				),
-				"titleFontSize"    => array(
-					"name"        => esc_html__( 'Title Font Size', 'modula-best-grid-gallery' ),
-					"type"        => "ui-slider",
-					"min"         => 0,
-					"max"         => 100,
-					"default"     => 0,
-					"description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults).', 'modula-best-grid-gallery' ),
-					'priority'    => 60,
+				"captionColor"     => array(
+					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
+					"type"        => "color",
+					"description" => esc_html__( 'Set the color of captions.', 'modula-best-grid-gallery' ),
+					"default"     => "#ffffff",
+					'priority'    => 70,
 				),
 				"captionFontSize"  => array(
 					"name"        => esc_html__( 'Caption Font Size', 'modula-best-grid-gallery' ),
@@ -319,7 +319,7 @@ class Modula_CPT_Fields_Helper {
 					"max"         => 100,
 					"default"     => 14,
 					"description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults).', 'modula-best-grid-gallery' ),
-					'priority'    => 70,
+					'priority'    => 80,
 				),
                 "mobileTitleFontSize"    => array(
                     "name"        => esc_html__( 'Mobile Title Font Size', 'modula-best-grid-gallery' ),
@@ -328,7 +328,7 @@ class Modula_CPT_Fields_Helper {
                     "max"         => 100,
                     "default"     => 12,
                     "description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
-                    'priority'    => 80,
+                    'priority'    => 90,
                 ),
                 "mobileCaptionFontSize"  => array(
                     "name"        => esc_html__( 'Mobile Caption Font Size', 'modula-best-grid-gallery' ),
@@ -337,7 +337,7 @@ class Modula_CPT_Fields_Helper {
                     "max"         => 100,
                     "default"     => 10,
                     "description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
-                    'priority'    => 80,
+                    'priority'    => 100,
                 ),
 			),
 			'social' => array(
