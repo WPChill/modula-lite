@@ -1,4 +1,4 @@
-= x.x.x - 28.11.2019 =
+= 2.2.0 - 19.12.2019 =
 Added schema-data to gallery code
 Added image limit view to gallery list
 Fix Title and Caption for images inserted from Media Library
@@ -6,6 +6,7 @@ Encode in Base64 prev, next and close .png icons
 Added a Modula Gallery insert button in classic editor
 Changed cursor icon to magnifying glass instead of a hand icon
 Added a Master Toggle in social settings panel that can disable all the social links from one toggle.
+More fixed issues here: : https://github.com/MachoThemes/modula-lite/milestone/11?closed=1
 
 = 2.1.6 - 13.09.2019 =
 * Added option for mobile caption and title font size
