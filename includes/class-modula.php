@@ -55,21 +55,7 @@ class Modula {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
-			// require_once MODULA_PATH . 'includes/admin/class-modula-admin-pointers.php';
-
-			if ( ! class_exists( 'Epsilon_Review' ) ) {
-				require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
-			}
-
-			Modula_Review::get_instance( array(
-			    'slug' => 'modula-best-grid-gallery',
-			    'messages' => array(
-			    	'notice'  => esc_html__( "Hey, I noticed you have created %s galleries - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'modula-best-grid-gallery' ),
-					'rate'    => esc_html__( 'Ok, you deserve it', 'modula-best-grid-gallery' ),
-					'rated'   => esc_html__( 'I already did', 'modula-best-grid-gallery' ),
-					'no_rate' => esc_html__( 'No, not good enough', 'modula-best-grid-gallery' ),
-			    ),
-			) );
+			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 
 		}
 
