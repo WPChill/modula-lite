@@ -42,7 +42,7 @@ jQuery( document ).ready( function( $ ){
 	new wp.Modula.upload['uploadHandler']();
 
 	// Copy shortcode functionality
-    $('#copy-modula-shortcode').click(function (e) {
+    $('.copy-modula-shortcode').click(function (e) {
         e.preventDefault();
         var gallery_shortcode = $(this).parent().find('input');
         gallery_shortcode.focus();
