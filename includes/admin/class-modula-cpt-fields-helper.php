@@ -105,13 +105,21 @@ class Modula_CPT_Fields_Helper {
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 100,
             ),
+            'slideshow' => array(
+                'label'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
+                'title'       => esc_html__( 'Lightbox Slideshow Settings', 'modula-best-grid-gallery' ),
+                'description' => esc_html__( 'Here you can modify the settings for lightbox slideshow like : autoplay / autoplay time / pause on hover', 'modula-best-grid-gallery' ),
+                "icon"        => "dashicons dashicons-images-alt2",
+                'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+                'priority'    => 110,
+            ),
             'password_protect' => array(
                 'label'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
                 //'description' => $password_protect_description,
                 "icon"        => "dashicons dashicons-shield",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
-                'priority'    => 110,
+                'priority'    => 120,
             ),
             'watermark' => array(
                 'label'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
@@ -119,16 +127,9 @@ class Modula_CPT_Fields_Helper {
                 //'description' => $watermark_description,
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
-                'priority'    => 110,
+                'priority'    => 130,
             ),
-            // 'slideshow' => array(
-            //     'label'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
-            //     'title'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
-            //     //'description' => $slideshow_description,
-            //     "icon"        => "dashicons dashicons-images-alt2",
-            //     'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
-            //     'priority'    => 110,
-            // ),
+            
 		) );
 
 	}
