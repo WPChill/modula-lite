@@ -52,7 +52,7 @@ class Modula_Gutenberg {
 			$atts['align'] = '';
 		}
 
-		return do_shortcode( '[modula id=' . $atts['id'] . ' align=' . $atts['align'] . ']' );
+		return '[modula id=' . $atts['id'] . ' align=' . $atts['align'] . ']';
 	}
 
 	public function get_gallery_meta() {
