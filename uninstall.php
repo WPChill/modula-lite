@@ -9,6 +9,7 @@ if (!defined('WP_UNINSTALL_PLUGIN'))
     exit();
 
 $uninstall_option = get_option('modula_uninstall_option');
+global $wpdb;
 /**
  * Leave no trace.
  */
@@ -36,7 +37,6 @@ if ('1' == $uninstall_option['delete_transients']) {
 
 // Delete custom post type
 if ('1' == $uninstall_option['delete_cpt']) {
-    global $wpdb;
 
     // filter for post types, mainly for Modula Albums
     $post_types = apply_filters('modula_uninstall_post_types',array('modula-gallery'));
@@ -61,4 +61,16 @@ if ('1' == $uninstall_option['delete_cpt']) {
         $wpdb->query( $sql );
         $wpdb->query( $sql_meta );
     }
+}
+
+// Delete old tables ( `prefix`_modula and `prefix`_modula_images ) from the DB
+if ( '1' == $uninstall_option['delete_old_tables'] ) {
+    $modula_table        = $wpdb->prefix . "modula";
+    $modula_images_table = $wpdb->prefix . "modula_images";
+
+    $sql_modula_table        = $wpdb->prepare( "DROP TABLE IF EXISTS $modula_table" );
+    $sql_modula_images_table = $wpdb->prepare( "DROP TABLE IF EXISTS $modula_images_table" );
+    $wpdb->query( $sql_modula_table );
+    $wpdb->query( $sql_modula_images_table );
+
 }

@@ -291,6 +291,7 @@ class Modula_Admin {
 	    $uninstall_options['delete_options'] = isset($_POST['modula_uninstall_option']['delete_options']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_options']) : '';
 	    $uninstall_options['delete_cpt'] = isset($_POST['modula_uninstall_option']['delete_cpt']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_cpt']) : '';
         $uninstall_options['delete_transients'] = isset($_POST['modula_uninstall_option']['delete_transients']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_transients']) : '';
+         $uninstall_options['delete_old_tables'] = isset($_POST['modula_uninstall_option']['delete_old_tables']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_old_tables']) : '';
 
         update_option('modula_uninstall_option',$uninstall_options);
 	}
