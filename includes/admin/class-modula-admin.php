@@ -283,9 +283,14 @@ class Modula_Admin {
             return;
 	    }
 
-	    $uninstall_options['delete_options'] = isset($_POST['modula_uninstall_option']['delete_options']) ? $_POST['modula_uninstall_option']['delete_options'] : '';
-        $uninstall_options['delete_cpt'] = isset($_POST['modula_uninstall_option']['delete_cpt']) ? $_POST['modula_uninstall_option']['delete_cpt'] : '';
-        $uninstall_options['delete_transients'] = isset($_POST['modula_uninstall_option']['delete_transients']) ? $_POST['modula_uninstall_option']['delete_transients'] : '';
+        $nonce = $_POST['modula_trails'];
+	    if (!wp_verify_nonce( $nonce, 'modula_remove_trails' ) ) {
+            return;
+	    }
+
+	    $uninstall_options['delete_options'] = isset($_POST['modula_uninstall_option']['delete_options']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_options']) : '';
+	    $uninstall_options['delete_cpt'] = isset($_POST['modula_uninstall_option']['delete_cpt']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_cpt']) : '';
+        $uninstall_options['delete_transients'] = isset($_POST['modula_uninstall_option']['delete_transients']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_transients']) : '';
 
         update_option('modula_uninstall_option',$uninstall_options);
 	}

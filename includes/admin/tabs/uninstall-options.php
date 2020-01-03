@@ -9,6 +9,7 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
     <p class="description alert"><?php _e('CAUTION. THIS <strong>CAN NOT</strong> BE UNDONE!','modula-best-grid-gallery'); ?></p>
 
     <form id="modula_uninstall_option" method="post">
+        <?php wp_nonce_field( 'modula_remove_trails','modula_trails' ); ?>
         <table class="form-table">
             <tbody>
             <tr valign="top">
@@ -22,7 +23,7 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
                                 <input class="modula-toggle__input" type="checkbox"
                                        data-setting="modula_uninstall_option[delete_options]"
                                        id="modula_uninstall_option[delete_options]" name="modula_uninstall_option[delete_options]"
-                                       value="1" <?php echo checked(1, $delete_options, false); ?>>
+                                       value="1" <?php echo checked('1', $delete_options, false); ?>>
                                 <div class="modula-toggle__items">
                                     <span class="modula-toggle__track"></span>
                                     <span class="modula-toggle__thumb"></span>
@@ -53,7 +54,7 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
                                 <input class="modula-toggle__input" type="checkbox"
                                        data-setting="modula_uninstall_option[delete_transients]"
                                        id="modula_uninstall_option[delete_transients]" name="modula_uninstall_option[delete_transients]"
-                                       value="1" <?php echo checked(1, $delete_transients, false); ?>>
+                                       value="1" <?php echo checked('1', $delete_transients, false); ?>>
                                 <div class="modula-toggle__items">
                                     <span class="modula-toggle__track"></span>
                                     <span class="modula-toggle__thumb"></span>
@@ -84,7 +85,7 @@ $delete_transients = isset($uninstall_options['delete_transients']) ? $uninstall
                                 <input class="modula-toggle__input" type="checkbox"
                                        data-setting="modula_uninstall_option[delete_cpt]"
                                        id="modula_uninstall_option[delete_cpt]" name="modula_uninstall_option[delete_cpt]"
-                                       value="1" <?php echo checked(1, $delete_cpt, false); ?>>
+                                       value="1" <?php echo checked('1', $delete_cpt, false); ?>>
                                 <div class="modula-toggle__items">
                                     <span class="modula-toggle__track"></span>
                                     <span class="modula-toggle__thumb"></span>
