@@ -20,11 +20,7 @@ if ('1' == $uninstall_option['delete_options']) {
     foreach($options_array as $db_option){
         delete_option($db_option);
     }
-   /* delete_option('modula_uninstall_option');
-    delete_option('modula_troubleshooting_option');
-    delete_option('modula-checks');
-    delete_option('modula_version');
-    delete_option('widget_modula_gallery_widget');*/
+
 }
 
 // Delete transients
@@ -35,9 +31,7 @@ if ('1' == $uninstall_option['delete_transients']) {
     foreach($transients_array as $db_transient){
         delete_transient($db_transient);
     }
-   /* delete_transient('modula_all_extensions');
-    delete_transient('modula-galleries');
-    delete_transient('modula_pro_licensed_extensions');*/
+  
 }
 
 // Delete custom post type
