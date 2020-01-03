@@ -18,6 +18,7 @@ if ('1' == $uninstall_option['delete_options']) {
     delete_option('modula_troubleshooting_option');
     delete_option('modula-checks');
     delete_option('modula_version');
+    delete_option('widget_modula_gallery_widget');
 }
 
 // Delete transients
@@ -31,22 +32,25 @@ if ('1' == $uninstall_option['delete_transients']) {
 if ('1' == $uninstall_option['delete_cpt']) {
     global $wpdb;
 
-    $galleries = get_posts(array('post_type'=>'modula-gallery','posts_per_page' => -1));
+    $galleries = get_posts( array ( 'post_type' => 'modula-gallery' , 'posts_per_page' => -1 ) );
     $id_in     = '(';
     $i         = 1;
 
-    foreach ($galleries as $gallery) {
-        $id_in .= '\'' . $gallery->ID . '\'';
-        if ($i < count($galleries)) {
-            $id_in .= ',';
+    if ( is_array( $galleries ) && ! empty( $galleries ) ) {
+
+        foreach ( $galleries as $gallery ) {
+            $id_in .= '\'' . $gallery->ID . '\'';
+            if ( $i < count( $galleries ) ) {
+                $id_in .= ',';
+            }
+            $i++;
         }
-        $i++;
+
+        $id_in .= ')';
+
+        $sql      = $wpdb->prepare( "DELETE FROM  $wpdb->posts WHERE ID IN $id_in" );
+        $sql_meta = $wpdb->prepare( "DELETE FROM  $wpdb->postmeta WHERE post_id IN $id_in" );
+        $wpdb->query( $sql );
+        $wpdb->query( $sql_meta );
     }
-
-    $id_in .= ')';
-
-    $sql = $wpdb->prepare("DELETE FROM  $wpdb->posts WHERE ID IN $id_in");
-    $sql_meta = $wpdb->prepare("DELETE FROM  $wpdb->postmeta WHERE post_id IN $id_in");
-    $wpdb->query($sql);
-    $wpdb->query($sql_meta);
 }
