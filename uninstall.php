@@ -14,25 +14,39 @@ $uninstall_option = get_option('modula_uninstall_option');
  */
 // Delete options
 if ('1' == $uninstall_option['delete_options']) {
-    delete_option('modula_uninstall_option');
+    // filter for options to be added by Modula's add-ons
+    $options_array = apply_filters('modula_uninstall_options',array('modula_uninstall_option','modula_troubleshooting_option','modula-checks','modula_version','widget_modula_gallery_widget'));
+
+    foreach($options_array as $db_option){
+        delete_option($db_option);
+    }
+   /* delete_option('modula_uninstall_option');
     delete_option('modula_troubleshooting_option');
     delete_option('modula-checks');
     delete_option('modula_version');
-    delete_option('widget_modula_gallery_widget');
+    delete_option('widget_modula_gallery_widget');*/
 }
 
 // Delete transients
 if ('1' == $uninstall_option['delete_transients']) {
-    delete_transient('modula_all_extensions');
+    // filter for transients to be added by Modula's add-ons
+    $transients_array = apply_filters('modula_uninstall_transients',array('modula_all_extensions','modula-galleries','modula_pro_licensed_extensions'));
+
+    foreach($transients_array as $db_transient){
+        delete_transient($db_transient);
+    }
+   /* delete_transient('modula_all_extensions');
     delete_transient('modula-galleries');
-    delete_transient('modula_pro_licensed_extensions');
+    delete_transient('modula_pro_licensed_extensions');*/
 }
 
 // Delete custom post type
 if ('1' == $uninstall_option['delete_cpt']) {
     global $wpdb;
 
-    $galleries = get_posts( array ( 'post_type' => 'modula-gallery' , 'posts_per_page' => -1 ) );
+    // filter for post types, mainly for Modula Albums
+    $post_types = apply_filters('modula_uninstall_post_types',array('modula-gallery'));
+    $galleries = get_posts( array ( 'post_type' => $post_types , 'posts_per_page' => -1 ) );
     $id_in     = '(';
     $i         = 1;
 
