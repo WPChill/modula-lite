@@ -1,3 +1,6 @@
+= 2.2.2 - 31.12.2019 =
+Fixed rate pop-up
+
 = 2.2.1 - 31.12.2019 =
 Fixed Gutenberg block
 
