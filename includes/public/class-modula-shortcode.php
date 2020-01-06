@@ -243,7 +243,8 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
-				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
+			    // max-width is a fix for Twentytwenty theme
+				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";max-width:".esc_attr($settings['width'])."}";
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
