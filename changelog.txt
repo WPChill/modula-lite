@@ -1,5 +1,6 @@
 = 2.2.3 - 06.01.2020 =
 Fixed Autoptimize HTML code optimization bug
+Fix warning for no uploaded image
 
 = 2.2.2 - 31.12.2019 =
 Fixed rate pop-up
