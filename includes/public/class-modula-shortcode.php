@@ -201,7 +201,7 @@ class Modula_Shortcode {
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		$this->loader->set_template_data( $template_data );
     	$this->loader->get_template_part( 'modula', 'gallery' );
-    	echo '<!--- This gallery was built with Modula Gallery ---!>';
+    	echo '<!--- This gallery was built with Modula Gallery --->';
     	$html = ob_get_clean();
     	return $html;
 
