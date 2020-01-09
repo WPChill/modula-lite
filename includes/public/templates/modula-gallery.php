@@ -1,12 +1,10 @@
-<?php
-$classes = apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $data->settings );
-$items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$data->settings );
-?>
-<div id="<?php echo esc_attr($data->gallery_id) ?>" class="<?php echo esc_attr($classes); ?> <?php echo ( $data->settings['align'] != '' ) ? esc_attr( 'align' . $data->settings['align'] ) : ''; ?>" data-config="<?php echo esc_attr( json_encode( $data->js_config ) ) ?>">
+<!-- Gallery Container -->
+<div <?php echo Modula_Helper::generate_attributes( $data->gallery_container ) ?>>
 
 	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
 
-	<div class='modula-items'<?php echo Modula_Helper::generate_attributes( $items_attributes ) ?>>
+	<!-- Items Container -->
+	<div <?php echo Modula_Helper::generate_attributes( $data->items_container ) ?>>
 		<?php
 
 		foreach ( $data->images as $image ) {
@@ -26,7 +24,7 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => false,
+				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
@@ -49,7 +47,9 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 				),
 			);
 
-            $image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
+			// need this to model the image attributes
+      		$image = apply_filters('modula_shortcode_image_data',$image,$data->settings);
+
 
 			/**
 			 * Hook: modula_shortcode_item_data.
@@ -70,6 +70,16 @@ $items_attributes = apply_filters( 'modula_gallery_items_attributes', array(),$d
 		?>
 	</div>
 
-	<?php do_action( 'modula_shortcode_after_items', $data->settings ) ?>
+	
+	<?php
+
+	/**
+	 * Hook: modula_shortcode_after_items.
+	 *
+	 * @hooked modula_show_schemaorg - 90
+	 */
+	do_action( 'modula_shortcode_after_items', $data->settings );
+
+	?>
 
 </div>

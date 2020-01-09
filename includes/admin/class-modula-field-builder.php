@@ -175,7 +175,7 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= '<a href="https://wp-modula.com/docs/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '<span> - or - </span>';
 				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>';
 				$current_tab_content .= '</div>';
@@ -210,9 +210,15 @@ class Modula_Field_Builder {
 	/* Create HMTL for shortcode metabox */
 	private function _render_shortcode_metabox( $post ) {
 		$shortcode = '[modula id="' . $post->ID . '"]';
-		echo '<input type="text" style="width:100%;" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
-		// Add Copy Shortcode button
-        echo '<a href="#" id="copy-modula-shortcode" class="button button-primary">'.esc_html__('Copy shortcode','modula-best-grid-gallery').'</a><span style="margin-left:15px;"></span>';
+
+		do_action( 'modula_admin_before_shortcode_metabox', $post );
+
+		echo '<div class="modula-copy-shortcode">';
+        echo '<input type="text" value="' . esc_attr($shortcode) . '"  onclick="select()" readonly>';
+        echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+        echo '</div>';
+
+        do_action( 'modula_admin_after_shortcode_metabox', $post );
 	}
 
 	/* Create HMTL for a tab */
@@ -375,21 +381,10 @@ class Modula_Field_Builder {
 					'ming'         => esc_html__( 'Ming', 'modula-best-grid-gallery' ),
 					'lexi'         => esc_html__( 'Lexi', 'modula-best-grid-gallery' ),
 					'duke'         => esc_html__( 'Duke', 'modula-best-grid-gallery' ),
-					'caption_1'    => esc_html__( 'Caption Effect 1', 'modula-best-grid-gallery' ),
-					'caption_2'    => esc_html__( 'Caption Effect 2', 'modula-best-grid-gallery' ),
-					'caption_3'    => esc_html__( 'Caption Effect 3', 'modula-best-grid-gallery' ),
-					'caption_4'    => esc_html__( 'Caption Effect 4', 'modula-best-grid-gallery' ),
-					'caption_5'    => esc_html__( 'Caption Effect 5', 'modula-best-grid-gallery' ),
-					'caption_6'    => esc_html__( 'Caption Effect 6', 'modula-best-grid-gallery' ),
-					'caption_7'    => esc_html__( 'Caption Effect 7', 'modula-best-grid-gallery' ),
 					'tilt_1'       => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
 					'tilt_2'       => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
-					'tilt_3'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
-					'tilt_4'       => esc_html__( 'Tilt Effect 4', 'modula-best-grid-gallery' ),
-					'tilt_5'       => esc_html__( 'Tilt Effect 5', 'modula-best-grid-gallery' ),
-					'tilt_6'       => esc_html__( 'Tilt Effect 6', 'modula-best-grid-gallery' ),
-					'tilt_7'       => esc_html__( 'Tilt Effect 7', 'modula-best-grid-gallery' ),
-					'tilt_8'       => esc_html__( 'Tilt Effect 8', 'modula-best-grid-gallery' )
+					'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
+
 				) );
 				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
 				foreach ( $hovers as $key => $option ) {
@@ -419,7 +414,7 @@ class Modula_Field_Builder {
 					}elseif ( 'pufrobo' == $key ) {
 						// Pufrobo Effect
 						$effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-google-plus" href="#">' . Modula_Helper::get_icon( 'google' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
 						$effect .= '<div class="effect-compatibility">';
 						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 						$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';

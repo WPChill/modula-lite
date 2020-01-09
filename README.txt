@@ -2,9 +2,9 @@
 Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
 Requires at least: 4.6
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 2.1.6
+Stable tag: 2.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

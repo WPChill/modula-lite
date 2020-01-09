@@ -19,7 +19,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:type', this.changedType );
 		this.listenTo( wp.Modula.Settings, 'change:effect', this.changedEffect );
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
-
+		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial);
 	},
 
 	initValues: function(){
@@ -27,7 +27,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
 		this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
-
+		this.disableSocial (false, wp.Modula.Settings.get('disableSocial'));
 	},
 
 	changedType: function( settings, value ){
@@ -75,6 +75,19 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		hoverBoxes.hide();
 		hoverBoxes.filter( '.panel-' + value ).show();
+	},
+
+	disableSocial: function( settings, value){
+		
+		var rows = this.get( 'rows' );
+
+		if ( 1 == value ) {
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]' ).prop('checked',0).hide();
+			
+        }else {
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]').prop('checked',1).show();
+			
+        }
 	}
 
 });

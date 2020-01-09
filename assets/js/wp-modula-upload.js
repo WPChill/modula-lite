@@ -433,7 +433,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 			// Check from where to populate image title
 			if ( 'none' == titleSource ) {
-				data['title'] = '';
+				data['title'] = attachment['title'];
 			}else if ( 'title' == titleSource ) {
 				data['title'] = attachment['title'];
 			}else if ( 'description' == titleSource ) {
@@ -442,13 +442,13 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 			// Check from where to populate image caption
 			if ( 'none' == captionSource ) {
-				data['caption'] = '';
+				data['description'] = attachment['title'];
 			}else if ( 'title' == captionSource ) {
-				data['caption'] = attachment['title'];
+				data['description'] = attachment['title'];
 			}else if ( 'caption' == captionSource ) {
-				data['caption'] = attachment['caption'];
+				data['description'] = attachment['caption'];
 			}else if ( 'description' == captionSource ) {
-				data['caption'] = attachment['description'];
+				data['description'] = attachment['description'];
 			}
 
 			new modula.items['model']( data );

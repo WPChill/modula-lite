@@ -129,13 +129,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 view.$el.width( width );
                 view.$el.height( height );
 
-            }else{
-
-                width = ( size * 2 ) +  gutter;
-
-                view.$el.width( width );
-                view.$el.height( width );
-
             }
 
             // We need to render our view with new attributes
@@ -147,7 +140,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         	this.trigger('destroy', this, this.collection, {});
         	this.get( 'view' ).remove();
-            modula.GalleryView.resetPackary();
+        	if('custom-grid' == modula.Settings.get( 'type' )){
+                modula.GalleryView.resetPackary();
+            }
+
 
         },
 

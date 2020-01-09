@@ -4,6 +4,7 @@ class Modula_Upgrades {
 
 	// Here will be all actions needed after an update.
 	private $upgrades = array();
+	private $isNotice = false;
 
 	private $upgrades_key = 'modula_completed_upgrades';
 	private $completed_upgrades = array();
@@ -40,11 +41,13 @@ class Modula_Upgrades {
 		add_action( 'admin_notices', array( $this, 'show_upgrade_notices' ) );
 		add_action( 'admin_menu', array( $this, 'add_subpages' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_footer', array( $this, 'dismiss_notices_script' ), 99 );
 
 		// Ajax to get all galleries
 		add_action( 'wp_ajax_modula-get-old-galleries', array( $this, 'get_old_galleries' ), 20 );
 		add_action( 'wp_ajax_modula-upgrade-gallery', array( $this, 'upgrade_gallery' ), 20 );
 		add_action( 'wp_ajax_modula-complete-upgrade', array( $this, 'set_upgrade_complete' ), 20 );
+		add_action( 'wp_ajax_modula-dismiss-upgrade', array( $this, 'dismiss_notice' ), 20 );
 
 	}
 
@@ -81,8 +84,9 @@ class Modula_Upgrades {
 		foreach ( $this->upgrades as $key => $upgrade ) {
 			
 			if ( version_compare( $version['upgraded_from'], $upgrade['version'], $upgrade['compare'] ) && ! $this->check_upgrade_complete( $key ) ) {
+				$this->isNotice = true;
 				printf(
-					'<div class="updated"><p>' . esc_html( $upgrade['notice'] ) . '</p></div>',
+					'<div class="notice modula-upgrade-notice updated" style="position:relative;margin-top:20px;"><p>' . esc_html( $upgrade['notice'] ) . '</p><a href="#" style="text-decoration:none" class="notice-dismiss" data-key="' . esc_attr( $key ) . '"></a></div>',
 					'<a href="' . esc_url( admin_url( 'options.php?page=' . $upgrade['id'] ) ) . '">',
 					'</a>'
 				);
@@ -292,41 +296,43 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
-			$default_gallery_settings = array(
-				'type'             => 'creative-gallery',
-				'width'            => '100%',
-				'height'           => '800',
-				'img_size'         => 300,
-				'margin'           => '10',
-				'randomFactor'     => '50',
-				'lightbox'         => 'lightbox2',
-				'shuffle'          => 0,
-				'captionColor'     => '#ffffff',
-				'wp_field_caption' => 'none',
-			    'wp_field_title'   => 'none',
-			    'hide_title'       => 0,
-			    'hide_description' => 0,
-			    'captionFontSize'  => '14',
-			    'titleFontSize'    => '16',
-			    'enableFacebook'   => 1,
-			    'enableGplus'      => 1,
-			    'enablePinterest'  => 1,
-			    'enableTwitter'    => 1,
-			    'filterClick'      => 0,
-			    'socialIconColor'  => '#ffffff',
-			    'loadedScale'      => '100',
-			    'effect'           => 'pufrobo',
-			    'borderColor'      => '#ffffff',
-			    'borderRadius'     => '0',
-			    'borderSize'       => '0',
-			    'shadowColor'      => '#ffffff',
-			    'shadowSize'       => 0,
-			    'script'           => '',
-			    'style'            => '',
-			    'columns'          => 6,
-			    'gutter'           => 10,
-			    'helpergrid'       => 0,
-			);
+            $default_gallery_settings = array(
+                'type'                      => 'creative-gallery',
+                'width'                     => '100%',
+                'height'                    => '800',
+                'img_size'                  => 300,
+                'margin'                    => '10',
+                'randomFactor'              => '50',
+                'lightbox'                  => 'lightbox2',
+                'shuffle'                   => 0,
+                'captionColor'              => '#ffffff',
+                'wp_field_caption'          => 'none',
+                'wp_field_title'            => 'none',
+                'hide_title'                => 0,
+                'hide_description'          => 0,
+                'captionFontSize'           => '14',
+                'titleFontSize'             => '16',
+                'enableFacebook'            => 1,
+                'enableGplus'               => 1,
+                'enablePinterest'           => 1,
+                'enableTwitter'             => 1,
+                'filterClick'               => 0,
+                'socialIconColor'           => '#ffffff',
+                'loadedScale'               => '100',
+                'effect'                    => 'pufrobo',
+                'borderColor'               => '#ffffff',
+                'borderRadius'              => '0',
+                'borderSize'                => '0',
+                'shadowColor'               => '#ffffff',
+                'lightbox_background_color' => '#000000',
+                'lightbox_popup_opacity'    => '-0.1',
+                'shadowSize'                => 0,
+                'script'                    => '',
+                'style'                     => '',
+                'columns'                   => 6,
+                'gutter'                    => 10,
+                'helpergrid'                => 0,
+            );
 
 			if ( isset( $modula_settings['filters'] ) ) {
 				$modula_settings['filters'] = explode( '|', $modula_settings['filters'] );
@@ -400,5 +406,56 @@ class Modula_Upgrades {
 		) );
 		die;
 
+	}
+
+	public function dismiss_notice(){
+
+		check_admin_referer( 'modula-dismiss-upgrade', 'nonce' );
+
+		if ( ! isset( $_POST['key'] ) ) {
+			wp_send_json_error( 'no key' );
+			die();
+		}
+
+		$upgrades = get_option( $this->upgrades_key, array() );
+		$upgrades_key = sanitize_text_field( $_POST['key'] );
+		$completed[ $upgrades_key ] = true;
+		update_option( $this->upgrades_key, $completed );
+
+		wp_send_json_success();
+		die();
+
+	}
+
+	public function dismiss_notices_script(){
+		if ( $this->isNotice ) {
+			?>
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+					$('.modula-upgrade-notice .notice-dismiss').click(function( evt ){
+						evt.preventDefault();
+
+						var key = $(this).data('key');
+						$.ajax({
+							url:      "<?php echo admin_url( 'admin-ajax.php' ) ?>",
+				            type:     'POST',
+				            dataType: 'json',
+				            data: {
+				                action: 'modula-dismiss-upgrade',
+				                key: key,
+				                nonce:  '<?php echo wp_create_nonce( 'modula-dismiss-upgrade' ) ?>',
+				            },
+				            success: function( response ) {
+				            	if ( response.success ) {
+				            		location.reload();
+				            	}
+				            }
+						});
+
+					});
+				});
+			</script>
+			<?php
+		}
 	}
 }

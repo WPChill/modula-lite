@@ -1,0 +1,1 @@
+jQuery(function(u){u(".fl-builder-content").on("fl-builder.layout-rendered",function(){var l=u(".modula-gallery");if(0<l.length){var a=l.attr("id"),e=l.data("config"),r=jQuery("#"+a).data("plugin_modulaGallery");r&&(r.destroy(),jQuery("#"+a).data("plugin_modulaGallery",null)),u("#"+a).modulaGallery(e)}})});
