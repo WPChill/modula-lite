@@ -23,6 +23,7 @@ class Modula_Admin {
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 
+		add_action('admin_init',array($this,'update_uninstall_options'));
 
 
 	}
@@ -39,6 +40,8 @@ class Modula_Admin {
 		}
 
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ) );
+
+		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), esc_html__( 'Uninstall options', 'modula-best-grid-gallery' ), 'manage_options', 'modula-uninstall', array( $this, 'uninstall_options' ) );
 
 	}
 
@@ -256,10 +259,41 @@ class Modula_Admin {
 		?>
 
 		<style type="text/css">
-			li#menu-posts-modula-gallery .wp-submenu li:last-child a {color: #52ad3a;}
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-uninstall"] {color: #FF0000 !important;}
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 		</style>
 
 		<?php
+	}
+
+	/**
+    * Add uninstall options section
+    */
+	public function uninstall_options(){
+	    wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
+        require_once MODULA_PATH . 'includes/admin/tabs/uninstall-options.php';
+	}
+
+	/**
+    * Update uninstall options
+    */
+	public function update_uninstall_options(){
+
+	    if(!isset($_POST['modula-uninstall-submit'])){
+            return;
+	    }
+
+        $nonce = $_POST['modula_trails'];
+	    if (!wp_verify_nonce( $nonce, 'modula_remove_trails' ) ) {
+            return;
+	    }
+
+	    $uninstall_options['delete_options'] = isset($_POST['modula_uninstall_option']['delete_options']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_options']) : '';
+	    $uninstall_options['delete_cpt'] = isset($_POST['modula_uninstall_option']['delete_cpt']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_cpt']) : '';
+        $uninstall_options['delete_transients'] = isset($_POST['modula_uninstall_option']['delete_transients']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_transients']) : '';
+         $uninstall_options['delete_old_tables'] = isset($_POST['modula_uninstall_option']['delete_old_tables']) ? sanitize_text_field($_POST['modula_uninstall_option']['delete_old_tables']) : '';
+
+        update_option('modula_uninstall_option',$uninstall_options);
 	}
 
 }

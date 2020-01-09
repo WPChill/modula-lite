@@ -35,6 +35,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/helper/class-modula-helper.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-image.php';
 		require_once MODULA_PATH . 'includes/public/modula-helper-functions.php';
+        require_once MODULA_PATH . 'includes/troubleshoot/class-modula-troubleshooting.php';
 
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-upsells.php';
