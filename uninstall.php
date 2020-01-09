@@ -16,7 +16,7 @@ global $wpdb;
 // Delete options
 if ('1' == $uninstall_option['delete_options']) {
     // filter for options to be added by Modula's add-ons
-    $options_array = apply_filters('modula_uninstall_options',array('modula_uninstall_option','modula_troubleshooting_option','modula-checks','modula_version','widget_modula_gallery_widget'));
+    $options_array = apply_filters('modula_uninstall_options',array('modula_uninstall_option','modula_troubleshooting_option','modula-checks','modula_version','widget_modula_gallery_widget','modula-rate-time'));
 
     foreach($options_array as $db_option){
         delete_option($db_option);

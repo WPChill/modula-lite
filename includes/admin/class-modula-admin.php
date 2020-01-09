@@ -259,7 +259,8 @@ class Modula_Admin {
 		?>
 
 		<style type="text/css">
-			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-uninstall"] {color: #FF0000 !important;}
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-uninstall"], a.uninstall-modula {color: #FF0000 !important;}
+			a.uninstall-modula {font-weight:bold;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 		</style>
 

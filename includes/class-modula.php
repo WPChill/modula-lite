@@ -57,6 +57,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
+            require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
 
 		}
 
