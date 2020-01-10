@@ -40,21 +40,21 @@ class Modula_Uninstall {
         $form = $this->get_form_info();
 
         // Build the HTML to go in the form
-        $html = '<div class="epsilon-uninstall-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
-        $html .= '<div class="epsilon-uninstall-form-body"><p>' . esc_html( $form['body'] ) . '</p>';
+        $html = '<div class="epsilon-uninstall-form-head"><h3><strong>' . esc_html( $form['heading'] ) . '</strong></h3><i class="close-uninstall-form">X</i></div>';
+        $html .= '<div class="epsilon-uninstall-form-body"><p>' . wp_kses_post( $form['body'] ) . '</p>';
 
         if ( is_array( $form['options'] ) ) {
 
             $html .= '<div class="epsilon-uninstall-options"><p>';
             foreach ( $form['options'] as $key => $option ) {
 
-                $html .= '<input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . esc_attr( $option ) . '</label><br>';
+                $html .= '<input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . esc_attr( $option['label'] ) . '</label><p class="description">' . esc_html( $option['description'] ) . '</p><br>';
             }
 
             $html .= '</div><!-- .epsilon-uninstall-options -->';
         }
         $html .= '</div><!-- .epsilon-uninstall-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form' , 'colorlib-404-customizer' ) . '</p>';
+        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Cleaning...' , 'colorlib-404-customizer' ) . '</p>';
         $html .= '<div class="uninstall"><p><a id="epsilon-uninstall-submit-form" class="button button-primary" href="#">' . __( 'Uninstall' , 'colorlib-404-customizer' ) . '</a></p></div>'
         ?>
         <div class="epsilon-uninstall-form-bg"></div>
@@ -98,21 +98,24 @@ class Modula_Uninstall {
 
             .epsilon-uninstall-form-active .epsilon-uninstall-form {
                 position: absolute;
-                bottom: 30px;
                 left: 0;
                 right: 0;
                 margin: 0 auto;
                 top: 50%;
                 transform: translateY(-50%);
-                max-width: 400px;
+                max-width: 600px;
                 background: #fff;
                 white-space: normal;
             }
 
             .epsilon-uninstall-form-head {
                 background: #774cce;
-                color: #fff;
                 padding: 8px 18px;
+                position: relative;
+            }
+
+            .epsilon-uninstall-form-head h3 {
+                color: #fff;
             }
 
             .epsilon-uninstall-form-body {
@@ -129,6 +132,10 @@ class Modula_Uninstall {
                 margin: 4px 4px 0 18px;
                 vertical-align: bottom;
                 visibility: visible;
+            }
+
+            .toggle-spinner .deactivating-spinner {
+                display:block !important;
             }
 
             .epsilon-uninstall-form-footer {
@@ -157,25 +164,51 @@ class Modula_Uninstall {
                 height: 100%;
                 background-color: rgba(255, 255, 255, .5);
             }
+
+            .epsilon-uninstall-form-head .close-uninstall-form {
+                position: absolute;
+                right: 15px;
+                color: #fff;
+                font-family: Arial;
+                font-size: 14px;
+                display: inline-block;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
         </style>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 var uninstall = $("a.uninstall-modula"),
                     formContainer = $('#epsilon-uninstall-form');
 
+                formContainer.on('click','#delete_all',function(){
+                    if($('#delete_all').is(':checked')){
+                        $('#delete_options').prop('checked',true);
+                        $('#delete_transients').prop('checked',true);
+                        $('#delete_cpt').prop('checked',true);
+                        $('#delete_old_tables').prop('checked',true);
+                    } else {
+                        $('#delete_options').prop('checked',false);
+                        $('#delete_transients').prop('checked',false);
+                        $('#delete_cpt').prop('checked',false);
+                        $('#delete_old_tables').prop('checked',false);
+                    }
+                });
+
                 $(uninstall).on("click", function () {
 
-                    var url = uninstall.attr('href');
                     $('body').toggleClass('epsilon-uninstall-form-active');
                     formContainer.fadeIn();
                     formContainer.html('<?php echo $html; ?>');
 
                     formContainer.on('click', '#epsilon-uninstall-submit-form', function (e) {
+                        formContainer.addClass('toggle-spinner');
                         var selectedOptions = {
                             delete_options: ($('#delete_options').is(':checked')) ? 1 : 0,
                             delete_transients: ($('#delete_transients').is(':checked')) ? 1 : 0,
                             delete_cpt: ($('#delete_cpt').is(':checked')) ? 1 : 0,
-                            delete_old_tables: ($('#delete_old_tables').is(':checked')) ? 1 : 0
+                            delete_old_tables: ($('#delete_old_tables').is(':checked')) ? 1 : 0,
                         };
 
                         var data = {
@@ -195,15 +228,23 @@ class Modula_Uninstall {
                         );
                     });
 
-                    formContainer.on('click', '#epsilon-uninstall-plugin', function (e) {
-                        e.preventDefault();
-                        window.location.href = url;
+                    // If we click outside the form, the form will close
+                    // Stop propagation from form
+                    formContainer.on('click', function (e) {
+                        e.stopPropagation();
                     });
 
-                    // If we click outside the form, the form will close
-                    $('.epsilon-uninstall-form-bg').on('click', function () {
+                    $('.epsilon-uninstall-form-wrapper, .close-uninstall-form').on('click', function (e) {
+                        e.stopPropagation();
                         formContainer.fadeOut();
                         $('body').removeClass('epsilon-uninstall-form-active');
+                    });
+
+                    $(document).on("keyup", function (e) {
+                        if ( e.key === "Escape" ) {
+                            formContainer.fadeOut();
+                            $('body').removeClass('epsilon-uninstall-form-active');
+                        }
                     });
                 });
             });
@@ -219,11 +260,28 @@ class Modula_Uninstall {
         $form            = array ();
         $form['heading'] = esc_html__( 'Sorry to see you go' , 'modula-best-grid-gallery' );
         $form['body']    = esc_html__( 'Please select below what you want to be deleted from the DataBase.' , 'modula-best-grid-gallery' );
+        $form['body']    .= '<strong style="color:red;">' . esc_html__( ' Caution!! This action CAN NOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
         $form['options'] = array (
-            'delete_options'    => esc_html__( 'Delete Modula options' , 'modula-best-grid-gallery' ) ,
-            'delete_transients' => esc_html__( 'Delete Modula set transients' , 'modula-best-grid-gallery' ) ,
-            'delete_cpt'        => esc_html__( 'Delete modula-gallery custom post type' , 'modula-best-grid-gallery' ) ,
-            'delete_old_tables' => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x ' , 'modula-best-grid-gallery' ) ,
+            'delete_options'    => array (
+                'label'       => esc_html__( 'Delete Modula options' , 'modula-best-grid-gallery' ) ,
+                'description' => esc_html__( 'Delete options set by Modula plugin and it\'s add-ons  to options table in the DataBase.' , 'modula-best-grid-gallery' )
+            ) ,
+            'delete_transients' => array (
+                'label'       => esc_html__( 'Delete Modula set transients' , 'modula-best-grid-gallery' ) ,
+                'description' => esc_html__( 'Delete transients set by Modula plugin and it\'s add-ons  to options table in the DataBase.' , 'modula-best-grid-gallery' )
+            ) ,
+            'delete_cpt'        => array (
+                'label'       => esc_html__( 'Delete modula-gallery custom post type' , 'modula-best-grid-gallery' ) ,
+                'description' => esc_html__( 'Delete custom post types set by Modula plugin and it\'s add-ons in the DataBase.' , 'modula-best-grid-gallery' )
+            ) ,
+            'delete_old_tables' => array (
+                'label'       => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x ' , 'modula-best-grid-gallery' ) ,
+                'description' => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x in the DataBase.' , 'modula-best-grid-gallery' )
+            ) ,
+            'delete_all'        => array (
+                'label'       => esc_html__( 'Delete all data' , 'modula-best-grid-gallery' ) ,
+                'description' => esc_html__( 'Select this to delete all data Modula plugin and it\'s add-ons have set in your DataBase.' , 'modula-best-grid-gallery' )
+            )
         );
 
         return $form;
@@ -239,7 +297,7 @@ class Modula_Uninstall {
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {
             // filter for options to be added by Modula's add-ons
-            $options_array = apply_filters( 'modula_uninstall_options' , array ( 'modula_uninstall_option' , 'modula_troubleshooting_option' , 'modula-checks' , 'modula_version' , 'widget_modula_gallery_widget' , 'modula-rate-time' ) );
+            $options_array = apply_filters( 'modula_uninstall_options' , array ( 'modula_troubleshooting_option' , 'modula-checks' , 'modula_version' , 'widget_modula_gallery_widget' , 'modula-rate-time' ) );
 
             foreach ( $options_array as $db_option ) {
                 delete_option( $db_option );
@@ -298,7 +356,6 @@ class Modula_Uninstall {
 
         }
 
-        echo 'Uninstalled';
         deactivate_plugins( 'modula-lite/Modula.php' );
         wp_die();
     }
