@@ -271,23 +271,23 @@ class Modula_Uninstall {
 
             'delete_all'        => array (
                 'label'       => esc_html__( 'Delete all data' , 'modula-best-grid-gallery' ) ,
-                'description' => esc_html__( 'Select this to delete all data Modula plugin and it\'s add-ons have set in your DataBase.' , 'modula-best-grid-gallery' )
+                'description' => esc_html__( 'Select this to delete all data Modula plugin and it\'s add-ons have set in your database.' , 'modula-best-grid-gallery' )
             ) ,
             'delete_options'    => array (
                 'label'       => esc_html__( 'Delete Modula options' , 'modula-best-grid-gallery' ) ,
-                'description' => esc_html__( 'Delete options set by Modula plugin and it\'s add-ons  to options table in the DataBase.' , 'modula-best-grid-gallery' )
+                'description' => esc_html__( 'Delete options set by Modula plugin and it\'s add-ons  to options table in the database.' , 'modula-best-grid-gallery' )
             ) ,
             'delete_transients' => array (
                 'label'       => esc_html__( 'Delete Modula set transients' , 'modula-best-grid-gallery' ) ,
-                'description' => esc_html__( 'Delete transients set by Modula plugin and it\'s add-ons  to options table in the DataBase.' , 'modula-best-grid-gallery' )
+                'description' => esc_html__( 'Delete transients set by Modula plugin and it\'s add-ons  to options table in the database.' , 'modula-best-grid-gallery' )
             ) ,
             'delete_cpt'        => array (
                 'label'       => esc_html__( 'Delete modula-gallery custom post type' , 'modula-best-grid-gallery' ) ,
-                'description' => esc_html__( 'Delete custom post types set by Modula plugin and it\'s add-ons in the DataBase.' , 'modula-best-grid-gallery' )
+                'description' => esc_html__( 'Delete custom post types set by Modula plugin and it\'s add-ons in the database.' , 'modula-best-grid-gallery' )
             ) ,
             'delete_old_tables' => array (
                 'label'       => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x ' , 'modula-best-grid-gallery' ) ,
-                'description' => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x in the DataBase.' , 'modula-best-grid-gallery' )
+                'description' => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x in the database.' , 'modula-best-grid-gallery' )
             )
         );
 
