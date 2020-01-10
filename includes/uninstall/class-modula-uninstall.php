@@ -9,7 +9,7 @@ class Modula_Uninstall {
             $this ,
             'filter_action_links'
         ) );
-        add_action( 'admin_footer-plugins.php' , array ( $this , 'goodbye_ajax' ) , 16 );
+        add_action( 'admin_footer-plugins.php' , array ( $this , 'add_uninstall_form' ) , 16 );
         add_action( 'wp_ajax_modula_uninstall_plugin' , array ( $this , 'modula_uninstall_plugin' ) );
     }
 
@@ -34,7 +34,7 @@ class Modula_Uninstall {
      * These can be filtered
      * @since 1.0.0
      */
-    public function goodbye_ajax() {
+    public function add_uninstall_form() {
 
         // Get our strings for the form
         $form = $this->get_form_info();
