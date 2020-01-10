@@ -90,7 +90,7 @@ class Modula_Shortcode {
 		}else{
 			$settings['type'] = 'creative-gallery';
 		}
-		
+
 		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', false, $settings, $gallery );
 
 		if ( false !== $pre_gallery_html ) {
@@ -244,7 +244,13 @@ class Modula_Shortcode {
 
 			if ( 'custom-grid' != $settings['type'] ) {
 			    // max-width is a fix for Twentytwenty theme
-				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";max-width:".esc_attr($settings['width'])."}";
+                $activeTheme = wp_get_theme(); // gets the current theme
+                $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
+                if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {
+                    $css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
+                }
+
+				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
