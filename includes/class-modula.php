@@ -85,6 +85,10 @@ class Modula {
         add_filter('mce_external_plugins', array($this, 'register_editor_plugin'));
         add_action('wp_ajax_modula_shortcode_editor', array($this, 'modula_shortcode_editor'));
 
+        // Allow other mime types to be uploaded
+        add_filter('upload_mimes', array($this,'modula_upload_mime_types'));
+        add_filter('file_is_displayable_image', array($this,'modula_webp_display'), 10, 2);
+
 		new Modula_CPT();
 
 	}
@@ -120,6 +124,7 @@ class Modula {
         if ( 'modula-gallery' !== $screen->post_type ) {
             return;
         }
+
 
         // Set the post_id
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
@@ -252,6 +257,47 @@ class Modula {
         include 'admin/tinymce-galleries.php';
         wp_die();
 
+    }
+
+    /**
+     * @param $mimes
+     *
+     * @return mixed
+     *
+     * @since 2.2.4
+     * Allow WebP image type to be uploaded
+     */
+    public function modula_upload_mime_types($mimes){
+
+        $mimes['webp'] = 'image/webp';
+
+        return $mimes;
+    }
+
+    /**
+     * @param $result
+     * @param $path
+     *
+     * @return bool
+     *
+     * @since 2.2.4
+     * Enable thumbnail/preview for WebP image types.
+     */
+    function modula_webp_display($result, $path) {
+        if ($result === false) {
+            $displayable_image_types = array( IMAGETYPE_WEBP );
+            $info = @getimagesize( $path );
+
+            if (empty($info)) {
+                $result = false;
+            } elseif (!in_array($info[2], $displayable_image_types)) {
+                $result = false;
+            } else {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
     
 }

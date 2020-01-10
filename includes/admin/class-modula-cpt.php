@@ -420,5 +420,4 @@ class Modula_CPT {
 		die( '1' );
 
 	}
-
 }
