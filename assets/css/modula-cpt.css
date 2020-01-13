@@ -1162,3 +1162,51 @@ tr.troubleshoot-subfield.hide {
   border-bottom-left-radius: 0;
 
 }
+
+/*
+Ups-sells carousel
+@since 2.2.4
+*/
+
+@keyframes carousel {
+    0% {
+        transform: translateX(0px);
+        opacity: 1 !important;
+    }
+    50% {
+        transform: translateX(0px);
+        opacity: 1 !important;
+    }
+    51% {
+        transform: translateX(-100%);
+        opacity: 1 !important;
+    }
+    99% {
+        transform: translateX(-100%);
+        opacity: 1 !important;
+    }
+    100% {
+        transform: translateX(-200%);
+        opacity: 1 !important;
+    }
+}
+
+.modula-upsells-carousel-wrapper{
+    position: relative;
+    display:flex;
+    overflow:hidden;
+}
+
+.modula-upsells-carousel {
+    animation: carousel 20s infinite;
+    flex-shrink: 0;
+    position: relative;
+    display:flex;
+    width:100%;
+}
+
+.modula-upsells-carousel  .modula-upsell-item {
+    position: relative;
+    width:calc(100% - 22px);
+    flex-shrink: 0;
+}
