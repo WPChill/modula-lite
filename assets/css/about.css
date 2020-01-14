@@ -1,0 +1,31 @@
+h1.modula-about-heading {
+    color: #774cce;
+    font-size:40px;
+}
+
+.modula-about-list {
+    padding-left:25px;
+}
+
+.modula-about-list li {
+    padding-left:10px;
+    positon:relative;
+}
+
+.modula-about-list li:before {
+    font-family:Dashicons;
+    display:block;
+    position: absolute;
+    left:0;
+}
+
+.modula-about-list li.fix:before {
+    content: "\f107";
+    color:red;
+}
+
+.modula-about-list li.feature:before {
+    content: "\f111";
+    color:green;
+}
+
