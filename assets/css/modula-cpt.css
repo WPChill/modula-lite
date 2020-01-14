@@ -1215,16 +1215,21 @@ Ups-sells carousel
     text-align: center;
 }
 
+.modula-upsells-carousel  .modula-upsell-item  ul.modula-upsells-list {
+    padding-left:40px;
+}
+
 .modula-upsells-carousel  .modula-upsell-item ul li {
     position: relative;
     list-style-type: none !important;
+    text-align:left;
 }
 
 .modula-upsells-carousel  .modula-upsell-item ul li:before {
     font-family:Dashicons;
     content: "\f147";
     position: absolute;
-    left:0;
+    left:-20px;
     font-size: 12px;
     color:green;
 }

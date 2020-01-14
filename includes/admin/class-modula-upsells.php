@@ -177,7 +177,7 @@ class Modula_Upsells {
                      style="margin-top:0;padding: 10px;">
                     <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
-                    <ul style="list-style: circle;padding-left: 20px;">
+                    <ul class="modula-upsells-list">
                         <li>Date created - newest first</li>
                         <li>Date created - oldest first</li>
                         <li>Date modified - most recent first</li>
@@ -200,7 +200,7 @@ class Modula_Upsells {
                      style="margin-top:0;padding: 10px;">
                     <h2><?php esc_html_e( 'Modula Albums' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.' , 'modula-best-grid-gallery' ) ?></p>
-                    <ul style="list-style: circle;padding-left: 20px;">
+                    <ul class="modula-upsells-list">
                         <li>Standalone for both galleries and albums</li>
                         <li>Wonderful effects</li>
                         <li>Lots of customizations</li>
@@ -221,7 +221,7 @@ class Modula_Upsells {
                      style="margin-top:0;padding: 10px;">
                     <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
-                    <ul style="list-style: circle;padding-left: 20px;">
+                    <ul class="modula-upsells-list">
                         <li>Date created - newest first</li>
                         <li>Date created - oldest first</li>
                         <li>Date modified - most recent first</li>
