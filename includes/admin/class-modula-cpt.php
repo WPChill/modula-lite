@@ -216,6 +216,7 @@ class Modula_CPT {
 						// Values for selects
 						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'lightbox2', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
+						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in') );
 
 						switch ( $field_id ) {
 							case 'description':

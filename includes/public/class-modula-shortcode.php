@@ -243,7 +243,8 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
-				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
+			    // max-width is a fix for Twentytwenty theme
+				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";max-width:".esc_attr($settings['width'])."}";
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
@@ -253,6 +254,8 @@ class Modula_Shortcode {
 			}else{
 				$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 			}
+
+			$css .= "#{$gallery_id} .modula-item>a { cursor:" . esc_attr($settings['cursor'])."; } ";
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
