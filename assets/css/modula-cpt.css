@@ -1210,3 +1210,30 @@ Ups-sells carousel
     width:calc(100% - 22px);
     flex-shrink: 0;
 }
+
+.modula-upsells-carousel  .modula-upsell-item {
+    text-align: center;
+}
+
+.modula-upsells-carousel  .modula-upsell-item ul li {
+    position: relative;
+    list-style-type: none !important;
+}
+
+.modula-upsells-carousel  .modula-upsell-item ul li:before {
+    font-family:Dashicons;
+    content: "\f147";
+    position: absolute;
+    left:0;
+    font-size: 12px;
+    color:green;
+}
+#modula-sorting-upsell > h2.hndle.ui-sortable-handle,
+#modula-sorting-upsell > button.handlediv {
+    display:none;
+}
+
+#modula-sorting-upsell > .inside {
+    padding:0px;
+    margin:0 auto;
+}
