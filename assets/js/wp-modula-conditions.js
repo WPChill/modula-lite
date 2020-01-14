@@ -20,7 +20,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:effect', this.changedEffect );
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
 		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial );
-		this.listenTo( wp.Modula.Settings, 'change:cursor', this.cursor );
+		this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
 		
 	},
 
