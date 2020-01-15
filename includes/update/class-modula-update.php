@@ -18,15 +18,16 @@ class Modula_Update {
      * @since 2.2.4
      */
     public function __construct() {
-        add_action('upgrader_process_complete', array($this, 'upgrade_modula'), 10, 2);
+
+        add_action('upgrader_process_complete', array($this, 'update_modula'), 10, 2);
         add_action('admin_menu', array($this, 'modula_about_menu'));
         add_filter('submenu_file', array($this, 'remove_about_submenu_item'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
-
     }
 
 
     /**
+     * @since 2.2.4
      * Add the About submenu
      */
     function modula_about_menu() {
@@ -43,7 +44,6 @@ class Modula_Update {
      */
     function remove_about_submenu_item($submenu_file) {
 
-        global $plugin_page;
         remove_submenu_page('edit.php?post_type=modula-gallery', 'modula-about-page');
 
         return $submenu_file;
@@ -72,7 +72,7 @@ class Modula_Update {
      * @since 2.2.4
      * Upgrade Modula Best Grid Gallery redirection
      */
-    public function upgrade_modula($upgrader_object, $options) {
+    public function update_modula($upgrader_object, $options) {
 
         // check if update and if update type plugin
         if ($options['action'] == 'update' && $options['type'] == 'plugin') {
@@ -85,6 +85,10 @@ class Modula_Update {
         }
     }
 
+    /**
+     * @since 2.2.4
+     * Enqueue admin About style
+     */
     public function admin_scripts() {
 
         $screen = get_current_screen();
@@ -95,14 +99,14 @@ class Modula_Update {
 
 
     /**
+     * @since 2.2.4
      * Display About page
      */
     public function about_page() {
 
         include MODULA_PATH . 'includes/admin/tabs/about.php';
-
     }
 
 }
 
-$modula_update = new Modula_Update();
+$modula_update = Modula_Update::get_instance();
