@@ -40,11 +40,16 @@ ul.modula-about-list {
 
 .modula-about-list li.fix:before {
     content: "\f107";
-    color:red;
+    color:green;
 }
 
 .modula-about-list li.feature:before {
     content: "\f111";
-    color:green;
+    color:blue;
+}
+
+.modula-about-list li.removal:before {
+    content: "\f182";
+    color:red;
 }
 
