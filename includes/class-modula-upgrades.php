@@ -306,8 +306,10 @@ class Modula_Upgrades {
                 'lightbox'                  => 'lightbox2',
                 'shuffle'                   => 0,
                 'captionColor'              => '#ffffff',
-                'wp_field_caption'          => 'none',
-                'wp_field_title'            => 'none',
+                // Will comment these lines, maybe in the future we revert to them.
+                // For now the settings are disabled
+                //'wp_field_caption'          => 'none',
+                //'wp_field_title'            => 'none',
                 'hide_title'                => 0,
                 'hide_description'          => 0,
                 'captionFontSize'           => '14',
