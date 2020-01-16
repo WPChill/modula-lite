@@ -19,8 +19,6 @@ class Modula_Update {
      */
     public function __construct() {
 
-        add_action('upgrader_process_complete', array($this, 'update_modula'), 10, 2);
-        add_action('activated_plugin', array($this, 'activate_modula'));
         add_action('admin_menu', array($this, 'modula_about_menu'));
         add_filter('submenu_file', array($this, 'remove_about_submenu_item'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
@@ -67,32 +65,25 @@ class Modula_Update {
 
 
     /**
-     * @param $upgrader_object
-     * @param $options
-     *
+     * Add activation hook. Need to be this way so that the About page can be created and accessed
+     * @param $check
      * @since 2.2.4
-     * Upgrade Modula Best Grid Gallery redirection
+     *
      */
-    public function update_modula($upgrader_object, $options) {
+    public function modula_on_activation($check) {
 
-        // check if update and if update type plugin
-        if ($options['action'] == 'update' && $options['type'] == 'plugin') {
-            foreach ($options['plugins'] as $each_plugin) {
-                // check if is Modula Best Grid Gallery plugin
-                if ($each_plugin == MODULA_FILE) {
-                    exit(wp_redirect(admin_url('edit.php?post_type=modula-gallery&page=modula-about-page')));
-                }
-            }
+        if ($check) {
+            add_action('activated_plugin', array($this, 'redirect_on_activation'));
         }
     }
 
     /**
      * Redirect to About page when activated
-     * @since 2.2.4
      *
      * @param $plugin
+     * @since 2.2.4
      */
-    public function activate_modula($plugin) {
+    public function redirect_on_activation($plugin) {
 
         if (MODULA_FILE == $plugin) {
             exit(wp_redirect(admin_url('edit.php?post_type=modula-gallery&page=modula-about-page')));

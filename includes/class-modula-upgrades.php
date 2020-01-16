@@ -52,9 +52,16 @@ class Modula_Upgrades {
 	}
 
 	public function check_on_activate() {
-
 		// Check if is a new 2.0.0 install or an old install
-		$version = get_option( 'modula_version', array() );
+        $version = get_option( 'modula_version', array() );
+
+        // Check to see if we redirect or not to About page
+        $modula_update = Modula_Update::get_instance();
+		$check = false;
+		if(!empty($version) && $version['current_version'] !== MODULA_LITE_VERSION ){
+		    $check = true;
+        }
+
 		if ( empty( $version ) ) {
 			if ( ! $this->check_upgrade_complete( 'modula_v2' ) && $this->check_old_db() ) {
 				$version['upgraded_from'] = '1.3.1';
@@ -70,6 +77,7 @@ class Modula_Upgrades {
 
 		update_option( 'modula_version', $version );
 
+        $modula_update->modula_on_activation($check);
 	}
 
 	/**
