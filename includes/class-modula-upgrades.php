@@ -52,6 +52,7 @@ class Modula_Upgrades {
 	}
 
 	public function check_on_activate() {
+
 		// Check if is a new 2.0.0 install or an old install
         $version = get_option( 'modula_version', array() );
 
@@ -325,7 +326,8 @@ class Modula_Upgrades {
                 'enableFacebook'            => 1,
                 'enableGplus'               => 1,
                 'enablePinterest'           => 1,
-                'enableTwitter'             => 1,
+				'enableTwitter'             => 1,
+				'enableWhatsapp'            => 1,
                 'filterClick'               => 0,
                 'socialIconColor'           => '#ffffff',
                 'loadedScale'               => '100',

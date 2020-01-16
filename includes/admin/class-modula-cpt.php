@@ -247,6 +247,7 @@ class Modula_CPT {
 								break;
 							case 'disableSocial':
 							case 'enableTwitter' :
+							case 'enableWhatsapp':
 							case 'enableFacebook' :
 							case 'enableGplus' :
 							case 'enablePinterest' :

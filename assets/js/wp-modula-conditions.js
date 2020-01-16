@@ -82,12 +82,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if ( 1 == value ) {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]' ).prop('checked',0).hide();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]' ).prop('checked',0).hide();
 			
         }else {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]').prop('checked',1).show();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"]').prop('checked',1).show();
 			
         }
 	}
 
-});
+}) 

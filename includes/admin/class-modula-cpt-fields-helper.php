@@ -365,6 +365,13 @@ class Modula_CPT_Fields_Helper {
 					"description" => "",
 					'priority'    => 20,
 				),
+				"enableWhatsapp"  => array(
+					"name"        => esc_html__( 'Add Whatsapp Icon', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 1,
+					"description" => "",
+					'priority'    => 20,
+				),
 				"enableLinkedin"  => array(
 					"name"        => esc_html__( 'Add LinkedIn Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -517,8 +524,10 @@ class Modula_CPT_Fields_Helper {
 		} else {
 			return array();
 		}
+		
+	}	
+	
 
-	}
 
 	public static function get_defaults() {
         return apply_filters('modula_lite_default_settings', array(
@@ -548,10 +557,11 @@ class Modula_CPT_Fields_Helper {
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
-            'enableTwitter'             => 1,
+			'enableTwitter'             => 1,
+			'enableWhatsapp'            => 1,
             'filterClick'               => 0,
             'socialIconColor'           => '#ffffff',
-            'loadedScale'               => '100',
+			'loadedScale'               => '100',
             'effect'                    => 'pufrobo',
             'borderColor'               => '#ffffff',
             'borderRadius'              => '0',
