@@ -7,7 +7,32 @@ $download_protect        = isset($troubleshooting_options['download_protect']) ?
 $deeplink                = isset($troubleshooting_options['deeplink']) ? $troubleshooting_options['deeplink'] : false;
 $grid_type               = isset($troubleshooting_options['grid_type']) ? $troubleshooting_options['grid_type'] : false;
 $lightbox                = isset($troubleshooting_options['lightbox']) ? $troubleshooting_options['lightbox'] : false;
+$general_fields = Modula_CPT_Fields_Helper::get_fields('general');
 
+$troubleshooting_fields['grid_type'] = array(
+    'name'          => __('Select which grid type script to enqueue', 'modula-best-grid-gallery'),
+    'data_settings' => 'grid_type',
+    'type'          => 'select',
+    'values'        => $general_fields['type']['values'],
+    'default'       => 'creative-gallery'
+);
+
+$troubleshooting_fields['lightbox'] = array(
+    'name'          => __('Select which Lightbox script to enqueue', 'modula-best-grid-gallery'),
+    'data_settings' => 'lightbox',
+    'type'          => 'select',
+    'values'        => $general_fields['lightbox']['values']['Lightboxes'],
+    'default'       => 'lightbox2'
+);
+
+$troubleshooting_fields['lazy_load'] = array(
+    'name'          => __('Enqueue Lazyload script', 'modula-best-grid-gallery'),
+    'data_settings' => 'lazy_load',
+    'type'          => 'toggle',
+    'default'       => 0
+);
+
+$troubleshooting_fields = apply_filters('modula_troubleshooting_fields', $troubleshooting_fields);
 $subfield_class = ($enqueue_files) ? '' : 'hide';
 
 ?>
