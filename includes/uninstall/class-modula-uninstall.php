@@ -367,7 +367,7 @@ class Modula_Uninstall {
 
         }
 
-        deactivate_plugins( 'modula-lite/Modula.php' );
+        deactivate_plugins( MODULA_FILE );
         wp_die();
     }
 

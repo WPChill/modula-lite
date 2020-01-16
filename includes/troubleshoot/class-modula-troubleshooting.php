@@ -40,7 +40,8 @@ class Modula_Troubleshooting {
      */
     public function define_troubleshooting_admin_hooks() {
 
-        add_action('admin_menu', array($this, 'register_troubleshoot_menu_item'), 20);
+        add_filter('modula_admin_page_tabs', array($this, 'add_misc_tab'));
+        add_action('modula_admin_tab_misc', array($this, 'show_misc_tab'));
         add_action('admin_init', array($this, 'update_troubleshooting_options'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
@@ -50,9 +51,12 @@ class Modula_Troubleshooting {
      * Enqueue admin scripts
      */
     public function admin_enqueue_scripts() {
+
         $current_screen = get_current_screen();
-        if ('modula-gallery_page_modula-troubleshooting' == $current_screen->base) {
+
+        if ('modula-gallery_page_modula' == $current_screen->base) {
             wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
+            wp_enqueue_style('modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION);
         }
 
     }
@@ -96,58 +100,19 @@ class Modula_Troubleshooting {
 
     }
 
-    /**
-     * Register troubleshooting submenu page
-     */
-    public function register_troubleshoot_menu_item() {
+    public function add_misc_tab(){
 
-        add_submenu_page('edit.php?post_type=modula-gallery', esc_html__('Troubleshooting', 'modula-best-grid-gallery'), esc_html__('Troubleshooting', 'modula-best-grid-gallery'), 'manage_options', 'modula-troubleshooting', array($this, 'troubleshooting_options'));
+        $tabs['misc'] = array(
+            'label'    => esc_html__('Misc', 'modula-best-grid-gallery'),
+            'priority' => 80
+        );
+        return $tabs;
     }
 
-    /**
-     * Add troubleshooting options section
-     */
-    public function troubleshooting_options() {
-
-        wp_enqueue_style('modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION);
-
-        $general_fields = Modula_CPT_Fields_Helper::get_fields('general');
-
-        $troubleshooting_fields['grid_type'] = array(
-            'name'          => __('Select which grid type script to enqueue', 'modula-best-grid-gallery'),
-            'data_settings' => 'grid_type',
-            'type'          => 'select',
-            'values'        => $general_fields['type']['values'],
-            'default'       => 'creative-gallery'
-        );
-
-        $troubleshooting_fields['lightbox'] = array(
-            'name'          => __('Select which Lightbox script to enqueue', 'modula-best-grid-gallery'),
-            'data_settings' => 'lightbox',
-            'type'          => 'select',
-            'values'        => $general_fields['lightbox']['values']['Lightboxes'],
-            'default'       => 'lightbox2'
-        );
-
-        $troubleshooting_fields['lazy_load'] = array(
-            'name'          => __('Enqueue Lazyload script', 'modula-best-grid-gallery'),
-            'data_settings' => 'lazy_load',
-            'type'          => 'toggle',
-            'default'       => 0
-        );
-
-        $troubleshooting_fields = apply_filters('modula_troubleshooting_fields', $troubleshooting_fields);
-
-        ob_start();
-
-        include MODULA_PATH . 'includes/admin/tabs/troubleshooting-options.php';
-
-        $html = ob_get_contents();
-
-        ob_end_clean();
-
-        echo $html;
+    public function show_misc_tab(){
+        include MODULA_PATH.'includes/admin/tabs/troubleshooting-options.php';
     }
+
 
     /**
      * Update troubleshooting options
