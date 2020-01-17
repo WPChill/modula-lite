@@ -1,3 +1,10 @@
+= 2.2.4 =
+Added Uninstall options to remove data entries from DB
+Added troubleshooting options to enqueue CSS and JS files everywhere
+Fix max-width issue with Twenty Twenty theme
+Added support for WebP files
+Removed settings for default title and caption
+
 = 2.2.3 - 06.01.2020 =
 Fixed Autoptimize HTML code optimization bug
 Fix warning for no uploaded image

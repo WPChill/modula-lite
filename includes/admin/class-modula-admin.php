@@ -23,8 +23,6 @@ class Modula_Admin {
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 
-
-
 	}
 
 	public function register_submenus() {
@@ -254,14 +252,13 @@ class Modula_Admin {
 
 	public function admin_custom_css(){
 		?>
-
 		<style type="text/css">
-			li#menu-posts-modula-gallery .wp-submenu li:last-child a {color: #52ad3a;}
+			a#modula-uninstall-link {color: #FF0000 !important;font-weight:bold;}
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 		</style>
 
 		<?php
 	}
-
 }
 
 new Modula_Admin();

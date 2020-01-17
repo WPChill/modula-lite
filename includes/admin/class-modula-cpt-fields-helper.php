@@ -260,7 +260,8 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 				),
-				"wp_field_title"   => array(
+                // Will only comment this setting, maybe we'll revert to it in the future
+				/*"wp_field_title"   => array(
 					"name"        => esc_html__( 'Default Title', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the title blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
@@ -270,7 +271,7 @@ class Modula_CPT_Fields_Helper {
 						'description' => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
 					),
 					'priority' => 20,
-				),
+				),*/
 				"titleColor"     => array(
 					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -294,7 +295,8 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
-				"wp_field_caption" => array(
+				// Will only comment this setting, maybe we'll revert to it in the future
+				/*"wp_field_caption" => array(
 					"name"        => esc_html__( 'Default Caption', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the caption blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
@@ -305,7 +307,7 @@ class Modula_CPT_Fields_Helper {
 						"description" => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
 					),
 					'priority' => 60,
-				),
+				),*/
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -358,6 +360,13 @@ class Modula_CPT_Fields_Helper {
 				),
 				"enableFacebook"  => array(
 					"name"        => esc_html__( 'Add Facebook Icon', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 1,
+					"description" => "",
+					'priority'    => 20,
+				),
+				"enableWhatsapp"  => array(
+					"name"        => esc_html__( 'Add Whatsapp Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
@@ -523,8 +532,10 @@ class Modula_CPT_Fields_Helper {
 		} else {
 			return array();
 		}
+		
+	}	
+	
 
-	}
 
 	public static function get_defaults() {
         return apply_filters('modula_lite_default_settings', array(
@@ -540,8 +551,10 @@ class Modula_CPT_Fields_Helper {
             'shuffle'                   => 0,
             'titleColor'                => '',
             'captionColor'              => '#ffffff',
-            'wp_field_caption'          => 'none',
-            'wp_field_title'            => 'none',
+            // Will comment these lines, maybe in the future we revert to them.
+            // For now the settings are disabled
+            //'wp_field_caption'          => 'none',
+           // 'wp_field_title'            => 'none',
             'hide_title'                => 0,
             'hide_description'          => 0,
             'captionFontSize'           => '14',
@@ -552,11 +565,12 @@ class Modula_CPT_Fields_Helper {
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
-            'enableTwitter'             => 1,
+			      'enableTwitter'             => 1,
+			      'enableWhatsapp'            => 1,
             'filterClick'               => 0,
             'socialIconColor'           => '#ffffff',
-			'loadedScale'               => '100',
-			'cursor'                    => 'magnifying-glass',
+			      'loadedScale'               => '100',
+			      'cursor'                    => 'magnifying-glass',
             'effect'                    => 'pufrobo',
             'borderColor'               => '#ffffff',
             'borderRadius'              => '0',

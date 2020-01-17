@@ -4,7 +4,7 @@
 	"version": "2.1.0",
 	"author": "Macho Themes",
 	"license": "GPL v3",
-	"repository": "https://github.com/machothemes/simple-author-box.git",
+	"repository": "https://github.com/machothemes/modula-lite.git",
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
