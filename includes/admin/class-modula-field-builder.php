@@ -337,7 +337,7 @@ class Modula_Field_Builder {
 			case "hover-effect":
 				$hovers = apply_filters( 'modula_available_hover_effects', array( 
 					'none'    => esc_html__( 'None', 'modula-best-grid-gallery' ),
-					'pufrobo' => esc_html__( 'Pufrobo', 'modula-best-grid-gallery' ),
+					'pufrobo' => esc_html__( '1. Pufrobo', 'modula-best-grid-gallery' ),
 				) );
 				$pro_hovers = apply_filters( 'modula_pro_hover_effects', array(
 					'fluid-up'     => esc_html__( 'Fluid Up', 'modula-best-grid-gallery' ),
