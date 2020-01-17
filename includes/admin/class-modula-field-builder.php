@@ -334,6 +334,31 @@ class Modula_Field_Builder {
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '" class="large-text code"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
 				break;
+			case "cursor-effect":
+				$cursors = apply_filters( 'modula_available_cursor', array(
+					'pointer'  => esc_html__( 'Pointer', 'modula-best-grid-gallery'),
+					'zoom-in'  => esc_html__( 'Magnifying Glass', 'modula-best-grid-gallery'),
+				) );
+				$pro_cursors = apply_filters( 'modula_pro_cursor', array( 
+					'wait'        => esc_html__( 'Loading', 'modula-best-grid-gallery'),
+					'cell'        => esc_html__( 'Cell', 'modula-best-grid-gallery'),
+					'crosshair'   => esc_html__( 'Crosshair', 'modula-best-grid-gallery'),
+					'nesw-resize' => esc_html__( 'Zoom In 1', 'modula-best-grid-gallery'),
+					'nwse-resize' => esc_html__( 'Zoom In 2', 'modula-best-grid-gallery'),
+				) );
+				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
+				foreach ( $cursors as $key => $option ) {
+					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( $option ) . '</option>';
+				}
+
+				if ( ! empty( $pro_cursors ) ) {
+					$html .= '<optgroup label="' . esc_html__( 'Cursors with PRO license', 'modula-best-grid-gallery' ) . '">';
+					foreach ( $pro_cursors as $key => $option ) {
+						$html .= '<option value="' . esc_attr( $key ) . '" disabled>' . esc_html( $option ) . '</option>';
+					}
+					$html .= '</optgroup>';
+				}
+				break;
 			case "hover-effect":
 				$hovers = apply_filters( 'modula_available_hover_effects', array( 
 					'none'    => esc_html__( 'None', 'modula-best-grid-gallery' ),

@@ -1088,11 +1088,11 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:66
-msgid "Need a new hover effect?"
+msgid "Need new hover effects and cursors ?"
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:67
-msgid "Upgrade to Modula Pro today to unlock 11 more hover effects..."
+msgid "Upgrade to Modula Pro today to unlock 11 more hover effects and custom cursors..."
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:77

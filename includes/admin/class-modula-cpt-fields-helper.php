@@ -410,8 +410,16 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Select your preferred hover effect', 'modula-best-grid-gallery' ),
 					"type"        => "hover-effect",
 					'default'     => 'pufrobo',
-					'priority'    => 10,
+					'priority'    => 15,
 				),
+				
+				"cursor"  => array(
+					"name"         => esc_html__( 'Curson Icon', 'modula-best-grid-gallery'),
+					"description"  => esc_html__( 'Select your favourite cursor', 'modula-best-grid-gallery'),
+					"type"		   => "cursor-effect",
+					"default"	   => "zoom-in",
+					"priority"     => 12,
+				),	
 			),
 			'style' => array(
 				"borderSize"   => array(
@@ -557,11 +565,12 @@ class Modula_CPT_Fields_Helper {
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
-			'enableTwitter'             => 1,
-			'enableWhatsapp'            => 1,
+			      'enableTwitter'             => 1,
+			      'enableWhatsapp'            => 1,
             'filterClick'               => 0,
             'socialIconColor'           => '#ffffff',
-			'loadedScale'               => '100',
+			      'loadedScale'               => '100',
+			      'cursor'                    => 'magnifying-glass',
             'effect'                    => 'pufrobo',
             'borderColor'               => '#ffffff',
             'borderRadius'              => '0',
