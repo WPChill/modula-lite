@@ -1,12 +1,17 @@
 <?php
 $issues = array(
     'fix'     => array(
-        'Fix max-width issue with Twenty Twenty theme'
+        'Fix max-width issue with Twenty Twenty theme',
+        'Fix menu entry colouring bug',
+        'Fix modula-item background',
+        'Re-worded "Update" button'
     ),
     'feature' => array(
         'Added Uninstall options to remove data entries from DB',
         'Added troubleshooting options to enqueue CSS and JS files everywhere',
         'Added support for WebP files',
+        'Added WhatsApp as social icon',
+        'Added numbers to hover effects'
     ),
     'removal' => array(
         'Removed settings for default title and caption'

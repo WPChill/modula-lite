@@ -4,6 +4,12 @@ Added troubleshooting options to enqueue CSS and JS files everywhere
 Fix max-width issue with Twenty Twenty theme
 Added support for WebP files
 Removed settings for default title and caption
+Added 'What's new' page
+Fix modula-item background
+Re-worded "Update" button
+Fix menu entry colouring bug
+Added WhatsApp as social icon
+Added numbers to hover effects
 
 = 2.2.3 - 06.01.2020 =
 Fixed Autoptimize HTML code optimization bug
