@@ -762,7 +762,7 @@ endif;
 	} else {
 		?>
 		
-		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Save Gallery' ). 'modula-gallery'; ?>" />
+		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update Gallery' ). 'modula-gallery'; ?>" />
 		<?php
 	}
 	?>
