@@ -750,7 +750,7 @@ endif;
 				<?php submit_button( _x( 'Schedule', 'post action/button label' ), 'primary large', 'publish', false ); ?>
 	<?php	else : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Update ') . 'modula-gallery';; ?>" />
-		<?php submit_button( __( 'Save Gallery' ), 'primary large', 'publish', false ); ?>
+		<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
 		<?php
 	endif;
 	else :

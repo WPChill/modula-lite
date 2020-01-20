@@ -11,7 +11,8 @@ $issues = array(
         'Added troubleshooting options to enqueue CSS and JS files everywhere',
         'Added support for WebP files',
         'Added WhatsApp as social icon',
-        'Added numbers to hover effects'
+        'Added numbers to hover effects',
+        'Added cursor controls'
     ),
     'removal' => array(
         'Removed settings for default title and caption'
