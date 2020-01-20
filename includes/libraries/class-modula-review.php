@@ -33,7 +33,7 @@ class Modula_Review {
 
 		if ( $this->check() ) {
 			add_action( 'admin_notices', array( $this, 'five_star_wp_rate_notice' ) );
-			add_action( 'wp_ajax_epsilon_review', array( $this, 'ajax' ) );
+			add_action( 'wp_ajax_epsilon_modula_review', array( $this, 'ajax' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
@@ -85,7 +85,7 @@ class Modula_Review {
 
 	public function ajax() {
 
-		check_ajax_referer( 'epsilon-review', 'security' );
+		check_ajax_referer( 'epsilon-modula-review', 'security' );
 
 		if ( ! isset( $_POST['check'] ) ) {
 			wp_die( 'ok' );
@@ -112,7 +112,7 @@ class Modula_Review {
 
 	public function ajax_script() {
 
-		$ajax_nonce = wp_create_nonce( "epsilon-review" );
+		$ajax_nonce = wp_create_nonce( "epsilon-modula-review" );
 
 		?>
 
@@ -128,7 +128,7 @@ class Modula_Review {
 					}
 
 					var data = {
-						action: 'epsilon_review',
+						action: 'epsilon_modula_review',
 						security: '<?php echo $ajax_nonce; ?>',
 						check: id
 					};
