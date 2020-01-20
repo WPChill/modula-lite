@@ -100,7 +100,7 @@ class Modula_Troubleshooting {
 
     }
 
-    public function add_misc_tab(){
+    public function add_misc_tab($tabs){
 
         $tabs['misc'] = array(
             'label'    => esc_html__('Misc', 'modula-best-grid-gallery'),
