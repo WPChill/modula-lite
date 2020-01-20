@@ -11,6 +11,7 @@ Added WhatsApp as social icon
 Added numbers to hover effects
 Added cursor controls
 Removed settings for default title and caption
+Fixed copy shortcode button design bug
 
 = 2.2.3 - 06.01.2020 =
 Fixed Autoptimize HTML code optimization bug

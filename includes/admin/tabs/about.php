@@ -4,7 +4,8 @@ $issues = array(
         'Fix max-width issue with Twenty Twenty theme',
         'Fix menu entry colouring bug',
         'Fix modula-item background',
-        'Re-worded "Update" button'
+        'Re-worded "Update" button',
+        'Fixed copy shortcode button design bug'
     ),
     'feature' => array(
         'Added Uninstall options to remove data entries from DB',
