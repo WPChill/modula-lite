@@ -51,4 +51,23 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
+	// Seems like there are at least 2 id's called modula-style
+	if( $('textarea#modula-style').length ) {
+		var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+		editorSettings.codemirror = _.extend(
+			{},
+			editorSettings.codemirror,
+			{
+				mode: 'css',
+			}
+		);
+		$('.modula-tab[data-tab="modula-customizations"]').click(function(){
+			// Only trigger if codemirror doesn't exist already
+			if($('textarea#modula-style').next('.CodeMirror').length == 0){
+				setTimeout(function(){ var editor =  wp.codeEditor.initialize( $('textarea#modula-style'), editorSettings )},10);
+			}
+		});
+
+	}
+
 });

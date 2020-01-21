@@ -179,6 +179,7 @@ class Modula {
 	        }
 
 			wp_enqueue_style( 'wp-color-picker' );
+            wp_enqueue_code_editor(array('type' => 'text/css'));
 			wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
 
