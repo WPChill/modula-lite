@@ -504,10 +504,10 @@ class Modula_CPT_Fields_Helper {
 			),
 			'customizations' => array(
 				"style"  => array(
-					"name"        => esc_html__( 'Custom css', 'modula-best-grid-gallery' ),
+					"name"        => '',
 					"type"        => "custom_code",
 					"syntax"      => 'css',
-					"description" => '<strong>' . esc_html__( 'Just write the code without using the &lt;style&gt;&lt;/style&gt; tags', 'modula-best-grid-gallery' ) . '</strong>',
+					"description" => '',
 					'priority' => 20,
 				),
 			),

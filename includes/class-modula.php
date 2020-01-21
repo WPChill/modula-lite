@@ -179,8 +179,9 @@ class Modula {
 	        }
 
 			wp_enqueue_style( 'wp-color-picker' );
+	        // Enqueue Code Editor for Custom CSS
             wp_enqueue_code_editor(array('type' => 'text/css'));
-			wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
+            wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
 
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
