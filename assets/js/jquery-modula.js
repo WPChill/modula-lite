@@ -451,9 +451,10 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         });
 
-        new ResizeSensor( instance.$element, function() {
+        // Gives error on front
+/*        new ResizeSensor( instance.$element, function() {
             instance.onResize(instance);
-        });
+        });*/
 
         // Create social links
         this.setupSocial();
