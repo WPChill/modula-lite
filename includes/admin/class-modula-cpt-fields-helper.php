@@ -425,7 +425,7 @@ class Modula_CPT_Fields_Helper {
 				"borderSize"   => array(
 					"name"        => esc_html__( 'Border Size', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
-					"description" => esc_html__( 'Set the border size of images in your gallrey.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Set the border size of images in your gallery.', 'modula-best-grid-gallery' ),
 					"min"         => 0,
 					"max"         => 10,
 					"default"     => 0,

@@ -1,15 +1,14 @@
-# Copyright (C) 2019 MachoThemes
+# Copyright (C) 2020 MachoThemes
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Modula 2.1.6\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/modula-best-grid-gallery\n"
-"POT-Creation-Date: 2019-09-13 09:24:33+00:00\n"
+"Project-Id-Version: Modula 2.2.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/modula-lite\n"
+"POT-Creation-Date: 2020-01-22 07:02:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -41,19 +40,19 @@ msgstr ""
 msgid "Send Feature Request"
 msgstr ""
 
-#: includes/admin/class-modula-admin.php:38
+#: includes/admin/class-modula-admin.php:36
 #: includes/admin/class-modula-cpt.php:75
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-modula-admin.php:41
-#: includes/admin/class-modula-admin.php:65
-#: includes/admin/class-modula-admin.php:92
-#: includes/admin/class-modula-cpt.php:320
+#: includes/admin/class-modula-admin.php:39
+#: includes/admin/class-modula-admin.php:63
+#: includes/admin/class-modula-admin.php:90
+#: includes/admin/class-modula-cpt.php:333
 msgid "Extensions"
 msgstr ""
 
-#: includes/admin/class-modula-admin.php:93
+#: includes/admin/class-modula-admin.php:91
 msgid "Reload Extensions"
 msgstr ""
 
@@ -156,7 +155,7 @@ msgid "Loading Effects Settings"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:61
-#: includes/admin/class-modula-cpt-fields-helper.php:392
+#: includes/admin/class-modula-cpt-fields-helper.php:409
 msgid "Hover effect"
 msgstr ""
 
@@ -207,396 +206,382 @@ msgid "Miscellaneous"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:109
+msgid "Slideshow"
+msgstr ""
+
 #: includes/admin/class-modula-cpt-fields-helper.php:110
-msgid "Pass Protect"
+msgid "Lightbox Slideshow Settings"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:111
+msgid ""
+"Here you can modify the settings for lightbox slideshow like : autoplay / "
+"autoplay time / pause on hover"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:117
 #: includes/admin/class-modula-cpt-fields-helper.php:118
-msgid "Watermark"
+msgid "Pass Protect"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:125
 #: includes/admin/class-modula-cpt-fields-helper.php:126
-msgid "Slideshow"
+msgid "Watermark"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:138
+#: includes/admin/class-modula-cpt-fields-helper.php:139
 msgid "Still stuck ?"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:138
+#: includes/admin/class-modula-cpt-fields-helper.php:139
 msgid "Explore our documentation"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:138
+#: includes/admin/class-modula-cpt-fields-helper.php:139
 msgid "Contact our support team."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:149
+#: includes/admin/class-modula-cpt-fields-helper.php:150
 msgid "Gallery Type"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:151
+#: includes/admin/class-modula-cpt-fields-helper.php:152
 msgid "Choose the type of gallery you want to use."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:154
+#: includes/admin/class-modula-cpt-fields-helper.php:155
 msgid "Creative Gallery"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:155
+#: includes/admin/class-modula-cpt-fields-helper.php:156
 msgid "Custom Grid"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:160
+#: includes/admin/class-modula-cpt-fields-helper.php:161
 msgid "Gutter"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:162
+#: includes/admin/class-modula-cpt-fields-helper.php:163
 msgid "Use this slider to adjust the spacing of images in your gallery."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:170
+#: includes/admin/class-modula-cpt-fields-helper.php:171
 msgid "Width"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:172
+#: includes/admin/class-modula-cpt-fields-helper.php:173
 msgid "Width of the gallery. Can be in % or pixels."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:177
+#: includes/admin/class-modula-cpt-fields-helper.php:178
 msgid "Height"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:179
+#: includes/admin/class-modula-cpt-fields-helper.php:180
 msgid "Set the height of the gallery in pixels."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:184
+#: includes/admin/class-modula-cpt-fields-helper.php:185
 msgid "Thumbnail Size"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:187
+#: includes/admin/class-modula-cpt-fields-helper.php:188
 msgid "Set the minimum width or height of the thumbnails in pixels."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:191
+#: includes/admin/class-modula-cpt-fields-helper.php:192
 msgid "Margin"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:194
+#: includes/admin/class-modula-cpt-fields-helper.php:195
 msgid "Set the margin between images in pixels."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:198
+#: includes/admin/class-modula-cpt-fields-helper.php:199
 msgid "Random factor"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:200
+#: includes/admin/class-modula-cpt-fields-helper.php:201
 msgid ""
 "Toggle this to 0 to tune down the randomising factor on Modula's grid "
 "algorithm."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:208
+#: includes/admin/class-modula-cpt-fields-helper.php:209
 msgid "Lightbox &amp; Links"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:210
+#: includes/admin/class-modula-cpt-fields-helper.php:211
 msgid ""
 "Choose your preferred lightbox style. Some styles, such as LightGallery, "
 "allow for image downloads."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:213
+#: includes/admin/class-modula-cpt-fields-helper.php:214
 msgid "Link"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:214
+#: includes/admin/class-modula-cpt-fields-helper.php:215
 msgid "No link"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:215
+#: includes/admin/class-modula-cpt-fields-helper.php:216
 msgid "Direct link to image"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:216
+#: includes/admin/class-modula-cpt-fields-helper.php:217
 msgid "Attachment page"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:218
+#: includes/admin/class-modula-cpt-fields-helper.php:219
 msgid "Lightboxes"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:219
+#: includes/admin/class-modula-cpt-fields-helper.php:220
 msgid "Lightbox2"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:223
+#: includes/admin/class-modula-cpt-fields-helper.php:224
 msgid "Lightboxes with PRO license"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:225
+#: includes/admin/class-modula-cpt-fields-helper.php:226
 msgid "Magnific popup"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:226
+#: includes/admin/class-modula-cpt-fields-helper.php:227
 msgid "PrettyPhoto"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:227
+#: includes/admin/class-modula-cpt-fields-helper.php:228
 msgid "FancyBox"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:228
+#: includes/admin/class-modula-cpt-fields-helper.php:229
 msgid "SwipeBox"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:229
+#: includes/admin/class-modula-cpt-fields-helper.php:230
 msgid "LightGallery"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:235
+#: includes/admin/class-modula-cpt-fields-helper.php:236
 msgid "Show lightbox navigation"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:241
+#: includes/admin/class-modula-cpt-fields-helper.php:242
 msgid "Show lightbox navigation on mobile"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:247
+#: includes/admin/class-modula-cpt-fields-helper.php:248
 msgid "Shuffle images"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:250
+#: includes/admin/class-modula-cpt-fields-helper.php:251
 msgid "Toggle this to ON to have the gallery shuffle on each page load"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:256
-msgid "Title Color"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:258
-msgid "Set the color of title."
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:263
-msgid "Caption Color"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:265
-msgid "Set the color of captions."
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:270
-msgid "Default Title"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:272
-msgid ""
-"If you leave the title blank Modula will get the title from WordPress image "
-"by default."
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:274
-#: includes/admin/class-modula-cpt-fields-helper.php:285
-msgid "No default"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:275
-#: includes/admin/class-modula-cpt-fields-helper.php:286
-msgid "WP Image title"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:276
-#: includes/admin/class-modula-cpt-fields-helper.php:288
-msgid "WP Image description"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:281
-msgid "Default Caption"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:283
-msgid ""
-"If you leave the caption blank Modula will get the title from WordPress "
-"image by default."
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:287
-msgid "WP Image caption"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:293
+#: includes/admin/class-modula-cpt-fields-helper.php:257
 msgid "Hide Title"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:296
+#: includes/admin/class-modula-cpt-fields-helper.php:260
 msgid "Hide image titles from your gallery."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:300
-msgid "Hide Caption"
+#: includes/admin/class-modula-cpt-fields-helper.php:276
+msgid "Title Color"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:303
-msgid "Hide image captions from your gallery."
+#: includes/admin/class-modula-cpt-fields-helper.php:278
+msgid "Set the color of title."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:307
+#: includes/admin/class-modula-cpt-fields-helper.php:283
 msgid "Title Font Size"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:312
+#: includes/admin/class-modula-cpt-fields-helper.php:288
 msgid "The title font size in pixels (set to 0 to use the theme defaults)."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:316
+#: includes/admin/class-modula-cpt-fields-helper.php:292
+msgid "Hide Caption"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:295
+msgid "Hide image captions from your gallery."
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:312
+msgid "Caption Color"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:314
+msgid "Set the color of captions."
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:319
 msgid "Caption Font Size"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:321
+#: includes/admin/class-modula-cpt-fields-helper.php:324
 msgid "The caption font size in pixels (set to 0 to use theme defaults)."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:325
+#: includes/admin/class-modula-cpt-fields-helper.php:328
 msgid "Mobile Title Font Size"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:330
+#: includes/admin/class-modula-cpt-fields-helper.php:333
 msgid ""
 "The title font size in pixels (set to 0 to use the theme defaults) for "
 "mobile view."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:334
+#: includes/admin/class-modula-cpt-fields-helper.php:337
 msgid "Mobile Caption Font Size"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:339
+#: includes/admin/class-modula-cpt-fields-helper.php:342
 msgid ""
 "The caption font size in pixels (set to 0 to use theme defaults) for mobile "
 "view."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:345
+#: includes/admin/class-modula-cpt-fields-helper.php:348
+msgid "Disable Social Icons"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:355
 msgid "Add Twitter Icon"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:352
+#: includes/admin/class-modula-cpt-fields-helper.php:362
 msgid "Add Facebook Icon"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:359
+#: includes/admin/class-modula-cpt-fields-helper.php:369
+msgid "Add Whatsapp Icon"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:376
 msgid "Add LinkedIn Icon"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:366
+#: includes/admin/class-modula-cpt-fields-helper.php:383
 msgid "Add Pinterest Icon"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:372
+#: includes/admin/class-modula-cpt-fields-helper.php:389
 msgid "Color of social sharing icons"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:381
+#: includes/admin/class-modula-cpt-fields-helper.php:398
 msgid "Scale"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:382
+#: includes/admin/class-modula-cpt-fields-helper.php:399
 msgid ""
 "Choose a value below 100% for a zoom-in effect. Choose a value over 100% "
-"for a zoom-out effect"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:393
-msgid "Select your preferred hover effect"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:401
-msgid "Border Size"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:403
-msgid "Set the border size of images in your gallrey."
+"for a zoom-out effect. Choose 100 for no effect."
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:410
-msgid "Border Radius"
+msgid "Select your preferred hover effect"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:412
-msgid "Set the radius of the image borders in this gallery."
+#: includes/admin/class-modula-cpt-fields-helper.php:417
+msgid "Curson Icon"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:419
-msgid "Border Color"
-msgstr ""
-
-#: includes/admin/class-modula-cpt-fields-helper.php:421
-msgid "Set the color of your image borders in this gallery."
+#: includes/admin/class-modula-cpt-fields-helper.php:418
+msgid "Select your favourite cursor"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:426
-msgid "Shadow Size"
+msgid "Border Size"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:428
-msgid "Set the size of image shadows in this gallery."
+msgid "Set the border size of images in your gallery."
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:435
-msgid "Shadow Color"
+msgid "Border Radius"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:437
-msgid "Set the color of image shadows in this gallery"
+msgid "Set the radius of the image borders in this gallery."
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:444
-#: includes/admin/class-modula-cpt-fields-helper.php:493
-msgid "Lazy Load"
+msgid "Border Color"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:445
-#: includes/admin/class-modula-cpt-fields-helper.php:494
-msgid "Enable/Disable lazy load"
+#: includes/admin/class-modula-cpt-fields-helper.php:446
+msgid "Set the color of your image borders in this gallery."
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:451
+msgid "Shadow Size"
 msgstr ""
 
 #: includes/admin/class-modula-cpt-fields-helper.php:453
+msgid "Set the size of image shadows in this gallery."
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:460
+msgid "Shadow Color"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:462
+msgid "Set the color of image shadows in this gallery"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:469
+#: includes/admin/class-modula-cpt-fields-helper.php:518
+msgid "Lazy Load"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:470
+#: includes/admin/class-modula-cpt-fields-helper.php:519
+msgid "Enable/Disable lazy load"
+msgstr ""
+
+#: includes/admin/class-modula-cpt-fields-helper.php:478
 msgid "Custom responsiveness"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:454
+#: includes/admin/class-modula-cpt-fields-helper.php:479
 msgid ""
 "Force the gallery to show a certain number of column on tablet/mobile "
 "devices"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:460
+#: includes/admin/class-modula-cpt-fields-helper.php:485
 msgid "Tablet Columns"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:462
+#: includes/admin/class-modula-cpt-fields-helper.php:487
 msgid "Use this slider to adjust the number of columns for gallery on tablets."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:470
+#: includes/admin/class-modula-cpt-fields-helper.php:495
 msgid "Mobile Columns"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:472
+#: includes/admin/class-modula-cpt-fields-helper.php:497
 msgid ""
 "Use this slider to adjust the number of columns for gallery on mobile "
 "devices."
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:482
+#: includes/admin/class-modula-cpt-fields-helper.php:507
 msgid "Custom css"
 msgstr ""
 
-#: includes/admin/class-modula-cpt-fields-helper.php:485
+#: includes/admin/class-modula-cpt-fields-helper.php:510
 msgid "Just write the code without using the &lt;style&gt;&lt;/style&gt; tags"
 msgstr ""
 
@@ -631,7 +616,7 @@ msgid "Add New Item"
 msgstr ""
 
 #: includes/admin/class-modula-cpt.php:30
-#: includes/admin/class-modula-cpt.php:335
+#: includes/admin/class-modula-cpt.php:348
 msgid "Add New"
 msgstr ""
 
@@ -717,23 +702,230 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-modula-cpt.php:80
-#: includes/admin/class-modula-cpt.php:373
+#: includes/admin/class-modula-cpt.php:386
 msgid "Shortcode"
 msgstr ""
 
-#: includes/admin/class-modula-cpt.php:361
+#: includes/admin/class-modula-cpt.php:374
 msgid ""
 "Do you enjoy using Modula? Please take a minute to suggest a feature or "
 "tell us what you think."
 msgstr ""
 
-#: includes/admin/class-modula-cpt.php:362
+#: includes/admin/class-modula-cpt.php:375
 msgid "Submit Feedback"
 msgstr ""
 
-#: includes/admin/class-modula-cpt.php:384
-#: includes/admin/class-modula-field-builder.php:215
+#: includes/admin/class-modula-cpt.php:387
+#: includes/admin/tinymce-galleries.php:94
+msgid "Images"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:399
+#: includes/admin/class-modula-field-builder.php:218
 msgid "Copy shortcode"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:435
+#: includes/admin/class-modula-cpt.php:753
+msgid "Publish"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:451
+#: includes/admin/modula-js-templates.php:110
+#: includes/admin/tabs/troubleshooting-options.php:134
+msgid "Save"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:463
+msgid "Save Draft"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:466
+msgid "Save as Pending"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:475
+msgid "Preview Changes"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:477
+msgid "Preview"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:484
+#. translators: Accessibility text.
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:507
+msgid "Status:"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:512
+#: includes/admin/class-modula-cpt.php:546
+msgid "Privately Published"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:515
+#: includes/admin/class-modula-cpt.php:544
+msgid "Published"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:518
+#: includes/admin/class-modula-cpt.php:548
+msgid "Scheduled"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:521
+#: includes/admin/class-modula-cpt.php:550
+msgid "Pending Review"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:525
+#: includes/admin/class-modula-cpt.php:552
+#: includes/admin/class-modula-cpt.php:554
+msgid "Draft"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:537
+#: includes/admin/class-modula-cpt.php:587
+#: includes/admin/class-modula-cpt.php:669
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:537
+msgid "Edit status"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:541
+msgid "Set status"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:557
+#: includes/admin/class-modula-cpt.php:604
+msgid "OK"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:558
+#: includes/admin/class-modula-cpt.php:605
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:565
+msgid "Visibility:"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:571
+#: includes/admin/class-modula-cpt.php:601
+msgid "Private"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:574
+#: includes/admin/class-modula-cpt.php:599
+msgid "Password protected"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:577
+msgid "Public, Sticky"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:580
+#: includes/admin/class-modula-cpt.php:595
+msgid "Public"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:587
+msgid "Edit visibility"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:597
+msgid "Stick this post to the front page"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:600
+msgid "Password:"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:614
+#. translators: Publish box date string. 1: Date, 2: Time. See
+#. https:secure.php.net/date
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:623
+#. translators: Post date information. %s: Date on which the post is currently
+#. scheduled to be published.
+msgid "Scheduled for: %s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:626
+#. translators: Post date information. %s: Date on which the post was
+#. published.
+msgid "Published on: %s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:628
+#: includes/admin/class-modula-cpt.php:642
+msgid "Publish <b>immediately</b>"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:631
+#. translators: Post date information. %s: Date on which the post is to be
+#. published.
+msgid "Schedule for: %s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:634
+#. translators: Post date information. %s: Date on which the post is to be
+#. published.
+msgid "Publish on: %s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:655
+#. translators: Post revisions heading. %s: The number of available revisions.
+msgid "Revisions: %s"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:657
+msgid "Browse revisions"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:670
+msgid "Edit date and time"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:673
+msgid "Date and time"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:685
+#. translators: %s: URL to the Customizer.
+msgid ""
+"This draft comes from your <a href=\"%s\">unpublished customization "
+"changes</a>. You can edit, but there&#8217;s no need to publish now. It "
+"will be published automatically with those changes."
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:731
+msgid "Delete Permanently"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:733
+msgid "Move to Trash"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:752
+msgid "Update "
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:758
+#: includes/admin/class-modula-cpt.php:759
+msgid "Submit for Review"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:765
+msgid "Update Gallery"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:98
@@ -778,257 +970,241 @@ msgstr ""
 msgid "Get in touch"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:333
-#: includes/helper/class-modula-helper.php:142
-msgid "None"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:334
-msgid "Pufrobo"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:337
-msgid "Fluid Up"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:338
-msgid "Hide"
-msgstr ""
-
 #: includes/admin/class-modula-field-builder.php:339
-msgid "Quiet"
+msgid "Pointer"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:340
-msgid "Catinelle"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:341
-msgid "Reflex"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:342
-msgid "Curtain"
+msgid "Magnifying Glass"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:343
-msgid "Lens"
+msgid "Loading"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:344
-msgid "Appear"
+msgid "Cell"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:345
-msgid "Crafty"
+msgid "Crosshair"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:346
-msgid "Seemo"
+msgid "Zoom In 1"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:347
-msgid "Comodo"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:348
-msgid "Lily"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:349
-msgid "Sadie"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:350
-msgid "Honey"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:351
-msgid "Layla"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:352
-msgid "Zoe"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:353
-msgid "Oscar"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:354
-msgid "Marley"
+msgid "Zoom In 2"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:355
-msgid "Ruby"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:356
-msgid "Roxy"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:357
-msgid "Bubba"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:358
-msgid "Romeo"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:359
-msgid "Dexter"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:360
-msgid "Sarah"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:361
-msgid "Chico"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:362
-msgid "Milo"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:363
-msgid "Julia"
+msgid "Cursors with PRO license"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:364
-msgid "Goliath"
+#: includes/helper/class-modula-helper.php:146
+msgid "None"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:365
-msgid "Hera"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:366
-msgid "Winston"
-msgstr ""
-
-#: includes/admin/class-modula-field-builder.php:367
-msgid "Selena"
+msgid "1. Pufrobo"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:368
-msgid "Terry"
+msgid "Fluid Up"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:369
-msgid "Phoebe"
+msgid "Hide"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:370
-msgid "Apollo"
+msgid "Quiet"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:371
-msgid "Kira"
+msgid "Catinelle"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:372
-msgid "Steve"
+msgid "Reflex"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:373
-msgid "Moses"
+msgid "Curtain"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:374
-msgid "Jazz"
+msgid "Lens"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:375
-msgid "Ming"
+msgid "Appear"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:376
-msgid "Lexi"
+msgid "Crafty"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:377
-msgid "Duke"
+msgid "Seemo"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:378
-msgid "Caption Effect 1"
+msgid "Comodo"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:379
-msgid "Caption Effect 2"
+msgid "Lily"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:380
-msgid "Caption Effect 3"
+msgid "Sadie"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:381
-msgid "Caption Effect 4"
+msgid "Honey"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:382
-msgid "Caption Effect 5"
+msgid "Layla"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:383
-msgid "Caption Effect 6"
+msgid "Zoe"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:384
-msgid "Caption Effect 7"
+msgid "Oscar"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:385
-msgid "Tilt Effect 1"
+msgid "Marley"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:386
-msgid "Tilt Effect 2"
+msgid "Ruby"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:387
-msgid "Tilt Effect 3"
+msgid "Roxy"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:388
-msgid "Tilt Effect 4"
+msgid "Bubba"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:389
-msgid "Tilt Effect 5"
+msgid "Romeo"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:390
-msgid "Tilt Effect 6"
+msgid "Dexter"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:391
-msgid "Tilt Effect 7"
+msgid "Sarah"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:392
-msgid "Tilt Effect 8"
+msgid "Chico"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:393
+msgid "Milo"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:394
+msgid "Julia"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:395
+msgid "Goliath"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:396
+msgid "Hera"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:397
+msgid "Winston"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:398
+msgid "Selena"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:399
+msgid "Terry"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:400
-msgid "Hover Effects with PRO license"
+msgid "Phoebe"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:401
+msgid "Apollo"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:402
+msgid "Kira"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:403
+msgid "Steve"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:404
+msgid "Moses"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:405
+msgid "Jazz"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:406
+msgid "Ming"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:407
+msgid "Lexi"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:408
+msgid "Duke"
 msgstr ""
 
 #: includes/admin/class-modula-field-builder.php:409
+msgid "Tilt Effect 1"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:410
+msgid "Tilt Effect 2"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:411
+msgid "Tilt Effect 3"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:420
+msgid "Hover Effects with PRO license"
+msgstr ""
+
+#: includes/admin/class-modula-field-builder.php:429
 msgid "Select an hover effect"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:424
+#: includes/admin/class-modula-field-builder.php:444
 msgid "This effect is compatible with:"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:425
+#: includes/admin/class-modula-field-builder.php:445
 #: includes/admin/modula-js-templates.php:44
 msgid "Title"
 msgstr ""
 
-#: includes/admin/class-modula-field-builder.php:426
+#: includes/admin/class-modula-field-builder.php:446
 msgid "Social Icons"
 msgstr ""
 
@@ -1058,12 +1234,16 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:35
-#: includes/admin/class-modula-upsells.php:187
+#: includes/admin/class-modula-upsells.php:192
+#: includes/admin/class-modula-upsells.php:212
+#: includes/admin/class-modula-upsells.php:236
 msgid "See LITE vs PRO Differences"
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:36
-#: includes/admin/class-modula-upsells.php:188
+#: includes/admin/class-modula-upsells.php:196
+#: includes/admin/class-modula-upsells.php:216
+#: includes/admin/class-modula-upsells.php:240
 msgid "Get Modula Pro!"
 msgstr ""
 
@@ -1092,7 +1272,9 @@ msgid "Need new hover effects and cursors ?"
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:67
-msgid "Upgrade to Modula Pro today to unlock 11 more hover effects and custom cursors..."
+msgid ""
+"Upgrade to Modula Pro today to unlock 11 more hover effects and custom "
+"cursors..."
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:77
@@ -1165,19 +1347,29 @@ msgstr ""
 #: includes/admin/class-modula-upsells.php:144
 msgid ""
 "Ugrade to Modula Pro today and get access to Modula Slidfeshow add-on "
-"create beautiful slideshows from your galleries."
+"allows you to turn your gallery's lightbox into a stunning slideshow."
 msgstr ""
 
 #: includes/admin/class-modula-upsells.php:163
 msgid "Sorting"
 msgstr ""
 
-#: includes/admin/class-modula-upsells.php:175
+#: includes/admin/class-modula-upsells.php:178
+#: includes/admin/class-modula-upsells.php:222
 msgid "Looking for gallery sorting?"
 msgstr ""
 
-#: includes/admin/class-modula-upsells.php:176
+#: includes/admin/class-modula-upsells.php:179
+#: includes/admin/class-modula-upsells.php:223
 msgid "Upgrade to Modula Pro today to get access to 7 sorting options."
+msgstr ""
+
+#: includes/admin/class-modula-upsells.php:201
+msgid "Modula Albums"
+msgstr ""
+
+#: includes/admin/class-modula-upsells.php:202
+msgid "Get the Modula Albums add-on to create wonderful albums from your galleries."
 msgstr ""
 
 #: includes/admin/modula-js-templates.php:9
@@ -1263,10 +1455,6 @@ msgstr ""
 msgid "Save Metadata"
 msgstr ""
 
-#: includes/admin/modula-js-templates.php:110
-msgid "Save"
-msgstr ""
-
 #: includes/admin/modula-js-templates.php:112
 #: includes/admin/modula-js-templates.php:113
 msgid "Save & Close"
@@ -1276,100 +1464,127 @@ msgstr ""
 msgid "Saved."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:14
+#: includes/admin/tabs/about.php:37
+msgid "Version %s addressed %s bug and implemented %s features."
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:13
+msgid "Select which grid type script to enqueue"
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:21
+msgid "Select which Lightbox script to enqueue"
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:29
+msgid "Enqueue Lazyload script"
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:40
+msgid "Select Modula's CSS files and/or JS files to be enqueued on all pages."
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:41
+msgid ""
+"If you have problems with displaying or running Modula Galleries you might "
+"want to enqueue Modula CSS and JS in all pages."
+msgstr ""
+
+#: includes/admin/tabs/troubleshooting-options.php:47
+msgid "Enqueue CSS & JS files on all pages"
+msgstr ""
+
+#: includes/admin/tinymce-galleries.php:4
+msgid "Modula Galleries"
+msgstr ""
+
+#: includes/admin/tinymce-galleries.php:68
+msgid "YOUR GALLERIES:"
+msgstr ""
+
+#: includes/admin/tinymce-galleries.php:76
+msgid "Name"
+msgstr ""
+
+#: includes/admin/tinymce-galleries.php:79
+msgid "Type"
+msgstr ""
+
+#: includes/class-modula-upgrades.php:15
 msgid "Modula needs to upgrade the database, click %shere%s to start the upgrade."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:18
+#: includes/class-modula-upgrades.php:19
 msgid "Modula V2 Upgrade"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:153
+#: includes/class-modula-upgrades.php:166
 msgid "Hooray you don't have any Modula galleries to upgrade."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:154
+#: includes/class-modula-upgrades.php:167
 msgid "It seems like you didn't create any galleries with Modula"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:155
+#: includes/class-modula-upgrades.php:168
 msgid "Create a gallery now !"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:162
+#: includes/class-modula-upgrades.php:175
 msgid "Upgrade to Modula V2"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:163
+#: includes/class-modula-upgrades.php:176
 msgid ""
 "Since Modula V2.0.0 we changed how we stored data about your galleries so "
 "in order to have all the old galleries you need to run this updater."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:164
+#: includes/class-modula-upgrades.php:177
 msgid "Please don't close this window."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:168
+#: includes/class-modula-upgrades.php:181
 msgid "Import All"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:169
+#: includes/class-modula-upgrades.php:182
 msgid "Custom Import"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:179
+#: includes/class-modula-upgrades.php:192
 msgid "This will import all your galleries."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:180
+#: includes/class-modula-upgrades.php:193
 msgid "Start upgrade"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:187
+#: includes/class-modula-upgrades.php:200
 msgid "Select wich galleries you want to import."
 msgstr ""
 
-#: includes/class-modula-upgrades.php:198
+#: includes/class-modula-upgrades.php:211
 msgid "Start importing"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:256
+#: includes/class-modula-upgrades.php:269
 msgid "The gallery with ID: %s was already imported"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:372
+#: includes/class-modula-upgrades.php:390
 msgid "%s gallery was imported"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:380
+#: includes/class-modula-upgrades.php:398
 msgid "The gallery with ID: %s failed to import"
 msgstr ""
 
-#: includes/class-modula-upgrades.php:399
+#: includes/class-modula-upgrades.php:417
 msgid "All Done!"
 msgstr ""
 
-#: includes/class-modula.php:67
-msgid ""
-"Hey, I noticed you have created %s galleries - that's awesome! Could you "
-"please do me a BIG favor and give it a 5-star rating on WordPress? Just to "
-"help us spread the word and boost our motivation."
-msgstr ""
-
-#: includes/class-modula.php:68 includes/libraries/class-modula-review.php:23
-msgid "Ok, you deserve it"
-msgstr ""
-
-#: includes/class-modula.php:69 includes/libraries/class-modula-review.php:24
-msgid "I already did"
-msgstr ""
-
-#: includes/class-modula.php:70 includes/libraries/class-modula-review.php:25
-msgid "No, not good enough"
-msgstr ""
-
-#: includes/class-modula.php:146
+#: includes/class-modula.php:145
 msgid ""
 "You excedeed the limit of 20 photos. You can remove an image or %supgrade "
 "to pro%s"
@@ -1422,14 +1637,26 @@ msgid "Content"
 msgstr ""
 
 #: includes/elementor/widgets/class-modula-elementor.php:43
-msgid "Select Gallery"
+msgid "Select/Search Gallery"
 msgstr ""
 
-#: includes/libraries/class-modula-review.php:22
+#: includes/libraries/class-modula-review.php:13
 msgid ""
-"Hey, I noticed you have installed our plugin for %s day - that's awesome! "
-"Could you please do me a BIG favor and give it a 5-star rating on "
-"WordPress? Just to help us spread the word and boost our motivation."
+"Hi there! Stoked to see you're using Modula for a few days now - hope you "
+"like it! And if you do, please consider rating it. It would mean the world "
+"to us.  Keep on rocking!"
+msgstr ""
+
+#: includes/libraries/class-modula-review.php:14
+msgid "Rate the plugin"
+msgstr ""
+
+#: includes/libraries/class-modula-review.php:15
+msgid "Remind me later"
+msgstr ""
+
+#: includes/libraries/class-modula-review.php:16
+msgid "Don't show again"
 msgstr ""
 
 #: includes/modula-beaver-block/class-modula-beaver-block.php:12
@@ -1448,14 +1675,87 @@ msgstr ""
 msgid "No gallery was selected"
 msgstr ""
 
-#: includes/public/class-modula-shortcode.php:51
-#: includes/public/class-modula-shortcode.php:73
-#: includes/public/class-modula-shortcode.php:110
+#: includes/public/class-modula-shortcode.php:53
+#: includes/public/class-modula-shortcode.php:75
+#: includes/public/class-modula-shortcode.php:112
 msgid "Gallery not found."
 msgstr ""
 
-#: includes/public/class-modula-shortcode.php:126
+#: includes/public/class-modula-shortcode.php:128
 msgid "Image %1 of %2"
+msgstr ""
+
+#: includes/troubleshoot/class-modula-troubleshooting.php:106
+msgid "Misc"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:32
+#: includes/uninstall/class-modula-uninstall.php:71
+msgid "Uninstall"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:70
+msgid "Cleaning..."
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:268
+msgid "Sorry to see you go"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:269
+msgid " Caution!! This action CAN NOT be undone"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:273
+msgid "Delete all data"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:274
+msgid ""
+"Select this to delete all data Modula plugin and it's add-ons have set in "
+"your database."
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:277
+msgid "Delete Modula options"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:278
+msgid ""
+"Delete options set by Modula plugin and it's add-ons  to options table in "
+"the database."
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:281
+msgid "Delete Modula set transients"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:282
+msgid ""
+"Delete transients set by Modula plugin and it's add-ons  to options table "
+"in the database."
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:285
+msgid "Delete modula-gallery custom post type"
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:286
+msgid ""
+"Delete custom post types set by Modula plugin and it's add-ons in the "
+"database."
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:289
+msgid "Delete old tables set by Modula Gallery plugin versions 1.x "
+msgstr ""
+
+#: includes/uninstall/class-modula-uninstall.php:290
+msgid "Delete old tables set by Modula Gallery plugin versions 1.x in the database."
+msgstr ""
+
+#: includes/update/class-modula-update.php:35
+msgid "About"
 msgstr ""
 
 #: includes/widget/class-modula-widget.php:22
@@ -1484,4 +1784,27 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://www.machothemes.com/"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:616
+#. translators: Publish box date format, see https:secure.php.net/date
+msgctxt "publish box date format"
+msgid "M j, Y"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:618
+#. translators: Publish box time format, see https:secure.php.net/date
+msgctxt "publish box time format"
+msgid "H:i"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:657
+msgctxt "revisions"
+msgid "Browse"
+msgstr ""
+
+#: includes/admin/class-modula-cpt.php:749
+#: includes/admin/class-modula-cpt.php:750
+msgctxt "post action/button label"
+msgid "Schedule"
 msgstr ""
