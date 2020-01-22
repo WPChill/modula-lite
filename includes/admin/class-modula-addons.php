@@ -57,22 +57,6 @@ class Modula_Addons {
 				echo '</div>';
 			}
 		}
-
-		if ( apply_filters( 'modula-show-feature-request', true ) ) {
-			echo '<div class="modula-addon">';
-			echo '<div class="modula-addon-box">';
-			echo '<div><img src="' . MODULA_URL . 'assets/images/modula-logo.jpg"></div>';
-			echo '<div class="modula-addon-content">';
-			echo '<h3>' . esc_html__( 'Feature Request', 'modula-best-grid-gallery' ) . '</h3>';
-			echo '<div class="modula-addon-description">' . esc_html__( 'Cant\'t find what you’re looking for? Let us know by making a suggestion!', 'modula-best-grid-gallery' ) . '</div>';
-			echo '</div>';
-			echo '</div>';
-			echo '<div class="modula-addon-actions">';
-			echo '<a href="https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform" class="button primary-button" target="_blank">' . esc_html__( 'Send Feature Request', 'modula-best-grid-gallery' ) . '</a>';
-			echo '</div>';
-			echo '</div>';
-		}
-
 	}
 
 }
