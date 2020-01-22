@@ -634,3 +634,14 @@ jQuery( document ).ready( function($){
 
     });
 });
+
+jQuery('.modula-item').on('click', function(e){
+    window.location.hash = "#";
+    window.addEventListener('popstate', onBackDown, false);
+    window.addEventListener('backbutton', onBackDown, false);
+    function onBackDown() {
+        this.event.preventDefault();
+        jQuery('.lb-close').click();
+        this.window.location.hash = "";
+    }
+});
