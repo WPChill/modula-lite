@@ -92,7 +92,10 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
         if ( this.options.gutter > 0 ) {
             size = ( containerWidth - this.options.gutter * ( columns - 1 ) ) / columns;
         }else{
-            size = Math.floor( containerWidth / columns );
+            //size = Math.floor( containerWidth / columns );
+            // Fix for small empty space on right https://github.com/MachoThemes/modula-lite/issues/218
+            // Math.floor functionality, depending on number of columns, misses some pixels, thus the empty space on right
+            size = containerWidth / columns ;
         }
 
     	this.$items.not(".jtg-hidden").each(function (i, item) {
@@ -451,9 +454,9 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         });
 
-        new ResizeSensor( instance.$element, function() {
+        /*new ResizeSensor( instance.$element, function() {
             instance.onResize(instance);
-        });
+        });*/
 
         // Create social links
         this.setupSocial();
