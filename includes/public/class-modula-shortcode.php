@@ -28,11 +28,11 @@ class Modula_Shortcode {
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-lightbox2', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-lightbox2', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 

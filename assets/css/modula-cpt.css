@@ -1242,3 +1242,10 @@ Ups-sells carousel
     padding:0px;
     margin:0 auto;
 }
+
+#modula_troubleshooting_option .modula-select label {
+  margin-right: 10px;
+}
+#modula_troubleshooting_option .modula-select label:last-child {
+  margin-right: 0;
+}

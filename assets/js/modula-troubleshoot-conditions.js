@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 
-    var master_toggle = jQuery("input#modula_troubleshooting_option");
+    var master_toggle = jQuery("input#modula_troubleshooting_option-enqueue_files");
     var checked = master_toggle.is(':checked');
     mts_master_toggle(checked);
 
@@ -12,8 +12,8 @@ jQuery(document).ready(function($){
 
 function mts_master_toggle(checked){
     if(checked){
-        jQuery('tr[data-settings="subfields"]').show();
+        jQuery('tr.troubleshoot-subfield').show();
     } else {
-        jQuery('tr[data-settings="subfields"]').hide();
+        jQuery('tr.troubleshoot-subfield').hide();
     }
 }
