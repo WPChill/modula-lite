@@ -227,6 +227,14 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id} .modula-item .jtg-social a { color: " . sanitize_hex_color($settings['socialIconColor']) . " }";
 			}
 
+			if ( $settings['socialIconSize'] ) {
+				$css .= "#{$gallery_id} .modula-item .jtg-social svg { height: " . absint($settings['socialIconSize']) . 'px' ." }";
+			}
+
+			if ( $settings['socialIconPadding'] ) {
+				$css .= "#{$gallery_id} .modula-item .jtg-social a { width: " . absint($settings['socialIconPadding']) . 'px' . " }";
+			}
+
 			$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";
 			if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {
 				$css .= "#{$gallery_id} .modula-item .figc {";
