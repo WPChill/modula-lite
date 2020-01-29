@@ -19,10 +19,6 @@
 	z-index: 10;
 }
 
-.modula .modula-item{
-	background-color:transparent
-}
-
 .modula .modula-items .modula-item.tg-loaded {
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;

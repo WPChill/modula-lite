@@ -266,7 +266,7 @@ class Modula_Uninstall {
     public function get_form_info() {
         $form            = array ();
         $form['heading'] = esc_html__( 'Sorry to see you go' , 'modula-best-grid-gallery' );
-        $form['body']    = '<strong style="color:red;">' . esc_html__( ' Caution!! This action CAN NOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
+        $form['body']    = '<strong style="color:red;">' . esc_html__( ' Caution!! This action CANNOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
         $form['options'] = apply_filters( 'modula_uninstall_options' ,array(
             'delete_all'        => array(
                 'label'       => esc_html__( 'Delete all data' , 'modula-best-grid-gallery' ) ,

@@ -432,11 +432,11 @@ class Modula_CPT {
 		global $post;
 		$post_type = 'modula-gallery';
 		remove_meta_box( 'submitdiv', $post_type, 'side' );
-		add_meta_box( 'submitdiv', __( 'Publish' ), array($this, 'post_submit_meta_box1'), $post_type, 'side', 'high' );
+		add_meta_box( 'submitdiv', __( 'Publish' ), array($this, 'post_submit_meta_box'), $post_type, 'side', 'high' );
 		
 	}
 
-	public function post_submit_meta_box1() {
+	public function post_submit_meta_box() {
 		global $action, $post;
 		$post_type = $post->post_type; // get current post_type
 		$post_type_object = get_post_type_object($post_type);
@@ -750,7 +750,7 @@ endif;
 				<?php submit_button( _x( 'Schedule', 'post action/button label' ), 'primary large', 'publish', false ); ?>
 	<?php	else : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Update ') . 'modula-gallery';; ?>" />
-		<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
+		<?php submit_button( __( 'Save Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 		<?php
 	endif;
 	else :
@@ -762,7 +762,7 @@ endif;
 	} else {
 		?>
 		
-		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update Gallery' ). 'modula-gallery'; ?>" />
+		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update Gallery', 'modula-best-grid-gallery' ). 'modula-gallery'; ?>" />
 		<?php
 	}
 	?>
