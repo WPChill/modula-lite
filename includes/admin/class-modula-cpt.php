@@ -262,10 +262,10 @@ class Modula_CPT {
 							case 'socialIconColor':
 							case 'borderColor':
 							case 'shadowColor':
-								$modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
+								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
 								break;
                             case 'lightbox_background_color':
-                                $modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
+                                $modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
                                 break;
                             case 'lightbox_popup_opacity' :
                                 $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
