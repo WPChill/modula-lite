@@ -1198,7 +1198,7 @@ Ups-sells carousel
 }
 
 .modula-upsells-carousel {
-    animation: carousel 20s infinite;
+    /*animation: carousel 20s infinite;*/
     flex-shrink: 0;
     position: relative;
     display:flex;
@@ -1234,11 +1234,14 @@ Ups-sells carousel
     color:green;
 }
 #modula-sorting-upsell > h2.hndle.ui-sortable-handle,
-#modula-sorting-upsell > button.handlediv {
+#modula-sorting-upsell > button.handlediv,
+#modula-albums-upsell > h2.hndle.ui-sortable-handle,
+#modula-albums-upsell > button.handlediv {
     display:none;
 }
 
-#modula-sorting-upsell > .inside {
+#modula-sorting-upsell > .inside,
+#modula-albums-upsell > .inside {
     padding:0px;
     margin:0 auto;
 }

@@ -158,6 +158,15 @@ class Modula_Upsells {
 
 	public function add_meta_boxes() {
 
+        add_meta_box(
+            'modula-albums-upsell',      // Unique ID
+            esc_html__('Albums', 'modula-best-grid-gallery'),    // Title
+            array( $this, 'output_upsell_albums' ),   // Callback function
+            'modula-gallery',         // Admin page (or post type)
+            'side',         // Context
+            'default'         // Priority
+        );
+
 		add_meta_box(
 		    'modula-sorting-upsell',      // Unique ID
 		    esc_html__('Sorting', 'modula-best-grid-gallery'),    // Title
@@ -166,7 +175,6 @@ class Modula_Upsells {
 		    'side',         // Context
 		    'default'         // Priority
 		);
-
 	}
 
 	public function output_sorting_upsell(){
@@ -196,6 +204,15 @@ class Modula_Upsells {
                            class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
                     </p>
                 </div>
+            </div>
+        </div>
+		<?php
+	}
+
+    public function output_upsell_albums() {
+        ?>
+        <div class="modula-upsells-carousel-wrapper">
+            <div class="modula-upsells-carousel">
                 <div class="modula-upsell modula-upsell-item"
                      style="margin-top:0;padding: 10px;">
                     <h2><?php esc_html_e( 'Modula Albums' , 'modula-best-grid-gallery' ) ?></h2>
@@ -216,33 +233,9 @@ class Modula_Upsells {
                            class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
                     </p>
                 </div>
-                <!-- Need to enter first upsell one more time for slide effect -->
-                <div class="modula-upsell modula-upsell-item"
-                     style="margin-top:0;padding: 10px;">
-                    <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
-                    <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
-                    <ul class="modula-upsells-list">
-                        <li>Date created - newest first</li>
-                        <li>Date created - oldest first</li>
-                        <li>Date modified - most recent first</li>
-                        <li>Date modified - most recent last</li>
-                        <li>Title alphabetically</li>
-                        <li>Title reverse</li>
-                        <li>Random</li>
-                    </ul>
-                    <p>
-                        <a target="_blank"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
-                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
-                        <a target="_blank"
-                           style="margin-top:10px;"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=upsell"
-                           class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
-                    </p>
-                </div>
             </div>
         </div>
-		<?php
-	}
+        <?php
+    }
 
 }
