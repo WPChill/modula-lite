@@ -1225,6 +1225,11 @@ Ups-sells carousel
     text-align:left;
 }
 
+#modula-albums-upsell .modula-upsells-carousel  .modula-upsell-item ul li {
+    display: inline-block;
+    margin: 0px 15px;
+}
+
 .modula-upsells-carousel  .modula-upsell-item ul li:before {
     font-family:Dashicons;
     content: "\f147";
