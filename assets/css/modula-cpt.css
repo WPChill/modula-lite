@@ -417,10 +417,10 @@ tr label.th-label {
 	margin-right: 10px;
 }
 .modula-upsell .button.button-primary {
-	background-color: #52ad3a;
+	/*background-color: #52ad3a;
 	border-color: #378c21;
 	box-shadow: 0 1px 0 #378c21;
-	text-shadow: 0 -1px 1px #378c21, 1px 0 1px #378c21, 0 1px 1px #378c21, -1px 0 1px #378c21;
+	text-shadow: 0 -1px 1px #378c21, 1px 0 1px #378c21, 0 1px 1px #378c21, -1px 0 1px #378c21;*/
 }
 .modula-upsell .action-link,
 .modula-upsell .action-link:hover {
@@ -1256,4 +1256,27 @@ Ups-sells carousel
 }
 #modula_troubleshooting_option .modula-select label:last-child {
   margin-right: 0;
+}
+
+#modula-albums-upsell .modula-upsells-carousel {
+    display:block;
+}
+
+#modula-albums-upsell h2 {
+    font-size: 14px !important;
+    padding: 8px 12px !important;
+    margin: 0 !important;
+    line-height: 1.4;
+    background:#fff;
+    lefT: -15px;
+    right: -15px;
+    top: -15px;
+    position: relative;
+}
+
+#modula-albums-upsell .modula-upsells-carousel .modula-upsell-item {
+    padding:15px;
+    margin:0;
+    width:100%;
+    background:#f1f1f1;
 }

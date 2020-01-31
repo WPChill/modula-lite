@@ -159,7 +159,7 @@ class Modula_Upsells {
 	public function add_meta_boxes() {
 		add_meta_box(
 		    'modula-sorting-upsell',      // Unique ID
-		    esc_html__('Sorting', 'modula-best-grid-gallery'),    // Title
+		    esc_html__('Sorting Upsells', 'modula-best-grid-gallery'),    // Title
 		    array( $this, 'output_sorting_upsell' ),   // Callback function
 		    'modula-gallery',         // Admin page (or post type)
 		    'side',         // Context
