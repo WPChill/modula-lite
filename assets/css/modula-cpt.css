@@ -1268,8 +1268,6 @@ Ups-sells carousel
     margin: 0 !important;
     line-height: 1.4;
     background:#fff;
-    lefT: -15px;
-    right: -15px;
     top: -15px;
     position: relative;
 }
@@ -1277,6 +1275,11 @@ Ups-sells carousel
 #modula-albums-upsell .modula-upsells-carousel .modula-upsell-item {
     padding:15px;
     margin:0;
+    left:-15px;
     width:100%;
     background:#f1f1f1;
+}
+
+#modula-albums-upsell .modula-upsells-carousel .modula-upsell {
+    border:0px;
 }
