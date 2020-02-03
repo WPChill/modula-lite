@@ -171,8 +171,7 @@ class Modula_Upsells {
 		?>
         <div class="modula-upsells-carousel-wrapper">
             <div class="modula-upsells-carousel">
-                <div class="modula-upsell modula-upsell-item"
-                     style="margin-top:0;padding: 10px;">
+                <div class="modula-upsell modula-upsell-item">
                     <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
                     <ul class="modula-upsells-list">

@@ -386,16 +386,22 @@ tr label.th-label {
 
 /* Upsells */
 .modula-upsell {
-	background: #e5f3e2;
-    border: 1px solid #a8d69c;
-    padding: 20px;
+	background: #f1f1f1;
+   /* border: 1px solid #a8d69c;*/
+    border:0px;
+    padding: 15px;
     margin-top: 30px;
 }
 #poststuff .modula-upsell h2 {
-	margin: 0 0 20px 0;
-	font-size: 16px;
+    margin: 0 0 20px 0;
+    font-size: 16px;
     font-weight: 700;
-    padding: 0;
+    background: #fff;
+    left: -15px;
+    top: -15px;
+    padding: 8px 12px;
+    position: relative;
+    width: calc(100% + 0px);
 }
 .modula-upsell p {
 	margin: 0;
@@ -407,6 +413,7 @@ tr label.th-label {
 	opacity: .8;
 	margin-top: 0;
 	margin-bottom: 10px;
+    padding:0px 10px;
 }
 .modula-upsell .button {
     height: 31px;
@@ -1201,14 +1208,17 @@ Ups-sells carousel
     /*animation: carousel 20s infinite;*/
     flex-shrink: 0;
     position: relative;
-    display:flex;
+   /* display:flex;*/
+    display:block;
     width:100%;
 }
 
 .modula-upsells-carousel  .modula-upsell-item {
     position: relative;
-    width:calc(100% - 22px);
+    width:100%;
     flex-shrink: 0;
+    margin-top:0;
+    left:-15px;
 }
 
 .modula-upsells-carousel  .modula-upsell-item {
@@ -1258,28 +1268,6 @@ Ups-sells carousel
   margin-right: 0;
 }
 
-#modula-albums-upsell .modula-upsells-carousel {
-    display:block;
-}
-
 #modula-albums-upsell h2 {
-    font-size: 14px !important;
-    padding: 8px 12px !important;
     margin: 0 !important;
-    line-height: 1.4;
-    background:#fff;
-    top: -15px;
-    position: relative;
-}
-
-#modula-albums-upsell .modula-upsells-carousel .modula-upsell-item {
-    padding:15px;
-    margin:0;
-    left:-15px;
-    width:100%;
-    background:#f1f1f1;
-}
-
-#modula-albums-upsell .modula-upsells-carousel .modula-upsell {
-    border:0px;
 }
