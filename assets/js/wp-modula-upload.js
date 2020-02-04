@@ -418,8 +418,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 		generateSingleImage: function( attachment ){
 			var data = { halign: 'center', valign: 'middle', link: '', target: '' }
-				captionSource = modula.Settings.get( 'wp_field_caption' ),
-				titleSource = modula.Settings.get( 'wp_field_title' );
+			// No need for these variables
+			/*captionSource = modula.Settings.get( 'wp_field_caption' ),
+				titleSource = modula.Settings.get( 'wp_field_title' );*/
 
 			data['full']      = attachment['sizes']['full']['url'];
 			if ( "undefined" != typeof attachment['sizes']['large'] ) {
@@ -431,17 +432,24 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			data['alt']         = attachment['alt'];
 			data['orientation'] = attachment['orientation'];
 
+			// Removed the settings to select title and caption
+			// So we should make the default
+			data['title'] = attachment['title'];
+			data['description'] = attachment['caption'];
+
 			// Check from where to populate image title
-			if ( 'none' == titleSource ) {
+			// Will comment these lines, in the future maybe we revert to settings
+			/*if ( 'none' == titleSource ) {
 				data['title'] = attachment['title'];
 			}else if ( 'title' == titleSource ) {
 				data['title'] = attachment['title'];
 			}else if ( 'description' == titleSource ) {
 				data['title'] = attachment['description'];
-			}
+			}*/
 
 			// Check from where to populate image caption
-			if ( 'none' == captionSource ) {
+			// Will comment these lines, in the future maybe we revert to settings
+			/*if ( 'none' == captionSource ) {
 				data['description'] = attachment['title'];
 			}else if ( 'title' == captionSource ) {
 				data['description'] = attachment['title'];
@@ -449,7 +457,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 				data['description'] = attachment['caption'];
 			}else if ( 'description' == captionSource ) {
 				data['description'] = attachment['description'];
-			}
+			}*/
 
 			new modula.items['model']( data );
 		}

@@ -28,11 +28,11 @@ class Modula_Shortcode {
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'lightbox2_stylesheet', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-lightbox2', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'lightbox2_script', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-lightbox2', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
@@ -123,9 +123,9 @@ class Modula_Shortcode {
 		/* Enqueue lightbox related scripts & styles */
 		switch ( $settings['lightbox'] ) {
 			case "lightbox2":
-				wp_enqueue_style( 'lightbox2_stylesheet' );
-				wp_enqueue_script( 'lightbox2_script' );
-				wp_add_inline_script( 'lightbox2_script', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
+				wp_enqueue_style( 'modula-lightbox2' );
+				wp_enqueue_script( 'modula-lightbox2' );
+				wp_add_inline_script( 'modula-lightbox2', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
 				break;
 			default:
 				do_action( 'modula_lighbox_shortcode', $settings['lightbox'] );
@@ -177,6 +177,7 @@ class Modula_Shortcode {
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			"margin"          => absint( $settings['margin'] ),
 			"enableTwitter"   => boolval( $settings['enableTwitter'] ),
+			"enableWhatsapp"  => boolval( $settings['enableWhatsapp']),
 			"enableFacebook"  => boolval( $settings['enableFacebook'] ),
 			"enablePinterest" => boolval( $settings['enablePinterest'] ),
 			"enableLinkedin"  => boolval( $settings['enableLinkedin'] ),
@@ -243,6 +244,13 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
+			    // max-width is a fix for Twentytwenty theme
+
+        $activeTheme = wp_get_theme(); // gets the current theme
+        $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
+        if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {
+           $css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
+        }
 				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
@@ -253,6 +261,8 @@ class Modula_Shortcode {
 			}else{
 				$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . sanitize_hex_color($settings['captionColor']) . "; }";
 			}
+
+			$css .= "#{$gallery_id} .modula-item>a { cursor:" . esc_attr($settings['cursor'])."; } ";
 
 			$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 

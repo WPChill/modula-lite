@@ -28,6 +28,9 @@
 				<?php if ( $data->enableFacebook ): ?>
 				<a class="modula-icon-facebook" href="#"><?php echo Modula_Helper::get_icon( 'facebook' ) ?></a>
 				<?php endif ?>
+				<?php if ( $data->enableWhatsapp ): ?>
+				<a class="modula-icon-whatsapp" href="#"><?php echo Modula_Helper::get_icon( 'whatsapp' ) ?></a>
+				<?php endif ?>
 				<?php if ( $data->enablePinterest ): ?>
 				<a class="modula-icon-pinterest" href="#"><?php echo Modula_Helper::get_icon( 'pinterest' ) ?></a>
 				<?php endif ?>

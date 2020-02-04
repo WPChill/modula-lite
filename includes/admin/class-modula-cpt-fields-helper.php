@@ -107,7 +107,7 @@ class Modula_CPT_Fields_Helper {
             ),
             'slideshow' => array(
                 'label'       => esc_html__('Slideshow', 'modula-best-grid-gallery'),
-                'title'       => esc_html__( 'Lightbox Slideshow Settings', 'modula-best-grid-gallery' ),
+                'title'       => esc_html__( 'Lightbox slideshow settings', 'modula-best-grid-gallery' ),
                 'description' => esc_html__( 'Here you can modify the settings for lightbox slideshow like : autoplay / autoplay time / pause on hover', 'modula-best-grid-gallery' ),
                 "icon"        => "dashicons dashicons-images-alt2",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
@@ -115,7 +115,7 @@ class Modula_CPT_Fields_Helper {
             ),
             'password_protect' => array(
                 'label'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
-                'title'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
+                'title'       => esc_html__('Password protect your galleries', 'modula-best-grid-gallery'),
                 //'description' => $password_protect_description,
                 "icon"        => "dashicons dashicons-shield",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
@@ -123,7 +123,7 @@ class Modula_CPT_Fields_Helper {
             ),
             'watermark' => array(
                 'label'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
-                'title'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
+                'title'       => esc_html__('Watermark settings to protect your galleries', 'modula-best-grid-gallery'),
                 //'description' => $watermark_description,
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
@@ -260,7 +260,8 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 				),
-				"wp_field_title"   => array(
+                // Will only comment this setting, maybe we'll revert to it in the future
+				/*"wp_field_title"   => array(
 					"name"        => esc_html__( 'Default Title', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the title blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
@@ -270,7 +271,7 @@ class Modula_CPT_Fields_Helper {
 						'description' => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
 					),
 					'priority' => 20,
-				),
+				),*/
 				"titleColor"     => array(
 					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -294,7 +295,8 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
-				"wp_field_caption" => array(
+				// Will only comment this setting, maybe we'll revert to it in the future
+				/*"wp_field_caption" => array(
 					"name"        => esc_html__( 'Default Caption', 'modula-best-grid-gallery' ),
 					"type"        => "select",
 					"description" => __( 'If you leave the caption blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
@@ -305,7 +307,7 @@ class Modula_CPT_Fields_Helper {
 						"description" => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
 					),
 					'priority' => 60,
-				),
+				),*/
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -350,28 +352,35 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 10,
 				),
 				"enableTwitter"   => array(
-					"name"        => esc_html__( 'Add Twitter Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Show Twitter Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 10,
 				),
 				"enableFacebook"  => array(
-					"name"        => esc_html__( 'Add Facebook Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Show Facebook Icon', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 1,
+					"description" => "",
+					'priority'    => 20,
+				),
+				"enableWhatsapp"  => array(
+					"name"        => esc_html__( 'Show Whatsapp Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 20,
 				),
 				"enableLinkedin"  => array(
-					"name"        => esc_html__( 'Add LinkedIn Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Show LinkedIn Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => "",
 					'priority'    => 30,
 				),
 				"enablePinterest" => array(
-					"name"        => esc_html__( 'Add Pinterest Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Show Pinterest Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					'priority'    => 40,
@@ -401,14 +410,37 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Select your preferred hover effect', 'modula-best-grid-gallery' ),
 					"type"        => "hover-effect",
 					'default'     => 'pufrobo',
-					'priority'    => 10,
+					'priority'    => 15,
 				),
+				
+				"cursor"  => array(
+					"name"         => esc_html__( 'Curson Icon', 'modula-best-grid-gallery'),
+					"description"  => esc_html__( 'Select your favourite cursor', 'modula-best-grid-gallery'),
+					"type"		   => "select",
+					"default"	   => "zoom-in",
+					"priority"     => 12,
+					'values'       => array(
+						'pointer'  => esc_html__( 'Pointer', 'modula-best-grid-gallery'),
+						'zoom-in'  => esc_html__( 'Magnifying Glass', 'modula-best-grid-gallery'),
+					),
+					"disabled" => array(
+						'title'  => esc_html__( 'Cursors with PRO license', 'modula-best-grid-gallery' ),
+						'values' => array(
+							'wait'        => esc_html__( 'Loading', 'modula-best-grid-gallery'),
+							'cell'        => esc_html__( 'Cell', 'modula-best-grid-gallery'),
+							'crosshair'   => esc_html__( 'Crosshair', 'modula-best-grid-gallery'),
+							'nesw-resize' => esc_html__( 'Resize 1', 'modula-best-grid-gallery'),
+							'nwse-resize' => esc_html__( 'Resize 2', 'modula-best-grid-gallery'),
+							'custom'      => esc_html__( 'Custom', 'modula-best-grid-gallery'),
+						),
+					),
+				),	
 			),
 			'style' => array(
 				"borderSize"   => array(
 					"name"        => esc_html__( 'Border Size', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
-					"description" => esc_html__( 'Set the border size of images in your gallrey.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Set the border size of images in your gallery.', 'modula-best-grid-gallery' ),
 					"min"         => 0,
 					"max"         => 10,
 					"default"     => 0,
@@ -515,8 +547,10 @@ class Modula_CPT_Fields_Helper {
 		} else {
 			return array();
 		}
+		
+	}	
+	
 
-	}
 
 	public static function get_defaults() {
         return apply_filters('modula_lite_default_settings', array(
@@ -532,8 +566,10 @@ class Modula_CPT_Fields_Helper {
             'shuffle'                   => 0,
             'titleColor'                => '',
             'captionColor'              => '#ffffff',
-            'wp_field_caption'          => 'none',
-            'wp_field_title'            => 'none',
+            // Will comment these lines, maybe in the future we revert to them.
+            // For now the settings are disabled
+            //'wp_field_caption'          => 'none',
+           // 'wp_field_title'            => 'none',
             'hide_title'                => 0,
             'hide_description'          => 0,
             'captionFontSize'           => '14',
@@ -544,10 +580,12 @@ class Modula_CPT_Fields_Helper {
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
-            'enableTwitter'             => 1,
+			'enableTwitter'             => 1,
+			'enableWhatsapp'            => 0,
             'filterClick'               => 0,
             'socialIconColor'           => '#ffffff',
-            'loadedScale'               => '100',
+	      	'loadedScale'               => '100',
+	      	'cursor'                    => 'magnifying-glass',
             'effect'                    => 'pufrobo',
             'borderColor'               => '#ffffff',
             'borderRadius'              => '0',
