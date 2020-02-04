@@ -142,13 +142,7 @@ class Modula_Image {
         }
 
         // Get the destination file name
-        // Let the gif be resized
-        if('gif' != $ext){
-            $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
-        } else {
-            $dest_file_name = "${dir}/${name}.${ext}";
-        }
-
+        $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
 
         // Return the info.
         $info = array(
