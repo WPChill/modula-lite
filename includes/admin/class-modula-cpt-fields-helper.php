@@ -266,18 +266,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 				),
-                // Will only comment this setting, maybe we'll revert to it in the future
-				/*"wp_field_title"   => array(
-					"name"        => esc_html__( 'Default Title', 'modula-best-grid-gallery' ),
-					"type"        => "select",
-					"description" => __( 'If you leave the title blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
-					"values"      => array(
-						'none'        => esc_html__( 'No default', 'modula-best-grid-gallery' ),
-						'title'       => esc_html__( 'WP Image title', 'modula-best-grid-gallery' ),
-						'description' => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
-					),
-					'priority' => 20,
-				),*/
 				"titleColor"     => array(
 					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -301,19 +289,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
-				// Will only comment this setting, maybe we'll revert to it in the future
-				/*"wp_field_caption" => array(
-					"name"        => esc_html__( 'Default Caption', 'modula-best-grid-gallery' ),
-					"type"        => "select",
-					"description" => __( 'If you leave the caption blank Modula will get the title from WordPress image by default.', 'modula-best-grid-gallery' ),
-					"values"      => array(
-						"none"        => esc_html__( 'No default', 'modula-best-grid-gallery' ),
-						"title"       => esc_html__( 'WP Image title', 'modula-best-grid-gallery' ),
-						"caption"     => esc_html__( 'WP Image caption', 'modula-best-grid-gallery' ),
-						"description" => esc_html__( 'WP Image description', 'modula-best-grid-gallery' ),
-					),
-					'priority' => 60,
-				),*/
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
@@ -408,12 +383,12 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 50,
 				),
 				"socialIconPadding" => array(
-					"name"        => esc_html__( 'Space Between social sharing icons', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
-					"min"         => 10,
+					"min"         => 0,
                     "max"         => 20,
-					"description" => esc_html__( '0 will be the default value '),
-					"default"     => 20,
+					"description" => esc_html__( 'Space Between social sharing icons'),
+					"default"     => 10,
 					'priority'    => 50,
 				),
 			),
@@ -590,10 +565,6 @@ class Modula_CPT_Fields_Helper {
             'shuffle'                   => 0,
             'titleColor'                => '',
             'captionColor'              => '#ffffff',
-            // Will comment these lines, maybe in the future we revert to them.
-            // For now the settings are disabled
-            //'wp_field_caption'          => 'none',
-           // 'wp_field_title'            => 'none',
             'hide_title'                => 0,
             'hide_description'          => 0,
             'captionFontSize'           => '14',
@@ -609,7 +580,7 @@ class Modula_CPT_Fields_Helper {
             'filterClick'               => 0,
 			'socialIconColor'           => '#ffffff',
 			'socialIconSize'            => 16,
-			'socialIconPadding'         => 20,
+			'socialIconPadding'         => 10,
             'loadedScale'               => '100',
 	      	'cursor'                    => 'magnifying-glass',
             'effect'                    => 'pufrobo',

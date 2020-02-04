@@ -233,7 +233,7 @@ class Modula_Shortcode {
 			}
 
 			if ( $settings['socialIconPadding'] ) {
-				$css .= "#{$gallery_id} .modula-item .jtg-social a { width: " . absint($settings['socialIconPadding']) . 'px' . " }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social a { margin-right: " . absint($settings['socialIconPadding']) . 'px' . " }";
 			}
 
 			$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";
