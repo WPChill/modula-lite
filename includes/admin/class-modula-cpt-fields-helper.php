@@ -155,6 +155,12 @@ class Modula_CPT_Fields_Helper {
 						'creative-gallery' => esc_html__( 'Creative Gallery', 'modula-best-grid-gallery' ),
 						'custom-grid'      => esc_html__( 'Custom Grid', 'modula-best-grid-gallery' ),
 					),
+					"disabled" => array(
+						'title'  => esc_html__( 'Gallery types with PRO license', 'modula-best-grid-gallery' ),
+						'values' => array(
+							"slider"     => esc_html__( 'Slider', 'modula-best-grid-gallery' ),
+						),
+					),
 					'priority' => 10,
 				),
 				"gutter"   => array(
