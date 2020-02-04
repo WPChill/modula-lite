@@ -315,7 +315,7 @@ class Modula_Field_Builder {
 				break;
 			case 'color' :
 				$html .= '<div class="modula-colorpickers">';
-				$html .= '<input id="' . esc_attr( $field['id'] ) . '" class="modula-color" data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="' . esc_attr( $value ) . '">';
+				$html .= '<input id="' . esc_attr( $field['id'] ) . '" class="modula-color" data-alpha="true" data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="' . esc_attr( $value ) . '">';
 				$html .= '</div>';
 				break;
 			case "toggle":

@@ -149,6 +149,24 @@ class Modula_Helper {
         }
 
         return $gallery_array;
-    }
+	}
+	
+	public static function sanitize_rgba_colour( $color ) {
+		
+		if ( empty( $color ) || is_array( $color ) )
+			return 'rgba(0,0,0,0)';
+
+		if ( false === strpos( $color, 'rgba' ) ) {
+
+			return sanitize_hex_color( $color );
+			
+		}
+		
+		$color = str_replace( ' ', '', $color );
+		sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
+		
+		return 'rgba('.$red.','.$green.','.$blue.','.$alpha.')';
+
+	}
 	
 }
