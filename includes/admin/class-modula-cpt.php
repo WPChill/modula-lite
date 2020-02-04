@@ -270,6 +270,8 @@ class Modula_CPT {
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':
+							case 'socialIconSize':
+							case 'socialIconPadding':
 								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 								break;
 							case 'lightbox' :
