@@ -165,7 +165,7 @@ class Modula_Helper {
 		$color = str_replace( ' ', '', $color );
 		sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
 		
-		return 'rgba('.$red.','.$green.','.$blue.','.$alpha.')';
+		return 'rgba(' . absint( $red ) . ',' . absint( $green ) . ',' . absint( $blue ) . ',' . floatval( $alpha ) . ')';
 
 	}
 	
