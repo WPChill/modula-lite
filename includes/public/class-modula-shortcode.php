@@ -202,7 +202,7 @@ class Modula_Shortcode {
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		$this->loader->set_template_data( $template_data );
     	$this->loader->get_template_part( 'modula', 'gallery' );
-    	echo '<!--- This gallery was built with Modula Gallery --->';
+    	echo '<!-- This gallery was built with Modula Gallery -->';
     	$html = ob_get_clean();
     	return $html;
 
@@ -253,13 +253,13 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
 
 			if ( 'custom-grid' != $settings['type'] ) {
-			    // max-width is a fix for Twentytwenty theme
 
-        $activeTheme = wp_get_theme(); // gets the current theme
-        $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
-        if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {
-           $css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
-        }
+			// max-width is a fix for Twentytwenty theme
+	        $activeTheme = wp_get_theme(); // gets the current theme
+	        $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
+	        if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {
+	           $css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
+	        }
 				$css .= "#{$gallery_id} { width:" . esc_attr($settings['width']) . ";}";
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
@@ -281,7 +281,6 @@ class Modula_Shortcode {
 			}
 
 			// Responsive fixes
-
             $css .= '@media screen and (max-width:480px){';
 
             if ('' != $settings['mobileTitleFontSize'] && 0 != $settings['mobileTitleFontSize']) {
