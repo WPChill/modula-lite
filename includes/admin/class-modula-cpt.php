@@ -71,6 +71,11 @@ class Modula_CPT {
 				'callback' => 'output_gallery_images',
 				'context' => 'normal',
 			),
+            'modula-albums-upsell' => array(
+                'title' => esc_html__('Albums Upsell', 'modula-best-grid-gallery'),
+                'callback' => 'output_upsell_albums',
+                'context' => 'normal',
+            ),
 			'modula-settings' => array(
 				'title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_settings',
@@ -161,6 +166,35 @@ class Modula_CPT {
 		$this->builder->render( 'gallery' );
 	}
 
+    public function output_upsell_albums() {
+        ?>
+        <div class="modula-upsells-carousel-wrapper">
+            <div class="modula-upsells-carousel">
+                <div class="modula-upsell modula-upsell-item">
+                    <h2><?php esc_html_e( 'Modula Albums' , 'modula-best-grid-gallery' ) ?></h2>
+                    <h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.' , 'modula-best-grid-gallery' ) ?></h4>
+                    <ul class="modula-upsells-list">
+                        <li>Redirect to a gallery or a custom URL with the standalone functionality</li>
+                        <li>Arrange your albums using columns or the custom grid</li>
+                        <li>Hover effects</li>
+                        <li>Fully compatible with all the other Modula extensions </li>
+                        <li>Premium support</li>
+                    </ul>
+                    <p>
+                        <a target="_blank"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
+                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
+                        <a target="_blank"
+                           style="margin-top:10px;"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=upsell"
+                           class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
 	public function output_gallery_settings() {
 		$this->builder->render( 'settings' );
 	}
@@ -236,6 +270,8 @@ class Modula_CPT {
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':
+							case 'socialIconSize':
+							case 'socialIconPadding':
 								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 								break;
 							case 'lightbox' :
