@@ -35,6 +35,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/helper/class-modula-helper.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-image.php';
 		require_once MODULA_PATH . 'includes/public/modula-helper-functions.php';
+        require_once MODULA_PATH . 'includes/troubleshoot/class-modula-troubleshooting.php';
 
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-upsells.php';
@@ -56,6 +57,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
+            require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
+            require_once MODULA_PATH . 'includes/update/class-modula-update.php';
 
 		}
 
@@ -82,6 +85,10 @@ class Modula {
         add_filter('mce_buttons', array($this, 'editor_button'));
         add_filter('mce_external_plugins', array($this, 'register_editor_plugin'));
         add_action('wp_ajax_modula_shortcode_editor', array($this, 'modula_shortcode_editor'));
+
+        // Allow other mime types to be uploaded
+        add_filter('upload_mimes', array($this,'modula_upload_mime_types'));
+        add_filter('file_is_displayable_image', array($this,'modula_webp_display'), 10, 2);
 
 		new Modula_CPT();
 
@@ -118,6 +125,7 @@ class Modula {
         if ( 'modula-gallery' !== $screen->post_type ) {
             return;
         }
+
 
         // Set the post_id
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
@@ -250,6 +258,47 @@ class Modula {
         include 'admin/tinymce-galleries.php';
         wp_die();
 
+    }
+
+    /**
+     * @param $mimes
+     *
+     * @return mixed
+     *
+     * @since 2.2.4
+     * Allow WebP image type to be uploaded
+     */
+    public function modula_upload_mime_types($mimes){
+
+        $mimes['webp'] = 'image/webp';
+
+        return $mimes;
+    }
+
+    /**
+     * @param $result
+     * @param $path
+     *
+     * @return bool
+     *
+     * @since 2.2.4
+     * Enable thumbnail/preview for WebP image types.
+     */
+    function modula_webp_display($result, $path) {
+        if ($result === false) {
+            $displayable_image_types = array( IMAGETYPE_WEBP );
+            $info = @getimagesize( $path );
+
+            if (empty($info)) {
+                $result = false;
+            } elseif (!in_array($info[2], $displayable_image_types)) {
+                $result = false;
+            } else {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
     
 }

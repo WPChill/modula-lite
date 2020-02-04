@@ -37,7 +37,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
 	$item_data['link_attributes']['href'] = '#';
-	$caption = isset($item['description']) ? $item['description'] : '';
+    // Will comment these lines, maybe in the future we revert to them.
+    // For now the settings are disabled
+	/*$caption = isset($item['description']) ? $item['description'] : '';
 
 	if ( '' == $caption && 'none' != $settings['wp_field_caption'] ) {
 		switch ( $settings['wp_field_caption'] ) {
@@ -51,7 +53,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 				$caption = get_the_content( $item['id'] );
 				break;
 		}
-	}
+	}*/
+	// We will stick to the default caption
+	$caption = wp_get_attachment_caption( $item['id'] );
 
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
 		$item_data['link_attributes']['href'] = '#';

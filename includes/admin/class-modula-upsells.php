@@ -63,8 +63,8 @@ class Modula_Upsells {
 
 	public function hovereffects_tab_upsell( $tab_content ) {
 
-		$upsell_title       = esc_html__( 'Need a new hover effect?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock 11 more hover effects...', 'modula-best-grid-gallery' );
+		$upsell_title       = esc_html__( 'Need new hover effects and cursors ?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock 41 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'hovereffects' );
 
@@ -152,42 +152,49 @@ class Modula_Upsells {
 	public function meta_boxes_setup() {
 
 		/* Add meta boxes on the 'add_meta_boxes' hook. */
-  		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+  		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ),10 );
 
 	}
 
 	public function add_meta_boxes() {
-
 		add_meta_box(
 		    'modula-sorting-upsell',      // Unique ID
-		    esc_html__('Sorting', 'modula-best-grid-gallery'),    // Title
+		    esc_html__('Sorting Upsells', 'modula-best-grid-gallery'),    // Title
 		    array( $this, 'output_sorting_upsell' ),   // Callback function
 		    'modula-gallery',         // Admin page (or post type)
 		    'side',         // Context
 		    'default'         // Priority
 		);
-
 	}
 
 	public function output_sorting_upsell(){
 		?>
-		<div class="modula-upsell" style="margin-top:0;padding: 10px;">
-			<h2><?php esc_html_e( 'Looking for gallery sorting?', 'modula-best-grid-gallery' ) ?></h2>
-			<p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.', 'modula-best-grid-gallery' ) ?></p>
-			<ul style="list-style: circle;padding-left: 20px;">
-				<li>Date created - newest first</li>
-				<li>Date created - oldest first</li>
-				<li>Date modified - most recent first</li>
-				<li>Date modified - most recent last</li>
-				<li>Title alphabetically</li>
-				<li>Title reverse</li>
-				<li>Random</li>
-			</ul>
-			<p>
-				<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=litevspro#lite-vs-pro" class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
-				<a target="_blank" style="margin-top:10px;" href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=upsell" class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
-			</p>
-		</div>
+        <div class="modula-upsells-carousel-wrapper">
+            <div class="modula-upsells-carousel">
+                <div class="modula-upsell modula-upsell-item">
+                    <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
+                    <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
+                    <ul class="modula-upsells-list">
+                        <li>Date created - newest first</li>
+                        <li>Date created - oldest first</li>
+                        <li>Date modified - most recent first</li>
+                        <li>Date modified - most recent last</li>
+                        <li>Title alphabetically</li>
+                        <li>Title reverse</li>
+                        <li>Random</li>
+                    </ul>
+                    <p>
+                        <a target="_blank"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
+                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
+                        <a target="_blank"
+                           style="margin-top:10px;"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=upsell"
+                           class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
+                    </p>
+                </div>
+            </div>
+        </div>
 		<?php
 	}
 
