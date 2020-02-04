@@ -8,7 +8,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var tabs = jQuery('.modula-tabs .modula-tab');
 		this.set( 'rows', rows );
 		this.set( 'tabs', tabs );
-
+		
 		this.initEvents();
 		this.initValues();
 
@@ -19,15 +19,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:type', this.changedType );
 		this.listenTo( wp.Modula.Settings, 'change:effect', this.changedEffect );
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
-		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial);
+		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial );
+		this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
+		
 	},
 
 	initValues: function(){
 
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
 		this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
+		this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
-		this.disableSocial (false, wp.Modula.Settings.get('disableSocial'));
+		this.disableSocial (false, wp.Modula.Settings.get('disableSocial') );
 	},
 
 	changedType: function( settings, value ){
@@ -52,6 +55,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		}
 
+	},
+
+	changedCursor: function( settings, value ) {
+		var cursorBox = jQuery( '.modula-effects-preview > div' );
+		cursorBox.css( 'cursor', value);
 	},
 
 	changedLightbox: function( settings, value ){
@@ -90,4 +98,4 @@ var modulaGalleryConditions = Backbone.Model.extend({
         }
 	}
 
-});
+}) 

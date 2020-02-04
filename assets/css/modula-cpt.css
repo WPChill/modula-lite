@@ -386,16 +386,30 @@ tr label.th-label {
 
 /* Upsells */
 .modula-upsell {
-	background: #e5f3e2;
-    border: 1px solid #a8d69c;
-    padding: 20px;
+	background: #f1f1f1;
+   /* border: 1px solid #a8d69c;*/
+    border:0px;
+    padding: 15px;
     margin-top: 30px;
 }
+
+    /* We're handling the upsells inside metaboxes slightly different */
+    .form-table-wrapper .modula-upsell {
+        border: 1px solid #DDD;
+        text-align: center;
+    }
+
 #poststuff .modula-upsell h2 {
-	margin: 0 0 20px 0;
-	font-size: 16px;
+    margin: 0 0 20px 0;
+    font-size: 16px;
     font-weight: 700;
-    padding: 0;
+    background: #fff;
+    left: -15px;
+    top: -15px;
+    padding: 8px 12px;
+    position: relative;
+    width: calc(100% + 6px);
+    border-bottom: 1px solid #DDD
 }
 .modula-upsell p {
 	margin: 0;
@@ -407,6 +421,7 @@ tr label.th-label {
 	opacity: .8;
 	margin-top: 0;
 	margin-bottom: 10px;
+    padding:0px 10px;
 }
 .modula-upsell .button {
     height: 31px;
@@ -417,10 +432,10 @@ tr label.th-label {
 	margin-right: 10px;
 }
 .modula-upsell .button.button-primary {
-	background-color: #52ad3a;
+	/*background-color: #52ad3a;
 	border-color: #378c21;
 	box-shadow: 0 1px 0 #378c21;
-	text-shadow: 0 -1px 1px #378c21, 1px 0 1px #378c21, 0 1px 1px #378c21, -1px 0 1px #378c21;
+	text-shadow: 0 -1px 1px #378c21, 1px 0 1px #378c21, 0 1px 1px #378c21, -1px 0 1px #378c21;*/
 }
 .modula-upsell .action-link,
 .modula-upsell .action-link:hover {
@@ -1130,23 +1145,142 @@ a.modula-tab-link {
 .modula-toggle__input[type=checkbox]:checked + .modula-toggle__items .modula-toggle__on {
   display: inline-block; }
 
+p.description.alert {
+    color:#ff0000;
+}
+
+tr.troubleshoot-subfield.hide {
+    display:none;
+}
+
 /* Copy Shortcode */
 .modula-copy-shortcode {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
+
 .modula-copy-shortcode input {
     margin:0;
     border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   flex-grow:1;
 }
+
 .modula-copy-shortcode span {
   width: 100%;
 }
+
 .wp-core-ui .modula-copy-shortcode a.button-primary {
   height: 30px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+
+}
+
+/*
+Ups-sells carousel
+@since 2.2.4
+*/
+
+@keyframes carousel {
+    0% {
+        transform: translateX(0px);
+        opacity: 1 !important;
+    }
+    50% {
+        transform: translateX(0px);
+        opacity: 1 !important;
+    }
+    51% {
+        transform: translateX(-100%);
+        opacity: 1 !important;
+    }
+    99% {
+        transform: translateX(-100%);
+        opacity: 1 !important;
+    }
+    100% {
+        transform: translateX(-200%);
+        opacity: 1 !important;
+    }
+}
+
+.modula-upsells-carousel-wrapper{
+    position: relative;
+    display:flex;
+    overflow:hidden;
+}
+
+.modula-upsells-carousel {
+    /*animation: carousel 20s infinite;*/
+    flex-shrink: 0;
+    position: relative;
+   /* display:flex;*/
+    display:block;
+    width:100%;
+}
+
+.modula-upsells-carousel  .modula-upsell-item {
+    position: relative;
+    width:100%;
+    flex-shrink: 0;
+    margin-top:0;
+    left:-15px;
+}
+
+.modula-upsells-carousel  .modula-upsell-item {
+    text-align: center;
+}
+
+.modula-upsells-carousel  .modula-upsell-item  ul.modula-upsells-list {
+    padding-left:40px;
+}
+
+.modula-upsells-carousel  .modula-upsell-item ul li {
+    position: relative;
+    list-style-type: none !important;
+    text-align:left;
+}
+
+#modula-albums-upsell .modula-upsells-carousel  .modula-upsell-item ul li {
+    display: inline-block;
+    margin: 0px 15px 15px 35px;
+}
+
+.modula-upsells-carousel  .modula-upsell-item ul li:before {
+    font-family: Dashicons;
+    content: "\f147";
+    position: absolute;
+    left: -30px;
+    font-size: 14px;
+    color: green;
+    background-color: #FFF;
+    padding: 0 3px;
+    border-radius: 50%;
+    border: 1px solid #DDD;
+    top: -1px;
+}
+#modula-sorting-upsell > h2.hndle.ui-sortable-handle,
+#modula-sorting-upsell > button.handlediv,
+#modula-albums-upsell > h2.hndle.ui-sortable-handle,
+#modula-albums-upsell > button.handlediv {
+    display:none;
+}
+
+#modula-sorting-upsell > .inside,
+#modula-albums-upsell > .inside {
+    padding:0px;
+    margin:0 auto;
+}
+
+#modula_troubleshooting_option .modula-select label {
+  margin-right: 10px;
+}
+#modula_troubleshooting_option .modula-select label:last-child {
+  margin-right: 0;
+}
+
+#modula-albums-upsell h2 {
+    margin: 0 !important;
 }
