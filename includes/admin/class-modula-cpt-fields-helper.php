@@ -416,9 +416,24 @@ class Modula_CPT_Fields_Helper {
 				"cursor"  => array(
 					"name"         => esc_html__( 'Curson Icon', 'modula-best-grid-gallery'),
 					"description"  => esc_html__( 'Select your favourite cursor', 'modula-best-grid-gallery'),
-					"type"		   => "cursor-effect",
+					"type"		   => "select",
 					"default"	   => "zoom-in",
 					"priority"     => 12,
+					'values'       => array(
+						'pointer'  => esc_html__( 'Pointer', 'modula-best-grid-gallery'),
+						'zoom-in'  => esc_html__( 'Magnifying Glass', 'modula-best-grid-gallery'),
+					),
+					"disabled" => array(
+						'title'  => esc_html__( 'Cursors with PRO license', 'modula-best-grid-gallery' ),
+						'values' => array(
+							'wait'        => esc_html__( 'Loading', 'modula-best-grid-gallery'),
+							'cell'        => esc_html__( 'Cell', 'modula-best-grid-gallery'),
+							'crosshair'   => esc_html__( 'Crosshair', 'modula-best-grid-gallery'),
+							'nesw-resize' => esc_html__( 'Resize 1', 'modula-best-grid-gallery'),
+							'nwse-resize' => esc_html__( 'Resize 2', 'modula-best-grid-gallery'),
+							'custom'      => esc_html__( 'Custom', 'modula-best-grid-gallery'),
+						),
+					),
 				),	
 			),
 			'style' => array(
