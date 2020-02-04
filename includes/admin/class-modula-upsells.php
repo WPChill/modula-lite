@@ -64,7 +64,7 @@ class Modula_Upsells {
 	public function hovereffects_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Need new hover effects and cursors ?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock 11 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock 41 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'hovereffects' );
 
