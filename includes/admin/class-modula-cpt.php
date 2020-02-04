@@ -172,12 +172,13 @@ class Modula_CPT {
             <div class="modula-upsells-carousel">
                 <div class="modula-upsell modula-upsell-item">
                     <h2><?php esc_html_e( 'Modula Albums' , 'modula-best-grid-gallery' ) ?></h2>
-                    <p class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.' , 'modula-best-grid-gallery' ) ?></p>
+                    <h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.' , 'modula-best-grid-gallery' ) ?></h4>
                     <ul class="modula-upsells-list">
-                        <li>Standalone for both galleries and albums</li>
-                        <li>Wonderful effects</li>
-                        <li>Lots of customizations</li>
-                        <li>Fully compatible with other Modula add-ons </li>
+                        <li>Redirect to a gallery or a custom URL with the standalone functionality</li>
+                        <li>Arrange your albums using columns or the custom grid</li>
+                        <li>Hover effects</li>
+                        <li>Fully compatible with all the other Modula extensions </li>
+                        <li>Premium support</li>
                     </ul>
                     <p>
                         <a target="_blank"

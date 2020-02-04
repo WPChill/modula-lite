@@ -392,6 +392,18 @@ tr label.th-label {
     padding: 15px;
     margin-top: 30px;
 }
+
+    /* We're handling the upsells inside metaboxes slightly different */
+    .form-table-wrapper .modula-upsell {
+        border: 1px solid #DDD;
+        text-align: center;
+    }
+
+    .form-table-wrapper #poststuff .modula-upsell h2 {
+        width: calc(100% + 6px);
+        left: -9px;
+    }
+
 #poststuff .modula-upsell h2 {
     margin: 0 0 20px 0;
     font-size: 16px;
@@ -1238,16 +1250,21 @@ Ups-sells carousel
 
 #modula-albums-upsell .modula-upsells-carousel  .modula-upsell-item ul li {
     display: inline-block;
-    margin: 0px 15px;
+    margin: 0px 15px 15px 35px;
 }
 
 .modula-upsells-carousel  .modula-upsell-item ul li:before {
-    font-family:Dashicons;
+    font-family: Dashicons;
     content: "\f147";
     position: absolute;
-    left:-20px;
-    font-size: 12px;
-    color:green;
+    left: -30px;
+    font-size: 14px;
+    color: green;
+    background-color: #FFF;
+    padding: 0 3px;
+    border-radius: 50%;
+    border: 1px solid #DDD;
+    top: -1px;
 }
 #modula-sorting-upsell > h2.hndle.ui-sortable-handle,
 #modula-sorting-upsell > button.handlediv,
