@@ -44,7 +44,7 @@ ul.modula-about-list {
 }
 
 .modula-about-list li.feature:before {
-    content: "\f111";
+    content: "\f132";
     color:blue;
 }
 
