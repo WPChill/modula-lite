@@ -312,7 +312,7 @@ class Modula_Upgrades {
                 'img_size'                  => 300,
                 'margin'                    => '10',
                 'randomFactor'              => '50',
-                'lightbox'                  => 'lightbox2',
+                'lightbox'                  => 'fancybox',
                 'shuffle'                   => 0,
                 'captionColor'              => '#ffffff',
                 // Will comment these lines, maybe in the future we revert to them.

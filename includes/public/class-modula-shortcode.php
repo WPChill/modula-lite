@@ -28,11 +28,11 @@ class Modula_Shortcode {
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'modula-lightbox2', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/jquery.fancybox.css', null, MODULA_LITE_VERSION );
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'modula-lightbox2', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/jquery.fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
@@ -120,19 +120,23 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
-		/* Enqueue lightbox related scripts & styles */
-		switch ( $settings['lightbox'] ) {
-			case "lightbox2":
-				wp_enqueue_style( 'modula-lightbox2' );
-				wp_enqueue_script( 'modula-lightbox2' );
-				wp_add_inline_script( 'modula-lightbox2', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
-				break;
-			default:
-				do_action( 'modula_lighbox_shortcode', $settings['lightbox'] );
-				break;
-		}
+        /* Enqueue lightbox related scripts & styles */
+        wp_enqueue_style('modula-fancybox');
+        wp_enqueue_script('modula-fancybox');
 
-		do_action('modula_extra_scripts',$settings);
+        $arrows = (isset($settings['show_navigation']) && '1' == $settings['show_navigation']) ? true : false;
+        $loop   = (isset($settings['loop_lightbox']) && '1' == $settings['loop_lightbox']) ? true : false;
+        $fancybox_options = array(
+            'loop'  => $loop,
+            'arrows' => $arrows
+        );
+        // Add filter so we can hook to Fancybox options
+        $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options);
+        $fancybox_options = json_encode($fancybox_options);
+
+        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find(\'a.tile-inner\').fancybox('.$fancybox_options.')});');
+
+        do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ),$settings );

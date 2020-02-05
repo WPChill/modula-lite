@@ -6,6 +6,7 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'deeplink'         => false,
     'gridtypes'        => array(),
     'lightboxes'       => array(),
+    'lazy_load'        => false
 ));
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
@@ -18,22 +19,22 @@ $troubleshooting_fields = array(
         'default'     => 0,
         'priority'    => 10,
     ),
-    'gridtypes' => array(
-        'label'         => __('Grid Types', 'modula-best-grid-gallery'),
-        'description'   => __('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
-        'type'          => 'select',
-        'values'        => array( 'custom-grid' => __('Custom Grid', 'modula-best-grid-gallery') ),
-        'priority'      => 20,
+    'gridtypes'     => array(
+        'label'       => __('Grid Types', 'modula-best-grid-gallery'),
+        'description' => __('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
+        'type'        => 'select',
+        'values'      => array('custom-grid' => __('Custom Grid', 'modula-best-grid-gallery')),
+        'priority'    => 20,
 
     ),
-    'lightboxes' => array(
-        'label'         => __('Lightboxes', 'modula-best-grid-gallery'),
-        'description'   => __('Select which lightboxes you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
-        'type'          => 'select',
-        'values'        => array( 'lightbox2' => __('Lightbox2', 'modula-best-grid-gallery') ),
-        'priority'      => 30,
+    'lightboxes'    => array(
+        'label'       => __('Lightbox', 'modula-best-grid-gallery'),
+        'description' => __('Select which lightboxes you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
+        'type'        => 'select',
+        'values'      => array('fancybox' => __('Fancybox', 'modula-best-grid-gallery')),
+        'priority'    => 30,
     ),
-    'lazy_load' => array(
+    'lazy_load'     => array(
         'label'       => __('Lazy Load', 'modula-best-grid-gallery'),
         'description' => __('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
         'type'        => 'toggle',

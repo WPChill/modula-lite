@@ -252,7 +252,7 @@ class Modula_CPT {
 					if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 
 						// Values for selects
-						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'lightbox2', 'attachment-page' ) );
+						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in') );
 
@@ -278,7 +278,7 @@ class Modula_CPT {
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $lightbox_values ) ) {
 									$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
 								}else{
-									$modula_settings[ $field_id ] = 'lightbox2';
+									$modula_settings[ $field_id ] = 'fancybox';
 								}
 								break;
 							case 'disableSocial':

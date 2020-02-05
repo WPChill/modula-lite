@@ -37,23 +37,8 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
 	$item_data['link_attributes']['href'] = '#';
-    // Will comment these lines, maybe in the future we revert to them.
-    // For now the settings are disabled
-	/*$caption = isset($item['description']) ? $item['description'] : '';
+    $item_data['link_attributes']['data-fancybox'] = esc_attr($settings['gallery_id']);
 
-	if ( '' == $caption && 'none' != $settings['wp_field_caption'] ) {
-		switch ( $settings['wp_field_caption'] ) {
-			case 'title':
-				$caption = get_the_title( $item['id'] );
-				break;
-			case 'caption':
-				$caption = wp_get_attachment_caption( $item['id'] );
-				break;
-			case 'description':
-				$caption = get_the_content( $item['id'] );
-				break;
-		}
-	}*/
 	// We will stick to the default caption
 	$caption = wp_get_attachment_caption( $item['id'] );
 
@@ -73,21 +58,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
 	}
 
-	if ( in_array( $settings['lightbox'], array( 'prettyphoto', 'swipebox' ) ) ) {
-		$item_data['link_attributes']['title'] = strip_tags( $caption );
-	}elseif ( 'lightgallery' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-sub-html'] = strip_tags( $caption );
-	}else{
-		$item_data['link_attributes']['data-title'] = $caption;
-	}
 
-	if ( 'prettyphoto' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['rel'] = 'prettyPhoto[' . $settings['gallery_id'] . ']';
-	}elseif ( 'lightbox2' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-lightbox'] = $settings['gallery_id'];
-	}else{
-		$item_data['link_attributes']['rel'] = $settings['gallery_id'];
-	}
+    $item_data['link_attributes']['data-caption'] = $caption;
+    $item_data['link_attributes']['rel']          = $settings['gallery_id'];
 
 	return $item_data;
 }

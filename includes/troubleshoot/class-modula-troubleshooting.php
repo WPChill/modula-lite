@@ -77,6 +77,7 @@ class Modula_Troubleshooting {
             'deeplink'         => false,
             'gridtypes'        => array(),
             'lightboxes'       => array(),
+            'lazy_load'        => false
         ));
 
         $ts_opt = get_option( 'modula_troubleshooting_option', array() );
@@ -157,9 +158,9 @@ class Modula_Troubleshooting {
     public function check_lightbox( $handles, $options ){
 
         $lightboxes = apply_filters( 'modula_troubleshooting_lightboxes_handles', array(
-            'lightbox2' => array(
-                'scripts' => 'modula-lightbox2',
-                'styles'  => 'modula-lightbox2',
+            'fancybox' => array(
+                'scripts' => 'modula-fancybox',
+                'styles'  => 'modula-fancybox',
             )
         ));
 

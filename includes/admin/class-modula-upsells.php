@@ -43,7 +43,7 @@ class Modula_Upsells {
 	public function general_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Looking for even more control and even more powerful galleries?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to get access to 5 more lightboxes, extra styles and more...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to get access to Fancybox Lightbox extra options, extra styles and more...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general' );
 
@@ -107,7 +107,7 @@ class Modula_Upsells {
 
     public function misc_tab_upsell( $tab_content ) {
 
-        $upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightboxes or protect your images from stealing?', 'modula-best-grid-gallery' );
+        $upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightboxe or protect your images from stealing?', 'modula-best-grid-gallery' );
         $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
 
         $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );

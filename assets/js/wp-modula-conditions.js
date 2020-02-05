@@ -18,7 +18,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		this.listenTo( wp.Modula.Settings, 'change:type', this.changedType );
 		this.listenTo( wp.Modula.Settings, 'change:effect', this.changedEffect );
-		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
 		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial );
 		this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
 		
@@ -29,7 +28,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
 		this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
 		this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
-		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
 		this.disableSocial (false, wp.Modula.Settings.get('disableSocial') );
 	},
 
@@ -60,22 +58,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	changedCursor: function( settings, value ) {
 		var cursorBox = jQuery( '.modula-effects-preview > div' );
 		cursorBox.css( 'cursor', value);
-	},
-
-	changedLightbox: function( settings, value ){
-		var rows = this.get( 'rows' ),
-			tabs = this.get( 'tabs' );
-
-		if ( 'lightbox2' == value ) {
-			
-			rows.filter( '[data-container="show_navigation"], [data-container="show_navigation_on_mobile"]' ).show();
-
-		}else{
-
-			rows.filter( '[data-container="show_navigation"], [data-container="show_navigation_on_mobile"]' ).hide();
-
-		}
-
 	},
 
 	changedEffect: function( settings, value ){
