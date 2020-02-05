@@ -1,4 +1,4 @@
-= 2.2.4 =
+= 2.2.4 - 05/02/2020 =
 Added 'What's new' page
 Added Uninstall options to remove data entries from DB
 Added troubleshooting options to enqueue CSS and JS files everywhere
