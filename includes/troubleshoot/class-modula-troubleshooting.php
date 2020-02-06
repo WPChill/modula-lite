@@ -72,9 +72,6 @@ class Modula_Troubleshooting {
     public function public_enqueue_scripts() {
         $defaults = apply_filters( 'modula_troubleshooting_defaults', array(
             'enqueue_files'    => false,
-            'pass_protect'     => false,
-            'download_protect' => false,
-            'deeplink'         => false,
             'gridtypes'        => array(),
             'lightboxes'       => array(),
             'lazy_load'        => false

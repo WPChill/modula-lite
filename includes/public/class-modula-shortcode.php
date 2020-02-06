@@ -127,14 +127,38 @@ class Modula_Shortcode {
         $arrows = (isset($settings['show_navigation']) && '1' == $settings['show_navigation']) ? true : false;
         $loop   = (isset($settings['loop_lightbox']) && '1' == $settings['loop_lightbox']) ? true : false;
         $fancybox_options = array(
-            'loop'  => $loop,
-            'arrows' => $arrows
+            'loop'    => $loop,
+            'arrows'  => $arrows,
+            'toolbar' => true,
+            'buttons' => array(
+                'zoom', 'fullScreen', 'close'
+            ),
+            'hash'    => false,
+            'lang'    => 'en',
+            'i18n'    => array(
+                'en' => array(
+                    'CLOSE'       => esc_html__('Close', 'modula-best-grid-gallery'),
+                    'NEXT'        => esc_html__('Next', 'modula-best-grid-gallery'),
+                    'PREV'        => esc_html__('Previous', 'modula-best-grid-gallery'),
+                    'Error'       => esc_html__('The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery'),
+                    'PLAY_START'  => esc_html__('Start slideshow', 'modula_best-grid_gallery'),
+                    'PLAY_STOP'   => esc_html__('Pause slideshow', 'modula-best-grid-gallery'),
+                    'FULL_SCREEN' => esc_html__('Full screen', 'modula-best-grid-gallery'),
+                    'THUMBS'      => esc_html__('Thumbnails', 'modula_best-grid_gallery'),
+                    'DOWNLOAD'    => esc_html__('Download', 'modula_best-grid_gallery'),
+                    'SHARE'       => esc_html__('Share', 'modula_best-grid_gallery'),
+                    'ZOOM'        => esc_html__('Zoom', 'modula_best-grid_gallery'),
+                )
+            )
         );
-        // Add filter so we can hook to Fancybox options
+        /**
+         * Hook: modula_fancybox_options.
+         *
+         */
         $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options);
         $fancybox_options = json_encode($fancybox_options);
 
-        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find(\'a.tile-inner\').fancybox('.$fancybox_options.')});');
+        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
 
         do_action('modula_extra_scripts', $settings);
 
@@ -258,7 +282,7 @@ class Modula_Shortcode {
 
 			if ( 'custom-grid' != $settings['type'] ) {
 
-			// max-width is a fix for Twentytwenty theme
+			// max-width is a fix for TwentyTwenty theme
 	        $activeTheme = wp_get_theme(); // gets the current theme
 	        $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
 	        if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {

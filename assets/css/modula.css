@@ -444,7 +444,8 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	display: none;
 }
 
-#lightbox.lightbox {
+/*@todo: delete commented lines after testing*/
+/*#lightbox.lightbox {
 	position: fixed;
 	top:50% !important;
 	transform: translateY(-50%);
@@ -458,6 +459,13 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 		width:auto !important;
 		display:inline-block;
 	}
-}
+}*/
 
 .modula .modula-items .modula-item>a{cursor:zoom-in;}
+
+/**
+Fix for admin bar overfloating
+ */
+.fancybox-container.fancybox-is-open {
+	z-index:99999999;
+}
