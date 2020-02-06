@@ -127,15 +127,17 @@ class Modula_Shortcode {
         $arrows = (isset($settings['show_navigation']) && '1' == $settings['show_navigation']) ? true : false;
         $loop   = (isset($settings['loop_lightbox']) && '1' == $settings['loop_lightbox']) ? true : false;
         $fancybox_options = array(
-            'loop'    => $loop,
-            'arrows'  => $arrows,
-            'toolbar' => true,
-            'buttons' => array(
+            'loop'            => $loop,
+            'arrows'          => $arrows,
+            'toolbar'         => true,
+            'keyboard'        => false,
+            'wheel'           => false,
+            'buttons'         => array(
                 'zoom', 'fullScreen', 'close'
             ),
-            'hash'    => false,
-            'lang'    => 'en',
-            'i18n'    => array(
+            'hash'            => false,
+            'lang'            => 'en',
+            'i18n'            => array(
                 'en' => array(
                     'CLOSE'       => esc_html__('Close', 'modula-best-grid-gallery'),
                     'NEXT'        => esc_html__('Next', 'modula-best-grid-gallery'),
@@ -149,7 +151,12 @@ class Modula_Shortcode {
                     'SHARE'       => esc_html__('Share', 'modula_best-grid_gallery'),
                     'ZOOM'        => esc_html__('Zoom', 'modula_best-grid_gallery'),
                 )
-            )
+            ),
+            'clickSlide'      => false,
+            'clickOutside'    => false,
+            'dblclickContent' => false,
+            'dblclickSlide'   => false,
+            'dblclickOutside' => false,
         );
         /**
          * Hook: modula_fancybox_options.
