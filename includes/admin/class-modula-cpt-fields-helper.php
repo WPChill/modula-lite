@@ -226,18 +226,19 @@ class Modula_CPT_Fields_Helper {
 							'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' ),
 						),
 					),
+                    'priority' => 130,
 				),
 				"show_navigation" => array(
 					"name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
-					'priority'    => 111,
+					'priority'    => 140,
 				),
                 "loop_lightbox" => array(
                     "name"        => esc_html__( 'Enable infinite gallery navigation', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
                     "default"     => 1,
-                    'priority'    => 111,
+                    'priority'    => 140,
                 ),
 				"shuffle"         => array(
 					"name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
