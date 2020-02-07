@@ -168,5 +168,40 @@ class Modula_Helper {
 		return 'rgba(' . absint( $red ) . ',' . absint( $green ) . ',' . absint( $blue ) . ',' . floatval( $alpha ) . ')';
 
 	}
+
+    public static function lightbox_default_options(){
+        $fancybox_options = array(
+            'loop'            => false,
+            'arrows'          => false,
+            'toolbar'         => true,
+            'keyboard'        => false,
+            'wheel'           => false,
+            'buttons'         => array(
+                'zoom', 'fullScreen', 'close'
+            ),
+            'hash'            => false,
+            'lang'            => 'en',
+            'i18n'            => array(
+                'en' => array(
+                    'CLOSE'       => esc_html__('Close', 'modula-best-grid-gallery'),
+                    'NEXT'        => esc_html__('Next', 'modula-best-grid-gallery'),
+                    'PREV'        => esc_html__('Previous', 'modula-best-grid-gallery'),
+                    'Error'       => esc_html__('The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery'),
+                    'PLAY_START'  => esc_html__('Start slideshow', 'modula_best-grid_gallery'),
+                    'PLAY_STOP'   => esc_html__('Pause slideshow', 'modula-best-grid-gallery'),
+                    'FULL_SCREEN' => esc_html__('Full screen', 'modula-best-grid-gallery'),
+                    'THUMBS'      => esc_html__('Thumbnails', 'modula_best-grid_gallery'),
+                    'DOWNLOAD'    => esc_html__('Download', 'modula_best-grid_gallery'),
+                    'SHARE'       => esc_html__('Share', 'modula_best-grid_gallery'),
+                    'ZOOM'        => esc_html__('Zoom', 'modula_best-grid_gallery'),
+                )
+            ),
+            'clickSlide'      => false,
+            'clickOutside'    => false,
+            'dblclickContent' => false,
+            'dblclickSlide'   => false,
+            'dblclickOutside' => false,
+        );
+    }
 	
 }

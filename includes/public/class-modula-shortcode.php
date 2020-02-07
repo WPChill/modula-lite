@@ -124,40 +124,18 @@ class Modula_Shortcode {
         wp_enqueue_style('modula-fancybox');
         wp_enqueue_script('modula-fancybox');
 
-        $arrows = (isset($settings['show_navigation']) && '1' == $settings['show_navigation']) ? true : false;
-        $loop   = (isset($settings['loop_lightbox']) && '1' == $settings['loop_lightbox']) ? true : false;
-        $fancybox_options = array(
-            'loop'            => $loop,
-            'arrows'          => $arrows,
-            'toolbar'         => true,
-            'keyboard'        => false,
-            'wheel'           => false,
-            'buttons'         => array(
-                'zoom', 'fullScreen', 'close'
-            ),
-            'hash'            => false,
-            'lang'            => 'en',
-            'i18n'            => array(
-                'en' => array(
-                    'CLOSE'       => esc_html__('Close', 'modula-best-grid-gallery'),
-                    'NEXT'        => esc_html__('Next', 'modula-best-grid-gallery'),
-                    'PREV'        => esc_html__('Previous', 'modula-best-grid-gallery'),
-                    'Error'       => esc_html__('The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery'),
-                    'PLAY_START'  => esc_html__('Start slideshow', 'modula_best-grid_gallery'),
-                    'PLAY_STOP'   => esc_html__('Pause slideshow', 'modula-best-grid-gallery'),
-                    'FULL_SCREEN' => esc_html__('Full screen', 'modula-best-grid-gallery'),
-                    'THUMBS'      => esc_html__('Thumbnails', 'modula_best-grid_gallery'),
-                    'DOWNLOAD'    => esc_html__('Download', 'modula_best-grid_gallery'),
-                    'SHARE'       => esc_html__('Share', 'modula_best-grid_gallery'),
-                    'ZOOM'        => esc_html__('Zoom', 'modula_best-grid_gallery'),
-                )
-            ),
-            'clickSlide'      => false,
-            'clickOutside'    => false,
-            'dblclickContent' => false,
-            'dblclickSlide'   => false,
-            'dblclickOutside' => false,
-        );
+        $fancybox_options = array();
+        $default_fancybox_options = Modula_Helper::lightbox_default_options();
+
+        if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
+            $fancybox_options['arrows'] = true;
+        }
+        if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
+            $fancybox_options['loop'] = true;
+        }
+
+        $fancybox_options = wp_parse_args($fancybox_options,$default_fancybox_options);
+
         /**
          * Hook: modula_fancybox_options.
          *
