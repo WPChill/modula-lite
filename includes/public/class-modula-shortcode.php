@@ -162,7 +162,7 @@ class Modula_Shortcode {
          * Hook: modula_fancybox_options.
          *
          */
-        $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options);
+        $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
         $fancybox_options = json_encode($fancybox_options);
 
         wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
