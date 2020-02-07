@@ -170,7 +170,8 @@ class Modula_Helper {
 	}
 
     public static function lightbox_default_options(){
-        $fancybox_options = array(
+
+	    $fancybox_options = array(
             'loop'            => false,
             'arrows'          => false,
             'toolbar'         => true,
@@ -202,6 +203,8 @@ class Modula_Helper {
             'dblclickSlide'   => false,
             'dblclickOutside' => false,
         );
+
+	    return $fancybox_options;
     }
 	
 }
