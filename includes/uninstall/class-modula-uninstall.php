@@ -16,6 +16,19 @@ class Modula_Uninstall {
         ) );
         add_action( 'admin_footer-plugins.php' , array ( $this , 'add_uninstall_form' ) , 16 );
         add_action( 'wp_ajax_modula_uninstall_plugin' , array ( $this , 'modula_uninstall_plugin' ) );
+        add_action('admin_enqueue_scripts',array($this,'uninstall_scripts'));
+    }
+
+    /**
+     * Enqueue uninstall scripts
+     *
+     * @since 2.2.5
+     */
+    public function uninstall_scripts(){
+        $current_screen = get_current_screen();
+        if('plugins' == $current_screen->base){
+            wp_enqueue_style('modula-uninstall',MODULA_URL.'assets/css/uninstall.css');
+        }
     }
 
     /**
@@ -73,117 +86,7 @@ class Modula_Uninstall {
         <div class="modula-uninstall-form-bg"></div>
         <div class="modula-uninstall-form-wrapper"><span class="modula-uninstall-form"
                                                           id="modula-uninstall-form"></span></div>
-        <style type="text/css">
-            .modula-uninstall-form-active .modula-uninstall-form-bg {
-                background: rgba(0, 0, 0, .5);
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
 
-            .modula-uninstall-form-wrapper {
-                position: fixed;
-                z-index: 999;
-                display: none;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                margin: 0 auto;
-            }
-
-            .modula-uninstall-form-wrapper .uninstall {
-                text-align: center;
-            }
-
-            .modula-uninstall-form-active .modula-uninstall-form-wrapper {
-                display: block;
-                z-index: 999;
-            }
-
-            .modula-uninstall-form {
-                display: none;
-            }
-
-            .modula-uninstall-form-active .modula-uninstall-form {
-                position: absolute;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                top: 50%;
-                transform: translateY(-50%);
-                max-width: 600px;
-                background: #fff;
-                white-space: normal;
-            }
-
-            .modula-uninstall-form-head {
-                background: #774cce;
-                padding: 8px 18px;
-                position: relative;
-            }
-
-            .modula-uninstall-form-head h3 {
-                color: #fff;
-            }
-
-            .modula-uninstall-form-body {
-                padding: 8px 18px;
-                color: #444;
-            }
-
-            .deactivating-spinner {
-                display: none;
-            }
-
-            .deactivating-spinner .spinner {
-                float: none;
-                margin: 4px 4px 0 18px;
-                vertical-align: bottom;
-                visibility: visible;
-            }
-
-            .toggle-spinner .deactivating-spinner {
-                display: block !important;
-            }
-
-            .modula-uninstall-form-footer p {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .modula-uninstall-form.process-response .modula-uninstall-form-body {
-                position: relative;
-            }
-
-            .modula-uninstall-form.process-response .modula-uninstall-form-body:after {
-                content: "";
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, .5);
-            }
-
-            .modula-uninstall-form-head .close-uninstall-form {
-                position: absolute;
-                right: 15px;
-                color: #fff;
-                font-family: Arial;
-                font-size: 14px;
-                display: inline-block;
-                top: 50%;
-                transform: translateY(-50%);
-                cursor: pointer;
-            }
-        </style>
         <script type="text/javascript">
             jQuery(document).ready(function ($) {
                 var uninstall = $("a.uninstall-modula"),
