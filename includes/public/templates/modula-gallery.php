@@ -17,10 +17,6 @@
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
-                // Will comment these lines and replace with default, maybe in the future we revert to them.
-                // For now the settings are disabled
-				/*'title'            => Modula_Helper::get_title( $image, $data->settings['wp_field_title'] ),
-				'description'      => Modula_Helper::get_description( $image, $data->settings['wp_field_caption'] ),*/
                 'title'            => Modula_Helper::get_title( $image, 'title' ),
                 'description'      => Modula_Helper::get_description( $image, 'caption' ),
 				'lightbox'         => $data->settings['lightbox'],

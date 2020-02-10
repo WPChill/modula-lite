@@ -29,7 +29,7 @@ class Modula_Uninstall {
     public function filter_action_links( $links ) {
 
         $links = array_merge( $links , array (
-            '<a onclick="javascript:event.preventDefault();" id="modula-uninstall-link"  class="uninstall-modula" href="#">' . __( 'Uninstall' , 'modula-best-grid-gallery' ) . '</a>'
+            '<a onclick="javascript:event.preventDefault();" id="modula-uninstall-link"  class="uninstall-modula" href="#">' . esc_html__( 'Uninstall' , 'modula-best-grid-gallery' ) . '</a>'
         ) );
 
         return $links;
@@ -67,8 +67,8 @@ class Modula_Uninstall {
             $html .= '</div><!-- .modula-uninstall-options -->';
         }
         $html .= '</div><!-- .modula-uninstall-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Cleaning...' , 'colorlib-404-customizer' ) . '</p>';
-        $html .= '<div class="uninstall"><p><a id="modula-uninstall-submit-form" class="button button-primary" href="#">' . __( 'Uninstall' , 'colorlib-404-customizer' ) . '</a></p></div>'
+        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . esc_html__( 'Cleaning...' , 'colorlib-404-customizer' ) . '</p>';
+        $html .= '<div class="uninstall"><p><a id="modula-uninstall-submit-form" class="button button-primary" href="#">' . esc_html__( 'Uninstall' , 'colorlib-404-customizer' ) . '</a></p></div>'
         ?>
         <div class="modula-uninstall-form-bg"></div>
         <div class="modula-uninstall-form-wrapper"><span class="modula-uninstall-form"
@@ -302,7 +302,7 @@ class Modula_Uninstall {
         global $wpdb;
         check_ajax_referer( 'modula_uninstall_plugin' , 'security' );
 
-        $uninstall_option = $_POST['options'];
+        $uninstall_option = isset($_POST['options']) ? $_POST['options'] : false;
 
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {

@@ -300,12 +300,13 @@ class Modula_CPT {
 							case 'shadowColor':
 								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
 								break;
-                            case 'lightbox_background_color':
+								//@todo : check these 2 options for usability
+                           /* case 'lightbox_background_color':
                                 $modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
                                 break;
                             case 'lightbox_popup_opacity' :
                                 $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
-                                break;
+                                break;*/
 							case 'Effect' :
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
 									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
@@ -366,7 +367,7 @@ class Modula_CPT {
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
 				),
 				'extensions' => array(
-					'name' => __( 'Extensions', 'modula-best-grid-gallery' ),
+					'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
 				),
 			);
@@ -509,16 +510,16 @@ class Modula_CPT {
 		<?php
 		$preview_link = esc_url( get_preview_post_link( $post ) );
 		if ( 'publish' == $post->post_status ) {
-			$preview_button_text = __( 'Preview Changes' );
+			$preview_button_text = esc_html__( 'Preview Changes' );
 		} else {
-			$preview_button_text = __( 'Preview' );
+			$preview_button_text = esc_html__( 'Preview' );
 		}
 
 		$preview_button = sprintf(
 			'%1$s<span class="screen-reader-text"> %2$s</span>',
 			$preview_button_text,
 			/* translators: Accessibility text. */
-			__( '(opens in a new tab)' )
+            esc_html__( '(opens in a new tab)' )
 		);
 		?>
 <a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>

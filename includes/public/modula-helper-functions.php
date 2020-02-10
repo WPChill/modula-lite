@@ -42,8 +42,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 	$caption = wp_get_attachment_caption( $item['id'] );
 
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
-	    //@todo : delete after testing. Already declared at beginning of function
-		//$item_data['link_attributes']['href'] = '#';
 	}elseif ( 'attachment-page' == $settings['lightbox'] ) {
 		if ( '' != $item['link'] ) {
 			$item_data['link_attributes']['href'] = $item['link'];
@@ -58,6 +56,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
 	}
 
+	// keep this in case other lightboxes are present
 	if('fancybox' == $settings['lightbox']){
         $item_data['link_attributes']['data-fancybox'] = esc_attr($settings['gallery_id']);
         $item_data['link_attributes']['rel']          = $settings['gallery_id'];

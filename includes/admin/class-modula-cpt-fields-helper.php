@@ -18,7 +18,6 @@ class Modula_CPT_Fields_Helper {
 			esc_html__( 'Easily let website visitors sort photos in your gallery by adding filters.', 'modula-best-grid-gallery' ),
 			esc_html__( 'Use this tab to create new filters which you can then start assigning filters to by editing images individually or by using the bulk edit option.', 'modula-best-grid-gallery' )
 		);
-        $miscellaneous_description = '<p>' . esc_html__( 'Here you can enable copyright protection and Modula lightbox deeplink functionality', 'modula-best-grid-gallery' ) . '</p>';
 
 		return apply_filters( 'modula_gallery_tabs', array(
 			'general' => array(
@@ -100,7 +99,6 @@ class Modula_CPT_Fields_Helper {
             'misc' => array(
                 'label'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
-                //'description' => $miscellaneous_description,
                 "icon"        => "dashicons dashicons-image-filter",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 100,
@@ -116,7 +114,6 @@ class Modula_CPT_Fields_Helper {
             'password_protect' => array(
                 'label'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Password protect your galleries', 'modula-best-grid-gallery'),
-                //'description' => $password_protect_description,
                 "icon"        => "dashicons dashicons-shield",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 120,
@@ -124,7 +121,6 @@ class Modula_CPT_Fields_Helper {
             'watermark' => array(
                 'label'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Watermark settings to protect your galleries', 'modula-best-grid-gallery'),
-                //'description' => $watermark_description,
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 130,

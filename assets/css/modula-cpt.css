@@ -386,18 +386,18 @@ tr label.th-label {
 
 /* Upsells */
 .modula-upsell {
-	background: #f1f1f1;
-   /* border: 1px solid #a8d69c;*/
-    border:0px;
+    background: #f1f1f1;
+    /* border: 1px solid #a8d69c;*/
+    border: 0px;
     padding: 15px;
     margin-top: 30px;
 }
 
-    /* We're handling the upsells inside metaboxes slightly different */
-    .form-table-wrapper .modula-upsell {
-        border: 1px solid #DDD;
-        text-align: center;
-    }
+/* We're handling the upsells inside metaboxes slightly different */
+.form-table-wrapper .modula-upsell {
+    border: 1px solid #DDD;
+    text-align: center;
+}
 
 #poststuff .modula-upsell h2 {
     margin: 0 0 20px 0;
@@ -431,12 +431,7 @@ tr label.th-label {
 .modula-upsell .button:first-child {
 	margin-right: 10px;
 }
-.modula-upsell .button.button-primary {
-	/*background-color: #52ad3a;
-	border-color: #378c21;
-	box-shadow: 0 1px 0 #378c21;
-	text-shadow: 0 -1px 1px #378c21, 1px 0 1px #378c21, 0 1px 1px #378c21, -1px 0 1px #378c21;*/
-}
+
 .modula-upsell .action-link,
 .modula-upsell .action-link:hover {
 	background: #51AD31;

@@ -135,7 +135,7 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options = $_POST['modula_troubleshooting_option'];
+        $troubleshooting_options = isset($_POST['modula_troubleshooting_option']) ? $_POST['modula_troubleshooting_option'] : false;
         $ts_options              = array();
 
         if ( is_array( $troubleshooting_options ) && !empty( $troubleshooting_options ) ) {
