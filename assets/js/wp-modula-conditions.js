@@ -63,16 +63,17 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	changedLightbox: function( settings, value ){
-		var rows = this.get( 'rows' ),
-			tabs = this.get( 'tabs' );
+		var rows         = this.get('rows'),
+			tabs         = this.get('tabs'),
+			link_options = ['no-link', 'direct', 'attachment-page'];
 
-		if ( 'fancybox' == value ) {
+		if ( 'fancybox' == value || jQuery.inArray(value, link_options) == -1 ) {
 
-			rows.filter( '[data-container="show_navigation"], [data-container="loop_lightbox"]' ).show();
+			rows.filter('[data-container="show_navigation"], [data-container="loop_lightbox"]').show();
 
-		}else{
+		} else {
 
-			rows.filter( '[data-container="show_navigation"], [data-container="loop_lightbox"]' ).hide();
+			rows.filter('[data-container="show_navigation"], [data-container="loop_lightbox"]').hide();
 
 		}
 
