@@ -107,3 +107,7 @@
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+.modula-red-text {
+    color:red;
+}
