@@ -27,6 +27,13 @@ class Modula_CPT_Fields_Helper {
 				"icon"        => "dashicons dashicons-admin-generic",
 				'priority'    => 10,
 			),
+            'lightboxes' => array(
+                'label' => esc_html__('Lightbox & Links'),
+                'title' => esc_html__('Lightbox & Links settings'),
+                'description' => '',
+                'icon' => 'dashicons dashicons-layout',
+                'priority'    => 10,
+            ),
 			'filters' => array(
 				'label'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
 				'title'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
@@ -207,43 +214,45 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 50,
 					'priority' => 70,
 				),
-				"lightbox"       => array(
-					"name"        => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
-					"type"        => "select",
-					"description" => esc_html__( 'Choose how the gallery should behave on image clicking.', 'modula-best-grid-gallery' ),
-					'default'     => 'fancybox',
-					"values"      => array(
-						esc_html__( 'Link', 'modula-best-grid-gallery' ) => array(
-							"no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
-							"direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
-							"attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' )
-						),
-						esc_html__( 'Lightboxes', 'modula-best-grid-gallery' ) => array(
-							'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' ),
-						),
-					),
-                    'priority' => 130,
-				),
-				"show_navigation" => array(
-					"name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 1,
-					'priority'    => 140,
-				),
+                "shuffle"         => array(
+                    "name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "default"     => 0,
+                    "description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
+                    'priority'    => 10,
+                ),
+			),
+			'lightboxes' => array(
+                "lightbox"       => array(
+                    "name"        => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
+                    "type"        => "select",
+                    "description" => esc_html__( 'Choose how the gallery should behave on image clicking.', 'modula-best-grid-gallery' ),
+                    'default'     => 'fancybox',
+                    "values"      => array(
+                        esc_html__( 'Link', 'modula-best-grid-gallery' ) => array(
+                            "no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
+                            "direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
+                            "attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' )
+                        ),
+                        esc_html__( 'Lightboxes', 'modula-best-grid-gallery' ) => array(
+                            'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' ),
+                        ),
+                    ),
+                    'priority' => 10,
+                ),
+                "show_navigation" => array(
+                    "name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "default"     => 1,
+                    'priority'    => 10,
+                ),
                 "loop_lightbox" => array(
                     "name"        => esc_html__( 'Enable infinite gallery navigation', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
                     "default"     => 1,
-                    'priority'    => 140,
+                    'priority'    => 10,
                 ),
-				"shuffle"         => array(
-					"name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
-					'priority'    => 120,
-				),
-			),
+            ),
 			'captions' => array(
 				"hide_title"        => array(
 					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
