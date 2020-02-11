@@ -178,7 +178,7 @@ class Modula_Helper {
             'keyboard'        => false,
             'wheel'           => false,
             'buttons'         => array(
-                'zoom', 'fullScreen', 'close'
+                 'close'
             ),
             'hash'            => false,
             'lang'            => 'en',
