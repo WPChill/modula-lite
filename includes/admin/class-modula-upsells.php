@@ -14,6 +14,7 @@ class Modula_Upsells {
 		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
 		add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
 		add_filter( 'modula_filters_tab_content', array( $this, 'filters_tab_upsell' ) );
+        add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightboxes_tab_upsell' ) );
         add_filter( 'modula_misc_tab_content', array( $this, 'misc_tab_upsell' ) );
         add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
         add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
@@ -104,6 +105,16 @@ class Modula_Upsells {
 		return $tab_content;
 
 	}
+
+	public function lightboxes_tab_upsell($tab_content) {
+
+        $upsell_title       = esc_html__( 'Looking to add more functionality to your lightbox?', 'modula-best-grid-gallery' );
+        $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to a impressive number of options and settings for your lightbox, everything from toolbar buttons to animations and transitions.', 'modula-best-grid-gallery' );
+
+        $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'lightboxes' );
+
+        return $tab_content;
+    }
 
     public function misc_tab_upsell( $tab_content ) {
 
