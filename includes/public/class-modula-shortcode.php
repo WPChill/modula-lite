@@ -130,6 +130,7 @@ class Modula_Shortcode {
         if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
             $fancybox_options['arrows'] = true;
         }
+
         if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
             $fancybox_options['loop'] = true;
         }
