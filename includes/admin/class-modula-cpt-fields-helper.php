@@ -249,7 +249,7 @@ class Modula_CPT_Fields_Helper {
                 "loop_lightbox" => array(
                     "name"        => esc_html__( 'Enable infinite gallery navigation', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
-                    "default"     => 1,
+                    "default"     => 0,
                     'priority'    => 10,
                 ),
             ),
