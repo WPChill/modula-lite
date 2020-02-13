@@ -124,25 +124,25 @@ class Modula_Shortcode {
         wp_enqueue_style('modula-fancybox');
         wp_enqueue_script('modula-fancybox');
 
-        $fancybox_options = array();
+        $fancybox_options = array('options' => array());
         $default_fancybox_options = Modula_Helper::lightbox_default_options();
 
         if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
-            $fancybox_options['arrows'] = true;
+            $fancybox_options['options']['arrows'] = true;
         }
 
         if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
-            $fancybox_options['loop'] = true;
+            $fancybox_options['options']['loop'] = true;
         }
 
-        $fancybox_options = wp_parse_args($fancybox_options,$default_fancybox_options);
+        $fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
 
         /**
          * Hook: modula_fancybox_options.
          *
          */
         $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
-        $fancybox_options = json_encode($fancybox_options);
+        $fancybox_options = json_encode($fancybox_options['options']);
 
         wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
 
