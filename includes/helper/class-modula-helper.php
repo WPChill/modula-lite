@@ -204,6 +204,7 @@ class Modula_Helper {
                 'dblclickContent' => false,
                 'dblclickSlide'   => false,
                 'dblclickOutside' => false,
+                'clickContent'    => false,
             )
         );
 
