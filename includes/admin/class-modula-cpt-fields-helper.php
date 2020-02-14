@@ -241,14 +241,16 @@ class Modula_CPT_Fields_Helper {
                     'priority' => 1,
                 ),
                 "show_navigation" => array(
-                    "name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
+                    "name"        => esc_html__( 'Navigation arrows', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
+                    "description" => esc_html__( 'Enable this to display navigation arrows.', 'modula-best-grid-gallery' ),
                     "default"     => 1,
                     'priority'    => 1,
                 ),
                 "loop_lightbox" => array(
-                    "name"        => esc_html__( 'Enable infinite gallery navigation', 'modula-best-grid-gallery' ),
+                    "name"        => esc_html__( 'Infinite gallery navigation', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
+                    "description" => esc_html__( 'Enable this to allow infinite lightbox navigation.', 'modula-best-grid-gallery' ),
                     "default"     => 0,
                     'priority'    => 1,
                 ),
