@@ -454,7 +454,8 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
 
         });
 
-        /*new ResizeSensor( instance.$element, function() {
+        // Gives error on front
+/*        new ResizeSensor( instance.$element, function() {
             instance.onResize(instance);
         });*/
 
@@ -547,7 +548,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             var text = plugin.options.whatsappText || document.title;
             if (!plugin.options.whatsappText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
-            var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI(location.href.split('#')[0]) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
+            var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((window.location.href.split("#")[0])) +'&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
             return false;
         });
@@ -636,4 +637,15 @@ jQuery( document ).ready( function($){
         $( '#' + modulaID ).modulaGallery( modulaSettings );
 
     });
+});
+
+jQuery('.modula-item').on('click', function(e){
+    window.location.hash = "#";
+    window.addEventListener('popstate', onBackDown, false);
+    window.addEventListener('backbutton', onBackDown, false);
+    function onBackDown() {
+        this.event.preventDefault();
+        jQuery('.lb-close').click();
+        this.window.location.hash = "";
+    }
 });

@@ -39,23 +39,11 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 	$item_data['link_attributes']['href'] = '#';
     // Will comment these lines, maybe in the future we revert to them.
     // For now the settings are disabled
-	/*$caption = isset($item['description']) ? $item['description'] : '';
-
-	if ( '' == $caption && 'none' != $settings['wp_field_caption'] ) {
-		switch ( $settings['wp_field_caption'] ) {
-			case 'title':
-				$caption = get_the_title( $item['id'] );
-				break;
-			case 'caption':
-				$caption = wp_get_attachment_caption( $item['id'] );
-				break;
-			case 'description':
-				$caption = get_the_content( $item['id'] );
-				break;
-		}
-	}*/
-	// We will stick to the default caption
-	$caption = wp_get_attachment_caption( $item['id'] );
+    if ( isset($item['description']) && '' != $item['description'] ) {
+    	$caption = $item['description'];
+    }else{
+    	$caption = wp_get_attachment_caption( $item['id'] );
+    }
 
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
 		$item_data['link_attributes']['href'] = '#';
@@ -74,11 +62,11 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 	}
 
 	if ( in_array( $settings['lightbox'], array( 'prettyphoto', 'swipebox' ) ) ) {
-		$item_data['link_attributes']['title'] = strip_tags( $caption );
+		$item_data['link_attributes']['title'] = htmlentities( $caption );
 	}elseif ( 'lightgallery' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-sub-html'] = strip_tags( $caption );
+		$item_data['link_attributes']['data-sub-html'] = htmlentities( $caption );
 	}else{
-		$item_data['link_attributes']['data-title'] = $caption;
+		$item_data['link_attributes']['data-title'] = htmlentities($caption);
 	}
 
 	if ( 'prettyphoto' == $settings['lightbox'] ) {

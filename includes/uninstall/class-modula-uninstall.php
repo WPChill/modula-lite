@@ -266,14 +266,13 @@ class Modula_Uninstall {
     public function get_form_info() {
         $form            = array ();
         $form['heading'] = esc_html__( 'Sorry to see you go' , 'modula-best-grid-gallery' );
-        $form['body']    = '<strong style="color:red;">' . esc_html__( ' Caution!! This action CAN NOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
-        $form['options'] = array (
-
-            'delete_all'        => array (
+        $form['body']    = '<strong style="color:red;">' . esc_html__( ' Caution!! This action CANNOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
+        $form['options'] = apply_filters( 'modula_uninstall_options' ,array(
+            'delete_all'        => array(
                 'label'       => esc_html__( 'Delete all data' , 'modula-best-grid-gallery' ) ,
                 'description' => esc_html__( 'Select this to delete all data Modula plugin and it\'s add-ons have set in your database.' , 'modula-best-grid-gallery' )
             ) ,
-            'delete_options'    => array (
+            'delete_options'    => array(
                 'label'       => esc_html__( 'Delete Modula options' , 'modula-best-grid-gallery' ) ,
                 'description' => esc_html__( 'Delete options set by Modula plugin and it\'s add-ons  to options table in the database.' , 'modula-best-grid-gallery' )
             ) ,
@@ -281,15 +280,15 @@ class Modula_Uninstall {
                 'label'       => esc_html__( 'Delete Modula set transients' , 'modula-best-grid-gallery' ) ,
                 'description' => esc_html__( 'Delete transients set by Modula plugin and it\'s add-ons  to options table in the database.' , 'modula-best-grid-gallery' )
             ) ,
-            'delete_cpt'        => array (
+            'delete_cpt'        => array(
                 'label'       => esc_html__( 'Delete modula-gallery custom post type' , 'modula-best-grid-gallery' ) ,
                 'description' => esc_html__( 'Delete custom post types set by Modula plugin and it\'s add-ons in the database.' , 'modula-best-grid-gallery' )
             ) ,
-            'delete_old_tables' => array (
+            'delete_old_tables' => array(
                 'label'       => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x ' , 'modula-best-grid-gallery' ) ,
                 'description' => esc_html__( 'Delete old tables set by Modula Gallery plugin versions 1.x in the database.' , 'modula-best-grid-gallery' )
             )
-        );
+        ) );
 
         return $form;
     }
@@ -308,7 +307,7 @@ class Modula_Uninstall {
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {
             // filter for options to be added by Modula's add-ons
-            $options_array = apply_filters( 'modula_uninstall_options' , array ( 'modula_troubleshooting_option' , 'modula-checks' , 'modula_version' , 'widget_modula_gallery_widget' , 'modula-rate-time' ) );
+            $options_array = apply_filters( 'modula_uninstall_db_options' , array ( 'modula_troubleshooting_option' , 'modula-checks' , 'modula_version' , 'widget_modula_gallery_widget' , 'modula-rate-time' ) );
 
             foreach ( $options_array as $db_option ) {
                 delete_option( $db_option );
@@ -332,24 +331,15 @@ class Modula_Uninstall {
 
             // filter for post types, mainly for Modula Albums
             $post_types = apply_filters( 'modula_uninstall_post_types' , array ( 'modula-gallery' ) );
-            $galleries  = get_posts( array ( 'post_type' => $post_types , 'posts_per_page' => -1 ) );
-            $id_in      = '(';
-            $i          = 1;
+            $galleries  = get_posts( array( 'post_type' => $post_types , 'posts_per_page' => -1, 'fields' => 'ids' ) );
+            
 
             if ( is_array( $galleries ) && ! empty( $galleries ) ) {
 
-                foreach ( $galleries as $gallery ) {
-                    $id_in .= '\'' . $gallery->ID . '\'';
-                    if ( $i < count( $galleries ) ) {
-                        $id_in .= ',';
-                    }
-                    $i++;
-                }
+                $id_in = implode( ',', $galleries );
 
-                $id_in .= ')';
-
-                $sql      = $wpdb->prepare( "DELETE FROM  $wpdb->posts WHERE ID IN $id_in" );
-                $sql_meta = $wpdb->prepare( "DELETE FROM  $wpdb->postmeta WHERE post_id IN $id_in" );
+                $sql      = $wpdb->prepare( "DELETE FROM  $wpdb->posts WHERE ID IN ( $id_in )" );
+                $sql_meta = $wpdb->prepare( "DELETE FROM  $wpdb->postmeta WHERE post_id IN ( $id_in )" );
                 $wpdb->query( $sql );
                 $wpdb->query( $sql_meta );
             }
@@ -366,6 +356,8 @@ class Modula_Uninstall {
             $wpdb->query( $sql_modula_images_table );
 
         }
+
+        do_action( 'modula_uninstall' );
 
         deactivate_plugins( MODULA_FILE );
         wp_die();

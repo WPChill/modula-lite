@@ -1,39 +1,51 @@
 <?php
+$defaults = apply_filters('modula_troubleshooting_defaults', array(
+    'enqueue_files'    => false,
+    'pass_protect'     => false,
+    'download_protect' => false,
+    'deeplink'         => false,
+    'gridtypes'        => array(),
+    'lightboxes'       => array(),
+));
+$troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
+$troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
-$troubleshooting_options = get_option('modula_troubleshooting_option');
-$enqueue_files           = isset($troubleshooting_options['enqueue_files']) ? $troubleshooting_options['enqueue_files'] : false;
-$pass_protect            = isset($troubleshooting_options['pass_protect']) ? $troubleshooting_options['pass_protect'] : false;
-$download_protect        = isset($troubleshooting_options['download_protect']) ? $troubleshooting_options['download_protect'] : false;
-$deeplink                = isset($troubleshooting_options['deeplink']) ? $troubleshooting_options['deeplink'] : false;
-$grid_type               = isset($troubleshooting_options['grid_type']) ? $troubleshooting_options['grid_type'] : false;
-$lightbox                = isset($troubleshooting_options['lightbox']) ? $troubleshooting_options['lightbox'] : false;
-$general_fields = Modula_CPT_Fields_Helper::get_fields('general');
+$troubleshooting_fields = array(
+    'enqueue_files' => array(
+        'label'       => __('Enqueue Modula assets', 'modula-best-grid-gallery'),
+        'description' => __('Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery'),
+        'type'        => 'toggle',
+        'default'     => 0,
+        'priority'    => 10,
+    ),
+    'gridtypes' => array(
+        'label'         => __('Grid Types', 'modula-best-grid-gallery'),
+        'description'   => __('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
+        'type'          => 'select',
+        'values'        => array( 'custom-grid' => __('Custom Grid', 'modula-best-grid-gallery') ),
+        'priority'      => 20,
 
-$troubleshooting_fields['grid_type'] = array(
-    'name'          => __('Select which grid type script to enqueue', 'modula-best-grid-gallery'),
-    'data_settings' => 'grid_type',
-    'type'          => 'select',
-    'values'        => $general_fields['type']['values'],
-    'default'       => 'creative-gallery'
+    ),
+    'lightboxes' => array(
+        'label'         => __('Lightboxes', 'modula-best-grid-gallery'),
+        'description'   => __('Select which lightboxes you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
+        'type'          => 'select',
+        'values'        => array( 'lightbox2' => __('Lightbox2', 'modula-best-grid-gallery') ),
+        'priority'      => 30,
+    ),
+    'lazy_load' => array(
+        'label'       => __('Lazy Load', 'modula-best-grid-gallery'),
+        'description' => __('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
+        'type'        => 'toggle',
+        'priority'    => 40,
+    )
 );
 
-$troubleshooting_fields['lightbox'] = array(
-    'name'          => __('Select which Lightbox script to enqueue', 'modula-best-grid-gallery'),
-    'data_settings' => 'lightbox',
-    'type'          => 'select',
-    'values'        => $general_fields['lightbox']['values']['Lightboxes'],
-    'default'       => 'lightbox2'
-);
-
-$troubleshooting_fields['lazy_load'] = array(
-    'name'          => __('Enqueue Lazyload script', 'modula-best-grid-gallery'),
-    'data_settings' => 'lazy_load',
-    'type'          => 'toggle',
-    'default'       => 0
-);
-
-$troubleshooting_fields = apply_filters('modula_troubleshooting_fields', $troubleshooting_fields);
-$subfield_class = ($enqueue_files) ? '' : 'hide';
+$troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
+$class = 'troubleshoot-subfield';
+if ( ! $troubleshooting_options['enqueue_files'] ) {
+    $class .= ' hide';
+}
 
 ?>
 <div class="row">
@@ -42,67 +54,45 @@ $subfield_class = ($enqueue_files) ? '' : 'hide';
     <form id="modula_troubleshooting_option" method="post">
         <table class="form-table">
             <tbody>
-            <tr valign="top">
-                <th scope="row" valign="top">
-                    <?php echo esc_html__('Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery'); ?>
-                </th>
-                <td>
-                    <div class="wrap modula">
-                        <div class="">
-                            <div class="modula-toggle">
-                                <input class="modula-toggle__input master-toggle" type="checkbox"
-                                       data-setting="modula_troubleshooting_option[enqueue_files]"
-                                       id="modula_troubleshooting_option"
-                                       name="modula_troubleshooting_option[enqueue_files]"
-                                       value="1" <?php echo checked(1, $enqueue_files, false); ?>>
-                                <div class="modula-toggle__items">
-                                    <span class="modula-toggle__track"></span>
-                                    <span class="modula-toggle__thumb"></span>
-                                    <svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img"
-                                         focusable="false"
-                                         viewBox="0 0 6 6">
-                                        <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
-                                    </svg>
-                                    <svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img"
-                                         focusable="false"
-                                         viewBox="0 0 2 6">
-                                        <path d="M0 0h2v6H0z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
             <?php
-            foreach ($troubleshooting_fields as $ts_field) {
+            foreach ($troubleshooting_fields as $key => $ts_field) {
                 ?>
-                <tr valign="top" data-settings="subfields" class="troubleshoot-subfield <?php echo $subfield_class; ?>">
+                <tr valign="top" class="<?php echo 'enqueue_files' != $key ? $class : '' ?>">
                     <th scope="row" valign="top">
-                        <?php echo esc_html($ts_field['name']); ?>
+                        <?php 
+                        echo esc_html( $ts_field['label'] ); 
+
+                        if ( isset( $ts_field['description'] ) ) {
+                            echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
+                            echo wp_kses_post( $ts_field['description'] );
+                            echo '</div></div>';
+                        }
+
+                        ?>
                     </th>
                     <td>
                         <div class="wrap modula">
                             <div class="">
                                 <?php if ('select' == $ts_field['type']) { ?>
                                     <div class="modula-select">
-                                        <select name="modula_troubleshooting_option[<?php echo $ts_field['data_settings']; ?>]">
-                                            <?php
-                                            foreach ($ts_field['values'] as $value => $name) {
-                                                echo "<option value='{$value}' " . selected($troubleshooting_options[$ts_field['data_settings']], $value, false) . ">{$name}</option>";
-                                            }
-                                            ?>
-                                        </select>
+                                        <?php
+                                        foreach ($ts_field['values'] as $value => $label ) {
+                                            echo '<label>';
+                                            echo '<input type="checkbox" ' . checked( true, in_array( $value, $troubleshooting_options[ $key ] ), false ) . ' name="modula_troubleshooting_option[' . esc_attr( $key ) .'][]" value="' . esc_attr( $value ) . '">';
+                                            echo '<span>' . esc_html( $label ) . '</span>';
+                                            echo '</label>';
+                                        }
+                                        ?>
                                     </div>
                                 <?php } ?>
 
                                 <?php if ('toggle' == $ts_field['type']) { ?>
                                     <div class="modula-toggle">
                                         <input class="modula-toggle__input" type="checkbox"
-                                               data-setting="modula_troubleshooting_option[<?php echo $ts_field['data_settings']; ?>]"
-                                               id="modula_troubleshooting_option[<?php echo $ts_field['data_settings']; ?>]"
-                                               name="modula_troubleshooting_option[<?php echo $ts_field['data_settings']; ?>]"
-                                               value="1" <?php echo isset($troubleshooting_options[$ts_field['data_settings']]) ? checked(1, $troubleshooting_options[$ts_field['data_settings']], false) : ''; ?>>
+                                               data-setting="modula_troubleshooting_option[<?php echo $key; ?>]"
+                                               id="modula_troubleshooting_option-<?php echo $key; ?>"
+                                               name="modula_troubleshooting_option[<?php echo $key; ?>]"
+                                               value="1" <?php  checked(1, $troubleshooting_options[ $key ], true ) ?>>
                                         <div class="modula-toggle__items">
                                             <span class="modula-toggle__track"></span>
                                             <span class="modula-toggle__thumb"></span>

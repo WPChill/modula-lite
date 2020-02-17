@@ -1,8 +1,8 @@
-= 2.2.4 =
-Fix max-width issue with Twenty Twenty theme
-Fix menu entry colouring bug
-Fix modula-item background
-Re-worded "Update" button
+= 2.2.5 - 13/02/2020 =
+Fixed Captions
+Fixed security issue
+
+= 2.2.4 - 05/02/2020 =
 Added 'What's new' page
 Added Uninstall options to remove data entries from DB
 Added troubleshooting options to enqueue CSS and JS files everywhere
@@ -10,8 +10,13 @@ Added support for WebP files
 Added WhatsApp as social icon
 Added numbers to hover effects
 Added cursor controls
-Removed settings for default title and caption
+Added social icons size and gutter
+Fix max-width issue with Twenty Twenty theme
+Fix menu entry colouring bug
+Fix modula-item background
 Fixed copy shortcode button design bug
+Re-worded "Update" button
+Removed settings for default title and caption
 
 = 2.2.3 - 06.01.2020 =
 Fixed Autoptimize HTML code optimization bug

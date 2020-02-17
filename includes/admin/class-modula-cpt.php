@@ -71,6 +71,11 @@ class Modula_CPT {
 				'callback' => 'output_gallery_images',
 				'context' => 'normal',
 			),
+            'modula-albums-upsell' => array(
+                'title' => esc_html__('Albums Upsell', 'modula-best-grid-gallery'),
+                'callback' => 'output_upsell_albums',
+                'context' => 'normal',
+            ),
 			'modula-settings' => array(
 				'title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_settings',
@@ -161,6 +166,35 @@ class Modula_CPT {
 		$this->builder->render( 'gallery' );
 	}
 
+    public function output_upsell_albums() {
+        ?>
+        <div class="modula-upsells-carousel-wrapper">
+            <div class="modula-upsells-carousel">
+                <div class="modula-upsell modula-upsell-item">
+                    <h2><?php esc_html_e( 'Modula Albums' , 'modula-best-grid-gallery' ) ?></h2>
+                    <h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.' , 'modula-best-grid-gallery' ) ?></h4>
+                    <ul class="modula-upsells-list">
+                        <li>Redirect to a gallery or a custom URL with the standalone functionality</li>
+                        <li>Arrange your albums using columns or the custom grid</li>
+                        <li>Hover effects</li>
+                        <li>Fully compatible with all the other Modula extensions </li>
+                        <li>Premium support</li>
+                    </ul>
+                    <p>
+                        <a target="_blank"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
+                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
+                        <a target="_blank"
+                           style="margin-top:10px;"
+                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=upsell"
+                           class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
 	public function output_gallery_settings() {
 		$this->builder->render( 'settings' );
 	}
@@ -236,6 +270,8 @@ class Modula_CPT {
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':
+							case 'socialIconSize':
+							case 'socialIconPadding':
 								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 								break;
 							case 'lightbox' :
@@ -262,10 +298,10 @@ class Modula_CPT {
 							case 'socialIconColor':
 							case 'borderColor':
 							case 'shadowColor':
-								$modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
+								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
 								break;
                             case 'lightbox_background_color':
-                                $modula_settings[ $field_id ] = sanitize_hex_color( $_POST['modula-settings'][ $field_id ] );
+                                $modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
                                 break;
                             case 'lightbox_popup_opacity' :
                                 $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
@@ -401,9 +437,10 @@ class Modula_CPT {
 		}
 
 		if ( 'limit' == $column) {
-			$images_count   = (is_array(get_post_meta( $post_id, 'modula-images', true ))) ? count(get_post_meta( $post_id, 'modula-images', true )) : 0;
+			$images = get_post_meta( $post_id, 'modula-images', true );
+			$images_count = is_array( $images ) ? count( $images ) : 0;
 
-			$padlock        = '<svg id="padlock" style="margin:7px 12px 0 0; width:12px;position:relative;top:2px" viewBox="0 0 217.81886 310.38968" xmlns="http://www.w3.org/2000/svg">
+			$padlock = '<svg id="padlock" style="margin:7px 12px 0 0; width:12px;position:relative;top:2px" viewBox="0 0 217.81886 310.38968" xmlns="http://www.w3.org/2000/svg">
 			<g transform="translate(-1550.3 -1495.4)">
 			 <path d="m1659.3 1495.5c-0.9683 0.01-1.9372 0.021-2.9063 0.062-44.496 0.284-84.418 39.853-84.531 84.469-0.5035 10.517 0.1466 21.042 0.031 31.563h-21.438c0.5678 46.226-1.1556 92.56 0.9062 138.72 4.4359 29.724 31.126 56.603 62.25 55.156 34.078-0.066 68.262 1.0541 102.28-0.6876 31.934-5.5024 54.359-38.293 51.938-70.031 0.3669-41.041-0.035-82.083 0.125-123.12-7.1142-0.1818-14.23 0.139-21.344-0.094 0.5401-24.99 1.715-52.307-12.531-73.969-15.406-25.706-44.767-42.255-74.781-42.062zm0.4062 35.688c25.281 0.3463 50.259 21.283 49.531 47.625 0.5019 10.922 0.8363 21.85 1.0626 32.781-34.011-0.02-68.021 0.053-102.03-0.063 0.1057-17.098-4.4827-35.793 4.875-51.187 8.4966-16.311 25.48-28.793 44.125-29.125 0.8153-0.032 1.622-0.043 2.4375-0.031z" fill="#fff" opacity=".98"/>
 			 <path d="m1657.1 1501.5c-44.13 1.1108-79.312 37.031-79.312 81.438v34.625h-21.344v117.75h0.031c-0.031 0.8505-0.031 1.7033-0.031 2.5625 0 34.197 25.051 61.719 56.187 61.719h93.094c31.136 0 56.219-27.522 56.219-61.719 0-0.859-0.032-1.7123-0.063-2.5625h0.063v-117.75h-21.313v-34.625c0-45.111-36.295-81.438-81.406-81.438-0.7049 0-1.4245-0.018-2.125 0zm-0.375 23.75c0.5355-0.013 1.0865 0 1.625 0 25.79-0.6025 51.139 18.477 56.406 43.812 0.8967 16.166 1.4017 32.319 1.6876 48.5h-114.31c-0.027-7.7372-0.063-15.456-0.2187-23.188-6.5279-33.085 21.075-68.332 54.812-69.125zm2.375 135.38c1.2168 0 2.4472 0.095 3.6875 0.2812 13.23 1.9847 22.36 14.301 20.375 27.531-0.9138 6.092-4.0565 11.334-8.4375 15l8.4688 53.094h-48l8.4374-53.094c-6.2414-5.2417-9.7038-13.536-8.4062-22.188 1.7986-11.99 12.112-20.593 23.875-20.625z" opacity=".98"/> </g></svg> ';
@@ -432,11 +469,11 @@ class Modula_CPT {
 		global $post;
 		$post_type = 'modula-gallery';
 		remove_meta_box( 'submitdiv', $post_type, 'side' );
-		add_meta_box( 'submitdiv', __( 'Publish' ), array($this, 'post_submit_meta_box1'), $post_type, 'side', 'high' );
+		add_meta_box( 'submitdiv', __( 'Publish' ), array($this, 'post_submit_meta_box'), $post_type, 'side', 'high' );
 		
 	}
 
-	public function post_submit_meta_box1() {
+	public function post_submit_meta_box() {
 		global $action, $post;
 		$post_type = $post->post_type; // get current post_type
 		$post_type_object = get_post_type_object($post_type);
@@ -750,7 +787,7 @@ endif;
 				<?php submit_button( _x( 'Schedule', 'post action/button label' ), 'primary large', 'publish', false ); ?>
 	<?php	else : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Update ') . 'modula-gallery';; ?>" />
-		<?php submit_button( __( 'Publish' ), 'primary large', 'publish', false ); ?>
+		<?php submit_button( __( 'Save Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 		<?php
 	endif;
 	else :
@@ -762,7 +799,7 @@ endif;
 	} else {
 		?>
 		
-		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update Gallery' ). 'modula-gallery'; ?>" />
+		<input name="save" type="submit" class="button button-primary button-large" id="publish" value="<?php esc_attr_e( 'Update Gallery', 'modula-best-grid-gallery' ). 'modula-gallery'; ?>" />
 		<?php
 	}
 	?>
