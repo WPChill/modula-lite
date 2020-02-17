@@ -41,10 +41,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         	this.tabContainers = this.$el.find( '.modula-tabs-content > div' );
         	this.sliders       = this.$el.find( '.modula-ui-slider' );
         	this.colorPickers  = this.$el.find( '.modula-color' );
+            this.customEditors = this.$el.find( '.modula-code-editor' );
 
         	// initialize 3rd party scripts
         	this.initSliders();
         	this.initColorPickers();
+            this.initCustomCSS();
 
         },
 
@@ -81,7 +83,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     		this.tabs.removeClass( 'active-tab' );
     		this.tabContainers.removeClass( 'active-tab' );
     		jQuery( event.target ).addClass( 'active-tab' );
-    		this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' );
+    		this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' ).trigger( 'modula-current-tab' );
 
         },
 
@@ -130,6 +132,29 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 this.colorPickers.each( function( $index, colorPicker ) {
                 	//@todo: we need to find a solution to trigger a change event on input.
                     jQuery( colorPicker ).wpColorPicker();
+                });
+            }
+        },
+
+        initCustomCSS: function() {
+            var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+            if ( this.customEditors.length > 0 ) {
+                this.customEditors.each( function( $index, customEditorContainer ) {
+                    var syntax          = $( customEditorContainer ).data( 'syntax' ),
+                        id              = '#' + $( customEditorContainer ).find( '.modula-custom-editor-field' ).attr( 'id' ),
+                        currentSettings = _.extend(
+                            {},
+                            editorSettings.codemirror,
+                            {
+                                mode: syntax,
+                            }
+                        );
+
+                    var editor =  wp.codeEditor.initialize( $( id ), currentSettings );
+
+                    $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
+                        editor.codemirror.refresh();
+                    });
                 });
             }
         }

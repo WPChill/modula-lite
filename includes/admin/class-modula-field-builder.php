@@ -158,7 +158,7 @@ class Modula_Field_Builder {
 			// Sort fields based on priority.
 			uasort( $fields, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
-			$current_tab_content = '<div id="modula-' . esc_attr( $tab['id'] ) . '" class="' . ( $first ? 'active-tab' : '' ) . '">';
+			$current_tab_content = '<div id="modula-' . esc_attr( $tab['id'] ) . '" class="modula-tab-content' . ( $first ? ' active-tab' : '' ) . '">';
 
 			// Check if our tab have title & description
 			if ( isset( $tab['title'] ) || isset( $tab['description'] ) ) {
@@ -335,8 +335,9 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case "custom_code":
+
 				$html = '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
-				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '" class="large-text code"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
+				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '-customcode" class="large-text code modula-custom-editor-field"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
 				break;
 			case "hover-effect":
