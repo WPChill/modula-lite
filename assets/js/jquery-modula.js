@@ -639,6 +639,7 @@ jQuery( document ).ready( function($){
     });
 });
 
+/* Remove this after migration to Fancybox */
 jQuery('.modula-item').on('click', function(e){
     window.location.hash = "#";
     window.addEventListener('popstate', onBackDown, false);
