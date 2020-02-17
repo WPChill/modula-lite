@@ -3,3 +3,4 @@ node_modules/*
 package-lock.json
 modula-best-grid-gallery.zip
 .standard.json
+.DS_Store
