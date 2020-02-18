@@ -1,0 +1,1 @@
+function mts_master_toggle(e){e?jQuery("tr.troubleshoot-subfield").show():jQuery("tr.troubleshoot-subfield").hide()}jQuery(document).ready(function(e){var t=jQuery("input#modula_troubleshooting_option-enqueue_files"),o=t.is(":checked");mts_master_toggle(o),t.on("change",function(){mts_master_toggle(o=t.is(":checked"))})});
