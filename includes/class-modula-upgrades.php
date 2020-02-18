@@ -56,8 +56,7 @@ class Modula_Upgrades {
 		// Check if is a new 2.0.0 install or an old install
         $version = get_option( 'modula_version', array() );
 
-        // Check to see if we redirect or not to About page
-        $modula_update = Modula_Update::get_instance();
+        
 		$check = false;
 		if(!empty($version) && $version['current_version'] !== MODULA_LITE_VERSION ){
 		    $check = true;
@@ -78,7 +77,12 @@ class Modula_Upgrades {
 
 		update_option( 'modula_version', $version );
 
-        $modula_update->modula_on_activation($check);
+		if ( class_exists( 'Modula_Update' ) ) {
+			// Check to see if we redirect or not to About page
+        	$modula_update = Modula_Update::get_instance();
+        	$modula_update->modula_on_activation( $check );
+		}
+
 	}
 
 	/**
