@@ -1,8 +1,11 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Fixed Captions', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed security issue', 'modula-best-grid-gallery' ),
+        esc_html__( 'Improved Custom CSS textarea', 'modula-best-grid-gallery' ),
+        esc_html__( 'Improved how the lightbox closes', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed Custom Gallery with gutter 0', 'modula-best-grid-gallery' ),
+        esc_html__( 'Removed feature box from extensions', 'modula-best-grid-gallery' ),
+        esc_html__( 'Changed font size settings', 'modula-best-grid-gallery' ),
     ),
 );
 ?>
