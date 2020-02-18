@@ -36,16 +36,20 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         initialize: function( args ) {
+        	this.initializeLite();
+        },
 
-        	this.tabs          = this.$el.find( '.modula-tabs .modula-tab' );
-        	this.tabContainers = this.$el.find( '.modula-tabs-content > div' );
-        	this.sliders       = this.$el.find( '.modula-ui-slider' );
-        	this.colorPickers  = this.$el.find( '.modula-color' );
+        initializeLite: function(){
+
+            this.tabs          = this.$el.find( '.modula-tabs .modula-tab' );
+            this.tabContainers = this.$el.find( '.modula-tabs-content > div' );
+            this.sliders       = this.$el.find( '.modula-ui-slider' );
+            this.colorPickers  = this.$el.find( '.modula-color' );
             this.customEditors = this.$el.find( '.modula-code-editor' );
 
-        	// initialize 3rd party scripts
-        	this.initSliders();
-        	this.initColorPickers();
+            // initialize 3rd party scripts
+            this.initSliders();
+            this.initColorPickers();
             this.initCustomCSS();
 
         },

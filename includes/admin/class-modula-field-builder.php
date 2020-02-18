@@ -274,6 +274,12 @@ class Modula_Field_Builder {
 			case 'text':
 				$html = '<input type="text" class="regular-text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				break;
+			case 'number':
+				$html = '<input type="number" class="regular-number" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				if ( isset( $field['after'] ) ) {
+					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+				break;
 			case 'select' :
 				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
 				foreach ( $field['values'] as $key => $option ) {
@@ -287,7 +293,7 @@ class Modula_Field_Builder {
 						$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( $option ) . '</option>';
 					}
 				}
-				if ( isset( $field['disabled'] ) && is_array( $field['disabled'] ) ) {
+				if ( isset( $field['disabled'] ) && is_array( $field['disabled'] ) && ! empty( $field['disabled']['values'] ) ) {
 					$html .= '<optgroup label="' . esc_attr( $field['disabled']['title'] ) . '">';
 					foreach ( $field['disabled']['values'] as $key => $disabled ) {
 						$html .= '<option value="' . esc_attr( $key ) . '" disabled >' . esc_html( $disabled ) . '</option>';
