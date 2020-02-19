@@ -1321,3 +1321,11 @@ Ups-sells carousel
 #modula-albums-upsell h2 {
     margin: 0 !important;
 }
+
+.modula-settings-container input[type="number"] {
+    max-width: 80px;
+}
+
+.modula-after-input {
+    margin-left: 5px;
+}
