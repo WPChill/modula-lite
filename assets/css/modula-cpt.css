@@ -71,10 +71,10 @@
 .modula-settings-container .modula-tabs .modula-tab.active-tab:before {
 	content: "";
 	position: absolute;
-	left: 0;
-	top: 0;
+	left: -2px;
+	top: -1px;
 	width: 3px;
-	height: 100%;
+	height: calc( 100% + 2px);
 	background-color: #57a7c9;
 }
 .modula-settings-container .modula-tabs .modula-tab.active-tab:after {
