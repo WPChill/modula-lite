@@ -21,6 +21,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
 		this.listenTo( wp.Modula.Settings, 'change:disableSocial', this.disableSocial );
 		this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
+		this.listenTo( wp.Modula.Settings, 'change:enable_responsive', this.changedResponsiveness );
 		
 	},
 
@@ -31,6 +32,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
 		this.disableSocial (false, wp.Modula.Settings.get('disableSocial') );
+		this.changedResponsiveness ( false, wp.Modula.Settings.get('enable_responsive') );
 	},
 
 	changedType: function( settings, value ){
@@ -96,6 +98,16 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"],[data-container="socialIconSize"], [data-container="socialIconPadding"]').prop('checked',1).show();
 			
         }
+	},
+
+	changedResponsiveness: function( settings, value){
+		var rows = this.get( 'rows' );
+
+		if( 1 == value ) {
+			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').show();
+		}else {
+			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').hide();
+		}
 	}
 
 }) 
