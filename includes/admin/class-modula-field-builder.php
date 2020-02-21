@@ -426,7 +426,7 @@ class Modula_Field_Builder {
 					}elseif ( 'pufrobo' == $key ) {
 						// Pufrobo Effect
 						$effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ). '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'linkedin' ) .'</a></div></div></div></div>';
 						$effect .= '<div class="effect-compatibility">';
 						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 						$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
