@@ -398,6 +398,13 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 100,
 					'priority' => 10,
 				),
+                "inView"  => array(
+                    "name"        => esc_html__( 'Load in view', 'modula-best-grid-gallery' ),
+                    "description" => esc_html__( 'If your gallery is somewhere further down the page but you still want to make the loading effect please check this toggle.', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "default"     => 0,
+                    'priority' => 10,
+                ),
 			),
 			'hover-effect' => array(
 				"effect" => array(
@@ -578,6 +585,7 @@ class Modula_CPT_Fields_Helper {
 			'socialIconSize'            => 16,
 			'socialIconPadding'         => 10,
             'loadedScale'               => '100',
+            'inView'                    => '100',
 	      	'cursor'                    => 'magnifying-glass',
             'effect'                    => 'pufrobo',
             'borderColor'               => '#ffffff',

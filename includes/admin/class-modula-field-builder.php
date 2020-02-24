@@ -424,11 +424,11 @@ class Modula_Field_Builder {
 				if($gallery_images && count($gallery_images) > 0){
 
 				    if( 1 == count($gallery_images) ){
-				        $img_url = wp_get_attachment_image_src($gallery_images[0]['id']);
+				        $img_url = wp_get_attachment_image_src($gallery_images[0]['id'],'medium');
                         $image = '<img src="' . $img_url[0] .'" class="pic">';
                     } else {
 				        foreach($gallery_images as $gallery_image){
-                            $img_url = wp_get_attachment_image_src($gallery_image['id']);
+                            $img_url = wp_get_attachment_image_src($gallery_image['id'],'medium');
                             $image[] = '<img src="' . $img_url[0] .'" class="pic">';
                         }
 

@@ -120,6 +120,11 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
+        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
+            wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
+        }
+
+
 		/* Enqueue lightbox related scripts & styles */
 		switch ( $settings['lightbox'] ) {
 			case "lightbox2":
@@ -250,7 +255,14 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id} .modula-item .figc .jtg-title {  font-size: " . absint($settings['titleFontSize']) . "px; }";
 			}
 
-			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . "); }";
+			if(isset($settings['inView']) && '1' == $settings['inView'] ){
+                $css .= "#{$gallery_id}.modula-loaded-scale .modula-item { animation:modulaScaling 1s;transition:0.5s all; }";
+
+                $css .= "@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(". absint( $settings['loadedScale'] ) / 100 . ")}100%{transform:scale(1)}}";
+            } else {
+                $css .= "#{$gallery_id} .modula-item { transform: scale(". absint( $settings['loadedScale'] ) / 100 . ") }";
+            }
+
 
 			if ( 'custom-grid' != $settings['type'] ) {
 

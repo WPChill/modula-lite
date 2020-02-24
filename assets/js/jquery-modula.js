@@ -647,3 +647,15 @@ jQuery('.modula-item').on('click', function(e){
         this.window.location.hash = "";
     }
 });
+
+function modulaInViewport(element) {
+    if (typeof jQuery === "function" && element instanceof jQuery) {
+        element = element[0];
+    }
+    var elementBounds = element.getBoundingClientRect();
+    console.log(elementBounds.top - jQuery(window).height());
+    return (
+        (elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || rect.bottom <= jQuery(window).height()
+    );
+}
+

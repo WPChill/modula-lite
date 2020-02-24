@@ -267,6 +267,7 @@ class Modula_CPT {
 							case 'captionFontSize':
 							case 'titleFontSize':
 							case 'loadedScale':
+                            case 'inView':
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':

@@ -337,6 +337,7 @@ class Modula_Upgrades {
 				'socialIconSize'            => 16,
 				'socialIconPadding'         => 20,
                 'loadedScale'               => '100',
+                'inView'                    => '100',
                 'effect'                    => 'pufrobo',
                 'borderColor'               => '#ffffff',
                 'borderRadius'              => '0',
