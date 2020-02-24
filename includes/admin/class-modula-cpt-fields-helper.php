@@ -229,14 +229,12 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'Choose how the gallery should behave on image clicking.', 'modula-best-grid-gallery' ),
                     'default'     => 'fancybox',
                     "values"      => array(
-                        esc_html__( 'Link', 'modula-best-grid-gallery' ) => array(
-                            "no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
-                            "direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
-                            "attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' )
-                        ),
-                        esc_html__( 'Lightboxes', 'modula-best-grid-gallery' ) => array(
-                            'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' ),
-                        ),
+                       
+                        "no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
+                        "direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
+                        "attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' ),
+                        "fancybox" => esc_html__( 'Open Images in a Lightbox', 'modula-best-grid-gallery' ),
+                       
                     ),
                     'priority' => 1,
                 ),
