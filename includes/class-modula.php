@@ -201,6 +201,11 @@ class Modula {
 
 			do_action( 'modula_scripts_after_wp_modula' );
 
+			// Enqueue slick files
+            wp_enqueue_style('modula-slick-theme',MODULA_URL . 'assets/css/slick-theme.css');
+            wp_enqueue_style('modula-slick-style',MODULA_URL . 'assets/css/slick.css');
+            wp_enqueue_script('modula-slick',MODULA_URL.'assets/js/slick.min.js',array('jquery'),MODULA_LITE_VERSION, true);
+
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css', null, MODULA_LITE_VERSION );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {

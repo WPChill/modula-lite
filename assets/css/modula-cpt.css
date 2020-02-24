@@ -1329,3 +1329,13 @@ Ups-sells carousel
 .modula-after-input {
     margin-left: 5px;
 }
+
+/*
+Hover effect slider
+*/
+.modula-hover-preview-slider {
+    max-width:400px;
+}
+.modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
+    color:red;
+}

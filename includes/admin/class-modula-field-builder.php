@@ -418,21 +418,57 @@ class Modula_Field_Builder {
 				// Creates effects preview
 				$html .= '<div class="modula-effects-preview modula">';
 
+				$id = get_the_ID();
+				$gallery_images = get_post_meta($id,'modula-images',true);
+
+				if($gallery_images && count($gallery_images) > 0){
+
+				    if( 1 == count($gallery_images) ){
+				        $img_url = wp_get_attachment_image_src($gallery_images[0]['id']);
+                        $image = '<img src="' . $img_url[0] .'" class="pic">';
+                    } else {
+				        foreach($gallery_images as $gallery_image){
+                            $img_url = wp_get_attachment_image_src($gallery_image['id']);
+                            $image[] = '<img src="' . $img_url[0] .'" class="pic">';
+                        }
+
+                    }
+                } else {
+                    $image = '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
+                }
+
 				foreach ( $hovers as $key => $name ) {
 					$effect = '';
 
 					if ( 'none' == $key ) {
 						$effect .= '<div class="panel panel-' . esc_attr( $key ) . ' modula-items clearfix"></div>';
 					}elseif ( 'pufrobo' == $key ) {
-						// Pufrobo Effect
-						$effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
-						$effect .= '<div class="effect-compatibility">';
-						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
-						$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
-						$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
-						$effect .= '</div>';
-						$effect .= '</div>';
+					    if(!is_array($image)){
+                            // Pufrobo Effect
+                            $effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
+                            $effect .= '<div class="modula-item effect-pufrobo">'.$image.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                            $effect .= '<div class="effect-compatibility">';
+                            $effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
+                            $effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
+                            $effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
+                            $effect .= '</div>';
+                            $effect .= '</div>';
+                        } else {
+					        $effect .= '<div class="modula-hover-preview-slider">';
+					        foreach($image as $i) {
+                                // Pufrobo Effect
+                                $effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
+                                $effect .= '<div class="modula-item effect-pufrobo">'.$i.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                                $effect .= '<div class="effect-compatibility">';
+                                $effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
+                                $effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
+                                $effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
+                                $effect .= '</div>';
+                                $effect .= '</div>';
+                            }
+					        $effect .= '</div>';
+                        }
+
 					}else{
 						$effect = apply_filters( 'modula_hover_effect_preview', '', $key );
 					}

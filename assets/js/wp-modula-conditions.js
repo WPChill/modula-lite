@@ -79,10 +79,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	changedEffect: function( settings, value ){
-		var hoverBoxes = jQuery( '.modula-effects-preview > div' );
+		var hoverBoxes = jQuery( '.modula-effects-preview >div div.panel' );
 
-		hoverBoxes.hide();
-		hoverBoxes.filter( '.panel-' + value ).show();
+		if('none' == value){
+			jQuery( '.modula-effects-preview >div').hide();
+			hoverBoxes.hide();
+			hoverBoxes.filter( '.panel-' + value ).show();
+		} else {
+			jQuery( '.modula-effects-preview >div').show();
+			hoverBoxes.hide();
+			hoverBoxes.filter( '.panel-' + value ).show();
+		}
+
 	},
 
 	disableSocial: function( settings, value){
