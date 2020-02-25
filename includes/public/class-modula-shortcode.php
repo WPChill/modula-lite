@@ -120,7 +120,7 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
-        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
+        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && ('custom-grid' == $settings['type'] || 'creative-gallery' == $settings['type']) ) {
             wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
         }
 

@@ -1337,7 +1337,13 @@ Hover effect slider
     max-width:400px;
 }
 .modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
-    color:red;
+   display:none;
+}
+
+.modula-hover-preview-slider .slick-prev,
+.modula-hover-preview-slider .slick-next {
+    outline:none;
+    box-shadow:none;
 }
 
 /**
