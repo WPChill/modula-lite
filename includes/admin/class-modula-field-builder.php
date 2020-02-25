@@ -474,6 +474,49 @@ class Modula_Field_Builder {
 				// Hook to change how hover effects field is rendered
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
 				break;
+
+            case 'loaded-scale' :
+                $min  = isset( $field['min'] ) ? $field['min'] : 0;
+                $max  = isset( $field['max'] ) ? $field['max'] : 100;
+                $step = isset( $field['step'] ) ? $field['step'] : 1;
+                if ( '' === $value ) {
+                    if ( isset( $field['default'] ) ) {
+                        $value = $field['default'];
+                    } else {
+                        $value = $min;
+                    }
+                }
+                $attributes = 'data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '"';
+                $html       .= '<div class="slider-container modula-ui-slider-container">';
+                $html       .= '<input readonly="readonly" data-setting="' . esc_attr( $field['id'] ) . '"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" type="text" class="rl-slider modula-ui-slider-input" id="input_' . esc_attr( $field['id'] ) . '" value="' . $value . '" ' . $attributes . '/>';
+                $html       .= '<div id="slider_' . esc_attr( $field['id'] ) . '" class="ss-slider modula-ui-slider"></div>';
+                $html       .= '</div>';
+
+                $id             = get_the_ID();
+                $gallery_images = get_post_meta( $id, 'modula-images', true );
+                $images         = array();
+                if ( $gallery_images && count( $gallery_images ) > 0 ) {
+                    foreach ( $gallery_images as $gallery_image ) {
+                        $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
+                        $image[] = '<img src="' . esc_url( $img_url[0] ) . '" class="pic">';
+                    }
+                }
+
+                $html   .= '<div class="modula-scaling-effect-preview modula-effects-preview modula">';
+                $html   .= '<div class="panel panel-none modula-items clearfix"></div>';
+                $effect = '';
+
+                $html .= '<div class="panel modula-items clearfix">';
+                for ( $i = 0; $i <= 5; $i++ ) {
+
+                    $preview_image = isset( $image[ $i ] ) ? $image[ $i ] : '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
+                    $html          .= '<div class="modula-item effect-pufrobo">' . $preview_image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                }
+
+                $html .= '</div>';
+                $html .= '<a href="#" class="button button-primary" id="test-scaling-preview">'.esc_html__('Test effect','modula-best-grid-gallery').'</a>';
+                $html .= '</div>';
+                break;
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );

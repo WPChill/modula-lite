@@ -51,4 +51,14 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
+	$('#test-scaling-preview').click(function (e) {
+		e.preventDefault();
+		var val     = $('input[data-setting="loadedScale"]').val();
+		var targets = $('#modula-image-loaded-effects .modula-item');
+		targets.css('transform', 'scale(' + val / 100 + ')');
+		setTimeout(function () {
+			targets.removeAttr('style')
+		}, 600)
+	});
+
 });

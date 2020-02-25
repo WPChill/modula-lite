@@ -1339,3 +1339,24 @@ Hover effect slider
 .modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
     color:red;
 }
+
+/**
+Scaling Effect Preview
+ */
+.modula-scaling-effect-preview {
+    position: relative;
+    max-width:800px;
+    width:100%;
+}
+
+.modula-scaling-effect-preview .modula-item {
+    transition:600ms all;
+    z-index:9999;
+    width:30%;
+    float:left;
+    margin:1%;
+}
+
+.modula-scaling-effect-preview + a#test-scaling-preview {
+    margin-top:25px;
+}
