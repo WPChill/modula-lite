@@ -1351,16 +1351,15 @@ Scaling Effect Preview
  */
 .modula-scaling-effect-preview {
     position: relative;
-    max-width:800px;
+    max-width:900px;
     width:100%;
 }
 
 .modula-scaling-effect-preview .modula-item {
     transition:600ms all;
     z-index:9999;
-    width:30%;
     float:left;
-    margin:1%;
+    margin:10px;
 }
 
 .modula-scaling-effect-preview + a#test-scaling-preview {

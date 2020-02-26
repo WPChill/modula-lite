@@ -446,14 +446,14 @@ class Modula_Field_Builder {
 					    if(!is_array($image)){
                             // Pufrobo Effect
                             $effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-                            $effect .= '<div class="modula-item effect-pufrobo">'.$image.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                            $effect .= '<div class="modula-item effect-pufrobo">'.$image.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ). '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) .'</a></div></div></div></div>';
                             $effect .= '</div>';
                         } else {
 					        $effect .= '<div class="modula-hover-preview-slider">';
 					        foreach($image as $i) {
                                 // Pufrobo Effect
                                 $effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-                                $effect .= '<div class="modula-item effect-pufrobo">'.$i.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                                $effect .= '<div class="modula-item effect-pufrobo">'.$i.'<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ). '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) .'</a></div></div></div></div>';
                                 $effect .= '</div>';
                             }
 					        $effect .= '</div>';
@@ -507,10 +507,10 @@ class Modula_Field_Builder {
                 $effect = '';
 
                 $html .= '<div class="panel modula-items clearfix">';
-                for ( $i = 0; $i <= 5; $i++ ) {
+                for ( $i = 0; $i <= 3; $i++ ) {
 
                     $preview_image = isset( $image[ $i ] ) ? $image[ $i ] : '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
-                    $html          .= '<div class="modula-item effect-pufrobo">' . $preview_image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a></div></div></div></div>';
+                    $html          .= '<div class="modula-item effect-pufrobo">' . $preview_image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ). '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) .'</a></div></div></div></div>';
                 }
 
                 $html .= '</div>';
