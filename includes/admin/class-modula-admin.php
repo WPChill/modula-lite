@@ -22,6 +22,44 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
+		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
+
+
+	}
+
+	public function delete_resized_image($post_id) {
+
+		// Get the metadata
+		$metadata =  wp_get_attachment_metadata( $post_id );
+
+		$file = array();
+		$new_url = array();
+
+		// Get the new url 
+		foreach ( $metadata['image_meta']['resized_images'] as $key ) {
+			$key = "-" . $key;
+			$file[] = $key;
+
+			if(  strpos($metadata['file'], '.jpeg') ) {
+				$new_url[] = substr_replace( $metadata['file'], $key, -5, 0);
+			}
+			$new_url[] = substr_replace( $metadata['file'], $key, -4, 0);
+		}
+
+		// Get upload directory
+		$uploads = wp_upload_dir();
+		$dir = $uploads['path'];
+
+		// Set the new file path
+		$file_path = array();
+		foreach( $new_url as $key ) {
+			$file_path[] = $uploads['basedir'] . '/' . $key;
+		}
+		
+		// Delete each resized file from dir
+		foreach( $file_path as $key ) {
+			wp_delete_file_from_directory( $key, $dir );
+		}
 
 	}
 

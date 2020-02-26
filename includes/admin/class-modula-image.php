@@ -50,7 +50,7 @@ class Modula_Image {
                     return $return;
                     break;
             }
-
+            
 		}else{
 			return new WP_Error( 'modula-gallery-error-no-url', esc_html__( 'No image with this ID.', 'modula-best-grid-gallery' ) );
 		}
@@ -230,6 +230,11 @@ class Modula_Image {
         // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
+
+            if ( strpos( $url, '-scaled') ) {
+                $url = str_replace("-scaled", "", $url);
+            }
+            
             $get_attachment = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE guid='%s'", $url ) );
 
             // Load the WordPress image editor.
@@ -302,12 +307,16 @@ class Modula_Image {
                 $metadata = wp_get_attachment_metadata( $get_attachment[0]->ID );
 
                 if ( isset( $metadata['image_meta'] ) ) {
-                    $md = $saved['width'] . 'x' . $saved['height'];
+
+                    $md = $suffix;
 
                     if ( $crop ) {
                         $md .= $align ? "_${align}" : "_c";
                     }
-
+                    if( ! isset( $metadata['image_meta']['resized_images'] ) ) {
+                        $metadata['image_meta']['resized_images'] = array();
+                    }
+                    
                     $metadata['image_meta']['resized_images'][] = $md;
                     wp_update_attachment_metadata( $get_attachment[0]->ID, $metadata );
                 }
