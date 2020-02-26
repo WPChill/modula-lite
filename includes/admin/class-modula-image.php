@@ -310,9 +310,6 @@ class Modula_Image {
 
                     $md = $suffix;
 
-                    if ( $crop ) {
-                        $md .= $align ? "_${align}" : "_c";
-                    }
                     if( ! isset( $metadata['image_meta']['resized_images'] ) ) {
                         $metadata['image_meta']['resized_images'] = array();
                     }

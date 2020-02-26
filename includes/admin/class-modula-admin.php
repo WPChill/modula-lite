@@ -33,32 +33,23 @@ class Modula_Admin {
 		$metadata =  wp_get_attachment_metadata( $post_id );
 
 		$file = array();
-		$new_url = array();
+		
+		$info = pathinfo( $metadata['file'] );
 
-		// Get the new url 
-		foreach ( $metadata['image_meta']['resized_images'] as $key ) {
-			$key = "-" . $key;
-			$file[] = $key;
-
-			if(  strpos($metadata['file'], '.jpeg') ) {
-				$new_url[] = substr_replace( $metadata['file'], $key, -5, 0);
-			}
-			$new_url[] = substr_replace( $metadata['file'], $key, -4, 0);
-		}
-
-		// Get upload directory
 		$uploads = wp_upload_dir();
 		$dir = $uploads['path'];
+		$filename = $info['filename'];
+		$ext = $info['extension'];
+		foreach ( $metadata['image_meta']['resized_images'] as $value => $key ) {
+			$key = "-" . $key;
 
-		// Set the new file path
-		$file_path = array();
-		foreach( $new_url as $key ) {
-			$file_path[] = $uploads['basedir'] . '/' . $key;
-		}
-		
-		// Delete each resized file from dir
-		foreach( $file_path as $key ) {
-			wp_delete_file_from_directory( $key, $dir );
+			// Format the files in the appropiate format
+			
+			$file[] = "${dir}/${filename}${key}.${ext}";
+
+			// Delete found files
+			wp_delete_file_from_directory( $file[$value], $uploads['path']);
+
 		}
 
 	}
