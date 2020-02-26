@@ -1334,10 +1334,14 @@ Ups-sells carousel
 Hover effect slider
 */
 .modula-hover-preview-slider {
-    max-width:400px;
+    max-width:850px;
 }
 .modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
    display:none;
+}
+
+.modula-hover-preview-slider .modula-item {
+    margin:10px;
 }
 
 .modula-hover-preview-slider .slick-prev,
