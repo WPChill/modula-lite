@@ -113,7 +113,7 @@ class Modula_Shortcode {
 		}
 
 		if ( 'custom-grid' == $type ) {
-			wp_enqueue_script( 'packery' );
+			wp_enqueue_script( 'modula-packery' );
 		}
 
 		if ( '1' == $settings['lazy_load'] ) {
