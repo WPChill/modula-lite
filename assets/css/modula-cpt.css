@@ -1335,6 +1335,7 @@ Hover effect slider
 */
 .modula-hover-preview-slider {
     max-width:850px;
+    margin:0 auto;
 }
 .modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
    display:none;
@@ -1357,6 +1358,8 @@ Scaling Effect Preview
     position: relative;
     max-width:900px;
     width:100%;
+    margin:0 auto;
+    margin-top:20px;
 }
 
 .modula-scaling-effect-preview .modula-item {

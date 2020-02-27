@@ -392,7 +392,7 @@ class Modula_CPT_Fields_Helper {
 				"loadedScale"  => array(
 					"name"        => esc_html__( 'Scale', 'modula-best-grid-gallery' ),
 					"description" => esc_html__( 'Choose a value below 100% for a zoom-in effect. Choose a value over 100% for a zoom-out effect. Choose 100 for no effect.', 'modula-best-grid-gallery' ),
-					"type"        => "loaded-scale",
+					"type"        => "ui-slider",
 					"min"         => 0,
 					"max"         => 200,
 					"default"     => 100,
