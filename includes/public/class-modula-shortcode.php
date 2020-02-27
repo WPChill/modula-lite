@@ -264,7 +264,11 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
 			}
 
-			$css .= "#{$gallery_id} .modula-items .figc p.description { color:" . Modula_Helper::sanitize_rgba_colour($settings['captionColor']) . ";font-size:" . absint($settings['captionFontSize']) . "px; }";
+        if ( '' != $settings['captionFontSize'] && 0 != $settings['captionFontSize'] ) {
+            $css .= "#{$gallery_id} .modula-items .figc p.description { font-size:" . absint($settings['captionFontSize']) . "px; }";
+        }
+
+			$css .= "#{$gallery_id} .modula-items .figc p.description { color:" . Modula_Helper::sanitize_rgba_colour($settings['captionColor']) . ";}";
 			if ( '' != $settings['titleColor'] ) {
 				$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour($settings['titleColor']) . "; }";
 			}else{
