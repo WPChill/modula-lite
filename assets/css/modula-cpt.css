@@ -1342,15 +1342,30 @@ Hover effect slider
    display:none;
 }
 
-.modula-hover-preview-slider .modula-item {
-    margin:10px;
-}
-
 .modula-hover-preview-slider .slick-prev,
 .modula-hover-preview-slider .slick-next {
     outline:none;
     box-shadow:none;
 }
+.modula-hover-preview-slider .slick-list {
+    z-index:999;
+}
+
+.modula-hover-preview-slider .slick-prev,
+.modula-hover-preview-slider .slick-next {
+    background: #774cce !important;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.modula-hover-preview-slider .slick-prev svg,
+.modula-hover-preview-slider .slick-next svg {
+    width:25px;
+    height:25px;
+}
+
 
 /**
 Scaling Effect Preview
