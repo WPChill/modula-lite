@@ -228,6 +228,7 @@ tr label.th-label {
     height: 300px;
     overflow: hidden;
     position: relative;
+    margin:0 auto;
 }
 .modula-effects-preview .modula-item img {
     position: absolute;
@@ -1369,6 +1370,7 @@ Scaling Effect Preview
     margin:10px;
 }
 
-.modula-scaling-effect-preview + a#test-scaling-preview {
+.modula-scaling-effect-preview a#test-scaling-preview {
     margin-top:25px;
+    margin-left:10px;
 }
