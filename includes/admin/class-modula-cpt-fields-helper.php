@@ -281,6 +281,14 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults).', 'modula-best-grid-gallery' ),
 					'priority'    => 40,
 				),
+                "mobileTitleFontSize"    => array(
+                    "name"        => esc_html__( 'Mobile Title Font Size', 'modula-best-grid-gallery' ),
+                    "type"        => "number",
+                    "after"       => 'px',
+                    "default"     => 12,
+                    "description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
+                    'priority'    => 40,
+                ),
 				"hide_description"        => array(
 					"name"        => esc_html__( 'Hide Caption', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -303,14 +311,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults).', 'modula-best-grid-gallery' ),
 					'priority'    => 80,
 				),
-                "mobileTitleFontSize"    => array(
-                    "name"        => esc_html__( 'Mobile Title Font Size', 'modula-best-grid-gallery' ),
-                    "type"        => "number",
-					"after"       => 'px',
-                    "default"     => 12,
-                    "description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
-                    'priority'    => 90,
-                ),
                 "mobileCaptionFontSize"  => array(
                     "name"        => esc_html__( 'Mobile Caption Font Size', 'modula-best-grid-gallery' ),
                     "type"        => "number",
