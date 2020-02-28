@@ -226,7 +226,6 @@ class Modula_Image {
         }
 
 
-
         // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
@@ -234,8 +233,17 @@ class Modula_Image {
             if ( strpos( $url, '-scaled') ) {
                 $url = str_replace("-scaled", "", $url);
             }
-            
-            $get_attachment = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE guid='%s'", $url ) );
+
+            $uploads_dir    = wp_upload_dir();
+            $file_att       = explode( $uploads_dir['baseurl'] . '/', $url );
+            $column         = '_wp_attached_file';
+            $get_attachment = get_posts(
+                array(
+                    'post_type'  => 'attachment',
+                    'meta_key'   => $column,
+                    'meta_value' => $file_att[1]
+                )
+            );
 
             // Load the WordPress image editor.
             $editor = wp_get_image_editor( $file_path );
@@ -303,7 +311,7 @@ class Modula_Image {
 
             // Add the resized dimensions and alignment to original image metadata, so the images
             // can be deleted when the original image is delete from the Media Library.
-            if ( $get_attachment ) {
+            if ( $get_attachment && count($get_attachment) > 0) {
                 $metadata = wp_get_attachment_metadata( $get_attachment[0]->ID );
 
                 if ( isset( $metadata['image_meta'] ) ) {

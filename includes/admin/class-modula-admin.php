@@ -31,24 +31,19 @@ class Modula_Admin {
 
 		// Get the metadata
 		$metadata =  wp_get_attachment_metadata( $post_id );
-
-		$file = array();
-		
 		$info = pathinfo( $metadata['file'] );
-
 		$uploads = wp_upload_dir();
-		$dir = $uploads['path'];
 		$filename = $info['filename'];
+		$file_dir = $uploads['basedir'].'/'.$info['dirname'];
 		$ext = $info['extension'];
-		foreach ( $metadata['image_meta']['resized_images'] as $value => $key ) {
-			$key = "-" . $key;
 
-			// Format the files in the appropiate format
-			
-			$file[] = "${dir}/${filename}${key}.${ext}";
+		foreach ( $metadata['image_meta']['resized_images'] as $value ) {
+			$size = "-" . $value;
 
+			// Format the files in the appropriate format
+			$file = $file_dir.'/'.$filename.$size.'.'.$ext;
 			// Delete found files
-			wp_delete_file_from_directory( $file[$value], $uploads['path']);
+			wp_delete_file_from_directory( $file, $file_dir);
 
 		}
 
