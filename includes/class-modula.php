@@ -90,6 +90,10 @@ class Modula {
         add_filter('upload_mimes', array($this,'modula_upload_mime_types'));
         add_filter('file_is_displayable_image', array($this,'modula_webp_display'), 10, 2);
 
+        if (is_admin() && apply_filters( 'modula_show_upsells', true ) ) {
+            new Modula_Upsells();
+        }
+
 		new Modula_CPT();
 
 	}
@@ -98,10 +102,6 @@ class Modula {
 
 		if ( ! is_admin() ) {
 			return;
-		}
-
-		if ( apply_filters( 'modula_show_upsells', true ) ) {
-			new Modula_Upsells();
 		}
 
 		$upgrades = Modula_Upgrades::get_instance();

@@ -71,11 +71,6 @@ class Modula_CPT {
 				'callback' => 'output_gallery_images',
 				'context' => 'normal',
 			),
-            'modula-albums-upsell' => array(
-                'title' => esc_html__('Albums Upsell', 'modula-best-grid-gallery'),
-                'callback' => 'output_upsell_albums',
-                'context' => 'normal',
-            ),
 			'modula-settings' => array(
 				'title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_settings',

@@ -19,12 +19,35 @@ class Modula_Upsells {
         add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
         add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
 
+        add_filter('modula_cpt_metaboxes',array($this,'albums_upsell_meta'),9999,1);
+
 
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
 
 	}
+
+
+    /**
+     * Add Albums Upsell Metabox
+     *
+     * @param $met
+     * @return mixed
+     * @since 2.2.7
+     */
+    public function albums_upsell_meta( $met ) {
+
+        $met['modula-albums-upsell'] = array(
+            'title'    => esc_html__( 'Albums Upsell', 'modula-best-grid-gallery' ),
+            'callback' => 'output_upsell_albums',
+            'context'  => 'normal',
+        );
+
+        $met = Modula_Helper::array_insert_after( 'modula-preview-gallery', $met, 'modula-albums-upsell', $met['modula-albums-upsell'] );
+
+        return $met;
+    }
 
 	public function generate_upsell_box( $title, $description, $tab ) {
 
