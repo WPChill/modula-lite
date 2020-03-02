@@ -229,7 +229,7 @@ class Modula_Shortcode {
 			}
 
 			if ( $settings['socialIconSize'] ) {
-				$css .= "#{$gallery_id} .modula-item .jtg-social svg { height: " . absint($settings['socialIconSize']) . "px; width: " . absint( $settings['socialIconSize' ] ) . "px }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social svg { height: " . absint($settings['socialIconSize']) . "px; width: " . absint( $settings['socialIconSize' ] ) . "px; }";
 			}
 
 			if ( $settings['socialIconPadding'] ) {

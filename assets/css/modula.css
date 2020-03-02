@@ -320,7 +320,6 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	color: #fff;
 	display: inline-block;
 	margin:0 10px 0 0;
-	width: 20px;
 	padding: 6px 4px;
 	border: 0;
 	opacity: 0;
