@@ -637,13 +637,26 @@ jQuery( document ).ready( function($){
 });
 
 /* Remove this after migration to Fancybox */
-jQuery('.modula-item').on('click', function(e){
-    window.location.hash = "#";
-    window.addEventListener('popstate', onBackDown, false);
-    window.addEventListener('backbutton', onBackDown, false);
-    function onBackDown() {
-        this.event.preventDefault();
-        jQuery('.lb-close').click();
-        this.window.location.hash = "";
+jQuery('.modula-item').on('click', function (e) {
+    if ( 'object' == typeof lightbox ) {
+        var url = window.location.href;
+        window.history.pushState("", "Modula Gallery", url + "/#modula-gallery");
+        window.addEventListener('popstate', onBackDown, false);
+        window.addEventListener('backbutton', onBackDown, false);
+
+    }
+});
+
+function onBackDown() {
+    this.event.preventDefault();
+    if ( 'undefined' != typeof lightbox.currentImageIndex ) {
+        lightbox.end();
+    }
+}
+
+jQuery(document).on('modula_lightbox2_lightbox_close', function () {
+    if ( 'object' == typeof lightbox ) {
+        window.history.back();
+        lightbox.end();
     }
 });
