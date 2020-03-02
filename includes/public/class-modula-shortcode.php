@@ -162,7 +162,7 @@ class Modula_Shortcode {
 			// Gallery container attributes
 			'gallery_container' => array(
 				'id' => $gallery_id,
-				'class' => apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $data->settings ),
+				'class' => apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $settings ),
 			),
 
 			// Items container attributes
