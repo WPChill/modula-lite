@@ -271,7 +271,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 	        // Mark existing Gallery images as selected when the modal is opened
 	        wp.media.frames.modula.on( 'open', function() {
 
-	            // Get any previously selected images
+	        	// Get any previously selected images
 	            var selection = wp.media.frames.modula.state().get( 'selection' );
 	            selection.reset();
 
@@ -317,7 +317,15 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 	        // Open WordPress Media Gallery
 	        $( '#modula-wp-gallery' ).click( function( e ){
 	        	e.preventDefault();
-	        	wp.media.frames.modula.open();
+	        	// set wp-settings-1 cookie to browse and not upload
+				setUserSetting( 'libraryContent', 'browse' );
+				// check if modal exists ( already introduced in page )
+				var media_modal = $('body .media-modal');
+				if(media_modal.length > 0 ){
+					// click on item browse so we can activate it and look at item browsing
+					media_modal.find('#menu-item-browse').click();
+				}
+				wp.media.frames.modula.open();
 	        });
 
 		},
