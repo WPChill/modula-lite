@@ -506,12 +506,23 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 
     var setupTwitter = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-twitter").click(function (e) {
+        $(".modula-icon-twitter").click(function (e) {
             e.preventDefault();
+
             var $caption = $(this).parents(".tile:first").find(".caption");
+
             var text = plugin.options.twitterText || document.title;
-            if (!plugin.options.twitterText && $caption.length == 1 && $caption.text().length > 0)
+            if (!plugin.options.twitterText &&  $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
+
+            // lightbox2 caption
+            if($(this).parents('#lightbox').length > 0){
+                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
+            }
+
+            if (!plugin.options.twitterText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
+                text = $.trim(lightbox_caption.text());
+
             var w = window.open("https://twitter.com/intent/tweet?url=" + encodeURI(location.href.split('#')[0]) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
             return false;
@@ -519,7 +530,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 
     var setupFacebook = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-facebook").click(function (e) {
+        $(".modula-icon-facebook").click(function (e) {
             e.preventDefault();
 
             var image = $(this).parents(".tile:first").find(".pic");
@@ -528,6 +539,14 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
             var text = plugin.options.facebookText || document.title;
             if (!plugin.options.facebookText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
+
+            // lightbox2 caption
+            if($(this).parents('#lightbox').length > 0){
+                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
+            }
+
+            if (!plugin.options.facebookText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
+                text = $.trim(lightbox_caption.text());
 
             var src = image.attr("src");
             var url = "//www.facebook.com/sharer.php?u=" + location.href;
@@ -539,12 +558,24 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 
     var setupWhatsapp = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-whatsapp").click(function (e) {
+        $(".modula-icon-whatsapp").click(function (e) {
             e.preventDefault();
+
             var $caption = $(this).parents(".tile:first").find(".caption");
+
             var text = plugin.options.whatsappText || document.title;
+
             if (!plugin.options.whatsappText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
+
+            // lightbox2 caption
+            if($(this).parents('#lightbox').length > 0){
+                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
+            }
+
+            if (!plugin.options.whatsappText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
+                text = $.trim(lightbox_caption.text());
+
             var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((window.location.href.split("#")[0])) +'&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
             return false;
@@ -552,15 +583,24 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 
     var setupPinterest = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-pinterest").click(function (e) {
+        $(".modula-icon-pinterest").click(function (e) {
             e.preventDefault();
 
             var image = $(this).parents(".tile:first").find(".pic");
 
             var $caption = $(this).parents(".tile:first").find(".caption");
-            var text = plugin.options.facebookText || document.title;
-            if (!plugin.options.facebookText && $caption.length == 1 && $caption.text().length > 0)
+
+            var text = plugin.options.pinterestText || document.title;
+            if (!plugin.options.pinterestText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
+
+            // lightbox2 caption
+            if($(this).parents('#lightbox').length > 0){
+                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
+            }
+
+            if (!plugin.options.pinterestText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
+                text = $.trim(lightbox_caption.text());
 
             var url = "http://pinterest.com/pin/create/button/?url=" + encodeURI(location.href) + "&description=" + encodeURI(text);
 
@@ -576,7 +616,7 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 
     var setupLinkedIN = function ($tiles, plugin) {
-        $tiles.find(".modula-icon-linkedin").click(function (e) {
+        $(".modula-icon-linkedin").click(function (e) {
             e.preventDefault();
 
             var url = "//linkedin.com/shareArticle?mini=true&url=" +  + encodeURI(location.href);

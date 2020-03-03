@@ -29,6 +29,7 @@
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
 				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
+                'lightbox_socials' => boolval( $data->settings['enableLightboxSocials'] )? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),

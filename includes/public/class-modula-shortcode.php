@@ -24,6 +24,8 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 
+		add_filter('modula_lightbox2_body','modula_lightbox_socials',15,2);
+
 	}
 
 	public function add_gallery_scripts() {
@@ -130,6 +132,16 @@ class Modula_Shortcode {
 			case "lightbox2":
 				wp_enqueue_style( 'modula-lightbox2' );
 				wp_enqueue_script( 'modula-lightbox2' );
+
+                $lightbox_body = '<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox">';
+
+                $lightbox_body .= apply_filters( 'modula_lightbox2_body', '', $settings );
+
+                $lightbox_body .= '<div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>';
+
+                wp_localize_script('modula-lightbox2','modulaLightboxHelper',array(
+                    'lightbox_body' => $lightbox_body
+                ));
 				wp_add_inline_script( 'modula-lightbox2', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
 				break;
 			default:
@@ -230,15 +242,15 @@ class Modula_Shortcode {
 			}
 
 			if ( $settings['socialIconColor'] ) {
-				$css .= "#{$gallery_id} .modula-item .jtg-social a { color: " . Modula_Helper::sanitize_rgba_colour($settings['socialIconColor']) . " }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a{ color: " . Modula_Helper::sanitize_rgba_colour($settings['socialIconColor']) . " }";
 			}
 
 			if ( $settings['socialIconSize'] ) {
-				$css .= "#{$gallery_id} .modula-item .jtg-social svg { height: " . absint($settings['socialIconSize']) . "px; width: " . absint( $settings['socialIconSize' ] ) . "px }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social svg, .lightbox-socials.jtg-social svg { height: " . absint($settings['socialIconSize']) . "px; width: " . absint( $settings['socialIconSize' ] ) . "px }";
 			}
 
 			if ( $settings['socialIconPadding'] ) {
-				$css .= "#{$gallery_id} .modula-item .jtg-social a { margin-right: " . absint($settings['socialIconPadding']) . 'px' . " }";
+				$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a { margin-right: " . absint($settings['socialIconPadding']) . 'px' . " }";
 			}
 
 			$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color($settings['captionColor']) . ";  }";

@@ -164,3 +164,23 @@ function modula_show_schemaorg( $settings ){
 	<?php
 
 }
+
+/**
+ * Add Socials to lightbox2 lightbox
+ *
+ * @param $text
+ * @param $settings
+ * @return string
+ * @since 2.2.8
+ */
+function modula_lightbox_socials( $text, $settings ) {
+
+    if ( !isset( $settings['disableSocial'] ) || '0' == $settings['disableSocial'] ) {
+
+        if ( isset( $settings['enableLightboxSocials'] ) && '1' == $settings['enableLightboxSocials'] ) {
+            $text .= '<div class="lightbox-socials jtg-social"><a class="modula-icon-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="modula-icon-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="modula-icon-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="modula-icon-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="modula-icon-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div>';
+        }
+    }
+
+    return $text;
+}

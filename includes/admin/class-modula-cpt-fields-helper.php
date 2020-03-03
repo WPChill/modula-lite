@@ -328,6 +328,13 @@ class Modula_CPT_Fields_Helper {
 					"description" => "Enabling this you will disable all social icons.",
 					'priority'    => 10,
 				),
+                "enableLightboxSocials"   => array(
+                    "name"        => esc_html__( 'Lightbox Social Icons', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "default"     => 0,
+                    "description" => "Enable social icons in lightbox",
+                    'priority'    => 10,
+                ),
 				"enableTwitter"   => array(
 					"name"        => esc_html__( 'Show Twitter Icon', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -575,6 +582,7 @@ class Modula_CPT_Fields_Helper {
             'mobileCaptionFontSize'     => '10',
             'mobileTitleFontSize'       => '12',
             'disableSocial'             => 0,
+            'enableLightboxSocials'     => 0,
             'enableFacebook'            => 1,
             'enableLinkedin'            => 1,
             'enablePinterest'           => 1,
