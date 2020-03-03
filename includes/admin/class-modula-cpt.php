@@ -67,19 +67,22 @@ class Modula_CPT {
 
 		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', array(
 			'modula-preview-gallery' => array(
-				'title' => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_images',
-				'context' => 'normal',
+				'context'  => 'normal',
+				'priority' => 10,
 			),
 			'modula-settings' => array(
-				'title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_settings',
-				'context' => 'normal',
+				'context'  => 'normal',
+				'priority' => 20,
 			),
 			'modula-shortcode' => array(
-				'title' => esc_html__( 'Shortcode', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Shortcode', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_shortcode',
-				'context' => 'side',
+				'context'  => 'side',
+				'priority' => 10,
 			),
 		) );
 
@@ -139,6 +142,9 @@ class Modula_CPT {
 
 		global $post;
 
+		// Sort tabs based on priority.
+		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+		
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
 
 			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {
