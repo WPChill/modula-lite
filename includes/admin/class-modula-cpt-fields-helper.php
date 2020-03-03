@@ -369,15 +369,14 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "#ffffff",
 					'priority'    => 50,
 				),
-				"socialIconSize" => apply_filters('modula-social-icon-size',array(
+				"socialIconSize" => array(
 					"name"        => esc_html__( 'Size of social sharing icons', 'modula-best-grid-gallery' ),
-					"type"        => "ui-slider",
-					"min"         => 10,
-                    "max"         => 20,
+					"type"        => "number",
+					"after"       => "px",
 					"description" => esc_html__( '16 will be the default value. '),
 					"default"     => 16,
 					'priority'    => 50,
-				)),
+				),
 				"socialIconPadding" => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
