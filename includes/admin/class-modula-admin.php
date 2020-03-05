@@ -70,6 +70,8 @@ class Modula_Admin {
 
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ) );
 
+		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), 'manage_options', 'modula-import-export', array( $this, 'import_export_doc' ) );
+
 	}
 
 	public function show_submenu() {
@@ -291,6 +293,26 @@ class Modula_Admin {
 
 		<?php
 	}
+
+    /**
+     *  Add Import/Export tutorial
+     *
+     * @since 2.2.7
+     */
+    public function import_export_doc() {
+        ?>
+        <div class="wrap">
+            <h3><?php esc_html_e('Import Galleries','modula-best-grid-gallery'); ?></h3>
+            <p><?php esc_html_e('In order to import exported galleries head over to "Tools -> Import" or click','modula-best-grid-gallery'); ?> <a href="<?php echo admin_url('import.php'); ?>"><?php  esc_html_e('here.','mdula-best-grid-gallery'); ?></a></p>
+            <p><?php echo '<a href="'.esc_url('https://wordpress.org/plugins/wordpress-importer/').'" target="_blank">'.esc_html__('Install Wordpress Importer','modula-best-grid-gallery').'</a>'.esc_html__('( if not installed ). If installed, click on Wordpress "Run importer". After that select the export file you desire and click "Upload file and import".','modula-best-grid-gallery'); ?></p>
+        </div>
+        <br />
+        <h3><?php esc_html_e('Export Galleries','modula-best-grid-gallery'); ?></h3>
+        <p><?php esc_html_e('In order to export Modula galleries head over to "Tools -> Export" or click','modula-best-grid-gallery'); ?> <a href="<?php echo admin_url('export.php'); ?>"><?php  esc_html_e('here.','mdula-best-grid-gallery'); ?></a></p>
+        <p><?php echo esc_html__('Select "Galleries" and click "Download Export File". An export file will be created and downloaded, which will be used to import the galleries somewhere else.','modula-best-grid-gallery'); ?></p>
+        </div>
+        <?php
+    }
 }
 
 new Modula_Admin();

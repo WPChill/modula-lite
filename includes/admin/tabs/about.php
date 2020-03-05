@@ -1,12 +1,19 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Improved Custom CSS textarea', 'modula-best-grid-gallery' ),
-        esc_html__( 'Improved how the lightbox closes', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed Custom Gallery with gutter 0', 'modula-best-grid-gallery' ),
-        esc_html__( 'Removed feature box from extensions', 'modula-best-grid-gallery' ),
-        esc_html__( 'Changed font size settings', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed incompatibility with isotope.js', 'modula-best-grid-gallery' ),
+        esc_html__( 'Renamed our registered files name', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed title/caption font size to reflect theme default', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed scroll to top when opening lightbox', 'modula-best-grid-gallery' ),
+        esc_html__( 'If Title/Caption is hidden then hide settings also', 'modula-best-grid-gallery' ),
+        esc_html__( 'Hide settings if toggle is OFF for custom responsiveness ', 'modula-best-grid-gallery' ),
     ),
+    'feature' => array(
+        esc_html__( 'Added Migrate functionality. Now it\'s easier to migrate from another gallery to Modula', 'modula-best-grid-gallery' ),
+        esc_html__( 'Improved social media icons in preview', 'modula-best-grid-gallery' ),
+        esc_html__( 'Delete resized images when deleting attachment', 'modula-best-grid-gallery' ),
+        esc_html__( 'Added Import/Export sub-menu entry and tutorial', 'modula-best-grid-gallery' ),
+    )
 );
 ?>
 <div class="row modula-about-row">
@@ -23,7 +30,7 @@ $issues = array(
         <div class="modula-about-content">
             <?php if (!empty($issues)) { ?>
 
-                <h2><?php printf(esc_html__('Version %s addressed %s bugs', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] ) ); ?></h2>
+                <h2><?php printf(esc_html__('Version %s addressed %s bugs and added %s features', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] ),count( $issues['feature'] ) ); ?></h2>
                 <ul class="modula-about-list">
                     <?php
                     foreach ($issues as $key => $iss) {

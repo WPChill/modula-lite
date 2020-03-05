@@ -1,3 +1,15 @@
+= 2.2.6 - 06/03/2020 =
+Fixed incompatibility with isotope.js
+Renamed our registered files name
+Fixed title/caption font size to reflect theme default
+Fixed scroll to top when opening lightbox
+If Title/Caption is hidden then hide settings also
+Hide settings if toggle is OFF for custom responsiveness
+Added Migrate functionality. Now it's easier to migrate from another gallery to Modula
+Improved social media icons in preview
+Delete resized images when deleting attachment
+Added Import/Export sub-menu entry and tutorial
+
 = 2.2.6 - 18/02/2020 =
 Improved Custom CSS textarea
 Improved how the lightbox closes
