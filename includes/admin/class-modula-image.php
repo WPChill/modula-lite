@@ -183,6 +183,7 @@ class Modula_Image {
     public function resize_image( $url, $width = null, $height = null, $crop = false, $align = 'c', $quality = 100, $retina = false, $data = array(), $force_overwrite = false ) {
 
         global $wpdb;
+        $upload_dir = wp_upload_dir();
 
         // Get common vars.
         $args   = array( $url, $width, $height, $crop, $align, $quality, $retina, $data );
@@ -229,21 +230,8 @@ class Modula_Image {
         // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
-
-            if ( strpos( $url, '-scaled') ) {
-                $url = str_replace("-scaled", "", $url);
-            }
-
-            $uploads_dir    = wp_upload_dir();
-            $file_att       = explode( $uploads_dir['baseurl'] . '/', $url );
-            $column         = '_wp_attached_file';
-            $get_attachment = get_posts(
-                array(
-                    'post_type'  => 'attachment',
-                    'meta_key'   => $column,
-                    'meta_value' => $file_att[1]
-                )
-            );
+            $_wp_attached_file = str_replace( $upload_dir['baseurl'] . '/' , '', $url );
+            $get_attachment = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_wp_attached_file' AND meta_value='%s'", $_wp_attached_file ) );
 
             // Load the WordPress image editor.
             $editor = wp_get_image_editor( $file_path );
@@ -311,8 +299,8 @@ class Modula_Image {
 
             // Add the resized dimensions and alignment to original image metadata, so the images
             // can be deleted when the original image is delete from the Media Library.
-            if ( $get_attachment && count($get_attachment) > 0) {
-                $metadata = wp_get_attachment_metadata( $get_attachment[0]->ID );
+            if ( $get_attachment ) {
+                $metadata = wp_get_attachment_metadata( $get_attachment );
 
                 if ( isset( $metadata['image_meta'] ) ) {
 
@@ -323,7 +311,7 @@ class Modula_Image {
                     }
                     
                     $metadata['image_meta']['resized_images'][] = $md;
-                    wp_update_attachment_metadata( $get_attachment[0]->ID, $metadata );
+                    wp_update_attachment_metadata( $get_attachment, $metadata );
                 }
             }
 
