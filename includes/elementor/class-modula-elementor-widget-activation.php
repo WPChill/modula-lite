@@ -68,7 +68,7 @@ class Modula_Elementor_Widget_Activation {
 
 		do_action( 'modula_elementor_before_enqueue_scripts' );
 
-		wp_enqueue_script( 'packery' );
+		wp_enqueue_script( 'modula-packery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
 

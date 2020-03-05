@@ -22,6 +22,38 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
+		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
+
+
+	}
+
+	public function delete_resized_image( $post_id ) {
+
+		// Get the metadata
+		$metadata =  wp_get_attachment_metadata( $post_id );
+		$info     = pathinfo( $metadata['file'] );
+		$uploads  = wp_upload_dir();
+		$filename = $info['filename'];
+		$file_dir = $uploads['basedir'] .'/'. $info['dirname'];
+		$ext      = $info['extension'];
+
+		if ( ! isset( $metadata['image_meta']['resized_images'] ) ) {
+			return;
+		}
+
+		if ( count( $metadata['image_meta']['resized_images'] ) > 0 ) {
+
+			foreach ( $metadata['image_meta']['resized_images'] as $value ) {
+				$size = "-" . $value;
+
+				// Format the files in the appropriate format
+				$file = $file_dir . '/' . $filename . $size . '.' . $ext;
+				// Delete found files
+				wp_delete_file_from_directory( $file, $file_dir);
+
+			}
+
+		}
 
 	}
 

@@ -42,9 +42,9 @@
 	display: block;
 }
 
-.modula .modula-items .modula-item .description {
+/*.modula .modula-items .modula-item .description {
 	font-size:14px;
-}
+}*/
 .modula .modula-items .modula-item .caption .icon {
 	font-size:14px;
 	position:absolute;
@@ -54,7 +54,6 @@
 }
 .modula .modula-items .modula-item .figc {
 	color: #fff;
-	font-size:11px;
 	text-align: center;
 	position: absolute;
 	left: 0;
@@ -321,7 +320,6 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	color: #fff;
 	display: inline-block;
 	margin:0 10px 0 0;
-	width: 20px;
 	padding: 6px 4px;
 	border: 0;
 	opacity: 0;
