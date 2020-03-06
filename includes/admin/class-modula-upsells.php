@@ -18,7 +18,6 @@ class Modula_Upsells {
         add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
         add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
         add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
-
         add_filter( 'modula_cpt_metaboxes',array( $this, 'albums_upsell_meta' ) );
 
 

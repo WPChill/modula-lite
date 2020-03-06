@@ -341,8 +341,7 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case "custom_code":
-				$html = apply_filters( 'modula-gallery-id', '', $post_id );
-				$html .= '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
+				$html = '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '-customcode" class="large-text code modula-custom-editor-field"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
 				break;
@@ -450,7 +449,7 @@ class Modula_Field_Builder {
 				break;
 		}
 
-		return $html;
+		return apply_filters( "modula_render_field_type", $html, $field, $value );
 
 	}
 
