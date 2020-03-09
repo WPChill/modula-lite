@@ -16,10 +16,10 @@ class Modula_Widget extends WP_Widget {
             'modula_gallery_widget',
 
             // Widget name
-            __('Modula Gallery', 'modula-best-grid-gallery'),
+            esc_html__('Modula Gallery', 'modula-best-grid-gallery'),
 
             // Widget description
-            array( 'description' => __('Modula Gallery Widget.', 'modula-best-grid-gallery'), )
+            array( 'description' => esc_html__('Modula Gallery Widget.', 'modula-best-grid-gallery'), )
         );
 
         add_action( 'siteorigin_panel_enqueue_admin_scripts', array( $this, 'enqueue_page_builder_scripts' ) );
@@ -63,7 +63,7 @@ class Modula_Widget extends WP_Widget {
         ?>
         <p xmlns="http://www.w3.org/1999/html">
             <!-- Widget Title -->
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e( 'Title:', 'modula-best-grid-gallery' ); ?></label>
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html__( 'Title:', 'modula-best-grid-gallery' ); ?></label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                    value="<?php echo esc_attr($title); ?>"/>

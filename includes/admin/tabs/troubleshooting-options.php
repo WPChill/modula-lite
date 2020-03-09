@@ -6,36 +6,37 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'deeplink'         => false,
     'gridtypes'        => array(),
     'lightboxes'       => array(),
+    'lazy_load'        => false
 ));
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 $troubleshooting_fields = array(
     'enqueue_files' => array(
-        'label'       => __('Enqueue Modula assets', 'modula-best-grid-gallery'),
-        'description' => __('Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery'),
+        'label'       => esc_html__('Enqueue Modula assets', 'modula-best-grid-gallery'),
+        'description' => esc_html__('Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery'),
         'type'        => 'toggle',
         'default'     => 0,
         'priority'    => 10,
     ),
-    'gridtypes' => array(
-        'label'         => __('Grid Types', 'modula-best-grid-gallery'),
-        'description'   => __('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
-        'type'          => 'select',
-        'values'        => array( 'custom-grid' => __('Custom Grid', 'modula-best-grid-gallery') ),
-        'priority'      => 20,
+    'gridtypes'     => array(
+        'label'       => esc_html__('Grid Types', 'modula-best-grid-gallery'),
+        'description' => esc_html__('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
+        'type'        => 'select',
+        'values'      => array('custom-grid' => __('Custom Grid', 'modula-best-grid-gallery')),
+        'priority'    => 20,
 
     ),
-    'lightboxes' => array(
-        'label'         => __('Lightboxes', 'modula-best-grid-gallery'),
-        'description'   => __('Select which lightboxes you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
-        'type'          => 'select',
-        'values'        => array( 'lightbox2' => __('Lightbox2', 'modula-best-grid-gallery') ),
-        'priority'      => 30,
+    'lightboxes'    => array(
+        'label'       => esc_html__('Lightbox & links', 'modula-best-grid-gallery'),
+        'description' => esc_html__('Enqueue Fancybox lightbox scripts and styles everywhere.', 'modula-best-grid-gallery'),
+        'type'        => 'select',
+        'values'      => array('fancybox' => esc_html__('Enqueue Fancybox', 'modula-best-grid-gallery')),
+        'priority'    => 30,
     ),
-    'lazy_load' => array(
-        'label'       => __('Lazy Load', 'modula-best-grid-gallery'),
-        'description' => __('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
+    'lazy_load'     => array(
+        'label'       => esc_html__('Lazy Load', 'modula-best-grid-gallery'),
+        'description' => esc_html__('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
         'type'        => 'toggle',
         'priority'    => 40,
     )

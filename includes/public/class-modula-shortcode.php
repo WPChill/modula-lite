@@ -30,12 +30,12 @@ class Modula_Shortcode {
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'modula-lightbox2', MODULA_URL . 'assets/css/lightbox.min.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/jquery.fancybox.css', null, MODULA_LITE_VERSION );
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'modula-lightbox2', MODULA_URL . 'assets/js/lightbox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/jquery.fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
@@ -92,7 +92,7 @@ class Modula_Shortcode {
 		}else{
 			$settings['type'] = 'creative-gallery';
 		}
-		
+
 		$pre_gallery_html = apply_filters( 'modula_pre_output_filter_check', false, $settings, $gallery );
 
 		if ( false !== $pre_gallery_html ) {
@@ -122,34 +122,40 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
+
         if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && ('custom-grid' == $settings['type'] || 'creative-gallery' == $settings['type']) ) {
             wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
         }
 
 
-		/* Enqueue lightbox related scripts & styles */
-		switch ( $settings['lightbox'] ) {
-			case "lightbox2":
-				wp_enqueue_style( 'modula-lightbox2' );
-				wp_enqueue_script( 'modula-lightbox2' );
+        /* Enqueue lightbox related scripts & styles */
+        wp_enqueue_style('modula-fancybox');
+        wp_enqueue_script('modula-fancybox');
 
-                $lightbox_body = '<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox">';
+        $fancybox_options = array('options' => array());
+        $default_fancybox_options = Modula_Helper::lightbox_default_options();
 
-                $lightbox_body .= apply_filters( 'modula_lightbox2_body', '', $settings );
+        if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
+            $fancybox_options['options']['arrows'] = true;
+        }
 
-                $lightbox_body .= '<div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>';
+        if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
+            $fancybox_options['options']['loop'] = true;
+        }
 
-                wp_localize_script('modula-lightbox2','modulaLightboxHelper',array(
-                    'lightbox_body' => $lightbox_body
-                ));
-				wp_add_inline_script( 'modula-lightbox2', 'jQuery(document).ready(function(){lightbox.option({albumLabel: "' . esc_html__( 'Image %1 of %2', 'modula-best-grid-gallery' ) . '",wrapAround: true, showNavigation: ' . $settings['show_navigation'] . ', showNavigationOnMobile: ' . $settings['show_navigation_on_mobile'] . '});});' );
-				break;
-			default:
-				do_action( 'modula_lighbox_shortcode', $settings['lightbox'] );
-				break;
-		}
+        $fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
 
-		do_action('modula_extra_scripts',$settings);
+        /**
+         * Hook: modula_fancybox_options.
+         *
+         */
+        $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
+        $fancybox_options = json_encode($fancybox_options['options']);
+
+        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
+
+
+        do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ),$settings );
@@ -279,7 +285,7 @@ class Modula_Shortcode {
 
 			if ( 'custom-grid' != $settings['type'] ) {
 
-			// max-width is a fix for Twentytwenty theme
+			// max-width is a fix for TwentyTwenty theme
 	        $activeTheme = wp_get_theme(); // gets the current theme
 	        $themeArray  = array ( 'Twenty Twenty' ); // Themes that have this problem
 	        if ( in_array( $activeTheme->name , $themeArray ) || in_array( $activeTheme->parent_theme , $themeArray ) ) {

@@ -10,10 +10,10 @@ class Modula_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => __( "Hi there! Stoked to see you're using Modula for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'modula-best-grid-gallery' ),
-			'rate'    => __( 'Rate the plugin', 'modula-best-grid-gallery' ),
-			'rated'   => __( 'Remind me later', 'modula-best-grid-gallery' ),
-			'no_rate' => __( 'Don\'t show again', 'modula-best-grid-gallery' ),
+			'notice'  => esc_html__( "Hi there! Stoked to see you're using Modula for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'modula-best-grid-gallery' ),
+			'rate'    => esc_html__( 'Rate the plugin', 'modula-best-grid-gallery' ),
+			'rated'   => esc_html__( 'Remind me later', 'modula-best-grid-gallery' ),
+			'no_rate' => esc_html__( 'Don\'t show again', 'modula-best-grid-gallery' ),
 		);
 
 		if ( isset( $args['messages'] ) ) {

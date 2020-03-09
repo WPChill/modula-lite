@@ -309,5 +309,4 @@ class Modula {
 
         return $result;
     }
-    
 }

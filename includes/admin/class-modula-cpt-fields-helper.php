@@ -7,7 +7,7 @@ class Modula_CPT_Fields_Helper {
 
 	public static function get_tabs() {
 
-		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own). Pick your favorite lightbox style and easily design your gallery.', 'modula-best-grid-gallery' ) . '</p>';
+		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own) and easily design your gallery.', 'modula-best-grid-gallery' ) . '</p>';
 		$caption_description = '<p>' . esc_html__( 'The settings below adjust how the image title/description will appear on the front-end.', 'modula-best-grid-gallery' ) . '</p>';
 		$social_description = '<p>' . esc_html__( 'Here you can add social sharing buttons to your the images in your gallery.', 'modula-best-grid-gallery' ) . '</p>';
 		$loadingeffects_description = '<p>' . esc_html__( 'The settings below adjust the effect applied to the images after the page is fully loaded.', 'modula-best-grid-gallery' ) . '</p>';
@@ -18,7 +18,6 @@ class Modula_CPT_Fields_Helper {
 			esc_html__( 'Easily let website visitors sort photos in your gallery by adding filters.', 'modula-best-grid-gallery' ),
 			esc_html__( 'Use this tab to create new filters which you can then start assigning filters to by editing images individually or by using the bulk edit option.', 'modula-best-grid-gallery' )
 		);
-        $miscellaneous_description = '<p>' . esc_html__( 'Here you can enable copyright protection and Modula lightbox deeplink functionality', 'modula-best-grid-gallery' ) . '</p>';
 
 		return apply_filters( 'modula_gallery_tabs', array(
 			'general' => array(
@@ -28,6 +27,13 @@ class Modula_CPT_Fields_Helper {
 				"icon"        => "dashicons dashicons-admin-generic",
 				'priority'    => 10,
 			),
+            'lightboxes' => array(
+                'label' => esc_html__('Lightbox & Links'),
+                'title' => esc_html__('Lightbox & Links settings'),
+                'description' => '',
+                'icon' => 'dashicons dashicons-layout',
+                'priority'    => 10,
+            ),
 			'filters' => array(
 				'label'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
 				'title'    => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
@@ -100,7 +106,6 @@ class Modula_CPT_Fields_Helper {
             'misc' => array(
                 'label'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
-                //'description' => $miscellaneous_description,
                 "icon"        => "dashicons dashicons-image-filter",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 100,
@@ -116,7 +121,6 @@ class Modula_CPT_Fields_Helper {
             'password_protect' => array(
                 'label'       => esc_html__('Pass Protect', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Password protect your galleries', 'modula-best-grid-gallery'),
-                //'description' => $password_protect_description,
                 "icon"        => "dashicons dashicons-shield",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 120,
@@ -124,12 +128,11 @@ class Modula_CPT_Fields_Helper {
             'watermark' => array(
                 'label'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Watermark settings to protect your galleries', 'modula-best-grid-gallery'),
-                //'description' => $watermark_description,
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 130,
             ),
-            
+
 		) );
 
 	}
@@ -211,53 +214,45 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 50,
 					'priority' => 70,
 				),
-				"lightbox"       => array(
-					"name"        => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
-					"type"        => "select",
-					"description" => esc_html__( 'Choose your preferred lightbox style. Some styles, such as LightGallery, allow for image downloads.', 'modula-best-grid-gallery' ),
-					'default'     => 'lightbox2',
-					"values"      => array(
-						esc_html__( 'Link', 'modula-best-grid-gallery' ) => array(
-							"no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
-							"direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
-							"attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' )
-						),
-						esc_html__( 'Lightboxes', 'modula-best-grid-gallery' ) => array(
-							'lightbox2' => esc_html__( 'Lightbox2', 'modula-best-grid-gallery' ),
-						),
-					),
-					"disabled" => array(
-						'title'  => esc_html__( 'Lightboxes with PRO license', 'modula-best-grid-gallery' ),
-						'values' => array(
-							"magnific"     => esc_html__( 'Magnific popup', 'modula-best-grid-gallery' ),
-							"prettyphoto"  => esc_html__( 'PrettyPhoto', 'modula-best-grid-gallery' ),
-							"fancybox"     => esc_html__( 'FancyBox', 'modula-best-grid-gallery' ),
-							"swipebox"     => esc_html__( 'SwipeBox', 'modula-best-grid-gallery' ),
-							"lightgallery" => esc_html__( 'LightGallery', 'modula-best-grid-gallery' ),
-						),
-					),
-					'priority' => 110,
-				),
-				"show_navigation" => array(
-					"name"        => esc_html__( 'Show lightbox navigation', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 1,
-					'priority'    => 111,
-				),
-				"show_navigation_on_mobile" => array(
-					"name"        => esc_html__( 'Show lightbox navigation on mobile', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					'priority'    => 112,
-				),
-				"shuffle"         => array(
-					"name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
-					'priority'    => 120,
-				),
+                "shuffle"         => array(
+                    "name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "default"     => 0,
+                    "description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
+                    'priority'    => 10,
+                ),
 			),
+			'lightboxes' => array(
+                "lightbox"       => array(
+                    "name"        => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
+                    "type"        => "select",
+                    "description" => esc_html__( 'Choose how the gallery should behave on image clicking.', 'modula-best-grid-gallery' ),
+                    'default'     => 'fancybox',
+                    "values"      => array(
+
+                        "no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
+                        "direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
+                        "attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' ),
+                        "fancybox" => esc_html__( 'Open Images in a Lightbox', 'modula-best-grid-gallery' ),
+
+                    ),
+                    'priority' => 1,
+                ),
+                "show_navigation" => array(
+                    "name"        => esc_html__( 'Navigation arrows', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "description" => esc_html__( 'Enable this to display navigation arrows.', 'modula-best-grid-gallery' ),
+                    "default"     => 1,
+                    'priority'    => 1,
+                ),
+                "loop_lightbox" => array(
+                    "name"        => esc_html__( 'Infinite gallery navigation', 'modula-best-grid-gallery' ),
+                    "type"        => "toggle",
+                    "description" => esc_html__( 'Enable this to allow infinite lightbox navigation.', 'modula-best-grid-gallery' ),
+                    "default"     => 0,
+                    'priority'    => 1,
+                ),
+            ),
 			'captions' => array(
 				"hide_title"        => array(
 					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
@@ -420,7 +415,7 @@ class Modula_CPT_Fields_Helper {
 					'default'     => 'pufrobo',
 					'priority'    => 15,
 				),
-				
+
 				"cursor"  => array(
 					"name"         => esc_html__( 'Curson Icon', 'modula-best-grid-gallery'),
 					"description"  => esc_html__( 'Select your favourite cursor', 'modula-best-grid-gallery'),
@@ -442,7 +437,7 @@ class Modula_CPT_Fields_Helper {
 							'custom'      => esc_html__( 'Custom', 'modula-best-grid-gallery'),
 						),
 					),
-				),	
+				),
 			),
 			'style' => array(
 				"borderSize"   => array(
@@ -555,57 +550,57 @@ class Modula_CPT_Fields_Helper {
 		} else {
 			return array();
 		}
-		
-	}	
-	
+
+	}
+
 
 
 	public static function get_defaults() {
         return apply_filters('modula_lite_default_settings', array(
-            'type'                      => 'creative-gallery',
-            'width'                     => '100%',
-            'height'                    => '800',
-            'img_size'                  => 300,
-            'margin'                    => '10',
-            'randomFactor'              => '50',
-            'lightbox'                  => 'lightbox2',
-            'show_navigation'           => 1,
-            'show_navigation_on_mobile' => 0,
-            'shuffle'                   => 0,
-            'titleColor'                => '',
-            'captionColor'              => '#ffffff',
-            'hide_title'                => 0,
-            'hide_description'          => 0,
-            'captionFontSize'           => '14',
-            'titleFontSize'             => '16',
-            'mobileCaptionFontSize'     => '10',
-            'mobileTitleFontSize'       => '12',
-            'disableSocial'             => 0,
-            'enableLightboxSocials'     => 0,
-            'enableFacebook'            => 1,
-            'enableLinkedin'            => 1,
-            'enablePinterest'           => 1,
-			'enableTwitter'             => 1,
-			'enableWhatsapp'            => 0,
-            'filterClick'               => 0,
-			'socialIconColor'           => '#ffffff',
-			'socialIconSize'            => 16,
-			'socialIconPadding'         => 10,
-            'loadedScale'               => '100',
-            'inView'                    => '100',
-	      	'cursor'                    => 'magnifying-glass',
-            'effect'                    => 'pufrobo',
-            'borderColor'               => '#ffffff',
-            'borderRadius'              => '0',
-            'borderSize'                => '0',
-            'shadowColor'               => '#ffffff',
-            'shadowSize'                => 0,
-            'script'                    => '',
-            'style'                     => '',
-            'columns'                   => 6,
-            'gutter'                    => 10,
-            'helpergrid'                => 0,
-            'lazy_load'                 => 0,
+            'type'                  => 'creative-gallery',
+            'width'                 => '100%',
+            'height'                => '800',
+            'img_size'              => 300,
+            'margin'                => '10',
+            'randomFactor'          => '50',
+            'lightbox'              => 'fancybox',
+            'show_navigation'       => 1,
+            'loop_lightbox'         => 0,
+            'shuffle'               => 0,
+            'titleColor'            => '',
+            'captionColor'          => '#ffffff',
+            'hide_title'            => 0,
+            'hide_description'      => 0,
+            'captionFontSize'       => '14',
+            'titleFontSize'         => '16',
+            'mobileCaptionFontSize' => '10',
+            'mobileTitleFontSize'   => '12',
+            'disableSocial'         => 0,
+						'enableLightboxSocials' => 0,
+            'enableFacebook'        => 1,
+            'enableLinkedin'        => 1,
+            'enablePinterest'       => 1,
+            'enableTwitter'         => 1,
+            'enableWhatsapp'        => 0,
+            'filterClick'           => 0,
+            'socialIconColor'       => '#ffffff',
+            'socialIconSize'        => 16,
+            'socialIconPadding'     => 10,
+            'loadedScale'           => '100',
+						'inView'                => '100',
+            'cursor'                => 'magnifying-glass',
+            'effect'                => 'pufrobo',
+            'borderColor'           => '#ffffff',
+            'borderRadius'          => '0',
+            'borderSize'            => '0',
+            'shadowColor'           => '#ffffff',
+            'shadowSize'            => 0,
+            'script'                => '',
+            'style'                 => '',
+            'columns'               => 6,
+            'gutter'                => 10,
+            'helpergrid'            => 0,
+            'lazy_load'             => 0,
         ));
 	}
 

@@ -72,11 +72,9 @@ class Modula_Troubleshooting {
     public function public_enqueue_scripts() {
         $defaults = apply_filters( 'modula_troubleshooting_defaults', array(
             'enqueue_files'    => false,
-            'pass_protect'     => false,
-            'download_protect' => false,
-            'deeplink'         => false,
             'gridtypes'        => array(),
             'lightboxes'       => array(),
+            'lazy_load'        => false
         ));
 
         $ts_opt = get_option( 'modula_troubleshooting_option', array() );
@@ -137,7 +135,7 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options = $_POST['modula_troubleshooting_option'];
+        $troubleshooting_options = isset($_POST['modula_troubleshooting_option']) ? $_POST['modula_troubleshooting_option'] : false;
         $ts_options              = array();
 
         if ( is_array( $troubleshooting_options ) && !empty( $troubleshooting_options ) ) {
@@ -157,9 +155,9 @@ class Modula_Troubleshooting {
     public function check_lightbox( $handles, $options ){
 
         $lightboxes = apply_filters( 'modula_troubleshooting_lightboxes_handles', array(
-            'lightbox2' => array(
-                'scripts' => 'modula-lightbox2',
-                'styles'  => 'modula-lightbox2',
+            'fancybox' => array(
+                'scripts' => 'modula-fancybox',
+                'styles'  => 'modula-fancybox',
             )
         ));
 

@@ -4,7 +4,7 @@
  *  Helper Class for Modula Gallery
  */
 class Modula_Helper {
-	
+
 	/*
 	*
 	* Generate html attributes based on array
@@ -21,7 +21,7 @@ class Modula_Helper {
 			if ( is_array( $value ) ) {
 				$value = implode( ' ', $value );
 			}
-			
+
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
 				$value = str_replace('<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
@@ -129,7 +129,7 @@ class Modula_Helper {
 	}
 
 	public static function get_description( $item, $default_source ){
-		
+
 		$description = isset($item['description']) ? $item['description'] : '';
 
 		if ( '' == $description && 'none' != $default_source ) {
@@ -150,46 +150,65 @@ class Modula_Helper {
 
         return $gallery_array;
 	}
-	
+
 	public static function sanitize_rgba_colour( $color ) {
-		
+
 		if ( empty( $color ) || is_array( $color ) )
 			return 'rgba(0,0,0,0)';
 
 		if ( false === strpos( $color, 'rgba' ) ) {
 
 			return sanitize_hex_color( $color );
-			
+
 		}
-		
+
 		$color = str_replace( ' ', '', $color );
 		sscanf( $color, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
-		
+
 		return 'rgba(' . absint( $red ) . ',' . absint( $green ) . ',' . absint( $blue ) . ',' . floatval( $alpha ) . ')';
 
 	}
 
 
-    /**
-     * Function to insert array into array after index
-     *
-     * @param       $key
-     * @param array $array
-     * @param       $new_key
-     * @param       $new_value
-     * @return array
-     * @since 2.2.7
-     */
-	public static function array_insert_after( $key, array &$array, $new_key, $new_value ) {
-        $new = array();
-        foreach ( $array as $k => $value ) {
-            $new[ $k ] = $value;
-            if ( $k === $key ) {
-                $new[ $new_key ] = $new_value;
-            }
-        }
-        return $new;
+    public static function lightbox_default_options(){
+
+        $fancybox_options = array(
+            'options' => array(
+                'loop'            => false,
+                'arrows'          => false,
+                'toolbar'         => true,
+                'keyboard'        => false,
+                'wheel'           => false,
+                'buttons'         => array(
+                    'close'
+                ),
+                'hash'            => false,
+                'lang'            => 'en',
+                'touch'           => false,
+                'i18n'            => array(
+                    'en' => array(
+                        'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
+                        'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
+                        'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
+                        'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
+                        'PLAY_START'  => esc_html__( 'Start slideshow', 'modula_best-grid_gallery' ),
+                        'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
+                        'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
+                        'THUMBS'      => esc_html__( 'Thumbnails', 'modula_best-grid_gallery' ),
+                        'DOWNLOAD'    => esc_html__( 'Download', 'modula_best-grid_gallery' ),
+                        'SHARE'       => esc_html__( 'Share', 'modula_best-grid_gallery' ),
+                        'ZOOM'        => esc_html__( 'Zoom', 'modula_best-grid_gallery' ),
+                    )
+                ),
+                'clickSlide'      => false,
+                'clickOutside'    => false,
+                'dblclickContent' => false,
+                'dblclickSlide'   => false,
+                'dblclickOutside' => false,
+                'clickContent'    => false,
+            )
+        );
+
+	    return $fancybox_options;
 
     }
-	
-}

@@ -37,6 +37,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
 	$item_data['link_attributes']['href'] = '#';
+
     // Will comment these lines, maybe in the future we revert to them.
     // For now the settings are disabled
     if ( isset($item['description']) && '' != $item['description'] ) {
@@ -46,7 +47,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
     }
 
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['href'] = '#';
 	}elseif ( 'attachment-page' == $settings['lightbox'] ) {
 		if ( '' != $item['link'] ) {
 			$item_data['link_attributes']['href'] = $item['link'];
@@ -56,25 +56,17 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		}else{
 			$item_data['link_attributes']['href'] = get_attachment_link( $item['id'] );
 		}
-		
-	}else{
+
+	} else if('direct' == $settings['lightbox']) {
+        $item_data['link_attributes']['href'] = $item_data['image_full'];
+    }else{
+			
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
-	}
 
-	if ( in_array( $settings['lightbox'], array( 'prettyphoto', 'swipebox' ) ) ) {
-		$item_data['link_attributes']['title'] = htmlentities( $caption );
-	}elseif ( 'lightgallery' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-sub-html'] = htmlentities( $caption );
-	}else{
-		$item_data['link_attributes']['data-title'] = htmlentities($caption);
-	}
+        $item_data['link_attributes']['data-fancybox'] = esc_attr($settings['gallery_id']);
+        $item_data['link_attributes']['rel']          = $settings['gallery_id'];
+        $item_data['link_attributes']['data-caption'] = $caption;
 
-	if ( 'prettyphoto' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['rel'] = 'prettyPhoto[' . $settings['gallery_id'] . ']';
-	}elseif ( 'lightbox2' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-lightbox'] = $settings['gallery_id'];
-	}else{
-		$item_data['link_attributes']['rel'] = $settings['gallery_id'];
 	}
 
 	return $item_data;

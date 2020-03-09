@@ -316,13 +316,9 @@ class Modula_Upgrades {
                 'img_size'                  => 300,
                 'margin'                    => '10',
                 'randomFactor'              => '50',
-                'lightbox'                  => 'lightbox2',
+                'lightbox'                  => 'fancybox',
                 'shuffle'                   => 0,
                 'captionColor'              => '#ffffff',
-                // Will comment these lines, maybe in the future we revert to them.
-                // For now the settings are disabled
-                //'wp_field_caption'          => 'none',
-                //'wp_field_title'            => 'none',
                 'hide_title'                => 0,
                 'hide_description'          => 0,
                 'captionFontSize'           => '14',
@@ -343,8 +339,9 @@ class Modula_Upgrades {
                 'borderRadius'              => '0',
                 'borderSize'                => '0',
                 'shadowColor'               => '#ffffff',
-                'lightbox_background_color' => '#000000',
-                'lightbox_popup_opacity'    => '-0.1',
+               //@todo : check these 2 options for usability
+               /* 'lightbox_background_color' => '#000000',
+                'lightbox_popup_opacity'    => '-0.1',*/
                 'shadowSize'                => 0,
                 'script'                    => '',
                 'style'                     => '',

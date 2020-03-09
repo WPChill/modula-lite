@@ -62,24 +62,24 @@
 }
 .modula .modula-items .hidden .figc
 {
-	display: none; 
+	display: none;
 }
 .modula .modula-items .hidden:hover .figc
 {
-	display: block; 
+	display: block;
 }
 
 .modula .modula-items .visible .figc
 {
-	display: block; 
+	display: block;
 }
 .modula .modula-items .always-visible .figc
 {
-	display: block; 
+	display: block;
 }
 .modula .modula-items .visible:hover .figc
 {
-	display: none; 
+	display: none;
 }
 .modula .modula-items .caption span.text {
 	display: block;
@@ -305,7 +305,7 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 .modula .modula-items .modula-item p {
 	margin:0;
 	padding: 0;
-}	
+}
 .modula .figc {
 	color: black;
 	text-align: center;
@@ -347,7 +347,7 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 }
 
 .modula .modula-items .jtg-social a:last-of-type {
-	margin-right: 0;	
+	margin-right: 0;
 }
 
 .modula .modula-item.effect-pufrobo p.description {
@@ -374,7 +374,7 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 .modula .modula-item { background-color:#000; }
 
 .modula .modula-item.effect-pufrobo p {
-	bottom: 20%;  
+	bottom: 20%;
 	line-height: 1.5;
 	-webkit-transform: translate3d(0,100%,0);
 	transform: translate3d(0,100%,0);
@@ -442,34 +442,11 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	display: none;
 }
 
-#lightbox.lightbox {
-	position: fixed;
-	top:50% !important;
-	transform: translateY(-50%);
-}
-
-@media all and (max-height: 680px) {
-	.lb-outerContainer,
-	.lb-container,
-	#lightbox.lightbox .lb-image {
-		max-height:80vh;
-		width:auto !important;
-		display:inline-block;
-	}
-}
-
 .modula .modula-items .modula-item>a{cursor:zoom-in;}
 
 /**
-Lightbox 2 socials
+Fix for admin bar overfloating
  */
-#lightbox .jtg-social {
-	position:absolute;
-	top:0;
-	right:0;
-}
-
-#lightbox .jtg-social svg {
-	float:left;
-	margin:5px;
+.fancybox-container.fancybox-is-open {
+	z-index:99999999;
 }

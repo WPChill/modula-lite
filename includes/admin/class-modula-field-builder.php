@@ -284,11 +284,19 @@ class Modula_Field_Builder {
 				break;
 			case 'select' :
 				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
+
 				foreach ( $field['values'] as $key => $option ) {
+
+				    // Fix for single lightbox after Modula update
+				    if('Link' == $key){
+				        if(!isset($option[$value])){
+				            $value = 'fancybox';
+                        }
+                    }
 					if ( is_array( $option ) ) {
 						$html .= '<optgroup label="' . esc_attr( $key ) . '">';
 						foreach ( $option as $key_subvalue => $subvalue ) {
-							$html .= '<option value="' . esc_attr( $key_subvalue ) . '" ' . selected( $key_subvalue, $value, false ) . '>' . esc_html( $subvalue ) . '</option>';
+                            $html .= '<option value="' . esc_attr( $key_subvalue ) . '" ' .  selected( $key_subvalue, $value, false )  . '>' . esc_html( $subvalue ) . '</option>';
 						}
 						$html .= '</optgroup>';
 					}else{

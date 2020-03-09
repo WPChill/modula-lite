@@ -17,10 +17,6 @@
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
-                // Will comment these lines and replace with default, maybe in the future we revert to them.
-                // For now the settings are disabled
-				/*'title'            => Modula_Helper::get_title( $image, $data->settings['wp_field_title'] ),
-				'description'      => Modula_Helper::get_description( $image, $data->settings['wp_field_caption'] ),*/
                 'title'            => Modula_Helper::get_title( $image, 'title' ),
                 'description'      => Modula_Helper::get_description( $image, 'caption' ),
 				'lightbox'         => $data->settings['lightbox'],
@@ -64,6 +60,8 @@
 			 * @hooked modula_check_lightboxes_and_links - 15
 			 * @hooked modula_check_hover_effect - 20
 			 * @hooked modula_check_custom_grid - 25
+             * @hooked modula_enable_lazy_load - 30
+             *
 			 */
 			$item_data = apply_filters( 'modula_shortcode_item_data', $item_data, $image, $data->settings, $data->images );
 
