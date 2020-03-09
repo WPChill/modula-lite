@@ -24,8 +24,6 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 
-		add_filter('modula_lightbox2_body','modula_lightbox_socials',15,2);
-
 	}
 
 	public function add_gallery_scripts() {

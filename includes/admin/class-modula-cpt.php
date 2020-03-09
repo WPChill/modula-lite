@@ -281,7 +281,6 @@ class Modula_CPT {
 								}
 								break;
 							case 'disableSocial':
-                            case 'enableLightboxSocials':
 							case 'enableTwitter' :
 							case 'enableWhatsapp':
 							case 'enableFacebook' :
