@@ -145,7 +145,7 @@ class Modula_CPT {
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
 
 			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {
-				break;
+				continue;
 			}
 
 			add_meta_box(
