@@ -228,6 +228,7 @@ tr label.th-label {
     height: 300px;
     overflow: hidden;
     position: relative;
+    margin:0 auto;
 }
 .modula-effects-preview .modula-item img {
     position: absolute;
@@ -1328,4 +1329,63 @@ Ups-sells carousel
 
 .modula-after-input {
     margin-left: 5px;
+}
+
+/*
+Hover effect slider
+*/
+.modula-hover-preview-slider {
+    max-width:850px;
+    margin:0 auto;
+}
+.modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
+   display:none;
+}
+
+.modula-hover-preview-slider .slick-prev,
+.modula-hover-preview-slider .slick-next {
+    outline:none;
+    box-shadow:none;
+}
+.modula-hover-preview-slider .slick-list {
+    z-index:999;
+}
+
+.modula-hover-preview-slider .slick-prev,
+.modula-hover-preview-slider .slick-next {
+    background: #774cce !important;
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.modula-hover-preview-slider .slick-prev svg,
+.modula-hover-preview-slider .slick-next svg {
+    width:25px;
+    height:25px;
+}
+
+
+/**
+Scaling Effect Preview
+ */
+.modula-scaling-effect-preview {
+    position: relative;
+    max-width:900px;
+    width:100%;
+    margin:0 auto;
+    margin-top:20px;
+}
+
+.modula-scaling-effect-preview .modula-item {
+    transition:600ms all;
+    z-index:9999;
+    float:left;
+    margin:10px;
+}
+
+.modula-scaling-effect-preview a#test-scaling-preview {
+    margin-top:25px;
+    margin-left:10px;
 }

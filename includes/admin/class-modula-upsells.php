@@ -9,8 +9,8 @@ class Modula_Upsells {
 		
 		/* Hooks */
 		add_filter( 'modula_general_tab_content', array( $this, 'general_tab_upsell' ) );
-		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ) );
-		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ) );
+		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ),15,1 );
+		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ),15,1 );
 		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
 		add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
 		add_filter( 'modula_filters_tab_content', array( $this, 'filters_tab_upsell' ) );

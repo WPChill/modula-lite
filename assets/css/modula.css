@@ -459,3 +459,17 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 }
 
 .modula .modula-items .modula-item>a{cursor:zoom-in;}
+
+/**
+Lightbox 2 socials
+ */
+#lightbox .jtg-social {
+	position:absolute;
+	top:0;
+	right:0;
+}
+
+#lightbox .jtg-social svg {
+	float:left;
+	margin:5px;
+}

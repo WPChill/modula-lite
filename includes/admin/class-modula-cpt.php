@@ -265,6 +265,7 @@ class Modula_CPT {
 							case 'captionFontSize':
 							case 'titleFontSize':
 							case 'loadedScale':
+                            case 'inView':
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':
@@ -280,6 +281,7 @@ class Modula_CPT {
 								}
 								break;
 							case 'disableSocial':
+                            case 'enableLightboxSocials':
 							case 'enableTwitter' :
 							case 'enableWhatsapp':
 							case 'enableFacebook' :

@@ -294,6 +294,7 @@ class Modula_Admin {
 		<?php
 	}
 
+
     /**
      *  Add Import/Export tutorial
      *
@@ -312,7 +313,9 @@ class Modula_Admin {
         <p><?php echo esc_html__('Select "Galleries" and click "Download Export File". An export file will be created and downloaded, which will be used to import the galleries somewhere else.','modula-best-grid-gallery'); ?></p>
         </div>
         <?php
+
     }
+
 }
 
 new Modula_Admin();

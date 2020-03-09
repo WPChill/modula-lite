@@ -84,10 +84,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	changedEffect: function( settings, value ){
-		var hoverBoxes = jQuery( '.modula-effects-preview > div' );
+		var hoverBoxes = jQuery( '.modula-effects-preview >div div.panel' );
 
-		hoverBoxes.hide();
-		hoverBoxes.filter( '.panel-' + value ).show();
+		if('none' == value){
+			jQuery( '.modula-effects-preview >div').hide();
+			hoverBoxes.hide();
+			hoverBoxes.filter( '.panel-' + value ).show();
+		} else {
+			jQuery( '.modula-effects-preview >div').show();
+			hoverBoxes.hide();
+			hoverBoxes.filter( '.panel-' + value ).show();
+		}
+
 	},
 
 	disableSocial: function( settings, value){
@@ -95,10 +103,10 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if ( 1 == value ) {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"], [data-container="socialIconSize"], [data-container="socialIconPadding"]' ).prop('checked',0).hide();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"], [data-container="socialIconSize"], [data-container="socialIconPadding"], [data-container="enableLightboxSocials"]' ).prop('checked',0).hide();
 			
         }else {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"],[data-container="socialIconSize"], [data-container="socialIconPadding"]').prop('checked',1).show();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"],[data-container="socialIconColor"],[data-container="socialIconSize"], [data-container="socialIconPadding"], [data-container="enableLightboxSocials"]').prop('checked',1).show();
 			
         }
 	},
