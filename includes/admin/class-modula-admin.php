@@ -29,8 +29,17 @@ class Modula_Admin {
 
 	public function delete_resized_image( $post_id ) {
 
+		$post = get_post( $post_id );
+
+		if ( 'attachment' !== $post->post_type ) {
+			return false;
+		}
+
 		// Get the metadata
 		$metadata =  wp_get_attachment_metadata( $post_id );
+		if ( ! $metadata ) {
+			return;
+		}
 		$info     = pathinfo( $metadata['file'] );
 		$uploads  = wp_upload_dir();
 		$filename = $info['filename'];
