@@ -22,6 +22,38 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
+		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
+
+
+	}
+
+	public function delete_resized_image( $post_id ) {
+
+		// Get the metadata
+		$metadata =  wp_get_attachment_metadata( $post_id );
+		$info     = pathinfo( $metadata['file'] );
+		$uploads  = wp_upload_dir();
+		$filename = $info['filename'];
+		$file_dir = $uploads['basedir'] .'/'. $info['dirname'];
+		$ext      = $info['extension'];
+
+		if ( ! isset( $metadata['image_meta']['resized_images'] ) ) {
+			return;
+		}
+
+		if ( count( $metadata['image_meta']['resized_images'] ) > 0 ) {
+
+			foreach ( $metadata['image_meta']['resized_images'] as $value ) {
+				$size = "-" . $value;
+
+				// Format the files in the appropriate format
+				$file = $file_dir . '/' . $filename . $size . '.' . $ext;
+				// Delete found files
+				wp_delete_file_from_directory( $file, $file_dir);
+
+			}
+
+		}
 
 	}
 
@@ -263,17 +295,17 @@ class Modula_Admin {
 	}
 
 
-	/**
-    *  Add Import/Export tutorial
-    *
-    * @since 2.2.8
-    */
+    /**
+     *  Add Import/Export tutorial
+     *
+     * @since 2.2.7
+     */
     public function import_export_doc() {
         ?>
         <div class="wrap">
-         <h3><?php esc_html_e('Import Galleries','modula-best-grid-gallery'); ?></h3>
-        <p><?php esc_html_e('In order to import exported galleries head over to "Tools -> Import" or click','modula-best-grid-gallery'); ?> <a href="<?php echo admin_url('import.php'); ?>"><?php  esc_html_e('here.','mdula-best-grid-gallery'); ?></a></p>
-        <p><?php echo esc_html__('Install Wordpress Importer ( if not installed ). If installed, click on Wordpress "Run importer". After that select the export file you desire and click "Upload file and import".','modula-best-grid-gallery'); ?></p>
+            <h3><?php esc_html_e('Import Galleries','modula-best-grid-gallery'); ?></h3>
+            <p><?php esc_html_e('In order to import exported galleries head over to "Tools -> Import" or click','modula-best-grid-gallery'); ?> <a href="<?php echo admin_url('import.php'); ?>"><?php  esc_html_e('here.','mdula-best-grid-gallery'); ?></a></p>
+            <p><?php echo '<a href="'.esc_url('https://wordpress.org/plugins/wordpress-importer/').'" target="_blank">'.esc_html__('Install Wordpress Importer','modula-best-grid-gallery').'</a>'.esc_html__('( if not installed ). If installed, click on Wordpress "Run importer". After that select the export file you desire and click "Upload file and import".','modula-best-grid-gallery'); ?></p>
         </div>
         <br />
         <h3><?php esc_html_e('Export Galleries','modula-best-grid-gallery'); ?></h3>
@@ -281,7 +313,9 @@ class Modula_Admin {
         <p><?php echo esc_html__('Select "Galleries" and click "Download Export File". An export file will be created and downloaded, which will be used to import the galleries somewhere else.','modula-best-grid-gallery'); ?></p>
         </div>
         <?php
-	}
+
+    }
+
 }
 
 new Modula_Admin();

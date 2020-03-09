@@ -343,7 +343,6 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case "custom_code":
-
 				$html = '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '-customcode" class="large-text code modula-custom-editor-field"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
@@ -415,6 +414,7 @@ class Modula_Field_Builder {
 				
 
 				$html .= '</select>';
+
                 $html .= '<p class="description">' . esc_html__( 'Select an hover effect', 'modula-best-grid-gallery' ) . '</p>';
                 $html .= '<div class="effect-compatibility">';
                 $html .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
@@ -422,6 +422,7 @@ class Modula_Field_Builder {
                 $html .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
                 $html .= '</div>';
                 // Hook to change how hover effects field is rendered
+
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
 				break;
 			default:
@@ -430,7 +431,7 @@ class Modula_Field_Builder {
 				break;
 		}
 
-		return $html;
+		return apply_filters( "modula_render_field_type", $html, $field, $value );
 
 	}
 

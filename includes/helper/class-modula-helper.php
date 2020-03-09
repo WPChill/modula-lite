@@ -168,5 +168,28 @@ class Modula_Helper {
 		return 'rgba(' . absint( $red ) . ',' . absint( $green ) . ',' . absint( $blue ) . ',' . floatval( $alpha ) . ')';
 
 	}
+
+
+    /**
+     * Function to insert array into array after index
+     *
+     * @param       $key
+     * @param array $array
+     * @param       $new_key
+     * @param       $new_value
+     * @return array
+     * @since 2.2.7
+     */
+	public static function array_insert_after( $key, array &$array, $new_key, $new_value ) {
+        $new = array();
+        foreach ( $array as $k => $value ) {
+            $new[ $k ] = $value;
+            if ( $k === $key ) {
+                $new[ $new_key ] = $new_value;
+            }
+        }
+        return $new;
+
+    }
 	
 }

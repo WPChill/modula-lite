@@ -65,28 +65,26 @@ class Modula_CPT {
 			'show_in_rest'          => true,
 		) );
 
-		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', array(
+		$this->metaboxes = array(
 			'modula-preview-gallery' => array(
-				'title' => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_images',
-				'context' => 'normal',
+				'context'  => 'normal',
+				'priority' => 10,
 			),
-            'modula-albums-upsell' => array(
-                'title' => esc_html__('Albums Upsell', 'modula-best-grid-gallery'),
-                'callback' => 'output_upsell_albums',
-                'context' => 'normal',
-            ),
 			'modula-settings' => array(
-				'title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_settings',
-				'context' => 'normal',
+				'context'  => 'normal',
+				'priority' => 20,
 			),
 			'modula-shortcode' => array(
-				'title' => esc_html__( 'Shortcode', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Shortcode', 'modula-best-grid-gallery' ),
 				'callback' => 'output_gallery_shortcode',
-				'context' => 'side',
+				'context'  => 'side',
+				'priority' => 10,
 			),
-		) );
+		);
 
 		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
 
@@ -95,11 +93,7 @@ class Modula_CPT {
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
-		
 		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
-
-
-
 		
 		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
 
@@ -143,7 +137,11 @@ class Modula_CPT {
 	public function add_meta_boxes() {
 
 		global $post;
+		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', $this->metaboxes );
 
+		// Sort tabs based on priority.
+		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+		
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
 
 			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {

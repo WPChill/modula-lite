@@ -15,6 +15,17 @@ jQuery(document).on( 'vc-full-width-row-single vc-full-width-row', function( eve
     }
 });
 
+// Compatibility with Elementor
+jQuery( window ).on( 'elementor/frontend/init', function(){
+    if ( window.elementorFrontend ) {
+        window.elementorFrontend.hooks.addAction( 'frontend/element_ready/global', function( $scope ) {
+            if( jQuery( 'body' ).find( '.modula' ).length > 0 ){
+                jQuery( window ).trigger( 'modula-update' );
+            }
+        });
+    }
+});
+
 ; (function ($, window, document, undefined) {
 
 
@@ -676,17 +687,6 @@ jQuery( document ).ready( function($){
     });
 });
 
-/* Remove this after migration to Fancybox */
-jQuery('.modula-item').on('click', function(e){
-    window.location.hash = "#";
-    window.addEventListener('popstate', onBackDown, false);
-    window.addEventListener('backbutton', onBackDown, false);
-    function onBackDown() {
-        this.event.preventDefault();
-        jQuery('.lb-close').click();
-        this.window.location.hash = "";
-    }
-});
 
 function modulaInViewport(element) {
     if (typeof jQuery === "function" && element instanceof jQuery) {
@@ -698,4 +698,3 @@ function modulaInViewport(element) {
         (elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || elementBounds.bottom <= jQuery(window).height()
     );
 }
-

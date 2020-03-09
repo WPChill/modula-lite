@@ -1,0 +1,46 @@
+.modula .modula-importer-row.hide,
+.modula .select-all-wrapper.hide,
+.modula label[data-id="delete-old-entries"].hide,
+.modula input[type="submit"].hide,
+.modula .select-all-checkbox.hide,
+.modula .select-all-checkbox-wrapper.hide,
+.modula-importer-upsell-wrapper.hide{
+    display: none;
+}
+
+.imported-check {
+    display:inline-block;
+    margin-left:10px;
+}
+
+
+.imported-check:before {
+    font-size: 20px;
+    color: #00b894;
+}
+
+.modula-importer-checkbox-wrapper {
+    margin-bottom:10px;
+}
+
+.modula-importer-gallery-status {
+    color:blue;
+}
+
+.modula-importer-upsell-wrapper {
+    background:#fff;
+    border:1px solid #dddddd;
+    padding:15px;
+    margin-bottom:25px;
+}
+
+.modula-importer-upsell-wrapper .modula-importer-upsell-buttons {
+    margin-top:25px;
+}
+.modula-importer-upsell-wrapper .modula-importer-upsell-buttons a {
+    margin-right:15px;
+}
+
+.modula-importer-checkbox-wrapper .modula-tooltip span {
+    color:red !important;
+}

@@ -59,6 +59,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
             require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
             require_once MODULA_PATH . 'includes/update/class-modula-update.php';
+            require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 
 		}
 
@@ -90,6 +91,7 @@ class Modula {
         add_filter('upload_mimes', array($this,'modula_upload_mime_types'));
         add_filter('file_is_displayable_image', array($this,'modula_webp_display'), 10, 2);
 
+        // Initiate modula cpts
 		new Modula_CPT();
 
 	}
@@ -101,8 +103,8 @@ class Modula {
 		}
 
 		if ( apply_filters( 'modula_show_upsells', true ) ) {
-			new Modula_Upsells();
-		}
+            new Modula_Upsells();
+        }
 
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
@@ -181,7 +183,7 @@ class Modula {
 			wp_enqueue_style( 'wp-color-picker' );
 	        // Enqueue Code Editor for Custom CSS
             wp_enqueue_code_editor(array('type' => 'text/css'));
-            wp_enqueue_style( 'jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
+            wp_enqueue_style( 'modula-jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
 
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
