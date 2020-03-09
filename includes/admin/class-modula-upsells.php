@@ -20,7 +20,6 @@ class Modula_Upsells {
         add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
         add_filter( 'modula_cpt_metaboxes',array( $this, 'albums_upsell_meta' ) );
 
-
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );

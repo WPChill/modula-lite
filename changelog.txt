@@ -1,4 +1,4 @@
-= 2.2.6 - 06/03/2020 =
+= 2.2.6 - 09/03/2020 =
 Fixed incompatibility with isotope.js
 Renamed our registered files name
 Fixed title/caption font size to reflect theme default
