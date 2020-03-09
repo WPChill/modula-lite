@@ -23,10 +23,10 @@ class Modula_Helper {
 			}
 
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {
-				$value = str_replace('<script', '&lt;script', $value );
+				$value = str_replace( '<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
 				$value = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $value );
-			}else{
+			} else {
 				$value = esc_attr( $value );
 			}
 
@@ -65,10 +65,10 @@ class Modula_Helper {
 
 	public static function hover_effects_elements( $effect ) {
 
-		$effects_with_title       = apply_filters( 'modula_effects_with_title', array( 'under', 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo','lily','sadie','honey','layla','zoe','oscar','marley','ruby','roxy','bubba','dexter','sarah','chico','milo','julia','hera','winston','selena','terry','phoebe','apollo','steve','jazz','ming','lexi','duke','tilt_1' ,'tilt_3' ,'tilt_7' ) );
-		$effects_with_description = apply_filters( 'modula_effects_with_description', array( 'under', 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo','lily','sadie','layla','zoe','oscar','marley','ruby','roxy','bubba','dexter','sarah','chico','milo','julia','selena','apollo','steve','jazz','ming','lexi','duke','tilt_1' ,'tilt_3' ,'tilt_7' ) );
-		$effects_with_social      = apply_filters( 'modula_effects_with_social', array( 'under', 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo','lily','sadie','zoe','ruby','roxy','bubba','dexter','sarah','chico','julia','hera','winston','selena','terry','phoebe','ming','tilt_1', 'tilt_3' , 'tilt_7' ) );
-		$effects_with_extra_scripts = apply_filters( 'modula_effects_with_scripts', array( 'tilt_1' ,'tilt_3' ,'tilt_7' ) );
+		$effects_with_title         = apply_filters( 'modula_effects_with_title', array( 'under', 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo', 'lily', 'sadie', 'honey', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7' ) );
+		$effects_with_description   = apply_filters( 'modula_effects_with_description', array( 'under', 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo', 'lily', 'sadie', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'selena', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7' ) );
+		$effects_with_social        = apply_filters( 'modula_effects_with_social', array( 'under', 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo', 'lily', 'sadie', 'zoe', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'ming', 'tilt_1', 'tilt_3', 'tilt_7' ) );
+		$effects_with_extra_scripts = apply_filters( 'modula_effects_with_scripts', array( 'tilt_1', 'tilt_3', 'tilt_7' ) );
 
 		return array(
 			'title'       => in_array( $effect, $effects_with_title ),
@@ -87,7 +87,7 @@ class Modula_Helper {
 	 * @return bool
 	 */
 	public static function sort_data_by_priority( $a, $b ) {
-		if ( ! isset( $a['priority'], $b['priority'] ) ) {
+		if ( !isset( $a['priority'], $b['priority'] ) ) {
 			return -1;
 		}
 		if ( $a['priority'] == $b['priority'] ) {
@@ -116,39 +116,39 @@ class Modula_Helper {
 
 	}
 
-	public static function get_title( $item, $default_source ){
+	public static function get_title( $item, $default_source ) {
 
-		$title = isset($item['title']) ? $item['title'] : '';
+		$title = isset( $item['title'] ) ? $item['title'] : '';
 
 		if ( '' == $title && 'none' != $default_source ) {
-			$title = self::get_image_info( $item['id'],$default_source );
+			$title = self::get_image_info( $item['id'], $default_source );
 		}
 
 		return $title;
 
 	}
 
-	public static function get_description( $item, $default_source ){
+	public static function get_description( $item, $default_source ) {
 
-		$description = isset($item['description']) ? $item['description'] : '';
+		$description = isset( $item['description'] ) ? $item['description'] : '';
 
 		if ( '' == $description && 'none' != $default_source ) {
-			$description = self::get_image_info( $item['id'],$default_source );
+			$description = self::get_image_info( $item['id'], $default_source );
 		}
 
 		return $description;
 
 	}
 
-    public static function get_galleries() {
+	public static function get_galleries() {
 
-        $galleries     = get_posts( array( 'post_type' => 'modula-gallery','posts_per_page' => -1 ) );
-        $gallery_array = array('none' => esc_html__( 'None', 'modula-best-grid-gallery' ));
-        foreach ( $galleries as $gallery ) {
-            $gallery_array[ $gallery->ID ] = esc_html( $gallery->post_title );
-        }
+		$galleries     = get_posts( array( 'post_type' => 'modula-gallery', 'posts_per_page' => -1 ) );
+		$gallery_array = array( 'none' => esc_html__( 'None', 'modula-best-grid-gallery' ) );
+		foreach ( $galleries as $gallery ) {
+			$gallery_array[$gallery->ID] = esc_html( $gallery->post_title );
+		}
 
-        return $gallery_array;
+		return $gallery_array;
 	}
 
 	public static function sanitize_rgba_colour( $color ) {
@@ -170,45 +170,46 @@ class Modula_Helper {
 	}
 
 
-    public static function lightbox_default_options(){
+	public static function lightbox_default_options() {
 
-        $fancybox_options = array(
-            'options' => array(
-                'loop'            => false,
-                'arrows'          => false,
-                'toolbar'         => true,
-                'keyboard'        => false,
-                'wheel'           => false,
-                'buttons'         => array(
-                    'close'
-                ),
-                'hash'            => false,
-                'lang'            => 'en',
-                'touch'           => false,
-                'i18n'            => array(
-                    'en' => array(
-                        'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
-                        'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
-                        'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
-                        'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
-                        'PLAY_START'  => esc_html__( 'Start slideshow', 'modula_best-grid_gallery' ),
-                        'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
-                        'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
-                        'THUMBS'      => esc_html__( 'Thumbnails', 'modula_best-grid_gallery' ),
-                        'DOWNLOAD'    => esc_html__( 'Download', 'modula_best-grid_gallery' ),
-                        'SHARE'       => esc_html__( 'Share', 'modula_best-grid_gallery' ),
-                        'ZOOM'        => esc_html__( 'Zoom', 'modula_best-grid_gallery' ),
-                    )
-                ),
-                'clickSlide'      => false,
-                'clickOutside'    => false,
-                'dblclickContent' => false,
-                'dblclickSlide'   => false,
-                'dblclickOutside' => false,
-                'clickContent'    => false,
-            )
-        );
+		$fancybox_options = array(
+			'options' => array(
+				'loop'            => false,
+				'arrows'          => false,
+				'toolbar'         => true,
+				'keyboard'        => false,
+				'wheel'           => false,
+				'buttons'         => array(
+					'close'
+				),
+				'hash'            => false,
+				'lang'            => 'en',
+				'touch'           => false,
+				'i18n'            => array(
+					'en' => array(
+						'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
+						'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
+						'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
+						'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
+						'PLAY_START'  => esc_html__( 'Start slideshow', 'modula_best-grid_gallery' ),
+						'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
+						'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
+						'THUMBS'      => esc_html__( 'Thumbnails', 'modula_best-grid_gallery' ),
+						'DOWNLOAD'    => esc_html__( 'Download', 'modula_best-grid_gallery' ),
+						'SHARE'       => esc_html__( 'Share', 'modula_best-grid_gallery' ),
+						'ZOOM'        => esc_html__( 'Zoom', 'modula_best-grid_gallery' ),
+					)
+				),
+				'clickSlide'      => false,
+				'clickOutside'    => false,
+				'dblclickContent' => false,
+				'dblclickSlide'   => false,
+				'dblclickOutside' => false,
+				'clickContent'    => false,
+			)
+		);
 
-	    return $fancybox_options;
+		return $fancybox_options;
 
-    }
+	}
+}
