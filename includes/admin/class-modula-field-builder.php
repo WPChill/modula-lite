@@ -535,7 +535,7 @@ class Modula_Field_Builder {
 
             if ( 'none' == $key ) {
                 $effect .= '<div class="panel panel-' . esc_attr( $key ) . ' modula-items wp-clearfix"></div>';
-            } elseif ( 'pufrobo' != $key ) {
+            } elseif ( 'pufrobo' == $key ) {
                 if ( !is_array( $image ) ) {
                     // Pufrobo Effect
                     $effect .= '<div class="panel panel-'.esc_attr($key).' modula-items wp-clearfix">';
@@ -551,13 +551,13 @@ class Modula_Field_Builder {
                     }
                     $effect .= '</div>';
                 }
-
-            } else {
-                $effect = apply_filters( 'modula_hover_effect_preview', '', $key, $image );
             }
         }
 
+	    $extra = apply_filters( 'modula_hover_effect_preview', '', $hovers, $image );
+
         $html .= $effect;
+        $html .= $extra;
         $html .= '</div>';
 
         return $html;
