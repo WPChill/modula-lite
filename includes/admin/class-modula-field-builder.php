@@ -535,25 +535,25 @@ class Modula_Field_Builder {
 
             if ( 'none' == $key ) {
                 $effect .= '<div class="panel panel-' . esc_attr( $key ) . ' modula-items wp-clearfix"></div>';
-            } elseif ( 'pufrobo' == $key ) {
+            } elseif ( 'pufrobo' != $key ) {
                 if ( !is_array( $image ) ) {
                     // Pufrobo Effect
-                    $effect .= '<div class="panel panel-pufrobo modula-items wp-clearfix">';
-                    $effect .= '<div class="modula-item effect-pufrobo">' . $image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+                    $effect .= '<div class="panel panel-'.esc_attr($key).' modula-items wp-clearfix">';
+                    $effect .= '<div class="modula-item effect-'.esc_attr($key).'">' . $image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
                     $effect .= '</div>';
                 } else {
                     $effect .= '<div class="modula-hover-preview-slider">';
                     foreach ( $image as $i ) {
                         // Pufrobo Effect
-                        $effect .= '<div class="panel panel-pufrobo modula-items wp-clearfix">';
-                        $effect .= '<div class="modula-item effect-pufrobo">' . $i . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+                        $effect .= '<div class="panel panel-'.esc_attr($key).' modula-items wp-clearfix">';
+                        $effect .= '<div class="modula-item effect-'.esc_attr($key).'">' . $i . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
                         $effect .= '</div>';
                     }
                     $effect .= '</div>';
                 }
 
             } else {
-                $effect = apply_filters( 'modula_hover_effect_preview', '', $key );
+                $effect = apply_filters( 'modula_hover_effect_preview', '', $key, $image );
             }
         }
 
