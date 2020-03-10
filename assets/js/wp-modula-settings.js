@@ -51,7 +51,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.initSliders();
             this.initColorPickers();
             this.initCustomCSS();
-            this.initSlickSlider();
+            // @todo: comment for the moment. See function for more details
+            //this.initSlickSlider();
 
         },
 
@@ -163,8 +164,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 });
             }
         },
+        //@todo : comment this for the moment, effects and slick slider is triggered
+        // by the ajax function
 
-        initSlickSlider: function() {
+       /* initSlickSlider: function() {
             var hover_slider = jQuery('.modula-hover-preview-slider').show().slick({
                 arrows: true,
                 pauseOnHover: true,
@@ -178,7 +181,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             $('#modula-hover-effect').on('modula-current-tab', function () {
                 hover_slider.slick('refresh');
             });
-        }
+        }*/
        
     });
 

@@ -12,7 +12,10 @@ class Modula_Field_Builder {
         add_filter( 'modula_hover-effect_tab_content', array($this,'hover_effects_preview'),10,1 );
         add_filter( 'modula_image-loaded-effects_tab_content', array($this,'loaded_effects_preview'),10,1 );
 
+        add_action('wp_ajax_modula_hover_preview_action',array($this,'get_hover_preview_effect'));
+
 	}
+
 
 	/**
 	 * Get an instance of the field builder
@@ -457,65 +460,102 @@ class Modula_Field_Builder {
      */
     public function hover_effects_preview($html){
 
-        $hovers = apply_filters( 'modula_available_hover_effects', array(
-            'none'    => esc_html__( 'None', 'modula-best-grid-gallery' ),
-            'pufrobo' => esc_html__( '1. Pufrobo', 'modula-best-grid-gallery' ),
-        ) );
+	    $id               = get_the_ID();
+	    $gallery_settings = get_post_meta( $id, 'modula-settings', true );
+	    $gallery_effect   = isset( $gallery_settings['effect'] ) ? $gallery_settings['effect'] : 'none';
+	    $gallery_images   = get_post_meta( $id, 'modula-images', true );
+	    $effect           = '';
 
-        $id             = get_the_ID();
-        $gallery_images = get_post_meta( $id, 'modula-images', true );
-        $effect = '';
+	    if ( $gallery_images && count( $gallery_images ) > 0 ) {
 
-        if ( $gallery_images && count( $gallery_images ) > 0 ) {
+		    if ( 1 == count( $gallery_images ) ) {
+			    $img_url = wp_get_attachment_image_src( $gallery_images[0]['id'], 'medium' );
+			    $image   = $img_url[0];
+		    } else {
+			    foreach ( $gallery_images as $gallery_image ) {
+				    $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
+				    $image[] = $img_url[0] ;
+			    }
 
-            if ( 1 == count( $gallery_images ) ) {
-                $img_url = wp_get_attachment_image_src( $gallery_images[0]['id'], 'medium' );
-                $image   = '<img src="' . $img_url[0] . '" class="pic">';
-            } else {
-                foreach ( $gallery_images as $gallery_image ) {
-                    $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
-                    $image[] = '<img src="' . $img_url[0] . '" class="pic">';
-                }
+		    }
+	    } else {
+		    $image = MODULA_URL . '/assets/images/effect.jpg"';
+	    }
 
-            }
-        } else {
-            $image = '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
-        }
+	    $html .= '<div class="modula-hover-effects modula-effects-preview modula" images="' . esc_attr( json_encode( $image ) ) . '">';
 
-        $html .= '<div class="modula-effects-preview modula">';
 
-        foreach ( $hovers as $key => $name ) {
+	    if ( 'none' == $gallery_effect ) {
+		    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix"></div>';
+	    } else {
+		    if ( !is_array( $image ) ) {
 
-            if ( 'none' == $key ) {
-                $effect .= '<div class="panel panel-' . esc_attr( $key ) . ' modula-items wp-clearfix"></div>';
-            } elseif ( 'pufrobo' == $key ) {
-                if ( !is_array( $image ) ) {
-                    // Pufrobo Effect
-                    $effect .= '<div class="panel panel-'.esc_attr($key).' modula-items wp-clearfix">';
-                    $effect .= '<div class="modula-item effect-'.esc_attr($key).'">' . $image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-                    $effect .= '</div>';
-                } else {
-                    $effect .= '<div class="modula-hover-preview-slider">';
-                    foreach ( $image as $i ) {
-                        // Pufrobo Effect
-                        $effect .= '<div class="panel panel-'.esc_attr($key).' modula-items wp-clearfix">';
-                        $effect .= '<div class="modula-item effect-'.esc_attr($key).'">' . $i . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-                        $effect .= '</div>';
-                    }
-                    $effect .= '</div>';
-                }
-            }
-        }
+			    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix">';
+			    $effect .= '<div class="modula-item effect-' . esc_attr( $gallery_effect ) . '">< img src="' . esc_url($image) . '
+" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+			    $effect .= '</div>';
+		    } else {
+			    $effect .= '<div class="modula-hover-preview-slider">';
+			    foreach ( $image as $i ) {
+				    // Pufrobo Effect
+				    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix">';
+				    $effect .= '<div class="modula-item effect-' . esc_attr( $gallery_effect ) . '"><img src="' . esc_url($i) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+				    $effect .= '</div>';
+			    }
+			    $effect .= '</div>';
+		    }
+	    }
 
-	    $extra = apply_filters( 'modula_hover_effect_preview', '', $hovers, $image );
+	    //$extra = apply_filters( 'modula_hover_effect_preview', '', $gallery_effect, $image );
 
-        $html .= $effect;
-        $html .= $extra;
-        $html .= '</div>';
+	    $html .= $effect;
+	    //$html .= $extra;
+	    $html .= '</div>';
 
-        return $html;
+	    return $html;
     }
 
+
+	/**
+	 * Get the hover effect
+	 *
+	 * @since 2.2.8
+	 */
+    public function get_hover_preview_effect(){
+
+    	wp_verify_nonce('hover_preview');
+
+    	if(!isset($_POST['action']) || 'modula_hover_preview_action' != $_POST['action']){
+    		wp_die();
+	    }
+
+		$images = isset($_POST['images']) ? $_POST['images'] : false;
+    	$effect = isset($_POST['effect']) ? $_POST['effect'] : 'none';
+
+
+    	$html ='';
+
+	    if ( !is_array( $images ) ) {
+
+
+		    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
+		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+
+		    $html .= '</div>';
+	    } else {
+		    $html .= '<div class="modula-hover-preview-slider">';
+		    foreach ( $images as $i ) {
+			    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
+			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+			    $html .= '</div>';
+		    }
+		    $html .= '</div>';
+	    }
+
+	    echo $html;
+	    die();
+
+    }
 
     /**
      * Preview for Loading effects
