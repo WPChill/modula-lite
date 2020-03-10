@@ -198,6 +198,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             		this.enableSortable();
             	}
 
+                this.helperGridContainer.addClass('modula-border');
                 this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).hide();
                 this.container.removeClass( 'modula-custom-grid' ).addClass( 'modula-creative-gallery' );
 
@@ -214,6 +215,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             	}
 
                 this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).show();
+                this.helperGridContainer.removeAttr('style');
+                this.helperGridContainer.removeClass('modula-border');
                 if ( ! wp.Modula.Settings.get( 'helpergrid' ) ) {
                     this.helperGrid.show();
                 }

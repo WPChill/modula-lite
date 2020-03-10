@@ -50,7 +50,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).show();
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"]' ).hide();
 			
-			jQuery( '.modula-helper-guidelines-container').removeAttr("style");
+			
 		}else if ( 'creative-gallery' ) {
 
 			// Hide Responsive tab
@@ -59,10 +59,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).hide();
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"]' ).show();
 
-			jQuery( '.modula-helper-guidelines-container').css({ 'background-color' : '#fff',
-			'border-top' : '0px' });
 			
-
 		}
 
 	},

@@ -1384,3 +1384,8 @@ Scaling Effect Preview
     margin-top:25px;
     margin-left:10px;
 }
+
+.modula-border {
+  background-color: white;
+  border-top: 0px ;
+}
