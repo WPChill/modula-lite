@@ -198,7 +198,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             		this.enableSortable();
             	}
 
-                this.helperGridContainer.addClass('modula-border');
+                this.helperGridContainer.addClass('modula-guidelines-display');
                 this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).hide();
                 this.container.removeClass( 'modula-custom-grid' ).addClass( 'modula-creative-gallery' );
 
@@ -215,7 +215,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             	}
 
                 this.helperGridContainer.find( '.modula-helper-guidelines-wrapper' ).show();
-                this.helperGridContainer.removeClass('modula-border');
+                this.helperGridContainer.removeClass('modula-guidelines-display');
                 if ( ! wp.Modula.Settings.get( 'helpergrid' ) ) {
                     this.helperGrid.show();
                 }
