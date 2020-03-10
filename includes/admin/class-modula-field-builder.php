@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  */
 class Modula_Field_Builder {
 
@@ -135,7 +135,7 @@ class Modula_Field_Builder {
 				echo '</div>';
 				echo '<strong class="modula-helper-guidelines-label">' . esc_html__( 'Disable Helper Grid', 'modula-best-grid-gallery' ) . '</strong>';
 			echo '</div>';
-		
+
 		do_action( 'modula_after_helper_grid' );
 
 		echo '</div>';
@@ -339,7 +339,7 @@ class Modula_Field_Builder {
 				}else{
 					$html .= '<input id="' . esc_attr( $field['id'] ) . '" class="modula-color" data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="' . esc_attr( $value ) . '">';
 				}
-				
+
 				$html .= '</div>';
 				break;
 			case "toggle":
@@ -422,16 +422,12 @@ class Modula_Field_Builder {
 					}
 					$html .= '</optgroup>';
 				}
-				
+
 
 				$html .= '</select>';
 
                 $html .= '<p class="description">' . esc_html__( 'Select an hover effect', 'modula-best-grid-gallery' ) . '</p>';
-                $html .= '<div class="effect-compatibility">';
-                $html .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
-                $html .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
-                $html .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
-                $html .= '</div>';
+
                 // Hook to change how hover effects field is rendered
 
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
@@ -474,7 +470,7 @@ class Modula_Field_Builder {
 		    } else {
 			    foreach ( $gallery_images as $gallery_image ) {
 				    $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
-				    $image[] = $img_url[0] ;
+				    $image[] = $img_url[0];
 			    }
 
 		    }
@@ -482,35 +478,7 @@ class Modula_Field_Builder {
 		    $image = MODULA_URL . '/assets/images/effect.jpg"';
 	    }
 
-	    $html .= '<div class="modula-hover-effects modula-effects-preview modula" images="' . esc_attr( json_encode( $image ) ) . '">';
-
-
-	    if ( 'none' == $gallery_effect ) {
-		    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix"></div>';
-	    } else {
-		    if ( !is_array( $image ) ) {
-
-			    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix">';
-			    $effect .= '<div class="modula-item effect-' . esc_attr( $gallery_effect ) . '">< img src="' . esc_url($image) . '
-" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-			    $effect .= '</div>';
-		    } else {
-			    $effect .= '<div class="modula-hover-preview-slider">';
-			    foreach ( $image as $i ) {
-				    // Pufrobo Effect
-				    $effect .= '<div class="panel panel-' . esc_attr( $gallery_effect ) . ' modula-items wp-clearfix">';
-				    $effect .= '<div class="modula-item effect-' . esc_attr( $gallery_effect ) . '"><img src="' . esc_url($i) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-				    $effect .= '</div>';
-			    }
-			    $effect .= '</div>';
-		    }
-	    }
-
-	    //$extra = apply_filters( 'modula_hover_effect_preview', '', $gallery_effect, $image );
-
-	    $html .= $effect;
-	    //$html .= $extra;
-	    $html .= '</div>';
+	    $html .= '<div class="modula-hover-effects modula-effects-preview modula" images="' . esc_attr( json_encode( $image ) ) . '"></div>';
 
 	    return $html;
     }
@@ -551,6 +519,13 @@ class Modula_Field_Builder {
 		    }
 		    $html .= '</div>';
 	    }
+
+	    $html .= '<div class="effect-compatibility">';
+	    $html .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
+	    $html .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
+	    $html .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
+	    $html .= '</div>';
+	    $html .= '</div>';
 
 	    echo $html;
 	    die();
