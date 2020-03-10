@@ -86,16 +86,14 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedEffect: function( settings, value ){
 		var hoverBoxes = jQuery( '.modula-effects-preview >div div.panel' );
+		var hoverParents = jQuery('.modula-effects-preview > .modula-hover-preview-slider');
 
-		if('none' == value){
-			jQuery( '.modula-effects-preview >div').hide();
-			hoverBoxes.hide();
-			hoverBoxes.filter( '.panel-' + value ).show();
-		} else {
-			jQuery( '.modula-effects-preview >div').show();
-			hoverBoxes.hide();
-			hoverBoxes.filter( '.panel-' + value ).show();
-		}
+		jQuery( '.modula-effects-preview >div').show();
+		hoverBoxes.hide();
+		hoverParents.hide();
+		hoverBoxes.filter( '.panel-' + value ).show();
+		hoverBoxes.filter( '.panel-' + value ).parents('.modula-hover-preview-slider').show();
+		hoverBoxes.filter( '.panel-' + value ).parents('.modula-hover-preview-slider').slick('refresh');
 
 	},
 
