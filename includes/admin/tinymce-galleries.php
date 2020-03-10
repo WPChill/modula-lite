@@ -71,6 +71,11 @@
 <table id="galleries">
     <!-- list here galleries -->
     <!-- loop variable $galleries -->
+    <?php if( 1 == count( $galleries ) ) {?>
+
+    <p> <?php echo esc_html__( 'You don’t have a gallery created, please go and add one') ?> </p>
+    
+    <?php  } else { ?>
     <tr>
         <td>
             <b> <?php echo esc_html__('Name', 'modula-best-grid-gallery'); ?> </b>
@@ -100,6 +105,7 @@
             </tr>
         <?php } ?>
     <?php endforeach; ?>
+        <?php } ?>
 </table>
 <!-- // Select form in case we go with select input
 <div class="form-table">
