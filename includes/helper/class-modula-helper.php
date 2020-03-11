@@ -180,11 +180,12 @@ class Modula_Helper {
 				'keyboard'        => false,
 				'wheel'           => false,
 				'buttons'         => array(
-					'close'
+					'close',
 				),
 				'hash'            => false,
 				'lang'            => 'en',
 				'touch'           => false,
+				'protect'         => false,
 				'i18n'            => array(
 					'en' => array(
 						'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
