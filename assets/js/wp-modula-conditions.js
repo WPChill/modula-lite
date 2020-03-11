@@ -86,7 +86,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedEffect: function( settings, value ){
 
-		var $images = jQuery('.modula-hover-effects.modula-effects-preview.modula').attr('images');
+		var $images = jQuery('#modula-hover-effect .modula-hover-effects.modula-effects-preview.modula').attr('images');
 
 		if('none' == value || 'pufrobo' == value) {
 			var data = {
@@ -102,9 +102,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				data: data,
 				cache: false,
 			}).done(function (data) {
-				jQuery('.modula-effects-preview.modula').html(data);
+				jQuery('#modula-hover-effect .modula-effects-preview.modula').html(data);
 
-				jQuery('.modula-hover-preview-slider').slick({
+				jQuery('#modula-hover-effect .modula-hover-preview-slider').slick({
 					arrows: true,
 					pauseOnHover: true,
 					slidesPerRow: 1,
