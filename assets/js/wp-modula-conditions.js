@@ -72,7 +72,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			tabs         = this.get('tabs'),
 			link_options = ['no-link', 'direct', 'attachment-page'];
 
-		if ( 'fancybox' == value || jQuery.inArray(value, link_options) == -1 ) {
+		if ( 'fancybox' == value ) {
 
 			rows.filter('[data-container="show_navigation"], [data-container="loop_lightbox"]').show();
 
