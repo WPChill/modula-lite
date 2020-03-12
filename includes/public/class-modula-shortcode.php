@@ -126,10 +126,6 @@ class Modula_Shortcode {
         }
 
 
-        /* Enqueue lightbox related scripts & styles */
-        wp_enqueue_style('modula-fancybox');
-        wp_enqueue_script('modula-fancybox');
-
         $fancybox_options = array('options' => array());
         $default_fancybox_options = Modula_Helper::lightbox_default_options();
 
@@ -156,8 +152,8 @@ class Modula_Shortcode {
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
-		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ),$settings );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
+		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula','modula-fancybox' ),$settings );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula','modula-fancybox' ), $settings );
 
 		if ( ! empty( $necessary_scripts ) ) {
 			foreach ( $necessary_scripts as $script ) {
