@@ -41,6 +41,8 @@ class Modula_Shortcode {
 
 	}
 
+
+
 	public function gallery_shortcode_handler( $atts ) {
 		$default_atts = array(
 			'id' => false,
@@ -126,25 +128,7 @@ class Modula_Shortcode {
         }
 
 
-        $fancybox_options = array('options' => array());
-        $default_fancybox_options = Modula_Helper::lightbox_default_options();
-
-        if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
-            $fancybox_options['options']['arrows'] = true;
-        }
-
-        if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
-            $fancybox_options['options']['loop'] = true;
-        }
-
-        $fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
-
-        /**
-         * Hook: modula_fancybox_options.
-         *
-         */
-        $fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
-        $fancybox_options = json_encode($fancybox_options['options']);
+        $fancybox_options = $this->fancybox_options($settings);
 
         wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
 
@@ -325,6 +309,43 @@ class Modula_Shortcode {
 			$css .= "</style>\n";
 
 			return $css;
+
+	}
+
+
+	/**
+	 * Create our options for Fancybox
+	 *
+	 * @param $settings
+	 *
+	 * @return array
+	 *
+	 * @since 2.3.0
+	 */
+	public function fancybox_options($settings){
+
+		$fancybox_options = array('options' => array());
+		$default_fancybox_options = Modula_Helper::lightbox_default_options();
+
+		if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
+			$fancybox_options['options']['arrows'] = true;
+		}
+
+		if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
+			$fancybox_options['options']['loop'] = true;
+		}
+
+
+		$fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
+
+		/**
+		 * Hook: modula_fancybox_options.
+		 *
+		 */
+		$fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
+		$fancybox_options = json_encode($fancybox_options['options']);
+
+		return $fancybox_options;
 
 	}
 
