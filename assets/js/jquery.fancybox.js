@@ -1818,6 +1818,7 @@
           .addClass("modula-fancybox-image")
           .appendTo(slide.$content)
           .attr("src", slide.thumb);
+
       }
 
       // Start loading actual image
@@ -1946,6 +1947,7 @@
         .addClass("modula-fancybox-image")
         .attr("src", slide.src)
         .appendTo(slide.$content);
+
 
       if ((img.complete || img.readyState == "complete") && $img.naturalWidth && $img.naturalHeight) {
         $img.trigger("load");
@@ -2175,7 +2177,7 @@
 
       slide.$content = slide.$slide
         .children()
-        .filter("div,form,main,video,audio,article,.fancybox-content")
+        .filter("div,form,main,video,audio,article,.modula-fancybox-content")
         .first();
 
       slide.$content.siblings().hide();
@@ -3362,7 +3364,7 @@
   // Create a jQuery plugin
   // ======================
 
-  $.fn.fancybox = function (options) {
+  $.fn.modulaFancybox = function (options) {
     var selector;
 
     options = options || {};

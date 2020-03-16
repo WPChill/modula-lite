@@ -130,8 +130,7 @@ class Modula_Shortcode {
 
         $fancybox_options = $this->fancybox_options($settings);
 
-        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").fancybox('.$fancybox_options.')});');
-
+        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").modulaFancybox('.$fancybox_options.')});');
 
         do_action('modula_extra_scripts', $settings);
 
@@ -344,7 +343,6 @@ class Modula_Shortcode {
 		 */
 		$fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
 		$fancybox_options = json_encode($fancybox_options['options']);
-
 		return $fancybox_options;
 
 	}
