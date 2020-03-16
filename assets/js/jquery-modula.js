@@ -660,9 +660,22 @@ jQuery( document ).ready( function($){
 
     });
 
+});
+
+jQuery(document).on( 'modula_api_after_init', function (event, data) {
+
     if(true == modulaFancyboxHelper['lite_function']){
-	    jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
-    }
+
+        modulaFancyboxHelper['options']['afterShow'] = function(e,instance,slide){
+	        var currentAlt = jQuery(data.$items[e.currIndex]).find('img').attr('alt');
+
+	        if('undefined' != typeof currentAlt && '' != currentAlt){
+		        e.current.$image.attr('alt',currentAlt);
+	        }
+        };
+
+		jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
+	}
 });
 
 
