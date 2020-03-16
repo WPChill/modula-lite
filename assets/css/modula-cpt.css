@@ -1392,11 +1392,10 @@ Scaling Effect Preview
 
 /* Modula Shortcode Box  */
 
-.modula-copy-shortcode:first-of-type {
+#modula-shortcode .modula-copy-shortcode:first-of-type {
   margin: 10px 0;
 }
 
-.postbox .inside {
-  padding: 0 12px 2.5px;
+#modula-shortcode .inside {
+  padding: 0 12px 2.5px!important;
 }
-
