@@ -1330,6 +1330,7 @@ Ups-sells carousel
     margin-left: 5px;
 }
 
+<<<<<<< Updated upstream
 /*
 Hover effect slider
 */
@@ -1387,5 +1388,15 @@ Scaling Effect Preview
 .modula-scaling-effect-preview a#test-scaling-preview {
     margin-top:25px;
     margin-left:10px;
+}
+
+/* Modula Shortcode Box  */
+
+.modula-copy-shortcode:first-of-type {
+  margin: 10px 0;
+}
+
+.postbox .inside {
+  padding: 0 12px 2.5px;
 }
 
