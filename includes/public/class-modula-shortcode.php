@@ -130,7 +130,7 @@ class Modula_Shortcode {
 
         $fancybox_options = $this->fancybox_options($settings);
 
-        wp_add_inline_script('modula-fancybox', 'jQuery(document).ready(function(){jQuery("#jtg-' . $atts['id'] . '").find("a.tile-inner[data-fancybox]").modulaFancybox('.$fancybox_options.')});');
+        wp_localize_script('modula','modulaFancyboxHelper',$fancybox_options);
 
         do_action('modula_extra_scripts', $settings);
 
@@ -323,7 +323,7 @@ class Modula_Shortcode {
 	 */
 	public function fancybox_options($settings){
 
-		$fancybox_options = array('options' => array());
+		$fancybox_options = array('options' => array(),'lite_function' => true);
 		$default_fancybox_options = Modula_Helper::lightbox_default_options();
 
 		if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
@@ -342,7 +342,7 @@ class Modula_Shortcode {
 		 *
 		 */
 		$fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
-		$fancybox_options = json_encode($fancybox_options['options']);
+
 		return $fancybox_options;
 
 	}
