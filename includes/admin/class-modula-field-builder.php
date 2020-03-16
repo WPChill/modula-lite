@@ -278,11 +278,19 @@ class Modula_Field_Builder {
 		switch ( $field['type'] ) {
 			case 'text':
 				$html = '<input type="text" class="regular-text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case 'number':
 				$html = '<input type="number" class="regular-number" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
 			case 'select' :
@@ -314,6 +322,10 @@ class Modula_Field_Builder {
 					$html .= '</optgroup>';
 				}
 				$html .= '</select>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case 'ui-slider':
 				$min  = isset( $field['min'] ) ? $field['min'] : 0;
@@ -341,6 +353,10 @@ class Modula_Field_Builder {
 				}
 
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "toggle":
 				$html .= '<div class="modula-toggle">';
@@ -352,11 +368,19 @@ class Modula_Field_Builder {
 						$html .= '<svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg>';
 					$html .= '</div>';
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "custom_code":
 				$html = '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '-customcode" class="large-text code modula-custom-editor-field"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "hover-effect":
                 $hovers = apply_filters( 'modula_available_hover_effects', array(
@@ -431,10 +455,18 @@ class Modula_Field_Builder {
                 // Hook to change how hover effects field is rendered
 
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 		}
 
