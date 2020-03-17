@@ -219,10 +219,13 @@ class Modula_Shortcode {
 		 * @hooked modula_add_align_classes - 99
 		 */
 		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
-
+		
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		$this->loader->set_template_data( $template_data );
-    	$this->loader->get_template_part( 'modula', 'gallery' );
+		$this->loader->get_template_part( 'modula', 'gallery' );
+		$template_data[] = apply_filters( 'modula_after_gallery', $template_data);
+		// do_action( 'modula_after_gallery', $template_data);
+		echo modula_show_schemaorg( $template_data['settings'] );
     	echo '<!-- This gallery was built with Modula Gallery -->';
     	$html = ob_get_clean();
     	return $html;

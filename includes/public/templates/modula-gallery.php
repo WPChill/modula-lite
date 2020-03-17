@@ -71,6 +71,7 @@
 		}
 
 		?>
+		
 	</div>
 
 	
@@ -81,7 +82,7 @@
 	 *
 	 * @hooked modula_show_schemaorg - 90
 	 */
-	do_action( 'modula_shortcode_after_items', $data->settings );
+	// do_action( 'modula_shortcode_after_items', $data->settings );
 
 	?>
 
