@@ -1031,6 +1031,10 @@ a.modula-tab-link {
   margin-left: 5px;
 }
 
+.modula-helper-guidelines-container.modula-guidelines-display {
+  display: none;
+}
+
 /* Creative Grid */
 .modula-creative-gallery.modula-uploader-inline-content .modula-single-image .modula-single-image-content {
   background: #eee !important;
@@ -1334,6 +1338,7 @@ Ups-sells carousel
     margin-left: 5px;
 }
 
+<<<<<<< Updated upstream
 /*
 Hover effect slider
 */
@@ -1391,4 +1396,14 @@ Scaling Effect Preview
 .modula-scaling-effect-preview a#test-scaling-preview {
     margin-top:25px;
     margin-left:10px;
+}
+
+/* Modula Shortcode Box  */
+
+#modula-shortcode .modula-copy-shortcode:first-of-type {
+  margin: 10px 0;
+}
+
+#modula-shortcode .inside {
+  padding: 0 12px 2.5px!important;
 }

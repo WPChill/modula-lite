@@ -71,6 +71,7 @@
 		}
 
 		?>
+		
 	</div>
 
 	
@@ -80,9 +81,9 @@
 	 * Hook: modula_shortcode_after_items.
 	 *
 	 * @hooked modula_show_schemaorg - 90
+	 * @hooked modula_slider_syncing - 85
 	 */
-	do_action( 'modula_shortcode_after_items', $data->settings, $item_data );
-
+	do_action( 'modula_shortcode_after_items', $data->settings, $data->images );
 	?>
 
 </div>
