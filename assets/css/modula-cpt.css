@@ -1318,6 +1318,14 @@ Ups-sells carousel
   margin-right: 0;
 }
 
+#modula_troubleshooting_option td > .wrap.modula {
+	margin:0 auto;
+}
+
+#modula_troubleshooting_option td > .wrap.modula .modula-toggle {
+	margin-top:0;
+}
+
 #modula-albums-upsell h2 {
     margin: 0 !important;
 }

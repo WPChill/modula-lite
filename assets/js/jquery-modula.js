@@ -517,22 +517,15 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
     }
 
     var setupTwitter = function ($tiles, plugin) {
-        $(".modula-icon-twitter").click(function (e) {
+	    $tiles.find(".modula-icon-twitter").click(function (e) {
             e.preventDefault();
 
-            var $caption = $(this).parents(".tile:first").find(".caption");
+            //var $caption = $(this).parents(".tile:first").find(".description");
+            var $caption = '';
 
             var text = plugin.options.twitterText || document.title;
             if (!plugin.options.twitterText &&  $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
-
-            // lightbox2 caption
-            if($(this).parents('#lightbox').length > 0){
-                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
-            }
-
-            if (!plugin.options.twitterText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
-                text = $.trim(lightbox_caption.text());
 
             var w = window.open("https://twitter.com/intent/tweet?url=" + encodeURI(location.href.split('#')[0]) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
@@ -541,23 +534,18 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
     }
 
     var setupFacebook = function ($tiles, plugin) {
-        $(".modula-icon-facebook").click(function (e) {
+	    $tiles.find(".modula-icon-facebook").click(function (e) {
             e.preventDefault();
 
             var image = $(this).parents(".tile:first").find(".pic");
 
-            var $caption = $(this).parents(".tile:first").find(".caption");
+            //var $caption = $(this).parents(".tile:first").find(".description");
+		    var $caption = '';
+
             var text = plugin.options.facebookText || document.title;
             if (!plugin.options.facebookText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
 
-            // lightbox2 caption
-            if($(this).parents('#lightbox').length > 0){
-                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
-            }
-
-            if (!plugin.options.facebookText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
-                text = $.trim(lightbox_caption.text());
 
             var src = image.attr("src");
             var url = "//www.facebook.com/sharer.php?u=" + location.href;
@@ -569,23 +557,16 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
     }
 
     var setupWhatsapp = function ($tiles, plugin) {
-        $(".modula-icon-whatsapp").click(function (e) {
+	    $tiles.find(".modula-icon-whatsapp").click(function (e) {
             e.preventDefault();
 
-            var $caption = $(this).parents(".tile:first").find(".caption");
+            //var $caption = $(this).parents(".tile:first").find(".description");
+		    var $caption = '';
 
             var text = plugin.options.whatsappText || document.title;
 
             if (!plugin.options.whatsappText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
-
-            // lightbox2 caption
-            if($(this).parents('#lightbox').length > 0){
-                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
-            }
-
-            if (!plugin.options.whatsappText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
-                text = $.trim(lightbox_caption.text());
 
             var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((window.location.href.split("#")[0])) +'&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
             w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
@@ -594,24 +575,17 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
     }
 
     var setupPinterest = function ($tiles, plugin) {
-        $(".modula-icon-pinterest").click(function (e) {
+	    $tiles.find(".modula-icon-pinterest").click(function (e) {
             e.preventDefault();
 
             var image = $(this).parents(".tile:first").find(".pic");
 
-            var $caption = $(this).parents(".tile:first").find(".caption");
+            //var $caption = $(this).parents(".tile:first").find(".description");
+		    var $caption = '';
 
             var text = plugin.options.pinterestText || document.title;
             if (!plugin.options.pinterestText && $caption.length == 1 && $caption.text().length > 0)
                 text = $.trim($caption.text());
-
-            // lightbox2 caption
-            if($(this).parents('#lightbox').length > 0){
-                lightbox_caption = $(this).parents('#lightbox').find('.lb-caption');
-            }
-
-            if (!plugin.options.pinterestText && 'undefined' != typeof lightbox_caption && lightbox_caption.length == 1 && lightbox_caption.text().length > 0)
-                text = $.trim(lightbox_caption.text());
 
             var url = "http://pinterest.com/pin/create/button/?url=" + encodeURI(location.href) + "&description=" + encodeURI(text);
 
@@ -627,7 +601,7 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
     }
 
     var setupLinkedIN = function ($tiles, plugin) {
-        $(".modula-icon-linkedin").click(function (e) {
+	    $tiles.find(".modula-icon-linkedin").click(function (e) {
             e.preventDefault();
 
             var url = "//linkedin.com/shareArticle?mini=true&url=" +  + encodeURI(location.href);
@@ -685,6 +659,23 @@ jQuery( document ).ready( function($){
         $( '#' + modulaID ).modulaGallery( modulaSettings );
 
     });
+
+});
+
+jQuery(document).on( 'modula_api_after_init', function (event, data) {
+
+    if(true == modulaFancyboxHelper['lite_function']){
+
+        modulaFancyboxHelper['options']['afterShow'] = function(e,instance,slide){
+	        var currentAlt = jQuery(data.$items[e.currIndex]).find('img').attr('alt');
+
+	        if('undefined' != typeof currentAlt && '' != currentAlt){
+		        e.current.$image.attr('alt',currentAlt);
+	        }
+        };
+
+		jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
+	}
 });
 
 

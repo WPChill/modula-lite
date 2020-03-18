@@ -84,7 +84,6 @@
 	 * @hooked modula_slider_syncing - 85
 	 */
 	do_action( 'modula_shortcode_after_items', $data->settings, $data->images );
-
 	?>
 
 </div>

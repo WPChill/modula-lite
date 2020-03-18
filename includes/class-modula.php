@@ -195,6 +195,10 @@ class Modula {
 			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/wp-modula-gallery.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/wp-modula-conditions.js', array(), MODULA_LITE_VERSION, true );
+			wp_localize_script('modula-conditions','modulaGalleryConditionsHelper',array(
+				'nonce' => wp_create_nonce('hover_preview'),
+				'ajaxURL' => admin_url( 'admin-ajax.php' )
+			));
 
 			do_action( 'modula_scripts_before_wp_modula' );
 

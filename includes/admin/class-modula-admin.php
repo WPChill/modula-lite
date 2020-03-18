@@ -31,6 +31,9 @@ class Modula_Admin {
 
 		// Get the metadata
 		$metadata =  wp_get_attachment_metadata( $post_id );
+		if(!$metadata){
+			exit;
+		}
 		$info     = pathinfo( $metadata['file'] );
 		$uploads  = wp_upload_dir();
 		$filename = $info['filename'];

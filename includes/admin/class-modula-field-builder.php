@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  */
 class Modula_Field_Builder {
 
@@ -12,7 +12,10 @@ class Modula_Field_Builder {
         add_filter( 'modula_hover-effect_tab_content', array($this,'hover_effects_preview'),10,1 );
         add_filter( 'modula_image-loaded-effects_tab_content', array($this,'loaded_effects_preview'),10,1 );
 
+        add_action('wp_ajax_modula_hover_preview_action',array($this,'get_hover_preview_effect'));
+
 	}
+
 
 	/**
 	 * Get an instance of the field builder
@@ -132,7 +135,7 @@ class Modula_Field_Builder {
 				echo '</div>';
 				echo '<strong class="modula-helper-guidelines-label">' . esc_html__( 'Disable Helper Grid', 'modula-best-grid-gallery' ) . '</strong>';
 			echo '</div>';
-		
+
 		do_action( 'modula_after_helper_grid' );
 
 		echo '</div>';
@@ -284,11 +287,19 @@ class Modula_Field_Builder {
 				break;
 			case 'text':
 				$html = '<input type="text" class="regular-text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case 'number':
 				$html = '<input type="number" class="regular-number" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
 			case 'select' :
@@ -320,6 +331,10 @@ class Modula_Field_Builder {
 					$html .= '</optgroup>';
 				}
 				$html .= '</select>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case 'ui-slider':
 				$min  = isset( $field['min'] ) ? $field['min'] : 0;
@@ -345,8 +360,12 @@ class Modula_Field_Builder {
 				}else{
 					$html .= '<input id="' . esc_attr( $field['id'] ) . '" class="modula-color" data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" value="' . esc_attr( $value ) . '">';
 				}
-				
+
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "toggle":
 				$html .= '<div class="modula-toggle">';
@@ -358,11 +377,19 @@ class Modula_Field_Builder {
 						$html .= '<svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg>';
 					$html .= '</div>';
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "custom_code":
 				$html = '<div class="modula-code-editor" data-syntax="' . esc_attr( $field['syntax'] ) . '">';
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '-customcode" class="large-text code modula-custom-editor-field"  rows="10" cols="50">' . wp_kses_post($value) . '</textarea>';
 				$html .= '</div>';
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			case "hover-effect":
                 $hovers = apply_filters( 'modula_available_hover_effects', array(
@@ -428,23 +455,27 @@ class Modula_Field_Builder {
 					}
 					$html .= '</optgroup>';
 				}
-				
+
 
 				$html .= '</select>';
 
                 $html .= '<p class="description">' . esc_html__( 'Select an hover effect', 'modula-best-grid-gallery' ) . '</p>';
-                $html .= '<div class="effect-compatibility">';
-                $html .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
-                $html .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
-                $html .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
-                $html .= '</div>';
+
                 // Hook to change how hover effects field is rendered
 
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
 				break;
 		}
 
@@ -466,112 +497,81 @@ class Modula_Field_Builder {
      */
     public function hover_effects_preview($html){
 
-        $hovers = apply_filters( 'modula_available_hover_effects', array(
-            'none'    => esc_html__( 'None', 'modula-best-grid-gallery' ),
-            'pufrobo' => esc_html__( '1. Pufrobo', 'modula-best-grid-gallery' ),
-        ) );
-        $pro_hovers = apply_filters( 'modula_pro_hover_effects', array(
-            'fluid-up'     => esc_html__( 'Fluid Up', 'modula-best-grid-gallery' ),
-            'hide'         => esc_html__( 'Hide', 'modula-best-grid-gallery' ),
-            'quiet'        => esc_html__( 'Quiet', 'modula-best-grid-gallery' ),
-            'catinelle'    => esc_html__( 'Catinelle', 'modula-best-grid-gallery' ),
-            'reflex'       => esc_html__( 'Reflex', 'modula-best-grid-gallery' ),
-            'curtain'      => esc_html__( 'Curtain', 'modula-best-grid-gallery' ),
-            'lens'         => esc_html__( 'Lens', 'modula-best-grid-gallery' ),
-            'appear'       => esc_html__( 'Appear', 'modula-best-grid-gallery' ),
-            'crafty'       => esc_html__( 'Crafty', 'modula-best-grid-gallery' ),
-            'seemo'        => esc_html__( 'Seemo', 'modula-best-grid-gallery' ),
-            'comodo'       => esc_html__( 'Comodo', 'modula-best-grid-gallery' ),
-            'lily'         => esc_html__( 'Lily', 'modula-best-grid-gallery' ),
-            'sadie'        => esc_html__( 'Sadie', 'modula-best-grid-gallery' ),
-            'honey'        => esc_html__( 'Honey', 'modula-best-grid-gallery' ),
-            'layla'        => esc_html__( 'Layla', 'modula-best-grid-gallery' ),
-            'zoe'          => esc_html__( 'Zoe', 'modula-best-grid-gallery' ),
-            'oscar'        => esc_html__( 'Oscar', 'modula-best-grid-gallery' ),
-            'marley'       => esc_html__( 'Marley', 'modula-best-grid-gallery' ),
-            'ruby'         => esc_html__( 'Ruby', 'modula-best-grid-gallery' ),
-            'roxy'         => esc_html__( 'Roxy', 'modula-best-grid-gallery' ),
-            'bubba'        => esc_html__( 'Bubba', 'modula-best-grid-gallery' ),
-            'romeo'        => esc_html__( 'Romeo', 'modula-best-grid-gallery' ),
-            'dexter'       => esc_html__( 'Dexter', 'modula-best-grid-gallery' ),
-            'sarah'        => esc_html__( 'Sarah', 'modula-best-grid-gallery' ),
-            'chico'        => esc_html__( 'Chico', 'modula-best-grid-gallery' ),
-            'milo'         => esc_html__( 'Milo', 'modula-best-grid-gallery' ),
-            'julia'        => esc_html__( 'Julia', 'modula-best-grid-gallery' ),
-            'goliath'      => esc_html__( 'Goliath', 'modula-best-grid-gallery' ),
-            'hera'         => esc_html__( 'Hera', 'modula-best-grid-gallery' ),
-            'winston'      => esc_html__( 'Winston', 'modula-best-grid-gallery' ),
-            'selena'       => esc_html__( 'Selena', 'modula-best-grid-gallery' ),
-            'terry'        => esc_html__( 'Terry', 'modula-best-grid-gallery' ),
-            'phoebe'       => esc_html__( 'Phoebe', 'modula-best-grid-gallery' ),
-            'apollo'       => esc_html__( 'Apollo', 'modula-best-grid-gallery' ),
-            'kira'         => esc_html__( 'Kira', 'modula-best-grid-gallery' ),
-            'steve'        => esc_html__( 'Steve', 'modula-best-grid-gallery' ),
-            'moses'        => esc_html__( 'Moses', 'modula-best-grid-gallery' ),
-            'jazz'         => esc_html__( 'Jazz', 'modula-best-grid-gallery' ),
-            'ming'         => esc_html__( 'Ming', 'modula-best-grid-gallery' ),
-            'lexi'         => esc_html__( 'Lexi', 'modula-best-grid-gallery' ),
-            'duke'         => esc_html__( 'Duke', 'modula-best-grid-gallery' ),
-            'tilt_1'       => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
-            'tilt_2'       => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
-            'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
+	    $id               = get_the_ID();
+	    $gallery_settings = get_post_meta( $id, 'modula-settings', true );
+	    $gallery_effect   = isset( $gallery_settings['effect'] ) ? $gallery_settings['effect'] : 'none';
+	    $gallery_images   = get_post_meta( $id, 'modula-images', true );
+	    $effect           = '';
 
-        ) );
+	    if ( $gallery_images && count( $gallery_images ) > 0 ) {
 
-        $id             = get_the_ID();
-        $gallery_images = get_post_meta( $id, 'modula-images', true );
-        $effect = '';
+		    if ( 1 == count( $gallery_images ) ) {
+			    $img_url = wp_get_attachment_image_src( $gallery_images[0]['id'], 'medium' );
+			    $image   = $img_url[0];
+		    } else {
+			    foreach ( $gallery_images as $gallery_image ) {
+				    $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
+				    $image[] = $img_url[0];
+			    }
 
-        if ( $gallery_images && count( $gallery_images ) > 0 ) {
+		    }
+	    } else {
+		    $image = MODULA_URL . '/assets/images/effect.jpg"';
+	    }
 
-            if ( 1 == count( $gallery_images ) ) {
-                $img_url = wp_get_attachment_image_src( $gallery_images[0]['id'], 'medium' );
-                $image   = '<img src="' . $img_url[0] . '" class="pic">';
-            } else {
-                foreach ( $gallery_images as $gallery_image ) {
-                    $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
-                    $image[] = '<img src="' . $img_url[0] . '" class="pic">';
-                }
+	    $html .= '<div class="modula-hover-effects modula-effects-preview modula" images="' . esc_attr( json_encode( $image ) ) . '"></div>';
 
-            }
-        } else {
-            $image = '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
-        }
-
-        $html .= '<div class="modula-effects-preview modula">';
-
-        foreach ( $hovers as $key => $name ) {
-
-            if ( 'none' == $key ) {
-                $effect .= '<div class="panel panel-' . esc_attr( $key ) . ' modula-items wp-clearfix"></div>';
-            } elseif ( 'pufrobo' == $key ) {
-                if ( !is_array( $image ) ) {
-                    // Pufrobo Effect
-                    $effect .= '<div class="panel panel-pufrobo modula-items wp-clearfix">';
-                    $effect .= '<div class="modula-item effect-pufrobo">' . $image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-                    $effect .= '</div>';
-                } else {
-                    $effect .= '<div class="modula-hover-preview-slider">';
-                    foreach ( $image as $i ) {
-                        // Pufrobo Effect
-                        $effect .= '<div class="panel panel-pufrobo modula-items wp-clearfix">';
-                        $effect .= '<div class="modula-item effect-pufrobo">' . $i . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-                        $effect .= '</div>';
-                    }
-                    $effect .= '</div>';
-                }
-
-            } else {
-                $effect = apply_filters( 'modula_hover_effect_preview', '', $key );
-            }
-        }
-
-        $html .= $effect;
-        $html .= '</div>';
-
-        return $html;
+	    return $html;
     }
 
+
+	/**
+	 * Get the hover effect
+	 *
+	 * @since 2.2.8
+	 */
+    public function get_hover_preview_effect(){
+
+    	wp_verify_nonce('hover_preview');
+
+    	if(!isset($_POST['action']) || 'modula_hover_preview_action' != $_POST['action']){
+    		wp_die();
+	    }
+
+		$images = isset($_POST['images']) ? $_POST['images'] : false;
+    	$effect = isset($_POST['effect']) ? $_POST['effect'] : 'none';
+
+
+    	$html ='';
+
+	    if ( !is_array( $images ) ) {
+
+
+		    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
+		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+
+		    $html .= '</div>';
+	    } else {
+		    $html .= '<div class="modula-hover-preview-slider">';
+		    foreach ( $images as $i ) {
+			    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
+			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+			    $html .= '</div>';
+		    }
+		    $html .= '</div>';
+	    }
+
+	    $html .= '<div class="effect-compatibility">';
+	    $html .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
+	    $html .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
+	    $html .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span></p>';
+	    $html .= '</div>';
+	    $html .= '</div>';
+
+	    echo $html;
+	    die();
+
+    }
 
     /**
      * Preview for Loading effects
