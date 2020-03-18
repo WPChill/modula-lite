@@ -273,6 +273,15 @@ class Modula_Field_Builder {
 		$html = '';
 
 		switch ( $field['type'] ) {
+
+			case 'image-size':
+				$html = '<div class="modula-image-size">';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][width]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['width'])) ? esc_attr( $value['width'] ) : '') . '">';
+				$html .= '<span class="modila-image-size-spacer">x</span>';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][height]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['height'])) ? esc_attr( $value['height'] ) : '') . '">';
+				$html .= '<span class="modila-image-size-spacer">px</span>';
+				$html .= '</div>';
+				break;
 			case 'text':
 				$html = '<input type="text" class="regular-text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				break;
