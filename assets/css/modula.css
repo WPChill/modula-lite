@@ -450,3 +450,11 @@ Fix for admin bar overfloating
 .modula-fancybox-container.modula-fancybox-is-open {
 	z-index:99999999;
 }
+
+.modula-fancybox-share__button--li {
+	background:#0e76a8;
+}
+
+.modula-fancybox-share__button--wa {
+	background:#25D366;
+}
