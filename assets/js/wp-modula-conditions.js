@@ -90,11 +90,25 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		var $images = jQuery('#modula-hover-effect .modula-hover-effects.modula-effects-preview.modula').attr('images');
 
+		var $socials_settings = {
+			'twitter': wp.Modula.Settings.get('enableTwitter'),
+			'facebook': wp.Modula.Settings.get('enableFacebook'),
+			'pinterest': wp.Modula.Settings.get('enablePinterest'),
+			'linkedin': wp.Modula.Settings.get('enableLinkedin'),
+			'whatsapp': wp.Modula.Settings.get('enableWhatsapp'),
+			// seems to be a problem with getting the color
+			'social_color': jQuery('#socialIconColor').val(),
+			'social_size': wp.Modula.Settings.get('socialIconSize'),
+			'social_gutter': wp.Modula.Settings.get('socialIconPadding')
+		};
+
+
 		if('none' == value || 'pufrobo' == value) {
 			var data = {
 				action: 'modula_hover_preview_action',
 				images: jQuery.parseJSON($images),
 				effect: value,
+				socials: $socials_settings,
 				nonce : modulaGalleryConditionsHelper.nonce
 			};
 

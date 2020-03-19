@@ -13,6 +13,7 @@ class Modula_Field_Builder {
         add_filter( 'modula_image-loaded-effects_tab_content', array($this,'loaded_effects_preview'),10,1 );
 
         add_action('wp_ajax_modula_hover_preview_action',array($this,'get_hover_preview_effect'));
+		add_action('wp_ajax_modula_loaded_preview_action',array($this,'get_loaded_preview_effect'));
 
 	}
 
@@ -541,21 +542,57 @@ class Modula_Field_Builder {
 		$images = isset($_POST['images']) ? $_POST['images'] : false;
     	$effect = isset($_POST['effect']) ? $_POST['effect'] : 'none';
 
+	    $twitter   = '';
+	    $facebook  = '';
+	    $whatsapp  = '';
+	    $pinterest = '';
+	    $linkedin  = '';
+
+	    if ( isset( $_POST['socials'] ) ) {
+		    $socials   = $_POST['socials'];
+		    $twitter   = ( isset( $socials['twitter'] ) && '1' == $socials['twitter'] ) ? '<a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a>' : '';
+		    $facebook  = ( isset( $socials['facebook'] ) && '1' == $socials['facebook'] ) ? '<a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a>' : '';
+		    $pinterest = ( isset( $socials['pinterest'] ) && '1' == $socials['pinterest'] ) ? '<a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>' : '';
+		    $whatsapp  = ( isset( $socials['whatsapp'] ) && '1' == $socials['whatsapp'] ) ? '<a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>' : '';
+		    $linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
+
+		    $social_color  = ( isset( $socials['social_color'] ) ) ? $socials['social_color'] : '';
+		    $social_size   = ( isset( $socials['social_size'] ) ) ? $socials['social_size'] : '';
+		    $social_gutter = ( isset( $socials['social_gutter'] ) ) ? $socials['social_gutter'] : '';
+	    }
+
 
     	$html ='';
+
+	    $html .= '<style id="socials-preview">';
+
+	    if($social_color){
+	    	$html .= '#modula-hover-effect .modula .modula-item .jtg-social a{color:'.$social_color.'}';
+	    }
+
+	    if($social_size){
+		    $html .= '#modula-hover-effect .modula .modula-item .jtg-social a svg{width:'.$social_size.'px;height:'.$social_size.'px}';
+	    }
+
+	    if($social_gutter){
+		    $html .= '#modula-hover-effect .modula .modula-item .jtg-social a{padding:'.$social_gutter.'px;}';
+	    }
+
+
+	    $html .= '</style>';
 
 	    if ( !is_array( $images ) ) {
 
 
 		    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
-		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
 
 		    $html .= '</div>';
 	    } else {
 		    $html .= '<div class="modula-hover-preview-slider">';
 		    foreach ( $images as $i ) {
 			    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
-			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
 			    $html .= '</div>';
 		    }
 		    $html .= '</div>';
@@ -582,31 +619,85 @@ class Modula_Field_Builder {
      */
     public function loaded_effects_preview($html){
 
-        $id             = get_the_ID();
-        $gallery_images = get_post_meta( $id, 'modula-images', true );
-        $images         = array();
-        if ( $gallery_images && count( $gallery_images ) > 0 ) {
-            foreach ( $gallery_images as $gallery_image ) {
-                $img_url = wp_get_attachment_image_src( $gallery_image['id'], 'medium' );
-                $image[] = '<img src="' . esc_url( $img_url[0] ) . '" class="pic">';
-            }
-        }
-
         $html .= '<div class="modula-scaling-effect-preview modula-effects-preview modula">';
-        $html .= '<a href="#" class="button button-primary" id="test-scaling-preview">' . esc_html__( 'Test effect', 'modula-best-grid-gallery' ) . '</a>';
-        $html .= '<div class="panel panel-none modula-items wp-clearfix"></div>';
-        $html .= '<div class="panel modula-items wp-clearfix">';
-        for ( $i = 0; $i <= 3; $i++ ) {
-
-            $preview_image = isset( $image[ $i ] ) ? $image[ $i ] : '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
-            $html          .= '<div class="modula-item effect-pufrobo">' . $preview_image . '<div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
-        }
-
-        $html .= '</div>';
-        $html .= '<div class="wp-clearfix"></div>';
         $html .= '</div>';
 
         return $html;
     }
+
+	/**
+	 * Get the hover effect
+	 *
+	 * @since 2.2.8
+	 */
+	public function get_loaded_preview_effect(){
+
+		wp_verify_nonce( 'loaded_preview' );
+
+		if ( !isset( $_POST['action'] ) || 'modula_loaded_preview_action' != $_POST['action'] ) {
+			wp_die();
+		}
+
+		$images = isset( $_POST['images'] ) ? $_POST['images'] : false;
+
+		$twitter   = '';
+		$facebook  = '';
+		$whatsapp  = '';
+		$pinterest = '';
+		$linkedin  = '';
+
+		if ( isset( $_POST['socials'] ) ) {
+			$socials   = $_POST['socials'];
+			$twitter   = ( isset( $socials['twitter'] ) && '1' == $socials['twitter'] ) ? '<a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a>' : '';
+			$facebook  = ( isset( $socials['facebook'] ) && '1' == $socials['facebook'] ) ? '<a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a>' : '';
+			$pinterest = ( isset( $socials['pinterest'] ) && '1' == $socials['pinterest'] ) ? '<a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>' : '';
+			$whatsapp  = ( isset( $socials['whatsapp'] ) && '1' == $socials['whatsapp'] ) ? '<a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>' : '';
+			$linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
+
+			$social_color  = ( isset( $socials['social_color'] ) ) ? $socials['social_color'] : '';
+			$social_size   = ( isset( $socials['social_size'] ) ) ? $socials['social_size'] : '';
+			$social_gutter = ( isset( $socials['social_gutter'] ) ) ? $socials['social_gutter'] : '';
+		}
+
+
+		$html = '';
+
+		$html .= '<style id="socials-preview">';
+
+		if ( $social_color ) {
+			$html .= '#modula-image-loaded-effects .modula .modula-item .jtg-social a{color:' . $social_color . '}';
+		}
+
+		if ( $social_size ) {
+			$html .= '#modula-image-loaded-effects .modula .modula-item .jtg-social a svg{width:' . $social_size . 'px;height:' . $social_size . 'px}';
+		}
+
+		if ( $social_gutter ) {
+			$html .= '#modula-image-loaded-effects .modula .modula-item .jtg-social a{padding:' . $social_gutter . 'px;}';
+		}
+
+
+		$html .= '</style>';
+
+
+		$html .= '<div class="modula-scaling-effect-preview modula-effects-preview modula">';
+		$html .= '<a href="#" class="button button-primary" id="test-scaling-preview">' . esc_html__( 'Test effect', 'modula-best-grid-gallery' ) . '</a>';
+		$html .= '<div class="panel panel-none modula-items wp-clearfix"></div>';
+		$html .= '<div class="panel modula-items wp-clearfix">';
+		for ( $i = 0; $i <= 3; $i++ ) {
+
+			$preview_image = isset( $images[$i] ) ? $images[$i] : MODULA_URL . '/assets/images/effect.jpg';
+			$html          .= '<div class="modula-item effect-pufrobo"><img src="' . $preview_image . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
+		}
+
+		$html .= '</div>';
+		$html .= '<div class="wp-clearfix"></div>';
+		$html .= '</div>';
+
+		echo $html;
+		die();
+
+	}
+
 
 }
