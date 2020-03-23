@@ -1366,6 +1366,14 @@ Hover effect slider
     height: 25px;
     padding: 5px;
     border-radius: 3px;
+	z-index:9999;
+}
+
+.modula-hover-preview-slider .slick-prev {
+	left:-35px;
+}
+.modula-hover-preview-slider .slick-next {
+	right:-35px;
 }
 
 .modula-hover-preview-slider .slick-prev svg,
