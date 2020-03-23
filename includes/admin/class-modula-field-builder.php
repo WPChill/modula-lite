@@ -251,10 +251,10 @@ class Modula_Field_Builder {
 			$child = 'child_setting';
 		}
 
-		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="%s"><label>%s</label>%s</th><td>%s</td></tr>';
+		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
-			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
 		$format = apply_filters( "modula_field_type_{$field['type']}_format", $format, $field );
@@ -276,7 +276,7 @@ class Modula_Field_Builder {
 
 		// Get the current value of the field
 		$value = $this->get_setting( $field['id'], $default );
-		return sprintf( $format,$child, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
+		return sprintf( $format, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
 	}
 
 	/* Create HMTL for a field */
@@ -294,14 +294,14 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case 'text':
-				$html = '<input type="text" class="regular-text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 
 				if(isset($field['afterrow'])){
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
 			case 'number':
-				$html = '<input type="number" class="regular-number" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
@@ -311,7 +311,7 @@ class Modula_Field_Builder {
 				}
 				break;
 			case 'select' :
-				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
+				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '">';
 
 				foreach ( $field['values'] as $key => $option ) {
 
@@ -451,7 +451,7 @@ class Modula_Field_Builder {
                     'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
 
                 ) );
-				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
+				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '">';
 				foreach ( $hovers as $key => $option ) {
 					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( $option ) . '</option>';
 				}
