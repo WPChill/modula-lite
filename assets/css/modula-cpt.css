@@ -93,13 +93,13 @@ tr label.th-label {
 .postbox .modula-settings-container table.form-table {
 	margin: 0;
 }
-.postbox .modula-settings-container .form-table-wrapper {
+/*.postbox .modula-settings-container .form-table-wrapper {
 	padding: 0 0 0 20px;
 	box-sizing: border-box;
-}
+}*/
 .modula-settings-container .modula-tabs-content {
-	padding: 10px 20px;
-	border-left: 1px solid #eee;
+	padding: 0;
+	border-left: 1px solid #ccd0d4;
 	flex-grow: 1;
 }
 .modula-tabs-content > div:not( .active-tab ) {
@@ -107,11 +107,8 @@ tr label.th-label {
 }
 .modula-settings-container .modula-tabs-content .tab-content-header {
 	width: 100%;
-    padding-bottom: 12px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    padding-left: 20px;
-    padding-right: 0;
+	padding: 16px 20px 15px 20px;
+	border-bottom: 1px solid #ccd0d4;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -144,6 +141,17 @@ tr label.th-label {
 	font-size: 13px;
 }
 
+.modula-settings-container .modula-tabs-content .form-table tr {
+	border-top: 1px solid #EEE;
+	border-bottom: 1px solid #EEE;
+}
+/*.modula-settings-container .modula-tabs-content .form-table tr:nth-of-type(even) {
+	background-color: #FAFAFA;
+}*/
+.modula-settings-container .modula-tabs-content .form-table tr:first-of-type {border-top: none;}
+.modula-settings-container .modula-tabs-content .form-table tr:last-of-type {border-bottom: none;}
+.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;}
+
 /* Fields */
 
 /* UI Slider */
@@ -163,7 +171,7 @@ tr label.th-label {
     border: none;
     text-align: center;
     padding: 2px;
-    margin: 0 20px 0 0;
+    margin: 0 30px 0 0;
     font-size: 12px;
     color: #333;
     border-radius: 10px;
@@ -977,8 +985,10 @@ a.modula-tab-link {
 
 /* Tabs tooltips */
 .modula-tooltip {
-  position: relative;
-  display: inline-block;
+	position: relative;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
 }
 .modula-tooltip > span {
   cursor: pointer;
