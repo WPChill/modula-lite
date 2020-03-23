@@ -1018,11 +1018,12 @@ a.modula-tab-link {
 
 /* Modula Helper Grid */
 .modula-helper-guidelines-container {
-  padding: 15px 20px;
-  background-color: #f8fcfd;
-  display: flex;
-  align-items: center;
-  border-top: 1px solid #ecf6f9;
+	padding: 15px 20px;
+	background-color: #f8fcfd;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid #ecf6f9;
+	z-index: 99999;
 }
 .modula-helper-guidelines-container .onoffswitch {
   margin-top: 0;
