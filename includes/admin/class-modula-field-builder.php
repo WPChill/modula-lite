@@ -269,7 +269,7 @@ class Modula_Field_Builder {
 
 		// Get the current value of the field
 		$value = $this->get_setting( $field['id'], $default );
-		return sprintf( $format, wp_kses_post( $field['name'] ), $tooltip, $this->_render_field( $field, $value ) );
+		return sprintf( $format, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
 	}
 
 	/* Create HMTL for a field */
