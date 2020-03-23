@@ -1425,3 +1425,10 @@ Scaling Effect Preview
 #modula-shortcode .inside {
   padding: 0 12px 2.5px!important;
 }
+
+.shortcode-description { 
+  margin: 10px 0 0 0;
+  border-bottom: 1px solid #333;
+  color: #333;
+  padding-bottom: 7px;
+}
