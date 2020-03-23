@@ -397,7 +397,7 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'If your gallery is somewhere further down the page but you still want to make the loading effect please check this toggle.', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
                     "default"     => 0,
-                    'priority' => 10,
+                    'priority' => 50,
                 ),
 			),
 			'hover-effect' => array(
