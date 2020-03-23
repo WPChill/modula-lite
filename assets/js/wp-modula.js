@@ -51,7 +51,7 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
-	$('#test-scaling-preview').click(function (e) {
+	$('#modula-image-loaded-effects ').on('click','#test-scaling-preview',function (e) {
 		e.preventDefault();
 		var val     = $('input[data-setting="loadedScale"]').val();
 		var targets = $('#modula-image-loaded-effects .modula-item');
