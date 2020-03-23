@@ -221,7 +221,8 @@ class Modula_Field_Builder {
 
 		echo '<div class="modula-copy-shortcode">';
         echo '<input type="text" value="' . esc_attr($shortcode) . '"  onclick="select()" readonly>';
-        echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+		echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
+		echo '<p class="shortcode-description">' . esc_html__( 'You can use this to display your newly created gallery inside a post or a page', 'modula-best-grid-gallery') .  '</p>';
         echo '</div>';
 
         do_action( 'modula_admin_after_shortcode_metabox', $post );
@@ -244,7 +245,13 @@ class Modula_Field_Builder {
 
 	/* Create HMTL for a row */
 	private function _render_row( $field ) {
-		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row"><label>%s</label>%s</th><td>%s</td></tr>';
+
+		$child = '';
+		if(isset($field['is_child']) && $field['is_child']){
+			$child = 'child_setting';
+		}
+
+		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="%s"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
@@ -269,7 +276,7 @@ class Modula_Field_Builder {
 
 		// Get the current value of the field
 		$value = $this->get_setting( $field['id'], $default );
-		return sprintf( $format, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
+		return sprintf( $format,$child, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
 	}
 
 	/* Create HMTL for a field */

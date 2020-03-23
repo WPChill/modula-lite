@@ -150,8 +150,12 @@ tr label.th-label {
 }*/
 .modula-settings-container .modula-tabs-content .form-table tr:first-of-type {border-top: none;}
 .modula-settings-container .modula-tabs-content .form-table tr:last-of-type {border-bottom: none;}
-.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:260px;}
-
+.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:280px;}
+.modula-settings-container .modula-tabs-content .form-table th.child_setting {
+	padding-left:40px;
+	display:inline-block;
+	width:240px;
+}
 /* Fields */
 
 /* UI Slider */
@@ -1424,4 +1428,11 @@ Scaling Effect Preview
 
 #modula-shortcode .inside {
   padding: 0 12px 2.5px!important;
+}
+
+.shortcode-description { 
+  margin: 10px 0 0 0;
+  border-bottom: 1px solid #333;
+  color: #333;
+  padding-bottom: 7px;
 }
