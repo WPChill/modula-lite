@@ -64,7 +64,7 @@ class Modula_CPT_Fields_Helper {
 				'priority'    => 40,
 			),
 			'hover-effect' => array(
-				'label'       => esc_html__( 'Hover effect', 'modula-best-grid-gallery' ),
+				'label'       => esc_html__( 'Hover effects', 'modula-best-grid-gallery' ),
 				'title'       => esc_html__( 'Hover Effect Settings', 'modula-best-grid-gallery' ),
 				'description' => $hover_description,
 				"icon"        => "dashicons dashicons-layout",
