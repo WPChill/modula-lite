@@ -233,7 +233,8 @@ tr label.th-label {
 }
 
 .modula-settings-container select,
-.modula-settings-container  input:not([type="select-one"]) {
+.modula-settings-container  input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]),
+.modula-settings-container  select{
 	min-width:275px;
 }
 
@@ -1445,4 +1446,40 @@ Scaling Effect Preview
   border-bottom: 1px solid #DDD;
   color: #696969;
   padding-bottom: 10px;
+}
+
+/**
+Some responsive fixes
+ */
+
+@media all and (max-width:1300px){
+	.modula-settings-container {
+		display:block;
+	}
+
+	.modula-settings-container .modula-tabs .modula-tab {
+		display:inline-block;
+		width:auto;
+		font-size:0;
+		padding:10px !important;
+	}
+
+	.modula-settings-container .modula-tabs .modula-tab:before {
+		content:"";
+		width:3px;
+		display:block;
+	}
+
+	.modula-settings-container .modula-tabs .modula-tab > i {
+		margin:0;
+	}
+
+	.modula-hover-preview-slider .slick-next {
+		right:0;
+	}
+
+	.modula-hover-preview-slider .slick-prev {
+		left:0;
+	}
+
 }
