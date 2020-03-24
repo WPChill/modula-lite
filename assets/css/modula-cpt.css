@@ -1483,3 +1483,55 @@ Some responsive fixes
 	}
 
 }
+
+@media all and (min-width:850px) and (max-width:1300px){
+	.modula-settings-container .modula-tabs-content th,
+	.modula-settings-container .modula-tabs-content td {
+		display:block;
+		width:100%;
+	}
+
+	.modula-settings-container .modula-tabs-content td {
+		padding-left:25px;
+	}
+
+	.modula-settings-container .modula-tabs-content th.child_setting + td {
+		padding-left:45px;
+	}
+
+	.modula-settings-container select, .modula-settings-container input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]), .modula-settings-container select {
+		min-width:175px;
+	}
+}
+
+@media all and (min-width:600px) and (max-width:849px){
+	.modula-settings-container .modula-tabs-content th,
+	.modula-settings-container .modula-tabs-content .form-table th.child_setting {
+		display:table-cell;
+	}
+}
+
+@media all and (max-width: 599px){
+	.modula-settings-container .modula-tabs-content th,
+	.modula-settings-container .modula-tabs-content td {
+		display:block;
+		width:100%;
+	}
+
+	.modula-settings-container .modula-tabs-content td {
+		padding-left:25px;
+	}
+
+	.modula-settings-container .modula-tabs-content th.child_setting + td {
+		padding-left:45px;
+	}
+
+	.modula-settings-container th:not(.child_setting) + td select, .modula-settings-container th:not(.child_setting) +  td input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]), .modula-settings-container th:not(.child_setting) + td select {
+		max-width:calc(100% - 65px) !important;
+	}
+
+	.modula-settings-container th.child_setting + td select, .modula-settings-container th.child_setting + td input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]), .modula-settings-container th.child_setting + td  select {
+		max-width:calc(100% - 85px) !important;
+	}
+
+}
