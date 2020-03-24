@@ -1502,12 +1502,22 @@ Some responsive fixes
 	.modula-settings-container select, .modula-settings-container input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]), .modula-settings-container select {
 		min-width:175px;
 	}
+
+	.modula-filters-container .modula-filters,
+	.modula-pro-live-preview {
+		max-width:calc(100% - 65px);
+	}
 }
 
 @media all and (min-width:600px) and (max-width:849px){
 	.modula-settings-container .modula-tabs-content th,
 	.modula-settings-container .modula-tabs-content .form-table th.child_setting {
 		display:table-cell;
+	}
+
+	.modula-filters-container .modula-filters,
+	.modula-pro-live-preview {
+		max-width:calc(100% - 65px);
 	}
 }
 
@@ -1516,6 +1526,11 @@ Some responsive fixes
 	.modula-settings-container .modula-tabs-content td {
 		display:block;
 		width:100%;
+	}
+
+	.modula-filters-container .modula-filters,
+	.modula-pro-live-preview {
+		max-width:calc(100% - 65px);
 	}
 
 	.modula-settings-container .modula-tabs-content td {
