@@ -524,7 +524,7 @@ class Modula_Field_Builder {
 
 		    }
 	    } else {
-		    $image = MODULA_URL . '/assets/images/effect.jpg"';
+		    $image = MODULA_URL . '/assets/images/effect.jpg';
 	    }
 
 	    $html .= '<div class="modula-hover-effects modula-effects-preview modula" images="' . esc_attr( json_encode( $image ) ) . '"></div>';
