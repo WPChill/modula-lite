@@ -292,8 +292,6 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	box-shadow: none;
 }
 
-.lightbox .lb-image { max-width:999em; }
-
 .modula .jtg-social svg {
     width: 20px;
     height: 16px;

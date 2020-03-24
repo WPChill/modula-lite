@@ -245,13 +245,6 @@ class Modula_CPT_Fields_Helper {
                     "default"     => 1,
                     'priority'    => 1,
                 ),
-                "loop_lightbox" => array(
-                    "name"        => esc_html__( 'Infinite gallery navigation', 'modula-best-grid-gallery' ),
-                    "type"        => "toggle",
-                    "description" => esc_html__( 'Enable this to allow infinite lightbox navigation.', 'modula-best-grid-gallery' ),
-                    "default"     => 0,
-                    'priority'    => 1,
-                ),
             ),
 			'captions' => array(
 				"hide_title"        => array(
@@ -573,7 +566,6 @@ class Modula_CPT_Fields_Helper {
             'randomFactor'          => '50',
             'lightbox'              => 'fancybox',
             'show_navigation'       => 1,
-            'loop_lightbox'         => 0,
             'shuffle'               => 0,
             'titleColor'            => '',
             'captionColor'          => '#ffffff',

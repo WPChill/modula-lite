@@ -331,9 +331,7 @@ class Modula_Shortcode {
 			$fancybox_options['options']['arrows'] = true;
 		}
 
-		if ( isset( $settings['loop_lightbox'] ) && '1' == $settings['loop_lightbox'] ) {
-			$fancybox_options['options']['loop'] = true;
-		}
+
 
 
 		$fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
