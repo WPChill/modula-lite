@@ -163,7 +163,7 @@ tr label.th-label {
 	position: relative;
 	height: 2px;
 	padding: 10px 0;
-	width: 25em;
+	width: 275px;
 	box-sizing: border-box;
   margin-bottom: 10px;
   display: flex;
@@ -185,6 +185,7 @@ tr label.th-label {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.16);
     width: 40px;
     height: 22px;
+	min-width:auto;
     cursor: default;
 }
 .modula-settings-container .slider-container .ui-slider {
@@ -229,6 +230,15 @@ tr label.th-label {
 	background: #57a7c9;
 	top: 0;
 	bottom: 0;
+}
+
+.modula-settings-container select,
+.modula-settings-container  input:not([type="select-one"]) {
+	min-width:275px;
+}
+
+.selectize-control.single .selectize-input, .selectize-dropdown.single {
+	max-width:275px;
 }
 
 /* Hover Effects */
