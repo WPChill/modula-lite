@@ -1519,6 +1519,11 @@ Some responsive fixes
 	.modula-pro-live-preview {
 		max-width:calc(100% - 65px);
 	}
+
+	.modula-settings-container .modula-tabs-content .form-table td {
+		padding-top:20px;
+		padding-bottom:20px;
+	}
 }
 
 @media all and (max-width: 599px){
@@ -1547,6 +1552,11 @@ Some responsive fixes
 
 	.modula-settings-container th.child_setting + td select, .modula-settings-container th.child_setting + td input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]), .modula-settings-container th.child_setting + td  select {
 		max-width:calc(100% - 85px) !important;
+	}
+
+	.modula-settings-container .modula-tabs-content .form-table td {
+		padding-top:20px;
+		padding-bottom:20px;
 	}
 
 }
