@@ -24,6 +24,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:enable_responsive', this.changedResponsiveness );
 		this.listenTo( wp.Modula.Settings, 'change:hide_title', this.hideTitle);
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
+		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
+		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
 	},
 
 	initValues: function(){
@@ -36,30 +38,55 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedResponsiveness ( false, wp.Modula.Settings.get('enable_responsive') );
 		this.hideTitle ( false, wp.Modula.Settings.get( 'hide_title' ) );
 		this.hideCaption ( false, wp.Modula.Settings.get( 'hide_description') );
+		this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
+		this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
 	},
 
 	changedType: function( settings, value ){
 		var rows = this.get( 'rows' ),
 			tabs = this.get( 'tabs' );
 
+
 		if ( 'custom-grid' == value ) {
 
 			// Show Responsive tab
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 			
-			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).show();
-			rows.filter( '[data-container="width"], [data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"]' ).hide();
+			rows.filter( '[data-container="columns"], [data-container="gutter"],[data-container="img_size"]' ).show();
+
+			rows.filter( '[data-container="width"], [data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="margin"]' ).hide();
+
+			rows.filter(' [data-container="randomFactor"] [data-container="img_size"],[data-container="maxImagesCount"]').show();
+
+			// Rows for grid type
+			rows.filter('[data-container="grid_type"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
+
 			
-			
-		}else if ( 'creative-gallery' ) {
+		}else if ( 'creative-gallery' == value ) {
 
 			// Hide Responsive tab
 			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
 
 			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).hide();
+
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"]' ).show();
 
+			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"], [data-container="showAllOnLightbox"],[data-container="maxImagesCount"]').show();
+
+
+			// Rows for grid type
+			rows.filter('[data-container="grid_type"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
+
 			
+		} else if('grid' == value){
+
+			rows.filter('[data-container="grid_type"], [data-container="width"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"]').show();
+
+			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"], [data-container="maxImagesCount"]').hide();
+
+			tabs.filter( '[data-tab="modula-responsive"]' ).show();
+
+			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 		}
 
 	},
@@ -185,6 +212,47 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		}else {
 			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').show();
 		}
+	},
+
+	changedGridType: function (settings, value) {
+
+		let rows = this.get('rows');
+
+		if ( 'grid' != wp.Modula.Settings.get('type') ) {
+
+			return;
+		}
+
+		if( 'automatic' == value ) {
+
+			rows.filter('[data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').show();
+			rows.filter('[data-container="grid_column_gutter_width"]').hide();
+		} else {
+
+			rows.filter('[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').hide();
+			rows.filter('[data-container="grid_type"],[data-container="grid_column_gutter_width"], [data-container="grid_image_size"]').show();
+		}
+
+	},
+
+	changedGridImageSize: function( settings, value ) {
+
+		let rows = this.get( 'rows' );
+
+		if (  'grid' != wp.Modula.Settings.get('type') ) {
+
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+			return;
+
+		}
+
+		if ( 'custom' == value ) {
+
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
+		} else {
+
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+		}
 	}
 
-}) 
+});

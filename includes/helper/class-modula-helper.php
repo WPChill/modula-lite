@@ -213,4 +213,64 @@ class Modula_Helper {
 		return $fancybox_options;
 
 	}
+
+	/**
+	 * Get image sizes
+	 *
+	 * @param        $size_type
+	 * @param string $size
+	 *
+	 * @return array|bool|mixed
+	 *
+	 * @since 2.3.0
+	 */
+	public static function get_image_sizes( $size_type = false, $size = '' ) {
+
+		global $_wp_additional_image_sizes;
+
+		$sizes                        = array();
+		$get_intermediate_image_sizes = get_intermediate_image_sizes();
+
+
+		// Create the full array with sizes
+		foreach ( $get_intermediate_image_sizes as $_size ) {
+			// only default
+			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+				$image_size_txt            = ucfirst( strtolower( str_replace( '_', ' ', $_size ) ) );
+				$image_sizes_array[$_size] = $image_size_txt;
+
+				$sizes[$_size]['width']  = get_option( $_size . '_size_w' );
+				$sizes[$_size]['height'] = get_option( $_size . '_size_h' );
+			} elseif ( isset( $_wp_additional_image_sizes[$_size] ) ) {
+
+				if ( 'post-thumbnail' != $_size ) {
+					$image_size_txt            = ucfirst( strtolower( str_replace( '_', ' ', $_size ) ) );
+					$image_sizes_array[$_size] = $image_size_txt;
+				}
+
+				$sizes[$_size] = array(
+					'width'  => $_wp_additional_image_sizes[$_size]['width'],
+					'height' => $_wp_additional_image_sizes[$_size]['height'],
+				);
+			}
+		}
+
+		// Get only 1 size if found
+		if ( $size ) {
+			if ( isset( $sizes[$size] ) ) {
+				return $sizes[$size];
+			} else {
+				return false;
+			}
+		}
+
+		$image_sizes_array['full']   = esc_html__( 'Full', 'modula-grid' );
+		$image_sizes_array['custom'] = esc_html__( 'Custom', 'modula-grid' );
+
+		if ( $size_type ) {
+			return $image_sizes_array;
+		}
+		return $sizes;
+	}
 }

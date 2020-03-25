@@ -51,6 +51,9 @@ class Modula {
         require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
         require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
 
+        // Get the grid system
+		require_once MODULA_PATH . 'includes/grid/class-modula-grid.php';
+
 
         if ( is_admin() ) {
 
