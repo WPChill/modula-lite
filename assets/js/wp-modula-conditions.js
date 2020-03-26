@@ -96,6 +96,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			'pinterest': wp.Modula.Settings.get('enablePinterest'),
 			'linkedin': wp.Modula.Settings.get('enableLinkedin'),
 			'whatsapp': wp.Modula.Settings.get('enableWhatsapp'),
+			'email'   : wp.Modula.Settings.get('enableEmail'),
 			// seems to be a problem with getting the color
 			'social_color': jQuery('#socialIconColor').val(),
 			'social_size': wp.Modula.Settings.get('socialIconSize'),

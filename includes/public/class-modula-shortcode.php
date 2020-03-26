@@ -37,7 +37,7 @@ class Modula_Shortcode {
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 
@@ -181,6 +181,7 @@ class Modula_Shortcode {
 			"enableFacebook"  => boolval( $settings['enableFacebook'] ),
 			"enablePinterest" => boolval( $settings['enablePinterest'] ),
 			"enableLinkedin"  => boolval( $settings['enableLinkedin'] ),
+			"enableEmail"     => boolval( $settings['enableEmail']),
 			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
 			'type'            => $type,
 			'columns'         => 12,

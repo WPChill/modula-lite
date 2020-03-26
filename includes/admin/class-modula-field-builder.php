@@ -553,7 +553,8 @@ class Modula_Field_Builder {
 	    $facebook  = '';
 	    $whatsapp  = '';
 	    $pinterest = '';
-	    $linkedin  = '';
+		$linkedin  = '';
+		$email     = '';
 
 	    if ( isset( $_POST['socials'] ) ) {
 		    $socials   = $_POST['socials'];
@@ -561,7 +562,8 @@ class Modula_Field_Builder {
 		    $facebook  = ( isset( $socials['facebook'] ) && '1' == $socials['facebook'] ) ? '<a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a>' : '';
 		    $pinterest = ( isset( $socials['pinterest'] ) && '1' == $socials['pinterest'] ) ? '<a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>' : '';
 		    $whatsapp  = ( isset( $socials['whatsapp'] ) && '1' == $socials['whatsapp'] ) ? '<a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>' : '';
-		    $linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
+			$linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
+			$email     = ( isset( $socials['email'] ) && '1' == $socials['email'] ) ? '<a class="fa fa-envelope-o" href="#">' . Modula_Helper::get_icon( 'email' ) . '</a>' : '';
 
 		    $social_color  = ( isset( $socials['social_color'] ) ) ? $socials['social_color'] : '';
 		    $social_size   = ( isset( $socials['social_size'] ) ) ? $socials['social_size'] : '';
@@ -592,14 +594,14 @@ class Modula_Field_Builder {
 
 
 		    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
-		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
+		    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($images) . '"  class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.$email.'</div></div></div></div>';
 
 		    $html .= '</div>';
 	    } else {
 		    $html .= '<div class="modula-hover-preview-slider">';
 		    foreach ( $images as $i ) {
 			    $html .= '<div class="panel panel-' . esc_attr( $effect ) . ' modula-items wp-clearfix">';
-			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
+			    $html .= '<div class="modula-item effect-' . esc_attr( $effect ) . '"><img src="' . esc_url($i) . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.$email.'</div></div></div></div>';
 			    $html .= '</div>';
 		    }
 		    $html .= '</div>';
@@ -652,6 +654,7 @@ class Modula_Field_Builder {
 		$whatsapp  = '';
 		$pinterest = '';
 		$linkedin  = '';
+		$email     = '';
 
 		if ( isset( $_POST['socials'] ) ) {
 			$socials   = $_POST['socials'];
@@ -660,6 +663,7 @@ class Modula_Field_Builder {
 			$pinterest = ( isset( $socials['pinterest'] ) && '1' == $socials['pinterest'] ) ? '<a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>' : '';
 			$whatsapp  = ( isset( $socials['whatsapp'] ) && '1' == $socials['whatsapp'] ) ? '<a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>' : '';
 			$linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
+			$email  = ( isset( $socials['email'] ) && '1' == $socials['email'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'email' ) . '</a>' : '';
 
 			$social_color  = ( isset( $socials['social_color'] ) ) ? $socials['social_color'] : '';
 			$social_size   = ( isset( $socials['social_size'] ) ) ? $socials['social_size'] : '';
@@ -694,7 +698,7 @@ class Modula_Field_Builder {
 		for ( $i = 0; $i <= 3; $i++ ) {
 
 			$preview_image = isset( $images[$i] ) ? $images[$i] : MODULA_URL . '/assets/images/effect.jpg';
-			$html          .= '<div class="modula-item effect-pufrobo"><img src="' . $preview_image . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.'</div></div></div></div>';
+			$html          .= '<div class="modula-item effect-pufrobo"><img src="' . $preview_image . '" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social">'.$twitter.$facebook.$pinterest.$whatsapp.$linkedin.$email.'</div></div></div></div>';
 		}
 
 		$html .= '</div>';

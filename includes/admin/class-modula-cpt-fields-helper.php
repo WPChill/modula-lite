@@ -369,6 +369,14 @@ class Modula_CPT_Fields_Helper {
 					'is_child'    => true,
 					'priority'    => 40,
 				),
+				"enableEmail" => array(
+					"name"        => esc_html__( 'Show Email Icon', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 1,
+					"description" => esc_html__( 'Show Email Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
+					'is_child'    => true,
+					'priority'    => 40,
+				),
 				"socialIconColor" => array(
 					"name"        => esc_html__( 'Color of social sharing icons', 'modula-best-grid-gallery' ),
 					"type"        => "color",

@@ -37,6 +37,9 @@
 				<?php if ( $data->enableLinkedin ): ?>
 				<a class="modula-icon-linkedin" href="#"><?php echo Modula_Helper::get_icon( 'linkedin' ) ?></a>
 				<?php endif ?>
+				<?php if ( $data->enableEmail ): ?>
+				<a class="modula-icon-email" href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
+				<?php endif ?>
 			</div>
 			<?php endif ?>
 		</div>

@@ -286,6 +286,7 @@ class Modula_CPT {
 							case 'enableFacebook' :
 							case 'enableGplus' :
 							case 'enablePinterest' :
+							case 'enableEmail':
 							case 'shuffle' :
 								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 									$modula_settings[ $field_id ] = '1';

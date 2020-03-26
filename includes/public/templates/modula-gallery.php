@@ -30,6 +30,7 @@
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
+				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),

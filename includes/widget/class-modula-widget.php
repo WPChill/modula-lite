@@ -113,7 +113,7 @@ class Modula_Widget extends WP_Widget {
 
             if (in_array( $current_screen->post_type, $so_posts ) ) {
                 wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
-                wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+                wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.js', array('jquery'), MODULA_LITE_VERSION, true);
                 wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
 
                 wp_enqueue_style('modula');

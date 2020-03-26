@@ -43,6 +43,7 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
             enableGplus: false,
             enablePinterest: false,
             enableLinkedin: false,
+            enableEmail: false,
             lazyLoad: 0,
         };
 
@@ -496,6 +497,9 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
         if (this.options.enableWhatsapp){
             setupWhatsapp(this.$items, this);
         }
+        if( this.options.enableEmail){
+            setupEmail(this.$items, this);
+        }
     }
 
     Plugin.prototype.destroy = function () {
@@ -611,6 +615,17 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
             return false;
         });
     }
+
+    var setupEmail = function( $tiles, plugin) {
+        $tiles.find(".modula-icon-email").click(function (e)  {
+
+            let subject =  encodeURI( 'Check out this awesome image !! ');
+            let imageLink = jQuery('.modula-icon-email').parents(".tile:first").find(".pic");
+            let messageImage = encodeURI( "Here is the link to the image : " + imageLink[0].currentSrc );
+            let messageGallery =  encodeURI("Here is the link to the gallery : " +  location.href  );
+            this.setAttribute('href',"mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
+        });
+    };
 
     $.fn[pluginName] = function (options) {
         var args = arguments;

@@ -328,6 +328,7 @@ class Modula_Upgrades {
                 'enablePinterest'           => 1,
 				'enableTwitter'             => 1,
 				'enableWhatsapp'            => 1,
+				'enableEmail'               => 1,
                 'filterClick'               => 0,
 				'socialIconColor'           => '#ffffff',
 				'socialIconSize'            => 16,
