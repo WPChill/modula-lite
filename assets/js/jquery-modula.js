@@ -241,6 +241,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 			columnWidth: '.modula-grid-sizer',
 			percentPosition: true,
 		});
+
+		this.$items.find('img.pic').addClass('columnized');
 	}
 
 	Plugin.prototype.getSlot = function () {
@@ -436,6 +438,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.loadImage(index + 1);
 		}
 		img.onload = function () {
+			console.log(source);
 			source.data('size', {width: this.width, height: this.height});
 			instance.placeImage(index);
 
@@ -448,6 +451,33 @@ jQuery(window).on('elementor/frontend/init', function () {
 		img.src = original_src;
 		source.attr("src", original_src);
 	}
+/*
+@todo: Masonry image wrapper sizes so that we can extend/place rows the way it is expected
+
+	Plugin.prototype.masonryImage = function (index) {
+		var instance = this;
+		var source = instance.$items.eq(index).find('.pic');
+		var img = new Image();
+		img.onerror = function () {
+			console.log("error loading image [" + index + "] : " + this.src);
+			if ( index + 1 < instance.$items.length )
+				instance.loadImage(index + 1);
+		}
+		img.onload = function () {
+			console.log(source);
+			source.data('size', {width: this.width, height: this.height});
+			instance.placeImage(index);
+
+			instance.$items.eq(index).addClass("tg-loaded");
+			if ( index + 1 < instance.$items.length )
+				instance.loadImage(index + 1);
+		}
+
+		var original_src = source.data('src');
+		img.src = original_src;
+		source.attr("src", original_src);
+	}
+*/
 
 	Plugin.prototype.init = function () {
 
@@ -524,7 +554,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			// Load Images
 			if ( '1' != instance.options.lazyLoad ) {
 				// @todo : seems like this doesn't play nice with grid type columns
-				//this.loadImage(0);
+				//this.masonryImage(0);
 			}
 
 			$(window).resize(function () {
