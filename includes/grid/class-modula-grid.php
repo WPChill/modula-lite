@@ -48,9 +48,6 @@ class Modula_Grid {
 		// Generate new images' links
 		add_filter( 'modula_shortcode_item_data', array( $this, 'change_image_size' ), 6, 3 );
 
-		// Add grid class and remove the other
-		add_filter( 'modula_gallery_template_data', array( $this, 'modula_gallery_classes' ), 1 );
-
 		// Add grid settings to js config
 		add_filter( 'modula_gallery_settings', array( $this, 'js_grid_config' ), 10, 2 );
 
@@ -79,8 +76,6 @@ class Modula_Grid {
 
 	}
 
-
-	// ToDo --  add front scrips , add admin css and front js
 
 	/**
 	 * Enqueue admin grid scripts
@@ -276,7 +271,8 @@ class Modula_Grid {
 		if ( 'grid' == $settings['type'] ) {
 
 			$js_new_config = array(
-				'type'          => $settings['grid_type'],
+				'type'          => $settings['type'],
+				'grid_type'     => $settings['grid_type'],
 				'column_gutter' => isset( $settings['grid_column_gutter_width'] ) ? absint( $settings['grid_column_gutter_width'] ) : 10,
 				'gutter'        => isset( $settings['grid_gutter'] ) ? absint( $settings['grid_gutter'] ) : 10,
 				'rowHeight'     => isset( $settings['grid_row_height'] ) ? absint( $settings['grid_row_height'] ) : 640,
@@ -284,7 +280,7 @@ class Modula_Grid {
 				'lastRow' => isset( $settings['grid_justify_last_row'] ) ? $settings['grid_justify_last_row'] : 'justify',
 			);
 
-			// Parse args so we still have the required configuration neede for lightboxes
+			// Parse args so we still have the required configuration needed for lightboxes
 			$js_config = wp_parse_args($js_new_config,$js_config);
 
 		}
@@ -326,7 +322,8 @@ class Modula_Grid {
 	/**
 	 * Modula image attributes
 	 *
-	 * @param $image
+	 * @param $item_data
+	 * @param $item
 	 * @param $settings
 	 *
 	 * @return mixed
@@ -351,6 +348,7 @@ class Modula_Grid {
 		$image_url  = '';
 
 		if ( 'custom' != $settings['grid_image_size'] ) {
+
 
 			$thumb = wp_get_attachment_image_src( $item['id'], $settings['grid_image_size'] );
 
@@ -430,27 +428,6 @@ class Modula_Grid {
 
 
 	/**
-	 * Remake the gallery classes
-	 *
-	 * @param $template_data
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_gallery_classes( $template_data ) {
-
-		if ( 'grid' == $template_data['settings']['type'] ) {
-
-			$template_data['gallery_container']['class'] = array( 'modula-grid' );
-			$template_data['items_container']['class']   = array( 'modula-items' );
-
-		}
-
-		return $template_data;
-	}
-
-	/**
 	 * Grid sizer for columns
 	 *
 	 * @param $settings
@@ -468,9 +445,11 @@ class Modula_Grid {
 	/**
 	 * Generate Grid Css
 	 *
-	 * @param $template_data
+	 * @param $css
+	 * @param $gallery_id
+	 * @param $settings
 	 *
-	 * @return $css
+	 * @return string
 	 *
 	 * @since  2.3.0
 	 */
@@ -478,26 +457,20 @@ class Modula_Grid {
 
 		if ( 'grid' == $settings['type'] ) {
 
-			$css .= "#{$gallery_id}.modula-grid {width: " . $settings['width'] . "!important;}";
+			$css .= "#{$gallery_id}.modula-gallery {width: " . $settings['width'] . "!important;}";
 
 			if ( 'automatic' != $settings['grid_type'] ) {
 
-				$css .= "#{$gallery_id}.modula-grid .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['grid_type'] . "%!important ; } ";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: " . 100 / $settings['grid_type'] . "%!important ; } ";
 
 				if ( 1 == $settings['enable_responsive'] ) {
-					$css .= "@media (max-width: 992px) { #{$gallery_id}.modula-grid .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['tablet_columns'] . "%!important ; } }";
+					$css .= "@media (max-width: 992px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['tablet_columns'] . "%!important ; } }";
 
-					$css .= "@media (max-width: 576px) { #{$gallery_id}.modula-grid .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['mobile_columns'] . "%!important ; } }";
+					$css .= "@media (max-width: 576px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['mobile_columns'] . "%!important ; } }";
 
 				}
 
-				$css .= "#{$gallery_id}.modula-grid .modula-item , #{$gallery_id}.modula-grid .modula-items { padding-left: " . $settings['gutter'] . "px; }";
-
-				$css .= "#{$gallery_id}.modula-grid .modula-item , #{$gallery_id}.modula-grid .modula-items { padding-right: " . $settings['gutter'] . "px; }";
-
-				$css .= "#{$gallery_id}.modula-grid .modula-item , #{$gallery_id}.modula-grid .modula-items { padding-top: " . $settings['gutter'] / 2 . "px; }";
-
-				$css .= "#{$gallery_id}.modula-grid .modula-item , #{$gallery_id}.modula-grid .modula-items { padding-bottom: " . $settings['gutter'] / 2 . "px; }";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items { padding-left: " . $settings['gutter'] . "px; padding-right: " . $settings['gutter'] . "px;  padding-top: " . $settings['gutter'] / 2 . "px; padding-bottom: " . $settings['gutter'] / 2 . "px;}";
 
 			}
 		}

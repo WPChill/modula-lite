@@ -219,6 +219,30 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.completed = true;
 	}
 
+	Plugin.prototype.createAutoGrid = function () {
+		var plugin = this;
+		this.$itemsCnt.addClass('grid-gallery');
+		this.$itemsCnt.justifiedGallery({
+			rowHeight: this.options.rowHeight,
+			margins: this.options.gutter,
+			lastRow: this.options.lastRow,
+			captions: false
+		});
+
+		this.completed = true;
+	}
+
+	Plugin.prototype.createColumnsGrid = function(){
+		this.$itemsCnt.addClass('grid-gallery');
+		this.$element.masonry({
+			// set itemSelector so .grid-sizer is not used in layout
+			itemSelector: '.modula-item',
+			// use element for option
+			columnWidth: '.modula-grid-sizer',
+			percentPosition: true,
+		});
+	}
+
 	Plugin.prototype.getSlot = function () {
 
 		if ( this.tiles.length == 0 ) {
@@ -297,6 +321,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.$itemsCnt.packery();
 		} else if ( 'creative-gallery' == this.options.type ) {
 			instance.createGrid();
+		} else if('automatic' == this.options.grid_type){
+			instance.createAutoGrid();
+		} else {
+			instance.createColumnsGrid();
 		}
 
 		instance.$itemsCnt.find('.pic').each(function (i, o) {
@@ -428,62 +456,107 @@ jQuery(window).on('elementor/frontend/init', function () {
 		// Trigger event before init
 		$(document).trigger('modula_api_before_init', [instance]);
 
-		this.$itemsCnt.css({
-			position: 'relative',
-			zIndex: 1,
-			'min-height': '10px'
-		});
+		if('grid' != this.options.type) {
 
-		this.$items.addClass("tile");
-		this.$items.find(".pic").removeAttr("src");
 
-		if ( 'custom-grid' === this.options.type ) {
-			this.createCustomGallery();
-		} else if ( 'creative-gallery' == this.options.type ) {
-			this.createGrid();
-		}
+			this.$itemsCnt.css({
+				position: 'relative',
+				zIndex: 1,
+				'min-height': '10px'
+			});
 
-		// Load Images
-		if ( '1' != instance.options.lazyLoad ) {
-			this.loadImage(0);
-		}
+			this.$items.addClass("tile");
+			this.$items.find(".pic").removeAttr("src");
 
-		$(window).resize(function () {
-			instance.onResize(instance);
-		});
 
-		$(window).on('modula-update', function () {
-			instance.onResize(instance);
-		});
-
-		$(document).on('lazyloaded', function (evt) {
-			var element = $(evt.target),
-				parent, index;
-
-			if ( 'modula' == element.data('source') ) {
-				element.data('size', {width: element.width(), height: element.height()});
-				parent = element.parents('.modula-item');
-				parent.addClass('tg-loaded');
-				index = instance.$items.index(parent);
-				instance.placeImage(index);
+			if ( 'custom-grid' === this.options.type ) {
+				this.createCustomGallery();
+			} else if ( 'creative-gallery' == this.options.type ) {
+				this.createGrid();
 			}
 
-		});
+			// Load Images
+			if ( '1' != instance.options.lazyLoad ) {
+				this.loadImage(0);
+			}
 
-		// Gives error on front
-		/*        new ResizeSensor( instance.$element, function() {
-		 instance.onResize(instance);
-		 });*/
+			$(window).resize(function () {
+				instance.onResize(instance);
+			});
 
-		// Create social links
-		this.setupSocial();
+			$(window).on('modula-update', function () {
+				instance.onResize(instance);
+			});
 
-		// Trigger custom gallery JS
-		if ( this.options.onComplete ) {
-			this.options.onComplete();
+			$(document).on('lazyloaded', function (evt) {
+				var element = $(evt.target),
+					parent, index;
+
+				if ( 'modula' == element.data('source') ) {
+					element.data('size', {width: element.width(), height: element.height()});
+					parent = element.parents('.modula-item');
+					parent.addClass('tg-loaded');
+					index = instance.$items.index(parent);
+					instance.placeImage(index);
+				}
+
+			});
+
+			// Gives error on front
+			/*        new ResizeSensor( instance.$element, function() {
+			 instance.onResize(instance);
+			 });*/
+
+			// Create social links
+			this.setupSocial();
+
+			// Trigger custom gallery JS
+			if ( this.options.onComplete ) {
+				this.options.onComplete();
+			}
+
+		} else {
+
+			this.$items.addClass("tile");
+
+			this.setupSocial();
+
+			// Load Images
+			if ( '1' != instance.options.lazyLoad ) {
+				// @todo : seems like this doesn't play nice with grid type columns
+				//this.loadImage(0);
+			}
+
+			$(window).resize(function () {
+				instance.onResize(instance);
+			});
+
+			$(window).on('modula-update', function () {
+				instance.onResize(instance);
+			});
+
+			$(document).on('lazyloaded', function (evt) {
+				var element = $(evt.target),
+					parent, index;
+
+				if ( 'modula' == element.data('source') ) {
+					parent = element.parents('.modula-item');
+					parent.addClass('tg-loaded');
+					//index = instance.$items.index(parent);
+					//instance.placeImage(index);
+				}
+
+			});
+
+			if ( 'automatic' == this.options.grid_type ) {
+				this.createAutoGrid();
+			} else {
+				this.createColumnsGrid();
+			}
+
 		}
 
-		// Trigger event before init
+		// Trigger event after init
 		$(document).trigger('modula_api_after_init', [instance]);
 
 	};
@@ -658,64 +731,22 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 }(jQuery, window, document));
 
-jQuery(document).ready(function ($) {
+jQuery(window).load(function () {
 
-	var modulaGalleries = $('.modula-gallery');
+	var modulaGalleries = jQuery('.modula-gallery');
 
-	$.each(modulaGalleries, function () {
-		var modulaID = $(this).attr('id'),
-			modulaSettings = $(this).data('config');
-
-		$('#' + modulaID).modulaGallery(modulaSettings);
-
-	});
-
-
-});
-
-
-// Have to do this on load so that the positioning isn't affected
-jQuery(window).load(function(){
-	var modulaGrids = jQuery('.modula-grid');
-
-	jQuery.each(modulaGrids, function () {
-
+	jQuery.each(modulaGalleries, function () {
 		var modulaID = jQuery(this).attr('id'),
-			modulaSettings = jQuery(this).data('config'),
-			gallery = jQuery(this);
+			modulaSettings = jQuery(this).data('config');
 
-		if ( 'automatic' != modulaSettings.type ) {
+		jQuery('#' + modulaID).modulaGallery(modulaSettings);
 
-			gallery.masonry({
-				// set itemSelector so .grid-sizer is not used in layout
-				itemSelector: '.modula-item',
-				// use element for option
-				columnWidth: '.modula-grid-sizer',
-				percentPosition: true,
-
-			});
-
-			//@todo : Need to find a way for masonry to add alt text to image in lightbox
-
-			if ( true == modulaFancyboxHelper['lite_function'] ) {
-
-				jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
-			}
-
-		} else {
-
-			//@todo : Make another trigger using found images so that it won't be required to do gallery.modulaGallery(modulaSettings); again
-			gallery.find('.modula-items').justifiedGallery({
-				rowHeight: modulaSettings.rowHeight,
-				margins: modulaSettings.gutter,
-				lastRow: modulaSettings.lastRow,
-				captions: false
-			}).on('jg.complete', function (e) {
-				gallery.modulaGallery(modulaSettings);
-			});
-		}
 	});
+
+
 });
+
+
 jQuery(document).on('modula_api_after_init', function (event, data) {
 
 	if ( true == modulaFancyboxHelper['lite_function'] ) {

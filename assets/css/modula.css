@@ -1,4 +1,4 @@
-.modula .modula-items .modula-item {
+.modula .modula-items:not(.grid-gallery) .modula-item {
 	position: absolute;
 	overflow: hidden;
 	transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
@@ -19,7 +19,7 @@
 	z-index: 10;
 }
 
-.modula .modula-items .modula-item.tg-loaded {
+.modula .modula-items:not(.grid-gallery) .modula-item.tg-loaded {
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;
 }
@@ -27,16 +27,19 @@
 	display: block;
 	opacity: 1;
 }
-
-.modula .modula-items .modula-item img.pic {
+.modula .modula-items:not(.grid-gallery) .modula-item img.pic {
 	font-size:12px;
 	position:absolute;
-	display: none;
+	/*display: none;*/
 	opacity: 0;
 	max-width:999em !important;
 	transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
+.modula .modula-items.grid-gallery .modula-item img.pic {
+	margin:0 !important;
+	inset : 0 !important;
+}
 .modula .modula-items .modula-item img.pic.lazyloaded,
 .modula .modula-items .modula-item img.pic.lazyload {
 	display: block;
@@ -60,6 +63,19 @@
 	width: 100%;
 	padding:0;
 }
+
+
+
+.modula .modula-items.grid-gallery .modula-item .figc {
+	height:100%;
+	top:0;
+}
+
+.modula .modula-items.grid-gallery .modula-item {
+	max-height:100%;
+	overflow:hidden;
+}
+
 .modula .modula-items .hidden .figc
 {
 	display: none;
