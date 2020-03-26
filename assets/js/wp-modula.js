@@ -61,4 +61,13 @@ jQuery( document ).ready( function( $ ){
 		}, 600)
 	});
 
+	$(document).keydown(function(e) {
+		if ((e.which == '115' || e.which == '83' ) && (e.ctrlKey || e.metaKey) && !(e.altKey))
+		{
+			e.preventDefault();
+			$( '#publish' ).click();
+			return false;
+		}
+		return true; });
+
 });
