@@ -312,7 +312,7 @@ class Modula_Grid {
 		}
 
 		// // Remove modula initial filter
-		remove_filter( 'modula_shortcode_item_data', 'modula_generate_image_links', 10, 3 );
+		remove_filter( 'modula_shortcode_item_data', 'modula_generate_image_links', 10 );
 
 		if ( !class_exists( 'Modula_Image' ) ) {
 			return $item_data;
@@ -387,13 +387,12 @@ class Modula_Grid {
 	 */
 	public function set_defaults( $defaults ) {
 
-		$defaults['grid_type']                = '4';
-		$defaults['grid_enable_responsive']   = 0;
-		$defaults['grid_tablet_type']         = '2';
-		$defaults['grid_tablet_type']         = '1';
-		$defaults['grid_image_size']          = 'medium';
-		$defaults['grid_row_height']          = 150;
-		$defaults['grid_justify_last_row']    = 'nojustify';
+		$defaults['grid_type']             = '4';
+		$defaults['grid_image_size']       = 'medium';
+		$defaults['grid_image_crop']       = 0;
+		$defaults['grid_image_dimensions'] = '1200';
+		$defaults['grid_row_height']       = 150;
+		$defaults['grid_justify_last_row'] = 'nojustify';
 
 		return $defaults;
 	}
