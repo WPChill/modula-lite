@@ -1,3 +1,15 @@
+= 2.2.8 - 27/03/2020 =
+Fixed incompatibility with Elementor gallery display
+Updated Social Icons in Previewer
+Updated Click functionality in Loading Previewer
+Fixed Bulk Edit Bug
+Fixed Hover Effects Previewer Arrows cut
+Added Shortcode Box description
+Small Tab/ Settings design update
+Responsive Fixes for Settings
+Responsive Fixes for filters
+Added Columns . More possibilities for you to arrange your gallery . You can select automatic and let us do the arranging, or you can select the number of colomns you want.
+
 = 2.2.7 - 09/03/2020 =
 Fixed incompatibility with Elementor stretched rows.
 Fixed incompatibility with isotope.js
