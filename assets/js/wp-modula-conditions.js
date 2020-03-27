@@ -59,7 +59,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter(' [data-container="randomFactor"] [data-container="img_size"],[data-container="maxImagesCount"]').show();
 
 			// Rows for grid type
-			rows.filter('[data-container="grid_type"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
+			rows.filter('[data-container="grid_type"], [data-container="grid_image_size"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
 
 			
 		}else if ( 'creative-gallery' == value ) {
@@ -75,12 +75,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 
 			// Rows for grid type
-			rows.filter('[data-container="grid_type"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
+			rows.filter('[data-container="grid_type"], [data-container="grid_image_size"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
 
 			
 		} else if('grid' == value){
 
-			rows.filter('[data-container="grid_type"], [data-container="width"], [data-container="grid_column_gutter_width"], [data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"]').show();
+			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_image_size"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"]').show();
 
 			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"], [data-container="maxImagesCount"]').hide();
 
@@ -226,13 +226,13 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if( 'automatic' == value ) {
 
-			rows.filter('[data-container="margin"],[data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').show();
-			rows.filter('[data-container="grid_column_gutter_width"]').hide();
+			rows.filter('[data-container="margin"],[data-container="grid_image_size"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').show();
+			rows.filter('[data-container="gutter"]').hide();
 		} else {
 
-			rows.filter('[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"],[data-container="margin"]').hide();
+			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"],[data-container="margin"]').hide();
 
-			rows.filter('[data-container="grid_type"],[data-container="grid_column_gutter_width"], [data-container="grid_image_size"]').show();
+			rows.filter('[data-container="grid_type"], [data-container="grid_image_size"],[data-container="gutter"]').show();
 		}
 
 	},

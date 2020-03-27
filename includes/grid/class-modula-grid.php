@@ -29,9 +29,6 @@ class Modula_Grid {
 		// Add Grid field
 		add_filter( 'modula_gallery_fields', array( $this, 'modula_grid_gallery_type' ), 15, 1 );
 
-		// Add admin scrips
-		add_action( 'admin_enqueue_scripts', array( $this, 'modula_grid_admin_scripts' ), 41 );
-
 		// Add defaults
 		add_filter( 'modula_lite_default_settings', array( $this, 'set_defaults' ) );
 
@@ -76,22 +73,6 @@ class Modula_Grid {
 
 	}
 
-
-	/**
-	 * Enqueue admin grid scripts
-	 *
-	 * @since 2.3.0
-	 */
-
-	public function modula_grid_admin_scripts() {
-		// Get current screen.
-		$screen = get_current_screen();
-
-		// Check if is modula custom post type
-		if ( 'modula-gallery' !== $screen->post_type ) {
-			return;
-		}
-	}
 
 	/**
 	 * Enqueue grid scripts
@@ -155,7 +136,7 @@ class Modula_Grid {
 	 */
 	public function modula_grid_gallery_type( $fields ) {
 
-		$fields['general']['type']['values']['grid'] = esc_html__( 'Columns', 'modula-grid' );
+		$fields['general']['type']['values']['grid'] = esc_html__( 'Columns', 'modula-best-grid-gallery' );
 
 		$grid_fields = array(
 			"grid_type" => array(
@@ -269,16 +250,11 @@ class Modula_Grid {
 		if ( 'grid' == $settings['type'] ) {
 
 			$js_new_config = array(
-				'type'          => $settings['type'],
 				'grid_type'     => $settings['grid_type'],
-				'column_gutter' => isset( $settings['grid_column_gutter_width'] ) ? absint( $settings['grid_column_gutter_width'] ) : 10,
-				'gutter'        => isset( $settings['grid_gutter'] ) ? absint( $settings['grid_gutter'] ) : 10,
 				'rowHeight'     => isset( $settings['grid_row_height'] ) ? absint( $settings['grid_row_height'] ) : 640,
-
 				'lastRow' => isset( $settings['grid_justify_last_row'] ) ? $settings['grid_justify_last_row'] : 'justify',
 			);
 
-			// Parse args so we still have the required configuration needed for lightboxes
 			$js_config = wp_parse_args($js_new_config,$js_config);
 
 		}
@@ -415,9 +391,7 @@ class Modula_Grid {
 		$defaults['grid_enable_responsive']   = 0;
 		$defaults['grid_tablet_type']         = '2';
 		$defaults['grid_tablet_type']         = '1';
-		$defaults['grid_column_gutter_width'] = 10;
 		$defaults['grid_image_size']          = 'medium';
-		$defaults['grid_gutter']              = 10;
 		$defaults['grid_row_height']          = 150;
 		$defaults['grid_justify_last_row']    = 'nojustify';
 
