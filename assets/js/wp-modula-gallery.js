@@ -186,7 +186,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         checkGalleryType: function( type ) {
 
-            if ( 'creative-gallery' == type ) {
+            if ( 'creative-gallery' == type || 'grid' == type) {
 
             	// If resizeble is enable we will destroy it
             	if ( this.isResizeble ) {
@@ -362,7 +362,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         checkGalleryType: function( type ) {
-            if ( 'creative-gallery' == type ) {
+            if ( 'creative-gallery' == type || 'grid' == type ) {
                 this.$el.hide();
             }else if ( 'custom-grid' == type ) {
                 if ( ! wp.Modula.Settings.get( 'helpergrid' ) ) {
