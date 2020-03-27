@@ -322,11 +322,11 @@ class Modula_CPT_Fields_Helper {
                 ),
 			),
 			'social' => array(
-				"disableSocial"   => array(
-					"name"        => esc_html__( 'Disable Social Icons', 'modula-best-grid-gallery' ),
+				"enableSocial"   => array(
+					"name"        => esc_html__( 'Enable Social Icons', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
-					"description" => "Enabling this you will disable all social icons.",
+					"description" => "On by default.",
 					'priority'    => 10,
 				),
 				"enableTwitter"   => array(
@@ -591,7 +591,7 @@ class Modula_CPT_Fields_Helper {
             'titleFontSize'         => '16',
             'mobileCaptionFontSize' => '10',
             'mobileTitleFontSize'   => '12',
-            'disableSocial'         => 0,
+            'enableSocial'          => 1,
             'enableFacebook'        => 1,
             'enableLinkedin'        => 1,
             'enablePinterest'       => 1,
