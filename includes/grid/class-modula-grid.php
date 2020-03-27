@@ -91,8 +91,6 @@ class Modula_Grid {
 		if ( 'modula-gallery' !== $screen->post_type ) {
 			return;
 		}
-
-		wp_enqueue_script( 'modula-grid-conditions', MODULA_URL . 'assets/js/modula-grid-conditions.js', array( 'modula-conditions' ), MODULA_LITE_VERSION, true );
 	}
 
 	/**

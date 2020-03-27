@@ -152,6 +152,8 @@ class Modula {
 	        	'id' => $post_id,
 	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
 	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
+		        'loaded_nonce' => wp_create_nonce('loaded_preview'),
+		        'hover_nonce' => wp_create_nonce('hover_preview'),
 	        );
 
 	        // Get all items from current gallery.
@@ -193,21 +195,13 @@ class Modula {
 			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), MODULA_LITE_VERSION, true );
 
-			wp_localize_script('modula-settings','modulaGallerySettingsHelper',array(
-				'nonce' => wp_create_nonce('loaded_preview'),
-				'ajaxURL' => admin_url( 'admin-ajax.php' )
-			));
-
 			wp_enqueue_script( 'modula-save', MODULA_URL . 'assets/js/wp-modula-save.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/wp-modula-items.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/wp-modula-modal.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/wp-modula-gallery.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/wp-modula-conditions.js', array(), MODULA_LITE_VERSION, true );
-			wp_localize_script('modula-conditions','modulaGalleryConditionsHelper',array(
-				'nonce' => wp_create_nonce('hover_preview'),
-				'ajaxURL' => admin_url( 'admin-ajax.php' )
-			));
+
 
 			do_action( 'modula_scripts_before_wp_modula' );
 

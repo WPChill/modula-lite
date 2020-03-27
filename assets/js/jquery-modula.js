@@ -224,7 +224,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.$itemsCnt.addClass('grid-gallery');
 		this.$itemsCnt.justifiedGallery({
 			rowHeight: this.options.rowHeight,
-			margins: this.options.gutter,
+			margins: this.options.margin,
 			lastRow: this.options.lastRow,
 			captions: false
 		});

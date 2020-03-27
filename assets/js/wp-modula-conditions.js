@@ -136,12 +136,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				images: jQuery.parseJSON($images),
 				effect: value,
 				socials: $socials_settings,
-				nonce : modulaGalleryConditionsHelper.nonce
+				nonce : modulaHelper.hover_helper
 			};
 
 			jQuery.ajax({
 				method: 'POST',
-				url: modulaGalleryConditionsHelper.ajaxURL,
+				url: modulaHelper.ajax_url,
 				data: data,
 				cache: false,
 			}).done(function (data) {
@@ -223,13 +223,15 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			return;
 		}
 
+
 		if( 'automatic' == value ) {
 
-			rows.filter('[data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').show();
+			rows.filter('[data-container="margin"],[data-container="grid_image_size"],[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').show();
 			rows.filter('[data-container="grid_column_gutter_width"]').hide();
 		} else {
 
-			rows.filter('[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').hide();
+			rows.filter('[data-container="grid_gutter"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"],[data-container="margin"]').hide();
+
 			rows.filter('[data-container="grid_type"],[data-container="grid_column_gutter_width"], [data-container="grid_image_size"]').show();
 		}
 
