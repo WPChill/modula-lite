@@ -1367,7 +1367,8 @@ Ups-sells carousel
 /*
 Hover effect slider
 */
-.modula-hover-preview-slider {
+.modula-hover-preview-slider,
+#modula-hover-effect .effect-compatibility {
     max-width:850px;
     margin:0 auto;
 }
@@ -1405,6 +1406,16 @@ Hover effect slider
 .modula-hover-preview-slider .slick-next svg {
     width:25px;
     height:25px;
+}
+
+#modula-hover-effect .effect-compatibility {
+	padding-left:25px;
+}
+
+@media all and (max-width:1649px){
+	.modula-hover-preview-slider, #modula-hover-effect .effect-compatibility {
+		max-width:600px;
+	}
 }
 
 

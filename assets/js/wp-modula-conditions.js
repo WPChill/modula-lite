@@ -87,6 +87,10 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
+
+		} else {
+
+			rows.filter('[data-container="grid_type"], [data-container="grid_image_size"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="grid_image_crop"]').hide();
 		}
 
 	},
@@ -155,7 +159,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 					slidesToScroll: 1,
 					responsive: [
 						{
-							breakpoint: 1300,
+							breakpoint: 1650,
 							settings: {
 								slidesPerRow: 1,
 								slidesToShow: 1,
