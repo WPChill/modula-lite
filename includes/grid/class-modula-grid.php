@@ -433,8 +433,6 @@ class Modula_Grid {
 
 		if ( 'grid' == $settings['type'] ) {
 
-			$css .= "#{$gallery_id}.modula-gallery {width: " . $settings['width'] . "!important;}";
-
 			if ( 'automatic' != $settings['grid_type'] ) {
 
 				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: " . 100 / $settings['grid_type'] . "%!important ; } ";
