@@ -63,7 +63,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.completed = false;
 		this.lastWidth = 0;
 		this.resizeTO = 0;
-		this.isPackeryActive = false;
+		this.isIsotope = false;
 
 		// Initiate Gallery
 		this.init();
@@ -158,18 +158,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		});
 
-		if ( this.isPackeryActive ) {
-			this.$itemsCnt.packery('destroy');
-		}
-
-		this.$itemsCnt.packery({
-			itemSelector: '.modula-item',
-			gutter: parseInt(plugin.options.gutter),
-			columnWidth: size,
-			// rowHeight: size,
-			resize: false
+		this.$itemsCnt.isotope({
+		  	itemSelector: '.modula-item',
+		  	layoutMode: 'packery',
+		  	packery: {
+				gutter: parseInt(plugin.options.gutter)
+			}
 		});
-		this.isPackeryActive = true;
+		this.isIsotope = true;
 
 	}
 
@@ -200,23 +196,35 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.$items.not(".jtg-hidden").each(function (i, item) {
 			var slot = plugin.tiles[i];
 
+			console.log( slot );
+
 			$(item)
 				.data('size', slot)
 				.addClass('tiled')
 				.addClass(slot.width > slot.height ? 'tile-h' : 'tile-v')
 				.data('position');
-		});
 
-		//apply css
-		this.$items.each(function (i, item) {
-			$(item).css($(item).data('size'));
-			$(item).find(".figc").css({
-				width: $(item).data('size').width,
-				height: $(item).data('size').height
+			$(item).css({
+				width: slot.width,
+				height: slot.height
 			});
+
+			$(item).find(".figc").css({
+				width: slot.width,
+				height: slot.height
+			});
+
 		});
 
-		this.completed = true;
+		this.$itemsCnt.isotope({
+		  	itemSelector: '.modula-item',
+		  	layoutMode: 'packery',
+		  	packery: {
+				gutter: parseInt(plugin.options.gutter)
+			}
+		});
+		this.isIsotope = true;
+
 	}
 
 	Plugin.prototype.createAutoGrid = function () {
@@ -229,17 +237,19 @@ jQuery(window).on('elementor/frontend/init', function () {
 			captions: false
 		});
 
-		this.completed = true;
 	}
 
 	Plugin.prototype.createColumnsGrid = function(){
 		this.$itemsCnt.addClass('grid-gallery');
-		this.$element.masonry({
+		this.$element.isotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
-			// use element for option
-			columnWidth: '.modula-grid-sizer',
 			percentPosition: true,
+			mansonry: {
+				// use element for option
+				columnWidth: '.modula-grid-sizer',
+			}
+			
 		});
 	}
 
