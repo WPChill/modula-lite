@@ -219,7 +219,7 @@ class Modula_CPT_Fields_Helper {
                     "type"        => "toggle",
                     "default"     => 0,
                     "description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
-                    'priority'    => 10,
+                    'priority'    => 90,
                 ),
 			),
 			'lightboxes' => array(
