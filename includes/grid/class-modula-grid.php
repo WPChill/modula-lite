@@ -195,6 +195,7 @@ class Modula_Grid {
 				"type"        => "image-size",
 				"description" => esc_html__( 'Define image width. If Crop images isn\'t enabled, images will be proportional.', 'modula-best-grid-gallery' ),
 				'default'     => '1200',
+				'is_child'    => true,
 				'priority'    => 38,
 			),
 
@@ -203,6 +204,7 @@ class Modula_Grid {
 				"type"        => "toggle",
 				"description" => esc_html__( 'If this is enabled, images will be cropped down to exactly the sizes defined above.', 'modula-best-grid-gallery' ),
 				'default'     => 0,
+				'is_child'    => true,
 				'priority'    => 39,
 			),
 
