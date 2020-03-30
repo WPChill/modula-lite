@@ -250,12 +250,15 @@ class Modula_Grid {
 		if ( 'grid' == $settings['type'] ) {
 
 			$js_new_config = array(
-				'grid_type'     => $settings['grid_type'],
-				'rowHeight'     => isset( $settings['grid_row_height'] ) ? absint( $settings['grid_row_height'] ) : 640,
-				'lastRow' => isset( $settings['grid_justify_last_row'] ) ? $settings['grid_justify_last_row'] : 'justify',
+				'grid_type' => $settings['grid_type'],
+				'rowHeight' => isset( $settings['grid_row_height'] ) ? absint( $settings['grid_row_height'] ) : 640,
+				'lastRow'   => isset( $settings['grid_justify_last_row'] ) ? $settings['grid_justify_last_row'] : 'justify',
 			);
 
-			$js_config = wp_parse_args($js_new_config,$js_config);
+			$js_config = wp_parse_args( $js_new_config, $js_config );
+			if ( isset( $js_config['height'] ) ) {
+				unset( $js_config['height'] );
+			}
 
 		}
 		return $js_config;
@@ -442,6 +445,8 @@ class Modula_Grid {
 				}
 
 				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items { padding-left: " . $settings['gutter'] . "px; padding-right: " . $settings['gutter'] . "px;  padding-top: " . $settings['gutter'] / 2 . "px; padding-bottom: " . $settings['gutter'] / 2 . "px;}";
+
+				$css .= "#{$gallery_id} .modula-items{position:relative;}";
 
 			}
 		}

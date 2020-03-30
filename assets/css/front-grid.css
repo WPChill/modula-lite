@@ -210,8 +210,3 @@
 	height:100%;
 	top:0;
 }
-
-.modula .modula-items.grid-gallery .modula-item {
-	max-height:100%;
-	overflow:hidden;
-}
