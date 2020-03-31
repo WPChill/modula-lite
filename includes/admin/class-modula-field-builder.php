@@ -316,11 +316,14 @@ class Modula_Field_Builder {
 				foreach ( $field['values'] as $key => $option ) {
 
 				    // Fix for single lightbox after Modula update
-				    if('Link' == $key){
-				        if(!isset($option[$value])){
+				    if('lightbox' == $field['id']){
+				    	
+				        if(is_array($option) && !isset($option[$value])){
+
 				            $value = 'fancybox';
                         }
                     }
+
 					if ( is_array( $option ) ) {
 						$html .= '<optgroup label="' . esc_attr( $key ) . '">';
 						foreach ( $option as $key_subvalue => $subvalue ) {
@@ -331,6 +334,7 @@ class Modula_Field_Builder {
 						$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( $option ) . '</option>';
 					}
 				}
+
 				if ( isset( $field['disabled'] ) && is_array( $field['disabled'] ) && ! empty( $field['disabled']['values'] ) ) {
 					$html .= '<optgroup label="' . esc_attr( $field['disabled']['title'] ) . '">';
 					foreach ( $field['disabled']['values'] as $key => $disabled ) {
