@@ -54,6 +54,8 @@ class Modula_Grid {
 		// Filter for $css
 		add_filter( 'modula_shortcode_css', array( $this, 'generate_grid_css' ), 10, 3 );
 
+		add_filter('modula_gallery_template_data',array($this,'template_data_config'),15,1);
+
 	}
 
 	/**
@@ -264,6 +266,27 @@ class Modula_Grid {
 
 		}
 		return $js_config;
+	}
+
+
+	/**
+	 * Add grid-gallery class to modula-items container
+	 *
+	 * @param $template_data
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.3.0
+	 */
+	public function template_data_config($template_data){
+
+		$settings = $template_data['settings'];
+
+		if('grid' == $settings['type']){
+			$template_data['items_container']['class'][] = 'grid-gallery';
+		}
+
+		return $template_data;
 	}
 
 
