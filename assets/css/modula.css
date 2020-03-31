@@ -6,6 +6,11 @@
 	box-sizing: border-box;
 }
 
+.modula .modula-items {
+	position: relative,
+	z-index: 1,
+	min-height: 10px
+}
 
 .modula .modula-items .modula-item > a {
 	display: block;
@@ -21,7 +26,8 @@
 	z-index: 10;
 }
 
-.modula .modula-items .modula-item.tg-loaded {
+.modula .modula-items .modula-item.tg-loaded,
+.modula.modula-columns .modula-items .modula-item {
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;
 }
@@ -30,12 +36,19 @@
 	font-size:12px;
 	position:absolute;
 	/*display: none;*/
-	opacity: 0;
-	max-width:999em !important;
+	/*opacity: 0;*/
+	max-width:999em;
 	transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
-.modula .modula-items .modula-item.tg-loaded img.pic {
+.modula.modula-columns .modula-items .modula-item img.pic {
+	position: relative;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.modula .modula-items .modula-item.tg-loaded img.pic,
+.modula.modula-columns .modula-items .modula-item img.pic {
 	display: block;
 	opacity: 1;
 }

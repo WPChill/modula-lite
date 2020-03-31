@@ -18,8 +18,10 @@ class Modula_Helper {
 		$return = '';
 		foreach ( $attributes as $name => $value ) {
 
-			if ( is_array( $value ) ) {
+			if ( is_array( $value ) && 'class' == $name ) {
 				$value = implode( ' ', $value );
+			}elseif ( is_array( $value ) ) {
+				$value = json_encode( $value );
 			}
 
 			if ( in_array( $name, array( 'alt', 'rel', 'title' ) ) ) {

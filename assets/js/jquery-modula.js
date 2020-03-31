@@ -69,6 +69,73 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.init();
 	}
 
+	Plugin.prototype.init = function () {
+
+		var instance = this;
+
+		// Trigger event before init
+		$(document).trigger('modula_api_before_init', [instance]);
+
+		if ( 'custom-grid' === this.options.type ) {
+			this.createCustomGallery();
+		} else if ( 'creative-gallery' == this.options.type ) {
+			this.createGrid();
+		}else if ( 'grid' == this.options.type ) {
+			if ( 'automatic' == this.options.grid_type ) {
+				this.createAutoGrid();
+			} else {
+				this.createColumnsGrid();
+			}
+		}
+
+		// Load Images
+		if ( '1' != instance.options.lazyLoad ) {
+			this.$items.each(function( index, el ){
+				instance.placeImage(index);
+			});
+		}
+
+		$(window).resize(function () {
+			instance.onResize(instance);
+		});
+
+		$(window).on('modula-update', function () {
+			instance.onResize(instance);
+		});
+
+		$(document).on('lazyloaded', function (evt) {
+			var element = $(evt.target),
+				parent, index;
+
+			if ( 'modula' == element.data('source') ) {
+				element.data('size', {width: element.width(), height: element.height()});
+				parent = element.parents('.modula-item');
+				parent.addClass('tg-loaded');
+				index = instance.$items.index(parent);
+				instance.placeImage(index);
+			}
+
+		});
+
+		// Gives error on front
+		/*        new ResizeSensor( instance.$element, function() {
+		 instance.onResize(instance);
+		 });*/
+
+		// Create social links
+		this.setupSocial();
+
+		// Trigger custom gallery JS
+		if ( this.options.onComplete ) {
+			this.options.onComplete();
+		}
+
+
+		// Trigger event after init
+		$(document).trigger('modula_api_after_init', [instance]);
+
+	};
+
 	Plugin.prototype.trunc = function (v) {
 
 		if ( Math.trunc ) {
@@ -196,8 +263,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.$items.not(".jtg-hidden").each(function (i, item) {
 			var slot = plugin.tiles[i];
 
-			console.log( slot );
-
 			$(item)
 				.data('size', slot)
 				.addClass('tiled')
@@ -229,7 +294,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.createAutoGrid = function () {
 		var plugin = this;
-		this.$itemsCnt.addClass('grid-gallery');
 		this.$itemsCnt.justifiedGallery({
 			rowHeight: this.options.rowHeight,
 			margins: this.options.margin,
@@ -240,7 +304,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	Plugin.prototype.createColumnsGrid = function(){
-		this.$itemsCnt.addClass('grid-gallery');
 		this.$element.isotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
@@ -248,9 +311,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 			mansonry: {
 				// use element for option
 				columnWidth: '.modula-grid-sizer',
+				gutter: parseInt(this.options.gutter)
 			}
 			
 		});
+		this.isIsotope = true;
 	}
 
 	Plugin.prototype.getSlot = function () {
@@ -368,6 +433,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.placeImage = function (index) {
 
+		if ( 'grid' == this.options.type ) { return; }
+
 		var $tile = this.$items.eq(index);
 		var $image = $tile.find('.pic');
 
@@ -440,174 +507,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		$image.css(cssProps);
+		this.$items.eq(index).addClass("tg-loaded");
 	}
-
-	Plugin.prototype.loadImage = function (index) {
-		var instance = this;
-		var source = instance.$items.eq(index).find('.pic');
-		var img = new Image();
-		img.onerror = function () {
-			console.log("error loading image [" + index + "] : " + this.src);
-			if ( index + 1 < instance.$items.length )
-				instance.loadImage(index + 1);
-		}
-		img.onload = function () {
-			source.data('size', {width: this.width, height: this.height});
-			instance.placeImage(index);
-
-			instance.$items.eq(index).addClass("tg-loaded");
-			if ( index + 1 < instance.$items.length )
-				instance.loadImage(index + 1);
-		}
-
-		var original_src = source.data('src');
-		img.src = original_src;
-		source.attr("src", original_src);
-	}
-
-
-	Plugin.prototype.gridImage = function (index) {
-		var instance = this;
-		var source = instance.$items.eq(index).find('.pic');
-		var img = new Image();
-
-		img.onerror = function () {
-			console.log("error loading image [" + index + "] : " + this.src);
-			if ( index + 1 < instance.$items.length )
-				instance.gridImage(index + 1);
-		}
-
-		img.onload = function () {
-
-			source.css({'height':this.height,'width':this.width});
-			instance.placeImage(index);
-
-			instance.$items.eq(index).addClass("tg-loaded");
-			if ( index + 1 < instance.$items.length )
-				instance.gridImage(index + 1);
-		}
-
-		var original_src = source.data('src');
-		img.src = original_src;
-		source.attr("src", original_src);
-	}
-
-	Plugin.prototype.init = function () {
-
-		var instance = this;
-
-		// Trigger event before init
-		$(document).trigger('modula_api_before_init', [instance]);
-
-		if('grid' != this.options.type) {
-
-
-			this.$itemsCnt.css({
-				position: 'relative',
-				zIndex: 1,
-				'min-height': '10px'
-			});
-
-			this.$items.addClass("tile");
-			this.$items.find(".pic").removeAttr("src");
-
-
-			if ( 'custom-grid' === this.options.type ) {
-				this.createCustomGallery();
-			} else if ( 'creative-gallery' == this.options.type ) {
-				this.createGrid();
-			}
-
-			// Load Images
-			if ( '1' != instance.options.lazyLoad ) {
-				this.loadImage(0);
-			}
-
-			$(window).resize(function () {
-				instance.onResize(instance);
-			});
-
-			$(window).on('modula-update', function () {
-				instance.onResize(instance);
-			});
-
-			$(document).on('lazyloaded', function (evt) {
-				var element = $(evt.target),
-					parent, index;
-
-				if ( 'modula' == element.data('source') ) {
-					element.data('size', {width: element.width(), height: element.height()});
-					parent = element.parents('.modula-item');
-					parent.addClass('tg-loaded');
-					index = instance.$items.index(parent);
-					instance.placeImage(index);
-				}
-
-			});
-
-			// Gives error on front
-			/*        new ResizeSensor( instance.$element, function() {
-			 instance.onResize(instance);
-			 });*/
-
-			// Create social links
-			this.setupSocial();
-
-			// Trigger custom gallery JS
-			if ( this.options.onComplete ) {
-				this.options.onComplete();
-			}
-
-		} else {
-
-			this.$items.addClass("tile");
-
-			this.setupSocial();
-
-			// Load Images
-			if ( '1' != instance.options.lazyLoad   ) {
-				if('automatic' != this.options.grid_type){
-					this.gridImage(0);
-				} else {
-					this.loadImage(0);
-				}
-			}
-
-			$(window).resize(function () {
-				instance.onResize(instance);
-			});
-
-			$(window).on('modula-update', function () {
-				instance.onResize(instance);
-			});
-
-			$(document).on('lazyloaded', function (evt) {
-				var element = $(evt.target),
-					parent, index;
-
-				if ( 'modula' == element.data('source') ) {
-					parent = element.parents('.modula-item');
-					parent.addClass('tg-loaded');
-					index = instance.$items.index(parent);
-					instance.placeImage(index);
-				}
-
-			});
-
-			if ( 'automatic' == this.options.grid_type ) {
-
-				this.createAutoGrid();
-			} else {
-
-				this.createColumnsGrid();
-			}
-
-		}
-
-		// Trigger event after init
-		$(document).trigger('modula_api_after_init', [instance]);
-
-	};
 
 	Plugin.prototype.setupSocial = function () {
 		if ( this.options.enableTwitter ) {

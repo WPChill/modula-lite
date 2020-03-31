@@ -22,6 +22,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_enable_lazy_load', 30, 3 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
+		add_filter( 'modula_gallery_template_data', 'modula_column_grid', 10 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 
 	}
@@ -29,7 +30,7 @@ class Modula_Shortcode {
 	public function add_gallery_scripts() {
 
 		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/jquery.fancybox.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
 		wp_register_script( 'modula-packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -164,7 +165,7 @@ class Modula_Shortcode {
 			// Gallery container attributes
 			'gallery_container' => array(
 				'id' => $gallery_id,
-				'class' => apply_filters( 'modula_gallery_extra_classes', 'modula modula-gallery', $settings ),
+				'class' => array( 'modula modula-gallery' ),
 			),
 
 			// Items container attributes

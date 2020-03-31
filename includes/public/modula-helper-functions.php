@@ -29,6 +29,7 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	// Add src/data-src attributes to img tag
 	$item_data['img_attributes']['src'] = $image_url;
 	$item_data['img_attributes']['data-src'] = $image_url;
+	$item_data['img_attributes']['data-size'] = array( 'width' => $sizes['width'], 'height' => $sizes['height'] );
 
 	return $item_data;
 }
@@ -106,6 +107,18 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 	$item_data['item_attributes']['data-height'] = $item['height'];
 
 	return $item_data;
+
+}
+
+function modula_column_grid( $template_data ) {
+
+    if ( 'grid' != $template_data['settings']['type'] ) {
+		return $item_data;
+	}
+
+	$template_data['gallery_container']['class'][] = 'modula-columns';
+
+	return $template_data;
 
 }
 
