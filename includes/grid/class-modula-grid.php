@@ -54,6 +54,8 @@ class Modula_Grid {
 		// Filter for $css
 		add_filter( 'modula_shortcode_css', array( $this, 'generate_grid_css' ), 10, 3 );
 
+		add_filter('modula_gallery_template_data',array($this,'template_data_config'),15,1);
+
 	}
 
 	/**
@@ -268,6 +270,27 @@ class Modula_Grid {
 
 
 	/**
+	 * Add grid-gallery class to modula-items container
+	 *
+	 * @param $template_data
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.3.0
+	 */
+	public function template_data_config($template_data){
+
+		$settings = $template_data['settings'];
+
+		if('grid' == $settings['type']){
+			$template_data['items_container']['class'][] = 'grid-gallery';
+		}
+
+		return $template_data;
+	}
+
+
+	/**
 	 * Model image attributes
 	 *
 	 * @param $image
@@ -435,7 +458,7 @@ class Modula_Grid {
 
 			if ( 'automatic' != $settings['grid_type'] ) {
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: " . 100 / $settings['grid_type'] . "%!important ; } ";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(" . 100 / $settings['grid_type'] . "% - ". absint($settings['gutter']) ."px) !important ; } ";
 
 				if ( 1 == $settings['enable_responsive'] ) {
 					$css .= "@media (max-width: 992px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['tablet_columns'] . "%!important ; } }";
@@ -444,7 +467,7 @@ class Modula_Grid {
 
 				}
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items { padding-left: " . $settings['gutter'] . "px; padding-right: " . $settings['gutter'] . "px;  padding-top: " . $settings['gutter'] / 2 . "px; padding-bottom: " . $settings['gutter'] / 2 . "px;}";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items {margin-bottom:".$settings['gutter']."px;}";
 
 				$css .= "#{$gallery_id} .modula-items{position:relative;}";
 
