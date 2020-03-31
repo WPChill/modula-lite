@@ -150,11 +150,11 @@ tr label.th-label {
 }*/
 .modula-settings-container .modula-tabs-content .form-table tr:first-of-type {border-top: none;}
 .modula-settings-container .modula-tabs-content .form-table tr:last-of-type {border-bottom: none;}
-.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:280px;}
+.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:230px;}
 .modula-settings-container .modula-tabs-content .form-table th.child_setting {
 	padding-left:40px;
 	display:inline-block;
-	width:240px;
+	width:230px;
 }
 /* Fields */
 
@@ -163,13 +163,13 @@ tr label.th-label {
 	position: relative;
 	height: 2px;
 	padding: 10px 0;
-	width: 275px;
+	width: 240px;
 	box-sizing: border-box;
-  margin-bottom: 10px;
-  display: flex;
-  display: flex;
-    justify-content: space-between;
-    align-items: center;
+	margin-bottom: 10px;
+	display: flex;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .modula-settings-container .slider-container input[type="text"] {
     border: none;
@@ -235,11 +235,12 @@ tr label.th-label {
 .modula-settings-container select,
 .modula-settings-container  input:not([type="select-one"]):not([type="button"]):not([readonly="readonly"]),
 .modula-settings-container  select{
-	min-width:275px;
+	min-width:240px;
+	max-width:240px;
 }
 
 .selectize-control.single .selectize-input, .selectize-dropdown.single {
-	max-width:275px;
+	max-width:240px;
 }
 
 /* Hover Effects */
@@ -415,6 +416,10 @@ tr label.th-label {
     border: 0px;
     padding: 15px;
     margin-top: 30px;
+}
+
+.modula-settings-container .modula-upsell {
+	margin:30px;
 }
 
 /* We're handling the upsells inside metaboxes slightly different */
