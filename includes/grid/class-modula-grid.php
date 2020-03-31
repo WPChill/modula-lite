@@ -435,7 +435,7 @@ class Modula_Grid {
 
 			if ( 'automatic' != $settings['grid_type'] ) {
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: " . 100 / $settings['grid_type'] . "%!important ; } ";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(" . 100 / $settings['grid_type'] . "% - ". absint($settings['gutter']) ."px) !important ; } ";
 
 				if ( 1 == $settings['enable_responsive'] ) {
 					$css .= "@media (max-width: 992px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer { width: " . 100 / $settings['tablet_columns'] . "%!important ; } }";
@@ -444,7 +444,7 @@ class Modula_Grid {
 
 				}
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items { padding-left: " . $settings['gutter'] . "px; padding-right: " . $settings['gutter'] . "px;  padding-top: " . $settings['gutter'] / 2 . "px; padding-bottom: " . $settings['gutter'] / 2 . "px;}";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items {margin-bottom:".$settings['gutter']."px;}";
 
 				$css .= "#{$gallery_id} .modula-items{position:relative;}";
 
