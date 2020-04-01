@@ -80,9 +80,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			
 		} else if('grid' == value){
 
-			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_image_size"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"]').show();
+			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_image_size"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"],[data-container="maxImagesCount"]').show();
 
-			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"], [data-container="maxImagesCount"]').hide();
+			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"]').hide();
 
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
