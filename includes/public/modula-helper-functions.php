@@ -123,7 +123,7 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 function modula_column_grid( $template_data ) {
 
     if ( 'grid' != $template_data['settings']['type'] ) {
-		return $item_data;
+		return $template_data;
 	}
 
 	$template_data['gallery_container']['class'][] = 'modula-columns';
