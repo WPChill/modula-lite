@@ -256,7 +256,6 @@ tr label.th-label {
     height: 300px;
     overflow: hidden;
     position: relative;
-    margin:0 auto;
 }
 .modula-effects-preview .modula-item img {
     position: absolute;
@@ -1371,60 +1370,6 @@ Ups-sells carousel
 
 .modula-after-input {
     margin-left: 5px;
-}
-
-/*
-Hover effect slider
-*/
-.modula-hover-preview-slider,
-#modula-hover-effect .effect-compatibility {
-    max-width:850px;
-    margin:0 auto;
-}
-.modula-hover-preview-slider .slick-prev:before, .modula-hover-preview-slider .slick-next:before {
-   display:none;
-}
-
-.modula-hover-preview-slider .slick-prev,
-.modula-hover-preview-slider .slick-next {
-    outline:none;
-    box-shadow:none;
-}
-.modula-hover-preview-slider .slick-list {
-    z-index:999;
-}
-
-.modula-hover-preview-slider .slick-prev,
-.modula-hover-preview-slider .slick-next {
-    background: #774cce !important;
-    width: 25px;
-    height: 25px;
-    padding: 5px;
-    border-radius: 3px;
-	z-index:9999;
-}
-
-.modula-hover-preview-slider .slick-prev {
-	left:-35px;
-}
-.modula-hover-preview-slider .slick-next {
-	right:-35px;
-}
-
-.modula-hover-preview-slider .slick-prev svg,
-.modula-hover-preview-slider .slick-next svg {
-    width:25px;
-    height:25px;
-}
-
-#modula-hover-effect .effect-compatibility {
-	padding-left:25px;
-}
-
-@media all and (max-width:1649px){
-	.modula-hover-preview-slider, #modula-hover-effect .effect-compatibility {
-		max-width:600px;
-	}
 }
 
 
