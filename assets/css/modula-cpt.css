@@ -19,6 +19,8 @@
     position: relative;
     width: 185px;
     position: relative;
+	border-bottom:1px solid transparent;
+	border-top:1px solid transparent;
 }
 .modula-settings-container .modula-tabs .modula-tab sup {
   margin-left: 5px;
@@ -54,7 +56,7 @@
 	right: -1px;
 }
 .modula-settings-container .modula-tabs .modula-tab.active-tab:first-child {
-	border-top: 0 none;
+	border-top: 1px solid transparent;
 }
 .modula-settings-container .modula-tabs .modula-tab:hover {
 	color: #333333;
@@ -63,10 +65,12 @@
 	margin: 0;
     padding: 15px 10px 15px 0;
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     color: #333333;
     /*box-shadow: 1px 0px 1px 0px rgba(0, 0, 0, 0.43) inset;*/
+}
+.modula-settings-container .modula-tabs .modula-tab.active-tab:not(:last-child){
+	border-bottom: 1px solid #ddd;
 }
 .modula-settings-container .modula-tabs .modula-tab.active-tab:before {
 	content: "";
