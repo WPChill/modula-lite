@@ -217,7 +217,7 @@ class Modula_Field_Builder {
 		echo '<div class="modula-copy-shortcode">';
         echo '<input type="text" value="' . esc_attr($shortcode) . '"  onclick="select()" readonly>';
 		echo '<a href="#" title="' . esc_attr__('Copy shortcode','modula-best-grid-gallery') . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
-		echo '<p class="shortcode-description">' . esc_html__( 'You can use this to display your newly created gallery inside a post or a page', 'modula-best-grid-gallery') .  '</p>';
+		echo '<p class="shortcode-description">' . sprintf( esc_html__( 'You can use this to display your newly created gallery inside a %s post or a page %s', 'modula-best-grid-gallery'), '<u>', '</u>' ) .  '</p>';
         echo '</div>';
 
         do_action( 'modula_admin_after_shortcode_metabox', $post );
