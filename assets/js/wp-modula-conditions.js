@@ -87,6 +87,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
+			this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
 
 		} else {
 
@@ -177,7 +178,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			return;
 		}
-
 
 		if( 'automatic' == value ) {
 

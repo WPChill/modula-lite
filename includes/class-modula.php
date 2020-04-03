@@ -152,8 +152,6 @@ class Modula {
 	        	'id' => $post_id,
 	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
 	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
-		        'loaded_nonce' => wp_create_nonce('loaded_preview'),
-		        'hover_nonce' => wp_create_nonce('hover_preview'),
 	        );
 
 	        // Get all items from current gallery.
