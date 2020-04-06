@@ -33,7 +33,7 @@ class Modula_Shortcode {
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'modula-packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		// wp_register_script( 'modula-packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/jquery.fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -117,9 +117,9 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-		if ( 'custom-grid' == $type ) {
-			wp_enqueue_script( 'modula-packery' );
-		}
+		// if ( 'custom-grid' == $type ) {
+		// 	wp_enqueue_script( 'modula-packery' );
+		// }
 
 		if ( '1' == $settings['lazy_load'] ) {
 			wp_enqueue_script( 'modula-lazysizes' );
@@ -129,11 +129,6 @@ class Modula_Shortcode {
         if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && ('custom-grid' == $settings['type'] || 'creative-gallery' == $settings['type']) ) {
             wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
         }
-
-
-        $fancybox_options = $this->fancybox_options($settings);
-
-        wp_localize_script('modula','modulaFancyboxHelper',$fancybox_options);
 
         do_action('modula_extra_scripts', $settings);
 
@@ -178,20 +173,21 @@ class Modula_Shortcode {
 
 		/* Config for gallery script */
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			"margin"          => absint( $settings['margin'] ),
-			"enableTwitter"   => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"  => boolval( $settings['enableWhatsapp']),
-			"enableFacebook"  => boolval( $settings['enableFacebook'] ),
-			"enablePinterest" => boolval( $settings['enablePinterest'] ),
-			"enableLinkedin"  => boolval( $settings['enableLinkedin'] ),
-			"randomFactor"    => ( $settings['randomFactor'] / 100 ),
-			'type'            => $type,
-			'columns'         => 12,
-			'gutter'          => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
+			"margin"           => absint( $settings['margin'] ),
+			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
+			"enableWhatsapp"   => boolval( $settings['enableWhatsapp']),
+			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
+			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
+			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
+			"randomFactor"     => ( $settings['randomFactor'] / 100 ),
+			'type'             => $type,
+			'columns'          => 12,
+			'gutter'           => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
 			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
 			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
-			'lazyLoad'        => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
+			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
+			'lightboxOpts'     => $this->fancybox_options( $settings ),
 		), $settings );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
@@ -256,11 +252,11 @@ class Modula_Shortcode {
 		}
 
 		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
-			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item { animation:modulaScaling 1s;transition:0.5s all; }";
+			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all; }";
 
 			$css .= "@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ")}100%{transform:scale(1)}}";
 		} else {
-			$css .= "#{$gallery_id} .modula-item { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ") }";
+			$css .= "#{$gallery_id} .modula-item .modula-item-content { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ") }";
 		}
 
 
@@ -333,17 +329,12 @@ class Modula_Shortcode {
 	 */
 	public function fancybox_options($settings){
 
-		$fancybox_options = array('options' => array(),'lite_function' => true);
-		$default_fancybox_options = Modula_Helper::lightbox_default_options();
+		$fancybox_options = Modula_Helper::lightbox_default_options();
 
 		if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
-			$fancybox_options['options']['arrows'] = true;
+			$fancybox_options['arrows'] = true;
 		}
 
-
-
-
-		$fancybox_options['options'] = wp_parse_args($fancybox_options['options'],$default_fancybox_options['options']);
 
 		/**
 		 * Hook: modula_fancybox_options.

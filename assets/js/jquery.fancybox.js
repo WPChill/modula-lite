@@ -1819,6 +1819,10 @@
           .appendTo(slide.$content)
           .attr("src", slide.thumb);
 
+        if ( 'undifined' != typeof slide.src ) {
+          slide.$ghost.attr( "alt", slide.alt );
+        }
+
       }
 
       // Start loading actual image
@@ -1931,6 +1935,11 @@
             }
 
             $img.attr("sizes", sizes).attr("srcset", slide.opts.srcset);
+          }
+
+          // Add alt to image
+          if ( slide.opts.alt ) {
+            $img.attr( 'alt', slide.opts.alt );
           }
 
           // Hide temporary image after some delay

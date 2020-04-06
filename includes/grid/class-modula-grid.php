@@ -66,10 +66,10 @@ class Modula_Grid {
 	public function register_grid_scripts() {
 
 		// Register grid script
-		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/jquery.justifiedGallery.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/jquery.justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
-		wp_register_script( 'modula-grid-isotope-js', MODULA_URL . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_style( 'modula-grid-css', MODULA_URL . 'assets/css/front-grid.css' );
+		// wp_register_script( 'modula-grid-isotope-js', MODULA_URL . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		// wp_register_style( 'modula-grid-css', MODULA_URL . 'assets/css/front-grid.css' );
 
 		wp_register_style( 'modula-grid-justified-gallery-css', MODULA_URL . 'assets/css/justifiedGallery.min.css' );
 
@@ -92,7 +92,7 @@ class Modula_Grid {
 
 			if ( 'automatic' != $settings['grid_type'] ) {
 
-				$scripts[] = 'modula-grid-isotope-js';
+				// $scripts[] = 'modula-grid-isotope-js';
 			} else {
 
 				$scripts[] = 'modula-grid-justified-gallery';
@@ -115,11 +115,11 @@ class Modula_Grid {
 
 		if ( 'grid' == $settings['type'] ) {
 
-			$styles[] = 'modula-grid-css';
+			// $styles[] = 'modula-grid-css';
 
 			if ( 'automatic' == $settings['grid_type'] ) {
 
-				$styles[] = 'modula-grid-justified-gallery-css';
+				// $styles[] = 'modula-grid-justified-gallery-css';
 			}
 		}
 

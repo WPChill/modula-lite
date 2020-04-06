@@ -44,6 +44,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			enablePinterest: false,
 			enableLinkedin: false,
 			lazyLoad: 0,
+			initLightbox: false,
+			lightbox: false,
+			lightboxOpts: {},
 		};
 
 	// The actual plugin constructor
@@ -88,13 +91,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 		}
 
-		// Load Images
-		if ( '1' != instance.options.lazyLoad ) {
-			this.$items.each(function( index, el ){
-				instance.placeImage(index);
-			});
-		}
-
 		$(window).resize(function () {
 			instance.onResize(instance);
 		});
@@ -130,13 +126,35 @@ jQuery(window).on('elementor/frontend/init', function () {
 			this.options.onComplete();
 		}
 
+		// Init lightox
+		if ( 'fancybox' == instance.options['lightbox'] && instance.options['initLightbox'] ) {
+      		this.initLightbox();
+		}
 
 		// Trigger event after init
 		$(document).trigger('modula_api_after_init', [instance]);
 
 	};
 
-	Plugin.prototype.trunc = function (v) {
+	Plugin.prototype.initLightbox = function() {
+		var self = this;
+
+		self.$element.on( 'click', '.modula-item-link', function(evt){
+			evt.preventDefault();
+
+			var links = $.map(self.$items, function(o) { 
+				var link  = jQuery(o).find('.modula-item-link'),
+					image = jQuery(o).find('.pic');
+				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ) } } }),
+				index = self.$items.index( jQuery(this).parent() );
+
+			jQuery.modulaFancybox.open( links, self.options.lightboxOpts, index );
+
+		});
+
+	}
+
+	Plugin.prototype.trunc = function(v) {
 
 		if ( Math.trunc ) {
 			return Math.trunc(v);
@@ -151,11 +169,19 @@ jQuery(window).on('elementor/frontend/init', function () {
 	// Create custom grid gallery based on packery.
 	Plugin.prototype.createCustomGallery = function () {
 
-		var size,
+		var instance = this,
+			size,
 			containerWidth = this.$element.width(),
 			plugin = this,
 			columns = this.options.columns,
 			viewport = document.documentElement.clientWidth;
+
+		// Load Images
+		if ( '1' != instance.options.lazyLoad ) {
+			this.$items.each(function( index, el ){
+				instance.loadImage(index);
+			});
+		}
 
 		if ( '1' == this.options.enableResponsive ) {
 
@@ -225,20 +251,26 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		});
 
-		this.$itemsCnt.isotope({
+		var packery_args = {
 		  	itemSelector: '.modula-item',
 		  	layoutMode: 'packery',
 		  	packery: {
 				gutter: parseInt(plugin.options.gutter)
 			}
-		});
+		};
+
+		if ( 'undefined' != typeof plugin.options.sortData ) { 
+			packery_args['sortData'] = plugin.options.sortData
+		}
+
+		this.$itemsCnt.isotope(packery_args);
 		this.isIsotope = true;
 
 	}
 
 	// Create Modula default gallery grid
 	Plugin.prototype.createGrid = function () {
-		var plugin = this;
+		var instance = this;
 
 		if ( this.options.width ) {
 			this.$itemsCnt.width(this.options.width);
@@ -253,7 +285,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.lastWidth = this.$itemsCnt.width();
 
 		for ( var i = 0; i < this.$items.not(".jtg-hidden").length; i++ ) {
-			this.tiles.push(plugin.getSlot());
+			this.tiles.push(instance.getSlot());
 		}
 
 		this.tiles.sort(function (x, y) {
@@ -261,7 +293,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 
 		this.$items.not(".jtg-hidden").each(function (i, item) {
-			var slot = plugin.tiles[i];
+			var slot = instance.tiles[i];
 
 			$(item)
 				.data('size', slot)
@@ -279,15 +311,25 @@ jQuery(window).on('elementor/frontend/init', function () {
 				height: slot.height
 			});
 
+			if ( '1' != instance.options.lazyLoad ) {
+				instance.loadImage(i);
+			}
+
 		});
 
-		this.$itemsCnt.isotope({
+		var packery_args = {
 		  	itemSelector: '.modula-item',
 		  	layoutMode: 'packery',
 		  	packery: {
-				gutter: parseInt(plugin.options.gutter)
+				gutter: parseInt(instance.options.gutter)
 			}
-		});
+		};
+
+		if ( 'undefined' != typeof instance.options.sortData ) { 
+			packery_args['sortData'] = instance.options.sortData
+		}
+
+		this.$itemsCnt.isotope(packery_args);
 		this.isIsotope = true;
 
 	}
@@ -298,19 +340,21 @@ jQuery(window).on('elementor/frontend/init', function () {
 			rowHeight: this.options.rowHeight,
 			margins: this.options.margin,
 			lastRow: this.options.lastRow,
-			captions: false
+			captions: false,
+			border: 0,
+			imgSelector: '.pic'
 		});
 
 	}
 
 	Plugin.prototype.createColumnsGrid = function(){
-		this.$element.isotope({
+		this.$itemsCnt.isotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
-			percentPosition: true,
-			mansonry: {
+			// percentPosition: true,
+			layoutMode: 'packery',
+			packery: {
 				// use element for option
-				columnWidth: '.modula-grid-sizer',
 				gutter: parseInt(this.options.gutter)
 			}
 			
@@ -356,8 +400,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			tile = {
 				top: maxTileData.top,
-				left: maxTileData.left + maxTileData.width + this.options.margin,
-				width: maxTileData.prevWidth - maxTileData.width - this.options.margin,
+				left: maxTileData.left + maxTileData.width + this.options.gutter,
+				width: maxTileData.prevWidth - maxTileData.width - this.options.gutter,
 				height: maxTileData.height
 			}
 
@@ -370,9 +414,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			tile = {
 				left: maxTileData.left,
-				top: maxTileData.top + maxTileData.height + this.options.margin,
+				top: maxTileData.top + maxTileData.height + this.options.gutter,
 				width: maxTileData.width,
-				height: maxTileData.prevHeight - maxTileData.height - this.options.margin
+				height: maxTileData.prevHeight - maxTileData.height - this.options.gutter
 			}
 		}
 
@@ -431,6 +475,32 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}, 100);
 	}
 
+	Plugin.prototype.loadImage = function(index) {
+        var instance = this;
+        var source = instance.$items.eq(index).find('.pic');
+        var img = new Image();
+        img.onerror = function () {
+            console.log("error loading image [" + index + "] : " + this.src);   
+            if (index + 1 < instance.$items.length)
+                instance.loadImage(index + 1);
+        }
+        img.onload = function () {
+            source.data('size', { width: this.width, height: this.height });
+            instance.placeImage(index);
+			
+			instance.$items.eq(index).addClass("tg-loaded");
+            if (index + 1 < instance.$items.length)
+                instance.loadImage(index + 1);
+        }
+
+        var original_src = source.data('src');
+        img.src = original_src;
+        source.attr("src", original_src);
+
+        instance.placeImage( index );
+
+    }
+
 	Plugin.prototype.placeImage = function (index) {
 
 		if ( 'grid' == this.options.type ) { return; }
@@ -441,12 +511,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var tSize = $tile.data('size');
 		var iSize = $image.data('size');
 
-		if ( $image.parent() != $tile ) {
-			tSize = {
-				'width': $image.parent().width(),
-				'height': $image.parent().height()
-			};
-		}
+		// if ( $image.parent() != $tile ) {
+		// 	tSize = {
+		// 		'width': $image.parent().width(),
+		// 		'height': $image.parent().height()
+		// 	};
+		// }
 
 		if ( typeof tSize == 'undefined' ) {
 			return;
@@ -694,23 +764,6 @@ jQuery(window).load(function () {
 
 
 });
-
-
-jQuery(document).on('modula_api_after_init', function (event, data) {
-
-	if ( true == modulaFancyboxHelper['lite_function'] ) {
-
-		modulaFancyboxHelper['options']['afterShow'] = function (e, instance, slide) {
-			var currentAlt = jQuery(data.$items[e.currIndex]).find('img').attr('alt');
-
-			if ( 'undefined' != typeof currentAlt && '' != currentAlt ) {
-				e.current.$image.attr('alt', currentAlt);
-			}
-		};
-		jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
-	}
-});
-
 
 function modulaInViewport(element) {
 	if ( typeof jQuery === "function" && element instanceof jQuery ) {

@@ -197,15 +197,6 @@
 	}
 }
 
-.modula-gallery .modula-items.grid-gallery .modula-item img.pic {
-	position:relative !important;
-}
-
-.modula .modula-items.grid-gallery .modula-item img.pic {
-	margin:0 auto !important;
-	inset : 0 !important;
-}
-
 .modula .modula-items.grid-gallery .modula-item .figc {
 	height:100%;
 	top:0;

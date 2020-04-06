@@ -1,15 +1,18 @@
 .modula .modula-items .modula-item {
 	position: absolute;
 	overflow: hidden;
-	transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
-	opacity: 0;
 	box-sizing: border-box;
 }
 
+.modula .modula-items .modula-item .modula-item-content {
+	transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
+	opacity: 0;
+}
+
 .modula .modula-items {
-	position: relative,
-	z-index: 1,
-	min-height: 10px
+	position: relative;
+	z-index: 1;
+	min-height: 10px;
 }
 
 .modula .modula-items .modula-item > a {
@@ -26,8 +29,8 @@
 	z-index: 10;
 }
 
-.modula .modula-items .modula-item.tg-loaded,
-.modula.modula-columns .modula-items .modula-item {
+.modula .modula-items .modula-item.tg-loaded .modula-item-content,
+.modula.modula-columns .modula-items .modula-item .modula-item-content {
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;
 }
@@ -142,9 +145,9 @@ Modula Filters
 	border-bottom-color: #333;
 	border-bottom:1px solid;
 }
-body .modula .modula-item {
+/*body .modula .modula-item {
 	width: 100%;
-}
+}*/
 body .modula.vertical-filters .modula-items {
 	width: 80%;
 	float:left;
@@ -388,7 +391,7 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	opacity: .8
 }
 
-.modula .modula-item { background-color:#000; }
+/*.modula .modula-item { background-color:#000; }*/
 
 .modula .modula-item.effect-pufrobo p {
 	bottom: 20%;
@@ -476,3 +479,241 @@ Fix for admin bar overfloating
 .modula-fancybox-share__button--wa {
 	background:#25D366;
 }
+
+/* New CSS */
+.modula.modula-columns .modula-item {
+	display: flex;
+    justify-content: center;
+}
+.modula.modula-columns .modula-item .modula-item-content {
+	position: relative;
+}
+.modula.modula-columns .modula-item .modula-item-overlay {
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
+	width: 100%;
+	height: 100%;
+}
+.modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content .pic {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: 0;
+    padding: 0;
+    border: none;
+}
+.modula.modula-columns .modula-item.jg-filtered {
+	display: none;
+}
+
+/* Modula Grid */
+/*  Rows CSS */
+.modula-row {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+
+.modula-row-cols-1 > * {
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+	max-width: 100%
+}
+
+.modula-row-cols-2 > * {
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	max-width: 50%
+}
+
+.modula-row-cols-3 > * {
+	-ms-flex: 0 0 33.333333%;
+	flex: 0 0 33.333333%;
+	max-width: 33.333333%
+}
+
+.modula-row-cols-4 > * {
+	-ms-flex: 0 0 25%;
+	flex: 0 0 25%;
+	max-width: 25%
+}
+
+.modula-row-cols-5 > * {
+	-ms-flex: 0 0 20%;
+	flex: 0 0 20%;
+	max-width: 20%
+}
+
+.modula-row-cols-6 > * {
+	-ms-flex: 0 0 16.666667%;
+	flex: 0 0 16.666667%;
+	max-width: 16.666667%
+}
+
+@media (min-width: 576px) {
+	.modula-row-cols-sm-1 > * {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+
+	.modula-row-cols-sm-2 > * {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%
+	}
+
+	.modula-row-cols-sm-3 > * {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%
+	}
+
+	.modula-row-cols-sm-4 > * {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%
+	}
+
+	.modula-row-cols-sm-5 > * {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%
+	}
+
+	.modula-row-cols-sm-6 > * {
+		-ms-flex: 0 0 16.666667%;
+		flex: 0 0 16.666667%;
+		max-width: 16.666667%
+	}
+}
+
+@media (min-width: 768px) {
+	.modula-row-cols-md-1 > * {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+
+	.modula-row-cols-md-2 > * {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%
+	}
+
+	.modula-row-cols-md-3 > * {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%
+	}
+
+	.modula-row-cols-md-4 > * {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%
+	}
+
+	.modula-row-cols-md-5 > * {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%
+	}
+
+	.modula-row-cols-md-6 > * {
+		-ms-flex: 0 0 16.666667%;
+		flex: 0 0 16.666667%;
+		max-width: 16.666667%
+	}
+
+}
+
+@media (min-width: 992px) {
+	.modula-row-cols-lg-1 > * {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+
+	.modula-row-cols-lg-2 > * {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%
+	}
+
+	.modula-row-cols-lg-3 > * {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%
+	}
+
+	.modula-row-cols-lg-4 > * {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%
+	}
+
+	.modula-row-cols-lg-5 > * {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%
+	}
+
+	.modula-row-cols-lg-6 > * {
+		-ms-flex: 0 0 16.666667%;
+		flex: 0 0 16.666667%;
+		max-width: 16.666667%
+	}
+}
+
+@media (min-width: 1200px) {
+	.modula-row-cols-xl-1 > * {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+
+	.modula-row-cols-xl-2 > * {
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%
+	}
+
+	.modula-row-cols-xl-3 > * {
+		-ms-flex: 0 0 33.333333%;
+		flex: 0 0 33.333333%;
+		max-width: 33.333333%
+	}
+
+	.modula-row-cols-xl-4 > * {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 25%
+	}
+
+	.modula-row-cols-xl-5 > * {
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%
+	}
+
+	.modula-row-cols-xl-6 > * {
+		-ms-flex: 0 0 16.666667%;
+		flex: 0 0 16.666667%;
+		max-width: 16.666667%
+	}
+}
+
+.modula .modula-items.grid-gallery .modula-item .figc {
+	height:100%;
+	top:0;
+}
+
