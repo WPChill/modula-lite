@@ -202,7 +202,7 @@ class Modula_Grid {
 			),
 
 			"grid_image_crop" => array(
-				"name"        => esc_html__( 'Crop Image ?', 'modula-best-grid-gallery' ),
+				"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
 				"type"        => "toggle",
 				"description" => esc_html__( 'If this is enabled, images will be cropped down to exactly the sizes defined above.', 'modula-best-grid-gallery' ),
 				'default'     => 0,

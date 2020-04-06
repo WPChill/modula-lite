@@ -80,13 +80,14 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			
 		} else if('grid' == value){
 
-			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_image_size"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"]').show();
+			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_image_size"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"], [data-container="grid_image_crop"],[data-container="maxImagesCount"]').show();
 
-			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"], [data-container="maxImagesCount"]').hide();
+			rows.filter('[data-container="height"], [data-container="margin"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="img_size"]').hide();
 
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
+			this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
 
 		} else {
 
@@ -119,59 +120,10 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedEffect: function( settings, value ){
 
-		var $images = jQuery('#modula-hover-effect .modula-hover-effects.modula-effects-preview.modula').attr('images');
+		var hoverBoxes = jQuery( '.modula-effects-preview > div' );
 
-		var $socials_settings = {
-			'twitter': wp.Modula.Settings.get('enableTwitter'),
-			'facebook': wp.Modula.Settings.get('enableFacebook'),
-			'pinterest': wp.Modula.Settings.get('enablePinterest'),
-			'linkedin': wp.Modula.Settings.get('enableLinkedin'),
-			'whatsapp': wp.Modula.Settings.get('enableWhatsapp'),
-			// seems to be a problem with getting the color
-			'social_color': jQuery('#socialIconColor').val(),
-			'social_size': wp.Modula.Settings.get('socialIconSize'),
-			'social_gutter': wp.Modula.Settings.get('socialIconPadding')
-		};
-
-
-		if('none' == value || 'pufrobo' == value) {
-			var data = {
-				action: 'modula_hover_preview_action',
-				images: jQuery.parseJSON($images),
-				effect: value,
-				socials: $socials_settings,
-				nonce : modulaHelper.hover_helper
-			};
-
-			jQuery.ajax({
-				method: 'POST',
-				url: modulaHelper.ajax_url,
-				data: data,
-				cache: false,
-			}).done(function (data) {
-				jQuery('#modula-hover-effect .modula-effects-preview.modula').html(data);
-
-				jQuery('#modula-hover-effect .modula-hover-preview-slider').slick({
-					arrows: true,
-					pauseOnHover: true,
-					slidesPerRow: 1,
-					slidesToShow: 2,
-					slidesToScroll: 1,
-					responsive: [
-						{
-							breakpoint: 1650,
-							settings: {
-								slidesPerRow: 1,
-								slidesToShow: 1,
-								slidesToScroll: 1,
-							}
-						},
-					],
-					prevArrow: '<a href="#" class="slick-prev"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="#fff" d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg></a>',
-					nextArrow: '<a href="#" class="slick-next"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="#fff" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg></a>',
-				});
-			});
-		}
+		hoverBoxes.hide();
+		hoverBoxes.filter( '.panel-' + value ).show();
 
 	},
 
@@ -226,7 +178,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			return;
 		}
-
 
 		if( 'automatic' == value ) {
 
