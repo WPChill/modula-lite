@@ -26,12 +26,6 @@ class Modula_Grid {
 	 */
 	public function __construct() {
 
-		// Add Grid field
-		add_filter( 'modula_gallery_fields', array( $this, 'modula_grid_gallery_type' ), 15, 1 );
-
-		// Add defaults
-		add_filter( 'modula_lite_default_settings', array( $this, 'set_defaults' ) );
-
 		// register grid scripts and styles
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_grid_scripts' ), 90 );
 
@@ -126,98 +120,6 @@ class Modula_Grid {
 		return $styles;
 	}
 
-
-	/**
-	 * Add Modula Grid fields and type
-	 *
-	 * @param $fields
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_grid_gallery_type( $fields ) {
-
-		$fields['general']['type']['values']['grid'] = esc_html__( 'Columns', 'modula-best-grid-gallery' );
-
-		$grid_fields = array(
-			"grid_type" => array(
-				"name"        => esc_html__( 'Column Type', 'modula-best-grid-gallery' ),
-				"type"        => "select",
-				"description" => esc_html__( 'Select the grid type. Automatic will fully fill each row .', 'modula-best-grid-gallery' ),
-				'values'      => array(
-					'automatic' => esc_html__( 'Automatic', 'modula-best-grid-gallery' ),
-					'1'         => esc_html__( 'One Column(1)', 'modula-best-grid-gallery' ),
-					'2'         => esc_html__( 'Two Columns(2)', 'modula-best-grid-gallery' ),
-					'3'         => esc_html__( 'Three Columns(3)', 'modula-best-grid-gallery' ),
-					'4'         => esc_html__( 'Four Columns(4)', 'modula-best-grid-gallery' ),
-					'5'         => esc_html__( 'Five Columns(5)', 'modula-best-grid-gallery' ),
-					'6'         => esc_html__( 'Six Columns(6)', 'modula-best-grid-gallery' ),
-				),
-				'default'     => 'automatic',
-				'priority'    => 26,
-			),
-
-			"grid_row_height" => array(
-				"name"        => esc_html__( 'Row Height.', 'modula-best-grid-gallery' ),
-				"type"        => "number",
-				"after"       => "px",
-				"description" => esc_html__( 'Set the height of each row.', 'modula-best-grid-gallery' ),
-				"default"     => 150,
-				'is_child'    => true,
-				"priority"    => 27,
-			),
-
-			"grid_justify_last_row" => array(
-				"name"        => esc_html__( 'Last Row Alignment', 'modula-best-grid-gallery' ),
-				"type"        => "select",
-				"description" => esc_html__( 'By selecting justify , the last row of pictures will automatically be resized to fit the full width.', 'modula-best-grid-gallery' ),
-				"values"      => array(
-					"justify"   => esc_html__( 'Justify', 'modula-best-grid-gallery' ),
-					'nojustify' => esc_html__( 'Left', 'modula-best-grid-gallery' ),
-					'center'    => esc_html__( 'Center', 'modula-best-grid-gallery' ),
-					'right'     => esc_html__( 'Right', 'modula-best-grid-gallery' ),
-				),
-				"default"     => "justify",
-				'is_child'    => true,
-				"priority"    => 28,
-			),
-
-			"grid_image_size" => array(
-				"name"        => esc_html__( 'Image Size', 'modula-best-grid-gallery' ),
-				"type"        => "select",
-				"description" => esc_html__( 'Select the size of your images. ', 'modula-best-grid-gallery' ),
-				'values'      => Modula_Helper::get_image_sizes( true ),
-				'default'     => 'medium',
-				'priority'    => 37,
-			),
-
-			"grid_image_dimensions" => array(
-				"name"        => esc_html__( ' Image dimensions', 'modula-best-grid-gallery' ),
-				"type"        => "image-size",
-				"description" => esc_html__( 'Define image width. If Crop images isn\'t enabled, images will be proportional.', 'modula-best-grid-gallery' ),
-				'default'     => '1200',
-				'is_child'    => true,
-				'priority'    => 38,
-			),
-
-			"grid_image_crop" => array(
-				"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
-				"type"        => "toggle",
-				"description" => esc_html__( 'If this is enabled, images will be cropped down to exactly the sizes defined above.', 'modula-best-grid-gallery' ),
-				'default'     => 0,
-				'is_child'    => true,
-				'priority'    => 39,
-			),
-
-
-		);
-
-		$fields['general'] = array_merge( $fields['general'], $grid_fields );
-
-		return $fields;
-
-	}
 
 	/**
 	 * Add image sizes for grid type
@@ -402,27 +304,6 @@ class Modula_Grid {
 
 		return $item_data;
 
-	}
-
-	/**
-	 * Set defaults
-	 *
-	 * @param $defaults
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.3.0
-	 */
-	public function set_defaults( $defaults ) {
-
-		$defaults['grid_type']             = '4';
-		$defaults['grid_image_size']       = 'medium';
-		$defaults['grid_image_crop']       = 0;
-		$defaults['grid_image_dimensions'] = '1200';
-		$defaults['grid_row_height']       = 150;
-		$defaults['grid_justify_last_row'] = 'nojustify';
-
-		return $defaults;
 	}
 
 
