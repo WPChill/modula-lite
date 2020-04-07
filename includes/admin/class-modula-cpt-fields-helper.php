@@ -266,13 +266,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Set the minimum width or height of the thumbnails in pixels.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 				),
-				"margin"         => array(
-					"name"        => esc_html__( 'Margin', 'modula-best-grid-gallery' ),
-					"type"        => "text",
-					'default'     => 10,
-					"description" => esc_html__( 'Set the margin between images in pixels.', 'modula-best-grid-gallery' ),
-					'priority' => 60,
-				),
 				"randomFactor"   => array(
 					"name"        => esc_html__( 'Random factor', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
@@ -631,7 +624,6 @@ class Modula_CPT_Fields_Helper {
 			'width'                 => '100%',
 			'height'                => '800',
 			'img_size'              => 300,
-			'margin'                => '10',
 			'randomFactor'          => '50',
 			'lightbox'              => 'fancybox',
 			'show_navigation'       => 1,
