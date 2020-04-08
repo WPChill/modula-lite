@@ -45,7 +45,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			enableLinkedin: false,
 			lazyLoad: 0,
 			initLightbox: false,
-			lightbox: false,
+			lightbox: 'fancybox',
 			lightboxOpts: {},
 		};
 
@@ -127,7 +127,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		// Init lightox
-		if ( 'fancybox' == instance.options['lightbox'] && instance.options['initLightbox'] ) {
+		if ( 'fancybox' == instance.options['lightbox'] && ! instance.options['initLightbox'] ) {
       		this.initLightbox();
 		}
 
@@ -272,15 +272,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 	Plugin.prototype.createGrid = function () {
 		var instance = this;
 
-		if ( this.options.width ) {
-			this.$itemsCnt.width(this.options.width);
-		}
+		// if ( this.options.width ) {
+		// 	this.$itemsCnt.width(this.options.width);
+		// }
 
-		if ( this.options.height ) {
-			this.$itemsCnt.height(this.options.height);
-		}
-
-		this.$itemsCnt.data('area', this.$itemsCnt.width() * this.$itemsCnt.height());
+		// if ( this.options.height ) {
+		// 	this.$itemsCnt.height(this.options.height);
+		// }
+		this.$itemsCnt.data('area', this.$itemsCnt.width() * this.options.height);
 
 		this.lastWidth = this.$itemsCnt.width();
 
@@ -317,20 +316,21 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		});
 
-		var packery_args = {
-		  	itemSelector: '.modula-item',
-		  	layoutMode: 'packery',
-		  	packery: {
-				gutter: parseInt(instance.options.gutter)
-			}
-		};
+		if ( ! this.isIsotope ) {
 
-		if ( 'undefined' != typeof instance.options.sortData ) { 
-			packery_args['sortData'] = instance.options.sortData
+			var packery_args = {
+				resizesContainer: false,
+			  	itemSelector: '.modula-item',
+			  	layoutMode: 'packery',
+			  	packery: {
+					gutter: parseInt(instance.options.gutter)
+				}
+			};
+
+			this.$itemsCnt.isotope(packery_args);
+			this.isIsotope = true;
+
 		}
-
-		this.$itemsCnt.isotope(packery_args);
-		this.isIsotope = true;
 
 	}
 
@@ -369,8 +369,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 				top: 0,
 				left: 0,
 				width: this.$itemsCnt.width(),
-				height: this.$itemsCnt.height(),
-				area: this.$itemsCnt.width() * this.$itemsCnt.height(),
+				height: this.options.height,
+				area: this.$itemsCnt.width() * this.options.height,
 				position: 0
 			};
 
@@ -435,26 +435,21 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var instance = this;
 		instance.tiles = [];
 
-		if ( 'custom-grid' === instance.options.type ) {
-
-			instance.createCustomGallery();
-			instance.$itemsCnt.packery();
+		if ( 'custom-grid' === this.options.type ) {
+			this.createCustomGallery();
 		} else if ( 'creative-gallery' == this.options.type ) {
-
-			instance.createGrid();
-		} else if('grid' == this.options.type){
-
-			if('automatic' == this.options.grid_type){
-				instance.createAutoGrid();
+			this.createGrid();
+		}else if ( 'grid' == this.options.type ) {
+			if ( 'automatic' == this.options.grid_type ) {
+				this.createAutoGrid();
 			} else {
-				instance.createColumnsGrid();
+				this.createColumnsGrid();
 			}
-
 		}
 
-		instance.$itemsCnt.find('.pic').each(function (i, o) {
-			instance.placeImage(i);
-		});
+		// instance.$itemsCnt.find('.pic').each(function (i, o) {
+		// 	instance.placeImage(i);
+		// });
 		instance.lastWidth = instance.$itemsCnt.width();
 	}
 
