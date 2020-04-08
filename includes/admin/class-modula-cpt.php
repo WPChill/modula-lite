@@ -244,7 +244,7 @@ class Modula_CPT {
 			// We will save only our settings.
 			foreach ( $fields_with_tabs as $tab => $fields ) {
 
-				// We will iterate throught all fields of current tab
+				// We will iterate through all fields of current tab
 				foreach ( $fields as $field_id => $field ) {
 
 					if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
@@ -253,6 +253,7 @@ class Modula_CPT {
 						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in') );
+
 
 						switch ( $field_id ) {
 							case 'description':
@@ -306,7 +307,7 @@ class Modula_CPT {
                             case 'lightbox_popup_opacity' :
                                 $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
                                 break;*/
-							case 'Effect' :
+							case 'effect' :
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
 									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
 								}else{

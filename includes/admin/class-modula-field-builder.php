@@ -425,7 +425,7 @@ class Modula_Field_Builder {
 					'ruby'         => esc_html__( 'Ruby', 'modula-best-grid-gallery' ),
 					'roxy'         => esc_html__( 'Roxy', 'modula-best-grid-gallery' ),
 					'bubba'        => esc_html__( 'Bubba', 'modula-best-grid-gallery' ),
-					'romeo'        => esc_html__( 'Romeo', 'modula-best-grid-gallery' ),
+					//'romeo'        => esc_html__( 'Romeo', 'modula-best-grid-gallery' ),
 					'dexter'       => esc_html__( 'Dexter', 'modula-best-grid-gallery' ),
 					'sarah'        => esc_html__( 'Sarah', 'modula-best-grid-gallery' ),
 					'chico'        => esc_html__( 'Chico', 'modula-best-grid-gallery' ),

@@ -508,6 +508,7 @@ Fix for admin bar overfloating
     padding: 0;
     border: none;
 }
+
 .modula.modula-columns .modula-item.jg-filtered {
 	display: none;
 }

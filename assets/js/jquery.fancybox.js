@@ -3602,8 +3602,8 @@
         $.type(providerOpts.thumb) === "function" ? providerOpts.thumb.call(this, rez, params, item) : format(providerOpts.thumb, rez);
 
       if (providerName === "youtube") {
-        url = url.replace(/&t=((\d+)m)?(\d+)s/, function (match, p1, m, s) {
-          return "&start=" + ((m ? parseInt(m, 10) * 60 : 0) + parseInt(s, 10));
+        url = url.replace(/&t=(\d+)/, function (match, p1 ) {
+          return  "&start=" + p1;
         });
       } else if (providerName === "vimeo") {
         url = url.replace("&%23", "#");

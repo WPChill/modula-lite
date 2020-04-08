@@ -174,7 +174,6 @@ class Modula_Shortcode {
 		/* Config for gallery script */
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => absint( $settings['height'] ),
-			"margin"           => absint( $settings['margin'] ),
 			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
 			"enableWhatsapp"   => boolval( $settings['enableWhatsapp']),
 			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
