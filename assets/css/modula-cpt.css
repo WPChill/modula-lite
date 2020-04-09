@@ -1413,6 +1413,10 @@ Scaling Effect Preview
   padding-bottom: 10px;
 }
 
+.modula-imagesize-info span {
+	font-weight:bold;
+}
+
 /**
 Some responsive fixes
  */
