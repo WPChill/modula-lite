@@ -196,7 +196,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	changedGridImageSize: function( settings, value ) {
 
 		let rows = this.get( 'rows' ),
-			imagesizes = this.get( 'imagesizes' );;
+			imagesizes = this.get( 'imagesizes' );
 
 		if (  'grid' != wp.Modula.Settings.get('type') ) {
 
