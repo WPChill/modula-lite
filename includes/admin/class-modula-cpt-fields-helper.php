@@ -211,7 +211,7 @@ class Modula_CPT_Fields_Helper {
 
 				"grid_image_size" => array(
 					"name"        => esc_html__( 'Image Size', 'modula-best-grid-gallery' ),
-					"type"        => "select",
+					"type"        => "dimensions-select",
 					"description" => esc_html__( 'Select the size of your images. ', 'modula-best-grid-gallery' ),
 					'values'      => Modula_Helper::get_image_sizes( true ),
 					'default'     => 'medium',

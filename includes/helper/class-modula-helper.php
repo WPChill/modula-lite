@@ -242,6 +242,8 @@ class Modula_Helper {
 
 				$sizes[$_size]['width']  = get_option( $_size . '_size_w' );
 				$sizes[$_size]['height'] = get_option( $_size . '_size_h' );
+				$sizes[$_size]['crop'] = (bool) get_option( $_size . '_crop' );
+
 			} elseif ( isset( $_wp_additional_image_sizes[$_size] ) ) {
 
 				if ( 'post-thumbnail' != $_size ) {
@@ -252,6 +254,7 @@ class Modula_Helper {
 				$sizes[$_size] = array(
 					'width'  => $_wp_additional_image_sizes[$_size]['width'],
 					'height' => $_wp_additional_image_sizes[$_size]['height'],
+					'crop' => (bool) get_option( $_size . '_crop' )
 				);
 			}
 		}

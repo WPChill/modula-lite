@@ -500,6 +500,26 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+			case 'dimensions-select' :
+				$sizes = Modula_Helper::get_image_sizes();
+				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
+				$infos = '';
+
+				foreach ( $sizes as $key => $size ) {
+
+					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( ucfirst(str_replace('-', ' ', $key) )) . '</option>';
+
+					$infos .= '<div class="modula-imagesize-info" data-size="' . esc_attr( $key ) . '"><span>' . esc_html__( 'Image Size', 'modula-best-grid-gallery' ) . '</span>: ' . $size['width'] . 'x' . $size['height'];
+					$infos .= '. <span>'.esc_html__('Crop','modula-best-grid-gallery').'</span>: ' . ( boolval( $size['crop'] ) ? 'true' : 'false' ) . '</div>';
+				}
+
+				$html .= '<option value="full" '. selected( 'full', $value, false ).'>' . __( 'Full', 'modula-albums' ) . '</option>';
+				$html .= '<option value="custom" '.selected( 'custom', $value, false ).'>' . __( 'Custom', 'modula-albums' ) . '</option>';
+				$html .= '</select>';
+				if ( '' != $infos ) {
+					$html .= '<div class="modula-imagesizes-infos">' . $infos . '</div>';
+				}
+				break;
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );

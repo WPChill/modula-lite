@@ -8,7 +8,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var tabs = jQuery('.modula-tabs .modula-tab');
 		this.set( 'rows', rows );
 		this.set( 'tabs', tabs );
-		
+		var imageSizesInfo = jQuery('.modula-settings-container tr[data-container="grid_image_size"] .modula-imagesizes-infos .modula-imagesize-info');
+
+		this.set( 'imagesizes', imageSizesInfo );
 		this.initEvents();
 		this.initValues();
 
@@ -193,7 +195,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedGridImageSize: function( settings, value ) {
 
-		let rows = this.get( 'rows' );
+		let rows = this.get( 'rows' ),
+			imagesizes = this.get( 'imagesizes' );;
 
 		if (  'grid' != wp.Modula.Settings.get('type') ) {
 
@@ -208,6 +211,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		} else {
 
 			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+		}
+
+		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );
+		imagesizes.hide();
+		if ( currentInfo.length > 0 ) {
+			currentInfo.show();
 		}
 	}
 
