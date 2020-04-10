@@ -497,7 +497,7 @@ Fix for admin bar overfloating
 	display: none;
 }
 .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
-	width: 100%;
+	/*width: 100%;*/
 	height: 100%;
 }
 .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {

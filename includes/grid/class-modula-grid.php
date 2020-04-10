@@ -348,7 +348,7 @@ class Modula_Grid {
 
 				}
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items {margin-bottom:".$settings['gutter']."px;}";
+				// $css .= "#{$gallery_id}.modula-gallery .modula-item , #{$gallery_id}.modula-gallery .modula-items {margin-bottom:".$settings['gutter']."px;}";
 
 				$css .= "#{$gallery_id} .modula-items{position:relative;}";
 
