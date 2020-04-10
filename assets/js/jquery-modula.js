@@ -33,7 +33,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var pluginName = 'modulaGallery',
 		defaults = {
 			resizer: '/',
-			margin: 10,
 			keepArea: true,
 			type: 'creative-gallery',
 			columns: 12,
@@ -338,7 +337,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var plugin = this;
 		this.$itemsCnt.justifiedGallery({
 			rowHeight: this.options.rowHeight,
-			margins: this.options.margin,
+			margins: this.options.gutter,
 			lastRow: this.options.lastRow,
 			captions: false,
 			border: 0,
