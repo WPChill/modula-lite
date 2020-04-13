@@ -8,6 +8,7 @@ function tg_getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 }
 
+
 // Compatibility with WPBakery Page Builder
 jQuery(document).on('vc-full-width-row-single vc-full-width-row', function (event, element) {
 	if ( jQuery('body').find('.modula').length > 0 ) {
@@ -746,9 +747,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 jQuery(window).load(function () {
 
-	var modulaGalleries = jQuery('.modula-gallery');
+	var modulaGalleries = jQuery('.modula.modula-gallery');
 
 	jQuery.each(modulaGalleries, function () {
+
 		var modulaID = jQuery(this).attr('id'),
 			modulaSettings = jQuery(this).data('config');
 
