@@ -108,9 +108,13 @@ class Modula_Shortcode {
 
 		/* Get gallery images */
 		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
-		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
+
+		$shuffle_permitted = apply_filters('modula_shuffle_grid_types',array('creative-gallery','grid'),$settings);
+
+		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && in_array($type,$shuffle_permitted) ) {
 			shuffle( $images );
 		}
+
 		$images = apply_filters( 'modula_gallery_images', $images, $settings );
 
 		if ( empty( $settings ) || empty( $images ) ) {
