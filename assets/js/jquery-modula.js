@@ -336,6 +336,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.createAutoGrid = function () {
 		var plugin = this;
+
 		this.$itemsCnt.justifiedGallery({
 			rowHeight: this.options.rowHeight,
 			margins: this.options.gutter,
@@ -348,6 +349,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	Plugin.prototype.createColumnsGrid = function(){
+
+		var instance = this;
+
 		this.$itemsCnt.isotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
@@ -357,9 +361,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 				// use element for option
 				gutter: parseInt(this.options.gutter)
 			}
-			
+
 		});
+
+		// Load Images
+		this.$items.each(function (index, el) {
+			instance.loadImage(index);
+		});
+
+
 		this.isIsotope = true;
+
 	}
 
 	Plugin.prototype.getSlot = function () {
@@ -762,11 +774,15 @@ jQuery(window).load(function () {
 });
 
 function modulaInViewport(element) {
+
 	if ( typeof jQuery === "function" && element instanceof jQuery ) {
 		element = element[0];
 	}
-	var elementBounds = element.getBoundingClientRect();
 
+	var elementBounds = element.getBoundingClientRect();
+	console.log(
+		(elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || elementBounds.bottom <= jQuery(window).height()
+	);
 	return (
 		(elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || elementBounds.bottom <= jQuery(window).height()
 	);

@@ -129,8 +129,9 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
+		$inview_permitted = apply_filters('modula_loading_inview_grids',array('custom-grid','creative-gallery','grid',$settings));
 
-        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && ('custom-grid' == $settings['type'] || 'creative-gallery' == $settings['type']) ) {
+        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
             wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
         }
 

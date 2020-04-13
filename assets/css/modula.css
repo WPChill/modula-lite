@@ -30,7 +30,7 @@
 }
 
 .modula .modula-items .modula-item.tg-loaded .modula-item-content,
-.modula.modula-columns .modula-items .modula-item .modula-item-content {
+.modula .modula-items.justified-gallery .modula-item .modula-item-content{
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;
 }
@@ -500,6 +500,10 @@ Fix for admin bar overfloating
 .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
 	/*width: 100%;*/
 	height: 100%;
+}
+
+.modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content {
+	width: 100%;
 }
 .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {
 	position: absolute;
