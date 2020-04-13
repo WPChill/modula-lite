@@ -780,9 +780,7 @@ function modulaInViewport(element) {
 	}
 
 	var elementBounds = element.getBoundingClientRect();
-	console.log(
-		(elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || elementBounds.bottom <= jQuery(window).height()
-	);
+
 	return (
 		(elementBounds.top - jQuery(window).height() <= (-100) && elementBounds.top - jQuery(window).height() >= (-400)) || elementBounds.bottom <= jQuery(window).height()
 	);
