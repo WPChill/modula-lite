@@ -1417,6 +1417,10 @@ Scaling Effect Preview
 	font-weight:bold;
 }
 
+.modula-settings-container .selectize-dropdown {
+	cursor:pointer;
+}
+
 /**
 Some responsive fixes
  */
