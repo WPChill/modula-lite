@@ -29,8 +29,8 @@
 	z-index: 10;
 }
 
-.modula .modula-items .modula-item.tg-loaded .modula-item-content,
-.modula .modula-items.justified-gallery .modula-item .modula-item-content{
+.modula:not(.modula-loaded-scale) .modula-items .modula-item.tg-loaded .modula-item-content,
+.modula:not(.modula-loaded-scale)  .modula-items.justified-gallery .modula-item .modula-item-content{
 	transform: scale(1) translate(0, 0) rotate(0deg) !important;
 	opacity: 1;
 }

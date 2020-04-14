@@ -141,6 +141,7 @@ class Modula_Shortcode {
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula-isotope','modula-isotope-packery','modula','modula-fancybox' ),$settings );
 		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula','modula-fancybox' ), $settings );
 
+
 		if ( ! empty( $necessary_scripts ) ) {
 			foreach ( $necessary_scripts as $script ) {
 				wp_enqueue_script( $script );
@@ -257,9 +258,10 @@ class Modula_Shortcode {
 		}
 
 		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
-			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all; }";
+			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all;opacity: 1; }";
 
 			$css .= "@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ")}100%{transform:scale(1)}}";
+
 		} else {
 			$css .= "#{$gallery_id} .modula-item .modula-item-content { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ") }";
 		}
