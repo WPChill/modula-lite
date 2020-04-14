@@ -121,7 +121,10 @@ Modula Filters
 
 .modula .filters.vertical-filters {
 	margin-top:0;
+	width:20%;
+	float:left;
 }
+
 
 .modula .filters a {
 	text-decoration: none;
@@ -166,6 +169,7 @@ body .modula:after {
 
 body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	width: 60%;
+	float:left;
 }
 
 .modula .filters.vertical-filters a {
