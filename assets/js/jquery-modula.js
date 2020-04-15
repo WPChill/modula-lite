@@ -8,6 +8,7 @@ function tg_getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 }
 
+
 // Compatibility with WPBakery Page Builder
 jQuery(document).on('vc-full-width-row-single vc-full-width-row', function (event, element) {
 	if ( jQuery('body').find('.modula').length > 0 ) {
@@ -337,6 +338,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.createAutoGrid = function () {
 		var plugin = this;
+
 		this.$itemsCnt.justifiedGallery({
 			rowHeight: this.options.rowHeight,
 			margins: this.options.gutter,
@@ -351,6 +353,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	Plugin.prototype.createColumnsGrid = function(){
+
+		var instance = this;
+
 		this.$itemsCnt.isotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
@@ -360,9 +365,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 				// use element for option
 				gutter: parseInt(this.options.gutter)
 			}
-			
+
 		});
+
+		// Load Images
+		this.$items.each(function (index, el) {
+			instance.loadImage(index);
+		});
+
+
 		this.isIsotope = true;
+
 	}
 
 	Plugin.prototype.getSlot = function () {
@@ -750,9 +763,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 jQuery(window).load(function () {
 
-	var modulaGalleries = jQuery('.modula-gallery');
+	var modulaGalleries = jQuery('.modula.modula-gallery');
 
 	jQuery.each(modulaGalleries, function () {
+
 		var modulaID = jQuery(this).attr('id'),
 			modulaSettings = jQuery(this).data('config');
 
@@ -764,9 +778,11 @@ jQuery(window).load(function () {
 });
 
 function modulaInViewport(element) {
+
 	if ( typeof jQuery === "function" && element instanceof jQuery ) {
 		element = element[0];
 	}
+
 	var elementBounds = element.getBoundingClientRect();
 
 	return (

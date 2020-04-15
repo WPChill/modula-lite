@@ -1,4 +1,5 @@
 <div class="<?php echo esc_attr(implode( ' ', $data->item_classes )) ?>"<?php echo Modula_Helper::generate_attributes( $data->item_attributes ) ?> >
+	<div class="modula-item-overlay"></div>
 
 	<div class="modula-item-content">
 
@@ -13,8 +14,6 @@
 		<img class='<?php echo esc_attr(implode( ' ', $data->img_classes )) ?>'<?php echo Modula_Helper::generate_attributes( $data->img_attributes ) ?>/>
 
 		<?php do_action( 'modula_item_after_image', $data ); ?>
-
-		<div class="modula-item-overlay"></div>
 
 		<div class="figc<?php echo '' == $data->title ? ' no-title' : '' ?><?php echo '' == $data->description ? ' no-description' : '' ?>">
 			<div class="figc-inner">

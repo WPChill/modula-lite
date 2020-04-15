@@ -108,9 +108,13 @@ class Modula_Shortcode {
 
 		/* Get gallery images */
 		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
-		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && 'creative-gallery' == $type ) {
+
+		$shuffle_permitted = apply_filters('modula_shuffle_grid_types',array('creative-gallery','grid'),$settings);
+
+		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && in_array($type,$shuffle_permitted) ) {
 			shuffle( $images );
 		}
+
 		$images = apply_filters( 'modula_gallery_images', $images, $settings );
 
 		if ( empty( $settings ) || empty( $images ) ) {
@@ -125,8 +129,9 @@ class Modula_Shortcode {
 			wp_enqueue_script( 'modula-lazysizes' );
 		}
 
+		$inview_permitted = apply_filters('modula_loading_inview_grids',array('custom-grid','creative-gallery','grid',$settings));
 
-        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && ('custom-grid' == $settings['type'] || 'creative-gallery' == $settings['type']) ) {
+        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
             wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
         }
 
@@ -135,6 +140,7 @@ class Modula_Shortcode {
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula-isotope','modula-isotope-packery','modula','modula-fancybox' ),$settings );
 		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula','modula-fancybox' ), $settings );
+
 
 		if ( ! empty( $necessary_scripts ) ) {
 			foreach ( $necessary_scripts as $script ) {
@@ -252,9 +258,10 @@ class Modula_Shortcode {
 		}
 
 		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
-			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all; }";
+			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all;opacity: 1; }";
 
 			$css .= "@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ")}100%{transform:scale(1)}}";
+
 		} else {
 			$css .= "#{$gallery_id} .modula-item .modula-item-content { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ") }";
 		}
@@ -309,6 +316,10 @@ class Modula_Shortcode {
 		$css .= "#{$gallery_id} .modula-items .figc p.description { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . ";font-size:" . absint( $settings['mobileCaptionFontSize'] ) . "px; }";
 
 		$css .= '}';
+
+		if('none' == $settings['effect']){
+			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
+		}
 
 
 		$css .= "</style>\n";

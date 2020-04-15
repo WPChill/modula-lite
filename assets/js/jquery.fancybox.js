@@ -511,7 +511,7 @@
   // Class definition
   // ================
 
-  var FancyBox = function (content, opts, index) {
+  var modulaFancyBox = function (content, opts, index) {
     var self = this;
 
     self.opts = mergeOpts({
@@ -552,7 +552,7 @@
     self.init();
   };
 
-  $.extend(FancyBox.prototype, {
+  $.extend(modulaFancyBox.prototype, {
     // Create DOM structure
     // ====================
 
@@ -609,7 +609,7 @@
         )
         .attr("id", "modula-fancybox-container-" + self.id)
         .addClass(firstItemOpts.baseClass)
-        .data("FancyBox", self)
+        .data("modulaFancyBox", self)
         .appendTo(firstItemOpts.parentEl);
 
       // Create object holding references to jQuery wrapped nodes
@@ -2719,7 +2719,7 @@
 
       // Deactivate all instances
       $(".modula-fancybox-container").each(function () {
-        var instance = $(this).data("FancyBox");
+        var instance = $(this).data("modulaFancyBox");
 
         // Skip self and closing instances
         if (instance && instance.id !== self.id && !instance.isClosing) {
@@ -3081,10 +3081,10 @@
     // ======================================================
 
     getInstance: function (command) {
-      var instance = $('.modula-fancybox-container:not(".modula-fancybox-is-closing"):last').data("FancyBox"),
+      var instance = $('.modula-fancybox-container:not(".modula-fancybox-is-closing"):last').data("modulaFancyBox"),
         args = Array.prototype.slice.call(arguments, 1);
 
-      if (instance instanceof FancyBox) {
+      if (instance instanceof modulaFancyBox) {
         if ($.type(command) === "string") {
           instance[command].apply(instance, args);
         } else if ($.type(command) === "function") {
@@ -3101,7 +3101,7 @@
     // ===================
 
     open: function (items, opts, index) {
-      return new FancyBox(items, opts, index);
+      return new modulaFancyBox(items, opts, index);
     },
 
     // Close current or all instances
@@ -5065,11 +5065,11 @@
     $.modulaFancybox.defaults
   );
 
-  var FancyThumbs = function (instance) {
+  var modulaFancyThumbs = function (instance) {
     this.init(instance);
   };
 
-  $.extend(FancyThumbs.prototype, {
+  $.extend(modulaFancyThumbs.prototype, {
     $button: null,
     $grid: null,
     $list: null,
@@ -5077,6 +5077,7 @@
     isActive: false,
 
     init: function (instance) {
+
       var self = this,
         group = instance.group,
         enabled = 0;
@@ -5087,7 +5088,6 @@
       instance.Thumbs = self;
 
       self.$button = instance.$refs.toolbar.find("[data-fancybox-thumbs]");
-
       // Enable thumbs if at least two group items have thumbnails
       for (var i = 0, len = group.length; i < len; i++) {
         if (group[i].thumb) {
@@ -5098,6 +5098,7 @@
           break;
         }
       }
+
 
       if (enabled > 1 && !!self.opts) {
         self.$button.removeAttr("style").on("click", function () {
@@ -5250,7 +5251,7 @@
       var Thumbs;
 
       if (instance && !instance.Thumbs) {
-        Thumbs = new FancyThumbs(instance);
+        Thumbs = new modulaFancyThumbs(instance);
 
         if (Thumbs.isActive && Thumbs.opts.autoStart === true) {
           Thumbs.show();
@@ -5571,7 +5572,7 @@
         .get()
         .reverse(),
         function (index, value) {
-          var tmp = $(value).data("FancyBox");
+          var tmp = $(value).data("modulaFancyBox");
 
           if (tmp && tmp.currentHash) {
             fb = tmp;
