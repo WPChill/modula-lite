@@ -317,6 +317,10 @@ class Modula_Shortcode {
 
 		$css .= '}';
 
+		if('none' == $settings['effect']){
+			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
+		}
+
 
 		$css .= "</style>\n";
 
