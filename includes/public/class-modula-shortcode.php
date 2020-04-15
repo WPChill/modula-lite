@@ -21,8 +21,8 @@ class Modula_Shortcode {
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_enable_lazy_load', 30, 3 );
+		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
-		add_filter( 'modula_gallery_template_data', 'modula_column_grid', 10 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 
 	}

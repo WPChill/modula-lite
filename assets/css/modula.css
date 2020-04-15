@@ -25,6 +25,11 @@
 	z-index: 10;
 	background: transparent;
 }
+
+.modula.modula-creative-gallery .modula-items .modula-item .modula-item-content {
+	height: 100%;
+}
+
 .modula .modula-items .modula-item .jtg-social {
 	z-index: 10;
 }

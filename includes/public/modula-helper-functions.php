@@ -117,18 +117,6 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 
 }
 
-function modula_column_grid( $template_data ) {
-
-    if ( 'grid' != $template_data['settings']['type'] ) {
-		return $template_data;
-	}
-
-	$template_data['gallery_container']['class'][] = 'modula-columns';
-
-	return $template_data;
-
-}
-
 function modula_enable_lazy_load( $item_data, $item, $settings ){
 
 	if ( '1' != $settings['lazy_load'] ) {
@@ -177,3 +165,19 @@ function modula_show_schemaorg( $settings ){
 	<?php
 
 }
+
+function modula_add_gallery_class( $template_data ){
+
+	if ( 'custom-grid' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-custom-grid';
+	}else if ( 'grid' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-columns';
+	}
+	else if ( 'creative-gallery' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
+	}
+	
+	return $template_data;
+
+}
+
