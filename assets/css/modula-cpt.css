@@ -188,8 +188,7 @@ tr label.th-label {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.16);
     width: 40px;
     height: 22px;
-	min-width:auto;
-    cursor: default;
+    min-width:auto;
 }
 .modula-settings-container .slider-container .ui-slider {
     position: relative;

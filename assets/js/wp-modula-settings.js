@@ -126,6 +126,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                             input.val( ui.value ).trigger( 'change' );
                         }
                     });
+
+
+                    input.keyup(function() {
+                        jQuery( $slider ).slider("value" , input.val())
+                    });
+
                 });
     		}
 
