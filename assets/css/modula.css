@@ -15,7 +15,7 @@
 	min-height: 10px;
 }
 
-.modula .modula-items .modula-item > a {
+.modula .modula-items .modula-item .modula-item-content > a {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -495,11 +495,17 @@ Fix for admin bar overfloating
 	width: 100%;
 	height: 100%;
 	display: none;
+	z-index: 9;
 }
 .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
 	/*width: 100%;*/
 	height: 100%;
 }
+.modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content {
+	width: 100%;
+}
+
+
 .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {
 	position: absolute;
 	top: 50%;

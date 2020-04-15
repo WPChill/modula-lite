@@ -145,7 +145,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 				var link  = jQuery(o).find('.modula-item-link'),
 					image = jQuery(o).find('.pic');
 				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ) } } }),
-				index = self.$items.index( jQuery(this).parent() );
+				index = self.$items.index( jQuery(this).parents( '.modula-item' ) );
+
+				console.log( index );
 
 			jQuery.modulaFancybox.open( links, self.options.lightboxOpts, index );
 
@@ -341,7 +343,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			lastRow: this.options.lastRow,
 			captions: false,
 			border: 0,
-			imgSelector: '.pic'
+			imgSelector: '.pic',
+			cssAnimation: false,
+			imagesAnimationDuration: 700,
 		});
 
 	}
