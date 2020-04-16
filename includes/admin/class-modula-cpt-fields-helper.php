@@ -104,7 +104,7 @@ class Modula_CPT_Fields_Helper {
 				'priority'    => 90,
 			),
             'misc' => array(
-                'label'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
+                'label'       => esc_html__('Misc', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
                 "icon"        => "dashicons dashicons-image-filter",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
