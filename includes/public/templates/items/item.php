@@ -20,7 +20,7 @@
 				<?php if ( ! $data->hide_title ): ?>
 					<h2 class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></h2>
 				<?php endif ?>
-				<?php if ( ! $data->hide_description ): ?>
+				<?php if ( ! $data->hide_description && '' != $data->description): ?>
 					<p class="description"><?php echo wp_kses_post( $data->description ); ?></p>
 				<?php endif ?>
 				<?php if ( ! $data->hide_socials ): ?>
