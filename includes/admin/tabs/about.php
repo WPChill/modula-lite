@@ -1,18 +1,17 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Fixed incompatibility with isotope.js', 'modula-best-grid-gallery' ),
-        esc_html__( 'Renamed our registered files name', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed title/caption font size to reflect theme default', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed scroll to top when opening lightbox', 'modula-best-grid-gallery' ),
-        esc_html__( 'If Title/Caption is hidden then hide settings also', 'modula-best-grid-gallery' ),
-        esc_html__( 'Hide settings if toggle is OFF for custom responsiveness ', 'modula-best-grid-gallery' ),
+        esc_html__( 'Update conditional fields', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fix hover effects', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fix for elementor opening another lightbox', 'modula-best-grid-gallery' ),
+        esc_html__( 'Overflowing admin bar fix', 'modula-best-grid-gallery' ),
     ),
     'feature' => array(
-        esc_html__( 'Added Migrate functionality. Now it\'s easier to migrate from another gallery to Modula', 'modula-best-grid-gallery' ),
-        esc_html__( 'Improved social media icons in preview', 'modula-best-grid-gallery' ),
-        esc_html__( 'Delete resized images when deleting attachment', 'modula-best-grid-gallery' ),
-        esc_html__( 'Added Import/Export sub-menu entry and tutorial', 'modula-best-grid-gallery' ),
+        esc_html__( 'Replaced packery & masonry scripts with isotope script', 'modula-best-grid-gallery' ),
+        esc_html__( 'Changed lightbox to FancyBox from Lightbox2', 'modula-best-grid-gallery' ),
+        esc_html__( 'Modula admin UI improvement and update', 'modula-best-grid-gallery' ),
+        esc_html__( 'Added inview load functionality', 'modula-best-grid-gallery' ),
+        esc_html__( 'Added new gallery type - columns', 'modula-best-grid-gallery' ),
     )
 );
 ?>

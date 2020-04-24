@@ -10,6 +10,18 @@ Improved social media icons in preview
 Delete resized images when deleting attachment
 Added Import/Export sub-menu entry and tutorial
 
+= 2.3.0 - 18/02/2020 =
+Replaced packery & masonry scripts with isotope script
+Changed lightbox to FancyBox from Lightbox2
+Modula admin UI improvement and updates
+Update conditional fields
+Fix hover effects
+Added inview load functionality
+Added new gallery type - columns
+Fix for elementor opening another lightbox
+Overflowing admin bar fix
+
+
 = 2.2.6 - 18/02/2020 =
 Improved Custom CSS textarea
 Improved how the lightbox closes
