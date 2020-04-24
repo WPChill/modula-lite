@@ -468,7 +468,7 @@ class Modula_Field_Builder {
 				$html .= '<p class="description">' . esc_html__( 'Select an hover effect', 'modula-best-grid-gallery' ) . '</p>';
 
 				// Creates effects preview
-				$html .= '<div class="modula-effects-preview modula">';
+				$html .= '<div class="modula-effects-preview modula modula-gallery">';
 
 				foreach ( $hovers as $key => $name ) {
 					$effect = '';
