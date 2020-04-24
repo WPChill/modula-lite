@@ -185,3 +185,26 @@ function modula_add_gallery_class( $template_data ){
 
 }
 
+function modula_add_scripts( $scripts, $settings ){
+
+	$needed_scripts = array();
+
+	if ( '1' == $settings['lazy_load'] ) {
+		$needed_scripts[] = 'modula-lazysizes';
+	}
+
+	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
+		$needed_scripts[] = 'modula-grid-justified-gallery';
+	}else{
+		$needed_scripts[] = 'modula-isotope';
+		$needed_scripts[] = 'modula-isotope-packery';
+	}
+
+	if ( 'fancybox' == $settings['lightbox'] ) {
+		$needed_scripts[] = 'modula-fancybox';
+	}
+
+
+	return array_merge( $needed_scripts, $scripts );
+}
+

@@ -98,7 +98,7 @@ class Modula_Update {
 
         $screen = get_current_screen();
         if ('modula-gallery_page_modula-about-page' == $screen->base) {
-            wp_enqueue_style('modula-about-style', MODULA_URL . 'assets/css/about.min.css', null, MODULA_LITE_VERSION);
+            wp_enqueue_style('modula-about-style', MODULA_URL . 'assets/css/admin/about.min.css', null, MODULA_LITE_VERSION);
         }
     }
 

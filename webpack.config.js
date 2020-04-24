@@ -33,7 +33,7 @@ const config = {
 	plugins: [
 		new CssEntryPlugin({
 			output: {
-			  filename: "/css/modula-gutenberg.css"
+			  filename: "/css/admin/modula-gutenberg.css"
 			}
 		}),
 		//new ExtractTextPlugin('/css/[name].css'),

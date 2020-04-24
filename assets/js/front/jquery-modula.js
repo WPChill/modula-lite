@@ -148,8 +148,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ) } } }),
 				index = self.$items.index( jQuery(this).parents( '.modula-item' ) );
 
-				console.log( index );
-
 			jQuery.modulaFancybox.open( links, self.options.lightboxOpts, index );
 
 		});
@@ -177,13 +175,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 			plugin = this,
 			columns = this.options.columns,
 			viewport = document.documentElement.clientWidth;
-
-		// Load Images
-		if ( '1' != instance.options.lazyLoad ) {
-			this.$items.each(function( index, el ){
-				instance.loadImage(index);
-			});
-		}
 
 		if ( '1' == this.options.enableResponsive ) {
 
@@ -251,6 +242,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 				height: $(item).data('size').height
 			});
 
+			// Load Images
+			if ( '1' != instance.options.lazyLoad ) {
+				instance.loadImage(i);
+			}
+
 		});
 
 		var packery_args = {
@@ -260,10 +256,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 				gutter: parseInt(plugin.options.gutter)
 			}
 		};
-
-		if ( 'undefined' != typeof plugin.options.sortData ) { 
-			packery_args['sortData'] = plugin.options.sortData
-		}
 
 		this.$itemsCnt.isotope(packery_args);
 		this.isIsotope = true;
@@ -538,6 +530,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var tRatio = tSize.width / tSize.height;
 		var iRatio = iSize.width / iSize.height;
+
+
 
 		var valign = $image.data('valign') ? $image.data('valign') : 'middle';
 		var halign = $image.data('halign') ? $image.data('halign') : 'center';

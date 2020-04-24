@@ -86,8 +86,8 @@ class Modula_Importer {
             $nonce         = wp_create_nonce('modula-importer');
             $empty_gallery = esc_html__('Please choose at least one gallery to migrate.', 'modula-best-grid-gallery');
 
-            wp_enqueue_style('modula-importer', MODULA_URL . 'assets/css/modula-importer.css', array(), MODULA_LITE_VERSION);
-            wp_enqueue_script('modula-importer', MODULA_URL . 'assets/js/modula-importer.js', array('jquery'), MODULA_LITE_VERSION, true);
+            wp_enqueue_style('modula-importer', MODULA_URL . 'assets/css/admin/modula-importer.css', array(), MODULA_LITE_VERSION);
+            wp_enqueue_script('modula-importer', MODULA_URL . 'assets/js/admin/modula-importer.js', array('jquery'), MODULA_LITE_VERSION, true);
             wp_localize_script(
                 'modula-importer',
                 'modula_importer',

@@ -26,13 +26,6 @@ class Modula_Grid {
 	 */
 	public function __construct() {
 
-		// register grid scripts and styles
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_grid_scripts' ), 90 );
-
-		// Filter scripts and styles
-		add_filter( 'modula_necessary_scripts', array( $this, 'modula_grid_scripts' ), 15, 2 );
-		add_filter( 'modula_necessary_styles', array( $this, 'modula_grid_styles' ), 15, 2 );
-
 		// Add image sizes
 		add_filter( 'modula_resize_image_grid', array( $this, 'modula_grid_image_sizes' ), 15, 4 );
 
@@ -51,75 +44,6 @@ class Modula_Grid {
 		add_filter('modula_gallery_template_data',array($this,'template_data_config'),15,1);
 
 	}
-
-	/**
-	 * Register grid scripts and styles
-	 *
-	 * @since 2.3.0
-	 */
-	public function register_grid_scripts() {
-
-		// Register grid script
-		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/jquery.justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-
-		// wp_register_script( 'modula-grid-isotope-js', MODULA_URL . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		// wp_register_style( 'modula-grid-css', MODULA_URL . 'assets/css/front-grid.css' );
-
-		wp_register_style( 'modula-grid-justified-gallery-css', MODULA_URL . 'assets/css/justifiedGallery.min.css' );
-
-	}
-
-
-	/**
-	 * Enqueue grid scripts
-	 *
-	 * @param $scripts
-	 * @param $settings
-	 *
-	 * @return array
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_grid_scripts( $scripts, $settings ) {
-
-		if ( 'grid' == $settings['type'] ) {
-
-			if ( 'automatic' != $settings['grid_type'] ) {
-
-				// $scripts[] = 'modula-grid-isotope-js';
-			} else {
-
-				$scripts[] = 'modula-grid-justified-gallery';
-			}
-		}
-		return $scripts;
-	}
-
-	/**
-	 * Enqueue grid styles
-	 *
-	 * @param $styles
-	 * @param $settings
-	 *
-	 * @return array
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_grid_styles( $styles, $settings ) {
-
-		if ( 'grid' == $settings['type'] ) {
-
-			// $styles[] = 'modula-grid-css';
-
-			if ( 'automatic' == $settings['grid_type'] ) {
-
-				// $styles[] = 'modula-grid-justified-gallery-css';
-			}
-		}
-
-		return $styles;
-	}
-
 
 	/**
 	 * Add image sizes for grid type

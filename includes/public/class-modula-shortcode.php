@@ -25,22 +25,26 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 
+		// Add js scripts
+		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
+
 	}
 
 	public function add_gallery_scripts() {
 
-		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/jquery.fancybox.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modula', MODULA_URL . 'assets/css/modula.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/front/fancybox.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/front/modula.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modulalite', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		// wp_register_script( 'modula-packery', MODULA_URL . 'assets/js/packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/jquery.fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/front/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 
@@ -57,6 +61,8 @@ class Modula_Shortcode {
 		if ( ! $atts['id'] ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
+
+		$script_manager = Modula_Script_Manager::get_instance();
 
 		/* Generate uniq id for this gallery */
 		$gallery_id = 'jtg-' . $atts['id'];
@@ -121,14 +127,6 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-		// if ( 'custom-grid' == $type ) {
-		// 	wp_enqueue_script( 'modula-packery' );
-		// }
-
-		if ( '1' == $settings['lazy_load'] ) {
-			wp_enqueue_script( 'modula-lazysizes' );
-		}
-
 		$inview_permitted = apply_filters('modula_loading_inview_grids',array('custom-grid','creative-gallery','grid',$settings));
 
         if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
@@ -138,21 +136,22 @@ class Modula_Shortcode {
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
-		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula-isotope','modula-isotope-packery','modula','modula-fancybox' ),$settings );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula','modula-fancybox' ), $settings );
+		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modulalite' ), $settings );
 
 
 		if ( ! empty( $necessary_scripts ) ) {
-			foreach ( $necessary_scripts as $script ) {
-				wp_enqueue_script( $script );
-			}
+			$script_manager->add_scripts( $necessary_scripts );
 		}
 
 		if ( ! empty( $necessary_styles ) ) {
-			foreach ( $necessary_styles as $style ) {
-				wp_enqueue_style( $style );
-			}
+			foreach ( $necessary_styles as $style_slug ) {
+                if ( ! wp_style_is($style_slug, 'enqueued') ) {
+                    wp_enqueue_style($style_slug);
+                }
+            }
 		}
+
 
 		$settings['gallery_id'] = $gallery_id;
 		$settings['align']      = $atts['align'];

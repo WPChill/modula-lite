@@ -23,7 +23,10 @@ $troubleshooting_fields = array(
         'label'       => esc_html__('Grid Types', 'modula-best-grid-gallery'),
         'description' => esc_html__('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
         'type'        => 'select',
-        'values'      => array('custom-grid' => __('Custom Grid', 'modula-best-grid-gallery')),
+        'values'      => array(
+            'isotope-grid'   => __( 'General Grid ( Creative / Custom / Columns )', 'modula-best-grid-gallery' ),
+            'justified-grid' => __( 'Justified Grid', 'modula-best-grid-gallery' )
+        ),
         'priority'    => 20,
 
     ),
@@ -31,7 +34,9 @@ $troubleshooting_fields = array(
         'label'       => esc_html__('Lightbox & links', 'modula-best-grid-gallery'),
         'description' => esc_html__('Enqueue Fancybox lightbox scripts and styles everywhere.', 'modula-best-grid-gallery'),
         'type'        => 'select',
-        'values'      => array('fancybox' => esc_html__('Enqueue Fancybox', 'modula-best-grid-gallery')),
+        'values'      => array(
+            'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' )
+        ),
         'priority'    => 30,
     ),
     'lazy_load'     => array(

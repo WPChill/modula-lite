@@ -544,7 +544,7 @@ tr label.th-label {
 .segrip.ui-resizable-se {
 	width: 30px;
 	height: 30px;
-	background: url('../images/resize-se.svg') no-repeat;
+	background: url('../../images/resize-se.svg') no-repeat;
   background-size: contain;
 	display: none;
   z-index: 100;
