@@ -319,7 +319,7 @@ class Modula_Field_Builder {
                         }
                     }
 
-					if ( is_array( $option ) ) {
+					if ( is_array( $option )  && ! empty( $option ) ) {
 						$html .= '<optgroup label="' . esc_attr( $key ) . '">';
 						foreach ( $option as $key_subvalue => $subvalue ) {
                             $html .= '<option value="' . esc_attr( $key_subvalue ) . '" ' .  selected( $key_subvalue, $value, false )  . '>' . esc_html( $subvalue ) . '</option>';
