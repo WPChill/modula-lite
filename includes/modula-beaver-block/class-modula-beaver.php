@@ -32,7 +32,7 @@ class Modula_Beaver {
         // only enqueue for Beaver page builder live editing
         if (class_exists('FLBuilderModel') && FLBuilderModel::is_builder_active()) {
 
-            wp_register_script('modula-beaver-preview', MODULA_URL . 'assets/js/modula-beaver-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
+            wp_register_script('modula-beaver-preview', MODULA_URL . 'assets/js/admin/modula-beaver-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
             wp_enqueue_script('modula-beaver-preview');
             
         }
