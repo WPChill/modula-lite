@@ -259,7 +259,7 @@ class Modula {
      * Add plugin editor script
      */
     public function register_editor_plugin($plugin_array) {
-        $plugin_array['modula_shortcode_editor'] = MODULA_URL . 'assets/js/editor-plugin.js';
+        $plugin_array['modula_shortcode_editor'] = MODULA_URL . 'assets/js/admin/editor-plugin.js';
         return $plugin_array;
     }
 
@@ -267,7 +267,7 @@ class Modula {
      * Display galleries selection
      */
     public function modula_shortcode_editor() {
-        $css_path  = MODULA_URL . 'assets/css/edit.css';
+        $css_path  = MODULA_URL . 'assets/css/admin/edit.css';
         $admin_url = admin_url();
         $galleries = Modula_Helper::get_galleries();
         include 'admin/tinymce-galleries.php';

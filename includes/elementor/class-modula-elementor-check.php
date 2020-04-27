@@ -57,8 +57,11 @@ final class Modula_Elementor_Check {
 			add_action('admin_notices', array($this, 'admin_notice_minimum_php_version'));
 			return;
 		}
+
+		add_action('elementor/widgets/widgets_registered', array( $this, 'remove_modula_widget' ), 15);
+
 		// Once we get here, We have passed all validation checks so we can safely include our elementor block activation
-		require_once(MODULA_PATH.'includes/elementor/class-modula-elementor-widget-activation.php');
+		require_once( MODULA_PATH.'includes/elementor/class-modula-elementor-widget-activation.php' );
 	}
 
 
@@ -106,6 +109,11 @@ final class Modula_Elementor_Check {
 		);
 
 		printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+	}
+
+	/* Remove WordPress widget because we have a dedicated Elementor Widget */
+	public function remove_modula_widget( $widget_manager ){
+		$widget_manager->unregister_widget_type( 'wp-widget-modula_gallery_widget' );
 	}
 }
 

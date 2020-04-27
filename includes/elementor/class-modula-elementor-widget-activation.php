@@ -52,13 +52,13 @@ class Modula_Elementor_Widget_Activation {
 	}
 
     public function modula_elementor_enqueue_editor_scripts() {
-        wp_enqueue_script( 'modula-elementor-editor', MODULA_URL . 'assets/js/modula-elementor-editor.js', null, MODULA_LITE_VERSION, true );
+        wp_enqueue_script( 'modula-elementor-editor', MODULA_URL . 'assets/js/admin/modula-elementor-editor.js', null, MODULA_LITE_VERSION, true );
         wp_localize_script('modula-elementor-editor','modula_elementor_ajax',array(
             'ajax_url' => admin_url( 'admin-ajax.php' )
         ));
 
-        wp_enqueue_script( 'modula-selectize', MODULA_URL . 'assets/js/selectize.js', null, MODULA_LITE_VERSION, true );
-        wp_enqueue_style( 'modula-selectize', MODULA_URL . 'assets/css/selectize.default.css' );
+        wp_enqueue_script( 'modula-selectize', MODULA_URL . 'assets/js/admin/selectize.js', null, MODULA_LITE_VERSION, true );
+        wp_enqueue_style( 'modula-selectize', MODULA_URL . 'assets/css/admin/selectize.default.css' );
     }
 
 	/**
@@ -68,13 +68,15 @@ class Modula_Elementor_Widget_Activation {
 
 		do_action( 'modula_elementor_before_enqueue_scripts' );
 
-		wp_enqueue_script( 'modula-packery' );
+		wp_enqueue_script( 'modula-isotope' );
+		wp_enqueue_script( 'modula-isotope-packery' );
+		wp_enqueue_script( 'modula-grid-justified-gallery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
 
 		do_action( 'modula_elementor_before_enqueue_elementor-preview' );
 
-		wp_enqueue_script( 'modula-elementor-preview', MODULA_URL . 'assets/js/modula-elementor-preview.js', null, MODULA_LITE_VERSION, true );
+		wp_enqueue_script( 'modula-elementor-preview', MODULA_URL . 'assets/js/admin/modula-elementor-preview.js', null, MODULA_LITE_VERSION, true );
 
 		do_action( 'modula_elementor_after_enqueue_scripts' );
 	}

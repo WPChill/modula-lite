@@ -147,7 +147,7 @@ class Modula_Upgrades {
 
 	public function admin_scripts( $hook ) {
 		if ( 'admin_page_modula-upgrade-v2' == $hook ) {
-			wp_enqueue_script( 'modula-upgrade', MODULA_URL . 'assets/js/modula-upgrade.js', array( 'jquery' ), '2.0.0', true );
+			wp_enqueue_script( 'modula-upgrade', MODULA_URL . 'assets/js/admin/modula-upgrade.js', array( 'jquery' ), '2.0.0', true );
 			$args = array(
 				'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
 				'get_galleries_nonce'     => wp_create_nonce( 'modula-get-galleries-nonce' ),
