@@ -1,4 +1,20 @@
-= 2.2.6 - 06/03/2020 =
+= 2.3.0 - 18/02/2020 =
+Replaced packery & masonry scripts with isotope script
+Changed lightbox to FancyBox from Lightbox2
+Modula admin UI improvements and updates
+Update conditional fields
+Fix hover effects
+Added inview load functionality
+Added new gallery type - columns
+Fix for elementor opening another lightbox
+Overflowing admin bar fix
+Modula image files upload/select improvement
+Fix classic editor popup for no galleries
+Fix selecting a gallery in Elementor widget
+Added ALT text for the image inside the lightbox
+
+
+= 2.2.7 - 06/03/2020 =
 Fixed incompatibility with isotope.js
 Renamed our registered files name
 Fixed title/caption font size to reflect theme default
@@ -9,18 +25,6 @@ Added Migrate functionality. Now it's easier to migrate from another gallery to 
 Improved social media icons in preview
 Delete resized images when deleting attachment
 Added Import/Export sub-menu entry and tutorial
-
-= 2.3.0 - 18/02/2020 =
-Replaced packery & masonry scripts with isotope script
-Changed lightbox to FancyBox from Lightbox2
-Modula admin UI improvement and updates
-Update conditional fields
-Fix hover effects
-Added inview load functionality
-Added new gallery type - columns
-Fix for elementor opening another lightbox
-Overflowing admin bar fix
-
 
 = 2.2.6 - 18/02/2020 =
 Improved Custom CSS textarea

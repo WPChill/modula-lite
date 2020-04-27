@@ -5,6 +5,9 @@ $issues = array(
         esc_html__( 'Fix hover effects', 'modula-best-grid-gallery' ),
         esc_html__( 'Fix for elementor opening another lightbox', 'modula-best-grid-gallery' ),
         esc_html__( 'Overflowing admin bar fix', 'modula-best-grid-gallery' ),
+        esc_html__('Modula image files upload/select improvement','modula-best-grid-gallery'),
+        esc_html__('Fix classic editor popup for no galleries','modula-best-grid-gallery'),
+        esc_html__('Fix selecting a gallery in Elementor widget','modula-best-grid-gallery')
     ),
     'feature' => array(
         esc_html__( 'Replaced packery & masonry scripts with isotope script', 'modula-best-grid-gallery' ),
@@ -12,6 +15,7 @@ $issues = array(
         esc_html__( 'Modula admin UI improvement and update', 'modula-best-grid-gallery' ),
         esc_html__( 'Added inview load functionality', 'modula-best-grid-gallery' ),
         esc_html__( 'Added new gallery type - columns', 'modula-best-grid-gallery' ),
+        esc_html__( 'Added ALT text for the image inside the lightbox', 'modula-best-grid-gallery' ),
     )
 );
 ?>
