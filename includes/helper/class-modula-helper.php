@@ -155,8 +155,13 @@ class Modula_Helper {
 
 	public static function sanitize_rgba_colour( $color ) {
 
-		if ( empty( $color ) || is_array( $color ) )
+		if ( empty( $color ) ) {
+			return '';
+		}
+
+		if ( is_array( $color ) ){
 			return 'rgba(0,0,0,0)';
+		}
 
 		if ( false === strpos( $color, 'rgba' ) ) {
 
