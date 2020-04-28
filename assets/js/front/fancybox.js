@@ -184,7 +184,6 @@
       '<div class="modula-fancybox-inner">' +
       '<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>' +
       '<div class="modula-fancybox-toolbar">{{buttons}}</div>' +
-      '<div class="modula-fancybox-share_platform">{{modulaShare}}</div>' +
       '<div class="modula-fancybox-navigation">{{arrows}}</div>' +
       '<div class="modula-fancybox-stage"></div>' +
       '<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>' +
@@ -235,24 +234,24 @@
 	],
 
 	  shareBtnTpl: {
-		  facebook: '<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{url}}">' +
+		  facebook: '<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{modulaShareUrl}}">' +
 			  '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m287 456v-299c0-21 6-35 35-35h38v-63c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254h-205v72h196" /></svg>' +
 			  '<span>Facebook</span></a>',
 
-		  twitter: '<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={{url}}&text={{descr}}">' +
+		  twitter: '<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={{modulaShareUrl}}&text={{descr}}">' +
 			  '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>' +
 			  '<span>Twitter</span></a>',
 
-		  pinterest: '<a class="modula-fancybox-share__button modula-fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={{url}}&description={{descr}}&media={{media}}">' +
+		  pinterest: '<a class="modula-fancybox-share__button modula-fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={{modulaShareUrl}}&description={{descr}}&media={{media}}">' +
 			  '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m265 56c-109 0-164 78-164 144 0 39 15 74 47 87 5 2 10 0 12-5l4-19c2-6 1-8-3-13-9-11-15-25-15-45 0-58 43-110 113-110 62 0 96 38 96 88 0 67-30 122-73 122-24 0-42-19-36-44 6-29 20-60 20-81 0-19-10-35-31-35-25 0-44 26-44 60 0 21 7 36 7 36l-30 125c-8 37-1 83 0 87 0 3 4 4 5 2 2-3 32-39 42-75l16-64c8 16 31 29 56 29 74 0 124-67 124-157 0-69-58-132-146-132z" fill="#fff"/></svg>' +
 			  '<span>Pinterest</span></a>',
 
 		  // Arrows
-		  whatsapp: '<a class="modula-fancybox-share__button modula-fancybox-share__button--wa" href="https://api.whatsapp.com/send?text={{url}}&review_url=true">' +
+		  whatsapp: '<a class="modula-fancybox-share__button modula-fancybox-share__button--wa" href="https://api.whatsapp.com/send?text={{modulaShareUrl}}&review_url=true">' +
 			  '<svg aria-hidden="true" focusable="false" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1536 1600"><path d="M985 878q13 0 97.5 44t89.5 53q2 5 2 15q0 33-17 76q-16 39-71 65.5T984 1158q-57 0-190-62q-98-45-170-118T476 793q-72-107-71-194v-8q3-91 74-158q24-22 52-22q6 0 18 1.5t19 1.5q19 0 26.5 6.5T610 448q8 20 33 88t25 75q0 21-34.5 57.5T599 715q0 7 5 15q34 73 102 137q56 53 151 101q12 7 22 7q15 0 54-48.5t52-48.5zm-203 530q127 0 243.5-50t200.5-134t134-200.5t50-243.5t-50-243.5T1226 336t-200.5-134T782 152t-243.5 50T338 336T204 536.5T154 780q0 203 120 368l-79 233l242-77q158 104 345 104zm0-1382q153 0 292.5 60T1315 247t161 240.5t60 292.5t-60 292.5t-161 240.5t-240.5 161t-292.5 60q-195 0-365-94L0 1574l136-405Q28 991 28 780q0-153 60-292.5T249 247T489.5 86T782 26z" fill="currentColor"/></svg>' +
 			  '<span>WhatsApp</span></a>',
 
-		  linkedin: '<a class="modula-fancybox-share__button modula-fancybox-share__button--li" href="//linkedin.com/shareArticle?mini=true&url={{url}}">' +
+		  linkedin: '<a class="modula-fancybox-share__button modula-fancybox-share__button--li" href="//linkedin.com/shareArticle?mini=true&url={{modulaShareUrl}}">' +
 			  '<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>' +
 			  '<span>LinkedIn</span></a>',
 
@@ -595,8 +594,7 @@
         firstItem = self.group[self.currIndex],
         firstItemOpts = firstItem.opts,
         $container,
-        buttonStr,
-	    modulaShareButtons;
+        buttonStr;
 
       if (firstItemOpts.closeExisting) {
         $.modulaFancybox.close(true);
@@ -627,31 +625,29 @@
 
       // Build html code for buttons and insert into main template
       buttonStr = "";
-	  modulaShareButtons = "";
 
       $.each(firstItemOpts.buttons, function (index, value) {
         buttonStr += firstItemOpts.btnTpl[value] || "";
       });
 
-	    $.each(firstItemOpts.modulaShare, function (index, value) {
-		    modulaShareButtons += firstItemOpts.shareBtnTpl[value] || "";
-	    });
+
 
       // Create markup from base template, it will be initially hidden to
       // avoid unnecessary work like painting while initializing is not complete
-      $container = $(
-          self.translate(
-            self,
-            firstItemOpts.baseTpl
-            .replace("{{buttons}}", buttonStr)
-            .replace("{{arrows}}", firstItemOpts.btnTpl.arrowLeft + firstItemOpts.btnTpl.arrowRight)
-	        .replace("{{modulaShare}}", modulaShareButtons)
-          )
-        )
-        .attr("id", "modula-fancybox-container-" + self.id)
-        .addClass(firstItemOpts.baseClass)
-        .data("modulaFancyBox", self)
-        .appendTo(firstItemOpts.parentEl);
+	    $container = $(
+		    self.translate(
+			    self,
+			    firstItemOpts.baseTpl
+				    .replace("{{buttons}}", buttonStr)
+				    .replace("{{arrows}}", firstItemOpts.btnTpl.arrowLeft + firstItemOpts.btnTpl.arrowRight)
+		    )
+	    )
+		    .attr("id", "modula-fancybox-container-" + self.id)
+		    .addClass(firstItemOpts.baseClass)
+		    .data("modulaFancyBox", self)
+		    .appendTo(firstItemOpts.parentEl);
+
+
 
       // Create object holding references to jQuery wrapped nodes
       self.$refs = {
@@ -3138,6 +3134,7 @@
       return false;
     },
 
+
     // Create new instance
     // ===================
 
@@ -5349,7 +5346,7 @@
           (!instance.currentHash && !(item.type === "inline" || item.type === "html") ? item.origSrc || item.src : false) || window.location
         );
       },
-      tpl: '<div class="modula-fancybox-share">' +
+     /* tpl: '<div class="modula-fancybox-share">' +
         "<h1>{{SHARE}}</h1>" +
         "<p>" +
         '<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{url}}">' +
@@ -5366,7 +5363,7 @@
         "</a>" +
         "</p>" +
         '<p><input class="modula-fancybox-share__input" type="text" value="{{url_raw}}" onclick="select()" /></p>' +
-        "</div>"
+        "</div>"*/
     }
   });
 
@@ -5391,7 +5388,7 @@
     var instance = $.modulaFancybox.getInstance(),
       current = instance.current || null,
       url,
-      tpl;
+      tpl = "<div class='modula-fancybox-share'><h1>{{SHARE}}</h1><p>";
 
     if (!current) {
       return;
@@ -5401,11 +5398,23 @@
       url = current.opts.share.url.apply(current, [instance, current]);
     }
 
+	  $.each(current.opts.modulaShare, function (index, value) {
+		  tpl += current.opts.shareBtnTpl[value]
+			  .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
+			  .replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
+			  .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");
+	  });
+
+	  tpl += "</p><p><input class='modula-fancybox-share__input' type='text' value='{{url_raw}}' /></p></div>";
+
+	  tpl = tpl.replace(/\{\{url_raw\}\}/g, escapeHtml(url));
+
+/*
     tpl = current.opts.share.tpl
       .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
       .replace(/\{\{url\}\}/g, encodeURIComponent(url))
       .replace(/\{\{url_raw\}\}/g, escapeHtml(url))
-      .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");
+      .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");*/
 
     $.modulaFancybox.open({
       src: instance.translate(instance, tpl),
