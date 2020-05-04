@@ -55,6 +55,9 @@ class Modula {
         // Get the grid system
 		require_once MODULA_PATH . 'includes/grid/class-modula-grid.php';
 
+		// Backward Compatibility
+		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
+
 
         if ( is_admin() ) {
 

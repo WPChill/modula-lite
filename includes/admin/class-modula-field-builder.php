@@ -5,6 +5,8 @@
  */
 class Modula_Field_Builder {
 
+	private $settings = array();
+
 	function __construct() {
 
 		/* Add templates for our plugin */
@@ -51,14 +53,18 @@ class Modula_Field_Builder {
     public function get_setting( $key, $default = false ) {
 
         // Get config
-        $settings = get_post_meta( $this->get_id(), 'modula-settings', true );
+        if ( empty( $this->settings ) ) {
+        	$this->settings = get_post_meta( $this->get_id(), 'modula-settings', true );
+        }
 
         // Check config key exists
-        if ( isset( $settings[ $key ] ) ) {
-            return $settings[ $key ];
+        if ( isset( $this->settings[ $key ] ) ) {
+            $value = $this->settings[ $key ];
         } else {
-            return $default ? $default : '';
+            $value = $default ? $default : '';
         }
+
+        return apply_filters( 'modula_admin_field_value', $value, $key, $this->settings );
 
     }
 
