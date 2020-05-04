@@ -62,7 +62,10 @@ jQuery( document ).ready( function( $ ){
 	});
 
 	// Dismiss notice
-	$('body').on('click','#modula-lightbox-upgrade .notice-dismiss',function () {
+	$('body').on('click','#modula-lightbox-upgrade .notice-dismiss',function (e) {
+
+		e.preventDefault();
+		var notice = $(this).parent();
 
 		var data = {
 			'action': 'modula_lbu_notice',
@@ -71,7 +74,7 @@ jQuery( document ).ready( function( $ ){
 
 		$.post(modulaHelper.ajax_url, data, function (response) {
 			// Redirect to plugins page
-			console.log('cleared');
+			notice.remove();
 		});
 	});
 
