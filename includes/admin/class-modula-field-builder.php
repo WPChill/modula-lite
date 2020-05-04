@@ -362,7 +362,7 @@ class Modula_Field_Builder {
 				}
 				$attributes = 'data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '"';
 				$html .= '<div class="slider-container modula-ui-slider-container">';
-					$html .= '<input contenteditable="true" data-setting="' . esc_attr( $field['id'] ) . '"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" type="text" class="rl-slider modula-ui-slider-input" id="input_' . esc_attr( $field['id'] ) . '" value="' . absint( $value ) . '" ' . $attributes . '/>';
+					$html .= '<input contenteditable="true" data-setting="' . esc_attr( $field['id'] ) . '"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" type="text" class="rl-slider modula-ui-slider-input" id="input_' . esc_attr( $field['id'] ) . '" value="' . sanitize_text_field( $value ) . '" ' . $attributes . '/>';
 					$html .= '<div id="slider_' . esc_attr( $field['id'] ) . '" class="ss-slider modula-ui-slider"></div>';
 				$html .= '</div>';
 				break;
