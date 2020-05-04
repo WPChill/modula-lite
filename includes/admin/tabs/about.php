@@ -23,7 +23,7 @@ $issues = array(
     <div class="about__container">
         <div class="about__header modula-about-header">
             <div class="about__header-title modula-about-heading">
-                <h1><?php esc_html_e( 'Modula', 'modula-best-grid-gallery' ) ?><span><?php echo MODULA_LITE_VERSION; ?></span></h1>
+                <h1><?php esc_html_e( 'Modula', 'modula-best-grid-gallery' ) ?><span> <?php echo MODULA_LITE_VERSION; ?></span></h1>
             </div>
             <div class="about__header-badge"></div>
             <div class="about__header-text">

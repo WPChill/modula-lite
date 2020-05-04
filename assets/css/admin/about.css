@@ -1,5 +1,15 @@
+.about__header.modula-about-header {
+    background:#2ebf91;
+}
+
 .about__header-title.modula-about-heading {
-    background-color:#774cce;
+   background:url('../../images/modula.svg') center right no-repeat;
+    background-size:contain;
+}
+
+.about__header-title.modula-about-heading h1 {
+    color:#fff;
+    font-size:43px;
 }
 
 .modula-about-header .about__header-badge {
@@ -7,7 +17,11 @@
 }
 
 .modula-about-header .about__header-text {
-    background-color:#2f1e52;
+    background-color:#16a085;
+}
+
+.modula-about-header .about__header-text p {
+    color:#fff;
 }
 
 h1.modula-about-heading {
