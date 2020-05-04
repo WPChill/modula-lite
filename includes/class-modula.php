@@ -182,6 +182,7 @@ class Modula {
 
 	        // Get current gallery settings.
 	        $settings = get_post_meta( $post_id, 'modula-settings', true );
+	        $settings = apply_filters( 'modula_backbone_settings', $settings );
 	        if ( is_array( $settings ) ) {
 	        	$modula_helper['settings'] = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 	        }else{
