@@ -139,6 +139,17 @@ class Modula {
         // Set the post_id
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 
+		$modula_helper = array(
+			'items' => array(),
+			'settings' => array(),
+			'strings' => array(
+				'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
+			),
+			'id' => $post_id,
+			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		);
+
 		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
 
 			/* CPT Styles & Scripts */
@@ -147,16 +158,6 @@ class Modula {
 	            'post' => $post_id,
 	        ) );
 
-	        $modula_helper = array(
-	        	'items' => array(),
-	        	'settings' => array(),
-	        	'strings' => array(
-	        		'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
-	        	),
-	        	'id' => $post_id,
-	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
-	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
-	        );
 
 	        // Get all items from current gallery.
 	        $images = get_post_meta( $post_id, 'modula-images', true );
@@ -225,6 +226,7 @@ class Modula {
 		}elseif ( 'edit.php' == $hook  ) {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
+			wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		}
 
 	}

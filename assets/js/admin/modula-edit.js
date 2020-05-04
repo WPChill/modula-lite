@@ -27,6 +27,20 @@
 			$('.copy-modula-shortcode').not($(this)).parent().find('span').text('');
 
 		});
+
+		// Dismiss notice
+		$('body').on('click','#modula-lightbox-upgrade .notice-dismiss',function () {
+
+			var data = {
+				'action': 'modula_lbu_notice',
+				'nonce' : modulaHelper._wpnonce
+			};
+
+			$.post(modulaHelper.ajax_url, data, function (response) {
+				// Redirect to plugins page
+				console.log('cleared');
+			});
+		});
 	});
 
 })(jQuery);
