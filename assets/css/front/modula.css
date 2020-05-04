@@ -32,6 +32,7 @@
 
 .modula .modula-items .modula-item .jtg-social {
 	z-index: 10;
+	font-size: 0;
 }
 
 .modula:not(.modula-loaded-scale) .modula-items .modula-item.tg-loaded .modula-item-content,
@@ -350,7 +351,7 @@ body .modula .filters.vertical-filters.both-vertical + .modula-items {
 	color: #fff;
 	display: inline-block;
 	margin:0 10px 0 0;
-	padding: 6px 4px;
+	padding: 0;
 	border: 0;
 	opacity: 0;
 	transition: opacity .3s;
