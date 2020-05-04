@@ -24,6 +24,8 @@ class Modula_Admin {
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
 
+		add_action( 'admin_notices', array( $this, 'modula_upgrade_lightbox_notice' ) );
+		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
 
 	}
 
@@ -318,6 +320,55 @@ class Modula_Admin {
         <?php
 
     }
+
+
+	/**
+	 * Add notice showing new grid type and FancyBox new default lightbox
+	 *
+	 * @since 2.3.0
+	 */
+	public function modula_upgrade_lightbox_notice() {
+
+		$modula_checks  = get_option( 'modula-checks', array() );
+		$current_screen = get_current_screen();
+
+		if ( isset( $modula_checks['lbu_notice'] ) ) {
+			return;
+		}
+
+		if ( 'modula-gallery' != $current_screen->post_type ) {
+			return;
+		}
+
+
+		?>
+		<div id="modula-lightbox-upgrade"
+		     class="notice notice-success is-dismissible" style="margin-top:30px;">
+			<p><?php echo esc_html( 'Hello there, we are here to announce that Modula Gallery has a new grid type you can try and that we have replaced Lightbox2 with FancyBox.', 'modula-best-grid-gallery' ); ?></p>
+		</div>
+		<?php
+	}
+
+
+	/**
+	 * @since 2.3.0
+	 */
+	public function modula_lbu_notice() {
+
+		$nonce = $_POST['nonce'];
+
+		if ( !wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
+			wp_send_json_error();
+			die();
+		}
+
+		$modula_checks = get_option( 'modula-checks', array() );
+		$modula_checks['lbu_notice'] = '1';
+
+		update_option('modula-checks',$modula_checks);
+		wp_die();
+
+	}
 
 }
 
