@@ -36,7 +36,7 @@
 				'item_attributes'  => array(),
 
 				/* Item link attributes & classes */
-				'link_classes'     => (!isset( $image['link'] ) || '' == $image['link']) ? array( 'tile-inner', 'modula-item-link' ) : '',
+				'link_classes'     =>  array( 'tile-inner', 'modula-item-link' ),
 				'link_attributes'  => array(),
 
 				/* Item img attributes & classes */

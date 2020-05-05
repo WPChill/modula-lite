@@ -82,6 +82,10 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	}
 
+	if('' != $item['link'] && 'direct' != $settings['lightbox']) {
+		$item_data['link_classes'] = array('simple-link');
+	}
+
 	return $item_data;
 }
 
