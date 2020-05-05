@@ -33,6 +33,10 @@ class Modula_Widget extends WP_Widget {
      */
     public function widget($args, $instance) {
 
+        if ( $instance['gallery-id'] == 0 ) {
+            return;
+        }
+
         $title = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
 
         if ( ! empty( $title ) )
@@ -60,6 +64,7 @@ class Modula_Widget extends WP_Widget {
             $title = esc_html__('Widget Title', 'modula-best-grid-gallery');
         }
 
+        $instance['gallery-id'] = isset( $instance['gallery-id'] ) ? $instance['gallery-id'] : '' ;
         ?>
         <p xmlns="http://www.w3.org/1999/html">
             <!-- Widget Title -->
