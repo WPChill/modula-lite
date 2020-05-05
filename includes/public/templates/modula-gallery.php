@@ -17,14 +17,14 @@
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
-                'title'            => Modula_Helper::get_title( $image, 'title' ),
-                'description'      => Modula_Helper::get_description( $image, 'caption' ),
+				'title'            => Modula_Helper::get_title( $image, 'title' ),
+				'description'      => Modula_Helper::get_description( $image, 'caption' ),
 				'lightbox'         => $data->settings['lightbox'],
 
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
+				'hide_socials'     => boolval( $data->settings['disableSocial'] ) ? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
@@ -36,7 +36,7 @@
 				'item_attributes'  => array(),
 
 				/* Item link attributes & classes */
-				'link_classes'     => array( 'tile-inner', 'modula-item-link' ),
+				'link_classes'     => (!isset( $image['link'] ) || '' == $image['link']) ? array( 'tile-inner', 'modula-item-link' ) : '',
 				'link_attributes'  => array(),
 
 				/* Item img attributes & classes */
