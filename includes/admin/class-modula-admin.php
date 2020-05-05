@@ -26,9 +26,10 @@ class Modula_Admin {
 
 		add_action( 'admin_notices', array( $this, 'modula_upgrade_lightbox_notice' ) );
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
+		add_action( 'wp_ajax_modula_lbu_notice_2', array( $this, 'modula_lbu_notice_2' ) );
 
 		// Announce users about the lightbox change
-		//add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightbox_change_announcement' ) );
+		add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightbox_change_announcement' ) );
 
 
 	}
@@ -340,7 +341,7 @@ class Modula_Admin {
 			return;
 		}
 
-		if ( 'modula-gallery' != $current_screen->post_type ) {
+		if ( 'modula-gallery' != $current_screen->post_type || 'edit' != $current_screen->base ) {
 			return;
 		}
 
@@ -361,6 +362,8 @@ class Modula_Admin {
 
 
 	/**
+	 * Update modula-checks option for lightbox upgrade notice 1
+	 *
 	 * @since 2.3.0
 	 */
 	public function modula_lbu_notice() {
@@ -372,14 +375,35 @@ class Modula_Admin {
 			die();
 		}
 
-		$modula_checks = get_option( 'modula-checks', array() );
+		$modula_checks               = get_option( 'modula-checks', array() );
 		$modula_checks['lbu_notice'] = '1';
 
-		update_option('modula-checks',$modula_checks);
+		update_option( 'modula-checks', $modula_checks );
 		wp_die();
 
 	}
 
+	/**
+	 * Update modula-checks option for lightbox upgrade notice 2
+	 *
+	 * @since 2.3.0
+	 */
+	public function modula_lbu_notice_2() {
+
+		$nonce = $_POST['nonce'];
+
+		if ( !wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
+			wp_send_json_error();
+			die();
+		}
+
+		$modula_checks                 = get_option( 'modula-checks', array() );
+		$modula_checks['lbu_notice_2'] = '1';
+
+		update_option( 'modula-checks', $modula_checks );
+		wp_die();
+
+	}
 
 	/**
 	 * Announce users about the lightbox change
@@ -390,20 +414,29 @@ class Modula_Admin {
 	 *
 	 * @since 2.3.0
 	 */
-	/*public function lightbox_change_announcement($tab_content){
+	public function lightbox_change_announcement($tab_content){
 		global $post;
 
-		$gal_settings = get_post_meta($post->ID,'modula-settings',true);
-		$current_l = array('fancybox','no-link','attachment-page','direct');
+		$gal_settings  = get_post_meta( $post->ID, 'modula-settings', true );
+		$modula_checks = get_option( 'modula-checks', array() );
+		$current_l     = array( 'fancybox', 'no-link', 'attachment-page', 'direct' );
+		$old_galleries = array(
+			'lightbox2'    => 'Lightbox',
+			'magnific'     => 'Magnific Gallery',
+			'swipebox'     => 'SwipeBox',
+			'lightgallery' => 'LightGallery',
+			'prettyphoto'  => 'PrettyPhoto'
+		);
 
-		if(!in_array($gal_settings['lightbox'],$current_l)){
-			$tab_content .= '<div class="lightbox-announcement modula-upsell">';
-			$tab_content .= '<p>Hello dear user, from now on the official Modula lightbox will be FancyBox. We know you used '.$gal_settings['lightbox'].' before and changing can be problematic for some, so if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>.</p>';
+		if ( !in_array( $gal_settings['lightbox'], $current_l ) && !isset( $modula_checks['lbu_notice_2'] ) ) {
+
+			$tab_content .= '<div id="lightbox-upgrade-notice" class="lightbox-announcement modula-upsell">';
+			$tab_content .= '<p>Hello dear user, from now on the official Modula lightbox will be FancyBox. We know you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and changing can be problematic for some, so if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>.</p><a href="#" class="notice-dismiss"></a>';
 			$tab_content .= '</div>';
 		}
 
 		return $tab_content;
-	}*/
+	}
 
 }
 

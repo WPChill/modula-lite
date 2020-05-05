@@ -78,4 +78,20 @@ jQuery( document ).ready( function( $ ){
 		});
 	});
 
+	$('body').on('click','#lightbox-upgrade-notice .notice-dismiss',function (e) {
+
+		e.preventDefault();
+		var notice = $(this).parent();
+
+		var data = {
+			'action': 'modula_lbu_notice_2',
+			'nonce' : modulaHelper._wpnonce
+		};
+
+		$.post(modulaHelper.ajax_url, data, function (response) {
+			// Redirect to plugins page
+			notice.remove();
+		});
+	});
+
 });

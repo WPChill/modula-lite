@@ -1420,6 +1420,15 @@ Scaling Effect Preview
 	cursor:pointer;
 }
 
+.modula-settings-container .lightbox-announcement {
+	position: relative;
+	padding:30px;
+}
+
+.modula-settings-container .lightbox-announcement a.notice-dismiss {
+	text-decoration: none;
+}
+
 /**
 Some responsive fixes
  */
