@@ -109,6 +109,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 				parent.addClass('tg-loaded');
 				index = instance.$items.index(parent);
 				instance.placeImage(index);
+
+				if ( instance.isIsotope ) {
+					instance.$itemsCnt.isotope('layout');
+				}
 			}
 
 		});
