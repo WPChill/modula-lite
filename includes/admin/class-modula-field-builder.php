@@ -392,7 +392,7 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 
 				if(isset($field['afterrow'])){
-					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post($field['afterrow'], array( 'a' => array( 'href' => array() ), 'target' => array() )).'</p>';
 				}
 				break;
 			case "custom_code":
