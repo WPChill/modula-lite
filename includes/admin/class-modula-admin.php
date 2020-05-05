@@ -428,11 +428,13 @@ class Modula_Admin {
 			'prettyphoto'  => 'PrettyPhoto'
 		);
 
-		if ( !in_array( $gal_settings['lightbox'], $current_l ) && !isset( $modula_checks['lbu_notice_2'] ) ) {
+		if(isset($gal_settings['lightbox'])){
+			if ( !in_array( $gal_settings['lightbox'], $current_l ) && !isset( $modula_checks['lbu_notice_2'] ) ) {
 
-			$tab_content .= '<div id="lightbox-upgrade-notice" class="lightbox-announcement modula-upsell">';
-			$tab_content .= '<p>Hello dear user, from now on the official Modula lightbox will be FancyBox. We know you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and changing can be problematic for some, so if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>.</p><a href="#" class="notice-dismiss"></a>';
-			$tab_content .= '</div>';
+				$tab_content .= '<div id="lightbox-upgrade-notice" class="lightbox-announcement modula-upsell">';
+				$tab_content .= '<p>Hello dear user, from now on the official Modula lightbox will be FancyBox. We know you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and changing can be problematic for some, so if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>.</p><a href="#" class="notice-dismiss"></a>';
+				$tab_content .= '</div>';
+			}
 		}
 
 		return $tab_content;
