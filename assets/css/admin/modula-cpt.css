@@ -1110,7 +1110,8 @@ a.modula-tab-link {
   box-sizing: inherit;
 }
 
-.modula-toggle__input[type=checkbox] {
+.modula-toggle__input[type=checkbox],
+body .media-modal-content .attachment-details .modula-toggle__input[type=checkbox] {
   border-radius: 2px;
   border: 2px solid #6c7781;
   margin-right: 12px;
@@ -1125,7 +1126,8 @@ a.modula-tab-link {
   width: 100%;
   z-index: 1; }
 
-.modula-toggle__track {
+.modula-toggle__track,
+body .media-modal-content .attachment-details .modula-toggle__track {
   background-color: #fff;
   border: 2px solid #6c7781;
   border-radius: 9px;
@@ -1135,7 +1137,8 @@ a.modula-tab-link {
   vertical-align: top;
   transition: background .2s ease; }
 
-.modula-toggle__thumb {
+.modula-toggle__thumb,
+body .media-modal-content .attachment-details .modula-toggle__thumb {
   background-color: #6c7781;
   border: 5px solid #6c7781;
   border-radius: 50%;
@@ -1146,6 +1149,14 @@ a.modula-tab-link {
   left: 4px;
   top: 4px;
   transition: transform .2s ease; }
+
+body .media-modal-content .attachment-details .modula-toggle__thumb,
+body .media-modal-content .attachment-details .modula-toggle__track {
+	min-width:auto;
+	min-height:auto;
+	float:none;
+	padding:0;
+}
 
 .modula-toggle__off {
   position: absolute;
