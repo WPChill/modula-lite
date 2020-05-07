@@ -428,11 +428,11 @@ class Modula_Admin {
 			'prettyphoto'  => 'PrettyPhoto'
 		);
 
-		if(isset($gal_settings['lightbox'])){
+		if( isset( $gal_settings['lightbox'] ) && ! class_exists( 'Modula_Lightboxes' ) ){
 			if ( !in_array( $gal_settings['lightbox'], $current_l ) && !isset( $modula_checks['lbu_notice_2'] ) ) {
 
 				$tab_content .= '<div id="lightbox-upgrade-notice" class="lightbox-announcement modula-upsell">';
-				$tab_content .= '<p>Hello dear user, from now on the official Modula lightbox will be FancyBox. We know you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and changing can be problematic for some, so if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>.</p><a href="#" class="notice-dismiss"></a>';
+				$tab_content .= '<p>Hi there! We want to take a moment to announce a small change in Modula: we made the decision to make FancyBox the official Modula lightbox. We are aware you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and switching to another lightbox can be problematic for some users. With this in mind, if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>. Thank you for understanding!</p><a href="#" class="notice-dismiss"></a>';
 				$tab_content .= '</div>';
 			}
 		}

@@ -423,6 +423,15 @@ tr label.th-label {
 	margin:30px;
 }
 
+.modula-upsell .modula-upsell-features {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+.modula-upsell .modula-upsell-features li {
+  width: 33%;
+}
+
 /* We're handling the upsells inside metaboxes slightly different */
 .form-table-wrapper .modula-upsell {
     border: 1px solid #DDD;

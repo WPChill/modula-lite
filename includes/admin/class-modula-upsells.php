@@ -48,10 +48,26 @@ class Modula_Upsells {
         return $met;
     }
 
-	public function generate_upsell_box( $title, $description, $tab ) {
+	public function generate_upsell_box( $title, $description, $tab, $features = array() ) {
 
 		$upsell_box = '<div class="modula-upsell">';
 		$upsell_box .= '<h2>' . esc_html( $title ) . '</h2>';
+
+		if ( ! empty( $features ) ) {
+			$upsell_box .= '<ul class="modula-upsell-features">';
+	        foreach( $features as $feature ) {
+
+	            $upsell_box .= '<li>';
+	            $upsell_box .= '<div class="modula-tooltip"><span>[?]</span>';
+	            $upsell_box .= '<div class="modula-tooltip-content">' . esc_html( $feature['tooltip']) . '</div>';
+	            $upsell_box .= '</div>';
+	            $upsell_box .= "<p>" . esc_html($feature['feature']) . "</p>";
+	            $upsell_box .= '</li>';
+	            
+	        }
+	        $upsell_box .= '</ul>';
+		}
+
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
 		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=' . $tab . '-tab&utm_campaign=litevspro#lite-vs-pro"  class="button">' . esc_html__( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) . '</a>';
@@ -129,12 +145,83 @@ class Modula_Upsells {
 
 	public function lightboxes_tab_upsell($tab_content) {
 
-        $upsell_title       = esc_html__( 'Looking to add more functionality to your lightbox?', 'modula-best-grid-gallery' );
-        $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to a impressive number of options and settings for your lightbox, everything from toolbar buttons to animations and transitions.', 'modula-best-grid-gallery' );
+		$title       = esc_html__( 'Looking to add more functionality to your lightbox?', 'modula-best-grid-gallery' );
+        $description = esc_html__( 'Ugrade to Modula Pro today and get access to a impressive number of options and settings for your lightbox, everything from toolbar buttons to animations and transitions.', 'modula-best-grid-gallery' );
+        $tab = 'lightboxes';
 
-        $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'lightboxes' );
+		$features = array(
+            array(
+                'tooltip' => esc_html__('Enable this to allow loop navigation inside lightbox','modula-lightboxes'),
+                'feature' => esc_html__('Loop Navigation','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Toggle on to show the image title in the lightbox above the caption.','modula-lightboxes'),
+                'feature' => esc_html__('Show Image Title','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Toggle on to show the image caption in the lightbox.','modula-lightboxes'),
+                'feature' => esc_html__('Show Image Caption','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Select the position of the caption and title inside the lightbox.','modula-lightboxes'),
+                'feature' => esc_html__('Title and Caption Position','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Enable or disable keyboard/mousewheel navigation inside lightbox','modula-lightboxes'),
+                'feature' => esc_html__('Keyboard/mousewheel Navigation','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Display the toolbar which contains the action buttons on top right corner.','modula-lightboxes'),
+                'feature' => esc_html__('Toolbar','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Close the slide if user clicks/double clicks on slide( not image ).','modula-lightboxes'),
+                'feature' => esc_html__('Close on slide click / double click','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Display the counter at the top left corner.','modula-lightboxes'),
+                'feature' => esc_html__('Infobar','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Open the lightbox automatically in Full Screen mode.','modula-lightboxes'),
+                'feature' => esc_html__('Auto start in Fullscreen','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Place the thumbnails at the bottom of the lightbox. This will automatically put `y` axis for thumbnails.','modula-lightboxes'),
+                'feature' => esc_html__('Thumbnails at bottom ','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Select vertical or horizontal scrolling for thumbnails','modula-lightboxes'),
+                'feature' => esc_html__('Thumb axis','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Display thumbnails on lightbox opening.','modula-lightboxes'),
+                'feature' => esc_html__('Auto start thumbnail ','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Choose the lightbox transition effect between slides.','modula-lightboxes'),
+                'feature' => esc_html__('Transition Effect ','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Allow panning/swiping','modula-lightboxes'),
+                'feature' => esc_html__('Allow Swiping ','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Toggle ON to show all images','modula-lightboxes'),
+                'feature' => esc_html__('Show all images ','modula-lightboxes'),
+            ),
+            array(
+                'tooltip' => esc_html__('Choose the open/close animation effect of the lightbox','modula-lightboxes'),
+                'feature' => esc_html__('Open/Close animation','modula-lightboxes') ,
+            ),
+            array(
+                'tooltip' => esc_html__('Set the lightbox background color','modula-lightboxes'),
+                'feature' => esc_html__('Lightbox background color','modula-lightboxes'),
+            ));
 
+		$tab_content .= $this->generate_upsell_box( $title, $description, 'lightboxes', $features );
         return $tab_content;
+
     }
 
     public function misc_tab_upsell( $tab_content ) {
