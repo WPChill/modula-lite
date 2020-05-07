@@ -130,12 +130,6 @@ class Modula {
         // Get current screen.
         $screen = get_current_screen();
 
-        // Check if is modula custom post type
-        if ( 'modula-gallery' !== $screen->post_type ) {
-            return;
-        }
-
-
         // Set the post_id
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 
@@ -151,6 +145,11 @@ class Modula {
 		);
 
 		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
+
+			 // Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
 
 			/* CPT Styles & Scripts */
 			// Media Scripts
@@ -220,11 +219,21 @@ class Modula {
             wp_enqueue_script('modula-slick',MODULA_URL.'assets/js/admin/slick.min.js',array('jquery'),MODULA_LITE_VERSION, true);
 
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
+			// Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
+
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome.css', null, MODULA_LITE_VERSION );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
+			// Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
+	        
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		}elseif ( 'edit.php' == $hook  ) {
+		}else {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
 			wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
