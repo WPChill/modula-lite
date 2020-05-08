@@ -239,7 +239,7 @@ class Modula_Shortcode {
 		}
 
 		if ( $settings['socialIconPadding'] ) {
-			$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a { margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . " }";
+			$css .= "#{$gallery_id} .modula-item .jtg-social a:not(:last-child), .lightbox-socials.jtg-social a:not(:last-child) { margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . " }";
 		}
 
 		$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color( $settings['captionColor'] ) . ";  }";
@@ -295,7 +295,7 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . "; }";
 		}
 
-		$css .= "#{$gallery_id} .modula-item>a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		$css .= "#{$gallery_id} .modula-item > .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
 
 		$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 

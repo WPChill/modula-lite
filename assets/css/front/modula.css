@@ -26,7 +26,8 @@
 	background: transparent;
 }
 
-.modula.modula-creative-gallery .modula-items .modula-item .modula-item-content {
+.modula.modula-creative-gallery .modula-items .modula-item .modula-item-content,
+.modula.modula-custom-grid .modula-items .modula-item .modula-item-content{
 	height: 100%;
 }
 
