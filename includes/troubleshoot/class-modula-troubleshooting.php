@@ -151,7 +151,7 @@ class Modula_Troubleshooting {
         $lightboxes = apply_filters( 'modula_troubleshooting_lightboxes_handles', array(
             'fancybox' => array(
                 'scripts' => 'modula-fancybox',
-                'styles'  => 'modula-fancybox',
+                'styles'  => '',
             )
         ));
 

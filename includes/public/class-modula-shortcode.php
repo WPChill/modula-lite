@@ -33,8 +33,8 @@ class Modula_Shortcode {
 	public function add_gallery_scripts() {
 
 		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/front/fancybox.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modula', MODULA_URL . 'assets/css/front/modula.css', null, MODULA_LITE_VERSION );
-		wp_register_style( 'modulalite', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
+		// wp_register_style( 'modula', MODULA_URL . 'assets/css/front/modula.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
