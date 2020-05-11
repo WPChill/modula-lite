@@ -19,14 +19,13 @@ $issues = array(
     )
 );
 ?>
-<div class="row modula-about-row">
-    <div class="about__container">
-        <div class="about__header modula-about-header">
-            <div class="about__header-title modula-about-heading">
-                <h1><?php esc_html_e( 'Modula', 'modula-best-grid-gallery' ) ?><span> <?php echo MODULA_LITE_VERSION; ?></span></h1>
+<div id="modula-about-page" class="row modula-about-row">
+    <div class="modula-about__container">
+        <div class="modula-about-header">
+            <div class="modula-about-heading">
+                <h1><?php esc_html_e( 'Modula', 'modula-best-grid-gallery' ) ?> <span><?php echo MODULA_LITE_VERSION; ?></span></h1>
             </div>
-            <div class="about__header-badge"></div>
-            <div class="about__header-text">
+            <div class="modula-about__header-text">
                 <p><?php esc_html_e('Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.','modula-best-grid-gallery'); ?></p>
             </div>
         </div>
