@@ -47,6 +47,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			initLightbox: false,
 			lightbox: 'fancybox',
 			lightboxOpts: {},
+			inView: false,
 		};
 
 	// The actual plugin constructor
@@ -116,6 +117,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 
 		});
+
+		if ( instance.options.inView ) {
+			jQuery( window ).on( "DOMContentLoaded load resize scroll", function(){
+				if( modulaInViewport( instance.$element ) ){
+					instance.$element.addClass( "modula-loaded-scale" )
+				}
+			});
+		}
 
 		// Gives error on front
 		/*        new ResizeSensor( instance.$element, function() {

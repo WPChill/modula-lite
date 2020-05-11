@@ -126,12 +126,6 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-		$inview_permitted = apply_filters('modula_loading_inview_grids',array('custom-grid','creative-gallery','grid',$settings));
-
-        if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
-            wp_add_inline_script( 'modula', 'jQuery(window).on("DOMContentLoaded load resize scroll",function(){ if(modulaInViewport(jQuery("#' . $gallery_id . '"))){jQuery("#' . $gallery_id . '").addClass("modula-loaded-scale")}});' );
-        }
-
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
@@ -175,6 +169,12 @@ class Modula_Shortcode {
 
 		ob_start();
 
+		$inView = false;
+		$inview_permitted = apply_filters( 'modula_loading_inview_grids', array( 'custom-grid', 'creative-gallery', 'grid' ), $settings );
+		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
+			$inView = true;
+        }
+
 		/* Config for gallery script */
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => absint( $settings['height'] ),
@@ -192,6 +192,7 @@ class Modula_Shortcode {
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
 			'lightboxOpts'     => $this->fancybox_options( $settings ),
+			'inView'           => $inView,
 		), $settings );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
