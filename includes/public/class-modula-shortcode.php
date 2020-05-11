@@ -33,7 +33,6 @@ class Modula_Shortcode {
 	public function add_gallery_scripts() {
 
 		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/front/fancybox.css', null, MODULA_LITE_VERSION );
-		// wp_register_style( 'modula', MODULA_URL . 'assets/css/front/modula.css', null, MODULA_LITE_VERSION );
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
@@ -204,10 +203,11 @@ class Modula_Shortcode {
 		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
 		
 		echo $this->generate_gallery_css( $gallery_id, $settings );
+		do_action( 'modula_before_gallery', $settings );
 		$this->loader->set_template_data( $template_data );
 		$this->loader->get_template_part( 'modula', 'gallery' );
+		do_action( 'modula_after_gallery', $settings );
 		
-    	echo '<!-- This gallery was built with Modula Gallery -->';
     	$html = ob_get_clean();
     	return $html;
 
