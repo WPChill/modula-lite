@@ -137,7 +137,7 @@ class Modula_Shortcode {
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modulalite' ), $settings );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
 
 
 		if ( ! empty( $necessary_scripts ) ) {
