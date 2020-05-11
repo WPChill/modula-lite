@@ -1421,6 +1421,21 @@ Scaling Effect Preview
 	cursor:pointer;
 }
 
+.modula-settings-container .lightbox-announcement {
+	position: relative;
+	padding:30px;
+}
+
+.modula-settings-container .lightbox-announcement a.notice-dismiss {
+	text-decoration: none;
+}
+
+/* Autocomplete z-index fix */
+
+.ui-autocomplete {
+  z-index: 160000;
+}
+
 /**
 Some responsive fixes
  */

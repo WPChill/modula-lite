@@ -51,6 +51,18 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
+	jQuery( '.modula-link input[name="link"]' ).live( "keydown.autocomplete", function() {
+
+		let url = autocompleteUrl.url + "?action=modula_autocomplete";
+		jQuery(this).autocomplete({
+			source: url,
+			delay: 500,
+			minLength: 3
+		})
+
+	} );
+
+
 	$('#modula-image-loaded-effects ').on('click','#test-scaling-preview',function (e) {
 		e.preventDefault();
 		var val     = $('input[data-setting="loadedScale"]').val();
