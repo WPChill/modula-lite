@@ -176,7 +176,9 @@ class Modula_CPT {
                         <li>Arrange your albums using columns or the custom grid</li>
                         <li>Hover effects</li>
                         <li>Fully compatible with all the other Modula extensions </li>
-                        <li>Premium support</li>
+						<li>Premium support</li>
+                        <li>Shuffle galleries inside an album on page refresh</li>
+						<li>Shuffle album cover images (randomly pick a cover image from the gallery) </li>
                     </ul>
                     <p>
                         <a target="_blank"
