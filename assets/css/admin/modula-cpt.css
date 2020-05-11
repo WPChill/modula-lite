@@ -932,7 +932,10 @@ tr label.th-label {
 }
 
 .modula-media-modal .attachments-browser .media-toolbar .media-toolbar-secondary {
-  width: 100%;
+	width: 100%;
+}
+
+.modula-media-modal .attachments-browser .media-toolbar .media-toolbar-secondary .modula-error-container {
 	margin-top:25px;
 }
 

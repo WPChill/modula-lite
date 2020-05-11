@@ -212,6 +212,7 @@ class Modula {
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 
 			// Enqueue slick files
             wp_enqueue_style('modula-slick-theme',MODULA_URL . 'assets/css/admin/slick-theme.css');
@@ -235,6 +236,7 @@ class Modula {
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}else {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
 			wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		}
