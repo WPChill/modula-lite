@@ -1,26 +1,54 @@
-.about__header.modula-about-header {
-    background:#2ebf91;
+#modula-about-page .modula-about__container {
+    max-width: 1000px;
+    margin: 24px auto;
+    clear: both;
+    line-height:1.4;
+}
+#modula-about-page div {
+    display:block;
+    float:none;
+    position: relative;
 }
 
-.about__header-title.modula-about-heading {
+.modula-about-header {
+    background:#2ebf91;
+    margin-bottom:32px;
+    max-height:500px;
+}
+
+.modula-about-heading {
    background:url('../../images/modula.svg') center right no-repeat;
     background-size:contain;
+    min-height: 24em;
+    max-height: 32em;
+    height: 80vh;
+    padding: 0 32px;
 }
 
-.about__header-title.modula-about-heading h1 {
+.modula-about-heading h1 {
     color:#fff;
     font-size:43px;
+    position: absolute;
+    bottom:0;
+    width:60%;
+}
+
+.modula-about-heading h1 span {
+    display:inline-block;
 }
 
 .modula-about-header .about__header-badge {
     background-color:#472d7b;
 }
 
-.modula-about-header .about__header-text {
+.modula-about-header .modula-about__header-text {
     background-color:#16a085;
+    padding: 16px 32px 32px;
+    font-size: 1.5em;
+    line-height: 1.4;
 }
 
-.modula-about-header .about__header-text p {
+.modula-about-header .modula-about__header-text p {
     color:#fff;
 }
 
@@ -29,7 +57,7 @@ h1.modula-about-heading {
     font-size:40px;
 }
 
-.modula-about-row .about__container h2 {
+.modula-about-row .modula-about__container h2 {
     font-size:25px;
 }
 
