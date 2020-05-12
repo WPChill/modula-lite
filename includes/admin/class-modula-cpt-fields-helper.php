@@ -378,14 +378,14 @@ class Modula_CPT_Fields_Helper {
 			),
 			'social' => array(
 				"disableSocial"   => array(
-					"name"        => esc_html__( 'Disable Social Icons', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Disable Social Icons on hover', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
 					"description" => "Enabling this you will disable all social icons.",
 					'priority'    => 10,
 				),
 				"enableTwitter"   => array(
-					"name"        => esc_html__( 'Show Twitter Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Twitter', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => esc_html__( 'Show Twitter Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
@@ -393,7 +393,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 10,
 				),
 				"enableFacebook"  => array(
-					"name"        => esc_html__( 'Show Facebook Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Facebook', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => esc_html__( 'Show Facebook Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
@@ -401,7 +401,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 20,
 				),
 				"enableWhatsapp"  => array(
-					"name"        => esc_html__( 'Show Whatsapp Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Whatsapp', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => esc_html__( 'Show Whatsapp Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
@@ -409,7 +409,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 20,
 				),
 				"enableLinkedin"  => array(
-					"name"        => esc_html__( 'Show LinkedIn Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'LinkedIn', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => esc_html__( 'Show LinkedIn Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
@@ -417,7 +417,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 30,
 				),
 				"enablePinterest" => array(
-					"name"        => esc_html__( 'Show Pinterest Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Pinterest', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 1,
 					"description" => esc_html__( 'Show Pinterest Share Icon when hover the gallery thumbnail and Lightbox Social Sharing( PRO only )', 'modula-best-grid-gallery' ),
