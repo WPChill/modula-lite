@@ -62,10 +62,10 @@ body.compensate-for-scrollbar {
     transition-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
 
-.modula-fancybox-infobar,
-.modula-fancybox-toolbar,
-.modula-fancybox-caption,
-.modula-fancybox-navigation .modula-fancybox-button {
+.modula-fancybox-container .modula-fancybox-infobar,
+.modula-fancybox-container .modula-fancybox-toolbar,
+.modula-fancybox-container .modula-fancybox-caption,
+.modula-fancybox-container .modula-fancybox-navigation .modula-fancybox-button {
     direction: ltr;
     opacity: 0;
     position: absolute;
@@ -83,7 +83,7 @@ body.compensate-for-scrollbar {
     visibility: visible;
 }
 
-.modula-fancybox-infobar {
+.modula-fancybox-container .modula-fancybox-infobar {
     color: #ccc;
     font-size: 13px;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -102,7 +102,7 @@ body.compensate-for-scrollbar {
     user-select: none;
 }
 
-.modula-fancybox-toolbar {
+.modula-fancybox-container .modula-fancybox-toolbar {
     right: 0;
     top: 0;
 }
@@ -306,7 +306,7 @@ body.compensate-for-scrollbar {
 
 /* Buttons */
 
-.modula-fancybox-button {
+.modula-fancybox-container .modula-fancybox-button {
     background: rgba(30, 30, 30, .6);
     border: 0;
     border-radius: 0;
@@ -323,37 +323,37 @@ body.compensate-for-scrollbar {
     width: 44px;
 }
 
-.modula-fancybox-button,
-.modula-fancybox-button:visited,
-.modula-fancybox-button:link {
+.modula-fancybox-container .modula-fancybox-button,
+.modula-fancybox-container .modula-fancybox-button:visited,
+.modula-fancybox-container .modula-fancybox-button:link {
     color: #ccc;
 }
 
-.modula-fancybox-button:hover {
+.modula-fancybox-container .modula-fancybox-button:hover {
     color: #fff;
 }
 
-.modula-fancybox-button:focus {
+.modula-fancybox-container .modula-fancybox-button:focus {
     outline: none;
 }
 
-.modula-fancybox-button.modula-fancybox-focus {
+.modula-fancybox-container .modula-fancybox-button.modula-fancybox-focus {
     outline: 1px dotted;
 }
 
-.modula-fancybox-button[disabled],
-.modula-fancybox-button[disabled]:hover {
+.modula-fancybox-container .modula-fancybox-button[disabled],
+.modula-fancybox-container .modula-fancybox-button[disabled]:hover {
     color: #888;
     cursor: default;
     outline: none;
 }
 
 /* Fix IE11 */
-.modula-fancybox-button div {
+.modula-fancybox-container .modula-fancybox-button div {
     height: 100%;
 }
 
-.modula-fancybox-button svg {
+.modula-fancybox-container .modula-fancybox-button svg {
     display: block;
     height: 100%;
     overflow: visible;
@@ -361,22 +361,22 @@ body.compensate-for-scrollbar {
     width: 100%;
 }
 
-.modula-fancybox-button svg path {
+.modula-fancybox-container .modula-fancybox-button svg path {
     fill: currentColor;
     stroke-width: 0;
 }
 
-.modula-fancybox-button--play svg:nth-child(2),
-.modula-fancybox-button--fsenter svg:nth-child(2) {
+.modula-fancybox-container .modula-fancybox-button--play svg:nth-child(2),
+.modula-fancybox-container .modula-fancybox-button--fsenter svg:nth-child(2) {
     display: none;
 }
 
-.modula-fancybox-button--pause svg:nth-child(1),
-.modula-fancybox-button--fsexit svg:nth-child(1) {
+.modula-fancybox-container .modula-fancybox-button--pause svg:nth-child(1),
+.modula-fancybox-container .modula-fancybox-button--fsexit svg:nth-child(1) {
     display: none;
 }
 
-.modula-fancybox-progress {
+.modula-fancybox-container .modula-fancybox-progress {
     background: #ff5268;
     height: 2px;
     left: 0;
@@ -394,7 +394,7 @@ body.compensate-for-scrollbar {
 
 /* Close button on the top right corner of html content */
 
-.modula-fancybox-close-small {
+.modula-fancybox-container .modula-fancybox-close-small {
     background: transparent;
     border: 0;
     border-radius: 0;
@@ -408,16 +408,17 @@ body.compensate-for-scrollbar {
     z-index: 401;
 }
 
-.modula-fancybox-close-small:hover {
+.modula-fancybox-container .modula-fancybox-close-small:hover {
     color: #fff;
     opacity: 1;
 }
 
-.modula-fancybox-slide--html .modula-fancybox-close-small {
-    color: currentColor;
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-slide--html .modula-fancybox-close-small {
+    color: #000;
     padding: 10px;
     right: 0;
     top: 0;
+    background-color:transparent;
 }
 
 .modula-fancybox-slide--image.modula-fancybox-is-scaling .modula-fancybox-content {
@@ -676,7 +677,7 @@ body.compensate-for-scrollbar {
 }
 /* Share */
 
-.modula-fancybox-share {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share {
     background: #f4f4f4;
     border-radius: 3px;
     max-width: 90%;
@@ -684,19 +685,24 @@ body.compensate-for-scrollbar {
     text-align: center;
 }
 
-.modula-fancybox-share h1 {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1 {
     color: #222;
     font-size: 35px;
     font-weight: 700;
     margin: 0 0 20px 0;
 }
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1:before,
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1:after {
+    display:none;
+}
 
-.modula-fancybox-share p {
+
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share p {
     margin: 0;
     padding: 0;
 }
 
-.modula-fancybox-share__button {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button {
     border: 0;
     border-radius: 3px;
     display: inline-block;
@@ -715,12 +721,12 @@ body.compensate-for-scrollbar {
     white-space: nowrap;
 }
 
-.modula-fancybox-share__button:visited,
-.modula-fancybox-share__button:link {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:visited,
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:link {
     color: #fff;
 }
 
-.modula-fancybox-share__button:hover {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:hover {
     text-decoration: none;
 }
 
@@ -755,13 +761,14 @@ body.compensate-for-scrollbar {
     top: -1px;
     vertical-align: middle;
     width: 25px;
+    display:inline-block;
 }
 
-.modula-fancybox-share__button svg path {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button svg path {
     fill: #fff;
 }
 
-.modula-fancybox-share__input {
+.modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share .modula-fancybox-share__input {
     background: transparent;
     border: 0;
     border-bottom: 1px solid #d7d7d7;
@@ -775,7 +782,7 @@ body.compensate-for-scrollbar {
 }
 /* Thumbs */
 
-.modula-fancybox-thumbs {
+.modula-fancybox-container .modula-fancybox-thumbs {
     background: #ddd;
     bottom: 0;
     display: none;

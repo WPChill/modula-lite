@@ -248,9 +248,16 @@ class Modula_Field_Builder {
 	private function _render_row( $field ) {
 
 		$child = '';
-		if(isset($field['is_child']) && $field['is_child']){
+
+		if(isset($field['is_child']) && $field['is_child'] && is_bool($field['is_child'])){
 			$child = 'child_setting';
 		}
+
+		if(isset($field['is_child']) && $field['is_child'] && is_string($field['is_child'])){
+			$child = $field['is_child'].'_child_setting';
+		}
+
+
 
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
 
