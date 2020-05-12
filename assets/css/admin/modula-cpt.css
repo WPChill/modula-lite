@@ -159,6 +159,12 @@ tr label.th-label {
 	display:inline-block;
 	width:280px;
 }
+
+.modula-settings-container .modula-tabs-content .form-table th.two_child_setting {
+	padding-left:60px;
+	display:inline-block;
+	width:260px;
+ }
 /* Fields */
 
 /* UI Slider */
