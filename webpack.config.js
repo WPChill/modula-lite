@@ -11,7 +11,7 @@ const config = {
 		modula_gutenberg_style: './assets/src/scss/modula-gutenberg.scss',
 	},
 	output: {
-		filename: 'js/wp-modula-gutenberg.js',
+		filename: 'js/admin/wp-modula-gutenberg.js',
 		path: path.resolve(__dirname, 'assets')
 	},
 	module: {
@@ -33,7 +33,7 @@ const config = {
 	plugins: [
 		new CssEntryPlugin({
 			output: {
-			  filename: "/css/modula-gutenberg.css"
+			  filename: "/css/admin/modula-gutenberg.css"
 			}
 		}),
 		//new ExtractTextPlugin('/css/[name].css'),

@@ -108,7 +108,7 @@ function modula_duplicate_gallery_create_duplicate( $post, $status = '', $parent
 
 		if ( $title == '' ) {
 			// empty title
-			$title = __( 'Untitled', 'modula-best-grid-gallery' );
+			$title = esc_html__( 'Untitled', 'modula-best-grid-gallery' );
 		}else{
 			$title = esc_html__( 'Copy of ', 'modula-best-grid-gallery' ) . $title;
 		}

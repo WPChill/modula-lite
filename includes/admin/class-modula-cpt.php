@@ -176,7 +176,9 @@ class Modula_CPT {
                         <li>Arrange your albums using columns or the custom grid</li>
                         <li>Hover effects</li>
                         <li>Fully compatible with all the other Modula extensions </li>
-                        <li>Premium support</li>
+						<li>Premium support</li>
+                        <li>Shuffle galleries inside an album on page refresh</li>
+						<li>Shuffle album cover images (randomly pick a cover image from the gallery) </li>
                     </ul>
                     <p>
                         <a target="_blank"
@@ -244,15 +246,16 @@ class Modula_CPT {
 			// We will save only our settings.
 			foreach ( $fields_with_tabs as $tab => $fields ) {
 
-				// We will iterate throught all fields of current tab
+				// We will iterate through all fields of current tab
 				foreach ( $fields as $field_id => $field ) {
 
 					if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 
 						// Values for selects
-						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'lightbox2', 'attachment-page' ) );
+						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in') );
+
 
 						switch ( $field_id ) {
 							case 'description':
@@ -265,6 +268,7 @@ class Modula_CPT {
 							case 'captionFontSize':
 							case 'titleFontSize':
 							case 'loadedScale':
+                            case 'inView':
 							case 'borderSize':
 							case 'borderRadius':
 							case 'shadowSize':
@@ -276,7 +280,7 @@ class Modula_CPT {
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $lightbox_values ) ) {
 									$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
 								}else{
-									$modula_settings[ $field_id ] = 'lightbox2';
+									$modula_settings[ $field_id ] = 'fancybox';
 								}
 								break;
 							case 'disableSocial':
@@ -298,13 +302,14 @@ class Modula_CPT {
 							case 'shadowColor':
 								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
 								break;
-                            case 'lightbox_background_color':
+								//@todo : check these 2 options for usability
+                           /* case 'lightbox_background_color':
                                 $modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
                                 break;
                             case 'lightbox_popup_opacity' :
                                 $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
-                                break;
-							case 'Effect' :
+                                break;*/
+							case 'effect' :
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
 									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
 								}else{
@@ -364,7 +369,7 @@ class Modula_CPT {
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
 				),
 				'extensions' => array(
-					'name' => __( 'Extensions', 'modula-best-grid-gallery' ),
+					'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
 				),
 			);
@@ -507,16 +512,16 @@ class Modula_CPT {
 		<?php
 		$preview_link = esc_url( get_preview_post_link( $post ) );
 		if ( 'publish' == $post->post_status ) {
-			$preview_button_text = __( 'Preview Changes' );
+			$preview_button_text = esc_html__( 'Preview Changes' );
 		} else {
-			$preview_button_text = __( 'Preview' );
+			$preview_button_text = esc_html__( 'Preview' );
 		}
 
 		$preview_button = sprintf(
 			'%1$s<span class="screen-reader-text"> %2$s</span>',
 			$preview_button_text,
 			/* translators: Accessibility text. */
-			__( '(opens in a new tab)' )
+            esc_html__( '(opens in a new tab)' )
 		);
 		?>
 <a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>

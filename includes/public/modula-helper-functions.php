@@ -37,44 +37,48 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
 	$item_data['link_attributes']['href'] = '#';
-    // Will comment these lines, maybe in the future we revert to them.
-    // For now the settings are disabled
-    if ( isset($item['description']) && '' != $item['description'] ) {
-    	$caption = $item['description'];
-    }else{
-    	$caption = wp_get_attachment_caption( $item['id'] );
-    }
+
+	if(class_exists('\Elementor\Plugin')){
+		$item_data['link_attributes']['data-elementor-open-lightbox'] = 'no';
+	}
 
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['href'] = '#';
-	}elseif ( 'attachment-page' == $settings['lightbox'] ) {
+
+		return $item_data;
+	}
+
+	if ( 'attachment-page' == $settings['lightbox'] ) {
+
 		if ( '' != $item['link'] ) {
+
 			$item_data['link_attributes']['href'] = $item['link'];
+
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
+
 				$item_data['link_attributes']['target'] = '_blank';
 			}
-		}else{
+
+		} else {
+
 			$item_data['link_attributes']['href'] = get_attachment_link( $item['id'] );
 		}
-		
-	}else{
+
+	} else if ( 'direct' == $settings['lightbox'] ) {
+
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
-	}
+	} else {
 
-	if ( in_array( $settings['lightbox'], array( 'prettyphoto', 'swipebox' ) ) ) {
-		$item_data['link_attributes']['title'] = htmlentities( $caption );
-	}elseif ( 'lightgallery' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-sub-html'] = htmlentities( $caption );
-	}else{
-		$item_data['link_attributes']['data-title'] = htmlentities($caption);
-	}
+		if ( isset( $item['description'] ) && '' != $item['description'] ) {
 
-	if ( 'prettyphoto' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['rel'] = 'prettyPhoto[' . $settings['gallery_id'] . ']';
-	}elseif ( 'lightbox2' == $settings['lightbox'] ) {
-		$item_data['link_attributes']['data-lightbox'] = $settings['gallery_id'];
-	}else{
-		$item_data['link_attributes']['rel'] = $settings['gallery_id'];
+			$caption = $item['description'];
+		} else {
+			$caption = wp_get_attachment_caption( $item['id'] );
+		}
+
+		$item_data['link_attributes']['href']          = $item_data['image_full'];
+		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
+		$item_data['link_attributes']['data-caption']  = $caption;
+
 	}
 
 	return $item_data;
@@ -164,3 +168,42 @@ function modula_show_schemaorg( $settings ){
 	<?php
 
 }
+
+function modula_add_gallery_class( $template_data ){
+
+	if ( 'custom-grid' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-custom-grid';
+	}else if ( 'grid' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-columns';
+	}
+	else if ( 'creative-gallery' == $template_data['settings']['type'] ) {
+		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
+	}
+	
+	return $template_data;
+
+}
+
+function modula_add_scripts( $scripts, $settings ){
+
+	$needed_scripts = array();
+
+	if ( '1' == $settings['lazy_load'] ) {
+		$needed_scripts[] = 'modula-lazysizes';
+	}
+
+	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
+		$needed_scripts[] = 'modula-grid-justified-gallery';
+	}else{
+		$needed_scripts[] = 'modula-isotope';
+		$needed_scripts[] = 'modula-isotope-packery';
+	}
+
+	if ( 'fancybox' == $settings['lightbox'] ) {
+		$needed_scripts[] = 'modula-fancybox';
+	}
+
+
+	return array_merge( $needed_scripts, $scripts );
+}
+

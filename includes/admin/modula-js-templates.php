@@ -87,7 +87,9 @@
                             <span class="name"><?php esc_html_e( 'URL', 'modula-best-grid-gallery' ); ?></span>
                             <input type="text" name="link" value="{{ data.link }}" />
                             <span class="description">
-                                <?php esc_html_e( 'Enter a hyperlink if you wish to link this image to somewhere other than its attachment page. In order to use it you will need to select attachment page on Lightbox & Links setting under General.', 'modula-best-grid-gallery' ); ?>
+                                <?php esc_html_e( 'Enter a hyperlink if you wish to link this image to somewhere other than the general selected action.', 'modula-best-grid-gallery' ); ?>
+	                            <?php esc_html_e( '( Doesn\'t work for Direct link to image or No link )', 'modula-best-grid-gallery' ); ?>
+
                             </span>
                         </label>
                         <label>

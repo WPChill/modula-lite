@@ -16,10 +16,10 @@ class Modula_Widget extends WP_Widget {
             'modula_gallery_widget',
 
             // Widget name
-            __('Modula Gallery', 'modula-best-grid-gallery'),
+            esc_html__('Modula Gallery', 'modula-best-grid-gallery'),
 
             // Widget description
-            array( 'description' => __('Modula Gallery Widget.', 'modula-best-grid-gallery'), )
+            array( 'description' => esc_html__('Modula Gallery Widget.', 'modula-best-grid-gallery'), )
         );
 
         add_action( 'siteorigin_panel_enqueue_admin_scripts', array( $this, 'enqueue_page_builder_scripts' ) );
@@ -32,6 +32,10 @@ class Modula_Widget extends WP_Widget {
      * Widget Front End
      */
     public function widget($args, $instance) {
+
+        if ( $instance['gallery-id'] == 0 ) {
+            return;
+        }
 
         $title = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
 
@@ -60,10 +64,11 @@ class Modula_Widget extends WP_Widget {
             $title = esc_html__('Widget Title', 'modula-best-grid-gallery');
         }
 
+        $instance['gallery-id'] = isset( $instance['gallery-id'] ) ? $instance['gallery-id'] : '' ;
         ?>
         <p xmlns="http://www.w3.org/1999/html">
             <!-- Widget Title -->
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e( 'Title:', 'modula-best-grid-gallery' ); ?></label>
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html__( 'Title:', 'modula-best-grid-gallery' ); ?></label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                    value="<?php echo esc_attr($title); ?>"/>
@@ -112,9 +117,9 @@ class Modula_Widget extends WP_Widget {
             $so_posts = isset( $siteorigin_post_types['post-types'] ) ? $siteorigin_post_types['post-types'] : array('post', 'page');
 
             if (in_array( $current_screen->post_type, $so_posts ) ) {
-                wp_register_style('modula', MODULA_URL . 'assets/css/modula.min.css', null, MODULA_LITE_VERSION);
-                wp_register_script('modula-preview', MODULA_URL . 'assets/js/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
-                wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
+                wp_register_style('modula', MODULA_URL . 'assets/css/front/modula.min.css', null, MODULA_LITE_VERSION);
+                wp_register_script('modula-preview', MODULA_URL . 'assets/js/front/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
+                wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/admin/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);
 
                 wp_enqueue_style('modula');
                 wp_enqueue_script('modula-preview');

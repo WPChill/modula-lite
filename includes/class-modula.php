@@ -34,6 +34,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/libraries/class-modula-template-loader.php';
 		require_once MODULA_PATH . 'includes/helper/class-modula-helper.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-image.php';
+		require_once MODULA_PATH . 'includes/class-modula-script-manager.php';
 		require_once MODULA_PATH . 'includes/public/modula-helper-functions.php';
         require_once MODULA_PATH . 'includes/troubleshoot/class-modula-troubleshooting.php';
 
@@ -50,6 +51,12 @@ class Modula {
 
         require_once MODULA_PATH . 'includes/modula-beaver-block/class-modula-beaver.php';
         require_once MODULA_PATH . 'includes/widget/class-modula-widget.php';
+
+        // Get the grid system
+		require_once MODULA_PATH . 'includes/grid/class-modula-grid.php';
+
+		// Backward Compatibility
+		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
 
         if ( is_admin() ) {
@@ -123,16 +130,26 @@ class Modula {
         // Get current screen.
         $screen = get_current_screen();
 
-        // Check if is modula custom post type
-        if ( 'modula-gallery' !== $screen->post_type ) {
-            return;
-        }
-
-
         // Set the post_id
         $post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 
+		$modula_helper = array(
+			'items' => array(),
+			'settings' => array(),
+			'strings' => array(
+				'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
+			),
+			'id' => $post_id,
+			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		);
+
 		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
+
+			 // Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
 
 			/* CPT Styles & Scripts */
 			// Media Scripts
@@ -140,16 +157,6 @@ class Modula {
 	            'post' => $post_id,
 	        ) );
 
-	        $modula_helper = array(
-	        	'items' => array(),
-	        	'settings' => array(),
-	        	'strings' => array(
-	        		'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
-	        	),
-	        	'id' => $post_id,
-	        	'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
-	        	'ajax_url' => admin_url( 'admin-ajax.php' ),
-	        );
 
 	        // Get all items from current gallery.
 	        $images = get_post_meta( $post_id, 'modula-images', true );
@@ -174,6 +181,7 @@ class Modula {
 
 	        // Get current gallery settings.
 	        $settings = get_post_meta( $post_id, 'modula-settings', true );
+	        $settings = apply_filters( 'modula_backbone_settings', $settings );
 	        if ( is_array( $settings ) ) {
 	        	$modula_helper['settings'] = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 	        }else{
@@ -183,34 +191,54 @@ class Modula {
 			wp_enqueue_style( 'wp-color-picker' );
 	        // Enqueue Code Editor for Custom CSS
             wp_enqueue_code_editor(array('type' => 'text/css'));
-            wp_enqueue_style( 'modula-jquery-ui', MODULA_URL . 'assets/css/jquery-ui.min.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION );
+            wp_enqueue_style( 'modula-jquery-ui', MODULA_URL . 'assets/css/admin/jquery-ui.min.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt.css', null, MODULA_LITE_VERSION );
 
-			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-save', MODULA_URL . 'assets/js/wp-modula-save.js', array(), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/wp-modula-items.js', array(), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/wp-modula-modal.js', array(), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/wp-modula-gallery.js', array(), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/wp-modula-conditions.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/admin/resizesensor.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/admin/packery.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-droppable', 'jquery-ui-resizable', 'jquery-ui-draggable' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/admin/wp-modula-settings.js', array( 'jquery', 'jquery-ui-slider', 'wp-color-picker', 'jquery-ui-sortable' ), MODULA_LITE_VERSION, true );
+
+			wp_enqueue_script( 'modula-save', MODULA_URL . 'assets/js/admin/wp-modula-save.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-items', MODULA_URL . 'assets/js/admin/wp-modula-items.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-modal', MODULA_URL . 'assets/js/admin/wp-modula-modal.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-upload', MODULA_URL . 'assets/js/admin/wp-modula-upload.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-gallery', MODULA_URL . 'assets/js/admin/wp-modula-gallery.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-conditions', MODULA_URL . 'assets/js/admin/wp-modula-conditions.js', array(), MODULA_LITE_VERSION, true );
+
 
 			do_action( 'modula_scripts_before_wp_modula' );
 
-			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/wp-modula.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/admin/wp-modula.js', array(), MODULA_LITE_VERSION, true );
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
+
+			// Enqueue slick files
+            wp_enqueue_style('modula-slick-theme',MODULA_URL . 'assets/css/admin/slick-theme.css');
+            wp_enqueue_style('modula-slick-style',MODULA_URL . 'assets/css/admin/slick.css');
+            wp_enqueue_script('modula-slick',MODULA_URL.'assets/js/admin/slick.min.js',array('jquery'),MODULA_LITE_VERSION, true);
 
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/welcome.css', null, MODULA_LITE_VERSION );
+			// Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
+
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome.css', null, MODULA_LITE_VERSION );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/addons.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		}elseif ( 'edit.php' == $hook  ) {
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/edit.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/modula-edit.js', array(), MODULA_LITE_VERSION, true );
+			// Check if is modula custom post type
+	        if ( 'modula-gallery' !== $screen->post_type ) {
+	            return;
+	        }
+	        
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		}else {
+			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
+			wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		}
 
 	}
@@ -248,7 +276,7 @@ class Modula {
      * Add plugin editor script
      */
     public function register_editor_plugin($plugin_array) {
-        $plugin_array['modula_shortcode_editor'] = MODULA_URL . 'assets/js/editor-plugin.js';
+        $plugin_array['modula_shortcode_editor'] = MODULA_URL . 'assets/js/admin/editor-plugin.js';
         return $plugin_array;
     }
 
@@ -256,7 +284,7 @@ class Modula {
      * Display galleries selection
      */
     public function modula_shortcode_editor() {
-        $css_path  = MODULA_URL . 'assets/css/edit.css';
+        $css_path  = MODULA_URL . 'assets/css/admin/edit.css';
         $admin_url = admin_url();
         $galleries = Modula_Helper::get_galleries();
         include 'admin/tinymce-galleries.php';
@@ -304,5 +332,4 @@ class Modula {
 
         return $result;
     }
-    
 }

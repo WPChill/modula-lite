@@ -60,8 +60,8 @@ class Modula_Troubleshooting {
         $current_screen = get_current_screen();
 
         if ('modula-gallery_page_modula' == $current_screen->base) {
-            wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
-            wp_enqueue_style('modula-cpt-style', MODULA_URL . 'assets/css/modula-cpt.css', null, MODULA_LITE_VERSION);
+            wp_enqueue_script('modula-troubleshoot-conditions', MODULA_URL . 'assets/js/admin/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true);
+            wp_enqueue_style('modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt.css', null, MODULA_LITE_VERSION);
         }
 
     }
@@ -72,11 +72,9 @@ class Modula_Troubleshooting {
     public function public_enqueue_scripts() {
         $defaults = apply_filters( 'modula_troubleshooting_defaults', array(
             'enqueue_files'    => false,
-            'pass_protect'     => false,
-            'download_protect' => false,
-            'deeplink'         => false,
             'gridtypes'        => array(),
             'lightboxes'       => array(),
+            'lazy_load'        => false
         ));
 
         $ts_opt = get_option( 'modula_troubleshooting_option', array() );
@@ -98,12 +96,6 @@ class Modula_Troubleshooting {
              * @hooked main_lite_files - 50
              */
             $handles = apply_filters( 'modula_troubleshooting_frontend_handles', $handles, $ts_opt );
-
-            foreach ( $handles['scripts'] as $script_slug ) {
-                if ( ! wp_script_is($script_slug, 'enqueued') ) {
-                    wp_enqueue_script( $script_slug );
-                }
-            }
 
             foreach ( $handles['styles'] as $style_slug ) {
                 if ( ! wp_style_is($style_slug, 'enqueued') ) {
@@ -137,7 +129,7 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options = $_POST['modula_troubleshooting_option'];
+        $troubleshooting_options = isset($_POST['modula_troubleshooting_option']) ? $_POST['modula_troubleshooting_option'] : false;
         $ts_options              = array();
 
         if ( is_array( $troubleshooting_options ) && !empty( $troubleshooting_options ) ) {
@@ -157,16 +149,16 @@ class Modula_Troubleshooting {
     public function check_lightbox( $handles, $options ){
 
         $lightboxes = apply_filters( 'modula_troubleshooting_lightboxes_handles', array(
-            'lightbox2' => array(
-                'scripts' => 'modula-lightbox2',
-                'styles'  => 'modula-lightbox2',
+            'fancybox' => array(
+                'scripts' => 'modula-fancybox',
+                'styles'  => '',
             )
         ));
 
         if ( ! empty( $options['lightboxes'] ) ) {
             foreach ( $options['lightboxes'] as $lightbox ) {
                 
-                if ( in_array( $lightbox, $lightboxes ) ) {
+                if ( isset( $lightboxes[ $lightbox ] ) ) {
                     if ( isset( $lightboxes[ $lightbox ]['scripts'] ) ) {
                         $handles['scripts'][] = $lightboxes[ $lightbox ]['scripts'];
                     }
@@ -196,7 +188,13 @@ class Modula_Troubleshooting {
         
         $gridtypes = apply_filters( 'modula_troubleshooting_gridtypes_handles', array(
             'custom-grid' => array(
-                'scripts' => 'packery',
+                'scripts' => '',
+            ),
+            'justified-grid' => array(
+                'scripts' => 'modula-grid-justified-gallery',
+            ),
+            'isotope-grid' => array(
+                'scripts' => array( 'modula-isotope-packery', 'modula-isotope' ),
             )
         ));
 
@@ -205,7 +203,11 @@ class Modula_Troubleshooting {
                 
                 if ( isset( $gridtypes[ $gridtype ] ) ) {
                     if ( isset( $gridtypes[ $gridtype ]['scripts'] ) ) {
-                        $handles['scripts'][] = $gridtypes[ $gridtype ]['scripts'];
+                        if ( is_array( $gridtypes[ $gridtype ]['scripts'] ) ) {
+                            $handles['scripts'] = array_merge( $handles['scripts'], $gridtypes[ $gridtype ]['scripts'] );
+                        }else{
+                            $handles['scripts'][] = $gridtypes[ $gridtype ]['scripts'];
+                        }
                     }
                     if ( isset( $gridtypes[ $gridtype ]['styles'] ) ) {
                         $handles['styles'][] = $gridtypes[ $gridtype ]['styles'];

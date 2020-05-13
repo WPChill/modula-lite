@@ -16,6 +16,25 @@ class Modula_Uninstall {
         ) );
         add_action( 'admin_footer-plugins.php' , array ( $this , 'add_uninstall_form' ) , 16 );
         add_action( 'wp_ajax_modula_uninstall_plugin' , array ( $this , 'modula_uninstall_plugin' ) );
+        add_action('admin_enqueue_scripts',array($this,'uninstall_scripts'));
+    }
+
+    /**
+     * Enqueue uninstall scripts
+     *
+     * @since 2.2.5
+     */
+    public function uninstall_scripts(){
+
+        $current_screen = get_current_screen();
+        if ( 'plugins' == $current_screen->base ) {
+            wp_enqueue_style( 'modula-uninstall', MODULA_URL . 'assets/css/admin/uninstall.css' );
+            wp_enqueue_script( 'modula-uninstall', MODULA_URL . 'assets/js/admin/modula-uninstall.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+            wp_localize_script( 'modula-uninstall', 'wpModulaUninstall', array(
+                'redirect_url' => admin_url( '/plugins.php' ),
+                'nonce'        => wp_create_nonce( 'modula_uninstall_plugin' )
+            ) );
+        }
     }
 
     /**
@@ -29,7 +48,7 @@ class Modula_Uninstall {
     public function filter_action_links( $links ) {
 
         $links = array_merge( $links , array (
-            '<a onclick="javascript:event.preventDefault();" id="modula-uninstall-link"  class="uninstall-modula" href="#">' . __( 'Uninstall' , 'modula-best-grid-gallery' ) . '</a>'
+            '<a onclick="javascript:event.preventDefault();" id="modula-uninstall-link"  class="uninstall-modula" href="#">' . esc_html__( 'Uninstall' , 'modula-best-grid-gallery' ) . '</a>'
         ) );
 
         return $links;
@@ -45,217 +64,47 @@ class Modula_Uninstall {
         // Get our strings for the form
         $form = $this->get_form_info();
 
-        // Build the HTML to go in the form
-        $html = '<div class="modula-uninstall-form-head"><h3><strong>' . esc_html( $form['heading'] ) . '</strong></h3><i class="close-uninstall-form">X</i></div>';
-        $html .= '<div class="modula-uninstall-form-body"><p>' . wp_kses_post( $form['body'] ) . '</p>';
-
-        if ( is_array( $form['options'] ) ) {
-
-            $html .= '<div class="modula-uninstall-options"><p>';
-            foreach ( $form['options'] as $key => $option ) {
-
-                $before_input = '';
-                $after_input  = '';
-                if ( 'delete_all' == $key ) {
-                    $before_input = '<strong style="color:red;">';
-                    $after_input  = '</strong>';
-                }
-
-                $html .= '<input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label><p class="description">' . esc_html( $option['description'] ) . '</p><br>';
-            }
-
-            $html .= '</div><!-- .modula-uninstall-options -->';
-        }
-        $html .= '</div><!-- .modula-uninstall-form-body -->';
-        $html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Cleaning...' , 'colorlib-404-customizer' ) . '</p>';
-        $html .= '<div class="uninstall"><p><a id="modula-uninstall-submit-form" class="button button-primary" href="#">' . __( 'Uninstall' , 'colorlib-404-customizer' ) . '</a></p></div>'
         ?>
-        <div class="modula-uninstall-form-bg"></div>
-        <div class="modula-uninstall-form-wrapper"><span class="modula-uninstall-form"
-                                                          id="modula-uninstall-form"></span></div>
-        <style type="text/css">
-            .modula-uninstall-form-active .modula-uninstall-form-bg {
-                background: rgba(0, 0, 0, .5);
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
+        <div class="modula-uninstall-form-bg">
+        </div>
+        <div class="modula-uninstall-form-wrapper">
+            <span class="modula-uninstall-form" id="modula-uninstall-form">
+                <div class="modula-uninstall-form-head">
+                    <h3><strong><?php echo esc_html( $form['heading'] ); ?></strong></h3>
+                    <i class="close-uninstall-form">X</i>
+                </div>
+        <div class="modula-uninstall-form-body"><p><?php echo wp_kses_post( $form['body'] ); ?></p>
 
-            .modula-uninstall-form-wrapper {
-                position: fixed;
-                z-index: 999;
-                display: none;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                margin: 0 auto;
-            }
+        <?php
+        if ( is_array( $form['options'] ) ) {
+            ?>
+            <div class="modula-uninstall-options">
+                <?php
+                foreach ( $form['options'] as $key => $option ) {
 
-            .modula-uninstall-form-wrapper .uninstall {
-                text-align: center;
-            }
-
-            .modula-uninstall-form-active .modula-uninstall-form-wrapper {
-                display: block;
-                z-index: 999;
-            }
-
-            .modula-uninstall-form {
-                display: none;
-            }
-
-            .modula-uninstall-form-active .modula-uninstall-form {
-                position: absolute;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                top: 50%;
-                transform: translateY(-50%);
-                max-width: 600px;
-                background: #fff;
-                white-space: normal;
-            }
-
-            .modula-uninstall-form-head {
-                background: #774cce;
-                padding: 8px 18px;
-                position: relative;
-            }
-
-            .modula-uninstall-form-head h3 {
-                color: #fff;
-            }
-
-            .modula-uninstall-form-body {
-                padding: 8px 18px;
-                color: #444;
-            }
-
-            .deactivating-spinner {
-                display: none;
-            }
-
-            .deactivating-spinner .spinner {
-                float: none;
-                margin: 4px 4px 0 18px;
-                vertical-align: bottom;
-                visibility: visible;
-            }
-
-            .toggle-spinner .deactivating-spinner {
-                display: block !important;
-            }
-
-            .modula-uninstall-form-footer p {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-
-            .modula-uninstall-form.process-response .modula-uninstall-form-body {
-                position: relative;
-            }
-
-            .modula-uninstall-form.process-response .modula-uninstall-form-body:after {
-                content: "";
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(255, 255, 255, .5);
-            }
-
-            .modula-uninstall-form-head .close-uninstall-form {
-                position: absolute;
-                right: 15px;
-                color: #fff;
-                font-family: Arial;
-                font-size: 14px;
-                display: inline-block;
-                top: 50%;
-                transform: translateY(-50%);
-                cursor: pointer;
-            }
-        </style>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                var uninstall = $("a.uninstall-modula"),
-                    formContainer = $('#modula-uninstall-form');
-
-                formContainer.on('click', '#delete_all', function () {
-                    if ( $('#delete_all').is(':checked') ) {
-                        $('#delete_options').prop('checked', true);
-                        $('#delete_transients').prop('checked', true);
-                        $('#delete_cpt').prop('checked', true);
-                        $('#delete_old_tables').prop('checked', true);
-                    } else {
-                        $('#delete_options').prop('checked', false);
-                        $('#delete_transients').prop('checked', false);
-                        $('#delete_cpt').prop('checked', false);
-                        $('#delete_old_tables').prop('checked', false);
+                    $before_input = '';
+                    $after_input  = '';
+                    if ( 'delete_all' == $key ) {
+                        $before_input = '<strong class="modula-red-text">';
+                        $after_input  = '</strong>';
                     }
-                });
 
-                $(uninstall).on("click", function () {
-
-                    $('body').toggleClass('modula-uninstall-form-active');
-                    formContainer.fadeIn();
-                    formContainer.html('<?php echo $html; ?>');
-
-                    formContainer.on('click', '#modula-uninstall-submit-form', function (e) {
-                        formContainer.addClass('toggle-spinner');
-                        var selectedOptions = {
-                            delete_options: ($('#delete_options').is(':checked')) ? 1 : 0,
-                            delete_transients: ($('#delete_transients').is(':checked')) ? 1 : 0,
-                            delete_cpt: ($('#delete_cpt').is(':checked')) ? 1 : 0,
-                            delete_old_tables: ($('#delete_old_tables').is(':checked')) ? 1 : 0,
-                        };
-
-                        var data = {
-                            'action': 'modula_uninstall_plugin',
-                            'security': "<?php echo wp_create_nonce( 'modula_uninstall_plugin' ); ?>",
-                            'dataType': "json",
-                            'options': selectedOptions
-                        };
-
-                        $.post(
-                            ajaxurl,
-                            data,
-                            function (response) {
-                                // Redirect to plugins page
-                                window.location.href = '<?php echo admin_url( '/plugins.php' ); ?>';
-                            }
-                        );
-                    });
-
-                    // If we click outside the form, the form will close
-                    // Stop propagation from form
-                    formContainer.on('click', function (e) {
-                        e.stopPropagation();
-                    });
-
-                    $('.modula-uninstall-form-wrapper, .close-uninstall-form').on('click', function (e) {
-                        e.stopPropagation();
-                        formContainer.fadeOut();
-                        $('body').removeClass('modula-uninstall-form-active');
-                    });
-
-                    $(document).on("keyup", function (e) {
-                        if ( e.key === "Escape" ) {
-                            formContainer.fadeOut();
-                            $('body').removeClass('modula-uninstall-form-active');
-                        }
-                    });
-                });
-            });
-        </script>
+                    echo ' <p><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label><p class="description">' . esc_html( $option['description'] ) . '</p><br>';
+                }
+                ?>
+            </div><!-- .modula-uninstall-options -->
+        <?php } ?>
+        </div><!-- .modula-uninstall-form-body -->
+        <p class="deactivating-spinner"><span
+                    class="spinner"></span><?php echo esc_html__( 'Cleaning...', 'colorlib-404-customizer' ); ?></p>
+        <div class="uninstall">
+            <p>
+                <a id="modula-uninstall-submit-form" class="button button-primary"
+                   href="#"><?php echo esc_html__( 'Uninstall', 'colorlib-404-customizer' ); ?></a>
+            </p>
+        </div>
+            </span>
+        </div>
     <?php }
 
     /*
@@ -266,7 +115,7 @@ class Modula_Uninstall {
     public function get_form_info() {
         $form            = array ();
         $form['heading'] = esc_html__( 'Sorry to see you go' , 'modula-best-grid-gallery' );
-        $form['body']    = '<strong style="color:red;">' . esc_html__( ' Caution!! This action CANNOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
+        $form['body']    = '<strong class="modula-red-text">' . esc_html__( ' Caution!! This action CANNOT be undone' , 'modula-best-grid-gallery' ) . '</strong>';
         $form['options'] = apply_filters( 'modula_uninstall_options' ,array(
             'delete_all'        => array(
                 'label'       => esc_html__( 'Delete all data' , 'modula-best-grid-gallery' ) ,
@@ -302,7 +151,7 @@ class Modula_Uninstall {
         global $wpdb;
         check_ajax_referer( 'modula_uninstall_plugin' , 'security' );
 
-        $uninstall_option = $_POST['options'];
+        $uninstall_option = isset($_POST['options']) ? $_POST['options'] : false;
 
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {
@@ -332,7 +181,7 @@ class Modula_Uninstall {
             // filter for post types, mainly for Modula Albums
             $post_types = apply_filters( 'modula_uninstall_post_types' , array ( 'modula-gallery' ) );
             $galleries  = get_posts( array( 'post_type' => $post_types , 'posts_per_page' => -1, 'fields' => 'ids' ) );
-            
+
 
             if ( is_array( $galleries ) && ! empty( $galleries ) ) {
 

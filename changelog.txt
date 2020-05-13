@@ -1,8 +1,22 @@
+= 2.3.0 - 18/02/2020 =
+Replaced packery & masonry scripts with isotope script
+Changed lightbox to FancyBox from Lightbox2
+Modula admin UI improvements and updates
+Update conditional fields
+Fix hover effects
+Added inview load functionality
+Added new gallery type - columns
+Fix for elementor opening another lightbox
+Overflowing admin bar fix
+Modula image files upload/select improvement
+Fix classic editor popup for no galleries
+Fix selecting a gallery in Elementor widget
+Added ALT text for the image inside the lightbox
+
 = 2.2.8 - 27/03/2020 =
 Fixed undefined error
 
 = 2.2.7 - 09/03/2020 =
-Fixed incompatibility with Elementor stretched rows.
 Fixed incompatibility with isotope.js
 Renamed our registered files name
 Fixed title/caption font size to reflect theme default

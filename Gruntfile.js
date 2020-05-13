@@ -70,22 +70,23 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						expand: true,
-						cwd: 'assets/css',
+						cwd: 'assets/css/front',
 						src: [ '*.css', '!*.min.css' ],
-						dest: 'assets/css',
+						dest: 'assets/css/front',
 						ext: '.min.css'
 					}
 				]
 			}
 		},
 		clean: {
-			css: [ 'assets/css/*.min.css', '!assets/css/jquery-ui.min.css' ],
+			css: [ 'assets/css/front/*.min.css', '!assets/css/jquery-ui.min.css' ],
 			init: {
 				src: [ 'build/' ]
 			},
 			jsmin : {
 				src: [
 					'assets/js/*.min.js',
+					'assets/js/front/*.min.js',
 					'assets/js/*.min.js.map',
 					'!assets/js/resizesensor.min.js'
 				]
@@ -120,16 +121,71 @@ module.exports = function( grunt ) {
 		},
 
 		concat: {
-			dist: {
+			css: {
 				src : [
-					// 'assets/js/lightbox/jquery.event.move.js',
-					// 'assets/js/lightbox/jquery.event.swipe.js',
-					// 'assets/js/lightbox/jquery-ui.js',
-					// 'assets/js/lightbox/hammer.js',
-					// 'assets/js/lightbox/jquery.hammer.js',
-					'assets/js/lightbox/lightbox.js',
+					'assets/css/front/fancybox.min.css',
+					'assets/css/front/modula.min.css',
 				],
-				dest: 'assets/js/lightbox.js'
+				dest: 'assets/css/front.css'
+			},js: {
+				src : [
+					'assets/js/front/isotope.min.js',
+					'assets/js/front/isotope-packery.min.js',
+					'assets/js/front/justifiedGallery.min.js',
+					'assets/js/front/fancybox.min.js',
+					'assets/js/front/lazysizes.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-all.js'
+			},
+			modulawf: {
+				src : [
+					'assets/js/front/isotope.min.js',
+					'assets/js/front/isotope-packery.min.js',
+					'assets/js/front/lazysizes.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-wf.js'
+			},
+			modulawl: {
+				src : [
+					'assets/js/front/isotope.min.js',
+					'assets/js/front/isotope-packery.min.js',
+					'assets/js/front/fancybox.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-wl.js'
+			},
+			modulawlf: {
+				src : [
+					'assets/js/front/isotope.min.js',
+					'assets/js/front/isotope-packery.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-wfl.js'
+			},
+			modulajwf: {
+				src : [
+					'assets/js/front/justifiedGallery.min.js',
+					'assets/js/front/lazysizes.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-justified-wf.js'
+			},
+			modulajwl: {
+				src : [
+					'assets/js/front/justifiedGallery.min.js',
+					'assets/js/front/fancybox.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-justified-wl.js'
+			},
+			modulajwfl: {
+				src : [
+					'assets/js/front/justifiedGallery.min.js',
+					'assets/js/front/jquery-modula.min.js',
+				],
+				dest: 'assets/js/modula-justified-wfl.js'
 			},
 		},
 
@@ -145,7 +201,7 @@ module.exports = function( grunt ) {
 			jsfiles: {
 				files: [ {
 					expand: true,
-					cwd   : 'assets/js/',
+					cwd   : 'assets/js/front/',
 					src   : [
 						'*.js',
 						'!*.min.js',
@@ -156,18 +212,11 @@ module.exports = function( grunt ) {
 						'!wp-modula.js',
 						'!resizesensor.js'
 					],
-					dest  : 'assets/js/',
+					dest  : 'assets/js/front/',
 					ext   : '.min.js'
 				} ]
 			}
 		},
-
-		concat: {
-    		js: {
-      			src: [ 'assets/js/resizesensor.min.js', 'assets/js/jquery-modula.min.js' ],
-      			dest: 'assets/js/jquery-modula.min.js',
-    		},
-  		},
 
 		compress: {
 			build: {
@@ -194,11 +243,18 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'minjs', [  // Minify CSS
 		'clean:jsmin',
 		'uglify',
-		'concat:js'
+		'concat:js',
+		'concat:modulawf',
+		'concat:modulawl',
+		'concat:modulawlf',
+		'concat:modulajwf',
+		'concat:modulajwl',
+		'concat:modulajwfl'
 	] );
 	grunt.registerTask( 'mincss', [  // Minify CSS
 		'clean:css',
-		'cssmin'
+		'cssmin',
+		'concat:css'
 	] );
 	
 	// Build task

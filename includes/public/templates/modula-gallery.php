@@ -17,18 +17,14 @@
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
-                // Will comment these lines and replace with default, maybe in the future we revert to them.
-                // For now the settings are disabled
-				/*'title'            => Modula_Helper::get_title( $image, $data->settings['wp_field_title'] ),
-				'description'      => Modula_Helper::get_description( $image, $data->settings['wp_field_caption'] ),*/
-                'title'            => Modula_Helper::get_title( $image, 'title' ),
-                'description'      => Modula_Helper::get_description( $image, 'caption' ),
+				'title'            => Modula_Helper::get_title( $image, 'title' ),
+				'description'      => Modula_Helper::get_description( $image, 'caption' ),
 				'lightbox'         => $data->settings['lightbox'],
 
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => boolval( $data->settings['disableSocial'] )? true : false,
+				'hide_socials'     => boolval( $data->settings['disableSocial'] ) ? true : false,
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
@@ -40,7 +36,7 @@
 				'item_attributes'  => array(),
 
 				/* Item link attributes & classes */
-				'link_classes'     => array( 'tile-inner' ),
+				'link_classes'     =>  array( 'tile-inner', 'modula-item-link' ),
 				'link_attributes'  => array(),
 
 				/* Item img attributes & classes */
@@ -63,6 +59,8 @@
 			 * @hooked modula_check_lightboxes_and_links - 15
 			 * @hooked modula_check_hover_effect - 20
 			 * @hooked modula_check_custom_grid - 25
+             * @hooked modula_enable_lazy_load - 30
+             *
 			 */
 			$item_data = apply_filters( 'modula_shortcode_item_data', $item_data, $image, $data->settings, $data->images );
 
@@ -73,6 +71,7 @@
 		}
 
 		?>
+		
 	</div>
 
 	
@@ -82,9 +81,9 @@
 	 * Hook: modula_shortcode_after_items.
 	 *
 	 * @hooked modula_show_schemaorg - 90
+	 * @hooked modula_slider_syncing - 85
 	 */
-	do_action( 'modula_shortcode_after_items', $data->settings );
-
+	do_action( 'modula_shortcode_after_items', $data->settings, $item_data, $data->images );
 	?>
 
 </div>
