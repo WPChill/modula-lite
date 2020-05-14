@@ -153,11 +153,16 @@ tr label.th-label {
 }*/
 .modula-settings-container .modula-tabs-content .form-table tr:first-of-type {border-top: none;}
 .modula-settings-container .modula-tabs-content .form-table tr:last-of-type {border-bottom: none;}
-.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:230px;}
+.modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:200px;min-width:200px;}
 .modula-settings-container .modula-tabs-content .form-table th.child_setting {
 	padding-left:40px;
 	display:inline-block;
-	width:200px;
+	width:180px;
+	min-width:180px;
+}
+
+.modula-settings-container .modula-tabs-content .form-table textarea {
+	max-width:230px;
 }
 
 .modula-settings-container .modula-tabs-content .form-table th.two_child_setting {
