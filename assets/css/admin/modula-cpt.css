@@ -157,13 +157,13 @@ tr label.th-label {
 .modula-settings-container .modula-tabs-content .form-table th.child_setting {
 	padding-left:40px;
 	display:inline-block;
-	width:280px;
+	width:200px;
 }
 
 .modula-settings-container .modula-tabs-content .form-table th.two_child_setting {
 	padding-left:60px;
 	display:inline-block;
-	width:260px;
+	width:200px;
  }
 /* Fields */
 
@@ -172,7 +172,7 @@ tr label.th-label {
 	position: relative;
 	height: 2px;
 	padding: 10px 0;
-	width: 240px;
+	width: 230px;
 	box-sizing: border-box;
 	/*margin-bottom: 10px;*/
 	display: flex;
@@ -243,12 +243,12 @@ tr label.th-label {
 .modula-settings-container select,
 .modula-settings-container  input:not([type="select-one"]):not([type="button"]):not([contenteditable="true"]),
 .modula-settings-container  select{
-	min-width:240px;
-	max-width:240px;
+	min-width:230px;
+	max-width:230px;
 }
 
 .selectize-control.single .selectize-input, .selectize-dropdown.single {
-	max-width:240px;
+	max-width:230px;
 }
 
 /* Hover Effects */
