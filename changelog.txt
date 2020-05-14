@@ -1,4 +1,4 @@
-= 2.3.0 - 18/02/2020 =
+= 2.3.0 - 14/05/2020 =
 Replaced packery & masonry scripts with isotope script
 Changed lightbox to FancyBox from Lightbox2
 Modula admin UI improvements and updates
