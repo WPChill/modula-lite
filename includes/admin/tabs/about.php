@@ -32,7 +32,7 @@ $issues = array(
         <div class="modula-about-content">
             <?php if (!empty($issues)) { ?>
 
-                <h2><?php printf(esc_html__('Version %s addressed %s bug', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] ),count( $issues['feature'] ) ); ?></h2>
+                <h2><?php printf(esc_html__('Version %s addressed %s bugs and implemented %s enhancements.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] ),count( $issues['feature'] ) ); ?></h2>
                 <ul class="modula-about-list">
                     <?php
                     foreach ($issues as $key => $iss) {
