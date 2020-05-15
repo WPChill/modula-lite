@@ -225,6 +225,7 @@ class Modula {
 	            return;
 	        }
 
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome.css', null, MODULA_LITE_VERSION );
 		}elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
 			// Check if is modula custom post type
