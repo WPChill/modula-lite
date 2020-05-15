@@ -148,8 +148,11 @@ class Modula_Envira_Importer {
                 $envira_image_alt = ( !isset( $image['alt'] ) || '' != $image['alt'] ) ? $image['alt'] : get_post_meta( $imageID, '_wp_attachment_image_alt', TRUE );
                 $envira_image_url = ( !isset( $image['link'] ) || '' != $image['link'] ) ? $image['link'] : '';
                 $target           = ( isset( $image['link_new_window'] ) && '1' == $image['link_new_window'] ) ? 1 : 0;
+				$image_url = wp_get_attachment_url($imageID);
 
-
+				if($envira_image_url == $image_url ){
+					$envira_image_url = '';
+				}
                 $modula_images[] = array(
                     'id'          => absint($imageID),
                     'alt'         => sanitize_text_field($envira_image_alt),
