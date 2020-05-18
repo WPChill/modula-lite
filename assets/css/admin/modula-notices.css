@@ -60,7 +60,7 @@
 	margin: 20px auto;
 }
 .modula-cutsom-notice a:not( .notice-dismiss ) {
-	display: inline-block;
+	display: block;
 	width: fit-content;
 	margin-left: auto;
 	margin-right: auto;
