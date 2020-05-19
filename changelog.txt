@@ -1,3 +1,7 @@
+= 2.3.1 - 18/05/2020 =
+Fix Fancybox always opening
+Fixed lazyload for masonry columns
+
 = 2.3.0 - 18/05/2020 =
 Replaced packery & masonry scripts with isotope script
 Changed lightbox to FancyBox from Lightbox2
