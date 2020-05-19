@@ -59,8 +59,19 @@ class Modula_Grid {
 	 */
 	public function modula_grid_image_sizes( $return, $id, $img_size, $sizes ) {
 
-		$return['width']  = $sizes['width'];
-		$return['height'] = $sizes['height'];
+		if ( is_array( $img_size ) ) {
+
+			$return['width']  = $img_size['width'];
+			$return['height'] = $img_size['height'];
+		}
+		else {
+			$image_sizes = wp_get_attachment_image_src( $id, $img_size );
+
+			if ( $image_sizes ) {
+				$return['width']  = $image_sizes[1];
+				$return['height'] = $image_sizes[2];
+			}
+		}
 
 		return $return;
 
@@ -165,8 +176,11 @@ class Modula_Grid {
 			return $item_data;
 		}
 
-		// // Remove modula initial filter
-		remove_filter( 'modula_shortcode_item_data', 'modula_generate_image_links', 10 );
+		$resize_images = apply_filters( 'modula_grid_resize_images', true , $settings);
+
+		if(!$resize_images){
+			return $item_data;
+		}
 
 		if ( !class_exists( 'Modula_Image' ) ) {
 			return $item_data;
@@ -174,6 +188,8 @@ class Modula_Grid {
 
 		$image_full = wp_get_attachment_image_src( $item['id'], 'full' );
 		$image_url  = '';
+
+		add_filter('modula_resize_images',array($this,'grid_resize_images'),10);
 
 		if ( 'custom' != $settings['grid_image_size'] ) {
 
@@ -228,6 +244,12 @@ class Modula_Grid {
 
 		return $item_data;
 
+	}
+
+
+	public function grid_resize_images(){
+
+		return false;
 	}
 
 

@@ -2,6 +2,12 @@
 
 function modula_generate_image_links( $item_data, $item, $settings ){
 
+	$resize_images = apply_filters( 'modula_resize_images', true, $settings );
+
+	if(!$resize_images){
+		return $item_data;
+	}
+
 	$image_full = '';
 	$image_url = '';
 
