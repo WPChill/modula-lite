@@ -1173,7 +1173,7 @@ return Packery;
   } else {
     // browser global
     factory(
-      window.Isotope.LayoutMode,
+      window.ModulaIsotope.LayoutMode,
       window.Packery
     );
   }

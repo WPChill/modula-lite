@@ -112,7 +112,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.placeImage(index);
 
 				if ( instance.isIsotope ) {
-					instance.$itemsCnt.isotope('layout');
+					instance.$itemsCnt.modulaisotope('layout');
 				}
 			}
 
@@ -270,7 +270,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 		};
 
-		this.$itemsCnt.isotope(packery_args);
+		this.$itemsCnt.modulaisotope(packery_args);
 		this.isIsotope = true;
 
 	}
@@ -334,7 +334,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				}
 			};
 
-			this.$itemsCnt.isotope(packery_args);
+			this.$itemsCnt.modulaisotope(packery_args);
 			this.isIsotope = true;
 
 		}
@@ -361,7 +361,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var instance = this;
 
-		this.$itemsCnt.isotope({
+		this.$itemsCnt.modulaisotope({
 			// set itemSelector so .grid-sizer is not used in layout
 			itemSelector: '.modula-item',
 			// percentPosition: true,
