@@ -55,10 +55,12 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	if ( 'attachment-page' == $settings['lightbox'] ) {
 
+		$item_data['link_attributes']['class'][] = 'modula-simple-link';
+		$item_data['item_classes'][] = 'modula-simple-link';
+
 		if ( '' != $item['link'] ) {
 
 			$item_data['link_attributes']['href'] = $item['link'];
-
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
 
 				$item_data['link_attributes']['target'] = '_blank';
@@ -72,6 +74,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 	} else if ( 'direct' == $settings['lightbox'] ) {
 
 		$item_data['link_attributes']['href'] = $item_data['image_full'];
+		$item_data['link_attributes']['class'][] = 'modula-simple-link';
+		$item_data['item_classes'][] = 'modula-simple-link';
+
 	} else {
 
 		if ( isset( $item['description'] ) && '' != $item['description'] ) {
