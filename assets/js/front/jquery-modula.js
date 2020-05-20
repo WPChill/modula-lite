@@ -110,7 +110,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 				element.data('size', {width: element.width(), height: element.height()});
 				parent = element.parents('.modula-item');
 				parent.addClass('tg-loaded');
-				console.log( 'tg-loaded lazy' );
 				index = instance.$items.index(parent);
 				instance.placeImage(index);
 
