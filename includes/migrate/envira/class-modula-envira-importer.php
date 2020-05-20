@@ -137,7 +137,7 @@ class Modula_Envira_Importer {
 
         // get gallery data so we can get title, description and alt from envira
         $envira_gallery_data = $modula_importer->prepare_images('envira',$gallery_id);
-
+        $envira_settings     = get_post_meta($gallery_id, '_eg_gallery_data', true);
         if (isset($envira_gallery_data) && count($envira_gallery_data) > 0) {
             foreach ($envira_gallery_data as $imageID => $image) {
 
@@ -166,7 +166,6 @@ class Modula_Envira_Importer {
                     'height'      => 2,
                     'filters'     => ''
                 );
-
             }
         }
 
@@ -177,10 +176,13 @@ class Modula_Envira_Importer {
             }
             $this->modula_import_result(false, esc_html__('No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery'),false);
         }
-
+        $modula_settings = array(
+            'type'        => 'grid',
+            'grid_type'   => $envira_settings['config']['columns'],
+        );
         // Get Modula Gallery defaults, used to set modula-settings metadata
-        $modula_settings = Modula_CPT_Fields_Helper::get_defaults();
-
+        $modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() ) ;
+        
         // Create Modula CPT
         $modula_gallery_id = wp_insert_post(array(
             'post_type'   => 'modula-gallery',

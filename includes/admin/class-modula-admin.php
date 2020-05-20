@@ -22,6 +22,8 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
+		add_action( 'admin_enqueue_scripts', array( $this,  'add_autosuggest_scripts'), 5 );
+		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url'));
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
 
 		add_action( 'admin_notices', array( $this, 'modula_upgrade_lightbox_notice' ) );
@@ -439,6 +441,32 @@ class Modula_Admin {
 		}
 
 		return $tab_content;
+	}
+
+	public function add_autosuggest_scripts() {
+		$screen = get_current_screen(); 
+		if( $screen->id == 'modula-gallery' ) {
+			wp_enqueue_script( 'jquery-ui-autocomplete' );
+			wp_register_script( 'modula-autocomplete-url', MODULA_URL . 'assets/js/admin/autocomplete-url.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete'), true );
+			wp_localize_script( 'modula-autocomplete-url', 'autocompleteUrl', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
+			wp_enqueue_script( 'modula-autocomplete-url' );
+		}
+	}
+
+	public function autocomplete_url() {
+		$suggestions = array();
+		$term = strtolower( $_GET['term']);
+
+		$loop = new WP_Query( 's=' . $term);
+		while( $loop->have_posts() ) {
+			$loop->the_post();
+			$suggestion['label'] = get_the_title();
+			$suggestion['value']  = get_permalink();
+			$suggestions[] = $suggestion;
+		}
+
+		echo json_encode( $suggestions );
+		exit();
 	}
 
 }
