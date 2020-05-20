@@ -195,6 +195,12 @@ class Modula_Shortcode {
 			'inView'           => $inView,
 		), $settings );
 
+		// Check for lightbox
+		$js_config['lightbox']    = $settings['lightbox'];
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'attachment-page' ) ) ) {
+  			$js_config['lightbox'] = 'fancybox';
+  		}
+
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
 		 * Hook: modula_gallery_template_data.
