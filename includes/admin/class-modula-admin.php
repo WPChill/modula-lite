@@ -447,7 +447,7 @@ class Modula_Admin {
 		$screen = get_current_screen(); 
 		if( $screen->id == 'modula-gallery' ) {
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_register_script( 'modula-autocomplete-url', MODULA_URL . 'assets/js/admin/autocomplete-url.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete'), true );
+			wp_register_script( 'modula-autocomplete-url', MODULA_URL . 'assets/js/admin/modula-autocomplete.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete'), true );
 			wp_localize_script( 'modula-autocomplete-url', 'autocompleteUrl', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_script( 'modula-autocomplete-url' );
 		}

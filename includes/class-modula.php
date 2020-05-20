@@ -208,7 +208,7 @@ class Modula {
 
 			do_action( 'modula_scripts_before_wp_modula' );
 
-			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/wp-modula.js', array(), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/admin/wp-modula.js', array(), MODULA_LITE_VERSION, true );
 			$modula_helper = apply_filters( 'modula_helper_properties', $modula_helper);
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
