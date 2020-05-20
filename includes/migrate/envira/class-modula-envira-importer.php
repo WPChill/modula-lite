@@ -177,8 +177,11 @@ class Modula_Envira_Importer {
             $this->modula_import_result(false, esc_html__('No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery'),false);
         }
         $modula_settings = array(
-            'type'        => 'grid',
-            'grid_type'   => $envira_settings['config']['columns'],
+            'type'                  => 'grid',
+            'grid_type'             => $envira_settings['config']['columns'],
+            'grid_image_size'       => ('default' == $envira_settings['config']['image_size']) ? 'custom' : $envira_settings['config']['image_size'],
+            'grid_image_dimensions' => array( 'width' => $envira_settings['config']['crop_width'], 'height' => $envira_settings['config']['crop_height'] ),
+            'gutter'                => $envira_settings['config']['gutter']
         );
         // Get Modula Gallery defaults, used to set modula-settings metadata
         $modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() ) ;
