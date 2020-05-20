@@ -68,6 +68,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.lastWidth = 0;
 		this.resizeTO = 0;
 		this.isIsotope = false;
+		this.isLazyLoaded = true;
 
 		// Initiate Gallery
 		this.init();
@@ -86,6 +87,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			this.createGrid();
 		}else if ( 'grid' == this.options.type ) {
 			if ( 'automatic' == this.options.grid_type ) {
+
 				this.createAutoGrid();
 			} else {
 				this.createColumnsGrid();
@@ -256,9 +258,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			});
 
 			// Load Images
-			if ( '1' != instance.options.lazyLoad ) {
-				instance.loadImage(i);
-			}
+			instance.loadImage(i);
 
 		});
 
@@ -317,9 +317,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				height: slot.height
 			});
 
-			if ( '1' != instance.options.lazyLoad ) {
-				instance.loadImage(i);
-			}
+			instance.loadImage(i);
 
 		});
 
@@ -351,7 +349,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			captions: false,
 			border: 0,
 			imgSelector: '.pic',
-			cssAnimation: false,
+			cssAnimation: true,
 			imagesAnimationDuration: 700,
 		});
 
@@ -494,24 +492,27 @@ jQuery(window).on('elementor/frontend/init', function () {
 	Plugin.prototype.loadImage = function(index) {
         var instance = this;
         var source = instance.$items.eq(index).find('.pic');
-        var img = new Image();
-        img.onerror = function () {
-            console.log("error loading image [" + index + "] : " + this.src);   
-            if (index + 1 < instance.$items.length)
-                instance.loadImage(index + 1);
-        }
-        img.onload = function () {
-            source.data('size', { width: this.width, height: this.height });
-            instance.placeImage(index);
+        // var img = new Image();
+   //      img.onerror = function () {
+   //          console.log("error loading image [" + index + "] : " + this.src);   
+   //          if (index + 1 < instance.$items.length)
+   //              instance.loadImage(index + 1);
+   //      }
+   //      img.onload = function () {
+   //          source.data('size', { width: this.width, height: this.height });
+   //          instance.placeImage(index);
 			
-			instance.$items.eq(index).addClass("tg-loaded");
-            if (index + 1 < instance.$items.length)
-                instance.loadImage(index + 1);
-        }
+			// instance.$items.eq(index).addClass("tg-loaded");
+   //          if (index + 1 < instance.$items.length)
+   //              instance.loadImage(index + 1);
+   //      }
+   		source.data('size', { width: source.width(), height: source.height() });
 
-        var original_src = source.data('src');
-        img.src = original_src;
-        source.attr("src", original_src);
+   		console.log( source.data('size') );
+
+        // var original_src = source.data('src');
+        // img.src = original_src;
+        // source.attr("src", original_src);
 
         instance.placeImage( index );
 

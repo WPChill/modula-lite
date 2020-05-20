@@ -858,7 +858,7 @@
     $.each(this.entries, function (index, entry) {
       var $entry = $(entry);
       var $image = that.imgFromEntry($entry);
-  
+
       $entry.addClass('jg-entry');
   
       if ($entry.data('jg.loaded') !== true && $entry.data('jg.loaded') !== 'skipped') {
@@ -880,6 +880,7 @@
           if (that.settings.waitThumbnailsLoad === false) {
             var width = parseFloat($image.prop('width'));
             var height = parseFloat($image.prop('height'));
+
             if (!isNaN(width) && !isNaN(height)) {
               $entry.data('jg.width', width);
               $entry.data('jg.height', height);

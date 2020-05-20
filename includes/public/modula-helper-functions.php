@@ -2,9 +2,11 @@
 
 function modula_generate_image_links( $item_data, $item, $settings ){
 
-	$resize_images = apply_filters( 'modula_resize_images', true, $settings );
+	if( ! apply_filters( 'modula_resize_images', true, $settings ) ){
+		return $item_data;
+	}
 
-	if(!$resize_images){
+	if ( 'custom-grid' != $settings['type'] && 'creative-gallery' != $settings['type'] ) {
 		return $item_data;
 	}
 
@@ -36,8 +38,98 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['img_attributes']['src'] = $image_url;
 	$item_data['img_attributes']['data-src'] = $image_url;
 
+	$size = @getimagesize( $image_url );
+
+	if ( $size ) {
+    	$item_data['img_attributes']['width']  = $size[0];
+		$item_data['img_attributes']['height'] = $size[1];
+    }
+
 	return $item_data;
 }
+
+function modula_generate_grid_image_links( $item_data, $item, $settings ){
+
+	if( ! apply_filters( 'modula_resize_images', true, $settings ) ){
+		return $item_data;
+	}
+
+	if ( 'grid' != $settings['type'] ) {
+		return $item_data;
+	}
+
+	$image = array(
+		'thumb'  => '',
+		'width'  => '',
+		'height' => '',
+		'full'   => '',
+	);
+
+	$image_full = wp_get_attachment_image_src( $item['id'], 'full' );
+	$image['full'] = $image_full[0];
+
+	if ( 'custom' != $settings['grid_image_size'] ) {
+
+		$thumb = wp_get_attachment_image_src( $item['id'], $settings['grid_image_size'] );
+
+		if ( $thumb ) {
+
+			$image['thumb']  = $thumb[0];
+			$image['width']  = $thumb[1];
+			$image['height'] = $thumb[2];
+
+		}
+
+	} else {
+
+		$width  = $settings['grid_image_dimensions']['width'];
+		$height = $settings['grid_image_dimensions']['height'];
+		$crop   = boolval( $settings['grid_image_crop'] );
+
+		if ( !$image_full ) {
+			return $item_data;
+		}
+
+		$resizer   = new Modula_Image();
+		$image_url = $resizer->resize_image( $image_full[0], $width, $height, $crop );
+
+		// If we couldn't resize the image we will return the full image.
+		if ( is_wp_error( $image_url ) ) {
+			$image['thumb'] = $image['full'];
+		}else{
+			$image['thumb'] = $image_url;
+
+			if ( $crop ) {
+				$image['width']  = absint( $settings['grid_image_dimensions']['width'] );
+				$image['height'] = absint( $settings['grid_image_dimensions']['height'] );
+			}else{
+
+				// Get original image size.
+        		$size = @getimagesize( $image_url );
+
+        		if ( $size ) {
+		        	$image['width']  = $size[0];
+					$image['height'] = $size[1];
+		        }
+
+			}
+
+		}
+
+	}
+
+	$item_data['image_full'] = $image['full'];
+	$item_data['image_url']  = $image['thumb'];
+
+	// Add src/data-src attributes to img tag
+	$item_data['img_attributes']['src']      = $image['thumb'];
+	$item_data['img_attributes']['data-src'] = $image['thumb'];
+	$item_data['img_attributes']['width']    = $image['width'];
+	$item_data['img_attributes']['height']   = $image['height'];
+	return $item_data;
+
+}
+
 
 function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
@@ -134,6 +226,10 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 function modula_enable_lazy_load( $item_data, $item, $settings ){
 
 	if ( '1' != $settings['lazy_load'] ) {
+		return $item_data;
+	}
+
+	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
 		return $item_data;
 	}
 

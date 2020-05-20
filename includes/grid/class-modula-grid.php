@@ -29,9 +29,6 @@ class Modula_Grid {
 		// Add image sizes
 		add_filter( 'modula_resize_image_grid', array( $this, 'modula_grid_image_sizes' ), 15, 4 );
 
-		// Generate new images' links
-		add_filter( 'modula_shortcode_item_data', array( $this, 'change_image_size' ), 6, 3 );
-
 		// Add grid settings to js config
 		add_filter( 'modula_gallery_settings', array( $this, 'js_grid_config' ), 10, 2 );
 
@@ -157,101 +154,6 @@ class Modula_Grid {
 
 		return $image;
 	}
-
-	/**
-	 * Modula image attributes
-	 *
-	 * @param $item_data
-	 * @param $item
-	 * @param $settings
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.3.0
-	 */
-	public function change_image_size( $item_data, $item, $settings ) {
-
-		// We need to change only for gallery type grid
-		if ( 'grid' != $settings['type'] ) {
-			return $item_data;
-		}
-
-		$resize_images = apply_filters( 'modula_grid_resize_images', true , $settings);
-
-		if(!$resize_images){
-			return $item_data;
-		}
-
-		if ( !class_exists( 'Modula_Image' ) ) {
-			return $item_data;
-		}
-
-		$image_full = wp_get_attachment_image_src( $item['id'], 'full' );
-		$image_url  = '';
-
-		add_filter('modula_resize_images',array($this,'grid_resize_images'),10);
-
-		if ( 'custom' != $settings['grid_image_size'] ) {
-
-
-			$thumb = wp_get_attachment_image_src( $item['id'], $settings['grid_image_size'] );
-
-			if ( $thumb ) {
-
-				$item_data['image_url'] = $thumb[0];
-				$image_url              = $thumb[0];
-				// Add src/data-src attributes to img tag
-				$item_data['img_attributes']['src']      = $thumb[0];
-				$item_data['img_attributes']['data-src'] = $thumb[0];
-
-			}
-
-			if ( $image_full ) {
-				$item_data['image_full'] = $image_full[0];
-			}
-
-		} else {
-
-			$width  = $settings['grid_image_dimensions']['width'];
-			$height = $settings['grid_image_dimensions']['height'];
-			$crop   = boolval( $settings['grid_image_crop'] );
-
-			if ( !$image_full ) {
-				return $item_data;
-			}
-
-			$resizer   = new Modula_Image();
-			$image_url = $resizer->resize_image( $image_full[0], $width, $height, $crop );
-
-			// If we couldn't resize the image we will return the full image.
-			if ( is_wp_error( $image_url ) ) {
-				$image_url = $image_full[0];
-			}
-
-
-			$item_data['image_full'] = $image_full[0];
-			$item_data['image_url']  = $image_url;
-			// Add src/data-src attributes to img tag
-			$item_data['img_attributes']['src']      = $image_url;
-			$item_data['img_attributes']['data-src'] = $image_url;
-
-		}
-
-		if ( $settings['lazy_load'] ) {
-			$item_data['img_attributes']['data-lazy'] = $image_url;
-			$item_data['img_attributes']['src']       = '';
-		}
-
-		return $item_data;
-
-	}
-
-
-	public function grid_resize_images(){
-
-		return false;
-	}
-
 
 	/**
 	 * Grid sizer for columns
