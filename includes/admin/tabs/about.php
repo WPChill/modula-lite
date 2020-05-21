@@ -1,21 +1,11 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Update conditional fields', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fix hover effects', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fix for elementor opening another lightbox', 'modula-best-grid-gallery' ),
-        esc_html__( 'Overflowing admin bar fix', 'modula-best-grid-gallery' ),
-        esc_html__('Modula image files upload/select improvement','modula-best-grid-gallery'),
-        esc_html__('Fix classic editor popup for no galleries','modula-best-grid-gallery'),
-        esc_html__('Fix selecting a gallery in Elementor widget','modula-best-grid-gallery')
+        esc_html__( 'Fixed Fancybox always opening, not depending on lightbox & links type', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed lazyload for masonry columns', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed layout rebuild on device orientation change', 'modula-best-grid-gallery' ),
     ),
     'feature' => array(
-        esc_html__( 'Replaced packery & masonry scripts with isotope script', 'modula-best-grid-gallery' ),
-        esc_html__( 'Changed lightbox to FancyBox from Lightbox2', 'modula-best-grid-gallery' ),
-        esc_html__( 'Modula admin UI improvement and update', 'modula-best-grid-gallery' ),
-        esc_html__( 'Added inview load functionality', 'modula-best-grid-gallery' ),
-        esc_html__( 'Added new gallery type - columns', 'modula-best-grid-gallery' ),
-        esc_html__( 'Added ALT text for the image inside the lightbox', 'modula-best-grid-gallery' ),
     )
 );
 ?>
@@ -32,7 +22,7 @@ $issues = array(
         <div class="modula-about-content">
             <?php if (!empty($issues)) { ?>
 
-                <h2><?php printf(esc_html__('Version %s addressed %s bugs and implemented %s enhancements.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] ),count( $issues['feature'] ) ); ?></h2>
+                <h2><?php printf(esc_html__('Version %s addressed %s bugs.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix'] )); ?></h2>
                 <ul class="modula-about-list">
                     <?php
                     foreach ($issues as $key => $iss) {
