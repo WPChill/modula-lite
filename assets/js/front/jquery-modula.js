@@ -301,8 +301,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.$items.not(".jtg-hidden").each(function (i, item) {
 			var slot = instance.tiles[i];
 
+			$(item).data('size', slot);
+
 			$(item)
-				.data('size', slot)
 				.addClass('tiled')
 				.addClass(slot.width > slot.height ? 'tile-h' : 'tile-v')
 				.data('position');
@@ -466,10 +467,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 		}
 
-		// instance.$itemsCnt.find('.pic').each(function (i, o) {
-		// 	instance.placeImage(i);
-		// });
 		instance.lastWidth = instance.$itemsCnt.width();
+
+		// Trigger event after init
+		$(document).trigger('modula_api_reset', [instance]);
 	}
 
 	Plugin.prototype.onResize = function (instance) {
@@ -491,8 +492,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.loadImage = function(index) {
         var instance = this;
-        var source = instance.$items.eq(index).find('.pic');
-   		source.data('size', { width: source.width(), height: source.height() });
+        var source = instance.$items.not(".jtg-hidden").eq(index).find('.pic');
+   		source.data('size', { width: source.attr('width'), height: source.attr('height') });
         instance.placeImage( index );
     }
 
@@ -500,7 +501,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		if ( 'grid' == this.options.type ) { return; }
 
-		var $tile = this.$items.eq(index);
+		var $tile = this.$items.not(".jtg-hidden").eq(index);
 		var $image = $tile.find('.pic');
 
 		var tSize = $tile.data('size');
@@ -515,8 +516,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var tRatio = tSize.width / tSize.height;
 		var iRatio = iSize.width / iSize.height;
-
-
 
 		var valign = $image.data('valign') ? $image.data('valign') : 'middle';
 		var halign = $image.data('halign') ? $image.data('halign') : 'center';
@@ -567,7 +566,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		$image.css(cssProps);
-		this.$items.eq(index).addClass("tg-loaded");
+		this.$items.not(".jtg-hidden").eq(index).addClass("tg-loaded");
 	}
 
 	Plugin.prototype.setupSocial = function () {
