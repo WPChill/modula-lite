@@ -487,6 +487,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			instance.reset();
 
+			if ( instance.isIsotope ) {
+				instance.$itemsCnt.modulaisotope('layout');
+			}
+
 		}, 100);
 	}
 
