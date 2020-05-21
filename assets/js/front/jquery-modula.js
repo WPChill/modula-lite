@@ -495,9 +495,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	Plugin.prototype.loadImage = function(index) {
-        var instance = this;
-        var source = instance.$items.not(".jtg-hidden").eq(index).find('.pic');
-   		source.data('size', { width: source.attr('width'), height: source.attr('height') });
+        var instance = this,
+        	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
+        	size = {};
+
+        if ( 'undefined' != source.attr('width') && 'undefined' != source.attr('height') ) {
+        	size = { width: source.attr('width'), height: source.attr('height') };
+        }else{
+        	size = { width: source.width(), height: source.height() };
+        }
+
+   		source.data( 'size', size );
         instance.placeImage( index );
     }
 
@@ -535,7 +543,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			maxWidth: '999em'
 		};
 
-		if ( tRatio > iRatio ) {
+		var newHeight = tSize.width * iSize.height / iSize.width;
+
+		if ( newHeight > tSize.height ) {
 			cssProps.width = tSize.width;
 			cssProps.left = 0;
 
