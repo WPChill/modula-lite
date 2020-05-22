@@ -681,7 +681,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-pinterest").click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents(".tile:first").find(".pic");
+			var image = $(this).parents(".modula-item").find(".pic");
 
 			//var $caption = $(this).parents(".tile:first").find(".description");
 			var $caption = '';
