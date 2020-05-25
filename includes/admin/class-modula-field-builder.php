@@ -662,7 +662,7 @@ class Modula_Field_Builder {
 			$pinterest = ( isset( $socials['pinterest'] ) && '1' == $socials['pinterest'] ) ? '<a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>' : '';
 			$whatsapp  = ( isset( $socials['whatsapp'] ) && '1' == $socials['whatsapp'] ) ? '<a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>' : '';
 			$linkedin  = ( isset( $socials['linkedin'] ) && '1' == $socials['linkedin'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>' : '';
-			$email  = ( isset( $socials['email'] ) && '1' == $socials['email'] ) ? '<a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'email' ) . '</a>' : '';
+			$email  = ( isset( $socials['email'] ) && '1' == $socials['email'] ) ? '<a class="fa fa-envelope-o" href="#">' . Modula_Helper::get_icon( 'email' ) . '</a>' : '';
 
 			$social_color  = ( isset( $socials['social_color'] ) ) ? $socials['social_color'] : '';
 			$social_size   = ( isset( $socials['social_size'] ) ) ? $socials['social_size'] : '';

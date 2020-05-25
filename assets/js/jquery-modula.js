@@ -40,7 +40,7 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
             gutter: 10,
             enableTwitter: false,
             enableFacebook: false,
-            enableGplus: false,
+            enableWhatsapp: false,
             enablePinterest: false,
             enableLinkedin: false,
             enableEmail: false,
@@ -616,15 +616,15 @@ jQuery( window ).on( 'elementor/frontend/init', function(){
         });
     }
 
-    var setupEmail = function( $tiles, plugin) {
-        $tiles.find(".modula-icon-email").click(function (e)  {
+    var setupEmail = function ( $tiles, plugin ) {
+        $tiles.find( ".modula-icon-email" ).click( function ( e ) {
 
-            let subject =  encodeURI( 'Check out this awesome image !! ');
-            let imageLink = jQuery('.modula-icon-email').parents(".tile:first").find(".pic");
-            let messageImage = encodeURI( "Here is the link to the image : " + imageLink[0].currentSrc );
-            let messageGallery =  encodeURI("Here is the link to the gallery : " +  location.href  );
-            this.setAttribute('href',"mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
-        });
+            var subject = encodeURI( modulaHelper['emailOptions']['email_subject'] );
+            var imageLink = jQuery( '.modula-icon-email' ).parents( ".tile:first" ).find( ".pic" );
+            var messageImage = encodeURI( modulaHelper['emailOptions']['image_message'] + ' ' + imageLink[0].currentSrc );
+            var messageGallery = encodeURI( modulaHelper['emailOptions']['gallery_message'] + ' ' + location.href );
+            this.setAttribute( 'href', "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
+        } );
     };
 
     $.fn[pluginName] = function (options) {
@@ -679,9 +679,9 @@ jQuery( document ).ready( function($){
 
 jQuery(document).on( 'modula_api_after_init', function (event, data) {
 
-    if(true == modulaFancyboxHelper['lite_function']){
+    if(true == modulaHelper['fancybox_options']['lite_function']){
 
-        modulaFancyboxHelper['options']['afterShow'] = function(e,instance,slide){
+        modulaHelper['fancybox_options']['options']['afterShow'] = function(e,instance,slide){
 	        var currentAlt = jQuery(data.$items[e.currIndex]).find('img').attr('alt');
 
 	        if('undefined' != typeof currentAlt && '' != currentAlt){
@@ -689,7 +689,7 @@ jQuery(document).on( 'modula_api_after_init', function (event, data) {
 	        }
         };
 
-		jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaFancyboxHelper['options']);
+		jQuery("a.tile-inner[data-fancybox]").modulaFancybox(modulaHelper['fancybox_options']['options']);
 	}
 });
 

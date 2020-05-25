@@ -92,7 +92,7 @@ Create stunning video galleries with both self-hosted videos and videos from sou
 * [GIF Gallery](https://wp-modula.com/demo/gif-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 Let your website's visitors explore your work and share with them the best GIF galleries and most popular animated GIFs using Modula. Create funny an entertaining GIF galleries with Modula.
 * [Social Sharing](https://wp-modula.com/demo/social-effect?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-Allow visitors to share your images using various hover effects. You can add Facebook, Twitter, Pinterest, LinkedIn and Whatsapp icons.
+Allow visitors to share your images using various hover effects. You can add Facebook, Twitter, Pinterest, LinkedIn, Whatsapp and Email icons.
 * [Filterable Gallery](https://wp-modula.com/demo/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 With Modula, you can easily add filters to your galleries to make it easier for your website's visitors to quickly sort through a larger collection of images.
 * [Password Protected Gallery](https://wp-modula.com/demo/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)

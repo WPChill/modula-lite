@@ -37,7 +37,7 @@ class Modula_Shortcode {
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
-		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/jquery-modula.min.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 	}
 
@@ -130,7 +130,16 @@ class Modula_Shortcode {
 
         $fancybox_options = $this->fancybox_options($settings);
 
-        wp_localize_script('modula','modulaFancyboxHelper',$fancybox_options);
+		$modulHelper = array(
+			'fancybox_options' => $fancybox_options,
+			'emailOptions'     => array(
+				'email_subject'   => (isset( $settings['emailSubject'] ) ? $settings['emailSubject'] : ''),
+				'image_message'   => (isset( $settings['imageMessage'] ) ? $settings['imageMessage'] : ''),
+				'gallery_message' => (isset( $settings['galleryMessage'] ) ? $settings['galleryMessage'] : ''),
+			)
+		);
+
+        wp_localize_script('modula','modulaHelper',$modulHelper);
 
         do_action('modula_extra_scripts', $settings);
 
