@@ -72,7 +72,7 @@ class Modula_Admin {
 			add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Settings', 'modula-best-grid-gallery' ), esc_html__( 'Settings', 'modula-best-grid-gallery' ), 'manage_options', 'modula', array( $this, 'show_submenu' ),2 );
 		}
 
-		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ));
+		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ),99);
 
 		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), 'manage_options', 'modula-import-export', array( $this, 'import_export_doc' ), 3 );
 
