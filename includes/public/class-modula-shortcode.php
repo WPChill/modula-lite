@@ -24,7 +24,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
-		add_action( 'modula_shortcode_before_items', array( $this, 'modula_gallery_title'), 10, 2);
+		add_action( 'modula_shortcode_before_items', array( $this, 'modula_gallery_title'), 10);
 
 		// Add js scripts
 		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
@@ -364,8 +364,9 @@ class Modula_Shortcode {
 
 	}
 
-	public function modula_gallery_title( $settings , $id ) {
-		$title = get_the_title( explode('-',$id )[1] ); 
+	public function modula_gallery_title( $settings  ) {
+
+		$title = get_the_title( explode('-',$settings['gallery_id'] )[1] );
 		if( 1 == $settings['show_gallery_title'] ) {
 			echo " <p class='modula-gallery-title'> ${title} </p> ";
 		}
