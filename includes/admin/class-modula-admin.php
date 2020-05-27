@@ -22,7 +22,7 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
-		add_action( 'admin_enqueue_scripts', array( $this,  'add_autosuggest_scripts'), 5 );
+		add_action( 'modula_scripts_before_wp_modula', array( $this,  'add_autosuggest_scripts') );
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url'));
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
 
@@ -443,19 +443,27 @@ class Modula_Admin {
 		return $tab_content;
 	}
 
+	/**
+	 * Enqueue jQuery autocomplete script
+	 *
+	 * /@since 2.3.2
+	 */
 	public function add_autosuggest_scripts() {
-		$screen = get_current_screen(); 
-		if( $screen->id == 'modula-gallery' ) {
-			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_register_script( 'modula-autocomplete-url', MODULA_URL . 'assets/js/admin/modula-autocomplete.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete'), true );
-			wp_localize_script( 'modula-autocomplete-url', 'autocompleteUrl', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
-			wp_enqueue_script( 'modula-autocomplete-url' );
-		}
+
+		wp_enqueue_script( 'jquery-ui-autocomplete' );
+
 	}
 
 	public function autocomplete_url() {
+
+		$nonce = $_GET['nonce'];
+
+		if ( ! wp_verify_nonce( $nonce,'modula-ajax-save' ) ) {
+			die();
+		}
+
 		$suggestions = array();
-		$term = strtolower( $_GET['term']);
+		$term = sanitize_text_field( $_GET['term']);
 
 		$loop = new WP_Query( 's=' . $term);
 		while( $loop->have_posts() ) {

@@ -53,13 +53,12 @@ jQuery( document ).ready( function( $ ){
 
 	jQuery( '.modula-link input[name="link"]' ).live( "keydown.autocomplete", function() {
 
-		let url = autocompleteUrl.url + "?action=modula_autocomplete";
+		var url = modulaHelper.ajax_url + "?action=modula_autocomplete&nonce="+modulaHelper._wpnonce;
 		jQuery(this).autocomplete({
 			source: url,
 			delay: 500,
 			minLength: 3
-		})
-
+		});
 	} );
 
 
