@@ -128,17 +128,6 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-
-		$modulaHelper = array(
-			'emailOptions'     => array(
-				'email_subject'   => (isset( $settings['emailSubject'] ) ? $settings['emailSubject'] : ''),
-				'image_message'   => (isset( $settings['imageMessage'] ) ? $settings['imageMessage'] : ''),
-				'gallery_message' => (isset( $settings['galleryMessage'] ) ? $settings['galleryMessage'] : ''),
-			)
-		);
-
-        wp_localize_script('modula','modulaHelper',$modulaHelper);
-
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
@@ -192,20 +181,24 @@ class Modula_Shortcode {
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => absint( $settings['height'] ),
 			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"   => boolval( $settings['enableWhatsapp']),
+			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
 			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
 			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
 			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
-			"randomFactor"     => ( $settings['randomFactor'] / 100 ),
+			"enableEmail"      => boolval( $settings['enableEmail'] ),
+			"randomFactor"     => ($settings['randomFactor'] / 100),
 			'type'             => $type,
 			'columns'          => 12,
-			'gutter'           => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
+			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
 			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
 			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
 			'lightboxOpts'     => $this->fancybox_options( $settings ),
 			'inView'           => $inView,
+			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html($settings['emailSubject']) : '',
+			'image_message'    => isset( $settings['imageMessage'] ) ? esc_html($settings['imageMessage']) : '',
+			'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html($settings['galleryMessage']) : '',
 		), $settings );
 
 		// Check for lightbox

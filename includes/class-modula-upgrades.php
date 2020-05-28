@@ -309,7 +309,7 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
-			$modula_settings[ 'enableSocial' ] = $modula_settings['disableSocial'];
+			$modula_settings[ 'enableSocial' ] = ('1' == $modula_settings['disableSocial']) ? 0 : 1;
 			unset( $modula_settings['disableSocial'] );
 			
             $default_gallery_settings = array(
@@ -343,9 +343,6 @@ class Modula_Upgrades {
                 'borderRadius'              => '0',
                 'borderSize'                => '0',
                 'shadowColor'               => '#ffffff',
-               //@todo : check these 2 options for usability
-               /* 'lightbox_background_color' => '#000000',
-                'lightbox_popup_opacity'    => '-0.1',*/
                 'shadowSize'                => 0,
                 'script'                    => '',
                 'style'                     => '',

@@ -24,20 +24,23 @@
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => ( isset( $data->settings['disableSocial'] ) ) ? boolval( $data->settings['disableSocial'] ) : !boolval( $data->settings['enableSocial'] ),
+				'hide_socials'     => !boolval( $data->settings['enableSocial'] ),
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
+				'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html($settings['emailSubject']) : '',
+				'image_message'    => isset( $settings['imageMessage'] ) ? esc_html($settings['imageMessage']) : '',
+				'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html($settings['galleryMessage']) : '',
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),
 				'item_attributes'  => array(),
 
 				/* Item link attributes & classes */
-				'link_classes'     =>  array( 'tile-inner', 'modula-item-link' ),
+				'link_classes'     => array( 'tile-inner', 'modula-item-link' ),
 				'link_attributes'  => array(),
 
 				/* Item img attributes & classes */
@@ -46,6 +49,7 @@
 					'data-valign' => esc_attr( $image['valign'] ),
 					'data-halign' => esc_attr( $image['halign'] ),
 					'alt'         => esc_attr( $image['alt'] ),
+					'data-full'   => esc_url( $image_object->guid )
 				),
 			);
 

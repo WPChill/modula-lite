@@ -12,6 +12,7 @@ class Modula_Backward_Compatibility {
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_margin' ), 10, 3 );
 		add_filter( 'modula_gallery_settings', array( $this, 'backward_compatibility_front_margin' ), 10, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_margin' ), 10 );
+		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_enable_socials' ), 10, 3 );
 
 		// Lightbox set by default to fancybox
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_fancybox' ), 10, 3 );
@@ -68,6 +69,25 @@ class Modula_Backward_Compatibility {
 
 		return $settings;
 
+	}
+
+	/**
+	 * Enable/Disable social icons compatibility
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.3.2
+	 */
+	public function backward_compatibility_admin_enable_socials( $value, $key, $settings ) {
+
+		if ( 'enableSocial' == $key && isset( $settings['disableSocial'] ) ) {
+			return ('1' == $settings['disableSocial']) ? 0 : 1;
+		}
+
+		return $value;
 	}
 
 }

@@ -287,9 +287,11 @@ class Modula_CPT {
 							case 'enableTwitter' :
 							case 'enableWhatsapp':
 							case 'enableFacebook' :
-							case 'enableGplus' :
 							case 'enablePinterest' :
 							case 'enableEmail':
+							case 'emailSubject':
+							case 'imageMessage':
+							case 'galleryMessage':
 							case 'shuffle' :
 								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 									$modula_settings[ $field_id ] = '1';
@@ -303,13 +305,6 @@ class Modula_CPT {
 							case 'shadowColor':
 								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
 								break;
-								//@todo : check these 2 options for usability
-                           /* case 'lightbox_background_color':
-                                $modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][ $field_id ] );
-                                break;
-                            case 'lightbox_popup_opacity' :
-                                $modula_settings[ $field_id ] =  $_POST['modula-settings'][ $field_id ];
-                                break;*/
 							case 'effect' :
 								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
 									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
