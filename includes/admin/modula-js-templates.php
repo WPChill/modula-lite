@@ -82,7 +82,7 @@
                     </div>
                     
                     <!-- Link -->
-                    <div class="setting">
+                    <div class="setting modula-link">
                         <label class="">
                             <span class="name"><?php esc_html_e( 'URL', 'modula-best-grid-gallery' ); ?></span>
                             <input type="text" name="link" value="{{ data.link }}" />

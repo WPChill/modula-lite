@@ -22,6 +22,8 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
 		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
+		add_action( 'modula_scripts_before_wp_modula', array( $this,  'add_autosuggest_scripts') );
+		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url'));
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
 
 		add_action( 'admin_notices', array( $this, 'modula_upgrade_lightbox_notice' ) );
@@ -440,6 +442,40 @@ class Modula_Admin {
 		}
 
 		return $tab_content;
+	}
+
+	/**
+	 * Enqueue jQuery autocomplete script
+	 *
+	 * /@since 2.3.2
+	 */
+	public function add_autosuggest_scripts() {
+
+		wp_enqueue_script( 'jquery-ui-autocomplete' );
+
+	}
+
+	public function autocomplete_url() {
+
+		$nonce = $_GET['nonce'];
+
+		if ( ! wp_verify_nonce( $nonce,'modula-ajax-save' ) ) {
+			die();
+		}
+
+		$suggestions = array();
+		$term = sanitize_text_field( $_GET['term']);
+
+		$loop = new WP_Query( 's=' . $term);
+		while( $loop->have_posts() ) {
+			$loop->the_post();
+			$suggestion['label'] = get_the_title();
+			$suggestion['value']  = get_permalink();
+			$suggestions[] = $suggestion;
+		}
+
+		echo json_encode( $suggestions );
+		exit();
 	}
 
 }

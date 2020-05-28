@@ -1,7 +1,7 @@
 <!-- Gallery Container -->
 <div <?php echo Modula_Helper::generate_attributes( $data->gallery_container ) ?>>
 
-	<?php do_action( 'modula_shortcode_before_items', $data->settings ) ?>
+	<?php do_action( 'modula_shortcode_before_items', $data->settings) ?>
 
 	<!-- Items Container -->
 	<div <?php echo Modula_Helper::generate_attributes( $data->items_container ) ?>>

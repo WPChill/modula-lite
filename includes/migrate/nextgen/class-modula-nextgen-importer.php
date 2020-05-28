@@ -141,13 +141,28 @@ class Modula_Nextgen_Importer {
         }
 
         // Get image path
+
         $sql     = $wpdb->prepare("SELECT path, title, galdesc, pageid 
     						FROM " . $wpdb->prefix . "ngg_gallery
     						WHERE gid = %d
     						LIMIT 1",
             $gallery_id);
-        $gallery = $wpdb->get_row($sql);
 
+        $sql2    = $wpdb->prepare("SELECT post_content 
+                            FROM " . $wpdb->prefix . "posts
+                            WHERE post_title = %s
+                            LIMIT 1",
+            'NextGEN Basic Thumbnails');
+
+        $gallery = $wpdb->get_row($sql);     
+
+        $data_settings = json_decode( base64_decode( $wpdb->get_row($sql2)->post_content ) );
+        $col_number = $data_settings->settings->number_of_columns ;
+        
+        if( intval( $col_number ) > 6 ) {
+            $col_number = '6';
+        }
+        
         $images = $modula_importer->prepare_images('nextgen',$gallery_id);
         $attachments = array();
 
@@ -174,8 +189,13 @@ class Modula_Nextgen_Importer {
             $this->modula_import_result(false, esc_html__('No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery'),false);
         }
 
+        $ngg_settings = array(
+            'type'      => 'grid',
+            'grid_type' => $col_number
+        );
+
         // Get Modula Gallery defaults, used to set modula-settings metadata
-        $modula_settings = Modula_CPT_Fields_Helper::get_defaults();
+        $modula_settings = wp_parse_args( $ngg_settings, Modula_CPT_Fields_Helper::get_defaults() );
 
         // Build Modula Gallery modula-images metadata
         $modula_images = array();

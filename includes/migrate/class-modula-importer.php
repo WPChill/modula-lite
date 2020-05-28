@@ -274,7 +274,7 @@ class Modula_Importer {
                 case 'envira':
                     $id             = $gallery->ID;
                     $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
-
+                    
                     if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
                         $imported = true;
                     }

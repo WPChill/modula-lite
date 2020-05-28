@@ -734,3 +734,8 @@ Fix for admin bar overfloating
 	top:0;
 }
 
+/* Gallery title */
+
+.modula .modula-gallery-title, .modula-slider .modula-gallery-title {
+	font-size: 32px;
+}

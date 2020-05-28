@@ -1464,6 +1464,12 @@ Scaling Effect Preview
 	text-decoration: none;
 }
 
+/* Autocomplete z-index fix */
+
+.ui-autocomplete {
+  z-index: 160000;
+}
+
 /**
 Some responsive fixes
  */
