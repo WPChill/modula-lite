@@ -94,4 +94,13 @@ jQuery( document ).ready( function( $ ){
 		});
 	});
 
+	// Save on CTRL/Meta Key + S
+	$( document ).keydown( function ( e ) {
+		if ( ( e.keyCode === 115 || e.keyCode === 83 ) && ( e.ctrlKey || e.metaKey ) && !( e.altKey ) ) {
+			e.preventDefault();
+			$( '#publish' ).click();
+			return false;
+		}
+	} );
+
 });

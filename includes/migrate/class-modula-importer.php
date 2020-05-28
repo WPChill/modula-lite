@@ -32,7 +32,7 @@ class Modula_Importer {
         // Include required scripts for import
         add_action('admin_enqueue_scripts', array($this, 'admin_importer_scripts'));
 
-        add_action('admin_menu',array($this,'migrator_menu'));
+        add_action('admin_menu',array($this,'migrator_menu'), 5);
 
         // Required files
         require_once MODULA_PATH . 'includes/migrate/nextgen/class-modula-nextgen-importer.php';

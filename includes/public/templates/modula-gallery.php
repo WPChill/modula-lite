@@ -24,12 +24,13 @@
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => boolval( $data->settings['disableSocial'] ) ? true : false,
+				'hide_socials'     => ( isset( $data->settings['disableSocial'] ) ) ? boolval( $data->settings['disableSocial'] ) : !boolval( $data->settings['enableSocial'] ),
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
+				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),

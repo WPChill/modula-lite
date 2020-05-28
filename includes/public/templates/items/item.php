@@ -42,6 +42,9 @@
 					<?php endif ?>
 				</div>
 				<?php endif ?>
+				<?php if ( $data->enableEmail ): ?>
+				<a class="modula-icon-email" href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
+				<?php endif ?>
 			</div>
 		</div>
 

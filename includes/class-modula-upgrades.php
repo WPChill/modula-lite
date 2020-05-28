@@ -309,6 +309,9 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
+			$modula_settings[ 'enableSocial' ] = $modula_settings['disableSocial'];
+			unset( $modula_settings['disableSocial'] );
+			
             $default_gallery_settings = array(
                 'type'                      => 'creative-gallery',
                 'width'                     => '100%',
@@ -328,6 +331,7 @@ class Modula_Upgrades {
                 'enablePinterest'           => 1,
 				'enableTwitter'             => 1,
 				'enableWhatsapp'            => 1,
+				'enableEmail'               => 1,
                 'filterClick'               => 0,
 				'socialIconColor'           => '#ffffff',
 				'socialIconSize'            => 16,

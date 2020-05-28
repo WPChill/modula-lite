@@ -92,7 +92,6 @@ class Modula_Field_Builder {
 
 		$images = get_post_meta( $this->get_id(), 'modula-images', true );
 		$helper_guidelines = $this->get_setting( 'helpergrid' );
-
 		$max_upload_size = wp_max_upload_size();
 	    if ( ! $max_upload_size ) {
 	        $max_upload_size = 0;
@@ -550,6 +549,5 @@ class Modula_Field_Builder {
 	public function print_modula_templates() {
 		include 'modula-js-templates.php';
 	}
-
 
 }

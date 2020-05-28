@@ -127,6 +127,17 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
+
+		$modulaHelper = array(
+			'emailOptions'     => array(
+				'email_subject'   => (isset( $settings['emailSubject'] ) ? $settings['emailSubject'] : ''),
+				'image_message'   => (isset( $settings['imageMessage'] ) ? $settings['imageMessage'] : ''),
+				'gallery_message' => (isset( $settings['galleryMessage'] ) ? $settings['galleryMessage'] : ''),
+			)
+		);
+
+        wp_localize_script('modula','modulaHelper',$modulaHelper);
+
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS

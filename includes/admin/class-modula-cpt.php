@@ -283,12 +283,13 @@ class Modula_CPT {
 									$modula_settings[ $field_id ] = 'fancybox';
 								}
 								break;
-							case 'disableSocial':
+							case 'enableSocial':
 							case 'enableTwitter' :
 							case 'enableWhatsapp':
 							case 'enableFacebook' :
 							case 'enableGplus' :
 							case 'enablePinterest' :
+							case 'enableEmail':
 							case 'shuffle' :
 								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 									$modula_settings[ $field_id ] = '1';
