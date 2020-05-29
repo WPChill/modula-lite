@@ -6,6 +6,7 @@
 class Modula_Admin {
 
 	private $tabs;
+	private $menu_links;
 	private $version = '2.0.0';
 	private $current_tab = 'general';
 
@@ -77,19 +78,52 @@ class Modula_Admin {
 
 	public function register_submenus() {
 
-		$this->tabs = apply_filters( 'modula_admin_page_tabs', array() );
+		$this->tabs       = apply_filters( 'modula_admin_page_tabs', array() );
+
+		$links = array(
+			array(
+				'page_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug' => 'modula-addons',
+				'function' => array( $this, 'show_addons' ),
+				'priority' => 99
+			),
+			array(
+				'page_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug' => 'modula-import-export',
+				'function' => array( $this, 'import_export_doc' ),
+				'priority' => 35
+			)
+		);
+
+		if ( ! empty( $this->tabs ) ) {
+			$links[] = array(
+					'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+					'menu_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+					'capability' => 'manage_options',
+					'menu_slug' => 'modula',
+					'function' => array( $this, 'show_submenu' ),
+					'priority' => 30
+			);
+		}
+
+		$this->menu_links = apply_filters( 'modula_admin_page_link', $links );
 
 		// Sort tabs based on priority.
 		uasort( $this->tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
+		// Sort menu items based on priority
+		uasort( $this->menu_links, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
-		if ( ! empty( $this->tabs ) ) {
-			add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Settings', 'modula-best-grid-gallery' ), esc_html__( 'Settings', 'modula-best-grid-gallery' ), 'manage_options', 'modula', array( $this, 'show_submenu' ),2 );
+
+		if(!empty($this->menu_links)){
+			foreach($this->menu_links as $link){
+				add_submenu_page( 'edit.php?post_type=modula-gallery',$link['page_title'],$link['menu_title'],$link['capability'],$link['menu_slug'],$link['function'],$link['priority']);
+			}
 		}
-
-		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Extensions', 'modula-best-grid-gallery' ), esc_html__( 'Extensions', 'modula-best-grid-gallery' ), 'manage_options', 'modula-addons', array( $this, 'show_addons' ),99);
-
-		add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), esc_html__( 'Import/Export', 'modula-best-grid-gallery' ), 'manage_options', 'modula-import-export', array( $this, 'import_export_doc' ), 3 );
 
 	}
 

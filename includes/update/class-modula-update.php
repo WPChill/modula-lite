@@ -19,20 +19,33 @@ class Modula_Update {
      */
     public function __construct() {
 
-        add_action('admin_menu', array($this, 'modula_about_menu'));
+        add_filter('modula_admin_page_link', array($this, 'modula_about_menu'),25,1);
         add_filter('submenu_file', array($this, 'remove_about_submenu_item'));
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
     }
 
 
-    /**
-     * @since 2.2.4
-     * Add the About submenu
-     */
-    function modula_about_menu() {
+	/**
+	 * Add the About submenu
+	 *
+	 * @param $links
+	 *
+	 * @return mixed
+	 * @since 2.2.4
+	 *
+	 */
+    function modula_about_menu($links) {
 
         // Register the hidden submenu.
-        add_submenu_page('edit.php?post_type=modula-gallery', esc_html__('About', 'modula-best-grid-gallery'), esc_html__('About', 'modula-best-grid-gallery'), 'manage_options', 'modula-about-page', array($this, 'about_page'));
+	    $links[] = array(
+		    'page_title' => esc_html__( 'About', 'modula-best-grid-gallery' ),
+		    'menu_title'=> esc_html__( 'About', 'modula-best-grid-gallery' ),
+		    'capability' => 'manage_options',
+		    'menu_slug' => 'modula-about-page',
+		    'function' => array($this, 'about_page'),
+		    'priority' => 45
+	    );
+        return $links;
     }
 
     /**
