@@ -1035,12 +1035,16 @@ a.modula-tab-link {
 	float: left;
 	margin-right: 10px;
 }
+.modula-publish-tooltip {
+    vertical-align:middle;
+}
 .modula-tooltip > span {
   cursor: pointer;
   color: #0073aa;
   text-decoration: underline;
   margin-left: 5px;
 }
+
 .modula-tooltip .modula-tooltip-content {
   display: none;
   position: absolute;
@@ -1053,6 +1057,14 @@ a.modula-tab-link {
   padding: 10px;
   box-sizing: border-box;
   z-index: 99;
+}
+
+.modula-tooltip .modula-tooltip-publish-content {
+    transform: translate( -100% ,-50% );
+    right: 0;
+    text-align:left;
+    left:-5px;
+    margin:0;
 }
 .modula-tooltip .modula-tooltip-content:before {
   content: '';
@@ -1067,9 +1079,22 @@ a.modula-tab-link {
   left: -8px;
   transform: translateY( -50% );
 }
+
+#publishing-action .spinner.modula-with-tooltip {
+    margin:0;
+}
+
+.modula-tooltip .modula-tooltip-publish-content:before{
+    border-width: 8px 8px 8px 8px;
+    border-color:transparent transparent transparent #000;
+    right: -16px;
+    left:auto;
+}
+
 .modula-tooltip:hover .modula-tooltip-content {
   display: block;
 }
+
 
 /* Modula Helper Grid */
 .modula-helper-guidelines-container {
