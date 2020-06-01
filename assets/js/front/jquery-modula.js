@@ -753,7 +753,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 }(jQuery, window, document));
 
-jQuery(window).load(function () {
+jQuery(document).ready(function () {
 
 	var modulaGalleries = jQuery('.modula.modula-gallery');
 
