@@ -38,17 +38,10 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['img_attributes']['src'] = $image_url;
 	$item_data['img_attributes']['data-src'] = $image_url;
 
-	$size = @getimagesize( $image_url );
-
-	if ( $size ) {
-    	$item_data['img_attributes']['width']  = $size[0];
-		$item_data['img_attributes']['height'] = $size[1];
-    }else{
-		$image_obj = wp_get_attachment_image_src( $item['id'], 'full' );
-		if( $image_obj ){
-			$item_data['img_attributes']['width']  = $image_obj[1];
-			$item_data['img_attributes']['height'] = $image_obj[2];
-		}
+	$image_obj = wp_get_attachment_image_src( $item['id'], 'full' );
+	if( $image_obj ){
+		$item_data['img_attributes']['width']  = $image_obj[1];
+		$item_data['img_attributes']['height'] = $image_obj[2];
 	}
 
 	return $item_data;
