@@ -590,6 +590,13 @@
     // ====================
 
     init: function () {
+
+      // In case of filters this.currIndex will give -1
+      // and gives us error
+      if(this.currIndex < 0){
+        this.currIndex = 0;
+      }
+
       var self = this,
         firstItem = self.group[self.currIndex],
         firstItemOpts = firstItem.opts,
@@ -1977,6 +1984,11 @@
           // Add alt to image
           if ( slide.opts.alt ) {
             $img.attr( 'alt', slide.opts.alt );
+          }
+
+          // Add attachment ID to image
+          if ( slide.opts.image_id ) {
+            $img.attr( 'image-id', slide.opts.image_id );
           }
 
           // Hide temporary image after some delay
@@ -5534,9 +5546,9 @@
         gallery = getGalleryID(instance);
 
         // Make sure gallery start index matches index from hash
-        if (gallery && url.gallery && gallery == url.gallery) {
+       /* if (gallery && url.gallery && gallery == url.gallery) {
           instance.currIndex = url.index - 1;
-        }
+        }*/
       },
 
       "beforeShow.fb": function (e, instance, current, firstRun) {
@@ -5555,7 +5567,7 @@
 
         // Variable containing last hash value set by fancyBox
         // It will be used to determine if fancyBox needs to close after hash change is detected
-        instance.currentHash = gallery + (instance.group.length > 1 ? "-" + (current.index + 1) : "");
+        instance.currentHash = gallery + (instance.group.length > 1 ? "-" + (current.opts.image_id) : "");
 
         // If current hash is the same (this instance most likely is opened by hashchange), then do nothing
         if (window.location.hash === "#" + instance.currentHash) {
