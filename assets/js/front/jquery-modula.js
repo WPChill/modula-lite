@@ -500,13 +500,26 @@ jQuery(window).on('elementor/frontend/init', function () {
         	size = {};
 
         if ( 'undefined' != source.attr('width') && 'undefined' != source.attr('height') ) {
-        	size = { width: source.attr('width'), height: source.attr('height') };
+        	
+        	var img = new Image();
+			img.onload = function() {
+				size = { width: this.width, height: this.height };
+				source.data( 'size', size );
+        		instance.placeImage( index );
+			}
+
+			if ( 'undefined' != source.attr( 'src' ) ) {
+				img.src = source.attr( 'src' );
+			}else{
+				img.src = source.data( 'src' );
+			}
+        	
         }else{
         	size = { width: source.width(), height: source.height() };
+        	source.data( 'size', size );
+        	instance.placeImage( index );
         }
-
-   		source.data( 'size', size );
-        instance.placeImage( index );
+   		
     }
 
 	Plugin.prototype.placeImage = function (index) {
