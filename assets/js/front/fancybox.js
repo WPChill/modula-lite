@@ -593,12 +593,23 @@
 
       // In case of filters this.currIndex will give -1
       // and gives us error
-      if(this.currIndex < 0){
-        this.currIndex = 0;
+      var self = this;
+      if ( self.currIndex < 0 ) {
+        self.currIndex = 0;
       }
 
-      var self = this,
-        firstItem = self.group[self.currIndex],
+      if('undefined' == typeof self.group[self.currIndex]){
+
+       jQuery.each(this.group,function(index,value){
+
+          if(self.currIndex == parseInt(value.opts.image_id)){
+            self.currIndex = index;
+            return;
+          }
+        });
+      }
+
+      var firstItem = self.group[self.currIndex],
         firstItemOpts = firstItem.opts,
         $container,
         buttonStr;
