@@ -26,7 +26,6 @@ https://www.youtube.com/watch?v=NxrTXQNExh4
 > * Password protect your galleries with Modula's Password protect extension.
 > * Convert your gallery to a slider using the premium extension Modula Slider.
 > * Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
-> * Access to 5 more lightbox styles & effects with the Modula Pro.
 > * Create albums, add galleries, manage cover photos, show gallery titles and image counts using the Album extension.
 > * Protect your photos by adding custom watermarks using the Watermark extension.
 > * You can create a unique and indexable URL for each Modula Gallery item through our Deeplink premium extension.
@@ -56,19 +55,6 @@ The Modula [WordPress gallery plugin](https://wp-modula.com?utm_source=wordpress
 *   [Quiet](https://wp-modula.com/demo/hover-effects/quiet?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
 *   [Reflex](https://wp-modula.com/demo/hover-effects/reflex?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
 *   [Seemo](https://wp-modula.com/demo/hover-effects/seemo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-**[6 Lightbox Styles](https://wp-modula.com/demo/lightbox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
-Modula comes with 6 easy-to-use lightbox styles that seamlessly integrate with your galleries. You can choose from FancyBox, LightGallery, Lightbox, Magnific Popup, PrettyPhoto, and SwipeBox. 
-**Try them out to see which is your favorite!**
-* [Fancy Box](https://wp-modula.com/demo/lightbox-gallery/lightbox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [LightGallery](https://wp-modula.com/demo/lightbox-gallery/light-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [Lightbox](https://wp-modula.com/demo/lightbox-gallery/lightbox/)
-* [Magnific Popup](https://wp-modula.com/demo/lightbox-gallery/magnific-popup?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [PrettyPhoto](https://wp-modula.com/demo/lightbox-gallery/prettyphoto?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [SwipeBox](https://wp-modula.com/demo/lightbox-gallery/swipebox?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [Modula: Margins](https://wp-modula.com/margins?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [Modula: Shuffle](https://wp-modula.com/shuffle?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [Modula: Social icons](https://wp-modula.com/social-sharing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-* [Modula: Custom styling](https://wp-modula.com/styling?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 To insert a gallery onto a WordPress post/page all you need to do is copy the shortcode from your Modula gallery edit page. 
 Your shortcode will look just like this:
 > [Modula id="1192"]
@@ -138,13 +124,6 @@ Check the console of the browser and look if you see any error like: "Uncaught T
 This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin. 
 = Why does some image look blurry ? =
 If you get blurry and pixellated images then you need to raise the "Minimum image width" parameter inside the "General" section.
-= I want to use another lightbox instead of the provided one =
-The PRO license bundles 6 different lightboxes. However you can use any other lightbox you want also with the Lite license. If you have installed a lightbox plugin then you just need to select "Direct link to image" in the "Lightbox" settings.
-= How can I change the lightbox's background? =
-You can change the lightbox popup background color using the following code:
-  `body .lg-backdrop {
-    background-color: white;
-    }`
 = How can I get support? =
 Free support is included only with a PRO license: [Buy Modula PRO](https://wp-modula.com/pricing/)
 = How can I say thanks? =

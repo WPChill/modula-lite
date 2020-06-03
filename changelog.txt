@@ -1,6 +1,6 @@
 = 2.3.2 - 03/06/2020 =
 * Fixed images dimensions
-* Added fallback for @getimagesize
+* Removed @getimagesize
 
 = 2.3.1 - 21/05/2020 =
 Fixed Fancybox always opening, not depending on lightbox & links type

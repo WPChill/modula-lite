@@ -1,9 +1,8 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Fixed Fancybox always opening, not depending on lightbox & links type', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed lazyload for masonry columns', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed layout rebuild on device orientation change', 'modula-best-grid-gallery' ),
+        'Fixed images dimensions',
+        'Removed @getimagesize'
     ),
     'feature' => array(
     )
