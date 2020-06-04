@@ -230,7 +230,8 @@
 		"twitter",
 		"pinterest",
 		"whatsapp",
-		"linkedin"
+		"linkedin",
+        "email"
 	],
 
 	  shareBtnTpl: {
@@ -254,6 +255,9 @@
 		  linkedin: '<a class="modula-fancybox-share__button modula-fancybox-share__button--li" href="//linkedin.com/shareArticle?mini=true&url={{modulaShareUrl}}">' +
 			  '<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>' +
 			  '<span>LinkedIn</span></a>',
+          email: '<a class="modula-fancybox-share__button modula-fancybox-share__button--email" href="mailto:?subject={{subject}}&body={{messageImage}}.{{messageGallery}}">' +
+                    '<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>' +
+                    '<span>Email</span></a>',
 
 	  },
 
@@ -5425,7 +5429,10 @@
 		  tpl += current.opts.shareBtnTpl[value]
 			  .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
 			  .replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
-			  .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");
+			  .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "")
+              .replace(/\{\{subject\}\}/g, encodeURIComponent(current.opts.emailSubject))
+              .replace(/\{\{messageImage\}\}/g, encodeURIComponent(current.opts.messageImage + ' ' +  current.src))
+              .replace(/\{\{messageGallery\}\}/g, encodeURIComponent(current.opts.messageGallery + ' ' +  window.location.href));
 	  });
 
 	  tpl += "</p><p><input class='modula-fancybox-share__input' type='text' value='{{url_raw}}' /></p></div>";

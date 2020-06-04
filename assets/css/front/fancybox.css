@@ -754,6 +754,14 @@ body.compensate-for-scrollbar {
     background: #0d95e8;
 }
 
+.modula-fancybox-share__button--email {
+    background: yellowgreen;
+}
+
+.modula-fancybox-share__button--email:hover {
+    background: yellowgreen;
+}
+
 .modula-fancybox-share__button svg {
     height: 25px;
     margin-right: 7px;
