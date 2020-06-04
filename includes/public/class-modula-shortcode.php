@@ -372,7 +372,7 @@ class Modula_Shortcode {
 	public function modula_gallery_title( $settings  ) {
 
 		$title = get_the_title( explode('-',$settings['gallery_id'] )[1] );
-		if( 1 == $settings['show_gallery_title'] ) {
+		if( '1' == $settings['show_gallery_title'] ) {
 			echo " <p class='modula-gallery-title'> ${title} </p> ";
 		}
 		
