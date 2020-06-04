@@ -309,14 +309,6 @@ class Modula_CPT_Fields_Helper {
                 ),
             ),
 			'captions' => array(
-				"show_gallery_title" => array(
-					"name"        => esc_html__( 'Show Gallery Title ', 'modula-best-grid-gallery' ),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Enable this to show the title of your gallery.', 'modula-best-grid-gallery' ),
-					'priority'    => 5,
-				),
-
 				"hide_title"        => array(
 					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -670,7 +662,6 @@ class Modula_CPT_Fields_Helper {
 			'shuffle'               => 0,
 			'titleColor'            => '',
 			'captionColor'          => '#ffffff',
-			'show_gallery_title'    => 0,
 			'hide_title'            => 0,
 			'hide_description'      => 0,
 			'captionFontSize'       => '14',
