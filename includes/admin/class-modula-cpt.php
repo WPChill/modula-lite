@@ -746,7 +746,9 @@ endif;
 </div>
 <div class="clear"></div>
 </div>
-
+<div class="modula-shortcuts">
+	<?php esc_html_e('Want a faster and easier way to save galleries? Use our Keyboard shortcut:','modula-best-grod-gallery'); ?> <strong>CTRL/CMD + S</strong>
+</div>
 <div id="major-publishing-actions">
 	<?php
 	/**
@@ -774,13 +776,7 @@ endif;
 	}
 	?>
 </div>
-
 <div id="publishing-action">
-	<div class="tab-header-tooltip-container modula-tooltip modula-publish-tooltip"><span>[?]</span>
-		<div class="tab-header-description modula-tooltip-content modula-tooltip-publish-content">
-			<?php esc_html_e('Want a faster and easier way to save galleries? Use our Keyboard shortcut: CTRL/CMD + S','modula-best-grod-gallery'); ?>
-		</div>
-	</div>
 	<span class="spinner modula-with-tooltip"></span>
 
 			<?php

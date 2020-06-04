@@ -1028,6 +1028,17 @@ a.modula-tab-link {
   clear: both;
 }
 
+.modula-shortcuts {
+    padding:10px;
+    color: #696969;
+    background:#f5efe0;
+    font-size:11px;
+}
+
+.modula-shortcuts strong {
+    color:#000;
+}
+
 /* Tabs tooltips */
 .modula-tooltip {
 	position: relative;
@@ -1035,9 +1046,7 @@ a.modula-tab-link {
 	float: left;
 	margin-right: 10px;
 }
-.modula-publish-tooltip {
-    vertical-align:middle;
-}
+
 .modula-tooltip > span {
   cursor: pointer;
   color: #0073aa;
@@ -1059,13 +1068,6 @@ a.modula-tab-link {
   z-index: 99;
 }
 
-.modula-tooltip .modula-tooltip-publish-content {
-    transform: translate( -100% ,-50% );
-    right: 0;
-    text-align:left;
-    left:-5px;
-    margin:0;
-}
 .modula-tooltip .modula-tooltip-content:before {
   content: '';
   width: 0px;
@@ -1082,13 +1084,6 @@ a.modula-tab-link {
 
 #publishing-action .spinner.modula-with-tooltip {
     margin:0;
-}
-
-.modula-tooltip .modula-tooltip-publish-content:before{
-    border-width: 8px 8px 8px 8px;
-    border-color:transparent transparent transparent #000;
-    right: -16px;
-    left:auto;
 }
 
 .modula-tooltip:hover .modula-tooltip-content {
