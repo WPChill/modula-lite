@@ -290,8 +290,14 @@ class Modula_CPT {
 							case 'enablePinterest' :
 							case 'enableEmail':
 							case 'emailSubject':
+								$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
+								break;
 							case 'imageMessage':
+								$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
+								break;
 							case 'galleryMessage':
+								$modula_settings[ $field_id ] = sanitize_text_field( $_POST['modula-settings'][ $field_id ] );
+								break;
 							case 'shuffle' :
 								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
 									$modula_settings[ $field_id ] = '1';
