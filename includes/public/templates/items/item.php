@@ -48,6 +48,7 @@
 						<?php if ( $data->enableEmail ): ?>
 							<a class="modula-icon-email" href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
 						<?php endif ?>
+						<?php do_action('modula_extra_socials',$data); ?>
 					</div>
 				<?php endif ?>
 			</div>
