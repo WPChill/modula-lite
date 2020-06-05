@@ -5459,7 +5459,7 @@
           });
 
           // Opening links in a popup window
-          shareCurrent.$content.find(".modula-fancybox-share__button").click(function () {
+          shareCurrent.$content.find(".modula-fancybox-share__button").not('.modula-fancybox-share__button--email').click(function () {
             window.open(this.href, "Share", "width=550, height=450");
             return false;
           });
