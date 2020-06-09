@@ -514,16 +514,16 @@ class Modula_CPT {
 		<?php
 		$preview_link = esc_url( get_preview_post_link( $post ) );
 		if ( 'publish' == $post->post_status ) {
-			$preview_button_text = esc_html__( 'Preview Changes' );
+			$preview_button_text = esc_html__( 'Preview Changes','modula-best-grid-gallery' );
 		} else {
-			$preview_button_text = esc_html__( 'Preview' );
+			$preview_button_text = esc_html__( 'Preview','modula-best-grid-gallery' );
 		}
 
 		$preview_button = sprintf(
 			'%1$s<span class="screen-reader-text"> %2$s</span>',
 			$preview_button_text,
 			/* translators: Accessibility text. */
-            esc_html__( '(opens in a new tab)' )
+            esc_html__( '(opens in a new tab)','modula-best-grid-gallery' )
 		);
 		?>
 <a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview-<?php echo (int) $post->ID; ?>" id="post-preview"><?php echo $preview_button; ?></a>
@@ -753,7 +753,7 @@ endif;
 <div class="clear"></div>
 </div>
 <div class="modula-shortcuts">
-	<?php esc_html_e('Want a faster and easier way to save galleries? Use our Keyboard shortcut:','modula-best-grod-gallery'); ?> <strong>CTRL/CMD + S</strong>
+	<?php esc_html_e('Want a faster and easier way to save galleries? Use our Keyboard shortcut:','modula-best-grid-gallery'); ?> <strong>CTRL/CMD + S</strong>
 </div>
 <div id="major-publishing-actions">
 	<?php

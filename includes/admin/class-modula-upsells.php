@@ -150,72 +150,72 @@ class Modula_Upsells {
 
 		$features = array(
             array(
-                'tooltip' => esc_html__('Enable this to allow loop navigation inside lightbox','modula-lightboxes'),
-                'feature' => esc_html__('Loop Navigation','modula-lightboxes'),
+                'tooltip' => esc_html__('Enable this to allow loop navigation inside lightbox','modula-best-grid-gallery'),
+                'feature' => esc_html__('Loop Navigation','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Toggle on to show the image title in the lightbox above the caption.','modula-lightboxes'),
-                'feature' => esc_html__('Show Image Title','modula-lightboxes'),
+                'tooltip' => esc_html__('Toggle on to show the image title in the lightbox above the caption.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Show Image Title','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Toggle on to show the image caption in the lightbox.','modula-lightboxes'),
-                'feature' => esc_html__('Show Image Caption','modula-lightboxes'),
+                'tooltip' => esc_html__('Toggle on to show the image caption in the lightbox.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Show Image Caption','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Select the position of the caption and title inside the lightbox.','modula-lightboxes'),
-                'feature' => esc_html__('Title and Caption Position','modula-lightboxes'),
+                'tooltip' => esc_html__('Select the position of the caption and title inside the lightbox.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Title and Caption Position','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Enable or disable keyboard/mousewheel navigation inside lightbox','modula-lightboxes'),
-                'feature' => esc_html__('Keyboard/mousewheel Navigation','modula-lightboxes'),
+                'tooltip' => esc_html__('Enable or disable keyboard/mousewheel navigation inside lightbox','modula-best-grid-gallery'),
+                'feature' => esc_html__('Keyboard/mousewheel Navigation','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Display the toolbar which contains the action buttons on top right corner.','modula-lightboxes'),
-                'feature' => esc_html__('Toolbar','modula-lightboxes'),
+                'tooltip' => esc_html__('Display the toolbar which contains the action buttons on top right corner.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Toolbar','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Close the slide if user clicks/double clicks on slide( not image ).','modula-lightboxes'),
-                'feature' => esc_html__('Close on slide click / double click','modula-lightboxes'),
+                'tooltip' => esc_html__('Close the slide if user clicks/double clicks on slide( not image ).','modula-best-grid-gallery'),
+                'feature' => esc_html__('Close on slide click / double click','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Display the counter at the top left corner.','modula-lightboxes'),
-                'feature' => esc_html__('Infobar','modula-lightboxes'),
+                'tooltip' => esc_html__('Display the counter at the top left corner.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Infobar','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Open the lightbox automatically in Full Screen mode.','modula-lightboxes'),
-                'feature' => esc_html__('Auto start in Fullscreen','modula-lightboxes'),
+                'tooltip' => esc_html__('Open the lightbox automatically in Full Screen mode.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Auto start in Fullscreen','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Place the thumbnails at the bottom of the lightbox. This will automatically put `y` axis for thumbnails.','modula-lightboxes'),
-                'feature' => esc_html__('Thumbnails at bottom ','modula-lightboxes'),
+                'tooltip' => esc_html__('Place the thumbnails at the bottom of the lightbox. This will automatically put `y` axis for thumbnails.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Thumbnails at bottom ','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Select vertical or horizontal scrolling for thumbnails','modula-lightboxes'),
-                'feature' => esc_html__('Thumb axis','modula-lightboxes'),
+                'tooltip' => esc_html__('Select vertical or horizontal scrolling for thumbnails','modula-best-grid-gallery'),
+                'feature' => esc_html__('Thumb axis','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Display thumbnails on lightbox opening.','modula-lightboxes'),
-                'feature' => esc_html__('Auto start thumbnail ','modula-lightboxes'),
+                'tooltip' => esc_html__('Display thumbnails on lightbox opening.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Auto start thumbnail ','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Choose the lightbox transition effect between slides.','modula-lightboxes'),
-                'feature' => esc_html__('Transition Effect ','modula-lightboxes'),
+                'tooltip' => esc_html__('Choose the lightbox transition effect between slides.','modula-best-grid-gallery'),
+                'feature' => esc_html__('Transition Effect ','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Allow panning/swiping','modula-lightboxes'),
-                'feature' => esc_html__('Allow Swiping ','modula-lightboxes'),
+                'tooltip' => esc_html__('Allow panning/swiping','modula-best-grid-gallery'),
+                'feature' => esc_html__('Allow Swiping ','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Toggle ON to show all images','modula-lightboxes'),
-                'feature' => esc_html__('Show all images ','modula-lightboxes'),
+                'tooltip' => esc_html__('Toggle ON to show all images','modula-best-grid-gallery'),
+                'feature' => esc_html__('Show all images ','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Choose the open/close animation effect of the lightbox','modula-lightboxes'),
-                'feature' => esc_html__('Open/Close animation','modula-lightboxes') ,
+                'tooltip' => esc_html__('Choose the open/close animation effect of the lightbox','modula-best-grid-gallery'),
+                'feature' => esc_html__('Open/Close animation','modula-best-grid-gallery') ,
             ),
             array(
-                'tooltip' => esc_html__('Set the lightbox background color','modula-lightboxes'),
-                'feature' => esc_html__('Lightbox background color','modula-lightboxes'),
+                'tooltip' => esc_html__('Set the lightbox background color','modula-best-grid-gallery'),
+                'feature' => esc_html__('Lightbox background color','modula-best-grid-gallery'),
             ));
 
 		$tab_content .= $this->generate_upsell_box( $title, $description, 'lightboxes', $features );

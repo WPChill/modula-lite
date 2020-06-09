@@ -201,13 +201,13 @@ class Modula_Helper {
 					'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
 					'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
 					'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
-					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula_best-grid_gallery' ),
+					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
 					'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
 					'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
-					'THUMBS'      => esc_html__( 'Thumbnails', 'modula_best-grid_gallery' ),
-					'DOWNLOAD'    => esc_html__( 'Download', 'modula_best-grid_gallery' ),
-					'SHARE'       => esc_html__( 'Share', 'modula_best-grid_gallery' ),
-					'ZOOM'        => esc_html__( 'Zoom', 'modula_best-grid_gallery' ),
+					'THUMBS'      => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
+					'DOWNLOAD'    => esc_html__( 'Download', 'modula-best-grid-gallery' ),
+					'SHARE'       => esc_html__( 'Share', 'modula-best-grid-gallery' ),
+					'ZOOM'        => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
 				)
 			),
 			'clickSlide'      => false,
@@ -276,8 +276,8 @@ class Modula_Helper {
 			}
 		}
 
-		$image_sizes_array['full']   = esc_html__( 'Full', 'modula-grid' );
-		$image_sizes_array['custom'] = esc_html__( 'Custom', 'modula-grid' );
+		$image_sizes_array['full']   = esc_html__( 'Full', 'modula-best-grid-gallery' );
+		$image_sizes_array['custom'] = esc_html__( 'Custom', 'modula-best-grid-gallery' );
 
 		if ( $size_type ) {
 			return $image_sizes_array;

@@ -525,8 +525,8 @@ class Modula_Field_Builder {
 					$infos .= '. <span>'.esc_html__('Crop','modula-best-grid-gallery').'</span>: ' . ( boolval( $size['crop'] ) ? 'true' : 'false' ) . '</div>';
 				}
 
-				$html .= '<option value="full" '. selected( 'full', $value, false ).'>' . __( 'Full', 'modula-albums' ) . '</option>';
-				$html .= '<option value="custom" '.selected( 'custom', $value, false ).'>' . __( 'Custom', 'modula-albums' ) . '</option>';
+				$html .= '<option value="full" '. selected( 'full', $value, false ).'>' . __( 'Full', 'modula-best-grid-gallery' ) . '</option>';
+				$html .= '<option value="custom" '.selected( 'custom', $value, false ).'>' . __( 'Custom', 'modula-best-grid-gallery' ) . '</option>';
 				$html .= '</select>';
 				if ( '' != $infos ) {
 					$html .= '<div class="modula-imagesizes-infos">' . $infos . '</div>';
