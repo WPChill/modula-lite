@@ -195,9 +195,9 @@ class Modula_Shortcode {
 			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
 			'lightboxOpts'     => $this->fancybox_options( $settings ),
 			'inView'           => $inView,
-			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html($settings['emailSubject']) : '',
-			'image_message'    => isset( $settings['imageMessage'] ) ? esc_html($settings['imageMessage']) : '',
-			'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html($settings['galleryMessage']) : '',
+			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'image_message'    => isset( $settings['imageMessage'] ) ? esc_html( $settings['imageMessage'] ) : esc_html__( 'Here is the link to the image :', 'modula-best-grid-gallery' ),
+			'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html( $settings['galleryMessage'] ) : esc_html__( 'Here is the link to the gallery :', 'modula-best-grid-gallery' ),
 		), $settings );
 
 		// Check for lightbox

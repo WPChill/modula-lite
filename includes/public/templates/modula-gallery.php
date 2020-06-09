@@ -31,9 +31,6 @@
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
-				'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html($settings['emailSubject']) : '',
-				'image_message'    => isset( $settings['imageMessage'] ) ? esc_html($settings['imageMessage']) : '',
-				'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html($settings['galleryMessage']) : '',
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),
@@ -41,11 +38,14 @@
 
 				/* Item link attributes & classes */
 				'link_classes'     => array( 'tile-inner', 'modula-item-link' ),
-				'link_attributes'  => array(),
+				'link_attributes'  => array(
+					'data-image-id' => $image['id']
+				),
 
 				/* Item img attributes & classes */
 				'img_classes'      => array( 'pic' ),
-				'img_attributes'   => array(
+
+				'img_attributes' => array(
 					'data-valign' => esc_attr( $image['valign'] ),
 					'data-halign' => esc_attr( $image['halign'] ),
 					'alt'         => esc_attr( $image['alt'] ),

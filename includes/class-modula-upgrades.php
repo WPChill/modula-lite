@@ -309,7 +309,7 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
-			$modula_settings[ 'enableSocial' ] = ('1' == $modula_settings['disableSocial']) ? 0 : 1;
+			$modula_settings[ 'enableSocial' ] = (isset($modula_settings['disableSocial']) && '1' == $modula_settings['disableSocial']) ? 0 : 1;
 			unset( $modula_settings['disableSocial'] );
 			
             $default_gallery_settings = array(
