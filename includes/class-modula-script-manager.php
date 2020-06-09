@@ -6,13 +6,13 @@ class Modula_Script_Manager {
 	private $scripts = array();
 	private $styles  = array();
 	private $compress_versions = array(
-		'modula-all' => array( 'modula-isotope-packery', 'modula-isotope', 'modula-grid-justified-gallery', 'modula-fancybox', 'modula-lazysizes', 'modula' ),
-		'modula-wf'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-lazysizes', 'modula' ),
-		'modula-wl'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-fancybox', 'modula' ),
-		'modula-wfl' => array( 'modula-isotope-packery', 'modula-isotope', 'modula' ),
-		'modula-justified-wf'  => array( 'modula-grid-justified-gallery', 'modula-lazysizes', 'modula' ),
-		'modula-justified-wl'  => array( 'modula-grid-justified-gallery', 'modula-fancybox', 'modula' ),
-		'modula-justified-wfl' => array( 'modula-grid-justified-gallery', 'modula' ),
+		// 'modula-all' => array( 'modula-isotope-packery', 'modula-isotope', 'modula-grid-justified-gallery', 'modula-fancybox', 'modula-lazysizes', 'modula' ),
+		// 'modula-wf'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-lazysizes', 'modula' ),
+		// 'modula-wl'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-fancybox', 'modula' ),
+		// 'modula-wfl' => array( 'modula-isotope-packery', 'modula-isotope', 'modula' ),
+		// 'modula-justified-wf'  => array( 'modula-grid-justified-gallery', 'modula-lazysizes', 'modula' ),
+		// 'modula-justified-wl'  => array( 'modula-grid-justified-gallery', 'modula-fancybox', 'modula' ),
+		// 'modula-justified-wfl' => array( 'modula-grid-justified-gallery', 'modula' ),
 	);
 
 	function __construct() {

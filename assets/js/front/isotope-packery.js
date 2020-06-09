@@ -9,20 +9,8 @@
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'packery/js/rect',factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory();
-  } else {
-    // browser global
     window.Packery = window.Packery || {};
     window.Packery.Rect = factory();
-  }
-
 }( window, function factory() {
 
 
@@ -162,21 +150,10 @@ return Rect;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'packery/js/packer',[ './rect' ], factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('./rect')
-    );
-  } else {
+
     // browser global
     var Packery = window.Packery = window.Packery || {};
     Packery.Packer = factory( Packery.Rect );
-  }
 
 }( window, function factory( Rect ) {
 
@@ -359,28 +336,12 @@ return Packer;
 **/
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'packery/js/item',[
-        'outlayer/outlayer',
-        './rect'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('outlayer'),
-      require('./rect')
-    );
-  } else {
+
     // browser global
     window.Packery.Item = factory(
       window.Outlayer,
       window.Packery.Rect
     );
-  }
 
 }( window, function factory( Outlayer, Rect ) {
 
@@ -493,28 +454,7 @@ return Item;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'packery/js/packery',[
-        'get-size/get-size',
-        'outlayer/outlayer',
-        './rect',
-        './packer',
-        './item'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('get-size'),
-      require('outlayer'),
-      require('./rect'),
-      require('./packer'),
-      require('./item')
-    );
-  } else {
+
     // browser global
     window.Packery = factory(
       window.getSize,
@@ -523,7 +463,6 @@ return Item;
       window.Packery.Packer,
       window.Packery.Item
     );
-  }
 
 }( window, function factory( getSize, Outlayer, Rect, Packer, Item ) {
 
@@ -1156,27 +1095,12 @@ return Packery;
 
 ( function( window, factory ) {
   
-  // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( [
-        'isotope-layout/js/layout-mode',
-        'packery/js/packery'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('isotope-layout/js/layout-mode'),
-      require('packery')
-    );
-  } else {
+
     // browser global
     factory(
       window.ModulaIsotope.LayoutMode,
       window.Packery
     );
-  }
 
 }( window, function factor( LayoutMode, Packery ) {
 
