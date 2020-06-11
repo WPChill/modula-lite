@@ -135,12 +135,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		
 		var rows = this.get( 'rows' );
 
-
-		if ( 'undefined' != typeof wp.Modula.Settings.get( 'disableSocial' ) ) {
-			value = ('1' == wp.Modula.Settings.get( 'disableSocial' )  ) ? 0 : 1;
-			delete wp.Modula.Settings.attributes.disableSocial;
-		}
-
 		if ( 0 == value ) {
 			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]' ).hide();
 
