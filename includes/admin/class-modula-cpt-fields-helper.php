@@ -425,7 +425,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 40,
 				),
 				"enableEmail" => array(
-					"name"        => esc_html__( 'Show Email Icon', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Email', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
 					"description" => esc_html__( 'Show Email Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
