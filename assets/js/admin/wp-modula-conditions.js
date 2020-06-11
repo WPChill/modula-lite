@@ -135,14 +135,24 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		
 		var rows = this.get( 'rows' );
 
+
+		if ( 'undefined' != typeof wp.Modula.Settings.get( 'disableSocial' ) ) {
+			value = ('1' == wp.Modula.Settings.get( 'disableSocial' )  ) ? 0 : 1;
+			delete wp.Modula.Settings.attributes.disableSocial;
+		}
+
 		if ( 0 == value ) {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]' ).prop('checked',0).hide();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]' ).hide();
 
 			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"],[data-container="emailSubject"],[data-container="imageMessage"],[data-container="galleryMessage"]').hide();
 			
         }else {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').prop('checked',1).show();
-			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"],[data-container="emailSubject"],[data-container="socialIconSize"],[data-container="imageMessage"],[data-container="galleryMessage"]').show();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').show();
+			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"]').show();
+
+			if('1' == wp.Modula.Settings.get('enableEmail')){
+				rows.filter('[data-container="emailSubject"],[data-container="socialIconSize"],[data-container="imageMessage"],[data-container="galleryMessage"]').show();
+			}
         }
 	},
 
