@@ -783,7 +783,7 @@ endif;
 	?>
 </div>
 <div id="publishing-action">
-	<span class="spinner modula-with-tooltip"></span>
+	<span class="spinner"></span>
 
 			<?php
 	if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {

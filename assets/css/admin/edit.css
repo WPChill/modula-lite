@@ -17,7 +17,7 @@
     border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	flex-grow:1;
-	width:calc(100% - 40px);
+	width:calc(100% - 60px);
 }
 .modula-copy-shortcode span {
 	width: 100%;

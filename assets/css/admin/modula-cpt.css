@@ -1082,10 +1082,6 @@ a.modula-tab-link {
   transform: translateY( -50% );
 }
 
-#publishing-action .spinner.modula-with-tooltip {
-    margin:0;
-}
-
 .modula-tooltip:hover .modula-tooltip-content {
   display: block;
 }
