@@ -867,6 +867,26 @@ tr label.th-label {
     font-style: italic;
     color: #666;
 }
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link input[name="link"] {
+    padding:10px 40px 10px 5px;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link input[name="link"].ui-autocomplete-loading {
+    background-position: calc(100% - 40px) center;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link label {
+    position: relative;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link span.dashicons {
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    font-size: 16px;
+}
+
 .media-modal .modula-edit-popup .attachment-details .attachment-info .settings {
     margin: 0;
     padding: 0;
@@ -1502,6 +1522,10 @@ Scaling Effect Preview
   top: 50%;
   right: 5%;
   transform: translate(-5%, -50%);
+}
+
+.modula-autocomplete-results code {
+    padding:10px 20px;
 }
 
 .ui-autocomplete .ui-menu-item {
