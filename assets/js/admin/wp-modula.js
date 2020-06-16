@@ -58,7 +58,17 @@ jQuery( document ).ready( function( $ ){
 			source: url,
 			delay: 500,
 			minLength: 3
-		});
+		}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li></li>" )  
+				.data( "item.autocomplete", item )  
+				.append( `
+				<div class="modula-autocomplete-results">
+				<p> ${item.label} </p> <span> <code> ${item.type} </code> </span>
+				<p style="color: #555; font-size: 11px;"> ${item.value} </p>
+				</div>
+				` )  
+				.appendTo( ul );  
+		};  
 	} );
 
 

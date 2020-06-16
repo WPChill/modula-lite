@@ -504,7 +504,8 @@ class Modula_Admin {
 		while( $loop->have_posts() ) {
 			$loop->the_post();
 			$suggestion['label'] = get_the_title();
-			$suggestion['value']  = get_permalink();
+			$suggestion['type']  = get_post_type();
+			$suggestion['value'] = get_permalink();
 			$suggestions[] = $suggestion;
 		}
 

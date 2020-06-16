@@ -1484,6 +1484,28 @@ Scaling Effect Preview
 
 .ui-autocomplete {
   z-index: 160000;
+  background: white;
+  font-family: inherit;
+}
+
+.modula-autocomplete-results {
+  padding: 5px;
+}
+.modula-autocomplete-results p {
+  margin-left: 8px;
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+.modula-autocomplete-results span {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translate(-5%, -50%);
+}
+
+.ui-autocomplete .ui-menu-item {
+  border-bottom: 1px solid #555;
 }
 
 /**
