@@ -737,10 +737,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var subject = encodeURI( plugin.options.email_subject );
 			var imageLink = jQuery( '.modula-icon-email' ).parents( ".modula-item-content" ).find( "img.pic" );
-			var messageImage = encodeURI( plugin.options.image_message + ' ' + imageLink.attr('data-full') );
+			var messageImage = encodeURI( plugin.options.image_message + ' ' + imageLink.attr( 'data-full' ) );
 			var messageGallery = encodeURI( plugin.options.gallery_message + ' ' + location.href );
 
-			jQuery(this).attr( 'href', "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
+			var url = "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery;
+			var w = window.open( url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400" );
+			w.moveTo( ( screen.width / 2 ) - ( 300 ), ( screen.height / 2 ) - ( 200 ) );
+			return false;
+			//jQuery(this).attr( 'href', "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
 		} );
 	};
 
