@@ -17,26 +17,11 @@
 /* jshint browser: true, strict: true, undef: true, unused: true */
 
 ( function( window, factory ) {
-  // universal module definition
-  /*jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'jquery-bridget/jquery-bridget',[ 'jquery' ], function( jQuery ) {
-      return factory( window, jQuery );
-    });
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('jquery')
-    );
-  } else {
     // browser global
     window.jQueryBridget = factory(
       window,
       window.jQuery
     );
-  }
 
 }( window, function factory( window, jQuery ) {
 'use strict';
@@ -161,18 +146,9 @@ return jQueryBridget;
 /* jshint unused: true, undef: true, strict: true */
 
 ( function( global, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, window */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD - RequireJS
-    define( 'ev-emitter/ev-emitter',factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS - Browserify, Webpack
-    module.exports = factory();
-  } else {
+
     // Browser globals
     global.EvEmitter = factory();
-  }
 
 }( typeof window != 'undefined' ? window : this, function() {
 
@@ -275,17 +251,8 @@ return EvEmitter;
 /* globals console: false */
 
 ( function( window, factory ) {
-  /* jshint strict: false */ /* globals define, module */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'get-size/get-size',factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory();
-  } else {
-    // browser global
+
     window.getSize = factory();
-  }
 
 })( window, function factory() {
 'use strict';
@@ -482,19 +449,9 @@ return getSize;
 /*jshint browser: true, strict: true, undef: true, unused: true */
 
 ( function( window, factory ) {
-  /*global define: false, module: false */
-  'use strict';
-  // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'desandro-matches-selector/matches-selector',factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory();
-  } else {
+
     // browser global
     window.matchesSelector = factory();
-  }
 
 }( window, function factory() {
   'use strict';
@@ -535,29 +492,12 @@ return getSize;
 /*jshint browser: true, undef: true, unused: true, strict: true */
 
 ( function( window, factory ) {
-  // universal module definition
-  /*jshint strict: false */ /*globals define, module, require */
 
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'fizzy-ui-utils/utils',[
-      'desandro-matches-selector/matches-selector'
-    ], function( matchesSelector ) {
-      return factory( window, matchesSelector );
-    });
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('desandro-matches-selector')
-    );
-  } else {
     // browser global
     window.fizzyUIUtils = factory(
       window,
       window.matchesSelector
     );
-  }
 
 }( window, function factory( window, matchesSelector ) {
 
@@ -774,30 +714,13 @@ return utils;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD - RequireJS
-    define( 'outlayer/item',[
-        'ev-emitter/ev-emitter',
-        'get-size/get-size'
-      ],
-      factory
-    );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS - Browserify, Webpack
-    module.exports = factory(
-      require('ev-emitter'),
-      require('get-size')
-    );
-  } else {
+
     // browser global
     window.Outlayer = {};
     window.Outlayer.Item = factory(
       window.EvEmitter,
       window.getSize
     );
-  }
 
 }( window, function factory( EvEmitter, getSize ) {
 'use strict';
@@ -1332,30 +1255,7 @@ return Item;
 
 ( function( window, factory ) {
   'use strict';
-  // universal module definition
-  /* jshint strict: false */ /* globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD - RequireJS
-    define( 'outlayer/outlayer',[
-        'ev-emitter/ev-emitter',
-        'get-size/get-size',
-        'fizzy-ui-utils/utils',
-        './item'
-      ],
-      function( EvEmitter, getSize, utils, Item ) {
-        return factory( window, EvEmitter, getSize, utils, Item);
-      }
-    );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS - Browserify, Webpack
-    module.exports = factory(
-      window,
-      require('ev-emitter'),
-      require('get-size'),
-      require('fizzy-ui-utils'),
-      require('./item')
-    );
-  } else {
+
     // browser global
     window.Outlayer = factory(
       window,
@@ -1364,7 +1264,6 @@ return Item;
       window.fizzyUIUtils,
       window.Outlayer.Item
     );
-  }
 
 }( window, function factory( window, EvEmitter, getSize, utils, Item ) {
 'use strict';
@@ -2269,26 +2168,12 @@ return Outlayer;
 **/
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'isotope-layout/js/item',[
-        'outlayer/outlayer'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('outlayer')
-    );
-  } else {
+
     // browser global
     window.ModulaIsotope = window.ModulaIsotope || {};
     window.ModulaIsotope.Item = factory(
       window.Outlayer
     );
-  }
 
 }( window, function factory( Outlayer ) {
 'use strict';
@@ -2347,29 +2232,13 @@ return Item;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'isotope-layout/js/layout-mode',[
-        'get-size/get-size',
-        'outlayer/outlayer'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('get-size'),
-      require('outlayer')
-    );
-  } else {
+
     // browser global
     window.ModulaIsotope = window.ModulaIsotope || {};
     window.ModulaIsotope.LayoutMode = factory(
       window.getSize,
       window.Outlayer
     );
-  }
 
 }( window, function factory( getSize, Outlayer ) {
   'use strict';
@@ -2509,28 +2378,12 @@ return Item;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'masonry-layout/masonry',[
-        'outlayer/outlayer',
-        'get-size/get-size'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('outlayer'),
-      require('get-size')
-    );
-  } else {
+
     // browser global
     window.Masonry = factory(
       window.Outlayer,
       window.getSize
     );
-  }
 
 }( window, function factory( Outlayer, getSize ) {
 
@@ -2747,28 +2600,12 @@ return Item;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'isotope-layout/js/layout-modes/masonry',[
-        '../layout-mode',
-        'masonry-layout/masonry'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('../layout-mode'),
-      require('masonry-layout')
-    );
-  } else {
+
     // browser global
     factory(
       window.ModulaIsotope.LayoutMode,
       window.Masonry
     );
-  }
 
 }( window, function factory( LayoutMode, Masonry ) {
 'use strict';
@@ -2820,25 +2657,11 @@ return Item;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'isotope-layout/js/layout-modes/fit-rows',[
-        '../layout-mode'
-      ],
-      factory );
-  } else if ( typeof exports == 'object' ) {
-    // CommonJS
-    module.exports = factory(
-      require('../layout-mode')
-    );
-  } else {
+
     // browser global
     factory(
       window.ModulaIsotope.LayoutMode
     );
-  }
 
 }( window, function factory( LayoutMode ) {
 'use strict';
@@ -2889,25 +2712,11 @@ return FitRows;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( 'isotope-layout/js/layout-modes/vertical',[
-        '../layout-mode'
-      ],
-      factory );
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      require('../layout-mode')
-    );
-  } else {
+
     // browser global
     factory(
       window.ModulaIsotope.LayoutMode
     );
-  }
 
 }( window, function factory( LayoutMode ) {
 'use strict';
@@ -2950,41 +2759,7 @@ return Vertical;
  */
 
 ( function( window, factory ) {
-  // universal module definition
-  /* jshint strict: false */ /*globals define, module, require */
-  if ( typeof define == 'function' && define.amd ) {
-    // AMD
-    define( [
-        'outlayer/outlayer',
-        'get-size/get-size',
-        'desandro-matches-selector/matches-selector',
-        'fizzy-ui-utils/utils',
-        'isotope-layout/js/item',
-        'isotope-layout/js/layout-mode',
-        // include default layout modes
-        'isotope-layout/js/layout-modes/masonry',
-        'isotope-layout/js/layout-modes/fit-rows',
-        'isotope-layout/js/layout-modes/vertical'
-      ],
-      function( Outlayer, getSize, matchesSelector, utils, Item, LayoutMode ) {
-        return factory( window, Outlayer, getSize, matchesSelector, utils, Item, LayoutMode );
-      });
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('outlayer'),
-      require('get-size'),
-      require('desandro-matches-selector'),
-      require('fizzy-ui-utils'),
-      require('isotope-layout/js/item'),
-      require('isotope-layout/js/layout-mode'),
-      // include default layout modes
-      require('isotope-layout/js/layout-modes/masonry'),
-      require('isotope-layout/js/layout-modes/fit-rows'),
-      require('isotope-layout/js/layout-modes/vertical')
-    );
-  } else {
+
     // browser global
     window.ModulaIsotope = factory(
       window,
@@ -2995,7 +2770,6 @@ return Vertical;
       window.ModulaIsotope.Item,
       window.ModulaIsotope.LayoutMode
     );
-  }
 
 }( window, function factory( window, Outlayer, getSize, matchesSelector, utils,
   Item, LayoutMode ) {

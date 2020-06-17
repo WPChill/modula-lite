@@ -38,13 +38,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['img_attributes']['src'] = $image_url;
 	$item_data['img_attributes']['data-src'] = $image_url;
 
-	$size = @getimagesize( $image_url );
-
-	if ( $size ) {
-    	$item_data['img_attributes']['width']  = $size[0];
-		$item_data['img_attributes']['height'] = $size[1];
-    }
-
 	return $item_data;
 }
 
@@ -98,22 +91,6 @@ function modula_generate_grid_image_links( $item_data, $item, $settings ){
 			$image['thumb'] = $image['full'];
 		}else{
 			$image['thumb'] = $image_url;
-
-			if ( $crop ) {
-				$image['width']  = absint( $settings['grid_image_dimensions']['width'] );
-				$image['height'] = absint( $settings['grid_image_dimensions']['height'] );
-			}else{
-
-				// Get original image size.
-        		$size = @getimagesize( $image_url );
-
-        		if ( $size ) {
-		        	$image['width']  = $size[0];
-					$image['height'] = $size[1];
-		        }
-
-			}
-
 		}
 
 	}
@@ -124,8 +101,7 @@ function modula_generate_grid_image_links( $item_data, $item, $settings ){
 	// Add src/data-src attributes to img tag
 	$item_data['img_attributes']['src']      = $image['thumb'];
 	$item_data['img_attributes']['data-src'] = $image['thumb'];
-	$item_data['img_attributes']['width']    = $image['width'];
-	$item_data['img_attributes']['height']   = $image['height'];
+
 	return $item_data;
 
 }
