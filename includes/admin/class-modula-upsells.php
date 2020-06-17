@@ -19,6 +19,9 @@ class Modula_Upsells {
         add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
         add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
         add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
+		add_filter( 'modula_download_tab_content', array( $this, 'download_tab_upsell' ) );
+		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
+		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
         add_filter( 'modula_cpt_metaboxes',array( $this, 'albums_upsell_meta' ) );
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -225,7 +228,7 @@ class Modula_Upsells {
 
     public function misc_tab_upsell( $tab_content ) {
 
-        $upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightboxe or protect your images from stealing?', 'modula-best-grid-gallery' );
+        $upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
         $upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
 
         $tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
@@ -266,6 +269,39 @@ class Modula_Upsells {
         return $tab_content;
 
     }
+
+	public function zoom_tab_upsell( $tab_content ) {
+
+		$upsell_title       = esc_html__( 'Looking to add zoom functionality to your lightbox?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Zoom add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+
+		return $tab_content;
+
+	}
+
+	public function exif_tab_upsell( $tab_content ) {
+
+		$upsell_title       = esc_html__( 'Looking to add EXIF image info functionality to your lightbox?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Exif add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+
+		return $tab_content;
+
+	}
+
+	public function download_tab_upsell( $tab_content ) {
+
+		$upsell_title       = esc_html__( 'Looking to add download functionality to your lightbox?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Download add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+
+		return $tab_content;
+
+	}
 
 	public function meta_boxes_setup() {
 
