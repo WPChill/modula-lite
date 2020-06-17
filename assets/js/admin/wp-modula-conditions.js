@@ -176,7 +176,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedGridType: function (settings, value) {
 
-		let rows = this.get('rows');
+		let rows = this.get( 'rows' );
+		var tabs = this.get( 'tabs' );
 
 		if ( 'grid' != wp.Modula.Settings.get('type') ) {
 
@@ -186,11 +187,13 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if( 'automatic' == value ) {
 
 			rows.filter('[data-container="grid_image_size"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"]').show();
+			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
 		} else {
 
 			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').hide();
 
 			rows.filter('[data-container="grid_type"], [data-container="grid_image_size"],[data-container="gutter"]').show();
+			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 		}
 
 	},
