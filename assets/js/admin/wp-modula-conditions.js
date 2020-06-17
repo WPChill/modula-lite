@@ -28,7 +28,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
-		this.listenTo( wp.Modula.Settings, 'change:enableEmail', this.enableEmail );
 	},
 
 	initValues: function(){
@@ -43,7 +42,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.hideCaption ( false, wp.Modula.Settings.get( 'hide_description') );
 		this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 		this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
-		this.enableEmail(false, wp.Modula.Settings.get('enableEmail'));
 	},
 
 	changedType: function( settings, value ){
@@ -138,34 +136,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( 0 == value ) {
 			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]' ).hide();
 
-			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"],[data-container="emailSubject"],[data-container="imageMessage"],[data-container="galleryMessage"]').hide();
+			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').hide();
 			
         }else {
 			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').show();
 			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"]').show();
-
-			if('1' == wp.Modula.Settings.get('enableEmail')){
-				rows.filter('[data-container="emailSubject"],[data-container="socialIconSize"],[data-container="imageMessage"],[data-container="galleryMessage"]').show();
-			}
         }
-	},
-
-	enableEmail: function( settings, value){
-
-		var rows = this.get( 'rows' );
-
-		if ( 0 == wp.Modula.Settings.get( 'enableSocial' ) ) {
-			rows.filter( '[data-container="emailSubject"],[data-container="imageMessage"],[data-container="galleryMessage"]' ).hide();
-			return;
-		}
-
-		if ( 0 == value ) {
-			rows.filter( '[data-container="emailSubject"],[data-container="imageMessage"],[data-container="galleryMessage"]' ).hide();
-
-		}else {
-			rows.filter( '[data-container="emailSubject"],[data-container="imageMessage"],[data-container="galleryMessage"]').show();
-
-		}
 	},
 
 	changedResponsiveness: function( settings, value){
