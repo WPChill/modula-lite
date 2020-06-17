@@ -1,6 +1,14 @@
+= 2.3.3 - 17/06/2020 =
+Fixed Importing Envira Galleries image size, custom dimensions and gutter.
+Social icons are now disabled by default when creating a new gallery.
+Added autosuggest URL to image URL field.
+Added share via Email.
+Added "Save gallery"/"Update gallery" shortcut CTRL/CMD + S.
+
 = 2.3.2 - 03/06/2020 =
 * Fixed images dimensions
 * Removed @getimagesize
+
 
 = 2.3.1 - 21/05/2020 =
 Fixed Fancybox always opening, not depending on lightbox & links type

@@ -24,23 +24,32 @@
 					<p class="description"><?php echo wp_kses_post( $data->description ); ?></p>
 				<?php endif ?>
 				<?php if ( ! $data->hide_socials ): ?>
-				<div class="jtg-social">
-					<?php if ( $data->enableTwitter ): ?>
-					<a class="modula-icon-twitter" href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
-					<?php endif ?>
-					<?php if ( $data->enableFacebook ): ?>
-					<a class="modula-icon-facebook" href="#"><?php echo Modula_Helper::get_icon( 'facebook' ) ?></a>
-					<?php endif ?>
-					<?php if ( $data->enableWhatsapp ): ?>
-					<a class="modula-icon-whatsapp" href="#"><?php echo Modula_Helper::get_icon( 'whatsapp' ) ?></a>
-					<?php endif ?>
-					<?php if ( $data->enablePinterest ): ?>
-					<a class="modula-icon-pinterest" href="#"><?php echo Modula_Helper::get_icon( 'pinterest' ) ?></a>
-					<?php endif ?>
-					<?php if ( $data->enableLinkedin ): ?>
-					<a class="modula-icon-linkedin" href="#"><?php echo Modula_Helper::get_icon( 'linkedin' ) ?></a>
-					<?php endif ?>
-				</div>
+					<div class="jtg-social">
+						<?php if ( $data->enableTwitter ): ?>
+							<a class="modula-icon-twitter"
+							   href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
+						<?php endif ?>
+						<?php if ( $data->enableFacebook ): ?>
+							<a class="modula-icon-facebook"
+							   href="#"><?php echo Modula_Helper::get_icon( 'facebook' ) ?></a>
+						<?php endif ?>
+						<?php if ( $data->enableWhatsapp ): ?>
+							<a class="modula-icon-whatsapp"
+							   href="#"><?php echo Modula_Helper::get_icon( 'whatsapp' ) ?></a>
+						<?php endif ?>
+						<?php if ( $data->enablePinterest ): ?>
+							<a class="modula-icon-pinterest"
+							   href="#"><?php echo Modula_Helper::get_icon( 'pinterest' ) ?></a>
+						<?php endif ?>
+						<?php if ( $data->enableLinkedin ): ?>
+							<a class="modula-icon-linkedin"
+							   href="#"><?php echo Modula_Helper::get_icon( 'linkedin' ) ?></a>
+						<?php endif ?>
+						<?php if ( $data->enableEmail ): ?>
+							<a class="modula-icon-email" href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
+						<?php endif ?>
+						<?php do_action('modula_extra_socials',$data); ?>
+					</div>
 				<?php endif ?>
 			</div>
 		</div>

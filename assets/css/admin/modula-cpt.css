@@ -867,6 +867,26 @@ tr label.th-label {
     font-style: italic;
     color: #666;
 }
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link input[name="link"] {
+    padding:10px 40px 10px 5px;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link input[name="link"].ui-autocomplete-loading {
+    background-position: calc(100% - 40px) center;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link label {
+    position: relative;
+}
+
+.media-modal .modula-edit-popup .attachment-details .attachment-info .settings .setting.modula-link span.dashicons {
+    position: absolute;
+    right: 15px;
+    top: 35px;
+    font-size: 16px;
+}
+
 .media-modal .modula-edit-popup .attachment-details .attachment-info .settings {
     margin: 0;
     padding: 0;
@@ -1028,6 +1048,17 @@ a.modula-tab-link {
   clear: both;
 }
 
+.modula-shortcuts {
+    padding:10px;
+    color: #696969;
+    background:#f5efe0;
+    font-size:11px;
+}
+
+.modula-shortcuts strong {
+    color:#000;
+}
+
 /* Tabs tooltips */
 .modula-tooltip {
 	position: relative;
@@ -1035,12 +1066,14 @@ a.modula-tab-link {
 	float: left;
 	margin-right: 10px;
 }
+
 .modula-tooltip > span {
   cursor: pointer;
   color: #0073aa;
   text-decoration: underline;
   margin-left: 5px;
 }
+
 .modula-tooltip .modula-tooltip-content {
   display: none;
   position: absolute;
@@ -1054,6 +1087,7 @@ a.modula-tab-link {
   box-sizing: border-box;
   z-index: 99;
 }
+
 .modula-tooltip .modula-tooltip-content:before {
   content: '';
   width: 0px;
@@ -1067,9 +1101,11 @@ a.modula-tab-link {
   left: -8px;
   transform: translateY( -50% );
 }
+
 .modula-tooltip:hover .modula-tooltip-content {
   display: block;
 }
+
 
 /* Modula Helper Grid */
 .modula-helper-guidelines-container {
@@ -1462,6 +1498,38 @@ Scaling Effect Preview
 
 .modula-settings-container .lightbox-announcement a.notice-dismiss {
 	text-decoration: none;
+}
+
+/* Autocomplete z-index fix */
+
+.ui-autocomplete {
+  z-index: 160000;
+  background: white;
+  font-family: inherit;
+}
+
+.modula-autocomplete-results {
+  padding: 5px;
+}
+.modula-autocomplete-results p {
+  margin-left: 8px;
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+
+.modula-autocomplete-results span {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translate(-5%, -50%);
+}
+
+.modula-autocomplete-results code {
+    padding:10px 20px;
+}
+
+.ui-autocomplete .ui-menu-item {
+  border-bottom: 1px solid #555;
 }
 
 /**

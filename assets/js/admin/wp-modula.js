@@ -51,6 +51,27 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
+	jQuery( '.modula-link input[name="link"]' ).live( "keydown.autocomplete", function() {
+
+		var url = modulaHelper.ajax_url + "?action=modula_autocomplete&nonce="+modulaHelper._wpnonce;
+		jQuery(this).autocomplete({
+			source: url,
+			delay: 500,
+			minLength: 3
+		}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+			return $( "<li></li>" )  
+				.data( "item.autocomplete", item )  
+				.append( `
+				<div class="modula-autocomplete-results">
+				<p> ${item.label} </p> <span> <code> ${item.type} </code> </span>
+				<p style="color: #555; font-size: 11px;"> ${item.value} </p>
+				</div>
+				` )  
+				.appendTo( ul );  
+		};  
+	} );
+
+
 	$('#modula-image-loaded-effects ').on('click','#test-scaling-preview',function (e) {
 		e.preventDefault();
 		var val     = $('input[data-setting="loadedScale"]').val();
@@ -93,5 +114,14 @@ jQuery( document ).ready( function( $ ){
 			notice.remove();
 		});
 	});
+
+	// Save on CTRL/Meta Key + S
+	$( document ).keydown( function ( e ) {
+		if ( ( e.keyCode === 115 || e.keyCode === 83 ) && ( e.ctrlKey || e.metaKey ) && !( e.altKey ) ) {
+			e.preventDefault();
+			$( '#publish' ).click();
+			return false;
+		}
+	} );
 
 });

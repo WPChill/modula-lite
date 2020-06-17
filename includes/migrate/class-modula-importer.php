@@ -32,7 +32,7 @@ class Modula_Importer {
         // Include required scripts for import
         add_action('admin_enqueue_scripts', array($this, 'admin_importer_scripts'));
 
-        add_action('admin_menu',array($this,'migrator_menu'));
+        add_filter('modula_admin_page_link',array($this,'migrator_menu'), 5,1);
 
         // Required files
         require_once MODULA_PATH . 'includes/migrate/nextgen/class-modula-nextgen-importer.php';
@@ -46,11 +46,24 @@ class Modula_Importer {
 
     }
 
-    /**
-     * Add sub-menu entry for Migrate
-     */
-    public function migrator_menu() {
-        add_submenu_page( 'edit.php?post_type=modula-gallery', esc_html__( 'Migrate', 'modula-best-grid-gallery' ), esc_html__( 'Migrate', 'modula-best-grid-gallery' ), 'manage_options', 'edit.php?post_type=modula-gallery&page=modula&modula-tab=importer' );
+	/**
+	 * Add sub-menu entry for Migrate
+	 *
+	 * @param $links
+	 *
+	 * @return mixed
+	 */
+    public function migrator_menu($links) {
+
+        $links[] = array(
+        	'page_title' => esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
+	        'menu_title'=> esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
+	        'capability' => 'manage_options',
+	        'menu_slug' => 'edit.php?post_type=modula-gallery&page=modula&modula-tab=importer',
+	        'function' => '',
+	        'priority' => 45
+        );
+        return $links;
     }
 
 
@@ -274,7 +287,7 @@ class Modula_Importer {
                 case 'envira':
                     $id             = $gallery->ID;
                     $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
-
+                    
                     if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
                         $imported = true;
                     }

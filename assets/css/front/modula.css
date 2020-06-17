@@ -500,7 +500,7 @@ Fix for admin bar overfloating
 .modula.modula-columns .modula-item .modula-item-content {
 	position: relative;
 }
-.modula.modula-columns .modula-item .modula-item-overlay {
+/*.modula.modula-columns .modula-item .modula-item-overlay {
 	position: absolute;
 	top:0;
 	left: 0;
@@ -508,7 +508,7 @@ Fix for admin bar overfloating
 	height: 100%;
 	display: none;
 	z-index: 9;
-}
+}*/
 .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
 	/*width: 100%;*/
 	height: 100%;
@@ -733,4 +733,3 @@ Fix for admin bar overfloating
 	height:100%;
 	top:0;
 }
-

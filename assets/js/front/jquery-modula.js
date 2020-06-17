@@ -40,9 +40,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			gutter: 10,
 			enableTwitter: false,
 			enableFacebook: false,
-			enableGplus: false,
+			enableWhatsapp: false,
 			enablePinterest: false,
 			enableLinkedin: false,
+			enableEmail: false,
 			lazyLoad: 0,
 			initLightbox: false,
 			lightbox: 'fancybox',
@@ -160,7 +161,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			var links = $.map(self.$items, function(o) { 
 				var link  = jQuery(o).find('.modula-item-link:not( .modula-simple-link )'),
 					image = jQuery(o).find('.pic');
-				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ) } } }),
+				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ),'image_id' : link.attr('data-image-id') } } }),
 				index = self.$items.index( jQuery(this).parents( '.modula-item' ) );
 
 			jQuery.modulaFancybox.open( links, self.options.lightboxOpts, index );
@@ -612,6 +613,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 		if ( this.options.enableWhatsapp ) {
 			setupWhatsapp(this.$items, this);
 		}
+		if( this.options.enableEmail){
+			setupEmail(this.$items, this);
+		}
 	}
 
 	Plugin.prototype.destroy = function () {
@@ -727,6 +731,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 			return false;
 		});
 	}
+
+	var setupEmail = function ( $tiles, plugin ) {
+		$tiles.find( ".modula-icon-email" ).click( function ( e ) {
+
+			var subject = encodeURI( plugin.options.email_subject );
+			var imageLink = jQuery( '.modula-icon-email' ).parents( ".modula-item-content" ).find( "img.pic" );
+			var messageImage = encodeURI( plugin.options.image_message + ' ' + imageLink.attr('data-full') );
+			var messageGallery = encodeURI( plugin.options.gallery_message + ' ' + location.href );
+
+			jQuery(this).attr( 'href', "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
+		} );
+	};
 
 	$.fn[pluginName] = function (options) {
 		var args = arguments;

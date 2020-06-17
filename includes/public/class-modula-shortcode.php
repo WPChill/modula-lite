@@ -180,20 +180,24 @@ class Modula_Shortcode {
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => absint( $settings['height'] ),
 			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"   => boolval( $settings['enableWhatsapp']),
+			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
 			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
 			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
 			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
-			"randomFactor"     => ( $settings['randomFactor'] / 100 ),
+			"enableEmail"      => boolval( $settings['enableEmail'] ),
+			"randomFactor"     => ($settings['randomFactor'] / 100),
 			'type'             => $type,
 			'columns'          => 12,
-			'gutter'           => isset( $settings['gutter'] ) ? absint($settings['gutter']) : 10,
+			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
 			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
 			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
 			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
 			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
 			'lightboxOpts'     => $this->fancybox_options( $settings ),
 			'inView'           => $inView,
+			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'image_message'    => isset( $settings['imageMessage'] ) ? esc_html( $settings['imageMessage'] ) : esc_html__( 'Here is the link to the image :', 'modula-best-grid-gallery' ),
+			'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html( $settings['galleryMessage'] ) : esc_html__( 'Here is the link to the gallery :', 'modula-best-grid-gallery' ),
 		), $settings );
 
 		// Check for lightbox

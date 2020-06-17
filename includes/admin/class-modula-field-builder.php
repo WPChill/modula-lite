@@ -92,7 +92,6 @@ class Modula_Field_Builder {
 
 		$images = get_post_meta( $this->get_id(), 'modula-images', true );
 		$helper_guidelines = $this->get_setting( 'helpergrid' );
-
 		$max_upload_size = wp_max_upload_size();
 	    if ( ! $max_upload_size ) {
 	        $max_upload_size = 0;
@@ -491,7 +490,7 @@ class Modula_Field_Builder {
 					}elseif ( 'pufrobo' == $key ) {
 						// Pufrobo Effect
 						$effect .= '<div class="panel panel-pufrobo modula-items clearfix">';
-						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a></div></div></div></div>';
+						$effect .= '<div class="modula-item effect-pufrobo"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"><div class="figc"><div class="figc-inner"><h2>Lorem ipsum</h2><p class="description">Quisque diam erat, mollisvitae enim eget</p><div class="jtg-social"><a class="fa fa-twitter" href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a><a class="fa fa-facebook" href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a><a class="fa fa-pinterest" href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a><a class="fa fa-whatsapp" href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a><a class="fa fa-linkedin" href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a><a class="fa fa-email" href="#">' . Modula_Helper::get_icon( 'email' ) . '</a></div></div></div></div>';
 						$effect .= '<div class="effect-compatibility">';
 						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 						$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
@@ -526,8 +525,8 @@ class Modula_Field_Builder {
 					$infos .= '. <span>'.esc_html__('Crop','modula-best-grid-gallery').'</span>: ' . ( boolval( $size['crop'] ) ? 'true' : 'false' ) . '</div>';
 				}
 
-				$html .= '<option value="full" '. selected( 'full', $value, false ).'>' . __( 'Full', 'modula-albums' ) . '</option>';
-				$html .= '<option value="custom" '.selected( 'custom', $value, false ).'>' . __( 'Custom', 'modula-albums' ) . '</option>';
+				$html .= '<option value="full" '. selected( 'full', $value, false ).'>' . __( 'Full', 'modula-best-grid-gallery' ) . '</option>';
+				$html .= '<option value="custom" '.selected( 'custom', $value, false ).'>' . __( 'Custom', 'modula-best-grid-gallery' ) . '</option>';
 				$html .= '</select>';
 				if ( '' != $infos ) {
 					$html .= '<div class="modula-imagesizes-infos">' . $infos . '</div>';
@@ -550,6 +549,5 @@ class Modula_Field_Builder {
 	public function print_modula_templates() {
 		include 'modula-js-templates.php';
 	}
-
 
 }

@@ -73,7 +73,7 @@
     <!-- loop variable $galleries -->
     <?php if( 1 == count( $galleries ) ) {?>
 
-    <p> <?php echo esc_html__( 'You don’t have a gallery created, please go and add one') ?> </p>
+    <p> <?php echo esc_html__( 'You don’t have a gallery created, please go and add one','modula-best-grid-gallery') ?> </p>
     
     <?php  } else { ?>
     <tr>

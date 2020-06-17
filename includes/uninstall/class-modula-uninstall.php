@@ -96,11 +96,11 @@ class Modula_Uninstall {
         <?php } ?>
         </div><!-- .modula-uninstall-form-body -->
         <p class="deactivating-spinner"><span
-                    class="spinner"></span><?php echo esc_html__( 'Cleaning...', 'colorlib-404-customizer' ); ?></p>
+                    class="spinner"></span><?php echo esc_html__( 'Cleaning...', 'modula-best-grid-gallery' ); ?></p>
         <div class="uninstall">
             <p>
                 <a id="modula-uninstall-submit-form" class="button button-primary"
-                   href="#"><?php echo esc_html__( 'Uninstall', 'colorlib-404-customizer' ); ?></a>
+                   href="#"><?php echo esc_html__( 'Uninstall', 'modula-best-grid-gallery' ); ?></a>
             </p>
         </div>
             </span>

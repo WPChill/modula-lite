@@ -309,6 +309,9 @@ class Modula_Upgrades {
 			$modula_settings[ 'effect' ] = $modula_settings['hoverEffect'];
 			unset( $modula_settings['hoverEffect'] );
 
+			$modula_settings[ 'enableSocial' ] = (isset($modula_settings['disableSocial']) && '1' == $modula_settings['disableSocial']) ? 0 : 1;
+			unset( $modula_settings['disableSocial'] );
+			
             $default_gallery_settings = array(
                 'type'                      => 'creative-gallery',
                 'width'                     => '100%',
@@ -323,11 +326,11 @@ class Modula_Upgrades {
                 'hide_description'          => 0,
                 'captionFontSize'           => '14',
                 'titleFontSize'             => '16',
-                'enableFacebook'            => 1,
-                'enableGplus'               => 1,
-                'enablePinterest'           => 1,
-				'enableTwitter'             => 1,
-				'enableWhatsapp'            => 1,
+                'enableFacebook'            => 0,
+                'enablePinterest'           => 0,
+				'enableTwitter'             => 0,
+				'enableWhatsapp'            => 0,
+				'enableEmail'               => 0,
                 'filterClick'               => 0,
 				'socialIconColor'           => '#ffffff',
 				'socialIconSize'            => 16,
@@ -339,9 +342,6 @@ class Modula_Upgrades {
                 'borderRadius'              => '0',
                 'borderSize'                => '0',
                 'shadowColor'               => '#ffffff',
-               //@todo : check these 2 options for usability
-               /* 'lightbox_background_color' => '#000000',
-                'lightbox_popup_opacity'    => '-0.1',*/
                 'shadowSize'                => 0,
                 'script'                    => '',
                 'style'                     => '',

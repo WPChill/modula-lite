@@ -137,7 +137,7 @@ class Modula_Envira_Importer {
 
         // get gallery data so we can get title, description and alt from envira
         $envira_gallery_data = $modula_importer->prepare_images('envira',$gallery_id);
-
+        $envira_settings     = get_post_meta($gallery_id, '_eg_gallery_data', true);
         if (isset($envira_gallery_data) && count($envira_gallery_data) > 0) {
             foreach ($envira_gallery_data as $imageID => $image) {
 
@@ -166,7 +166,6 @@ class Modula_Envira_Importer {
                     'height'      => 2,
                     'filters'     => ''
                 );
-
             }
         }
 
@@ -178,9 +177,32 @@ class Modula_Envira_Importer {
             $this->modula_import_result(false, esc_html__('No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery'),false);
         }
 
-        // Get Modula Gallery defaults, used to set modula-settings metadata
-        $modula_settings = Modula_CPT_Fields_Helper::get_defaults();
+	    $last_row_align = 'justify';
+	    $grid_type      = 'automatic';
 
+	    if ( 'hide' != $envira_settings['config']['justified_last_row'] ) {
+		    $last_row_align = $envira_settings['config']['justified_last_row'];
+	    }
+
+	    if ( '0' != $envira_settings['config']['columns'] ) {
+		    $grid_type = $envira_settings['config']['columns'];
+	    }
+
+	    $modula_settings = array(
+		    'type'                  => 'grid',
+		    'grid_type'             => sanitize_text_field( $grid_type ),
+		    'grid_image_size'       => ('default' == $envira_settings['config']['image_size']) ? 'custom' : sanitize_text_field( $envira_settings['config']['image_size'] ),
+		    'grid_image_dimensions' => array( 'width' => sanitize_text_field( $envira_settings['config']['crop_width'] ), 'height' => sanitize_text_field( $envira_settings['config']['crop_height'] ) ),
+		    'gutter'                => absint( $envira_settings['config']['gutter'] ),
+		    'grid_row_height'       => absint( $envira_settings['config']['justified_row_height'] ),
+		    'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
+		    'grid_image_crop'       => (isset( $envira_settings['config']['crop'] ) && 0 != $envira_settings['config']['crop']) ? 1 : 0,
+		    'lazy_load'             => (isset( $envira_settings['config']['lazy_loading'] ) && 0 != $envira_settings['config']['lazy_loading']) ? 1 : 0
+	    );
+
+        // Get Modula Gallery defaults, used to set modula-settings metadata
+        $modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() ) ;
+        
         // Create Modula CPT
         $modula_gallery_id = wp_insert_post(array(
             'post_type'   => 'modula-gallery',

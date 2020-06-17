@@ -57,6 +57,9 @@ class Modula_Helper {
 			case 'linkedin':
 				return '<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>';
 				break;
+			case 'email':
+				return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" fill="currentColor"/></svg>';
+			break;
 			default:
 				$return = apply_filters( 'modula_get_icon', '', $icon );
 				return $return;
@@ -198,13 +201,13 @@ class Modula_Helper {
 					'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
 					'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
 					'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
-					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula_best-grid_gallery' ),
+					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
 					'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
 					'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
-					'THUMBS'      => esc_html__( 'Thumbnails', 'modula_best-grid_gallery' ),
-					'DOWNLOAD'    => esc_html__( 'Download', 'modula_best-grid_gallery' ),
-					'SHARE'       => esc_html__( 'Share', 'modula_best-grid_gallery' ),
-					'ZOOM'        => esc_html__( 'Zoom', 'modula_best-grid_gallery' ),
+					'THUMBS'      => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
+					'DOWNLOAD'    => esc_html__( 'Download', 'modula-best-grid-gallery' ),
+					'SHARE'       => esc_html__( 'Share', 'modula-best-grid-gallery' ),
+					'ZOOM'        => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
 				)
 			),
 			'clickSlide'      => false,
@@ -273,8 +276,8 @@ class Modula_Helper {
 			}
 		}
 
-		$image_sizes_array['full']   = esc_html__( 'Full', 'modula-grid' );
-		$image_sizes_array['custom'] = esc_html__( 'Custom', 'modula-grid' );
+		$image_sizes_array['full']   = esc_html__( 'Full', 'modula-best-grid-gallery' );
+		$image_sizes_array['custom'] = esc_html__( 'Custom', 'modula-best-grid-gallery' );
 
 		if ( $size_type ) {
 			return $image_sizes_array;
