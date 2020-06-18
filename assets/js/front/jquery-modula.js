@@ -736,7 +736,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find( ".modula-icon-email" ).click( function ( e ) {
 
 			var subject = encodeURI( plugin.options.email_subject );
-			var imageLink = jQuery( '.modula-icon-email' ).parents( ".modula-item-content" ).find( "img.pic" ).attr( 'data-full' );
+			var imageLink = jQuery( '.modula-icon-email' ).parents( ".modula-item" ).find( "img.pic" ).attr( 'data-full' );
 			var galleryLink = location.href;
 			var rawEmailMessage = plugin.options.email_message;
 			var emailMessage = encodeURI( rawEmailMessage.replace(/ %%image_link%%/g, imageLink).replace( /%%gallery_link%%/g, galleryLink) );
