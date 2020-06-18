@@ -5426,8 +5426,8 @@
     }
 
 	  $.each(current.opts.modulaShare, function (index, value) {
-      var rawEmailMessage = current.opts.lightboxEmailMessage;
-      var emailMessage = rawEmailMessage.replace( /\%%gallery_link%%/g, window.location.href).replace( /\%%image_link%%/g, current.src);
+      var rawEmailMessage = (current.opts.lightboxEmailMessage.length) ? current.opts.lightboxEmailMessage : 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
+      var emailMessage = rawEmailMessage.replace( /\%%gallery_link%%/g, window.location.href).replace( /\%%image_link%%/g, current.src) ;
 		  tpl += current.opts.shareBtnTpl[value]
 			  .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
 			  .replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
