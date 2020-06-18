@@ -289,7 +289,7 @@ class Modula_Helper {
 	 * Modula Placeholders
 	 *
 	 * @return mixed|void
-	 * @since 2.3.2
+	 * @since 2.3.3
 	 */
 	public static function modula_gallery_placeholders() {
 
@@ -304,7 +304,7 @@ class Modula_Helper {
 	 * @param $object
 	 *
 	 * @return string|string[]
-	 * @since 2.3.2
+	 * @since 2.3.3
 	 */
 	public static function modula_placeholders_value($value,$object) {
 

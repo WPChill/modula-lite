@@ -145,7 +145,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			if( 1 == wp.Modula.Settings.get( 'enableEmail') ) {
 				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).show();
-			} else if( 0 == wp.Modula.Settings.get( 'enableEmail') ) {
+			} else {
 				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).hide();
 			}
 

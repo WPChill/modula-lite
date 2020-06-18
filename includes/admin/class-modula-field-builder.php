@@ -260,7 +260,7 @@ class Modula_Field_Builder {
 
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
 
-		if ( 'custom_code' == $field['type'] ) {
+		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
@@ -533,7 +533,7 @@ class Modula_Field_Builder {
 				}
 				break;
 			case 'textarea-placeholder' :
-				$html = '<div class="modula-textarea">';
+				$html = '<div class="modula-textarea-placeholder">';
 				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '" rows="5" cols="50">' . wp_kses_post( $value ) . '</textarea>';
 				$html .= '</div>';
 				$html .= '<div class="modula-placeholders">';
