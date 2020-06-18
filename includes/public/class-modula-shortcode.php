@@ -196,8 +196,7 @@ class Modula_Shortcode {
 			'lightboxOpts'     => $this->fancybox_options( $settings ),
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
-			'image_message'    => isset( $settings['imageMessage'] ) ? esc_html( $settings['imageMessage'] ) : esc_html__( 'Here is the link to the image :', 'modula-best-grid-gallery' ),
-			'gallery_message'  => isset( $settings['galleryMessage'] ) ? esc_html( $settings['galleryMessage'] ) : esc_html__( 'Here is the link to the gallery :', 'modula-best-grid-gallery' ),
+			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image :', 'modula-best-grid-gallery' ),
 		), $settings );
 
 		// Check for lightbox

@@ -260,7 +260,7 @@ class Modula_Field_Builder {
 
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
 
-		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
+		if ( 'custom_code' == $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
@@ -530,6 +530,36 @@ class Modula_Field_Builder {
 				$html .= '</select>';
 				if ( '' != $infos ) {
 					$html .= '<div class="modula-imagesizes-infos">' . $infos . '</div>';
+				}
+				break;
+			case 'textarea-placeholder' :
+				$html = '<div class="modula-textarea">';
+				$html .= '<textarea data-setting="' . esc_attr( $field['id'] ) . '" name="modula-settings[' . esc_attr( $field['id'] ) . ']" id="modula-' . esc_attr( $field['id'] ) . '" rows="5" cols="50">' . wp_kses_post( $value ) . '</textarea>';
+				$html .= '</div>';
+				$html .= '<div class="modula-placeholders">';
+				foreach ( $field['values'] as $key => $value ) {
+		
+					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
+					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
+					$html .= '</span>';
+				}
+				$html .= '</div>';
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+				}
+				break;
+			case 'placeholder' :
+				$html = '<input class="modula-placeholder-input" type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				$html .= '<div class="modula-placeholders">';
+				foreach ( $field['values'] as $key => $value ) {
+		
+					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
+					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
+					$html .= '</span>';
+				}
+				$html .= '</div>';
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
 			default:

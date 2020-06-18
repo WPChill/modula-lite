@@ -124,4 +124,14 @@ jQuery( document ).ready( function( $ ){
 		}
 	} );
 
+
+
+	$( 'tr[data-container="emailMessage"] td .modula-placeholders' ).on('click', 'span', function(){
+		let input = $( 'textarea[data-setting="emailMessage"]');
+		let placeholder = $(this).attr('data-placeholder') ;
+		input.val( function( index, value ){
+			value += placeholder;
+			return value;
+		})
+	}) 
 });
