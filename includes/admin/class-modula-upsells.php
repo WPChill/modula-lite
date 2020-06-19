@@ -219,6 +219,10 @@ class Modula_Upsells {
             array(
                 'tooltip' => esc_html__('Set the lightbox background color','modula-best-grid-gallery'),
                 'feature' => esc_html__('Lightbox background color','modula-best-grid-gallery'),
+            ),
+            array(
+	            'tooltip' => esc_html__('Allow your visitors to share their favorite images from inside the lightbox','modula-best-grid-gallery'),
+	            'feature' => esc_html__('Lightbox social share','modula-best-grid-gallery'),
             ));
 
 		$tab_content .= $this->generate_upsell_box( $title, $description, 'lightboxes', $features );
