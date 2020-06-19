@@ -172,6 +172,26 @@ tr label.th-label {
  }
 /* Fields */
 
+.modula-placeholders {
+    display: flex;
+    flex-wrap: wrap;
+}
+.modula-placeholder-value {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    font-size: 12px;
+    border: 1px solid grey;
+    padding: 3px 4px;
+    background: #ddd;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    margin-right: 3px;
+    width: 115px;
+
+}
+
 /* UI Slider */
 .modula-settings-container .slider-container {
 	position: relative;
