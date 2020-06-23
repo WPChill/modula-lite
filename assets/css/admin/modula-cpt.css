@@ -156,9 +156,8 @@ tr label.th-label {
 .modula-settings-container .modula-tabs-content .form-table th {padding: 20px;width:200px;min-width:200px;}
 .modula-settings-container .modula-tabs-content .form-table th.child_setting {
 	padding-left:40px;
-	display:inline-block;
-	width:180px;
-	min-width:180px;
+	width:220px;
+	min-width:220px;
 }
 
 .modula-settings-container .modula-tabs-content .form-table textarea {
