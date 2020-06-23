@@ -477,7 +477,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 42,
 				),
 				"socialIconColor" => array(
-					"name"        => esc_html__( 'Color of social sharing icons', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
 					"description" => esc_html__( 'Select what color should the icon have. Available only for gallery thumbnail hover.', 'modula-best-grid-gallery' ),
 					"default"     => "#ffffff",
@@ -485,7 +485,7 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 50,
 				),
 				"socialIconSize" => array(
-					"name"        => esc_html__( 'Size of social sharing icons', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Size', 'modula-best-grid-gallery' ),
 					"type"        => "number",
 					"after"       => "px",
 					"description" => esc_html__( '16 will be the default value.','modula-best-grid-gallery'),

@@ -151,7 +151,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).hide();
 			}
 
-			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"]').show();
+			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').show();
         }
 	},
 
