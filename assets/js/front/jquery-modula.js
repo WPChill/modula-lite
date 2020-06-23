@@ -643,8 +643,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 			var $caption = $(this).parents(".modula-item").find("img.pic").data('caption');
 
 			var text =  document.title;
-			if ( $caption.length == 1 && $caption.text().length > 0 )
-				text = $.trim($caption.text());
+			if ( $caption.length > 0 )
+				text = $.trim($caption);
 
 			var w = window.open("https://twitter.com/intent/tweet?url=" + encodeURI(location.href.split('#')[0]) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
@@ -661,8 +661,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 			var $caption = image.data('caption');
 
 			var text = document.title;
-			if ( $caption.length == 1 && $caption.text().length > 0 )
-				text = $.trim($caption.text());
+			if ( $caption.length > 0 )
+				text = $.trim($caption);
 
 
 			var src = image.attr("src");
@@ -682,8 +682,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var text = document.title;
 
-			if ( $caption.length == 1 && $caption.text().length > 0 )
-				text = $.trim($caption.text());
+			if ( $caption.length  > 0 )
+				text = $.trim($caption);
 
 			var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((window.location.href.split("#")[0])) + '&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
@@ -700,8 +700,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 			var $caption = image.data('caption');
 
 			var text = document.title;
-			if (  $caption.length == 1 && $caption.text().length > 0 )
-				text = $.trim($caption.text());
+			if (  $caption.length > 0 )
+				text = $.trim($caption);
 
 			var url = "http://pinterest.com/pin/create/button/?url=" + encodeURI(location.href) + "&description=" + encodeURI(text);
 
