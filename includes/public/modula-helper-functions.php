@@ -116,6 +116,17 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['data-elementor-open-lightbox'] = 'no';
 	}
 
+	$caption = "";
+
+	if ( isset( $item['description'] ) && '' != $item['description'] ) {
+
+		$caption = $item['description'];
+	} else {
+		$caption = wp_get_attachment_caption( $item['id'] );
+	}
+
+	$item_data['img_attributes']['data-caption'] = $caption;
+
 	if ( '' == $settings['lightbox'] || 'no-link' == $settings['lightbox'] ) {
 
 		return $item_data;
@@ -147,18 +158,12 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	} else {
 
-		if ( isset( $item['description'] ) && '' != $item['description'] ) {
-
-			$caption = $item['description'];
-		} else {
-			$caption = wp_get_attachment_caption( $item['id'] );
-		}
-
 		$item_data['link_attributes']['href']          = $item_data['image_full'];
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 
 	}
+
 
 	return $item_data;
 }
