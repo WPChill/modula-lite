@@ -733,20 +733,19 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	var setupEmail = function ( $tiles, plugin ) {
+
 		$tiles.find( ".modula-icon-email" ).click( function ( e ) {
 
 			var subject = encodeURI( plugin.options.email_subject );
 			var imageLink = jQuery( '.modula-icon-email' ).parents( ".modula-item" ).find( "img.pic" ).attr( 'data-full' );
 			var galleryLink = location.href;
 
-			var rawEmailMessage = plugin.options.email_message.length ? plugin.options.email_message : 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
-			var emailMessage = encodeURI( rawEmailMessage.replace(/ %%image_link%%/g, imageLink).replace( /%%gallery_link%%/g, galleryLink) );
+			var emailMessage = encodeURI( plugin.options.email_message.replace(/%%image_link%%/g, imageLink).replace( /%%gallery_link%%/g, galleryLink) );
 
 			var url = "mailto:?subject=" + subject + "&body=" + emailMessage ;
 			var w = window.open( url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400" );
 			w.moveTo( ( screen.width / 2 ) - ( 300 ), ( screen.height / 2 ) - ( 200 ) );
 			return false;
-			//jQuery(this).attr( 'href', "mailto:?subject=" + subject + "&body=" + messageImage + " . " + messageGallery );
 		} );
 	};
 
