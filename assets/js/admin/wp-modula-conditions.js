@@ -113,10 +113,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( 'fancybox' == value ) {
 
 			rows.filter('[data-container="show_navigation"]').show();
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').show();
 
 		} else {
 
 			rows.filter('[data-container="show_navigation"]').hide();
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').hide();
 
 		}
 
