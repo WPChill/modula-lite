@@ -500,7 +500,7 @@ jQuery(window).on('elementor/frontend/init', function () {
         	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
         	size = {};
 
-        if ( 'undefined' != source.attr('width') && 'undefined' != source.attr('height') ) {
+        if ( 'undefined' != typeof source.attr('width') && 'undefined' != typeof  source.attr('height') ) {
         	
         	var img = new Image();
 			img.onload = function() {
@@ -520,7 +520,7 @@ jQuery(window).on('elementor/frontend/init', function () {
         	source.data( 'size', size );
         	instance.placeImage( index );
         }
-   		
+
     }
 
 	Plugin.prototype.placeImage = function (index) {

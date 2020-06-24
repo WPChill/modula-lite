@@ -6,9 +6,10 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		return $item_data;
 	}
 
-	if ( 'custom-grid' != $settings['type'] && 'creative-gallery' != $settings['type'] ) {
+	if ( 'custom-grid' != $settings['type'] && 'creative-gallery' != $settings['type'] && 'grid' != $settings['type'] ) {
 		return $item_data;
 	}
+
 
 	$image_full = '';
 	$image_url = '';
@@ -18,10 +19,24 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$resizer = new Modula_Image();
 
 	$gallery_type = isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery';
-	$grid_sizes = array(
-		'width' => isset( $item['width'] ) ? $item['width'] : 1,
-		'height' => isset( $item['height'] ) ? $item['height'] : 1,
-	);
+
+	if('grid' != $gallery_type){
+		$grid_sizes = array(
+			'width' => isset( $item['width'] ) ? $item['width'] : 1,
+			'height' => isset( $item['height'] ) ? $item['height'] : 1,
+		);
+	} else {
+		if ( 'custom' == $settings['grid_image_size'] ) {
+			$grid_sizes = array(
+					'width' => $settings['grid_image_dimensions']['width'],
+					'height' => $settings['grid_image_dimensions']['height']
+			);
+		} else {
+			$grid_sizes = $settings['grid_image_size'];
+		}
+
+	}
+
 	$sizes = $resizer->get_image_size( $item['id'], $settings['img_size'], $gallery_type, $grid_sizes );
 	$image_full = $sizes['url'];
 	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
@@ -33,6 +48,11 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 	$item_data['image_full'] = $image_full;
 	$item_data['image_url']  = $image_url;
+
+	if('grid' == $settings['type']){
+		$item_data['img_attributes']['width'] =  $sizes['width'];
+		$item_data['img_attributes']['height'] =  $sizes['height'];
+	}
 
 	// Add src/data-src attributes to img tag
 	$item_data['img_attributes']['src'] = $image_url;

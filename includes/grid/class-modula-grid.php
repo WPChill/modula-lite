@@ -56,13 +56,13 @@ class Modula_Grid {
 	 */
 	public function modula_grid_image_sizes( $return, $id, $img_size, $sizes ) {
 
-		if ( is_array( $img_size ) ) {
+		if ( is_array( $sizes ) && !empty($sizes) ) {
 
-			$return['width']  = $img_size['width'];
-			$return['height'] = $img_size['height'];
-		}
-		else {
-			$image_sizes = wp_get_attachment_image_src( $id, $img_size );
+			$return['width']  = $sizes['width'];
+			$return['height'] = $sizes['height'];
+		} else {
+
+			$image_sizes = wp_get_attachment_image_src( $id, $sizes);
 
 			if ( $image_sizes ) {
 				$return['width']  = $image_sizes[1];
