@@ -499,7 +499,8 @@ jQuery(window).on('elementor/frontend/init', function () {
         var instance = this,
         	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
         	size = {};
-        if ( instance.options.lazyLoad ) { return; }
+
+        if ( '0' != instance.options.lazyLoad ) { return; }
 
         if ( 'undefined' != typeof source.attr('width') && 'undefined' != typeof  source.attr('height') ) {
         	
