@@ -502,8 +502,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
         if ( '0' != instance.options.lazyLoad ) { return; }
 
-        if ( 'undefined' != typeof source.attr('width') && 'undefined' != typeof  source.attr('height') ) {
-        	
+        if ( 'undefined' == typeof source.attr('width') && 'undefined' == typeof source.attr('height') ) {
         	var img = new Image();
 			img.onload = function() {
 				size = { width: this.width, height: this.height };
