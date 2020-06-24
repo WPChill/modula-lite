@@ -112,7 +112,7 @@ class Modula_Upsells {
 	public function video_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Trying to add a video to your gallery?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Adding a video gallery with self-hosted videos or videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'video' );
 
@@ -166,8 +166,12 @@ class Modula_Upsells {
                 'feature' => esc_html__('Title and Caption Position','modula-best-grid-gallery'),
             ),
             array(
-                'tooltip' => esc_html__('Enable or disable keyboard/mousewheel navigation inside lightbox','modula-best-grid-gallery'),
-                'feature' => esc_html__('Keyboard/mousewheel Navigation','modula-best-grid-gallery'),
+                'tooltip' => esc_html__('Enable or disable keyboard navigation inside lightbox','modula-best-grid-gallery'),
+                'feature' => esc_html__('Keyboard Navigation','modula-best-grid-gallery'),
+            ),
+            array(
+                'tooltip' => esc_html__('Enable or disable mousewheel navigation inside lightbox','modula-best-grid-gallery'),
+                'feature' => esc_html__('Mousewheel Navigation','modula-best-grid-gallery'),
             ),
             array(
                 'tooltip' => esc_html__('Display the toolbar which contains the action buttons on top right corner.','modula-best-grid-gallery'),
@@ -175,7 +179,7 @@ class Modula_Upsells {
             ),
             array(
                 'tooltip' => esc_html__('Close the slide if user clicks/double clicks on slide( not image ).','modula-best-grid-gallery'),
-                'feature' => esc_html__('Close on slide click / double click','modula-best-grid-gallery'),
+                'feature' => esc_html__('Close on slide click','modula-best-grid-gallery'),
             ),
             array(
                 'tooltip' => esc_html__('Display the counter at the top left corner.','modula-best-grid-gallery'),
@@ -290,7 +294,7 @@ class Modula_Upsells {
         <div class="modula-upsells-carousel-wrapper">
             <div class="modula-upsells-carousel">
                 <div class="modula-upsell modula-upsell-item">
-                    <h2><?php esc_html_e( 'Looking for gallery sorting?' , 'modula-best-grid-gallery' ) ?></h2>
+                    <h2><?php esc_html_e( 'Gallery sorting' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
                     <ul class="modula-upsells-list">
                         <li>Date created - newest first</li>
