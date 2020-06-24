@@ -111,7 +111,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				element.data('size', {width: element.width(), height: element.height()});
 				parent = element.parents('.modula-item');
 				parent.addClass('tg-loaded');
-				index = instance.$items.index(parent);
+				index = instance.$items.not(".jtg-hidden").index(parent);
 				instance.placeImage(index);
 
 				if ( instance.isIsotope ) {
@@ -499,6 +499,7 @@ jQuery(window).on('elementor/frontend/init', function () {
         var instance = this,
         	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
         	size = {};
+        if ( instance.options.lazyLoad ) { return; }
 
         if ( 'undefined' != source.attr('width') && 'undefined' != source.attr('height') ) {
         	
