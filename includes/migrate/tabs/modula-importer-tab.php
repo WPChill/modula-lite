@@ -118,8 +118,8 @@ if ($sources) {
                                 $upsell = '<div class="modula-importer-upsell-wrapper">';
                                 $upsell .= esc_html__('By upgrading to the PRO version of Modula, you can remove the 20 images/gallery limit. Every PRO purchase includes several extensions.', 'modula-best-grid-gallery');
                                 $upsell .= '<div class="modula-importer-upsell-buttons">';
-                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=litevspro#lite-vs-pro" class="button button-secondary" target="_blank">' . esc_html__('LITE vs PRO', 'modula-best-grid-gallery') . '</a>';
-                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=modula-importer&utm_campaign=upsell" class="button button-primary" target="_blank">' . esc_html__('Upgrade to PRO', 'modula-best-grid-gallery') . '</a>';
+                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_campaign=importer#lite-vs-pro" class="button button-secondary" target="_blank">' . esc_html__('LITE vs PRO', 'modula-best-grid-gallery') . '</a>';
+                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=upsell&utm_campaign=importer" class="button button-primary" target="_blank">' . esc_html__('Upgrade to PRO', 'modula-best-grid-gallery') . '</a>';
                                 $upsell .= '</div> </div>';
 
                                 $upsell = apply_filters('modula_importer_upsells', $upsell);

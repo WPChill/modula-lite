@@ -70,10 +70,20 @@ class Modula_Upsells {
 	        $upsell_box .= '</ul>';
 		}
 
+		$campaign = $tab;
+		$pro_simple = array('filters','hovereffects','loadingeffects','general','misc','lightboxes');
+		if ( !in_array($tab,$pro_simple)) {
+			$campaign = 'modula-' . $tab;
+
+			if('password' == $tab){
+				$campaign = 'modula-password-protect';
+			}
+		}
+
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=' . $tab . '-tab&utm_campaign=litevspro#lite-vs-pro"  class="button">' . esc_html__( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) . '</a>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=' . $tab . '-tab&utm_campaign=upsell" class="button-primary button">' . esc_html__( 'Get Modula Pro!', 'modula-best-grid-gallery' ) . '</a>';
+		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium='.$tab.'-tab&utm_campaign='.$campaign.'#lite-vs-pro"  class="button">' . esc_html__( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) . '</a>';
+		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=' . $tab . '_tab_upsell-tab&utm_campaign='.$campaign.'" class="button-primary button">' . esc_html__( 'Get Modula Pro!', 'modula-best-grid-gallery' ) . '</a>';
 		$upsell_box .= '</p>';
 		$upsell_box .= '</div>';
 
@@ -279,7 +289,7 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to add zoom functionality to your lightbox?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Zoom add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'zoom' );
 
 		return $tab_content;
 
@@ -290,7 +300,7 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to add EXIF image info functionality to your lightbox?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Exif add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'exif' );
 
 		return $tab_content;
 
@@ -301,7 +311,7 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to add download functionality to your lightbox?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Download add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download' );
 
 		return $tab_content;
 
@@ -343,11 +353,11 @@ class Modula_Upsells {
                     </ul>
                     <p>
                         <a target="_blank"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
+                           href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=sorting-metabox&utm_campaign=modula-sorting#lite-vs-pro"
                            class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
                         <a target="_blank"
                            style="margin-top:10px;"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=sorting-metabox&amp;utm_campaign=upsell"
+                           href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=sorting-metabox&utm_campaign=modula-sorting"
                            class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
                     </p>
                 </div>

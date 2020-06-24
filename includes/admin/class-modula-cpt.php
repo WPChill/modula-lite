@@ -182,11 +182,11 @@ class Modula_CPT {
                     </ul>
                     <p>
                         <a target="_blank"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=litevspro#lite-vs-pro"
+                           href="<?php echo esc_url('https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=albums-metabox&utm_campaign=modula-albums#lite-vs-pro'); ?>"
                            class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
                         <a target="_blank"
                            style="margin-top:10px;"
-                           href="https://wp-modula.com/pricing/?utm_source=modula-lite&amp;utm_medium=albums-metabox&amp;utm_campaign=upsell"
+                           href="<?php echo esc_url('https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums'); ?>"
                            class="button-primary button"><?php esc_html_e( 'Get Modula Pro!' , 'modula-best-grid-gallery' ) ?></a>
                     </p>
                 </div>
