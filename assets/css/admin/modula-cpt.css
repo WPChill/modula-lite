@@ -168,7 +168,13 @@ tr label.th-label {
 	padding-left:60px;
 	display:inline-block;
 	width:200px;
- }
+}
+
+.modula-settings-container .modula-tabs-content .form-table th.three_child_setting {
+	padding-left:80px;
+	display:inline-block;
+	width:180px;
+}
 /* Fields */
 
 .modula-placeholders {
