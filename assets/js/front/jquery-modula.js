@@ -187,7 +187,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var instance = this,
 			size,
-			containerWidth = this.$element.width(),
+			containerWidth = this.$element.find('.modula-items').width(),
 			plugin = this,
 			columns = this.options.columns,
 			viewport = document.documentElement.clientWidth;
