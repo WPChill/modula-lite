@@ -40,6 +40,7 @@ class Modula_Importer {
         require_once MODULA_PATH . 'includes/migrate/final-tiles/class-modula-final-tiles-importer.php';
         require_once MODULA_PATH . 'includes/migrate/photoblocks/class-modula-photoblocks-importer.php';
         require_once MODULA_PATH . 'includes/migrate/wp-core-gallery/class-modula-wp-core-gallery-importer.php';
+	    require_once MODULA_PATH . 'includes/migrate/foogallery/class-modula-foogallery-importer.php';
 
         // Load the plugin.
         $this->init();
@@ -170,11 +171,12 @@ class Modula_Importer {
         $sources = array();
 
         // Assume they are none
-        $envira       = false;
-        $nextgen      = false;
-        $final_tiles  = false;
-        $photoblolcks = false;
-        $wp_core      = false;
+	    $envira       = false;
+	    $nextgen      = false;
+	    $final_tiles  = false;
+	    $photoblolcks = false;
+	    $wp_core      = false;
+	    $foogallery   = false;
 
         $envira = $wpdb->get_results(" SELECT COUNT(ID) FROM " . $wpdb->prefix . "posts WHERE post_type ='envira'");
 
@@ -198,12 +200,15 @@ class Modula_Importer {
         $sql     = "SELECT COUNT(ID) FROM " . $wpdb->prefix . "posts WHERE `post_content` LIKE '%[galler%' AND `post_status` = 'publish'";
         $wp_core = $wpdb->get_results($sql);
 
+        $foogallery = $wpdb->get_results(" SELECT COUNT(ID) FROM " . $wpdb->prefix . "posts WHERE post_type ='foogallery'");
+
         // Need to get this so we can handle the object to check if mysql returned 0
         $envira_return = (NULL != $envira) ? get_object_vars($envira[0]) : false;
         $nextgen_return = (NULL != $nextgen) ? get_object_vars($nextgen[0]) : false;
         $final_tiles_return = (NULL != $final_tiles) ? get_object_vars($final_tiles[0]) : false;
         $photoblocks_return = (NULL != $photoblolcks) ? get_object_vars($photoblolcks[0]) : false;
         $wp_core_return = (NULL != $wp_core) ? get_object_vars($wp_core[0]) : false;
+	    $foogallery_return = (NULL != $foogallery) ? get_object_vars($foogallery[0]) : false;
 
         // Check to see if there are any entries and insert into array
         if ($envira && NULL != $envira && !empty($envira) && $envira_return  && '0' != $envira_return['COUNT(ID)']) {
@@ -221,6 +226,9 @@ class Modula_Importer {
         if ($wp_core && NULL != $wp_core && !empty($wp_core) && $wp_core_return && '0' != $wp_core_return['COUNT(ID)'] ) {
             $sources['wp_core'] = 'WP Core Galleries';
         }
+	    if ($foogallery && NULL != $foogallery && !empty($foogallery) && $foogallery_return  && '0' != $foogallery_return['COUNT(ID)']) {
+		    $sources['foogallery'] = 'FooGallery';
+	    }
 
         if (!empty($sources)) {
             return $sources;
@@ -271,6 +279,10 @@ class Modula_Importer {
                 $gal_source = Modula_WP_Core_Gallery_Importer::get_instance();
                 $galleries  = $gal_source->get_galleries();
                 break;
+	        case 'foogallery' :
+		        $gal_source = Modula_Foogallery_Importer::get_instance();
+		        $galleries  = $gal_source->get_galleries();
+		        break;
         }
 
 
@@ -331,6 +343,17 @@ class Modula_Importer {
                     $title = '<a href="' . admin_url( '/post.php?post=' . absint( $gallery['page_id'] ) . '&action=edit' ) . '" target="_blank">' . esc_html( $gallery['title'] ) . '</a>';
                     $count = $gallery['images'];
                     break;
+	            case 'foogallery':
+		            $id             = $gallery->ID;
+		            $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
+
+		            if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
+			            $imported = true;
+		            }
+
+		            $title = '<a href="' . admin_url( '/post.php?post=' . $gallery->ID . '&action=edit' ) . '" target="_blank">' . esc_html( $gallery->post_title ) . '</a>';
+		            $count = $gal_source->images_count( $gallery->ID );
+		            break;
                 default:
                     $id             = $gallery->ID;
                     $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
@@ -383,16 +406,17 @@ class Modula_Importer {
     }
 
 
-    /**
-     * Prepare gallery images
-     *
-     *
-     * @param $source
-     * @param $data
-     * @return 0|array|bool|mixed|object|null
-     *
-     * @since 2.2.7
-     */
+	/**
+	 * Prepare gallery images
+	 *
+	 *
+	 * @param $source
+	 * @param $data
+	 *
+	 * @return array|bool|object|void 0|array|bool|mixed|object|null
+	 *
+	 * @since 2.2.7
+	 */
     public function prepare_images($source,$data){
 
         global $wpdb;
@@ -453,6 +477,10 @@ class Modula_Importer {
                 $images         = explode(',', $data);
                 $images = array_slice($images,0,$limit,true);
                 break;
+	        case 'foogallery':
+		        $images = get_post_meta($data, 'foogallery_attachments', true);
+		        $images = array_slice($images,0,$limit,true);
+		        break;
 
         }
 

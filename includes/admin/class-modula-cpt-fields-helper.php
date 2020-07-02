@@ -695,8 +695,8 @@ class Modula_CPT_Fields_Helper {
 			'enableTwitter'         => 0,
 			'enableWhatsapp'        => 0,
 			'enableEmail'           => 0,
-			'emailSubject'          => esc_html__( 'Check out this awesome image !!','modula-best-grid-gallery' ),
-			'emailMessage'          => esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ','modula-best-grid-gallery' ),
+			'emailSubject'          => esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'emailMessage'          => esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
 			'filterClick'           => 0,
 			'socialIconColor'       => '#ffffff',
 			'socialIconSize'        => 16,
@@ -722,6 +722,7 @@ class Modula_CPT_Fields_Helper {
 			'grid_image_dimensions' => '1200',
 			'grid_row_height'       => 150,
 			'grid_justify_last_row' => 'justify',
+			'enable_responsive'     => 0
 		));
 	}
 
