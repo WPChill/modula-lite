@@ -373,7 +373,7 @@ class Modula_Importer {
                      ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? ' class="imported"' : '' ) . '>' .
                      '<input type="checkbox" name="gallery"' .
                      ' id="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
-                     ' data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
+                     'data-image-count="'.esc_attr($count).'" data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
            // Title is escaped above
             $html .= $title ;
 

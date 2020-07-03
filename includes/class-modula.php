@@ -67,6 +67,7 @@ class Modula {
             require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
             require_once MODULA_PATH . 'includes/update/class-modula-update.php';
             require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
+	        require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 
 		}
 

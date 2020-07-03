@@ -8,13 +8,15 @@
      * @type {{init: init, runAjaxs: runAjaxs, ajaxTimeout: null, counts: number, processAjax: processAjax, ajaxRequests: [], completed: number, updateImported: updateImported, ajaxStarted: number, source: string}}
      */
     var modulaImporter = {
-        counts: 0,
-        completed: 0,
-        ajaxRequests: [],
-        ajaxStarted: 0,
-        ajaxTimeout: null,
-        source: '',
+        counts:           0,
+        completed:        0,
+        ajaxRequests:     [],
+        ajaxStarted:      1,
+        ajaxTimeout:      null,
+        source:           '',
         modulaGalleryIds: {},
+        attachments:      {},
+        importChunk:      10,
 
 
         init: function () {
@@ -62,14 +64,17 @@
 
             galleries_ids.forEach(function (gallery_id) {
 
-                var status = $('#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']');
-                var id     = gallery_id;
+                var status = $( '#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']' );
+                var id = gallery_id;
+
+                var image_count = $( 'input[data-id="' + gallery_id + '"]' ).data( 'image-count' );
+
                 var $gallery_title = false;
-                $(status).removeClass().addClass('importing');
-                $('span', $(status)).html(modula_importer.importing);
+                $( status ).removeClass().addClass( 'importing' );
+                $( 'span', $( status ) ).html( modula_importer.importing );
                 // For WP core galleries in case we have multiple galleries in same page
-                if('wp_core' == modulaImporter.source){
-                    $gallery_title = $('input#wp_core-galleries-'+id).next('a').text();
+                if ( 'wp_core' == modulaImporter.source ) {
+                    $gallery_title = $( 'input#wp_core-galleries-' + id ).next( 'a' ).text();
                 }
 
                 if ( 'wp_core' == modulaImporter.source ) {
@@ -84,10 +89,11 @@
                     dataType: 'json',
                     data: {
                         action: 'modula_importer_' + modulaImporter.source + '_gallery_import',
-                        id: id,
+                        id: gallery_id,
                         nonce: modula_importer.nonce,
                         clean: delete_entries,
-                        gallery_title : $gallery_title
+                        gallery_title : $gallery_title,
+                        attachments : modulaImporter.attachments
                     },
                     success: function (response) {
 
@@ -118,7 +124,39 @@
                         }
                     }
                 };
-                modulaImporter.ajaxRequests.push(opts);
+
+                //modulaImporter.ajaxRequests.push(opts);
+
+                var $i = 0;
+
+                for ( $i = 0; $i <=  image_count; $i += modulaImporter.importChunk ) {
+
+                    var opts_2 = {
+                        url:      modula_importer.ajax,
+                        type:     'post',
+                        async:    true,
+                        cache:    false,
+                        dataType: 'json',
+                        data:     {
+                            action:      'modula_ajax_import_images',
+                            id:          gallery_id,
+                            nonce:       modula_importer.nonce,
+                            chunk:       $i
+                        },
+                        success:  function ( response ) {
+
+                            modulaImporter.completed = modulaImporter.completed + 1;
+                            modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
+
+                            if ( response && 'end_of_array' != response ) {
+                                $.merge(modulaImporter.attachments,response);
+                            }
+
+                        }
+                    };
+
+                    modulaImporter.ajaxRequests.push(opts_2);
+                }
 
             });
             modulaImporter.runAjaxs();
@@ -128,14 +166,16 @@
         runAjaxs: function () {
             var currentAjax;
 
-            while ( modulaImporter.ajaxStarted < 5 && modulaImporter.ajaxRequests.length > 0 ) {
+            while ( modulaImporter.ajaxStarted < 2 && modulaImporter.ajaxRequests.length > 0 ) {
                 modulaImporter.ajaxStarted = modulaImporter.ajaxStarted + 1;
                 currentAjax                = modulaImporter.ajaxRequests.shift();
+                console.log(currentAjax);
                 $.ajax(currentAjax);
 
             }
 
             if ( modulaImporter.ajaxRequests.length > 0 ) {
+
                 modulaImporter.ajaxTimeout = setTimeout(function () {
                     console.log('Delayed 1s');
                     modulaImporter.runAjaxs();
@@ -158,8 +198,7 @@
             $.post(ajaxurl, data, function (response) {
                 window.location.href = response;
             });
-        }
-
+        },
     };
 
     $(document).ready(function () {
