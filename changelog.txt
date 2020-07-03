@@ -4,6 +4,14 @@ Social icons are now disabled by default when creating a new gallery.
 Added autosuggest URL to image URL field.
 Added share via Email.
 Added "Save gallery"/"Update gallery" shortcut CTRL/CMD + S.
+Fixed copy shortcode button going under text
+Fixed JS error when trying to lazy load hidden items.
+Preparing Modula for Modula Download, Modula Exif and Modula Zoom add-ons.
+Added functionality to migrate FooGallery plugin galleries.
+Added CSS for 3rd level child setting
+Fix for lazy load columns
+Translation fixes
+
 
 = 2.3.2 - 03/06/2020 =
 * Fixed images dimensions
