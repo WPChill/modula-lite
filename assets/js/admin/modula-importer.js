@@ -25,7 +25,6 @@
 				e.preventDefault();
 				modulaImporter.source = $( this ).parents( '.modula-importer-wrapper' ).attr( 'source' );
 				modulaImporter.completed = 0;
-				modulaImporter.attachments = [];
 
 				// Check if gallery was selected
 				var galleries = $( '#modula_importer_' + modulaImporter.source + ' input[name=gallery]:checked' );
@@ -64,6 +63,7 @@
 			}
 
 			galleries_ids.forEach( function ( gallery_id ) {
+				modulaImporter.attachments = [];
 
 				var status = $( '#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']' );
 				var id = gallery_id;

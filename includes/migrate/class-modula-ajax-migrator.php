@@ -124,7 +124,7 @@ class Modula_Ajax_Migrator {
 	 *
 	 * @return mixed
 	 *
-	 * @since 2.2.7
+	 * @since 2.3.3
 	 */
 	public function add_image_to_library( $source_path, $source_file, $description, $alt ) {
 
