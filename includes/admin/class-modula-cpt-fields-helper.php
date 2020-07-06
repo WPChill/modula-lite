@@ -151,7 +151,7 @@ class Modula_CPT_Fields_Helper {
             ),
             'watermark' => array(
                 'label'       => esc_html__('Watermark', 'modula-best-grid-gallery'),
-                'title'       => esc_html__('Watermark settings to protect your galleries', 'modula-best-grid-gallery'),
+                'title'       => esc_html__('Watermark settings', 'modula-best-grid-gallery'),
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 130,
