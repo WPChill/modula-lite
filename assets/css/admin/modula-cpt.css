@@ -174,6 +174,7 @@ tr label.th-label {
 	padding-left:80px;
 	display:inline-block;
 	width:180px;
+	min-width:180px;
 }
 /* Fields */
 
