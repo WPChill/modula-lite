@@ -129,6 +129,7 @@ class Modula_Nextgen_Importer {
 	    if ( empty( $attachments ) ) {
 		    // Run a security check first.
 		    check_ajax_referer( 'modula-importer', 'nonce' );
+
 		    if ( !isset( $_POST['attachments'] ) ) {
 			    $this->modula_import_result( false, esc_html__( 'There are no images to be imported', 'modula-best-grid-gallery' ), false );
 		    }
@@ -160,6 +161,15 @@ class Modula_Nextgen_Importer {
             'NextGEN Basic Thumbnails');
         
         $data_settings = json_decode( base64_decode( $wpdb->get_row($sql2)->post_content ) );
+
+	    $sql         = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
+    						FROM " . $wpdb->prefix . "ngg_gallery
+    						WHERE gid = %d
+    						LIMIT 1",
+	                                   $gallery_id );
+	    $gallery     = $wpdb->get_row( $sql );
+
+
         $col_number = $data_settings->settings->number_of_columns ;
         
         if( intval( $col_number ) > 6 ) {
@@ -200,6 +210,7 @@ class Modula_Nextgen_Importer {
                 'filters'     => ''
             );
         }
+
 
         // Create Modula CPT
         $modula_gallery_id = wp_insert_post(array(

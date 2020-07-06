@@ -31,36 +31,64 @@ class Modula_Ajax_Migrator {
 	 *
 	 * @return bool
 	 */
-	public function ajax_import_images(  ) {
+	public function ajax_import_images() {
 
 		check_ajax_referer( 'modula-importer', 'nonce' );
 
+		global $wpdb;
+		$source = $_POST['source'];
+
+		// Exit if no id
 		if ( !isset( $_POST['id'] ) ) {
 			return false;
 		}
 
+		// Exit if no source
+		if ( !isset( $_POST['source'] ) ) {
+			return false;
+		}
+
+		// Exit if plugin that uses media library for images
+		if ( !in_array( $source, apply_filters( 'modula_ajax_migrated_galleries', array( 'nextgen' ) ) ) ) {
+
+			echo json_encode( array( 'end_of_array' => 'end_of_array' ) );
+			wp_die();
+		}
+
+
+		$response        = array();
 		$gallery_id      = absint( $_POST['id'] );
 		$chunk           = absint( $_POST['chunk'] );
 		$modula_importer = Modula_Importer::get_instance();
-		$images          = $modula_importer->prepare_images( 'nextgen', $gallery_id );
 
-		global $wpdb;
-
-		$sql         = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
+		switch ( $source ) {
+			case 'nextgen' :
+				$sql     = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
     						FROM " . $wpdb->prefix . "ngg_gallery
     						WHERE gid = %d
     						LIMIT 1",
-		                               $gallery_id );
-		$gallery     = $wpdb->get_row( $sql );
+				                           $gallery_id );
+				$gallery = $wpdb->get_row( $sql );
+				break;
+		}
+
+		// Get the images
+		$images = $modula_importer->prepare_images( $source, $gallery_id );
+
 		$attachments = array();
-		$images      = array_slice( $images, $chunk, 10 );
+		// we slice the images in chunks so that the AJAX will do the rest
+		$images      = array_slice( $images, $chunk, 5 );
 
 		if ( is_array( $images ) && count( $images ) > 0 ) {
 			// Add each image to Media Library
 			foreach ( $images as $image ) {
 
 				// Store image in WordPress Media Library
-				$attachment = $this->add_image_to_library( $gallery->path, $image->filename, $image->description, $image->alttext );
+				switch ( $source ) {
+					case 'nextgen':
+						$attachment = $this->add_image_to_library( $gallery->path, $image->filename, $image->description, $image->alttext );
+						break;
+				}
 
 				if ( $attachment !== false ) {
 
@@ -68,12 +96,19 @@ class Modula_Ajax_Migrator {
 					$attachments[] = $attachment;
 				}
 			}
+			$response['attachments'] = $attachments;
 
-			echo json_encode($attachments);
+			// If array smaller than 5 we reached the end of the array
+			if ( count( $images ) < 5 ) {
+				$response['end_of_array'] = 'end_of_array';
+			}
+
 		} else {
-			echo 'end_of_array';
+			// If there are no images in the array we reached the end of it
+			$response['end_of_array'] = 'end_of_array';
 		}
 
+		echo json_encode( $response );
 		wp_die();
 
 	}
