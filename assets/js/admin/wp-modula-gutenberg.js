@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,7 +81,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _inspector = __webpack_require__(2);
+var _inspector = __webpack_require__(3);
 
 var _inspector2 = _interopRequireDefault(_inspector);
 
@@ -164,7 +164,11 @@ var ModulaEdit = function (_Component) {
 			var options = [{ value: 0, label: __('select a gallery') }];
 
 			this.props.galleries.forEach(function (gallery) {
-				options.push({ value: gallery.id, label: gallery.title.rendered });
+				if (gallery.title.rendered.length == 0) {
+					options.push({ value: gallery.id, label: 'Unnamed Gallery ' + gallery.id });
+				} else {
+					options.push({ value: gallery.id, label: gallery.title.rendered });
+				}
 			});
 
 			return options;
@@ -203,11 +207,11 @@ var ModulaEdit = function (_Component) {
 					null,
 					React.createElement(
 						'div',
-						{ 'class': 'modula-block-preview' },
+						{ className: 'modula-block-preview' },
 						React.createElement(
 							'div',
-							{ 'class': 'modula-block-preview__content' },
-							React.createElement('div', { 'class': 'modula-block-preview__logo' }),
+							{ className: 'modula-block-preview__content' },
+							React.createElement('div', { className: 'modula-block-preview__logo' }),
 							React.createElement(Spinner, null)
 						)
 					)
@@ -223,11 +227,11 @@ var ModulaEdit = function (_Component) {
 						} }, this.props)),
 					React.createElement(
 						'div',
-						{ 'class': 'modula-block-preview' },
+						{ className: 'modula-block-preview' },
 						React.createElement(
 							'div',
-							{ 'class': 'modula-block-preview__content' },
-							React.createElement('div', { 'class': 'modula-block-preview__logo' }),
+							{ className: 'modula-block-preview__content' },
+							React.createElement('div', { className: 'modula-block-preview__logo' }),
 							galleries.length === 0 && React.createElement(
 								Fragment,
 								null,
@@ -246,6 +250,7 @@ var ModulaEdit = function (_Component) {
 								Fragment,
 								null,
 								React.createElement(SelectControl, {
+									key: id,
 									value: id,
 									options: this.selectOptions(),
 									onChange: function onChange(value) {
@@ -272,11 +277,11 @@ var ModulaEdit = function (_Component) {
 					} }, this.props)),
 				React.createElement(
 					'div',
-					{ 'class': 'modula-block-preview--images' },
+					{ className: 'modula-block-preview--images' },
 					images.map(function (img, index) {
 						return [React.createElement(
 							'div',
-							{ 'class': 'modula-preview-image-wrap' },
+							{ className: 'modula-preview-image-wrap' },
 							React.createElement('img', { src: img.src })
 						)];
 					})
@@ -331,7 +336,8 @@ icons.modula = React.createElement(
 exports.default = icons;
 
 /***/ }),
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -381,7 +387,11 @@ var Inspector = function (_Component) {
 			var options = [{ value: 0, label: __('none') }];
 
 			this.props.galleries.forEach(function (gallery) {
-				options.push({ value: gallery.id, label: gallery.title.rendered });
+				if (gallery.title.rendered.length == 0) {
+					options.push({ value: gallery.id, label: 'Unnamed Gallery ' + gallery.id });
+				} else {
+					options.push({ value: gallery.id, label: gallery.title.rendered });
+				}
 			});
 
 			return options;
@@ -425,6 +435,7 @@ var Inspector = function (_Component) {
 							Fragment,
 							null,
 							React.createElement(SelectControl, {
+								key: id,
 								label: __('Select Gallery'),
 								value: id,
 								options: this.selectOptions(),
@@ -450,7 +461,7 @@ var Inspector = function (_Component) {
 exports.default = Inspector;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

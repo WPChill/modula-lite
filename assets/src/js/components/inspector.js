@@ -19,7 +19,11 @@ export default class Inspector extends Component {
 		let options = [ { value: 0, label: __( 'none' ) } ];
 
 		this.props.galleries.forEach(function( gallery ) {
-			options.push( { value: gallery.id, label: gallery.title.rendered } );
+			if( gallery.title.rendered.length == 0 ) {
+				options.push( { value: gallery.id, label: `Unnamed Gallery ${gallery.id}` } );
+			} else {
+				options.push( { value: gallery.id, label: gallery.title.rendered } );
+			}
 		});
 
 		return options;
@@ -43,6 +47,7 @@ export default class Inspector extends Component {
 						{ galleries.length > 0 && (
 							<Fragment>
 								<SelectControl
+									key={id}
 									label={ __( 'Select Gallery' ) }
 									value={ id }
 									options={ this.selectOptions() }

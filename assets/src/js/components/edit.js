@@ -51,7 +51,11 @@ class ModulaEdit extends Component {
 		let options = [ { value: 0, label: __( 'select a gallery' ) } ];
 
 		this.props.galleries.forEach(function( gallery ) {
-			options.push( { value: gallery.id, label: gallery.title.rendered } );
+			if( gallery.title.rendered.length == 0 ) {
+				options.push( { value: gallery.id, label: `Unnamed Gallery ${gallery.id}` } );
+			} else {
+				options.push( { value: gallery.id, label: gallery.title.rendered } );
+			}
 		});
 
 		return options;
@@ -79,9 +83,9 @@ class ModulaEdit extends Component {
 		if( status === 'loading' ) {
 			return [
 				<Fragment>
-					<div class="modula-block-preview">
-						<div class="modula-block-preview__content">
-							<div class="modula-block-preview__logo"></div>
+					<div className="modula-block-preview">
+						<div className="modula-block-preview__content">
+							<div className="modula-block-preview__logo"></div>
 							<Spinner/>
 						</div>
 					</div>
@@ -94,9 +98,9 @@ class ModulaEdit extends Component {
 				<Fragment>
 					<Inspector onIdChange={ ( id ) => this.onIdChange( id ) } { ...this.props } />
 
-					<div class="modula-block-preview">
-						<div class="modula-block-preview__content">
-							<div class="modula-block-preview__logo"></div>
+					<div className="modula-block-preview">
+						<div className="modula-block-preview__content">
+							<div className="modula-block-preview__logo"></div>
 							{ ( galleries.length === 0 ) && (
 								<Fragment>
 									<p>{ __( 'You don\'t seem to have any galleries.' ) }</p>
@@ -106,6 +110,7 @@ class ModulaEdit extends Component {
 							{ ( galleries.length > 0 ) && (
 								<Fragment>
 									<SelectControl
+										key={id}
 										value={ id }
 										options={ this.selectOptions() }
 										onChange={ ( value ) => this.onIdChange( parseInt( value ) ) }
@@ -127,10 +132,10 @@ class ModulaEdit extends Component {
 				{ blockControls }
 				<Inspector onIdChange={ ( id ) => this.onIdChange( id ) } { ...this.props } />
 
-				<div class="modula-block-preview--images">
+				<div className="modula-block-preview--images">
 					{ images.map( ( img, index ) => {
 						return [
-							<div class="modula-preview-image-wrap">
+							<div className="modula-preview-image-wrap">
 								<img src={ img.src } />
 							</div>
 						];
