@@ -67,7 +67,6 @@
 
 				var status = $( '#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']' );
 				var id = gallery_id;
-
 				var image_count = $( 'input[data-id="' + gallery_id + '"]' ).data( 'image-count' );
 
 				var $gallery_title = false;
@@ -95,7 +94,7 @@
 						dataType: 'json',
 						data:     {
 							action: 'modula_ajax_import_images',
-							id:     gallery_id,
+							id:     id,
 							nonce:  modula_importer.nonce,
 							chunk:  $i,
 							source: modulaImporter.source
@@ -119,7 +118,7 @@
 									dataType: 'json',
 									data:     {
 										action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
-										id:            gallery_id,
+										id:            id,
 										nonce:         modula_importer.nonce,
 										clean:         delete_entries,
 										gallery_title: $gallery_title,
@@ -135,12 +134,12 @@
 
 											// don't need to updateImported for core galleries
 											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-												modulaImporter.updateImported( false, delete_entries );
+												//modulaImporter.updateImported( false, delete_entries );
 											}
 											return;
 										}
 
-										modulaImporter.modulaGalleryIds[gallery_id] = response.modula_gallery_id;
+										modulaImporter.modulaGalleryIds[id] = response.modula_gallery_id;
 
 										// Display result from AJAX call
 										status.find( 'span' ).html( response.message );
@@ -150,11 +149,8 @@
 
 										// don't need to updateImported for core galleries
 										if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-											modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
+											//modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
 										}
-
-										// After import we should reset the attachments
-										modulaImporter.attachments = [];
 									}
 								};
 
@@ -167,6 +163,8 @@
 					modulaImporter.ajaxRequests.push( opts_chunks );
 				}
 
+				// After import we should reset the attachments
+				modulaImporter.attachments = [];
 			} );
 			modulaImporter.runAjaxs();
 

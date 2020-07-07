@@ -365,15 +365,22 @@ class Modula_Importer {
 
             }
 
-            // Small fix for wp_core galleries
-            $val = ($value) ? $value : $id;
+	        // Small fix for wp_core galleries
+	        $val          = ($value) ? $value : $id;
+	        $upload_count = $count;
+
+	        if ( apply_filters( 'modula_upload_limit_applied', true ) ) {
+		        if ( $count > 20 ) {
+			        $upload_count = 20;
+		        }
+	        }
 
             $html .= '<div class="modula-importer-checkbox-wrapper">' .
                      '<label for="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
                      ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? ' class="imported"' : '' ) . '>' .
                      '<input type="checkbox" name="gallery"' .
                      ' id="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
-                     'data-image-count="'.esc_attr($count).'" data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
+                     'data-image-count="'.esc_attr($upload_count).'" data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
            // Title is escaped above
             $html .= $title ;
 
