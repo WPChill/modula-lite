@@ -5,7 +5,7 @@
 	/**
 	 * Modula Importer
 	 *
-	 * @type {{init: init, runAjaxs: runAjaxs, ajaxTimeout: null, counts: number, processAjax: processAjax, ajaxRequests: [], completed: number, updateImported: updateImported, ajaxStarted: number, source: string, attachments: []}}
+	 * @type {{init: init, runAjaxs: runAjaxs, ajaxTimeout: null, counts: number, processAjax: processAjax, ajaxRequests: [], completed: number, updateImported: updateImported, ajaxStarted: number, source: string, attachments: [], importChunk: string, modulaGalleryIds: {}}}
 	 */
 	var modulaImporter = {
 		counts:           0,
@@ -68,8 +68,10 @@
 				var status = $( '#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']' );
 				var id = gallery_id;
 				var image_count = $( 'input[data-id="' + gallery_id + '"]' ).data( 'image-count' );
-
+				var opts_chunks = {};
 				var $gallery_title = false;
+				var $i = 0;
+
 				$( status ).removeClass().addClass( 'importing' );
 				$( 'span', $( status ) ).html( modula_importer.importing );
 				// For WP core galleries in case we have multiple galleries in same page
@@ -81,12 +83,10 @@
 					id = JSON.parse( $( '#modula_importer_wp_core input[data-id=' + gallery_id + ']' ).val() );
 				}
 
-				var $i = 0;
-
 				// We make enough AJAX calls so we can import all the chunks
 				for ( $i = 0; $i <= image_count; $i += modulaImporter.importChunk ) {
 
-					var opts_chunks = {
+					opts_chunks = {
 						url:      modula_importer.ajax,
 						type:     'post',
 						async:    true,
@@ -155,17 +155,20 @@
 								};
 
 								$.ajax( opts );
+
+								modulaImporter.attachments = [];
 							}
 
 						}
 					};
 
 					modulaImporter.ajaxRequests.push( opts_chunks );
+
+					opts_chunks = {};
 				}
 
-				// After import we should reset the attachments
-				modulaImporter.attachments = [];
 			} );
+			console.log(modulaImporter.ajaxRequests);
 			modulaImporter.runAjaxs();
 
 		},
