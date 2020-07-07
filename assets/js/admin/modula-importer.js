@@ -25,6 +25,7 @@
 				e.preventDefault();
 				modulaImporter.source = $( this ).parents( '.modula-importer-wrapper' ).attr( 'source' );
 				modulaImporter.completed = 0;
+				modulaImporter.attachments = [];
 
 				// Check if gallery was selected
 				var galleries = $( '#modula_importer_' + modulaImporter.source + ' input[name=gallery]:checked' );
@@ -63,7 +64,6 @@
 			}
 
 			galleries_ids.forEach( function ( gallery_id ) {
-				modulaImporter.attachments = [];
 
 				var status = $( '#modula_importer_' + modulaImporter.source + ' label[data-id=' + gallery_id + ']' );
 				var id = gallery_id;
@@ -81,52 +81,6 @@
 				if ( 'wp_core' == modulaImporter.source ) {
 					id = JSON.parse( $( '#modula_importer_wp_core input[data-id=' + gallery_id + ']' ).val() );
 				}
-
-				// Final AJAX call after we imported all chunks and reached the end of the array
-				var opts = {
-					url:      modula_importer.ajax,
-					type:     'post',
-					async:    true,
-					cache:    false,
-					dataType: 'json',
-					data:     {
-						action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
-						id:            gallery_id,
-						nonce:         modula_importer.nonce,
-						clean:         delete_entries,
-						gallery_title: $gallery_title,
-						attachments:   modulaImporter.attachments,
-						source: modulaImporter.source
-					},
-					success:  function ( response ) {
-
-						modulaImporter.completed = modulaImporter.completed + 1;
-
-						if ( !response.success ) {
-							status.find( 'span' ).text( response.message );
-
-							// don't need to updateImported for core galleries
-							if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-								modulaImporter.updateImported( false, delete_entries );
-
-							}
-							return;
-						}
-
-						modulaImporter.modulaGalleryIds[gallery_id] = response.modula_gallery_id;
-
-						// Display result from AJAX call
-						status.find( 'span' ).html( response.message );
-
-						// Remove one ajax from queue
-						modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
-
-						// don't need to updateImported for core galleries
-						if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-							modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
-						}
-					}
-				};
 
 				var $i = 0;
 
@@ -155,6 +109,55 @@
 							}
 
 							if ( 'end_of_array' == response.end_of_array ) {
+
+								// Final AJAX call after we imported all chunks and reached the end of the array
+								var opts = {
+									url:      modula_importer.ajax,
+									type:     'post',
+									async:    true,
+									cache:    false,
+									dataType: 'json',
+									data:     {
+										action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
+										id:            gallery_id,
+										nonce:         modula_importer.nonce,
+										clean:         delete_entries,
+										gallery_title: $gallery_title,
+										attachments:   modulaImporter.attachments,
+										source:        modulaImporter.source
+									},
+									success:  function ( response ) {
+
+										modulaImporter.completed = modulaImporter.completed + 1;
+
+										if ( !response.success ) {
+											status.find( 'span' ).text( response.message );
+
+											// don't need to updateImported for core galleries
+											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+												modulaImporter.updateImported( false, delete_entries );
+											}
+											return;
+										}
+
+										modulaImporter.modulaGalleryIds[gallery_id] = response.modula_gallery_id;
+
+										// Display result from AJAX call
+										status.find( 'span' ).html( response.message );
+
+										// Remove one ajax from queue
+										modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
+
+										// don't need to updateImported for core galleries
+										if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+											modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
+										}
+
+										// After import we should reset the attachments
+										modulaImporter.attachments = [];
+									}
+								};
+
 								$.ajax( opts );
 							}
 
