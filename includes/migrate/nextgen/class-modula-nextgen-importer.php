@@ -126,6 +126,15 @@ class Modula_Nextgen_Importer {
 
         }
 
+	    if ( isset( $_POST['imported'] ) && $_POST['imported'] ) {
+
+		    // Trigger delete function if option is set to delete
+		    if ( isset( $_POST['clean'] ) && 'delete' == $_POST['clean'] ) {
+			    $this->clean_entries( $gallery_id );
+		    }
+		    $this->modula_import_result( false, esc_html__( 'Gallery already migrated!', 'modula-best-grid-gallery' ), false );
+	    }
+
 	    if ( empty( $attachments ) ) {
 		    // Run a security check first.
 		    check_ajax_referer( 'modula-importer', 'nonce' );
@@ -159,7 +168,7 @@ class Modula_Nextgen_Importer {
                             WHERE post_title = %s
                             LIMIT 1",
             'NextGEN Basic Thumbnails');
-        
+
         $data_settings = json_decode( base64_decode( $wpdb->get_row($sql2)->post_content ) );
 
 	    $sql         = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
@@ -171,7 +180,7 @@ class Modula_Nextgen_Importer {
 
 
         $col_number = $data_settings->settings->number_of_columns ;
-        
+
         if( intval( $col_number ) > 6 ) {
             $col_number = '6';
         }

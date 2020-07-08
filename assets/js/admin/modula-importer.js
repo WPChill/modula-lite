@@ -82,90 +82,143 @@
 					id = JSON.parse( $( '#modula_importer_wp_core input[data-id=' + gallery_id + ']' ).val() );
 				}
 
-				modulaImporter.counts += Math.floor( image_count / modulaImporter.importChunk ) + 1;
+				if ( !status.data( 'imported' ) ) {
 
-				// We make enough AJAX calls so we can import all the chunks
-				for ( $i = 0; $i <= image_count; $i += modulaImporter.importChunk ) {
+					modulaImporter.counts += Math.floor( image_count / modulaImporter.importChunk ) + 1;
 
-					opts_chunks = {
+					// We make enough AJAX calls so we can import all the chunks
+					for ( $i = 0; $i <= image_count; $i += modulaImporter.importChunk ) {
+
+						opts_chunks = {
+							url:      modula_importer.ajax,
+							type:     'post',
+							async:    true,
+							cache:    false,
+							dataType: 'json',
+							data:     {
+								action: 'modula_ajax_import_images',
+								id:     id,
+								nonce:  modula_importer.nonce,
+								chunk:  $i,
+								source: modulaImporter.source
+							},
+							success:  function ( response ) {
+
+								modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
+
+								if ( response && 'undefined' != typeof response.attachments ) {
+									$.merge( modulaImporter.attachments, response.attachments );
+								}
+
+								if ( $( 'span.importing-status', $( status ) ).length ) {
+									$( 'span.importing-status', $( status ) ).html( 'Imported:' + modulaImporter.attachments.length + ' / ' + image_count );
+								}
+
+								modulaImporter.completed = modulaImporter.completed + 1;
+
+								if ( 'end_of_array' == response.end_of_array ) {
+
+									// Final AJAX call after we imported all chunks and reached the end of the array
+									var opts = {
+										url:      modula_importer.ajax,
+										type:     'post',
+										async:    true,
+										cache:    false,
+										dataType: 'json',
+										data:     {
+											action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
+											id:            id,
+											nonce:         modula_importer.nonce,
+											clean:         delete_entries,
+											gallery_title: $gallery_title,
+											attachments:   modulaImporter.attachments,
+											source:        modulaImporter.source
+										},
+										success:  function ( response ) {
+
+											if ( !response.success ) {
+												status.find( 'span' ).not( '.importing-status' ).text( response.message );
+
+												// don't need to updateImported for core galleries
+												if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+													modulaImporter.updateImported( false, delete_entries );
+												}
+												return;
+											}
+
+											modulaImporter.modulaGalleryIds[id] = response.modula_gallery_id;
+
+											// Display result from AJAX call
+											status.find( 'span' ).not( '.importing-status' ).html( response.message );
+
+											// don't need to updateImported for core galleries
+											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+												modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
+											}
+										}
+									};
+
+									$.ajax( opts );
+									modulaImporter.attachments = [];
+								}
+
+							}
+						};
+
+						modulaImporter.ajaxRequests.push( opts_chunks );
+						opts_chunks = {};
+					}
+				} else {
+
+					modulaImporter.counts += 1;
+
+					var opts = {
 						url:      modula_importer.ajax,
 						type:     'post',
 						async:    true,
 						cache:    false,
 						dataType: 'json',
 						data:     {
-							action: 'modula_ajax_import_images',
-							id:     id,
-							nonce:  modula_importer.nonce,
-							chunk:  $i,
-							source: modulaImporter.source
+							action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
+							id:            id,
+							nonce:         modula_importer.nonce,
+							clean:         delete_entries,
+							source:        modulaImporter.source,
+							imported:      true
 						},
 						success:  function ( response ) {
 
 							modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
 
-							if ( response && 'undefined' != typeof response.attachments ) {
-								$.merge( modulaImporter.attachments, response.attachments );
+							if ( !response.success ) {
+								status.find( 'span' ).not( '.importing-status' ).text( response.message );
+
+								modulaImporter.completed = modulaImporter.completed + 1;
+								// don't need to updateImported for core galleries
+								if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+									modulaImporter.updateImported( false, delete_entries );
+								}
+								return;
 							}
 
-							if ( $( 'span.importing-status', $( status ) ).length ) {
-								$( 'span.importing-status', $( status ) ).html( 'Imported:' + modulaImporter.attachments.length + ' out of ' + image_count );
-							}
+							modulaImporter.modulaGalleryIds[id] = response.modula_gallery_id;
+
+							// Display result from AJAX call
+							status.find( 'span' ).not( '.importing-status' ).html( response.message );
 
 							modulaImporter.completed = modulaImporter.completed + 1;
 
-							if ( 'end_of_array' == response.end_of_array ) {
-
-								// Final AJAX call after we imported all chunks and reached the end of the array
-								var opts = {
-									url:      modula_importer.ajax,
-									type:     'post',
-									async:    true,
-									cache:    false,
-									dataType: 'json',
-									data:     {
-										action:        'modula_importer_' + modulaImporter.source + '_gallery_import',
-										id:            id,
-										nonce:         modula_importer.nonce,
-										clean:         delete_entries,
-										gallery_title: $gallery_title,
-										attachments:   modulaImporter.attachments,
-										source:        modulaImporter.source
-									},
-									success:  function ( response ) {
-
-										if ( !response.success ) {
-											status.find( 'span' ).not( '.importing-status' ).text( response.message );
-
-											// don't need to updateImported for core galleries
-											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-												modulaImporter.updateImported( false, delete_entries );
-											}
-											return;
-										}
-
-										modulaImporter.modulaGalleryIds[id] = response.modula_gallery_id;
-
-										// Display result from AJAX call
-										status.find( 'span' ).not( '.importing-status' ).html( response.message );
-
-										// don't need to updateImported for core galleries
-										if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-											modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
-										}
-									}
-								};
-
-								$.ajax( opts );
-								modulaImporter.attachments = [];
+							// don't need to updateImported for core galleries
+							if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
+								modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
 							}
-
 						}
 					};
 
-					modulaImporter.ajaxRequests.push( opts_chunks );
-					opts_chunks = {};
+					modulaImporter.ajaxRequests.push( opts );
+					modulaImporter.attachments = [];
 				}
+
 			} );
 
 			modulaImporter.runAjaxs();

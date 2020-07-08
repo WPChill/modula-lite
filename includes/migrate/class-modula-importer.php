@@ -379,7 +379,7 @@ class Modula_Importer {
 
             $html .= '<div class="modula-importer-checkbox-wrapper">' .
                      '<label for="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
-                     ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? ' class="imported"' : '' ) . '>' .
+                     ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? 'data-imported="true" class="imported"' : '' ) . '>' .
                      '<input type="checkbox" name="gallery"' .
                      ' id="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
                      'data-image-count="'.esc_attr($upload_count).'" data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
