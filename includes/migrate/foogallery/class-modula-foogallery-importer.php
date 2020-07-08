@@ -229,7 +229,8 @@ class Modula_Foogallery_Importer {
 			'gutter'                => absint( $gutter ),
 			'grid_row_height'       => absint( $foogallery_settings['justified_row_height'] ),
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
-			'img_size'              => absint( $thumbnail_size )
+			'img_size'              => absint( $thumbnail_size ),
+			'lazy_load'             => (isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'])
 		);
 
 		// Get Modula Gallery defaults, used to set modula-settings metadata
@@ -249,8 +250,8 @@ class Modula_Foogallery_Importer {
 		// Attach meta modula-images to Modula CPT
 		update_post_meta( $modula_gallery_id, 'modula-images', $modula_images );
 
-		$foogallery_shortcodes     = '[foogallery id="' . $gallery_id . '"]';
-		$modula_shortcode          = '[modula id="' . $modula_gallery_id . '"]';
+		$foogallery_shortcodes = '[foogallery id="' . $gallery_id . '"]';
+		$modula_shortcode      = '[modula id="' . $modula_gallery_id . '"]';
 
 		// Replace Foogallery id shortcode with Modula Shortcode in Posts, Pages and CPTs
 		$sql = $wpdb->prepare( "UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
