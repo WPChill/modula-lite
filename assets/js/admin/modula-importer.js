@@ -127,14 +127,12 @@
 									},
 									success:  function ( response ) {
 
-										modulaImporter.completed = modulaImporter.completed + 1;
-
 										if ( !response.success ) {
 											status.find( 'span' ).text( response.message );
 
 											// don't need to updateImported for core galleries
 											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-												//modulaImporter.updateImported( false, delete_entries );
+												modulaImporter.updateImported( false, delete_entries );
 											}
 											return;
 										}
@@ -144,38 +142,32 @@
 										// Display result from AJAX call
 										status.find( 'span' ).html( response.message );
 
-										// Remove one ajax from queue
-										modulaImporter.ajaxStarted = modulaImporter.ajaxStarted - 1;
-
 										// don't need to updateImported for core galleries
 										if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
-											//modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
+											modulaImporter.updateImported( modulaImporter.modulaGalleryIds, delete_entries );
 										}
 									}
 								};
 
 								$.ajax( opts );
-
 								modulaImporter.attachments = [];
 							}
 
+							modulaImporter.completed = modulaImporter.completed + 1;
 						}
 					};
 
 					modulaImporter.ajaxRequests.push( opts_chunks );
-
 					opts_chunks = {};
 				}
-
 			} );
-			console.log(modulaImporter.ajaxRequests);
+
 			modulaImporter.runAjaxs();
 
 		},
 
 		runAjaxs:       function () {
 			var currentAjax;
-
 			while ( modulaImporter.ajaxStarted < 2 && modulaImporter.ajaxRequests.length > 0 ) {
 				modulaImporter.ajaxStarted = modulaImporter.ajaxStarted + 1;
 				currentAjax = modulaImporter.ajaxRequests.shift();
