@@ -35,9 +35,6 @@ class Modula_Ajax_Migrator {
 
 		check_ajax_referer( 'modula-importer', 'nonce' );
 
-		global $wpdb;
-		$source = $_POST['source'];
-
 		// Exit if no id
 		if ( !isset( $_POST['id'] ) ) {
 			return false;
@@ -48,54 +45,44 @@ class Modula_Ajax_Migrator {
 			return false;
 		}
 
-		// Exit if plugin that uses media library for images
-		if ( !in_array( $source, apply_filters( 'modula_ajax_migrated_galleries', array( 'nextgen' ) ) ) ) {
-
-			echo json_encode( array( 'end_of_array' => 'end_of_array' ) );
-			wp_die();
-		}
-
-
+		$source          = $_POST['source'];
 		$response        = array();
 		$gallery_id      = absint( $_POST['id'] );
 		$chunk           = absint( $_POST['chunk'] );
 		$modula_importer = Modula_Importer::get_instance();
-
-		switch ( $source ) {
-			case 'nextgen' :
-				$sql     = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
-    						FROM " . $wpdb->prefix . "ngg_gallery
-    						WHERE gid = %d
-    						LIMIT 1",
-				                           $gallery_id );
-				$gallery = $wpdb->get_row( $sql );
-				break;
-		}
-
 		// Get the images
 		$images = $modula_importer->prepare_images( $source, $gallery_id );
-
+		// Initialize $images variable
 		$attachments = array();
 		// we slice the images in chunks so that the AJAX will do the rest
-		$images      = array_slice( $images, $chunk, 5 );
+		$images = array_slice( $images, $chunk, 5 );
 
 		if ( is_array( $images ) && count( $images ) > 0 ) {
-			// Add each image to Media Library
-			foreach ( $images as $image ) {
+			// Exit if plugin that uses media library for images
+			if ( in_array( $source, apply_filters( 'modula_ajax_migrated_galleries', array( 'nextgen' ) ) ) ) {
 
-				// Store image in WordPress Media Library
-				switch ( $source ) {
-					case 'nextgen':
-						$attachment = $this->add_image_to_library( $gallery->path, $image->filename, $image->description, $image->alttext );
-						break;
-				}
+				global $wpdb;
+				// Add each image to Media Library
+				foreach ( $images as $image ) {
+					// Store image in WordPress Media Library
+					switch ( $source ) {
+						case 'nextgen':
+							$sql        = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
+    						FROM " . $wpdb->prefix . "ngg_gallery
+    						WHERE gid = %d
+    						LIMIT 1", $gallery_id );
+							$gallery    = $wpdb->get_row( $sql );
+							$attachment = $this->add_image_to_library( $gallery->path, $image->filename, $image->description, $image->alttext );
+							break;
+					}
 
-				if ( $attachment !== false ) {
-
-					// Add to array of attachments
-					$attachments[] = $attachment;
+					if ( $attachment !== false ) {
+						// Add to array of attachments
+						$attachments[] = $attachment;
+					}
 				}
 			}
+
 			$response['attachments'] = $attachments;
 
 			// If array smaller than 5 we reached the end of the array

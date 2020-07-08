@@ -48,7 +48,6 @@
 
 				} );
 
-				modulaImporter.counts = id_array.length;
 				modulaImporter.processAjax( id_array );
 
 			} );
@@ -83,6 +82,8 @@
 					id = JSON.parse( $( '#modula_importer_wp_core input[data-id=' + gallery_id + ']' ).val() );
 				}
 
+				modulaImporter.counts += Math.floor( image_count / modulaImporter.importChunk ) + 1;
+
 				// We make enough AJAX calls so we can import all the chunks
 				for ( $i = 0; $i <= image_count; $i += modulaImporter.importChunk ) {
 
@@ -106,6 +107,8 @@
 							if ( response && 'undefined' != typeof response.attachments ) {
 								$.merge( modulaImporter.attachments, response.attachments );
 							}
+
+							modulaImporter.completed = modulaImporter.completed + 1;
 
 							if ( 'end_of_array' == response.end_of_array ) {
 
@@ -153,7 +156,6 @@
 								modulaImporter.attachments = [];
 							}
 
-							modulaImporter.completed = modulaImporter.completed + 1;
 						}
 					};
 
