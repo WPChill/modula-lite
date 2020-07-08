@@ -72,7 +72,7 @@
 				var $i = 0;
 
 				$( status ).removeClass().addClass( 'importing' );
-				$( 'span', $( status ) ).html( modula_importer.importing );
+				$( 'span', $( status ) ).not( '.importing-status' ).html( modula_importer.importing );
 				// For WP core galleries in case we have multiple galleries in same page
 				if ( 'wp_core' == modulaImporter.source ) {
 					$gallery_title = $( 'input#wp_core-galleries-' + id ).next( 'a' ).text();
@@ -108,6 +108,10 @@
 								$.merge( modulaImporter.attachments, response.attachments );
 							}
 
+							if ( $( 'span.importing-status', $( status ) ).length ) {
+								$( 'span.importing-status', $( status ) ).html( 'Imported:' + modulaImporter.attachments.length + ' out of ' + image_count );
+							}
+
 							modulaImporter.completed = modulaImporter.completed + 1;
 
 							if ( 'end_of_array' == response.end_of_array ) {
@@ -131,7 +135,7 @@
 									success:  function ( response ) {
 
 										if ( !response.success ) {
-											status.find( 'span' ).text( response.message );
+											status.find( 'span' ).not( '.importing-status' ).text( response.message );
 
 											// don't need to updateImported for core galleries
 											if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
@@ -143,7 +147,7 @@
 										modulaImporter.modulaGalleryIds[id] = response.modula_gallery_id;
 
 										// Display result from AJAX call
-										status.find( 'span' ).html( response.message );
+										status.find( 'span' ).not( '.importing-status' ).html( response.message );
 
 										// don't need to updateImported for core galleries
 										if ( modulaImporter.counts == modulaImporter.completed && 'wp_core' != modulaImporter.source ) {
