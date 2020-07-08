@@ -188,7 +188,7 @@ class Modula_Foogallery_Importer {
 		if ( 'masonry' == $foogallery_template ) {
 			$grid           = 'grid';
 			$thumbnail_size = $foogallery_settings['masonry_thumbnail_width'];
-			if ( 'fixed' == $foogallery_settings['masonry_layout'] ) {
+			if ( isset($foogallery_settings['masonry_layout']) && 'fixed' == $foogallery_settings['masonry_layout'] ) {
 				$gutter = $foogallery_settings['masonry_gutter_width'];
 			}
 		}
@@ -214,11 +214,11 @@ class Modula_Foogallery_Importer {
 			$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
 		}
 
-		if ( 'hide' != $foogallery_settings['justified_last_row'] ) {
+		if ( isset($foogallery_settings['justified_last_row']) && 'hide' != $foogallery_settings['justified_last_row'] ) {
 			$last_row_align = $foogallery_settings['justified_last_row'];
 		}
 
-		if ( 'fixed' != $foogallery_settings['masonry_layout'] ) {
+		if ( isset( $foogallery_settings['masonry_layout']) && 'fixed' != $foogallery_settings['masonry_layout'] ) {
 			$grid_type = str_replace( 'col', '', $foogallery_settings['masonry_layout'] );
 		}
 
