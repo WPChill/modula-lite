@@ -306,7 +306,14 @@ class Modula_CPT_Fields_Helper {
                     "default"     => 0,
                     "description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
                     'priority'    => 90,
-                ),
+				),
+				"powered_by"      => array(
+					"name"        => esc_html__( 'Powered by', 'modula-best-grid-gallery'),
+					"type"        => "toggle",
+					"default"     => 0,
+					"description" => esc_html__( 'Adds a Powered by Modula text at the bottom right of your gallery.', 'modula-best-grid-gallery' ),
+					"priority"    => 92,
+				),
 			),
 			'lightboxes' => array(
                 "lightbox"       => array(

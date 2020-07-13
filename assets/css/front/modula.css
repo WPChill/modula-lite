@@ -733,3 +733,23 @@ Fix for admin bar overfloating
 	height:100%;
 	top:0;
 }
+
+div.modula-powered {
+	text-align: right;
+	font-size: 14px;
+	margin-right: 5px;
+}
+
+div.modula-powered svg.modula-logo {
+	width: 14px;
+	position: relative;
+	top: 3px;
+}
+
+div.modula-powered svg.modula-logo path {
+	color: #58ab7e!important;
+	
+}
+div.modula-powered svg.modula-logo {
+	display: inline-block;
+}
