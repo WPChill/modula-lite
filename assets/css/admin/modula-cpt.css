@@ -464,6 +464,7 @@ tr label.th-label {
   text-align: left;
   display: flex;
   flex-wrap: wrap;
+  padding: 20px 0;
 }
 .modula-upsell .modula-upsell-features li {
   width: 33%;
@@ -476,8 +477,6 @@ tr label.th-label {
 }
 
 #poststuff .modula-upsell h2 {
-    margin: 0 0 20px 0;
-    font-size: 16px;
     font-weight: 700;
     background: #fff;
     left: -15px;
