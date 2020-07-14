@@ -17,15 +17,47 @@ class Modula_CPT {
 
 	public function __construct() {
 
+		add_action( 'init', array( $this, 'register_cpt' ) );
+
+		/* Fire our meta box setup function on the post editor screen. */
+		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
+		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
+		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
+
+		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
+
+		// Post Table Columns
+		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
+		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
+
+		/* Load Fields Helper */
+		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
+
+		/* Load Builder */
+		require_once MODULA_PATH . 'includes/admin/class-modula-field-builder.php';
+		$this->builder = Modula_Field_Builder::get_instance();
+
+		/* Initiate Image Resizer */
+		$this->resizer = new Modula_Image();
+
+		// Ajax for removing notices
+		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
+
+	}
+
+	public function register_cpt() {
+
+		$whitelabel = modula_is_whitelabel();
+
 		$this->labels = apply_filters( 'modula_cpt_labels', array(
-			'name'                  => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
-			'singular_name'         => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
-			'menu_name'             => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
-			'name_admin_bar'        => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+			'name'                  => $whitelabel ? apply_filters( 'modula_whitelabel_plural', false) : esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+			'singular_name'         => $whitelabel ? apply_filters( 'modula_whitelabel_singular', false) : esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+			'menu_name'             => $whitelabel ? apply_filters( 'modula_whitelabel_name', false) : esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+			'name_admin_bar'        => $whitelabel ? apply_filters( 'modula_whitelabel_name', false) : esc_html__( 'Modula', 'modula-best-grid-gallery' ),
 			'archives'              => esc_html__( 'Item Archives', 'modula-best-grid-gallery' ),
 			'attributes'            => esc_html__( 'Item Attributes', 'modula-best-grid-gallery' ),
 			'parent_item_colon'     => esc_html__( 'Parent Item:', 'modula-best-grid-gallery' ),
-			'all_items'             => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+			'all_items'             => $whitelabel ? apply_filters( 'modula_whitelabel_plural', false) : esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
 			'add_new_item'          => esc_html__( 'Add New Item', 'modula-best-grid-gallery' ),
 			'add_new'               => esc_html__( 'Add New', 'modula-best-grid-gallery' ),
 			'new_item'              => esc_html__( 'New Item', 'modula-best-grid-gallery' ),
@@ -87,36 +119,6 @@ class Modula_CPT {
 		);
 
 		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
-
-		add_action( 'init', array( $this, 'register_cpt' ) );
-
-		/* Fire our meta box setup function on the post editor screen. */
-		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
-		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
-		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
-
-		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
-
-		// Post Table Columns
-		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
-		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
-
-		/* Load Fields Helper */
-		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
-
-		/* Load Builder */
-		require_once MODULA_PATH . 'includes/admin/class-modula-field-builder.php';
-		$this->builder = Modula_Field_Builder::get_instance();
-
-		/* Initiate Image Resizer */
-		$this->resizer = new Modula_Image();
-
-		// Ajax for removing notices
-		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
-
-	}
-
-	public function register_cpt() {
 
 		$args = $this->args;
 		$args['labels'] = $this->labels;
