@@ -183,6 +183,7 @@ class Modula {
 	        // Get current gallery settings.
 	        $settings = get_post_meta( $post_id, 'modula-settings', true );
 	        $settings = apply_filters( 'modula_backbone_settings', $settings );
+
 	        if ( is_array( $settings ) ) {
 	        	$modula_helper['settings'] = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 	        }else{
@@ -236,6 +237,7 @@ class Modula {
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}else {
+			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
 			wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
