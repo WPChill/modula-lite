@@ -60,10 +60,15 @@ class Modula_Upsells {
 	        foreach( $features as $feature ) {
 
 	            $upsell_box .= '<li>';
-	            $upsell_box .= '<div class="modula-tooltip"><span>[?]</span>';
-	            $upsell_box .= '<div class="modula-tooltip-content">' . esc_html( $feature['tooltip']) . '</div>';
-	            $upsell_box .= '</div>';
-	            $upsell_box .= "<p>" . esc_html($feature['feature']) . "</p>";
+                if ( isset( $feature['tooltip'] ) && '' != $feature['tooltip'] ) {
+                    $upsell_box .= '<div class="modula-tooltip"><span>[?]</span>';
+                    $upsell_box .= '<div class="modula-tooltip-content">' . esc_html( $feature['tooltip']) . '</div>';
+                    $upsell_box .= '</div>';
+                    $upsell_box .= "<p>" . esc_html($feature['feature']) . "</p>";
+                }else{
+                    $upsell_box .= '<span class="modula-check dashicons dashicons-yes"></span>' . esc_html($feature['feature']);
+                }
+	            
 	            $upsell_box .= '</li>';
 	            
 	        }
@@ -291,9 +296,24 @@ class Modula_Upsells {
 	public function zoom_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Looking to add zoom functionality to your lightbox?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Zoom add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( "With the Modula ZOOM extension you'll be able to allow your users to zoom in on your photos, using different zoom effects, making sure every little detail of your photo doesn't go unnoticed.", 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'zoom' );
+        $features           = array(
+            array(
+                'feature' => 'Zoom in effect on images, inside the lightbox',
+            ),
+            array(
+                'feature' => 'Multiple zooming effects, such as: basic, lens and inner',
+            ),
+            array(
+                'feature' => "Control the zoom effect's shape, size, tint and opacity",
+            ),
+            array(
+                'feature' => "Impress your potential clients with detail rich images that don't go unnoticed",
+            ),
+        );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'zoom', $features );
 
 		return $tab_content;
 
@@ -302,9 +322,23 @@ class Modula_Upsells {
 	public function exif_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Looking to add EXIF image info functionality to your lightbox?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Exif add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( "With the Modula EXIF extension you'll be able to enrich your photos with the following metadata: camera model, lens, shutter speed, aperture, ISO and the date the photography was taken. More so, by using this extension, you can edit your EXIF metadata on the go, or add it to images that are missing it. ", 'modula-best-grid-gallery' );
+        $features           = array(
+            array(
+                'feature' => 'EXIF data is automatically read and displayed',
+            ),
+            array(
+                'feature' => 'Manually add EXIF data on images that are missing it',
+            ),
+            array(
+                'feature' => 'Control how you display your EXIF data in lighboxes',
+            ),
+            array(
+                'feature' => 'On-the go editing for EXIF metadata',
+            ),
+        );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'exif' );
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'exif', $features );
 
 		return $tab_content;
 
@@ -313,9 +347,21 @@ class Modula_Upsells {
 	public function download_tab_upsell( $tab_content ) {
 
 		$upsell_title       = esc_html__( 'Looking to add download functionality to your lightbox?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Download add-on and increase the functionality of your gallery.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download' );
+        $features           = array(
+            array(
+                'feature' => 'Download entire galleries, albums or a single photo',
+            ),
+            array(
+                'feature' => 'Select the image sizes the user can download (thumbnail, full size, or custom)',
+            ),
+            array(
+                'feature' => 'Comes with a powerful shortcode that you can use to render the button anywhere',
+            ),
+        );
+
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download', $features );
 
 		return $tab_content;
 

@@ -469,6 +469,10 @@ tr label.th-label {
 .modula-upsell .modula-upsell-features li {
   width: 33%;
 }
+#modula-exif .modula-upsell .modula-upsell-features li,
+#modula-zoom .modula-upsell .modula-upsell-features li {
+  width: 50%;
+}
 
 /* We're handling the upsells inside metaboxes slightly different */
 .form-table-wrapper .modula-upsell {
@@ -1390,6 +1394,15 @@ Ups-sells carousel
     border-radius: 50%;
     border: 1px solid #DDD;
     top: -1px;
+}
+.modula-upsell ul.modula-upsell-features li span.modula-check {
+    display: inline-block;
+    color: green;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 1px solid #DDD;
+    display: inline-block;
+    margin-right: 5px;
 }
 #modula-sorting-upsell > h2.hndle.ui-sortable-handle,
 #modula-sorting-upsell > button.handlediv,
