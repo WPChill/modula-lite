@@ -1,3 +1,7 @@
+= 2.3.4 - =
+Filter for Whitelabel
+Preparation for Dropbox External Source
+
 = 2.3.3 - 17/06/2020 =
 Fixed Importing Envira Galleries image size, custom dimensions and gutter.
 Social icons are now disabled by default when creating a new gallery.

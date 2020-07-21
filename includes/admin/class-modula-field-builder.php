@@ -110,6 +110,7 @@ class Modula_Field_Builder {
 		echo '</div>';
 		echo '<div class="buttons">';
 		echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
+		do_action( 'modula_gallery_media_button');
 		echo '</div>';
 		echo '</div>';
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';

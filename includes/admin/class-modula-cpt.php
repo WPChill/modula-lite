@@ -47,17 +47,15 @@ class Modula_CPT {
 
 	public function register_cpt() {
 
-		$whitelabel = modula_is_whitelabel();
-
 		$this->labels = apply_filters( 'modula_cpt_labels', array(
-			'name'                  => $whitelabel ? apply_filters( 'modula_whitelabel_plural', false) : esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
-			'singular_name'         => $whitelabel ? apply_filters( 'modula_whitelabel_singular', false) : esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
-			'menu_name'             => $whitelabel ? apply_filters( 'modula_whitelabel_name', false) : esc_html__( 'Modula', 'modula-best-grid-gallery' ),
-			'name_admin_bar'        => $whitelabel ? apply_filters( 'modula_whitelabel_name', false) : esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+			'name'                  => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+			'singular_name'         => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+			'menu_name'             => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+			'name_admin_bar'        => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
 			'archives'              => esc_html__( 'Item Archives', 'modula-best-grid-gallery' ),
 			'attributes'            => esc_html__( 'Item Attributes', 'modula-best-grid-gallery' ),
 			'parent_item_colon'     => esc_html__( 'Parent Item:', 'modula-best-grid-gallery' ),
-			'all_items'             => $whitelabel ? apply_filters( 'modula_whitelabel_plural', false) : esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+			'all_items'             => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
 			'add_new_item'          => esc_html__( 'Add New Item', 'modula-best-grid-gallery' ),
 			'add_new'               => esc_html__( 'Add New', 'modula-best-grid-gallery' ),
 			'new_item'              => esc_html__( 'New Item', 'modula-best-grid-gallery' ),
@@ -77,7 +75,7 @@ class Modula_CPT {
 			'items_list'            => esc_html__( 'Items list', 'modula-best-grid-gallery' ),
 			'items_list_navigation' => esc_html__( 'Items list navigation', 'modula-best-grid-gallery' ),
 			'filter_items_list'     => esc_html__( 'Filter items list', 'modula-best-grid-gallery' ),
-		) );
+		), $this->labels );
 
 		$this->args = apply_filters( 'modula_cpt_args', array(
 			'label'                 => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
