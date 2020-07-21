@@ -314,6 +314,21 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Adds a Powered by Modula text at the bottom right of your gallery.', 'modula-best-grid-gallery' ),
 					"priority"    => 92,
 				),
+				"enable_pagination" => array(
+					"name"        => esc_html__( 'Enable pagination', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"default"     => 0,
+					"description" => esc_html__( 'Toggle ON to enable Modula Gallery pagination.', 'modula-best-grid-gallery' ),
+					"priority"    => 93,
+				),
+				"pagination_number" => array(
+					"name"        => esc_html__( 'Images / Page', 'modula-best-grid-gallery' ),
+					"type"        => "text",
+					"default"     => '',
+					'is_child'    => true,
+					"description" => esc_html__( 'Input the number of images you want to be displayed / page.', 'modula-best-grid-gallery' ),
+					"priority"    => 94,
+				),
 			),
 			'lightboxes' => array(
                 "lightbox"       => array(
