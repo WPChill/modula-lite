@@ -13,7 +13,10 @@ class Modula_Pagination {
 	function __construct() {
 
 		add_filter( 'modula_gallery_images', array( $this, 'images_per_page' ), 15, 2 );
-		add_action( 'modula_shortcode_after_items', array( $this, 'navigation_links' ), 15, 3 );
+		add_action( 'modula_shortcode_after_items', array( $this, 'navigation_links' ), 15, 2 );
+		add_action( 'wp_ajax_modula_pagination', array( $this, 'images_per_page' ) );
+		add_action( 'wp_ajax_nopriv_modula_pagination', array( $this, 'images_per_page' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'localized_scripts' ) );
 	}
 
 	/**
@@ -27,16 +30,29 @@ class Modula_Pagination {
 	 */
 	public function images_per_page( $images, $settings ) {
 
-		$offset = 0;
+		$offset     = 0;
+		$pagination = count( $images );
 
-		if ( isset( $_POST['offset'] ) ) {
+		if ( !isset( $_POST ) || empty( $_POST ) ) {
 
-			$offset = $_POST['offset'];
+			if ( !isset( $settings['enable_pagination'] ) || '0' == $settings['enable_pagination'] ) {
+				return $images;
+			}
+
+			if ( isset( $settings['pagination_number'] ) && '0' != $settings['pagination_number'] ) {
+				$pagination = absint( $settings['pagination_number'] );
+			}
+		} else {
+
+			check_ajax_referer( 'modula-pagination', 'nonce' );
+
+			if ( isset( $_POST['page'] ) ) {
+				$offset     = absint( $_POST['page'] ) * absint( $_POST['pagination'] );
+				$pagination = $offset + $pagination;
+			}
 		}
 
-		if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] ) {
-			$images = array_slice( $images, $offset, absint( $settings['pagination_number'] ) );
-		}
+		$images = array_slice( $images, $offset, $pagination );
 
 		return $images;
 	}
@@ -47,14 +63,39 @@ class Modula_Pagination {
 	 *
 	 * @param $settings
 	 * @param $item_data
-	 * @param $images
 	 *
 	 * @since 2.3.4
 	 */
-	function navigation_links( $settings, $item_data, $images ) {
+	function navigation_links( $settings, $item_data ) {
+
+		$images = get_post_meta( str_replace( 'jtg-', '', $settings['gallery_id'] ), 'modula-images', true );
+		$html   = '';
+
 		if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] ) {
-			echo 'something';
+			$pagination = $settings['pagination_number'];
+			$image_nr   = count( $images );
+			$page_num   = ceil( $image_nr / $pagination );
+
+			$html .= '<div class="modula-navigation"><ul class="modula-links-wrapper">';
+
+			for ( $i = 1; $i <= $page_num; $i++ ) {
+				$html .= '<li data-offset="' . esc_attr( $i ) . '">' . absint( $i ) . '</li>';
+			}
+
+			$html .= '</ul></div>';
 		}
+
+		echo $html;
+	}
+
+	/**
+	 * Enqueue and localization of scripts
+	 */
+	public function localized_scripts() {
+		wp_localize_script( 'modula', 'paginationHelper', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'modula-pagination' )
+		) );
 	}
 
 	/**
@@ -62,7 +103,7 @@ class Modula_Pagination {
 	 *
 	 * @return object The Modula_Pagination object.
 	 *
-	 * @since 2.2.7
+	 * @since 2.3.4
 	 */
 	public static function get_instance() {
 

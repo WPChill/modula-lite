@@ -797,6 +797,32 @@ jQuery(document).ready(function () {
 
 	});
 
+	jQuery( '.modula-navigation .modula-links-wrapper li' ).click( function () {
+		var $offset = jQuery( this ).data( 'offset' );
+		var $pagination = jQuery( this ).parents( '.modula.modula-gallery' ).data( 'config' );
+		console.log($pagination);
+
+		var opts = {
+			url:      paginationHelper.ajax_url,
+			type:     'post',
+			async:    true,
+			cache:    false,
+			dataType: 'json',
+			data:     {
+				action:     'modula_pagination',
+				nonce:      paginationHelper.nonce,
+				offset:     $offset,
+				pagination: $pagination,
+				settings : $pagination
+			},
+			success:  function ( response ) {
+
+			}
+		};
+
+		//$.ajax();
+	});
+
 
 });
 
