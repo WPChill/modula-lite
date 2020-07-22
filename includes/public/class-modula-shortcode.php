@@ -198,6 +198,8 @@ class Modula_Shortcode {
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
 			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
+			'pagination'       => boolval( $settings['enable_pagination'] ),
+			'images_per_page'  => $settings['pagination_number']
 		), $settings );
 
 		// Check for lightbox

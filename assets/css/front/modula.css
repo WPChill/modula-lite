@@ -753,3 +753,23 @@ div.modula-powered svg.modula-logo path {
 div.modula-powered svg.modula-logo {
 	display: inline-block;
 }
+
+/**
+Modula Navigation
+ */
+
+.modula-navigation ul.modula-links-wrapper {
+	display:inline-block;
+	margin:0 auto;
+}
+
+.modula-navigation ul.modula-links-wrapper li {
+	list-style-type: none;
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.modula-navigation ul.modula-links-wrapper li a.selected {
+	color:#000;
+	font-weight: bold;
+}
