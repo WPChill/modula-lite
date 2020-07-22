@@ -182,9 +182,9 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= apply_filters('modula_whitelabel_documentation', '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
 				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= apply_filters('modula_whitelabel_contact', '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>');
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
