@@ -59,11 +59,7 @@ class Modula_Pagination {
 	 */
 	function navigation_links( $settings, $item_data ) {
 
-		$images = get_post_meta( str_replace( 'jtg-', '', $settings['gallery_id'] ), 'modula-images', true );
-
-		if ( isset( $settings['maxImagesCount'] ) && !empty( $settings['maxImagesCount'] ) && 0 != $settings['maxImagesCount'] ) {
-			$images = array_slice( $images, 0, $settings['maxImagesCount'] );
-		}
+		$images = apply_filters( 'modula_pagination_links', get_post_meta( str_replace( 'jtg-', '', $settings['gallery_id'] ), 'modula-images', true ), $settings );
 
 		$html = '';
 
