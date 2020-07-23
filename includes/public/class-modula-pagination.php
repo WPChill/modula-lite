@@ -12,7 +12,7 @@ class Modula_Pagination {
 
 	function __construct() {
 
-		add_filter( 'modula_gallery_images', array( $this, 'images_per_page' ), 999, 2 );
+		add_filter( 'modula_gallery_before_shuffle_images', array( $this, 'images_per_page' ), 999, 2 );
 		add_action( 'modula_shortcode_after_items', array( $this, 'navigation_links' ), 15, 2 );
 	}
 
@@ -77,7 +77,7 @@ class Modula_Pagination {
 
 			for ( $i = 1; $i <= $page_num; $i++ ) {
 
-				$html .= '<li><a href="' . esc_url( '?modula-page=' . $i ) . '" class="' . ($offset == $i ? 'selected' : '') . '">' . absint( $i ) . '</a></li>';
+				$html .= '<li><a href="' . add_query_arg( 'modula-page', $i ) . '" class="' . ($offset == $i ? 'selected' : '') . '">' . absint( $i ) . '</a></li>';
 			}
 
 			$html .= '</ul></div>';
