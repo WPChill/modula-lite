@@ -254,9 +254,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if ( '1' == value ) {
 
-			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"]').show();
+			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').show();
 		} else {
-			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"]').hide();
+			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').hide();
 		}
 
 	}

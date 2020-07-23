@@ -759,8 +759,9 @@ Modula Navigation
  */
 
 .modula-navigation ul.modula-links-wrapper {
-	display:inline-block;
+	display:block;
 	margin:0 auto;
+	padding:0 15px;
 }
 
 .modula-navigation ul.modula-links-wrapper li {

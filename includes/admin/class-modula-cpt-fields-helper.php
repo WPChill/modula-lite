@@ -336,7 +336,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => '',
 					'is_child'    => true,
 					"description" => esc_html__( 'Select the color used for the pagination links.', 'modula-best-grid-gallery' ),
-					"priority"    => 94,
+					"priority"    => 95,
 				),
 				"active_pagination_color" => array(
 					"name"        => esc_html__( 'Pagination active page color', 'modula-best-grid-gallery' ),
@@ -345,7 +345,20 @@ class Modula_CPT_Fields_Helper {
 					"default"     => '',
 					'is_child'    => true,
 					"description" => esc_html__( 'Select the color used for the active page.', 'modula-best-grid-gallery' ),
-					"priority"    => 94,
+					"priority"    => 96,
+				),
+				"pagination_position"     => array(
+					"name"        => esc_html__( 'Pagination position', 'modula-best-grid-gallery' ),
+					"type"        => "select",
+					"default"     => 'left',
+					"values"     => array(
+						"left"   => esc_html__( 'Left', 'modula-best-grid-gallery' ),
+						"center" => esc_html__( 'Center', 'modula-best0grid-gallery' ),
+						"right"  => esc_html__( 'Right', 'modula-best-grid-gallery' )
+					),
+					'is_child'    => true,
+					"description" => esc_html__( 'Select where you want to output the pagination links.', 'modula-best-grid-gallery' ),
+					"priority"    => 97,
 				),
 			),
 			'lightboxes' => array(
@@ -724,6 +737,7 @@ class Modula_CPT_Fields_Helper {
 			'pagination_number'       => get_option( 'posts_per_page' ),
 			'pagination_color'        => '',
 			'active_pagination_color' => '',
+			'pagination_position'     => 'left',
 			'titleColor'              => '',
 			'captionColor'            => '#ffffff',
 			'hide_title'              => 0,
@@ -767,7 +781,7 @@ class Modula_CPT_Fields_Helper {
 			'grid_row_height'         => 150,
 			'grid_justify_last_row'   => 'justify',
 			'enable_responsive'       => 0,
-			'powered_by'             => 0
+			'powered_by'              => 0
 		) );
 	}
 

@@ -343,6 +343,8 @@ class Modula_Shortcode {
 			if ( isset( $settings['active_pagination_color'] ) && '' != $settings['active_pagination_color'] ) {
 				$css .= "#{$gallery_id} .modula-navigation ul.modula-links-wrapper li a.selected{color:" . Modula_Helper::sanitize_rgba_colour( $settings['active_pagination_color'] ) . "}";
 			}
+
+			$css .= "#{$gallery_id} ul.modula-links-wrapper {text-align:".esc_html($settings['pagination_position'])."}";
 		}
 
 
