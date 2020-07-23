@@ -27,6 +27,13 @@ class Modula_Pagination {
 	 */
 	public function images_per_page( $images, $settings ) {
 
+		// Allowed gallery types for pagination
+		$allowed_types = apply_filters( 'modula_pagination_allowed_types', array( 'creative-gallery', 'custom-grid', 'grid' ) );
+
+		if ( !in_array( $settings['type'], $allowed_types ) ) {
+			return $images;
+		}
+
 		if ( !isset( $settings['enable_pagination'] ) || '0' == $settings['enable_pagination'] ) {
 			return $images;
 		}
@@ -38,7 +45,7 @@ class Modula_Pagination {
 			$offset = absint( $_GET['modula-page'] ) - 1;
 		}
 
-		if ( isset( $settings['pagination_number'] ) && '0' != $settings['pagination_number'] && !empty($settings['pagination_number']) ) {
+		if ( isset( $settings['pagination_number'] ) && '0' != $settings['pagination_number'] && !empty( $settings['pagination_number'] ) ) {
 			$offset     = $offset * absint( $settings['pagination_number'] );
 			$pagination = absint( $settings['pagination_number'] );
 		}
@@ -59,31 +66,38 @@ class Modula_Pagination {
 	 */
 	function navigation_links( $settings, $item_data ) {
 
-		$images = apply_filters( 'modula_pagination_links', get_post_meta( str_replace( 'jtg-', '', $settings['gallery_id'] ), 'modula-images', true ), $settings );
+		// Allowed gallery types for pagination
+		$allowed_types = apply_filters( 'modula_pagination_allowed_types', array( 'creative-gallery', 'custom-grid', 'grid' ) );
 
-		$html = '';
+		if ( in_array( $settings['type'], $allowed_types ) ) {
 
-		if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] && !empty($settings['pagination_number']) ) {
-			$pagination = $settings['pagination_number'];
-			$image_nr   = count( $images );
-			$page_num   = ceil( $image_nr / $pagination );
 
-			$html   .= '<div class="modula-navigation"><ul class="modula-links-wrapper">';
-			$offset = 1;
+			$images = apply_filters( 'modula_pagination_links', get_post_meta( str_replace( 'jtg-', '', $settings['gallery_id'] ), 'modula-images', true ), $settings );
 
-			if ( isset( $_GET['modula-page'] ) ) {
-				$offset = absint( $_GET['modula-page'] );
+			$html = '';
+
+			if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] && !empty( $settings['pagination_number'] ) ) {
+				$pagination = $settings['pagination_number'];
+				$image_nr   = count( $images );
+				$page_num   = ceil( $image_nr / $pagination );
+
+				$html   .= '<div class="modula-navigation"><ul class="modula-links-wrapper">';
+				$offset = 1;
+
+				if ( isset( $_GET['modula-page'] ) ) {
+					$offset = absint( $_GET['modula-page'] );
+				}
+
+				for ( $i = 1; $i <= $page_num; $i++ ) {
+
+					$html .= '<li><a href="' . add_query_arg( 'modula-page', $i ) . '" class="' . ($offset == $i ? 'selected' : '') . '">' . absint( $i ) . '</a></li>';
+				}
+
+				$html .= '</ul></div>';
 			}
 
-			for ( $i = 1; $i <= $page_num; $i++ ) {
-
-				$html .= '<li><a href="' . add_query_arg( 'modula-page', $i ) . '" class="' . ($offset == $i ? 'selected' : '') . '">' . absint( $i ) . '</a></li>';
-			}
-
-			$html .= '</ul></div>';
+			echo $html;
 		}
-
-		echo $html;
 	}
 
 	/**
