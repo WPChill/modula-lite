@@ -38,7 +38,7 @@ class Modula_Pagination {
 			$offset = absint( $_GET['modula-page'] ) - 1;
 		}
 
-		if ( isset( $settings['pagination_number'] ) && '0' != $settings['pagination_number'] ) {
+		if ( isset( $settings['pagination_number'] ) && '0' != $settings['pagination_number'] && !empty($settings['pagination_number']) ) {
 			$offset     = $offset * absint( $settings['pagination_number'] );
 			$pagination = absint( $settings['pagination_number'] );
 		}
@@ -63,7 +63,7 @@ class Modula_Pagination {
 
 		$html = '';
 
-		if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] ) {
+		if ( isset( $settings['enable_pagination'] ) && '0' != $settings['enable_pagination'] && '0' != $settings['pagination_number'] && !empty($settings['pagination_number']) ) {
 			$pagination = $settings['pagination_number'];
 			$image_nr   = count( $images );
 			$page_num   = ceil( $image_nr / $pagination );

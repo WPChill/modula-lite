@@ -334,6 +334,17 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
 		}
 
+		if ( isset( $settings['enable_pagination'] ) && '1' == $settings['enable_pagination'] ) {
+
+			if ( isset( $settings['pagination_color'] ) && '' != $settings['pagination_color'] ) {
+				$css .= "#{$gallery_id} .modula-navigation ul.modula-links-wrapper li a { color : " . Modula_Helper::sanitize_rgba_colour( $settings['pagination_color'] ) . "}";
+			}
+
+			if ( isset( $settings['active_pagination_color'] ) && '' != $settings['active_pagination_color'] ) {
+				$css .= "#{$gallery_id} .modula-navigation ul.modula-links-wrapper li a.selected{color:" . Modula_Helper::sanitize_rgba_colour( $settings['active_pagination_color'] ) . "}";
+			}
+		}
+
 
 		$css .= "</style>\n";
 
