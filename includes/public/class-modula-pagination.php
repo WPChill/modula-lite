@@ -81,7 +81,7 @@ class Modula_Pagination {
 				$image_nr   = count( $images );
 				$page_num   = ceil( $image_nr / $pagination );
 
-				$html   .= '<div class="modula-navigation"><ul class="modula-links-wrapper">';
+				$html   .= '<div class="modula-navigation pagination"><ul class="modula-links-wrapper nav-links">';
 				$offset = 1;
 
 				if ( isset( $_GET['modula-page'] ) ) {
