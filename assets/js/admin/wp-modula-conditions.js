@@ -30,6 +30,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
 		this.listenTo(wp.Modula.Settings, 'change:enable_pagination', this.changedEnablePagination);
+		this.listenTo(wp.Modula.Settings, 'change:enable_infinite_scroll', this.changedInfiniteScroll);
+
 	},
 
 	initValues: function(){
@@ -46,6 +48,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 		this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
 		this.changedEnablePagination(false, wp.Modula.Settings.get('enable_pagination'));
+		this.changedInfiniteScroll(false, wp.Modula.Settings.get('enable_infinite_scroll'));
 	},
 
 	changedType: function( settings, value ){
@@ -254,9 +257,22 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if ( '1' == value ) {
 
-			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').show();
+			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"],[data-container="enable_infinite_scroll"]').show();
 		} else {
-			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').hide();
+			rows.filter( '[data-container="pagination_number"], [data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"],[data-container="enable_infinite_scroll"]').hide();
+		}
+
+	},
+
+	changedInfiniteScroll: function( settings, value ) {
+
+		let rows = this.get( 'rows' );
+
+		if ( '1' == value ) {
+
+			rows.filter( '[data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').show();
+		} else {
+			rows.filter( '[data-container="pagination_color"],[data-container="active_pagination_color"],[data-container="pagination_position"]').hide();
 		}
 
 	}
