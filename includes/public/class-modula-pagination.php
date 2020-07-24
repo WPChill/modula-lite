@@ -88,9 +88,25 @@ class Modula_Pagination {
 					$offset = absint( $_GET['modula-page'] );
 				}
 
+				if ( isset( $_GET['modula-page'] ) && '1' != $_GET['modula-page'] ) {
+					$prev_page = (absint( $_GET['modula-page'] ) - 1);
+					$html      .= '<li><a href="' . add_query_arg( 'modula-page', $prev_page ) . '" >' . esc_html( '<' ) . '</a></li>';
+				}
+
+
 				for ( $i = 1; $i <= $page_num; $i++ ) {
 
 					$html .= '<li><a href="' . add_query_arg( 'modula-page', $i ) . '" class="' . ($offset == $i ? 'selected' : '') . '">' . absint( $i ) . '</a></li>';
+				}
+
+				if ( (isset( $_GET['modula-page'] ) && $page_num != $_GET['modula-page']) || !isset( $_GET['modula-page'] ) ) {
+					if ( !isset( $_GET['modula-page'] ) ) {
+						$next_page = 2;
+					} else {
+						$next_page = (absint( $_GET['modula-page'] ) + 1);
+					}
+
+					$html .= '<li><a href="' . add_query_arg( 'modula-page', $next_page ) . '" >' . esc_html( '>' ) . '</a></li>';
 				}
 
 				$html .= '</ul></div>';
