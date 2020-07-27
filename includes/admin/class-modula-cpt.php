@@ -265,8 +265,6 @@ class Modula_CPT {
 							case 'img_size':
 							case 'margin':
 							case 'randomFactor':
-							case 'pagination_color':
-							case 'active_pagination_color':
 							case 'captionFontSize':
 							case 'titleFontSize':
 							case 'loadedScale':

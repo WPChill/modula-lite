@@ -198,8 +198,6 @@ class Modula_Shortcode {
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
 			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
-			'pagination'       => boolval( $settings['enable_pagination'] ),
-			'images_per_page'  => $settings['pagination_number']
 		), $settings );
 
 		// Check for lightbox
@@ -333,20 +331,6 @@ class Modula_Shortcode {
 		if('none' == $settings['effect']){
 			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
 		}
-
-		if ( isset( $settings['enable_pagination'] ) && '1' == $settings['enable_pagination'] ) {
-
-			if ( isset( $settings['pagination_color'] ) && '' != $settings['pagination_color'] ) {
-				$css .= "#{$gallery_id} .modula-navigation ul.modula-links-wrapper li a { color : " . Modula_Helper::sanitize_rgba_colour( $settings['pagination_color'] ) . "}";
-			}
-
-			if ( isset( $settings['active_pagination_color'] ) && '' != $settings['active_pagination_color'] ) {
-				$css .= "#{$gallery_id} .modula-navigation ul.modula-links-wrapper li a.selected{color:" . Modula_Helper::sanitize_rgba_colour( $settings['active_pagination_color'] ) . "}";
-			}
-
-			$css .= "#{$gallery_id} ul.modula-links-wrapper {text-align:".esc_html($settings['pagination_position'])."}";
-		}
-
 
 		$css .= "</style>\n";
 

@@ -58,9 +58,6 @@ class Modula {
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
-		// Modula Pagination
-		require_once MODULA_PATH . 'includes/public/class-modula-pagination.php';
-
         if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
