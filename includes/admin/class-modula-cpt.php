@@ -85,7 +85,7 @@ class Modula_CPT {
 			'show_ui'               => true,
 			'show_in_menu'          => true,
 			'menu_position'         => 25,
-			'menu_icon'             => apply_filters ( 'modula_whitelabel_image', MODULA_URL . 'assets/images/modula.png'),
+			'menu_icon'             => MODULA_URL . 'assets/images/modula.png',
 			'show_in_admin_bar'     => true,
 			'show_in_nav_menus'     => false,
 			'can_export'            => true,
