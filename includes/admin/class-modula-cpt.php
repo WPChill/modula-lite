@@ -30,6 +30,8 @@ class Modula_CPT {
 		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
 		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
 
+		add_filter('submenu_file', array($this, 'remove_add_new_submenu_item'));
+
 		/* Load Fields Helper */
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
 
@@ -123,6 +125,21 @@ class Modula_CPT {
 
 		register_post_type( $this->cpt_name, $args );
 
+	}
+
+	/**
+	 * Remove Add New link from menu item
+	 *
+	 * @param $submenu_file
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.3.4
+	 */
+	public function remove_add_new_submenu_item( $submenu_file ) {
+		remove_submenu_page( 'edit.php?post_type=modula-gallery', 'post-new.php?post_type=modula-gallery' );
+
+		return $submenu_file;
 	}
 
 	public function meta_boxes_setup() {
