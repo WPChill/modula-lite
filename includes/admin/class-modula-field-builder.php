@@ -188,7 +188,7 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
-				$current_tab_content .= apply_filters( "modula_whitelabel_tab_text_${tab_id}", '', $tab_id, $current_tab_content);
+				$current_tab_content .= apply_filters( "modula_whitelabel_tab_text", '', $tab_id, $current_tab_content);
 
 			}
 
