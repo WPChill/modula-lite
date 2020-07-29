@@ -8,8 +8,10 @@ wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.u
 jQuery( document ).ready( function( $ ){
 
 	// Here we will have all gallery's items.
-	wp.Modula.Items = new wp.Modula.items['collection']();
-	
+	if(wp.Modula.items['collection']){
+		wp.Modula.Items = new wp.Modula.items['collection']();
+	}
+
 	// Settings related objects.
 	wp.Modula.Settings = new wp.Modula.settings['model']( modulaHelper.settings );
 
@@ -17,14 +19,16 @@ jQuery( document ).ready( function( $ ){
 	wp.Modula.Conditions = new modulaGalleryConditions();
 
 	// Initiate Modula Resizer
-	if ( 'undefined' == typeof wp.Modula.Resizer ) {
+	if ( 'undefined' == typeof wp.Modula.Resizer &&  wp.Modula.previewer['resizer']) {
 		wp.Modula.Resizer = new wp.Modula.previewer['resizer']();
 	}
 	
 	// Initiate Gallery View
-	wp.Modula.GalleryView = new wp.Modula.previewer['view']({
-		'el' : $( '#modula-uploader-container' ),
-	});
+	if(wp.Modula.previewer['view']){
+		wp.Modula.GalleryView = new wp.Modula.previewer['view']({
+			'el' : $( '#modula-uploader-container' ),
+		});
+	}
 
 	// Modula edit item modal.
 	wp.Modula.EditModal = new wp.Modula.modal['model']({
@@ -39,7 +43,10 @@ jQuery( document ).ready( function( $ ){
 	}
 
 	// Initiate Modula Gallery Upload
-	new wp.Modula.upload['uploadHandler']();
+	if(wp.Modula.upload['uploadHandler']){
+		new wp.Modula.upload['uploadHandler']();
+	}
+
 
 	// Copy shortcode functionality
     $('.copy-modula-shortcode').click(function (e) {
