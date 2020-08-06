@@ -128,6 +128,43 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			 */
 			return wp.media.model.Attachments.prototype.add.call( this, models, options );
 		},
+		single: function( model ) {
+			var previous = this._single;
+
+			// If a `model` is provided, use it as the single model.
+			if ( model ) {
+				this._single = model;
+			}
+			// If the single model isn't in the selection, remove it.
+			if ( this._single && ! this.get( this._single.cid ) ) {
+				delete this._single;
+			}
+
+			this._single = this._single || this.last();
+
+			// If single has changed, fire an event.
+			if ( this._single !== previous ) {
+				if ( previous ) {
+					previous.trigger( 'selection:unsingle', previous, this );
+
+					// If the model was already removed, trigger the collection
+					// event manually.
+					if ( ! this.get( previous.cid ) ) {
+						this.trigger( 'selection:unsingle', previous, this );
+					}
+				}
+				if ( this._single ) {
+					this._single.trigger( 'selection:single', this._single, this );
+				}
+			}
+
+			if(this.length < 20){
+				wp.media.frames.modula.trigger( 'modula:hide-error', {'message' : modulaHelper.strings.limitExceeded } );
+			}
+
+			// Return the single model, or the last model as a fallback.
+			return this._single;
+		}
 	});
 
 	var ModulaLibrary = wp.media.controller.Library.extend({
