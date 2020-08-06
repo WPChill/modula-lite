@@ -108,7 +108,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 				if ( Array.isArray( models ) && models.length > 1 ) {
 					// Create an array with elements that we don't have in our selection
 					differences = _.difference( _.pluck(models, 'cid'), _.pluck(this.models, 'cid') );
-
 					// Check if we have mode elements that we need
 					if ( differences.length > needed ) {
 						// Filter our models, to have only that we don't have already
@@ -129,7 +128,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			 */
 			return wp.media.model.Attachments.prototype.add.call( this, models, options );
 		},
-
 	});
 
 	var ModulaLibrary = wp.media.controller.Library.extend({
@@ -284,6 +282,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 	            selection.single( selection.last() );
 
 	        } );
+
+			wp.media.frames.modula.on( 'close', function() {
+
+				wp.media.frames.modula.trigger( 'modula:hide-error', {'message' : modulaHelper.strings.limitExceeded } );
+
+			} );
 	        
 
 	        // Insert into Gallery Button Clicked
@@ -370,6 +374,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			var modulaGalleryObject = this;
 
 			var response = JSON.parse( info.response );
+
 			if ( wp.Modula.Items.length < 20 ) {
 				modulaGalleryObject.generateSingleImage( response['data'] );
 			}else{
