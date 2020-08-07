@@ -17,6 +17,8 @@ class Modula_CPT {
 
 	public function __construct() {
 
+		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
+
 		add_action( 'init', array( $this, 'register_cpt' ) );
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -25,7 +27,6 @@ class Modula_CPT {
 		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
 
 		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
-
 		// Post Table Columns
 		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
 		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
@@ -117,8 +118,6 @@ class Modula_CPT {
 				'priority' => 10,
 			),
 		);
-
-		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
 
 		$args = $this->args;
 		$args['labels'] = $this->labels;
