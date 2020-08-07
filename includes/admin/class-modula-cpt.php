@@ -14,6 +14,7 @@ class Modula_CPT {
 	private $metaboxes = array();
 	private $cpt_name;
 	private $builder;
+	private $resizer;
 
 	public function __construct() {
 
