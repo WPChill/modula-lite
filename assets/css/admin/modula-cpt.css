@@ -754,7 +754,7 @@ tr label.th-label {
 .modula-uploader-inline-content .modula-single-image-placeholder {
     cursor: move;
     display: inline-block;
-    padding: 0 10px 20px 0;
+    padding: 0 10px 10px 0;
     box-sizing: border-box;
     width: 16.66%;
 }
