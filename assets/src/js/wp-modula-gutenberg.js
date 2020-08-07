@@ -30,7 +30,7 @@ class ModulaGutenberg  {
 		registerBlockType( this.blockName, {
 			title: 'Modula Gallery',
 			icon: icons.modula,
-			description: __( 'Make your galleries stand out.' ),
+			description: __( 'Make your galleries stand out.','modula-best-grid-galleries' ),
 			keywords: [
 				__( 'gallery' ),
 				__( 'modula' ),

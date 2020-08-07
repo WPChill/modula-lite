@@ -48,11 +48,14 @@ class ModulaEdit extends Component {
 	}
 
 	selectOptions() {
-		let options = [ { value: 0, label: __( 'select a gallery' ) } ];
+		let options = [ { value: 0, label: __( 'select a gallery', 'modula-best-grid-galleries' ) } ];
 
 		this.props.galleries.forEach(function( gallery ) {
 			if( gallery.title.rendered.length == 0 ) {
-				options.push( { value: gallery.id, label: `Unnamed Gallery ${gallery.id}` } );
+				options.push( {
+					value: gallery.id,
+					label: __( 'Unnamed Gallery ', 'modula-best-grid-galleries' ) + gallery.id
+				} );
 			} else {
 				options.push( { value: gallery.id, label: gallery.title.rendered } );
 			}
@@ -70,7 +73,7 @@ class ModulaEdit extends Component {
 				{ images.length > 0 && (
 					<Toolbar>
 						<IconButton
-							label={ __( 'Edit gallery' ) }
+							label={ __( 'Edit gallery','modula-best-grid-galleries' ) }
 							icon="edit"
 							href={ modulaVars.adminURL + 'post.php?post=' + id + '&action=edit' }
 							target="_blank"
@@ -103,8 +106,8 @@ class ModulaEdit extends Component {
 							<div className="modula-block-preview__logo"></div>
 							{ ( galleries.length === 0 ) && (
 								<Fragment>
-									<p>{ __( 'You don\'t seem to have any galleries.' ) }</p>
-									<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery' ) }</Button>
+									<p>{ __( 'You don\'t seem to have any galleries.','modula-best-grid-galleries' ) }</p>
+									<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery','modula-best-grid-galleries' ) }</Button>
 								</Fragment>
 							)}
 							{ ( galleries.length > 0 ) && (
