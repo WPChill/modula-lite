@@ -1,6 +1,15 @@
 = 2.3.4 - =
-Filter for Whitelabel
-Preparation for Dropbox External Source
+Added Filter for Whitelabel
+Fix incompatibility with certain themes - targeted CSS so that element design won't be overwritten
+Fix warning message not disappearing - 20 image limit notice
+Upgraded migrator so that is uses AJAX, avoiding getting timeout from the server
+Added migration possibility for FooGallery plugin
+Fix Modula Upgrade Notice not disappearing on settings page
+Fix cursor availabilty
+Added powered by option
+Fixed previewer jumping when changing from custom grid to columns
+Removed "Add new gallery" from the menu
+Improvements and fixes for lazy loading
 
 = 2.3.3 - 17/06/2020 =
 Fixed Importing Envira Galleries image size, custom dimensions and gutter.
