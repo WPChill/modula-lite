@@ -307,7 +307,7 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . "; }";
 		}
 
-		$css .= "#{$gallery_id} .modula-item > a, #{$gallery_id} .modula-item, #{$gallery_id} .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
 
 		$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
