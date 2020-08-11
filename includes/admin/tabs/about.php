@@ -18,6 +18,7 @@ $issues = array(
 	    esc_html__( 'Preparing Modula for Modula Download, Modula Exif and Modula Zoom add-ons.', 'modula-best-grid-gallery' ),
     )
 );
+$issues = array();
 ?>
 <div id="modula-about-page" class="row modula-about-row">
     <div class="modula-about__container">
@@ -30,18 +31,18 @@ $issues = array(
             </div>
         </div>
         <div class="modula-about-content">
-            <?php if (!empty($issues)) { ?>
 
-                <h2><?php printf(esc_html__('Version %s addressed %s bugs and implemented %s features.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count( $issues['fix']) ,count($issues['feature'])); ?></h2>
-                <ul class="modula-about-list">
-                    <?php
-                    foreach ($issues as $key => $iss) {
-                        foreach ($iss as $is) {
-                            echo "<li class='$key'>$is</li>";
-                        }
+            <h2><?php printf(esc_html__('Version %s addressed small fixes.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION ); ?></h2>
+            <?php if (!empty($issues)) { ?>
+            <ul class="modula-about-list">
+                <?php
+                foreach ($issues as $key => $iss) {
+                    foreach ($iss as $is) {
+                        echo "<li class='$key'>$is</li>";
                     }
-                    ?>
-                </ul>
+                }
+                ?>
+            </ul>
 
             <?php } ?>
         </div>
