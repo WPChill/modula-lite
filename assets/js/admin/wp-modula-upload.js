@@ -382,12 +382,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 modulaGalleryObject.containerUploader.removeClass( 'show-progress' );
             }, 1000 );
 
-			if ( modulaGalleryObject.limitExceeded ) {
-				modulaGalleryObject.limitExceeded = false;
-				wp.media.frames.modula.open();
-				wp.media.frames.modula.trigger( 'modula:show-error', {'message' : modulaHelper.strings.limitExceeded } );
-			}
-
 		},
 
 		show: function() {

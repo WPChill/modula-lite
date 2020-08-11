@@ -21,7 +21,6 @@ Modula **fixes all of the above** and more. Read on to see what we're all about.
 = Unlock even more features with Modula Pro =
 
 * [Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
-* Unlimited images: unlock the ability to add more than 20 images per gallery.
 * [Video Extension](https://wp-modula.com/demo/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos.
 * [Slideshow](https://wp-modula.com/demo/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): convert your gallery's lightbox view into a stunning slideshow.
 * [Password Protect]((https://wp-modula.com/demo/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages.

@@ -137,7 +137,7 @@ class Modula {
 			'items' => array(),
 			'settings' => array(),
 			'strings' => array(
-				'limitExceeded' => sprintf( __( 'You excedeed the limit of 20 photos. You can remove an image or %supgrade to pro%s', 'modula-best-grid-gallery' ), '<a href="#" target="_blank">', '</a>' ),
+				'limitExceeded' => '',
 			),
 			'id' => $post_id,
 			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
