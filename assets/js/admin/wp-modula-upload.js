@@ -142,7 +142,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 				this.set( 'library', wp.media.query() );
 			}
 
-			if ( ! ( selection instanceof modula.upload['selection'] ) ) {
+			if ( ! selection ) {
 				props = selection;
 
 				if ( ! props ) {
@@ -150,7 +150,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 					props = _.omit( props, 'orderby', 'query' );
 				}
 
-				this.set( 'selection', new modula.upload['selection']( null, {
+				this.set( 'selection', new wp.media.model.Selection( null, {
 					multiple: this.get('multiple'),
 					props: props
 				}) );
@@ -204,7 +204,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			container: $( '#modula-uploader-container' ),
 			browser: $( '#modula-uploader-browser' ),
 			dropzone: $( '#modula-uploader-container' ),
-			max_files: 20,
 		},
 		dropzone: $( '#modula-dropzone-container' ),
 		progressBar: $( '.modula-progress-bar' ),
@@ -370,11 +369,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			var modulaGalleryObject = this;
 
 			var response = JSON.parse( info.response );
-			if ( wp.Modula.Items.length < 20 ) {
-				modulaGalleryObject.generateSingleImage( response['data'] );
-			}else{
-				modulaGalleryObject.limitExceeded = true;
-			}
+			modulaGalleryObject.generateSingleImage( response['data'] );
 
 		},
 

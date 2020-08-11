@@ -3,7 +3,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 (function( $, modula ){
 
     var modulaItemsCollection = Backbone.Collection.extend({
-        maxFiles: 20,
         updateInterval: false,
 
         initialize: function() {
@@ -28,13 +27,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         addItem: function( model ) {
-
-            if ( this.length > 19 ) {
-                var removedItem = this.at( 0 );
-                removedItem.delete();
-            }
             this.add( model );
-
         },
 
     });
