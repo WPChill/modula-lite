@@ -1558,6 +1558,10 @@ Scaling Effect Preview
   border-bottom: 1px solid #555;
 }
 
+.modula-colorpickers .iris-border .iris-picker-inner {
+	right:0;
+}
+
 /**
 Some responsive fixes
  */
