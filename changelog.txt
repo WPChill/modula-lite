@@ -1,4 +1,5 @@
-= 2.3.4 - 11/08/2020 =
+= 2.3.5 - 11/08/2020 =
+WordPress 5.5 compatibility fixes
 Small fixes
 
 = 2.3.4 - 11/08/2020 =
