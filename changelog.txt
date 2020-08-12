@@ -1,6 +1,9 @@
 = 2.3.4 - 11/08/2020 =
 Small fixes
 
+= 2.3.4 - 11/08/2020 =
+Small fixes
+
 = 2.3.3 - 17/06/2020 =
 Fixed Importing Envira Galleries image size, custom dimensions and gutter.
 Social icons are now disabled by default when creating a new gallery.
