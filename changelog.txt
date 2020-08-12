@@ -10,6 +10,7 @@ Added powered by option
 Fixed previewer jumping when changing from custom grid to columns
 Removed "Add new gallery" from the menu
 Improvements and fixes for lazy loading
+Fixed compatibility issues with Wordpress 5.5 : autocomplete and color picker
 
 = 2.3.3 - 17/06/2020 =
 Fixed Importing Envira Galleries image size, custom dimensions and gutter.
