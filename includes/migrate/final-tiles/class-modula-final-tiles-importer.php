@@ -202,19 +202,19 @@ class Modula_Final_Tiles_Importer {
             // Add each image to Media Library
             foreach ($images as $image) {
 
-                $modula_images[] = array(
-                    'id'          => absint($image->imageId),
-                    'alt'         => sanitize_text_field($image->alt),
-                    'title'       => sanitize_text_field($image->title),
-                    'description' => wp_filter_post_kses($image->description),
-                    'halign'      => 'center',
-                    'valign'      => 'middle',
-                    'link'        => esc_url_raw($image->link),
-                    'target'      => (isset($image->target) && '_blank' == $image->target ) ? 1 : 0,
-                    'width'       => 2,
-                    'height'      => 2,
-                    'filters'     => ''
-                );
+	            $modula_images[] = apply_filters( 'modula_migrate_image_data', array(
+		            'id'          => absint( $image->imageId ),
+		            'alt'         => sanitize_text_field( $image->alt ),
+		            'title'       => sanitize_text_field( $image->title ),
+		            'description' => wp_filter_post_kses( $image->description ),
+		            'halign'      => 'center',
+		            'valign'      => 'middle',
+		            'link'        => esc_url_raw( $image->link ),
+		            'target'      => (isset( $image->target ) && '_blank' == $image->target) ? 1 : 0,
+		            'width'       => 2,
+		            'height'      => 2,
+		            'filters'     => ''
+	            ), $image, $gallery_config , 'final_tiles');
             }
         }
 
@@ -227,7 +227,7 @@ class Modula_Final_Tiles_Importer {
         }
 
         // Get Modula Gallery defaults, used to set modula-settings metadata
-        $modula_settings = Modula_CPT_Fields_Helper::get_defaults();
+	    $modula_settings = apply_filters( 'modula_migrate_gallery_data', Modula_CPT_Fields_Helper::get_defaults(), $gallery_config, 'final_tiles' );
 
 
         // Create Modula CPT

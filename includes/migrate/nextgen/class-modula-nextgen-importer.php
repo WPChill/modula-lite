@@ -194,30 +194,30 @@ class Modula_Nextgen_Importer {
             $this->modula_import_result(false, esc_html__('No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery'),false);
         }
 
-        $ngg_settings = array(
-            'type'      => 'grid',
-            'grid_type' => $col_number
-        );
+	    $ngg_settings = apply_filters( 'modula_migrate_gallery_data', array(
+		    'type'      => 'grid',
+		    'grid_type' => $col_number
+	    ), $data_settings, 'nextgen' );
 
-        // Get Modula Gallery defaults, used to set modula-settings metadata
-        $modula_settings = wp_parse_args( $ngg_settings, Modula_CPT_Fields_Helper::get_defaults() );
+	    // Get Modula Gallery defaults, used to set modula-settings metadata
+	    $modula_settings = wp_parse_args( $ngg_settings, Modula_CPT_Fields_Helper::get_defaults() );
 
         // Build Modula Gallery modula-images metadata
         $modula_images = array();
         foreach ($attachments as $attachment) {
-            $modula_images[] = array(
-                'id'          => absint($attachment['ID']),
-                'alt'         => sanitize_text_field($attachment['alt']),
-                'title'       => sanitize_text_field($attachment['title']),
-                'description' => wp_filter_post_kses($attachment['caption']),
-                'halign'      => 'center',
-                'valign'      => 'middle',
-                'link'        => esc_url_raw($attachment['src']),
-                'target'      => '',
-                'width'       => 2,
-                'height'      => 2,
-                'filters'     => ''
-            );
+	        $modula_images[] = apply_filters( 'modula_migrate_image_data', array(
+		        'id'          => absint( $attachment['ID'] ),
+		        'alt'         => sanitize_text_field( $attachment['alt'] ),
+		        'title'       => sanitize_text_field( $attachment['title'] ),
+		        'description' => wp_filter_post_kses( $attachment['caption'] ),
+		        'halign'      => 'center',
+		        'valign'      => 'middle',
+		        'link'        => esc_url_raw( $attachment['src'] ),
+		        'target'      => '',
+		        'width'       => 2,
+		        'height'      => 2,
+		        'filters'     => ''
+	        ), $attachment, $data_settings, 'nextgen' );
         }
 
 
