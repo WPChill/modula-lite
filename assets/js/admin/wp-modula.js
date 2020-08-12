@@ -58,7 +58,7 @@ jQuery( document ).ready( function( $ ){
         $(this).next('span').text('Shortcode copied');
     });
 
-	jQuery( '.modula-link input[name="link"]' ).live( "keydown.autocomplete", function() {
+	jQuery( document ).on( "keydown.autocomplete", '.modula-link input[name="link"]', function() {
 
 		var url = modulaHelper.ajax_url + "?action=modula_autocomplete&nonce="+modulaHelper._wpnonce;
 		jQuery(this).autocomplete({
