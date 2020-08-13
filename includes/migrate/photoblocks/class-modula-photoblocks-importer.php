@@ -165,7 +165,7 @@ class Modula_Photoblocks_Importer {
             // Add each image to Media Library
             foreach ($images as $image) {
                 $image_src = wp_get_attachment_image_src($image['id'],'full');
-	            $modula_images[] = apply_filters( 'modula_gallery_image_data', array(
+	            $modula_images[] = apply_filters( 'modula_migrate_image_data', array(
 		            'id'          => absint( $image['id'] ),
 		            'alt'         => sanitize_text_field( $image['alt'] ),
 		            'title'       => sanitize_text_field( $image['title'] ),
