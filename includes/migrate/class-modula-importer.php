@@ -380,20 +380,6 @@ class Modula_Importer {
            // Title is escaped above
             $html .= $title ;
 
-
-
-            if(20 < $count){
-                $lite = '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
-                $lite .= esc_html__('You currently have ','modula-best-grid-gallery');
-                $lite .= absint($count);
-                $lite .= esc_html__(' images in your gallery and only 20 will be imported. If you want to import al, please buy the PRO version and import them after that. ','modula-best-grid-gallery');
-                $lite .= '</div></div>';
-            }
-
-            // Display text on LITE. On PRO version
-            $lite = apply_filters( 'modula_lite_migration_text', $lite );
-            $html .= $lite;
-
             $html .= '<span class="modula-importer-gallery-status">';
 
             if ( $imported ) {
