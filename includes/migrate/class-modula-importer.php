@@ -371,12 +371,6 @@ class Modula_Importer {
 	        $val          = ($value) ? $value : $id;
 	        $upload_count = $count;
 
-	        if ( apply_filters( 'modula_upload_limit_applied', true ) ) {
-		        if ( $count > 20 ) {
-			        $upload_count = 20;
-		        }
-	        }
-
             $html .= '<div class="modula-importer-checkbox-wrapper">' .
                      '<label for="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
                      ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? 'data-imported="true" class="imported"' : '' ) . '>' .
