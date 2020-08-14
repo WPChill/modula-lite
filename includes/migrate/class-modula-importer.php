@@ -432,13 +432,10 @@ class Modula_Importer {
 
         global $wpdb;
         $images = array();
-        $limit = '20';
-        $limit = (int)apply_filters('modula_importer_migrate_limit',$limit);
 
         switch ($source){
             case 'envira':
                 $images = get_post_meta($data, '_eg_gallery_data', true);
-                $images = array_slice($images['gallery'],0,$limit,true);
                 break;
             case 'nextgen':
                 // Get images from NextGEN Gallery
@@ -449,7 +446,6 @@ class Modula_Importer {
                     $data);
 
                 $images = $wpdb->get_results($sql);
-                $images = array_slice($images,0,$limit,true);
                 break;
             case 'final_tiles':
                 // Seems like on some servers tables are saved lowercase
@@ -460,7 +456,6 @@ class Modula_Importer {
     						ORDER BY 'setOrder' ASC",
                         $data);
                     $images = $wpdb->get_results($sql);
-                    $images = array_slice($images,0,$limit,true);
                 }
 
                 if ($wpdb->get_var("SHOW TABLES LIKE '" . $wpdb->prefix . "FinalTiles_gallery'")) {
@@ -470,7 +465,6 @@ class Modula_Importer {
     						ORDER BY 'setOrder' ASC",
                         $data);
                     $images = $wpdb->get_results($sql);
-                    $images = array_slice($images,0,$limit,true);
                 }
                 break;
             case 'photoblocks':
@@ -480,17 +474,14 @@ class Modula_Importer {
                     $data);
                 $gallery = $wpdb->get_row($sql);
                 $blocks = json_decode($gallery->blocks);
-                $blocks = array_slice($blocks,0,$limit,true);
                 $gallery->blocks = json_encode($blocks);
                 $images = $gallery;
                 break;
             case 'wp_core':
                 $images         = explode(',', $data);
-                $images = array_slice($images,0,$limit,true);
                 break;
 	        case 'foogallery':
 		        $images = get_post_meta($data, 'foogallery_attachments', true);
-		        $images = array_slice($images,0,$limit,true);
 		        break;
 
         }

@@ -165,7 +165,7 @@ class Modula_Envira_Importer {
 		            'width'       => 2,
 		            'height'      => 2,
 		            'filters'     => ''
-	            ), $image, $envira_settings, 'envira' );
+	            ), $imageID, $envira_settings, 'envira' );
             }
         }
 
