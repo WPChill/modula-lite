@@ -109,6 +109,15 @@ if ($sources) {
                             <div class="modula-found-galleries"></div>
                         </td>
                     </tr>
+                    <tr valign="top">
+                        <th scope="row" valign="top">
+                        </th>
+                        <td>
+                            <div>
+                                <?php submit_button(__('Migrate', 'modula-best-grid-gallery'), 'primary', 'modula-importer-submit-' . $source, false); ?>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
