@@ -415,7 +415,9 @@ class Modula_Importer {
 
         switch ($source){
             case 'envira':
-                $images = get_post_meta($data, '_eg_gallery_data', true);
+                $settings = get_post_meta($data, '_eg_gallery_data', true);
+                $images = $settings['gallery'];
+
                 break;
             case 'nextgen':
                 // Get images from NextGEN Gallery
