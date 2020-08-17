@@ -203,8 +203,8 @@ class Modula_Envira_Importer {
 	    }
 
 	    if ( isset( $envira_settings['config']['social_email_message'] ) && '' != $envira_settings['config']['social_email_message'] ) {
-		    $email_subject = str_replace( '{url}', '%%gallery_link%%', $envira_settings['config']['social_email_message'] );
-		    $email_subject = str_replace( '{photo_url}', '%%image_link%%', $email_subject );
+		    $email_body = str_replace( '{url}', '%%gallery_link%%', $envira_settings['config']['social_email_message'] );
+		    $email_body = str_replace( '{photo_url}', '%%image_link%%', $email_body );
 	    }
 
 	    $modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
