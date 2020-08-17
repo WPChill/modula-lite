@@ -189,14 +189,16 @@ class Modula_Envira_Importer {
 		    $grid_type = $envira_settings['config']['columns'];
 	    }
 
-	    $socials       = (isset( $envira_settings['config']['social'] ) && 1 == $envira_settings['config']['social']) ? 1 : 0;
-	    $facebook      = (isset( $envira_settings['config']['social_facebook'] ) && 1 == $envira_settings['config']['social_facebook']) ? 1 : 0;
-	    $twitter       = (isset( $envira_settings['config']['social_twitter'] ) && 1 == $envira_settings['config']['social_twitter']) ? 1 : 0;
-	    $pinterest     = (isset( $envira_settings['config']['social_pinterest'] ) && 1 == $envira_settings['config']['social_pinterest']) ? 1 : 0;
-	    $linkedin      = (isset( $envira_settings['config']['social_linkedin'] ) && 1 == $envira_settings['config']['social_linkedin']) ? 1 : 0;
-	    $email         = (isset( $envira_settings['config']['social_email'] ) && 1 == $envira_settings['config']['social_email']) ? 1 : 0;
-	    $email_subject = esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' );
-	    $email_body    = esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%', 'modula-best-grid-gallery' );
+	    $socials                 = (isset( $envira_settings['config']['social'] ) && 1 == $envira_settings['config']['social']) ? 1 : 0;
+	    $facebook                = (isset( $envira_settings['config']['social_facebook'] ) && 1 == $envira_settings['config']['social_facebook']) ? 1 : 0;
+	    $twitter                 = (isset( $envira_settings['config']['social_twitter'] ) && 1 == $envira_settings['config']['social_twitter']) ? 1 : 0;
+	    $pinterest               = (isset( $envira_settings['config']['social_pinterest'] ) && 1 == $envira_settings['config']['social_pinterest']) ? 1 : 0;
+	    $linkedin                = (isset( $envira_settings['config']['social_linkedin'] ) && 1 == $envira_settings['config']['social_linkedin']) ? 1 : 0;
+	    $email                   = (isset( $envira_settings['config']['social_email'] ) && 1 == $envira_settings['config']['social_email']) ? 1 : 0;
+	    $email_subject           = esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' );
+	    $email_body              = esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%', 'modula-best-grid-gallery' );
+	    $modula_captions_title   = 0;
+	    $modula_captions_caption = 0;
 
 	    if(isset( $envira_settings['config']['social_email_subject']) && '' != $envira_settings['config']['social_email_subject']){
 		    $email_subject = str_replace('{title}',sanitize_text_field(get_the_title($gallery_id)),$envira_settings['config']['social_email_subject']);
@@ -205,6 +207,19 @@ class Modula_Envira_Importer {
 	    if ( isset( $envira_settings['config']['social_email_message'] ) && '' != $envira_settings['config']['social_email_message'] ) {
 		    $email_body = str_replace( '{url}', '%%gallery_link%%', $envira_settings['config']['social_email_message'] );
 		    $email_body = str_replace( '{photo_url}', '%%image_link%%', $email_body );
+	    }
+
+	    if ( isset( $envira_settings['config']['gallery_column_title_caption'] ) ) {
+		    if ( '0' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 1;
+			    $modula_captions_caption = 1;
+		    } else if ( 'title' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 0;
+			    $modula_captions_caption = 1;
+		    } else if ( 'caption' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 1;
+			    $modula_captions_caption = 0;
+		    }
 	    }
 
 	    $modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
@@ -217,6 +232,8 @@ class Modula_Envira_Importer {
 		    'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 		    'grid_image_crop'       => (isset( $envira_settings['config']['crop'] ) && 0 != $envira_settings['config']['crop']) ? 1 : 0,
 		    'lazy_load'             => (isset( $envira_settings['config']['lazy_loading'] ) && 0 != $envira_settings['config']['lazy_loading']) ? 1 : 0,
+		    'hide_title'            => $modula_captions_title,
+		    'hide_description'      => $modula_captions_caption,
 		    'enableSocial'          => $socials,
 		    'enableTwitter'         => $twitter,
 		    'enableFacebook'        => $facebook,
