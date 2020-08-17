@@ -58,6 +58,8 @@ class Modula {
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
+		require_once MODULA_PATH . 'includes/divi-builder/loader.php';
+
         if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
