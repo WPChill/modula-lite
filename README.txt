@@ -1,14 +1,14 @@
-=== Modula Image Gallery ===
+=== Customizable WordPress Gallery Plugin - Modula Image Gallery ===
 Contributors: machothemes, silkalns
 Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
-Requires at least: 4.6
+Requires at least: 5.2
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-
-Photo Gallery by Modula - an advanced solution for Photo Gallery users. Create beautiful image galleries in minutes or less. 
+ 
+A highly Customizable WordPress gallery plugin that you can use to impress your clients. Create beautiful image galleries in minutes.
 
 == Description ==
 
