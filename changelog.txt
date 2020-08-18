@@ -1,5 +1,6 @@
 = 2.3.6 - 18/08/2020 =
 Fixed compatibility with WordPress 5.5 and Elementor plugin - thanks to @CRdeGraaf
+Fixed WP Core galleries migrate when there are multiple atts to WP Core Gallery
 
 = 2.3.5 - 11/08/2020 =
 WordPress 5.5 compatibility fixes
