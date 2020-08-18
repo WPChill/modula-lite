@@ -138,7 +138,7 @@ class Modula_WP_Core_Gallery_Importer {
 
             foreach ($matches[0] as $sc) {
                 $modula_images = array();
-                $pattern           = '/ids\s*=\s*\"([\s\S]*?)\"/';
+                $pattern           = '/\s\ids\s*=\s*\"([\s\S]*?)\"/';
                 $result            = preg_match($pattern, $sc, $gallery_ids);
                 $image_ids = $modula_importer->prepare_images('wp_core',$gallery_ids[1]);
                 $gallery_image_ids = $gallery_ids[0];
