@@ -13,7 +13,7 @@
 * Domain Path: 				/languages
 *
 * Copyright 2015-2017 		GreenTreeLabs 		diego@greentreelabs.net
-* Copyright 2017-2019 		MachoThemes 		office@machothemes.com
+* Copyright 2017-2019 		MachoThemes 		hello@wp-modula.com
 *
 * Original Plugin URI: 		https://modula.greentreelabs.net/
 * Original Author URI: 		https://greentreelabs.net
