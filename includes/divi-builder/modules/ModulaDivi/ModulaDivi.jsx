@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './style.css';
 
 
-class ClassModulaDiviBlock extends Component {
+class ModulaDivi extends Component {
 
   static slug = 'modula_divi_block';
 
@@ -20,4 +20,4 @@ class ClassModulaDiviBlock extends Component {
   }
 }
 
-export default ClassModulaDiviBlock;
+export default ModulaDivi;

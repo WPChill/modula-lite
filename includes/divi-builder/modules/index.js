@@ -1,3 +1,3 @@
-import Modula_Divi_Block from './ModulaDivi/class-modula-divi-block';
+import Modula_Divi_Block from './ModulaDivi/ModulaDivi';
 
-export default [ ClassModulaDiviBlock];
+export default [ ModulaDivi];
