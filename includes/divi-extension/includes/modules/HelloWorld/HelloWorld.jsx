@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import './style.css';
 
 
-class ModulaDivi extends Component {
+class HelloWorld extends Component {
 
-  static slug = 'modula_divi_block';
+  static slug = 'modula_hello_world';
 
   render() {
     const Content = this.props.content;
@@ -20,4 +20,4 @@ class ModulaDivi extends Component {
   }
 }
 
-export default ModulaDivi;
+export default HelloWorld;
