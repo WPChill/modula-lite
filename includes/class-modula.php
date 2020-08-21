@@ -27,6 +27,8 @@ class Modula {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		add_action( 'divi_extensions_init', array($this,'initialize_divi_extension'));
+
 	}
 
 	private function load_dependencies() {
@@ -58,8 +60,6 @@ class Modula {
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
-		require_once MODULA_PATH . 'includes/divi-builder/loader.php';
-
         if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -72,6 +72,13 @@ class Modula {
 
 		}
 
+	}
+
+	/**
+	 * Add Modula Gallery Divi block
+	 */
+	public function initialize_divi_extension(){
+		require_once MODULA_PATH . 'includes/divi-builder/class-modula-divi-extension.php';
 	}
 
 	public function set_locale() {
