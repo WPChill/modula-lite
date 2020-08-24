@@ -9,7 +9,7 @@ class MODULA_DiviExtension extends DiviExtension {
 	 * @param string $name
 	 * @param array  $args
 	 */
-	public function __construct( $name = 'divi-extension', $args = array() ) {
+	public function __construct( $name = 'modula-divi', $args = array() ) {
 		$this->plugin_dir     = plugin_dir_path( __FILE__ );
 		$this->plugin_dir_url = plugin_dir_url( $this->plugin_dir );
 

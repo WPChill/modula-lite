@@ -1,3 +1,3 @@
-import HelloWorld from './HelloWorld/HelloWorld';
+import ModulaDivi from './ModulaDivi/ModulaDivi';
 
-export default [HelloWorld];
+export default [ModulaDivi];
