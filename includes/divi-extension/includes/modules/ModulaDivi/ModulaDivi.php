@@ -5,31 +5,56 @@ class Modula_Divi_Module extends ET_Builder_Module {
 	public $slug       = 'modula_gallery';
 	public $vb_support = 'on';
 
-	protected $module_credits = array(
-		'module_uri' => 'https://wp-modula.com',
-		'author'     => 'WPChill',
-		'author_uri' => 'http://wpchill.com',
-	);
+	protected $module_credits
+		= array(
+			'module_uri' => 'https://wp-modula.com',
+			'author'     => 'WPChill',
+			'author_uri' => 'http://wpchill.com',
+		);
 
 	public function init() {
 		$this->name = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
 	}
 
 	public function get_fields() {
+
+		$fields["__gallery"] = [
+			'type'                => 'computed',
+			'computed_callback'   => array( 'DSS_Masonry_Layout', 'render_images' ),
+			'computed_depends_on' => array(
+				'images',
+				'title_in_lightbox',
+				'caption_in_lightbox',
+				'gallery_orderby',
+				'hover_icon',
+				'use_overlay',
+			),
+			'computed_minimum'    => array(
+				'images',
+			),
+		];
+
 		return array(
 			'gallery_select' => array(
-				'label'           => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
-				'type'            => 'select',
-				'description'     => esc_html__( 'Content entered here will appear inside the module.', 'modula-best-grid-gallery' ),
-				'toggle_slug'     => 'main_content',
-				'options' => Modula_Helper::get_galleries(),
-				'default' => 'none'
+				'label'       => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
+				'type'        => 'select',
+				'description' => esc_html__( 'Content entered here will appear inside the module.', 'modula-best-grid-gallery' ),
+				'toggle_slug' => 'main_content',
+				'options'     => Modula_Helper::get_galleries(),
+				'default'     => 'none'
 			),
+			'modula_images'  => array(
+				'type'              => 'computed',
+				'computed_callback' => array( $this, 'render_images' ),
+			)
 		);
 	}
 
-	public function render( $attrs, $content = null, $render_slug ) {
+	public function render_images() {
+		return 'soooomething';
+	}
 
+	public function render( $attrs, $content = null, $render_slug ) {
 
 		$gallery_id = $post_type = $this->props['gallery_select'];
 		$gallery    = get_post( $gallery_id );
@@ -42,7 +67,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 			return esc_html__( 'Selected ID is not a Modula gallery', 'modula-best-grid-gallery' );
 		}
 
-		return do_shortcode( '[modula id="' . absint( $gallery_id ) . '"]' );
+		return do_shortcode( '[modula id="' . absint( $gallery_id ) . '"] asd' );
 	}
 
 }

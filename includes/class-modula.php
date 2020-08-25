@@ -78,7 +78,7 @@ class Modula {
 	 * Add Modula Gallery Divi block
 	 */
 	public function initialize_divi_extension(){
-		require_once MODULA_PATH . 'includes/divi-builder/class-modula-divi-extension.php';
+		require_once MODULA_PATH . 'includes/divi-extension/includes/DiviExtension.php';
 	}
 
 	public function set_locale() {
