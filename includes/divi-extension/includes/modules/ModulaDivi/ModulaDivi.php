@@ -20,22 +20,49 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 		return array(
 			'gallery_select' => array(
-				'label'       => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
-				'type'        => 'select',
-				'description' => esc_html__( 'Content entered here will appear inside the module.', 'modula-best-grid-gallery' ),
-				'toggle_slug' => 'main_content',
-				'options'     => Modula_Helper::get_galleries(),
-				'default'     => 'none'
+				'label'            => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
+				'type'             => 'select',
+				'description'      => esc_html__( 'Content entered here will appear inside the module.', 'modula-best-grid-gallery' ),
+				'toggle_slug'      => 'main_content',
+				'options'          => Modula_Helper::get_galleries(),
+				'default'          => 'none',
+				'computed_affects' => array(
+					'__gallery',
+				),
 			),
 			'modula_images'  => array(
-				'type'              => 'computed',
-				'computed_callback' => array( $this, 'render_images' ),
+				'type'                => 'computed',
+				'computed_callback'   => array( $this, 'render_images' ),
+				'computed_depends_on' => array(
+					'gallery_select',
+				),
+				'computed_minimum'    => array(
+					'gallery_select',
+				),
 			)
 		);
 	}
 
-	public function render_images() {
-		return 'soooomething';
+	static function render_images( $args = array(), $conditional_tags = array(), $current_page = array() ) {
+
+		$defaults = [
+			'gallery_select' => 'none',
+		];
+		$items    = array();
+
+		$args = wp_parse_args( $args, $defaults );
+
+		if ( 'none' != $args['gallery_select'] ) {
+
+			$images = get_post_meta( absint( $args['gallery_select'] ), 'modula-images', true );
+			foreach ( $images as $image ) {
+				// need to take the settings and markup
+				//$items[] = '<img src="">';
+			}
+		}
+
+		return implode("",$items);
+
 	}
 
 	public function render( $attrs, $content = null, $render_slug ) {
