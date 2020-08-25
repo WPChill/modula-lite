@@ -18,22 +18,6 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 	public function get_fields() {
 
-		$fields["__gallery"] = [
-			'type'                => 'computed',
-			'computed_callback'   => array( 'DSS_Masonry_Layout', 'render_images' ),
-			'computed_depends_on' => array(
-				'images',
-				'title_in_lightbox',
-				'caption_in_lightbox',
-				'gallery_orderby',
-				'hover_icon',
-				'use_overlay',
-			),
-			'computed_minimum'    => array(
-				'images',
-			),
-		];
-
 		return array(
 			'gallery_select' => array(
 				'label'       => esc_html__( 'Select Gallery', 'modula-best-grid-gallery' ),
