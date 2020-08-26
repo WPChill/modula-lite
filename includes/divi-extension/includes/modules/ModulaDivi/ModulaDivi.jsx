@@ -12,7 +12,7 @@ class ModulaDivi extends Component {
 	render () {
 
 		return (
-			<p> [modula id="{this.props.gallery_select}"]</p>
+			<div dangerouslySetInnerHTML={{ __html: this.props.modula_images }}></div>
 
 		);
 	}

@@ -4,6 +4,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 	public $slug       = 'modula_gallery';
 	public $vb_support = 'on';
+	private $loader;
 
 	protected $module_credits
 		= array(
@@ -13,7 +14,16 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		);
 
 	public function init() {
-		$this->name = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
+		$this->loader = new Modula_Template_Loader();
+		$this->name   = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
+
+		add_action( 'et_fb_enqueue_assets', array( $this, 'enqueue_our_styles' ) );
+	}
+
+	public function enqueue_our_styles(){
+		wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
+		$modula_scripts = Modula_Script_Manager::get_instance();
+		$modula_scripts->enqueue_scripts();
 	}
 
 	public function get_fields() {
@@ -32,7 +42,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 			),
 			'modula_images'  => array(
 				'type'                => 'computed',
-				'computed_callback'   => array( $this, 'render_images' ),
+				'computed_callback'   => array( 'Modula_Divi_Module', 'render_images' ),
 				'computed_depends_on' => array(
 					'gallery_select',
 				),
@@ -53,15 +63,11 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		$args = wp_parse_args( $args, $defaults );
 
 		if ( 'none' != $args['gallery_select'] ) {
-
-			$images = get_post_meta( absint( $args['gallery_select'] ), 'modula-images', true );
-			foreach ( $images as $image ) {
-				// need to take the settings and markup
-				//$items[] = '<img src="">';
-			}
+			return do_shortcode( '[modula id="' . absint( $args['gallery_select'] ) . '"]' );
+		} else {
+			return __('No galleries selected','modula-best-grid-gallery');
 		}
 
-		return implode("",$items);
 
 	}
 
