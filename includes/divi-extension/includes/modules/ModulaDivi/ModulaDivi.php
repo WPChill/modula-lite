@@ -42,16 +42,6 @@ class Modula_Divi_Module extends ET_Builder_Module {
 					'gallery_select',
 				),
 			),
-			'modula_scripts' => array(
-				'type' => 'computed',
-				'computed_callback'   => array( 'Modula_Divi_Module', 'enqueue_scripts' ),
-				'computed_depends_on' => array(
-					'gallery_select',
-				),
-				'computed_minimum'    => array(
-					'gallery_select',
-				),
-			)
 		);
 	}
 
@@ -94,50 +84,32 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 	static function enqueue_scripts( $args = array(), $conditional_tags = array(), $current_page = array() ) {
 
-		$defaults = [
-			'gallery_select' => 'none',
-		];
+		wp_register_style( 'modula-fancybox', MODULA_URL . 'assets/css/front/fancybox.css', null, MODULA_LITE_VERSION );
+		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
-		$args    = wp_parse_args( $args, $defaults );
+		// Scripts necessary for some galleries
+		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
-		$gallery_id = $post_type = $args['gallery_select'];
-		$gallery    = get_post( $gallery_id );
+		// @todo: minify all css & js for a better optimization.
+		wp_register_script( 'modula', MODULA_URL . 'assets/js/front/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-divi-preview', MODULA_URL . 'assets/js/admin/modula-divi-builder-preview.js', array( 'modula' ), MODULA_LITE_VERSION, true );
 
-		if ( ! $gallery ) {
-			return;
-		}
+		wp_enqueue_style( 'modula-fancybox' );
+		wp_enqueue_style( 'modula' );
 
-		if ( 'modula-gallery' != $gallery->post_type ) {
-			return;
-		}
+		wp_enqueue_script( 'modula-isotope' );
+		wp_enqueue_script( 'modula-isotope-packery' );
+		wp_enqueue_script( 'modula-grid-justified-gallery' );
+		wp_enqueue_script( 'modula-lazysizes' );
+		wp_enqueue_script( 'modula' );
+		wp_enqueue_script( 'modula-divi-preview' );
 
-		$settings       = get_post_meta( $gallery_id, 'modula-settings', true );
-		$script_manager = Modula_Script_Manager::get_instance();
+		do_action( 'modula_divi_builder_sripts_after_modula' );
 
-		do_action( 'modula_extra_scripts', $settings );
-
-		// Main CSS & JS
-		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array(
-			'modula-fancybox',
-			'modula'
-		), $settings );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array(
-			'modula-fancybox',
-			'modula'
-		), $settings );
-
-
-		if ( ! empty( $necessary_scripts ) ) {
-			$script_manager->add_scripts( $necessary_scripts );
-		}
-
-		if ( ! empty( $necessary_styles ) ) {
-			foreach ( $necessary_styles as $style_slug ) {
-				if ( ! wp_style_is( $style_slug, 'enqueued' ) ) {
-					wp_enqueue_style( $style_slug );
-				}
-			}
-		}
 	}
 
 }
