@@ -4,7 +4,6 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 	public $slug       = 'modula_gallery';
 	public $vb_support = 'on';
-	private $loader;
 
 	protected $module_credits
 		= array(
@@ -14,16 +13,15 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		);
 
 	public function init() {
-		$this->loader = new Modula_Template_Loader();
-		$this->name   = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
 
+		$this->name   = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
 		add_action( 'et_fb_enqueue_assets', array( $this, 'enqueue_our_styles' ) );
 	}
 
 	public function enqueue_our_styles(){
+
+		wp_enqueue_script( 'modula-all', MODULA_URL . 'assets/js/modula-all.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
-		$modula_scripts = Modula_Script_Manager::get_instance();
-		$modula_scripts->enqueue_scripts();
 	}
 
 	public function get_fields() {
@@ -58,14 +56,18 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		$defaults = [
 			'gallery_select' => 'none',
 		];
-		$items    = array();
 
-		$args = wp_parse_args( $args, $defaults );
+		$args    = wp_parse_args( $args, $defaults );
+		$gallery = get_post( $args['gallery_select'] );
 
 		if ( 'none' != $args['gallery_select'] ) {
-			return do_shortcode( '[modula id="' . absint( $args['gallery_select'] ) . '"]' );
+			if ( 'modula-gallery' != $gallery->post_type ) {
+				return esc_html__( 'Selected ID is not a Modula gallery', 'modula-best-grid-gallery' );;
+			} else {
+				return do_shortcode( '[modula id="' . absint( $args['gallery_select'] ) . '"]' );
+			}
 		} else {
-			return __('No galleries selected','modula-best-grid-gallery');
+			return __( 'No galleries selected', 'modula-best-grid-gallery' );
 		}
 
 
@@ -84,7 +86,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 			return esc_html__( 'Selected ID is not a Modula gallery', 'modula-best-grid-gallery' );
 		}
 
-		return do_shortcode( '[modula id="' . absint( $gallery_id ) . '"] asd' );
+		return do_shortcode( '[modula id="' . absint( $gallery_id ) . '"]' );
 	}
 
 }
