@@ -15,13 +15,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 	public function init() {
 
 		$this->name   = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
-		add_action( 'et_fb_enqueue_assets', array( $this, 'enqueue_our_styles' ) );
-	}
-
-	public function enqueue_our_styles(){
-
-		wp_enqueue_script( 'modula-all', MODULA_URL . 'assets/js/modula-all.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
+		add_action( 'et_fb_enqueue_assets', array( $this, 'enqueue_scripts' ), 99 );
 	}
 
 	public function get_fields() {
@@ -47,6 +41,16 @@ class Modula_Divi_Module extends ET_Builder_Module {
 				'computed_minimum'    => array(
 					'gallery_select',
 				),
+			),
+			'modula_scripts' => array(
+				'type' => 'computed',
+				'computed_callback'   => array( 'Modula_Divi_Module', 'enqueue_scripts' ),
+				'computed_depends_on' => array(
+					'gallery_select',
+				),
+				'computed_minimum'    => array(
+					'gallery_select',
+				),
 			)
 		);
 	}
@@ -62,14 +66,13 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 		if ( 'none' != $args['gallery_select'] ) {
 			if ( 'modula-gallery' != $gallery->post_type ) {
-				return esc_html__( 'Selected ID is not a Modula gallery', 'modula-best-grid-gallery' );;
+				return esc_html__( 'Selected ID is not a Modula gallery', 'modula-best-grid-gallery' );
 			} else {
 				return do_shortcode( '[modula id="' . absint( $args['gallery_select'] ) . '"]' );
 			}
 		} else {
 			return __( 'No galleries selected', 'modula-best-grid-gallery' );
 		}
-
 
 	}
 
@@ -87,6 +90,54 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		}
 
 		return do_shortcode( '[modula id="' . absint( $gallery_id ) . '"]' );
+	}
+
+	static function enqueue_scripts( $args = array(), $conditional_tags = array(), $current_page = array() ) {
+
+		$defaults = [
+			'gallery_select' => 'none',
+		];
+
+		$args    = wp_parse_args( $args, $defaults );
+
+		$gallery_id = $post_type = $args['gallery_select'];
+		$gallery    = get_post( $gallery_id );
+
+		if ( ! $gallery ) {
+			return;
+		}
+
+		if ( 'modula-gallery' != $gallery->post_type ) {
+			return;
+		}
+
+		$settings       = get_post_meta( $gallery_id, 'modula-settings', true );
+		$script_manager = Modula_Script_Manager::get_instance();
+
+		do_action( 'modula_extra_scripts', $settings );
+
+		// Main CSS & JS
+		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array(
+			'modula-fancybox',
+			'modula'
+		), $settings );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array(
+			'modula-fancybox',
+			'modula'
+		), $settings );
+
+
+		if ( ! empty( $necessary_scripts ) ) {
+			$script_manager->add_scripts( $necessary_scripts );
+		}
+
+		if ( ! empty( $necessary_styles ) ) {
+			foreach ( $necessary_styles as $style_slug ) {
+				if ( ! wp_style_is( $style_slug, 'enqueued' ) ) {
+					wp_enqueue_style( $style_slug );
+				}
+			}
+		}
 	}
 
 }

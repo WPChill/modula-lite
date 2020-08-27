@@ -13,7 +13,6 @@ class ModulaDivi extends Component {
 
 		return (
 			<div dangerouslySetInnerHTML={{ __html: this.props.modula_images }}></div>
-
 		);
 	}
 }
