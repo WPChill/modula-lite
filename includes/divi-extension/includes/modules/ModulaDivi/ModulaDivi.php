@@ -96,7 +96,6 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 		// @todo: minify all css & js for a better optimization.
 		wp_register_script( 'modula', MODULA_URL . 'assets/js/front/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-divi-preview', MODULA_URL . 'assets/js/admin/modula-divi-builder-preview.js', array( 'modula' ), MODULA_LITE_VERSION, true );
 
 		wp_enqueue_style( 'modula-fancybox' );
 		wp_enqueue_style( 'modula' );
@@ -106,7 +105,6 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		wp_enqueue_script( 'modula-grid-justified-gallery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
-		wp_enqueue_script( 'modula-divi-preview' );
 
 		do_action( 'modula_divi_builder_sripts_after_modula' );
 
