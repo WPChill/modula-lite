@@ -1,7 +1,6 @@
 // External Dependencies
 import React, {Component} from 'react';
 import $ from 'jquery';
-import { findDOMNode } from 'react-dom';
 
 // Internal Dependencies
 import './style.css';
@@ -11,34 +10,28 @@ class ModulaDivi extends Component {
 
 	static slug = 'modula_gallery';
 
+	constructor(props){
+		super(props);
+	}
+
 	render () {
 		return (
 			<div dangerouslySetInnerHTML={{ __html: this.props.modula_images }}></div>
 		);
 	}
 
-	componentDidMount () {
-		this._setup_modula();
-	}
+	componentDidUpdate( prevProps ){
+		let id = '#jtg-' + this.props.gallery_select;
 
-	_setup_modula(){
-		const grid = findDOMNode(this.refs.grid);
-		console.log($(findDOMNode(this)));
-		if (!grid) return;
+		if( $( id ).length > 0 ){
+			let modulaSettings = $( id ).data( 'config' ),
+			    modulaInstance = $( id ).data( 'plugin_modulaGallery' );
 
-		/*if(this.masonry){
-			this.masonry.masonry('destroy');
-		}
+			if( ! modulaInstance ){
+				$( id ).modulaGallery( modulaSettings );
+			}
+		} 
 
-		this.masonry = $(grid).dss_masonry_gallery();
-
-		this.resizeObserver = new ResizeObserver(entries => {
-			this.masonry.masonry('layout');
-		});
-
-		this.resizeObserver.observe(grid);
-		this._fix_overlay_icon();*/
-		//console.log("MasonryGallery._setup_masonry:  end", this.props.moduleInfo.address);
 	}
 
 }
