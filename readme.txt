@@ -6,7 +6,6 @@ Tested up to: 5.5
 Requires PHP: 5.6
 Stable tag: 2.3.7
 License: GNU General Public License v3.0 or later
-
  
 The WordPress gallery plugin that's highlighy customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
