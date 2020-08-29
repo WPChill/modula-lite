@@ -1,16 +1,18 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
 Contributors: machothemes, silkalns
-Tags: best gallery plugin, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, wordpress portfolio plugin, masonry gallery, fancy gallery, media gallery, mosaic gallery, polaroid gallery, portfolio gallery
+Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
 Requires at least: 5.2
 Tested up to: 5.5
 Requires PHP: 5.6
 Stable tag: 2.3.7
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License: GNU General Public License v3.0 or later
+
  
-A highly Customizable WordPress gallery plugin that you can use to impress your clients. Create beautiful image galleries in minutes.
+The WordPress gallery plugin that's highlighy customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
 == Description ==
+
+= Gallery Plugin =
 
 Impress your potential clients with a fully customizable WordPress gallery plugin that's fully mobile responsive, doesn't slow down your website and doesn't require a single line of code to work.  
 
@@ -20,7 +22,7 @@ Modula **fixes all of the above** and more. Read on to see what we're all about.
 
 = Unlock even more features with Modula Pro =
 
-* [Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
+
 * [Video Extension](https://wp-modula.com/demo/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos.
 * [Slideshow](https://wp-modula.com/demo/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): convert your gallery's lightbox view into a stunning slideshow.
 * [Password Protect]((https://wp-modula.com/demo/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages.
