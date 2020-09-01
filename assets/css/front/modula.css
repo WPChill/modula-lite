@@ -756,23 +756,3 @@ body div.modula-powered svg.modula-logo path {
 body div.modula-powered svg.modula-logo {
     display: inline-block;
 }
-
-/**
-Modula Navigation
- */
-
-body .modula-navigation ul.modula-links-wrapper {
-    display: block;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-body .modula-navigation ul.modula-links-wrapper li {
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-body .modula-navigation ul.modula-links-wrapper li a.selected {
-    font-weight: bold;
-}
