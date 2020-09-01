@@ -279,13 +279,14 @@ function modula_show_schemaorg( $settings ){
 
 function modula_edit_gallery( $settings ) {
 
-	global $post;
-	if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+	$gallery_id = absint( substr( $settings['gallery_id'], -1 ) );
+	
+	if ( ! current_user_can( 'edit_post', $gallery_id ) ) {
 		return;
 	}
 
 	?> 
-	<p> <a href="<?php echo get_site_url() ?>/wp-admin/post.php?post=<?php echo substr( $settings['gallery_id'], -1) ?>&action=edit"> <?php esc_html_e( 'Edit Gallery', 'modula-best-grid-gallery') ?> </a> </p>
+	<p> <a href="<?php echo get_site_url() ?>/wp-admin/post.php?post=<?php echo $gallery_id ?>&action=edit"> <?php esc_html_e( 'Edit Gallery', 'modula-best-grid-gallery') ?> </a> </p>
 	<?php 
 }
 
