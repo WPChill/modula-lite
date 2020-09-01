@@ -12,10 +12,32 @@ class Modula_Divi_Module extends ET_Builder_Module {
 			'author_uri' => 'http://wpchill.com',
 		);
 
+
 	public function init() {
 
 		$this->name   = esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' );
 		add_action( 'et_fb_enqueue_assets', array( $this, 'enqueue_scripts' ), 99 );
+
+		$this->settings_modal_toggles = array(
+			'general' => array(
+				'toggles' => array(
+					'main_content' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
+				),
+			),
+		);
+
+		$this->advanced_fields = array(
+			'text'              => false,
+			'borders'           => false,
+			'max_width'         => false,
+			'margin_padding'    => false,
+			'button'            => false,
+			'link_options'      => false,
+			'module-text'       => false,
+			'filters'           => false,
+			'animation'         => false,
+			'hover_transitions' => false
+		);
 	}
 
 	public function get_fields() {
