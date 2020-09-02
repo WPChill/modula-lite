@@ -27,6 +27,8 @@ class Modula {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		add_action( 'divi_extensions_init', array( $this,'initialize_divi_extension') );
+
 	}
 
 	private function load_dependencies() {
@@ -70,6 +72,13 @@ class Modula {
 
 		}
 
+	}
+
+	/**
+	 * Add Modula Gallery Divi block
+	 */
+	public function initialize_divi_extension(){
+		require_once MODULA_PATH . 'includes/divi-builder/class-modula-divi-extension.php';
 	}
 
 	public function set_locale() {
