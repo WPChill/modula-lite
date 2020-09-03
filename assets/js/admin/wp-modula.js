@@ -136,16 +136,18 @@ jQuery( document ).ready( function( $ ){
 	})
 
 	/** Remember last tab on update */
-	let modulaTabHash = '.' + window.location.hash.split( '#' )[1];
-	
-	$( '.modula-tabs' ).find( '.active-tab' ).removeClass( 'active-tab' );
-	$( '.modula-tabs' ).find( modulaTabHash ).addClass( 'active-tab' );
-
-	let postAction = $( "#post" ).attr('action');
-		if( postAction ) {
-			postAction = postAction.split( '#' )[0];
-			$( '#post' ).attr( 'action', postAction + window.location.hash );
-		}	
+	if( window.location.hash.length != 0 ) {
+		var modulaTabHash = window.location.hash.split( '#!' )[1];
+		$( '.modula-tabs' ).find( '.active-tab' ).removeClass( 'active-tab' );
+		$( '.modula-tabs' ).find( '.' + modulaTabHash ).addClass( 'active-tab' );
+		$( '.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
+		$( '#' + modulaTabHash ).addClass( 'active-tab');
+		let postAction = $( "#post" ).attr('action');
+			if( postAction ) {
+				postAction = postAction.split( '#' )[0];
+				$( '#post' ).attr( 'action', postAction + window.location.hash );
+			}
+	}
 	
 	$( '.modula-tabs' ).on( 'click', '.modula-tab', function( e ) {
 		e.stopPropagation();
@@ -155,14 +157,17 @@ jQuery( document ).ready( function( $ ){
 		}
 		$( '.modula-tabs' ).find( '.active-tab' ).removeClass( 'active-tab' );
 		$( this ).addClass( 'active-tab' );
+		$( '.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
+		$( '#' + modulaTab ).addClass( 'active-tab');
 
-		window.location.hash = modulaTab.split( '#' ).join( '#!' );
+		window.location.hash = '#!' + modulaTab;
 		
 		let postAction = $( "#post" ).attr( 'action' );
 		if( postAction ) {
 			postAction = postAction.split( '#' )[0];
 			$( '#post' ).attr( 'action', postAction + window.location.hash );
-		}	
+		}
 		
 	})
+
 });
