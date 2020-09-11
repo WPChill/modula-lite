@@ -1,21 +1,21 @@
-body .modula .modula-items .modula-item {
+html body .modula .modula-items .modula-item {
     position: absolute;
     overflow: hidden;
     box-sizing: border-box;
 }
 
-body .modula .modula-items .modula-item .modula-item-content {
+html body .modula .modula-items .modula-item .modula-item-content {
     transition: transform .3s ease-out, opacity .2s linear, top .3s, left .6s;
     opacity: 0;
 }
 
-body .modula .modula-items {
+html body .modula .modula-items {
     position: relative;
     z-index: 1;
     min-height: 10px;
 }
 
-body .modula .modula-items .modula-item .modula-item-content > a {
+html body .modula .modula-items .modula-item .modula-item-content > a {
     display: block;
     position: absolute;
     top: 0;
@@ -26,24 +26,24 @@ body .modula .modula-items .modula-item .modula-item-content > a {
     background: transparent;
 }
 
-body .modula.modula-creative-gallery .modula-items .modula-item .modula-item-content,
-body .modula.modula-custom-grid .modula-items .modula-item .modula-item-content {
+html body .modula.modula-creative-gallery .modula-items .modula-item .modula-item-content,
+html body .modula.modula-custom-grid .modula-items .modula-item .modula-item-content {
     height: 100%;
 }
 
-body .modula .modula-items .modula-item .jtg-social {
+html body .modula .modula-items .modula-item .jtg-social {
     z-index: 10;
     font-size: 0;
 }
 
-body .modula:not(.modula-loaded-scale) .modula-items .modula-item.tg-loaded .modula-item-content,
-body .modula:not(.modula-loaded-scale) .modula-items.justified-gallery .modula-item .modula-item-content,
-body .modula.modula-columns:not(.modula-loaded-scale) .modula-items .modula-item .modula-item-content {
+html body .modula:not(.modula-loaded-scale) .modula-items .modula-item.tg-loaded .modula-item-content,
+html body .modula:not(.modula-loaded-scale) .modula-items.justified-gallery .modula-item .modula-item-content,
+html body .modula.modula-columns:not(.modula-loaded-scale) .modula-items .modula-item .modula-item-content {
     transform: scale(1) translate(0, 0) rotate(0deg) !important;
     opacity: 1;
 }
 
-body .modula .modula-items .modula-item img.pic {
+html body .modula .modula-items .modula-item img.pic {
     font-size: 12px;
     position: absolute;
     /*display: none;*/
@@ -52,24 +52,24 @@ body .modula .modula-items .modula-item img.pic {
     transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
-body .modula.modula-columns .modula-items .modula-item img.pic {
+html body .modula.modula-columns .modula-items .modula-item img.pic {
     position: relative;
     max-width: 100%;
     margin: 0 auto;
 }
 
-body .modula .modula-items .modula-item.tg-loaded img.pic,
-body .modula.modula-columns .modula-items .modula-item img.pic {
+html body .modula .modula-items .modula-item.tg-loaded img.pic,
+html body .modula.modula-columns .modula-items .modula-item img.pic {
     display: block;
     opacity: 1;
 }
 
-body .modula .modula-items .modula-item img.pic.lazyloaded,
-body .modula .modula-items .modula-item img.pic.lazyload {
+html body .modula .modula-items .modula-item img.pic.lazyloaded,
+html body .modula .modula-items .modula-item img.pic.lazyload {
     display: block;
 }
 
-body .modula .modula-items .modula-item .caption .icon {
+html body .modula .modula-items .modula-item .caption .icon {
     font-size: 14px;
     position: absolute;
     left: 50%;
@@ -77,7 +77,7 @@ body .modula .modula-items .modula-item .caption .icon {
     margin: -12px 0 0 -8px;
 }
 
-body .modula .modula-items .modula-item .figc {
+html body .modula .modula-items .modula-item .figc {
     color: #fff;
     text-align: center;
     position: absolute;
@@ -88,32 +88,32 @@ body .modula .modula-items .modula-item .figc {
 }
 
 
-body .modula .modula-items .hidden .figc {
+html body .modula .modula-items .hidden .figc {
     display: none;
 }
 
-body .modula .modula-items .hidden:hover .figc {
+html body .modula .modula-items .hidden:hover .figc {
     display: block;
 }
 
-body .modula .modula-items .visible .figc {
+html body .modula .modula-items .visible .figc {
     display: block;
 }
 
-body .modula .modula-items .always-visible .figc {
+html body .modula .modula-items .always-visible .figc {
     display: block;
 }
 
-body .modula .modula-items .visible:hover .figc {
+html body .modula .modula-items .visible:hover .figc {
     display: none;
 }
 
-body .modula .modula-items .caption span.text {
+html body .modula .modula-items .caption span.text {
     display: block;
     padding: 10px;
 }
 
-body .modula .modula-items .caption span.title {
+html body .modula .modula-items .caption span.title {
     font-size: 14px;
     font-weight: bold;
 }
@@ -121,18 +121,18 @@ body .modula .modula-items .caption span.title {
 /**
 Modula Filters
  */
-body .modula .filters {
+html body .modula .filters {
     margin: 20px 0 20px 0;
 }
 
-body .modula .filters.vertical-filters {
+html body .modula .filters.vertical-filters {
     margin-top: 0;
     width: 20%;
     float: left;
 }
 
 
-body .modula .filters a {
+html body .modula .filters a {
     text-decoration: none;
     display: inline-block;
     /*margin:0 10px 0 0;*/
@@ -141,51 +141,51 @@ body .modula .filters a {
     transition: 350ms ease-in;
 }
 
-body .modula .filters.menu--dfefault a {
+html body .modula .filters.menu--dfefault a {
     border-bottom: 2px solid transparent;
 }
 
-body .modula .filters.colored a {
+html body .modula .filters.colored a {
     border: 0;
     color: #fff;
 }
 
-body .modula .filters:not(.styled-menu) a:hover,
-body .modula .filters:not(.styled-menu) a.selected {
+html body .modula .filters:not(.styled-menu) a:hover,
+html body .modula .filters:not(.styled-menu) a.selected {
     border-bottom-color: #333;
     border-bottom: 1px solid;
 }
 
-/*body .modula .modula-item {
-	width: 100%;
+/*html body .modula .modula-item {
+    width: 100%;
 }*/
-body .modula.vertical-filters .modula-items {
+html body .modula.vertical-filters .modula-items {
     width: 80%;
     float: left;
 }
 
-body .modula:after {
+html body .modula:after {
     content: "";
     display: block;
     clear: both;
 }
 
-body .modula.vertical-filters .filters {
+html body .modula.vertical-filters .filters {
     width: 20%;
     float: left;
 }
 
-body .modula .filters.vertical-filters.both-vertical + .modula-items {
+html body .modula .filters.vertical-filters.both-vertical + .modula-items {
     width: 60%;
     float: left;
 }
 
-body .modula .filters.vertical-filters a {
+html body .modula .filters.vertical-filters a {
     display: block;
     margin-bottom: 15px;
 }
 
-body .modula .filters.vertical-filters.colored a {
+html body .modula .filters.vertical-filters.colored a {
     border-radius: 5px;
     text-align: center;
     background: #fff;
@@ -193,14 +193,14 @@ body .modula .filters.vertical-filters.colored a {
     color: #3498db;
 }
 
-body .modula .filters.vertical-filters.colored a:hover,
-body .modula .filters.vertical-filters.colored a.selected {
+html body .modula .filters.vertical-filters.colored a:hover,
+html body .modula .filters.vertical-filters.colored a.selected {
     background: #fff;
     color: #8e44ad;
     border-color: #8e44ad;
 }
 
-body .modula .filters.horizontal-filters.colored a {
+html body .modula .filters.horizontal-filters.colored a {
     display: inline-block;
     padding: 0 30px;
     margin-right: 2px;
@@ -209,12 +209,12 @@ body .modula .filters.horizontal-filters.colored a {
     border: 0px;
 }
 
-body .modula .filters.horizontal-filters.colored a:hover,
-body .modula .filters.horizontal-filters.colored a.selected {
+html body .modula .filters.horizontal-filters.colored a:hover,
+html body .modula .filters.horizontal-filters.colored a.selected {
     background: #8e44ad;
 }
 
-body .modula .filters.horizontal-filters.colored a:before {
+html body .modula .filters.horizontal-filters.colored a:before {
     position: absolute;
     content: '';
     left: 0;
@@ -234,7 +234,7 @@ body .modula .filters.horizontal-filters.colored a:before {
     transition: .4s;
 }
 
-body .modula .filters.horizontal-filters.colored a:after {
+html body .modula .filters.horizontal-filters.colored a:after {
     position: absolute;
     content: '';
     right: 0;
@@ -254,17 +254,17 @@ body .modula .filters.horizontal-filters.colored a:after {
     transition: .4s;
 }
 
-body .filter-by-wrapper {
+html body .filter-by-wrapper {
     text-align: center;
     margin-bottom: 25px;
     text-transform: uppercase;
 }
 
-body .filter-by-wrapper span {
+html body .filter-by-wrapper span {
     cursor: pointer;
 }
 
-body .filter-by-wrapper span:after {
+html body .filter-by-wrapper span:after {
     content: "";
     margin-left: 15px;
     width: 0;
@@ -275,7 +275,7 @@ body .filter-by-wrapper span:after {
     display: inline-block;
 }
 
-body .filter-by-wrapper.opened span:after {
+html body .filter-by-wrapper.opened span:after {
     content: "";
     width: 0;
     height: 0;
@@ -285,38 +285,38 @@ body .filter-by-wrapper.opened span:after {
     display: inline-block;
 }
 
-body .modula .filters.vertical-filters a {
+html body .modula .filters.vertical-filters a {
     margin-bottom: 0;
 }
 
-body .menu__list li.menu__item {
+html body .menu__list li.menu__item {
     margin: 15px;
 }
 
 @media all and (min-width: 1025px) {
-    body .filter-by-wrapper {
+    html body .filter-by-wrapper {
         display: none !important;
     }
 
-    body .modula-gallery .filters {
+    html body .modula-gallery .filters {
         display: block !important;
     }
 }
 
 @media all and (max-width: 1024px) {
 
-    body .modula.vertical-filters .filters,
-    body .modula.vertical-filters .modula-items,
-    body .modula .filters.vertical-filters.both-vertical + .modula-items {
+    html body .modula.vertical-filters .filters,
+    html body .modula.vertical-filters .modula-items,
+    html body .modula .filters.vertical-filters.both-vertical + .modula-items {
         width: 100% !important;
         float: none;
     }
 
-    body .menu__list {
+    html body .menu__list {
         padding: 0px;
     }
 
-    body .menu__list li.menu__item {
+    html body .menu__list li.menu__item {
         margin: 0;
     }
 
@@ -325,25 +325,25 @@ body .menu__list li.menu__item {
 /**
  End Modula Filters
  */
-body .modula .jtg-social a {
+html body .modula .jtg-social a {
     box-shadow: none;
 }
 
-body .modula .jtg-social svg {
+html body .modula .jtg-social svg {
     width: 20px;
     height: 16px;
 }
 
-body .modula .modula-items .modula-item .jtg-title {
+html body .modula .modula-items .modula-item .jtg-title {
     margin: 0;
 }
 
-body .modula .modula-items .modula-item p {
+html body .modula .modula-items .modula-item p {
     margin: 0;
     padding: 0;
 }
 
-body .modula .figc {
+html body .modula .figc {
     color: black;
     text-align: center;
     position: absolute;
@@ -352,7 +352,7 @@ body .modula .figc {
     padding: 2em;
 }
 
-body .modula .modula-item .jtg-social a {
+html body .modula .modula-item .jtg-social a {
     text-decoration: none;
     color: #fff;
     display: inline-block;
@@ -363,14 +363,14 @@ body .modula .modula-item .jtg-social a {
     transition: opacity .3s;
 }
 
-body .modula .modula-item:hover .jtg-social a {
+html body .modula .modula-item:hover .jtg-social a {
     opacity: 1;
 }
 
 /*---------------*/
 /***** pufrobo *****/
 /*---------------*/
-body .modula .modula-items .jtg-social {
+html body .modula .modula-items .jtg-social {
     opacity: 0;
     transition: opacity 0.1s;
     right: 30px;
@@ -380,38 +380,38 @@ body .modula .modula-items .jtg-social {
     transition: all .3s;
 }
 
-body .modula .modula-items .jtg-social {
+html body .modula .modula-items .jtg-social {
     opacity: 1;
 }
 
-body .modula .modula-items .jtg-social a:last-of-type {
+html body .modula .modula-items .jtg-social a:last-of-type {
     margin-right: 0;
 }
 
-body .modula .modula-item.effect-pufrobo p.description {
+html body .modula .modula-item.effect-pufrobo p.description {
     margin-bottom: 2em;
 }
 
-body .modula .modula-item.effect-pufrobo .figc {
+html body .modula .modula-item.effect-pufrobo .figc {
     text-align: right;
 }
 
-body .modula .modula-item.effect-pufrobo .jtg-title,
-body .modula .modula-item.effect-pufrobo p {
+html body .modula .modula-item.effect-pufrobo .jtg-title,
+html body .modula .modula-item.effect-pufrobo p {
     position: absolute;
     right: 30px;
     left: 30px;
     padding: 10px 0;
 }
 
-body .modula .modula-item:hover img,
-body .modula .modula-items .modula-item.tg-loaded:hover img.pic {
+html body .modula .modula-item:hover img,
+html body .modula .modula-items .modula-item.tg-loaded:hover img.pic {
     opacity: .8
 }
 
 /*.modula .modula-item { background-color:#000; }*/
 
-body .modula .modula-item.effect-pufrobo p {
+html body .modula .modula-item.effect-pufrobo p {
     bottom: 20%;
     line-height: 1.5;
     -webkit-transform: translate3d(0, 100%, 0);
@@ -419,7 +419,7 @@ body .modula .modula-item.effect-pufrobo p {
     letter-spacing: 1px;
 }
 
-body .modula .modula-item.effect-pufrobo .jtg-title {
+html body .modula .modula-item.effect-pufrobo .jtg-title {
     /*top: 30px;*/
     top: 10%;
     -webkit-transition: -webkit-transform 0.35s;
@@ -428,12 +428,12 @@ body .modula .modula-item.effect-pufrobo .jtg-title {
     transform: translate3d(0, 20px, 0);
 }
 
-body .modula .modula-item.effect-pufrobo:hover .jtg-title {
+html body .modula .modula-item.effect-pufrobo:hover .jtg-title {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
 
-body .modula .modula-item.effect-pufrobo .jtg-title::after {
+html body .modula .modula-item.effect-pufrobo .jtg-title::after {
     position: absolute;
     top: 80%;
     left: 0;
@@ -445,15 +445,15 @@ body .modula .modula-item.effect-pufrobo .jtg-title::after {
     transform: translate3d(0, 40px, 0);
 }
 
-body .modula .modula-item.effect-pufrobo .jtg-title::after,
-body .modula .modula-item.effect-pufrobo p {
+html body .modula .modula-item.effect-pufrobo .jtg-title::after,
+html body .modula .modula-item.effect-pufrobo p {
     opacity: 0;
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
 }
 
-body .modula .modula-item.effect-pufrobo:hover .jtg-title::after,
-body .modula .modula-item.effect-pufrobo:hover p {
+html body .modula .modula-item.effect-pufrobo:hover .jtg-title::after,
+html body .modula .modula-item.effect-pufrobo:hover p {
     margin-top: 10px;
     margin-bottom: 5px;
     opacity: 1;
@@ -461,26 +461,26 @@ body .modula .modula-item.effect-pufrobo:hover p {
     transform: translate3d(0, 0, 0);
 }
 
-body .modula .modula-items .modula-item.effect-pufrobo .figc.no-title.no-description .jtg-title:after {
+html body .modula .modula-items .modula-item.effect-pufrobo .figc.no-title.no-description .jtg-title:after {
     display: none;
 }
 
 /* TwnetyNintheen fix */
-body .modula .modula-items .modula-item.effect-fluid-up .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-hide .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-quiet .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-reflex .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-curtain .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-lens .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-appear .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-crafty .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-seemo .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-comodo .figc .jtg-title:before,
-body .modula .modula-items .modula-item.effect-pufrobo .figc .jtg-title:before {
+html body .modula .modula-items .modula-item.effect-fluid-up .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-hide .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-quiet .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-reflex .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-curtain .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-lens .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-appear .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-crafty .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-seemo .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-comodo .figc .jtg-title:before,
+html body .modula .modula-items .modula-item.effect-pufrobo .figc .jtg-title:before {
     display: none;
 }
 
-body .modula .modula-items .modula-item > a {
+html body .modula .modula-items .modula-item > a {
     cursor: zoom-in;
 }
 
@@ -488,37 +488,37 @@ body .modula .modula-items .modula-item > a {
 /**
 Fix for admin bar overfloating
  */
-body .modula-fancybox-container.modula-fancybox-is-open {
+html body .modula-fancybox-container.modula-fancybox-is-open {
     z-index: 99999999;
 }
 
-body .modula-fancybox-share__button--li {
+html body .modula-fancybox-share__button--li {
     background: #0e76a8;
 }
 
-body .modula-fancybox-share__button--wa {
+html body .modula-fancybox-share__button--wa {
     background: #25D366;
 }
 
 /* New CSS */
-body .modula.modula-columns .modula-item {
+html body .modula.modula-columns .modula-item {
     display: flex;
     justify-content: center;
 }
 
-body .modula.modula-columns .modula-item .modula-item-content {
+html body .modula.modula-columns .modula-item .modula-item-content {
     position: relative;
 }
 
-body .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
+html body .modula.modula-columns .modula-items.grid-gallery .modula-item .modula-item-content {
     height: 100%;
 }
 
-body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content {
+html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content {
     width: 100%;
 }
 
-body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {
+html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -527,13 +527,13 @@ body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula
     border: none;
 }
 
-body .modula.modula-columns .modula-item.jg-filtered {
+html body .modula.modula-columns .modula-item.jg-filtered {
     display: none;
 }
 
 /* Modula Grid */
 /*  Rows CSS */
-body .modula-row {
+html body .modula-row {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -542,74 +542,74 @@ body .modula-row {
     margin-left: -15px;
 }
 
-body .modula-row-cols-1 > * {
+html body .modula-row-cols-1 > * {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%
 }
 
-body .modula-row-cols-2 > * {
+html body .modula-row-cols-2 > * {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%
 }
 
-body .modula-row-cols-3 > * {
+html body .modula-row-cols-3 > * {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
     max-width: 33.333333%
 }
 
-body .modula-row-cols-4 > * {
+html body .modula-row-cols-4 > * {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%
 }
 
-body .modula-row-cols-5 > * {
+html body .modula-row-cols-5 > * {
     -ms-flex: 0 0 20%;
     flex: 0 0 20%;
     max-width: 20%
 }
 
-body .modula-row-cols-6 > * {
+html body .modula-row-cols-6 > * {
     -ms-flex: 0 0 16.666667%;
     flex: 0 0 16.666667%;
     max-width: 16.666667%
 }
 
 @media (min-width: 576px) {
-    body .modula-row-cols-sm-1 > * {
+    html body .modula-row-cols-sm-1 > * {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    body .modula-row-cols-sm-2 > * {
+    html body .modula-row-cols-sm-2 > * {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    body .modula-row-cols-sm-3 > * {
+    html body .modula-row-cols-sm-3 > * {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    body .modula-row-cols-sm-4 > * {
+    html body .modula-row-cols-sm-4 > * {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    body  .modula-row-cols-sm-5 > * {
+    html body  .modula-row-cols-sm-5 > * {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    body .modula-row-cols-sm-6 > * {
+    html body .modula-row-cols-sm-6 > * {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -617,37 +617,37 @@ body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 768px) {
-    body .modula-row-cols-md-1 > * {
+    html body .modula-row-cols-md-1 > * {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    body .modula-row-cols-md-2 > * {
+    html body .modula-row-cols-md-2 > * {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    body .modula-row-cols-md-3 > * {
+    html body .modula-row-cols-md-3 > * {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    body .modula-row-cols-md-4 > * {
+    html body .modula-row-cols-md-4 > * {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    body  .modula-row-cols-md-5 > * {
+    html body  .modula-row-cols-md-5 > * {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    body .modula-row-cols-md-6 > * {
+    html body .modula-row-cols-md-6 > * {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -656,37 +656,37 @@ body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 992px) {
-    body .modula-row-cols-lg-1 > * {
+    html body .modula-row-cols-lg-1 > * {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    body .modula-row-cols-lg-2 > * {
+    html body .modula-row-cols-lg-2 > * {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    body .modula-row-cols-lg-3 > * {
+    html body .modula-row-cols-lg-3 > * {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    body .modula-row-cols-lg-4 > * {
+    html body .modula-row-cols-lg-4 > * {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    body .modula-row-cols-lg-5 > * {
+    html body .modula-row-cols-lg-5 > * {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    body .modula-row-cols-lg-6 > * {
+    html body .modula-row-cols-lg-6 > * {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -694,65 +694,65 @@ body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 1200px) {
-    body .modula-row-cols-xl-1 > * {
+    html body .modula-row-cols-xl-1 > * {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    body  .modula-row-cols-xl-2 > * {
+    html body  .modula-row-cols-xl-2 > * {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    body  .modula-row-cols-xl-3 > * {
+    html body  .modula-row-cols-xl-3 > * {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    body .modula-row-cols-xl-4 > * {
+    html body .modula-row-cols-xl-4 > * {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    body .modula-row-cols-xl-5 > * {
+    html body .modula-row-cols-xl-5 > * {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    body .modula-row-cols-xl-6 > * {
+    html body .modula-row-cols-xl-6 > * {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
     }
 }
 
-body .modula .modula-items.grid-gallery .modula-item .figc {
+html body .modula .modula-items.grid-gallery .modula-item .figc {
     height: 100%;
     top: 0;
 }
 
-body div.modula-powered {
+html body div.modula-powered {
     text-align: right;
     font-size: 14px;
     margin-right: 5px;
 }
 
-body div.modula-powered svg.modula-logo {
+html body div.modula-powered svg.modula-logo {
     width: 14px;
     position: relative;
     top: 3px;
 }
 
-body div.modula-powered svg.modula-logo path {
+html body div.modula-powered svg.modula-logo path {
     color: #58ab7e !important;
 
 }
 
-body div.modula-powered svg.modula-logo {
+html body div.modula-powered svg.modula-logo {
     display: inline-block;
 }

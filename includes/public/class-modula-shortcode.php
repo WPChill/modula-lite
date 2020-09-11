@@ -26,6 +26,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
 		add_action( 'modula_shortcode_after_items', array( $this, 'powered_by_modula'), 90);
+		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
 		// Add js scripts
 		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );

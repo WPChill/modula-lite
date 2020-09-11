@@ -1,12 +1,12 @@
-body .compensate-for-scrollbar {
+html body .compensate-for-scrollbar {
     overflow: hidden;
 }
 
-body .modula-fancybox-active {
+html body .modula-fancybox-active {
     height: auto;
 }
 
-body .modula-fancybox-is-hidden {
+html body .modula-fancybox-is-hidden {
     left: -9999px;
     margin: 0;
     position: absolute !important;
@@ -14,7 +14,7 @@ body .modula-fancybox-is-hidden {
     visibility: hidden;
 }
 
-body .modula-fancybox-container {
+html body .modula-fancybox-container {
     -webkit-backface-visibility: hidden;
     height: 100%;
     left: 0;
@@ -29,14 +29,14 @@ body .modula-fancybox-container {
     z-index: 99992;
 }
 
-body .modula-fancybox-container * {
+html body .modula-fancybox-container * {
     box-sizing: border-box;
 }
 
-body .modula-fancybox-outer,
-body .modula-fancybox-inner,
-body .modula-fancybox-bg,
-body .modula-fancybox-stage {
+html body .modula-fancybox-outer,
+html body .modula-fancybox-inner,
+html body .modula-fancybox-bg,
+html body .modula-fancybox-stage {
     bottom: 0;
     left: 0;
     position: absolute;
@@ -44,12 +44,12 @@ body .modula-fancybox-stage {
     top: 0;
 }
 
-body .modula-fancybox-outer {
+html body .modula-fancybox-outer {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
 }
 
-body .modula-fancybox-bg {
+html body .modula-fancybox-bg {
     background: rgb(30, 30, 30);
     opacity: 0;
     transition-duration: inherit;
@@ -57,15 +57,15 @@ body .modula-fancybox-bg {
     transition-timing-function: cubic-bezier(.47, 0, .74, .71);
 }
 
-body .modula-fancybox-is-open .modula-fancybox-bg {
+html body .modula-fancybox-is-open .modula-fancybox-bg {
     opacity: .9;
     transition-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
 
-body .modula-fancybox-container .modula-fancybox-infobar,
-body .modula-fancybox-container .modula-fancybox-toolbar,
-body .modula-fancybox-container .modula-fancybox-caption,
-body .modula-fancybox-container .modula-fancybox-navigation .modula-fancybox-button {
+html body .modula-fancybox-container .modula-fancybox-infobar,
+html body .modula-fancybox-container .modula-fancybox-toolbar,
+html body .modula-fancybox-container .modula-fancybox-caption,
+html body .modula-fancybox-container .modula-fancybox-navigation .modula-fancybox-button {
     direction: ltr;
     opacity: 0;
     position: absolute;
@@ -74,16 +74,16 @@ body .modula-fancybox-container .modula-fancybox-navigation .modula-fancybox-but
     z-index: 99997;
 }
 
-body .modula-fancybox-show-infobar .modula-fancybox-infobar,
-body .modula-fancybox-show-toolbar .modula-fancybox-toolbar,
-body .modula-fancybox-show-caption .modula-fancybox-caption,
-body .modula-fancybox-show-nav .modula-fancybox-navigation .modula-fancybox-button {
+html body .modula-fancybox-show-infobar .modula-fancybox-infobar,
+html body .modula-fancybox-show-toolbar .modula-fancybox-toolbar,
+html body .modula-fancybox-show-caption .modula-fancybox-caption,
+html body .modula-fancybox-show-nav .modula-fancybox-navigation .modula-fancybox-button {
     opacity: 1;
     transition: opacity .25s ease 0s, visibility 0s ease 0s;
     visibility: visible;
 }
 
-body .modula-fancybox-container .modula-fancybox-infobar {
+html body .modula-fancybox-container .modula-fancybox-infobar {
     color: #ccc;
     font-size: 13px;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -102,23 +102,23 @@ body .modula-fancybox-container .modula-fancybox-infobar {
     user-select: none;
 }
 
-body .modula-fancybox-container .modula-fancybox-toolbar {
+html body .modula-fancybox-container .modula-fancybox-toolbar {
     right: 0;
     top: 0;
 }
 
-body .modula-fancybox-stage {
+html body .modula-fancybox-stage {
     direction: ltr;
     overflow: visible;
     transform: translateZ(0);
     z-index: 99994;
 }
 
-body .modula-fancybox-is-open .modula-fancybox-stage {
+html body .modula-fancybox-is-open .modula-fancybox-stage {
     overflow: hidden;
 }
 
-body .modula-fancybox-slide {
+html body .modula-fancybox-slide {
     -webkit-backface-visibility: hidden;
     /* Using without prefix would break IE11 */
     display: none;
@@ -137,7 +137,7 @@ body .modula-fancybox-slide {
     z-index: 99994;
 }
 
-body .modula-fancybox-slide::before {
+html body .modula-fancybox-slide::before {
     content: '';
     display: inline-block;
     font-size: 0;
@@ -146,27 +146,27 @@ body .modula-fancybox-slide::before {
     width: 0;
 }
 
-body .modula-fancybox-is-sliding .modula-fancybox-slide,
-body .modula-fancybox-slide--previous,
-body .modula-fancybox-slide--current,
-body .modula-fancybox-slide--next {
+html body .modula-fancybox-is-sliding .modula-fancybox-slide,
+html body .modula-fancybox-slide--previous,
+html body .modula-fancybox-slide--current,
+html body .modula-fancybox-slide--next {
     display: block;
 }
 
-body .modula-fancybox-slide--image {
+html body .modula-fancybox-slide--image {
     overflow: hidden;
     padding: 44px 0;
 }
 
-body .modula-fancybox-slide--image::before {
+html body .modula-fancybox-slide--image::before {
     display: none;
 }
 
-body .modula-fancybox-slide--html {
+html body .modula-fancybox-slide--html {
     padding: 6px;
 }
 
-body .modula-fancybox-content {
+html body .modula-fancybox-content {
     background: #fff;
     display: inline-block;
     margin: 0;
@@ -179,7 +179,7 @@ body .modula-fancybox-content {
     vertical-align: middle;
 }
 
-body .modula-fancybox-slide--image .modula-fancybox-content {
+html body .modula-fancybox-slide--image .modula-fancybox-content {
     animation-timing-function: cubic-bezier(.5, 0, .14, 1);
     -webkit-backface-visibility: hidden;
     background: transparent;
@@ -201,31 +201,31 @@ body .modula-fancybox-slide--image .modula-fancybox-content {
     z-index: 99995;
 }
 
-body .modula-fancybox-can-zoomOut .modula-fancybox-content {
+html body .modula-fancybox-can-zoomOut .modula-fancybox-content {
     cursor: zoom-out;
 }
 
-body .modula-fancybox-can-zoomIn .modula-fancybox-content {
+html body .modula-fancybox-can-zoomIn .modula-fancybox-content {
     cursor: zoom-in;
 }
 
-body .modula-fancybox-can-swipe .modula-fancybox-content,
-body .modula-fancybox-can-pan .modula-fancybox-content {
+html body .modula-fancybox-can-swipe .modula-fancybox-content,
+html body .modula-fancybox-can-pan .modula-fancybox-content {
     cursor: -webkit-grab;
     cursor: grab;
 }
 
-body .modula-fancybox-is-grabbing .modula-fancybox-content {
+html body .modula-fancybox-is-grabbing .modula-fancybox-content {
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
-body .modula-fancybox-container [data-selectable='true'] {
+html body .modula-fancybox-container [data-selectable='true'] {
     cursor: text;
 }
 
-body .modula-fancybox-image,
-body .modula-fancybox-spaceball {
+html body .modula-fancybox-image,
+html body .modula-fancybox-spaceball {
     background: transparent;
     border: 0;
     height: 100%;
@@ -243,34 +243,34 @@ body .modula-fancybox-spaceball {
     width: 100%;
 }
 
-body .modula-fancybox-spaceball {
+html body .modula-fancybox-spaceball {
     z-index: 1;
 }
 
-body .modula-fancybox-slide--video .modula-fancybox-content,
-body .modula-fancybox-slide--map .modula-fancybox-content,
-body .modula-fancybox-slide--pdf .modula-fancybox-content,
-body .modula-fancybox-slide--iframe .modula-fancybox-content {
+html body .modula-fancybox-slide--video .modula-fancybox-content,
+html body .modula-fancybox-slide--map .modula-fancybox-content,
+html body .modula-fancybox-slide--pdf .modula-fancybox-content,
+html body .modula-fancybox-slide--iframe .modula-fancybox-content {
     height: 100%;
     overflow: visible;
     padding: 0;
     width: 100%;
 }
 
-body .modula-fancybox-slide--video .modula-fancybox-content {
+html body .modula-fancybox-slide--video .modula-fancybox-content {
     background: #000;
 }
 
-body .modula-fancybox-slide--map .modula-fancybox-content {
+html body .modula-fancybox-slide--map .modula-fancybox-content {
     background: #e5e3df;
 }
 
-body .modula-fancybox-slide--iframe .modula-fancybox-content {
+html body .modula-fancybox-slide--iframe .modula-fancybox-content {
     background: #fff;
 }
 
-body .modula-fancybox-video,
-body .modula-fancybox-iframe {
+html body .modula-fancybox-video,
+html body .modula-fancybox-iframe {
     background: transparent;
     border: 0;
     display: block;
@@ -282,13 +282,13 @@ body .modula-fancybox-iframe {
 }
 
 /* Fix iOS */
-body .modula-fancybox-iframe {
+html body .modula-fancybox-iframe {
     left: 0;
     position: absolute;
     top: 0;
 }
 
-body .modula-fancybox-error {
+html body .modula-fancybox-error {
     background: #fff;
     cursor: default;
     max-width: 400px;
@@ -296,7 +296,7 @@ body .modula-fancybox-error {
     width: 100%;
 }
 
-body .modula-fancybox-error p {
+html body .modula-fancybox-error p {
     color: #444;
     font-size: 16px;
     line-height: 20px;
@@ -306,7 +306,7 @@ body .modula-fancybox-error p {
 
 /* Buttons */
 
-body .modula-fancybox-container .modula-fancybox-button {
+html body .modula-fancybox-container .modula-fancybox-button {
     background: rgba(30, 30, 30, .6);
     border: 0;
     border-radius: 0;
@@ -323,38 +323,38 @@ body .modula-fancybox-container .modula-fancybox-button {
     width: 44px;
 }
 
-body .modula-fancybox-container .modula-fancybox-button,
-body .modula-fancybox-container .modula-fancybox-button:visited,
-body .modula-fancybox-container .modula-fancybox-button:link {
+html body .modula-fancybox-container .modula-fancybox-button,
+html body .modula-fancybox-container .modula-fancybox-button:visited,
+html body .modula-fancybox-container .modula-fancybox-button:link {
     color: #ccc;
 }
 
-body .modula-fancybox-container .modula-fancybox-button:hover {
+html body .modula-fancybox-container .modula-fancybox-button:hover {
     color: #fff;
     box-shadow:none;
 }
 
-body .modula-fancybox-container .modula-fancybox-button:focus {
+html body .modula-fancybox-container .modula-fancybox-button:focus {
     outline: none;
 }
 
-body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-focus {
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-focus {
     outline: 1px dotted;
 }
 
-body .modula-fancybox-container .modula-fancybox-button[disabled],
-body .modula-fancybox-container .modula-fancybox-button[disabled]:hover {
+html body .modula-fancybox-container .modula-fancybox-button[disabled],
+html body .modula-fancybox-container .modula-fancybox-button[disabled]:hover {
     color: #888;
     cursor: default;
     outline: none;
 }
 
 /* Fix IE11 */
-body .modula-fancybox-container .modula-fancybox-button div {
+html body .modula-fancybox-container .modula-fancybox-button div {
     height: 100%;
 }
 
-body .modula-fancybox-container .modula-fancybox-button svg {
+html body .modula-fancybox-container .modula-fancybox-button svg {
     display: block;
     height: 100%;
     overflow: visible;
@@ -362,22 +362,22 @@ body .modula-fancybox-container .modula-fancybox-button svg {
     width: 100%;
 }
 
-body .modula-fancybox-container .modula-fancybox-button svg path {
+html body .modula-fancybox-container .modula-fancybox-button svg path {
     fill: currentColor;
     stroke-width: 0;
 }
 
-body .modula-fancybox-container .modula-fancybox-button--play svg:nth-child(2),
-body .modula-fancybox-container .modula-fancybox-button--fsenter svg:nth-child(2) {
+html body .modula-fancybox-container .modula-fancybox-button--play svg:nth-child(2),
+html body .modula-fancybox-container .modula-fancybox-button--fsenter svg:nth-child(2) {
     display: none;
 }
 
-body .modula-fancybox-container .modula-fancybox-button--pause svg:nth-child(1),
-body .modula-fancybox-container .modula-fancybox-button--fsexit svg:nth-child(1) {
+html body .modula-fancybox-container .modula-fancybox-button--pause svg:nth-child(1),
+html body .modula-fancybox-container .modula-fancybox-button--fsexit svg:nth-child(1) {
     display: none;
 }
 
-body .modula-fancybox-container .modula-fancybox-progress {
+html body .modula-fancybox-container .modula-fancybox-progress {
     background: #ff5268;
     height: 2px;
     left: 0;
@@ -395,7 +395,7 @@ body .modula-fancybox-container .modula-fancybox-progress {
 
 /* Close button on the top right corner of html content */
 
-body .modula-fancybox-container .modula-fancybox-close-small {
+html body .modula-fancybox-container .modula-fancybox-close-small {
     background: transparent;
     border: 0;
     border-radius: 0;
@@ -409,12 +409,12 @@ body .modula-fancybox-container .modula-fancybox-close-small {
     z-index: 401;
 }
 
-body .modula-fancybox-container .modula-fancybox-close-small:hover {
+html body .modula-fancybox-container .modula-fancybox-close-small:hover {
     color: #fff;
     opacity: 1;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-slide--html .modula-fancybox-close-small {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-slide--html .modula-fancybox-close-small {
     color: #000;
     padding: 10px;
     right: 0;
@@ -422,18 +422,18 @@ body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-slide--h
     background-color:transparent;
 }
 
-body .modula-fancybox-slide--image.modula-fancybox-is-scaling .modula-fancybox-content {
+html body .modula-fancybox-slide--image.modula-fancybox-is-scaling .modula-fancybox-content {
     overflow: hidden;
 }
 
-body .modula-fancybox-is-scaling .modula-fancybox-close-small,
-body .modula-fancybox-is-zoomable.modula-fancybox-can-pan .modula-fancybox-close-small {
+html body .modula-fancybox-is-scaling .modula-fancybox-close-small,
+html body .modula-fancybox-is-zoomable.modula-fancybox-can-pan .modula-fancybox-close-small {
     display: none;
 }
 
 /* Navigation arrows */
 
-body .modula-fancybox-navigation .modula-fancybox-button {
+html body .modula-fancybox-navigation .modula-fancybox-button {
     background-clip: content-box;
     height: 100px;
     opacity: 0;
@@ -442,17 +442,17 @@ body .modula-fancybox-navigation .modula-fancybox-button {
     width: 70px;
 }
 
-body .modula-fancybox-navigation .modula-fancybox-button div {
+html body .modula-fancybox-navigation .modula-fancybox-button div {
     padding: 7px;
 }
 
-body .modula-fancybox-navigation .modula-fancybox-button--arrow_left {
+html body .modula-fancybox-navigation .modula-fancybox-button--arrow_left {
     left: 0;
     left: env(safe-area-inset-left);
     padding: 31px 26px 31px 6px;
 }
 
-body .modula-fancybox-navigation .modula-fancybox-button--arrow_right {
+html body .modula-fancybox-navigation .modula-fancybox-button--arrow_right {
     padding: 31px 6px 31px 26px;
     right: 0;
     right: env(safe-area-inset-right);
@@ -460,7 +460,7 @@ body .modula-fancybox-navigation .modula-fancybox-button--arrow_right {
 
 /* Caption */
 
-body .modula-fancybox-caption {
+html body .modula-fancybox-caption {
     background: linear-gradient(to top,
         rgba(0, 0, 0, .85) 0%,
         rgba(0, 0, 0, .3) 50%,
@@ -483,36 +483,36 @@ body .modula-fancybox-caption {
 }
 
 @supports (padding: max(0px)) {
-    body .modula-fancybox-caption {
+    html body .modula-fancybox-caption {
         padding: 75px max(44px, env(safe-area-inset-right)) max(25px, env(safe-area-inset-bottom)) max(44px, env(safe-area-inset-left));
     }
 }
 
-body .modula-fancybox-caption--separate {
+html body .modula-fancybox-caption--separate {
     margin-top: -50px;
 }
 
-body .modula-fancybox-caption__body {
+html body .modula-fancybox-caption__body {
     max-height: 50vh;
     overflow: auto;
     pointer-events: all;
 }
 
-body .modula-fancybox-caption a,
-body .modula-fancybox-caption a:link,
-body .modula-fancybox-caption a:visited {
+html body .modula-fancybox-caption a,
+html body .modula-fancybox-caption a:link,
+html body .modula-fancybox-caption a:visited {
     color: #ccc;
     text-decoration: none;
 }
 
-body .modula-fancybox-caption a:hover {
+html body .modula-fancybox-caption a:hover {
     color: #fff;
     text-decoration: underline;
 }
 
 /* Loading indicator */
 
-body .modula-fancybox-loading {
+html body .modula-fancybox-loading {
     animation: fancybox-rotate 1s linear infinite;
     background: transparent;
     border: 4px solid #888;
@@ -537,71 +537,71 @@ body .modula-fancybox-loading {
 
 /* Transition effects */
 
-body .modula-fancybox-animated {
+html body .modula-fancybox-animated {
     transition-timing-function: cubic-bezier(0, 0, .25, 1);
 }
 
 /* transitionEffect: slide */
 
-body .modula-fancybox-fx-slide.modula-fancybox-slide--previous {
+html body .modula-fancybox-fx-slide.modula-fancybox-slide--previous {
     opacity: 0;
     transform: translate3d(-100%, 0, 0);
 }
 
-body .modula-fancybox-fx-slide.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-slide.modula-fancybox-slide--next {
     opacity: 0;
     transform: translate3d(100%, 0, 0);
 }
 
-body .modula-fancybox-fx-slide.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-slide.modula-fancybox-slide--current {
     opacity: 1;
     transform: translate3d(0, 0, 0);
 }
 
 /* transitionEffect: fade */
 
-body .modula-fancybox-fx-fade.modula-fancybox-slide--previous,
-body .modula-fancybox-fx-fade.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-fade.modula-fancybox-slide--previous,
+html body .modula-fancybox-fx-fade.modula-fancybox-slide--next {
     opacity: 0;
     transition-timing-function: cubic-bezier(.19, 1, .22, 1);
 }
 
-body .modula-fancybox-fx-fade.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-fade.modula-fancybox-slide--current {
     opacity: 1;
 }
 
 /* transitionEffect: zoom-in-out */
 
-body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--previous {
+html body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--previous {
     opacity: 0;
     transform: scale3d(1.5, 1.5, 1.5);
 }
 
-body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--next {
     opacity: 0;
     transform: scale3d(.5, .5, .5);
 }
 
-body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-zoom-in-out.modula-fancybox-slide--current {
     opacity: 1;
     transform: scale3d(1, 1, 1);
 }
 
 /* transitionEffect: rotate */
 
-body .modula-fancybox-fx-rotate.modula-fancybox-slide--previous {
+html body .modula-fancybox-fx-rotate.modula-fancybox-slide--previous {
     opacity: 0;
     -ms-transform: rotate(-360deg);
     transform: rotate(-360deg);
 }
 
-body .modula-fancybox-fx-rotate.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-rotate.modula-fancybox-slide--next {
     opacity: 0;
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
 }
 
-body .modula-fancybox-fx-rotate.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-rotate.modula-fancybox-slide--current {
     opacity: 1;
     -ms-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -609,51 +609,51 @@ body .modula-fancybox-fx-rotate.modula-fancybox-slide--current {
 
 /* transitionEffect: circular */
 
-body .modula-fancybox-fx-circular.modula-fancybox-slide--previous {
+html body .modula-fancybox-fx-circular.modula-fancybox-slide--previous {
     opacity: 0;
     transform: scale3d(0, 0, 0) translate3d(-100%, 0, 0);
 }
 
-body .modula-fancybox-fx-circular.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-circular.modula-fancybox-slide--next {
     opacity: 0;
     transform: scale3d(0, 0, 0) translate3d(100%, 0, 0);
 }
 
-body .modula-fancybox-fx-circular.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-circular.modula-fancybox-slide--current {
     opacity: 1;
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
 }
 
 /* transitionEffect: tube */
 
-body .modula-fancybox-fx-tube.modula-fancybox-slide--previous {
+html body .modula-fancybox-fx-tube.modula-fancybox-slide--previous {
     transform: translate3d(-100%, 0, 0) scale(.1) skew(-10deg);
 }
 
-body .modula-fancybox-fx-tube.modula-fancybox-slide--next {
+html body .modula-fancybox-fx-tube.modula-fancybox-slide--next {
     transform: translate3d(100%, 0, 0) scale(.1) skew(10deg);
 }
 
-body .modula-fancybox-fx-tube.modula-fancybox-slide--current {
+html body .modula-fancybox-fx-tube.modula-fancybox-slide--current {
     transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* Styling for Small-Screen Devices */
 @media all and (max-height: 576px) {
-    body .modula-fancybox-slide {
+    html body .modula-fancybox-slide {
         padding-left: 6px;
         padding-right: 6px;
     }
 
-    body .modula-fancybox-slide--image {
+    html body .modula-fancybox-slide--image {
         padding: 6px 0;
     }
 
-    body .modula-fancybox-close-small {
+    html body .modula-fancybox-close-small {
         right: -6px;
     }
 
-    body .modula-fancybox-slide--image .modula-fancybox-close-small {
+    html body .modula-fancybox-slide--image .modula-fancybox-close-small {
         background: #4e4e4e;
         color: #f2f4f6;
         height: 36px;
@@ -664,13 +664,13 @@ body .modula-fancybox-fx-tube.modula-fancybox-slide--current {
         width: 36px;
     }
 
-    body .modula-fancybox-caption {
+    html body .modula-fancybox-caption {
         padding-left: 12px;
         padding-right: 12px;
     }
 
     @supports (padding: max(0px)) {
-        body .modula-fancybox-caption {
+        html body .modula-fancybox-caption {
             padding-left: max(12px, env(safe-area-inset-left));
             padding-right: max(12px, env(safe-area-inset-right));
         }
@@ -678,7 +678,7 @@ body .modula-fancybox-fx-tube.modula-fancybox-slide--current {
 }
 /* Share */
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share {
     background: #f4f4f4;
     border-radius: 3px;
     max-width: 90%;
@@ -686,7 +686,7 @@ body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share {
     text-align: center;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1 {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1 {
     color: #222;
     font-size: 35px;
     font-weight: 700;
@@ -698,12 +698,12 @@ body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share h1
 }
 
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share p {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share p {
     margin: 0;
     padding: 0;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button {
     border: 0;
     border-radius: 3px;
     display: inline-block;
@@ -722,48 +722,48 @@ body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__b
     white-space: nowrap;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:visited,
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:link {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:visited,
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:link {
     color: #fff;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:hover {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button:hover {
     text-decoration: none;
 }
 
-body .modula-fancybox-share__button--fb {
+html body .modula-fancybox-share__button--fb {
     background: #3b5998;
 }
 
-body .modula-fancybox-share__button--fb:hover {
+html body .modula-fancybox-share__button--fb:hover {
     background: #344e86;
 }
 
-body .modula-fancybox-share__button--pt {
+html body .modula-fancybox-share__button--pt {
     background: #bd081d;
 }
 
-body .modula-fancybox-share__button--pt:hover {
+html body .modula-fancybox-share__button--pt:hover {
     background: #aa0719;
 }
 
-body .modula-fancybox-share__button--tw {
+html body .modula-fancybox-share__button--tw {
     background: #1da1f2;
 }
 
-body .modula-fancybox-share__button--tw:hover {
+html body .modula-fancybox-share__button--tw:hover {
     background: #0d95e8;
 }
 
-body .modula-fancybox-share__button--email {
+html body .modula-fancybox-share__button--email {
     background: #99cc33;
 }
 
-body .modula-fancybox-share__button--email:hover {
+html body .modula-fancybox-share__button--email:hover {
     background: #7aa329;
 }
 
-body .modula-fancybox-share__button svg {
+html body .modula-fancybox-share__button svg {
     height: 25px;
     margin-right: 7px;
     position: relative;
@@ -773,11 +773,11 @@ body .modula-fancybox-share__button svg {
     display:inline-block;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button svg path {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share__button svg path {
     fill: #fff;
 }
 
-body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share .modula-fancybox-share__input {
+html body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share .modula-fancybox-share__input {
     background: transparent;
     border: 0;
     border-bottom: 1px solid #d7d7d7;
@@ -791,7 +791,7 @@ body .modula-fancybox-container .modula-fancybox-stage .modula-fancybox-share .m
 }
 /* Thumbs */
 
-body .modula-fancybox-container .modula-fancybox-thumbs {
+html body .modula-fancybox-container .modula-fancybox-thumbs {
     background: #ddd;
     bottom: 0;
     display: none;
@@ -807,20 +807,20 @@ body .modula-fancybox-container .modula-fancybox-thumbs {
     z-index: 99995;
 }
 
-body .modula-fancybox-thumbs-x {
+html body .modula-fancybox-thumbs-x {
     overflow-x: auto;
     overflow-y: hidden;
 }
 
-body .modula-fancybox-show-thumbs .modula-fancybox-thumbs {
+html body .modula-fancybox-show-thumbs .modula-fancybox-thumbs {
     display: block;
 }
 
-body .modula-fancybox-show-thumbs .modula-fancybox-inner {
+html body .modula-fancybox-show-thumbs .modula-fancybox-inner {
     right: 212px;
 }
 
-body .modula-fancybox-thumbs__list {
+html body .modula-fancybox-thumbs__list {
     font-size: 0;
     height: 100%;
     list-style: none;
@@ -834,26 +834,26 @@ body .modula-fancybox-thumbs__list {
     width: 100%;
 }
 
-body .modula-fancybox-thumbs-x .modula-fancybox-thumbs__list {
+html body .modula-fancybox-thumbs-x .modula-fancybox-thumbs__list {
     overflow: hidden;
 }
 
-body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar {
+html body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar {
     width: 7px;
 }
 
-body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar-track {
+html body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar-track {
     background: #fff;
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 }
 
-body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar-thumb {
+html body .modula-fancybox-thumbs-y .modula-fancybox-thumbs__list::-webkit-scrollbar-thumb {
     background: #2a2a2a;
     border-radius: 10px;
 }
 
-body .modula-fancybox-thumbs__list a {
+html body .modula-fancybox-thumbs__list a {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     background-color: rgba(0, 0, 0, .1);
@@ -874,7 +874,7 @@ body .modula-fancybox-thumbs__list a {
     width: 100px;
 }
 
-body .modula-fancybox-thumbs__list a::before {
+html body .modula-fancybox-thumbs__list a::before {
     border: 6px solid #ff5268;
     bottom: 0;
     content: '';
@@ -887,25 +887,25 @@ body .modula-fancybox-thumbs__list a::before {
     z-index: 99991;
 }
 
-body .modula-fancybox-thumbs__list a:focus::before {
+html body .modula-fancybox-thumbs__list a:focus::before {
     opacity: .5;
 }
 
-body .modula-fancybox-thumbs__list a.modula-fancybox-thumbs-active::before {
+html body .modula-fancybox-thumbs__list a.modula-fancybox-thumbs-active::before {
     opacity: 1;
 }
 
 /* Styling for Small-Screen Devices */
 @media all and (max-width: 576px) {
-    body .modula-fancybox-thumbs {
+    html body .modula-fancybox-thumbs {
         width: 110px;
     }
 
-    body .modula-fancybox-show-thumbs .modula-fancybox-inner {
+    html body .modula-fancybox-show-thumbs .modula-fancybox-inner {
         right: 110px;
     }
 
-    body .modula-fancybox-thumbs__list a {
+    html body .modula-fancybox-thumbs__list a {
         max-width: calc(100% - 10px);
     }
 }

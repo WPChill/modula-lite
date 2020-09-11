@@ -247,7 +247,6 @@ class Modula {
 		}else {
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
-
 		}
 
 		wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit.js', array(), MODULA_LITE_VERSION, true );
