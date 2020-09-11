@@ -25,6 +25,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
+		add_action( 'modula_shortcode_after_items', array( $this, 'powered_by_modula'), 90);
 
 		// Add js scripts
 		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
@@ -306,7 +307,7 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . "; }";
 		}
 
-		$css .= "#{$gallery_id} .modula-item > a, #{$gallery_id} .modula-item, #{$gallery_id} .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
 
 		$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
@@ -330,7 +331,6 @@ class Modula_Shortcode {
 		if('none' == $settings['effect']){
 			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
 		}
-
 
 		$css .= "</style>\n";
 
@@ -366,6 +366,25 @@ class Modula_Shortcode {
 		return $fancybox_options;
 
 	}
+
+	public function powered_by_modula( $settings ) {
+		if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
+			return;
+		}
+
+		$html = '<div class="modula-powered">';
+		$html .= '<p>' .  esc_html__( 'Powered by ', 'modula-best-grid-gallery' );
+		$html .= '<span>';
+		$html .= '<svg class="modula-logo" xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#58ab7e"  d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#58ab7e"  d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#58ab7e"  d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#58ab7e"  d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path  fill="#58ab7e" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#58ab7e"  d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>';
+		$html .= '<span>';
+		$html .= '<a href="https://wp-modula.com/" target="_blank"> Modula </a>';
+		$html .= '</span>';
+		$html .= '<p>';
+		$html .= '</div>';
+
+		echo $html;
+
+	} 
 
 }
 

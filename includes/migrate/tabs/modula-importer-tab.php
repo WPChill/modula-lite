@@ -114,17 +114,6 @@ if ($sources) {
                         </th>
                         <td>
                             <div>
-                                <?php
-                                $upsell = '<div class="modula-importer-upsell-wrapper">';
-                                $upsell .= '<div class="modula-importer-upsell-buttons">';
-                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_campaign=importer#lite-vs-pro" class="button button-secondary" target="_blank">' . esc_html__('LITE vs PRO', 'modula-best-grid-gallery') . '</a>';
-                                $upsell .= '<a href="https://wp-modula.com/pricing/?utm_source=upsell&utm_campaign=importer" class="button button-primary" target="_blank">' . esc_html__('Upgrade to PRO', 'modula-best-grid-gallery') . '</a>';
-                                $upsell .= '</div> </div>';
-
-                                $upsell = apply_filters('modula_importer_upsells', $upsell);
-
-                                echo $upsell;
-                                ?>
                                 <?php submit_button(__('Migrate', 'modula-best-grid-gallery'), 'primary', 'modula-importer-submit-' . $source, false); ?>
                             </div>
                         </td>

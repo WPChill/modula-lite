@@ -14,8 +14,42 @@ class Modula_CPT {
 	private $metaboxes = array();
 	private $cpt_name;
 	private $builder;
+	private $resizer;
 
 	public function __construct() {
+
+		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
+
+		add_action( 'init', array( $this, 'register_cpt' ) );
+
+		/* Fire our meta box setup function on the post editor screen. */
+		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
+		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
+		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
+
+		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
+		// Post Table Columns
+		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
+		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
+
+		add_filter('submenu_file', array($this, 'remove_add_new_submenu_item'));
+
+		/* Load Fields Helper */
+		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
+
+		/* Load Builder */
+		require_once MODULA_PATH . 'includes/admin/class-modula-field-builder.php';
+		$this->builder = Modula_Field_Builder::get_instance();
+
+		/* Initiate Image Resizer */
+		$this->resizer = new Modula_Image();
+
+		// Ajax for removing notices
+		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
+
+	}
+
+	public function register_cpt() {
 
 		$this->labels = apply_filters( 'modula_cpt_labels', array(
 			'name'                  => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
@@ -45,7 +79,7 @@ class Modula_CPT {
 			'items_list'            => esc_html__( 'Items list', 'modula-best-grid-gallery' ),
 			'items_list_navigation' => esc_html__( 'Items list navigation', 'modula-best-grid-gallery' ),
 			'filter_items_list'     => esc_html__( 'Filter items list', 'modula-best-grid-gallery' ),
-		) );
+		), $this->labels );
 
 		$this->args = apply_filters( 'modula_cpt_args', array(
 			'label'                 => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
@@ -55,7 +89,7 @@ class Modula_CPT {
 			'show_ui'               => true,
 			'show_in_menu'          => true,
 			'menu_position'         => 25,
-			'menu_icon'             => 'data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>'),
+			'menu_icon'             => MODULA_URL . 'assets/images/modula.png',
 			'show_in_admin_bar'     => true,
 			'show_in_nav_menus'     => false,
 			'can_export'            => true,
@@ -86,43 +120,26 @@ class Modula_CPT {
 			),
 		);
 
-		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
-
-		add_action( 'init', array( $this, 'register_cpt' ) );
-
-		/* Fire our meta box setup function on the post editor screen. */
-		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
-		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
-		add_action( 'admin_menu', array($this, 'replace_submit_meta_box') );
-
-		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
-
-		// Post Table Columns
-		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
-		add_action( "manage_{$this->cpt_name}_posts_custom_column" , array( $this, 'outpu_column' ), 10, 2 );
-
-		/* Load Fields Helper */
-		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
-
-		/* Load Builder */
-		require_once MODULA_PATH . 'includes/admin/class-modula-field-builder.php';
-		$this->builder = Modula_Field_Builder::get_instance();
-
-		/* Initiate Image Resizer */
-		$this->resizer = new Modula_Image();
-
-		// Ajax for removing notices
-		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
-
-	}
-
-	public function register_cpt() {
-
 		$args = $this->args;
 		$args['labels'] = $this->labels;
 
 		register_post_type( $this->cpt_name, $args );
 
+	}
+
+	/**
+	 * Remove Add New link from menu item
+	 *
+	 * @param $submenu_file
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.3.4
+	 */
+	public function remove_add_new_submenu_item( $submenu_file ) {
+		remove_submenu_page( 'edit.php?post_type=modula-gallery', 'post-new.php?post_type=modula-gallery' );
+
+		return $submenu_file;
 	}
 
 	public function meta_boxes_setup() {
@@ -409,11 +426,11 @@ class Modula_CPT {
 
 		<div class="notice modula-feedback-notice">
 			<p class="modula-feedback-title">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>
-				Modula Image Gallery
+				<?php echo apply_filters('modula_whitelabel_svg_icon', '<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>'); ?>
+				<?php echo apply_filters( 'modula_whitelabel_feedback_title', esc_html('Modula Image Gallery')); ?>
 			</p>
-			<p><?php esc_html_e( 'Do you enjoy using Modula? Please take a minute to suggest a feature or tell us what you think.', 'modula-best-grid-gallery' ); ?></p>
-			<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform"><?php esc_html_e( 'Submit Feedback', 'modula-best-grid-gallery' ); ?></a>
+			<p><?php echo apply_filters('modula_whitelabel_feedback_paragraph', esc_html( 'Do you enjoy using Modula? Please take a minute to suggest a feature or tell us what you think.', 'modula-best-grid-gallery' )); ?></p>
+			<a class="button" target="_blank" href="<?php echo apply_filters('modula_whitelabel_feedback_link','https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform');?>"><?php esc_html_e( 'Submit Feedback', 'modula-best-grid-gallery' ); ?></a>
 			<a href="#" class="notice-dismiss"></a>
 		</div>
 

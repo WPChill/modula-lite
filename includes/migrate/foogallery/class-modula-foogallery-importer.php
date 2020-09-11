@@ -155,7 +155,7 @@ class Modula_Foogallery_Importer {
 					$foogallery_image_url = '';
 				}
 
-				$modula_images[] = array(
+				$modula_images[] = apply_filters( 'modula_migrate_image_data', array(
 					'id'          => absint( $imageID ),
 					'alt'         => sanitize_text_field( $foogallery_image_alt ),
 					'title'       => sanitize_text_field( $foogallery_image_title ),
@@ -167,7 +167,7 @@ class Modula_Foogallery_Importer {
 					'width'       => 2,
 					'height'      => 2,
 					'filters'     => ''
-				);
+				), $image, $foogallery_settings, 'foogallery' );
 			}
 		}
 
@@ -223,7 +223,7 @@ class Modula_Foogallery_Importer {
 		}
 
 
-		$modula_settings = array(
+		$modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
 			'type'                  => $grid,
 			'grid_type'             => sanitize_text_field( $grid_type ),
 			'gutter'                => absint( $gutter ),
@@ -231,7 +231,7 @@ class Modula_Foogallery_Importer {
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 			'img_size'              => absint( $thumbnail_size ),
 			'lazy_load'             => (isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'])
-		);
+		), $foogallery_settings, 'foogallery' );
 
 		// Get Modula Gallery defaults, used to set modula-settings metadata
 		$modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() );

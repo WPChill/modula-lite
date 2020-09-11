@@ -314,4 +314,3 @@ function modula_add_scripts( $scripts, $settings ){
 
 	return array_merge( $needed_scripts, $scripts );
 }
-

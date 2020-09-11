@@ -138,6 +138,7 @@ class Modula_Envira_Importer {
         // get gallery data so we can get title, description and alt from envira
         $envira_gallery_data = $modula_importer->prepare_images('envira',$gallery_id);
         $envira_settings     = get_post_meta($gallery_id, '_eg_gallery_data', true);
+
         if (isset($envira_gallery_data) && count($envira_gallery_data) > 0) {
             foreach ($envira_gallery_data as $imageID => $image) {
 
@@ -153,19 +154,19 @@ class Modula_Envira_Importer {
 				if($envira_image_url == $image_url ){
 					$envira_image_url = '';
 				}
-                $modula_images[] = array(
-                    'id'          => absint($imageID),
-                    'alt'         => sanitize_text_field($envira_image_alt),
-                    'title'       => sanitize_text_field($envira_image_title),
-                    'description' => wp_filter_post_kses($envira_image_caption),
-                    'halign'      => 'center',
-                    'valign'      => 'middle',
-                    'link'        => esc_url_raw($envira_image_url),
-                    'target'      => absint($target),
-                    'width'       => 2,
-                    'height'      => 2,
-                    'filters'     => ''
-                );
+	            $modula_images[] = apply_filters( 'modula_migrate_image_data', array(
+		            'id'          => absint( $imageID ),
+		            'alt'         => sanitize_text_field( $envira_image_alt ),
+		            'title'       => sanitize_text_field( $envira_image_title ),
+		            'description' => wp_filter_post_kses( $envira_image_caption ),
+		            'halign'      => 'center',
+		            'valign'      => 'middle',
+		            'link'        => esc_url_raw( $envira_image_url ),
+		            'target'      => absint( $target ),
+		            'width'       => 2,
+		            'height'      => 2,
+		            'filters'     => ''
+	            ), $imageID, $envira_settings, 'envira' );
             }
         }
 
@@ -188,7 +189,40 @@ class Modula_Envira_Importer {
 		    $grid_type = $envira_settings['config']['columns'];
 	    }
 
-	    $modula_settings = array(
+	    $socials                 = (isset( $envira_settings['config']['social'] ) && 1 == $envira_settings['config']['social']) ? 1 : 0;
+	    $facebook                = (isset( $envira_settings['config']['social_facebook'] ) && 1 == $envira_settings['config']['social_facebook']) ? 1 : 0;
+	    $twitter                 = (isset( $envira_settings['config']['social_twitter'] ) && 1 == $envira_settings['config']['social_twitter']) ? 1 : 0;
+	    $pinterest               = (isset( $envira_settings['config']['social_pinterest'] ) && 1 == $envira_settings['config']['social_pinterest']) ? 1 : 0;
+	    $linkedin                = (isset( $envira_settings['config']['social_linkedin'] ) && 1 == $envira_settings['config']['social_linkedin']) ? 1 : 0;
+	    $email                   = (isset( $envira_settings['config']['social_email'] ) && 1 == $envira_settings['config']['social_email']) ? 1 : 0;
+	    $email_subject           = esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' );
+	    $email_body              = esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%', 'modula-best-grid-gallery' );
+	    $modula_captions_title   = 0;
+	    $modula_captions_caption = 0;
+
+	    if(isset( $envira_settings['config']['social_email_subject']) && '' != $envira_settings['config']['social_email_subject']){
+		    $email_subject = str_replace('{title}',sanitize_text_field(get_the_title($gallery_id)),$envira_settings['config']['social_email_subject']);
+	    }
+
+	    if ( isset( $envira_settings['config']['social_email_message'] ) && '' != $envira_settings['config']['social_email_message'] ) {
+		    $email_body = str_replace( '{url}', '%%gallery_link%%', $envira_settings['config']['social_email_message'] );
+		    $email_body = str_replace( '{photo_url}', '%%image_link%%', $email_body );
+	    }
+
+	    if ( isset( $envira_settings['config']['gallery_column_title_caption'] ) ) {
+		    if ( '0' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 1;
+			    $modula_captions_caption = 1;
+		    } else if ( 'title' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 0;
+			    $modula_captions_caption = 1;
+		    } else if ( 'caption' == $envira_settings['config']['gallery_column_title_caption'] ) {
+			    $modula_captions_title   = 1;
+			    $modula_captions_caption = 0;
+		    }
+	    }
+
+	    $modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
 		    'type'                  => 'grid',
 		    'grid_type'             => sanitize_text_field( $grid_type ),
 		    'grid_image_size'       => ('default' == $envira_settings['config']['image_size']) ? 'custom' : sanitize_text_field( $envira_settings['config']['image_size'] ),
@@ -197,12 +231,22 @@ class Modula_Envira_Importer {
 		    'grid_row_height'       => absint( $envira_settings['config']['justified_row_height'] ),
 		    'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 		    'grid_image_crop'       => (isset( $envira_settings['config']['crop'] ) && 0 != $envira_settings['config']['crop']) ? 1 : 0,
-		    'lazy_load'             => (isset( $envira_settings['config']['lazy_loading'] ) && 0 != $envira_settings['config']['lazy_loading']) ? 1 : 0
-	    );
+		    'lazy_load'             => (isset( $envira_settings['config']['lazy_loading'] ) && 0 != $envira_settings['config']['lazy_loading']) ? 1 : 0,
+		    'hide_title'            => $modula_captions_title,
+		    'hide_description'      => $modula_captions_caption,
+		    'enableSocial'          => $socials,
+		    'enableTwitter'         => $twitter,
+		    'enableFacebook'        => $facebook,
+		    'enablePinterest'       => $pinterest,
+		    'enableLinkedin'        => $linkedin,
+		    'enableEmail'           => $email,
+		    'emailSubject'          => $email_subject,
+		    'emailMessage'          => $email_body
+	    ), $envira_settings, 'envira' );
 
         // Get Modula Gallery defaults, used to set modula-settings metadata
         $modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() ) ;
-        
+
         // Create Modula CPT
         $modula_gallery_id = wp_insert_post(array(
             'post_type'   => 'modula-gallery',
