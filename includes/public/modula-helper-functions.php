@@ -279,15 +279,9 @@ function modula_show_schemaorg( $settings ){
 
 function modula_edit_gallery( $settings ) {
 
-	$gallery_id = absint( substr( $settings['gallery_id'], -1 ) );
-	
-	if ( ! current_user_can( 'edit_post', $gallery_id ) ) {
-		return;
-	}
+	$gallery_id = absint( explode('jtg-', $settings['gallery_id'] )[1] );
 
-	?> 
-	<p> <a href="<?php echo get_site_url() ?>/wp-admin/post.php?post=<?php echo $gallery_id ?>&action=edit"> <?php esc_html_e( 'Edit Gallery', 'modula-best-grid-gallery') ?> </a> </p>
-	<?php 
+	edit_post_link( __('Edit gallery','modula-best-grid-gallery'), '<p>', '</p>', $gallery_id, 'post-edit-link' );
 }
 
 function modula_add_gallery_class( $template_data ){
