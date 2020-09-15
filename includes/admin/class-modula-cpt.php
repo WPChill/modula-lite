@@ -34,6 +34,10 @@ class Modula_CPT {
 
 		add_filter('submenu_file', array($this, 'remove_add_new_submenu_item'));
 
+		// Add the last visited tab to link
+		add_filter( 'get_edit_post_link', array( $this, 'modula_remember_tab' ), 2, 99 );
+		add_action('wp_ajax_modula_remember_tab',array($this,'modula_remember_tab_save'));
+
 		/* Load Fields Helper */
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt-fields-helper.php';
 
@@ -335,6 +339,7 @@ class Modula_CPT {
 									$modula_settings[ $field_id ] = 'pufrobo';
 								}
 								break;
+
 							default:
 								if( is_array( $_POST['modula-settings'][ $field_id ] ) ){
 									$sanitized = array_map( 'sanitize_text_field', $_POST['modula-settings'][ $field_id ] );
@@ -349,7 +354,16 @@ class Modula_CPT {
 					}else{
 						if ( 'toggle' == $field['type'] ) {
 							$modula_settings[ $field_id ] = '0';
-						}else{
+						} else if ( 'hidden' == $field['type'] ) {
+
+							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
+							if ( isset( $hidden_set['last_visited_tab'] ) ) {
+								$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
+							} else {
+								$modula_settings[ $field_id ] = 'modula-general';
+							}
+
+						} else {
 							$modula_settings[ $field_id ] = '';
 						}
 					}
@@ -814,7 +828,49 @@ endif;
 </div>
 </div> <?php
 	  }
+
+	/**
+	 * Add the last visited settings tab to edit link
+	 *
+	 * @param $link
+	 * @param $id
+	 *
+	 * @return string
+	 * @since 2.3.8
+	 */
+	public function modula_remember_tab( $link, $id ) {
+
+		$settings = get_post_meta( $id, 'modula-settings', true );
+
+		if(isset($settings['last_visited_tab'])){
+			$link = $link.'#!'.$settings['last_visited_tab'];
+		} else {
+			$link = $link.'#!modula-general';
+		}
+
+		return $link;
 	}
+
+	/**
+	 * Save the tab
+	 */
+	public function modula_remember_tab_save(){
+
+		$nonce = $_POST['nonce'];
+		if ( ! wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
+			wp_send_json( array( 'status' => 'failed' ) );
+		}
+
+		$id                           = $_POST['id'];
+		$settings                     = get_post_meta( $id, 'modula-settings', true );
+		$settings['last_visited_tab'] = sanitize_text_field( $_POST['tab'] );
+		$settings                     = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
+
+		update_post_meta( $id, 'modula-settings', $settings );
+		die();
+
+	}
+}
 
 
 

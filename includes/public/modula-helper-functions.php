@@ -281,7 +281,7 @@ function modula_edit_gallery( $settings ) {
 
 	$gallery_id = absint( explode('jtg-', $settings['gallery_id'] )[1] );
 
-	edit_post_link( __('Edit gallery','modula-best-grid-gallery'), '<p>', '</p>', $gallery_id, 'post-edit-link' );
+	edit_post_link( __('Edit gallery','modula-best-grid-gallery'), '', '', $gallery_id, 'post-edit-link' );
 }
 
 function modula_add_gallery_class( $template_data ){

@@ -83,11 +83,34 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             if ( this.tabContainers.filter( '#' + currentTab ).length < 1 ) {
                 return;
             }
-
     		this.tabs.removeClass( 'active-tab' );
     		this.tabContainers.removeClass( 'active-tab' );
     		jQuery( event.target ).addClass( 'active-tab' );
     		this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' ).trigger( 'modula-current-tab' );
+
+            window.location.hash = '#!' + currentTab;
+
+            var postAction = $( "#post" ).attr( 'action' );
+            if( postAction ) {
+                postAction = postAction.split( '#' )[0];
+                $( '#post' ).attr( 'action', postAction + window.location.hash );
+            }
+
+            var opts = {
+                url:      modulaHelper.ajax_url,
+                type:     'post',
+                async:    true,
+                cache:    false,
+                dataType: 'json',
+                data:     {
+                    action: 'modula_remember_tab',
+                    tab:     currentTab,
+                    id: $('#post_ID').val(),
+                    nonce:  modulaHelper._wpnonce,
+                }
+            };
+
+            $.ajax(opts);
 
         },
 
