@@ -179,39 +179,41 @@ class Modula_Foogallery_Importer {
 			$this->modula_import_result( false, esc_html__( 'No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery' ), false );
 		}
 
-		$grid           = 'creative-gallery';
-		$last_row_align = 'justify';
+		$grid           = 'grid';
+		$last_row_align = 'center';
 		$grid_type      = 'automatic';
 		$gutter         = 10;
 		$thumbnail_size = 300;
 
-		if ( 'masonry' == $foogallery_template ) {
-			$grid           = 'grid';
-			$thumbnail_size = $foogallery_settings['masonry_thumbnail_width'];
-			if ( isset($foogallery_settings['masonry_layout']) && 'fixed' == $foogallery_settings['masonry_layout'] ) {
-				$gutter = $foogallery_settings['masonry_gutter_width'];
-			}
-		}
-
-		if ( 'justified' == $foogallery_template ) {
-			$gutter = $foogallery_settings['justified_margins'];
-		}
-
-		if ( 'default' == $foogallery_template ) {
-			$gutter         = $foogallery_settings['default_spacing'];
-			$thumbnail_size = $foogallery_settings['default_thumbnail_dimensions']['width'];
-		}
-
-		if ( 'image-viewer' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['image-viewer_thumbnail_size']['width'];
-		}
-
-		if ( 'simple_portfolio' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['simple_portfolio_thumbnail_dimensions']['width'];
-		}
-
-		if ( 'thumbnail' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
+		switch ( $foogallery_template ) {
+			case 'default':
+				$gutter         = $foogallery_settings['default_spacing'];
+				$thumbnail_size = $foogallery_settings['default_thumbnail_dimensions']['width'];
+				break;
+			case 'image-viewer':
+				$grid = 'creative-gallery';
+				$thumbnail_size = $foogallery_settings['image-viewer_thumbnail_size']['width'];
+				break;
+			case 'justified':
+				$gutter = $foogallery_settings['justified_margins'];
+				break;
+			case 'masonry':
+				if ( 'fixed' != $foogallery_settings['masonry_layout'] ) {
+					$grid_type = $foogallery_settings['masonry_layout'];
+				}
+				$thumbnail_size = $foogallery_settings['masonry_thumbnail_width'];
+				if ( isset( $foogallery_settings['masonry_layout'] ) && 'fixed' == $foogallery_settings['masonry_layout'] ) {
+					$gutter = $foogallery_settings['masonry_gutter_width'];
+				}
+				break;
+			case 'simple_portfolio':
+				$thumbnail_size = $foogallery_settings['simple_portfolio_thumbnail_dimensions']['width'];
+				break;
+			case 'thumbnail':
+				$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
+				break;
+			default:
+				break;
 		}
 
 		if ( isset($foogallery_settings['justified_last_row']) && 'hide' != $foogallery_settings['justified_last_row'] ) {
@@ -227,7 +229,7 @@ class Modula_Foogallery_Importer {
 			'type'                  => $grid,
 			'grid_type'             => sanitize_text_field( $grid_type ),
 			'gutter'                => absint( $gutter ),
-			'grid_row_height'       => absint( $foogallery_settings['justified_row_height'] ),
+			'grid_row_height'       => (isset($foogallery_settings['justified_row_height'])) ? absint( $foogallery_settings['justified_row_height'] ) : '150',
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 			'img_size'              => absint( $thumbnail_size ),
 			'lazy_load'             => (isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'])
