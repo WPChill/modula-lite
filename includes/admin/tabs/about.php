@@ -1,24 +1,16 @@
 <?php
 $issues = array(
     'fix'     => array(
-        esc_html__( 'Importing Envira Galleries image size, custom dimensions and gutter.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Extensions menu entry always last.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Social icons are now disabled by default when creating a new gallery.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Some Settings UI updates.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed JS error when trying to lazy load hidden items.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed copy shortcode button going under text.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed lazy load for columns.', 'modula-best-grid-gallery' ),
-        esc_html__( 'Multiple translation fixes.', 'modula-best-grid-gallery' ),
+        esc_html__( 'Typos fixes', 'modula-best-grid-gallery' ),
+        esc_html__( 'Fixed compatibility with themes overwriting CSS for lightbox elements', 'modula-best-grid-gallery' ),
+         esc_html__( 'Fixed FooGallery grid type selection on migration', 'modula-best-grid-gallery' ),
     ),
     'feature' => array(
-	    esc_html__( 'Added autosuggest URL to image URL field.', 'modula-best-grid-gallery' ),
-	    esc_html__( 'Added share via Email.', 'modula-best-grid-gallery' ),
-	    esc_html__( 'Added "Save gallery"/"Update gallery" shortcut CTRL/CMD + S', 'modula-best-grid-gallery' ),
-	    esc_html__( 'Added functionality to migrate FooGallery plugin galleries.', 'modula-best-grid-gallery' ),
-	    esc_html__( 'Preparing Modula for Modula Download, Modula Exif and Modula Zoom add-ons.', 'modula-best-grid-gallery' ),
+	    esc_html__( 'Enhanced the migration functionality, now using AJAX, so that the PHP time limit won\'t be an issue.', 'modula-best-grid-gallery' ),
+	    esc_html__( 'Add a default title to Modula\'s Gutenberg block', 'modula-best-grid-gallery' ),
     )
 );
-$issues = array();
+
 ?>
 <div id="modula-about-page" class="row modula-about-row">
     <div class="modula-about__container">
@@ -32,7 +24,7 @@ $issues = array();
         </div>
         <div class="modula-about-content">
 
-            <h2><?php printf(esc_html__('Version %s addressed small fixes.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION ); ?></h2>
+            <h2><?php printf(esc_html__('Version %s addressed %s fixes and %s enhancements.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count($issues['fix']), count($issues['feature'] )); ?></h2>
             <?php if (!empty($issues)) { ?>
             <ul class="modula-about-list">
                 <?php

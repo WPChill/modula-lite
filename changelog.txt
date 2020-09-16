@@ -1,3 +1,11 @@
+= 2.3.8 - xx/xx/2020 =
+Fixed some typos
+Update migration function to use AJAX so that the PHP time limit won't be an issue
+Fixed compatibility with themes overwriting CSS for lightbox elements
+Removed Lightbox Upgrade Notice
+Added a default title to gallery on Gutenberg Modula block
+Fixed FooGallery grid type selection on migration
+
 = 2.3.7 - 27/08/2020 =
 Fixed Elementor widget.
 
