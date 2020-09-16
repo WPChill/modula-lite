@@ -137,9 +137,11 @@ class Modula_Foogallery_Importer {
 		$modula_images = array();
 
 		// get gallery data so we can get title, description and alt from FooGallery
-		$foogallery_gallery_data = $modula_importer->prepare_images( 'foogallery', $gallery_id );
-		$foogallery_settings     = get_post_meta( $gallery_id, '_foogallery_settings', true );
-		$foogallery_template     = get_post_meta( $gallery_id, 'foogallery_template', true );
+		$foogallery_gallery_data          = $modula_importer->prepare_images( 'foogallery', $gallery_id );
+		$foogallery_settings              = get_post_meta( $gallery_id, '_foogallery_settings', true );
+		$foogallery_template              = get_post_meta( $gallery_id, 'foogallery_template', true );
+		$foogallery_settings['grid_type'] = $foogallery_template;
+
 		if ( isset( $foogallery_gallery_data ) && count( $foogallery_gallery_data ) > 0 ) {
 			foreach ( $foogallery_gallery_data as $imageID ) {
 
@@ -197,8 +199,8 @@ class Modula_Foogallery_Importer {
 				break;
 			case 'image-viewer':
 				$grid             = 'creative-gallery';
-				$thumbnail_size_w = $foogallery_settings['image-viewer_thumbnail_dimensions']['width'];
-				$thumbnail_size_h = $foogallery_settings['image-viewer_thumbnail_dimensions']['height'];
+				$thumbnail_size_w = $foogallery_settings['image-viewer_thumbnail_size']['width'];
+				$thumbnail_size_h = $foogallery_settings['image-viewer_thumbnail_size']['height'];
 				$grid_image_size  = 'custom';
 				break;
 			case 'justified':
@@ -220,8 +222,6 @@ class Modula_Foogallery_Importer {
 				break;
 			case 'thumbnail':
 				$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
-				break;
-			default:
 				break;
 		}
 
