@@ -1,14 +1,21 @@
 <?php
 $issues = array(
-    'fix'     => array(
-        esc_html__( 'Typos fixes', 'modula-best-grid-gallery' ),
-        esc_html__( 'Fixed compatibility with themes overwriting CSS for lightbox elements', 'modula-best-grid-gallery' ),
-         esc_html__( 'Fixed FooGallery grid type selection on migration', 'modula-best-grid-gallery' ),
-    ),
-    'feature' => array(
-	    esc_html__( 'Enhanced the migration functionality, now using AJAX, so that the PHP time limit won\'t be an issue.', 'modula-best-grid-gallery' ),
-	    esc_html__( 'Add a default title to Modula\'s Gutenberg block', 'modula-best-grid-gallery' ),
-    )
+	'fix'     => array(
+		esc_html__( 'Typos fixes', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed compatibility with themes overwriting CSS for lightbox elements', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed FooGallery grid type selection on migration', 'modula-best-grid-gallery' ),
+		esc_html__( 'Minor fixes and improvements to lazy loading', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed cursor availabilty', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed previewer jumping when changing from custom grid to columns', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed Elementor widget', 'modula-best-grid-gallery' ),
+	),
+	'feature' => array(
+		esc_html__( 'Enhanced the migration functionality, now using AJAX, so that the PHP time limit won\'t be an issue.', 'modula-best-grid-gallery' ),
+		esc_html__( 'Add a default title to Modula\'s Gutenberg block', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added functionality to remember metabox tab on gallery update/switch.', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added an "edit gallery" link below the gallery.', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added Filter for Whitelabel.', 'modula-best-grid-gallery' ),
+	)
 );
 
 ?>
