@@ -8,15 +8,15 @@ class Modula_CPT_Fields_Helper {
 	public static function get_tabs() {
 
 		$general_description = '<p>' . esc_html__( 'Choose between creative or custom grid (build your own) and easily design your gallery.', 'modula-best-grid-gallery' ) . '</p>';
-		$caption_description = '<p>' . esc_html__( 'The settings below adjust how the image title/description will appear on the front-end.', 'modula-best-grid-gallery' ) . '</p>';
+		$caption_description = '<p>' . esc_html__( 'The settings below will adjust the image title/description that will appear on the front-end.', 'modula-best-grid-gallery' ) . '</p>';
 		$social_description = '<p>' . esc_html__( 'Here you can add social sharing buttons to your the images in your gallery.', 'modula-best-grid-gallery' ) . '</p>';
 		$loadingeffects_description = '<p>' . esc_html__( 'The settings below adjust the effect applied to the images after the page is fully loaded.', 'modula-best-grid-gallery' ) . '</p>';
 		$hover_description = '<p>' . esc_html__( 'Select how your images will behave on hover. Hover styles for your images.', 'modula-best-grid-gallery' ) . '</p>';
-		$style_description = '<p>' . esc_html__( 'Here you can style the look of your images.', 'modula-best-grid-gallery' ) . '</p>';
+		$style_description = '<p>' . esc_html__( 'Here you can customize the style of your images.', 'modula-best-grid-gallery' ) . '</p>';
 		$customizations_description = '<p>' . esc_html__( 'Use this section to add custom CSS to your gallery for advanced modifications.', 'modula-best-grid-gallery' ) . '</p>';
 		$filters_description = sprintf( '<p><strong>%s</strong><br><br>%s</p>',
-			esc_html__( 'Easily let website visitors sort photos in your gallery by adding filters.', 'modula-best-grid-gallery' ),
-			esc_html__( 'Use this tab to create new filters which you can then start assigning filters to by editing images individually or by using the bulk edit option.', 'modula-best-grid-gallery' )
+			esc_html__( 'Let website visitors easily sort photos in your gallery by adding filters.', 'modula-best-grid-gallery' ),
+			esc_html__( 'Use this tab to create new filters that you can then start assigning filters by editing images individually or by using the bulk edit option.', 'modula-best-grid-gallery' )
 		);
 
 		return apply_filters( 'modula_gallery_tabs', array(
@@ -194,7 +194,7 @@ class Modula_CPT_Fields_Helper {
 				"grid_type" => array(
 					"name"        => esc_html__( 'Column Type', 'modula-best-grid-gallery' ),
 					"type"        => "select",
-					"description" => esc_html__( 'Select the grid type. Automatic will fully fill each row .', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Select the grid type. it will automatically fill each row to the fullest.', 'modula-best-grid-gallery' ),
 					'values'      => array(
 						'automatic' => esc_html__( 'Automatic', 'modula-best-grid-gallery' ),
 						'1'         => esc_html__( 'One Column(1)', 'modula-best-grid-gallery' ),
@@ -262,7 +262,7 @@ class Modula_CPT_Fields_Helper {
 				"gutter"   => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
-					"description" => esc_html__( 'Use this slider to adjust the spacing of images in your gallery.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Use this slider to adjust the image space in your gallery.', 'modula-best-grid-gallery' ),
 					"min"         => 0,
 					"max"         => 100,
 					"step"        => 1,
@@ -272,7 +272,7 @@ class Modula_CPT_Fields_Helper {
 				"width"          => array(
 					"name"        => esc_html__( 'Width', 'modula-best-grid-gallery' ),
 					"type"        => "text",
-					"description" => esc_html__( 'Width of the gallery. Can be in % or pixels.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Change the width of your gallery. It can be in percentages or pixels.', 'modula-best-grid-gallery' ),
 					'default'     => '100%',
 					'priority' => 30,
 				),
@@ -304,7 +304,7 @@ class Modula_CPT_Fields_Helper {
                     "name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
                     "type"        => "toggle",
                     "default"     => 0,
-                    "description" => esc_html__( 'Toggle this to ON to have the gallery shuffle on each page load', 'modula-best-grid-gallery' ),
+                    "description" => esc_html__( 'Toggle this to ON so that your gallery shuffles with each page load.', 'modula-best-grid-gallery' ),
                     'priority'    => 90,
 				),
 				"powered_by"      => array(
@@ -486,7 +486,7 @@ class Modula_CPT_Fields_Helper {
 				"socialIconColor" => array(
 					"name"        => esc_html__( 'Color', 'modula-best-grid-gallery' ),
 					"type"        => "color",
-					"description" => esc_html__( 'Select what color should the icon have. Available only for gallery thumbnail hover.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Select the color of the icon.', 'modula-best-grid-gallery' ),
 					"default"     => "#ffffff",
 					'is_child'    => true,
 					'priority'    => 50,
@@ -539,7 +539,7 @@ class Modula_CPT_Fields_Helper {
 				),
 
 				"cursor"  => array(
-					"name"         => esc_html__( 'Curson Icon', 'modula-best-grid-gallery'),
+					"name"         => esc_html__( 'Cursor Icon', 'modula-best-grid-gallery'),
 					"description"  => esc_html__( 'Select your favourite cursor', 'modula-best-grid-gallery'),
 					"type"		   => "select",
 					"default"	   => "zoom-in",
