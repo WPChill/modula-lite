@@ -14,6 +14,10 @@ Improvements and fixes for lazy loading
 Added an "edit gallery" link below the gallery
 Added functionality to remember metabox tab on gallery update/switch
 Fixed Elementor widget.
+Preparation for Modula Defaults
+Fixed notice not disappearing
+Added a block for the Divi Builder
+Fixed migration for WP Core Galleries
 
 = 2.3.7 - 27/08/2020 =
 Fixed Elementor widget.
