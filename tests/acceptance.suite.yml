@@ -1,0 +1,55 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WPWebDriver or WPBrowser.
+# Use WPDb to set up your initial database fixture.
+# If you need both WPWebDriver and WPBrowser tests - create a separate suite.
+
+actor: AcceptanceTester
+modules:
+  enabled:
+    - WPDb
+    - WPWebDriver
+    - \Helper\Acceptance
+  config:
+    WPDb:
+      dsn: "mysql:host=%DB_HOST%;dbname=%DB_NAME%"
+      user: "%DB_USER%"
+      password: "%DB_PASSWORD%"
+      dump: "tests/_data/dump.sql"
+      #import the dump before the tests; this means the test site database will be repopulated before the tests.
+      populate: false
+      # re-import the dump between tests; this means the test site database will be repopulated between the tests.
+      cleanup: false
+      waitlock: 10
+      url: "%WP_URL%"
+      urlReplacement: true #replace the hardcoded dump URL with the one above
+      tablePrefix: "wp_"
+    WPWebDriver:
+      url: "%WP_URL%:8080"
+      adminUsername: "%WP_ADMIN%"
+      adminPassword: "%WP_ADMIN_PASSWORD%"
+      adminPath: "%WP_ADMIN_PATH%"
+      browser: chrome
+      host: localhost
+      port: 4444
+      window_size: "1920x1080"
+      capabilities:
+        "goog:chromeOptions":
+          args:
+            [
+              "--no-sandbox",
+              "--headless",
+              "--disable-gpu",
+              "--verbose",
+              "--remote-debugging-port=9222",
+            ]
+        chromeOptions:
+          args:
+            [
+              "--no-sandbox",
+              "--headless",
+              "--disable-gpu",
+              "--verbose",
+              "--remote-debugging-port=9222",
+            ]

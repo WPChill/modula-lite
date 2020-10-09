@@ -1,0 +1,16 @@
+/tests
+/reg
+/bin
+/node_modules
+/vendor
+/.env.testing
+/.travis.yml
+codeception.dist.yml
+composer.json
+composer.lock
+Gruntfile.js
+package.json
+package-lock.json
+postcss.config.js
+regconfig.json
+webpack.config.js
