@@ -1,0 +1,22 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests that require WordPress functions and classes.
+
+actor: WpunitTester
+modules:
+  enabled:
+    - WPLoader
+    - \Helper\Wpunit
+  config:
+    WPLoader:
+      wpRootFolder: "%WP_ROOT_FOLDER%"
+      dbName: "%DB_NAME%"
+      dbHost: "%DB_HOST%"
+      dbUser: "%DB_USER%"
+      dbPassword: "%DB_PASSWORD%"
+      tablePrefix: "wp_"
+      domain: "%WP_DOMAIN%"
+      adminEmail: "raibercristian@gmail.com"
+      title: "Test"
+      plugins: ["modula-lite/Modula.php"]
+      activatePlugins: ["modula-lite/Modula.php"]

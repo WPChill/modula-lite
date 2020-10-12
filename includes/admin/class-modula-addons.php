@@ -2,7 +2,7 @@
 
 class Modula_Addons {
 
-	private $addons = array();
+	public $addons = array();
 
 	function __construct() {
 		$this->addons = $this->check_for_addons();
