@@ -840,6 +840,10 @@ endif;
 	 */
 	public function modula_remember_tab( $link, $id ) {
 
+		if ( 'modula-gallery' != get_post_type( $id ) ) {
+			return $link;
+		}
+
 		$settings = get_post_meta( $id, 'modula-settings', true );
 
 		if(isset($settings['last_visited_tab'])){
