@@ -45,7 +45,7 @@ class Modula_Addons {
 				$image = ( '' != $addon['image'] ) ? $addon['image'] : MODULA_URL . 'assets/images/modula-logo.jpg';
 				echo '<div class="modula-addon">';
 				echo '<div class="modula-addon-box">';
-				echo '<div><img src="' . apply_filters( 'modula_whitelabel_image', esc_attr( $image ) ) . '"></div>';
+				echo '<div><img src="' . apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) . '"></div>';
 				echo '<div class="modula-addon-content">';
 				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
 				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
