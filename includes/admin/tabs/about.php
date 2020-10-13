@@ -8,6 +8,8 @@ $issues = array(
 		esc_html__( 'Fixed cursor availabilty', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed previewer jumping when changing from custom grid to columns', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed Elementor widget', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed notice not dissapearing when clicking "x"', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed migration from WP Core galleries', 'modula-best-grid-gallery' ),
 	),
 	'feature' => array(
 		esc_html__( 'Enhanced the migration functionality, now using AJAX, so that the PHP time limit won\'t be an issue.', 'modula-best-grid-gallery' ),
@@ -15,6 +17,10 @@ $issues = array(
 		esc_html__( 'Added functionality to remember metabox tab on gallery update/switch.', 'modula-best-grid-gallery' ),
 		esc_html__( 'Added an "edit gallery" link below the gallery.', 'modula-best-grid-gallery' ),
 		esc_html__( 'Added Filter for Whitelabel.', 'modula-best-grid-gallery' ),
+		esc_html__( 'Removed Lightbox Upgrade notice', 'modula-best-grid-gallery' ),
+		esc_html__( 'Removed "Add new gallery" from the menu', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added a "Powered by" option', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added a block for the Divi Builder', 'modula-best-grid-gallery' ),
 	)
 );
 

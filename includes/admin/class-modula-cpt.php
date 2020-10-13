@@ -836,7 +836,7 @@ endif;
 	 * @param $id
 	 *
 	 * @return string
-	 * @since 2.3.8
+	 * @since 2.4.0
 	 */
 	public function modula_remember_tab( $link, $id ) {
 
