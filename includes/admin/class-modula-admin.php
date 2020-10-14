@@ -29,6 +29,10 @@ class Modula_Admin {
 
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
 
+		add_action( 'admin_init', array( $this, 'register_affiliate_link') );
+		add_filter('modula_admin_page_tabs', array($this, 'add_affiliate_tab'));
+        add_action('modula_admin_tab_affiliate', array($this, 'show_affiliate_tab'));
+
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -420,6 +424,26 @@ class Modula_Admin {
 		echo json_encode( $suggestions );
 		exit();
 	}
+
+	public function register_affiliate_link() {
+		
+		register_setting( 'modula_affiliate', 'modula_affiliate' );
+	
+	}
+
+
+    public function add_affiliate_tab($tabs){
+
+        $tabs['affiliate'] = array(
+            'label'    => esc_html__('Earn Money', 'modula-best-grid-gallery'),
+            'priority' => 100
+        );
+        return $tabs;
+    }
+
+    public function show_affiliate_tab(){
+        include MODULA_PATH . 'includes/admin/tabs/affiliate-options.php';
+    }
 
 }
 
