@@ -16,7 +16,9 @@ update_option( 'modula_affiliate', $sanitized_affiliate );
 
 ?>
 <div class="row">
-    <p><?php echo esc_html__('In the options below you would need to copy your affiliate link into the affiliate link input . Afterwards you would need to type in your powered by text that you would like to be displayed before the link. Now all that is left to do, is to copy the following shortcode : ') ?> <code> [modula-make-money] </code> <?php echo esc_html__( 'and paste it wherever you would like it to be displayed, ie: post, page. The shortcode has an extra parameter that you can override the powered by text, ie: ') ?><code>[modula-make-money text="I am making money with"] </code>. <?php echo esc_html__( 'This would be helpful if you would like different texts on different pages. You also have the option from the gallery settings page to toggle on the Powered By. ( you can find the toggle in the General tab) '); ?></p>
+    <p><?php echo esc_html__('In the options below you would need to copy your affiliate link into the affiliate link input . Afterwards you would need to type in your powered by text that you would like to be displayed before the link. Now all that is left to do, is to copy the following shortcode : ', 'modula-best-grid-gallery') ?> <code> [modula-make-money] </code> <?php echo esc_html__( 'and paste it wherever you would like it to be displayed, ie: post, page. The shortcode has an extra parameter that you can override the powered by text, ie: ', 'modula-best-grid-gallery') ?><code>[modula-make-money text="I am making money with"] </code>. <?php echo esc_html__( 'This would be helpful if you would like different texts on different pages. You also have the option from the gallery settings page to toggle on the Powered By. ( you can find the toggle in the General tab) ','modula-best-grid-gallery'); ?></p>
+	<p><?php echo esc_html__( 'You can find out more on how to become an affiliate', 'modula-best-grid-gallery'); ?> <a href="https://wp-modula.com/become-an-affiliate/" target="_blank"> <?php echo esc_html__( 'here', 'modula-best-grid-gallery'); ?> </a>
+	</p>
 
 	<form method="post" action="options.php">
 
