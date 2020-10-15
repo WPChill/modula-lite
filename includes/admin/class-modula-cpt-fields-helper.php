@@ -336,7 +336,7 @@ class Modula_CPT_Fields_Helper {
                     "type"        => "toggle",
                     "description" => esc_html__( 'Enable this to display navigation arrows.', 'modula-best-grid-gallery' ),
                     "default"     => 1,
-                    'priority'    => 1,
+                    'priority'    => 2,
                 ),
             ),
 			'captions' => array(
