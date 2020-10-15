@@ -13,6 +13,8 @@ class Modula_Shortcode {
 
 		add_shortcode( 'modula', array( $this, 'gallery_shortcode_handler' ) );
 		add_shortcode( 'Modula', array( $this, 'gallery_shortcode_handler' ) );
+
+		add_shortcode( 'modula-make-money', array( $this, 'affiliate_shortcode_handler') );
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_gallery_scripts' ) );
 
 		// Add shortcode related hooks
@@ -373,17 +375,65 @@ class Modula_Shortcode {
 			return;
 		}
 
+		$affiliate = get_option( 'modula_affiliate' );
+		
+		if ( isset( $affiliate['link'] ) ) {
+			$link = esc_url( $affiliate['link'] );
+		} else {
+			$link = esc_url( "https://wp-modula.com/" );
+		}
+		if ( isset( $affiliate['text'] ) ) {
+			$text = esc_html( $affiliate['text'] );
+		}else {
+			$text = esc_html( 'Powered By');
+		}
+
 		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html__( 'Powered by ', 'modula-best-grid-gallery' );
+		$html .= '<p>' .  esc_html( $text );
 		$html .= '<span>';
-		$html .= '<a href="https://wp-modula.com/" target="_blank"> Modula </a>';
+		$html .= "<a href='{$link}' target='_blank'> Modula </a>";
 		$html .= '</span>';
 		$html .= '</p>';
 		$html .= '</div>';
 
 		echo $html;
 
-	} 
+	}
+
+	public function affiliate_shortcode_handler( $atts ) {
+		$default_atts = array(
+			'text' => false
+		);
+
+		$atts = wp_parse_args( $atts, $default_atts );
+		
+		$affiliate = get_option( 'modula_affiliate' );
+		
+		if ( isset( $affiliate['link'] ) ) {
+			$link = esc_url( $affiliate['link'] );
+		} else {
+			$link = esc_url( "https://wp-modula.com/" );
+		}
+		if( !false == $atts['text'] ) {
+			$text = esc_html( $atts['text'] );
+		} else {
+			if ( isset( $affiliate['text'] ) ) {
+				$text = esc_html( $affiliate['text'] );
+			}else {
+				$text = esc_html( 'Powered By');
+			}
+		}
+
+		$html = '<div class="modula-powered">';
+		$html .= '<p>' .  esc_html( $text );
+		$html .= '<span>';
+		$html .= "<a target='_blank' rel='noopener noreferrer' href='{$link}'> Modula </a>";
+		$html .= '</span>';
+		$html .= '</p>';
+		$html .= '</div>';
+
+		return $html;
+	}
 
 }
 

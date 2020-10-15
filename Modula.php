@@ -51,6 +51,23 @@ defined( 'MODULA_PRO_STORE_URL' ) || define( 'MODULA_PRO_STORE_URL' , 'https://w
 defined( 'MODULA_PRO_STORE_UPGRADE_URL' ) || define( 'MODULA_PRO_STORE_UPGRADE_URL' , 'https://wp-modula.com/pricing' );
 define( 'MODULA_FILE' , plugin_basename( __FILE__ ) );
 
+if( ! class_exists( 'Plugin_Usage_Tracker') ) {
+	require_once dirname( __FILE__ ) . '/tracking/class-plugin-usage-tracker.php';
+}
+if( ! function_exists( 'modula_best_grid_gallery_start_plugin_tracking' ) ) {
+	function modula_best_grid_gallery_start_plugin_tracking() {
+		$wisdom = new Plugin_Usage_Tracker(
+			__FILE__,
+			'https://tracking.wp-modula.com/',
+			array(),
+			false,
+			true,
+			1
+		);
+	}
+	modula_best_grid_gallery_start_plugin_tracking();
+}
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-modula-activator.php
