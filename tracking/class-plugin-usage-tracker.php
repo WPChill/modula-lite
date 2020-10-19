@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! class_exists( 'Plugin_Usage_Tracker') ) {
+if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
-	class Plugin_Usage_Tracker {
+	class Modula_Plugin_Usage_Tracker {
 
 		private $wisdom_version = '1.2.4';
 		private $home_url = '';
@@ -68,9 +68,8 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			$this->require_optin = $_require_optin;
 			$this->include_goodbye_form = $_include_goodbye_form;
 			$this->marketing = $_marketing;
-			$this->galleries = $this->get_galleries();
 			// Only use this on switching theme
-			$this->theme_allows_tracking = get_theme_mod( 'wisdom-allow-tracking', 0 );
+			$this->theme_allows_tracking = get_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 
 			// Schedule / deschedule tracking when activated / deactivated
 			if( $this->what_am_i == 'theme' ) {
@@ -373,7 +372,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 				$body['theme_parent'] = sanitize_text_field( $theme->Template );
 			}
 
-			$body['modula_galleries'] = $this->galleries;
+			$body['modula_galleries'] = $this->get_galleries();
 			
 			// Return the data
 			return $body;
@@ -428,11 +427,11 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 
 			// Clear the wisdom_last_track_time value for this plugin
 			// @since 1.2.2
-			$track_time = get_option( 'wisdom_last_track_time' );
+			$track_time = get_option( 'modula_wisdom_last_track_time' );
 			if( isset( $track_time[$this->plugin_name]) ) {
 				unset( $track_time[$this->plugin_name] );
 			}
-			update_option( 'wisdom_last_track_time', $track_time );
+			update_option( 'modula_wisdom_last_track_time', $track_time );
 
 		}
 
@@ -450,7 +449,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 
 			if( $this->what_am_i == 'theme' ) {
 
-				$mod = get_theme_mod( 'wisdom-allow-tracking', 0 );
+				$mod = get_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				if( $mod ) {
 					return true;
 				}
@@ -458,7 +457,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			} else {
 
 				// The wisdom_allow_tracking option is an array of plugins that are being tracked
-				$allow_tracking = get_option( 'wisdom_allow_tracking' );
+				$allow_tracking = get_option( 'modula_wisdom_allow_tracking' );
 				// If this plugin is in the array, then tracking is allowed
 				if( isset( $allow_tracking[$this->plugin_name] ) ) {
 					return true;
@@ -483,12 +482,12 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			}
 
 			// The wisdom_allow_tracking option is an array of plugins that are being tracked
-			$allow_tracking = get_option( 'wisdom_allow_tracking' );
+			$allow_tracking = get_option( 'modula_wisdom_allow_tracking' );
 
 			// If the user has decided to opt out
 			if( $this->has_user_opted_out() ) {
 				if( $this->what_am_i == 'theme' ) {
-					set_theme_mod( 'wisdom-allow-tracking', 0 );
+					set_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				} else {
 					if( isset( $allow_tracking[$plugin] ) ) {
 						unset( $allow_tracking[$plugin] );
@@ -499,7 +498,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 				// If the user has agreed to allow tracking or if opt-in is not required
 
 				if( $this->what_am_i == 'theme' ) {
-					set_theme_mod( 'wisdom-allow-tracking', 1 );
+					set_theme_mod( 'modula-wisdom-allow-tracking', 1 );
 				} else {
 					if( empty( $allow_tracking ) || ! is_array( $allow_tracking ) ) {
 						// If nothing exists in the option yet, start a new array with the plugin name
@@ -513,7 +512,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			} else {
 
 				if( $this->what_am_i == 'theme' ) {
-					set_theme_mod( 'wisdom-allow-tracking', 0 );
+					set_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				} else {
 					if( isset( $allow_tracking[$plugin] ) ) {
 						unset( $allow_tracking[$plugin] );
@@ -522,7 +521,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 
 			}
 
-			update_option( 'wisdom_allow_tracking', $allow_tracking );
+			update_option( 'modula_wisdom_allow_tracking', $allow_tracking );
 
 		}
 
@@ -536,7 +535,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			// Different opt-out methods for plugins and themes
 			if( $this->what_am_i == 'theme' ) {
 				// Look for the theme mod
-				$mod = get_theme_mod( 'wisdom-allow-tracking', 0 );
+				$mod = get_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				if( false === $mod ) {
 					// If the theme mod is not set, then return true - the user has opted out
 					return true;
@@ -563,7 +562,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 */
 		public function get_is_time_to_track() {
 			// Let's see if we're due to track this plugin yet
-			$track_times = get_option( 'wisdom_last_track_time', array() );
+			$track_times = get_option( 'modula_wisdom_last_track_time', array() );
 			if( ! isset( $track_times[$this->plugin_name] ) ) {
 				// If we haven't set a time for this plugin yet, then we must track it
 				return true;
@@ -590,10 +589,10 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 */
 		public function set_track_time() {
 			// We've tracked, so record the time
-			$track_times = get_option( 'wisdom_last_track_time', array() );
+			$track_times = get_option( 'modula_wisdom_last_track_time', array() );
 			// Set different times according to plugin, in case we are tracking multiple plugins
 			$track_times[$this->plugin_name] = time();
-			update_option( 'wisdom_last_track_time', $track_times );
+			update_option( 'modula_wisdom_last_track_time', $track_times );
 		}
 
 		/**
@@ -602,14 +601,14 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 * @since 1.2.4
 		 */
 		public function set_notification_time() {
-			$notification_times = get_option( 'wisdom_notification_times', array() );
+			$notification_times = get_option( 'modula_wisdom_notification_times', array() );
 			// Set different times according to plugin, in case we are tracking multiple plugins
 			if( ! isset( $notification_times[$this->plugin_name] ) ) {
 				$delay_notification = apply_filters( 'wisdom_delay_notification_' . $this->plugin_name, 0 );
 				// We can delay the notification time
 				$notification_time = time() + absint( $delay_notification );
 				$notification_times[$this->plugin_name] = $notification_time;
-				update_option( 'wisdom_notification_times', $notification_times );
+				update_option( 'modula_wisdom_notification_times', $notification_times );
 			}
 		}
 
@@ -619,7 +618,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 * @return Boolean
 		 */
 		public function get_is_notification_time() {
-			$notification_times = get_option( 'wisdom_notification_times', array() );
+			$notification_times = get_option( 'modula_wisdom_notification_times', array() );
 			$time = time();
 			// Set different times according to plugin, in case we are tracking multiple plugins
 			if( isset( $notification_times[$this->plugin_name] ) ) {
@@ -640,7 +639,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 			if( empty( $plugin ) ) {
 				$plugin = $this->plugin_name;
 			}
-			$block_notice = get_option( 'wisdom_block_notice' );
+			$block_notice = get_option( 'modula_wisdom_block_notice' );
 			if( empty( $block_notice ) || ! is_array( $block_notice ) ) {
 				// If nothing exists in the option yet, start a new array with the plugin name
 				$block_notice = array( $plugin => $plugin );
@@ -648,7 +647,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 				// Else add the plugin name to the array
 				$block_notice[$plugin] = $plugin;
 			}
-			update_option( 'wisdom_block_notice', $block_notice );
+			update_option( 'modula_wisdom_block_notice', $block_notice );
 		}
 
 		/**
@@ -657,7 +656,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 */
 		public function get_can_collect_email() {
 			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$collect_email = get_option( 'wisdom_collect_email' );
+			$collect_email = get_option( 'modula_wisdom_collect_email' );
 			// If this plugin is in the array, then we can collect the email address
 			if( isset( $collect_email[$this->plugin_name] ) ) {
 				return true;
@@ -677,7 +676,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 				$plugin = $this->plugin_name;
 			}
 			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$collect_email = get_option( 'wisdom_collect_email' );
+			$collect_email = get_option( 'modula_wisdom_collect_email' );
 			// If the user has agreed to allow tracking or if opt-in is not required
 			if( $can_collect ) {
 				if( empty( $collect_email ) || ! is_array( $collect_email ) ) {
@@ -692,7 +691,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 					unset( $collect_email[$plugin] );
 				}
 			}
-			update_option( 'wisdom_collect_email', $collect_email );
+			update_option( 'modula_wisdom_collect_email', $collect_email );
 		}
 
 		/**
@@ -702,7 +701,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 		 */
 		public function get_admin_email() {
 			// The wisdom_collect_email option is an array of plugins that are being tracked
-			$email = get_option( 'wisdom_admin_emails' );
+			$email = get_option( 'modula_wisdom_admin_emails' );
 			// If this plugin is in the array, then we can collect the email address
 			if( isset( $email[$this->plugin_name] ) ) {
 				return $email[$this->plugin_name];
@@ -739,7 +738,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 				// Else add the email address to the array, if not already set
 				$admin_emails[$plugin] = sanitize_email( $email );
 			}
-			update_option( 'wisdom_admin_emails', $admin_emails );
+			update_option( 'modula_wisdom_admin_emails', $admin_emails );
 		}
 
 		/**
@@ -770,7 +769,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 
 			// Check whether to block the notice, e.g. because we're in a local environment
 			// wisdom_block_notice works the same as wisdom_allow_tracking, an array of plugin names
-			$block_notice = get_option( 'wisdom_block_notice' );
+			$block_notice = get_option( 'modula_wisdom_block_notice' );
 
 			if( isset( $block_notice[$this->plugin_name] ) ) {
 				return;

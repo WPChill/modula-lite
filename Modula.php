@@ -56,7 +56,7 @@ if( ! class_exists( 'Plugin_Usage_Tracker') ) {
 }
 if( ! function_exists( 'modula_best_grid_gallery_start_plugin_tracking' ) ) {
 	function modula_best_grid_gallery_start_plugin_tracking() {
-		$wisdom = new Plugin_Usage_Tracker(
+		$wisdom = new Modula_Plugin_Usage_Tracker(
 			__FILE__,
 			'https://tracking.wp-modula.com/',
 			array(),
