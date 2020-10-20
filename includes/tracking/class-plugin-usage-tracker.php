@@ -174,7 +174,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 * @param $force	Force tracking if it's not time
 		 */
 		/// FOR TESTING PURPOSES FORCE IS SET TO TRUE. BY DEFAULT IT IS FALSE .
-		public function do_tracking( $force=true ) {
+		public function do_tracking( $force=false ) {
 
 			// If the home site hasn't been defined, we just drop out. Nothing much we can do.
 			if ( ! $this->home_url ) {
@@ -457,10 +457,11 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			} else {
 
 				// The wisdom_allow_tracking option is an array of plugins that are being tracked
-				$allow_tracking = get_option( 'modula_wisdom_allow_tracking' );
-				// If this plugin is in the array, then tracking is allowed
-				if( isset( $allow_tracking[$this->plugin_name] ) ) {
-					return true;
+				$allow_tracking = get_option( 'modula_troubleshooting_option' );
+				if ( is_array( $allow_tracking['track_data'] ) ) {
+					if( true == $allow_tracking['track_data'] ) {
+						return true;
+					}
 				}
 
 			}
@@ -476,53 +477,53 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 * @param $is_allowed	Boolean		true if tracking is allowed, false if not
 		 */
 		public function set_is_tracking_allowed( $is_allowed, $plugin=null ) {
-
+			
 			if( empty( $plugin ) ) {
 				$plugin = $this->plugin_name;
 			}
 
+			$block_notice = get_option( 'modula_wisdom_block_notice' );
+			if( isset( $block_notice[$this->plugin_name] ) ) {
+				return;
+			}
+
 			// The wisdom_allow_tracking option is an array of plugins that are being tracked
-			$allow_tracking = get_option( 'modula_wisdom_allow_tracking' );
+			$allow_tracking = get_option( 'modula_troubleshooting_option' );
+			$allow_tracking['track_data'] = false;
 
 			// If the user has decided to opt out
 			if( $this->has_user_opted_out() ) {
 				if( $this->what_am_i == 'theme' ) {
 					set_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				} else {
-					if( isset( $allow_tracking[$plugin] ) ) {
-						unset( $allow_tracking[$plugin] );
+					if( true == $allow_tracking['track_data'] ) {
+						$allow_tracking['track_data'] = false;
 					}
 				}
 
 			} else if( $is_allowed || ! $this->require_optin ) {
 				// If the user has agreed to allow tracking or if opt-in is not required
-
+				
 				if( $this->what_am_i == 'theme' ) {
 					set_theme_mod( 'modula-wisdom-allow-tracking', 1 );
 				} else {
-					if( empty( $allow_tracking ) || ! is_array( $allow_tracking ) ) {
-						// If nothing exists in the option yet, start a new array with the plugin name
-						$allow_tracking = array( $plugin => $plugin );
-					} else {
-						// Else add the plugin name to the array
-						$allow_tracking[$plugin] = $plugin;
+					if( false == $allow_tracking['track_data'] ) {
+						$allow_tracking['track_data'] = true;
 					}
 				}
 
 			} else {
-
 				if( $this->what_am_i == 'theme' ) {
 					set_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 				} else {
-					if( isset( $allow_tracking[$plugin] ) ) {
-						unset( $allow_tracking[$plugin] );
+					if( true == $allow_tracking['track_data'] ) {
+						$allow_tracking['track_data'] = false;
 					}
 				}
 
 			}
-
-			update_option( 'modula_wisdom_allow_tracking', $allow_tracking );
-
+			
+			update_option( 'modula_troubleshooting_option', $allow_tracking );
 		}
 
 		/**
@@ -819,13 +820,13 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				if( $this->marketing != 1 ) {
 					// Standard notice text
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional. You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
 						$this->what_am_i
 					);
 				} else {
 					// If we have option 1 for marketing, we include reference to sending product information here
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
 						$this->what_am_i
 					);
 				}

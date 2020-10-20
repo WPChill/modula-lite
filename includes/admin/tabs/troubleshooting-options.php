@@ -6,8 +6,10 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'deeplink'         => false,
     'gridtypes'        => array(),
     'lightboxes'       => array(),
-    'lazy_load'        => false
+    'lazy_load'        => false,
+    'track_data'       => false
 ));
+
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
@@ -44,7 +46,15 @@ $troubleshooting_fields = array(
         'description' => esc_html__('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
         'type'        => 'toggle',
         'priority'    => 40,
-    )
+    ),
+
+    'track_data'     => array(
+        'label'       => esc_html__('Track Data', 'modula-best-grid-gallery'),
+        'description' => esc_html__('We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and Modula settings, which we will use to help us make improvements.', 'modula-best-grid-gallery'),
+        'type'        => 'toggle',
+        'priority'    => 99,
+    ),
+    
 );
 
 $troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
@@ -63,7 +73,15 @@ if ( ! $troubleshooting_options['enqueue_files'] ) {
             <?php
             foreach ($troubleshooting_fields as $key => $ts_field) {
                 ?>
-                <tr valign="top" class="<?php echo 'enqueue_files' != $key ? $class : '' ?>">
+                <tr valign="top" class="<?php
+                 if( 'enqueue_files' == $key ) {
+                    echo '';
+                 } else if ( 'track_data' == $key ) {
+                     echo '';
+                 } else {
+                     echo $class;
+                 }
+                 ?>">
                     <th scope="row" valign="top">
                         <?php 
                         echo esc_html( $ts_field['label'] ); 
