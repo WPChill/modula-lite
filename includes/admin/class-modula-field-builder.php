@@ -188,7 +188,6 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
-				$current_tab_content .= apply_filters( "modula_admin_settings_tab_text", '', $tab_id, $current_tab_content);
 
 			}
 
