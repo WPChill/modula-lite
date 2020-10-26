@@ -8,6 +8,7 @@ import icons from './utils/icons';
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
+const { Icon } = wp.components;
 const { registerBlockType } = wp.blocks;
 
 class ModulaGutenberg  {
@@ -29,7 +30,7 @@ class ModulaGutenberg  {
 
 		registerBlockType( this.blockName, {
 			title: modulaVars.gutenbergTitle ,
-			icon: modulaVars.gutenbergLogo,
+			icon: icons.modula,
 			description: __( 'Make your galleries stand out.','modula-best-grid-gallery' ),
 			keywords: [
 				__( 'gallery' ),

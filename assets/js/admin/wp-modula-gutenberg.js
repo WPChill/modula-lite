@@ -494,6 +494,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * WordPress dependencies
  */
 var __ = wp.i18n.__;
+var Icon = wp.components.Icon;
 var registerBlockType = wp.blocks.registerBlockType;
 
 var ModulaGutenberg = function () {
@@ -518,7 +519,7 @@ var ModulaGutenberg = function () {
 
 			registerBlockType(this.blockName, {
 				title: modulaVars.gutenbergTitle,
-				icon: modulaVars.gutenbergLogo,
+				icon: _icons2.default.modula,
 				description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
 				keywords: [__('gallery'), __('modula'), __('images')],
 				category: 'common',

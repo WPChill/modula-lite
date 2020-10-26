@@ -61,6 +61,7 @@ class Modula_Gutenberg {
 		);
 	}
 
+
 	public function render_modula_gallery( $atts ) {
 		if ( ! isset( $atts['id'] ) ) {
 			return;
