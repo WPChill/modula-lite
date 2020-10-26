@@ -28,8 +28,8 @@ class ModulaGutenberg  {
 		};
 
 		registerBlockType( this.blockName, {
-			title: ( true == !!modulaVars.gutenbergTitle) ? modulaVars.gutenbergTitle :__( 'Modula Gallery', 'modula-best-grid-gallery'),
-			icon: icons.modula,
+			title: modulaVars.gutenbergTitle ,
+			icon: modulaVars.gutenbergLogo,
 			description: __( 'Make your galleries stand out.','modula-best-grid-gallery' ),
 			keywords: [
 				__( 'gallery' ),
