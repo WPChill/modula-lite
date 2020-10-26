@@ -161,11 +161,14 @@ var ModulaEdit = function (_Component) {
 	}, {
 		key: 'selectOptions',
 		value: function selectOptions() {
-			var options = [{ value: 0, label: __('select a gallery') }];
+			var options = [{ value: 0, label: __('select a gallery', 'modula-best-grid-gallery') }];
 
 			this.props.galleries.forEach(function (gallery) {
 				if (gallery.title.rendered.length == 0) {
-					options.push({ value: gallery.id, label: 'Unnamed Gallery ' + gallery.id });
+					options.push({
+						value: gallery.id,
+						label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
+					});
 				} else {
 					options.push({ value: gallery.id, label: gallery.title.rendered });
 				}
@@ -193,7 +196,7 @@ var ModulaEdit = function (_Component) {
 					Toolbar,
 					null,
 					React.createElement(IconButton, {
-						label: __('Edit gallery'),
+						label: __('Edit gallery', 'modula-best-grid-gallery'),
 						icon: 'edit',
 						href: modulaVars.adminURL + 'post.php?post=' + id + '&action=edit',
 						target: '_blank'
@@ -238,12 +241,12 @@ var ModulaEdit = function (_Component) {
 								React.createElement(
 									'p',
 									null,
-									__('You don\'t seem to have any galleries.')
+									__('You don\'t seem to have any galleries.', 'modula-best-grid-gallery')
 								),
 								React.createElement(
 									Button,
 									{ href: modulaVars.adminURL + 'post-new.php?post_type=modula-gallery', target: '_blank', isDefault: true },
-									__('Add New Gallery')
+									__('Add New Gallery', 'modula-best-grid-gallery')
 								)
 							),
 							galleries.length > 0 && React.createElement(
@@ -388,7 +391,10 @@ var Inspector = function (_Component) {
 
 			this.props.galleries.forEach(function (gallery) {
 				if (gallery.title.rendered.length == 0) {
-					options.push({ value: gallery.id, label: 'Unnamed Gallery ' + gallery.id });
+					options.push({
+						value: gallery.id,
+						label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
+					});
 				} else {
 					options.push({ value: gallery.id, label: gallery.title.rendered });
 				}
@@ -416,7 +422,7 @@ var Inspector = function (_Component) {
 					null,
 					React.createElement(
 						PanelBody,
-						{ title: __('Gallery Settings'), initialOpen: true },
+						{ title: __('Gallery Settings', 'modula-best-grid-gallery'), initialOpen: true },
 						galleries.length === 0 && React.createElement(
 							Fragment,
 							null,
@@ -428,7 +434,7 @@ var Inspector = function (_Component) {
 							React.createElement(
 								Button,
 								{ href: modulaVars.adminURL + 'post-new.php?post_type=modula-gallery', target: '_blank', isDefault: true },
-								__('Add New Gallery')
+								__('Add New Gallery', 'modula-best-grid-gallery')
 							)
 						),
 						galleries.length > 0 && React.createElement(
@@ -436,7 +442,7 @@ var Inspector = function (_Component) {
 							null,
 							React.createElement(SelectControl, {
 								key: id,
-								label: __('Select Gallery'),
+								label: __('Select Gallery', 'modula-best-grid-gallery'),
 								value: id,
 								options: this.selectOptions(),
 								onChange: function onChange(value) {
@@ -489,6 +495,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
+var createHooks = wp.hooks.createHooks;
+
+
+var modulaHooks = createHooks();
 
 var ModulaGutenberg = function () {
 	function ModulaGutenberg() {
@@ -511,9 +521,9 @@ var ModulaGutenberg = function () {
 			};
 
 			registerBlockType(this.blockName, {
-				title: 'Modula Gallery',
-				icon: _icons2.default.modula,
-				description: __('Make your galleries stand out.'),
+				title: __('Modula Gallery', 'modula-best-grid-gallery'),
+				icon: modulaHooks.applyFilters('modulaSvgIcon', _icons2.default.modula),
+				description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
 				keywords: [__('gallery'), __('modula'), __('images')],
 				category: 'common',
 				supports: {

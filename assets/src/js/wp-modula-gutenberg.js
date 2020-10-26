@@ -3,12 +3,15 @@
  */
 import Edit from './components/edit';
 import icons from './utils/icons';
-
 /**
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const { createHooks } = wp.hooks;
+
+var modulaHooks = createHooks();
+
 
 class ModulaGutenberg  {
 
@@ -28,9 +31,9 @@ class ModulaGutenberg  {
 		};
 
 		registerBlockType( this.blockName, {
-			title: 'Modula Gallery',
-			icon: icons.modula,
-			description: __( 'Make your galleries stand out.','modula-best-grid-galleries' ),
+			title: __( 'Modula Gallery', 'modula-best-grid-gallery'),
+			icon: modulaHooks.applyFilters( 'modulaSvgIcon', icons.modula),
+			description: __( 'Make your galleries stand out.','modula-best-grid-gallery' ),
 			keywords: [
 				__( 'gallery' ),
 				__( 'modula' ),
