@@ -495,10 +495,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  */
 var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
-var createHooks = wp.hooks.createHooks;
-
-
-var modulaHooks = createHooks();
 
 var ModulaGutenberg = function () {
 	function ModulaGutenberg() {
@@ -521,8 +517,8 @@ var ModulaGutenberg = function () {
 			};
 
 			registerBlockType(this.blockName, {
-				title: __('Modula Gallery', 'modula-best-grid-gallery'),
-				icon: modulaHooks.applyFilters('modulaSvgIcon', _icons2.default.modula),
+				title: true == !!modulaVars.gutenbergTitle ? modulaVars.gutenbergTitle : __('Modula Gallery', 'modula-best-grid-gallery'),
+				icon: _icons2.default.modula,
 				description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
 				keywords: [__('gallery'), __('modula'), __('images')],
 				category: 'common',

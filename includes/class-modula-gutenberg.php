@@ -35,11 +35,11 @@ class Modula_Gutenberg {
 		wp_localize_script(
 			'modula-gutenberg',
 			'modulaVars',
-			array(
+			apply_filters( 'modula_gutenberg_vars', array(
 				'adminURL' => admin_url(),
 				'ajaxURL'  => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'modula_nonce' ),
-			)
+			) )
 		);
 	}
 
