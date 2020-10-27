@@ -40,7 +40,7 @@ class Modula_Gutenberg {
 				'ajaxURL'        => admin_url( 'admin-ajax.php' ),
 				'nonce'          => wp_create_nonce( 'modula_nonce' ),
 				'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery'),
-			) ),
+			) )
 		);
 
 	}
