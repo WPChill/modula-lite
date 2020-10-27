@@ -494,7 +494,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * WordPress dependencies
  */
 var __ = wp.i18n.__;
-var Icon = wp.components.Icon;
 var registerBlockType = wp.blocks.registerBlockType;
 
 var ModulaGutenberg = function () {

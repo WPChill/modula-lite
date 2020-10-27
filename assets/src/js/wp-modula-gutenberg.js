@@ -8,7 +8,6 @@ import icons from './utils/icons';
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
-const { Icon } = wp.components;
 const { registerBlockType } = wp.blocks;
 
 class ModulaGutenberg  {
