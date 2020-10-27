@@ -62,7 +62,7 @@ if( ! function_exists( 'modula_best_grid_gallery_start_plugin_tracking' ) ) {
 			array(),
 			true,
 			true,
-			1
+			0
 		);
 	}
 	modula_best_grid_gallery_start_plugin_tracking();
