@@ -458,8 +458,8 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
 				// The wisdom_allow_tracking option is an array of plugins that are being tracked
 				$allow_tracking = get_option( 'modula_troubleshooting_option' );
-				if ( is_array( $allow_tracking['track_data'] ) ) {
-					if( true == $allow_tracking['track_data'] ) {
+				if ( is_array( $allow_tracking ) ) {
+					if( isset( $allow_tracking['track_data']) &&  true == $allow_tracking['track_data'] ) {
 						return true;
 					}
 				}
