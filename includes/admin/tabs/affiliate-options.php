@@ -1,18 +1,7 @@
 <?php
 
-$affiliate  = get_option( 'modula_affiliate' );
-		
-$sanitized_affiliate = array();
-if( isset( $affiliate['link'] ) ) {
-    
-    $sanitized_affiliate['link'] = esc_url( $affiliate['link'] );
-}
-if( isset( $affiliate['text'] ) ) {
-    
-    $sanitized_affiliate['text'] = sanitize_text_field( $affiliate['text'] );
-}
-
-update_option( 'modula_affiliate', $sanitized_affiliate );
+$affiliate = get_option( 'modula_affiliate', array() );
+$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Power by' ) );
 
 ?>
 <div class="row">
