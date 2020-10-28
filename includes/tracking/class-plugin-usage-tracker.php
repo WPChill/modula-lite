@@ -805,10 +805,10 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				// Decide how to request permission to collect email addresses
 				if( $this->marketing == 1 ) {
 					// Option 1 combines permissions to track and collect email
-					$yes_args['marketing_optin'] = 'yes';
+					$yes_args['marketing_optin'] = 'no';
 				} else if( $this->marketing == 2 ) {
 					// Option 2 enables a second notice that fires after the user opts in to tracking
-					$yes_args['marketing'] = 'yes';
+					$yes_args['marketing'] = 'no';
 				}
 				$url_yes = add_query_arg( $yes_args );
 				$url_no = add_query_arg( array(
