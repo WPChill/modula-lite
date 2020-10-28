@@ -1,7 +1,7 @@
 <?php
 
 $affiliate = get_option( 'modula_affiliate', array() );
-$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Power by' ) );
+$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
 
 ?>
 <div class="row">

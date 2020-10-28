@@ -376,12 +376,12 @@ class Modula_Shortcode {
 		}
 
 		$affiliate = get_option( 'modula_affiliate', array() );
-		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Power by' ) );
+		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
 
 		$html = '<div class="modula-powered">';
 		$html .= '<p>' .  esc_html( $affiliate['text'] );
 		$html .= '<span>';
-		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank"> Modula </a>';
+		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
 		$html .= '</span>';
 		$html .= '</p>';
 		$html .= '</div>';
@@ -397,27 +397,13 @@ class Modula_Shortcode {
 
 		$atts = wp_parse_args( $atts, $default_atts );
 		
-		$affiliate = get_option( 'modula_affiliate' );
-		
-		if ( isset( $affiliate['link'] ) ) {
-			$link = esc_url( $affiliate['link'] );
-		} else {
-			$link = esc_url( "https://wp-modula.com/" );
-		}
-		if( !false == $atts['text'] ) {
-			$text = esc_html( $atts['text'] );
-		} else {
-			if ( isset( $affiliate['text'] ) ) {
-				$text = esc_html( $affiliate['text'] );
-			}else {
-				$text = esc_html( 'Powered By');
-			}
-		}
+		$affiliate = get_option( 'modula_affiliate', array() );
+		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
 
 		$html = '<div class="modula-powered">';
 		$html .= '<p>' .  esc_html( $text );
 		$html .= '<span>';
-		$html .= "<a target='_blank' rel='noopener noreferrer' href='{$link}'> Modula </a>";
+		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
 		$html .= '</span>';
 		$html .= '</p>';
 		$html .= '</div>';
