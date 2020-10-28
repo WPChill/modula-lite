@@ -401,7 +401,7 @@ class Modula_Shortcode {
 		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
 
 		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html( $text );
+		$html .= '<p>' .  esc_html( $affiliate['text'] );
 		$html .= '<span>';
 		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
 		$html .= '</span>';
