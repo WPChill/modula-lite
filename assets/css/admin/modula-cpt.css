@@ -1411,6 +1411,10 @@ Ups-sells carousel
     display:none;
 }
 
+#modula-defaults-upsell p {
+	text-align:left;
+}
+
 #modula-sorting-upsell > .inside,
 #modula-albums-upsell > .inside,
 #modula-defaults-upsell > .inside {
@@ -1418,7 +1422,7 @@ Ups-sells carousel
 	margin: 0 auto;
 }
 
-/* Editor theme*/
+	/* Editor theme*/
 /*
     Name:       dracula
     Author:     Michael Kaminsky (http://github.com/mkaminsky11)

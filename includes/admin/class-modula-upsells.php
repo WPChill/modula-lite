@@ -381,7 +381,7 @@ class Modula_Upsells {
 			array( $this, 'output_defaults_upsell' ),   // Callback function
 			'modula-gallery',         // Admin page (or post type)
 			'side',         // Context
-			'default'         // Priority
+			'high'         // Priority
 		);
 
     	add_meta_box(
@@ -435,9 +435,9 @@ class Modula_Upsells {
 		<div class="modula-upsells-carousel-wrapper">
 			<div class="modula-upsells-carousel">
 				<div class="modula-upsell modula-upsell-item">
-					<h2><?php esc_html_e( 'Gallery defaults', 'modula-best-grid-gallery' ) ?></h2>
-					<p class="modula-upsell-description"><?php esc_html_e( 'Time is of the essence these days, so quit spending it on tasks that can be automatized. By using Modula Defaults Addon, you can spare yourself the trouble of retaking all the steps each time you create a new gallery. Adjust your preferences and settings once and for all and make the gallery creation process shorter and more efficient. 
-The great thing is that Modula Defaults Addon allows you to create default settings for all your galleries and albums. The default settings can also be applied to other addons you have active.', 'modula-best-grid-gallery' ) ?></p>
+					<h2><?php esc_html_e( 'Modula Defaults Addon', 'modula-best-grid-gallery' ) ?></h2>
+					<p class="modula-upsell-description"><?php esc_html_e( 'Time is of the essence these days, so quit spending it on tasks that can be automatized. By using Modula Defaults Addon, you can spare yourself the trouble of retaking all the steps each time you create a new gallery. Adjust your preferences and settings once and for all and make the gallery creation process shorter and more efficient.', 'modula-best-grid-gallery' ); ?></p>
+					<p class="modula-upsell-description"><?php echo esc_html__( 'The great thing is that Modula Defaults Addon allows you to create default settings for all your galleries and albums. The default settings can also be applied to other addons you have active.', 'modula-best-grid-gallery' ) ?></p>
 
 					<p>
 						<a target="_blank"
