@@ -1412,9 +1412,10 @@ Ups-sells carousel
 }
 
 #modula-sorting-upsell > .inside,
-#modula-albums-upsell > .inside {
-    padding:0px;
-    margin:0 auto;
+#modula-albums-upsell > .inside,
+#modula-defaults-upsell > .inside {
+	padding: 0;
+	margin: 0 auto;
 }
 
 /* Editor theme*/
