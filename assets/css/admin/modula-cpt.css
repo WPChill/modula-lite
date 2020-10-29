@@ -1411,7 +1411,7 @@ Ups-sells carousel
     display:none;
 }
 
-#modula-defaults-upsell p {
+#modula-defaults-upsell p:not(:last-child) {
 	text-align:left;
 }
 
