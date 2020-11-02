@@ -811,6 +811,7 @@ class Modula_CPT {
 				</div>
 				<div class="clear"></div>
 			</div>
+			<?php do_action('modula_cpt_publish_actions'); ?>
 			<div class="modula-shortcuts">
 				<?php esc_html_e( 'Want a faster and easier way to save galleries? Use our Keyboard shortcut:', 'modula-best-grid-gallery' ); ?>
 				<strong>CTRL/CMD + S</strong>
@@ -879,7 +880,6 @@ class Modula_CPT {
 				</div>
 				<div class="clear"></div>
 			</div>
-			<?php do_action('modula_cpt_publish_actions'); ?>
 		</div> <?php
 	}
 
