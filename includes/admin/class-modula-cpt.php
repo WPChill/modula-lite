@@ -879,6 +879,7 @@ class Modula_CPT {
 				</div>
 				<div class="clear"></div>
 			</div>
+			<?php do_action('modula_cpt_publish_actions'); ?>
 		</div> <?php
 	}
 
