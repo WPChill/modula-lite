@@ -357,7 +357,7 @@ class Modula_CPT {
 						} else if ( 'hidden' == $field['type'] ) {
 
 							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
-							if ( isset( $hidden_set['last_visited_tab'] ) ) {
+							if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
 								$modula_settings[$field_id] = $hidden_set['last_visited_tab'];
 							} else {
 								$modula_settings[$field_id] = 'modula-general';
@@ -900,7 +900,7 @@ class Modula_CPT {
 
 		$settings = get_post_meta( $id, 'modula-settings', true );
 
-		if ( isset( $settings['last_visited_tab'] ) ) {
+		if ( isset( $settings['last_visited_tab'] ) && '' != $settings['last_visited_tab'] ) {
 			$link = $link . '#!' . $settings['last_visited_tab'];
 		} else {
 			$link = $link . '#!modula-general';
