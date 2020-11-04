@@ -79,9 +79,13 @@ If you can't seem to figure something out, you can always check our [documentati
 
 == 3rd party or external service disclaimer ==
 
+The plugin sends data (User action) to our website through an API Call (https://tracking.wp-modula.com/).
+
 The plugin connects to our website through an API call (https://wp-modula.com/wp-json/mt/v1/get-all-extensions) in order to request a list of available extensions.
-IT DOES NOT SEND ANY DATA NOR DO WE COLLECT INFORMATION FROM THE REQUEST
-Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy/
+
+**Modula Gallery does not send any data without consent or user action to our website, nor do we collect sensitive information from the requests.**
+
+Our full privacy policy can be found [here](https://wp-modula.com/privacy-policy/).
 
 == Installation ==
 
