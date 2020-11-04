@@ -28,9 +28,9 @@ class ModulaGutenberg  {
 		};
 
 		registerBlockType( this.blockName, {
-			title: 'Modula Gallery',
+			title: modulaVars.gutenbergTitle ,
 			icon: icons.modula,
-			description: __( 'Make your galleries stand out.' ),
+			description: __( 'Make your galleries stand out.','modula-best-grid-gallery' ),
 			keywords: [
 				__( 'gallery' ),
 				__( 'modula' ),

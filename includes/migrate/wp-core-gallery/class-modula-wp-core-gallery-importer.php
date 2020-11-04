@@ -155,7 +155,7 @@ class Modula_WP_Core_Gallery_Importer {
                             'description' => wp_filter_post_kses($img->post_content),
                             'halign'      => 'center',
                             'valign'      => 'middle',
-                            'link'        => esc_url_raw($img->guid),
+                            'link'        => '',
                             'target'      => '',
                             'width'       => 2,
                             'height'      => 2,

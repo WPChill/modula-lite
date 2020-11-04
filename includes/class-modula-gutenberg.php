@@ -35,13 +35,16 @@ class Modula_Gutenberg {
 		wp_localize_script(
 			'modula-gutenberg',
 			'modulaVars',
-			array(
-				'adminURL' => admin_url(),
-				'ajaxURL'  => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'modula_nonce' ),
-			)
+			apply_filters( 'modula_gutenberg_vars', array(
+				'adminURL'       => admin_url(),
+				'ajaxURL'        => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'modula_nonce' ),
+				'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery'),
+			) )
 		);
+
 	}
+
 
 	public function render_modula_gallery( $atts ) {
 		if ( ! isset( $atts['id'] ) ) {
@@ -52,7 +55,7 @@ class Modula_Gutenberg {
 			$atts['align'] = '';
 		}
 
-		return '[modula id=' . $atts['id'] . ' align=' . $atts['align'] . ']';
+		return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
 	}
 
 	public function get_gallery_meta() {

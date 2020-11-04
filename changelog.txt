@@ -1,3 +1,24 @@
+= 2.4.0 - 30/10/2020 =
+Fixed some typos
+Update migration function to use AJAX so that the PHP time limit won't be an issue
+Fix incompatibility with certain themes - targeted CSS so that element design won't be overwritten
+Removed Lightbox Upgrade Notice
+Added a default title to gallery on Gutenberg Modula block
+Fixed FooGallery grid type selection on migration
+Added Filter for Whitelabel
+Fixed cursor availabilty
+Fixed previewer jumping when changing from custom grid to columns
+Added powered by option
+Removed "Add new gallery" from the menu
+Improvements and fixes for lazy loading
+Added an "edit gallery" link below the gallery
+Added functionality to remember metabox tab on gallery update/switch
+Fixed Elementor widget.
+Preparation for Modula Defaults
+Fixed notice not disappearing
+Added a block for the Divi Builder
+Fixed migration for WP Core Galleries
+
 = 2.3.7 - 27/08/2020 =
 Fixed Elementor widget.
 

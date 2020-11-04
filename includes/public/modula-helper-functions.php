@@ -277,6 +277,13 @@ function modula_show_schemaorg( $settings ){
 
 }
 
+function modula_edit_gallery( $settings ) {
+
+	$gallery_id = absint( explode('jtg-', $settings['gallery_id'] )[1] );
+
+	edit_post_link( __('Edit gallery','modula-best-grid-gallery'), '', '', $gallery_id, 'post-edit-link' );
+}
+
 function modula_add_gallery_class( $template_data ){
 
 	if ( 'custom-grid' == $template_data['settings']['type'] ) {
@@ -314,4 +321,3 @@ function modula_add_scripts( $scripts, $settings ){
 
 	return array_merge( $needed_scripts, $scripts );
 }
-

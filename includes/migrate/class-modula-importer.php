@@ -295,11 +295,12 @@ class Modula_Importer {
 
         foreach ($galleries['valid_galleries'] as $key => $gallery) {
             $imported = false;
+            $importing_status = '';
             switch ( $source ) {
                 case 'envira':
                     $id             = $gallery->ID;
                     $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
-                    
+
                     if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
                         $imported = true;
                     }
@@ -319,14 +320,15 @@ class Modula_Importer {
                     $count      = $gal_source->images_count( $gallery->Id );
                     break;
                 case 'nextgen':
-                    $id             = $gallery->gid;
-                    $modula_gallery = get_post_type( $import_settings['galleries'][ $source ][ $id ] );
-                    if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
-                        $imported = true;
-                    }
-                    $title = '<a href="' . wp_nonce_url( admin_url( 'admin.php?page=nggallery-manage-gallery&amp;mode=edit&amp;gid=' . $gallery->gid ) ) . '" target="_blank">' . esc_html( $gallery->title ) . '</a>';
-                    $count = $gal_source->images_count( $gallery->gid );
-                    break;
+	                $id             = $gallery->gid;
+	                $modula_gallery = get_post_type( $import_settings['galleries'][$source][$id] );
+	                if ( isset( $import_settings['galleries'][$source] ) && 'modula-gallery' == $modula_gallery ) {
+		                $imported = true;
+	                }
+	                $title            = '<a href="' . wp_nonce_url( admin_url( 'admin.php?page=nggallery-manage-gallery&amp;mode=edit&amp;gid=' . $gallery->gid ) ) . '" target="_blank">' . esc_html( $gallery->title ) . '</a>';
+	                $count            = $gal_source->images_count( $gallery->gid );
+	                $importing_status = '<span class="importing-status"></span>';
+	                break;
                 case
                 'photoblocks':
                     $id             = $gallery->id;
@@ -365,15 +367,16 @@ class Modula_Importer {
 
             }
 
-            // Small fix for wp_core galleries
-            $val = ($value) ? $value : $id;
+	        // Small fix for wp_core galleries
+	        $val          = ($value) ? $value : $id;
+	        $upload_count = $count;
 
             $html .= '<div class="modula-importer-checkbox-wrapper">' .
                      '<label for="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
-                     ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? ' class="imported"' : '' ) . '>' .
+                     ' data-id="' . esc_attr( $id ) . '" ' . ( $imported ? 'data-imported="true" class="imported"' : '' ) . '>' .
                      '<input type="checkbox" name="gallery"' .
                      ' id="' . esc_attr( $source ) . '-galleries-' . esc_attr( $id ) . '"' .
-                     ' data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
+                     'data-image-count="'.esc_attr($upload_count).'" data-id="'.esc_attr($id).'" value="' . esc_attr( $val ) . '"/>';
            // Title is escaped above
             $html .= $title ;
 
@@ -387,7 +390,9 @@ class Modula_Importer {
                 $html .= '<i class="imported-check dashicons dashicons-yes"></i>';
             }
 
-            $html .= '</span></label></div>';
+            $html .= '</span>';
+
+	        $html .= $importing_status . '</label></div>';
 
         }
 
@@ -414,7 +419,10 @@ class Modula_Importer {
 
         switch ($source){
             case 'envira':
-                $images = get_post_meta($data, '_eg_gallery_data', true);
+
+                $settings = get_post_meta($data, '_eg_gallery_data', true);
+                $images = $settings['gallery'];
+
                 break;
             case 'nextgen':
                 // Get images from NextGEN Gallery

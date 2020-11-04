@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 2.3.7
+Stable tag: 2.4.0
 License: GNU General Public License v3.0 or later
  
 The WordPress gallery plugin that's highlighy customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
@@ -79,9 +79,13 @@ If you can't seem to figure something out, you can always check our [documentati
 
 == 3rd party or external service disclaimer ==
 
+The plugin sends data (User action) to our website through an API Call (https://tracking.wp-modula.com/).
+
 The plugin connects to our website through an API call (https://wp-modula.com/wp-json/mt/v1/get-all-extensions) in order to request a list of available extensions.
-IT DOES NOT SEND ANY DATA NOR DO WE COLLECT INFORMATION FROM THE REQUEST
-Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy/
+
+**Modula Gallery does not send any data without consent or user action to our website, nor do we collect sensitive information from the requests.**
+
+Our full privacy policy can be found [here](https://wp-modula.com/privacy-policy/).
 
 == Installation ==
 

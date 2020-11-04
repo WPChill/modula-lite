@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,7 +81,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _inspector = __webpack_require__(2);
+var _inspector = __webpack_require__(3);
 
 var _inspector2 = _interopRequireDefault(_inspector);
 
@@ -161,10 +161,17 @@ var ModulaEdit = function (_Component) {
 	}, {
 		key: 'selectOptions',
 		value: function selectOptions() {
-			var options = [{ value: 0, label: __('select a gallery') }];
+			var options = [{ value: 0, label: __('select a gallery', 'modula-best-grid-gallery') }];
 
 			this.props.galleries.forEach(function (gallery) {
-				options.push({ value: gallery.id, label: gallery.title.rendered });
+				if (gallery.title.rendered.length == 0) {
+					options.push({
+						value: gallery.id,
+						label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
+					});
+				} else {
+					options.push({ value: gallery.id, label: gallery.title.rendered });
+				}
 			});
 
 			return options;
@@ -189,7 +196,7 @@ var ModulaEdit = function (_Component) {
 					Toolbar,
 					null,
 					React.createElement(IconButton, {
-						label: __('Edit gallery'),
+						label: __('Edit gallery', 'modula-best-grid-gallery'),
 						icon: 'edit',
 						href: modulaVars.adminURL + 'post.php?post=' + id + '&action=edit',
 						target: '_blank'
@@ -203,11 +210,11 @@ var ModulaEdit = function (_Component) {
 					null,
 					React.createElement(
 						'div',
-						{ 'class': 'modula-block-preview' },
+						{ className: 'modula-block-preview' },
 						React.createElement(
 							'div',
-							{ 'class': 'modula-block-preview__content' },
-							React.createElement('div', { 'class': 'modula-block-preview__logo' }),
+							{ className: 'modula-block-preview__content' },
+							React.createElement('div', { className: 'modula-block-preview__logo' }),
 							React.createElement(Spinner, null)
 						)
 					)
@@ -223,29 +230,30 @@ var ModulaEdit = function (_Component) {
 						} }, this.props)),
 					React.createElement(
 						'div',
-						{ 'class': 'modula-block-preview' },
+						{ className: 'modula-block-preview' },
 						React.createElement(
 							'div',
-							{ 'class': 'modula-block-preview__content' },
-							React.createElement('div', { 'class': 'modula-block-preview__logo' }),
+							{ className: 'modula-block-preview__content' },
+							React.createElement('div', { className: 'modula-block-preview__logo' }),
 							galleries.length === 0 && React.createElement(
 								Fragment,
 								null,
 								React.createElement(
 									'p',
 									null,
-									__('You don\'t seem to have any galleries.')
+									__('You don\'t seem to have any galleries.', 'modula-best-grid-gallery')
 								),
 								React.createElement(
 									Button,
 									{ href: modulaVars.adminURL + 'post-new.php?post_type=modula-gallery', target: '_blank', isDefault: true },
-									__('Add New Gallery')
+									__('Add New Gallery', 'modula-best-grid-gallery')
 								)
 							),
 							galleries.length > 0 && React.createElement(
 								Fragment,
 								null,
 								React.createElement(SelectControl, {
+									key: id,
 									value: id,
 									options: this.selectOptions(),
 									onChange: function onChange(value) {
@@ -272,11 +280,11 @@ var ModulaEdit = function (_Component) {
 					} }, this.props)),
 				React.createElement(
 					'div',
-					{ 'class': 'modula-block-preview--images' },
+					{ className: 'modula-block-preview--images' },
 					images.map(function (img, index) {
 						return [React.createElement(
 							'div',
-							{ 'class': 'modula-preview-image-wrap' },
+							{ className: 'modula-preview-image-wrap' },
 							React.createElement('img', { src: img.src })
 						)];
 					})
@@ -331,7 +339,8 @@ icons.modula = React.createElement(
 exports.default = icons;
 
 /***/ }),
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -381,7 +390,14 @@ var Inspector = function (_Component) {
 			var options = [{ value: 0, label: __('none') }];
 
 			this.props.galleries.forEach(function (gallery) {
-				options.push({ value: gallery.id, label: gallery.title.rendered });
+				if (gallery.title.rendered.length == 0) {
+					options.push({
+						value: gallery.id,
+						label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
+					});
+				} else {
+					options.push({ value: gallery.id, label: gallery.title.rendered });
+				}
 			});
 
 			return options;
@@ -406,7 +422,7 @@ var Inspector = function (_Component) {
 					null,
 					React.createElement(
 						PanelBody,
-						{ title: __('Gallery Settings'), initialOpen: true },
+						{ title: __('Gallery Settings', 'modula-best-grid-gallery'), initialOpen: true },
 						galleries.length === 0 && React.createElement(
 							Fragment,
 							null,
@@ -418,14 +434,15 @@ var Inspector = function (_Component) {
 							React.createElement(
 								Button,
 								{ href: modulaVars.adminURL + 'post-new.php?post_type=modula-gallery', target: '_blank', isDefault: true },
-								__('Add New Gallery')
+								__('Add New Gallery', 'modula-best-grid-gallery')
 							)
 						),
 						galleries.length > 0 && React.createElement(
 							Fragment,
 							null,
 							React.createElement(SelectControl, {
-								label: __('Select Gallery'),
+								key: id,
+								label: __('Select Gallery', 'modula-best-grid-gallery'),
 								value: id,
 								options: this.selectOptions(),
 								onChange: function onChange(value) {
@@ -450,7 +467,7 @@ var Inspector = function (_Component) {
 exports.default = Inspector;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -500,9 +517,9 @@ var ModulaGutenberg = function () {
 			};
 
 			registerBlockType(this.blockName, {
-				title: 'Modula Gallery',
+				title: modulaVars.gutenbergTitle,
 				icon: _icons2.default.modula,
-				description: __('Make your galleries stand out.'),
+				description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
 				keywords: [__('gallery'), __('modula'), __('images')],
 				category: 'common',
 				supports: {

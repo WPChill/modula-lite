@@ -165,19 +165,19 @@ class Modula_Photoblocks_Importer {
             // Add each image to Media Library
             foreach ($images as $image) {
                 $image_src = wp_get_attachment_image_src($image['id'],'full');
-                $modula_images[] = array(
-                    'id'          => absint($image['id']),
-                    'alt'         => sanitize_text_field($image['alt']),
-                    'title'       => sanitize_text_field($image['title']),
-                    'description' => wp_filter_post_kses($image['description']),
-                    'halign'      => 'center',
-                    'valign'      => 'middle',
-                    'link'        => esc_url_raw($image['link']),
-                    'target'      => absint($image['target']),
-                    'width'       => absint($image['width']),
-                    'height'      => absint($image['height']),
-                    'filters'     => ''
-                );
+	            $modula_images[] = apply_filters( 'modula_migrate_image_data', array(
+		            'id'          => absint( $image['id'] ),
+		            'alt'         => sanitize_text_field( $image['alt'] ),
+		            'title'       => sanitize_text_field( $image['title'] ),
+		            'description' => wp_filter_post_kses( $image['description'] ),
+		            'halign'      => 'center',
+		            'valign'      => 'middle',
+		            'link'        => esc_url_raw( $image['link'] ),
+		            'target'      => absint( $image['target'] ),
+		            'width'       => absint( $image['width'] ),
+		            'height'      => absint( $image['height'] ),
+		            'filters'     => ''
+	            ), $image, $gallery_data );
             }
         }
 
@@ -192,9 +192,9 @@ class Modula_Photoblocks_Importer {
         // Get Modula Gallery defaults, used to set modula-settings metadata
         $default_modula_settings = Modula_CPT_Fields_Helper::get_defaults();
 
-        $modula_settings = array(
-            'type'    => 'custom-grid',
-        );
+	    $modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
+		    'type' => 'custom-grid',
+	    ), $gallery_data, 'photoblocks' );
 
         $modula_settings = wp_parse_args( $modula_settings, $default_modula_settings );
 

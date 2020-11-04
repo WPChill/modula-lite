@@ -48,10 +48,17 @@ class ModulaEdit extends Component {
 	}
 
 	selectOptions() {
-		let options = [ { value: 0, label: __( 'select a gallery' ) } ];
+		let options = [ { value: 0, label: __( 'select a gallery', 'modula-best-grid-gallery' ) } ];
 
 		this.props.galleries.forEach(function( gallery ) {
-			options.push( { value: gallery.id, label: gallery.title.rendered } );
+			if( gallery.title.rendered.length == 0 ) {
+				options.push( {
+					value: gallery.id,
+					label: __( 'Unnamed Gallery ', 'modula-best-grid-gallery' ) + gallery.id
+				} );
+			} else {
+				options.push( { value: gallery.id, label: gallery.title.rendered } );
+			}
 		});
 
 		return options;
@@ -66,7 +73,7 @@ class ModulaEdit extends Component {
 				{ images.length > 0 && (
 					<Toolbar>
 						<IconButton
-							label={ __( 'Edit gallery' ) }
+							label={ __( 'Edit gallery','modula-best-grid-gallery' ) }
 							icon="edit"
 							href={ modulaVars.adminURL + 'post.php?post=' + id + '&action=edit' }
 							target="_blank"
@@ -79,9 +86,9 @@ class ModulaEdit extends Component {
 		if( status === 'loading' ) {
 			return [
 				<Fragment>
-					<div class="modula-block-preview">
-						<div class="modula-block-preview__content">
-							<div class="modula-block-preview__logo"></div>
+					<div className="modula-block-preview">
+						<div className="modula-block-preview__content">
+							<div className="modula-block-preview__logo"></div>
 							<Spinner/>
 						</div>
 					</div>
@@ -94,18 +101,19 @@ class ModulaEdit extends Component {
 				<Fragment>
 					<Inspector onIdChange={ ( id ) => this.onIdChange( id ) } { ...this.props } />
 
-					<div class="modula-block-preview">
-						<div class="modula-block-preview__content">
-							<div class="modula-block-preview__logo"></div>
+					<div className="modula-block-preview">
+						<div className="modula-block-preview__content">
+							<div className="modula-block-preview__logo"></div>
 							{ ( galleries.length === 0 ) && (
 								<Fragment>
-									<p>{ __( 'You don\'t seem to have any galleries.' ) }</p>
-									<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery' ) }</Button>
+									<p>{ __( 'You don\'t seem to have any galleries.','modula-best-grid-gallery' ) }</p>
+									<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery','modula-best-grid-gallery' ) }</Button>
 								</Fragment>
 							)}
 							{ ( galleries.length > 0 ) && (
 								<Fragment>
 									<SelectControl
+										key={id}
 										value={ id }
 										options={ this.selectOptions() }
 										onChange={ ( value ) => this.onIdChange( parseInt( value ) ) }
@@ -127,10 +135,10 @@ class ModulaEdit extends Component {
 				{ blockControls }
 				<Inspector onIdChange={ ( id ) => this.onIdChange( id ) } { ...this.props } />
 
-				<div class="modula-block-preview--images">
+				<div className="modula-block-preview--images">
 					{ images.map( ( img, index ) => {
 						return [
-							<div class="modula-preview-image-wrap">
+							<div className="modula-preview-image-wrap">
 								<img src={ img.src } />
 							</div>
 						];

@@ -1,12 +1,10 @@
-.modula-feedback-notice,
-.modula-lightbox-upgrade-notice{
+.modula-feedback-notice{
 	padding: 22px;
 	border: 2px solid #2ebf91;
 	margin-top: 20px;
 	position: relative;
 }
-.modula-feedback-notice .notice-dismiss,
-.modula-lightbox-upgrade-notice .notice-dismiss {
+.modula-feedback-notice .notice-dismiss{
 	text-decoration: none;
 }
 .notice p.modula-feedback-title {

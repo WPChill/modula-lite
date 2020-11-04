@@ -797,7 +797,6 @@ jQuery(document).ready(function () {
 
 	});
 
-
 });
 
 function modulaInViewport(element) {

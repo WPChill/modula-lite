@@ -68,7 +68,8 @@ class Modula_Review {
 	public function five_star_wp_rate_notice() {
 
 		$url = sprintf( $this->link, $this->slug );
-
+		$url = apply_filters( 'modula_review_link', $url );
+		$this->messages = apply_filters( 'modula_review_messages', $this->messages );
 		?>
 		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
 			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ) ; ?></p>

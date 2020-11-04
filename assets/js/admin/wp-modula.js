@@ -8,8 +8,10 @@ wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.u
 jQuery( document ).ready( function( $ ){
 
 	// Here we will have all gallery's items.
-	wp.Modula.Items = new wp.Modula.items['collection']();
-	
+	if(wp.Modula.items['collection']){
+		wp.Modula.Items = new wp.Modula.items['collection']();
+	}
+
 	// Settings related objects.
 	wp.Modula.Settings = new wp.Modula.settings['model']( modulaHelper.settings );
 
@@ -17,14 +19,16 @@ jQuery( document ).ready( function( $ ){
 	wp.Modula.Conditions = new modulaGalleryConditions();
 
 	// Initiate Modula Resizer
-	if ( 'undefined' == typeof wp.Modula.Resizer ) {
+	if ( 'undefined' == typeof wp.Modula.Resizer &&  wp.Modula.previewer['resizer']) {
 		wp.Modula.Resizer = new wp.Modula.previewer['resizer']();
 	}
 	
 	// Initiate Gallery View
-	wp.Modula.GalleryView = new wp.Modula.previewer['view']({
-		'el' : $( '#modula-uploader-container' ),
-	});
+	if(wp.Modula.previewer['view']){
+		wp.Modula.GalleryView = new wp.Modula.previewer['view']({
+			'el' : $( '#modula-uploader-container' ),
+		});
+	}
 
 	// Modula edit item modal.
 	wp.Modula.EditModal = new wp.Modula.modal['model']({
@@ -39,7 +43,10 @@ jQuery( document ).ready( function( $ ){
 	}
 
 	// Initiate Modula Gallery Upload
-	new wp.Modula.upload['uploadHandler']();
+	if(wp.Modula.upload['uploadHandler']){
+		new wp.Modula.upload['uploadHandler']();
+	}
+
 
 	// Copy shortcode functionality
     $('.copy-modula-shortcode').click(function (e) {
@@ -99,22 +106,6 @@ jQuery( document ).ready( function( $ ){
 		});
 	});
 
-	$('body').on('click','#lightbox-upgrade-notice .notice-dismiss',function (e) {
-
-		e.preventDefault();
-		var notice = $(this).parent();
-
-		var data = {
-			'action': 'modula_lbu_notice_2',
-			'nonce' : modulaHelper._wpnonce
-		};
-
-		$.post(modulaHelper.ajax_url, data, function (response) {
-			// Redirect to plugins page
-			notice.remove();
-		});
-	});
-
 	// Save on CTRL/Meta Key + S
 	$( document ).keydown( function ( e ) {
 		if ( ( e.keyCode === 115 || e.keyCode === 83 ) && ( e.ctrlKey || e.metaKey ) && !( e.altKey ) ) {
@@ -133,5 +124,20 @@ jQuery( document ).ready( function( $ ){
 			value += placeholder;
 			return value;
 		})
-	}) 
+	})
+
+	/** Remember last tab on update */
+	// search for modula in hash so we won't do the function on every hash
+	if( window.location.hash.length != 0 && window.location.hash.indexOf('modula') ) {
+		var modulaTabHash = window.location.hash.split( '#!' )[1];
+		$( '.modula-tabs,.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
+		$( '.modula-tabs' ).find( '.' + modulaTabHash ).addClass( 'active-tab' );
+		$( '#' + modulaTabHash ).addClass( 'active-tab');
+		var postAction = $( "#post" ).attr('action');
+		if( postAction ) {
+			postAction = postAction.split( '#' )[0];
+			$( '#post' ).attr( 'action', postAction + window.location.hash );
+		}
+	}
+
 });

@@ -137,9 +137,11 @@ class Modula_Foogallery_Importer {
 		$modula_images = array();
 
 		// get gallery data so we can get title, description and alt from FooGallery
-		$foogallery_gallery_data = $modula_importer->prepare_images( 'foogallery', $gallery_id );
-		$foogallery_settings     = get_post_meta( $gallery_id, '_foogallery_settings', true );
-		$foogallery_template     = get_post_meta( $gallery_id, 'foogallery_template', true );
+		$foogallery_gallery_data          = $modula_importer->prepare_images( 'foogallery', $gallery_id );
+		$foogallery_settings              = get_post_meta( $gallery_id, '_foogallery_settings', true );
+		$foogallery_template              = get_post_meta( $gallery_id, 'foogallery_template', true );
+		$foogallery_settings['grid_type'] = $foogallery_template;
+
 		if ( isset( $foogallery_gallery_data ) && count( $foogallery_gallery_data ) > 0 ) {
 			foreach ( $foogallery_gallery_data as $imageID ) {
 
@@ -155,7 +157,7 @@ class Modula_Foogallery_Importer {
 					$foogallery_image_url = '';
 				}
 
-				$modula_images[] = array(
+				$modula_images[] = apply_filters( 'modula_migrate_image_data', array(
 					'id'          => absint( $imageID ),
 					'alt'         => sanitize_text_field( $foogallery_image_alt ),
 					'title'       => sanitize_text_field( $foogallery_image_title ),
@@ -167,7 +169,7 @@ class Modula_Foogallery_Importer {
 					'width'       => 2,
 					'height'      => 2,
 					'filters'     => ''
-				);
+				), $image, $foogallery_settings, 'foogallery' );
 			}
 		}
 
@@ -179,59 +181,72 @@ class Modula_Foogallery_Importer {
 			$this->modula_import_result( false, esc_html__( 'No images found in gallery. Skipping gallery...', 'modula-best-grid-gallery' ), false );
 		}
 
-		$grid           = 'creative-gallery';
-		$last_row_align = 'justify';
-		$grid_type      = 'automatic';
-		$gutter         = 10;
-		$thumbnail_size = 300;
+		$grid             = 'grid';
+		$last_row_align   = 'center';
+		$grid_type        = 'automatic';
+		$gutter           = 10;
+		$thumbnail_size   = 300;
+		$grid_image_size  = 'medium';
+		$thumbnail_size_w = '640';
+		$thumbnail_size_h = '480';
 
-		if ( 'masonry' == $foogallery_template ) {
-			$grid           = 'grid';
-			$thumbnail_size = $foogallery_settings['masonry_thumbnail_width'];
-			if ( isset($foogallery_settings['masonry_layout']) && 'fixed' == $foogallery_settings['masonry_layout'] ) {
-				$gutter = $foogallery_settings['masonry_gutter_width'];
-			}
+		switch ( $foogallery_template ) {
+			case 'default':
+				$gutter           = $foogallery_settings['default_spacing'];
+				$thumbnail_size_w = $foogallery_settings['default_thumbnail_dimensions']['width'];
+				$thumbnail_size_h = $foogallery_settings['default_thumbnail_dimensions']['height'];
+				$grid_image_size  = 'custom';
+				break;
+			case 'image-viewer':
+				$grid             = 'creative-gallery';
+				$thumbnail_size_w = $foogallery_settings['image-viewer_thumbnail_size']['width'];
+				$thumbnail_size_h = $foogallery_settings['image-viewer_thumbnail_size']['height'];
+				$grid_image_size  = 'custom';
+				break;
+			case 'justified':
+				$gutter = $foogallery_settings['justified_margins'];
+				break;
+			case 'masonry':
+				if ( 'fixed' != $foogallery_settings['masonry_layout'] ) {
+					$grid_type = $foogallery_settings['masonry_layout'];
+				}
+				$thumbnail_size = $foogallery_settings['masonry_thumbnail_width'];
+				if ( isset( $foogallery_settings['masonry_layout'] ) && 'fixed' == $foogallery_settings['masonry_layout'] ) {
+					$gutter = $foogallery_settings['masonry_gutter_width'];
+				}
+				break;
+			case 'simple_portfolio':
+				$thumbnail_size_w = $foogallery_settings['simple_portfolio_thumbnail_dimensions']['width'];
+				$thumbnail_size_h = $foogallery_settings['simple_portfolio_thumbnail_dimensions']['height'];
+				$grid_image_size  = 'custom';
+				break;
+			case 'thumbnail':
+				$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
+				break;
 		}
 
-		if ( 'justified' == $foogallery_template ) {
-			$gutter = $foogallery_settings['justified_margins'];
-		}
-
-		if ( 'default' == $foogallery_template ) {
-			$gutter         = $foogallery_settings['default_spacing'];
-			$thumbnail_size = $foogallery_settings['default_thumbnail_dimensions']['width'];
-		}
-
-		if ( 'image-viewer' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['image-viewer_thumbnail_size']['width'];
-		}
-
-		if ( 'simple_portfolio' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['simple_portfolio_thumbnail_dimensions']['width'];
-		}
-
-		if ( 'thumbnail' == $foogallery_template ) {
-			$thumbnail_size = $foogallery_settings['thumbnail_thumbnail_dimensions']['width'];
-		}
-
-		if ( isset($foogallery_settings['justified_last_row']) && 'hide' != $foogallery_settings['justified_last_row'] ) {
+		if ( isset( $foogallery_settings['justified_last_row'] ) && 'hide' != $foogallery_settings['justified_last_row'] ) {
 			$last_row_align = $foogallery_settings['justified_last_row'];
 		}
 
-		if ( isset( $foogallery_settings['masonry_layout']) && 'fixed' != $foogallery_settings['masonry_layout'] ) {
+		if ( isset( $foogallery_settings['masonry_layout'] ) && 'fixed' != $foogallery_settings['masonry_layout'] ) {
 			$grid_type = str_replace( 'col', '', $foogallery_settings['masonry_layout'] );
 		}
 
-
-		$modula_settings = array(
+		$modula_settings = apply_filters( 'modula_migrate_gallery_data', array(
 			'type'                  => $grid,
 			'grid_type'             => sanitize_text_field( $grid_type ),
 			'gutter'                => absint( $gutter ),
-			'grid_row_height'       => absint( $foogallery_settings['justified_row_height'] ),
+			'grid_row_height'       => ( isset( $foogallery_settings['justified_row_height'] ) ) ? absint( $foogallery_settings['justified_row_height'] ) : '150',
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 			'img_size'              => absint( $thumbnail_size ),
-			'lazy_load'             => (isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'])
-		);
+			'lazy_load'             => ( isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'] ),
+			'grid_image_size'       => sanitize_text_field( $grid_image_size ),
+			'grid_image_dimensions' => array(
+				'width'  => sanitize_text_field( $thumbnail_size_w ),
+				'height' => sanitize_text_field( $thumbnail_size_h )
+			)
+		), $foogallery_settings, 'foogallery' );
 
 		// Get Modula Gallery defaults, used to set modula-settings metadata
 		$modula_settings = wp_parse_args( $modula_settings, Modula_CPT_Fields_Helper::get_defaults() );

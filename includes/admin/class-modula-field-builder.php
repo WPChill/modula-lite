@@ -110,6 +110,7 @@ class Modula_Field_Builder {
 		echo '</div>';
 		echo '<div class="buttons">';
 		echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
+		do_action( 'modula_gallery_media_button');
 		echo '</div>';
 		echo '</div>';
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';
@@ -181,12 +182,13 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
 				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>';
+				$current_tab_content .= apply_filters('modula_admin_contact_link', '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>');
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
+
 			}
 
 			// Generate all fields for current tab

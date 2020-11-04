@@ -19,7 +19,14 @@ export default class Inspector extends Component {
 		let options = [ { value: 0, label: __( 'none' ) } ];
 
 		this.props.galleries.forEach(function( gallery ) {
-			options.push( { value: gallery.id, label: gallery.title.rendered } );
+			if( gallery.title.rendered.length == 0 ) {
+				options.push( {
+					value: gallery.id,
+					label: __( 'Unnamed Gallery ', 'modula-best-grid-gallery' ) + gallery.id
+				} );
+			} else {
+				options.push( { value: gallery.id, label: gallery.title.rendered } );
+			}
 		});
 
 		return options;
@@ -32,18 +39,19 @@ export default class Inspector extends Component {
 		return (
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={ __( 'Gallery Settings' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'Gallery Settings','modula-best-grid-gallery' ) } initialOpen={ true }>
 						{ galleries.length === 0 && (
 							<Fragment>
 								<p>{ __( 'You don\'t seem to have any galleries.' ) }</p>
-								<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery' ) }</Button>
+								<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery','modula-best-grid-gallery' ) }</Button>
 							</Fragment>
 						)}
 
 						{ galleries.length > 0 && (
 							<Fragment>
 								<SelectControl
-									label={ __( 'Select Gallery' ) }
+									key={id}
+									label={ __( 'Select Gallery','modula-best-grid-gallery' ) }
 									value={ id }
 									options={ this.selectOptions() }
 									onChange={ ( value ) => this.props.onIdChange( parseInt( value ) ) }

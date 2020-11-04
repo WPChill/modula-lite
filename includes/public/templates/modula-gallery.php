@@ -85,6 +85,7 @@
 	/**
 	 * Hook: modula_shortcode_after_items.
 	 *
+	 * @hooked modula_edit_gallery - 100
 	 * @hooked modula_show_schemaorg - 90
 	 * @hooked modula_slider_syncing - 85
 	 */

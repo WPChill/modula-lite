@@ -376,8 +376,17 @@ class Modula_Upsells {
 
 	public function add_meta_boxes() {
 		add_meta_box(
+			'modula-defaults-upsell',      // Unique ID
+			esc_html__('Modula Defaults Addon', 'modula-best-grid-gallery'),    // Title
+			array( $this, 'output_defaults_upsell' ),   // Callback function
+			'modula-gallery',         // Admin page (or post type)
+			'side',         // Context
+			'high'         // Priority
+		);
+
+    	add_meta_box(
 		    'modula-sorting-upsell',      // Unique ID
-		    esc_html__('Sorting Upsells', 'modula-best-grid-gallery'),    // Title
+		    esc_html__('Gallery sorting', 'modula-best-grid-gallery'),    // Title
 		    array( $this, 'output_sorting_upsell' ),   // Callback function
 		    'modula-gallery',         // Admin page (or post type)
 		    'side',         // Context
@@ -390,7 +399,6 @@ class Modula_Upsells {
         <div class="modula-upsells-carousel-wrapper">
             <div class="modula-upsells-carousel">
                 <div class="modula-upsell modula-upsell-item">
-                    <h2><?php esc_html_e( 'Gallery sorting' , 'modula-best-grid-gallery' ) ?></h2>
                     <p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.' , 'modula-best-grid-gallery' ) ?></p>
                     <ul class="modula-upsells-list">
                         <li>Date created - newest first</li>
@@ -413,6 +421,37 @@ class Modula_Upsells {
                 </div>
             </div>
         </div>
+		<?php
+	}
+
+	/**
+	 * Output the Defaults Upsell metabox
+	 *
+	 * @since 2.4.0
+	 */
+	public function output_defaults_upsell() {
+		?>
+		<div class="modula-upsells-carousel-wrapper">
+			<div class="modula-upsells-carousel">
+				<div class="modula-upsell modula-upsell-item">
+                    <p class="modula-upsell-description">Easily create galleries with the same settings:</p>
+                    <ul class="modula-upsells-list">
+                        <li>Create default galleries using the desired settings.</li>
+                        <li>Add a new gallery and select a default preset previously created. Then add your images.</li>
+                        <li>Save your galleries</li>
+                    </ul>
+                    <p>
+                        <a target="_blank"
+                           href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
+                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                        <a target="_blank"
+                           style="margin-top:10px;"
+                           href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
+                           class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+                    </p>
+				</div>
+			</div>
+		</div>
 		<?php
 	}
 

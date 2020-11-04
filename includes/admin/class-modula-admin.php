@@ -27,13 +27,11 @@ class Modula_Admin {
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url'));
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image') ) ;
 
-		add_action( 'admin_notices', array( $this, 'modula_upgrade_lightbox_notice' ) );
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
-		add_action( 'wp_ajax_modula_lbu_notice_2', array( $this, 'modula_lbu_notice_2' ) );
 
-		// Announce users about the lightbox change
-		add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightbox_change_announcement' ) );
-
+		add_action( 'admin_init', array( $this, 'register_affiliate_link') );
+		add_filter('modula_admin_page_tabs', array($this, 'add_affiliate_tab'));
+        add_action('modula_admin_tab_affiliate', array($this, 'show_affiliate_tab'));
 
 	}
 
@@ -371,35 +369,6 @@ class Modula_Admin {
 
 
 	/**
-	 * Add notice showing new grid type and FancyBox new default lightbox
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_upgrade_lightbox_notice() {
-
-		$modula_checks  = get_option( 'modula-checks', array() );
-		$current_screen = get_current_screen();
-
-		if ( isset( $modula_checks['lbu_notice'] ) ) {
-			return;
-		}
-
-		?>
-		<div id="modula-lightbox-upgrade" class="notice modula-cutsom-notice modula-lightbox-upgrade-notice">
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32" classs="modula-logo-background"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>
-			<p class="modula-feedback-title">
-				<?php echo esc_html( 'Hi there !', 'modula-best-grid-gallery' ); ?> 👋
-			</p>
-			<p><?php echo esc_html( 'We want to take a moment to announce a small change in Modula: we made the decision to make FancyBox the official Modula lightbox. We are aware that switching to another lightbox can be problematic for some users. With this in mind, if you want to use the old lightbox library please press the read more button. Thank you for understanding', 'modula-best-grid-gallery' ); ?></p>
-			<a class="button button-primary button-hero" target="_blank" href="https://wp-modula.com/introducing-modula-2-3-0/"><?php esc_html_e( 'Read more about this', 'modula-best-grid-gallery' ); ?></a>
-			<a href="#" class="notice-dismiss"></a>
-		</div>
-
-		<?php
-	}
-
-
-	/**
 	 * Update modula-checks option for lightbox upgrade notice 1
 	 *
 	 * @since 2.3.0
@@ -419,63 +388,6 @@ class Modula_Admin {
 		update_option( 'modula-checks', $modula_checks );
 		wp_die();
 
-	}
-
-	/**
-	 * Update modula-checks option for lightbox upgrade notice 2
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_lbu_notice_2() {
-
-		$nonce = $_POST['nonce'];
-
-		if ( !wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
-			wp_send_json_error();
-			die();
-		}
-
-		$modula_checks                 = get_option( 'modula-checks', array() );
-		$modula_checks['lbu_notice_2'] = '1';
-
-		update_option( 'modula-checks', $modula_checks );
-		wp_die();
-
-	}
-
-	/**
-	 * Announce users about the lightbox change
-	 *
-	 * @param $tab_content
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.3.0
-	 */
-	public function lightbox_change_announcement($tab_content){
-		global $post;
-
-		$gal_settings  = get_post_meta( $post->ID, 'modula-settings', true );
-		$modula_checks = get_option( 'modula-checks', array() );
-		$current_l     = array( 'fancybox', 'no-link', 'attachment-page', 'direct' );
-		$old_galleries = array(
-			'lightbox2'    => 'Lightbox',
-			'magnific'     => 'Magnific Gallery',
-			'swipebox'     => 'SwipeBox',
-			'lightgallery' => 'LightGallery',
-			'prettyphoto'  => 'PrettyPhoto'
-		);
-
-		if( isset( $gal_settings['lightbox'] ) && ! class_exists( 'Modula_Lightboxes' ) ){
-			if ( !in_array( $gal_settings['lightbox'], $current_l ) && !isset( $modula_checks['lbu_notice_2'] ) ) {
-
-				$tab_content .= '<div id="lightbox-upgrade-notice" class="lightbox-announcement modula-upsell">';
-				$tab_content .= '<p>Hi there! We want to take a moment to announce a small change in Modula: we made the decision to make FancyBox the official Modula lightbox. We are aware you used ' . $old_galleries[$gal_settings['lightbox']] . ' before and switching to another lightbox can be problematic for some users. With this in mind, if you want to use the old lightbox library please follow this <a href="https://wp-modula.com/introducing-modula-2-3-0/" target="_blank">link</a>. Thank you for understanding!</p><a href="#" class="notice-dismiss"></a>';
-				$tab_content .= '</div>';
-			}
-		}
-
-		return $tab_content;
 	}
 
 	/**
@@ -512,6 +424,26 @@ class Modula_Admin {
 		echo json_encode( $suggestions );
 		exit();
 	}
+
+	public function register_affiliate_link() {
+		
+		register_setting( 'modula_affiliate', 'modula_affiliate' );
+	
+	}
+
+
+    public function add_affiliate_tab($tabs){
+
+        $tabs['affiliate'] = array(
+            'label'    => esc_html__('Earn Money', 'modula-best-grid-gallery'),
+            'priority' => 100
+        );
+        return $tabs;
+    }
+
+    public function show_affiliate_tab(){
+        include MODULA_PATH . 'includes/admin/tabs/affiliate-options.php';
+    }
 
 }
 

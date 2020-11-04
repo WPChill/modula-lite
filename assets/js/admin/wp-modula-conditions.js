@@ -29,6 +29,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
+
 	},
 
 	initValues: function(){
@@ -244,6 +245,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( currentInfo.length > 0 ) {
 			currentInfo.show();
 		}
-	}
+	},
 
 });

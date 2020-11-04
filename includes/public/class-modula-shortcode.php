@@ -13,6 +13,8 @@ class Modula_Shortcode {
 
 		add_shortcode( 'modula', array( $this, 'gallery_shortcode_handler' ) );
 		add_shortcode( 'Modula', array( $this, 'gallery_shortcode_handler' ) );
+
+		add_shortcode( 'modula-make-money', array( $this, 'affiliate_shortcode_handler') );
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_gallery_scripts' ) );
 
 		// Add shortcode related hooks
@@ -25,6 +27,8 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
+		add_action( 'modula_shortcode_after_items', array( $this, 'powered_by_modula'), 90);
+		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
 		// Add js scripts
 		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
@@ -306,7 +310,7 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . "; }";
 		}
 
-		$css .= "#{$gallery_id} .modula-item > a, #{$gallery_id} .modula-item, #{$gallery_id} .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
 
 		$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 
@@ -330,7 +334,6 @@ class Modula_Shortcode {
 		if('none' == $settings['effect']){
 			$css .= "#{$gallery_id} .modula-items .modula-item:hover img{opacity:1;}";
 		}
-
 
 		$css .= "</style>\n";
 
@@ -365,6 +368,47 @@ class Modula_Shortcode {
 
 		return $fancybox_options;
 
+	}
+
+	public function powered_by_modula( $settings ) {
+		if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
+			return;
+		}
+
+		$affiliate = get_option( 'modula_affiliate', array() );
+		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
+
+		$html = '<div class="modula-powered">';
+		$html .= '<p>' .  esc_html( $affiliate['text'] );
+		$html .= '<span>';
+		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
+		$html .= '</span>';
+		$html .= '</p>';
+		$html .= '</div>';
+
+		echo $html;
+
+	}
+
+	public function affiliate_shortcode_handler( $atts ) {
+		$default_atts = array(
+			'text' => false
+		);
+
+		$atts = wp_parse_args( $atts, $default_atts );
+		
+		$affiliate = get_option( 'modula_affiliate', array() );
+		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
+
+		$html = '<div class="modula-powered">';
+		$html .= '<p>' .  esc_html( $affiliate['text'] );
+		$html .= '<span>';
+		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
+		$html .= '</span>';
+		$html .= '</p>';
+		$html .= '</div>';
+
+		return $html;
 	}
 
 }

@@ -16,7 +16,7 @@ class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Modula', 'modula-best-grid-gallery' );
+		return apply_filters( 'modula_elementor_name', esc_html__( 'Modula', 'modula-best-grid-gallery' ));
 	}
 
 	public function get_icon() {
