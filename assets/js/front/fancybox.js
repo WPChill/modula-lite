@@ -2541,7 +2541,7 @@
       $.modulaFancybox.stop($slide);
 
       //effectClassName = "fancybox-animated fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " fancybox-fx-" + effect;
-      effectClassName = "modula-fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " modula-fancybox-animated fancybox-fx-" + effect;
+      effectClassName = "modula-fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " modula-fancybox-animated modula-fancybox-fx-" + effect;
 
       $slide.addClass(effectClassName).removeClass("modula-fancybox-slide--current"); //.addClass(effectClassName);
 
