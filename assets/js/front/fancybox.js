@@ -1214,7 +1214,7 @@
 
         $.each(self.slides, function (index, slide) {
           slide.$slide.removeClass("modula-fancybox-animated").removeClass(function (index, className) {
-            return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+            return (className.match(/(^|\s)modula-fancybox-fx-\S+/g) || []).join(" ");
           });
 
           // Make sure that each slide is in equal distance
@@ -4191,7 +4191,7 @@
             })
             .removeClass("modula-fancybox-animated")
             .removeClass(function (index, className) {
-              return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+              return (className.match(/(^|\s)modula-fancybox-fx-\S+/g) || []).join(" ");
             });
 
           if (slide.pos === instance.current.pos) {
