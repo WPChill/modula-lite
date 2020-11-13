@@ -173,6 +173,18 @@ html body .modula .modula-items .jtg-social {
     transition: all .3s;
 }
 
+@media all and (max-width:480px){
+    html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social {
+        right:0;
+        width:100%;
+        text-align:center;
+    }
+
+    html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social  a {
+        padding:5px;
+    }
+}
+
 html body .modula .modula-items .jtg-social {
     opacity: 1;
 }
