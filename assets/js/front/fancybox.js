@@ -525,20 +525,20 @@
   // =============================================
 
   var inViewport = function (elem) {
-    var elemCenter, rez;
-
-    if (!elem || elem.ownerDocument !== document) {
+    // we create the element variable which contains the link that triggers the lightbox opening
+    var elemCenter, rez, element = elem.find('a.tile-inner')[0];
+    if (!element || element.ownerDocument !== document) {
       return false;
     }
 
     $(".modula-fancybox-container").css("pointer-events", "none");
 
     elemCenter = {
-      x: elem.getBoundingClientRect().left + elem.offsetWidth / 2,
-      y: elem.getBoundingClientRect().top + elem.offsetHeight / 2
+      x: element.getBoundingClientRect().left + element.offsetWidth / 2,
+      y: element.getBoundingClientRect().top + element.offsetHeight / 2
     };
 
-    rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === elem;
+    rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === element;
 
     $(".modula-fancybox-container").css("pointer-events", "");
 
@@ -2584,7 +2584,7 @@
         bbw,
         blw;
 
-      if (!$thumb || !inViewport($thumb[0])) {
+      if (!$thumb || !inViewport($thumb)) {
         return false;
       }
 
