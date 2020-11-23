@@ -161,7 +161,16 @@ jQuery(window).on('elementor/frontend/init', function () {
 			var links = $.map(self.$items, function(o) { 
 				var link  = jQuery(o).find('.modula-item-link:not( .modula-simple-link )'),
 					image = jQuery(o).find('.pic');
-				return { 'src' : link.attr( 'href' ), 'opts': { 'caption': link.data( 'caption' ), 'alt': image.attr( 'alt' ),'image_id' : link.attr('data-image-id') } } }),
+				    return {
+					    'src':  link.attr( 'href' ),
+					    'opts': {
+						    '$thumb':   image.parents( '.modula-item' ),
+						    'caption':  link.data( 'caption' ),
+						    'alt':      image.attr( 'alt' ),
+						    'image_id': link.attr( 'data-image-id' )
+					    }
+				    }
+			    } ),
 				index = self.$items.index( jQuery(this).parents( '.modula-item' ) );
 
 			jQuery.modulaFancybox.open( links, self.options.lightboxOpts, index );
