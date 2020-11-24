@@ -93,24 +93,30 @@ class Modula_Field_Builder {
 		$images = get_post_meta( $this->get_id(), 'modula-images', true );
 		$helper_guidelines = $this->get_setting( 'helpergrid' );
 		$max_upload_size = wp_max_upload_size();
-	    if ( ! $max_upload_size ) {
-	        $max_upload_size = 0;
-	    }
-
+                
+                if ( ! $max_upload_size ) {
+                    $max_upload_size = 0;
+                }
+                
 		echo '<div class="modula-uploader-container">';
 		echo '<div class="modula-upload-actions">';
 		echo '<div class="upload-info-container">';
 		echo '<div class="upload-info">';
-		echo sprintf( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ), esc_html( size_format( $max_upload_size ) ) );
-		echo '</div>';
-		echo '<div class="upload-progress">';
-		echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
-		echo '<div class="modula-progress-bar"><div class="modula-progress-bar-inner"></div></div>';
-		echo '</div>';
-		echo '</div>';
-		echo '<div class="buttons">';
-		echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
-		do_action( 'modula_gallery_media_button');
+                if (current_user_can('upload_files')) {
+                    echo sprintf( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ), esc_html( size_format( $max_upload_size ) ) );
+                    echo '</div>';
+                    echo '<div class="upload-progress">';
+                    echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
+                    echo '<div class="modula-progress-bar"><div class="modula-progress-bar-inner"></div></div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div class="buttons">';
+                    echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
+                    do_action( 'modula_gallery_media_button');
+                } else {
+                    echo __( '<b>Drag images around to change their order</b>', 'modula-best-grid-gallery' );
+                    echo '</div>';
+                }
 		echo '</div>';
 		echo '</div>';
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';
