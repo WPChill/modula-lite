@@ -170,15 +170,13 @@ class Modula_Admin {
 				echo '</a>';
 			}
 			?>
-
+			<a id="modula-reload-extensions" class="button button-secondary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
 		</h2>
 		<?php
 
 		if ( 'extensions' == $active_tab ) {
 			$addons = new Modula_Addons();
 			?>
-			<h1 style="margin-bottom: 20px; display: inline-block;"><?php esc_html_e( 'Extensions', 'modula-best-grid-gallery' ); ?></h1>
-			<a id="modula-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
 			<div class="modula-addons-container">
 				<?php $addons->render_addons(); ?>
 			</div>
