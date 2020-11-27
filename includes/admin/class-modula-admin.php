@@ -148,7 +148,12 @@ class Modula_Admin {
 				'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 				'url'  => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			),
+			'galleries' => array(
+				'name' => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+				'url'  => admin_url( 'edit.php?post_type=modula-gallery' ),
+			),
 		);
+
 		$tabs       = apply_filters( 'modula_exntesions_tabs', $tabs );
 		$active_tab = 'extensions';
 		if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
