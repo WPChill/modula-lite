@@ -27,7 +27,7 @@ class Modula_Uninstall {
     public function uninstall_scripts(){
 
         $current_screen = get_current_screen();
-        if ( 'plugins' == $current_screen->base ) {
+	    if ( in_array( $current_screen->base, array( 'plugins', 'plugins-network' ) ) ) {
             wp_enqueue_style( 'modula-uninstall', MODULA_URL . 'assets/css/admin/uninstall.css' );
             wp_enqueue_script( 'modula-uninstall', MODULA_URL . 'assets/js/admin/modula-uninstall.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
             wp_localize_script( 'modula-uninstall', 'wpModulaUninstall', array(
