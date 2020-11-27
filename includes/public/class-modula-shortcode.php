@@ -359,6 +359,17 @@ class Modula_Shortcode {
 			$fancybox_options['arrows'] = true;
 		}
 
+		$fancybox_options['baseTpl'] = '<div class="modula-fancybox-container modula-lightbox-' . $settings['gallery_id'] . '" role="dialog" tabindex="-1">'.
+		                               '<div class="modula-fancybox-bg"></div>'.
+		                               '<div class="modula-fancybox-inner">' .
+		                               '<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>'.
+		                               '<div class="modula-fancybox-toolbar">{{buttons}}</div>'.
+		                               '<div class="modula-fancybox-navigation">{{arrows}}</div>'.
+		                               '<div class="modula-fancybox-stage"></div>'.
+		                               '<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>'.
+		                               "</div>".
+		                               "</div>";
+
 
 		/**
 		 * Hook: modula_fancybox_options.
