@@ -165,12 +165,15 @@ html body .modula .modula-item:hover .jtg-social a {
 /*---------------*/
 html body .modula .modula-items .jtg-social {
     opacity: 0;
-    transition: opacity 0.1s;
     right: 30px;
     position: absolute;
     bottom: 20px;
     text-align: right;
     transition: all .3s;
+}
+
+html body .et_pb_module_inner .modula .modula-items .jtg-social {
+    transition: all .3s !important;
 }
 
 @media all and (max-width:480px){
@@ -195,6 +198,11 @@ html body .modula .modula-items .jtg-social a:last-of-type {
 
 html body .modula .modula-item.effect-pufrobo p.description {
     margin-bottom: 2em;
+}
+
+html body .et_pb_module_inner .modula .modula-item.effect-pufrobo p.description {
+    -webkit-transition: -webkit-transform 0.35s !important;
+    transition: transform 0.35s !important;
 }
 
 html body .modula .modula-item.effect-pufrobo .figc {
@@ -224,7 +232,7 @@ html body .modula .modula-item.effect-pufrobo p {
     letter-spacing: 1px;
 }
 
-html body .modula .modula-item.effect-pufrobo .jtg-title {
+html body .modula .modula-items .modula-item.effect-pufrobo .jtg-title{
     /*top: 30px;*/
     top: 10%;
     -webkit-transition: -webkit-transform 0.35s;
@@ -233,7 +241,12 @@ html body .modula .modula-item.effect-pufrobo .jtg-title {
     transform: translate3d(0, 20px, 0);
 }
 
-html body .modula .modula-item.effect-pufrobo:hover .jtg-title {
+html body .et_pb_module_inner .modula .modula-items .modula-item.effect-pufrobo .jtg-title {
+    -webkit-transition: -webkit-transform 0.35s !important;
+    transition: transform 0.35s !important;
+}
+
+html body .modula .modula-item.effect-pufrobo:hover .jtg-title{
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
