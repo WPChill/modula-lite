@@ -979,9 +979,15 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					height: 100%;
 				}
 				.put-goodbye-form-wrapper {
-					position: relative;
+					position: fixed;
 					z-index: 999;
 					display: none;
+					top:0;
+					bottom:0;
+					left:0;
+					right:0;
+					width:100vw;
+					height:100vh;
 				}
 				.put-form-active .put-goodbye-form-wrapper {
 					display: block;
@@ -991,11 +997,14 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				}
 				.put-form-active .put-goodbye-form {
 					position: absolute;
-				    bottom: 30px;
-				    left: 0;
+					left:0;
+					right:0;
+					margin:0 auto;
 					max-width: 400px;
-				    background: #fff;
+					background: #fff;
 					white-space: normal;
+					top:50%;
+					transform: translateY(-50%);
 				}
 				.put-goodbye-form-head {
 					background: #0073aa;
