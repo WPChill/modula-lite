@@ -144,17 +144,17 @@ class Modula_Admin {
 		require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
 
 		$tabs = array(
+			'galleries'  => array(
+				'name' => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+				'url'  => admin_url( 'edit.php?post_type=modula-gallery' ),
+			),
 			'extensions' => array(
 				'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 				'url'  => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			),
-			'galleries' => array(
-				'name' => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
-				'url'  => admin_url( 'edit.php?post_type=modula-gallery' ),
-			),
 		);
 
-		$tabs       = apply_filters( 'modula_exntesions_tabs', $tabs );
+		$tabs       = apply_filters( 'modula_extesions_tabs', $tabs );
 		$active_tab = 'extensions';
 		if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
 			$active_tab = $_GET['tab'];
