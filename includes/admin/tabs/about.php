@@ -1,27 +1,14 @@
 <?php
 $issues = array(
 	'fix'     => array(
-		esc_html__( 'Typos fixes', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed compatibility with themes overwriting CSS for lightbox elements', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed FooGallery grid type selection on migration', 'modula-best-grid-gallery' ),
-		esc_html__( 'Minor fixes and improvements to lazy loading', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed cursor availabilty', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed previewer jumping when changing from custom grid to columns', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed Elementor widget', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed notice not dissapearing when clicking "x"', 'modula-best-grid-gallery' ),
-		esc_html__( 'Fixed migration from WP Core galleries', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed gallery right margin when on full width container', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed hover effect Pufrobo transition when using Divi builder', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed Uninstall message appearing on Network Plugins when using Multisite', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added Galleries tab on Extensions page and updated the extensions page UI', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed Feedback form getting out of view', 'modula-best-grid-gallery' ),
+		esc_html__( 'Fixed overwriting lightbox CSS when using multiple galleries on page', 'modula-best-grid-gallery' ),
 	),
-	'feature' => array(
-		esc_html__( 'Enhanced the migration functionality, now using AJAX, so that the PHP time limit won\'t be an issue.', 'modula-best-grid-gallery' ),
-		esc_html__( 'Add a default title to Modula\'s Gutenberg block', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added functionality to remember metabox tab on gallery update/switch.', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added an "edit gallery" link below the gallery.', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added Filter for Whitelabel.', 'modula-best-grid-gallery' ),
-		esc_html__( 'Removed Lightbox Upgrade notice', 'modula-best-grid-gallery' ),
-		esc_html__( 'Removed "Add new gallery" from the menu', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added a "Powered by" option', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added a block for the Divi Builder', 'modula-best-grid-gallery' ),
-	)
+	'feature' => array()
 );
 
 ?>
@@ -37,7 +24,7 @@ $issues = array(
         </div>
         <div class="modula-about-content">
 
-            <h2><?php printf(esc_html__('Version %s addressed %s fixes and %s enhancements.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count($issues['fix']), count($issues['feature'] )); ?></h2>
+            <h2><?php printf(esc_html__('Version %s addressed %s fixes.', 'modula-best-grid-gallery'), MODULA_LITE_VERSION, count($issues['fix'])); ?></h2>
             <?php if (!empty($issues)) { ?>
             <ul class="modula-about-list">
                 <?php
