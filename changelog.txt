@@ -2,7 +2,7 @@
 Fixed gallery right margin when on full width container
 Fixed hover effect Pufrobo transition when using Divi builder
 Fixed Uninstall message appearing on Network Plugins when using Multisite
-Added Galleries tab on Extensions page and updated the extensions page UI
+Added Galleries and Suggest a feature tab on Extensions page and updated the extensions page UI. Also added the Suggest a feature tab to galleries list view
 Fixed Feedback form getting out of view
 Fixed overwriting lightbox CSS when using multiple galleries on page
 

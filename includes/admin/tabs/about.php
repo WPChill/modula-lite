@@ -4,7 +4,7 @@ $issues = array(
 		esc_html__( 'Fixed gallery right margin when on full width container', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed hover effect Pufrobo transition when using Divi builder', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed Uninstall message appearing on Network Plugins when using Multisite', 'modula-best-grid-gallery' ),
-		esc_html__( 'Added Galleries tab on Extensions page and updated the extensions page UI', 'modula-best-grid-gallery' ),
+		esc_html__( 'Added Galleries and Suggest a feature tab on Extensions page and updated the extensions page UI. Also added the Suggest a feature tab to galleries list view ', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed Feedback form getting out of view', 'modula-best-grid-gallery' ),
 		esc_html__( 'Fixed overwriting lightbox CSS when using multiple galleries on page', 'modula-best-grid-gallery' ),
 	),
