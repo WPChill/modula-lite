@@ -396,21 +396,26 @@ class Modula_CPT {
 		?>
 		<h2 class="nav-tab-wrapper">
 			<?php
-			$tabs       = array(
-				'galleries'  => array(
-					'name' => $this->labels['name'],
+			$tabs = array(
+				'galleries'       => array(
+					'name' => $this->labels[ 'name' ],
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
 				),
-				'extensions' => array(
+				'extensions'      => array(
 					'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
+				),
+				'suggest_feature' => array(
+					'name'   => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+					'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+					'target' => '_blank'
 				),
 			);
 			$tabs       = apply_filters( 'modula_add_edit_tabs', $tabs );
 			$active_tab = 'galleries';
 			foreach ( $tabs as $tab_id => $tab ) {
 				$active = ($active_tab == $tab_id ? ' nav-tab-active' : '');
-				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '">';
+				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '" '.(isset($tab['target'] )? 'target="'.$tab['target'].'"' : '').'>';
 				echo esc_html( $tab['name'] );
 				echo '</a>';
 			}
