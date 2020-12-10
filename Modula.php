@@ -3,9 +3,9 @@
 * Plugin Name: 				Modula
 * Plugin URI: 				https://wp-modula.com/
 * Description: 				Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.
-* Author: 					MachoThemes
+* Author: 					WPChill
 * Version: 					2.4.1
-* Author URI: 				https://www.machothemes.com/
+* Author URI: 				https://www.wpchill.com/
 * License: 					GPLv3 or later
 * License URI:         		http://www.gnu.org/licenses/gpl-3.0.html
 * Requires PHP: 	    	5.6
@@ -13,7 +13,8 @@
 * Domain Path: 				/languages
 *
 * Copyright 2015-2017 		GreenTreeLabs 		diego@greentreelabs.net
-* Copyright 2017-2019 		MachoThemes 		hello@wp-modula.com
+* Copyright 2017-2020 		MachoThemes 		hello@wp-modula.com
+* Copyright 2020			WPchill  			hello@wp-modula.com
 *
 * Original Plugin URI: 		https://modula.greentreelabs.net/
 * Original Author URI: 		https://greentreelabs.net
@@ -23,6 +24,8 @@
 * GreenTreeLabs transferred ownership rights on: 03/29/2017 06:34:07 PM when ownership was handed over to MachoThemes
 * The MachoThemes ownership period started on: 03/29/2017 06:34:08 PM
 * SVN commit proof of ownership transferral: https://plugins.trac.wordpress.org/changeset/1607943/modula-best-grid-gallery
+*
+* MachoThemes has transferred ownership to WPChill on: 5th of November, 2020. WPChill is a rebrand & restructure of MachoThemes.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License, version 3, as

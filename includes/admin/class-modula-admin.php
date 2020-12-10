@@ -154,6 +154,7 @@ class Modula_Admin {
 			),
 			'suggest_feature' => array(
 				'name'   => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+				'icon'   => 'dashicons-external',
 				'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
 				'target' => '_blank'
 			),
@@ -171,6 +172,9 @@ class Modula_Admin {
 			foreach( $tabs as $tab_id => $tab ) {
 				$active = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
 				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '" '.(isset($tab['target'] )? 'target="'.$tab['target'].'"' : '').'>';
+				if ( isset( $tab['icon'] ) ) {
+					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
+				}
 				echo esc_html( $tab['name'] );
 				echo '</a>';
 			}
