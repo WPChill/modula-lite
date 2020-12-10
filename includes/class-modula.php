@@ -224,11 +224,6 @@ class Modula {
 
 			do_action( 'modula_scripts_after_wp_modula' );
 
-			// Enqueue slick files
-            wp_enqueue_style('modula-slick-theme',MODULA_URL . 'assets/css/admin/slick-theme.css');
-            wp_enqueue_style('modula-slick-style',MODULA_URL . 'assets/css/admin/slick.css');
-            wp_enqueue_script('modula-slick',MODULA_URL.'assets/js/admin/slick.min.js',array('jquery'),MODULA_LITE_VERSION, true);
-
 		}elseif ( 'modula-gallery_page_modula' == $hook ) {
 			// Check if is modula custom post type
 	        if ( 'modula-gallery' !== $screen->post_type ) {
