@@ -1610,15 +1610,6 @@ Some responsive fixes
 	.modula-settings-container .modula-tabs .modula-tab > i {
 		margin:0;
 	}
-
-	.modula-hover-preview-slider .slick-next {
-		right:0;
-	}
-
-	.modula-hover-preview-slider .slick-prev {
-		left:0;
-	}
-
 }
 
 @media all and (min-width:850px) and (max-width:1300px){

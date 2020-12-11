@@ -176,6 +176,10 @@ html body .et_pb_module_inner .modula .modula-items .jtg-social {
     transition: all .3s !important;
 }
 
+html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social  a {
+    margin-right:10px;
+}
+
 @media all and (max-width:480px){
     html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social {
         right:0;
