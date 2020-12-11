@@ -1580,6 +1580,10 @@ Scaling Effect Preview
 	right:0;
 }
 
+.post-type-modula-gallery #preview-action {
+    display: none;
+}
+
 /**
 Some responsive fixes
  */
