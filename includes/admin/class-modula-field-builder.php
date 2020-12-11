@@ -114,7 +114,7 @@ class Modula_Field_Builder {
                     echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
                     do_action( 'modula_gallery_media_button');
                 } else {
-                    echo __( '<b>Drag images around to change their order</b>', 'modula-best-grid-gallery' );
+                    echo '<b>' . __( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
                     echo '</div>';
                 }
 		echo '</div>';
