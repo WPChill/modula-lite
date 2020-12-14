@@ -1584,6 +1584,60 @@ Scaling Effect Preview
     display: none;
 }
 
+.modula .nav-tab .modula-badge {
+    padding: 5px;
+    background: #52ad3a;
+    color: #fff;
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.modula-settings-upsell {
+    max-width: 600px;
+    padding: 15px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.modula-settings-upsell a:first-child {
+  margin-right: 10px;
+}
+
+.modula-columns {
+  display: flex;
+}
+
+.modula-columns .m-col-8 {
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+
+.modula-columns .m-col-4 {
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+
+.modula-columns .modula-column {
+  box-sizing: border-box;
+}
+
+.modula-columns .modula-column + .modula-column {
+  padding-left: 20px;
+}
+
+.modula-side-tab .modula-upsell {
+    padding: 15px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.modula-side-tab .modula-upsell .modula-upsell-content {
+  margin-bottom: 15px;
+}
+.modula-side-tab .modula-upsell h3 {
+  margin-top: 0;
+}
+
 /**
 Some responsive fixes
  */

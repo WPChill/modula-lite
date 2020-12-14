@@ -24,6 +24,14 @@ class Modula_Upsells {
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
         add_filter( 'modula_cpt_metaboxes',array( $this, 'albums_upsell_meta' ) );
 
+        // Add modula roles to tab
+        add_filter( 'modula_admin_page_tabs', array( $this, 'add_roles_upsell' ) );
+        add_action( 'modula_admin_tab_roles', array( $this, 'render_roles_upsell_tab' ) );
+
+        // Add modula whitelabel upsell
+        add_action( 'modula_side_admin_tab', array( $this, 'render_whitelabel_upsell' ) );
+        add_action( 'modula_side_admin_tab', array( $this, 'render_roles_upsell' ) );
+
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
@@ -454,5 +462,77 @@ class Modula_Upsells {
 		</div>
 		<?php
 	}
+
+    // Add modula roles
+    public function add_roles_upsell( $tabs ) {
+
+        $tabs[ 'roles' ] = array(
+            'label'    => esc_html__( 'Roles', 'modula-roles' ),
+            'badge'    => 'PRO',
+            'priority' => 120,
+        );
+
+        return $tabs;
+
+    }
+
+    public function render_roles_upsell_tab(){
+        ?>
+
+        <div class="modula-settings-upsell">
+            <p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
+            <p style="text-align:center">
+                <a target="_blank"
+                   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
+                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                <a target="_blank"
+                   style="margin-top:10px;"
+                   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
+                   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+            </p>
+        </div>
+
+        <?php
+    }
+
+    public function render_roles_upsell(){
+        ?>
+
+        <div class="modula-settings-upsell">
+            <h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
+            <p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
+            <p style="text-align:center">
+                <a target="_blank"
+                   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
+                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                <a target="_blank"
+                   style="margin-top:10px;"
+                   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
+                   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+            </p>
+        </div>
+
+        <?php
+    }
+
+    public function render_whitelabel_upsell(){
+        ?>
+
+        <div class="modula-upsell">
+            <h3><?php esc_html_e( 'Modula Whitelabel', 'modula-best-grid-gallery' ) ?></h3>
+            <p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
+            <p>
+                <a target="_blank"
+                   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
+                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                <a target="_blank"
+                   style="margin-top:10px;"
+                   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
+                   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+            </p>
+        </div>
+
+        <?php
+    }
 
 }

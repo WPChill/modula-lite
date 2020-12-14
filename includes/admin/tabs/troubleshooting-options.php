@@ -7,6 +7,7 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'gridtypes'        => array(),
     'lightboxes'       => array(),
     'lazy_load'        => false,
+    'disable_edit'     => false,
     'track_data'       => false
 ));
 
@@ -30,6 +31,7 @@ $troubleshooting_fields = array(
             'justified-grid' => __( 'Justified Grid', 'modula-best-grid-gallery' )
         ),
         'priority'    => 20,
+        'class'       => array( 'troubleshoot-subfield' ),
 
     ),
     'lightboxes'    => array(
@@ -39,15 +41,22 @@ $troubleshooting_fields = array(
         'values'      => array(
             'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' )
         ),
+        'class'       => array( 'troubleshoot-subfield' ),
         'priority'    => 30,
     ),
     'lazy_load'     => array(
         'label'       => esc_html__('Lazy Load', 'modula-best-grid-gallery'),
         'description' => esc_html__('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
         'type'        => 'toggle',
+        'class'       => array( 'troubleshoot-subfield' ),
         'priority'    => 40,
     ),
-
+    'disable_edit'     => array(
+        'label'       => esc_html__('Disable "Edit gallery" link', 'modula-best-grid-gallery'),
+        'description' => esc_html__('If you want to disable the "Edit gallery" link from the front-end check this option.', 'modula-best-grid-gallery'),
+        'type'        => 'toggle',
+        'priority'    => 80,
+    ),
     'track_data'     => array(
         'label'       => esc_html__('Track Data', 'modula-best-grid-gallery'),
         'description' => esc_html__('We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and Modula settings, which we will use to help us make improvements.', 'modula-best-grid-gallery'),
@@ -58,10 +67,6 @@ $troubleshooting_fields = array(
 );
 
 $troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
-$class = 'troubleshoot-subfield';
-if ( ! $troubleshooting_options['enqueue_files'] ) {
-    $class .= ' hide';
-}
 
 ?>
 <div class="row">
@@ -72,16 +77,12 @@ if ( ! $troubleshooting_options['enqueue_files'] ) {
             <tbody>
             <?php
             foreach ($troubleshooting_fields as $key => $ts_field) {
+                $class = isset( $ts_field['class'] ) ? $ts_field['class'] : array();
+                if ( ! $troubleshooting_options['enqueue_files'] && in_array( 'troubleshoot-subfield', $class ) ) {
+                    $class[] = ' hide';
+                }
                 ?>
-                <tr valign="top" class="<?php
-                 if( 'enqueue_files' == $key ) {
-                    echo '';
-                 } else if ( 'track_data' == $key ) {
-                     echo '';
-                 } else {
-                     echo $class;
-                 }
-                 ?>">
+                <tr valign="top" class="<?php echo esc_attr( implode( ' ', $class ) ) ?>">
                     <th scope="row" valign="top">
                         <?php 
                         echo esc_html( $ts_field['label'] ); 

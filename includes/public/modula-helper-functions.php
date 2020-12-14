@@ -279,8 +279,14 @@ function modula_show_schemaorg( $settings ){
 
 function modula_edit_gallery( $settings ) {
 
-	$gallery_id = absint( explode('jtg-', $settings['gallery_id'] )[1] );
+	$troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
+	$troubleshooting_options = wp_parse_args( $troubleshooting_options, array( 'disable_edit' => false ) );
 
+	if ( $troubleshooting_options['disable_edit'] ) {
+		return;
+	}
+
+	$gallery_id = absint( explode('jtg-', $settings['gallery_id'] )[1] );
 	edit_post_link( __('Edit gallery','modula-best-grid-gallery'), '', '', $gallery_id, 'post-edit-link' );
 }
 
