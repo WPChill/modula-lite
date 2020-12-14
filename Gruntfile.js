@@ -114,6 +114,10 @@ module.exports = function( grunt ) {
 					'!set_tags.sh',
 					'!modula-best-grid-gallery.zip',
 					'!old/**',
+					'!bin/**',
+					'!tests/**',
+					'!codeception.dist.yml',
+					'!regconfig.json',
 					'!nbproject/**'
 				],
 				dest: 'build/'
