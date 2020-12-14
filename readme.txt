@@ -130,4 +130,4 @@ By asking a question on the [support forums](https://wordpress.org/support/plugi
 
 == Changelog ==
 
-See <a href="https://github.com/MachoThemes/modula-lite/blob/master/changelog.txt" target="_blank">changelog</a>
+See <a href="https://github.com/MachoThemes/modula-lite/blob/dev/changelog.txt" target="_blank">changelog</a>
