@@ -472,128 +472,132 @@ class Modula_Admin {
 	 * @since 2.4.2
 	 */
 	public function lite_vs_pro() {
+
+		$features = array(
+
+				array(
+						'title'       => esc_html__( 'Hover Effects', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Choose from 43 different hover effects.', 'modula-best-grid-gallery' ),
+						'lite'        => '1',
+						'pro'         => '43',
+				),
+				array(
+						'title'       => esc_html__( 'Loading effects', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Build your own effects with these new customizations.', 'modula-best-grid-gallery' ),
+						'lite'        => '1',
+						'pro'         => '4',
+				),
+				array(
+						'title'       => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Let visitors filter your gallery items with a single click', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Video Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'You asked we implemented, now you can add videos to your gallery.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'SpeedUp Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Automatically optimize your images to load as fast as possible.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Advanced Shortcode Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Dynamically link to specific galleries without creating pages for them by using URLs with query strings.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Right-click Protection Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Easily prevent your visitors from downloading your images with right-click protection.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'SEO Deeplink Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Create a unique and indexable URL for each Modula Gallery item.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Watermark Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Protect your photos by adding custom watermarks in Modula Gallery.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Password Protect Galleries Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Password protect your galleries. This is a perfect solution for exclusive client galleries!', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Lightbox Slideshow Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Convert the gallery\'s lightbox view into a stunning slideshow.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Convert Gallery to Slider Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Create a slider from Modula Images.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Gallery Albums Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Give your galleries a place to call home with the Albums addon.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'EXIF Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'The EXIF Addon for Modula allows you to edit & display EXIF metadata in your lightboxes.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Download Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Zoom Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Adds zoom functionality to images, when opened in the lightbox, to allow up close viewing.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Defaults Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Speed up your gallery creation process by starting from a pre-saved default. ', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Role Management Addon', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'Granular control over which user roles can add, edit or update galleries on your website.', 'modula-best-grid-gallery' ),
+						'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+						'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+				),
+				array(
+						'title'       => esc_html__( 'Support', 'modula-best-grid-gallery' ),
+						'description' => esc_html__( 'You can access our dedicated support team.', 'modula-best-grid-gallery' ),
+						'lite'        => 'WordPress.org Forums',
+						'pro'         => 'Dedicated Support Team',
+				),
+
+		);
 		?>
-		<div class="wrap">
-			<?php
-			$features = array(
 
-					array(
-							'title'       => esc_html__( 'Hover Effects', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Choose from 43 different hover effects.', 'modula-best-grid-gallery' ),
-							'lite'        => '1',
-							'pro'         => '43',
-					),
-					array(
-							'title'       => esc_html__( 'Loading effects', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Build your own effects with these new customizations.', 'modula-best-grid-gallery' ),
-							'lite'        => '1',
-							'pro'         => '4',
-					),
-					array(
-							'title'       => esc_html__( 'Filters', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Let visitors filter your gallery items with a single click', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Video Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'You asked we implemented, now you can add videos to your gallery.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'SpeedUp Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Automatically optimize your images to load as fast as possible.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Advanced Shortcode Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Dynamically link to specific galleries without creating pages for them by using URLs with query strings.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Right-click Protection Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Easily prevent your visitors from downloading your images with right-click protection.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'SEO Deeplink Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Create a unique and indexable URL for each Modula Gallery item.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Watermark Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Protect your photos by adding custom watermarks in Modula Gallery.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Password Protect Galleries Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Password protect your galleries. This is a perfect solution for exclusive client galleries!', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Lightbox Slideshow Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Convert the gallery\'s lightbox view into a stunning slideshow.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Convert Gallery to Slider Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Create a slider from Modula Images.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Gallery Albums Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Give your galleries a place to call home with the Albums addon.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'EXIF Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'The EXIF Addon for Modula allows you to edit & display EXIF metadata in your lightboxes.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Download Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Zoom Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Adds zoom functionality to images, when opened in the lightbox, to allow up close viewing.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Defaults Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Speed up your gallery creation process by starting from a pre-saved default. ', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Role Management Addon', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'Granular control over which user roles can add, edit or update galleries on your website.', 'modula-best-grid-gallery' ),
-							'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-							'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-					),
-					array(
-							'title'       => esc_html__( 'Support', 'modula-best-grid-gallery' ),
-							'description' => esc_html__( 'You can access our dedicated support team.', 'modula-best-grid-gallery' ),
-							'lite'        => 'WordPress.org Forums',
-							'pro'         => 'Dedicated Support Team',
-					),
-
-			);
-			?>
+		<div class="modula wrap lite-vs-pro-section about-wrap">
+			<div class="row">
+				<div class="wp-badge"></div>
+				<h3><?php echo esc_html__('Need more power and customization? Check our PRO version with it\'s addons bundle.','modula-best-grid-gallery'); ?>
+				</h3>
 			<div class="featured-section features">
 				<table class="free-pro-table">
 					<thead>
@@ -631,7 +635,6 @@ class Modula_Admin {
 					</tbody>
 				</table>
 			</div>
-
 		</div>
 		<?php
 
