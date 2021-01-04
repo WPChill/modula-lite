@@ -799,10 +799,9 @@ jQuery(document).ready(function () {
 
 	jQuery.each(modulaGalleries, function () {
 
-		var modulaID = jQuery(this).attr('id'),
-			modulaSettings = jQuery(this).data('config');
+		var modulaSettings = jQuery(this).data('config');
 
-		jQuery('#' + modulaID).modulaGallery(modulaSettings);
+		jQuery(this).modulaGallery(modulaSettings);
 
 	});
 
