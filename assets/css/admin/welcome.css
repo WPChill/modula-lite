@@ -3,10 +3,10 @@
  * ------------------------------------------------------------------------- */
 .modula .wp-badge {
     background-color: #2f946a;
-    background-image: url( ../images/modula-logo.jpg );
+    background-image: url( ../../images/modula-logo.jpg );
 }
 
-/* Lite vs PRO SEction */
+/* Lite vs PRO Section */
 .featured-section.features .row {
     display: inline-block;
     width: 97%;
