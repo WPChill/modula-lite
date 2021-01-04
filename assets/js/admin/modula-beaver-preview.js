@@ -6,17 +6,20 @@ jQuery(function ($) {
         var modula_gallery = $('.modula-gallery');
 
         if (modula_gallery.length > 0) {
-            var galleryID = modula_gallery.attr('id'),
-                modulaSettings = modula_gallery.data('config'),
-                modulaInstance = jQuery('#' + galleryID).data('plugin_modulaGallery');
 
-            if (modulaInstance) {
-                modulaInstance.destroy();
-                jQuery('#' + galleryID).data('plugin_modulaGallery', null);
-            }
+            modula_gallery.each(function(){
 
-            $('#' + galleryID).modulaGallery(modulaSettings);
+                var gal = jQuery( this );
+                var modulaSettings = gal.data( 'config' ),
+                    modulaInstance = gal.data( 'plugin_modulaGallery' );
 
+                if ( modulaInstance ) {
+                    modulaInstance.destroy();
+                    gal.data( 'plugin_modulaGallery', null );
+                }
+
+                gal.modulaGallery( modulaSettings );
+            });
         }
     }
 });
