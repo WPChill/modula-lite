@@ -1580,6 +1580,10 @@ Scaling Effect Preview
 	right:0;
 }
 
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:not(:first-child,:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6),:nth-child(7),:nth-child(8)) {
+	display:none;
+}
+
 .post-type-modula-gallery #preview-action {
     display: none;
 }
