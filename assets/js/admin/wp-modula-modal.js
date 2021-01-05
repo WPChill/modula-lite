@@ -124,7 +124,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.attachment_index = modula.Items.indexOf( this.item );
 
             // Get HTML
-            this.$el.html( this.template( this.item.toJSON() ) );
+            if ( this.item ) {
+                this.$el.html( this.template( this.item.toJSON() ) );
+            }
 
             // Generate Child Views
             if ( this.childViews.length > 0 ) {
