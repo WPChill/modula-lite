@@ -166,6 +166,12 @@ class Modula_Admin {
 				'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
 				'target' => '_blank'
 			),
+			'get_started' => array(
+					'name'   => esc_html__( 'Help', 'modula-best-grid-gallery' ),
+					'icon'   => 'dashicons-external',
+					'url'    => 'https://modula.helpscoutdocs.com/',
+					'target' => '_blank'
+			),
 		);
 
 		$tabs       = apply_filters( 'modula_extesions_tabs', $tabs );
@@ -175,6 +181,10 @@ class Modula_Admin {
 		}
 		?>
 		<div class="wrap">
+		<div class="modula-page-header">
+			<img src="<?php echo MODULA_URL.'assets/images/logo-dark.webp'; ?>" class="modula-logo">
+			<a class="button button-primary" href="https://wp-modula.com/contact-us/"><?php echo esc_html__('Contact us for support!','modula-best-grid-gallery'); ?></a>
+		</div>
 		<h2 class="nav-tab-wrapper">
 			<?php
 			foreach( $tabs as $tab_id => $tab ) {
@@ -188,6 +198,16 @@ class Modula_Admin {
 			}
 			?>
 			<a id="modula-reload-extensions" class="button button-secondary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
+			<?php
+			$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
+
+			if ( $t_ext_timeout ) {
+
+				echo '<span class="description last-reloaded-extensions">' . esc_html__( 'Last reload: ', 'modula-best-grid-gallery' );
+				echo date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( '-1 week', (int)$t_ext_timeout ) );
+				echo '</span>';
+			} ?>
+
 		</h2>
 		<?php
 

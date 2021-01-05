@@ -10,6 +10,8 @@
     background-color: #fff;
     border: 1px solid #ddd;
     box-sizing: border-box;
+	padding-bottom:60px;
+	position: relative;
 }
 
 @media screen and (min-width: 1100px) {
@@ -24,7 +26,8 @@
 
 @media screen and (min-width: 1400px) {
 	.modula-addon {
-		width: calc( 33% - 20px );
+		width: calc( 25% - 20px );
+		border-radius:5px;
 	}
 }
 
@@ -51,6 +54,11 @@
     border-top: 1px solid #ddd;
     overflow: hidden;
     text-align: center;
+	display:flex;
+	justify-content: space-around;
+	bottom: 0;
+	position: absolute;
+	width: calc(100% - 40px);
 }
 
 /* Style Partners */
@@ -128,4 +136,19 @@
 
 #modula-reload-extensions.updating-message > span {
     display:none;
+}
+
+.modula-page-header {
+	display:flex;
+	justify-content: space-between;
+	padding:15px 0;
+}
+
+.modula-page-header .modula-logo {
+	max-height:35px;
+}
+
+.last-reloaded-extensions {
+	position:relative;
+	top:5px;
 }

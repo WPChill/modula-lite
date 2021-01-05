@@ -411,6 +411,12 @@ class Modula_CPT {
 					'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
 					'target' => '_blank'
 				),
+				'get_started' => array(
+						'name'   => esc_html__( 'Help', 'modula-best-grid-gallery' ),
+						'icon'   => 'dashicons-external',
+						'url'    => 'https://modula.helpscoutdocs.com/',
+						'target' => '_blank'
+				),
 			);
 			$tabs       = apply_filters( 'modula_add_edit_tabs', $tabs );
 			$active_tab = 'galleries';
