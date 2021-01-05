@@ -327,3 +327,21 @@ function modula_add_scripts( $scripts, $settings ){
 
 	return array_merge( $needed_scripts, $scripts );
 }
+
+/**
+ * Lazyload compatibility check for certain plugins/themes
+ *
+ * @param $fields
+ *
+ * @return mixed
+ * @since 2.4.2
+ */
+function modula_lazyloading_compatibilty($fields){
+
+	if(is_plugin_active('sg-cachepress/sg-cachepress.php') && class_exists('\SiteGround_Optimizer\Options\Options') && \SiteGround_Optimizer\Options\Options ::is_enabled( 'siteground_optimizer_lazyload_images' ) ){
+		die();
+	}
+
+	return $fields;
+
+}
