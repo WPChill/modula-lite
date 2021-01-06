@@ -226,7 +226,7 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 
 function modula_enable_lazy_load( $item_data, $item, $settings ){
 
-	if ( '1' != $settings['lazy_load'] ) {
+	if ( '1' != $settings[ 'lazy_load' ] && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
 		return $item_data;
 	}
 
@@ -238,7 +238,7 @@ function modula_enable_lazy_load( $item_data, $item, $settings ){
 		$item_data['img_classes'][] = 'lazyload';
 	}
 
-	if ( isset( $item_data['img_attributes']['src'] ) ) {
+	if ( isset( $item_data['img_attributes']['src'] ) && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
 		unset( $item_data['img_attributes']['src'] );
 	}
 
@@ -309,7 +309,7 @@ function modula_add_scripts( $scripts, $settings ){
 
 	$needed_scripts = array();
 
-	if ( '1' == $settings['lazy_load'] ) {
+	if ( '1' == $settings[ 'lazy_load' ] && apply_filters( 'modula_lazyload_compatibility_script', true, $settings ) ) {
 		$needed_scripts[] = 'modula-lazysizes';
 	}
 
@@ -326,22 +326,4 @@ function modula_add_scripts( $scripts, $settings ){
 
 
 	return array_merge( $needed_scripts, $scripts );
-}
-
-/**
- * Lazyload compatibility check for certain plugins/themes
- *
- * @param $fields
- *
- * @return mixed
- * @since 2.4.2
- */
-function modula_lazyloading_compatibilty($fields){
-
-	if(is_plugin_active('sg-cachepress/sg-cachepress.php') && class_exists('\SiteGround_Optimizer\Options\Options') && \SiteGround_Optimizer\Options\Options ::is_enabled( 'siteground_optimizer_lazyload_images' ) ){
-		die();
-	}
-
-	return $fields;
-
 }

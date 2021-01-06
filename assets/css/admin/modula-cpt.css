@@ -1642,6 +1642,28 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:no
   margin-top: 0;
 }
 
+/*
+** Compatibility Block CSS
+ */
+
+.modula-tab-content {
+	position : relative;
+}
+
+.form-table-wrapper .modula-compatibility {
+	text-align : left;
+	margin     : 30px;
+}
+
+.form-table-wrapper .modula-compatibility-block {
+	width      : 100%;
+	height     : 60px;
+	position   : absolute;
+	background : gray;
+	z-index    : 9;
+	opacity    : 0.5;
+}
+
 /**
 Some responsive fixes
  */

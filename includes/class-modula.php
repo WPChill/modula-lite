@@ -60,6 +60,9 @@ class Modula {
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
+		// Compatibility with other plugins/themes
+		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
+
         if ( is_admin() ) {
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
