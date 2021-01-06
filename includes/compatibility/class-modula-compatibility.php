@@ -110,6 +110,10 @@ class Modula_Compatibility {
 	 */
 	public function avada_check() {
 
+		$avada_options = get_option( 'fusion_options' );
+		if ( $avada_options && isset( $avada_options[ 'lazy_load' ] ) && 'avada' == $avada_options[ 'lazy_load' ] ) {
+			return true;
+		}
 		return false;
 	}
 
