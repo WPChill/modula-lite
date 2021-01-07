@@ -95,6 +95,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 		}
 
+		// Fix for custom grid elements not organizing correctly on some themes
+		// where at first the scrollbar is missing
+		if ( 'custom-grid' === this.options.type && $( window ).height() < $( 'html' ).height() ) {
+			instance.onResize( instance );
+		}
+
 		$(window).resize(function () {
 			instance.onResize(instance);
 		});
@@ -130,7 +136,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		// Gives error on front
-		/*        new ResizeSensor( instance.$element, function() {
+		      /* new ResizeSensor( instance.$element, function() {
 		 instance.onResize(instance);
 		 });*/
 
