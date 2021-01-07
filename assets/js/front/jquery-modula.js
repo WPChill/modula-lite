@@ -650,13 +650,19 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-twitter").click(function (e) {
 			e.preventDefault();
 
-			var $caption = $(this).parents(".modula-item").find("img.pic").data('caption');
-
+			var image = $(this).parents(".modula-item").find("img.pic");
+			var $caption = image.data('caption');
+			var image_link = image.data('full');
+			var $title = image.attr('title');
 			var text =  document.title;
-			if ( $caption.length > 0 )
-				text = $.trim($caption);
 
-			var w = window.open("https://twitter.com/intent/tweet?url=" + encodeURI(location.href.split('#')[0]) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
+			if ( $title.length > 0 ) {
+				text = $.trim( $title );
+			} else if ( $caption.length > 0 ) {
+				text = $.trim( $caption );
+			}
+
+			var w = window.open("https://twitter.com/intent/tweet?url=" + encodeURI(image_link) + "&text=" + encodeURI(text), "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
 			return false;
 		});
@@ -666,17 +672,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-facebook").click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents(".modula-item").find(".pic");
+			var image = $(this).parents(".modula-item").find("img.pic");
+			var image_link = image.attr('data-full');
 
-			var $caption = image.data('caption');
-
-			var text = document.title;
-			if ( $caption.length > 0 )
-				text = $.trim($caption);
-
-
-			var src = image.attr("src");
-			var url = "//www.facebook.com/sharer.php?u=" + location.href;
+			var url = "//www.facebook.com/sharer.php?u=" + image_link;
 
 			var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
@@ -688,14 +687,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-whatsapp").click(function (e) {
 			e.preventDefault();
 
-			var $caption = $(this).parents(".modula-item").find("img.pic").data('caption');
+			var image_link = $(this).parents(".modula-item").find("img.pic").attr('data-full');
 
-			var text = document.title;
-
-			if ( $caption.length  > 0 )
-				text = $.trim($caption);
-
-			var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((window.location.href.split("#")[0])) + '&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
+			var w = window.open("https://api.whatsapp.com/send?text=" + encodeURI((image_link)) + '&preview_url=true', "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
 			return false;
 		});
@@ -705,18 +699,23 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-pinterest").click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents(".modula-item").find(".pic");
-
+			var image = $(this).parents(".modula-item").find("img.pic");
+			var image_link = image.data('full');
 			var $caption = image.data('caption');
+			var $title = image.attr('title');
 
 			var text = document.title;
-			if (  $caption.length > 0 )
-				text = $.trim($caption);
 
-			var url = "http://pinterest.com/pin/create/button/?url=" + encodeURI(location.href) + "&description=" + encodeURI(text);
+			if ( $title.length > 0 ) {
+				text = $.trim( $title );
+			} else if ( $caption.length > 0 ) {
+				text = $.trim( $caption );
+			}
 
-			if ( image.length == 1 ) {
-				var src = image.attr("src");
+			var url = "http://pinterest.com/pin/create/button/?url=" + encodeURI(image_link) + "&description=" + encodeURI(text);
+
+			if ( image.length >= 1 ) {
+				var src = image.attr("data-full");
 				url += ("&media=" + qualifyURL(src));
 			}
 
@@ -729,8 +728,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var setupLinkedIN = function ($tiles, plugin) {
 		$tiles.find(".modula-icon-linkedin").click(function (e) {
 			e.preventDefault();
-
-			var url = "//linkedin.com/shareArticle?mini=true&url=" + +encodeURI(location.href);
+			var image_link = $(this).parents(".modula-item").find("img.pic").attr('data-full');
+			var url = "//linkedin.com/shareArticle?mini=true&url=" + +encodeURI(image_link);
 
 			var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
