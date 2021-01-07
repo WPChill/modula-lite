@@ -27,7 +27,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
             // Listen to window resize
             jQuery( window ).on( 'resize', $.proxy( this.windowResize, this ) );
-            new ResizeSensor( jQuery( '#modula-uploader-container .modula-uploader-inline-content' ), function() {
+            new ModulaResizeSensor( jQuery( '#modula-uploader-container .modula-uploader-inline-content' ), function() {
                 resizer.windowResize();
             });
         },

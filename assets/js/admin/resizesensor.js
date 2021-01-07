@@ -11,7 +11,7 @@
     } else if (typeof exports === "object") {
         module.exports = factory();
     } else {
-        root.ResizeSensor = factory();
+        root.ModulaResizeSensor = factory();
     }
 }(typeof window !== 'undefined' ? window : this, function () {
 
@@ -82,7 +82,7 @@
      *
      * @constructor
      */
-    var ResizeSensor = function(element, callback) {
+    var ModulaResizeSensor = function(element, callback) {
         /**
          *
          * @constructor
@@ -128,30 +128,30 @@
             element.resizedAttached = new EventQueue();
             element.resizedAttached.add(resized);
 
-            element.resizeSensor = document.createElement('div');
-            element.resizeSensor.dir = 'ltr';
-            element.resizeSensor.className = 'resize-sensor';
+            element.modularesizeSensor = document.createElement('div');
+            element.modularesizeSensor.dir = 'ltr';
+            element.modularesizeSensor.className = 'modula-resize-sensor';
             var style = 'position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;';
             var styleChild = 'position: absolute; left: 0; top: 0; transition: 0s;';
 
-            element.resizeSensor.style.cssText = style;
-            element.resizeSensor.innerHTML =
-                '<div class="resize-sensor-expand" style="' + style + '">' +
+            element.modularesizeSensor.style.cssText = style;
+            element.modularesizeSensor.innerHTML =
+                '<div class="modula-resize-sensor-expand" style="' + style + '">' +
                     '<div style="' + styleChild + '"></div>' +
                 '</div>' +
-                '<div class="resize-sensor-shrink" style="' + style + '">' +
+                '<div class="modula-resize-sensor-shrink" style="' + style + '">' +
                     '<div style="' + styleChild + ' width: 200%; height: 200%"></div>' +
                 '</div>';
-            element.appendChild(element.resizeSensor);
+            element.appendChild(element.modularesizeSensor);
 
             var position = window.getComputedStyle(element).getPropertyPriority('position');
             if ('absolute' !== position && 'relative' !== position && 'fixed' !== position) {
                 element.style.position = 'relative';
             }
 
-            var expand = element.resizeSensor.childNodes[0];
+            var expand = element.modularesizeSensor.childNodes[0];
             var expandChild = expand.childNodes[0];
-            var shrink = element.resizeSensor.childNodes[1];
+            var shrink = element.modularesizeSensor.childNodes[1];
             var dirty, rafId, newWidth, newHeight;
             var size = getElementSize(element);
             var lastWidth = size.width;
@@ -179,7 +179,7 @@
                     element.style.display = saveDisplay;
                 }
             };
-            element.resizeSensor.resetSensor = reset;
+            element.modularesizeSensor.resetSensor = reset;
 
             var onResized = function() {
                 rafId = 0;
@@ -227,37 +227,37 @@
         });
 
         this.detach = function(ev) {
-            ResizeSensor.detach(element, ev);
+            ModulaResizeSensor.detach(element, ev);
         };
 
         this.reset = function() {
-            element.resizeSensor.resetSensor();
+            element.modularesizeSensor.resetSensor();
         };
     };
 
-    ResizeSensor.reset = function(element, ev) {
+    ModulaResizeSensor.reset = function(element, ev) {
         forEachElement(element, function(elem){
-            elem.resizeSensor.resetSensor();
+            elem.modularesizeSensor.resetSensor();
         });
     };
 
-    ResizeSensor.detach = function(element, ev) {
+    ModulaResizeSensor.detach = function(element, ev) {
         forEachElement(element, function(elem){
             if (!elem) return;
             if(elem.resizedAttached && typeof ev === "function"){
                 elem.resizedAttached.remove(ev);
                 if(elem.resizedAttached.length()) return;
             }
-            if (elem.resizeSensor) {
-                if (elem.contains(elem.resizeSensor)) {
-                    elem.removeChild(elem.resizeSensor);
+            if (elem.modularesizeSensor) {
+                if (elem.contains(elem.modularesizeSensor)) {
+                    elem.removeChild(elem.modularesizeSensor);
                 }
-                delete elem.resizeSensor;
+                delete elem.modularesizeSensor;
                 delete elem.resizedAttached;
             }
         });
     };
 
-    return ResizeSensor;
+    return ModulaResizeSensor;
 
 }));
