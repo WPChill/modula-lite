@@ -70,7 +70,7 @@ class Modula_Gutenberg {
 
 		$images = get_post_meta( $id, 'modula-images', true );
 
-		if ( ! is_array( $images ) ) {
+		if ( ! is_array( $images ) || empty($images) ) {
 			wp_send_json_error();
 			die();
 		}

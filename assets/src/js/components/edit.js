@@ -40,7 +40,7 @@ class ModulaEdit extends Component {
 
 	onGalleryLoaded( id, result ) {
 		if( result.success === false ) {
-			this.props.setAttributes( { id: 0, status: 'ready' } );
+			this.props.setAttributes( {id: id, images: '', status: 'ready'} );
 			return;
 		}
 

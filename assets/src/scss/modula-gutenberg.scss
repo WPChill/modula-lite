@@ -1,4 +1,4 @@
-.modula-block-preview {
+html body .modula-block-preview {
 	background: #f3f3f5;
 	border-radius: 6px;
 	position: relative;
@@ -23,6 +23,10 @@
 	max-width: 400px;
 	margin: 40px auto;
 	text-align: center;
+
+	select.components-select-control__input {
+		min-height:40px;
+	}
 }
 
 .modula-block-preview--images {
