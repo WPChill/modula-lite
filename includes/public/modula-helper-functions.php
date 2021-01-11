@@ -231,6 +231,12 @@ function modula_enable_lazy_load( $item_data, $item, $settings ){
 	}
 
 	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
+
+		// Fix for lazyload scripts when working with Automatic Grid
+		if ( !apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
+			$item_data[ 'img_classes' ][] = 'lazyloaded';
+		}
+
 		return $item_data;
 	}
 
