@@ -1580,8 +1580,19 @@ Scaling Effect Preview
 	right:0;
 }
 
-html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:not(:first-child,:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6),:nth-child(7),:nth-child(8)) {
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a {
 	display:none;
+}
+
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:first-child,
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(2),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(3),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(4),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(5),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(6),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(7),
+html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nth-child(8){
+	display:block;
 }
 
 .post-type-modula-gallery #preview-action {
