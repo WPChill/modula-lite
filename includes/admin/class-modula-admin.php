@@ -615,7 +615,7 @@ class Modula_Admin {
 
 		<div class="modula wrap lite-vs-pro-section about-wrap">
 			<div class="row">
-				<div class="wp-badge"></div>
+				<img src="<?php echo esc_url(MODULA_URL.'/assets/images/logo-dark.webp'); ?>" class="modula-logo">
 				<h3><?php echo esc_html__('Need more power and customization? Check our PRO version with it\'s addons bundle.','modula-best-grid-gallery'); ?>
 				</h3>
 			<div class="featured-section features">
@@ -623,7 +623,7 @@ class Modula_Admin {
 					<thead>
 					<tr>
 						<th></th>
-						<th><?php esc_html_e( 'Lite', 'modula-best-grid-gallery' ); ?></th>
+						<th><?php esc_html_e( 'LITE', 'modula-best-grid-gallery' ); ?></th>
 						<th><?php esc_html_e( 'PRO', 'modula-best-grid-gallery' ); ?></th>
 					</tr>
 					</thead>
