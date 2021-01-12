@@ -6,7 +6,7 @@
 }
 .modula-addon {
 	width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
     box-sizing: border-box;
@@ -19,34 +19,32 @@
 		margin-right: -20px;
 	}
 	.modula-addon {
-		width: calc( 50% - 20px );
-		margin-right: 20px;
+		width: calc( 50% - 10px );
+		margin-right: 10px;
 	}
 }
 
 @media screen and (min-width: 1400px) {
 	.modula-addon {
-		width: calc( 25% - 20px );
+		width: calc( 25% - 10px );
 		border-radius:5px;
 	}
 }
 
 .modula-addon .modula-addon-box {
-	display: flex;
+	display: block;
     padding: 20px 20px 10px;
-    text-align: left;
-}
-.modula-addon .modula-addon-box .modula-addon-content {
-	padding-left: 20px;
+    text-align: center;
 }
 .modula-addon .modula-addon-box img {
 	display: block;
-	max-width: 128px;
-    max-height: 128px;
+	max-width: 50px;
+    max-height: 50px;
+	margin:0 auto;
 }
 .modula-addon .modula-addon-box h3 {
-	margin-top: 0;
-	text-align: left;
+	margin-top: 15px;
+	text-align: center;
 }
 .modula-addon .modula-addon-actions {
     padding: 12px 20px;
