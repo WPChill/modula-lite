@@ -763,7 +763,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find(".modula-icon-linkedin").click(function (e) {
 			e.preventDefault();
 			var image_link = $(this).parents(".modula-item").find("img.pic").attr('data-full');
-			var url = "//linkedin.com/shareArticle?mini=true&url=" + +encodeURI(image_link);
+			var url = "//linkedin.com/shareArticle?mini=true&url=" + encodeURI(image_link);
 
 			var w = window.open(url, "ftgw", "location=1,status=1,scrollbars=1,width=600,height=400");
 			w.moveTo((screen.width / 2) - (300), (screen.height / 2) - (200));
