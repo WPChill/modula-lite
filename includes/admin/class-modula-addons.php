@@ -41,13 +41,13 @@ class Modula_Addons {
 	public function render_addons() {
 
 		$addons_images = array(
-			'white-label', 'modula-roles', 'modula-defaults', 'modula-zoom', 'modula-download', 'modula-exif', 'modula-albums', 'modula-slider', 'modula-password-protect', 'modula-watermark', 'modula-deeplink', 'modula-speedup', 'modula-video'
+			'modula-whitelabel', 'modula-roles', 'modula-defaults', 'modula-zoom', 'modula-download', 'modula-exif', 'modula-albums', 'modula-slider', 'modula-password-protect', 'modula-watermark', 'modula-deeplink', 'modula-speedup', 'modula-video'
 		);
 
 		if ( ! empty( $this->addons ) ) {
 			foreach ( $this->addons as $addon ) {
 
-				$image = ( in_array($addon['slug'],$addons_images) ) ?MODULA_URL.'assets/images/addons/'.$addon['slug'].'.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
+				$image = ( in_array( $addon[ 'slug' ], $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $addon[ 'slug' ] . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
 				echo '<div class="modula-addon">';
 				echo '<div class="modula-addon-box">';
 				echo '<div><img src="' . apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) . '"></div>';

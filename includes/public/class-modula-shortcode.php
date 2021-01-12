@@ -205,27 +205,30 @@ class Modula_Shortcode {
 	public static function get_jsconfig( $settings, $type, $inView ) {
 
 		$modula_shortcode = new Modula_Shortcode;
-		
+
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings['height'] ),
-			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
-			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
-			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
-			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
-			"enableEmail"      => boolval( $settings['enableEmail'] ),
-			"randomFactor"     => ($settings['randomFactor'] / 100),
+			'height'           => absint( $settings[ 'height' ] ),
+			"enableTwitter"    => boolval( $settings[ 'enableTwitter' ] ),
+			"enableWhatsapp"   => boolval( $settings[ 'enableWhatsapp' ] ),
+			"enableFacebook"   => boolval( $settings[ 'enableFacebook' ] ),
+			"enablePinterest"  => boolval( $settings[ 'enablePinterest' ] ),
+			"enableLinkedin"   => boolval( $settings[ 'enableLinkedin' ] ),
+			"enableEmail"      => boolval( $settings[ 'enableEmail' ] ),
+			"randomFactor"     => ( $settings[ 'randomFactor' ] / 100 ),
 			'type'             => $type,
 			'columns'          => 12,
-			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
-			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
-			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
-			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
-			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
+			'gutter'           => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : 10,
+			'mobileGutter'     => isset( $settings[ 'mobile_gutter' ] ) ? absint( $settings[ 'mobile_gutter' ] ) : false,
+			'tabletGutter'     => isset( $settings[ 'tablet_gutter' ] ) ? absint( $settings[ 'tablet_gutter' ] ) : false,
+			'desktopGutter'    => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : false,
+			'enableResponsive' => isset( $settings[ 'enable_responsive' ] ) ? $settings[ 'enable_responsive' ] : 0,
+			'tabletColumns'    => isset( $settings[ 'tablet_columns' ] ) ? $settings[ 'tablet_columns' ] : 2,
+			'mobileColumns'    => isset( $settings[ 'mobile_columns' ] ) ? $settings[ 'mobile_columns' ] : 1,
+			'lazyLoad'         => isset( $settings[ 'lazy_load' ] ) ? $settings[ 'lazy_load' ] : 1,
 			'lightboxOpts'     => $modula_shortcode->fancybox_options( $settings ),
 			'inView'           => $inView,
-			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
-			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
+			'email_subject'    => isset( $settings[ 'emailSubject' ] ) ? esc_html( $settings[ 'emailSubject' ] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'email_message'    => isset( $settings[ 'emailMessage' ] ) ? esc_html( $settings[ 'emailMessage' ] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
 		), $settings );
 
 		// Check for lightbox

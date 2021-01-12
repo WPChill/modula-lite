@@ -20,6 +20,10 @@ class Modula_Backward_Compatibility {
 		// Lightbox set by default to fancybox
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_fancybox' ), 10, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_fancybox' ), 10 );
+		// Margin from creative gallery
+		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_responsive_gutter' ), 10, 3 );
+		add_filter( 'modula_gallery_settings', array( $this, 'backward_compatibility_front_responsive_gutter' ), 10, 3 );
+		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_responsive_gutter' ), 10 );
 
 	}
 
@@ -126,6 +130,75 @@ class Modula_Backward_Compatibility {
 		}
 
 		return $settings;
+	}
+
+	/**
+	 * Backwards compatibility for responsie gutter
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function backward_compatibility_admin_responsive_gutter( $value, $key, $settings ) {
+
+		if ( 'tablet_gutter' == $key && !isset( $settings[ 'tablet_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			return $settings[ 'gutter' ];
+		}
+
+		if ( 'mobile_gutter' == $key && !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			return $settings[ 'gutter' ];
+		}
+
+		return $value;
+
+	}
+
+	/**
+	 *  Backwards compatibility for responsie gutter
+	 *
+	 * @param $js_config
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function backward_compatibility_front_responsive_gutter( $js_config, $settings ) {
+
+		if ( !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			$js_config[ 'mobileGutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		if ( !isset( $settings[ 'tablet_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			$js_config[ 'tabletGutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		return $js_config;
+
+	}
+
+	/**
+	 *  Backwards compatibility for responsie gutter
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function backward_compatibility_backbone_responsive_gutter( $settings ) {
+
+		if ( !isset( $settings[ 'tablet_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			$settings[ 'tablet_gutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		if ( !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
+			$settings[ 'mobile_gutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		return $settings;
+
 	}
 
 }

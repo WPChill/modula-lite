@@ -254,7 +254,17 @@ class Modula_Field_Builder {
 	/* Create HMTL for a row */
 	private function _render_row( $field ) {
 
-		$child = '';
+		$child      = '';
+		$field_name = wp_kses_post( $field[ 'name' ] );
+
+		// Generate tooltip
+		$tooltip = '';
+		if ( isset( $field[ 'description' ] ) && '' != $field[ 'description' ] ) {
+			$tooltip .= '<div class="modula-tooltip"><span>[?]</span>';
+			$tooltip .= '<div class="modula-tooltip-content">' . wp_kses_post( $field[ 'description' ] ) . '</div>';
+			$tooltip .= '</div>';
+		}
+
 
 		if(isset($field['is_child']) && $field['is_child'] && is_bool($field['is_child'])){
 			$child = 'child_setting';
@@ -264,9 +274,25 @@ class Modula_Field_Builder {
 			$child = $field['is_child'].'_child_setting';
 		}
 
-
-
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
+
+		// Formats for General Gutter
+		if ( 'gutter' == $field[ 'id' ] ) {
+			$format = '<tr data-container="' . esc_attr( $field[ 'id' ] ) . '"><th scope="row" class="' . $child . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
+		}
+
+		if ( 'tablet_gutter' == $field[ 'id' ] ) {
+			$field_name = '<span class="dashicons dashicons-tablet"></span>';
+			$tooltip = '';
+			$format = '<td>%s%s%s<span class="modula_input_suffix">px</span></td>';
+		}
+
+		if ( 'mobile_gutter' == $field[ 'id' ] ) {
+			$field_name = '<span class="dashicons dashicons-smartphone"></span>';
+			$tooltip = '';
+			$format = '<td>%s%s%s<span class="modula_input_suffix">px</span></td></tr>';
+		}
+		// End formats for General Gutter
 
 		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
@@ -281,17 +307,10 @@ class Modula_Field_Builder {
 			$default = $field['default'];
 		}
 
-		// Generate tooltip
-		$tooltip = '';
-		if ( isset( $field['description'] ) && '' != $field['description'] ) {
-			$tooltip .= '<div class="modula-tooltip"><span>[?]</span>';
-			$tooltip .= '<div class="modula-tooltip-content">' . wp_kses_post( $field['description'] ) . '</div>';
-			$tooltip .= '</div>';
-		}
-
 		// Get the current value of the field
 		$value = $this->get_setting( $field['id'], $default );
-		return sprintf( $format, $tooltip, wp_kses_post( $field['name'] ), $this->_render_field( $field, $value ) );
+
+		return sprintf( $format, $tooltip, $field_name, $this->_render_field( $field, $value ) );
 	}
 
 	/* Create HMTL for a field */

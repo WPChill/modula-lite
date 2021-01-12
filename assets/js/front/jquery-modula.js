@@ -38,6 +38,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			type: 'creative-gallery',
 			columns: 12,
 			gutter: 10,
+			desktopGutter : 10,
+			mobileGutter:10,
+			tabletGutter:10,
 			enableTwitter: false,
 			enableFacebook: false,
 			enableWhatsapp: false,
@@ -77,7 +80,16 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	Plugin.prototype.init = function () {
 
-		var instance = this;
+		var instance = this,
+		    viewport = document.documentElement.clientWidth;
+
+		if ( viewport <= 568 ) {
+			this.options.gutter = this.options.mobileGutter;
+		} else if ( viewport <= 768 ) {
+			this.options.gutter = this.options.tabletGutter;
+		} else {
+			this.options.gutter = this.options.desktopGutter;
+		}
 
 		// Trigger event before init
 		$(document).trigger('modula_api_before_init', [instance]);
@@ -493,6 +505,16 @@ jQuery(window).on('elementor/frontend/init', function () {
 		if ( instance.lastWidth == instance.$itemsCnt.width() )
 			return;
 
+		var viewport = document.documentElement.clientWidth;
+
+		if ( viewport <= 568 ) {
+			instance.options.gutter = instance.options.mobileGutter;
+		} else if ( viewport <= 768 ) {
+			instance.options.gutter = instance.options.tabletGutter;
+		} else {
+			instance.options.gutter = this.options.desktopGutter;
+		}
+
 		clearTimeout(instance.resizeTO);
 		instance.resizeTO = setTimeout(function () {
 
@@ -504,7 +526,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.reset();
 
 			if ( instance.isIsotope ) {
-				instance.$itemsCnt.modulaisotope('layout');
+
+				instance.$itemsCnt.modulaisotope(
+					{
+						packery: {
+							gutter: parseInt( instance.options.gutter )
+						}
+					} ).modulaisotope( 'layout' );
 			}
 
 		}, 100);
