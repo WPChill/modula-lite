@@ -8,7 +8,8 @@ html body .modula-block-preview .components-spinner {
     float: none;
     margin: 0 auto; }
 html body .modula-block-preview .modula-block-preview__content select.components-select-control__input {
-    min-height:40px;}
+    min-height:40px;
+    line-height:20px;}
 
 .modula-block-preview__logo {
   width: 100%;
