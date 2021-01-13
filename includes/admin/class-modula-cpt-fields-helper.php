@@ -279,14 +279,14 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Use this
 					 to adjust the image space in your gallery for mobile view.', 'modula-best-grid-gallery' ),
 					"default"     => 10,
-					'priority'    => 31,
+					'priority'    => 32,
 				),
 				"width"          => array(
 					"name"        => esc_html__( 'Width', 'modula-best-grid-gallery' ),
 					"type"        => "text",
 					"description" => esc_html__( 'Change the width of your gallery. It can be in percentages or pixels.', 'modula-best-grid-gallery' ),
 					'default'     => '100%',
-					'priority' => 32,
+					'priority' => 33,
 				),
 				"height"         => array(
 					"name"        => esc_html__( 'Height', 'modula-best-grid-gallery' ),
