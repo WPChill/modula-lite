@@ -599,12 +599,9 @@ class Modula_Admin {
 
 		);
 		?>
-
+		<?php Modula_Admin_Helpers::modula_page_header(); ?>
 		<div class="modula wrap lite-vs-pro-section about-wrap">
 			<div class="row">
-				<img src="<?php echo esc_url(MODULA_URL.'/assets/images/logo-dark.webp'); ?>" class="modula-logo">
-				<h3><?php echo esc_html__('Need more power and customization? Check our PRO version with it\'s addons bundle.','modula-best-grid-gallery'); ?>
-				</h3>
 			<div class="featured-section features">
 				<table class="free-pro-table">
 					<thead>

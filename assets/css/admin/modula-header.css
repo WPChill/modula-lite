@@ -1,17 +1,26 @@
 body.modula-gallery_page_modula-addons #wpcontent,
 body.modula-gallery_page_modula #wpcontent,
-body.post-type-modula-gallery #wpcontent {
+body.post-type-modula-gallery #wpcontent,
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent {
 	padding-left : 0;
 }
 
 body.modula-gallery_page_modula-addons #wpcontent .wrap,
 body.modula-gallery_page_modula #wpcontent .wrap,
-body.post-type-modula-gallery #wpcontent .wrap {
-	margin : 0 auto;
+body.post-type-modula-gallery #wpcontent .wrap,
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
+	margin : 0;
 }
+
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
+	padding : 25px 40px 0 20px;
+}
+
 
 body.modula-gallery_page_modula-addons .modula-addons-container,
 body.modula-gallery_page_modula-addons .nav-tab-wrapper,
+body.modula-gallery_page_modula-lite-vs-pro .modula-addons-container,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper,
 body.modula-gallery_page_modula .modula-addons-container,
 body.modula-gallery_page_modula .nav-tab-wrapper,
 body.post-type-modula-gallery .modula-addons-container,
@@ -20,6 +29,7 @@ body.post-type-modula-gallery .nav-tab-wrapper {
 }
 
 body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
 body.post-type-modula-gallery .modula-page-header {
 	padding : 0;
@@ -27,6 +37,8 @@ body.post-type-modula-gallery .modula-page-header {
 
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-logo,
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links,
 body.modula-gallery_page_modula .modula-page-header .modula-header-logo,
 body.modula-gallery_page_modula .modula-page-header .modula-header-links,
 body.post-type-modula-gallery .modula-page-header .modula-header-logo,
@@ -35,18 +47,21 @@ body.post-type-modula-gallery .modula-page-header .modula-header-links {
 }
 
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-logo,
 body.modula-gallery_page_modula .modula-page-header .modula-header-logo,
 body.post-type-modula-gallery .modula-page-header .modula-header-logo {
 	padding-right : 20px;
 }
 
 body.modula-gallery_page_modula-addons .nav-tab-wrapper,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper,
 body.modula-gallery_page_modulaaddons .nav-tab-wrapper,
 body.post-type-modula-gallery .nav-tab-wrapper {
 	padding-bottom : 0;
 }
 
 body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
 body.post-type-modula-gallery .modula-page-header {
 	border-bottom : 1px solid #ccc;
@@ -54,6 +69,8 @@ body.post-type-modula-gallery .modula-page-header {
 
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a,
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a span,
 body.modula-gallery_page_modula .modula-page-header .modula-header-links a,
 body.modula-gallery_page_modula .modula-page-header .modula-header-links a span,
 body.post-type-modula-gallery .modula-page-header .modula-header-links a,
@@ -62,6 +79,7 @@ body.post-type-modula-gallery .modula-page-header .modula-header-links a span {
 }
 
 body.modula-gallery_page_modula-addons .nav-tab-wrapper .nav-tab,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper .nav-tab,
 body.modula-gallery_page_modula .nav-tab-wrapper .nav-tab,
 body.post-type-modula-gallery .nav-tab-wrapper .nav-tab {
 	margin-left  : 0;
@@ -69,12 +87,14 @@ body.post-type-modula-gallery .nav-tab-wrapper .nav-tab {
 }
 
 body.modula-gallery_page_modula-addons .nav-tab-wrapper > .nav-tab:first-child,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper > .nav-tab:first-child,
 body.modula-gallery_page_modula .nav-tab-wrapper > .nav-tab:first-child,
 body.post-type-modula-gallery .nav-tab-wrapper > .nav-tab:first-child {
 	border-top-left-radius : 4px;
 }
 
 body.modula-gallery_page_modula-addons .nav-tab-wrapper > .nav-tab.last_tab,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper > .nav-tab.last_tab,
 body.modula-gallery_page_modula .nav-tab-wrapper > .nav-tab.last_tab,
 body.post-type-modula-gallery .nav-tab-wrapper > .nav-tab.last_tab {
 	border-top-right-radius : 4px;
@@ -88,6 +108,7 @@ body.post-type-modula-gallery #wpbody-content .wrap > ul.subsubsub {
 
 
 body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
 body.post-type-modula-gallery .modula-page-header {
 	display         : flex;
@@ -97,11 +118,11 @@ body.post-type-modula-gallery .modula-page-header {
 }
 
 body.post-type-modula-gallery .modula-page-header {
-	border-top:1px solid #ccc;
+	border-top : 1px solid #ccc;
 }
 
 body.modula-gallery_page_modula .modula-columns {
-	padding:15px;
+	padding : 15px;
 }
 
 .modula-page-header .modula-logo {
