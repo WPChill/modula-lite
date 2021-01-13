@@ -15,9 +15,6 @@
 }
 
 @media screen and (min-width: 1100px) {
-	.modula-addons-container {
-		margin-right: -20px;
-	}
 	.modula-addon {
 		width: calc( 50% - 10px );
 		margin-right: 10px;
@@ -138,16 +135,6 @@
 
 #modula-reload-extensions.updating-message > span {
     display:none;
-}
-
-.modula-page-header {
-	display:flex;
-	justify-content: space-between;
-	padding:15px 0;
-}
-
-.modula-page-header .modula-logo {
-	max-height:35px;
 }
 
 .last-reloaded-extensions {

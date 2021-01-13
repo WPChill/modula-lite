@@ -169,13 +169,6 @@ class Modula_Admin {
 						'target'   => '_blank',
 						'priority' => '10'
 				),
-				'get_started'     => array(
-						'name'     => esc_html__( 'Help', 'modula-best-grid-gallery' ),
-						'icon'     => 'dashicons-external',
-						'url'      => 'https://modula.helpscoutdocs.com/',
-						'target'   => '_blank',
-						'priority' => '15'
-				),
 		);
 
 		$tabs       = apply_filters( 'modula_extesions_tabs', $tabs );
@@ -188,15 +181,21 @@ class Modula_Admin {
 		}
 		?>
 		<div class="wrap">
-		<div class="modula-page-header">
-			<img src="<?php echo MODULA_URL.'assets/images/logo-dark.webp'; ?>" class="modula-logo">
-			<a class="button button-primary" href="https://wp-modula.com/contact-us/"><?php echo esc_html__('Contact us for support!','modula-best-grid-gallery'); ?></a>
-		</div>
+
+		<?php  Modula_Admin_Helpers::modula_page_header(); ?>
+
 		<h2 class="nav-tab-wrapper">
 			<?php
+			$i        = count( $tabs );
+			$j        = 1;
+
 			foreach( $tabs as $tab_id => $tab ) {
-				$active = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
-				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '" '.(isset($tab['target'] )? 'target="'.$tab['target'].'"' : '').'>';
+
+				$last_tab = ( $i == $j ) ? ' last_tab' : '';
+				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
+				$j++;
+
+				echo '<a href="' . esc_url( $tab[ 'url' ] ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
 				if ( isset( $tab['icon'] ) ) {
 					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
 				}

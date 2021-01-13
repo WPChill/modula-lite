@@ -388,6 +388,7 @@ class Modula_CPT {
 
 	public function add_extensions_tab( $views ) {
 		$this->display_feedback_notice();
+		Modula_Admin_Helpers::modula_page_header();
 		$this->display_extension_tab();
 		return $views;
 	}
@@ -397,32 +398,40 @@ class Modula_CPT {
 		<h2 class="nav-tab-wrapper">
 			<?php
 			$tabs = array(
-				'galleries'       => array(
-					'name' => $this->labels[ 'name' ],
-					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
-				),
-				'extensions'      => array(
-					'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
-				),
-				'suggest_feature' => array(
-					'name'   => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
-					'icon'   => 'dashicons-external',
-					'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
-					'target' => '_blank'
-				),
-				'get_started' => array(
-						'name'   => esc_html__( 'Help', 'modula-best-grid-gallery' ),
-						'icon'   => 'dashicons-external',
-						'url'    => 'https://modula.helpscoutdocs.com/',
-						'target' => '_blank'
-				),
+					'galleries'       => array(
+							'name'     => $this->labels[ 'name' ],
+							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
+							'priority' => '1'
+					),
+					'extensions'      => array(
+							'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
+							'priority' => '5'
+					),
+					'suggest_feature' => array(
+							'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+							'icon'     => 'dashicons-external',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+							'target'   => '_blank',
+							'priority' => '10'
+					),
 			);
-			$tabs       = apply_filters( 'modula_add_edit_tabs', $tabs );
+
+			$tabs = apply_filters( 'modula_add_edit_tabs', $tabs );
+
+			uasort( $tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
 			$active_tab = 'galleries';
+			$i          = count( $tabs );
+			$j          = 1;
+
 			foreach ( $tabs as $tab_id => $tab ) {
-				$active = ($active_tab == $tab_id ? ' nav-tab-active' : '');
-				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '" '.(isset($tab['target'] )? 'target="'.$tab['target'].'"' : '').'>';
+
+				$last_tab = ( $i == $j ) ? ' last_tab' : '';
+				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
+				$j++;
+
+				echo '<a href="' . esc_url( $tab[ 'url' ] ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
 				if ( isset( $tab['icon'] ) ) {
 					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
 				}
