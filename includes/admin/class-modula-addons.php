@@ -44,8 +44,10 @@ class Modula_Addons {
 			'modula-whitelabel', 'modula-roles', 'modula-defaults', 'modula-zoom', 'modula-download', 'modula-exif', 'modula-albums', 'modula-slider', 'modula-password-protect', 'modula-watermark', 'modula-deeplink', 'modula-speedup', 'modula-video','modula-advanced-shortcodes','modula-slideshow','modula-protection'
 		);
 
-		if ( ! empty( $this->addons ) ) {
-			foreach ( $this->addons as $addon ) {
+		$addons = apply_filters( 'modula_package_sortage', $this->addons );
+
+		if ( ! empty( $addons ) ) {
+			foreach ( $addons as $addon ) {
 
 				$image = ( in_array( $addon[ 'slug' ], $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $addon[ 'slug' ] . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
 				echo '<div class="modula-addon">';
