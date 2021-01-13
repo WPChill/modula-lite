@@ -152,29 +152,36 @@ class Modula_Admin {
 		require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
 
 		$tabs = array(
-			'galleries'       => array(
-				'name' => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
-				'url'  => admin_url( 'edit.php?post_type=modula-gallery' ),
-			),
-			'extensions'      => array(
-				'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-				'url'  => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			),
-			'suggest_feature' => array(
-				'name'   => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
-				'icon'   => 'dashicons-external',
-				'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
-				'target' => '_blank'
-			),
-			'get_started' => array(
-					'name'   => esc_html__( 'Help', 'modula-best-grid-gallery' ),
-					'icon'   => 'dashicons-external',
-					'url'    => 'https://modula.helpscoutdocs.com/',
-					'target' => '_blank'
-			),
+				'galleries'       => array(
+						'name'     => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+						'url'      => admin_url( 'edit.php?post_type=modula-gallery' ),
+						'priority' => '1'
+				),
+				'extensions'      => array(
+						'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+						'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+						'priority' => '5'
+				),
+				'suggest_feature' => array(
+						'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+						'icon'     => 'dashicons-external',
+						'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+						'target'   => '_blank',
+						'priority' => '10'
+				),
+				'get_started'     => array(
+						'name'     => esc_html__( 'Help', 'modula-best-grid-gallery' ),
+						'icon'     => 'dashicons-external',
+						'url'      => 'https://modula.helpscoutdocs.com/',
+						'target'   => '_blank',
+						'priority' => '15'
+				),
 		);
 
 		$tabs       = apply_filters( 'modula_extesions_tabs', $tabs );
+
+		uasort( $tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
 		$active_tab = 'extensions';
 		if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
 			$active_tab = $_GET['tab'];
