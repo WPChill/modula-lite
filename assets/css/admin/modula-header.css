@@ -12,7 +12,8 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 	margin : 0;
 }
 
-body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap,
+body.modula-gallery_page_modula-import-export #wpcontent .wrap {
 	padding : 25px 40px 0 20px;
 }
 
