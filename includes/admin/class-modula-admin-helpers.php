@@ -60,6 +60,58 @@ class Modula_Admin_Helpers {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Tab navigation display
+	 *
+	 * @param $tabs
+	 * @param $active_tab
+	 */
+	public static function modula_tab_navigation( $tabs, $active_tab ) {
+
+		if ( $tabs ) {
+
+			$i = count( $tabs );
+			$j = 1;
+
+			foreach ( $tabs as $tab_id => $tab ) {
+
+				$last_tab = ( $i == $j ) ? ' last_tab' : '';
+				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
+				$j++;
+
+				if ( isset( $tab[ 'url' ] ) ) {
+					// For Extensions and Gallery list tabs
+					$url = $tab[ 'url' ];
+				} else {
+					// For Settings tabs
+					$url = admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=' . $tab_id );
+				}
+
+				echo '<a href="' . esc_url( $url ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
+
+				if ( isset( $tab[ 'icon' ] ) ) {
+					echo '<span class="dashicons ' . esc_attr( $tab[ 'icon' ] ) . '"></span>';
+				}
+
+				// For Extensions and Gallery list tabs
+				if ( isset( $tab[ 'name' ] ) ) {
+					echo esc_html( $tab[ 'name' ] );
+				}
+
+				// For Settings tabs
+				if ( isset( $tab[ 'label' ] ) ) {
+					echo esc_html( $tab[ 'label' ] );
+				}
+
+				if ( isset( $tab[ 'badge' ] ) ) {
+					echo '<span class="modula-badge">' . $tab[ 'badge' ] . '</span>';
+				}
+
+				echo '</a>';
+			}
+		}
+	}
 }
 
 $modula_admin_helpers = Modula_Admin_Helpers::get_instance();

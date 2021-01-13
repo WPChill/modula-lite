@@ -186,22 +186,7 @@ class Modula_Admin {
 
 		<h2 class="nav-tab-wrapper">
 			<?php
-			$i        = count( $tabs );
-			$j        = 1;
-
-			foreach( $tabs as $tab_id => $tab ) {
-
-				$last_tab = ( $i == $j ) ? ' last_tab' : '';
-				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
-				$j++;
-
-				echo '<a href="' . esc_url( $tab[ 'url' ] ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
-				if ( isset( $tab['icon'] ) ) {
-					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
-				}
-				echo esc_html( $tab['name'] );
-				echo '</a>';
-			}
+			Modula_Admin_Helpers::modula_tab_navigation( $tabs, $active_tab );
 			?>
 			<a id="modula-reload-extensions" class="button button-secondary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
 			<?php
@@ -229,10 +214,6 @@ class Modula_Admin {
 		}
 
 
-	}
-
-	private function generate_url( $tab ) {
-		return admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=' . $tab );
 	}
 
 	public function show_general_tab() {

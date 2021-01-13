@@ -421,23 +421,7 @@ class Modula_CPT {
 
 			uasort( $tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
-			$active_tab = 'galleries';
-			$i          = count( $tabs );
-			$j          = 1;
-
-			foreach ( $tabs as $tab_id => $tab ) {
-
-				$last_tab = ( $i == $j ) ? ' last_tab' : '';
-				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
-				$j++;
-
-				echo '<a href="' . esc_url( $tab[ 'url' ] ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
-				if ( isset( $tab['icon'] ) ) {
-					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
-				}
-				echo esc_html( $tab['name'] );
-				echo '</a>';
-			}
+			Modula_Admin_Helpers::modula_tab_navigation( $tabs, 'galleries' );
 			?>
 
 			<a href="<?php echo admin_url( 'post-new.php?post_type=' . $this->cpt_name ); ?>" class="page-title-action">
