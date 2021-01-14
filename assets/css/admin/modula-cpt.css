@@ -447,6 +447,38 @@ tr label.th-label {
 	transform: translate3d(0,0,0);
 }
 
+/**
+Pro Hover Effects preview
+ */
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview > div {
+	display:block !important;
+	position:absolute;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview {
+	max-width  : 880px;
+	position   : relative;
+	overflow-x : scroll;
+	min-height : 500px;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview {
+	display:inline-block;
+	margin:20px;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview h4 {
+	text-align:center;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview:first-child{
+	margin-left:0;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .upgrade-hover {
+	text-align : center;
+}
 /* Upsells */
 .modula-upsell {
     background: #f1f1f1;
