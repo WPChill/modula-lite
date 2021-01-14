@@ -33,9 +33,6 @@ class Modula_Admin {
 		add_filter( 'modula_admin_page_tabs', array( $this, 'add_affiliate_tab' ) );
 		add_action( 'modula_admin_tab_affiliate', array( $this, 'show_affiliate_tab' ) );
 
-		// added by Cristi
-		add_filter( 'screen_options_show_screen', array( 'Modula', 'modula_hide_screen_options' ) );
-
 	}
 
 	public function delete_resized_image( $post_id ) {

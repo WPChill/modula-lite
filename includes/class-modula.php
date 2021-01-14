@@ -355,14 +355,4 @@ class Modula {
 
 		return $result;
 	}
-
-	public function modula_hide_screen_options() {
-		global $pagenow;
-
-		if ( $pagenow === 'modula-gallery' ) {
-			__return_false();
-		} else {
-			__return_true();
-		}
-	}
 }
