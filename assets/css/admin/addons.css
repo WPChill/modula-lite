@@ -127,10 +127,8 @@
 }
 
 #modula-reload-extensions > span {
-    vertical-align:middle;
-    margin-top:-4px;
-    margin-left:-2px;
-    margin-right:5px;
+	vertical-align: middle;
+  font-size: 16px;
 }
 
 #modula-reload-extensions.updating-message > span {
@@ -140,6 +138,9 @@
 .last-reloaded-extensions {
 	position:relative;
 	top:5px;
+	left: 15px;
+	font-style: italic;
+	color: rgb(102, 102, 102);
 }
 
 /**

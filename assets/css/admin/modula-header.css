@@ -29,6 +29,12 @@ body.post-type-modula-gallery .nav-tab-wrapper {
 	padding : 20px;
 }
 
+/* Added by Cristi */
+body.modula-gallery_page_modula-addons .nav-tab-wrapper .dashicons {
+	font-size: 16px;
+	vertical-align: middle;
+}
+
 body.modula-gallery_page_modula-addons .modula-page-header,
 body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
@@ -129,3 +135,6 @@ body.modula-gallery_page_modula .modula-columns {
 .modula-page-header .modula-logo {
 	max-height : 35px;
 }
+
+/* Added by Cristi */
+.modula-header-links .dashicons { font-size: 16px; } 

@@ -60,7 +60,7 @@ class Modula_Addons {
 				echo '</div>';
 				echo '<div class="modula-addon-actions">';
 				echo apply_filters( 'modula_addon_settings_link','', $addon );
-				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '/?utm_source=modula-lite&utm_campaign=upsell&utm_medium='. esc_attr( $addon['slug'] ) ).'" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to PRO', 'modula-best-grid-gallery' ) . '</a>', $addon );
+				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '/?utm_source=modula-lite&utm_campaign=upsell&utm_medium='. esc_attr( $addon['slug'] ) ).'" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to unlock this feature', 'modula-best-grid-gallery' ) . '</a>', $addon );
 				echo '</div>';
 				echo '</div>';
 			}

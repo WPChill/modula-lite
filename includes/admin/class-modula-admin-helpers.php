@@ -50,7 +50,7 @@ class Modula_Admin_Helpers {
 			<div class="modula-header-links">
 				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
 				   class="button button-secondary"><span
-							class="dashicons dashicons-external"></span><?php esc_html_e( 'Help', 'modula-best-grid-gallery' ); ?>
+							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
 				</a>
 				<a class="button button-primary"
 				   href="https://wp-modula.com/contact-us/"><span
