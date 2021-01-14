@@ -85,6 +85,14 @@ body.post-type-modula-gallery .modula-page-header .modula-header-links a span {
 	vertical-align : middle;
 }
 
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula .modula-page-header .modula-header-links a span,
+body.post-type-modula-gallery .modula-page-header .modula-header-links a span {
+	font-size:16px;
+	line-height:18px;
+}
+
 body.modula-gallery_page_modula-addons .nav-tab-wrapper .nav-tab,
 body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper .nav-tab,
 body.modula-gallery_page_modula .nav-tab-wrapper .nav-tab,

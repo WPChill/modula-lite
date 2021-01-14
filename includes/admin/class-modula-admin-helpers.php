@@ -55,7 +55,7 @@ class Modula_Admin_Helpers {
 				</a>
 				<a class="button button-primary"
 				   href="https://wp-modula.com/contact-us/"><span
-							class="dashicons dashicons-external"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
+							class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
 				</a>
 			</div>
 		</div>
