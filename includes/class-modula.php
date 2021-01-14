@@ -340,7 +340,7 @@ class Modula {
 	 * Enable thumbnail/preview for WebP image types.
 	 */
 	function modula_webp_display( $result, $path ) {
-		if ( $result === false ) {
+		if ( $result === false && IMAGETYPE_WEBP) {
 			$displayable_image_types = array( IMAGETYPE_WEBP );
 			$info                    = @getimagesize( $path );
 
