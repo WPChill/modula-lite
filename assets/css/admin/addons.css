@@ -44,7 +44,7 @@
 	text-align: center;
 }
 .modula-addon .modula-addon-actions {
-    padding: 12px 20px;
+    padding: 6px 20px;
     background-color: #fafafa;
     border-top: 1px solid #ddd;
     overflow: hidden;
@@ -123,7 +123,6 @@
     top: 2px;
     position: relative;
     margin-left: 7px;
-    font-weight:700;
 }
 
 #modula-reload-extensions > span {

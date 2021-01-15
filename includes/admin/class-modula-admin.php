@@ -79,14 +79,6 @@ class Modula_Admin {
 
 		$links = array(
 			array(
-				'page_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-				'capability' => 'manage_options',
-				'menu_slug'  => 'modula-addons',
-				'function'   => array( $this, 'show_extension_page_tabs' ),
-				'priority'   => 99,
-			),
-			array(
 				'page_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
 				'menu_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
@@ -103,6 +95,18 @@ class Modula_Admin {
 				'priority'   => 100,
 			),
 		);
+
+		if ( current_user_can( 'install_plugins' ) ) {
+			$links[] =
+					array(
+							'page_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+							'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+							'capability' => 'manage_options',
+							'menu_slug'  => 'modula-addons',
+							'function'   => array( $this, 'show_extension_page_tabs' ),
+							'priority'   => 99,
+					);
+		}
 
 		if ( ! empty( $this->tabs ) ) {
 			$links[] = array(
@@ -154,11 +158,6 @@ class Modula_Admin {
 				'url'      => admin_url( 'edit.php?post_type=modula-gallery' ),
 				'priority' => '1',
 			),
-			'extensions'      => array(
-				'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-				'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-				'priority' => '5',
-			),
 			'suggest_feature' => array(
 				'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
 				'icon'     => 'dashicons-external',
@@ -167,6 +166,14 @@ class Modula_Admin {
 				'priority' => '10',
 			),
 		);
+
+		if ( current_user_can( 'install_plugins' ) ) {
+			$tabs[ 'extensions' ] = array(
+					'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+					'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+					'priority' => '5',
+			);
+		}
 
 		$tabs = apply_filters( 'modula_extesions_tabs', $tabs );
 

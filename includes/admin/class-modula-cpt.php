@@ -403,11 +403,6 @@ class Modula_CPT {
 							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
 							'priority' => '1'
 					),
-					'extensions'      => array(
-							'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
-							'priority' => '5'
-					),
 					'suggest_feature' => array(
 							'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
 							'icon'     => 'dashicons-external',
@@ -416,6 +411,14 @@ class Modula_CPT {
 							'priority' => '10'
 					),
 			);
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$tabs[ 'extensions' ] = array(
+						'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+						'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+						'priority' => '5',
+				);
+			}
 
 			$tabs = apply_filters( 'modula_add_edit_tabs', $tabs );
 
