@@ -83,7 +83,7 @@ class Modula_Admin {
 				'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
 				'menu_slug'  => 'modula-addons',
-				'function'   => array( $this, 'show_addons' ),
+				'function'   => array( $this, 'show_extension_page_tabs' ),
 				'priority'   => 99,
 			),
 			array(
@@ -146,8 +146,7 @@ class Modula_Admin {
 		include 'tabs/modula.php';
 	}
 
-	public function show_addons() {
-		require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
+	public function show_extension_page_tabs() {
 
 		$tabs = array(
 			'galleries'       => array(

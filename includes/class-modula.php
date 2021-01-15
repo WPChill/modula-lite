@@ -74,6 +74,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 			// Admin Helpers
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
+			// The Modula Addons
+			require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
 
 		}
 
@@ -94,9 +96,6 @@ class Modula {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
-
-		// Add ajax action to reload extensions
-		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 
 		add_action( 'plugins_loaded', array( $this, 'set_locale' ) );
 
@@ -266,15 +265,7 @@ class Modula {
 
 	}
 
-	public function reload_extensions() {
-		// Run a security check first.
-		check_admin_referer( 'modula-reload-extensions', 'nonce' );
 
-		delete_transient( 'modula_all_extensions' );
-		delete_transient( 'modula_pro_licensed_extensions' );
-
-		die;
-	}
 
 	// Register and load the widget
 	public function modula_load_widget() {

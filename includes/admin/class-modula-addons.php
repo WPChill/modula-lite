@@ -6,6 +6,9 @@ class Modula_Addons {
 
 	function __construct() {
 		$this->addons = $this->check_for_addons();
+
+		// Add ajax action to reload extensions
+		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 	}
 
 	private function check_for_addons() {
@@ -67,4 +70,23 @@ class Modula_Addons {
 		}
 	}
 
+	/**
+	 * Reload addons in the Extensions tab
+	 *
+	 * @moved here from class-modula.php file in version 2.4.2
+	 */
+	public function reload_extensions() {
+		// Run a security check first.
+		check_admin_referer( 'modula-reload-extensions', 'nonce' );
+
+		delete_transient( 'modula_all_extensions' );
+		delete_transient( 'modula_pro_licensed_extensions' );
+
+		$this->addons = $this->check_for_addons();
+
+		die;
+	}
+
 }
+
+$addons = new Modula_Addons();
