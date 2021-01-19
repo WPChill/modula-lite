@@ -6,14 +6,16 @@ import ModulaStyle from './ModulaStyle';
 
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
-	const { settings, galleryId, checkHoverEffect, modulaRun } = props;
+	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
 
 	useEffect(() => {
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
 		}
-		if (jsConfig !== undefined) {
+		if ('slider' !== settings.type ) {
 			modulaRun(jsConfig);
+		} else {
+			modulaSlickRun();
 		}
 	}, []);
 

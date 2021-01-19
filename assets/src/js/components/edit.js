@@ -16,16 +16,15 @@ const { compose } = wp.compose;
 export const ModulaEdit = (props) => {
 	const { attributes, galleries, setAttributes } = props;
 	const { id, images, status, settings, jsConfig, galleryId } = attributes;
-	
+
 	useEffect(() => {
 		if (id !== 0) {
 			onIdChange(id);
 		}
-		if( 'deciding' == props.isGallery) {
-			setAttributes({status: 'deciding'});
+		if ('deciding' == props.isGallery) {
+			setAttributes({ status: 'deciding' });
 			delete props.status;
 		}
-		modulaRun();
 	}, []);
 
 	const onIdChange = (id) => {
@@ -91,6 +90,45 @@ export const ModulaEdit = (props) => {
 					JSON.parse(checker).type == modulaSettings.type
 				) {
 					jQuery(this).modulaGallery(modulaSettings);
+				}
+			});
+		}
+	};
+
+	const modulaSlickRun = () => {
+		const modulaSliders = jQuery('.modula-slider');
+
+		if (modulaSliders.length > 0) {
+			jQuery.each(modulaSliders, function() {
+				let modulaID = jQuery(this).attr('id'),
+					config = jQuery(this).data('config'),
+					nav = jQuery(this).find('.modula-slider-nav'),
+					main = jQuery(this).find('.modula-items');
+
+				main.slick(config.slider_settings);
+				
+				if (nav.length) {
+					let navConfig = nav.data('config'),
+						currentSlide = main.slick('slickCurrentSlide');
+
+					nav.on('init', function(event, slick) {
+						nav.find('.slick-slide[data-slick-index="' + currentSlide + '"]').addClass('is-active');
+					});
+
+					nav.slick(navConfig);
+
+					main.on('afterChange', function(event, slick, currentSlide) {
+						nav.slick('slickGoTo', currentSlide);
+						let currrentNavSlideElem = '.slick-slide[data-slick-index="' + currentSlide + '"]';
+						nav.find('.slick-slide.is-active').removeClass('is-active');
+						nav.find(currrentNavSlideElem).addClass('is-active');
+					});
+
+					nav.on('click', '.slick-slide', function(event) {
+						event.preventDefault();
+						let goToSingleSlide = jQuery(this).data('slick-index');
+						main.slick('slickGoTo', goToSingleSlide);
+					});
 				}
 			});
 		}
@@ -211,6 +249,7 @@ export const ModulaEdit = (props) => {
 					settings={settings}
 					jsConfig={jsConfig}
 					modulaRun={modulaRun}
+					modulaSlickRun={modulaSlickRun}
 					checkHoverEffect={checkHoverEffect}
 					galleryId={galleryId}
 				/>

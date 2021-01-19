@@ -18,6 +18,7 @@ const ModulaGalleryImage = (props) => {
 
 			<div className="modula-item-content">
 				<img
+					style={{height: 'auto', width: '400px'}}
 					className={`modula-image pic`}
 					data-id={img.id}
 					data-full={img.src}
@@ -28,15 +29,17 @@ const ModulaGalleryImage = (props) => {
 					data-height="2"
 					src={img.src}
 				/>
-				<ModulaGalleryImageInner
-					settings={settings}
-                    img={img}
-					index={index}
-					hideTitle={undefined != effectCheck && effectCheck.title == true ? false : true}
-					hideDescription={undefined != effectCheck && effectCheck.description == true ? false : true}
-					hideSocial={undefined != effectCheck && effectCheck.social == true ? false : true}
-					effectCheck={effectCheck}
-				/>
+				{'slider' !== settings.type && (
+					<ModulaGalleryImageInner
+						settings={settings}
+						img={img}
+						index={index}
+						hideTitle={undefined != effectCheck && effectCheck.title == true ? false : true}
+						hideDescription={undefined != effectCheck && effectCheck.description == true ? false : true}
+						hideSocial={undefined != effectCheck && effectCheck.social == true ? false : true}
+						effectCheck={effectCheck}
+					/>
+				)}
 			</div>
 		</div>
 	];

@@ -37,10 +37,12 @@ class Modula_Gutenberg {
 		$screen = get_current_screen();
 		if ('post' == $screen->post_type  || 'page' == $screen->post_type ) { 
 			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style('modula-slider-css', MODULA_SLIDER_URL . 'assets/css/front.min.css');
 			wp_enqueue_style( 'modula-pro-effects', MODULA_PRO_URL . 'assets/css/effects.min.css', MODULA_PRO_VERSION, null );
 
 			wp_enqueue_script( 'modula-pro', MODULA_PRO_URL . 'assets/js/modula-pro.js', array( 'jquery' ), MODULA_PRO_VERSION, true );
 			wp_enqueue_script( 'modula-pro-tilt', MODULA_PRO_URL . 'assets/js/modula-pro-tilt.min.js', array( 'jquery' ), MODULA_PRO_VERSION, true );
+			wp_enqueue_script( 'slick-js', MODULA_SLIDER_URL . 'assets/js/slick.min.js', true );
 			wp_enqueue_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );

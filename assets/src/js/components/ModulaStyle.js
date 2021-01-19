@@ -89,7 +89,7 @@ const ModulaStyle = (props) => {
 
 	// SEE ABOUT LOADED EFFECT IF WE NEED TO ADD OR NOTTTTTTTTTTTTTT #REMINDER
 
-	if ('custom-grid' != settings.type) {
+	if ('custom-grid' != settings.type || 'slider' != settings.type) {
 		style += `#jtg-${id} {
 		width: ${settings.width};
 		margin : 0 auto;
@@ -100,9 +100,13 @@ const ModulaStyle = (props) => {
 				height: 100px;
 			}`;
 		} else {
-			if ('grid' != settings.type) {
+			if ('grid' != settings.type && 'slider' != settings.type) {
 				style += `#jtg-${id} .modula-items {
-				height: ${settings.height};
+				height: ${settings.height}px;
+			}`;
+			} else if ( 'slider' == settings.type ) {
+				style += `#jtg-${id} .modula-items {
+				height: auto;
 			}`;
 			}
 		}
@@ -129,7 +133,7 @@ const ModulaStyle = (props) => {
 		}`;
 
 	if ('none' == settings.effect) {
-		style += `jtg-${id} .modula-items .modula-item:hover img {
+		style += `#jtg-${id} .modula-items .modula-item:hover img {
 			opacity: 1;
 		}`;
 	}
@@ -138,57 +142,77 @@ const ModulaStyle = (props) => {
 		background-color: ${settings.hoverColor};
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-oscar {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-oscar {
 		background: -webkit-linear-gradient(45deg, ${settings.hoverColor} 0, #9b4a1b 40%, ${settings.hoverColor} 100%);
 		background: linear-gradient(45deg, ${settings.hoverColor} 0, #9b4a1b 40%, ${settings.hoverColor} 100%);
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-roxy {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-roxy {
 		background: -webkit-linear-gradient(45deg, ${settings.hoverColor} 0, #05abe0 100%);
 		background: linear-gradient(45deg, ${settings.hoverColor} 0, #05abe0 100%);
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-dexter {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-dexter {
 		background: -webkit-linear-gradient(top, ${settings.hoverColor} 0, rgba(104,60,19,1) 100%);
 		background: linear-gradient(top, ${settings.hoverColor} 0, rgba(104,60,19,1) 100%);
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-jazz {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-jazz {
 		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #f33f58 100%);
 		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #f33f58 100%);
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-lexi {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-lexi {
 		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #fff 100%);
 		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #fff 100%);
 	}`;
 
-	style += `jtg-${id}.modula .modula-items .modula-item.effect-duke {
+	style += `#jtg-${id}.modula .modula-items .modula-item.effect-duke {
 		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #cc6055 100%);
 		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #cc6055 100%);
 	}`;
 
 	if (settings.hoverOpacity <= 100 && 'none' != settings.effect) {
-		style += `jtg-${id}.modula .modula-items .modula-item:hover img {
+		style += `#jtg-${id}.modula .modula-items .modula-item:hover img {
 			opacity: ${1 - settings.hoverOpacity / 100} ;
 		}`;
 	}
 
 	if ('default' != settings.titleFontWeight) {
-		style += `jtg-${id}.modula .modula-items .modula-item .jtg-title {
+		style += `#jtg-${id}.modula .modula-items .modula-item .jtg-title {
 			font-weight : ${settings.titleFontWeight};
 		}`;
 	}
 
 	if ('default' != settings.captionFontWeight) {
-		style += `jtg-${id}.modula .modula-items .modula-item p.description {
+		style += `#jtg-${id}.modula .modula-items .modula-item p.description {
 			font-weight : ${settings.captionFontWeight};
 		}`;
 	}
 
-	style += `jtg-${id}.modula-gallery .modula-item.effect-terry .jtg-social a:not(:last-child) {
+	style += `#jtg-${id}.modula-gallery .modula-item.effect-terry .jtg-social a:not(:last-child) {
 		margin-bottom: ${settings.socialIconPadding}px;
 	}`;
+
+	if ('slider' == settings['type']) {
+		if( "true" == jQuery("[aria-label=Settings]").attr('aria-expanded')  ) {
+			style += `#jtg-${id} {
+					width: 800px;
+					}`;
+		} else {
+			style += `#jtg-${id} {
+			width: 1100px;
+			}`;
+		}
+		style += `#jtg-${id} .modula-items {
+		height: auto;
+		}`;
+
+		style += `#jtg-${id} .modula-item {
+		background-color: transparent;
+		transform: none;
+		}`;
+	}
 
 	return (
 		<style
