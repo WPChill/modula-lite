@@ -21,6 +21,8 @@ class Modula_CPT {
 		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
 
 		add_action( 'init', array( $this, 'register_cpt' ) );
+		//Bring the settings in Rest
+		add_action( 'rest_api_init', array( $this, 'register_post_meta_rest') );
 
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
@@ -129,6 +131,14 @@ class Modula_CPT {
 
 		register_post_type( $this->cpt_name, $args );
 
+	}
+
+	public function register_post_meta_rest() {
+		register_rest_field( 'modula-gallery', 'modulaSettings', array(
+			'get_callback' => function( $post_arr ) {
+				return get_post_meta( $post_arr['id'], 'modula-settings', true );
+			},
+		) );
 	}
 
 	/**

@@ -11,7 +11,10 @@ class Modula_Gutenberg {
 
 		add_action( 'init', array( $this, 'register_block_type' ) );
 		add_action( 'init', array( $this, 'generate_js_vars' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_block_assets'), 1);
 		add_action( 'wp_ajax_modula_get_gallery_meta', array( $this, 'get_gallery_meta' ) );
+		add_action( 'wp_ajax_modula_get_jsconfig', array( $this, 'get_jsconfig' ) );
+		add_action( 'wp_ajax_modula_check_hover_effect', array( $this, 'check_hover_effect' ) );
 	}
 
 	public function register_block_type() {
@@ -30,6 +33,22 @@ class Modula_Gutenberg {
 
 	}
 
+	public function enqueue_block_assets() {
+		$screen = get_current_screen();
+		if ('post' == $screen->post_type  || 'page' == $screen->post_type ) { 
+			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-pro-effects', MODULA_PRO_URL . 'assets/css/effects.min.css', MODULA_PRO_VERSION, null );
+
+			wp_enqueue_script( 'modula-pro', MODULA_PRO_URL . 'assets/js/modula-pro.js', array( 'jquery' ), MODULA_PRO_VERSION, true );
+			wp_enqueue_script( 'modula-pro-tilt', MODULA_PRO_URL . 'assets/js/modula-pro-tilt.min.js', array( 'jquery' ), MODULA_PRO_VERSION, true );
+			wp_enqueue_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/front/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		}
+	}
+
+
 	public function generate_js_vars() {
 
 		wp_localize_script(
@@ -40,6 +59,7 @@ class Modula_Gutenberg {
 				'ajaxURL'        => admin_url( 'admin-ajax.php' ),
 				'nonce'          => wp_create_nonce( 'modula_nonce' ),
 				'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery'),
+				'restURL'        => get_rest_url(),
 			) )
 		);
 
@@ -83,6 +103,55 @@ class Modula_Gutenberg {
 		endforeach;
 
 		echo json_encode( $images );
+
+		die();
+
+	}
+
+    public function get_jsconfig() {
+		$nonce = $_POST['nonce'];
+		$settings = $_POST['settings'] ;
+		
+
+        if( !wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
+            wp_send_json_error();
+            die();
+		}
+		
+		$type = 'creative-gallery';
+		if ( isset( $settings['type'] ) ) {
+			$type = $settings['type'];
+		}else{
+			$settings['type'] = 'creative-gallery';
+		}
+
+		$inView = false;
+		$inview_permitted = apply_filters( 'modula_loading_inview_grids', array( 'custom-grid', 'creative-gallery', 'grid' ), $settings );
+		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array($type,$inview_permitted) ) {
+			$inView = true;
+        }
+
+        
+        $js_config = Modula_Shortcode::get_jsconfig( $settings, $type, $inView );
+        echo json_encode( $js_config );
+        
+
+        die();
+	}
+
+	public function check_hover_effect( $effect ) {
+		
+		$nonce = $_POST['nonce'];
+		$effect = $_POST['effect'];
+
+		if( !wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
+            wp_send_json_error();
+            die();
+		}
+		
+		$effect_check = Modula_Helper::hover_effects_elements( $effect );
+		
+		echo json_encode( $effect_check );
 
 		die();
 

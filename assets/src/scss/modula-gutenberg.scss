@@ -3,31 +3,31 @@ html body .modula-block-preview {
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
-
+	
 	.components-spinner {
 		display: block;
 		float: none;
 		margin: 0 auto;
+	}
+
+	.modula-block-preview__content {
+		width: 100%;
+		max-width: 400px;
+		margin: 40px auto;
+		text-align: center;
+	
+		select.components-select-control__input {
+			min-height:40px;
+			line-height:20px;
+		}
 	}
 }
 
 .modula-block-preview__logo {
 	width: 100%;
 	height: 60px;
-	background:url(../images/block-preview-bg.svg) no-repeat 50% 0%;
+	background:url(../../images/block-preview-bg.svg) no-repeat 50% 0%;
 	background-size: 75%;
-}
-
-.modula-block-preview__content {
-	width: 100%;
-	max-width: 400px;
-	margin: 40px auto;
-	text-align: center;
-
-	select.components-select-control__input {
-		min-height:40px;
-		line-height:20px;
-	}
 }
 
 .modula-block-preview--images {
@@ -52,4 +52,27 @@ html body .modula-block-preview {
 		height: 100%;
 		object-fit: cover;
 	}
+}
+
+.modula-appender-media {
+	height: 60px;
+}
+.modula-preview-image-wrap {
+	width: 31%;
+	padding-bottom: 23%;
+	position: relative;
+	margin: 1%;
+	height: 200px;
+}
+
+.modula-preview-image-wrap .modula-button {
+	width: 40px;
+}
+
+.modula-items {
+	width: 100%;
+}
+
+.modula-item-content img.pic {
+	height: auto;
 }
