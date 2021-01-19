@@ -204,6 +204,8 @@ class Modula_Admin {
 			}
 			?>
 
+			<?php do_action('modula_extensions_tabs_extra_actions'); ?>
+
 		</h2>
 		<?php
 
