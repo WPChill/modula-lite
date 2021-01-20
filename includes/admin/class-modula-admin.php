@@ -192,6 +192,7 @@ class Modula_Admin {
 			<?php
 			Modula_Admin_Helpers::modula_tab_navigation( $tabs, $active_tab );
 			?>
+			<?php do_action('modula_extensions_tabs_extra_actions'); ?>
 			<a id="modula-reload-extensions" class="button button-secondary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
 			<?php
 			$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
@@ -221,8 +222,6 @@ class Modula_Admin {
 				echo '</span>';
 			}
 			?>
-
-			<?php do_action('modula_extensions_tabs_extra_actions'); ?>
 
 		</h2>
 		<?php
