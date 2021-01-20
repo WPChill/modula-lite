@@ -543,7 +543,7 @@ jQuery(window).on('elementor/frontend/init', function () {
         	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
         	size = {};
 
-        if ( '0' != instance.options.lazyLoad ) { return; }
+        if ( '0' != instance.options.lazyLoad ) { instance.placeImage( index ); return; }
 
         if ( 'undefined' == typeof source.attr('width') && 'undefined' == typeof source.attr('height') ) {
         	var img = new Image();
