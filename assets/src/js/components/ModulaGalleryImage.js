@@ -13,20 +13,21 @@ const ModulaGalleryImage = (props) => {
 
 	return [
 		/** REMINDER : Check for data with & height */
-		<div className={`modula-item effect-${settings.effect}`} data-width="2" data-height="2">
+		<div
+			className={`modula-item effect-${settings.effect}`}
+			data-width={img['data-width'] ? img['data-width'] : '2'}
+			data-height={img['data-height'] ? img['data-height'] : '2'}
+		>
 			<div className="modula-item-overlay" />
 
 			<div className="modula-item-content">
 				<img
-					style={{height: 'auto', width: '400px'}}
 					className={`modula-image pic`}
 					data-id={img.id}
 					data-full={img.src}
 					data-src={img.src}
 					data-valign="middle"
 					data-halign="center"
-					data-width="2"
-					data-height="2"
 					src={img.src}
 				/>
 				{'slider' !== settings.type && (

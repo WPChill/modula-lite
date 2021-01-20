@@ -99,9 +99,11 @@ class Modula_Gutenberg {
 
 		foreach ( $images as $key => $value ) :
 			$image_obj                = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
-			$images[ $key ]['src']    = $image_obj[0];
-			$images[ $key ]['width']  = $image_obj[1];
-			$images[ $key ]['height'] = $image_obj[2];
+			$images[ $key ]['src']         = $image_obj[0];
+			$images[ $key ]['data-width']  = $images[ $key ]['width'];
+			$images[ $key ]['data-height'] = $images[ $key ]['height'];
+			$images[ $key ]['width']       = $image_obj[1];
+			$images[ $key ]['height']      = $image_obj[2];
 		endforeach;
 
 		echo json_encode( $images );

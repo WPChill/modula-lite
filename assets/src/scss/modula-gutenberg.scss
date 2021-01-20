@@ -76,3 +76,34 @@ html body .modula-block-preview {
 .modula-item-content img.pic {
 	height: auto;
 }
+
+.modula-button-group {
+	display: flex;
+    flex-direction: column;
+	width: fit-content;
+	margin: 0 auto;
+}
+
+html body .modula-button-group .modula-button{
+	margin: 5px;
+    background: white;
+    color: black!important;
+}
+
+html body .modula-button-group .modula-button:hover {
+	color: #478DB6!important;
+	text-decoration: underline!important;
+}
+
+html body .modula-button-group .modula-button-upsell:hover {
+	text-decoration: underline;
+	color:black!important;
+}
+
+html body .modula-button-group .modula-button-upsell {
+	margin: 5px;
+    background: #3FBF90;
+    color: black;
+}
+
+

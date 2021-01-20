@@ -10,22 +10,21 @@ const { SelectControl, Button, PanelBody } = wp.components;
  * Inspector controls
  */
 export default class Inspector extends Component {
-
-	constructor( props ) {
-		super( ...arguments );
+	constructor(props) {
+		super(...arguments);
 	}
 
 	selectOptions() {
-		let options = [ { value: 0, label: __( 'none' ) } ];
+		let options = [ { value: 0, label: __('none') } ];
 
-		this.props.galleries.forEach(function( gallery ) {
-			if( gallery.title.rendered.length == 0 ) {
-				options.push( {
+		this.props.galleries.forEach(function(gallery) {
+			if (gallery.title.rendered.length == 0) {
+				options.push({
 					value: gallery.id,
-					label: __( 'Unnamed Gallery ', 'modula-best-grid-gallery' ) + gallery.id
-				} );
+					label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
+				});
 			} else {
-				options.push( { value: gallery.id, label: gallery.title.rendered } );
+				options.push({ value: gallery.id, label: gallery.title.rendered });
 			}
 		});
 
@@ -39,29 +38,52 @@ export default class Inspector extends Component {
 		return (
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={ __( 'Gallery Settings','modula-best-grid-gallery' ) } initialOpen={ true }>
-						{ galleries.length === 0 && (
+					<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
+						{galleries.length === 0 && (
 							<Fragment>
-								<p>{ __( 'You don\'t seem to have any galleries.' ) }</p>
-								<Button href={ modulaVars.adminURL + 'post-new.php?post_type=modula-gallery' } target="_blank" isDefault>{ __( 'Add New Gallery','modula-best-grid-gallery' ) }</Button>
+								<p>{__("You don't seem to have any galleries.")}</p>
+								<Button
+									href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
+									target="_blank"
+									isDefault
+								>
+									{__('Add New Gallery', 'modula-best-grid-gallery')}
+								</Button>
 							</Fragment>
 						)}
 
-						{ galleries.length > 0 && (
+						{galleries.length > 0 && (
 							<Fragment>
 								<SelectControl
 									key={id}
-									label={ __( 'Select Gallery','modula-best-grid-gallery' ) }
-									value={ id }
-									options={ this.selectOptions() }
-									onChange={ ( value ) => this.props.onIdChange( parseInt( value ) ) }
+									label={__('Select Gallery', 'modula-best-grid-gallery')}
+									value={id}
+									options={this.selectOptions()}
+									onChange={(value) => this.props.onIdChange(parseInt(value))}
 								/>
-								{ id != 0 && (
-									<Button target="_blank" href={ modulaVars.adminURL + 'post.php?post=' + id + '&action=edit' } isDefault>{ __( 'Edit gallery' ) }</Button>
-								) }
+								{id != 0 && (
+									<Button
+										target="_blank"
+										href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
+										isDefault
+									>
+										{__('Edit gallery')}
+									</Button>
+								)}
 							</Fragment>
 						)}
 
+						{'deciding' !== status && (
+							<Button
+								isSecondary
+								onClick={(e) => {
+									setAttributes({ status: 'deciding' });
+								}}
+							>
+								{' '}
+								{__('Go back to selection')}{' '}
+							</Button>
+						)}
 					</PanelBody>
 				</InspectorControls>
 			</Fragment>

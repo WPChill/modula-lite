@@ -31,7 +31,11 @@ class ModulaGutenberg {
 			},
 			status: {
 				type: 'string',
-				default: 'ready'
+				default: 'deciding'
+			},
+			isGallery: {
+				type: 'bool',
+				default: true
 			}
 		};
 

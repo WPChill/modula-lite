@@ -21,12 +21,10 @@ export const ModulaEdit = (props) => {
 		if (id !== 0) {
 			onIdChange(id);
 		}
-		if ('deciding' == props.isGallery) {
-			setAttributes({ status: 'deciding' });
-			delete props.status;
-		}
-	}, []);
 
+	}, []);
+	console.log('Din Lite');
+	console.log(props);
 	const onIdChange = (id) => {
 		setAttributes({ status: 'loading' });
 
@@ -106,7 +104,7 @@ export const ModulaEdit = (props) => {
 					main = jQuery(this).find('.modula-items');
 
 				main.slick(config.slider_settings);
-				
+
 				if (nav.length) {
 					let navConfig = nav.data('config'),
 						currentSlide = main.slick('slickCurrentSlide');
@@ -181,6 +179,49 @@ export const ModulaEdit = (props) => {
 			)}
 		</BlockControls>
 	);
+
+	if ('deciding' === attributes.status) {
+		return [
+			<Fragment>
+				<div className="modula-block-preview">
+					<div className="modula-block-preview__content">
+						<div className="modula-block-preview__logo" />
+						<div className="modula-button-group">
+							<Button
+								className="modula-button"
+								target="_blank"
+								href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
+								isSecondary
+							>
+								{__('Create New Gallery', 'modula-best-grid-gallery')}
+							</Button>
+							<Button
+								className="modula-button"
+								target="_blank"
+								isSecondary
+								onClick={(e) => {
+									setAttributes({ status: 'ready', id: 0 });
+								}}
+							>
+								{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
+							</Button>
+							<Button
+								href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
+								className="modula-button-upsell"
+								isSecondary
+								target="_blank"
+							>
+								{__(
+									'Upgrade to PRO to create galleries using a preset ( fastest way )',
+									'modula-best-grid-gallery'
+								)}
+							</Button>
+						</div>
+					</div>
+				</div>
+			</Fragment>
+		];
+	}
 
 	if (status === 'loading') {
 		return [
