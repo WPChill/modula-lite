@@ -485,7 +485,7 @@ class Modula_Field_Builder {
 					'lexi'         => esc_html__( 'Lexi', 'modula-best-grid-gallery' ),
 					'duke'         => esc_html__( 'Duke', 'modula-best-grid-gallery' ),
 					'tilt_1'       => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
-					'tilt_2'       => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
+					'tilt_3'       => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
 					'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
 
 				) );
@@ -528,7 +528,7 @@ class Modula_Field_Builder {
 					$effect          = '';
 					$effect          .= '<div class="clearfix panel-pro-preview">';
 					$effect          .= '<h4>' . $name . '</h4>';
-					$effect          .= '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>';
+					$effect          .= (!empty($pro_only)) ? '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>' : '<p>&nbsp;</p>';
 					$effect          .= '<div class="modula-item effect-' . $key . '">';
 
 					if ( 'under' == $key ) {

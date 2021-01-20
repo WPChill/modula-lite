@@ -478,6 +478,8 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .upgrade-hover {
 	text-align : center;
+	color:#fff;
+	background-color:red;
 }
 /* Upsells */
 .modula-upsell {
