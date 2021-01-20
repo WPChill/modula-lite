@@ -619,8 +619,8 @@ class Modula_Admin {
 					<thead>
 					<tr>
 						<th></th>
-						<th><?php esc_html_e( 'LITE', 'modula-best-grid-gallery' ); ?></th>
-						<th><?php esc_html_e( 'PRO', 'modula-best-grid-gallery' ); ?></th>
+						<th><?php esc_html_e( 'CORE functionalities', 'modula-best-grid-gallery' ); ?></th>
+						<th><?php esc_html_e( 'UPGRADE to get', 'modula-best-grid-gallery' ); ?></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -645,7 +645,7 @@ class Modula_Admin {
 						<td colspan="2" class="text-right">
 							<a href="https://wp-modula.com/?utm_source=modula-lite&utm_medium=about-page&utm_campaign=upsell"
 							   target="_blank" class="button button-primary button-hero"><span
-										class="dashicons dashicons-cart"></span><?php esc_html_e( 'Get The Pro Version Now!', 'modula-best-grid-gallery' ); ?>
+										class="dashicons dashicons-cart"></span><?php esc_html_e( 'Upgrade Now!', 'modula-best-grid-gallery' ); ?>
 							</a></td>
 					</tr>
 					</tbody>
