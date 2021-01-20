@@ -23,8 +23,7 @@ export const ModulaEdit = (props) => {
 		}
 
 	}, []);
-	console.log('Din Lite');
-	console.log(props);
+
 	const onIdChange = (id) => {
 		setAttributes({ status: 'loading' });
 
@@ -81,7 +80,7 @@ export const ModulaEdit = (props) => {
 			jQuery.each(modulaGalleries, function() {
 				var modulaID = jQuery(this).attr('id'),
 					modulaSettings = jQuery(this).data('config');
-
+				modulaSettings.haveFilters = 0;
 				if (
 					undefined != modulaSettings &&
 					undefined !== JSON.parse(checker).type &&
