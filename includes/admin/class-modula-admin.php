@@ -195,11 +195,29 @@ class Modula_Admin {
 			<a id="modula-reload-extensions" class="button button-secondary" data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?></a>
 			<?php
 			$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
+			$timezone = get_option('timezone_string');
+			$gmt_offset = get_option('gmt_offset');
+			$offset = ( 7 * 24 * 60 * 60 );
+
+
+			$dt = new DateTime();
 
 			if ( $t_ext_timeout ) {
 
 				echo '<span class="description last-reloaded-extensions">' . esc_html__( 'Last reload: ', 'modula-best-grid-gallery' );
-				echo date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( '-1 week', (int) $t_ext_timeout ) );
+
+				if ( $timezone && '' != $timezone ) {
+					$dt->setTimezone( new DateTimeZone( $timezone ) );
+				}
+
+				if ( $gmt_offset && '' != $gmt_offset ) {
+					$offset = $offset - ( (int)$gmt_offset * 60 * 60 );
+				}
+
+				$dt->setTimestamp( $t_ext_timeout - $offset );
+
+				echo $dt->format( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
+
 				echo '</span>';
 			}
 			?>
