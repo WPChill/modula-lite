@@ -77,7 +77,13 @@ class Modula_Gutenberg {
 			$atts['align'] = '';
 		}
 
-		return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
+		if( $atts['isGallery'] == true ) {
+			return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
+		} else {
+			do_action( 'modula_render_defaults_block', $atts);
+		}
+
+		
 	}
 
 	public function get_gallery_meta() {

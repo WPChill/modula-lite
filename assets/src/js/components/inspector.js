@@ -77,7 +77,7 @@ export default class Inspector extends Component {
 							<Button
 								isSecondary
 								onClick={(e) => {
-									setAttributes({ status: 'deciding' });
+									setAttributes({ status: 'deciding', id: 0, images: [] });
 								}}
 							>
 								{' '}

@@ -36,6 +36,14 @@ class ModulaGutenberg {
 			isGallery: {
 				type: 'bool',
 				default: true
+			},
+			galleryId: {
+				type: 'number',
+				default: 0
+			},
+			defaultSettings: {
+				type: 'object',
+				default: []
 			}
 		};
 
