@@ -188,6 +188,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                     $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
                         editor.codemirror.refresh();
                     });
+
+                    editor.codemirror.refresh();
                 });
             }
         },
