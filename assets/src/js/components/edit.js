@@ -3,6 +3,7 @@
  */
 import Inspector from './inspector';
 import ModulaGallery from './ModulaGallery';
+import icons from '../utils/icons';
 /**
  * WordPress dependencies
  */
@@ -16,12 +17,11 @@ const { compose } = wp.compose;
 export const ModulaEdit = (props) => {
 	const { attributes, galleries, setAttributes } = props;
 	const { id, images, status, settings, jsConfig, galleryId } = attributes;
-
+	console.log(props);
 	useEffect(() => {
 		if (id !== 0) {
 			onIdChange(id);
 		}
-
 	}, []);
 
 	const onIdChange = (id) => {
@@ -193,17 +193,23 @@ export const ModulaEdit = (props) => {
 								isSecondary
 							>
 								{__('Create New Gallery', 'modula-best-grid-gallery')}
+								{icons.chevronRightFancy}
 							</Button>
-							<Button
-								className="modula-button"
-								target="_blank"
-								isSecondary
-								onClick={(e) => {
-									setAttributes({ status: 'ready', id: 0 });
-								}}
-							>
-								{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
-							</Button>
+							{galleries.length >
+								0(
+									<Button
+										className="modula-button"
+										target="_blank"
+										isSecondary
+										onClick={(e) => {
+											setAttributes({ status: 'ready', id: 0 });
+										}}
+									>
+										{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
+										{icons.chevronRightFancy}
+									</Button>
+								)}
+
 							<Button
 								href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
 								className="modula-button-upsell"

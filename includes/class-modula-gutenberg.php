@@ -76,11 +76,16 @@ class Modula_Gutenberg {
 		if ( ! isset( $atts['align'] ) ) {
 			$atts['align'] = '';
 		}
+		
+		if( isset($atts['isGallery'] ) && $atts['isGallery'] == false ) {
+			
+			$html = apply_filters( 'modula_render_defaults_block', 'An error occured', $atts );
 
-		if( $atts['isGallery'] == true ) {
-			return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
+			return $html;
 		} else {
-			do_action( 'modula_render_defaults_block', $atts);
+			
+			return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
+			
 		}
 
 		

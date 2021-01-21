@@ -11,7 +11,6 @@ import style from '../scss/modula-gutenberg.scss';
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 
-
 class ModulaGutenberg {
 	constructor() {
 		this.registerBlock();
@@ -25,6 +24,10 @@ class ModulaGutenberg {
 				type: 'number',
 				default: 0
 			},
+			isGallery: {
+				type: 'boolean',
+				default: true
+			},
 			images: {
 				type: 'array',
 				default: []
@@ -33,10 +36,7 @@ class ModulaGutenberg {
 				type: 'string',
 				default: 'deciding'
 			},
-			isGallery: {
-				type: 'bool',
-				default: true
-			},
+
 			galleryId: {
 				type: 'number',
 				default: 0
