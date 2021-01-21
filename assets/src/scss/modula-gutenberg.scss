@@ -82,13 +82,26 @@ html body .modula-block-preview {
     flex-direction: column;
 	width: fit-content;
 	margin: 0 auto;
+
+	.modula-button{
+		margin: 0px;
+		background: white;
+		color: black !important;
+		height: 50px;
+		font-size: 14px;
+		box-shadow: none;
+		border: 1px solid #e3e5e5;
+		position: relative;
+		width: calc(100% + 20px);
+		
+		svg {
+			position: absolute;
+			right: 5px;
+		}
+	}
 }
 
-html body .modula-button-group .modula-button{
-	margin: 5px;
-    background: white;
-    color: black!important;
-}
+
 
 html body .modula-button-group .modula-button:hover {
 	color: #478DB6!important;
@@ -101,9 +114,12 @@ html body .modula-button-group .modula-button-upsell:hover {
 }
 
 html body .modula-button-group .modula-button-upsell {
-	margin: 5px;
+	margin: 0px;
     background: #3FBF90;
-    color: black;
+	color: black;
+	height: 50px;
+	font-size: 14px;
+	width: calc(100% + 10px);
 }
 
 
