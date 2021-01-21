@@ -48,6 +48,8 @@ class Modula_Admin_Helpers {
 			<div class="modula-header-logo">
 				<img src="<?php echo MODULA_URL . 'assets/images/logo-dark.webp'; ?>" class="modula-logo">
 			</div>
+			<div class="modula-status-bar">
+			</div>
 			<div class="modula-header-links">
 				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
 				   class="button button-secondary"><span

@@ -142,6 +142,11 @@
 	color: rgb(102, 102, 102);
 }
 
+.reload-extensions-wrapper {
+	float        : right;
+	margin-right : 30px;
+}
+
 /**
 Toggles
  */

@@ -146,4 +146,11 @@ body.modula-gallery_page_modula .modula-columns {
 }
 
 /* Added by Cristi */
-.modula-header-links .dashicons { font-size: 16px; } 
+.modula-header-links .dashicons { font-size: 16px; }
+
+.modula-status-bar {
+	display:flex;
+	align-items: center;
+	align-content: center;
+	font-weight: bold;
+}
