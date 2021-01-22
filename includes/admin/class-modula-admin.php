@@ -204,14 +204,14 @@ class Modula_Admin {
 				$gmt_offset    = get_option( 'gmt_offset' );
 				$offset        = ( 7 * 24 * 60 * 60 );
 
-
 				$dt = new DateTime();
+
 
 				if ( $t_ext_timeout ) {
 
 					echo '<span class="description last-reloaded-extensions">' . esc_html__( 'Last reload: ', 'modula-best-grid-gallery' );
 
-					if ( $timezone && '' != $timezone ) {
+					if ( $timezone && '' != $timezone && (!$gmt_offset || '' == $gmt_offset )) {
 						$dt->setTimezone( new DateTimeZone( $timezone ) );
 					}
 
