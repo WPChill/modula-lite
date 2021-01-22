@@ -20,10 +20,14 @@ class Modula_Backward_Compatibility {
 		// Lightbox set by default to fancybox
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_fancybox' ), 10, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_fancybox' ), 10 );
-		// Margin from creative gallery
+		// Responsive gutter
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_responsive_gutter' ), 10, 3 );
 		add_filter( 'modula_gallery_settings', array( $this, 'backward_compatibility_front_responsive_gutter' ), 10, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_responsive_gutter' ), 10 );
+
+		// Thumbnail sizes
+		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_thumb_size' ), 10, 3 );
+		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_thumb_size' ), 10 );
 
 	}
 
@@ -195,6 +199,61 @@ class Modula_Backward_Compatibility {
 
 		if ( !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
 			$settings[ 'mobile_gutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		return $settings;
+
+	}
+
+	/**
+	 * Backwards compatibility for thumbnail size
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function backward_compatibility_admin_thumb_size( $value, $key, $settings ){
+
+		// Set Image Size to custom
+		if ( 'grid_image_size' == $key && isset( $settings['img_size'] ) ) {
+			return sanitize_text_field('custom');
+		}
+
+		// Set image sizes
+		if ( 'grid_image_dimensions' == $key && isset( $settings[ 'img_size' ] ) ) {
+
+			return array(
+				'width'  => absint( $settings[ 'img_size' ] ),
+				'height' => ''
+			);
+		}
+
+		return $value;
+
+	}
+
+	/**
+	 * Backwards compatibility for thumbnail size
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function backward_compatibility_backbone_thumb_size( $settings ){
+
+		if ( isset( $settings[ 'img_size' ] ) ) {
+
+			$settings[ 'grid_image_size' ]       = sanitize_text_field( 'custom' );
+			$settings[ 'grid_image_dimensions' ] = array(
+				'width'  => absint( $settings[ 'img_size' ] ),
+				'height' => ''
+			);
+
+			unset($settings[ 'img_size' ]);
 		}
 
 		return $settings;

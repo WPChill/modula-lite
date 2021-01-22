@@ -244,8 +244,9 @@ class Modula_CPT {
 			return $post_id;
 		}
 
+		//@todo: Delete commented lines after testing
 		// We need to resize our images
-		$images = get_post_meta( $post_id, 'modula-images', true );
+		/*$images = get_post_meta( $post_id, 'modula-images', true );
 		if ( $images && is_array( $images ) ) {
 			if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
 
@@ -265,7 +266,7 @@ class Modula_CPT {
 				}
 
 			}
-		}
+		}*/
 
 		if ( isset( $_POST['modula-settings'] ) ) {
 
@@ -293,8 +294,9 @@ class Modula_CPT {
 								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
 								break;
 							case 'height':
-							case 'img_size':
-							case 'margin':
+								//@todo: Delete commented lines after testing
+							/*case 'img_size':
+							case 'margin':*/
 							case 'randomFactor':
 							case 'captionFontSize':
 							case 'titleFontSize':

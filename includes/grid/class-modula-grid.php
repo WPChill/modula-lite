@@ -27,7 +27,8 @@ class Modula_Grid {
 	public function __construct() {
 
 		// Add image sizes
-		add_filter( 'modula_resize_image_grid', array( $this, 'modula_grid_image_sizes' ), 15, 4 );
+		//@todo: Delete commented lines after testing
+		//add_filter( 'modula_resize_image_grid', array( $this, 'modula_grid_image_sizes' ), 15, 4 );
 
 		// Add grid settings to js config
 		add_filter( 'modula_gallery_settings', array( $this, 'js_grid_config' ), 10, 2 );
@@ -42,6 +43,7 @@ class Modula_Grid {
 
 	}
 
+	//@todo: delete commented lines after testing
 	/**
 	 * Add image sizes for grid type
 	 *
@@ -54,7 +56,7 @@ class Modula_Grid {
 	 *
 	 * @since 2.3.0
 	 */
-	public function modula_grid_image_sizes( $return, $id, $img_size, $sizes ) {
+	/*public function modula_grid_image_sizes( $return, $id, $img_size, $sizes ) {
 
 		if ( is_array( $sizes ) && !empty($sizes) ) {
 
@@ -72,7 +74,7 @@ class Modula_Grid {
 
 		return $return;
 
-	}
+	}*/
 
 	/**
 	 * Add params to gallery js_config

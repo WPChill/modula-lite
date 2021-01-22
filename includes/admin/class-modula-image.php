@@ -29,7 +29,9 @@ class Modula_Image {
 				'url' => $image_full[0],
 			);
 
-            switch ( $type ) {
+			//@TODO: delete commented lines after migration to single thumb size
+			//@TODO: Also, check very thouroughly the output
+           /* switch ( $type ) {
                 case 'creative-gallery':
                     if ( $image_full[1] > $image_full[2] ) {
                         $return['width'] = $img_size;
@@ -49,7 +51,22 @@ class Modula_Image {
                     $return = apply_filters( "modula_resize_image_{$type}", $return, $id, $img_size, $sizes );
                     return $return;
                     break;
-            }
+            }*/
+			if ( is_array( $sizes ) && !empty($sizes) ) {
+
+				$return['width']  = $sizes['width'];
+				$return['height'] = $sizes['height'];
+			} else {
+
+				$image_sizes = wp_get_attachment_image_src( $id, $sizes);
+
+				if ( $image_sizes ) {
+					$return['width']  = $image_sizes[1];
+					$return['height'] = $image_sizes[2];
+				}
+			}
+
+			return $return;
             
 		}else{
 			return new WP_Error( 'modula-gallery-error-no-url', esc_html__( 'No image with this ID.', 'modula-best-grid-gallery' ) );

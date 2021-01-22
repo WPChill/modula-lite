@@ -19,7 +19,8 @@ class Modula_Shortcode {
 
 		// Add shortcode related hooks
 		add_filter( 'modula_shortcode_item_data', 'modula_generate_image_links', 10, 3 );
-		add_filter( 'modula_shortcode_item_data', 'modula_generate_grid_image_links', 10, 3 );
+		//@todo: delete commented lines after testing
+		//add_filter( 'modula_shortcode_item_data', 'modula_generate_grid_image_links', 10, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_lightboxes_and_links', 15, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
