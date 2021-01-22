@@ -39,19 +39,6 @@ export default class Inspector extends Component {
 			<Fragment>
 				<InspectorControls>
 					<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
-						{galleries.length === 0 && (
-							<Fragment>
-								<p>{__("You don't seem to have any galleries.")}</p>
-								<Button
-									href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
-									target="_blank"
-									isDefault
-								>
-									{__('Add New Gallery', 'modula-best-grid-gallery')}
-								</Button>
-							</Fragment>
-						)}
-
 						{galleries.length > 0 && (
 							<Fragment>
 								<SelectControl

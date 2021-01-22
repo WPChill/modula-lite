@@ -3,11 +3,12 @@ const { Component, Fragment, useEffect } = wp.element;
 
 import ModulaGalleryImage from './ModulaGalleryImage';
 import ModulaStyle from './ModulaStyle';
+import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
 	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
-
+	console.log(props.attributes);
 	useEffect(() => {
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
@@ -40,6 +41,7 @@ export const ModulaGallery = (props) => {
 			<ModulaStyle id={id} settings={settings} />
 			<div id={`jtg-${id}`} className={galleryClassNames} data-config={jsConfig}>
 				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div class="modula-grid-sizer"> </div>}
+				<ModulaItemsExtraComponent {...props} position={'top'}/>
 				<div className={itemsClassNames}>
 					{images.length > 0 && (
 						<Fragment>
@@ -51,6 +53,7 @@ export const ModulaGallery = (props) => {
 						</Fragment>
 					)}
 				</div>
+				<ModulaItemsExtraComponent {...props} position={'bottom'}/>
 			</div>
 		</Fragment>
 	];

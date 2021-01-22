@@ -17,7 +17,7 @@ const { compose } = wp.compose;
 export const ModulaEdit = (props) => {
 	const { attributes, galleries, setAttributes } = props;
 	const { id, images, status, settings, jsConfig, galleryId } = attributes;
-	console.log(props);
+	
 	useEffect(() => {
 		if (id !== 0) {
 			onIdChange(id);
@@ -80,7 +80,8 @@ export const ModulaEdit = (props) => {
 			jQuery.each(modulaGalleries, function() {
 				var modulaID = jQuery(this).attr('id'),
 					modulaSettings = jQuery(this).data('config');
-				modulaSettings.haveFilters = 0;
+				
+				modulaSettings.lazyLoad = 0;
 				if (
 					undefined != modulaSettings &&
 					undefined !== JSON.parse(checker).type &&
@@ -190,7 +191,7 @@ export const ModulaEdit = (props) => {
 								className="modula-button"
 								target="_blank"
 								href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
-								isSecondary
+								
 							>
 								{__('Create New Gallery', 'modula-best-grid-gallery')}
 								{icons.chevronRightFancy}
@@ -200,7 +201,7 @@ export const ModulaEdit = (props) => {
 									<Button
 										className="modula-button"
 										target="_blank"
-										isSecondary
+										
 										onClick={(e) => {
 											setAttributes({ status: 'ready', id: 0 });
 										}}
@@ -249,18 +250,6 @@ export const ModulaEdit = (props) => {
 				<div className="modula-block-preview">
 					<div className="modula-block-preview__content">
 						<div className="modula-block-preview__logo" />
-						{galleries.length === 0 && (
-							<Fragment>
-								<p>{__("You don't seem to have any galleries.", 'modula-best-grid-gallery')}</p>
-								<Button
-									href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
-									target="_blank"
-									isDefault
-								>
-									{__('Add New Gallery', 'modula-best-grid-gallery')}
-								</Button>
-							</Fragment>
-						)}
 						{galleries.length > 0 && (
 							<Fragment>
 								<SelectControl

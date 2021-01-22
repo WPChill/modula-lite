@@ -12,9 +12,10 @@ const ModulaGalleryImage = (props) => {
 	const { img, index, setAttributes, checkHoverEffect } = props;
 
 	return [
-		/** REMINDER : Check for data with & height */
 		<div
-			className={`modula-item effect-${settings.effect}`}
+			className={`modula-item effect-${settings.effect} ${undefined !== props.attributes.modulaExtraClasses
+				? props.attributes.modulaExtraClasses
+				: ''}`}
 			data-width={img['data-width'] ? img['data-width'] : '2'}
 			data-height={img['data-height'] ? img['data-height'] : '2'}
 		>

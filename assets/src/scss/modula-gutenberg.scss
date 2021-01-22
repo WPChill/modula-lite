@@ -83,27 +83,29 @@ html body .modula-block-preview {
 	width: fit-content;
 	margin: 0 auto;
 
-	.modula-button{
-		margin: 0px;
-		background: white;
-		color: black !important;
-		height: 50px;
-		font-size: 14px;
-		box-shadow: none;
-		border: 1px solid #e3e5e5;
-		position: relative;
-		width: calc(100% + 20px);
-		
-		svg {
-			position: absolute;
-			right: 5px;
-		}
+
+}
+
+.modula-button{
+	margin: 0px;
+	background: white;
+	color: black !important;
+	height: 50px;
+	font-size: 14px;
+	box-shadow: none;
+	border: 1px solid #e3e5e5;
+	position: relative;
+	width: calc(100% + 20px);
+	
+	svg {
+		position: absolute;
+		right: 5px;
 	}
 }
 
 
 
-html body .modula-button-group .modula-button:hover {
+.modula-button:hover {
 	color: #478DB6!important;
 	text-decoration: underline!important;
 }
