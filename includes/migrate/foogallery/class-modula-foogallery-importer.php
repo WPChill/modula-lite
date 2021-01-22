@@ -244,7 +244,7 @@ class Modula_Foogallery_Importer {
 			'lazy_load'             => ( isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'] ),
 			'grid_image_size'       => sanitize_text_field( $grid_image_size ),
 			'grid_image_dimensions' => array(
-				'width'  => sanitize_text_field( $thumbnail_size_w ),
+				'width'  => ( isset( $thumbnail_size ) ) ? sanitize_text_field( $thumbnail_size ) : sanitize_text_field( $thumbnail_size_w ),
 				'height' => sanitize_text_field( $thumbnail_size_h )
 			)
 		), $foogallery_settings, 'foogallery' );
