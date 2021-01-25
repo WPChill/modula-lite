@@ -196,8 +196,7 @@ export const ModulaEdit = (props) => {
 								{__('Create New Gallery', 'modula-best-grid-gallery')}
 								{icons.chevronRightFancy}
 							</Button>
-							{galleries.length >
-								0(
+							{galleries.length > 0 && (
 									<Button
 										className="modula-button"
 										target="_blank"
