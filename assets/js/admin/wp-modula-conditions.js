@@ -87,7 +87,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"],[data-container="maxImagesCount"]').show();
 
-			rows.filter('[data-container="height"], [data-container="randomFactor"]]').hide();
+			rows.filter('[data-container="height"], [data-container="randomFactor"]').hide();
 
 			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 

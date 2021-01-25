@@ -6,11 +6,14 @@
 			<a<?php echo Modula_Helper::generate_attributes( $data->link_attributes ) ?> class="<?php echo esc_attr(implode( ' ', $data->link_classes )) ?>"></a>
 		<?php endif ?>
 
-		<?php do_action( 'modula_item_after_link', $data ); ?>
+		<?php do_action( 'modula_item_after_link', $data );
 
-		<img class='<?php echo esc_attr(implode( ' ', $data->img_classes )) ?>'<?php echo Modula_Helper::generate_attributes( $data->img_attributes ) ?>/>
+		$image = '<img class="' . esc_attr( implode( ' ', $data->img_classes ) ) . '" ' . Modula_Helper::generate_attributes( $data->img_attributes ) . '/>';
 
-		<?php do_action( 'modula_item_after_image', $data ); ?>
+		echo wp_image_add_srcset_and_sizes( $image, wp_get_attachment_metadata( $data->link_attributes[ 'data-image-id' ] ), $data->link_attributes[ 'data-image-id' ] );
+
+		do_action( 'modula_item_after_image', $data );
+		?>
 	</div>
 
 </div>
