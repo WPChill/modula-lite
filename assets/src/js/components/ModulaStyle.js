@@ -214,6 +214,12 @@ const ModulaStyle = (props) => {
 		}`;
 	}
 
+	if( settings['filters'].length > 1 ) {
+		style += `#jtg-${id}.modula-gallery .filters {
+			text-align: ${settings['filterTextAlignment']};
+		}`
+	}
+
 	return (
 		<style
 			dangerouslySetInnerHTML={{
