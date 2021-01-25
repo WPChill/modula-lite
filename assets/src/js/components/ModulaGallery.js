@@ -8,7 +8,7 @@ import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
 	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
-	console.log(props.attributes);
+	
 	useEffect(() => {
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
