@@ -76,6 +76,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
 			// The Modula Addons
 			require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
+			// Modula Debug Class
+			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 
 		}
 
