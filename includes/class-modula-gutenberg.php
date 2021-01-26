@@ -17,6 +17,11 @@ class Modula_Gutenberg {
 		add_action( 'wp_ajax_modula_check_hover_effect', array( $this, 'check_hover_effect' ) );
 	}
 
+	/**
+	 * Register block type
+	 * 
+	 * @since 2.4.2
+	 */
 	public function register_block_type() {
 
 		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-data' ) );
@@ -33,6 +38,11 @@ class Modula_Gutenberg {
 
 	}
 
+	/**
+	 * Enqueue block assets
+	 * 
+	 * @since 2.4.2
+	 */
 	public function enqueue_block_assets() {
 		$screen = get_current_screen();
 		if ('post' == $screen->post_type  || 'page' == $screen->post_type ) { 
@@ -50,7 +60,11 @@ class Modula_Gutenberg {
 		}
 	}
 
-
+	/**
+	 * modulaVars generator
+	 * 
+	 * @since 2.4.2
+	 */
 	public function generate_js_vars() {
 
 		wp_localize_script(
@@ -67,7 +81,13 @@ class Modula_Gutenberg {
 
 	}
 
-
+	/**
+	 * Render modula gallery callback function for block
+	 * 
+	 * @param array $atts
+	 * 
+	 * @return mixed
+	 */
 	public function render_modula_gallery( $atts ) {
 		if ( ! isset( $atts['id'] ) ) {
 			return;
@@ -91,6 +111,13 @@ class Modula_Gutenberg {
 		
 	}
 
+	/**
+	 * Gallery meta ajax callback
+	 * 
+	 * @since 2.4.2
+	 * 
+	 * @return object $images
+	 */
 	public function get_gallery_meta() {
 
 		$id    = $_POST['id'];
@@ -123,6 +150,13 @@ class Modula_Gutenberg {
 
 	}
 
+	/**
+	 * Get js config ajax callback
+	 * 
+	 * @since 2.4.2
+	 * 
+	 * @return object $js_config
+ 	 */
     public function get_jsconfig() {
 		$nonce = $_POST['nonce'];
 		$settings = $_POST['settings'] ;
@@ -154,6 +188,13 @@ class Modula_Gutenberg {
         die();
 	}
 
+	/**
+	 * Check hover effects ajax callback
+	 * 
+	 * @param string $effect
+	 * 
+	 * @return array $effect_check
+	 */
 	public function check_hover_effect( $effect ) {
 		
 		$nonce = $_POST['nonce'];

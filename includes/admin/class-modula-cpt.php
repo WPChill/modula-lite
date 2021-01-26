@@ -133,6 +133,11 @@ class Modula_CPT {
 
 	}
 
+	/**
+	 * Rest field for modula settings
+	 * 
+	 * @since 2.4.2
+	 */
 	public function register_post_meta_rest() {
 		register_rest_field( 'modula-gallery', 'modulaSettings', array(
 			'get_callback' => function( $post_arr ) {
