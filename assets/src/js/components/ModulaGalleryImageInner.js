@@ -23,11 +23,10 @@ const ModulaGalleryImageInner = (props) => {
 			<div className="figc">
 				<div className="figc-inner">
 					{/* checking for undefined because on the first run , imageId doesnt exist */}
-					{!hideTitle && (
-						<h2 className={!jtgBody.includes(settings.effect ? 'jtg-title' : '')}> {img.title} </h2>
-					)}
+					{'0' == settings.hide_title && !hideTitle && <h2 className={'jtg-title'}> {img.title} </h2>}
 					<div className={jtgBody.includes(settings.effect) ? 'jtg-body' : ''}>
-						{!hideDescription && (
+						{'0' == settings.hide_description &&
+						!hideDescription && (
 							<p className="description"> {0 != img.description.length && img.description} </p>
 						)}
 
