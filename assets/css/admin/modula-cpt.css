@@ -1451,7 +1451,8 @@ Ups-sells carousel
 
 #modula-sorting-upsell > .inside,
 #modula-albums-upsell > .inside,
-#modula-defaults-upsell > .inside {
+#modula-defaults-upsell > .inside,
+#modula-debug > .inside{
 	padding: 0;
 	margin: 0 auto;
 }
