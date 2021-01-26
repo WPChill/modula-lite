@@ -17,7 +17,7 @@ const { compose } = wp.compose;
 export const ModulaEdit = (props) => {
 	const { attributes, galleries, setAttributes } = props;
 	const { id, images, status, settings, jsConfig, galleryId } = attributes;
-	
+
 	useEffect(() => {
 		if (id !== 0) {
 			onIdChange(id);
@@ -80,7 +80,7 @@ export const ModulaEdit = (props) => {
 			jQuery.each(modulaGalleries, function() {
 				var modulaID = jQuery(this).attr('id'),
 					modulaSettings = jQuery(this).data('config');
-				
+
 				modulaSettings.lazyLoad = 0;
 				if (
 					undefined != modulaSettings &&
@@ -191,36 +191,35 @@ export const ModulaEdit = (props) => {
 								className="modula-button"
 								target="_blank"
 								href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
-								
 							>
 								{__('Create New Gallery', 'modula-best-grid-gallery')}
 								{icons.chevronRightFancy}
 							</Button>
 							{galleries.length > 0 && (
-									<Button
-										className="modula-button"
-										target="_blank"
-										
-										onClick={(e) => {
-											setAttributes({ status: 'ready', id: 0 });
-										}}
-									>
-										{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
-										{icons.chevronRightFancy}
-									</Button>
-								)}
-
-							<Button
-								href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
-								className="modula-button-upsell"
-								isSecondary
-								target="_blank"
-							>
-								{__(
-									'Upgrade to PRO to create galleries using a preset ( fastest way )',
-									'modula-best-grid-gallery'
-								)}
-							</Button>
+								<Button
+									className="modula-button"
+									target="_blank"
+									onClick={(e) => {
+										setAttributes({ status: 'ready', id: 0 });
+									}}
+								>
+									{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
+									{icons.chevronRightFancy}
+								</Button>
+							)}
+							{undefined == props.attributes.proInstalled && (
+								<Button
+									href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
+									className="modula-button-upsell"
+									isSecondary
+									target="_blank"
+								>
+									{__(
+										'Upgrade to PRO to create galleries using a preset ( fastest way )',
+										'modula-best-grid-gallery'
+									)}
+								</Button>
+							)}
 						</div>
 					</div>
 				</div>
