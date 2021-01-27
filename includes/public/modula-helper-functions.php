@@ -321,7 +321,7 @@ function modula_enable_lazy_load( $item_data, $item, $settings ){
 function modula_add_align_classes( $template_data ){
 
 	if ( '' != $template_data['settings']['align'] ) {
-		$template_data['gallery_container']['class'][] = 'align' . $data->settings['align'];
+		$template_data['gallery_container']['class'][] = 'align' . $template_data['settings']['align'];
 	}
 
 	return $template_data;
