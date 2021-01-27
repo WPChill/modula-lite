@@ -295,14 +295,6 @@ class Modula_CPT_Fields_Helper {
 					'default'     => '800px',
 					'priority' => 40,
 				),
-			//@todo: Delete commented lines after testing
-			/*	"img_size"       => array(
-					"name"        => esc_html__( 'Thumbnail Size', 'modula-best-grid-gallery' ),
-					"type"        => "text",
-					'default'     => 500,
-					"description" => esc_html__( 'Set the minimum width or height of the thumbnails in pixels.', 'modula-best-grid-gallery' ),
-					'priority'    => 50,
-				),*/
 				"randomFactor"   => array(
 					"name"        => esc_html__( 'Random factor', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
@@ -703,8 +695,6 @@ class Modula_CPT_Fields_Helper {
 			'type'                  => 'creative-gallery',
 			'width'                 => '100%',
 			'height'                => '800',
-			//@todo: delete commented lines after testing
-			/*'img_size'              => 300,*/
 			'randomFactor'          => '50',
 			'lightbox'              => 'fancybox',
 			'show_navigation'       => 1,

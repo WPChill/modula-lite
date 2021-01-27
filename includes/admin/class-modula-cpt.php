@@ -249,30 +249,6 @@ class Modula_CPT {
 			return $post_id;
 		}
 
-		//@todo: Delete commented lines after testing
-		// We need to resize our images
-		/*$images = get_post_meta( $post_id, 'modula-images', true );
-		if ( $images && is_array( $images ) ) {
-			if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
-
-				$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field( $_POST['modula-settings']['type'] ) : 'creative-gallery';
-				$img_size     = absint( $_POST['modula-settings']['img_size'] );
-
-				foreach ( $images as $image ) {
-					$grid_sizes = array(
-						'width'  => isset( $image['width'] ) ? absint( $image['width'] ) : 1,
-						'height' => isset( $image['height'] ) ? absint( $image['height'] ) : 1,
-					);
-					$sizes      = $this->resizer->get_image_size( $image['id'], $img_size, $gallery_type, $grid_sizes );
-					if ( !is_wp_error( $sizes ) ) {
-						$this->resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
-					}
-
-				}
-
-			}
-		}*/
-
 		if ( isset( $_POST['modula-settings'] ) ) {
 
 			$fields_with_tabs = Modula_CPT_Fields_Helper::get_fields( 'all' );
@@ -299,9 +275,6 @@ class Modula_CPT {
 								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
 								break;
 							case 'height':
-								//@todo: Delete commented lines after testing
-							/*case 'img_size':
-							case 'margin':*/
 							case 'randomFactor':
 							case 'captionFontSize':
 							case 'titleFontSize':
