@@ -126,7 +126,7 @@ class Modula_Shortcode {
 		}
 
 		$images = apply_filters( 'modula_gallery_images', $images, $settings );
-
+		
 		if ( empty( $settings ) || empty( $images ) ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
@@ -181,33 +181,7 @@ class Modula_Shortcode {
         }
 
 		/* Config for gallery script */
-		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings['height'] ),
-			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
-			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
-			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
-			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
-			"enableEmail"      => boolval( $settings['enableEmail'] ),
-			"randomFactor"     => ($settings['randomFactor'] / 100),
-			'type'             => $type,
-			'columns'          => 12,
-			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
-			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
-			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
-			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
-			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
-			'lightboxOpts'     => $this->fancybox_options( $settings ),
-			'inView'           => $inView,
-			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
-			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
-		), $settings );
-
-		// Check for lightbox
-		$js_config['lightbox']    = $settings['lightbox'];
-		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'attachment-page' ) ) ) {
-  			$js_config['lightbox'] = 'fancybox';
-  		}
+		$js_config = $this::get_jsconfig( $settings, $type, $inView );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
@@ -225,6 +199,42 @@ class Modula_Shortcode {
 		
     	$html = ob_get_clean();
     	return $html;
+
+	}
+
+	public static function get_jsconfig( $settings, $type, $inView ) {
+
+		$modula_shortcode = new Modula_Shortcode;
+		
+		$js_config = apply_filters( 'modula_gallery_settings', array(
+			'height'           => absint( $settings['height'] ),
+			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
+			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
+			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
+			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
+			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
+			"enableEmail"      => boolval( $settings['enableEmail'] ),
+			"randomFactor"     => ($settings['randomFactor'] / 100),
+			'type'             => $type,
+			'columns'          => 12,
+			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
+			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
+			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
+			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
+			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
+			'lightboxOpts'     => $modula_shortcode->fancybox_options( $settings ),
+			'inView'           => $inView,
+			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
+		), $settings );
+
+		// Check for lightbox
+		$js_config['lightbox']    = $settings['lightbox'];
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'attachment-page' ) ) ) {
+  			$js_config['lightbox'] = 'fancybox';
+		}
+
+		return $js_config;
 
 	}
 

@@ -59,7 +59,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			
 			rows.filter( '[data-container="columns"], [data-container="gutter"],[data-container="img_size"]' ).show();
 
-			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).hide();
+			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"],[data-container="grid_image_dimensions"]' ).hide();
 
 			rows.filter(' [data-container="randomFactor"] [data-container="img_size"],[data-container="maxImagesCount"]').show();
 
@@ -72,7 +72,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			// Hide Responsive tab
 			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
 
-			rows.filter( '[data-container="columns"]' ).hide();
+			rows.filter( '[data-container="columns"],[data-container="grid_image_dimensions"]' ).hide();
 
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).show();
 
