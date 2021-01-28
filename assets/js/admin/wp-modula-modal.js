@@ -126,19 +126,20 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             // Get HTML
             if ( this.item ) {
                 this.$el.html( this.template( this.item.toJSON() ) );
-            }
 
-            // Generate Child Views
-            if ( this.childViews.length > 0 ) {
-                this.childViews.forEach( function( view ) {
-                    // Init with model
-                    var childView = new view( {
-                        model: this.model
-                    } );
 
-                    // Render view within our main view
-                    this.$el.find( 'div.modula-addons' ).append( childView.render().el );
-                }, this );
+                // Generate Child Views
+                if ( this.childViews.length > 0 ) {
+                    this.childViews.forEach( function ( view ) {
+                        // Init with model
+                        var childView = new view( {
+                            model: this.model
+                        } );
+
+                        // Render view within our main view
+                        this.$el.find( 'div.modula-addons' ).append( childView.render().el );
+                    }, this );
+                }
             }
 
             // Enable / disable the buttons depending on the index
