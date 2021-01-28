@@ -26,7 +26,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
-		add_action( 'modula_shortcode_after_items', array( $this, 'powered_by_modula'), 90);
+		add_action( 'modula_shortcode_after_items', 'powered_by_modula', 90 );
 		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
 		// Add js scripts
@@ -393,25 +393,7 @@ class Modula_Shortcode {
 
 	}
 
-	public function powered_by_modula( $settings ) {
-		if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
-			return;
-		}
 
-		$affiliate = get_option( 'modula_affiliate', array() );
-		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
-
-		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html( $affiliate['text'] );
-		$html .= '<span>';
-		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
-		$html .= '</span>';
-		$html .= '</p>';
-		$html .= '</div>';
-
-		echo $html;
-
-	}
 
 	public function affiliate_shortcode_handler( $atts ) {
 		$default_atts = array(

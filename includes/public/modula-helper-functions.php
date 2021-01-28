@@ -307,3 +307,28 @@ function modula_add_scripts( $scripts, $settings ){
 
 	return array_merge( $needed_scripts, $scripts );
 }
+
+/**Add the powered by text and link
+ *
+ * @param $settings
+ * @moved here since 2.4.2
+ */
+function powered_by_modula( $settings ) {
+	if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
+		return;
+	}
+
+	$affiliate = get_option( 'modula_affiliate', array() );
+	$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
+
+	$html = '<div class="modula-powered">';
+	$html .= '<p>' .  esc_html( $affiliate['text'] );
+	$html .= '<span>';
+	$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
+	$html .= '</span>';
+	$html .= '</p>';
+	$html .= '</div>';
+
+	echo $html;
+
+}
