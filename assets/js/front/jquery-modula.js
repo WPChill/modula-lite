@@ -21,7 +21,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 	if ( window.elementorFrontend ) {
 		window.elementorFrontend.hooks.addAction('frontend/element_ready/global', function ($scope) {
 			if ( jQuery('body').find('.modula').length > 0 ) {
-				jQuery(window).trigger('modula-update');
+				//jQuery(window).trigger('modula-update');
 			}
 		});
 	}
@@ -393,7 +393,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 	}
 
 	Plugin.prototype.getSlot = function () {
-
 		if ( this.tiles.length == 0 ) {
 			var tile = {
 				top: 0,
@@ -508,6 +507,8 @@ jQuery(window).on('elementor/frontend/init', function () {
         var instance = this,
         	source = instance.$items.not(".jtg-hidden").eq(index).find('.pic'),
         	size = {};
+
+        console.log( source );
 
         if ( '0' != instance.options.lazyLoad ) { return; }
 
