@@ -553,7 +553,7 @@ class Modula_Field_Builder {
 						$effect .= '<div class="figc"><div class="figc-inner">';
 
 						if ( $effect_elements[ 'title' ] ) {
-							$effect .= '<h2>Lorem ipsum</h2>';
+							$effect .= '<h2 class="jtg-title">Lorem ipsum</h2>';
 						}
 
 						if ( in_array( $key, $jtg_body ) ) {

@@ -3565,3 +3565,31 @@
 		transform: scale3d(1,1,1);
 	}
 }
+
+.modula-gallery .modula-item.effect-greyscale img {
+	-webkit-filter : grayscale(1);
+	filter         : grayscale(1);
+}
+
+.modula-gallery .modula-item.effect-greyscale img:hover {
+	-webkit-filter : grayscale(0);
+	filter         : none;
+}
+
+.modula-gallery .modula-item.effect-greyscale:hover .jtg-title,
+.modula-gallery .modula-item.effect-greyscale:hover p.description {
+	display:none;
+}
+
+.modula-gallery .modula-item.effect-greyscale .modula-item-overlay {
+	display:none;
+}
+
+.modula-gallery .modula-items .jtg-social {
+	opacity: 0;
+	right: 30px;
+	position: absolute;
+	bottom: 20px;
+	text-align: right;
+	transition: all .3s;
+}
