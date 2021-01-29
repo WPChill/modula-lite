@@ -526,7 +526,7 @@ class Modula_Field_Builder {
 					$effect_elements = Modula_Helper::hover_effects_elements( $key );
 					$pro_only        = ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) ? esc_html__( 'Upgrade now to unlock', 'modula-best-grid-gallery' ) : '';
 					$effect          = '';
-					$effect          .= '<div class="clearfix panel-pro-preview">';
+					$effect          .= '<div class="clearfix panel-pro-preview modula-items">';
 					$effect          .= '<h4>' . $name . '</h4>';
 					$effect          .= (!empty($pro_only)) ? '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>' : '<p>&nbsp;</p>';
 					$effect          .= '<div class="modula-item effect-' . $key . '">';
@@ -602,6 +602,8 @@ class Modula_Field_Builder {
 
 					if ( $effect_elements[ 'scripts' ] ) {
 						$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-pro' ) . '</p>';
+					} else {
+						$effect .= '<p class="description">&nbsp;</p>';
 					}
 
 					$effect .= '</div></div>';
