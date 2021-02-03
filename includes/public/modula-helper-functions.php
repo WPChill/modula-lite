@@ -40,9 +40,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['image_full'] = $image_full;
 	$item_data['image_url']  = $image_url;
 
-	$item_data['img_attributes']['width']  = $sizes['width'];
-	$item_data['img_attributes']['height'] = $sizes['height'];
-
 	// Add src/data-src attributes to img tag
 	$item_data['img_attributes']['src'] = $image_url;
 	$item_data['img_attributes']['data-src'] = $image_url;
@@ -69,11 +66,20 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 		}
 
+		$item_data['img_attributes']['width']  = $sizes['width'];
+		$item_data['img_attributes']['height'] = $sizes['height'];
+
+
 	} else {
 
 		$width  = $settings['grid_image_dimensions']['width'];
 		$height = $settings['grid_image_dimensions']['height'];
 		$crop   = boolval( $settings['grid_image_crop'] );
+
+		if ( $crop ){
+			$item_data['img_attributes']['width']  = $sizes['width'];
+			$item_data['img_attributes']['height'] = $sizes['height'];
+		}
 
 		if ( !$image_full ) {
 			return $item_data;
