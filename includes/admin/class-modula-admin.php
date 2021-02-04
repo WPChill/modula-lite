@@ -194,10 +194,6 @@ class Modula_Admin {
 			?>
 			<?php do_action('modula_extensions_tabs_extra_actions'); ?>
 			<div class="reload-extensions-wrapper">
-				<a id="modula-reload-extensions" class="button button-secondary"
-				   data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span
-							class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?>
-				</a>
 				<?php
 				$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
 				$timezone      = get_option( 'timezone_string' );
@@ -226,6 +222,10 @@ class Modula_Admin {
 					echo '</span>';
 				}
 				?>
+				<a id="modula-reload-extensions" class="button button-secondary"
+				   data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span
+							class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?>
+				</a>
 			</div>
 
 		</h2>

@@ -52,10 +52,21 @@ class Modula_Addons {
 		if ( ! empty( $addons ) ) {
 			foreach ( $addons as $addon ) {
 
+				if( ! function_exists( 'get_plugin_data' ) ) {
+					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				}
+				$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/' . $addon['slug'] . '/' . $addon['slug'] . '.php' );
+
 				$image = ( in_array( $addon[ 'slug' ], $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $addon[ 'slug' ] . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
 				echo '<div class="modula-addon">';
 				echo '<div class="modula-addon-box">';
-				echo '<div><img src="' . apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) . '"></div>';
+
+				if ( !isset( $addon['image'] ) || '' == $addon['image'] ){
+					echo '<div><img src="' . apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) . '"></div>';
+				} else {
+					echo '<div><img src="' . esc_url( $addon['image'] ) . '"></div>';
+				}
+
 				echo '<div class="modula-addon-content">';
 				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
 				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
@@ -64,8 +75,17 @@ class Modula_Addons {
 				echo '<div class="modula-addon-actions">';
 				echo apply_filters( 'modula_addon_settings_link','', $addon );
 				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '/?utm_source=modula-lite&utm_campaign=upsell&utm_medium='. esc_attr( $addon['slug'] ) ).'" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to unlock this feature', 'modula-best-grid-gallery' ) . '</a>', $addon );
+				echo '<div class="modula-addon-info">';
+				echo ( isset( $addon['version'] ) ) ? '<span>'.esc_html( 'V ' ) . $addon['version'] . '</span>' : '';
+				if ( $addon['version'] != $plugin_data['Version'] && class_exists( 'Modula_PRO' ) ){
+					echo '<span>' . esc_html__( 'Update available', 'modula-best-grid-gallery' ) . '</span>';
+				}
+				echo ( isset( $addon['url'] ) && '' != $addon['url'] ) ? '<a href="' . esc_url( $addon['url'] ) . '" target="_blank" >' . esc_html( 'Read more ' ) . '</a>' : '';
 				echo '</div>';
 				echo '</div>';
+				echo '</div>';
+
+
 			}
 		}
 	}
