@@ -66,10 +66,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 		}
 
-		$item_data['img_attributes']['width']  = $sizes['width'];
-		$item_data['img_attributes']['height'] = $sizes['height'];
-
-
 	} else {
 
 		$width  = $settings['grid_image_dimensions']['width'];
