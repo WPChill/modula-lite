@@ -140,4 +140,16 @@ jQuery( document ).ready( function( $ ){
 		}
 	}
 
+	$( '#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")' ).click( function () {
+		let item  = $( this ),
+		    input = item.parent().find( 'input[type="radio"]' );
+
+		if ( !input.is( ':checked' ) ) {
+			input.attr( 'checked', true );
+			$( 'input[name="modula-settings[effect]"]' ).not( input ).attr( 'checked', false );
+			$('#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")').not(item).removeClass('modula-active-item');
+			item.addClass('modula-active-item');
+		}
+	} );
+
 });

@@ -286,7 +286,7 @@ tr label.th-label {
 	margin-top: 20px;
 }
 .modula-effects-preview .modula-item {
-    width: 400px;
+    width: 370px;
     height: 300px;
     overflow: hidden;
     position: relative;
@@ -456,23 +456,31 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview {
-	max-width  : 880px;
 	position   : relative;
-	overflow-x : scroll;
-	min-height : 500px;
+	min-height : 650px;
+	margin-left:-250px;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview {
 	display:inline-block;
-	margin:20px;
+	margin:5px;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview h4 {
 	text-align:center;
 }
 
-html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview:first-child{
-	margin-left:0;
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .modula-effects-wrapper {
+	max-height : 600px;
+	overflow-Y : scroll
+}
+
+html body #modula-hover-effect .modula-effects-preview .panel-pro-preview input[type="radio"] {
+	visibility:hidden;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .modula-items .modula-item.modula-active-item {
+	box-shadow:0 0 5px 3px blue;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .upgrade-hover {
@@ -484,7 +492,7 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 .modula-upsell {
     background: #f1f1f1;
     /* border: 1px solid #a8d69c;*/
-    border: 0px;
+    border: 0;
     padding: 15px;
     margin-top: 30px;
 }

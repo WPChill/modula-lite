@@ -489,22 +489,8 @@ class Modula_Field_Builder {
 					'tilt_7'       => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
 
 				) );
-				$html .= '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="regular-text">';
-				foreach ( $hovers as $key => $option ) {
-					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( $option ) . '</option>';
-				}
 
-				if ( ! empty( $pro_hovers ) ) {
-					$html .= '<optgroup label="' . esc_html__( 'Hover Effects with PRO license', 'modula-best-grid-gallery' ) . '">';
-					foreach ( $pro_hovers as $key => $option ) {
-						$html .= '<option value="' . esc_attr( $key ) . '" disabled>' . esc_html( $option ) . '</option>';
-					}
-					$html .= '</optgroup>';
-				}
-
-
-				$html .= '</select>';
-				$html .= '<p class="description">' . esc_html__( 'Select an hover effect', 'modula-best-grid-gallery' ) . '</p>';
+				$html .= '<p class="description">' . esc_html__( 'Select one of the below hover effects.', 'modula-best-grid-gallery' ) . '</p>';
 
 				// Creates effects preview
 				// Check if the PRO hovers are used for preview in LITE or PRO version is active
@@ -513,8 +499,8 @@ class Modula_Field_Builder {
 				}
 
 				$html .= '<div class="modula-effects-preview modula modula-gallery">';
-				// Make it 440 because width of 1 effect is 400 and 20 20 margins.
-				$html .= '<div style="width:' . ( 440 * count( $hovers ) ) . 'px;display:block;">';
+
+				$html .= '<div class="modula-effects-wrapper">';
 
 				$effect_array  = array( 'tilt_1', 'tilt_3', 'tilt_7', );
 				$overlay_array = array( 'tilt_2', 'tilt_3', 'tilt_7' );
@@ -527,9 +513,9 @@ class Modula_Field_Builder {
 					$pro_only        = ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) ? esc_html__( 'Upgrade now to unlock', 'modula-best-grid-gallery' ) : '';
 					$effect          = '';
 					$effect          .= '<div class="clearfix panel-pro-preview modula-items">';
-					$effect          .= '<h4>' . $name . '</h4>';
-					$effect          .= (!empty($pro_only)) ? '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>' : '<p>&nbsp;</p>';
-					$effect          .= '<div class="modula-item effect-' . $key . '">';
+					$effect          .= '<input type="radio" name="modula-settings[effect]" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
+					$effect          .= ( !empty( $pro_only ) ) ? '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>' : '<p>&nbsp;</p>';
+					$effect          .= '<div class="modula-item effect-' . $key . ( checked( $key, $value, false ) ? ' modula-active-item' : '' ) . ( ( !empty( $pro_only ) ) ? ' pro-only' : '' ) . '">';
 
 					if ( 'under' == $key ) {
 						$effect .= '<div class="modula-item-image-continer"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"></div>';
@@ -584,6 +570,7 @@ class Modula_Field_Builder {
 					}
 
 					$effect .= '</div>';
+					$effect .= '<h4>' . $name . '</h4>';
 					$effect .= '<div class="effect-compatibility">';
 					$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-pro' );
 
