@@ -17,7 +17,7 @@ class Modula_Image {
      * @param int $id          The image ID.
      * @return WP_Error|string Return WP_Error on error, array of data on success.
      */
-	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array() ) {
+	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $settings ) {
 
 		$image_full = wp_get_attachment_image_src( $id, 'full' );
 
@@ -33,20 +33,42 @@ class Modula_Image {
 
 				if ( is_array( $sizes ) && !empty($sizes) ) {
 
-					$return['width']  = $sizes['width'];
-					$return['height'] = $sizes['height'];
+					if ( !boolval( $settings['grid_image_crop'] ) ){
+
+						$image_meta = wp_get_attachment_metadata( $id );
+
+						$ratio = (float)( (int)$image_meta['width'] / (int)$image_meta['height'] );
+
+						if ( (int)$image_meta['width'] < (int)$settings['grid_image_dimensions']['width'] ){
+							$width = (int)$image_meta['width'];
+						} else {
+							$width = (int)$settings['grid_image_dimensions']['width'];
+						}
+
+						$return['width']  = (int)$width;
+						$return['height'] = (int)( $width / $ratio );
+					} else {
+						$return['width']  = $sizes['width'];
+						$return['height'] = $sizes['height'];
+					}
+
+
+
 				} else {
 
 					$image_sizes = wp_get_attachment_image_src( $id, $sizes);
 
-					if ( $image_sizes ) {
-						$return['width']  = $image_sizes[1];
-						$return['height'] = $image_sizes[2];
+					if ( $image_sizes ){
+						$return['width']     = $image_sizes[1];
+						$return['height']    = $image_sizes[2];
+						$return['thumb_url'] = $image_sizes[0];
 					}
 				}
 			} else {
 				$return = apply_filters( "modula_resize_image_{$type}", $return, $id, $sizes );
 			}
+
+			//var_dump($return);die();
 
 			return $return;
 

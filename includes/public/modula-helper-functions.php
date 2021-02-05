@@ -26,9 +26,10 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		$grid_sizes = $settings['grid_image_size'];
 	}
 
-	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes );
-
-	$image_full = $sizes['url'];
+	$sizes                                 = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $settings );
+	$item_data['img_attributes']['width']  = $sizes['width'];
+	$item_data['img_attributes']['height'] = $sizes['height'];
+	$image_full                            = $sizes['url'];
 
 	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 
@@ -51,38 +52,24 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 			'full'   => '',
 	);
 
-	$image_full = wp_get_attachment_image_src( $item['id'], 'full' );
-	$image['full'] = $image_full[0];
+	$image['full'] = $image_full;
 
-	if ( 'custom' != $settings['grid_image_size'] ) {
+	if ( 'custom' != $settings['grid_image_size'] ){
 
-		$thumb = wp_get_attachment_image_src( $item['id'], $settings['grid_image_size'] );
-
-		if ( $thumb ) {
-
-			$image['thumb']  = $thumb[0];
-			$image['width']  = $thumb[1];
-			$image['height'] = $thumb[2];
-
-		}
+		$image['thumb']  = $sizes['thumb_url'];
+		$image['width']  = $sizes['width'];
+		$image['height'] = $sizes['height'];
 
 	} else {
 
-		$width  = $settings['grid_image_dimensions']['width'];
-		$height = $settings['grid_image_dimensions']['height'];
-		$crop   = boolval( $settings['grid_image_crop'] );
-
-		if ( $crop ){
-			$item_data['img_attributes']['width']  = $sizes['width'];
-			$item_data['img_attributes']['height'] = $sizes['height'];
-		}
-
-		if ( !$image_full ) {
+		if ( !$sizes ){
 			return $item_data;
 		}
 
+		$crop = boolval(boolval( $settings['grid_image_crop'] ));
+
 		$resizer   = new Modula_Image();
-		$image_url = $resizer->resize_image( $image_full[0], $width, $height, $crop );
+		$image_url = $resizer->resize_image( $image_full, $sizes['width'], $sizes['height'], $crop );
 
 		// If we couldn't resize the image we will return the full image.
 		if ( is_wp_error( $image_url ) ) {
