@@ -18,7 +18,7 @@ export const ModulaGallery = (props) => {
 		} else {
 			modulaSlickRun();
 		}
-	}, []);
+	}, [modulaRun]);
 
 	let galleryClassNames = 'modula modula-gallery ';
 	let itemsClassNames = 'modula-items';
@@ -35,14 +35,19 @@ export const ModulaGallery = (props) => {
 			itemsClassNames += ' justified-gallery';
 		}
 	}
-
 	return [
 		<Fragment>
 			<ModulaStyle id={id} settings={settings} />
-			<div id={`jtg-${id}`} className={`${galleryClassNames} ${(props.attributes.modulaDivClassName != undefined ? props.attributes.modulaDivClassName : '')}`} data-config={jsConfig}>
+			<div
+				id={`jtg-${id}`}
+				className={`${galleryClassNames} ${props.attributes.modulaDivClassName != undefined
+					? props.attributes.modulaDivClassName
+					: ''}`}
+				data-config={jsConfig}
+			>
 				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div class="modula-grid-sizer"> </div>}
-				<ModulaItemsExtraComponent {...props} position={'top'}/>
-				<div className={itemsClassNames}>
+				<ModulaItemsExtraComponent {...props} position={'top'} />
+				<div className={itemsClassNames} >
 					{images.length > 0 && (
 						<Fragment>
 							<Fragment>

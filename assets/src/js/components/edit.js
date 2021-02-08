@@ -25,8 +25,6 @@ export const ModulaEdit = (props) => {
 	}, []);
 
 	const onIdChange = (id) => {
-		setAttributes({ status: 'loading' });
-
 		jQuery.ajax({
 			type: 'POST',
 			data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
