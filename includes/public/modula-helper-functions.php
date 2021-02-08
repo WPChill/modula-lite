@@ -9,13 +9,13 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$gallery_type      = isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery';
 	$allowed_galleries = array( 'creative-gallery', 'custom-grid', 'grid' );
 
-	if ( !in_array( $settings['type'], $allowed_galleries ) ){
+	if ( !in_array( $gallery_type, $allowed_galleries ) ){
 		return $item_data;
 	}
 
 	// If the image is not resized we will try to resized it now
 	// This is safe to call every time, as resize_image() will check if the image already exists, preventing thumbnails from being generated every single time.
-	$resizer      = new Modula_Image();
+	$resizer = new Modula_Image();
 
 	if ( 'custom' == $settings['grid_image_size'] ){
 		$grid_sizes = array(
@@ -26,66 +26,28 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		$grid_sizes = $settings['grid_image_size'];
 	}
 
-	$sizes                                 = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $settings );
-	$item_data['img_attributes']['width']  = $sizes['width'];
-	$item_data['img_attributes']['height'] = $sizes['height'];
-	$image_full                            = $sizes['url'];
+	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $settings );
 
-	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
+	$crop                                  = false;
+
+	if ( 'custom' == $settings['grid_image_size'] ){
+		$crop = boolval( boolval( $settings['grid_image_crop'] ) );
+	}
+
+	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
 
 	// If we couldn't resize the image we will return the full image.
-	if ( is_wp_error( $image_url ) ) {
-		$image_url = $image_full;
+	if ( is_wp_error( $image_url ) ){
+		$image_url = $sizes['url'];
 	}
 
-	$item_data['image_full'] = $image_full;
-	$item_data['image_url']  = $image_url;
-
-	// Add src/data-src attributes to img tag
-	$item_data['img_attributes']['src'] = $image_url;
-	$item_data['img_attributes']['data-src'] = $image_url;
-
-	$image = array(
-			'thumb'  => '',
-			'width'  => '',
-			'height' => '',
-			'full'   => '',
-	);
-
-	$image['full'] = $image_full;
-
-	if ( 'custom' != $settings['grid_image_size'] ){
-
-		$image['thumb']  = $sizes['thumb_url'];
-		$image['width']  = $sizes['width'];
-		$image['height'] = $sizes['height'];
-
-	} else {
-
-		if ( !$sizes ){
-			return $item_data;
-		}
-
-		$crop = boolval(boolval( $settings['grid_image_crop'] ));
-
-		$resizer   = new Modula_Image();
-		$image_url = $resizer->resize_image( $image_full, $sizes['width'], $sizes['height'], $crop );
-
-		// If we couldn't resize the image we will return the full image.
-		if ( is_wp_error( $image_url ) ) {
-			$image['thumb'] = $image['full'];
-		}else{
-			$image['thumb'] = $image_url;
-		}
-
-	}
-
-	$item_data['image_full'] = $image['full'];
-	$item_data['image_url']  = $image['thumb'];
-
-	// Add src/data-src attributes to img tag
-	$item_data['img_attributes']['src']      = $image['thumb'];
-	$item_data['img_attributes']['data-src'] = $image['thumb'];
+	$item_data['img_attributes']['width']  = $sizes['width'];
+	$item_data['img_attributes']['height'] = $sizes['height'];
+	$item_data['image_full']               = $sizes['url'];
+	$item_data['image_url']                = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	// If thumb_url exists it means we are in predefined sizes
+	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	$item_data['img_attributes']['data-src'] = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
 
 	return $item_data;
 }
