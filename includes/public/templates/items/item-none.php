@@ -12,12 +12,15 @@
 
 		$image_meta                    = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
 
-		$image_meta['sizes']['custom'] = array(
-				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] .'.' . $data->image_info['ext'],
-				'width'     => $data->img_attributes['width'],
-				'height'    => $data->img_attributes['height'],
-				'mime-type' => $image_meta['sizes']['thumbnail']['mime-type']
-		);
+		if($data->image_info){
+			$image_meta['sizes']['custom'] = array(
+					'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] .'.' . $data->image_info['ext'],
+					'width'     => $data->img_attributes['width'],
+					'height'    => $data->img_attributes['height'],
+					'mime-type' => $image_meta['sizes']['thumbnail']['mime-type']
+			);
+		}
+
 
 		echo wp_image_add_srcset_and_sizes( $image, $image_meta, $data->link_attributes['data-image-id'] );
 
