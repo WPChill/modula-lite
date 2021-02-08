@@ -9,71 +9,38 @@ const { SelectControl, Button, PanelBody } = wp.components;
 /**
  * Inspector controls
  */
-export default class Inspector extends Component {
-	constructor(props) {
-		super(...arguments);
-	}
+const Inspector = (props) => {
+	const { attributes, setAttributes, galleries } = props;
+	const { id } = attributes;
 
-	selectOptions() {
-		let options = [ { value: 0, label: __('none') } ];
+	return (
+		<Fragment>
+			<InspectorControls>
+				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
+					{galleries.length > 0 && (
+						<Fragment>
+							<SelectControl
+								key={id}
+								label={__('Select Gallery', 'modula-best-grid-gallery')}
+								value={id}
+								options={props.selectOptions()}
+								onChange={(value) => props.onIdChange(parseInt(value))}
+							/>
+							{id != 0 && (
+								<Button
+									target="_blank"
+									href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
+									isDefault
+								>
+									{__('Edit gallery')}
+								</Button>
+							)}
+						</Fragment>
+					)}
+				</PanelBody>
+			</InspectorControls>
+		</Fragment>
+	);
+};
 
-		this.props.galleries.forEach(function(gallery) {
-			if (gallery.title.rendered.length == 0) {
-				options.push({
-					value: gallery.id,
-					label: __('Unnamed Gallery ', 'modula-best-grid-gallery') + gallery.id
-				});
-			} else {
-				options.push({ value: gallery.id, label: gallery.title.rendered });
-			}
-		});
-
-		return options;
-	}
-
-	render() {
-		const { attributes, setAttributes, galleries } = this.props;
-		const { id } = attributes;
-
-		return (
-			<Fragment>
-				<InspectorControls>
-					<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
-						{galleries.length > 0 && (
-							<Fragment>
-								<SelectControl
-									key={id}
-									label={__('Select Gallery', 'modula-best-grid-gallery')}
-									value={id}
-									options={this.selectOptions()}
-									onChange={(value) => this.props.onIdChange(parseInt(value))}
-								/>
-								{id != 0 && (
-									<Button
-										target="_blank"
-										href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
-										isDefault
-									>
-										{__('Edit gallery')}
-									</Button>
-								)}
-							</Fragment>
-						)}
-
-						{'deciding' !== status && (
-							<Button
-								isSecondary
-								onClick={(e) => {
-									setAttributes({ status: 'deciding', id: 0, images: [] });
-								}}
-							>
-								{' '}
-								{__('Go back to selection')}{' '}
-							</Button>
-						)}
-					</PanelBody>
-				</InspectorControls>
-			</Fragment>
-		);
-	}
-}
+export default wp.components.withFilters('modula.ModulaInspector')(Inspector);
