@@ -24,19 +24,14 @@ class ModulaGutenberg {
 				type: 'number',
 				default: 0
 			},
-			isGallery: {
-				type: 'boolean',
-				default: true
-			},
 			images: {
 				type: 'array',
 				default: []
 			},
 			status: {
 				type: 'string',
-				default: 'deciding'
+				default: 'ready'
 			},
-
 			galleryId: {
 				type: 'number',
 				default: 0
@@ -44,6 +39,10 @@ class ModulaGutenberg {
 			defaultSettings: {
 				type: 'object',
 				default: []
+			},
+			galleryType: {
+				type: 'string',
+				default: 'none'
 			}
 		};
 

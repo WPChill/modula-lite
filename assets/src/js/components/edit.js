@@ -180,27 +180,19 @@ export const ModulaEdit = (props) => {
 		</BlockControls>
 	);
 
-	if ('deciding' === attributes.status) {
+	if ('none' === attributes.galleryType) {
 		return [
 			<Fragment>
 				<div className="modula-block-preview">
 					<div className="modula-block-preview__content">
 						<div className="modula-block-preview__logo" />
 						<div className="modula-button-group">
-							<Button
-								className="modula-button"
-								target="_blank"
-								href={modulaVars.adminURL + 'post-new.php?post_type=modula-gallery'}
-							>
-								{__('Create New Gallery', 'modula-best-grid-gallery')}
-								{icons.chevronRightFancy}
-							</Button>
 							{galleries.length > 0 && (
 								<Button
 									className="modula-button"
 									target="_blank"
 									onClick={(e) => {
-										setAttributes({ status: 'ready', id: 0 });
+										setAttributes({ status: 'ready', id: 0, galleryType: 'gallery' });
 									}}
 								>
 									{__('Display An Existing Gallery', 'modula-best-grid-gallery')}
@@ -243,7 +235,7 @@ export const ModulaEdit = (props) => {
 	if (id == 0 || images.length === 0) {
 		return [
 			<Fragment>
-				<Inspector onIdChange={(id) => onIdChange(id)} {...props} />
+				<Inspector onIdChange={(id) => onIdChange(id)} selectOptions={selectOptions} {...props} />
 
 				<div className="modula-block-preview">
 					<div className="modula-block-preview__content">
@@ -253,9 +245,10 @@ export const ModulaEdit = (props) => {
 								<SelectControl
 									key={id}
 									value={id}
-									options={selectOptions()}
+									options={selectOptions(galleries)}
 									onChange={(value) => onIdChange(parseInt(value))}
 								/>
+
 								{id != 0 && (
 									<Button
 										target="_blank"
@@ -276,7 +269,7 @@ export const ModulaEdit = (props) => {
 		return [
 			<Fragment>
 				{blockControls}
-				<Inspector onIdChange={(id) => onIdChange(id)} {...props} />
+				<Inspector onIdChange={(id) => onIdChange(id)} selectOptions={selectOptions} {...props} />
 				<ModulaGallery
 					{...props}
 					settings={settings}
