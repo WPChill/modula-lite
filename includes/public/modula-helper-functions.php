@@ -34,7 +34,16 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		$crop = boolval( boolval( $settings['grid_image_crop'] ) );
 	}
 
-	$image_url = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
+	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
+	$image_info = false;
+	// Let's check if resize gives us both URL and image info
+	// Also, if resized_url is available, image_info should be available
+	if ( isset( $resized['resized_url'] ) ){
+		$image_url  = $resized['resized_url'];
+		$image_info = $resized['image_info'];
+	} else {
+		$image_url = $resized;
+	}
 
 	// If we couldn't resize the image we will return the full image.
 	if ( is_wp_error( $image_url ) ){
@@ -48,6 +57,7 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	// If thumb_url exists it means we are in predefined sizes
 	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
 	$item_data['img_attributes']['data-src'] = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	$item_data['image_info'] = $image_info;
 
 	return $item_data;
 }

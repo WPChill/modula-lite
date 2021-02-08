@@ -51,7 +51,7 @@ class Modula_Image {
 							}
 						} elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
 
-							if ( $sizes['width'] > $sizes['height'] ){
+							if ( $sizes['width'] >= $sizes['height']   ){
 								$height = $sizes['width'] / $ratio;
 							} else {
 								$width = $sizes['height'] * $ratio;
@@ -242,7 +242,7 @@ class Modula_Image {
             return $url;
         }
 
-        // Get image info
+	    // Get image info
         $common = $this->get_image_info( $args );
 
         // Unpack variables if an array, otherwise return WP_Error.
@@ -254,11 +254,14 @@ class Modula_Image {
 
         // If the destination width/height values are the same as the original, don't do anything.
         if ( !$force_overwrite && $orig_width === $dest_width && $orig_height === $dest_height ) {
-            return $url;
+	        return array(
+		        'resized_url' => $url,
+		        'image_info'  => $common
+	        );
         }
 
 
-        // If the file doesn't exist yet, we need to create it.
+	    // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
             $_wp_attached_file = str_replace( $upload_dir['baseurl'] . '/' , '', $url );
@@ -353,8 +356,12 @@ class Modula_Image {
             $resized_url = str_replace( basename( $url ), basename( $dest_file_name ), $url );
         }
 
+	    $return = array(
+		    'resized_url' => $resized_url,
+		    'image_info'  => $common
+	    );
         // Return the resized image URL.
-        return $resized_url;
+        return $return;
 
     }
 
