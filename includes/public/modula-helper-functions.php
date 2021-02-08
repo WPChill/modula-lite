@@ -57,7 +57,7 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	// If thumb_url exists it means we are in predefined sizes
 	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
 	$item_data['img_attributes']['data-src'] = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
-	$item_data['image_info'] = $image_info;
+	$item_data['image_info']                 = $image_info;
 
 	return $item_data;
 }
