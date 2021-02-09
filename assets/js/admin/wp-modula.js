@@ -132,7 +132,7 @@ jQuery( document ).ready( function( $ ){
 		var modulaTabHash = window.location.hash.split( '#!' )[1];
 		$( '.modula-tabs,.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
 		$( '.modula-tabs' ).find( '.' + modulaTabHash ).addClass( 'active-tab' );
-		$( '#' + modulaTabHash ).addClass( 'active-tab');
+		$( '#' + modulaTabHash ).addClass( 'active-tab').trigger('modula-current-tab');
 		var postAction = $( "#post" ).attr('action');
 		if( postAction ) {
 			postAction = postAction.split( '#' )[0];
