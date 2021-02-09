@@ -519,7 +519,7 @@ class Modula_Admin {
 			array(
 				'title'       => esc_html__( 'Hover Effects', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Choose from 42 different hover effects.', 'modula-best-grid-gallery' ),
-				'lite'        => '1',
+				'lite'        => '2',
 				'pro'         => '42',
 			),
 			array(
@@ -641,8 +641,8 @@ class Modula_Admin {
 					<thead>
 					<tr>
 						<th></th>
-						<th><?php esc_html_e( 'CORE functionalities', 'modula-best-grid-gallery' ); ?></th>
-						<th><?php esc_html_e( 'UPGRADE to get', 'modula-best-grid-gallery' ); ?></th>
+						<th><?php esc_html_e( 'Free', 'modula-best-grid-gallery' ); ?></th>
+						<th><?php esc_html_e( 'Premium', 'modula-best-grid-gallery' ); ?></th>
 					</tr>
 					</thead>
 					<tbody>
