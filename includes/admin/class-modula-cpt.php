@@ -219,7 +219,7 @@ class Modula_CPT {
 					<p>
 						<a target="_blank"
 						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=albums-metabox&utm_campaign=modula-albums#lite-vs-pro' ); ?>"
-						   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+						   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
 						<a target="_blank"
 						   style="margin-top:10px;"
 						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"

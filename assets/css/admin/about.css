@@ -80,18 +80,24 @@ ul.modula-about-list {
     left:-25px;
 }
 
-.modula-about-list li.fix:before {
+.modula-about-list li.fixed:before {
     content: "\f107";
     color:green;
 }
 
-.modula-about-list li.feature:before {
+.modula-about-list li.added:before {
     content: "\f132";
     color:blue;
 }
 
-.modula-about-list li.removal:before {
+.modula-about-list li.removed:before {
     content: "\f182";
     color:red;
+}
+
+
+.modula-about-list li.changed:before {
+    content: "\f111";
+    color:yellowgreen;
 }
 

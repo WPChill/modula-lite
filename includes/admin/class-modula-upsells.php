@@ -95,7 +95,7 @@ class Modula_Upsells {
 
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium='.$tab.'-tab&utm_campaign='.$campaign.'#lite-vs-pro"  class="button">' . esc_html__( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) . '</a>';
+		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium='.$tab.'-tab&utm_campaign='.$campaign.'#lite-vs-pro"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
 		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=' . $tab . '_tab_upsell-tab&utm_campaign='.$campaign.'" class="button-primary button">' . esc_html__( 'Get Modula Pro!', 'modula-best-grid-gallery' ) . '</a>';
 		$upsell_box .= '</p>';
 		$upsell_box .= '</div>';
@@ -420,7 +420,7 @@ class Modula_Upsells {
                     <p>
                         <a target="_blank"
                            href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=sorting-metabox&utm_campaign=modula-sorting#lite-vs-pro"
-                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences' , 'modula-best-grid-gallery' ) ?></a>
+                           class="button"><?php esc_html_e( 'See Free vs Premium Differences' , 'modula-best-grid-gallery' ) ?></a>
                         <a target="_blank"
                            style="margin-top:10px;"
                            href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=sorting-metabox&utm_campaign=modula-sorting"
@@ -451,7 +451,7 @@ class Modula_Upsells {
                     <p>
                         <a target="_blank"
                            href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-                           class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                           class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
                         <a target="_blank"
                            style="margin-top:10px;"
                            href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
@@ -484,7 +484,7 @@ class Modula_Upsells {
             <p style="text-align:center">
                 <a target="_blank"
                    href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
                 <a target="_blank"
                    style="margin-top:10px;"
                    href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
@@ -504,7 +504,7 @@ class Modula_Upsells {
             <p style="text-align:center">
                 <a target="_blank"
                    href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
                 <a target="_blank"
                    style="margin-top:10px;"
                    href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
@@ -524,7 +524,7 @@ class Modula_Upsells {
             <p>
                 <a target="_blank"
                    href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-                   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+                   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
                 <a target="_blank"
                    style="margin-top:10px;"
                    href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
