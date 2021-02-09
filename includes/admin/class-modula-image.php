@@ -51,7 +51,7 @@ class Modula_Image {
 							}
 						} elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
 
-							if ( $sizes['width'] >= $sizes['height']   ){
+							if ( $sizes['width'] <= $sizes['height']   ){
 								$height = $sizes['width'] / $ratio;
 							} else {
 								$width = $sizes['height'] * $ratio;
