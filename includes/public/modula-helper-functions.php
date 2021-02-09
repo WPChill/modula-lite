@@ -36,6 +36,11 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
 	$image_info = false;
+
+	// If we couldn't resize the image we will return the full image.
+	if ( is_wp_error( $resized ) ){
+		$resized = $sizes['url'];
+	}
 	// Let's check if resize gives us both URL and image info
 	// Also, if resized_url is available, image_info should be available
 	if ( isset( $resized['resized_url'] ) ){
@@ -43,11 +48,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		$image_info = $resized['image_info'];
 	} else {
 		$image_url = $resized;
-	}
-
-	// If we couldn't resize the image we will return the full image.
-	if ( is_wp_error( $image_url ) ){
-		$image_url = $sizes['url'];
 	}
 
 	$item_data['img_attributes']['width']  = $sizes['width'];

@@ -15,13 +15,13 @@ class Modula_Image {
 	 * @param int    $id The image ID.
 	 * @param string $type
 	 * @param array  $sizes
-	 * @param        $settings
+	 * @param        $crop
 	 *
 	 * @return WP_Error|string Return WP_Error on error, array of data on success.
 	 * @since 2.0.0
 	 *
 	 */
-	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $settings ) {
+	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $crop ) {
 
 		$image_full = wp_get_attachment_image_src( $id, 'full' );
 
@@ -37,7 +37,7 @@ class Modula_Image {
 
 				if ( is_array( $sizes ) && !empty($sizes) ) {
 
-					if ( !boolval( $settings['grid_image_crop'] ) ){
+					if ( !$crop ){
 
 						$ratio  = (float)( (int)$image_full[1] / (int)$image_full[2] );
 						$width  = $sizes['width'];
@@ -77,7 +77,7 @@ class Modula_Image {
 
 				}
 			} else {
-				$return = apply_filters( "modula_resize_image_{$type}", $return, $id, $sizes, $settings );
+				$return = apply_filters( "modula_resize_image_{$type}", $return, $id, $sizes, $crop );
 			}
 
 			return $return;
