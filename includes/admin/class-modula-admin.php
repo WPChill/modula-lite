@@ -520,7 +520,7 @@ class Modula_Admin {
 				'title'       => esc_html__( 'Hover Effects', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Choose from 42 different hover effects.', 'modula-best-grid-gallery' ),
 				'lite'        => '2',
-				'pro'         => '42',
+				'pro'         => '43',
 			),
 			array(
 				'title'       => esc_html__( 'Loading effects', 'modula-best-grid-gallery' ),
