@@ -140,6 +140,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     	isResizeble: false,
         refreshTimeout: false,
         updateIndexTimeout: false,
+        backboneInstance : this,
 
     	initialize: function( args ) {
 
@@ -222,6 +223,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
                 this.container.removeClass( 'modula-creative-gallery' ).addClass( 'modula-custom-grid' );
 
+            } else {
+                jQuery( document ).trigger( 'modula_gallery_type_check', [ this, this.backboneInstance, type ] );
             }
         },
 
