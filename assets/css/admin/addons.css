@@ -43,7 +43,7 @@
 	margin-top: 15px;
 	text-align: center;
 }
-.modula-addon .modula-addon-actions {
+.modula-addon .modula-addon-actions{
     padding: 6px 20px;
     background-color: #fafafa;
     border-top: 1px solid #ddd;
@@ -58,6 +58,11 @@
 	align-items: center;
 	height: 30px;
 	flex-flow: row-reverse;
+}
+
+.modula-addon-info {
+	width: calc(100% - 40px);
+	padding: 6px 20px;
 }
 
 /* Style Partners */
@@ -156,6 +161,11 @@
 	display:inline-block;
 	vertical-align:middle;
 	margin-right:10px;
+}
+
+.modula-addon-version {
+	margin-bottom:15px;
+	display:block;
 }
 
 /**

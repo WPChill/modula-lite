@@ -137,3 +137,15 @@
 .modula-license-label {
     display: block;
 }
+
+.modula-license-label p.green strong {
+    color:green;
+}
+
+.modula-license-label p.orange strong {
+    color:orange;
+}
+
+.modula-license-label p.red strong {
+    color:red;
+}
