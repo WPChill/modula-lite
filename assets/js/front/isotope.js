@@ -599,6 +599,12 @@ utils.filterFindElements = function( elems, selector ) {
   elems = utils.makeArray( elems );
   var ffElems = [];
 
+  var isElement = function (elem) {
+    return (
+      typeof HTMLElement === "object" ? elem instanceof HTMLElement : elem && typeof elem === "object" && elem !== null && elem.nodeType === 1 && typeof elem.nodeName === "string"
+    );
+  };
+
   elems.forEach( function( elem ) {
     // check that elem is an actual element
     if ( !isElement(elem) ) {

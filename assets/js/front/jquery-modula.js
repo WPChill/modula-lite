@@ -21,11 +21,12 @@ jQuery(document).on('vc-full-width-row-single vc-full-width-row', function(event
 });
 
 // Compatibility with Elementor
-jQuery(window).on('elementor/frontend/init', function() {
-	if (window.elementorFrontend) {
-		window.elementorFrontend.hooks.addAction('frontend/element_ready/global', function($scope) {
-			if (jQuery('body').find('.modula').length > 0) {
-				jQuery(window).trigger('modula-update');
+jQuery(window).on('elementor/frontend/init', function () {
+	if ( window.elementorFrontend ) {
+		window.elementorFrontend.hooks.addAction('frontend/element_ready/global', function ($scope) {
+			if ( jQuery('body').find('.modula').length > 0 ) {
+				//jQuery(window).trigger('modula-update');
+
 			}
 		});
 	}
@@ -386,10 +387,11 @@ jQuery(window).on('elementor/frontend/init', function() {
 		});
 
 		this.isIsotope = true;
-	};
+	}
 
-	Plugin.prototype.getSlot = function() {
-		if (this.tiles.length == 0) {
+	Plugin.prototype.getSlot = function () {
+		if ( this.tiles.length == 0 ) {
+
 			var tile = {
 				top: 0,
 				left: 0,
@@ -508,6 +510,7 @@ jQuery(window).on('elementor/frontend/init', function() {
 	};
 
 	Plugin.prototype.loadImage = function(index) {
+
 		var instance = this,
 			source = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
 			size = {};
