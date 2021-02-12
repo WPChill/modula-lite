@@ -19,7 +19,6 @@ class Modula_Shortcode {
 
 		// Add shortcode related hooks
 		add_filter( 'modula_shortcode_item_data', 'modula_generate_image_links', 10, 3 );
-		add_filter( 'modula_shortcode_item_data', 'modula_generate_grid_image_links', 10, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_lightboxes_and_links', 15, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_hover_effect', 20, 3 );
 		add_filter( 'modula_shortcode_item_data', 'modula_check_custom_grid', 25, 3 );
@@ -27,7 +26,7 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
-		add_action( 'modula_shortcode_after_items', array( $this, 'powered_by_modula'), 90);
+		add_action( 'modula_shortcode_after_items', 'powered_by_modula', 90 );
 		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
 		// Add js scripts
@@ -205,27 +204,30 @@ class Modula_Shortcode {
 	public static function get_jsconfig( $settings, $type, $inView ) {
 
 		$modula_shortcode = new Modula_Shortcode;
-		
+
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings['height'] ),
-			"enableTwitter"    => boolval( $settings['enableTwitter'] ),
-			"enableWhatsapp"   => boolval( $settings['enableWhatsapp'] ),
-			"enableFacebook"   => boolval( $settings['enableFacebook'] ),
-			"enablePinterest"  => boolval( $settings['enablePinterest'] ),
-			"enableLinkedin"   => boolval( $settings['enableLinkedin'] ),
-			"enableEmail"      => boolval( $settings['enableEmail'] ),
-			"randomFactor"     => ($settings['randomFactor'] / 100),
+			'height'           => absint( $settings[ 'height' ] ),
+			"enableTwitter"    => boolval( $settings[ 'enableTwitter' ] ),
+			"enableWhatsapp"   => boolval( $settings[ 'enableWhatsapp' ] ),
+			"enableFacebook"   => boolval( $settings[ 'enableFacebook' ] ),
+			"enablePinterest"  => boolval( $settings[ 'enablePinterest' ] ),
+			"enableLinkedin"   => boolval( $settings[ 'enableLinkedin' ] ),
+			"enableEmail"      => boolval( $settings[ 'enableEmail' ] ),
+			"randomFactor"     => ( $settings[ 'randomFactor' ] / 100 ),
 			'type'             => $type,
 			'columns'          => 12,
-			'gutter'           => isset( $settings['gutter'] ) ? absint( $settings['gutter'] ) : 10,
-			'enableResponsive' => isset( $settings['enable_responsive'] ) ? $settings['enable_responsive'] : 0,
-			'tabletColumns'    => isset( $settings['tablet_columns'] ) ? $settings['tablet_columns'] : 2,
-			'mobileColumns'    => isset( $settings['mobile_columns'] ) ? $settings['mobile_columns'] : 1,
-			'lazyLoad'         => isset( $settings['lazy_load'] ) ? $settings['lazy_load'] : 1,
+			'gutter'           => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : 10,
+			'mobileGutter'     => isset( $settings[ 'mobile_gutter' ] ) ? absint( $settings[ 'mobile_gutter' ] ) : false,
+			'tabletGutter'     => isset( $settings[ 'tablet_gutter' ] ) ? absint( $settings[ 'tablet_gutter' ] ) : false,
+			'desktopGutter'    => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : false,
+			'enableResponsive' => isset( $settings[ 'enable_responsive' ] ) ? $settings[ 'enable_responsive' ] : 0,
+			'tabletColumns'    => isset( $settings[ 'tablet_columns' ] ) ? $settings[ 'tablet_columns' ] : 2,
+			'mobileColumns'    => isset( $settings[ 'mobile_columns' ] ) ? $settings[ 'mobile_columns' ] : 1,
+			'lazyLoad'         => isset( $settings[ 'lazy_load' ] ) ? $settings[ 'lazy_load' ] : 1,
 			'lightboxOpts'     => $modula_shortcode->fancybox_options( $settings ),
 			'inView'           => $inView,
-			'email_subject'    => isset( $settings['emailSubject'] ) ? esc_html( $settings['emailSubject'] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
-			'email_message'    => isset( $settings['emailMessage'] ) ? esc_html( $settings['emailMessage'] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
+			'email_subject'    => isset( $settings[ 'emailSubject' ] ) ? esc_html( $settings[ 'emailSubject' ] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
+			'email_message'    => isset( $settings[ 'emailMessage' ] ) ? esc_html( $settings[ 'emailMessage' ] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
 		), $settings );
 
 		// Check for lightbox
@@ -266,8 +268,6 @@ class Modula_Shortcode {
 		if ( $settings['socialIconPadding'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social a:not(:last-child), .lightbox-socials.jtg-social a:not(:last-child) { margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . " }";
 		}
-
-		$css .= "#{$gallery_id} .modula-item .caption { background-color: " . sanitize_hex_color( $settings['captionColor'] ) . ";  }";
 
 		if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {
 			$css .= "#{$gallery_id} .modula-item .figc {";
@@ -316,8 +316,6 @@ class Modula_Shortcode {
 		$css .= "#{$gallery_id} .modula-items .figc p.description { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . ";}";
 		if ( '' != $settings['titleColor'] ) {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['titleColor'] ) . "; }";
-		} else {
-			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['captionColor'] ) . "; }";
 		}
 
 		$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
@@ -391,25 +389,7 @@ class Modula_Shortcode {
 
 	}
 
-	public function powered_by_modula( $settings ) {
-		if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
-			return;
-		}
 
-		$affiliate = get_option( 'modula_affiliate', array() );
-		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
-
-		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html( $affiliate['text'] );
-		$html .= '<span>';
-		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
-		$html .= '</span>';
-		$html .= '</p>';
-		$html .= '</div>';
-
-		echo $html;
-
-	}
 
 	public function affiliate_shortcode_handler( $atts ) {
 		$default_atts = array(

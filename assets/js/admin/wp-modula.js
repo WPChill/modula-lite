@@ -132,12 +132,24 @@ jQuery( document ).ready( function( $ ){
 		var modulaTabHash = window.location.hash.split( '#!' )[1];
 		$( '.modula-tabs,.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
 		$( '.modula-tabs' ).find( '.' + modulaTabHash ).addClass( 'active-tab' );
-		$( '#' + modulaTabHash ).addClass( 'active-tab');
+		$( '#' + modulaTabHash ).addClass( 'active-tab').trigger('modula-current-tab');
 		var postAction = $( "#post" ).attr('action');
 		if( postAction ) {
 			postAction = postAction.split( '#' )[0];
 			$( '#post' ).attr( 'action', postAction + window.location.hash );
 		}
 	}
+
+	$( '#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")' ).click( function () {
+		let item  = $( this ),
+		    input = item.parent().find( 'input[type="radio"]' );
+
+		if ( !input.is( ':checked' ) ) {
+			input.attr( 'checked', true );
+			$( 'input[name="modula-settings[effect]"]' ).not( input ).attr( 'checked', false );
+			$('#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")').not(item).removeClass('modula-active-item');
+			item.addClass('modula-active-item');
+		}
+	} );
 
 });

@@ -2,11 +2,33 @@
  * Welcome Page CSS
  * ------------------------------------------------------------------------- */
 .modula .wp-badge {
-    background-color: #2f946a;
-    background-image: url( ../images/modula-logo.jpg );
+    background-color: transparent;
+    background-image: url( ../../images/logo-dark.webp );
 }
 
-/* Lite vs PRO SEction */
+.modula img.modula-logo {
+    width:auto;
+    max-width:150px;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+/* Lite vs PRO Section */
+
+.lite-vs-pro-section .wp-badge{
+    display:inline-block;
+    vertical-align:middle;
+    position:relative;
+    margin-right:2.5%;
+}
+
+.lite-vs-pro-section h3 {
+    display:inline-block;
+    vertical-align:middle;
+    position:relative;
+    margin:0 2.5% 0 25px;
+}
+
 .featured-section.features .row {
     display: inline-block;
     width: 97%;
@@ -46,7 +68,23 @@
 
 .featured-section .free-pro-table td {
     border-top: 1px solid #ccc;
-    padding: 20px 0 25px;
+    padding: 10px 0;
+}
+
+.featured-section .free-pro-table thead tr th:nth-child(2) {
+    color:green;
+}
+
+.featured-section .free-pro-table thead tr th:nth-child(3) {
+    color:blue;
+}
+
+.featured-section .free-pro-table tbody tr:not(:last-child) td:nth-child(2) {
+    background-color:#fefff0;
+}
+
+.featured-section .free-pro-table tbody tr:not(:last-child) td:nth-child(3){
+    background-color:#fff;
 }
 
 .featured-section .free-pro-table h3 {
@@ -60,11 +98,17 @@
 .featured-section .free-pro-table .lite-feature,
 .featured-section .free-pro-table .pro-feature{
     text-align: center;
-    width: 15%;
+    width: 20%;
 }
 
 .featured-section .free-pro-table .dashicons-yes {
     color: #00A878;
+}
+
+.featured-section .free-pro-table .dashicons {
+    width:30px;
+    height:30px;
+    font-size:30px;
 }
 
 .featured-section .free-pro-table .dashicons-no-alt {
@@ -80,6 +124,7 @@
 .featured-section .button-hero .dashicons{
     font-size:16px;
     vertical-align:middle;
+    line-height:26px;
 }
 
 .featured-section .ti-about-page-text-center {
@@ -91,4 +136,16 @@
 
 .modula-license-label {
     display: block;
+}
+
+.modula-license-label p.green strong {
+    color:green;
+}
+
+.modula-license-label p.orange strong {
+    color:orange;
+}
+
+.modula-license-label p.red strong {
+    color:red;
 }

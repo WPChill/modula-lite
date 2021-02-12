@@ -68,6 +68,9 @@ $troubleshooting_fields = array(
 
 $troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
 
+uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
+
 ?>
 <div class="row">
     <h1 class="wp-clearfix"><?php echo esc_html__('Select Modula\'s CSS files and/or JS files to be enqueued on all pages.', 'modula-best-grid-gallery'); ?></h1>

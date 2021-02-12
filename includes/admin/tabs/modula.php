@@ -1,23 +1,8 @@
 <div class="wrap modula">
+	<?php  Modula_Admin_Helpers::modula_page_header(); ?>
 	<h2 class="nav-tab-wrapper wp-clearfix">
 		<?php
-
-		foreach ( $this->tabs as $key => $tab ) {
-			$class = 'nav-tab';
-			$url = $this->generate_url( $key );
-
-			if ( $key == $this->current_tab ) {
-				$class .= ' nav-tab-active';
-			}
-
-			echo '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '">' . esc_html($tab['label']);
-			if ( isset( $tab['badge'] ) ) {
-				echo '<span class="modula-badge">' . $tab['badge'] . '</span>';
-			}
-			echo '</a>';
-
-		}
-
+		Modula_Admin_Helpers::modula_tab_navigation($this->tabs,$this->current_tab);
 		?>
 	</h2>
 
@@ -30,5 +15,5 @@
 			<?php do_action( "modula_side_admin_tab" ); ?>
 		</div>
 	</div>
-	
+
 </div>

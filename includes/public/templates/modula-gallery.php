@@ -49,7 +49,8 @@
 					'data-valign' => esc_attr( $image['valign'] ),
 					'data-halign' => esc_attr( $image['halign'] ),
 					'alt'         => esc_attr( $image['alt'] ),
-					'data-full'   => esc_url( $image_object->guid )
+					'data-full'   => esc_url( $image_object->guid ),
+					'title'		  => esc_attr( $image[ 'title' ] ),
 				),
 			);
 

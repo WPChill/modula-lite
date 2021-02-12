@@ -367,7 +367,7 @@ class Modula_Upgrades {
 
 			foreach ( $images as $image ) {
 
-				$sizes = $resizer->get_image_size( $image['imageId'], $img_size );
+				$sizes = $resizer->get_image_size( $image['imageId'], $img_size, $modula_settings );
 				if ( ! is_wp_error( $sizes ) ) {
 					$resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 				}

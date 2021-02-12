@@ -21,6 +21,8 @@ class Modula_CPT {
 		$this->cpt_name = apply_filters( 'modula_cpt_name', 'modula-gallery' );
 
 		add_action( 'init', array( $this, 'register_cpt' ) );
+		//Bring the settings in Rest
+		add_action( 'rest_api_init', array( $this, 'register_post_meta_rest') );
 
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
@@ -72,7 +74,7 @@ class Modula_CPT {
 			'view_item'             => esc_html__( 'View Item', 'modula-best-grid-gallery' ),
 			'view_items'            => esc_html__( 'View Items', 'modula-best-grid-gallery' ),
 			'search_items'          => esc_html__( 'Search Item', 'modula-best-grid-gallery' ),
-			'not_found'             => esc_html__( 'Not found', 'modula-best-grid-gallery' ),
+			'not_found'             => '<a href="'.admin_url('post-new.php?post_type=modula-gallery').'">'.esc_html__( 'Add your first gallery ','modula-best-grid-gallery').'</a>'.esc_html__('now or check out our ','modula-best-grid-gallery'). '<a href="'.esc_url('https://modula.helpscoutdocs.com/').'" target="_blank">'.esc_html__('documentation ','modula-best-grid-gallery').'</a>'.esc_html__('if you need help figuring things out.', 'modula-best-grid-gallery' ),
 			'not_found_in_trash'    => esc_html__( 'Not found in Trash', 'modula-best-grid-gallery' ),
 			'featured_image'        => esc_html__( 'Featured Image', 'modula-best-grid-gallery' ),
 			'set_featured_image'    => esc_html__( 'Set featured image', 'modula-best-grid-gallery' ),
@@ -129,6 +131,19 @@ class Modula_CPT {
 
 		register_post_type( $this->cpt_name, $args );
 
+	}
+
+	/**
+	 * Rest field for modula settings
+	 * 
+	 * @since 2.4.2
+	 */
+	public function register_post_meta_rest() {
+		register_rest_field( 'modula-gallery', 'modulaSettings', array(
+			'get_callback' => function( $post_arr ) {
+				return get_post_meta( $post_arr['id'], 'modula-settings', true );
+			},
+		) );
 	}
 
 	/**
@@ -204,7 +219,7 @@ class Modula_CPT {
 					<p>
 						<a target="_blank"
 						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=albums-metabox&utm_campaign=modula-albums#lite-vs-pro' ); ?>"
-						   class="button"><?php esc_html_e( 'See LITE vs PRO Differences', 'modula-best-grid-gallery' ) ?></a>
+						   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
 						<a target="_blank"
 						   style="margin-top:10px;"
 						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"
@@ -234,29 +249,6 @@ class Modula_CPT {
 			return $post_id;
 		}
 
-		// We need to resize our images
-		$images = get_post_meta( $post_id, 'modula-images', true );
-		if ( $images && is_array( $images ) ) {
-			if ( isset( $_POST['modula-settings']['img_size'] ) && apply_filters( 'modula_resize_images', true, $_POST['modula-settings'] ) ) {
-
-				$gallery_type = isset( $_POST['modula-settings']['type'] ) ? sanitize_text_field( $_POST['modula-settings']['type'] ) : 'creative-gallery';
-				$img_size     = absint( $_POST['modula-settings']['img_size'] );
-
-				foreach ( $images as $image ) {
-					$grid_sizes = array(
-						'width'  => isset( $image['width'] ) ? absint( $image['width'] ) : 1,
-						'height' => isset( $image['height'] ) ? absint( $image['height'] ) : 1,
-					);
-					$sizes      = $this->resizer->get_image_size( $image['id'], $img_size, $gallery_type, $grid_sizes );
-					if ( !is_wp_error( $sizes ) ) {
-						$this->resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
-					}
-
-				}
-
-			}
-		}
-
 		if ( isset( $_POST['modula-settings'] ) ) {
 
 			$fields_with_tabs = Modula_CPT_Fields_Helper::get_fields( 'all' );
@@ -283,8 +275,6 @@ class Modula_CPT {
 								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
 								break;
 							case 'height':
-							case 'img_size':
-							case 'margin':
 							case 'randomFactor':
 							case 'captionFontSize':
 							case 'titleFontSize':
@@ -388,6 +378,7 @@ class Modula_CPT {
 
 	public function add_extensions_tab( $views ) {
 		$this->display_feedback_notice();
+		Modula_Admin_Helpers::modula_page_header();
 		$this->display_extension_tab();
 		return $views;
 	}
@@ -397,32 +388,33 @@ class Modula_CPT {
 		<h2 class="nav-tab-wrapper">
 			<?php
 			$tabs = array(
-				'galleries'       => array(
-					'name' => $this->labels[ 'name' ],
-					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
-				),
-				'extensions'      => array(
-					'name' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-					'url'  => admin_url( 'edit.php?post_type=' . $this->cpt_name . '&page=modula-addons' ),
-				),
-				'suggest_feature' => array(
-					'name'   => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
-					'icon'   => 'dashicons-external',
-					'url'    => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
-					'target' => '_blank'
-				),
+					'galleries'       => array(
+							'name'     => $this->labels[ 'name' ],
+							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
+							'priority' => '1'
+					),
+					'suggest_feature' => array(
+							'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+							'icon'     => 'dashicons-external',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+							'target'   => '_blank',
+							'priority' => '10'
+					),
 			);
-			$tabs       = apply_filters( 'modula_add_edit_tabs', $tabs );
-			$active_tab = 'galleries';
-			foreach ( $tabs as $tab_id => $tab ) {
-				$active = ($active_tab == $tab_id ? ' nav-tab-active' : '');
-				echo '<a href="' . esc_url( $tab['url'] ) . '" class="nav-tab' . $active . '" '.(isset($tab['target'] )? 'target="'.$tab['target'].'"' : '').'>';
-				if ( isset( $tab['icon'] ) ) {
-					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
-				}
-				echo esc_html( $tab['name'] );
-				echo '</a>';
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$tabs[ 'extensions' ] = array(
+						'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+						'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+						'priority' => '5',
+				);
 			}
+
+			$tabs = apply_filters( 'modula_add_edit_tabs', $tabs );
+
+			uasort( $tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
+			Modula_Admin_Helpers::modula_tab_navigation( $tabs, 'galleries' );
 			?>
 
 			<a href="<?php echo admin_url( 'post-new.php?post_type=' . $this->cpt_name ); ?>" class="page-title-action">

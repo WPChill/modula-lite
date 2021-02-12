@@ -30,3 +30,7 @@
 .column-shortcode .modula-copy-shortcode {
 	max-width: 300px;
 }
+
+tbody#the-list .no-items {
+	text-align:center;
+}

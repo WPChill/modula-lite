@@ -133,7 +133,12 @@ class Modula_Ajax_Migrator {
 		}
 
 		// Get full path and filename
-		$source_file_path = ABSPATH . $source_path . '/' . $source_file;
+		// Seems like in some scenarios the $sourche_path contains the ABSPATH also
+		if ( strpos( $source_path, ABSPATH ) !== false ){
+			$source_file_path = $source_path . '/' . $source_file;
+		} else {
+			$source_file_path = ABSPATH . $source_path . '/' . $source_file;
+		}
 
 		// Get WP upload dir
 		$uploadDir = wp_upload_dir();

@@ -2006,6 +2006,10 @@
             $img.attr( 'image-id', slide.opts.image_id );
           }
 
+          if ( slide.$thumb ) {
+            $img.attr( 'title', slide.$thumb.find( 'img.pic' ).attr( 'title' ) )
+          }
+
           // Hide temporary image after some delay
           if (slide.$ghost) {
             setTimeout(function () {
@@ -5428,12 +5432,19 @@
 	  $.each(current.opts.modulaShare, function (index, value) {
       var rawEmailMessage = (current.opts.lightboxEmailMessage.length) ? current.opts.lightboxEmailMessage : 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
       var emailMessage = rawEmailMessage.replace( /\%%gallery_link%%/g, window.location.href).replace( /\%%image_link%%/g, current.src) ;
-		  tpl += current.opts.shareBtnTpl[value]
-			  .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
-			  .replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
-			  .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "")
-              .replace(/\{\{subject\}\}/g, encodeURIComponent(current.opts.lightboxEmailSubject))
-              .replace(/\{\{emailMessage\}\}/g, encodeURIComponent( emailMessage ))
+
+        var text = (jQuery( current.$image ).attr( 'title' ).length) ? jQuery( current.$image ).attr( 'title' ) : '';
+
+        if ( '' ==  text ) {
+          text = instance.$caption.text();
+        }
+
+        tpl += current.opts.shareBtnTpl[value]
+            .replace( /\{\{media\}\}/g, current.type === "image" ? encodeURIComponent( current.src ) : "" )
+            .replace( /\{\{modulaShareUrl\}\}/g, encodeURIComponent( url ) )
+            .replace( /\{\{descr\}\}/g, encodeURIComponent( text ) )
+            .replace( /\{\{subject\}\}/g, encodeURIComponent( current.opts.lightboxEmailSubject ) )
+            .replace( /\{\{emailMessage\}\}/g, encodeURIComponent( emailMessage ) );
 	  });
 
 	  tpl += "</p><p><input class='modula-fancybox-share__input' type='text' value='{{url_raw}}' /></p></div>";

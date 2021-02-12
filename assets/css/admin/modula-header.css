@@ -1,0 +1,160 @@
+body.modula-gallery_page_modula-addons #wpcontent,
+body.modula-gallery_page_modula #wpcontent,
+body.post-type-modula-gallery #wpcontent,
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent {
+	padding-left : 0;
+}
+
+body.modula-gallery_page_modula-addons #wpcontent .wrap,
+body.modula-gallery_page_modula #wpcontent .wrap,
+body.post-type-modula-gallery #wpcontent .wrap,
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
+	margin : 0;
+}
+
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap,
+body.modula-gallery_page_modula-import-export #wpcontent .wrap {
+	padding : 25px 40px 0 20px;
+}
+
+
+body.modula-gallery_page_modula-addons .modula-addons-container,
+body.modula-gallery_page_modula-addons .nav-tab-wrapper,
+body.modula-gallery_page_modula-lite-vs-pro .modula-addons-container,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper,
+body.modula-gallery_page_modula .modula-addons-container,
+body.modula-gallery_page_modula .nav-tab-wrapper,
+body.post-type-modula-gallery .modula-addons-container,
+body.post-type-modula-gallery .nav-tab-wrapper {
+	padding : 20px;
+}
+
+/* Added by Cristi */
+body.modula-gallery_page_modula-addons .nav-tab-wrapper .dashicons {
+	font-size: 16px;
+	vertical-align: middle;
+	line-height: 17px;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
+body.modula-gallery_page_modula .modula-page-header,
+body.post-type-modula-gallery .modula-page-header {
+	padding : 0;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links,
+body.modula-gallery_page_modula .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula .modula-page-header .modula-header-links,
+body.post-type-modula-gallery .modula-page-header .modula-header-logo,
+body.post-type-modula-gallery .modula-page-header .modula-header-links {
+	padding : 20px;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-logo,
+body.modula-gallery_page_modula .modula-page-header .modula-header-logo,
+body.post-type-modula-gallery .modula-page-header .modula-header-logo {
+	padding-right : 20px;
+}
+
+body.modula-gallery_page_modula-addons .nav-tab-wrapper,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper,
+body.modula-gallery_page_modulaaddons .nav-tab-wrapper,
+body.post-type-modula-gallery .nav-tab-wrapper {
+	padding-bottom : 0;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
+body.modula-gallery_page_modula .modula-page-header,
+body.post-type-modula-gallery .modula-page-header {
+	border-bottom : 1px solid #ccc;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a,
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula .modula-page-header .modula-header-links a,
+body.modula-gallery_page_modula .modula-page-header .modula-header-links a span,
+body.post-type-modula-gallery .modula-page-header .modula-header-links a,
+body.post-type-modula-gallery .modula-page-header .modula-header-links a span {
+	vertical-align : middle;
+}
+
+body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-links a span,
+body.modula-gallery_page_modula .modula-page-header .modula-header-links a span,
+body.post-type-modula-gallery .modula-page-header .modula-header-links a span {
+	font-size:16px;
+	line-height:18px;
+}
+
+body.modula-gallery_page_modula-addons .nav-tab-wrapper .nav-tab,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper .nav-tab,
+body.modula-gallery_page_modula .nav-tab-wrapper .nav-tab,
+body.post-type-modula-gallery .nav-tab-wrapper .nav-tab {
+	margin-left  : 0;
+	border-right : 0;
+}
+
+body.modula-gallery_page_modula-addons .nav-tab-wrapper > .nav-tab:first-child,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper > .nav-tab:first-child,
+body.modula-gallery_page_modula .nav-tab-wrapper > .nav-tab:first-child,
+body.post-type-modula-gallery .nav-tab-wrapper > .nav-tab:first-child {
+	border-top-left-radius : 4px;
+}
+
+body.modula-gallery_page_modula-addons .nav-tab-wrapper > .nav-tab.last_tab,
+body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper > .nav-tab.last_tab,
+body.modula-gallery_page_modula .nav-tab-wrapper > .nav-tab.last_tab,
+body.post-type-modula-gallery .nav-tab-wrapper > .nav-tab.last_tab {
+	border-top-right-radius : 4px;
+	border-right            : 1px solid #ccc;
+}
+
+body.post-type-modula-gallery #posts-filter,
+body.post-type-modula-gallery #wpbody-content .wrap > ul.subsubsub {
+	padding : 0 20px;
+}
+
+
+body.modula-gallery_page_modula-addons .modula-page-header,
+body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
+body.modula-gallery_page_modula .modula-page-header,
+body.post-type-modula-gallery .modula-page-header {
+	display         : flex;
+	justify-content : space-between;
+	background      : #fff;
+	width           : 100%;
+}
+
+body.post-type-modula-gallery .modula-page-header {
+	border-top : 1px solid #ccc;
+}
+
+body.modula-gallery_page_modula .modula-columns {
+	padding : 15px;
+}
+
+.modula-page-header .modula-logo {
+	max-height : 35px;
+}
+
+/* Added by Cristi */
+body.modula-gallery_page_modula-addons .modula-header-links {
+	margin-right:10px;
+}
+
+.modula-header-links .dashicons { font-size: 16px; }
+
+.modula-status-bar {
+	display:flex;
+	align-items: center;
+	align-content: center;
+	font-weight: bold;
+}

@@ -27,7 +27,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
             // Listen to window resize
             jQuery( window ).on( 'resize', $.proxy( this.windowResize, this ) );
-            new ResizeSensor( jQuery( '#modula-uploader-container .modula-uploader-inline-content' ), function() {
+            new ModulaResizeSensor( jQuery( '#modula-uploader-container .modula-uploader-inline-content' ), function() {
                 resizer.windowResize();
             });
         },
@@ -140,6 +140,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     	isResizeble: false,
         refreshTimeout: false,
         updateIndexTimeout: false,
+        backboneInstance : this,
 
     	initialize: function( args ) {
 
@@ -222,6 +223,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
                 this.container.removeClass( 'modula-creative-gallery' ).addClass( 'modula-custom-grid' );
 
+            } else {
+                jQuery( document ).trigger( 'modula_gallery_type_check', [ this, this.backboneInstance, type ] );
             }
         },
 

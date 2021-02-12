@@ -239,11 +239,10 @@ class Modula_Foogallery_Importer {
 			'gutter'                => absint( $gutter ),
 			'grid_row_height'       => ( isset( $foogallery_settings['justified_row_height'] ) ) ? absint( $foogallery_settings['justified_row_height'] ) : '150',
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
-			'img_size'              => absint( $thumbnail_size ),
 			'lazy_load'             => ( isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'] ),
 			'grid_image_size'       => sanitize_text_field( $grid_image_size ),
 			'grid_image_dimensions' => array(
-				'width'  => sanitize_text_field( $thumbnail_size_w ),
+				'width'  => ( isset( $thumbnail_size ) ) ? sanitize_text_field( $thumbnail_size ) : sanitize_text_field( $thumbnail_size_w ),
 				'height' => sanitize_text_field( $thumbnail_size_h )
 			)
 		), $foogallery_settings, 'foogallery' );
