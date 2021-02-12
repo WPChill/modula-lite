@@ -53,7 +53,7 @@ module.exports = function( grunt ) {
 	                include: [],                      // List of files or directories to include.
 	                mainFile: 'Modula.php',                     // Main project file.
 	                potComments: '',                  // The copyright at the beginning of the POT file.
-	                potFilename: 'modula-best-grid-gallery.po',                  // Name of the POT file.
+	                potFilename: 'modula-best-grid-gallery.pot',                  // Name of the POT file.
 	                potHeaders: {
 	                    poedit: true,                 // Includes common Poedit headers.
 	                    'x-poedit-keywordslist': true // Include a list of all possible gettext functions.

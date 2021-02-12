@@ -97,7 +97,7 @@ class Modula_Gutenberg {
 			$atts['align'] = '';
 		}
 		
-		if( isset($atts['isGallery'] ) && $atts['isGallery'] == false ) {
+		if( isset($atts['galleryType'] ) && $atts['galleryType'] != 'gallery' ) {
 			
 			$html = apply_filters( 'modula_render_defaults_block', 'An error occured', $atts );
 
