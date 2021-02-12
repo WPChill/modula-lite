@@ -21,7 +21,7 @@ class Modula_Image {
 	 * @since 2.0.0
 	 *
 	 */
-	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $crop ) {
+	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $crop = false ) {
 
 		$image_full = wp_get_attachment_image_src( $id, 'full' );
 

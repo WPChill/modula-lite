@@ -67,14 +67,14 @@ class Modula_Addons {
 				echo '<div class="modula-addon-box">';
 
 				if ( !isset( $addon['image'] ) || '' == $addon['image'] ){
-					echo '<div><img src="' . apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) . '"></div>';
+					echo '<div><img src="' . esc_url( apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) ) . '"></div>';
 				} else {
 					echo '<div><img src="' . esc_url( $addon['image'] ) . '"></div>';
 				}
 
 				echo '<div class="modula-addon-content">';
 				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
-				echo ( isset( $addon['version'] ) ) ? '<span class="modula-addon-version">'.esc_html( 'V ' ) . $addon['version'] . '</span>' : '';
+				echo ( isset( $addon['version'] ) ) ? '<span class="modula-addon-version">' . esc_html( 'V ' . $addon['version'] ) . '</span>' : '';
 				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
 				echo '</div>';
 				echo '</div>';

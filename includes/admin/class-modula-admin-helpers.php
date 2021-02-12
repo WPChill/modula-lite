@@ -46,7 +46,7 @@ class Modula_Admin_Helpers {
 		?>
 		<div class="modula-page-header">
 			<div class="modula-header-logo">
-				<img src="<?php echo MODULA_URL . 'assets/images/logo-dark.webp'; ?>" class="modula-logo">
+				<img src="<?php echo esc_url( MODULA_URL . 'assets/images/logo-dark.webp' ); ?>" class="modula-logo">
 			</div>
 			<div class="modula-status-bar">
 			</div>
@@ -91,7 +91,7 @@ class Modula_Admin_Helpers {
 					$url = admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=' . $tab_id );
 				}
 
-				echo '<a href="' . esc_url( $url ) . '" class="nav-tab' . $active . $last_tab . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . $tab[ 'target' ] . '"' : '' ) . '>';
+				echo '<a href="' . esc_url( $url ) . '" class="nav-tab' . esc_attr($active) . esc_attr($last_tab) . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . esc_attr($tab[ 'target' ]) . '"' : '' ) . '>';
 
 				if ( isset( $tab[ 'icon' ] ) ) {
 					echo '<span class="dashicons ' . esc_attr( $tab[ 'icon' ] ) . '"></span>';
@@ -108,7 +108,7 @@ class Modula_Admin_Helpers {
 				}
 
 				if ( isset( $tab[ 'badge' ] ) ) {
-					echo '<span class="modula-badge">' . $tab[ 'badge' ] . '</span>';
+					echo '<span class="modula-badge">' . esc_html($tab[ 'badge' ]) . '</span>';
 				}
 
 				echo '</a>';

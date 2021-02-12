@@ -26,14 +26,13 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 		$grid_sizes = $settings['grid_image_size'];
 	}
 
-	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $settings );
-
 	$crop                                  = false;
 
 	if ( 'custom' == $settings['grid_image_size'] ){
 		$crop = boolval( boolval( $settings['grid_image_crop'] ) );
 	}
 
+	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $crop );
 	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
 	$image_info = false;
 

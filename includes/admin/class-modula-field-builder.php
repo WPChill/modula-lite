@@ -518,9 +518,9 @@ class Modula_Field_Builder {
 					$effect          .= '<div class="modula-item effect-' . $key . ( checked( $key, $value, false ) ? ' modula-active-item' : '' ) . ( ( !empty( $pro_only ) ) ? ' pro-only' : '' ) . '">';
 
 					if ( 'under' == $key ) {
-						$effect .= '<div class="modula-item-image-continer"><img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic"></div>';
+						$effect .= '<div class="modula-item-image-continer"><img src="' . esc_url( MODULA_URL . '/assets/images/effect.jpg' ) . '" class="pic"></div>';
 					} else {
-						$effect .= '<img src="' . MODULA_URL . '/assets/images/effect.jpg" class="pic">';
+						$effect .= '<img src="' . esc_url( MODULA_URL . '/assets/images/effect.jpg' ) . '" class="pic">';
 					}
 
 					if ( in_array( $key, $effect_array ) ) {
