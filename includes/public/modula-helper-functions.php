@@ -249,7 +249,7 @@ function modula_add_scripts( $scripts, $settings ){
 
 	$needed_scripts = array();
 
-	if ( '1' == $settings[ 'lazy_load' ] && apply_filters( 'modula_lazyload_compatibility_script', true, $settings ) ) {
+	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ){
 		$needed_scripts[] = 'modula-lazysizes';
 	}
 

@@ -202,13 +202,18 @@ class Modula_Compatibility {
 	 * @return bool
 	 * @since 2.4.2
 	 */
-	public function modula_lazyload_compatibility_script() {
+	public function modula_lazyload_compatibility_script($return) {
 
-		if ( $this->check_lazyloading() && !$this->jetpack_check() ){
-			return false;
+		if ( $this->check_lazyloading() ){
+			if ( !$this->jetpack_check() ){
+				return false;
+			} else {
+				return true;
+			}
+
 		}
 
-		return true;
+		return $return;
 	}
 
 	/**
