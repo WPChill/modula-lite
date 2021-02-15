@@ -24,6 +24,8 @@ class Modula_Compatibility {
 		add_filter( 'modula_gallery_settings', array( $this, 'modula_gallery_config_compatibility' ), 99 );
 		add_filter( 'modula_lazyload_compatibility_script', array( $this, 'modula_lazyload_compatibility_script' ), 99 );
 		add_filter( 'modula_lazyload_compatibility_item', array( $this, 'modula_lazyload_compatibility_item' ), 99 );
+		add_filter( 'modula_admin_field_value', array( $this, 'lazyload_admin_compatibility' ), 99, 3 );
+		add_filter( 'modula_backbone_settings', array( $this, 'lazyload_backbone_compatibility' ), 99 );
 
 	}
 
@@ -85,6 +87,13 @@ class Modula_Compatibility {
 			$tab_content .= $this->generate_compatibility_box( $compatibility_description );
 		}
 
+		if ( $this->jetpack_check() ) {
+
+			$compatibility_description = esc_html__( 'We detected that you are using Jepack\'s lazyloading software that conflicts with ours. We enabled our by default so that we can overwrite Jetpack\'s one for our galleries.', 'modula-best-grid-gallery' );
+
+			$tab_content .= $this->generate_compatibility_box( $compatibility_description );
+		}
+
 		return $tab_content;
 
 	}
@@ -109,11 +118,26 @@ class Modula_Compatibility {
 	 * @return bool
 	 */
 	public function avada_check() {
-
 		$avada_options = get_option( 'fusion_options' );
 		if ( $avada_options && isset( $avada_options[ 'lazy_load' ] ) && 'avada' == $avada_options[ 'lazy_load' ] ) {
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * Check if Jetpack is active and has enabled lazyloading
+	 *
+	 * @return bool
+	 */
+	public function jetpack_check(){
+
+		$jetpack_modules = get_option( 'jetpack_active_modules' );
+
+		if ( $jetpack_modules && in_array( 'lazy-images', $jetpack_modules ) ){
+			return true;
+		}
+
 		return false;
 	}
 
@@ -125,7 +149,7 @@ class Modula_Compatibility {
 	 */
 	public function check_lazyloading() {
 
-		if ( $this->sg_optimizer_check() || $this->avada_check() ) {
+		if ( $this->sg_optimizer_check() || $this->avada_check() || $this->jetpack_check() ) {
 
 			return true;
 		}
@@ -180,7 +204,7 @@ class Modula_Compatibility {
 	 */
 	public function modula_lazyload_compatibility_script() {
 
-		if ( $this->check_lazyloading() ) {
+		if ( $this->check_lazyloading() && !$this->jetpack_check() ){
 			return false;
 		}
 
@@ -200,6 +224,51 @@ class Modula_Compatibility {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Admin lazy load value
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return int
+	 * @since 2.4.2
+	 */
+	public function lazyload_admin_compatibility( $value, $key, $settings ){
+
+		if ( 'lazy_load' == $key && $this->check_lazyloading() ){
+			if ( !$this->jetpack_check() ){
+				return 0;
+			} else {
+				return 1;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Settings updated options
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.4.2
+	 */
+	public function lazyload_backbone_compatibility( $settings ){
+
+		if ( isset( $settings['lazy_load'] ) && $this->check_lazyloading() ){
+
+			if ( !$this->jetpack_check() ){
+				$settings['lazy_load'] = 0;
+			} else {
+				$settings['lazy_load'] = 1;
+			}
+		}
+
+		return $settings;
 	}
 
 }
