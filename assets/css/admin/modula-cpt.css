@@ -286,7 +286,6 @@ tr label.th-label {
 	margin-top: 20px;
 }
 .modula-effects-preview .modula-item {
-    width: 370px;
     height: 300px;
     overflow: hidden;
     position: relative;
@@ -464,6 +463,9 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview {
 	display:inline-block;
 	margin:5px;
+	width:calc(33% - 10px);
+	vertical-align:top;
+	min-width:150px;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula-effects-preview .panel-pro-preview h4 {
