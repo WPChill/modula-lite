@@ -18,11 +18,31 @@ export const ModulaEdit = (props) => {
 	const { attributes, galleries, setAttributes } = props;
 	const { id, images, status, settings, jsConfig, galleryId } = attributes;
 
+	// Check when the alignmnent is changed so we can resize the instance
+	const [ alignmentCheck, setAlignment ] = useState(props.attributes.align);
+
+	// Check when id is changed and it is not a component rerender . Saves unnecessary fetch requests
+	const [ idCheck, setIdCheck ] = useState(id);
+
 	useEffect(() => {
 		if (id !== 0) {
 			onIdChange(id);
 		}
 	}, []);
+
+	useEffect(() => {
+		//Grab the instance and set it as atribute to access it when we want 
+		jQuery(document).on('modula_api_after_init', function(event, inst) {
+			props.setAttributes({ instance: inst });
+		});
+
+		if (alignmentCheck != props.attributes.align) {
+			if (props.attributes.instance != undefined) {
+				props.attributes.instance.onResize(props.attributes.instance);
+				setAlignment(props.attributes.align);
+			}
+		}
+	});
 
 	const onIdChange = (id) => {
 		jQuery.ajax({
@@ -38,7 +58,9 @@ export const ModulaEdit = (props) => {
 			setAttributes({ id: id, status: 'ready' });
 			return;
 		}
-		getSettings(id);
+		if (idCheck != id || undefined == settings) {
+			getSettings(id);
+		}
 		setAttributes({ id: id, images: JSON.parse(result), status: 'ready' });
 	};
 

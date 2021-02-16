@@ -1,5 +1,5 @@
 const { __ } = wp.i18n;
-const { Component, Fragment, useEffect } = wp.element;
+const { Component, Fragment, useEffect, useState } = wp.element;
 
 import ModulaGalleryImage from './ModulaGalleryImage';
 import ModulaStyle from './ModulaStyle';
@@ -8,7 +8,7 @@ import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
 	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
-
+	
 	useEffect(() => {
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
@@ -18,7 +18,7 @@ export const ModulaGallery = (props) => {
 		} else {
 			modulaSlickRun();
 		}
-	}, [modulaRun]);
+	}, []);
 
 	let galleryClassNames = 'modula modula-gallery ';
 	let itemsClassNames = 'modula-items';

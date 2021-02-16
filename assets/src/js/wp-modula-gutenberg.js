@@ -53,15 +53,15 @@ class ModulaGutenberg {
 			keywords: [ __('gallery'), __('modula'), __('images') ],
 			category: 'common',
 			supports: {
-				align: [ 'wide', 'full' ],
+				align: true,
 				customClassName: false
 			},
 			attributes: this.blockAttributes,
-			getEditWrapperProps() {
-				return {
-					'data-align': 'full'
-				};
-			},
+			// getEditWrapperProps() {
+			// 	return {
+			// 		'data-align': 'full'
+			// 	};
+			// },
 			edit: Edit,
 			save() {
 				// Rendering in PHP
