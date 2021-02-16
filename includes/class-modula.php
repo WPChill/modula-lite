@@ -99,7 +99,7 @@ class Modula {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'init', array( $this, 'admin_init' ), 20 );
 
-		add_action( 'plugins_loaded', array( $this, 'set_locale' ) );
+		add_action( 'init', array( $this, 'set_locale' ) );
 
 		// SiteOrigin Widget
 		add_action( 'widgets_init', array( $this, 'modula_load_widget' ) );
