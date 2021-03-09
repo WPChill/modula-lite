@@ -117,11 +117,20 @@ class Modula_Compatibility {
 	 *
 	 * @return bool
 	 */
-	public function avada_check() {
+	public function avada_check(){
+
+		$theme = wp_get_theme();
+
+		if ( 'avada' != strtolower($theme->get( 'TextDomain' )) ){
+			return false;
+		}
+
 		$avada_options = get_option( 'fusion_options' );
-		if ( $avada_options && isset( $avada_options[ 'lazy_load' ] ) && 'avada' == $avada_options[ 'lazy_load' ] ) {
+
+		if ( $avada_options && isset( $avada_options['lazy_load'] ) && 'avada' == $avada_options['lazy_load'] ){
 			return true;
 		}
+
 		return false;
 	}
 
@@ -131,6 +140,10 @@ class Modula_Compatibility {
 	 * @return bool
 	 */
 	public function jetpack_check(){
+
+		if ( !is_plugin_active( 'jetpack/jetpack.php' ) ){
+			return false;
+		}
 
 		$jetpack_modules = get_option( 'jetpack_active_modules' );
 
