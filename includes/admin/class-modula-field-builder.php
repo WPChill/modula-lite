@@ -294,7 +294,7 @@ class Modula_Field_Builder {
 		}
 		// End formats for General Gutter
 
-		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] ) {
+		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] || 'hover-effect' == $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
@@ -509,13 +509,27 @@ class Modula_Field_Builder {
 
 				foreach ( $hovers as $key => $name ) {
 
+					$class = array( 'modula-item' );
+					$class[] = 'effect-' . $key;
+					if ( array_key_exists( $key, $pro_hovers ) ) {
+						$class[] = 'modula-preview-upsell';
+					}
+
 					$effect_elements = Modula_Helper::hover_effects_elements( $key );
 					$pro_only        = ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) ? esc_html__( 'Upgrade now to unlock', 'modula-best-grid-gallery' ) : '';
 					$effect          = '';
-					$effect          .= '<div class="clearfix panel-pro-preview modula-items">';
-					$effect          .= '<input type="radio" name="modula-settings[effect]" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
-					$effect          .= ( !empty( $pro_only ) ) ? '<p class="upgrade-hover">&nbsp;' . $pro_only . '</p>' : '<p>&nbsp;</p>';
-					$effect          .= '<div class="modula-item effect-' . $key . ( checked( $key, $value, false ) ? ' modula-active-item' : '' ) . ( ( !empty( $pro_only ) ) ? ' pro-only' : '' ) . '">';
+					$effect          .= '<div class="clearfix panel-pro-preview modula-hover-effect-item modula-items">';
+
+					if ( ! array_key_exists( $key, $pro_hovers ) ) {
+						$effect .= '<input type="radio" name="modula-settings[effect]" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
+					}
+
+					$effect .= '<div class="modula-preview-item-container">';
+					if ( array_key_exists( $key, $pro_hovers ) ) {
+						$effect  .= '<span class="modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
+						$class[]  = 'pro-only';
+					}
+					$effect .= '<div class="' . esc_attr( implode( ' ', $class ) ) . '">';
 
 					if ( 'under' == $key ) {
 						$effect .= '<div class="modula-item-image-continer"><img src="' . esc_url( MODULA_URL . '/assets/images/effect.jpg' ) . '" class="pic"></div>';
@@ -570,30 +584,39 @@ class Modula_Field_Builder {
 					}
 
 					$effect .= '</div>';
+					$effect .= '<div class="modula-preview-item-content">';
 					$effect .= '<h4>' . $name . '</h4>';
-					$effect .= '<div class="effect-compatibility">';
-					$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-pro' );
+					if ( $effect_elements[ 'title' ] || $effect_elements[ 'description' ] || $effect_elements[ 'social' ] || $effect_elements[ 'scripts' ] ) {
+						
+						$effect .= '<div class="effect-compatibility">';
+						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-pro' );
 
-					if ( $effect_elements[ 'title' ] ) {
-						$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-pro' ) . '</strong></span>,';
+						if ( $effect_elements[ 'title' ] ) {
+							$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-pro' ) . '</strong></span>,';
+						}
+
+						if ( $effect_elements[ 'description' ] ) {
+							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-pro' ) . '</strong></span>,';
+						}
+
+						if ( $effect_elements[ 'social' ] ) {
+							$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-pro' ) . '</strong></span>';
+						}
+						$effect .= '</p>';
+
+						if ( $effect_elements[ 'scripts' ] ) {
+							$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-pro' ) . '</p>';
+						} else {
+							$effect .= '<p class="description">&nbsp;</p>';
+						}
+
+						$effect .= '</div>';
+
 					}
-
-					if ( $effect_elements[ 'description' ] ) {
-						$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-pro' ) . '</strong></span>,';
-					}
-
-					if ( $effect_elements[ 'social' ] ) {
-						$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-pro' ) . '</strong></span>';
-					}
-					$effect .= '</p>';
-
-					if ( $effect_elements[ 'scripts' ] ) {
-						$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-pro' ) . '</p>';
-					} else {
-						$effect .= '<p class="description">&nbsp;</p>';
-					}
-
-					$effect .= '</div></div>';
+					
+					$effect .= '</div>';
+					$effect .= '</div>';
+					$effect .= '</div>';
 
 					$html .= $effect;
 				}

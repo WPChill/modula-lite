@@ -23,7 +23,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
 		this.listenTo( wp.Modula.Settings, 'change:enableSocial', this.enableSocial );
 		this.listenTo( wp.Modula.Settings, 'change:enableEmail', this.enableEmail);
-		this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
+		// this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
 		this.listenTo( wp.Modula.Settings, 'change:enable_responsive', this.changedResponsiveness );
 		this.listenTo( wp.Modula.Settings, 'change:hide_title', this.hideTitle);
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
@@ -35,8 +35,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	initValues: function(){
 
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
-		this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
-		this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
+		// this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
+		// this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
 		this.enableSocial (false, wp.Modula.Settings.get('enableSocial') );
 		this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );

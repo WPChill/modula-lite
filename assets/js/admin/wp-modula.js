@@ -5,7 +5,7 @@ wp.Modula.modal = 'undefined' === typeof( wp.Modula.modal ) ? {} : wp.Modula.mod
 wp.Modula.items = 'undefined' === typeof( wp.Modula.items ) ? {} : wp.Modula.items;
 wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.upload;
 
-jQuery( document ).ready( function( $ ){
+(function( $ ){
 
 	// Here we will have all gallery's items.
 	if(wp.Modula.items['collection']){
@@ -140,16 +140,14 @@ jQuery( document ).ready( function( $ ){
 		}
 	}
 
-	$( '#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")' ).click( function () {
-		let item  = $( this ),
-		    input = item.parent().find( 'input[type="radio"]' );
+	var inputs = $('#modula-hover-effect .modula-hover-effect-item input[type="radio"]');
+	$( '#modula-hover-effect .modula-hover-effect-item' ).on( 'click',function () {
+		let input = $( this ).find( 'input[type="radio"]' );
 
-		if ( !input.is( ':checked' ) ) {
+		if ( input.length > 0 ) {
+			inputs.attr( 'checked', false );
 			input.attr( 'checked', true );
-			$( 'input[name="modula-settings[effect]"]' ).not( input ).attr( 'checked', false );
-			$('#modula-hover-effect .modula-effects-preview .modula-item:not(".pro-only")').not(item).removeClass('modula-active-item');
-			item.addClass('modula-active-item');
 		}
 	} );
 
-});
+})(jQuery);
