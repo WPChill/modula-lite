@@ -511,21 +511,20 @@ class Modula_Field_Builder {
 
 					$class = array( 'modula-item' );
 					$class[] = 'effect-' . $key;
-					if ( array_key_exists( $key, $pro_hovers ) ) {
+					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
 						$class[] = 'modula-preview-upsell';
 					}
 
 					$effect_elements = Modula_Helper::hover_effects_elements( $key );
-					$pro_only        = ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) ? esc_html__( 'Upgrade now to unlock', 'modula-best-grid-gallery' ) : '';
 					$effect          = '';
 					$effect          .= '<div class="clearfix panel-pro-preview modula-hover-effect-item modula-items">';
 
-					if ( ! array_key_exists( $key, $pro_hovers ) ) {
+					if ( ! $pro_hovers || ! array_key_exists( $key, $pro_hovers ) ) {
 						$effect .= '<input type="radio" name="modula-settings[effect]" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
 					}
 
 					$effect .= '<div class="modula-preview-item-container">';
-					if ( array_key_exists( $key, $pro_hovers ) ) {
+					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
 						$effect  .= '<span class="modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
 						$class[]  = 'pro-only';
 					}
