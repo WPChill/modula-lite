@@ -119,9 +119,7 @@ class Modula_Compatibility {
 	 */
 	public function avada_check(){
 
-		$theme = wp_get_theme();
-
-		if ( 'avada' != strtolower($theme->get( 'TextDomain' )) ){
+		if ( !defined('AVADA_VERSION') || !class_exists('FusionReduxFramework') ){
 			return false;
 		}
 
@@ -141,9 +139,7 @@ class Modula_Compatibility {
 	 */
 	public function jetpack_check(){
 
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-		if ( !is_plugin_active( 'jetpack/jetpack.php' ) ){
+		if ( !class_exists('Jetpack') || !defined('JETPACK__VERSION') ){
 			return false;
 		}
 
