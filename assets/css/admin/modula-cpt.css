@@ -468,6 +468,10 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 	transform: translate3d(0,0,0);
 }
 
+tr[data-container="effect"] > td {
+	padding:15px 20px;
+}
+
 .modula-effects-preview .modula-item.effect-dexter .figc,
 .modula-effects-preview,
 .modula-effects-preview p {
