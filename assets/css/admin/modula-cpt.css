@@ -445,6 +445,92 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,0,0);
 }
 
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie h2.jtg-title {
+	color:#fff;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-zoe h2.jtg-title,
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-zoe .jtg-social a {
+	color:#000;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-preview-badge + .modula-item.effect-dexter .figc::after {
+	-webkit-transform: translate3d(0,-50%,0);
+	transform: translate3d(0,-50%,0);
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-milo:hover .description {
+	opacity:1;
+}
+
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-preview-badge + .modula-item.effect-dexter .figc:hover::after {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.modula-effects-preview .modula-item.effect-dexter .figc,
+.modula-effects-preview,
+.modula-effects-preview p {
+	box-sizing : border-box;
+}
+
+.modula-effects-preview .modula-item.effect-chico .figc,
+.modula-effects-preview .modula-item.effect-roxy .figc,
+.modula-effects-preview .modula-item.effect-layla .figc,
+.modula-effects-preview .modula-item.effect-oscar .figc,
+#poststuff .modula-effects-preview .modula-item .figc h2 {
+	padding : 0;
+}
+
+#poststuff .modula .modula-item.effect-reflex .figc-inner h2 {
+	padding-left : 10px;
+}
+
+#poststuff .modula .modula-items .modula-item.effect-comodo h2 {
+	margin-top : 20px;
+}
+
+#poststuff .modula .modula-item.effect-appear h2,
+#poststuff .modula .modula-item.effect-honey h2 {
+	padding : 1em 1.5em;
+}
+
+#poststuff .modula .modula-item.effect-milo h2 {
+	padding : 1em 1.2em;
+}
+
+.modula .modula-items .modula-item.effect-julia p {
+	margin  : 0 0 0.25em;
+	padding : 0.4em 1em;
+}
+
+#poststuff .modula .modula-item.effect-terry h2 {
+	padding : 0.4em 15px;
+}
+
+.modula .modula-items .modula-item.effect-apollo p {
+	margin  : 3em;
+	padding : 0 1em;
+}
+
+#poststuff .modula .modula-items .modula-item.effect-steve h2 {
+	margin-top : 2em;
+	padding    : 0.25em;
+	color      : #000;
+}
+
+.modula .modula-items .modula-item.effect-steve p {
+	margin-top : 1em;
+	padding    : 0.5em;
+	color      : #000;
+}
+
+.modula-effects-preview .modula-item.effect-under img {
+	top       : 50%;
+	left      : 50%;
+	transform : translate(-50%, -50%);
+}
+
 /* Upsells */
 .modula-upsell {
     background: #f1f1f1;
