@@ -568,9 +568,7 @@ class Modula_Field_Builder {
 							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'twitter' ) . '</a>';
 							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'facebook' ) . '</a>';
 							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'pinterest' ) . '</a>';
-							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'whatsapp' ) . '</a>';
 							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'linkedin' ) . '</a>';
-							$effect .= '<a href="#">' . Modula_Helper::get_icon( 'email' ) . '</a>';
 							$effect .= '</div>';
 						}
 
