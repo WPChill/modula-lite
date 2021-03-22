@@ -40,14 +40,14 @@ class Modula_Image {
 					if ( !$crop ){
 
 						$ratio  = (float)( (int)$image_full[1] / (int)$image_full[2] );
-						$width  = $sizes['width'];
-						$height = $sizes['height'];
+						$width  = absint($sizes['width']);
+						$height = absint($sizes['height']);
 
-						if ( 0 == $sizes['width'] || 0 == $sizes['height'] ){
+						if ( 0 == $width || 0 == $height ){
 							if ( 0 == $sizes['width'] ){
-								$width = $sizes['height'] * $ratio;
+								$width = $height * $ratio;
 							} else {
-								$height = $sizes['width'] / $ratio;
+								$height = $width / $ratio;
 							}
 						} elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
 
