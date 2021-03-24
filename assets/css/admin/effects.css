@@ -249,9 +249,9 @@
 	html body .modula-gallery .modula-items .effect-pufrobo .jtg-social {
 		opacity: 0;
 		/*transition: opacity 0.1s;*/
-		right:5%;
+		right: 30px;
 		position: absolute;
-		bottom:2.5%;
+		bottom: 2em;
 		text-align: right;
 		transition:all .3s;
 	}
@@ -442,7 +442,7 @@
 		transform: translate3d(0,0,0);
 	}
 
-	html body .modula-gallery .modula-item.effect-sarah .figc {
+	.modula-gallery .modula-item.effect-sarah .figc {
 		text-align: left;
 	}
 
@@ -493,8 +493,11 @@
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
-
-	html body .modula-gallery .modula-item.effect-sarah .jtg-social a {
+	.modula-gallery .modula-item.effect-sarah .jtg-social {
+		left: 30px;
+		right: auto;
+	}
+	.modula-gallery .modula-item.effect-sarah .jtg-social a {
 		padding:5px;
 		margin-right:10px;
 	}
@@ -530,6 +533,7 @@
 		left: 0;
 		padding: 5%;
 		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.modula-gallery .modula-item.effect-lily h2,
@@ -636,6 +640,7 @@
 		-webkit-transform: translate3d(0,10px,0);
 		transform: translate3d(0,10px,0);
 		z-index:99;
+		box-sizing: border-box;
 	}
 
 	.modula-gallery .modula-item.effect-sadie:hover h2 {
@@ -1468,6 +1473,10 @@
         padding:10px;
 	}
 
+	#poststuff .modula-effects-preview.modula-gallery .modula-item.effect-dexter .figc h2.jtg-title {
+		padding: 15px;
+	}
+
 	.modula-gallery .modula-item.effect-dexter .jtg-body {
 		position: absolute;
 		right: 8%;
@@ -1487,11 +1496,12 @@
 		transform: translate3d(0,0,0);
 	}
 
-	html body .modula-gallery .modula-item.effect-dexter .jtg-body .jtg-social {
+	.modula-gallery .modula-item.effect-dexter .jtg-body .jtg-social {
 		position: relative;
 		right: auto;
 		bottom: auto;
 		text-align: left;
+	    padding: 0 10px;
 	}
 
 	.modula-gallery .modula-item.effect-dexter .jtg-body .jtg-social a {
@@ -1733,6 +1743,7 @@
 
 	html body .modula-gallery .modula-items .modula-item.effect-julia .figc .figc-inner .jtg-social a {
 		padding:5px;
+		color: #000;
 	}
 
 	.modula-gallery .modula-item.effect-julia h2 {
@@ -2063,7 +2074,7 @@
 	}
 
 	.modula-gallery .modula-item.effect-terry .figc {
-		padding: 1em;
+		padding: 10px;
 	}
 
 	.modula-gallery:not(.modula-custom-grid) .modula-item.effect-terry .figc,
@@ -2127,7 +2138,7 @@
 		display: none;
 	}
 
-	html body .modula-gallery .modula-item.effect-terry .jtg-social {
+	.modula-gallery .modula-item.effect-terry .jtg-social {
 		float: right;
 		clear: both;
 		text-align: left;
@@ -2136,8 +2147,12 @@
 		position: relative;
 		right: auto;
 		bottom: auto;
-		margin-right: 25px;
-		margin-top: 15px;
+		/*margin-right: 25px;
+		margin-top: 15px;*/
+		width: 60px;
+		text-align: center;
+		padding: 5px 0 15px;
+
 	}
 
 	.modula-gallery .modula-item.effect-terry .jtg-social a {
@@ -2148,6 +2163,9 @@
 		-webkit-transform: translate3d(90px,0,0);
 		transform: translate3d(90px,0,0);
 		width: auto;
+		padding: 5px;
+		box-sizing: border-box;
+		margin-bottom: 10px;
 	}
 
 	.modula-gallery .modula-item.effect-terry:hover .figc::before,
@@ -3291,7 +3309,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: url(../images/triangle2.svg) no-repeat center center;
+		background: url(../../images/triangle2.svg) no-repeat center center;
 		background-size: cover;
 		content: '';
 		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -6606,8 +6624,12 @@ html body .modula-gallery.modula-custom-grid .modula-items .modula-item.effect-u
 	margin: 0 auto;
 }
 
-/* Dropdown Filters */
+.modula-effects-wrapper:after {
+	content: "";
+    width: 31%;
+}
 
+/* Dropdown Filters */
 select.filters {
 	/*background: transparent;*/
     font-size: 16px;
