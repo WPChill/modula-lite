@@ -15,27 +15,32 @@ $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() 
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 $troubleshooting_fields = array(
-		'disable_edit'  => array(
+		'disable_edit'          => array(
 				'label'       => esc_html__( 'Disable "Edit gallery" link', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'If you want to disable the "Edit gallery" link from the front-end check this option.', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'priority'    => 10,
 		),
-		'track_data'    => array(
+		'track_data'            => array(
 				'label'       => esc_html__( 'Track Data', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and Modula settings, which we will use to help us make improvements.', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'priority'    => 10,
 		),
-		'enqueue_files' => array(
-				'label'           => esc_html__( 'Enqueue Modula assets', 'modula-best-grid-gallery' ),
-				'description'     => esc_html__( 'Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery' ),
-				'type'            => 'toggle',
-				'default'         => 0,
-				'priority'        => 10,
-				'heading' => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
+		'enqueue_files_heaging' => array(
+				'label'    => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
+				'type'     => 'heading',
+				'priority' => 10,
 		),
-		'gridtypes'     => array(
+		'enqueue_files'         => array(
+				'label'       => esc_html__( 'Enqueue Modula assets', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'default'     => 0,
+				'priority'    => 10,
+				'heading'     => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
+		),
+		'gridtypes'             => array(
 				'label'       => esc_html__( 'Grid Types', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery' ),
 				'type'        => 'select',
@@ -47,7 +52,7 @@ $troubleshooting_fields = array(
 				'class'       => array( 'troubleshoot-subfield' ),
 
 		),
-		'lightboxes'    => array(
+		'lightboxes'            => array(
 				'label'       => esc_html__( 'Lightbox & links', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Enqueue Fancybox lightbox scripts and styles everywhere.', 'modula-best-grid-gallery' ),
 				'type'        => 'select',
@@ -57,14 +62,13 @@ $troubleshooting_fields = array(
 				'class'       => array( 'troubleshoot-subfield' ),
 				'priority'    => 30,
 		),
-		'lazy_load'     => array(
+		'lazy_load'             => array(
 				'label'       => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'class'       => array( 'troubleshoot-subfield' ),
 				'priority'    => 40,
 		),
-    
 );
 
 $troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
@@ -85,13 +89,9 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
                     $class[] = ' hide';
                 }
 
-				if ( isset( $ts_field['heading'] ) && '' != $ts_field['heading'] ){
-					echo '<tr><td colspan="2"><h2>' . esc_html( $ts_field['heading'] ) . '</h2></td></tr>';
-				}
-
 				?>
                 <tr valign="top" class="<?php echo esc_attr( implode( ' ', $class ) ) ?>">
-                    <th scope="row" valign="top">
+					<th scope="row" valign="top" <?php echo 'heading' == $ts_field['type'] ? 'colspan="2"' : ''; ?>>
                         <?php 
                         echo esc_html( $ts_field['label'] ); 
 
@@ -103,6 +103,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 
                         ?>
                     </th>
+					<?php if ('heading' != $ts_field['type']) { ?>
                     <td>
                         <div class="wrap modula">
                             <div class="">
@@ -147,6 +148,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
                             </div>
                         </div>
                     </td>
+					<?php } ?>
                 </tr>
                 <?php
             }
