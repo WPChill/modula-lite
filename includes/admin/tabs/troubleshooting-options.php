@@ -33,7 +33,7 @@ $troubleshooting_fields = array(
 				'priority'    => 10,
 		),
 		'enqueue_files_heaging' => array(
-				'label'       => esc_html__( 'Enqueue assets.', 'modula-best-grid-gallery' ),
+				'label'       => esc_html__( 'Enqueue assets on all pages.', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
 				'type'        => 'heading',
 				'priority'    => 10,
@@ -95,9 +95,9 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 
 				?>
                 <tr valign="top" class="<?php echo esc_attr( implode( ' ', $class ) ) ?>">
-					<th scope="row" valign="top" <?php echo 'heading' == $ts_field['type'] ? 'colspan="2"' : ''; ?>>
+					<th scope="row" style="width:300px;" valign="top" <?php echo 'heading' == $ts_field['type'] ? 'colspan="2"' : ''; ?>>
                         <?php
-						echo ( 'heading' == $ts_field['type'] ) ? '<h1>' . esc_html( $ts_field['label'] ) . '</h1>' : esc_html( $ts_field['label'] ) ;
+						echo ( 'heading' == $ts_field['type'] ) ? '<h2>' . esc_html( $ts_field['label'] ) . '</h2>' : esc_html( $ts_field['label'] ) ;
 
                         if ( isset( $ts_field['description'] )  ) {
                         	if('heading' != $ts_field['type']){
@@ -105,7 +105,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 								echo wp_kses_post( $ts_field['description'] );
 								echo '</div></div>';
 							} else {
-								echo '<h2>' . esc_html( $ts_field['description'] ) . '</h2>';
+								echo '<p style="font-weight:normal;">' . esc_html( $ts_field['description'] ) . '</p>';
 							}
                         }
                         ?>
