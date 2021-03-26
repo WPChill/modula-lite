@@ -86,7 +86,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
                 }
 
 				if ( isset( $ts_field['heading'] ) && '' != $ts_field['heading'] ){
-					echo '<tr><td colspan="2"><h4>' . esc_html( $ts_field['heading'] ) . '</h4></td></tr>';
+					echo '<tr><td colspan="2"><h2>' . esc_html( $ts_field['heading'] ) . '</h2></td></tr>';
 				}
 
 				?>
