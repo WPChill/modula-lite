@@ -15,6 +15,10 @@ $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() 
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 $troubleshooting_fields = array(
+		'misc_settings'         => array(
+				'label' => esc_html__( 'Miscelaneous settings', 'modula-best-grid-gallery' ),
+				'type'  => 'heading'
+		),
 		'disable_edit'          => array(
 				'label'       => esc_html__( 'Disable "Edit gallery" link', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'If you want to disable the "Edit gallery" link from the front-end check this option.', 'modula-best-grid-gallery' ),
@@ -28,9 +32,10 @@ $troubleshooting_fields = array(
 				'priority'    => 10,
 		),
 		'enqueue_files_heaging' => array(
-				'label'    => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
-				'type'     => 'heading',
-				'priority' => 10,
+				'label'       => esc_html__( 'Enqueue assets.', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
+				'type'        => 'heading',
+				'priority'    => 10,
 		),
 		'enqueue_files'         => array(
 				'label'       => esc_html__( 'Enqueue Modula assets', 'modula-best-grid-gallery' ),
@@ -38,7 +43,6 @@ $troubleshooting_fields = array(
 				'type'        => 'toggle',
 				'default'     => 0,
 				'priority'    => 10,
-				'heading'     => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
 		),
 		'gridtypes'             => array(
 				'label'       => esc_html__( 'Grid Types', 'modula-best-grid-gallery' ),
@@ -78,7 +82,6 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 
 ?>
 <div class="row">
-	<h1 class="wp-clearfix"><?php echo esc_html__( 'Miscelaneous settings', 'modula-best-grid-gallery' ); ?></h1>
     <form id="modula_troubleshooting_option" method="post">
         <table class="form-table">
             <tbody>
@@ -92,15 +95,18 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 				?>
                 <tr valign="top" class="<?php echo esc_attr( implode( ' ', $class ) ) ?>">
 					<th scope="row" valign="top" <?php echo 'heading' == $ts_field['type'] ? 'colspan="2"' : ''; ?>>
-                        <?php 
-                        echo esc_html( $ts_field['label'] ); 
+                        <?php
+						echo ( 'heading' == $ts_field['type'] ) ? '<h1>' . esc_html( $ts_field['label'] ) . '</h1>' : esc_html( $ts_field['label'] ) ;
 
-                        if ( isset( $ts_field['description'] ) ) {
-                            echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
-                            echo wp_kses_post( $ts_field['description'] );
-                            echo '</div></div>';
+                        if ( isset( $ts_field['description'] )  ) {
+                        	if('heading' != $ts_field['type']){
+								echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
+								echo wp_kses_post( $ts_field['description'] );
+								echo '</div></div>';
+							} else {
+								echo '<h2>' . esc_html( $ts_field['description'] ) . '</h2>';
+							}
                         }
-
                         ?>
                     </th>
 					<?php if ('heading' != $ts_field['type']) { ?>
