@@ -331,7 +331,7 @@ class Modula_Field_Builder {
 				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 
 				if(isset($field['afterrow'])){
-					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
 				}
 				break;
 			case 'number':
@@ -341,7 +341,7 @@ class Modula_Field_Builder {
 				}
 
 				if(isset($field['afterrow'])){
-					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
 				}
 				break;
 			case 'select' :
