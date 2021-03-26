@@ -16,8 +16,9 @@ $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 $troubleshooting_fields = array(
 		'misc_settings'         => array(
-				'label' => esc_html__( 'Miscelaneous settings', 'modula-best-grid-gallery' ),
-				'type'  => 'heading'
+				'label'    => esc_html__( 'Miscelaneous settings', 'modula-best-grid-gallery' ),
+				'type'     => 'heading',
+				'priority' => 0
 		),
 		'disable_edit'          => array(
 				'label'       => esc_html__( 'Disable "Edit gallery" link', 'modula-best-grid-gallery' ),
