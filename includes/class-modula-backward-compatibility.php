@@ -250,7 +250,7 @@ class Modula_Backward_Compatibility {
 			$settings[ 'grid_image_size' ]       = sanitize_text_field( 'custom' );
 			$settings[ 'grid_image_dimensions' ] = array(
 				'width'  => absint( $settings[ 'img_size' ] ),
-				'height' => ''
+				'height' => absint( $settings[ 'img_size' ] )
 			);
 
 			unset($settings[ 'img_size' ]);
