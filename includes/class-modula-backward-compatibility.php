@@ -247,20 +247,16 @@ class Modula_Backward_Compatibility {
 
 		if ( isset( $settings[ 'img_size' ] ) ) {
 
+			$settings[ 'grid_image_size' ] = 'custom';
 			if ( 'custom-grid' == $settings['type'] && ! isset( $settings['img_crop'] ) ) {
-				
 				$settings['img_crop'] = 1;
-
 			}else{
-
-				$settings[ 'grid_image_size' ]       = sanitize_text_field( 'custom' );
 				$settings[ 'grid_image_dimensions' ] = array(
 					'width'  => absint( $settings[ 'img_size' ] ),
 					'height' => absint( $settings[ 'img_size' ] )
 				);
 
 				unset($settings[ 'img_size' ]);
-
 			}
 
 			
