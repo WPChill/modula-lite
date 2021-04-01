@@ -246,11 +246,10 @@ class Modula_CPT_Fields_Helper {
 					"name"        => esc_html__( ' Image dimensions', 'modula-best-grid-gallery' ),
 					"type"        => "image-size",
 					"description" => esc_html__( 'Define image width. If Crop images isn\'t enabled, images will be proportional.', 'modula-best-grid-gallery' ),
-					'default'     => '1200',
+					'default'     => '600',
 					'is_child'    => true,
 					'priority'    => 38,
 				),
-
 				"img_size" => array(
 					"name"        => esc_html__( ' Block size', 'modula-best-grid-gallery' ),
 					"type"        => "text",
@@ -259,7 +258,14 @@ class Modula_CPT_Fields_Helper {
 					'is_child'    => true,
 					'priority'    => 38,
 				),
-
+				"img_crop" => array(
+					"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
+					"type"        => "toggle",
+					"description" => esc_html__( 'If this is enabled, images will be cropped down to exactly the sizes defined above.', 'modula-best-grid-gallery' ),
+					'default'     => 1,
+					'is_child'    => true,
+					'priority'    => 39,
+				),
 				"grid_image_crop" => array(
 					"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -749,7 +755,7 @@ class Modula_CPT_Fields_Helper {
 			'grid_type'             => '4',
 			'grid_image_size'       => 'medium',
 			'grid_image_crop'       => 0,
-			'grid_image_dimensions' => '1200',
+			'grid_image_dimensions' => '600',
 			'img_size'              => '200',
 			'grid_row_height'       => 150,
 			'grid_justify_last_row' => 'justify',

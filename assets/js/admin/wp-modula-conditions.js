@@ -228,22 +228,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		let rows = this.get( 'rows' ),
 			imagesizes = this.get( 'imagesizes' );
 
-		console.log( value );
-		console.log( wp.Modula.Settings.get( 'type') );
-
 		if ( 'custom' == value ) {
 			if ( 'custom-grid' == wp.Modula.Settings.get( 'type') ) {
-				rows.filter( '[data-container="img_size"], [data-container="grid_image_crop"]').show();
-				rows.filter( '[data-container="grid_image_dimensions"]').hide();
-				console.log( rows.filter( '[data-container="grid_image_dimensions"]') );
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').show();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
 			}else{
 				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
-				rows.filter( '[data-container="img_size"]').hide();
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').hide();
 			}
 			
 		} else {
 
-			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"]').hide();
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"], [data-container="img_crop"]').hide();
 		}
 
 		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );

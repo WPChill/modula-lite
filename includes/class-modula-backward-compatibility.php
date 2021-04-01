@@ -247,9 +247,9 @@ class Modula_Backward_Compatibility {
 
 		if ( isset( $settings[ 'img_size' ] ) ) {
 
-			if ( 'custom-grid' == $settings['type'] && ! isset( $settings['grid_image_crop'] ) ) {
+			if ( 'custom-grid' == $settings['type'] && ! isset( $settings['img_crop'] ) ) {
 				
-				$settings['grid_image_crop'] = 1;
+				$settings['img_crop'] = 1;
 
 			}else{
 
