@@ -223,11 +223,11 @@ class Modula_Backward_Compatibility {
 		}
 
 		// Set image sizes
-		if ( 'grid_image_dimensions' == $key && isset( $settings[ 'img_size' ] ) ) {
+		if ( 'grid_image_dimensions' == $key && isset( $settings[ 'img_size' ] ) && 'custom-grid' != $settings['type'] ) {
 
 			return array(
 				'width'  => absint( $settings[ 'img_size' ] ),
-				'height' => ''
+				'height' => absint( $settings[ 'img_size' ] )
 			);
 		}
 
@@ -247,13 +247,23 @@ class Modula_Backward_Compatibility {
 
 		if ( isset( $settings[ 'img_size' ] ) ) {
 
-			$settings[ 'grid_image_size' ]       = sanitize_text_field( 'custom' );
-			$settings[ 'grid_image_dimensions' ] = array(
-				'width'  => absint( $settings[ 'img_size' ] ),
-				'height' => absint( $settings[ 'img_size' ] )
-			);
+			if ( 'custom-grid' == $settings['type'] && ! isset( $settings['grid_image_crop'] ) ) {
+				
+				$settings['grid_image_crop'] = 1;
 
-			unset($settings[ 'img_size' ]);
+			}else{
+
+				$settings[ 'grid_image_size' ]       = sanitize_text_field( 'custom' );
+				$settings[ 'grid_image_dimensions' ] = array(
+					'width'  => absint( $settings[ 'img_size' ] ),
+					'height' => absint( $settings[ 'img_size' ] )
+				);
+
+				unset($settings[ 'img_size' ]);
+
+			}
+
+			
 		}
 
 		return $settings;

@@ -251,6 +251,15 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 38,
 				),
 
+				"img_size" => array(
+					"name"        => esc_html__( ' Block size', 'modula-best-grid-gallery' ),
+					"type"        => "text",
+					"afterrow"    => esc_html__( '👋 Block size setting allows you to choose how big one individual square(block) from the custom grid should be. For example, if you were to set the block size to 300 px and resize images in the custom grid to be as large as 4 x 4 squares, the image will be of size 1200 x 1200 px in size.', 'modula-best-grid-gallery' ),
+					'default'     => '200',
+					'is_child'    => true,
+					'priority'    => 38,
+				),
+
 				"grid_image_crop" => array(
 					"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
@@ -741,6 +750,7 @@ class Modula_CPT_Fields_Helper {
 			'grid_image_size'       => 'medium',
 			'grid_image_crop'       => 0,
 			'grid_image_dimensions' => '1200',
+			'img_size'              => '200',
 			'grid_row_height'       => 150,
 			'grid_justify_last_row' => 'justify',
 			'enable_responsive'     => 0,

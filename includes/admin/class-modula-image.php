@@ -5,9 +5,7 @@
  */
 class Modula_Image {
 	
-	function __construct() {
-		# code...
-	}
+	function __construct() {}
 
 	/**
 	 * Helper method to return the image size depending on image orientation( landscape/portrait ).
@@ -31,24 +29,26 @@ class Modula_Image {
 				'url' => $image_full[0],
 			);
 
-			$gallery_types = array('creative-gallery','custom-grid','grid');
+			$gallery_types = array( 'creative-gallery','custom-grid','grid' );
 
-			if(in_array($type,$gallery_types)){
+			if( in_array( $type, $gallery_types ) ) {
 
-				if ( is_array( $sizes ) && !empty($sizes) ) {
+				if ( is_array( $sizes ) && ! empty( $sizes ) ) {
 
-					if ( !$crop ){
+					if ( ! $crop ){
 
 						$ratio  = (float)( (int)$image_full[1] / (int)$image_full[2] );
 						$width  = absint($sizes['width']);
 						$height = absint($sizes['height']);
 
 						if ( 0 == $width || 0 == $height ){
+
 							if ( 0 == $sizes['width'] ){
 								$width = $height * $ratio;
 							} else {
 								$height = $width / $ratio;
 							}
+
 						} elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
 
 							if ( $sizes['width'] <= $sizes['height']   ){
@@ -56,6 +56,7 @@ class Modula_Image {
 							} else {
 								$width = $sizes['height'] * $ratio;
 							}
+
 						}
 
 						$return['width']  = (int)$width;
@@ -67,7 +68,7 @@ class Modula_Image {
 
 				} else {
 
-					$image_sizes = wp_get_attachment_image_src( $id, $sizes);
+					$image_sizes = wp_get_attachment_image_src( $id, $sizes );
 
 					if ( $image_sizes ){
 						$return['width']     = $image_sizes[1];
@@ -168,9 +169,9 @@ class Modula_Image {
         $suffix = "${dest_width}x${dest_height}";
 
         // Set alignment information on the file.
-        if ( $crop ) {
-            $suffix .= ( $align ) ? "_${align}" : "_c";
-        }
+        // if ( $crop ) {
+        //     $suffix .= ( $align ) ? "_${align}" : "_c";
+        // }
 
         // Get the destination file name
         $dest_file_name = "${dir}/${name}-${suffix}.${ext}";

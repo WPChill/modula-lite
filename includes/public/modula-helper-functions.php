@@ -18,15 +18,24 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$resizer = new Modula_Image();
 
 	if ( 'custom' == $settings['grid_image_size'] ){
-		$grid_sizes = array(
+
+		if ( 'custom-grid' == $settings['type'] ) {
+			$grid_sizes = array(
+				'width'  => absint($settings['img_size']) * absint( $item['width'] ),
+				'height' => absint($settings['img_size']) * absint( $item['height'] )
+			);
+		}else{
+			$grid_sizes = array(
 				'width'  => $settings['grid_image_dimensions']['width'],
 				'height' => $settings['grid_image_dimensions']['height']
-		);
+			);
+		}
+		
 	} else {
 		$grid_sizes = $settings['grid_image_size'];
 	}
 
-	$crop                                  = false;
+	$crop = false;
 
 	if ( 'custom' == $settings['grid_image_size'] ){
 		$crop = boolval( boolval( $settings['grid_image_crop'] ) );

@@ -55,7 +55,7 @@
 			);
 
 			// need this to model the image attributes
-      		$image = apply_filters('modula_shortcode_image_data',$image,$data->settings);
+      		$image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
 
 
 			/**

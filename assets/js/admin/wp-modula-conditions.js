@@ -99,6 +99,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter('[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
 		}
 
+		// Check image sizes
+		this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
+
 	},
 
 	changedCursor: function( settings, value ) {
@@ -225,12 +228,22 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		let rows = this.get( 'rows' ),
 			imagesizes = this.get( 'imagesizes' );
 
-		if ( 'custom' == value ) {
+		console.log( value );
+		console.log( wp.Modula.Settings.get( 'type') );
 
-			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
+		if ( 'custom' == value ) {
+			if ( 'custom-grid' == wp.Modula.Settings.get( 'type') ) {
+				rows.filter( '[data-container="img_size"], [data-container="grid_image_crop"]').show();
+				rows.filter( '[data-container="grid_image_dimensions"]').hide();
+				console.log( rows.filter( '[data-container="grid_image_dimensions"]') );
+			}else{
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
+				rows.filter( '[data-container="img_size"]').hide();
+			}
+			
 		} else {
 
-			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"]').hide();
 		}
 
 		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );
