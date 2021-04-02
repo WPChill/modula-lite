@@ -535,6 +535,12 @@ class Modula_Admin {
 				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
 			),
 			array(
+				'title'       => esc_html__( 'Pagination Addon', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Pagination allows you to display your gallery images in a paginated way.', 'modula-best-grid-gallery' ),
+				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
+				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
+			),
+			array(
 				'title'       => esc_html__( 'Video Addon', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'You asked we implemented, now you can add videos to your gallery.', 'modula-best-grid-gallery' ),
 				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
