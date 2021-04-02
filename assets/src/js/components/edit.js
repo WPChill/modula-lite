@@ -31,7 +31,7 @@ export const ModulaEdit = (props) => {
 	}, []);
 
 	useEffect(() => {
-		//Grab the instance and set it as atribute to access it when we want 
+		//Grab the instance and set it as atribute to access it when we want
 		jQuery(document).on('modula_api_after_init', function(event, inst) {
 			props.setAttributes({ instance: inst });
 		});
@@ -200,7 +200,7 @@ export const ModulaEdit = (props) => {
 		</BlockControls>
 	);
 
-	if ('none' === attributes.galleryType) {
+	if (id == 0 && 'none' === attributes.galleryType) {
 		return [
 			<Fragment>
 				<div className="modula-block-preview">
