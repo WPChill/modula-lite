@@ -19,7 +19,7 @@ class Modula_Admin_Helpers {
 	 */
 	function __construct() {
 		// added by Cristi
-		add_filter( 'screen_options_show_screen', array( $this, 'modula_hide_screen_options' ) );
+		//add_filter( 'screen_options_show_screen', array( $this, 'modula_hide_screen_options' ) );
 	}
 
 
