@@ -95,6 +95,20 @@ class Modula_Shortcode {
 
 		/* Get gallery settings */
 		$settings = get_post_meta( $atts['id'], 'modula-settings', true );
+
+		// Backwards compatibility for tablet & mobile gutter.
+		if ( isset( $settings['gutter'] ) ) {
+			
+			if ( !isset( $settings[ 'tablet_gutter' ] ) ) {
+				$settings[ 'tablet_gutter' ] = absint( $settings[ 'gutter' ] );
+			}
+
+			if ( !isset( $settings[ 'mobile_gutter' ] ) ) {
+				$settings[ 'mobile_gutter' ] = absint( $settings[ 'gutter' ] );
+			}
+
+		}
+
 		$default  = Modula_CPT_Fields_Helper::get_defaults();
 		$settings = wp_parse_args( $settings, $default );
 
