@@ -1,6 +1,7 @@
 = 2.5.1 - 05/04/2021 =
 Fixed: Gutter for mobile and tablet after Modula update from 2.4.1 to 2.5.0. Setting was displaying OK in backend but on frontend change wasn't displayed correctly
 Fixed: Backwards compatibility for custom grid image size after Modula update from 2.4.1 to 2.5.0. Setting showed same value although in frontend the setting worked
+Fixed: srcset generated a nonexistent image.
 
 = 2.5.0 - 01/04/2021 =
 Added: Only allow certain users to the Extensions page - https://github.com/WPChill/modula-lite/issues/476

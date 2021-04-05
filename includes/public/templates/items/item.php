@@ -16,7 +16,7 @@
 
 		$image_meta                    = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
 
-		if(property_exists($data,'image_info')){
+		if( ! empty( $data->image_info ) ){
 			$image_meta['sizes']['custom'] = array(
 					'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] .'.' . $data->image_info['ext'],
 					'width'     => $data->img_attributes['width'],
