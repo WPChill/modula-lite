@@ -17,10 +17,7 @@ class Modula_Admin_Helpers {
 	 *
 	 * @since 2.4.2
 	 */
-	function __construct() {
-		// added by Cristi
-		//add_filter( 'screen_options_show_screen', array( $this, 'modula_hide_screen_options' ) );
-	}
+	function __construct() {}
 
 
 	/**
@@ -116,20 +113,6 @@ class Modula_Admin_Helpers {
 		}
 	}
 
-	/**
-	 * Hide screen options when on Modula's CPT
-	 *
-	 * @since 2.4.2
-	 */
-	public function modula_hide_screen_options() {
-		global $pagenow;
-
-		if ( $pagenow === 'modula-gallery' ) {
-			__return_false();
-		} else {
-			__return_true();
-		}
-	}
 }
 
 $modula_admin_helpers = Modula_Admin_Helpers::get_instance();
