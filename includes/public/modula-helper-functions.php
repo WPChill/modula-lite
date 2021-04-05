@@ -285,7 +285,7 @@ function modula_add_scripts( $scripts, $settings ){
 /**Add the powered by text and link
  *
  * @param $settings
- * @moved here since 2.4.2
+ * @moved here since 2.5.0
  */
 function powered_by_modula( $settings ) {
 	if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {

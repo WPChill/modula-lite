@@ -6,7 +6,7 @@ class Modula_Admin_Helpers {
 	/**
 	 * Holds the class object.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 *
 	 * @var object
 	 */
@@ -15,7 +15,7 @@ class Modula_Admin_Helpers {
 	/**
 	 * Modula_Admin_Helpers constructor.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	function __construct() {}
 
@@ -24,7 +24,7 @@ class Modula_Admin_Helpers {
 	 * Returns the singleton instance of the class.
 	 *
 	 * @return object The Modula_Admin_Helpers object.
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public static function get_instance() {
 

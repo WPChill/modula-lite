@@ -96,7 +96,7 @@ class Modula_Addons {
 	/**
 	 * Reload addons in the Extensions tab
 	 *
-	 * @moved here from class-modula.php file in version 2.4.2
+	 * @moved here from class-modula.php file in version 2.5.0
 	 */
 	public function reload_extensions() {
 		// Run a security check first.

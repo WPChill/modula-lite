@@ -20,7 +20,7 @@ class Modula_Gutenberg {
 	/**
 	 * Register block type
 	 * 
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function register_block_type() {
 
@@ -41,7 +41,7 @@ class Modula_Gutenberg {
 	/**
 	 * Enqueue block assets
 	 * 
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function enqueue_block_assets() {
 		$screen = get_current_screen();
@@ -63,7 +63,7 @@ class Modula_Gutenberg {
 	/**
 	 * modulaVars generator
 	 * 
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function generate_js_vars() {
 
@@ -114,7 +114,7 @@ class Modula_Gutenberg {
 	/**
 	 * Gallery meta ajax callback
 	 * 
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 * 
 	 * @return object $images
 	 */
@@ -153,7 +153,7 @@ class Modula_Gutenberg {
 	/**
 	 * Get js config ajax callback
 	 * 
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 * 
 	 * @return object $js_config
  	 */

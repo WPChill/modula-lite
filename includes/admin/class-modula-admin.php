@@ -510,7 +510,7 @@ class Modula_Admin {
 	/**
 	 *  Add LITE vs PRO page
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function lite_vs_pro() {
 

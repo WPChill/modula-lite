@@ -6,7 +6,7 @@ class Modula_Debug {
 	/**
 	 * Holds the class object.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 *
 	 * @var object
 	 */
@@ -15,7 +15,7 @@ class Modula_Debug {
 	/**
 	 * Modula_Debug constructor.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	function __construct() {
 		// Add Modula's debug information
@@ -33,7 +33,7 @@ class Modula_Debug {
 	 * Returns the singleton instance of the class.
 	 *
 	 * @return object The Modula_Debug object.
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public static function get_instance() {
 
@@ -51,7 +51,7 @@ class Modula_Debug {
 	 * @param $info
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_debug_information($info){
 
@@ -134,7 +134,7 @@ class Modula_Debug {
 	/**
 	 * Export single gallery
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_export_gallery(){
 
@@ -262,7 +262,7 @@ class Modula_Debug {
 	 * @param string $str String to wrap in XML CDATA tag.
 	 *
 	 * @return string
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 *
 	 */
 	private	function wxr_cdata( $str ){
@@ -278,7 +278,7 @@ class Modula_Debug {
 	/**
 	 * Add Debug metabox
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function debug_meta_box_setup() {
 
@@ -290,7 +290,7 @@ class Modula_Debug {
 	/**
 	 * Add Debug metabox
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function add_debug_meta_box() {
 		add_meta_box(

@@ -6,7 +6,7 @@ class Modula_Compatibility {
 	/**
 	 * Holds the class object.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 *
 	 * @var object
 	 */
@@ -15,7 +15,7 @@ class Modula_Compatibility {
 	/**
 	 * Modula_Compatibility constructor.
 	 *
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	function __construct() {
 
@@ -33,7 +33,7 @@ class Modula_Compatibility {
 	 * Returns the singleton instance of the class.
 	 *
 	 * @return object The Modula_Compatibility object.
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public static function get_instance() {
 
@@ -52,7 +52,7 @@ class Modula_Compatibility {
 	 * @param       $description
 	 *
 	 * @return string
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function generate_compatibility_box( $description ) {
 
@@ -69,7 +69,7 @@ class Modula_Compatibility {
 	 * @param $tab_content
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_lazyloading_compatibilty_admin( $tab_content ) {
 
@@ -156,7 +156,7 @@ class Modula_Compatibility {
 	 * Check if other lazyloading software is used
 	 *
 	 * @return bool
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function check_lazyloading() {
 
@@ -175,7 +175,7 @@ class Modula_Compatibility {
 	 * @param $field
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_lazyloading_compatibilty_admin_field( $format, $field ) {
 
@@ -195,7 +195,7 @@ class Modula_Compatibility {
 	 * @param $js_config
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_gallery_config_compatibility( $js_config ) {
 
@@ -211,7 +211,7 @@ class Modula_Compatibility {
 	 * Dequeue Modula's lazyload script
 	 *
 	 * @return bool
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_lazyload_compatibility_script($return) {
 
@@ -231,7 +231,7 @@ class Modula_Compatibility {
 	 * Return item data if other lazyloading is enabled
 	 *
 	 * @return bool
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function modula_lazyload_compatibility_item() {
 
@@ -250,7 +250,7 @@ class Modula_Compatibility {
 	 * @param $settings
 	 *
 	 * @return int
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function lazyload_admin_compatibility( $value, $key, $settings ){
 
@@ -271,7 +271,7 @@ class Modula_Compatibility {
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function lazyload_backbone_compatibility( $settings ){
 

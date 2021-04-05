@@ -22,7 +22,7 @@ class Modula_Backward_Compatibility {
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_fancybox' ), 10 );
 		// Responsive gutter
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_responsive_gutter' ), 10, 3 );
-		add_filter( 'modula_gallery_settings', array( $this, 'backward_compatibility_front_responsive_gutter' ), 10, 3 );
+		add_filter( 'modula_backwards_compatibility_front', array( $this, 'backward_compatibility_front_responsive_gutter' ), 10 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_responsive_gutter' ), 10 );
 
 		// Thumbnail sizes
@@ -144,7 +144,7 @@ class Modula_Backward_Compatibility {
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function backward_compatibility_admin_responsive_gutter( $value, $key, $settings ) {
 
@@ -163,23 +163,27 @@ class Modula_Backward_Compatibility {
 	/**
 	 *  Backwards compatibility for responsie gutter
 	 *
-	 * @param $js_config
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
-	public function backward_compatibility_front_responsive_gutter( $js_config, $settings ) {
+	public function backward_compatibility_front_responsive_gutter( $settings ) {
 
-		if ( !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
-			$js_config[ 'mobileGutter' ] = absint( $settings[ 'gutter' ] );
+		// Backwards compatibility for tablet & mobile gutter.
+		if ( isset( $settings['gutter'] ) ) {
+
+			if ( ! isset( $settings['tablet_gutter'] ) ) {
+				$settings['tablet_gutter'] = absint( $settings['gutter'] );
+			}
+
+			if ( ! isset( $settings['mobile_gutter'] ) ) {
+				$settings['mobile_gutter'] = absint( $settings['gutter'] );
+			}
+
 		}
 
-		if ( !isset( $settings[ 'tablet_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
-			$js_config[ 'tabletGutter' ] = absint( $settings[ 'gutter' ] );
-		}
-
-		return $js_config;
+		return $settings;
 
 	}
 
@@ -189,7 +193,7 @@ class Modula_Backward_Compatibility {
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function backward_compatibility_backbone_responsive_gutter( $settings ) {
 
@@ -213,7 +217,7 @@ class Modula_Backward_Compatibility {
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function backward_compatibility_admin_thumb_size( $value, $key, $settings ){
 
@@ -241,7 +245,7 @@ class Modula_Backward_Compatibility {
 	 * @param $settings
 	 *
 	 * @return mixed
-	 * @since 2.4.2
+	 * @since 2.5.0
 	 */
 	public function backward_compatibility_backbone_thumb_size( $settings ){
 
