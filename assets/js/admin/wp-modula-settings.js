@@ -51,6 +51,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.initSliders();
             this.initColorPickers();
             this.initCustomCSS();
+            this.expandGalleryContainer();
 
         },
 
@@ -191,6 +192,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 });
             }
         },
+        expandGalleryContainer: function () {
+            $( '#modula-preview-gallery' ).removeClass( 'closed' );
+        }
        
     });
 
