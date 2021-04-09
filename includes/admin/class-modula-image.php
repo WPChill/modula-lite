@@ -41,15 +41,13 @@ class Modula_Image {
 						$width  = absint($sizes['width']);
 						$height = absint($sizes['height']);
 
-						if ( 0 == $width || 0 == $height ){
-
-							if ( 0 == $sizes['width'] ){
-								$width = $height * $ratio;
-							} else {
-								$height = $width / $ratio;
-							}
-
-						} elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
+                        if (0 == $width || 0 == $height) {
+                            if (0 == $width) {
+                                $width = $height * $ratio;
+                            } else {
+                                $height = $width / $ratio;
+                            }
+                        } elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
 
 							if ( $sizes['width'] <= $sizes['height']   ){
 								$height = $sizes['width'] / $ratio;
