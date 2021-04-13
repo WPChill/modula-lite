@@ -36,7 +36,7 @@ export const ModulaEdit = (props) => {
 			props.setAttributes({ instance: inst });
 		});
 
-		if (props.attributes.instance != undefined && settings != undefined && settings.type == 'columns') {
+		if (props.attributes.instance != undefined && settings != undefined && settings.type == 'grid') {
 			props.attributes.instance.reset(props.attributes.instance);
 		}
 	});
