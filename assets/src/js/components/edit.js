@@ -58,9 +58,8 @@ export const ModulaEdit = (props) => {
 		if (idCheck != id || undefined == settings) {
 			getSettings(id);
 		}
-		setAttributes({ id: id, images: JSON.parse(result), status: 'ready' });
+		setAttributes({ id: id, images: result, status: 'ready' });
 	};
-
 	const getSettings = (id) => {
 		fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`).then((res) => res.json()).then((result) => {
 			let settings = result;
@@ -97,9 +96,7 @@ export const ModulaEdit = (props) => {
 					modulaSettings = jQuery(this).data('config');
 				modulaSettings.lazyLoad = 0;
 
-				if (undefined != modulaSettings && undefined !== checker.type && checker.type == modulaSettings.type) {
-					jQuery(this).modulaGallery(modulaSettings);
-				}
+				jQuery(this).modulaGallery(modulaSettings);
 			});
 		}
 	};
@@ -153,7 +150,7 @@ export const ModulaEdit = (props) => {
 			},
 			url: modulaVars.ajaxURL,
 			success: (result) => {
-				setAttributes({ effectCheck: JSON.parse(result) });
+				setAttributes({ effectCheck: result });
 			}
 		});
 	};

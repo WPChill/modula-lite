@@ -144,7 +144,7 @@ class Modula_Gutenberg {
 			$images[ $key ]['height']      = $image_obj[2];
 		endforeach;
 
-		echo json_encode( $images );
+		wp_send_json( $images );
 
 		die();
 
@@ -207,7 +207,7 @@ class Modula_Gutenberg {
 
 		$effect_check = Modula_Helper::hover_effects_elements( $effect );
 
-		echo json_encode( $effect_check );
+		wp_send_json( $effect_check );
 
 		die();
 
