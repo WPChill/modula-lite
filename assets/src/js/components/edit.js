@@ -36,11 +36,8 @@ export const ModulaEdit = (props) => {
 			props.setAttributes({ instance: inst });
 		});
 
-		if (alignmentCheck != props.attributes.align) {
-			if (props.attributes.instance != undefined) {
-				props.attributes.instance.onResize(props.attributes.instance);
-				setAlignment(props.attributes.align);
-			}
+		if (props.attributes.instance != undefined) {
+			props.attributes.instance.reset(props.attributes.instance);
 		}
 	});
 
@@ -65,25 +62,23 @@ export const ModulaEdit = (props) => {
 	};
 
 	const getSettings = (id) => {
-		fetch(`${modulaVars.restURL}wp/v2/modula-gallery`).then((res) => res.json()).then((result) => {
-			let settings = result.filter((gallery) => {
-				return id == gallery.id;
-			});
-
+		fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`).then((res) => res.json()).then((result) => {
+			let settings = result;
 			setAttributes({ status: 'loading' });
 			jQuery.ajax({
 				type: 'POST',
 				data: {
 					action: 'modula_get_jsconfig',
 					nonce: modulaVars.nonce,
-					settings: settings[0].modulaSettings
+					settings: settings.modulaSettings
 				},
 				url: modulaVars.ajaxURL,
 				success: (result) => {
 					let galleryId = Math.floor(Math.random() * 999);
+
 					setAttributes({
 						galleryId: galleryId,
-						settings: settings[0].modulaSettings,
+						settings: settings.modulaSettings,
 						jsConfig: result,
 						status: 'ready'
 					});
