@@ -8,7 +8,7 @@ import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
 	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
-	
+
 	useEffect(() => {
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
@@ -43,11 +43,11 @@ export const ModulaGallery = (props) => {
 				className={`${galleryClassNames} ${props.attributes.modulaDivClassName != undefined
 					? props.attributes.modulaDivClassName
 					: ''}`}
-				data-config={jsConfig}
+				data-config={JSON.stringify(jsConfig)}
 			>
 				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div class="modula-grid-sizer"> </div>}
 				<ModulaItemsExtraComponent {...props} position={'top'} />
-				<div className={itemsClassNames} >
+				<div className={itemsClassNames}>
 					{images.length > 0 && (
 						<Fragment>
 							<Fragment>

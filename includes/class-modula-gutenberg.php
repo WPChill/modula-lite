@@ -19,7 +19,7 @@ class Modula_Gutenberg {
 
 	/**
 	 * Register block type
-	 * 
+	 *
 	 * @since 2.5.0
 	 */
 	public function register_block_type() {
@@ -40,12 +40,12 @@ class Modula_Gutenberg {
 
 	/**
 	 * Enqueue block assets
-	 * 
+	 *
 	 * @since 2.5.0
 	 */
 	public function enqueue_block_assets() {
 		$screen = get_current_screen();
-		if ('post' == $screen->post_type  || 'page' == $screen->post_type ) { 
+		if ('post' == $screen->post_type  || 'page' == $screen->post_type ) {
 			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 			do_action( 'modula_block_style' );
@@ -55,14 +55,14 @@ class Modula_Gutenberg {
 			wp_enqueue_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 			do_action( 'modula_block_scripts' );
-			
+
 			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/front/jquery-modula.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		}
 	}
 
 	/**
 	 * modulaVars generator
-	 * 
+	 *
 	 * @since 2.5.0
 	 */
 	public function generate_js_vars() {
@@ -83,9 +83,9 @@ class Modula_Gutenberg {
 
 	/**
 	 * Render modula gallery callback function for block
-	 * 
+	 *
 	 * @param array $atts
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function render_modula_gallery( $atts ) {
@@ -96,26 +96,26 @@ class Modula_Gutenberg {
 		if ( ! isset( $atts['align'] ) ) {
 			$atts['align'] = '';
 		}
-		
+
 		if( isset($atts['galleryType'] ) && $atts['galleryType'] != 'gallery' ) {
-			
+
 			$html = apply_filters( 'modula_render_defaults_block', 'An error occured', $atts );
 
 			return $html;
 		} else {
-			
+
 			return '[modula id=' . absint($atts['id']) . ' align=' . esc_attr($atts['align']) . ']';
-			
+
 		}
 
-		
+
 	}
 
 	/**
 	 * Gallery meta ajax callback
-	 * 
+	 *
 	 * @since 2.5.0
-	 * 
+	 *
 	 * @return object $images
 	 */
 	public function get_gallery_meta() {
@@ -152,21 +152,21 @@ class Modula_Gutenberg {
 
 	/**
 	 * Get js config ajax callback
-	 * 
+	 *
 	 * @since 2.5.0
-	 * 
+	 *
 	 * @return object $js_config
  	 */
     public function get_jsconfig() {
 		$nonce = $_POST['nonce'];
 		$settings = $_POST['settings'] ;
-		
+
 
         if( !wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
             wp_send_json_error();
             die();
 		}
-		
+
 		$type = 'creative-gallery';
 		if ( isset( $settings['type'] ) ) {
 			$type = $settings['type'];
@@ -180,23 +180,23 @@ class Modula_Gutenberg {
 			$inView = true;
         }
 
-        
+
         $js_config = Modula_Shortcode::get_jsconfig( $settings, $type, $inView );
-        echo json_encode( $js_config );
-        
+        wp_send_json( $js_config );
+
 
         die();
 	}
 
 	/**
 	 * Check hover effects ajax callback
-	 * 
+	 *
 	 * @param string $effect
-	 * 
+	 *
 	 * @return array $effect_check
 	 */
 	public function check_hover_effect( $effect ) {
-		
+
 		$nonce = $_POST['nonce'];
 		$effect = $_POST['effect'];
 
@@ -204,9 +204,9 @@ class Modula_Gutenberg {
             wp_send_json_error();
             die();
 		}
-		
+
 		$effect_check = Modula_Helper::hover_effects_elements( $effect );
-		
+
 		echo json_encode( $effect_check );
 
 		die();

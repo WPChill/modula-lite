@@ -95,13 +95,9 @@ export const ModulaEdit = (props) => {
 			jQuery.each(modulaGalleries, function() {
 				var modulaID = jQuery(this).attr('id'),
 					modulaSettings = jQuery(this).data('config');
-
 				modulaSettings.lazyLoad = 0;
-				if (
-					undefined != modulaSettings &&
-					undefined !== JSON.parse(checker).type &&
-					JSON.parse(checker).type == modulaSettings.type
-				) {
+
+				if (undefined != modulaSettings && undefined !== checker.type && checker.type == modulaSettings.type) {
 					jQuery(this).modulaGallery(modulaSettings);
 				}
 			});
