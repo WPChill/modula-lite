@@ -36,7 +36,7 @@ export const ModulaEdit = (props) => {
 			props.setAttributes({ instance: inst });
 		});
 
-		if (props.attributes.instance != undefined) {
+		if (props.attributes.instance != undefined && settings != undefined && settings.type == 'columns') {
 			props.attributes.instance.reset(props.attributes.instance);
 		}
 	});
@@ -202,6 +202,9 @@ export const ModulaEdit = (props) => {
 					<div className="modula-block-preview__content">
 						<div className="modula-block-preview__logo" />
 						<div className="modula-button-group">
+							{galleries.length == 0 && (
+								<p> {__('Sorry no galleries found', 'modula-best-grid-gallery')} </p>
+							)}
 							{galleries.length > 0 && (
 								<Button
 									className="modula-button"
@@ -214,7 +217,8 @@ export const ModulaEdit = (props) => {
 									{icons.chevronRightFancy}
 								</Button>
 							)}
-							{undefined == props.attributes.proInstalled && (
+							{undefined == props.attributes.proInstalled &&
+							galleries.length > 0 && (
 								<Button
 									href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
 									className="modula-button-upsell"
