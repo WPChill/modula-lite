@@ -15,7 +15,7 @@ class Modula_Gutenberg {
 	/**
 	 * Main construct function
 	 */
-	protected function __construct() {
+	function __construct() {
 
 		// Return early if this function does not exist.
 		if ( ! function_exists( 'register_block_type' ) ) {
