@@ -1,3 +1,5 @@
+import ModulaGallerySearch from './ModulaGallerySearch';
+
 /**
  * WordPress dependencies
  */
@@ -10,7 +12,7 @@ const { SelectControl, Button, PanelBody } = wp.components;
  * Inspector controls
  */
 const Inspector = (props) => {
-	const { attributes, setAttributes, galleries } = props;
+	const { attributes, setAttributes, galleries, onIdChange } = props;
 	const { id } = attributes;
 
 	return (
@@ -19,13 +21,7 @@ const Inspector = (props) => {
 				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
 					{galleries.length > 0 && (
 						<Fragment>
-							<SelectControl
-								key={id}
-								label={__('Select Gallery', 'modula-best-grid-gallery')}
-								value={id}
-								options={props.selectOptions()}
-								onChange={(value) => props.onIdChange(parseInt(value))}
-							/>
+							<ModulaGallerySearch {...props} id={id} key={id} value={id} onIdChange={onIdChange} />
 							{id != 0 && (
 								<Button
 									target="_blank"

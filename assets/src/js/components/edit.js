@@ -3,6 +3,7 @@
  */
 import Inspector from './inspector';
 import ModulaGallery from './ModulaGallery';
+import ModulaGallerySearch from './ModulaGallerySearch';
 import icons from '../utils/icons';
 /**
  * WordPress dependencies
@@ -42,6 +43,9 @@ export const ModulaEdit = (props) => {
 	});
 
 	const onIdChange = (id) => {
+		if (isNaN(id)) {
+			return;
+		}
 		jQuery.ajax({
 			type: 'POST',
 			data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
@@ -254,12 +258,7 @@ export const ModulaEdit = (props) => {
 						<div className="modula-block-preview__logo" />
 						{galleries.length > 0 && (
 							<Fragment>
-								<SelectControl
-									key={id}
-									value={id}
-									options={selectOptions(galleries)}
-									onChange={(value) => onIdChange(parseInt(value))}
-								/>
+								<ModulaGallerySearch id={id} key={id} value={id} onIdChange={onIdChange} />
 
 								{id != 0 && (
 									<Button
@@ -281,7 +280,7 @@ export const ModulaEdit = (props) => {
 		return [
 			<Fragment>
 				{blockControls}
-				<Inspector onIdChange={(id) => onIdChange(id)} selectOptions={selectOptions} {...props} />
+				<Inspector onIdChange={onIdChange} {...props} />
 				<ModulaGallery
 					{...props}
 					settings={settings}
@@ -302,7 +301,7 @@ const applyWithSelect = withSelect((select, props) => {
 	const { getEntityRecords } = select('core');
 	const query = {
 		post_status: 'publish',
-		per_page: -1
+		per_page: 1
 	};
 
 	return {
