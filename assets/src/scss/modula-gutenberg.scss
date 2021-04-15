@@ -23,8 +23,16 @@ html body .modula-block-preview {
 		}
 	}
 
-	.modula-gallery-input .selectize-dropdown-content {
-		max-height: 100px;
+	.modula-gallery-input {
+
+		.selectize-dropdown-content {
+			max-height: 100px;
+		}
+
+		.selectize-input::after {
+			content: '';
+			border: 0;
+		}
 	}
 }
 

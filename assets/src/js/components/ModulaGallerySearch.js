@@ -8,6 +8,7 @@ const { __experimentalInputControl } = wp.components;
 
 export const ModulaGallerySearch = (props) => {
 	const { onIdChange, id } = props;
+
 	useEffect(() => {
 		jQuery('.modula-gallery-input').selectize({
 			valueField: 'value',
@@ -15,6 +16,7 @@ export const ModulaGallerySearch = (props) => {
 			searchField: [ 'label', 'value' ],
 			create: false,
 			maxItems: 1,
+			placeholder: 'Search for a gallery...',
 			preload: true,
 			allowEmptyOptions: true,
 			closeAfterSelect: true,
@@ -46,27 +48,12 @@ export const ModulaGallerySearch = (props) => {
 				});
 			},
 			onChange: (value) => {
-				if (isNaN(value) || '' == value) {
-					return;
-				} else {
-					onIdChange(value);
-				}
+				onIdChange(value);
 			}
 		});
 	}, []);
 
-	const getLabelValue = () => {
-		jQuery('.modula-gallery-input ');
-	};
-
-	return (
-		<input
-			type="select-one"
-			className="modula-gallery-input"
-			placeholder="Please type your gallery name or id"
-			value={'0' == id ? '' : id}
-		/>
-	);
+	return <input className="modula-gallery-input" value={'0' == id ? '' : id} />;
 };
 
 export default ModulaGallerySearch;

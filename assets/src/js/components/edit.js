@@ -43,9 +43,11 @@ export const ModulaEdit = (props) => {
 	});
 
 	const onIdChange = (id) => {
+		console.log(id);
 		if (isNaN(id)) {
 			return;
 		}
+		id = parseInt(id);
 		jQuery.ajax({
 			type: 'POST',
 			data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
@@ -55,6 +57,7 @@ export const ModulaEdit = (props) => {
 	};
 
 	const onGalleryLoaded = (id, result) => {
+		console.log(id);
 		if (result.success === false) {
 			setAttributes({ id: id, status: 'ready' });
 			return;
@@ -280,7 +283,12 @@ export const ModulaEdit = (props) => {
 		return [
 			<Fragment>
 				{blockControls}
-				<Inspector onIdChange={onIdChange} {...props} />
+				<Inspector
+					onIdChange={(id) => {
+						onIdChange(id);
+					}}
+					{...props}
+				/>
 				<ModulaGallery
 					{...props}
 					settings={settings}
