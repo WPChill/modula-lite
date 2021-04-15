@@ -43,7 +43,6 @@ export const ModulaEdit = (props) => {
 	});
 
 	const onIdChange = (id) => {
-		console.log(id);
 		if (isNaN(id)) {
 			return;
 		}
@@ -57,7 +56,6 @@ export const ModulaEdit = (props) => {
 	};
 
 	const onGalleryLoaded = (id, result) => {
-		console.log(id);
 		if (result.success === false) {
 			setAttributes({ id: id, status: 'ready' });
 			return;
