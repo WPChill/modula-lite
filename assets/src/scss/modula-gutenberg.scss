@@ -3,7 +3,8 @@ html body .modula-block-preview {
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
-	
+	height: 250px;
+
 	.components-spinner {
 		display: block;
 		float: none;
@@ -15,10 +16,24 @@ html body .modula-block-preview {
 		max-width: 400px;
 		margin: 40px auto;
 		text-align: center;
-	
+
 		select.components-select-control__input {
 			min-height:40px;
 			line-height:20px;
+		}
+	}
+
+	.modula-gallery-input {
+		text-align: left;
+
+
+		.selectize-dropdown-content {
+			max-height: 100px;
+		}
+
+		.selectize-input::after {
+			content: '';
+			border: 0;
 		}
 	}
 }
@@ -96,7 +111,7 @@ html body .modula-block-preview {
 	border: 1px solid #e3e5e5;
 	position: relative;
 	width: calc(100% + 20px);
-	
+
 	svg {
 		position: absolute;
 		right: 5px;

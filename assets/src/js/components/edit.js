@@ -3,6 +3,7 @@
  */
 import Inspector from './inspector';
 import ModulaGallery from './ModulaGallery';
+import ModulaGallerySearch from './ModulaGallerySearch';
 import icons from '../utils/icons';
 /**
  * WordPress dependencies
@@ -36,15 +37,16 @@ export const ModulaEdit = (props) => {
 			props.setAttributes({ instance: inst });
 		});
 
-		if (alignmentCheck != props.attributes.align) {
-			if (props.attributes.instance != undefined) {
-				props.attributes.instance.onResize(props.attributes.instance);
-				setAlignment(props.attributes.align);
-			}
+		if (props.attributes.instance != undefined && settings != undefined && settings.type == 'grid') {
+			props.attributes.instance.reset(props.attributes.instance);
 		}
 	});
 
 	const onIdChange = (id) => {
+		if (isNaN(id)) {
+			return;
+		}
+		id = parseInt(id);
 		jQuery.ajax({
 			type: 'POST',
 			data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
@@ -61,29 +63,26 @@ export const ModulaEdit = (props) => {
 		if (idCheck != id || undefined == settings) {
 			getSettings(id);
 		}
-		setAttributes({ id: id, images: JSON.parse(result), status: 'ready' });
+		setAttributes({ id: id, images: result, status: 'ready' });
 	};
-
 	const getSettings = (id) => {
-		fetch(`${modulaVars.restURL}wp/v2/modula-gallery`).then((res) => res.json()).then((result) => {
-			let settings = result.filter((gallery) => {
-				return id == gallery.id;
-			});
-
+		fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`).then((res) => res.json()).then((result) => {
+			let settings = result;
 			setAttributes({ status: 'loading' });
 			jQuery.ajax({
 				type: 'POST',
 				data: {
 					action: 'modula_get_jsconfig',
 					nonce: modulaVars.nonce,
-					settings: settings[0].modulaSettings
+					settings: settings.modulaSettings
 				},
 				url: modulaVars.ajaxURL,
 				success: (result) => {
 					let galleryId = Math.floor(Math.random() * 999);
+
 					setAttributes({
 						galleryId: galleryId,
-						settings: settings[0].modulaSettings,
+						settings: settings.modulaSettings,
 						jsConfig: result,
 						status: 'ready'
 					});
@@ -100,15 +99,9 @@ export const ModulaEdit = (props) => {
 			jQuery.each(modulaGalleries, function() {
 				var modulaID = jQuery(this).attr('id'),
 					modulaSettings = jQuery(this).data('config');
-
 				modulaSettings.lazyLoad = 0;
-				if (
-					undefined != modulaSettings &&
-					undefined !== JSON.parse(checker).type &&
-					JSON.parse(checker).type == modulaSettings.type
-				) {
-					jQuery(this).modulaGallery(modulaSettings);
-				}
+
+				jQuery(this).modulaGallery(modulaSettings);
 			});
 		}
 	};
@@ -162,7 +155,7 @@ export const ModulaEdit = (props) => {
 			},
 			url: modulaVars.ajaxURL,
 			success: (result) => {
-				setAttributes({ effectCheck: JSON.parse(result) });
+				setAttributes({ effectCheck: result });
 			}
 		});
 	};
@@ -207,6 +200,9 @@ export const ModulaEdit = (props) => {
 					<div className="modula-block-preview__content">
 						<div className="modula-block-preview__logo" />
 						<div className="modula-button-group">
+							{galleries.length == 0 && (
+								<p> {__('Sorry no galleries found', 'modula-best-grid-gallery')} </p>
+							)}
 							{galleries.length > 0 && (
 								<Button
 									className="modula-button"
@@ -219,7 +215,8 @@ export const ModulaEdit = (props) => {
 									{icons.chevronRightFancy}
 								</Button>
 							)}
-							{undefined == props.attributes.proInstalled && (
+							{undefined == props.attributes.proInstalled &&
+							galleries.length > 0 && (
 								<Button
 									href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
 									className="modula-button-upsell"
@@ -262,12 +259,7 @@ export const ModulaEdit = (props) => {
 						<div className="modula-block-preview__logo" />
 						{galleries.length > 0 && (
 							<Fragment>
-								<SelectControl
-									key={id}
-									value={id}
-									options={selectOptions(galleries)}
-									onChange={(value) => onIdChange(parseInt(value))}
-								/>
+								<ModulaGallerySearch id={id} key={id} value={id} onIdChange={onIdChange} />
 
 								{id != 0 && (
 									<Button
@@ -289,7 +281,12 @@ export const ModulaEdit = (props) => {
 		return [
 			<Fragment>
 				{blockControls}
-				<Inspector onIdChange={(id) => onIdChange(id)} selectOptions={selectOptions} {...props} />
+				<Inspector
+					onIdChange={(id) => {
+						onIdChange(id);
+					}}
+					{...props}
+				/>
 				<ModulaGallery
 					{...props}
 					settings={settings}
@@ -310,7 +307,7 @@ const applyWithSelect = withSelect((select, props) => {
 	const { getEntityRecords } = select('core');
 	const query = {
 		post_status: 'publish',
-		per_page: -1
+		per_page: 1
 	};
 
 	return {
