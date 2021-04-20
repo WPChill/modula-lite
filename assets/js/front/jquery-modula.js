@@ -520,24 +520,19 @@ jQuery(window).on('elementor/frontend/init', function () {
 			return;
 		}
 
-		if ('undefined' == typeof source.attr('width') && 'undefined' == typeof source.attr('height')) {
-			var img = new Image();
-			img.onload = function() {
-				size = { width: this.width, height: this.height };
-				source.data('size', size);
-				instance.placeImage(index);
-			};
-
-			if ('undefined' != source.attr('src')) {
-				img.src = source.attr('src');
-				
-			} else {
-				img.src = source.data('src');
-			}
-		} else {
-			size = { width: source.width(), height: source.height() };
+		var img = new Image();
+		img.onload = function() {
+			size = { width: this.width, height: this.height };
+			console.log( size );
 			source.data('size', size);
 			instance.placeImage(index);
+		};
+
+		if ('undefined' != source.attr('src')) {
+			img.src = source.attr('src');
+			
+		} else {
+			img.src = source.data('src');
 		}
 	};
 

@@ -59,11 +59,25 @@ class Modula_Image {
 
 						}
 
-						$return['width']  = (int)$width;
-						$return['height'] = (int)$height;
+                        if ( $width > $image_full[1] || $height > $image_full[2] ) {
+                            $return['width']  = $image_full[1];
+                            $return['height'] = $image_full[2];
+                        }else{
+                            $return['width']  = (int)$width;
+                            $return['height'] = (int)$height;
+                        }
+
+						
 					} else {
-						$return['width']  = $sizes['width'];
-						$return['height'] = $sizes['height'];
+
+                        if ( $sizes['width'] > $image_full[1] || $sizes['height'] > $image_full[2] ) {
+                            $return['width']  = $image_full[1];
+                            $return['height'] = $image_full[2];
+                        }else{
+                            $return['width']  = $sizes['width'];
+                            $return['height'] = $sizes['height'];
+                        }
+
 					}
 
 				} else {
@@ -169,9 +183,9 @@ class Modula_Image {
         $suffix = "${dest_width}x${dest_height}";
 
         // Set alignment information on the file.
-        // if ( $crop ) {
-        //     $suffix .= ( $align ) ? "_${align}" : "_c";
-        // }
+        if ( $crop ) {
+            $suffix .= ( $align ) ? "_${align}" : "_c";
+        }
 
         // Get the destination file name
         $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
@@ -261,9 +275,9 @@ class Modula_Image {
 	        );
         }
 
-
 	    // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
+
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
             $_wp_attached_file = str_replace( $upload_dir['baseurl'] . '/' , '', $url );
             $get_attachment = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_wp_attached_file' AND meta_value='%s'", $_wp_attached_file ) );
