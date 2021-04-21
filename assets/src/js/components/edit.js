@@ -43,7 +43,7 @@ export const ModulaEdit = (props) => {
 	});
 
 	const onIdChange = (id) => {
-		if (isNaN(id)) {
+		if (isNaN(id) || '' == id) {
 			return;
 		}
 		id = parseInt(id);
