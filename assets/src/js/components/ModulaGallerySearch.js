@@ -34,8 +34,10 @@ export const ModulaGallerySearch = (props) => {
 					);
 				}
 			},
-			load: function ( query, callback ) {
-				if ( ! query.length ) { return callback(); }
+			load: function(query, callback) {
+				if (!query.length) {
+					return callback();
+				}
 
 				jQuery.ajax({
 					url: modulaVars.ajaxURL,
@@ -46,18 +48,14 @@ export const ModulaGallerySearch = (props) => {
 						term: query
 					},
 					success: (res) => {
-						//console.log(res);
 						callback(res);
 					}
 				});
-
 			},
 			onChange: (value) => {
-				console.log(value);
 				onIdChange(value);
 			}
 		});
-
 	}, []);
 
 	return <input className="modula-gallery-input" value={'0' == id ? '' : id} />;

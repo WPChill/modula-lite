@@ -48,18 +48,12 @@ export const ModulaEdit = (props) => {
 		}
 		id = parseInt(id);
 
-		wp.apiFetch({ path: `wp/v2/modula-gallery/${id}` }).then(res => {
+		wp.apiFetch({ path: `wp/v2/modula-gallery/${id}` }).then((res) => {
 			setAttributes({ currentGallery: res });
-			setAttributes({ currentSelectize: [{ 'value': id, 'label': res.title.rendered }] });
-			// wp.apiFetch({
-			// 	url: modulaVars.ajaxURL,
-			// 	headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			// 	method: "POST",
-			// 	credentials: 'include',
-			// 	data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce }
-			// }).then(result => {
-			// 	onGalleryLoaded(id, result);
-			// });
+			setAttributes({
+				currentSelectize: [ { value: id, label: '' === res.title.rendered ? `Unnamed` : res.title.rendered } ]
+			});
+
 			jQuery.ajax({
 				type: 'POST',
 				data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
@@ -67,18 +61,9 @@ export const ModulaEdit = (props) => {
 				success: (result) => onGalleryLoaded(id, result)
 			});
 		});
-
-		// jQuery.ajax({
-		// 	type: 'POST',
-		// 	data: { action: 'modula_get_gallery_meta', id: id, nonce: modulaVars.nonce },
-		// 	url: modulaVars.ajaxURL,
-		// 	success: (result) => onGalleryLoaded(id, result)
-		// });
 	};
 
 	const onGalleryLoaded = (id, result) => {
-		console.log(id);
-		console.log(result);
 		if (result.success === false) {
 			setAttributes({ id: id, status: 'ready' });
 			return;
@@ -132,7 +117,7 @@ export const ModulaEdit = (props) => {
 	const modulaSlickRun = () => {
 		const modulaSliders = jQuery('.modula-slider');
 
-		if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick ) {
+		if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick) {
 			jQuery.each(modulaSliders, function() {
 				let modulaID = jQuery(this).attr('id'),
 					config = jQuery(this).data('config'),
@@ -282,7 +267,13 @@ export const ModulaEdit = (props) => {
 						<div className="modula-block-preview__logo" />
 						{galleries.length > 0 && (
 							<Fragment>
-								<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} />
+								<ModulaGallerySearch
+									id={id}
+									key={id}
+									value={id}
+									options={currentSelectize}
+									onIdChange={onIdChange}
+								/>
 
 								{id != 0 && (
 									<Button
