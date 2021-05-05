@@ -38,7 +38,7 @@ class Modula_Gutenberg {
 	 */
 	public function register_block_type() {
 
-		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'jquery-ui-autocomplete' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
 		wp_register_style( 'modula-gutenberg', MODULA_URL . 'assets/css/admin/modula-gutenberg.css', array(), true );
 
 		register_block_type(
@@ -139,14 +139,14 @@ class Modula_Gutenberg {
 		$nonce = $_POST['nonce']; //phpcs:ignore
 
 		if ( ! wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
-			wp_send_json_error();
+			wp_send_json_error( 'no nonce' );
 			die();
 		}
 
 		$images = get_post_meta( $id, 'modula-images', true );
 
 		if ( ! is_array( $images ) || empty( $images ) ) {
-			wp_send_json_error();
+			wp_send_json_error( 'no images' );
 			die();
 		}
 

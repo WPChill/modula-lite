@@ -13,7 +13,7 @@ const { SelectControl, Button, PanelBody } = wp.components;
  */
 const Inspector = (props) => {
 	const { attributes, setAttributes, galleries, onIdChange } = props;
-	const { id } = attributes;
+	const { id, currentGallery, currentSelectize } = attributes;
 
 	return (
 		<Fragment>
@@ -21,7 +21,7 @@ const Inspector = (props) => {
 				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
 					{galleries.length > 0 && (
 						<Fragment>
-							<ModulaGallerySearch id={id} key={id} value={id} onIdChange={onIdChange} />
+							<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} />
 							{id != 0 && (
 								<Button
 									target="_blank"

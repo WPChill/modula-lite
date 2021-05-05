@@ -523,7 +523,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var img = new Image();
 		img.onload = function() {
 			size = { width: this.width, height: this.height };
-			console.log( size );
 			source.data('size', size);
 			instance.placeImage(index);
 		};

@@ -7,7 +7,7 @@ const { compose } = wp.compose;
 const { __experimentalInputControl } = wp.components;
 
 export const ModulaGallerySearch = (props) => {
-	const { onIdChange, id } = props;
+	const { onIdChange, id, options } = props;
 
 	useEffect(() => {
 		jQuery('.modula-gallery-input').selectize({
@@ -20,20 +20,23 @@ export const ModulaGallerySearch = (props) => {
 			preload: true,
 			allowEmptyOptions: true,
 			closeAfterSelect: true,
+			options: options,
 			render: {
 				option: function(item, escape) {
 					return (
 						'<div>' +
 						'<span class="title">' +
-						'<span class="name">' +
 						escape(item.label) +
-						'</span>' +
+						'<span class="name">( #' +
+						escape(item.value) +
+						' )</span>' +
 						'</div>'
 					);
 				}
 			},
-			load: function(query, callback) {
-				if (!query.length) return callback();
+			load: function ( query, callback ) {
+				if ( ! query.length ) { return callback(); }
+
 				jQuery.ajax({
 					url: modulaVars.ajaxURL,
 					type: 'GET',
@@ -43,14 +46,18 @@ export const ModulaGallerySearch = (props) => {
 						term: query
 					},
 					success: (res) => {
-						callback(res.slice(0, 10));
+						//console.log(res);
+						callback(res);
 					}
 				});
+
 			},
 			onChange: (value) => {
+				console.log(value);
 				onIdChange(value);
 			}
 		});
+
 	}, []);
 
 	return <input className="modula-gallery-input" value={'0' == id ? '' : id} />;

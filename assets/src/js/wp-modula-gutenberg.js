@@ -43,6 +43,16 @@ class ModulaGutenberg {
 			galleryType: {
 				type: 'string',
 				default: 'none'
+			},
+			// Attribut for current gallery
+			currentGallery: {
+				type: 'object',
+				default: {}
+			},
+			// Attribut for current gallery option in selectize
+			currentSelectize: {
+				type: 'array',
+				default: []
 			}
 		};
 
