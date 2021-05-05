@@ -78,13 +78,13 @@ class Modula_Addons {
 				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
 				echo '</div>';
 				echo '</div>';
-				echo '<div class="modula-addon-info">';
-				do_action('modula_addon_info',$addon, $plugin_data);
-				echo ( isset( $addon['url'] ) && '' != $addon['url'] ) ? '<a href="' . esc_url( $addon['url'] ) . '" target="_blank" >' . esc_html( 'Read more ' ) . '</a>' : '';
-				echo '</div>';
+				// echo '<div class="modula-addon-info">';
+				// do_action('modula_addon_info',$addon, $plugin_data);
+				// echo ( isset( $addon['url'] ) && '' != $addon['url'] ) ? '<a href="' . esc_url( $addon['url'] ) . '" target="_blank" >' . esc_html( 'Read more ' ) . '</a>' : '';
+				// echo '</div>';
 				echo '<div class="modula-addon-actions">';
 				echo apply_filters( 'modula_addon_settings_link','', $addon );
-				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '/?utm_source=modula-lite&utm_campaign=upsell&utm_medium='. esc_attr( $addon['slug'] ) ).'" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to unlock this feature', 'modula-best-grid-gallery' ) . '</a>', $addon );
+				echo apply_filters( "modula_addon_button_action", '<a href="' . esc_url( MODULA_PRO_STORE_UPGRADE_URL . '/?utm_source=modula-lite&utm_campaign=extensions-page&utm_medium='. esc_attr( $addon['slug'] ) ).'" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to unlock this feature', 'modula-best-grid-gallery' ) . '</a>', $addon );
 				echo '</div>';
 				echo '</div>';
 
