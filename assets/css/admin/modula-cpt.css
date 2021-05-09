@@ -30,7 +30,9 @@
   display: inline-block;
   line-height: 1;
   position: relative;
-  top: -2px;
+  /* top: -2px; */
+  float: right;
+  top: 4px;
 }
 .modula-settings-container .modula-tabs .modula-tab:hover sup,
 .modula-settings-container .modula-tabs .modula-tab.active-tab sup {
@@ -324,7 +326,7 @@ tr label.th-label {
 .modula .modula-items .modula-item p {
 	margin:0;
 	padding: 0;
-}	
+}
 .modula .figc {
 	color: black;
 	text-align: center;
@@ -372,7 +374,7 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 }
 
 .modula .modula-items .jtg-social a:last-of-type {
-	margin-right: 0;	
+	margin-right: 0;
 }
 
 .modula .modula-item.effect-pufrobo p.description {
@@ -396,7 +398,7 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 .modula .modula-item { background-color:#000; }
 
 .modula .modula-item.effect-pufrobo p {
-	bottom: 20%;  
+	bottom: 20%;
 	line-height: 1.5;
 	-webkit-transform: translate3d(0,100%,0);
 	transform: translate3d(0,100%,0);
@@ -1613,7 +1615,7 @@ Scaling Effect Preview
   padding: 0 12px 2.5px!important;
 }
 
-.shortcode-description { 
+.shortcode-description {
   margin: 10px 0 0 0;
   border-bottom: 1px solid #DDD;
   color: #696969;

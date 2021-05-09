@@ -28,6 +28,7 @@ class Modula_Admin {
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
 
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
+		add_action( 'wp_ajax_modula_modal_upgrade', array( $this, 'modula_get_modal_upgrade') );
 
 		add_action( 'admin_init', array( $this, 'register_affiliate_link' ) );
 		add_filter( 'modula_admin_page_tabs', array( $this, 'add_affiliate_tab' ) );
@@ -93,6 +94,14 @@ class Modula_Admin {
 				'menu_slug'  => 'modula-lite-vs-pro',
 				'function'   => array( $this, 'lite_vs_pro' ),
 				'priority'   => 100,
+			),
+			array(
+				'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug'  => '#modula-albums',
+				'function'   => array( $this, 'modula_albums' ),
+				'priority'   => 25,
 			),
 		);
 
@@ -453,6 +462,18 @@ class Modula_Admin {
 	}
 
 	/**
+	 * Show the modal to upgrade
+	 *
+	 * @since 2.3.0
+	 */
+	public function modula_get_modal_upgrade() {
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-upgrade.php';
+		wp_die();
+
+	}
+
+	/**
 	 * Enqueue jQuery autocomplete script
 	 *
 	 * /@since 2.3.2
@@ -682,6 +703,10 @@ class Modula_Admin {
 		</div>
 		<?php
 
+	}
+
+	public function modula_albums() {
+		return;
 	}
 
 }
