@@ -151,7 +151,7 @@ tbody#the-list .no-items {
     width:100%;
     flex-shrink: 0;
     margin-top:0;
-    left:-15px;
+
 }
 
 .modula-upsells-carousel  .modula-upsell-item {
@@ -197,3 +197,18 @@ tbody#the-list .no-items {
     display: inline-block;
     margin-right: 5px;
 }
+.modula-upsell {
+	background: #f1f1f1;
+	border: 0;
+	padding: 15px 0;
+}
+
+
+.modula-upsell .button:first-child {
+    margin-right: 10px;
+}
+
+.modula-upsell .button {
+    height: 31px;
+    line-height: 31px;
+    font-weight: bold;
