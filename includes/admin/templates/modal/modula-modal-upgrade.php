@@ -6,12 +6,12 @@
 			</button>
 		</div>
 		<div class="modula-modal__body">
-			<div class="modula-upsells-carousel-wrapper">
-				<div class="modula-upsells-carousel">
-					<div class="modula-upsell modula-upsell-item">
+			<div class="modula-upsells-carousel-wrapper-modal">
+				<div class="modula-upsells-carousel-modal">
+					<div class="modula-upsell-modal modula-upsell-item-modal">
 						<h2><?php esc_html_e( 'Modula Albums', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ); ?></h4>
-						<ul class="modula-upsells-list">
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ); ?></h4>
+						<ul class="modula-upsells-list-modal">
 							<li>Redirect to a gallery or a custom URL with the standalone functionality</li>
 							<li>Arrange your albums using columns or the custom grid</li>
 							<li>Hover effects</li>
