@@ -94,17 +94,19 @@ class Modula_Admin {
 				'menu_slug'  => 'modula-lite-vs-pro',
 				'function'   => array( $this, 'lite_vs_pro' ),
 				'priority'   => 100,
-			),
-			array(
-				'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
-				'capability' => 'manage_options',
-				'menu_slug'  => '#modula-albums',
-				'function'   => array( $this, 'modula_albums' ),
-				'priority'   => 25,
-			),
+			)
 		);
-
+		if ( ! class_exists( 'Modula_PRO' ) ) {
+			$links[] =
+					array(
+						'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+						'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+						'capability' => 'manage_options',
+						'menu_slug'  => '#modula-albums',
+						'function'   => array( $this, 'modula_albums' ),
+						'priority'   => 25,
+					);
+		}
 		if ( current_user_can( 'install_plugins' ) ) {
 			$links[] =
 					array(
