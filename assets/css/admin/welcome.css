@@ -15,6 +15,11 @@
 
 /* Lite vs PRO Section */
 
+body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
+    margin    : 0 auto;
+    max-width : 85%;
+}
+
 .lite-vs-pro-section .wp-badge{
     display:inline-block;
     vertical-align:middle;
@@ -28,6 +33,72 @@
     position:relative;
     margin:0 2.5% 0 25px;
 }
+
+.wpchill-plans-table {
+    display    : flex;
+    flex-wrap  : wrap;
+}
+
+.wpchill-plans-table .wpchill-pricing-package:first-child {
+    border-left : 1px solid #DDD;
+}
+
+.wpchill-plans-table .wpchill-pricing-package:last-child {
+    border-right-style: solid;
+}
+
+.wpchill-plans-table .wpchill-pricing-package {
+    background-color : #fff;
+    border-top       : 1px solid #DDD;
+    border-bottom    : 1px solid #DDD;
+    border-right     : 1px dotted #DDD;
+    padding          : 0;
+}
+
+.wpchill-plans-table .wpchill-plans-table__title {
+    text-align    : center;
+    padding-top   : 15px;
+    white-space   : nowrap;
+    font-size     : 1.5rem;
+    text-indent   : .2rem;
+    margin-bottom : 1rem;
+}
+
+.wpchill-plans-table .wpchill-plans-table__price {
+    text-align  : center;
+    font-size   : 3rem;
+    padding-top : 20px;
+}
+
+.wpchill-plans-table .wpchill-plans-table__content {
+    padding : 20px;
+}
+
+.wpchill-plans-table .wpchill-plans-table__content ul {
+    font-size       : 16px;
+    margin-top      : 20px;
+    padding-left    : 40px;
+    list-style-type : disc;
+}
+
+.wpchill-plans-table .wpchill-plans-table_upgrade {
+    text-align  : center;
+    padding-top : 30px;
+    padding-bottom:30px;
+    border-bottom    : 1px solid #DDD;
+}
+
+.wpchill-plans-table .wpchill-plans-table__package_description {
+    color: #777;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 20px;
+}
+
+/**
+Featured section
+ */
 
 .featured-section.features .row {
     display: inline-block;
