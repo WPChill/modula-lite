@@ -5,7 +5,18 @@
  */
 class Modula_Upsells {
 
+	/**
+	 * Holds the upsells object
+	 *
+	 * @var bool
+	 */
+	private $wpchill_upsells = false;
+
 	function __construct() {
+
+		if ( class_exists( 'WPChill_Upsells' ) ) {
+			$this->wpchill_upsells = WPChill_Upsells::get_instance();
+		}
 
 		/* Hooks */
 		add_filter( 'modula_general_tab_content', array( $this, 'general_tab_upsell' ) );
@@ -28,21 +39,19 @@ class Modula_Upsells {
 		add_action( 'modula_admin_tab_roles', array( $this, 'render_roles_upsell_tab' ) );
 
 
-		$whitelabel_upsell = new WPChill_Upsells( 'modula-whitelabel' );
-		$roles_upsell = new WPChill_Upsells( 'modula-roles' );
-
 		// Add modula whitelabel upsell
-		if ( $whitelabel_upsell->is_upgradable_addon() ) {
+		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
 			add_action( 'modula_side_admin_tab', array( $this, 'render_whitelabel_upsell' ) );
 		}
 
-		if ( $roles_upsell->is_upgradable_addon() ) {
+		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon('modula-roles') ) {
 			add_action( 'modula_side_admin_tab', array( $this, 'render_roles_upsell' ) );
 		}
 
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
+
 
 	}
 
@@ -93,8 +102,7 @@ class Modula_Upsells {
 
 	public function general_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -108,8 +116,7 @@ class Modula_Upsells {
 
 	public function loadingeffects_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -124,8 +131,7 @@ class Modula_Upsells {
 
 	public function hovereffects_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -140,8 +146,7 @@ class Modula_Upsells {
 
 	public function video_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-video' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-video') ) {
 			return;
 		}
 
@@ -156,8 +161,7 @@ class Modula_Upsells {
 
 	public function speedup_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-speedup' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-speedup') ) {
 			return;
 		}
 
@@ -172,8 +176,7 @@ class Modula_Upsells {
 
 	public function filters_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -188,8 +191,7 @@ class Modula_Upsells {
 
 	public function lightboxes_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -284,8 +286,7 @@ class Modula_Upsells {
 
 	public function misc_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			return;
 		}
 
@@ -300,8 +301,7 @@ class Modula_Upsells {
 
 	public function password_protect_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-password-protect' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-password-protect') ) {
 			return;
 		}
 
@@ -316,8 +316,7 @@ class Modula_Upsells {
 
 	public function watermark_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-watermark' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-watermark') ) {
 			return;
 		}
 
@@ -332,8 +331,7 @@ class Modula_Upsells {
 
 	public function slideshow_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-slideshow' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-slideshow') ) {
 			return;
 		}
 
@@ -348,8 +346,7 @@ class Modula_Upsells {
 
 	public function zoom_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-zoom' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-zoom') ) {
 			return;
 		}
 
@@ -379,8 +376,7 @@ class Modula_Upsells {
 
 	public function exif_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-exif' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-exif') ) {
 			return;
 		}
 
@@ -409,8 +405,7 @@ class Modula_Upsells {
 
 	public function download_tab_upsell( $tab_content ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-download' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-download') ) {
 			return;
 		}
 
@@ -444,10 +439,7 @@ class Modula_Upsells {
 
 	public function add_meta_boxes() {
 
-		$default_upsell = new WPChill_Upsells( 'modula-roles' );
-		$sorting_upsell = new WPChill_Upsells('modula');
-
-		if ( $default_upsell->is_upgradable_addon() ) {
+		if ($this->wpchill_upsells &&  $this->wpchill_upsells->is_upgradable_addon('modula-defaults') ) {
 
 			add_meta_box(
 					'modula-defaults-upsell',                                             // Unique ID
@@ -460,7 +452,7 @@ class Modula_Upsells {
 
 		}
 
-		if ( $sorting_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			add_meta_box(
 					'modula-sorting-upsell',                                        // Unique ID
 					esc_html__( 'Gallery sorting', 'modula-best-grid-gallery' ),    // Title
@@ -536,8 +528,7 @@ class Modula_Upsells {
 	// Add modula roles
 	public function add_roles_upsell( $tabs ) {
 
-		$wpchill_upsell = new WPChill_Upsells( 'modula-roles' );
-		if ( ! $wpchill_upsell->is_upgradable_addon() ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-roles') ) {
 			return $tabs;
 		}
 
