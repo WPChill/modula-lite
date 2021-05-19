@@ -5433,7 +5433,7 @@
       var rawEmailMessage = (current.opts.lightboxEmailMessage.length) ? current.opts.lightboxEmailMessage : 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
       var emailMessage = rawEmailMessage.replace( /\%%gallery_link%%/g, window.location.href).replace( /\%%image_link%%/g, current.src) ;
 
-        var text = (jQuery( current.$image ).attr( 'title' ).length) ? jQuery( current.$image ).attr( 'title' ) : '';
+        var text = ( undefined != jQuery( current.$image ).attr( 'title' )  ) ? jQuery( current.$image ).attr( 'title' ) : '';
 
         if ( '' ==  text ) {
           text = instance.$caption.text();
