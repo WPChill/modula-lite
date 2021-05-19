@@ -37,7 +37,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @var string
 		 */
-		private $remote_server = 'https://staging-wpmodula.kinsta.cloud/wp-json/';
+		private $remote_server = 'https://wp-modula.com/wp-json/';
 		/**
 		 * The plugin's page basename
 		 *
