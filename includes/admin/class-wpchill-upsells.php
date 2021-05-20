@@ -15,7 +15,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Holds the class object.
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var object
 		 */
@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The slug of the CPT.
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The server from which we get our info
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The plugin's page basename
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The license key meta
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The license key status
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The name of the plugin.
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -77,7 +77,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Route namespace
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -86,7 +86,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Package route
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -95,7 +95,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Upgrade route
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The license key
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -113,7 +113,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The pricing page
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -122,7 +122,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The PRO version class
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -131,7 +131,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Our packages
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -140,7 +140,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The lite vs premium page action
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -149,7 +149,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The lite vs premium page title filter
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
@@ -158,7 +158,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Primary class constructor.
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function __construct() {
 
@@ -166,13 +166,17 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			add_action( $this->lite_vs_premium_page, array( $this, 'lite_vs_premium' ), 30, 2 );
 			add_filter( $this->lite_vs_premium_page_title, array( $this, 'lite_vs_premium_page_title' ), 30 );
 
+			// We need to delete the transients whenever the license is activated / deactivated
+			add_action( 'modula_after_license_deactivated', array( $this, 'delete_transients' ) );
+			add_action( 'modula_after_license_save', array( $this, 'delete_transients' ) );
+
 		}
 
 		/**
 		 * Returns the singleton instance of the class.
 		 *
 		 * @return object The WPChill_Upsells object.
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 */
 		public static function get_instance() {
@@ -188,7 +192,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Fetch all packages
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function fetch_packages() {
 
@@ -222,7 +226,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Fectch current client package and give upgrades
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function fetch_current_package() {
 
@@ -259,7 +263,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @return bool
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function check_for_license() {
 
@@ -276,7 +280,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * Check if license is active and if there are packages to update to
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function check_for_upgrades() {
 
@@ -296,7 +300,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @return bool
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function is_upgradable_addon( $addon = false ) {
 
@@ -326,7 +330,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @return string
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function get_packages() {
 
@@ -337,7 +341,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * Sort packages based on price
 		 *
 		 * @return int
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 *
 		 */
 		public static function sort_data_by_price( $a, $b ) {
@@ -357,7 +361,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @param $addons
 		 * @param $pro_features
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function lite_vs_premium( $addons, $pro_features ) {
 
@@ -492,7 +496,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @return mixed
 		 *
-		 * @since 1.0.0
+		 * @since 2.5.2
 		 */
 		public function lite_vs_premium_page_title( $menu ) {
 
@@ -519,6 +523,17 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					'function'   => array( $plugin_menu_class, 'lite_vs_pro' ),
 					'priority'   => 100,
 			);
+		}
+
+		/**
+		 * Delete our set transients
+		 *
+		 * @since 2.5.2
+		 */
+		public function delete_transients(){
+
+			delete_transient('wpchill_upgradable_packages');
+			delete_transient('wpchill_all_packages');
 		}
 
 	}
