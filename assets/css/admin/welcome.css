@@ -39,66 +39,70 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
     flex-wrap  : wrap;
 }
 
-.wpchill-plans-table .wpchill-pricing-package:first-child {
-    border-left : 1px solid #DDD;
-}
-
-.wpchill-plans-table .wpchill-pricing-package:last-child {
-    border-right-style: solid;
-}
-
 .wpchill-plans-table .wpchill-pricing-package {
-    background-color : #fff;
-    border-top       : 1px solid #DDD;
-    border-bottom    : 1px solid #DDD;
-    border-right     : 1px dotted #DDD;
-    padding          : 0;
+    text-align      : center;
+    border-left     : 1px solid #ebebeb;
+    border-top      : 1px solid #ebebeb;
+    line-height     : 1.5;
+    height          : 50px;
+    display         : -ms-flexbox;
+    display         : flex;
+    -ms-flex-align  : center;
+    align-items     : center;
+    -ms-flex-pack   : center;
+    justify-content : center;
+    padding-left    : 10px;
+    padding-right   : 10px;
+    background      : #fff;
 }
 
-.wpchill-plans-table .wpchill-plans-table__title {
-    text-align    : center;
-    padding-top   : 15px;
-    white-space   : nowrap;
-    font-size     : 1.5rem;
-    text-indent   : .2rem;
-    margin-bottom : 1rem;
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title {
+    font-weight : 400;
+    color       : #666;
+    font-size   : 1.25rem;
+    height: auto;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-.wpchill-plans-table .wpchill-plans-table__price {
-    text-align  : center;
-    font-size   : 3rem;
-    padding-top : 20px;
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title p.description {
+    font-style : italic;
+    font-size  : 13px;
 }
 
-.wpchill-plans-table .wpchill-plans-table__content {
-    padding : 20px;
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-price {
+    font-size  : 30px;
 }
 
-.wpchill-plans-table .wpchill-plans-table__content ul {
-    font-size       : 16px;
-    margin-top      : 20px;
-    padding-left    : 40px;
-    list-style-type : disc;
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-price sup {
+    top: 2px;
+    position: relative;
+    font-size: 15px;
 }
 
-.wpchill-plans-table .wpchill-plans-table_upgrade {
-    text-align  : center;
-    padding-top : 30px;
-    padding-bottom:30px;
-    border-bottom    : 1px solid #DDD;
+.wpchill-plans-table .wpchill-pricing-package.wpchill-empty {
+    background : transparent;
 }
 
-.wpchill-plans-table .wpchill-plans-table__package_description {
-    color: #777;
-    text-align: center;
-    font-size: 16px;
-    border-bottom: 1px solid #DDD;
-    padding-bottom: 20px;
+.wpchill-plans-table .wpchill-pricing-package.feature-name {
+    justify-content : space-between;
+    font-weight     : 700;
+    text-align      : left;
 }
 
-/**
-Featured section
- */
+.wpchill-plans-table .wpchill-pricing-package .dashicons-saved {
+    color : green;
+}
+
+.wpchill-plans-table .wpchill-pricing-package .dashicons-no-alt {
+    color : #cdcdcd;
+}
+
+    /**
+	Featured section
+	 */
 
 .featured-section.features .row {
     display: inline-block;
@@ -219,4 +223,51 @@ Featured section
 
 .modula-license-label p.red strong {
     color:red;
+}
+
+/* Tabs tooltips */
+.modula-tooltip {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+.modula-tooltip > span {
+    cursor: pointer;
+    color: #0073aa;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+.modula-tooltip .modula-tooltip-content {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    transform: translate( 100% ,-50% );
+    width: 300px;
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 99;
+}
+
+.modula-tooltip .modula-tooltip-content:before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 8px 8px 8px 0;
+    border-color: transparent #000 transparent transparent;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    transform: translateY( -50% );
+}
+
+.modula-tooltip:hover .modula-tooltip-content {
+    display: block;
 }
