@@ -10,10 +10,20 @@
 		<?php endif ?>
 
 		<?php
+		/**
+		 * Hook: modula_item_after_link
+		 */
 		do_action( 'modula_item_after_link', $data );
 
+		/**
+		 *Hook : modula_item_template_image
+		 * @hooked: modula_sources_and_sizes
+		 */
 		do_action( 'modula_item_template_image', $data );
 
+		/**
+		 * Hook: modula_item_after_image
+		 */
 		do_action( 'modula_item_after_image', $data );
 		?>
 
