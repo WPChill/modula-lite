@@ -1,3 +1,8 @@
+= 2.5.2 - 25/05/2021 =
+Fixed: Added data-srcset and data-sizes attributes for lazy load functionality
+Changed: Albums upsell
+Changed: Free vs Premium page and Upsells integration
+
 = 2.5.1 - 05/04/2021 =
 Fixed: Gutter for mobile and tablet after Modula update from 2.4.1 to 2.5.0. Setting was displaying OK in backend but on frontend change wasn't displayed correctly
 Fixed: Backwards compatibility for custom grid image size after Modula update from 2.4.1 to 2.5.0. Setting showed same value although in frontend the setting worked

@@ -334,8 +334,9 @@ function modula_sources_and_sizes( $data ) {
 	// Ensure the image meta exists.
 	if ( empty( $image_meta['sizes'] ) ) {
 		echo $image;
-		//exit();
+		return;
 	}
+
 
 	$attachment_id = $data->link_attributes['data-image-id'];
 
