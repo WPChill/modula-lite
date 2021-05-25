@@ -29,6 +29,9 @@ class Modula_Shortcode {
 		add_action( 'modula_shortcode_after_items', 'powered_by_modula', 90 );
 		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
+		// The template image action, used to display the gallery image
+		add_action( 'modula_item_template_image', 'modula_sources_and_sizes', 35, 1 );
+
 		// Add js scripts
 		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
 

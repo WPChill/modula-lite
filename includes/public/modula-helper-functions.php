@@ -308,15 +308,29 @@ function powered_by_modula( $settings ) {
 }
 
 /**
- * @param $image
- * @param $image_meta
+ * Add srcset and sizes to images
+ *
  * @param $data
  *
  * @since 2.5.2
  * Inspired by wp_image_add_srcset_and_sizes
  */
-function modula_lazyload_datasrc( $image, $image_meta, $data ) {
+function modula_sources_and_sizes( $data ) {
 
+	// Lets creat our $image object
+	$image = '<img class="' . esc_attr( implode( ' ', $data->img_classes ) ) . '" ' . Modula_Helper::generate_attributes( $data->img_attributes ) . '/>';
+
+	// Get the imag meta
+	$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
+
+	if ( ! empty( $data->image_info ) ) {
+		$image_meta['sizes']['custom'] = array(
+				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] . '.' . $data->image_info['ext'],
+				'width'     => $data->img_attributes['width'],
+				'height'    => $data->img_attributes['height'],
+				'mime-type' => $image_meta['sizes']['thumbnail']['mime-type']
+		);
+	}
 	// Ensure the image meta exists.
 	if ( empty( $image_meta['sizes'] ) ) {
 		echo $image;
@@ -331,6 +345,7 @@ function modula_lazyload_datasrc( $image, $image_meta, $data ) {
 	// Return early if we couldn't get the image source.
 	if ( ! $image_src ) {
 		echo $image;
+
 		return;
 	}
 
@@ -339,6 +354,7 @@ function modula_lazyload_datasrc( $image, $image_meta, $data ) {
 		 strpos( wp_basename( $image_src ), $img_edit_hash[0] ) === false ) {
 
 		echo $image;
+
 		return;
 	}
 
@@ -351,6 +367,7 @@ function modula_lazyload_datasrc( $image, $image_meta, $data ) {
 		$size_array = wp_image_src_get_dimensions( $image_src, $image_meta, $attachment_id );
 		if ( ! $size_array ) {
 			echo $image;
+
 			return;
 		}
 	}
@@ -386,10 +403,9 @@ function modula_lazyload_datasrc( $image, $image_meta, $data ) {
 
 		// Add the srcset and sizes attributes to the image markup.
 		echo preg_replace( '/<img ([^>]+?)[\/ ]*>/', '<img $1' . $attr . ' />', $image );
+
 		return;
 	}
 
 	echo $image;
 }
-
-add_filter( 'modula_template_image', 'modula_lazyload_datasrc', 35, 3 );
