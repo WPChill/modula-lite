@@ -31,6 +31,7 @@
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
+				"lazyLoad"      => boolval( $data->settings['lazy_load'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),

@@ -25,8 +25,7 @@
 			);
 		}
 
-
-		echo wp_image_add_srcset_and_sizes( $image, $image_meta, $data->link_attributes['data-image-id'] );
+		do_action( 'modula_template_image', $image, $image_meta, $data );
 		?>
 
 		<?php do_action( 'modula_item_after_image', $data ); ?>

@@ -306,3 +306,90 @@ function powered_by_modula( $settings ) {
 	echo $html;
 
 }
+
+/**
+ * @param $image
+ * @param $image_meta
+ * @param $data
+ *
+ * @since 2.5.2
+ * Inspired by wp_image_add_srcset_and_sizes
+ */
+function modula_lazyload_datasrc( $image, $image_meta, $data ) {
+
+	// Ensure the image meta exists.
+	if ( empty( $image_meta['sizes'] ) ) {
+		echo $image;
+		//exit();
+	}
+
+	$attachment_id = $data->link_attributes['data-image-id'];
+
+	$image_src = preg_match( '/src="([^"]+)"/', $image, $match_src ) ? $match_src[1] : '';
+	list( $image_src ) = explode( '?', $image_src );
+
+	// Return early if we couldn't get the image source.
+	if ( ! $image_src ) {
+		echo $image;
+		return;
+	}
+
+	// Bail early if an image has been inserted and later edited.
+	if ( preg_match( '/-e[0-9]{13}/', $image_meta['file'], $img_edit_hash ) &&
+		 strpos( wp_basename( $image_src ), $img_edit_hash[0] ) === false ) {
+
+		echo $image;
+		return;
+	}
+
+	$width  = preg_match( '/ width="([0-9]+)"/', $image, $match_width ) ? (int) $match_width[1] : 0;
+	$height = preg_match( '/ height="([0-9]+)"/', $image, $match_height ) ? (int) $match_height[1] : 0;
+
+	if ( $width && $height ) {
+		$size_array = array( $width, $height );
+	} else {
+		$size_array = wp_image_src_get_dimensions( $image_src, $image_meta, $attachment_id );
+		if ( ! $size_array ) {
+			echo $image;
+			return;
+		}
+	}
+
+	$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
+
+	if ( $srcset ) {
+		// Check if there is already a 'sizes' attribute.
+		$sizes = strpos( $image, ' data-sizes=' );
+
+		if ( ! $sizes ) {
+			$sizes = wp_calculate_image_sizes( $size_array, $image_src, $image_meta, $attachment_id );
+		}
+	}
+
+	if ( $srcset && $sizes ) {
+
+		// Format the 'srcset' and 'sizes' string and escape attributes.
+		// Check if lazy load is enabled and add data-srcset and data-sizes
+		if ( $data->lazyLoad ) {
+			$attr = sprintf( ' data-srcset="%1$s" srcset="%1$s"', esc_attr( $srcset ) );
+
+			if ( is_string( $sizes ) ) {
+				$attr .= sprintf( ' data-sizes="%1$s" sizes="%1$s"', esc_attr( $sizes ) );
+			}
+		} else {
+			$attr = sprintf( 'srcset="%s"', esc_attr( $srcset ) );
+
+			if ( is_string( $sizes ) ) {
+				$attr .= sprintf( ' sizes="%s""', esc_attr( $sizes ) );
+			}
+		}
+
+		// Add the srcset and sizes attributes to the image markup.
+		echo preg_replace( '/<img ([^>]+?)[\/ ]*>/', '<img $1' . $attr . ' />', $image );
+		return;
+	}
+
+	echo $image;
+}
+
+add_filter( 'modula_template_image', 'modula_lazyload_datasrc', 35, 3 );
