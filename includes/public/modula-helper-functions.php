@@ -21,16 +21,16 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 		if ( 'custom-grid' == $settings['type'] ) {
 			$grid_sizes = array(
-				'width'  => absint($settings['img_size']) * absint( $item['width'] ),
-				'height' => absint($settings['img_size']) * absint( $item['height'] )
+					'width'  => absint($settings['img_size']) * absint( $item['width'] ),
+					'height' => absint($settings['img_size']) * absint( $item['height'] )
 			);
 		}else{
 			$grid_sizes = array(
-				'width'  => $settings['grid_image_dimensions']['width'],
-				'height' => $settings['grid_image_dimensions']['height']
+					'width'  => $settings['grid_image_dimensions']['width'],
+					'height' => $settings['grid_image_dimensions']['height']
 			);
 		}
-		
+
 	} else {
 		$grid_sizes = $settings['grid_image_size'];
 	}
@@ -161,7 +161,7 @@ function modula_check_hover_effect( $item_data, $item, $settings ){
 
 function modula_check_custom_grid( $item_data, $item, $settings ) {
 
-    if ( 'custom-grid' != $settings['type'] ) {
+	if ( 'custom-grid' != $settings['type'] ) {
 		return $item_data;
 	}
 
@@ -254,7 +254,7 @@ function modula_add_gallery_class( $template_data ){
 	else if ( 'creative-gallery' == $template_data['settings']['type'] ) {
 		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
 	}
-	
+
 	return $template_data;
 
 }
@@ -373,7 +373,7 @@ function modula_sources_and_sizes( $data ) {
 		}
 	}
 
-	$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
+	$srcset   = apply_filters( 'modula_template_image_srcset', wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id ), $data );
 
 	if ( $srcset ) {
 		// Check if there is already a 'sizes' attribute.
