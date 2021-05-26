@@ -373,7 +373,11 @@ function modula_sources_and_sizes( $data ) {
 		}
 	}
 
-	$srcset   = apply_filters( 'modula_template_image_srcset', wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id ), $data );
+	$srcset = apply_filters( 'modula_template_image_srcset', array(), $data, $image_meta );
+
+	if ( empty( $srcset ) ) {
+		$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
+	}
 
 	if ( $srcset ) {
 		// Check if there is already a 'sizes' attribute.
