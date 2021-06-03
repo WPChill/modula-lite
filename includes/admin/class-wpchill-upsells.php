@@ -156,6 +156,24 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		private $lite_vs_premium_page_title = 'modula_lite_vs_premium_page_title';
 
 		/**
+		 * All packages transient name
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		private $wpchill_all_packages = 'modula_all_packages';
+
+		/**
+		 * Upgradable packages transient name
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		private $wpchill_upgradable_packages = 'modula_upgradable_packages';
+
+		/**
 		 * Primary class constructor.
 		 *
 		 * @since 2.5.2
@@ -169,6 +187,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			// We need to delete the transients whenever the license is activated / deactivated
 			add_action( 'modula_after_license_deactivated', array( $this, 'delete_transients' ) );
 			add_action( 'modula_after_license_save', array( $this, 'delete_transients' ) );
+
+			add_filter( 'modula_uninstall_transients', array( $this, 'smart_upsells_transients' ) , 15 );
 
 		}
 
@@ -197,7 +217,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function fetch_packages() {
 
 			// Lets get the transient
-			$packages_transient = get_transient( 'wpchill_all_packages' );
+			$packages_transient = get_transient( $this->wpchill_all_packages);
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -216,7 +236,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
 					$this->packages = $data;
-					set_transient( 'wpchill_all_packages', $this->packages, '86400' );
+					set_transient( $this->wpchill_all_packages, $this->packages, '86400' );
 				}
 
 			}
@@ -231,7 +251,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function fetch_current_package() {
 
 			// Lets get the transient
-			$packages_transient = get_transient( 'wpchill_upgradable_packages' );
+			$packages_transient = get_transient( $this->wpchill_upgradable_packages );
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -253,7 +273,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					// Set our packages
 					$this->packages = $data;
 					// Set our transient so that we won't make calls each time user enters a Modula page
-					set_transient( 'wpchill_upgradable_packages', $this->packages, '86400' );
+					set_transient( $this->wpchill_upgradable_packages, $this->packages, '86400' );
 				}
 			}
 		}
@@ -530,10 +550,27 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @since 2.5.2
 		 */
-		public function delete_transients(){
+		public function delete_transients() {
 
-			delete_transient('wpchill_upgradable_packages');
-			delete_transient('wpchill_all_packages');
+			delete_transient( $this->wpchill_upgradable_packages );
+			delete_transient( $this->wpchill_all_packages );
+		}
+
+		/**
+		 * Add the smart upsells transients to deletion
+		 *
+		 * @param $transients
+		 *
+		 * @return mixed
+		 *
+		 * @since 2.5.3
+		 */
+		public function smart_upsells_transients( $transients ) {
+
+			$transients[] = $this->wpchill_upgradable_packages;
+			$transients[] = $this->wpchill_all_packages;
+
+			return $transients;
 		}
 
 	}
