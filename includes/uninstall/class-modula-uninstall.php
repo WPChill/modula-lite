@@ -167,7 +167,7 @@ class Modula_Uninstall {
         // Delete transients
         if ( '1' == $uninstall_option['delete_transients'] ) {
             // filter for transients to be added by Modula's add-ons
-            $transients_array = apply_filters( 'modula_uninstall_transients' , array ( 'modula_all_extensions' , 'modula-galleries' , 'modula_pro_licensed_extensions', 'wpchill_upgradable_packages', 'wpchill_all_packages' ) );
+            $transients_array = apply_filters( 'modula_uninstall_transients' , array ( 'modula_all_extensions' , 'modula-galleries' , 'modula_pro_licensed_extensions') );
 
             foreach ( $transients_array as $db_transient ) {
                 delete_transient( $db_transient );
