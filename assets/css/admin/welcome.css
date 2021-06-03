@@ -36,7 +36,6 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 
 .wpchill-plans-table {
     display    : flex;
-    flex-wrap  : wrap;
 }
 
 .wpchill-plans-table .wpchill-pricing-package {
