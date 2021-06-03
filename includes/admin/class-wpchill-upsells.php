@@ -417,7 +417,26 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					<!--This is an empty div so that we can have an empty corner-->
 				</div>
 				<?php
-				foreach ( $all_packages as $slug => $package ) { ?>
+				// Let's do the sites and priority rows
+				$sites    = '';
+				$priority = '';
+				foreach ( $all_packages as $slug => $package ) {
+
+					if ( ! empty( $package['extra_features'] ) ) {
+						foreach ( $package['extra_features'] as $key => $value ) {
+							if ( 'sites' == $key ) {
+								$sites .= '<div class="wpchill-pricing-package">' . $value . '</div>';
+							} else {
+								$priority .= '<div class="wpchill-pricing-package">' . $value . '</div>';
+							}
+
+						}
+					} else {
+						$sites .= '<div class="wpchill-pricing-package">-</div>';
+						$priority .= '<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/modula-best-grid-gallery/" target="_blank">wp.org</a></div>';
+					}
+
+					?>
 					<div class="wpchill-pricing-package wpchill-title">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
 						<p><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></p>
@@ -436,7 +455,56 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					</div>
 				<?php } ?>
 			</div>
+
+			<div class="wpchill-plans-table">
+				<div class="wpchill-pricing-package feature-name">
+					<?php echo esc_html__( 'Sites', 'modula-best-grid-gallery' ); ?>
+				</div>
+				<?php echo $sites; ?>
+			</div>
+
+			<div class="wpchill-plans-table">
+				<div class="wpchill-pricing-package feature-name">
+					<?php echo esc_html__( 'Support', 'modula-best-grid-gallery' ); ?>
+				</div>
+				<?php echo $priority; ?>
+			</div>
 			<?php
+
+			// Now lets loop through each addon described in LITE version of the plugin
+			foreach ( $addons as $key => $addon ) {
+				?>
+				<div class="wpchill-plans-table">
+					<div class="wpchill-pricing-package feature-name">
+						<?php echo esc_html( $addon['title'] ); ?>
+						<?php
+						if ( isset( $addon['description'] ) ) {
+							?>
+							<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
+								<div class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $addon['description'] ) ?></div>
+							</div>
+							<?php
+						}
+						?>
+					</div>
+
+					<?php
+					// Need to check if each package if the addon is contained
+					foreach ( $all_packages as $slug => $upsell ) { ?>
+
+						<div class="wpchill-pricing-package">
+							<?php
+							if ( isset( $upsell['extensions'][ $key ] ) ) {
+								echo '<span class="dashicons dashicons-saved"></span>';
+							} else {
+								echo '<span class="dashicons dashicons-no-alt"></span>';
+							}
+							?>
+						</div>
+					<?php } ?>
+				</div>
+			<?php }
+
 			// Pro features are features that are present in the PRO version of the plugin
 			// And not in extensions / addons
 			if ( ! empty( $pro_features ) ) {
@@ -474,39 +542,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					</div>
 				<?php }
 			}
-			// Now lets loop through each addon described in LITE version of the plugin
-			foreach ( $addons as $key => $addon ) {
-				?>
-				<div class="wpchill-plans-table">
-					<div class="wpchill-pricing-package feature-name">
-						<?php echo esc_html( $addon['title'] ); ?>
-						<?php
-						if ( isset( $addon['description'] ) ) {
-							?>
-							<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
-								<div class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $addon['description'] ) ?></div>
-							</div>
-							<?php
-						}
-						?>
-					</div>
-
-					<?php
-					// Need to check if each package if the addon is contained
-					foreach ( $all_packages as $slug => $upsell ) { ?>
-
-						<div class="wpchill-pricing-package">
-							<?php
-							if ( isset( $upsell['extensions'][ $key ] ) ) {
-								echo '<span class="dashicons dashicons-saved"></span>';
-							} else {
-								echo '<span class="dashicons dashicons-no-alt"></span>';
-							}
-							?>
-						</div>
-					<?php } ?>
-				</div>
-			<?php }
 		}
 
 		/**
