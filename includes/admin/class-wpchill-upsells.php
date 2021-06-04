@@ -153,7 +153,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @var string
 		 */
-		private $lite_vs_premium_page_title = 'modula_lite_vs_premium_page_title';
+		private $lite_vs_premium_page_title = 'modula_admin_page_link';
 
 		/**
 		 * All packages transient name
@@ -553,31 +553,28 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @since 2.5.2
 		 */
-		public function lite_vs_premium_page_title( $menu ) {
+		public function lite_vs_premium_page_title( $links ) {
 
 			// Check for license and current package
 			if ( ! $this->check_for_license() || ! isset( $this->packages['current_package'] ) || empty( $this->packages['current_package'] ) ) {
-				return $menu;
+				return $links;
 			}
 
 			// We made it here, so license is active and there is a current package
 			// If no upsells are present means that the client has the highest package
 			if ( empty( $this->packages['upsell_packages'] ) ) {
-				return array();
+				if ( isset( $links['freevspro'] ) ) {
+					unset( $links['freevspro'] );
+				}
+				return $links;
 			}
 
-			// We call the main plugin class where the menu is set so that we can call the methods of that class
-			$plugin_menu_class = new Modula_admin();
+			if ( isset( $links['freevspro'] ) ) {
+				$links['freevspro']['page_title'] = esc_html__( 'Upgrade', 'modula-best-grid-gallery' );
+				$links['freevspro']['menu_title'] = esc_html__( 'Upgrade', 'modula-best-grid-gallery' );
+			}
 
-			// This is the case for Modula - see Modula LITE path : includes/admin/class-modula-admin.php around line 90
-			return array(
-					'page_title' => esc_html__( 'Upgrade', 'modula-best-grid-gallery' ),
-					'menu_title' => esc_html__( 'Upgrade', 'modula-best-grid-gallery' ),
-					'capability' => 'manage_options',
-					'menu_slug'  => 'modula-lite-vs-pro',
-					'function'   => array( $plugin_menu_class, 'lite_vs_pro' ),
-					'priority'   => 100,
-			);
+			return $links;
 		}
 
 		/**
@@ -586,7 +583,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @since 2.5.2
 		 */
 		public function delete_transients() {
-
 			delete_transient( $this->wpchill_upgradable_packages );
 			delete_transient( $this->wpchill_all_packages );
 		}

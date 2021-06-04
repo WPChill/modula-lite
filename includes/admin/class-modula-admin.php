@@ -87,16 +87,14 @@ class Modula_Admin {
 				'function'   => array( $this, 'import_export_doc' ),
 				'priority'   => 35,
 			),
-			apply_filters( 'modula_lite_vs_premium_page_title',
-				array(
-					'page_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
-					'menu_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
-					'capability' => 'manage_options',
-					'menu_slug'  => 'modula-lite-vs-pro',
-					'function'   => array( $this, 'lite_vs_pro' ),
-					'priority'   => 100,
-				)
-			)
+			'freevspro' => array(
+				'page_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug'  => 'modula-lite-vs-pro',
+				'function'   => array( $this, 'lite_vs_pro' ),
+				'priority'   => 100,
+			),
 		);
 		if ( ! class_exists( 'Modula_PRO' ) ) {
 			$links[] =
@@ -111,14 +109,14 @@ class Modula_Admin {
 		}
 		if ( current_user_can( 'install_plugins' ) ) {
 			$links[] =
-					array(
-							'page_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-							'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-							'capability' => 'manage_options',
-							'menu_slug'  => 'modula-addons',
-							'function'   => array( $this, 'show_extension_page_tabs' ),
-							'priority'   => 99,
-					);
+				array(
+					'page_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+					'menu_title' => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+					'capability' => 'manage_options',
+					'menu_slug'  => 'modula-addons',
+					'function'   => array( $this, 'show_extension_page_tabs' ),
+					'priority'   => 99,
+				);
 		}
 
 		if ( ! empty( $this->tabs ) ) {
@@ -649,12 +647,6 @@ class Modula_Admin {
 		);
 
 		$pro_features = array(
-			'unlimited-galleries' => array(
-				'title' => esc_html__('Unlimited galleries','modula-best-grid-gallery'),
-				),
-			'unlimited-images' => array(
-				'title' => esc_html__('Unlimited images','modula-best-grid-gallery'),
-			),
 			'gallery-filters' => array(
 				'title'       => esc_html__( 'Gallery Filters', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'Let visitors filter your gallery items with a single click', 'modula-best-grid-gallery' ),
