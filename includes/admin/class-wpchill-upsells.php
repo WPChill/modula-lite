@@ -181,7 +181,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function __construct() {
 
 			$this->check_for_upgrades();
-			add_action( $this->lite_vs_premium_page, array( $this, 'lite_vs_premium' ), 30, 2 );
+			add_action( $this->lite_vs_premium_page, array( $this, 'lite_vs_premium' ), 30, 1 );
 			add_filter( $this->lite_vs_premium_page_title, array( $this, 'lite_vs_premium_page_title' ), 30 );
 
 			// We need to delete the transients whenever the license is activated / deactivated
@@ -378,12 +378,11 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The Current Package vs Upgrade Package page
 		 *
-		 * @param $addons
 		 * @param $pro_features
 		 *
 		 * @since 2.5.2
 		 */
-		public function lite_vs_premium( $addons, $pro_features ) {
+		public function lite_vs_premium( $pro_features ) {
 
 			$upsell_packages = array();
 
@@ -403,6 +402,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Lets sort them by price, higher is better
 			uasort( $upsell_packages, array( 'WPChill_Upsells', 'sort_data_by_price' ) );
+
+			// Get our extensions from the heighest paid package as it has all of them
+			$addons = array_values($upsell_packages)[0]['extensions'];
+
+			// Unset the PRO from extensions
+			unset($addons['modula']);
 
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
@@ -476,7 +481,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				?>
 				<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
-						<?php echo esc_html( $addon['title'] ); ?>
+						<?php echo esc_html( $addon['name'] ); ?>
 						<?php
 						if ( isset( $addon['description'] ) ) {
 							?>

@@ -541,111 +541,6 @@ class Modula_Admin {
 
 		Modula_Admin_Helpers::modula_page_header();
 
-		$addons = array(
-				'modula-whitelabel' => array(
-				'title'       => esc_html__( 'White Label', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Want to use Modula but brand it with your own logo, external URLs and remove all mentions that aren\'t related to your brand? This extension helps you achieve this.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-defaults' => array(
-				'title'       => esc_html__( 'Defaults', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Speed up your gallery creation process by starting from a pre-saved default. Save any gallery\'s settings as a default and reuse them indefinitely. Got a bunch of galleries you want to apply a default to? That\'s possible too with this extension.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-zoom' => array(
-				'title'       => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Adds zoom functionality to images, when opened in the lightbox, to allow up close viewing.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-download' => array(
-				'title'       => esc_html__( 'Download', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-exif' => array(
-				'title'       => esc_html__( 'EXIF', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'The EXIF Addon for Modula allows you to edit & display EXIF metadata in your lightboxes.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-watermark' => array(
-				'title'       => esc_html__( 'Watermark', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Protect your photos by adding custom watermarks in Modula Gallery.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-deeplink' => array(
-				'title'       => esc_html__( 'SEO Deeplink', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Full SEO control over your galleries. Create a unique and indexable URL for each Modula Gallery item.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-roles' => array(
-				'title'       => esc_html__( 'Role Management', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Granular control over which user roles can add, edit or update galleries on your website. Add permissions to an existing user role or remove them by simply checking a checkbox.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-pagination' => array(
-				'title'       => esc_html__( 'Pagination', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Modula Pagination allows you to display your gallery images in a paginated way.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-albums' => array(
-				'title'       => esc_html__( 'Gallery Albums', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Give your galleries a place to call home with the Albums addon. Create albums, add galleries, manage cover photos, show gallery titles and even image counts in this superb add-on!', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-speedup' => array(
-				'title'       => esc_html__( 'SpeedUp', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them through ShortPixel and serve them from StackPath\'s content delivery network.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-password-protect' => array(
-				'title'       => esc_html__( 'Password Protect Galleries', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Password protect your galleries. This is a perfect solution for exclusive client galleries!', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-protection' => array(
-				'title'       => esc_html__( 'Right-click Protection', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'The Modula Protection extension allows you to easily prevent your visitors from downloading your images with right-click protection. Use this extension to retain full ownership of your creative work.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-advanced-shortcodes' => array(
-				'title'       => esc_html__( 'Advanced Shortcode', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Allows you to dynamically link to specific galleries without creating pages for them by using URLs with query strings.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-slider' => array(
-				'title'       => esc_html__( 'Convert Gallery to Slider', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Create a slider from Modula Images.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-video' => array(
-				'title'       => esc_html__( 'Video', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Adding a video gallery with both self-hosted videos and videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-			'modula-slideshow' => array(
-				'title'       => esc_html__( 'Lightbox Slideshow', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Convert the gallery\'s lightbox view into a stunning slideshow.', 'modula-best-grid-gallery' ),
-				'lite'        => '<span class="dashicons dashicons-no-alt"></span>',
-				'pro'         => '<span class="dashicons dashicons-yes"></span></i>',
-			),
-		);
-
 		$pro_features = array(
 			'gallery-filters' => array(
 				'title'       => esc_html__( 'Gallery Filters', 'modula-best-grid-gallery' ),
@@ -659,7 +554,7 @@ class Modula_Admin {
 
 		echo '<div class="modula wrap lite-vs-pro-section about-wrap">';
 
-		do_action('modula_lite_vs_premium_page',$addons,$pro_features);
+		do_action('modula_lite_vs_premium_page',$pro_features);
 
 		echo '</div>';
 
