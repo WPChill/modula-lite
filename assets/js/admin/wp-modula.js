@@ -145,8 +145,8 @@ wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.u
 		let input = $( this ).find( 'input[type="radio"]' );
 
 		if ( input.length > 0 ) {
-			inputs.attr( 'checked', false );
-			input.attr( 'checked', true );
+			input.prop( "checked", false );
+			input.prop( "checked", true );
 		}
 	} );
 
