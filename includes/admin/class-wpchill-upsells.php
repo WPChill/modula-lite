@@ -129,6 +129,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			}
 
+			if ( isset( $args['endpoints'] ) && ! empty( $args['endpoints'] ) ) {
+				$this->endpoints = wp_parse_args( $args['endpoints'], $this->endpoints );
+			}
+
 			$this->check_for_upgrades();
 
 		}
