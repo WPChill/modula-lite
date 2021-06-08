@@ -41,6 +41,8 @@ class Modula {
 		require_once MODULA_PATH . 'includes/troubleshoot/class-modula-troubleshooting.php';
 
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt.php';
+		// WPChill Upsells
+		require_once MODULA_PATH . 'includes/admin/class-wpchill-upsells.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-upsells.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-admin.php';
 
@@ -79,8 +81,7 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 
-			// WPChill Upsells
-			require_once MODULA_PATH . 'includes/admin/class-wpchill-upsells.php';
+			
 
 		}
 

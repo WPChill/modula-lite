@@ -15,7 +15,27 @@ class Modula_Upsells {
 	function __construct() {
 
 		if ( class_exists( 'WPChill_Upsells' ) ) {
-			$this->wpchill_upsells = WPChill_Upsells::get_instance();
+			// Initialize WPChill upsell class
+			$args = array(
+				'shop_url' => 'https://wp-modula.com',
+				'slug'     => 'modula',
+				'license' => array(
+					'key'    => '',
+					'status' => '',
+				)
+			);
+			$wpchill_upsell = WPChill_Upsells::get_instance( $args );
+
+			// output wpchill lite vs pro page
+			add_action( 'modula_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 2 );
+			add_filter( 'modula_admin_page_link', array( $wpchill_upsell, 'lite_vs_premium_page_title' ), 30 );
+
+			// We need to delete the transients whenever the license is activated / deactivated
+			add_action( 'modula_after_license_deactivated', array( $wpchill_upsell, 'delete_transients' ) );
+			add_action( 'modula_after_license_save', array( $wpchill_upsell, 'delete_transients' ) );
+			add_filter( 'modula_uninstall_transients', array( $wpchill_upsell, 'smart_upsells_transients' ) , 15 );
+			
+			$this->wpchill_upsells = $wpchill_upsell;
 		}
 
 		/* Hooks */
@@ -107,7 +127,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking for even more control and even more powerful galleries?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to get access to Fancybox Lightbox extra options, extra styles and more...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to get access to Fancybox Lightbox extra options, extra styles and more...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general' );
 
@@ -121,7 +141,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Not enough control?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock the ability to scale an image, and add horizontal/vertical slides...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to unlock the ability to scale an image, and add horizontal/vertical slides...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'loadingeffects' );
 
@@ -136,7 +156,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Need new hover effects and cursors ?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Pro today to unlock 41 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to unlock 41 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'hovereffects' );
 
@@ -181,7 +201,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking to add filters to your gallery?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to filters and separate the images in your gallery.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to filters and separate the images in your gallery.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters' );
 
@@ -196,7 +216,7 @@ class Modula_Upsells {
 		}
 
 		$title       = esc_html__( 'Looking to add more functionality to your lightbox?', 'modula-best-grid-gallery' );
-		$description = esc_html__( 'Ugrade to Modula Pro today and get access to a impressive number of options and settings for your lightbox, everything from toolbar buttons to animations and transitions.', 'modula-best-grid-gallery' );
+		$description = esc_html__( 'Ugrade to Modula Premium today and get access to a impressive number of options and settings for your lightbox, everything from toolbar buttons to animations and transitions.', 'modula-best-grid-gallery' );
 		$tab         = 'lightboxes';
 
 		$features = array(
@@ -291,7 +311,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
 
@@ -306,7 +326,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking to protect your galleries with a password ?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Password Protect add-on and protect your galleries with a password.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Password Protect add-on and protect your galleries with a password.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'password' );
 
@@ -321,7 +341,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking to watermark your galleries?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Watermark add-on and add a watermark to your gallery images.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Watermark add-on and add a watermark to your gallery images.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'watermark' );
 
@@ -336,7 +356,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Want to make slideshows from your gallery?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Pro today and get access to Modula Slidfeshow add-on allows you to turn your gallery\'s lightbox into a stunning slideshow.', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Slidfeshow add-on allows you to turn your gallery\'s lightbox into a stunning slideshow.', 'modula-best-grid-gallery' );
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'slideshow' );
 
@@ -469,7 +489,7 @@ class Modula_Upsells {
 		<div class="modula-upsells-carousel-wrapper">
 			<div class="modula-upsells-carousel">
 				<div class="modula-upsell modula-upsell-item">
-					<p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Pro today to get access to 7 sorting options.', 'modula-best-grid-gallery' ) ?></p>
+					<p class="modula-upsell-description"><?php esc_html_e( 'Upgrade to Modula Premium today to get access to 7 sorting options.', 'modula-best-grid-gallery' ) ?></p>
 					<ul class="modula-upsells-list">
 						<li>Date created - newest first</li>
 						<li>Date created - oldest first</li>

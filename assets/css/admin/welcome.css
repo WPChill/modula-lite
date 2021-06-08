@@ -64,6 +64,11 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
     flex-direction: column;
     padding-top: 30px;
     padding-bottom: 30px;
+    justify-content: space-between;
+}
+
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title.wpchill-modula-lite {
+    justify-content: center;
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title p.description {
@@ -73,6 +78,10 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-price {
     font-size  : 30px;
+}
+
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-name {
+    margin: 0;
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-price sup {

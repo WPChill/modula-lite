@@ -22,30 +22,22 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public static $instance;
 
 		/**
-		 * The slug of the CPT.
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $cpt_slug = 'modula-gallery';
-
-		/**
 		 * The server from which we get our info
 		 *
 		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
-		private $remote_server = 'https://wp-modula.com/wp-json/';
+		private $shop_url = '';
+
 		/**
-		 * The plugin's page basename
+		 * Plugin slug
 		 *
 		 * @since 2.5.2
 		 *
 		 * @var string
 		 */
-		private $plugin_page_basename = 'modula-gallery_page_modula';
+		private $slug = '';
 
 		/**
 		 * The license key meta
@@ -54,7 +46,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @var string
 		 */
-		private $license_key_meta = 'modula_pro_license_key';
+		private $license_key_meta;
 
 		/**
 		 * The license key status
@@ -63,43 +55,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @var string
 		 */
-		private $license_key_meta_status = 'modula_pro_license_status';
-
-		/**
-		 * The name of the plugin.
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		public $plugin_name = 'WPChill Client';
-
-		/**
-		 * Route namespace
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $namespace = 'wpchill/v1/';
-
-		/**
-		 * Package route
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $package_route = 'get-packages';
-
-		/**
-		 * Upgrade route
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $upgrade_route = 'get-upgrade';
+		private $license_key_meta_status;
 
 		/**
 		 * The license key
@@ -109,15 +65,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @var string
 		 */
 		private $license_key = '';
-
-		/**
-		 * The pricing page
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $pricing_page = 'https://wp-modula.com/pricing/';
 
 		/**
 		 * The PRO version class
@@ -138,57 +85,51 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		private $packages = array();
 
 		/**
-		 * The lite vs premium page action
+		 * URL endpoints
 		 *
 		 * @since 2.5.2
 		 *
-		 * @var string
+		 * @var array
 		 */
-		private $lite_vs_premium_page = 'modula_lite_vs_premium_page';
-
-		/**
-		 * The lite vs premium page title filter
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $lite_vs_premium_page_title = 'modula_admin_page_link';
-
-		/**
-		 * All packages transient name
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var string
-		 */
-		private $wpchill_all_packages = 'modula_all_packages';
-
-		/**
-		 * Upgradable packages transient name
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var string
-		 */
-		private $wpchill_upgradable_packages = 'modula_upgradable_packages';
+		private $endpoints = array(
+			'checkout'      => 'checkout',
+			'pricing'       => 'pricing',
+			'base'          => 'wp-json/wpchill/v1/'
+		);
 
 		/**
 		 * Primary class constructor.
 		 *
+		 * $args : array
+		 *
 		 * @since 2.5.2
 		 */
-		public function __construct() {
+		public function __construct( $args ) {
+
+			if ( ! isset( $args['slug'] ) ) {
+				return;
+			}
+
+			if ( ! isset( $args['shop_url'] ) ) {
+				return;
+			}
+
+			$this->slug     = $args['slug'];
+			$this->shop_url = $args['shop_url'];
+
+			if ( isset( $args['license'] ) && ! empty( $args['license'] ) ) {
+				
+				if ( isset( $args['license']['key'] ) ) {
+					$this->license_key_meta = $args['license']['key'];
+				}
+
+				if ( isset( $args['license']['status'] ) ) {
+					$this->license_key_meta_status = $args['license']['status'];
+				}
+
+			}
 
 			$this->check_for_upgrades();
-			add_action( $this->lite_vs_premium_page, array( $this, 'lite_vs_premium' ), 30, 2 );
-			add_filter( $this->lite_vs_premium_page_title, array( $this, 'lite_vs_premium_page_title' ), 30 );
-
-			// We need to delete the transients whenever the license is activated / deactivated
-			add_action( 'modula_after_license_deactivated', array( $this, 'delete_transients' ) );
-			add_action( 'modula_after_license_save', array( $this, 'delete_transients' ) );
-
-			add_filter( 'modula_uninstall_transients', array( $this, 'smart_upsells_transients' ) , 15 );
 
 		}
 
@@ -199,14 +140,32 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @since 2.5.2
 		 *
 		 */
-		public static function get_instance() {
+		public static function get_instance( $args ) {
 
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WPChill_Upsells ) ) {
-				self::$instance = new WPChill_Upsells();
+				self::$instance = new WPChill_Upsells( $args );
 			}
 
 			return self::$instance;
 
+		}
+
+		/**
+		 * Get transient names based on plugin slug
+		 *
+		 * @since 1.0.0
+		 */
+		public function get_transient( $name ){
+			return $this->slug . '_' . $name;
+		}
+
+		/**
+		 * Get REST API route
+		 *
+		 * @since 1.0.0
+		 */
+		public function get_route( $name ){
+			return trailingslashit($this->shop_url) . trailingslashit( $this->endpoints['base'] ) . $name;
 		}
 
 		/**
@@ -217,7 +176,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function fetch_packages() {
 
 			// Lets get the transient
-			$packages_transient = get_transient( $this->wpchill_all_packages);
+			$packages_transient = get_transient( $this->get_transient( 'all_packages' ) );
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -227,7 +186,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			// Transient doesn't exist so we make the call
-			$response = wp_remote_get( $this->remote_server . $this->namespace . $this->package_route );
+			$response = wp_remote_get( $this->get_route( 'package_route' ) );
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -236,7 +195,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
 					$this->packages = $data;
-					set_transient( $this->wpchill_all_packages, $this->packages, '86400' );
+					set_transient( $this->get_transient( 'all_packages' ), $this->packages, '86400' );
 				}
 
 			}
@@ -251,7 +210,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function fetch_current_package() {
 
 			// Lets get the transient
-			$packages_transient = get_transient( $this->wpchill_upgradable_packages );
+			$packages_transient = get_transient( $this->get_transient( 'upgradable_packages' ) );
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -261,8 +220,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			// Transient doesn't exist so we make the call
-			$url      = preg_replace( '/\?.*/', '', get_bloginfo( 'url' ) );
-			$response = wp_remote_get( $this->remote_server . $this->namespace . $this->upgrade_route . '?license=' . $this->license_key . '&url=' . $url );
+			$url         = preg_replace( '/\?.*/', '', get_bloginfo( 'url' ) );
+			$license_key = get_option( $this->license_key_meta );
+			$query_var = 'upgrade_route?license=' . $license_key . '&url=' . $url;
+			$response  = wp_remote_get( $this->get_route( $query_var )  );
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -273,7 +234,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					// Set our packages
 					$this->packages = $data;
 					// Set our transient so that we won't make calls each time user enters a Modula page
-					set_transient( $this->wpchill_upgradable_packages, $this->packages, '86400' );
+					set_transient( $this->get_transient( 'upgradable_packages' ), $this->packages, '86400' );
 				}
 			}
 		}
@@ -437,19 +398,39 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					}
 
 					?>
-					<div class="wpchill-pricing-package wpchill-title">
+					<div class="wpchill-pricing-package wpchill-title wpchill-<?php echo esc_attr( $slug ) ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
-						<p><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></p>
+						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php
 
 						// Lets display the price and other info about our packages
 						if ( isset( $package['upgrade_price'] ) && 'modula-lite' != $slug ) {
+							$price = number_format( $package['upgrade_price'], 2 );
+							$price_parts = explode( '.', $price );
+
+							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
+							$url = add_query_arg( array(
+								'edd_action'   => 'add_to_cart',
+								'download_id'  => $package['id'],
+								'utm_source'   => 'upsell',
+								'utm_medium'   => 'litevspro',
+								'utm_campaign' => $slug,
+							), $checkout_page );
+
+							$buy_button = apply_filters(
+								'wpchill-upsells-buy-button', 
+								array( 'url' => $url, 'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' ) ),
+								$slug,
+								$package,
+								$this
+							);
+
 							?>
-							<p><?php echo esc_html__( 'Upgrade now for only', 'modula-best-grid-gallery' ) ?></p>
-							<p class="wpchill-price"><?php echo ( isset( $package['upgrade_price'] ) ) ? '<sup>$</sup><strong>' . esc_html( $package['upgrade_price'] ) . '</strong><sup>.00</sup>' : ' '; ?>
+							<p class="wpchill-price"><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?>
 							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
-							<a href="<?php echo esc_url( $this->pricing_page ); ?>" target="_blank"
-							   class="button button-primary"><?php echo esc_html__( 'Upgrade', '' ); ?></a>
+							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary">
+								<?php echo $buy_button['label']; ?>
+							</a>
 						<?php } ?>
 
 					</div>
@@ -583,8 +564,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @since 2.5.2
 		 */
 		public function delete_transients() {
-			delete_transient( $this->wpchill_upgradable_packages );
-			delete_transient( $this->wpchill_all_packages );
+			delete_transient( $this->get_transient( 'upgradable_packages' ) );
+			delete_transient( $this->get_transient( 'all_packages' ) );
 		}
 
 		/**
@@ -598,13 +579,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 */
 		public function smart_upsells_transients( $transients ) {
 
-			$transients[] = $this->wpchill_upgradable_packages;
-			$transients[] = $this->wpchill_all_packages;
+			$transients[] = $this->get_transient( 'upgradable_packages' );
+			$transients[] = $this->get_transient( 'all_packages' );
 
 			return $transients;
 		}
 
 	}
 
-	WPChill_Upsells::get_instance();
 }
