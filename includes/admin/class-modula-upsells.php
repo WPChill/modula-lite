@@ -27,14 +27,14 @@ class Modula_Upsells {
 			$wpchill_upsell = WPChill_Upsells::get_instance( $args );
 
 			// output wpchill lite vs pro page
-			add_action( 'modula_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 2 );
+			add_action( 'modula_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 1 );
 			add_filter( 'modula_admin_page_link', array( $wpchill_upsell, 'lite_vs_premium_page_title' ), 30 );
 
 			// We need to delete the transients whenever the license is activated / deactivated
 			add_action( 'modula_after_license_deactivated', array( $wpchill_upsell, 'delete_transients' ) );
 			add_action( 'modula_after_license_save', array( $wpchill_upsell, 'delete_transients' ) );
 			add_filter( 'modula_uninstall_transients', array( $wpchill_upsell, 'smart_upsells_transients' ) , 15 );
-			
+
 			$this->wpchill_upsells = $wpchill_upsell;
 		}
 

@@ -348,7 +348,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @since 2.5.2
 		 */
-		public function lite_vs_premium( $addons, $pro_features ) {
+		public function lite_vs_premium( $pro_features ) {
 
 			$upsell_packages = array();
 
@@ -368,6 +368,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Lets sort them by price, higher is better
 			uasort( $upsell_packages, array( 'WPChill_Upsells', 'sort_data_by_price' ) );
+
+			// Get our extensions from the heighest paid package as it has all of them
+			$addons = array_values($upsell_packages)[0]['extensions'];
+
+			// Unset the PRO from extensions
+			unset($addons['modula']);
 
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 

@@ -554,7 +554,7 @@ class Modula_Admin {
 
 		echo '<div class="modula wrap lite-vs-pro-section about-wrap">';
 
-		do_action('modula_lite_vs_premium_page',$pro_features);
+		do_action( 'modula_lite_vs_premium_page', $pro_features );
 
 		echo '</div>';
 
