@@ -386,11 +386,11 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Make the size of the element based on number of addons
 			if ( count( $upsell_packages ) > 0 ) {
-				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}</style>';
+				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before{content:"'.esc_html__('Current package','modula-best-grid-gallery').'";}</style>';
 			}
 			?>
 
-			<div class="wpchill-plans-table">
+			<div class="wpchill-plans-table table-header">
 				<div class="wpchill-pricing-package wpchill-empty">
 					<!--This is an empty div so that we can have an empty corner-->
 				</div>
@@ -435,7 +435,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							), $checkout_page );
 
 							$buy_button = apply_filters(
-								'wpchill-upsells-buy-button', 
+								'wpchill-upsells-buy-button',
 								array( 'url' => $url, 'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' ) ),
 								$slug,
 								$package,
@@ -446,7 +446,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							<p class="wpchill-price"><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?>
 							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
 							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary">
-								<?php echo $buy_button['label']; ?>
+								<?php echo esc_html($buy_button['label']); ?>
 							</a>
 						<?php } ?>
 

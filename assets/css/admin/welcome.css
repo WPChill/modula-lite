@@ -38,6 +38,28 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
     display    : flex;
 }
 
+.wpchill-plans-table.table-header {
+    margin-top : 50px;
+}
+
+.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before {
+    content        : '';
+    width          : auto;
+    display        : inline-block;
+    opacity        : 1;
+    position       : absolute;
+    top            : -1px;
+    background     : #41495b;
+    text-align     : center;
+    left           : 0;
+    right          : 0;
+    color          : #fff;
+    font-size      : 15px;
+    text-transform : uppercase;
+    padding        : 10px 5px;
+    transform      : translateY(-100%);
+}
+
 .wpchill-plans-table .wpchill-pricing-package {
     text-align      : center;
     border-left     : 1px solid #ebebeb;
@@ -56,15 +78,16 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title {
-    font-weight : 400;
-    color       : #666;
-    font-size   : 1.25rem;
-    height: auto;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    justify-content: space-between;
+    font-weight        : 400;
+    color              : #666;
+    font-size          : 1.25rem;
+    height             : auto;
+    -ms-flex-direction : column;
+    flex-direction     : column;
+    padding-top        : 30px;
+    padding-bottom     : 30px;
+    justify-content    : space-between;
+    position           : relative;
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title.wpchill-modula-lite {
