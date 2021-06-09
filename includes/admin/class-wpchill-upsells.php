@@ -376,7 +376,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			uasort( $upsell_packages, array( 'WPChill_Upsells', 'sort_data_by_price' ) );
 
 			// Get our extensions from the heighest paid package as it has all of them
-			$addons = array_values($upsell_packages)[0]['extensions'];
+			// Also we need to reverse the addons so that they appear in a cascade
+			$addons = array_reverse(array_values($upsell_packages)[0]['extensions']);
 
 			// Unset the PRO from extensions
 			unset($addons['modula']);
