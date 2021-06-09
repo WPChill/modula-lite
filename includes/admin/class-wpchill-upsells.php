@@ -467,7 +467,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				?>
 				<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
-						<?php echo esc_html( $addon['title'] ); ?>
+						<?php echo esc_html( $addon['name'] ); ?>
 						<?php
 						if ( isset( $addon['description'] ) ) {
 							?>
