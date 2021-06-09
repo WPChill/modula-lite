@@ -15,13 +15,14 @@ class Modula_Upsells {
 	function __construct() {
 
 		if ( class_exists( 'WPChill_Upsells' ) ) {
+
 			// Initialize WPChill upsell class
 			$args = array(
 				'shop_url' => 'https://wp-modula.com',
 				'slug'     => 'modula',
 				'license' => array(
-					'key'    => '',
-					'status' => '',
+					'key'    => 'modula_pro_license_key',
+					'status' => 'modula_pro_license_status',
 				)
 			);
 			$wpchill_upsell = WPChill_Upsells::get_instance( $args );

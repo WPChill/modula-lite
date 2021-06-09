@@ -190,7 +190,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			// Transient doesn't exist so we make the call
-			$response = wp_remote_get( $this->get_route( 'package_route' ) );
+			$response = wp_remote_get( $this->get_route( 'get-packages' ) );
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -220,14 +220,14 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
 				$this->packages = $packages_transient;
 
-				return;
+				//return;
 			}
 
 			// Transient doesn't exist so we make the call
 			$url         = preg_replace( '/\?.*/', '', get_bloginfo( 'url' ) );
 			$license_key = get_option( $this->license_key_meta );
-			$query_var = 'upgrade_route?license=' . $license_key . '&url=' . $url;
-			$response  = wp_remote_get( $this->get_route( $query_var )  );
+			$query_var   = 'get-upgrade?license=' . $license_key . '&url=' . $url;
+			$response    = wp_remote_get( $this->get_route( $query_var ) );
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -358,8 +358,14 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			$packages = $this->get_packages();
 
-			if ( isset( $packages['current_package'] ) && ! empty( $package['current_package'] ) ) {
-				$lite_plan = $packages['current_package'];
+			if ( isset( $packages['current_package'] ) && ! empty( $packages['current_package'] ) ) {
+
+				// Add current plas as LITE plan
+				$lite_plan[ $packages['current_package']['slug'] ] = $packages['current_package'];
+				// Unset the LITE plan as there is not need for comparison
+				unset( $lite_plan['modula-lite'] );
+				// No PRO Features needed in comparison as they all have them
+				$pro_features = false;
 			}
 
 			if ( isset( $packages['upsell_packages'] ) ) {
