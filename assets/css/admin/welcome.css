@@ -104,7 +104,8 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-name {
-    margin: 0;
+    margin    : 0;
+    font-size : 36px;
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-title p.wpchill-price sup {
