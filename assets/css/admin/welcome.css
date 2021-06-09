@@ -115,7 +115,8 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 }
 
 .wpchill-plans-table .wpchill-pricing-package.wpchill-empty {
-    background : transparent;
+    background   : transparent;
+    border-color : transparent;
 }
 
 .wpchill-plans-table .wpchill-pricing-package.feature-name {
