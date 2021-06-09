@@ -128,9 +128,7 @@ class Modula {
 			return;
 		}
 
-		if ( apply_filters( 'modula_show_upsells', true ) ) {
-			new Modula_Upsells();
-		}
+		new Modula_Upsells();
 
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
