@@ -424,6 +424,13 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 						if ( isset( $package['upgrade_price'] ) && 'modula-lite' != $slug ) {
 							$price = number_format( $package['upgrade_price'], 2 );
 							$price_parts = explode( '.', $price );
+							$normal_price = false;
+
+							if ( isset( $package['normal_price'] ) ) {
+								$normal_price       = number_format( $package['normal_price'], 2 );
+								$normal_price_parts = explode( '.', $normal_price );
+							}
+
 
 							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
 							$url = add_query_arg( array(
@@ -443,7 +450,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							);
 
 							?>
-							<p class="wpchill-price"><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?>
+							<p class="wpchill-price">
+							<?php if ( $normal_price ) { ?>
+								<p><?php echo '<sup>$</sup><del><strong>' . esc_html( $normal_price_parts[0] ) . '</strong></del><sup>.' . esc_html( $normal_price_parts[1] ) . '</sup>'; ?></p>
+							<?php } ?>
+
+							<p><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?></p>
 							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
 							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary">
 								<?php echo esc_html($buy_button['label']); ?>
