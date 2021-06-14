@@ -17,19 +17,15 @@ class Modula_Upsells {
 		if ( class_exists( 'WPChill_Upsells' ) ) {
 
 			// Initialize WPChill upsell class
-			$args = array(
-				'shop_url' => 'https://wp-modula.com',
-				'slug'     => 'modula',
-				'license' => array(
-					'key'    => 'modula_pro_license_key',
-					'status' => 'modula_pro_license_status',
-				)
-			);
+			$args = apply_filters( 'modula_upsells_args', array(
+					'shop_url' => 'https://wp-modula.com',
+					'slug'     => 'modula',
+			) );
+
 			$wpchill_upsell = WPChill_Upsells::get_instance( $args );
 
 			// output wpchill lite vs pro page
 			add_action( 'modula_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 1 );
-			add_filter( 'modula_admin_page_link', array( $wpchill_upsell, 'lite_vs_premium_page_title' ), 30 );
 
 			// We need to delete the transients whenever the license is activated / deactivated
 			add_action( 'modula_after_license_deactivated', array( $wpchill_upsell, 'delete_transients' ) );

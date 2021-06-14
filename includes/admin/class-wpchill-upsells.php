@@ -40,42 +40,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		private $slug = '';
 
 		/**
-		 * The license key meta
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $license_key_meta;
-
-		/**
-		 * The license key status
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $license_key_meta_status;
-
-		/**
-		 * The license key
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $license_key = '';
-
-		/**
-		 * The PRO version class
-		 *
-		 * @since 2.5.2
-		 *
-		 * @var string
-		 */
-		private $pro_version_class = 'Modula_PRO';
-
-		/**
 		 * Our packages
 		 *
 		 * @since 2.5.2
@@ -117,23 +81,11 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			$this->slug     = $args['slug'];
 			$this->shop_url = $args['shop_url'];
 
-			if ( isset( $args['license'] ) && ! empty( $args['license'] ) ) {
-				
-				if ( isset( $args['license']['key'] ) ) {
-					$this->license_key_meta = $args['license']['key'];
-				}
-
-				if ( isset( $args['license']['status'] ) ) {
-					$this->license_key_meta_status = $args['license']['status'];
-				}
-
-			}
-
 			if ( isset( $args['endpoints'] ) && ! empty( $args['endpoints'] ) ) {
 				$this->endpoints = wp_parse_args( $args['endpoints'], $this->endpoints );
 			}
 
-			$this->check_for_upgrades();
+			$this->fetch_packages();
 
 		}
 
@@ -179,8 +131,13 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 */
 		public function fetch_packages() {
 
+			$rest_calls = apply_filters( 'modula_packages', array(
+					'packages' => 'all_packages',
+					'route'    => 'get-packages'
+			), $this->packages );
+
 			// Lets get the transient
-			$packages_transient = get_transient( $this->get_transient( 'all_packages' ) );
+			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ));
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -189,8 +146,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				return;
 			}
 
+			$query_var = $rest_calls['route'];
+
 			// Transient doesn't exist so we make the call
-			$response = wp_remote_get( $this->get_route( 'get-packages' ) );
+			$response = wp_remote_get( $this->get_route( $query_var ) );
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -199,83 +158,11 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
 					$this->packages = $data;
-					set_transient( $this->get_transient( 'all_packages' ), $this->packages, '86400' );
+					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, '86400' );
 				}
 
 			}
 
-		}
-
-		/**
-		 * Fectch current client package and give upgrades
-		 *
-		 * @since 2.5.2
-		 */
-		public function fetch_current_package() {
-
-			// Lets get the transient
-			$packages_transient = get_transient( $this->get_transient( 'upgradable_packages' ) );
-
-			// If the transient exists then we will not make another call to the main server
-			if ( $packages_transient && ! empty( $packages_transient ) ) {
-				$this->packages = $packages_transient;
-
-				//return;
-			}
-
-			// Transient doesn't exist so we make the call
-			$url         = preg_replace( '/\?.*/', '', get_bloginfo( 'url' ) );
-			$license_key = get_option( $this->license_key_meta );
-			$query_var   = 'get-upgrade?license=' . $license_key . '&url=' . $url;
-			$response    = wp_remote_get( $this->get_route( $query_var ) );
-
-			if ( ! is_wp_error( $response ) ) {
-
-				// Decode the data that we got.
-				$data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-				if ( ! empty( $data ) && is_array( $data ) ) {
-					// Set our packages
-					$this->packages = $data;
-					// Set our transient so that we won't make calls each time user enters a Modula page
-					set_transient( $this->get_transient( 'upgradable_packages' ), $this->packages, '86400' );
-				}
-			}
-		}
-
-		/**
-		 * Lets check for license
-		 *
-		 * @return bool
-		 *
-		 * @since 2.5.2
-		 */
-		public function check_for_license() {
-
-			$license_status = get_option( $this->license_key_meta_status );
-
-			// There is no license or license is not valid anymore, so we get all packages
-			if ( ! $license_status || 'valid' != $license_status->license ) {
-				return false;
-			}
-
-			return true;
-		}
-
-		/**
-		 * Check if license is active and if there are packages to update to
-		 *
-		 * @since 2.5.2
-		 */
-		public function check_for_upgrades() {
-
-			// If there is no license, or license invalid or the PRO version is not installed
-			// We should retrieve all the packages
-			if ( ! $this->check_for_license() || ! class_exists( $this->pro_version_class ) ) {
-				$this->fetch_packages();
-			} else {
-				$this->fetch_current_package();
-			}
 		}
 
 		/**
@@ -343,7 +230,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		/**
 		 * The Current Package vs Upgrade Package page
 		 *
-		 * @param $addons
 		 * @param $pro_features
 		 *
 		 * @since 2.5.2
@@ -351,6 +237,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function lite_vs_premium( $pro_features ) {
 
 			$upsell_packages = array();
+			$addons = array();
 
 			$lite_plan['modula-lite'] = array(
 					'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
@@ -377,10 +264,13 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Get our extensions from the heighest paid package as it has all of them
 			// Also we need to reverse the addons so that they appear in a cascade
-			$addons = array_reverse(array_values($upsell_packages)[0]['extensions']);
+			if(isset(array_values($upsell_packages)[0]['extensions'])){
 
-			// Unset the PRO from extensions
-			unset($addons['modula']);
+				$addons = array_reverse(array_values($upsell_packages)[0]['extensions']);
+
+				// Unset the PRO from extensions
+				unset($addons['modula']);
+			}
 
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
@@ -431,14 +321,13 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 								$normal_price_parts = explode( '.', $normal_price );
 							}
 
-
 							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
-							$url = add_query_arg( array(
-								'edd_action'   => 'add_to_cart',
-								'download_id'  => $package['id'],
-								'utm_source'   => 'upsell',
-								'utm_medium'   => 'litevspro',
-								'utm_campaign' => $slug,
+							$url           = add_query_arg( array(
+									'edd_action'   => 'add_to_cart',
+									'download_id'  => $package['id'],
+									'utm_source'   => 'upsell',
+									'utm_medium'   => 'litevspro',
+									'utm_campaign' => $slug,
 							), $checkout_page );
 
 							$buy_button = apply_filters(
@@ -555,49 +444,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		}
 
 		/**
-		 * The LITE vs Premium page title
-		 *
-		 * @param $menu
-		 *
-		 * @return mixed
-		 *
-		 * @since 2.5.2
-		 */
-		public function lite_vs_premium_page_title( $links ) {
-
-			// Check for license and current package
-			if ( ! $this->check_for_license() || ! isset( $this->packages['current_package'] ) || empty( $this->packages['current_package'] ) ) {
-				return $links;
-			}
-
-			// We made it here, so license is active and there is a current package
-			// If no upsells are present means that the client has the highest package
-			if ( empty( $this->packages['upsell_packages'] ) ) {
-				if ( isset( $links['freevspro'] ) ) {
-					unset( $links['freevspro'] );
-				}
-				return $links;
-			}
-
-			if ( isset( $links['freevspro'] ) ) {
-				$links['freevspro']['page_title'] = esc_html__( 'Upgrade', 'modula-best-grid-gallery' );
-				$links['freevspro']['menu_title'] = esc_html__( 'Upgrade', 'modula-best-grid-gallery' );
-			}
-
-			return $links;
-		}
-
-		/**
-		 * Delete our set transients
-		 *
-		 * @since 2.5.2
-		 */
-		public function delete_transients() {
-			delete_transient( $this->get_transient( 'upgradable_packages' ) );
-			delete_transient( $this->get_transient( 'all_packages' ) );
-		}
-
-		/**
 		 * Add the smart upsells transients to deletion
 		 *
 		 * @param $transients
@@ -608,7 +454,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 */
 		public function smart_upsells_transients( $transients ) {
 
-			$transients[] = $this->get_transient( 'upgradable_packages' );
 			$transients[] = $this->get_transient( 'all_packages' );
 
 			return $transients;
