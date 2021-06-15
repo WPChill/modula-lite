@@ -104,8 +104,12 @@ class Modula_Upsells {
 
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=' . $tab . '-tab&utm_campaign=' . $campaign . '#lite-vs-pro"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
-		$upsell_box .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=' . $tab . '_tab_upsell-tab&utm_campaign=' . $campaign . '" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=' . $tab . '-tab&utm_campaign=' . $campaign . '#lite-vs-pro"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=' . $tab . '_tab_upsell-tab&utm_campaign=' . $campaign . '" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$upsell_box .= apply_filters( 'modula_upsell_buttons', $buttons, $tab );
+
 		$upsell_box .= '</p>';
 		$upsell_box .= '</div>';
 
