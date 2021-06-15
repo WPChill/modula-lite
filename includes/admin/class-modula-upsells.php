@@ -51,11 +51,6 @@ class Modula_Upsells {
 		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
 
-		// Add modula roles to tab
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_roles_upsell' ) );
-		add_action( 'modula_admin_tab_roles', array( $this, 'render_roles_upsell_tab' ) );
-
-
 		// Add modula whitelabel upsell
 		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
 			add_action( 'modula_side_admin_tab', array( $this, 'render_whitelabel_upsell' ) );

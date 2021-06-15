@@ -61,6 +61,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			'base'          => 'wp-json/wpchill/v1/'
 		);
 
+		private $upsell_extensions = array();
+
 		/**
 		 * Primary class constructor.
 		 *
@@ -142,6 +144,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
 				$this->packages = $packages_transient;
+				$this->upsell_extensions = $this->get_extensions_upsell($this->packages);
 
 				return;
 			}
@@ -157,13 +160,51 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
-					$this->packages = $data;
+					$this->packages          = $data;
+					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
 					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, '86400' );
 				}
 
 			}
 
 		}
+
+		/**
+		 * Get list of extensions for upsell
+		 *
+		 * @return array
+		 */
+		public function get_extensions_upsell( $packages ) {
+
+			$upsells = array();
+
+			if ( isset( $packages['upsell_packages'] ) ) {
+
+
+				foreach ( $packages['upsell_packages'] as $package ) {
+
+					if ( isset( $package['extensions'] ) ) {
+						$upsells = array_merge( $upsells, $package['extensions'] );
+					}
+				}
+
+				// Unset the addons we currently have in our current package if any
+				if ( isset( $packages['current_package'] ) && ! empty( $packages['current_package'] ) ) {
+
+					foreach ( $packages['current_package']['extensions'] as $key => $addon ) {
+
+						// Search and unset
+						if ( isset( $upsells[ $key ] ) ) {
+
+							unset( $upsells[ $key ] );
+						}
+					}
+				}
+			}
+
+			return $upsells;
+		}
+
 
 		/**
 		 * Check to see if addon is in our upgrade list
@@ -180,17 +221,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				return false;
 			}
 
-			if ( ! empty( $this->packages ) ) {
-				if ( isset( $this->packages['upsell_packages'] ) ) {
-					$packages = $this->packages['upsell_packages'];
-				} else {
-					$packages = $this->packages;
-				}
-				foreach ( $packages as $package ) {
+			if ( ! empty( $this->upsell_extensions ) ) {
 
-					if ( isset( $package['extensions'][ $addon ] ) ) {
-						return true;
-					}
+				if ( isset( $this->upsell_extensions[ $addon ] ) ) {
+					return true;
 				}
 			}
 
