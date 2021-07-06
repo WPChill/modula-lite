@@ -21,8 +21,15 @@
 							<li>Shuffle album cover images (randomly pick a cover image from the gallery)</li>
 						</ul>
 						<p>
-							<a target="_blank" href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=albums-metabox&utm_campaign=modula-albums#lite-vs-pro' ); ?>" class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ); ?></a>
-							<a target="_blank" style="margin-top:10px;" href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=extensions' ); ?>" class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ); ?></a>
+							<?php
+
+							$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+							$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-modula&utm_campaign=modula-albums" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+							echo apply_filters( 'modula_upsell_buttons', $buttons, 'albums' );
+
+							?>
 						</p>
 					</div>
 				</div>

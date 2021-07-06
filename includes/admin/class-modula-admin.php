@@ -28,11 +28,11 @@ class Modula_Admin {
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
 
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
-		add_action( 'wp_ajax_modula_modal_upgrade', array( $this, 'modula_get_modal_upgrade') );
-
 		add_action( 'admin_init', array( $this, 'register_affiliate_link' ) );
 		add_filter( 'modula_admin_page_tabs', array( $this, 'add_affiliate_tab' ) );
 		add_action( 'modula_admin_tab_affiliate', array( $this, 'show_affiliate_tab' ) );
+
+		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
 	}
 
@@ -96,17 +96,16 @@ class Modula_Admin {
 				'priority'   => 100,
 			),
 		);
-		if ( ! class_exists( 'Modula_PRO' ) ) {
-			$links[] =
-					array(
-						'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
-						'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
-						'capability' => 'manage_options',
-						'menu_slug'  => '#modula-albums',
-						'function'   => array( $this, 'modula_albums' ),
-						'priority'   => 25,
-					);
-		}
+		
+		$links['modulaalbums'] = array(
+			'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => '#modula-albums',
+			'function'   => array( $this, 'modula_albums' ),
+			'priority'   => 25,
+		);
+
 		if ( current_user_can( 'install_plugins' ) ) {
 			$links[] =
 				array(
@@ -466,18 +465,6 @@ class Modula_Admin {
 	}
 
 	/**
-	 * Show the modal to upgrade
-	 *
-	 * @since 2.3.0
-	 */
-	public function modula_get_modal_upgrade() {
-
-		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-upgrade.php';
-		wp_die();
-
-	}
-
-	/**
 	 * Enqueue jQuery autocomplete script
 	 *
 	 * /@since 2.3.2
@@ -562,6 +549,22 @@ class Modula_Admin {
 
 	public function modula_albums() {
 		return;
+	}
+
+	public function add_body_class( $classes ){
+		$screen = get_current_screen();
+
+		if ( 'modula-gallery' != $screen->post_type ) {
+			return $classes;
+		}
+
+		if ( 'post' != $screen->base ) {
+			return $classes;
+		}
+
+		$classes .= ' single-modula-gallery';
+		return $classes;
+
 	}
 
 }

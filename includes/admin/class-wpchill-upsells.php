@@ -274,7 +274,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			$addons = array();
 
 			$lite_plan['modula-lite'] = array(
-					'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
+				'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
 			);
 
 			$packages = $this->get_packages();
@@ -373,14 +373,16 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							);
 
 							?>
-							<p class="wpchill-price">
+							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
+							<div class="wpchill-price">
 							<?php if ( $normal_price ) { ?>
-								<p><?php echo '<sup>$</sup><del><strong>' . esc_html( $normal_price_parts[0] ) . '</strong></del><sup>.' . esc_html( $normal_price_parts[1] ) . '</sup>'; ?></p>
+								<p class="old-price"><?php echo '$<strong>' . esc_html( $normal_price_parts[0] ) . '</strong><sup>.' . esc_html( $normal_price_parts[1] ) . '</sup>'; ?></p>
 							<?php } ?>
 
 							<p><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?></p>
-							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
-							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary">
+
+							</div>
+							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary button-hero">
 								<?php echo esc_html($buy_button['label']); ?>
 							</a>
 						<?php } ?>

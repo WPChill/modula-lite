@@ -137,6 +137,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 				if (instance.isIsotope) {
 					instance.$itemsCnt.modulaisotope('layout');
 				}
+
+				if ('grid' == this.options.type) {
+					if ('automatic' == this.options.grid_type) {
+						this.$itemsCnt.justifiedGallery();
+					}
+				}
+
 			}
 		});
 

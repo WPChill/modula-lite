@@ -35,6 +35,9 @@ class Modula_Upsells {
 			$this->wpchill_upsells = $wpchill_upsell;
 		}
 
+		// Modula albums modal
+		add_action( 'wp_ajax_modula_modal_upgrade', array( $this, 'get_modal_upgrade') );
+
 		/* Hooks */
 		add_filter( 'modula_general_tab_content', array( $this, 'general_tab_upsell' ) );
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
@@ -105,7 +108,8 @@ class Modula_Upsells {
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 		$upsell_box .= '<p>';
 
-		$buttons = '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=' . $tab . '-tab&utm_campaign=' . $campaign . '#lite-vs-pro"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+		$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+		$buttons = '<a target="_blank" href="' . $lite_vs_pro_url . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
 		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=' . $tab . '_tab_upsell-tab&utm_campaign=' . $campaign . '" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 		$upsell_box .= apply_filters( 'modula_upsell_buttons', $buttons, $tab );
@@ -429,15 +433,15 @@ class Modula_Upsells {
 		$upsell_description = esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' );
 
 		$features = array(
-				array(
-						'feature' => 'Download entire galleries, albums or a single photo',
-				),
-				array(
-						'feature' => 'Select the image sizes the user can download (thumbnail, full size, or custom)',
-				),
-				array(
-						'feature' => 'Comes with a powerful shortcode that you can use to render the button anywhere',
-				),
+			array(
+				'feature' => 'Download entire galleries, albums or a single photo',
+			),
+			array(
+				'feature' => 'Select the image sizes the user can download (thumbnail, full size, or custom)',
+			),
+			array(
+				'feature' => 'Comes with a powerful shortcode that you can use to render the button anywhere',
+			),
 		);
 
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download', $features );
@@ -455,27 +459,27 @@ class Modula_Upsells {
 
 	public function add_meta_boxes() {
 
-		if ($this->wpchill_upsells &&  $this->wpchill_upsells->is_upgradable_addon('modula-defaults') ) {
+		if ( $this->wpchill_upsells &&  $this->wpchill_upsells->is_upgradable_addon('modula-defaults') ) {
 
 			add_meta_box(
-					'modula-defaults-upsell',                                             // Unique ID
-					esc_html__( 'Modula Defaults Addon', 'modula-best-grid-gallery' ),    // Title
-					array( $this, 'output_defaults_upsell' ),                             // Callback function
-					'modula-gallery',                                                     // Admin page (or post type)
-					'side',                                                               // Context
-					'high'         // Priority
+				'modula-defaults-upsell',                                             // Unique ID
+				esc_html__( 'Modula Defaults Addon', 'modula-best-grid-gallery' ),    // Title
+				array( $this, 'output_defaults_upsell' ),                             // Callback function
+				'modula-gallery',                                                     // Admin page (or post type)
+				'side',                                                               // Context
+				'high'         // Priority
 			);
 
 		}
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			add_meta_box(
-					'modula-sorting-upsell',                                        // Unique ID
-					esc_html__( 'Gallery sorting', 'modula-best-grid-gallery' ),    // Title
-					array( $this, 'output_sorting_upsell' ),                        // Callback function
-					'modula-gallery',                                               // Admin page (or post type)
-					'side',                                                         // Context
-					'default'         // Priority
+				'modula-sorting-upsell',                                        // Unique ID
+				esc_html__( 'Gallery sorting', 'modula-best-grid-gallery' ),    // Title
+				array( $this, 'output_sorting_upsell' ),                        // Callback function
+				'modula-gallery',                                               // Admin page (or post type)
+				'side',                                                         // Context
+				'default'         // Priority
 			);
 		}
 	}
@@ -496,13 +500,15 @@ class Modula_Upsells {
 						<li>Random</li>
 					</ul>
 					<p>
-						<a target="_blank"
-						   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=sorting-metabox&utm_campaign=modula-sorting#lite-vs-pro"
-						   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
-						<a target="_blank"
-						   style="margin-top:10px;"
-						   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=sorting-metabox&utm_campaign=modula-sorting"
-						   class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ) ?></a>
+						<?php
+
+						$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+						$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=sorting-metabox&utm_campaign=modula-sorting" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+						echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-pro' );
+
+						?>
 					</p>
 				</div>
 			</div>
@@ -527,13 +533,15 @@ class Modula_Upsells {
 						<li>Save your galleries</li>
 					</ul>
 					<p>
-						<a target="_blank"
-						   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-						   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
-						<a target="_blank"
-						   style="margin-top:10px;"
-						   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
-						   class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ) ?></a>
+						<?php
+
+						$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+						$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+						echo apply_filters( 'modula_upsell_buttons', $buttons, 'defaults' );
+
+						?>
 					</p>
 				</div>
 			</div>
@@ -549,9 +557,9 @@ class Modula_Upsells {
 		}
 
 		$tabs['roles'] = array(
-				'label'    => esc_html__( 'Roles', 'modula-roles' ),
-				'badge'    => 'PRO',
-				'priority' => 120,
+			'label'    => esc_html__( 'Roles', 'modula-roles' ),
+			'badge'    => 'PRO',
+			'priority' => 120,
 		);
 
 		return $tabs;
@@ -564,13 +572,15 @@ class Modula_Upsells {
 		<div class="modula-settings-upsell">
 			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
 			<p style="text-align:center">
-				<a target="_blank"
-				   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-				   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
-				<a target="_blank"
-				   style="margin-top:10px;"
-				   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
-				   class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ) ?></a>
+				<?php
+
+				$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+				$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'roles' );
+
+				?>
 			</p>
 		</div>
 
@@ -584,13 +594,15 @@ class Modula_Upsells {
 			<h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
 			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
 			<p style="text-align:center">
-				<a target="_blank"
-				   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-				   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
-				<a target="_blank"
-				   style="margin-top:10px;"
-				   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
-				   class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ) ?></a>
+				<?php
+
+				$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+				$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'whitelabel' );
+
+				?>
 			</p>
 		</div>
 
@@ -604,17 +616,35 @@ class Modula_Upsells {
 			<h3><?php esc_html_e( 'Modula Whitelabel', 'modula-best-grid-gallery' ) ?></h3>
 			<p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
 			<p>
-				<a target="_blank"
-				   href="https://wp-modula.com/pricing/?utm_source=lite-vs-pro&utm_medium=defaults-metabox&utm_campaign=modula-defaults#lite-vs-pro"
-				   class="button"><?php esc_html_e( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) ?></a>
-				<a target="_blank"
-				   style="margin-top:10px;"
-				   href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults"
-				   class="button-primary button"><?php esc_html_e( 'Get Premium!', 'modula-best-grid-gallery' ) ?></a>
+				<?php
+
+				$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+				$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'See Free vs Premium Differences', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=whitelabel-metabox&utm_campaign=modula-whitelabel" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'whitelabel' );
+
+				?>
 			</p>
 		</div>
 
 		<?php
+	}
+
+	/**
+	 * Show the modal to upgrade
+	 *
+	 * @since 2.3.0
+	 */
+	public function get_modal_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-download') ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-upgrade.php';
+		wp_die();
+
 	}
 
 }

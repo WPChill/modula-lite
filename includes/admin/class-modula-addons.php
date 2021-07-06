@@ -5,8 +5,6 @@ class Modula_Addons {
 	public $addons = array();
 
 	function __construct() {
-		$this->addons = $this->check_for_addons();
-
 		// Add ajax action to reload extensions
 		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 	}
@@ -42,6 +40,8 @@ class Modula_Addons {
 	}
 
 	public function render_addons() {
+
+		$this->addons = $this->check_for_addons();
 
 		$addons_images = array(
 			'modula-whitelabel', 'modula-roles', 'modula-defaults', 'modula-zoom', 'modula-download', 'modula-exif', 'modula-albums', 'modula-slider', 'modula-password-protect', 'modula-watermark', 'modula-deeplink', 'modula-speedup', 'modula-video','modula-advanced-shortcodes','modula-slideshow','modula-protection'
