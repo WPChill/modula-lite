@@ -521,7 +521,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var instance = this,
 			source = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
 			size = {};
-		
+
 		if ('0' != instance.options.lazyLoad) {
 			instance.placeImage(index);
 			return;
@@ -536,7 +536,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		if ('undefined' != source.attr('src')) {
 			img.src = source.attr('src');
-			
+
 		} else {
 			img.src = source.data('src');
 		}
