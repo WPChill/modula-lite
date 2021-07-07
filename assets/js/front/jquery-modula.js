@@ -138,9 +138,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 					instance.$itemsCnt.modulaisotope('layout');
 				}
 
-				if ('grid' == this.options.type) {
-					if ('automatic' == this.options.grid_type) {
-						this.$itemsCnt.justifiedGallery();
+				if ( 'grid' == instance.options.type ) {
+					if ( 'automatic' == instance.options.grid_type ) {
+						instance.$itemsCnt.justifiedGallery();
 					}
 				}
 
