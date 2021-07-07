@@ -163,6 +163,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 		// Create social links
 		this.setupSocial();
 
+		// Add init class
+		jQuery(instance.$element).addClass('modula-gallery-initialized');
 		// Trigger custom gallery JS
 		if (this.options.onComplete) {
 			this.options.onComplete();
