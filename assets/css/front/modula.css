@@ -580,7 +580,7 @@ html body div.modula-powered svg.modula-logo {
     display: inline-block;
 }
 
-html body .modula:not( .modula-gallery-initiaized )  {
+html body .modula:not( .modula-gallery-initialized )  {
     visibility: hidden;
 }
 
