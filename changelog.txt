@@ -1,4 +1,4 @@
-= 2.5.2 - 25/05/2021 =
+= 2.5.2 - 14/07/2021 =
 Fixed: Added data-srcset and data-sizes attributes for lazy load functionality
 Changed: Albums upsell
 Changed: Free vs Premium page and Upsells integration

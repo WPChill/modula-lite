@@ -1,17 +1,19 @@
 <?php
 $issues = array(
-		'added'   => array(),
-		'changed' => array(),
-		'fixed'   => array(
-				esc_html__( 'Gutter for mobile and tablet after Modula update from 2.4.1 to 2.5.0. Setting was displaying OK in backend but on frontend change wasn\'t displayed correctly.', 'modula-best-grid-gallery' ),
-				esc_html__( 'Backwards compatibility for custom grid image size after Modula update from 2.4.1 to 2.5.0. Setting showed same value although in frontend the setting worked.', 'modula-best-grid-gallery' ),
-		)
+	'added'   => array(),
+	'changed' => array(
+        esc_html__( 'Albums upsell' ),
+        esc_html__( 'Free vs Premium page and Upsells integration' ),
+    ),
+	'fixed'   => array(
+		esc_html__( 'Added data-srcset and data-sizes attributes for lazy load functionality', 'modula-best-grid-gallery' ),
+	)
 );
 
 $status = array(
-		'fixed'   => esc_html__( 'Fixed', 'modula-best-grid-gallery' ),
-		'added'   => esc_html__( 'Added', 'modula-best-grid-gallery' ),
-		'changed' => esc_html__( 'Changed', 'modula-best-grid-gallery' ),
+	'fixed'   => esc_html__( 'Fixed', 'modula-best-grid-gallery' ),
+	'added'   => esc_html__( 'Added', 'modula-best-grid-gallery' ),
+	'changed' => esc_html__( 'Changed', 'modula-best-grid-gallery' ),
 );
 
 ?>

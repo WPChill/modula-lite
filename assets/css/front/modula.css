@@ -580,10 +580,10 @@ html body div.modula-powered svg.modula-logo {
     display: inline-block;
 }
 
-html body .modula:not( .modula-gallery-initiaized )  {
+html body .modula-gallery:not( .modula-gallery-initialized )  {
     visibility: hidden;
 }
 
-html body .modula.modula-gallery-initialized .modula-items .modula-item  {
+html body .modula-gallery.modula-gallery-initialized .modula-items .modula-item  {
     visibility: visible;
 }

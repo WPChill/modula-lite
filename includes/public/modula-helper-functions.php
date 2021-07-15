@@ -393,10 +393,10 @@ function modula_sources_and_sizes( $data ) {
 		// Format the 'srcset' and 'sizes' string and escape attributes.
 		// Check if lazy load is enabled and add data-srcset and data-sizes
 		if ( $data->lazyLoad ) {
-			$attr = sprintf( ' data-srcset="%1$s" srcset="%1$s"', esc_attr( $srcset ) );
+			$attr = sprintf( ' data-srcset="%1$s"', esc_attr( $srcset ) );
 
 			if ( is_string( $sizes ) ) {
-				$attr .= sprintf( ' data-sizes="%1$s" sizes="%1$s"', esc_attr( $sizes ) );
+				$attr .= sprintf( ' data-sizes="%1$s"', esc_attr( $sizes ) );
 			}
 		} else {
 			$attr = sprintf( 'srcset="%s"', esc_attr( $srcset ) );
