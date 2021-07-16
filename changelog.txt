@@ -1,3 +1,6 @@
+= 2.5.3 - 16/07/2021 =
+Fixed: Method assignment for upsells
+
 = 2.5.2 - 14/07/2021 =
 Fixed: Added data-srcset and data-sizes attributes for lazy load functionality
 Changed: Albums upsell

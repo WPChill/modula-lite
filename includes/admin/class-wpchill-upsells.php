@@ -495,6 +495,16 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			return $transients;
 		}
 
+		/**
+		 * Delete our set transients in the eventuality that the license has been activated/deactivated
+		 *
+		 * @since 2.5.3
+		 */
+		public function delete_transients() {
+			delete_transient( 'modula_upgradable_packages' );
+			delete_transient( 'modula_all_packages' );
+		}
+
 	}
 
 }
