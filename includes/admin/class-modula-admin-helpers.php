@@ -38,24 +38,26 @@ class Modula_Admin_Helpers {
 
 	/**
 	 * Display the Modula Admin Page Header
+	 *
+	 * @param bool $extra_class
 	 */
-	public static function modula_page_header() {
+	public static function modula_page_header($extra_class = false) {
 		?>
-		<div class="modula-page-header">
+		<div class="modula-page-header <?php echo ( $extra_class ) ? esc_attr( $extra_class ) : ''; ?>">
 			<div class="modula-header-logo">
 				<img src="<?php echo esc_url( MODULA_URL . 'assets/images/logo-dark.webp' ); ?>" class="modula-logo">
+				<div class="modula-header-links">
+					<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
+					   class="button button-secondary"><span
+								class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
+					</a>
+					<a class="button button-secondary"
+					   href="https://wp-modula.com/contact-us/" target="_blank"><span
+								class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
+					</a>
+				</div>
 			</div>
 			<div class="modula-status-bar">
-			</div>
-			<div class="modula-header-links">
-				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
-				   class="button button-secondary"><span
-							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
-				</a>
-				<a class="button button-secondary"
-				   href="https://wp-modula.com/contact-us/" target="_blank"><span
-							class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
-				</a>
 			</div>
 		</div>
 		<?php
