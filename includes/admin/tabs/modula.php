@@ -1,5 +1,4 @@
 <div class="wrap modula">
-	<?php  Modula_Admin_Helpers::modula_page_header(); ?>
 	<h2 class="nav-tab-wrapper wp-clearfix">
 		<?php
 		Modula_Admin_Helpers::modula_tab_navigation($this->tabs,$this->current_tab);

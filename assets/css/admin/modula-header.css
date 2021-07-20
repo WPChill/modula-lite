@@ -1,13 +1,13 @@
 body.modula-gallery_page_modula-addons #wpcontent,
 body.modula-gallery_page_modula #wpcontent,
-body.post-type-modula-gallery #wpcontent,
+body.post-type-modula-gallery:not(.post-new-php):not(.post-php) #wpcontent,
 body.modula-gallery_page_modula-lite-vs-pro #wpcontent {
 	padding-left : 0;
 }
 
 body.modula-gallery_page_modula-addons #wpcontent .wrap,
 body.modula-gallery_page_modula #wpcontent .wrap,
-body.post-type-modula-gallery #wpcontent .wrap,
+body.post-type-modula-gallery:not(.post-new-php):not(.post-php) #wpcontent .wrap,
 body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
 	margin : 0;
 }
@@ -36,13 +36,10 @@ body.modula-gallery_page_modula-addons .nav-tab-wrapper .dashicons {
 	line-height: 17px;
 }
 
-body.post-type-modula-gallery .modula-page-header.modula-cpt {
-	position:relative;
-	top:-30px;
-}
-
-body.post-type-modula-gallery #screen-options-link-wrap {
-	z-index : 9;
+body.post-type-modula-gallery.post-new-php .modula-page-header,
+body.post-type-modula-gallery.post-php .modula-page-header {
+	margin-left  : -20px;
+	padding-left : 20px;
 }
 
 body.modula-gallery_page_modula-addons .modula-page-header,
@@ -67,11 +64,7 @@ body.modula-gallery_page_modula-addons .modula-page-header .modula-header-logo,
 body.modula-gallery_page_modula-lite-vs-pro .modula-page-header .modula-header-logo,
 body.modula-gallery_page_modula .modula-page-header .modula-header-logo,
 body.post-type-modula-gallery .modula-page-header .modula-header-logo {
-	padding-right   : 20px;
-	display         : flex;
-	justify-content : space-between;
-	align-items     : center;
-	position:relative;
+	padding-right : 20px;
 }
 
 body.modula-gallery_page_modula-addons .nav-tab-wrapper,
@@ -141,7 +134,7 @@ body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
 body.post-type-modula-gallery .modula-page-header {
 	display         : flex;
-	justify-content : left;
+	justify-content : space-between;
 	background      : #fff;
 	width           : 100%;
 }

@@ -17,7 +17,14 @@ class Modula_Admin_Helpers {
 	 *
 	 * @since 2.5.0
 	 */
-	function __construct() {}
+	function __construct() {
+
+		$this->load_hooks();
+
+		if ( is_admin() ) {
+			$this->load_admin_hooks();
+		}
+	}
 
 
 	/**
@@ -37,30 +44,73 @@ class Modula_Admin_Helpers {
 	}
 
 	/**
+	 * Load our public hooks
+	 *
+	 * @since 2.5.3
+	 */
+	public function load_hooks(){
+
+	}
+
+	/**
+	 * Load our admin hooks
+	 */
+	public function load_admin_hooks() {
+
+		add_action( 'in_admin_header', array( $this, 'modula_page_header' ) );
+
+		add_filter( 'modula_page_header', array( $this, 'page_header_locations' ) );
+	}
+
+	/**
 	 * Display the Modula Admin Page Header
 	 *
 	 * @param bool $extra_class
 	 */
-	public static function modula_page_header($extra_class = false) {
+	public static function modula_page_header($extra_class = '') {
+
+		// Only display the header on pages that belong to Modula
+		if ( ! apply_filters( 'modula_page_header', false ) ) {
+			return;
+		}
 		?>
 		<div class="modula-page-header <?php echo ( $extra_class ) ? esc_attr( $extra_class ) : ''; ?>">
 			<div class="modula-header-logo">
 				<img src="<?php echo esc_url( MODULA_URL . 'assets/images/logo-dark.webp' ); ?>" class="modula-logo">
-				<div class="modula-header-links">
-					<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
-					   class="button button-secondary"><span
-								class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
-					</a>
-					<a class="button button-secondary"
-					   href="https://wp-modula.com/contact-us/" target="_blank"><span
-								class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
-					</a>
-				</div>
 			</div>
 			<div class="modula-status-bar">
 			</div>
+			<div class="modula-header-links">
+				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
+				   class="button button-secondary"><span
+							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
+				</a>
+				<a class="button button-secondary"
+				   href="https://wp-modula.com/contact-us/" target="_blank"><span
+							class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
+				</a>
+			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Set the Modula header locations
+	 *
+	 * @param $return
+	 *
+	 * @return bool|mixed
+	 * @since 2.5.3
+	 */
+	public function page_header_locations( $return ) {
+
+		$current_screen = get_current_screen();
+
+		if ( 'modula-gallery' === $current_screen->post_type ) {
+			return true;
+		}
+
+		return $return;
 	}
 
 	/**

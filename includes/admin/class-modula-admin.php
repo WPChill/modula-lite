@@ -198,7 +198,6 @@ class Modula_Admin {
 		?>
 		<div class="wrap">
 
-		<?php Modula_Admin_Helpers::modula_page_header(); ?>
 
 		<h2 class="nav-tab-wrapper">
 			<?php
@@ -423,7 +422,6 @@ class Modula_Admin {
 	 */
 	public function import_export_doc() {
 		?>
-			<?php Modula_Admin_Helpers::modula_page_header(); ?>
 		<div class="wrap">
 			<h3><?php esc_html_e( 'Import Galleries', 'modula-best-grid-gallery' ); ?></h3>
 			<p><?php esc_html_e( 'In order to import exported galleries head over to "Tools -> Import" or click', 'modula-best-grid-gallery' ); ?>
@@ -525,8 +523,6 @@ class Modula_Admin {
 	 * @since 2.5.0
 	 */
 	public function lite_vs_pro() {
-
-		Modula_Admin_Helpers::modula_page_header();
 
 		$pro_features = array(
 			'gallery-filters' => array(
