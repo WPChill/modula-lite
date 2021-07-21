@@ -584,6 +584,6 @@ html body .modula-gallery:not( .modula-gallery-initialized )  {
     visibility: hidden;
 }
 
-html body .modula-gallery.modula-gallery-initialized .modula-items .modula-item  {
+.modula-gallery.modula-gallery-initialized .modula-items {
     visibility: visible;
 }
