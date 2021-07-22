@@ -633,7 +633,7 @@ tr[data-container="effect"] > td {
 }
 .modula-upload-actions .buttons {
     flex-shrink: 0;
-    width: 275px;
+    width: auto;
     display: flex;
 }
 .modula-sources-dropdown {
