@@ -171,7 +171,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         initCustomCSS: function() {
-            var editorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+            var editorSettings = undefined !== wp.codeEditor && wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
             if ( this.customEditors.length > 0 ) {
                 this.customEditors.each( function( $index, customEditorContainer ) {
                     var syntax          = $( customEditorContainer ).data( 'syntax' ),
@@ -184,18 +184,20 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                             }
                         );
 
-                    var editor =  wp.codeEditor.initialize( $( id ), currentSettings );
+                    if( undefined !== wp.codeEditor ) {
+                        var editor =  wp.codeEditor.initialize( $( id ), currentSettings );
+                        $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
+                            editor.codemirror.refresh();
+                        });
+                    }
 
-                    $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
-                        editor.codemirror.refresh();
-                    });
                 });
             }
         },
         expandGalleryContainer: function () {
             $( '#modula-preview-gallery' ).removeClass( 'closed' );
         }
-       
+
     });
 
     modula.settings = {
