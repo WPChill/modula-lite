@@ -234,17 +234,22 @@ class Modula_Nextgen_Importer {
         // Attach meta modula-images to Modula CPT
         update_post_meta($modula_gallery_id, 'modula-images', $modula_images);
 
-        $nextgen_shortcode = '[ngg_images gallery_ids="' . $gallery_id . '"]';
-        $nextgen_shortcode_2 = '[ngg src="galleries" ids="' . $gallery_id . '" display="basic_thumbnail" thumbnail_crop="0"]';
-        $modula_shortcode  = '[modula id="' . $modula_gallery_id . '"]';
+	    $nextgen_shortcode   = '[ngg_images gallery_ids="' . $gallery_id . '"]';
+	    $nextgen_shortcode_2 = '[ngg src="galleries" ids="' . $gallery_id . '" display="basic_thumbnail" thumbnail_crop="0"]';
+	    $nextgen_shortcode_3 = '[nggallery id="' . $gallery_id . '"]';
+	    $modula_shortcode    = '[modula id="' . $modula_gallery_id . '"]';
 
         // Replace NextGEN shortcode with Modula Shortcode in Posts, Pages and CPTs
-        $sql = $wpdb->prepare("UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
-            $nextgen_shortcode, $modula_shortcode);
-        $sql_2 = $wpdb->prepare("UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
-            $nextgen_shortcode_2, $modula_shortcode);
-        $wpdb->query($sql);
-        $wpdb->query($sql_2);
+	    $sql   = $wpdb->prepare( "UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
+		    $nextgen_shortcode, $modula_shortcode );
+	    $sql_2 = $wpdb->prepare( "UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
+		    $nextgen_shortcode_2, $modula_shortcode );
+	    $sql_3 = $wpdb->prepare( "UPDATE " . $wpdb->prefix . "posts SET post_content = REPLACE(post_content, '%s', '%s')",
+		    $nextgen_shortcode_3, $modula_shortcode );
+
+	    $wpdb->query( $sql );
+	    $wpdb->query( $sql_2 );
+	    $wpdb->query( $sql_3 );
 
         //@todo : gutenberg block replacement functionality
         /*$sql_gutenberg       = "SELECT * FROM " . $wpdb->prefix . "posts WHERE `post_content` LIKE '%wp:imagely/nextgen-gallery%'";
