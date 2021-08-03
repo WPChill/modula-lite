@@ -178,12 +178,15 @@ class Modula_Nextgen_Importer {
 	                                   $gallery_id );
 	    $gallery     = $wpdb->get_row( $sql );
 
-
         $col_number = $data_settings->settings->number_of_columns ;
 
-        if( intval( $col_number ) > 6 ) {
-            $col_number = '6';
-        }
+	    if ( (int) $col_number > 6 ) {
+		    $col_number = '6';
+	    }
+
+	    if ( (int) $col_number == 0 ) {
+		    $col_number = 'automatic';
+	    }
 
 
         if (count($attachments) == 0) {
