@@ -129,7 +129,7 @@ class Modula_Shortcode {
 		}
 
 		$images = apply_filters( 'modula_gallery_images', $images, $settings );
-		
+
 		if ( empty( $settings ) || empty( $images ) ) {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
@@ -137,8 +137,8 @@ class Modula_Shortcode {
         do_action('modula_extra_scripts', $settings);
 
 		// Main CSS & JS
-		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula-fancybox', 'modula' ), $settings );
-		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula-fancybox', 'modula' ), $settings );
+		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
+		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
 
 
 		if ( ! empty( $necessary_scripts ) ) {
@@ -193,13 +193,13 @@ class Modula_Shortcode {
 		 * @hooked modula_add_align_classes - 99
 		 */
 		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
-		
+
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		do_action( 'modula_before_gallery', $settings );
 		$this->loader->set_template_data( $template_data );
 		$this->loader->get_template_part( 'modula', 'gallery' );
 		do_action( 'modula_after_gallery', $settings );
-		
+
     	$html = ob_get_clean();
     	return $html;
 
@@ -401,7 +401,7 @@ class Modula_Shortcode {
 		);
 
 		$atts = wp_parse_args( $atts, $default_atts );
-		
+
 		$affiliate = get_option( 'modula_affiliate', array() );
 		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
 
