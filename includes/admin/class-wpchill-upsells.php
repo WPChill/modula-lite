@@ -270,11 +270,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 */
 		public function lite_vs_premium( $pro_features ) {
 
-			$upsell_packages = array();
-			$addons = array();
+			$upsell_packages           = array();
+			$addons                    = array();
+			$current_upsell_extensions = isset( $_GET['extension'] ) ? $_GET['extension'] : false;
 
 			$lite_plan['modula-lite'] = array(
-				'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
+					'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
 			);
 
 			$packages = $this->get_packages();
@@ -312,6 +313,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			if ( count( $upsell_packages ) > 0 ) {
 				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before{content:"'.esc_html__('Current package','modula-best-grid-gallery').'";}</style>';
 			}
+
 			?>
 
 			<div class="wpchill-plans-table table-header">
@@ -338,8 +340,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 						$priority .= '<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/modula-best-grid-gallery/" target="_blank">wp.org</a></div>';
 					}
 
+					$package_class = 'wpchill-pricing-package wpchill-title wpchill-'.$slug;
+
 					?>
-					<div class="wpchill-pricing-package wpchill-title wpchill-<?php echo esc_attr( $slug ) ?>">
+					<div class="<?php echo esc_attr($package_class); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
 						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php
@@ -408,8 +412,15 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Now lets loop through each addon described in LITE version of the plugin
 			foreach ( $addons as $key => $addon ) {
+
+				$addon_class = '';
+
+				if ( $current_upsell_extensions && $key == $current_upsell_extensions ) {
+
+					$addon_class = 'wpchill-highlight';
+				}
 				?>
-				<div class="wpchill-plans-table">
+				<div class="wpchill-plans-table <?php echo esc_attr($addon_class); ?>">
 					<div class="wpchill-pricing-package feature-name">
 						<?php echo esc_html( $addon['name'] ); ?>
 						<?php

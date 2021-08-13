@@ -70,4 +70,15 @@
 		'#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#modula-albums"]',
 		modulaOpenModal
 	);
+
+	jQuery( window ).load( function () {
+
+		let searchParams = new URLSearchParams( window.location.search );
+		if ( searchParams.has( 'page' ) && 'modula-lite-vs-pro' === searchParams.get( 'page' ) && searchParams.has( 'extension' ) ) {
+
+			jQuery( 'html,body' ).animate( {
+				scrollTop: jQuery( '.wpchill-plans-table.wpchill-highlight' ).offset().top - 150
+			}, 600 );
+		}
+	} );
 })(jQuery);

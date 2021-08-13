@@ -20,6 +20,11 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
     max-width : 85%;
 }
 
+.modula.lite-vs-pro-section > .wpchill-plans-table.wpchill-highlight > .wpchill-pricing-package {
+    background : #fefff0;
+    box-shadow: 0 0 15px rgb(208 219 219);
+}
+
 .lite-vs-pro-section .wp-badge{
     display:inline-block;
     vertical-align:middle;
@@ -42,7 +47,8 @@ body.modula-gallery_page_modula-lite-vs-pro #wpcontent .wrap {
     margin-top : 50px;
 }
 
-.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before {
+.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before,
+.wpchill-plans-table .wpchill-pricing-package.wpchill-title.wpchill-highlight::before{
     content        : '';
     width          : auto;
     display        : inline-block;
