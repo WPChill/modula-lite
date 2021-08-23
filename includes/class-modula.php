@@ -81,7 +81,7 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 
-			
+
 
 		}
 
@@ -95,7 +95,7 @@ class Modula {
 	}
 
 	public function set_locale() {
-		load_plugin_textdomain( 'modula-best-grid-gallery', false, MODULA_PATH . '/languages' );
+		load_plugin_textdomain( 'modula-best-grid-gallery', false, MODULA_LITE_TRANSLATE );
 	}
 
 	private function define_admin_hooks() {
