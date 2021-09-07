@@ -215,7 +215,8 @@ class Modula_Nextgen_Importer {
 		        'description' => wp_filter_post_kses( $attachment['caption'] ),
 		        'halign'      => 'center',
 		        'valign'      => 'middle',
-		        'link'        => esc_url_raw( $attachment['src'] ),
+				// We don't use the link from here as it is set for image URL
+		        'link'        => '',
 		        'target'      => '',
 		        'width'       => 2,
 		        'height'      => 2,
