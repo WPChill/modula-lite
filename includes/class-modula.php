@@ -179,9 +179,10 @@ class Modula {
 
 			// Get all items from current gallery.
 			$images = get_post_meta( $post_id, 'modula-images', true );
+
 			if ( is_array( $images ) && ! empty( $images ) ) {
 				foreach ( $images as $image ) {
-					if ( ! is_numeric( $image['id'] ) ) {
+					if ( ! is_numeric( $image['id'] ) || 'attachment' !== get_post_type( $image['id'] ) ) {
 						continue;
 					}
 
