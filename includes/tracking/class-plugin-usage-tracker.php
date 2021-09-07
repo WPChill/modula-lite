@@ -119,6 +119,8 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
 			add_action( 'wp_ajax_'.$this->plugin_name.'_goodbye_form', array( $this, 'goodbye_form_callback' ) );
 
+			add_filter( 'modula_uninstall_db_options', array( $this, 'tracking_uninstall_process' ), 30, 1 );
+
 		}
 
 		/**
@@ -1145,6 +1147,30 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
 			return $formatted_galleries;
 
+		}
+
+		/**
+		 * Add tracking options to uninstall process
+		 *
+		 * @param $db_options
+		 *
+		 * @return array
+		 */
+		public function tracking_uninstall_process( $db_options ) {
+
+			$tracking_options = array(
+					'modula_wisdom_last_track_time',
+					'wisdom_deactivation_details_' . $this->plugin_name,
+					'wisdom_deactivation_reason_' . $this->plugin_name,
+					'modula_wisdom_admin_emails',
+					'modula_wisdom_collect_email',
+					'modula_wisdom_block_notice',
+					'modula_wisdom_notification_times',
+					'modula_wisdom_last_track_time',
+
+			);
+
+			return array_merge( $db_options, $tracking_options );
 		}
 
 	}
