@@ -328,7 +328,7 @@ function modula_sources_and_sizes( $data ) {
 				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] . '.' . $data->image_info['ext'],
 				'width'     => $data->img_attributes['width'],
 				'height'    => $data->img_attributes['height'],
-				'mime-type' => $image_meta['sizes']['thumbnail']['mime-type']
+				'mime-type' => mime_content_type( $data->image_info['file_path'] )
 		);
 	}
 	// Ensure the image meta exists.
