@@ -171,27 +171,32 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         },
 
         initCustomCSS: function() {
-            var editorSettings = undefined !== wp.codeEditor && wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
-            if ( this.customEditors.length > 0 ) {
-                this.customEditors.each( function( $index, customEditorContainer ) {
-                    var syntax          = $( customEditorContainer ).data( 'syntax' ),
-                        id              = '#' + $( customEditorContainer ).find( '.modula-custom-editor-field' ).attr( 'id' ),
-                        currentSettings = _.extend(
-                            {},
-                            editorSettings.codemirror,
-                            {
-                                mode: syntax,
-                            }
-                        );
 
-                    if( undefined !== wp.codeEditor ) {
-                        var editor =  wp.codeEditor.initialize( $( id ), currentSettings );
-                        $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
-                            editor.codemirror.refresh();
-                        });
-                    }
+            // If codeEditor is undefined we should not try to recreate the Custom CSS editor
+            // Will be left as a simple textarea
+            if ( undefined !== wp.codeEditor ) {
+                var editorSettings =  wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {};
+                if ( this.customEditors.length > 0 ) {
+                    this.customEditors.each( function( $index, customEditorContainer ) {
+                        var syntax          = $( customEditorContainer ).data( 'syntax' ),
+                            id              = '#' + $( customEditorContainer ).find( '.modula-custom-editor-field' ).attr( 'id' ),
+                            currentSettings = _.extend(
+                                {},
+                                editorSettings.codemirror,
+                                {
+                                    mode: syntax,
+                                }
+                            );
 
-                });
+                        if( undefined !== wp.codeEditor ) {
+                            var editor =  wp.codeEditor.initialize( $( id ), currentSettings );
+                            $( customEditorContainer ).parents( '.modula-tab-content' ).on( 'modula-current-tab',function(){
+                                editor.codemirror.refresh();
+                            });
+                        }
+
+                    });
+                }
             }
         },
         expandGalleryContainer: function () {

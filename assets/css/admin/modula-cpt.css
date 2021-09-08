@@ -162,8 +162,13 @@ tr label.th-label {
 	min-width:220px;
 }
 
-.modula-settings-container .modula-tabs-content .form-table textarea {
+.modula-settings-container .modula-tabs-content .form-table textarea:not(#modula-style-customcode) {
 	max-width:230px;
+}
+
+textarea#modula-style-customcode {
+	resize : none;
+	height : calc(100vh - 100px);
 }
 
 .modula-settings-container .modula-tabs-content .form-table th.two_child_setting {
