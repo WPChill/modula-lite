@@ -2,7 +2,7 @@ import icons from '../utils/icons';
 const { Fragment } = wp.element;
 
 const ModulaGalleryImageInner = (props) => {
-	const { settings, img, effectCheck, hideTitle, hideDescription, hideSocial } = props;
+	const { settings, img, hideTitle, hideDescription, hideSocial } = props;
 
 	let effectArray = [ 'tilt_1', 'tilt_3', 'tilt_7' ],
 		overlayArray = [ 'tilt_3', 'tilt_7' ],

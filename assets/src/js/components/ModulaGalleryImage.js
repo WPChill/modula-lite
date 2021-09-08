@@ -1,15 +1,9 @@
-import icons from '../utils/icons';
 import ModulaGalleryImageInner from './ModulaGalleryImageInner';
 
-const { __ } = wp.i18n;
-const { useState, useEffect } = wp.element;
-const { Button, ButtonGroup } = wp.components;
-const { MediaUpload, MediaPlaceholder } = wp.blockEditor;
-
 const ModulaGalleryImage = (props) => {
-	const { images, settings, id, effectCheck } = props.attributes;
+	const { settings, effectCheck } = props.attributes;
 
-	const { img, index, setAttributes, checkHoverEffect } = props;
+	const { img, index } = props;
 
 	return [
 		<div

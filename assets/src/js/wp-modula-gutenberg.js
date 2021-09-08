@@ -3,7 +3,7 @@
  */
 import Edit from './components/edit';
 import icons from './utils/icons';
-import style from '../scss/modula-gutenberg.scss';
+// import style from '../scss/modula-gutenberg.scss';
 
 /**
  * WordPress dependencies

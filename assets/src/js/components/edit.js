@@ -9,10 +9,10 @@ import icons from '../utils/icons';
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
-const { Component, Fragment, useEffect, useState } = wp.element;
+const { Fragment, useEffect, useState } = wp.element;
 const { withSelect } = wp.data;
-const { SelectControl, Button, Spinner, Toolbar, IconButton } = wp.components;
-const { BlockControls } = wp.editor;
+const { Button, Spinner, ToolbarGroup, ToolbarItem } = wp.components;
+const { BlockControls } = wp.blockEditor;
 const { compose } = wp.compose;
 
 export const ModulaEdit = (props) => {
@@ -189,14 +189,16 @@ export const ModulaEdit = (props) => {
 		<BlockControls>
 			{images &&
 			images.length > 0 && (
-				<Toolbar>
-					<IconButton
-						label={__('Edit gallery', 'modula-best-grid-gallery')}
-						icon="edit"
-						href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
-						target="_blank"
-					/>
-				</Toolbar>
+				<ToolbarGroup>
+					<ToolbarItem>
+						<Button
+							label={__('Edit gallery', 'modula-best-grid-gallery')}
+							icon="edit"
+							href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
+							target="_blank"
+						/>
+					</ToolbarItem>
+				</ToolbarGroup>
 			)}
 		</BlockControls>
 	);

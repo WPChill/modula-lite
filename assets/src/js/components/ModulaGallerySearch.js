@@ -1,10 +1,4 @@
-const { __ } = wp.i18n;
-const { Component, Fragment, useEffect, useState } = wp.element;
-const { withSelect } = wp.data;
-const { SelectControl, Button, Spinner, Toolbar, IconButton } = wp.components;
-const { BlockControls } = wp.editor;
-const { compose } = wp.compose;
-const { __experimentalInputControl } = wp.components;
+const { useEffect } = wp.element;
 
 export const ModulaGallerySearch = (props) => {
 	const { onIdChange, id, options } = props;
