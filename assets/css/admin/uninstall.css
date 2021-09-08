@@ -111,3 +111,8 @@
 .modula-red-text {
     color:red;
 }
+
+a.modula-lite-vs-pro {
+    color:orange;
+    font-weight:bold;
+}

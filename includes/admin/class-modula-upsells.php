@@ -68,6 +68,9 @@ class Modula_Upsells {
 
 		$this->lite_vs_pro = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
 
+		// Upgrade to PRO plugin action link
+		add_filter( 'plugin_action_links_' . MODULA_FILE, array( $this, 'filter_action_links' ), 60 );
+
 
 	}
 
@@ -634,6 +637,34 @@ class Modula_Upsells {
 		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-upgrade.php';
 		wp_die();
 
+	}
+
+	/**
+	 * Add the Upgrade to PRO plugin action link
+	 *
+	 * @param $links
+	 *
+	 * @return array
+	 *
+	 * @since 2.5.4
+	 */
+	public function filter_action_links( $links ) {
+
+		$upgrade = apply_filters( 'modula_upgrade_plugin_action', array(
+				'upgrade_available' => true,
+				'link'              => '<a  class="modula-lite-vs-pro" href="' . admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ) . '">' . esc_html__( 'Upgrade to premium!', 'modula-best-grid-gallery' ) . '</a>'
+		) );
+
+		if ( ! $upgrade['upgrade_available'] ) {
+			return $links;
+		}
+
+
+		array_unshift( $links, $upgrade['link'] );
+
+		$links = array_merge( $links, );
+
+		return $links;
 	}
 
 }
