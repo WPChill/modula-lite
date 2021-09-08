@@ -889,9 +889,14 @@ class Modula_CPT {
 		}
 
 		$id                           = $_POST['id'];
-		$settings                     = get_post_meta( $id, 'modula-settings', true );
+
+		// Check if post exists and is modula-gallery CPT
+		if ( ! get_post_type( $id ) || 'modula-gallery' !== get_post_type( $id ) ) {
+			wp_send_json( array( 'status' => 'failed' ) );
+		}
+
+		$settings                     = wp_parse_args( get_post_meta( $id, 'modula-settings', true ), Modula_CPT_Fields_Helper::get_defaults() );
 		$settings['last_visited_tab'] = sanitize_text_field( $_POST['tab'] );
-		$settings                     = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 
 		update_post_meta( $id, 'modula-settings', $settings );
 		die();
