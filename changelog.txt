@@ -1,3 +1,7 @@
+= 2.5.4 - 14/09/2021 =
+Changed: Upsells update
+Fixed: Image cropping based on image alignment
+
 = 2.5.3 - 26/07/2021 =
 Fixed: Method assignment for upsells
 Fixed: Screen option button
