@@ -743,7 +743,7 @@ class Modula_Upsells {
 
 		<div class="modula-settings-upsell">
 			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
-			<p style="text-align:center">
+			<p>
 				<?php
 
 				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
@@ -764,7 +764,7 @@ class Modula_Upsells {
 		<div class="modula-settings-upsell">
 			<h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
 			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
-			<p style="text-align:center">
+			<p>
 				<?php
 
 				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
@@ -782,7 +782,7 @@ class Modula_Upsells {
 	public function render_whitelabel_upsell() {
 		?>
 
-		<div class="modula-upsell">
+		<div class="modula-settings-upsell">
 			<h3><?php esc_html_e( 'Modula Whitelabel', 'modula-best-grid-gallery' ) ?></h3>
 			<p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
 			<p>
