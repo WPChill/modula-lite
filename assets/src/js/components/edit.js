@@ -228,7 +228,7 @@ export const ModulaEdit = (props) => {
 							{undefined == props.attributes.proInstalled &&
 							galleries.length > 0 && (
 								<Button
-									href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
+									href="https://chl.so/get-lite"
 									className="modula-button-upsell"
 									isSecondary
 									target="_blank"
