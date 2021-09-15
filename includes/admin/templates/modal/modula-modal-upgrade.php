@@ -1,5 +1,5 @@
 <div class="modula-modal__overlay">
-	<div class="modula-modal__frame <?php echo $settings['classes']; ?>" <?php if ( $settings['dismissible'] ) : ?>data-modula-modal-dismissible data-modula-modal-id="<?php echo $id; ?>"<?php endif; ?>>
+	<div class="modula-modal__frame <?php echo esc_attr($settings['classes']); ?>" <?php if ( $settings['dismissible'] ) : ?>data-modula-modal-dismissible data-modula-modal-id="<?php echo esc_attr($id); ?>"<?php endif; ?>>
 		<div class="modula-modal__header">
 			<button class="modula-modal__dismiss">
 				<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path></svg>
@@ -24,7 +24,8 @@
 							<?php
 
 							$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
-							$buttons         = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url . '&extension=modula-albums' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons .= '<a target="_blank" href="https://chl.so/get-albums-modal" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
 							echo apply_filters( 'modula_upsell_buttons', $buttons, 'albums' );
 

@@ -291,11 +291,34 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			if ( isset( $packages['upsell_packages'] ) ) {
+
+				// We don't want the lifetime deals here
+				foreach ( $packages['upsell_packages'] as $key => $package ) {
+
+					if ( strpos( $key,'lifetime' ) > 0 ) {
+						unset( $packages['upsell_packages'][ $key ] );
+					}
+				}
+
 				$upsell_packages = $packages['upsell_packages'];
 			}
 
 			// Lets sort them by price, higher is better
 			uasort( $upsell_packages, array( 'WPChill_Upsells', 'sort_data_by_price' ) );
+
+			// If only LITE then we do not want all the packages, only the highest one
+			if ( $pro_features && count( $pro_features ) > 0 ) {
+
+				if ( is_array( $upsell_packages ) && ! empty( $upsell_packages ) ) {
+					$first_key                             = array_key_first( $upsell_packages );
+					$upsell_packages                       = array_slice( $upsell_packages, 0, 1 );
+					$upsell_packages[ $first_key ]['name'] = esc_html__( 'PRO', 'modula-best-grid-gallery' );
+					unset( $upsell_packages[ $first_key ]['upgrade_price'] );
+					unset( $upsell_packages[ $first_key ]['excerpt'] );
+					unset( $upsell_packages[ $first_key ]['extra_features']['sites'] );
+				}
+
+			}
 
 			// Get our extensions from the heighest paid package as it has all of them
 			// Also we need to reverse the addons so that they appear in a cascade
@@ -311,7 +334,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// Make the size of the element based on number of addons
 			if ( count( $upsell_packages ) > 0 ) {
-				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before{content:"'.esc_html__('Current package','modula-best-grid-gallery').'";}</style>';
+				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:not(.wpchill-modula-lite):last-child:before{content:"'.esc_html__('Current package','modula-best-grid-gallery').'";}</style>';
 			}
 
 			?>
@@ -346,110 +369,22 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					<div class="<?php echo esc_attr($package_class); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
 						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
-						<?php
-
-						// Lets display the price and other info about our packages
-						if ( isset( $package['upgrade_price'] ) && 'modula-lite' != $slug ) {
-							$price = number_format( $package['upgrade_price'], 2 );
-							$price_parts = explode( '.', $price );
-							$normal_price = false;
-
-							if ( isset( $package['normal_price'] ) ) {
-								$normal_price       = number_format( $package['normal_price'], 2 );
-								$normal_price_parts = explode( '.', $normal_price );
-							}
-
-							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
-							$url           = add_query_arg( array(
-									'edd_action'   => 'add_to_cart',
-									'download_id'  => $package['id'],
-									'utm_source'   => 'upsell',
-									'utm_medium'   => 'litevspro',
-									'utm_campaign' => $slug,
-							), $checkout_page );
-
-							$buy_button = apply_filters(
-								'wpchill-upsells-buy-button',
-								array( 'url' => $url, 'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' ) ),
-								$slug,
-								$package,
-								$this
-							);
-
-							?>
-							<p class="description"><?php echo ( isset( $package['excerpt'] ) ) ? esc_html( $package['excerpt'] ) : ' '; ?></p>
-							<div class="wpchill-price">
-							<?php if ( $normal_price ) { ?>
-								<p class="old-price"><?php echo '$<strong>' . esc_html( $normal_price_parts[0] ) . '</strong><sup>.' . esc_html( $normal_price_parts[1] ) . '</sup>'; ?></p>
-							<?php } ?>
-
-							<p><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?></p>
-
-							</div>
-							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary button-hero">
-								<?php echo esc_html($buy_button['label']); ?>
-							</a>
-						<?php } ?>
-
+						<?php echo ( isset( $package['excerpt'] ) ) ? '<p class="description">' . esc_html( $package['excerpt'] ) . '</p>' : ''; ?>
 					</div>
 				<?php } ?>
 			</div>
 
-			<div class="wpchill-plans-table">
-				<div class="wpchill-pricing-package feature-name">
-					<?php echo esc_html__( 'Sites', 'modula-best-grid-gallery' ); ?>
-				</div>
-				<?php echo $sites; ?>
-			</div>
-
-			<div class="wpchill-plans-table">
-				<div class="wpchill-pricing-package feature-name">
-					<?php echo esc_html__( 'Support', 'modula-best-grid-gallery' ); ?>
-				</div>
-				<?php echo $priority; ?>
-			</div>
-			<?php
-
-			// Now lets loop through each addon described in LITE version of the plugin
-			foreach ( $addons as $key => $addon ) {
-
-				$addon_class = '';
-
-				if ( $current_upsell_extensions && $key == $current_upsell_extensions ) {
-
-					$addon_class = 'wpchill-highlight';
-				}
+			<?php if ( ! $pro_features || count( $pro_features ) === 0 ) {
 				?>
-				<div class="wpchill-plans-table <?php echo esc_attr($addon_class); ?>">
+				<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
-						<?php echo esc_html( $addon['name'] ); ?>
-						<?php
-						if ( isset( $addon['description'] ) ) {
-							?>
-							<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
-								<div class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $addon['description'] ) ?></div>
-							</div>
-							<?php
-						}
-						?>
+						<h3><?php echo esc_html__( 'Sites', 'modula-best-grid-gallery' ); ?></h3>
 					</div>
-
-					<?php
-					// Need to check if each package if the addon is contained
-					foreach ( $all_packages as $slug => $upsell ) { ?>
-
-						<div class="wpchill-pricing-package">
-							<?php
-							if ( isset( $upsell['extensions'][ $key ] ) ) {
-								echo '<span class="dashicons dashicons-saved"></span>';
-							} else {
-								echo '<span class="dashicons dashicons-no-alt"></span>';
-							}
-							?>
-						</div>
-					<?php } ?>
+					<?php echo $sites; ?>
 				</div>
-			<?php }
+				<?php
+			}
+
 
 			// Pro features are features that are present in the PRO version of the plugin
 			// And not in extensions / addons
@@ -458,14 +393,12 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					?>
 					<div class="wpchill-plans-table">
 						<div class="wpchill-pricing-package feature-name">
-							<?php echo esc_html( $pro_feature['title'] ); ?>
+							<h3><?php echo esc_html( $pro_feature['title'] ); ?></h3>
 							<?php
 							// Tooltip the description if any
 							if ( isset( $pro_feature['description'] ) ) {
 								?>
-								<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
-									<div class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ) ?></div>
-								</div>
+								<p class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ) ?></p>
 								<?php
 							}
 							?>
@@ -488,6 +421,126 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					</div>
 				<?php }
 			}
+
+			// Now lets loop through each addon described in LITE version of the plugin
+			foreach ( $addons as $key => $addon ) {
+
+				$addon_class = '';
+
+				if ( $current_upsell_extensions && $key == $current_upsell_extensions ) {
+
+					$addon_class = 'wpchill-highlight';
+				}
+				?>
+				<div class="wpchill-plans-table <?php echo esc_attr( $addon_class ); ?>">
+					<div class="wpchill-pricing-package feature-name">
+						<h3><?php echo esc_html( $addon['name'] ); ?></h3>
+						<?php
+						if ( isset( $addon['description'] ) ) {
+							?>
+							<p><?php echo wp_kses_post( $addon['description'] ) ?></p>
+							<?php
+						}
+						?>
+					</div>
+
+					<?php
+					// Need to check if each package if the addon is contained
+					foreach ( $all_packages as $slug => $upsell ) { ?>
+
+						<div class="wpchill-pricing-package">
+							<?php
+							if ( isset( $upsell['extensions'][ $key ] ) ) {
+								echo '<span class="dashicons dashicons-saved"></span>';
+							} else {
+								echo '<span class="dashicons dashicons-no-alt"></span>';
+							}
+							?>
+						</div>
+					<?php } ?>
+				</div>
+			<?php }
+
+			?>
+			<div class="wpchill-plans-table">
+				<div class="wpchill-pricing-package feature-name">
+					<h3><?php echo esc_html__( 'Support', 'modula-best-grid-gallery' ); ?></h3>
+				</div>
+				<?php echo $priority; ?>
+			</div>
+			<div class="wpchill-plans-table tabled-footer">
+				<div class="wpchill-pricing-package wpchill-empty">
+					<!--This is an empty div so that we can have an empty corner-->
+				</div>
+				<?php
+				foreach ( $all_packages as $slug => $package ) {
+
+
+					$package_class = 'wpchill-pricing-package wpchill-title wpchill-'.$slug;
+
+					?>
+					<div class="<?php echo esc_attr( $package_class ); ?>">
+
+						<?php
+
+						// Lets display the price and other info about our packages
+						if ( isset( $package['upgrade_price'] ) && 'modula-lite' != $slug ) {
+							$price        = number_format( $package['upgrade_price'], 2 );
+							$price_parts  = explode( '.', $price );
+							$normal_price = false;
+
+							if ( isset( $package['normal_price'] ) ) {
+								$normal_price       = number_format( $package['normal_price'], 2 );
+								$normal_price_parts = explode( '.', $normal_price );
+							}
+
+							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
+							$url           = add_query_arg( array(
+									'edd_action'   => 'add_to_cart',
+									'download_id'  => $package['id'],
+									'utm_source'   => 'upsell',
+									'utm_medium'   => 'litevspro',
+									'utm_campaign' => $slug,
+							), $checkout_page );
+
+							$buy_button = apply_filters(
+									'wpchill-upsells-buy-button',
+									array( 'url'   => $url,
+										   'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' )
+									),
+									$slug,
+									$package,
+									$this
+							);
+							?>
+
+							<div class="wpchill-price">
+								<?php if ( $normal_price ) { ?>
+									<p class="old-price"><?php echo '$<strong>' . esc_html( $normal_price_parts[0] ) . '</strong><sup>.' . esc_html( $normal_price_parts[1] ) . '</sup>'; ?></p>
+								<?php } ?>
+
+								<p><?php echo '<sup>$</sup><strong>' . esc_html( $price_parts[0] ) . '</strong><sup>.' . esc_html( $price_parts[1] ) . '</sup>'; ?></p>
+
+							</div>
+							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank"
+							   class="button button-primary button-hero">
+								<?php echo esc_html( $buy_button['label'] ); ?>
+							</a>
+							<?php
+						} else if ( isset( $lite_plan['modula-lite'] ) && 'modula-lite' !== $slug ) {
+							?>
+							<a href="https://chl.so/lite-vs-pro-page" target="_blank"
+							   class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
+								<?php echo esc_html__( 'Upgrade now!', 'modula-best-grid-gallery' ); ?>
+							</a>
+							<?php
+						} ?>
+
+					</div>
+				<?php } ?>
+			</div>
+			<?php
+
 		}
 
 		/**

@@ -12,7 +12,12 @@ class Modula_Upsells {
 	 */
 	private $wpchill_upsells = false;
 
-	private $lite_vs_pro;
+	/**
+	 * The link for the Free vs PRO page
+	 *
+	 * @var string
+	 */
+	private $free_vs_pro_link = '#';
 
 	function __construct() {
 
@@ -53,6 +58,10 @@ class Modula_Upsells {
 		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
 
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
+			add_filter( 'modula_cpt_metaboxes', array( $this, 'albums_upsell_meta' ) );
+		}
+
 		// Add modula whitelabel upsell
 		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
 			add_action( 'modula_side_admin_tab', array( $this, 'render_whitelabel_upsell' ) );
@@ -66,7 +75,7 @@ class Modula_Upsells {
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
 
-		$this->lite_vs_pro = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+		$this->free_vs_pro_link = admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro');
 
 		// Upgrade to PRO plugin action link
 		add_filter( 'plugin_action_links_' . MODULA_FILE, array( $this, 'filter_action_links' ), 60 );
@@ -74,10 +83,9 @@ class Modula_Upsells {
 
 	}
 
-	public function generate_upsell_box( $title, $description, $tab, $slug, $features = array() ) {
+	public function generate_upsell_box( $title, $description, $tab, $features = array() ) {
 
-		$upsell_box = '<div class="modula-upsell">';
-		$upsell_box .= '<h2>' . esc_html( $title ) . '</h2>';
+		$upsell_box = '<h2>' . esc_html( $title ) . '</h2>';
 
 		if ( ! empty( $features ) ) {
 			$upsell_box .= '<ul class="modula-upsell-features">';
@@ -99,25 +107,7 @@ class Modula_Upsells {
 			$upsell_box .= '</ul>';
 		}
 
-		$campaign   = $tab;
-		$pro_simple = array( 'filters', 'hovereffects', 'loadingeffects', 'general', 'misc', 'lightboxes' );
-		if ( ! in_array( $tab, $pro_simple ) ) {
-			$campaign = 'modula-' . $tab;
-
-			if ( 'password' == $tab ) {
-				$campaign = 'modula-password-protect';
-			}
-		}
-
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
-		$upsell_box .= '<p>';
-
-		$buttons = '<a target="_blank" href="' . $this->lite_vs_pro . '&extension=' . $slug . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-
-		$upsell_box .= apply_filters( 'modula_upsell_buttons', $buttons, $tab );
-
-		$upsell_box .= '</p>';
-		$upsell_box .= '</div>';
 
 		return $upsell_box;
 	}
@@ -131,7 +121,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking for even more control and even more powerful galleries?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to get access to Fancybox Lightbox extra options, extra styles and more...', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general','modula' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-general" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'general' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 	}
@@ -145,7 +148,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Not enough control?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to unlock the ability to scale an image, and add horizontal/vertical slides...', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'loadingeffects','modula' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'loadingeffects' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-loadingeffects" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'loadingeffects' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -160,7 +176,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Need new hover effects and cursors ?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to unlock 41 more hover effects and custom cursors...', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'hovereffects','modula' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'hovereffects' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-hovereffects" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'hovereffects' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -175,7 +204,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Trying to add a video to your gallery?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Adding a video gallery with self-hosted videos or videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'video','modula-video' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'video' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-video" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-video' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -190,7 +232,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to make your gallery load faster ?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them and serving them from StackPath’s content delivery network.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'speedup','modula-speedup' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'speedup' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-speedup" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-speedup' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -205,7 +260,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to add filters to your gallery?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to filters and separate the images in your gallery.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters','modula' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'filters' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-filters" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'filters' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -300,7 +368,20 @@ class Modula_Upsells {
 				)
 		);
 
-		$tab_content .= $this->generate_upsell_box( $title, $description, 'lightboxes','modula', $features );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $title, $description, 'lightboxes', $features );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-lightboxes" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'lightboxes' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -315,7 +396,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc','modula-deeplink' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-misc" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'misc' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -330,7 +424,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to protect your galleries with a password ?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Password Protect add-on and protect your galleries with a password.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'password','modula-password-protect' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'password' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-password-protect" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-password-protect' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -345,7 +452,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Looking to watermark your galleries?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Watermark add-on and add a watermark to your gallery images.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'watermark','modula-watermark' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'watermark' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-watermark" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-watermark' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -360,7 +480,20 @@ class Modula_Upsells {
 		$upsell_title       = esc_html__( 'Want to make slideshows from your gallery?', 'modula-best-grid-gallery' );
 		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Slidfeshow add-on allows you to turn your gallery\'s lightbox into a stunning slideshow.', 'modula-best-grid-gallery' );
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'slideshow','modula-slideshow' );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'slideshow' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-slideshow" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-slideshow' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -390,7 +523,20 @@ class Modula_Upsells {
 				),
 		);
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'zoom','modula-zoom', $features );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'zoom', $features );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-zoom" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-zoom' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -419,7 +565,20 @@ class Modula_Upsells {
 				),
 		);
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'exif','modula-exif', $features );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'exif', $features );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-exif" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-exif' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -435,18 +594,31 @@ class Modula_Upsells {
 		$upsell_description = esc_html__( 'Give your users the ability to download your images, galleries or albums with an easy to use shortcode.', 'modula-best-grid-gallery' );
 
 		$features = array(
-			array(
-				'feature' => 'Download entire galleries, albums or a single photo',
-			),
-			array(
-				'feature' => 'Select the image sizes the user can download (thumbnail, full size, or custom)',
-			),
-			array(
-				'feature' => 'Comes with a powerful shortcode that you can use to render the button anywhere',
-			),
+				array(
+						'feature' => 'Download entire galleries, albums or a single photo',
+				),
+				array(
+						'feature' => 'Select the image sizes the user can download (thumbnail, full size, or custom)',
+				),
+				array(
+						'feature' => 'Comes with a powerful shortcode that you can use to render the button anywhere',
+				),
 		);
 
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download','modula-download', $features );
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'download' );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://chl.so/modula-download" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-download' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
 
 		return $tab_content;
 
@@ -504,7 +676,8 @@ class Modula_Upsells {
 					<p>
 						<?php
 
-						$buttons = '<a target="_blank" href="' . esc_url( $this->lite_vs_pro.'&extension=modula' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons .= '<a target="_blank" href="https://chl.so/modula-sorting" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
 						echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-pro' );
 
@@ -535,9 +708,10 @@ class Modula_Upsells {
 					<p>
 						<?php
 
-						$buttons = '<a target="_blank" href="' . esc_url( $this->lite_vs_pro.'&extension=modula-defaults' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+						$buttons .= '<a target="_blank" href="https://chl.so/modula-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
-						echo apply_filters( 'modula_upsell_buttons', $buttons, 'defaults' );
+						echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-defaults' );
 
 						?>
 					</p>
@@ -555,9 +729,9 @@ class Modula_Upsells {
 		}
 
 		$tabs['roles'] = array(
-			'label'    => esc_html__( 'Roles', 'modula-roles' ),
-			'badge'    => 'PRO',
-			'priority' => 120,
+				'label'    => esc_html__( 'Roles', 'modula-roles' ),
+				'badge'    => 'PRO',
+				'priority' => 120,
 		);
 
 		return $tabs;
@@ -567,14 +741,15 @@ class Modula_Upsells {
 	public function render_roles_upsell_tab() {
 		?>
 
-		<div class="modula-upsell">
-			<p class="modula-upsell-content"><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
-			<p>
+		<div class="modula-settings-upsell">
+			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
+			<p style="text-align:center">
 				<?php
 
-				$buttons = '<a target="_blank" href="' . esc_url( $this->lite_vs_pro.'&extension=modula-roles' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://chl.so/modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
-				echo apply_filters( 'modula_upsell_buttons', $buttons, 'roles' );
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-roles' );
 
 				?>
 			</p>
@@ -586,15 +761,16 @@ class Modula_Upsells {
 	public function render_roles_upsell() {
 		?>
 
-		<div class="modula-upsell">
+		<div class="modula-settings-upsell">
 			<h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
-			<p class="modula-upsell-content"><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
-			<p>
+			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
+			<p style="text-align:center">
 				<?php
 
-				$buttons = '<a target="_blank" href="' . esc_url( $this->lite_vs_pro.'&extension=modula-roles' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://chl.so/modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
-				echo apply_filters( 'modula_upsell_buttons', $buttons, 'whitelabel' );
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-whitelabel' );
 
 				?>
 			</p>
@@ -612,9 +788,10 @@ class Modula_Upsells {
 			<p>
 				<?php
 
-				$buttons = '<a target="_blank" href="' . esc_url( $this->lite_vs_pro.'&extension=modula-whitelabel' ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+				$buttons .= '<a target="_blank" href="https://chl.so/modula-whitelabel" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
-				echo apply_filters( 'modula_upsell_buttons', $buttons, 'whitelabel' );
+				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-whitelabel' );
 
 				?>
 			</p>
@@ -623,6 +800,24 @@ class Modula_Upsells {
 		<?php
 	}
 
+	/**
+	 * Add Albums Upsell Metabox
+	 *
+	 * @param $met
+	 * @return mixed
+	 * @since 2.2.7
+	 */
+	public function albums_upsell_meta( $met ) {
+
+		$met['modula-albums-upsell'] = array(
+				'title'    => esc_html__( 'Albums Upsell', 'modula-best-grid-gallery' ),
+				'callback' => 'output_upsell_albums',
+				'context'  => 'normal',
+				'priority' => 5,
+		);
+
+		return $met;
+	}
 	/**
 	 * Show the modal to upgrade
 	 *
