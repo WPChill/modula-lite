@@ -841,13 +841,13 @@ class Modula_Upsells {
 	 *
 	 * @return array
 	 *
-	 * @since 2.5.4
+	 * @since 2.5.5
 	 */
 	public function filter_action_links( $links ) {
 
 		$upgrade = apply_filters( 'modula_upgrade_plugin_action', array(
 				'upgrade_available' => true,
-				'link'              => '<a  class="modula-lite-vs-pro" href="' . admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ) . '">' . esc_html__( 'Upgrade to premium!', 'modula-best-grid-gallery' ) . '</a>'
+				'link'              => '<a  class="modula-lite-vs-pro" href="https://chl.so/get-lite-plugins">' . esc_html__( 'Upgrade to PRO!', 'modula-best-grid-gallery' ) . '</a>'
 		) );
 
 		if ( ! $upgrade['upgrade_available'] ) {

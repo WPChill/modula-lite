@@ -1,8 +1,13 @@
-= 2.5.4 - 07.09.2021 =
+= 2.5.5 - 15/09/2021 =
 Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
 Fixed: Added tracking db options to uninstall process - https://github.com/WPChill/modula-lite/issues/591
 Fixed: Unset link image attribute when importing from NextGEN - https://github.com/WPChill/modula-lite/issues/590
 Fixed: Fixed error when trying to get images that were not imported correctly / do not exist as entries in db - https://github.com/WPChill/modula-lite/issues/588
+Added: Upgrade to PRO from plugins page
+
+= 2.5.4 - 14/09/2021 =
+Changed: Upsells update
+Fixed: Image cropping based on image alignment
 
 = 2.5.3 - 26/07/2021 =
 Fixed: Method assignment for upsells
