@@ -9,6 +9,8 @@ Changed: Lazy load default ON - https://github.com/WPChill/modula-lite/issues/52
 Changed: Updated CPT settings conditions - https://github.com/WPChill/modula-lite/issues/516
 Changed: Grid Automatic default Row Height from 150 to 250 - https://github.com/WPChill/modula-lite/issues/517
 Changed: Some settings texts - https://github.com/WPChill/modula-lite/issues/499
+Added: Last 5 galleries now appear in selectize without searching ( https://github.com/WPChill/modula-lite/issues/598 )
+Fixed: Incompatibility with Gutenberg block and widgets
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update
@@ -354,7 +356,7 @@ For more information : https://github.com/MachoThemes/modula-lite/milestone/8?cl
 * Fixed an issue with WPML plugin
 
 = 1.1.13 =
-* Enhanced lightbox compatibility 
+* Enhanced lightbox compatibility
 
 = 1.1.10 =
 * Enhancement in backend UI

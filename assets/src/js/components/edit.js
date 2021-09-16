@@ -275,6 +275,7 @@ export const ModulaEdit = (props) => {
 									value={id}
 									options={currentSelectize}
 									onIdChange={onIdChange}
+									galleries={galleries}
 								/>
 
 								{id != 0 && (
@@ -323,7 +324,7 @@ const applyWithSelect = withSelect((select, props) => {
 	const { getEntityRecords } = select('core');
 	const query = {
 		post_status: 'publish',
-		per_page: 1
+		per_page: 5
 	};
 
 	return {

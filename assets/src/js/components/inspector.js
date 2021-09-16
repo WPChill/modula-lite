@@ -21,7 +21,7 @@ const Inspector = (props) => {
 				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
 					{galleries.length > 0 && (
 						<Fragment>
-							<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} />
+							<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} galleries={galleries}/>
 							{id != 0 && (
 								<Button
 									target="_blank"
