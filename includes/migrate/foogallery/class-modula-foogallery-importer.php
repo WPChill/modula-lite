@@ -237,7 +237,7 @@ class Modula_Foogallery_Importer {
 			'type'                  => $grid,
 			'grid_type'             => sanitize_text_field( $grid_type ),
 			'gutter'                => absint( $gutter ),
-			'grid_row_height'       => ( isset( $foogallery_settings['justified_row_height'] ) ) ? absint( $foogallery_settings['justified_row_height'] ) : '150',
+			'grid_row_height'       => ( isset( $foogallery_settings['justified_row_height'] ) ) ? absint( $foogallery_settings['justified_row_height'] ) : '250',
 			'grid_justify_last_row' => sanitize_text_field( $last_row_align ),
 			'lazy_load'             => ( isset( $foogallery_settings['default_lazyload'] ) && 'disabled' != $foogallery_settings['default_lazyload'] ),
 			'grid_image_size'       => sanitize_text_field( $grid_image_size ),

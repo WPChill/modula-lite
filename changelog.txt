@@ -4,9 +4,10 @@ Fixed: Added tracking db options to uninstall process - https://github.com/WPChi
 Fixed: Unset link image attribute when importing from NextGEN - https://github.com/WPChill/modula-lite/issues/590
 Fixed: Fixed error when trying to get images that were not imported correctly / do not exist as entries in db - https://github.com/WPChill/modula-lite/issues/588
 Added: Upgrade to PRO from plugins page
-Changed: Upsell texts
-Changed: Lazy load default ON
-Changed: Updated CPT settings conditions
+Changed: Upsell texts - https://github.com/WPChill/modula-lite/issues/523
+Changed: Lazy load default ON - https://github.com/WPChill/modula-lite/issues/520
+Changed: Updated CPT settings conditions - https://github.com/WPChill/modula-lite/issues/516
+Changed: Grid Automatic default Row Height from 150 to 250 - https://github.com/WPChill/modula-lite/issues/517
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update
