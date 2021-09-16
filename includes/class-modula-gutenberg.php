@@ -59,7 +59,8 @@ class Modula_Gutenberg {
 	 */
 	public function enqueue_block_assets() {
 		$screen = get_current_screen();
-		if ( 'post' === $screen->post_type || 'page' === $screen->post_type ) {
+		$allowed_screen_types = array( 'post', 'page', 'widgets' );
+        if ( in_array( $screen->base, $allowed_screen_types ) ) {
 			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 			do_action( 'modula_block_style' );
