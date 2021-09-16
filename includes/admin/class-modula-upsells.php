@@ -810,7 +810,7 @@ class Modula_Upsells {
 	public function albums_upsell_meta( $met ) {
 
 		$met['modula-albums-upsell'] = array(
-				'title'    => esc_html__( 'Albums Upsell', 'modula-best-grid-gallery' ),
+				'title'    => esc_html__( 'Modula Albums', 'modula-best-grid-gallery' ),
 				'callback' => 'output_upsell_albums',
 				'context'  => 'normal',
 				'priority' => 5,
