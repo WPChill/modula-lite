@@ -5,6 +5,7 @@ Fixed: Unset link image attribute when importing from NextGEN - https://github.c
 Fixed: Fixed error when trying to get images that were not imported correctly / do not exist as entries in db - https://github.com/WPChill/modula-lite/issues/588
 Added: Upgrade to PRO from plugins page
 Changed: Upsell texts
+Changed: Lazy load default ON
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update

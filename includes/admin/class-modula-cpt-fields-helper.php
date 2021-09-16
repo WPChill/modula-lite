@@ -629,7 +629,7 @@ class Modula_CPT_Fields_Helper {
 					"name"        => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
 					"description" => esc_html__( 'Enable/Disable lazy load', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
-					"default"     => 0,
+					"default"     => 1,
 					'priority'    => 1,
 				),
 			),
@@ -681,12 +681,13 @@ class Modula_CPT_Fields_Helper {
 			)
 		) );
 
+		// This is set for an incomaptibility with Modula SpeedUP, which deletes this field
 		if ( ! isset( $fields['speedup']['lazy_load'] ) ) {
 			$fields['speedup']['lazy_load'] = array(
 				"name"        => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
 				"description" => esc_html__( 'Enable/Disable lazy load', 'modula-best-grid-gallery' ),
 				"type"        => "toggle",
-				"default"     => 0,
+				"default"     => 1,
 				'priority'    => 0,
 			);
 		}
@@ -751,7 +752,7 @@ class Modula_CPT_Fields_Helper {
 			'mobile_gutter'         => 10,
 			'tablet_gutter'         => 10,
 			'helpergrid'            => 0,
-			'lazy_load'             => 0,
+			'lazy_load'             => 1,
 			'grid_type'             => '4',
 			'grid_image_size'       => 'medium',
 			'grid_image_crop'       => 0,
