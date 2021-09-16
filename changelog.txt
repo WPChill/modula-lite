@@ -6,6 +6,7 @@ Fixed: Fixed error when trying to get images that were not imported correctly / 
 Added: Upgrade to PRO from plugins page
 Changed: Upsell texts
 Changed: Lazy load default ON
+Changed: Updated CPT settings conditions
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update
