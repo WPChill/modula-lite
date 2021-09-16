@@ -429,7 +429,7 @@ class Modula_CPT_Fields_Helper {
 			),
 			'social' => array(
 				"enableSocial"   => array(
-					"name"        => esc_html__( 'Enable Social Icons', 'modula-best-grid-gallery' ),
+					"name"        => esc_html__( 'Enable Social Bar', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
 					"description" => "Enable social sharing on hovering the gallery thumbnail. Off by default.",
