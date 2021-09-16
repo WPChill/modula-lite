@@ -119,7 +119,7 @@ class Modula_Upsells {
 		}
 
 		$upsell_title       = esc_html__( 'Looking for even more control and even more powerful galleries?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to get access to Fancybox Lightbox extra options, extra styles and more...', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to get access to Fancybox Lightbox extra options, max images count for desktop and mobile, extra styles and more...', 'modula-best-grid-gallery' );
 
 		$tab_content .= '<div class="modula-upsell">';
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general' );
