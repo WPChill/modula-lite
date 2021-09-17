@@ -38,7 +38,8 @@ class Modula_Gutenberg {
 	 */
 	public function register_block_type() {
 
-		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
+
 		wp_register_style( 'modula-gutenberg', MODULA_URL . 'assets/css/admin/modula-gutenberg.css', array(), true );
 
 		register_block_type(
