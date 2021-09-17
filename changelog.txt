@@ -10,8 +10,8 @@ Changed: Updated CPT settings conditions - https://github.com/WPChill/modula-lit
 Changed: Grid Automatic default Row Height from 150 to 250 - https://github.com/WPChill/modula-lite/issues/517
 Changed: Some settings texts - https://github.com/WPChill/modula-lite/issues/499
 Added: Last 5 galleries now appear in selectize without searching ( https://github.com/WPChill/modula-lite/issues/598 )
-Fixed: Incompatibility with Gutenberg block and widgets
-Fixed: Modula Widget before and after args
+Fixed: Incompatibility with Gutenberg block and widgets - https://github.com/WPChill/modula-lite/issues/599
+Fixed: Modula Widget before and after args - https://github.com/WPChill/modula-lite/issues/483
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update
