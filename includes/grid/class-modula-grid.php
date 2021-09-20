@@ -152,13 +152,18 @@ class Modula_Grid {
 
 			if ( 'automatic' != $settings['grid_type'] ) {
 
-				$css .= "#{$gallery_id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(" . 100 / $settings['grid_type'] . "% - " . (absint( $settings['gutter'] ) - absint( $settings['gutter'] ) / absint( $settings['grid_type'] )) . "px) !important ; } ";
+				$css .= "#{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-grid-sizer { width: calc(" . 100 / $settings['grid_type'] . "% - " . ( absint( $settings['gutter'] ) - absint( $settings['gutter'] ) / absint( $settings['grid_type'] ) ) . "px) ; } ";
 
 				if ( '1' == $settings['enable_responsive'] ) {
-					$css .= "@media (max-width: 992px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer {width: calc(" . 100 / $settings['tablet_columns'] . "% - ". (absint( $settings['gutter'] ) - absint( $settings['gutter'] ) / absint( $settings['tablet_columns'])) ."px ) !important ; } }";
 
-					$css .= "@media (max-width: 576px) { #{$gallery_id}.modula-gallery .modula-item, .modula-grid .modula-grid-sizer {width: calc(" . 100 / $settings['mobile_columns'] . "% - ". (absint( $settings['gutter'] ) - absint( $settings['gutter'] ) / absint( $settings['mobile_columns'])) ."px ) !important ; } }";
+					$css .= "@media (max-width: 768px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . 100 / $settings['tablet_columns'] . "% - " . ( absint( $settings['tablet_gutter'] ) - absint( $settings['tablet_gutter'] ) / absint( $settings['tablet_columns'] ) ) . "px ) ; } }";
 
+					$css .= "@media (max-width: 568px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . 100 / $settings['mobile_columns'] . "% - " . ( absint( $settings['mobile_gutter'] ) - absint( $settings['mobile_gutter'] ) / absint( $settings['mobile_columns'] ) ) . "px ) ; } }";
+				} else {
+
+					$css .= "@media (max-width: 768px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . 100 / $settings['grid_type'] . "% - " . ( absint( $settings['tablet_gutter'] ) - absint( $settings['tablet_gutter'] ) / absint( $settings['grid_type'] ) ) . "px ) ; } }";
+
+					$css .= "@media (max-width: 568px) { html body  #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . 100 / $settings['grid_type'] . "% - " . ( absint( $settings['mobile_gutter'] ) - absint( $settings['mobile_gutter'] ) / absint( $settings['grid_type'] ) ) . "px ) ; } }";
 				}
 
 				$css .= "#{$gallery_id} .modula-items{position:relative;}";
