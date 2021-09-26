@@ -1,7 +1,7 @@
 <?php
 
 // Exit if accessed directly.
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -36,12 +36,12 @@ class Modula_Ajax_Migrator {
 		check_ajax_referer( 'modula-importer', 'nonce' );
 
 		// Exit if no id
-		if ( !isset( $_POST['id'] ) ) {
+		if ( ! isset( $_POST['id'] ) ) {
 			return false;
 		}
 
 		// Exit if no source
-		if ( !isset( $_POST['source'] ) ) {
+		if ( ! isset( $_POST['source'] ) ) {
 			return false;
 		}
 
@@ -58,32 +58,10 @@ class Modula_Ajax_Migrator {
 		$images = array_slice( $images, $chunk, 5 );
 
 		if ( is_array( $images ) && count( $images ) > 0 ) {
-			// Exit if plugin that uses media library for images
-			if ( in_array( $source, apply_filters( 'modula_ajax_migrated_galleries', array( 'nextgen' ) ) ) ) {
 
-				global $wpdb;
-				// Add each image to Media Library
-				foreach ( $images as $image ) {
-					// Store image in WordPress Media Library
-					switch ( $source ) {
-						case 'nextgen':
-							$sql        = $wpdb->prepare( "SELECT path, title, galdesc, pageid 
-    						FROM " . $wpdb->prefix . "ngg_gallery
-    						WHERE gid = %d
-    						LIMIT 1", $gallery_id );
-							$gallery    = $wpdb->get_row( $sql );
-							$attachment = $this->add_image_to_library( $gallery->path, $image->filename, $image->description, $image->alttext );
-							break;
-					}
 
-					if ( $attachment !== false ) {
-						// Add to array of attachments
-						$attachments[] = $attachment;
-					}
-				}
-			}
-
-			$response['attachments'] = $attachments;
+			$response['attachments'] = apply_filters( 'modula_migrate_attachments_' . $source, array(), $images, $gallery_id );
+			//$response['attachments'] = $attachments;
 
 			// If array smaller than 5 we reached the end of the array
 			if ( count( $images ) < 5 ) {
@@ -134,7 +112,7 @@ class Modula_Ajax_Migrator {
 
 		// Get full path and filename
 		// Seems like in some scenarios the $sourche_path contains the ABSPATH also
-		if ( strpos( $source_path, ABSPATH ) !== false ){
+		if ( strpos( $source_path, ABSPATH ) !== false ) {
 			$source_file_path = $source_path . '/' . $source_file;
 		} else {
 			$source_file_path = ABSPATH . $source_path . '/' . $source_file;
@@ -152,13 +130,13 @@ class Modula_Ajax_Migrator {
 		$wp_filetype = wp_check_filetype( $source_file, null );
 		extract( $wp_filetype );
 
-		if ( (!$type || !$ext) && !current_user_can( 'unfiltered_upload' ) ) {
+		if ( ( ! $type || ! $ext ) && ! current_user_can( 'unfiltered_upload' ) ) {
 			return false;
 		}
 
 		$result = copy( $source_file_path, $destination_file_path );
 
-		if ( !$result ) {
+		if ( ! $result ) {
 
 			return false;
 		}
@@ -188,7 +166,7 @@ class Modula_Ajax_Migrator {
 		$attachmentID = wp_insert_attachment( $attachment, $destination_file_path );
 
 		// Update attachment metadata
-		if ( !is_wp_error( $attachmentID ) ) {
+		if ( ! is_wp_error( $attachmentID ) ) {
 			$metadata = wp_generate_attachment_metadata( $attachmentID, $destination_file_path );
 			wp_update_attachment_metadata( $attachmentID, wp_generate_attachment_metadata( $attachmentID, $destination_file_path ) );
 		}
@@ -218,7 +196,7 @@ class Modula_Ajax_Migrator {
 	 */
 	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !(self::$instance instanceof Modula_Ajax_Migrator) ) {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Modula_Ajax_Migrator ) ) {
 			self::$instance = new Modula_Ajax_Migrator();
 		}
 

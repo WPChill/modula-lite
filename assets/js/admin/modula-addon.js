@@ -17,3 +17,24 @@
 	});
 
 })( jQuery );
+
+
+(function( wp, $ ) {
+	'use strict';
+	if ( ! wp ) {
+		return;
+	}
+
+	jQuery( '.modula-free-addon-actions a' ).click( function ( e ) {
+		e.preventDefault();
+
+		var slug = jQuery( this ).data( 'slug' );
+		var action = jQuery( this ).data( 'action' );
+
+		if ( 'install' == action ) {
+			wp.updates.installPlugin( {
+				slug: slug
+			} );
+		}
+	} );
+})( window.wp, jQuery );

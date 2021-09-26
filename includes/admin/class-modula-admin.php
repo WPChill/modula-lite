@@ -245,8 +245,12 @@ class Modula_Admin {
 		if ( 'extensions' == $active_tab ) {
 			$addons = new Modula_Addons();
 			?>
+			<div class="modula-subtba-navigation"><a href="#" class="nav-tab">PRO</a><a href="#" class="nav-tab">Free</a></div>
 			<div class="modula-addons-container">
 				<?php $addons->render_addons(); ?>
+			</div>
+			<div class="modula-addons-container">
+				<?php $addons->render_free_addons(); ?>
 			</div>
 			<?php
 		} else {

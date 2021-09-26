@@ -94,6 +94,72 @@ class Modula_Addons {
 	}
 
 	/**
+	 * Function to render our free extensions
+	 */
+	public function render_free_addons() {
+
+		$this->free_addons = apply_filters( 'modula_free_extensions', array(
+			'modula-envira-migrator' => array(
+				'name'          => 'Modula Envira Migrator',
+				'image'         => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'download_link' => '',
+				'url'           => '',
+				'version'       => '1.0.0',
+				'description'   => 'Modula Pagination allows you to display your gallery images in a paginated way',
+				'slug'          => 'strong-testimonials'
+			)
+		) );
+
+		$addons_images = array(
+			'modula-envira-migrator',
+			'modula-foo-migrator',
+			'modula-nextgen-migrator',
+			'modula-ftg-migrator',
+			'modula-photoblocks-migrator'
+		);
+
+		if ( ! empty( $this->free_addons ) ) {
+
+			foreach ( $this->free_addons as $addon ) {
+
+				if( ! function_exists( 'get_plugin_data' ) ) {
+					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				}
+
+				$plugin_data = false;
+
+				if(file_exists(WP_PLUGIN_DIR .'/' . $addon['slug'] . '/' . $addon['slug'] . '.php') ){
+					$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/' . $addon['slug'] . '/' . $addon['slug'] . '.php' );
+				}
+
+				$image = ( in_array( $addon[ 'slug' ], $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $addon[ 'slug' ] . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
+				echo '<div class="modula-addon">';
+				echo '<div class="modula-addon-box">';
+
+				if ( !isset( $addon['image'] ) || '' == $addon['image'] ){
+					echo '<div><img src="' . esc_url( apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) ) . '"></div>';
+				} else {
+					echo '<div><img src="' . esc_url( $addon['image'] ) . '"></div>';
+				}
+
+				echo '<div class="modula-addon-content">';
+				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
+				echo ( isset( $addon['version'] ) ) ? '<span class="modula-addon-version">' . esc_html( 'V ' . $addon['version'] ) . '</span>' : '';
+				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
+				echo '</div>';
+				echo '</div>';
+
+				echo '<div class="modula-free-addon-actions">';
+				echo '<a href="#" class="button primary-button" data-action="install" data-slug="' . esc_attr( $addon['slug'] ) . '">' . esc_html__( 'Install', 'modula-best-grid-gallery' ) . '</a>';
+				echo '</div>';
+				echo '</div>';
+
+
+			}
+		}
+	}
+
+	/**
 	 * Reload addons in the Extensions tab
 	 *
 	 * @moved here from class-modula.php file in version 2.5.0
