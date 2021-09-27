@@ -2,7 +2,9 @@
 
 class Modula_Addons {
 
-	public $addons = array();
+	public array $addons = array();
+
+	public array $free_addons = array();
 
 	function __construct() {
 		// Add ajax action to reload extensions
@@ -122,25 +124,70 @@ class Modula_Addons {
 
 			foreach ( $this->free_addons as $addon ) {
 
-				if( ! function_exists( 'get_plugin_data' ) ) {
+				$slug        = $addon['slug'];
+				$plugin_path = $slug . '/' . $slug . '.php';
+
+				$activate_url = add_query_arg(
+					array(
+						'action'        => 'activate',
+						'plugin'        => rawurlencode( $plugin_path ),
+						'plugin_status' => 'all',
+						'paged'         => '1',
+						'_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $plugin_path ),
+					),
+					admin_url( 'plugins.php' )
+				);
+
+				$deactivate_url = add_query_arg(
+					array(
+						'action'        => 'deactivate',
+						'plugin'        => rawurlencode( $plugin_path ),
+						'plugin_status' => 'all',
+						'paged'         => '1',
+						'_wpnonce'      => wp_create_nonce( 'deactivate-plugin_' . $plugin_path ),
+					),
+					admin_url( 'plugins.php' )
+				);
+
+				if ( ! function_exists( 'get_plugin_data' ) ) {
 					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				}
 
 				$plugin_data = false;
+				$action      = 'install';
 
-				if(file_exists(WP_PLUGIN_DIR .'/' . $addon['slug'] . '/' . $addon['slug'] . '.php') ){
-					$plugin_data = get_plugin_data( WP_PLUGIN_DIR .'/' . $addon['slug'] . '/' . $addon['slug'] . '.php' );
+				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_path ) ) {
+					$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );
+					$action      = 'activate';
 				}
 
-				$image = ( in_array( $addon[ 'slug' ], $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $addon[ 'slug' ] . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
+				if ( is_plugin_active( $plugin_path ) ) {
+					$action = 'installed';
+				}
+
+				$image = ( in_array( $slug, $addons_images ) ) ? MODULA_URL . 'assets/images/addons/' . $slug . '.png' : MODULA_URL . 'assets/images/modula-logo.jpg';
+
 				echo '<div class="modula-addon">';
 				echo '<div class="modula-addon-box">';
 
-				if ( !isset( $addon['image'] ) || '' == $addon['image'] ){
+				if ( ! isset( $addon['image'] ) || '' == $addon['image'] ) {
 					echo '<div><img src="' . esc_url( apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) ) . '"></div>';
 				} else {
 					echo '<div><img src="' . esc_url( $addon['image'] ) . '"></div>';
 				}
+
+				$link = '';
+
+				$link .= '<div class="modula-toggle">';
+				$link .= '<input class="modula-toggle__input" type="checkbox" name="modula-free-addons" data-action="' . esc_attr( $action ) . '" data-activateurl="' . esc_url( $activate_url ) . '" data-deactivateurl="' . esc_url( $deactivate_url ) . '" value="1"  data-slug="'.esc_attr($slug).'" ' . checked( 'installed', $action, false ) . '>';
+				$link .= '<div class="modula-toggle__items">';
+				$link .= '<span class="modula-toggle__track"></span>';
+				$link .= '<span class="modula-toggle__thumb"></span>';
+				$link .= '<svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>';
+				$link .= '<svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg>';
+				$link .= '</div>';
+				$link .= '</div>';
+				$link .= '<span class="modula-action-texts"></span>';
 
 				echo '<div class="modula-addon-content">';
 				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
@@ -150,12 +197,11 @@ class Modula_Addons {
 				echo '</div>';
 
 				echo '<div class="modula-free-addon-actions">';
-				echo '<a href="#" class="button primary-button" data-action="install" data-slug="' . esc_attr( $addon['slug'] ) . '">' . esc_html__( 'Install', 'modula-best-grid-gallery' ) . '</a>';
+				echo $link;
 				echo '</div>';
 				echo '</div>';
-
-
 			}
+
 		}
 	}
 

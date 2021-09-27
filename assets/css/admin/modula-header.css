@@ -19,12 +19,16 @@ body.modula-gallery_page_modula-import-export #wpcontent .wrap {
 
 
 body.modula-gallery_page_modula-addons .modula-addons-container,
+body.modula-gallery_page_modula-addons .modula-free-addons-container,
 body.modula-gallery_page_modula-addons .nav-tab-wrapper,
 body.modula-gallery_page_modula-lite-vs-pro .modula-addons-container,
+body.modula-gallery_page_modula-lite-vs-pro .modula-free-addons-container,
 body.modula-gallery_page_modula-lite-vs-pro .nav-tab-wrapper,
 body.modula-gallery_page_modula .modula-addons-container,
+body.modula-gallery_page_modula .modula-free-addons-container,
 body.modula-gallery_page_modula .nav-tab-wrapper,
 body.post-type-modula-gallery .modula-addons-container,
+body.post-type-modula-gallery .modula-free-addons-container,
 body.post-type-modula-gallery .nav-tab-wrapper {
 	padding : 20px;
 }
