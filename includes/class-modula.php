@@ -257,17 +257,13 @@ class Modula {
 			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery', 'updates' ), MODULA_LITE_VERSION, true );
 
 			wp_localize_script( 'modula-addon', 'modulaAddons', array(
-				'free_addons'                       => apply_filters( 'modula_free_extensions_install', array( 'strong-testimonials' ) ),
-				'connect_error'                     => esc_html__( 'ERROR: There was an error connecting to the server, Please try again.', 'modula-best-grid-gallery' ),
-				'installing_text'                   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
-				'activated_text'                    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
-				'deactivated_text'                  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
-				'activating_text'                   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
-				'deactivating_text'                 => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' ),
-				'installing_mass_addons'            => esc_html__( 'Installing & Activating all addons, please wait..', 'modula-best-grid-gallery' ),
-				'deactivating_mass_addons'          => esc_html__( 'Deactivating all addons, please wait..', 'modula-best-grid-gallery' ),
-				'installing_mass_addons_complete'   => esc_html__( 'All addons have been installed & activated.', 'modula-best-grid-gallery' ),
-				'deactivating_mass_addons_complete' => esc_html__( 'All addons have been deactivated.', 'modula-best-grid-gallery' )
+				// Add addon slug to verify addon's slug in wp-plugin-install-success action
+				'free_addons'       => apply_filters( 'modula_free_extensions_install', array( ) ),
+				'installing_text'   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
+				'activated_text'    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
+				'deactivated_text'  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
+				'activating_text'   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
+				'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' )
 			) );
 
 		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {

@@ -100,18 +100,12 @@ class Modula_Addons {
 	 */
 	public function render_free_addons() {
 
+		// Add free
 		$this->free_addons = apply_filters( 'modula_free_extensions', array(
-			'modula-envira-migrator' => array(
-				'name'          => 'Modula Envira Migrator',
-				'image'         => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'download_link' => '',
-				'url'           => '',
-				'version'       => '1.0.0',
-				'description'   => 'Modula Pagination allows you to display your gallery images in a paginated way',
-				'slug'          => 'strong-testimonials'
-			)
+
 		) );
 
+		// Addon Images
 		$addons_images = array(
 			'modula-envira-migrator',
 			'modula-foo-migrator',
@@ -149,16 +143,14 @@ class Modula_Addons {
 					admin_url( 'plugins.php' )
 				);
 
-				if ( ! function_exists( 'get_plugin_data' ) ) {
+				if ( ! function_exists( 'get_plugin_data' ) || ! function_exists( 'is_plugin_active' ) ) {
 					require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				}
 
-				$plugin_data = false;
-				$action      = 'install';
+				$action = 'install';
 
 				if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_path ) ) {
-					$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );
-					$action      = 'activate';
+					$action = 'activate';
 				}
 
 				if ( is_plugin_active( $plugin_path ) ) {
@@ -170,16 +162,14 @@ class Modula_Addons {
 				echo '<div class="modula-addon">';
 				echo '<div class="modula-addon-box">';
 
-				if ( ! isset( $addon['image'] ) || '' == $addon['image'] ) {
-					echo '<div><img src="' . esc_url( apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) ) . '"></div>';
+				if ( ! isset( $addon['image'] ) || '' === $addon['image'] ) {
+					echo '<div><img src="' . esc_url( apply_filters( 'modula_admin_default_addon_image', esc_attr( $image ) ) ) . '" alt="' . esc_attr( $addon['name'] ) . '"></div>';
 				} else {
-					echo '<div><img src="' . esc_url( $addon['image'] ) . '"></div>';
+					echo '<div><img src="' . esc_url( $addon['image'] ) . '" alt="' . esc_attr( $addon['name'] ) . '"></div>';
 				}
 
-				$link = '';
-
-				$link .= '<div class="modula-toggle">';
-				$link .= '<input class="modula-toggle__input" type="checkbox" name="modula-free-addons" data-action="' . esc_attr( $action ) . '" data-activateurl="' . esc_url( $activate_url ) . '" data-deactivateurl="' . esc_url( $deactivate_url ) . '" value="1"  data-slug="'.esc_attr($slug).'" ' . checked( 'installed', $action, false ) . '>';
+				$link = '<div class="modula-toggle">';
+				$link .= '<input class="modula-toggle__input" type="checkbox" name="modula-free-addons" data-action="' . esc_attr( $action ) . '" data-activateurl="' . esc_url( $activate_url ) . '" data-deactivateurl="' . esc_url( $deactivate_url ) . '" value="1"  data-slug="' . esc_attr( $slug ) . '" ' . checked( 'installed', $action, false ) . '>';
 				$link .= '<div class="modula-toggle__items">';
 				$link .= '<span class="modula-toggle__track"></span>';
 				$link .= '<span class="modula-toggle__thumb"></span>';
@@ -191,7 +181,6 @@ class Modula_Addons {
 
 				echo '<div class="modula-addon-content">';
 				echo '<h3>' . esc_html( $addon['name'] ) . '</h3>';
-				echo ( isset( $addon['version'] ) ) ? '<span class="modula-addon-version">' . esc_html( 'V ' . $addon['version'] ) . '</span>' : '';
 				echo '<div class="modula-addon-description">' . wp_kses_post( $addon['description'] ) . '</div>';
 				echo '</div>';
 				echo '</div>';

@@ -18,7 +18,9 @@
 
 })( jQuery );
 
-
+/**
+ * Function to install/activate/deactivate Modula's free addons
+ */
 (function( wp, $ ) {
 	'use strict';
 	if ( ! wp ) {
@@ -55,7 +57,7 @@
 
 	});
 
-	function freeModulaPluginAction( url, action, text_wrapper ) {
+	function freeModulaPluginAction( url, action, text_wrapper, slug ) {
 
 		$.ajax( {
 			async   : true,
@@ -63,10 +65,21 @@
 			dataType: 'html',
 			url     : url,
 			success : function () {
+
 				if ( 'activate' === action ) {
 
+					if ( !text_wrapper && 'undefined' !== typeof slug ) {
+						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
+					}
+
 					text_wrapper.text( modulaAddons.activated_text );
+
 				} else if ( 'deactivate' === action ) {
+
+					if ( !text_wrapper && 'undefined' !== typeof slug ) {
+						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
+					}
+
 					text_wrapper.text( modulaAddons.deactivated_text );
 				}
 
@@ -80,7 +93,8 @@
 	jQuery( document ).on( 'wp-plugin-install-success', function ( response, data ) {
 
 		if ( jQuery.inArray( data.slug, modulaAddons.free_addons ) > -1 ) {
-			freeModulaPluginAction( data.activateUrl );
+
+			freeModulaPluginAction( data.activateUrl, 'activate', false, data.slug );
 		}
 	} );
 
