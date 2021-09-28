@@ -243,26 +243,35 @@ class Modula_Admin {
 		<?php
 
 		if ( 'extensions' == $active_tab ) {
+
 			$addons = new Modula_Addons();
 			$pro_ext = false;
 
-			if(!isset($_GET['extensions']) || 'pro' == $_GET['extensions']){
+			if(!isset($_GET['extensions']) || 'pro' === $_GET['extensions']){
 				$pro_ext = true;
 			}
+
+			if( $addons->check_free_addons() ){
 			?>
-			<div class="modula-subtab-navigation wp-clearfix wrap">
-				<ul class="subsubsub">
-					<li><a href="<?php echo add_query_arg(array('extensions' =>'pro')); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a> | </li>
-					<li><a href="<?php echo add_query_arg(array('extensions' =>'free')); ?>" class="<?php echo !$pro_ext ? 'current' : ''; ?>">Free</a></li>
-				</ul>
-			</div>
+				<div class="modula-subtab-navigation wp-clearfix wrap">
+					<ul class="subsubsub">
+						<li><a href="<?php echo add_query_arg(array('extensions' =>'pro')); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a> | </li>
+						<li><a href="<?php echo add_query_arg(array('extensions' =>'free')); ?>" class="<?php echo !$pro_ext ? 'current' : ''; ?>">Free</a></li>
+					</ul>
+				</div>
+			<?php
+			 }
+			?>
+
 			<div class="modula-addons-container <?php echo !$pro_ext ? 'hidden' : ''; ?>">
 				<?php $addons->render_addons(); ?>
 			</div>
-			<div class="modula-free-addons-container <?php echo $pro_ext ? 'hidden' : ''; ?>">
-				<?php $addons->render_free_addons(); ?>
-			</div>
-			<?php
+			<?php if( $addons->check_free_addons() ){ ?>
+				<div class="modula-free-addons-container <?php echo $pro_ext ? 'hidden' : ''; ?>">
+					<?php $addons->render_free_addons(); ?>
+				</div>
+				<?php
+			}
 		} else {
 			do_action( "modula_exntesion_{$active_tab}_tab" );
 		}

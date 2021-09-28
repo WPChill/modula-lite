@@ -9,6 +9,9 @@ class Modula_Addons {
 	function __construct() {
 		// Add ajax action to reload extensions
 		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
+
+		// Add free
+		$this->free_addons = apply_filters( 'modula_free_extensions', array() );
 	}
 
 	private function check_for_addons() {
@@ -97,13 +100,10 @@ class Modula_Addons {
 
 	/**
 	 * Function to render our free extensions
+	 *
+	 * @since 2.5.5
 	 */
 	public function render_free_addons() {
-
-		// Add free
-		$this->free_addons = apply_filters( 'modula_free_extensions', array(
-
-		) );
 
 		// Addon Images
 		$addons_images = array(
@@ -209,6 +209,17 @@ class Modula_Addons {
 		$this->addons = $this->check_for_addons();
 
 		die;
+	}
+
+	/**
+	 * Check if there are free addons
+	 *
+	 * @return bool
+	 * @since 2.5.5
+	 */
+	public function check_free_addons() {
+
+		return !empty( $this->free_addons );
 	}
 
 }
