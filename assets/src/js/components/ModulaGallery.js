@@ -15,7 +15,7 @@ export const ModulaGallery = (props) => {
 		if ('slider' !== settings.type) {
 			modulaRun(jsConfig);
 		} else {
-			modulaSlickRun();
+			modulaSlickRun(id);
 		}
 	}, []);
 
