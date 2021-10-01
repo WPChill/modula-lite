@@ -95,7 +95,7 @@ class Modula {
 	}
 
 	public function set_locale() {
-		load_plugin_textdomain( 'modula-best-grid-gallery', false, MODULA_PATH . '/languages' );
+		load_plugin_textdomain( 'modula-best-grid-gallery', false, dirname( MODULA_FILE ) . '/languages'  );
 	}
 
 	private function define_admin_hooks() {
