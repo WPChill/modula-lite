@@ -128,6 +128,10 @@ class Modula {
 			return;
 		}
 
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		   return;
+		}
+
 		new Modula_Upsells();
 
 		$upgrades = Modula_Upgrades::get_instance();
