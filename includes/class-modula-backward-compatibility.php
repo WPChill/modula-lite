@@ -149,11 +149,11 @@ class Modula_Backward_Compatibility {
 	public function backward_compatibility_admin_responsive_gutter( $value, $key, $settings ) {
 
 		if ( 'tablet_gutter' == $key && !isset( $settings[ 'tablet_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
-			return $settings[ 'gutter' ];
+			return absint( $settings[ 'gutter' ] );
 		}
 
 		if ( 'mobile_gutter' == $key && !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
-			return $settings[ 'gutter' ];
+			return absint( $settings[ 'gutter' ] );
 		}
 
 		return $value;

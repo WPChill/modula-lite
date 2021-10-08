@@ -298,7 +298,15 @@ class Modula_CPT {
 									$modula_settings[$field_id] = 'pufrobo';
 								}
 								break;
-
+							case 'gutter' :
+								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );	
+								break;
+							case 'tablet_gutter' :
+								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );	
+								break;
+							case 'mobile_gutter' :
+								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );	
+								break;
 							default:
 								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
 									$sanitized                  = array_map( 'sanitize_text_field', $_POST['modula-settings'][$field_id] );
