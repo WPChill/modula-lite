@@ -274,27 +274,33 @@ class Modula_CPT_Fields_Helper {
 					'is_child'    => true,
 					'priority'    => 39,
 				),
-				"gutter"   => array(
+				"gutter"        => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
-					"type"        => "text",
+					"type"        => "gutterInput",
 					"description" => esc_html__( 'Use this slider to adjust the image space in your gallery.', 'modula-best-grid-gallery' ),
 					"default"     => 10,
 					'priority'    => 30,
+					// Attribute specific for gutterInput type fields
+					'media'       => 'desktop'
 				),
 				'tablet_gutter' => array(
 					"name"        => esc_html__( 'Gutter for tablet', 'modula-best-grid-gallery' ),
-					"type"        => "text",
+					"type"        => "gutterInput",
 					"description" => esc_html__( 'Use this to adjust the image space in your gallery for tablet view.', 'modula-best-grid-gallery' ),
 					"default"     => 10,
 					'priority'    => 31,
+					// Attribute specific for gutterInput type fields
+					'media'       => 'tablet'
 				),
 				'mobile_gutter' => array(
 					"name"        => esc_html__( 'Gutter for mobile', 'modula-best-grid-gallery' ),
-					"type"        => "text",
+					"type"        => "gutterInput",
 					"description" => esc_html__( 'Use this
 					 to adjust the image space in your gallery for mobile view.', 'modula-best-grid-gallery' ),
 					"default"     => 10,
 					'priority'    => 32,
+					// Attribute specific for gutterInput type fields
+					'media'       => 'mobile'
 				),
 				"width"          => array(
 					"name"        => esc_html__( 'Width', 'modula-best-grid-gallery' ),

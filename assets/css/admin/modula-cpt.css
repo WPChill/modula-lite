@@ -1808,14 +1808,12 @@ html body .modula-settings-container .modula-tab-content tr[data-container="gutt
 	display:inline-block;
 }
 
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="gutter"],
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="tablet_gutter"],
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="mobile_gutter"] {
+html body .modula-settings-container .modula-tab-content tr[data-container] input.modula-gutter-input {
 	border-radius : 0;
 	border-right  : 0;
 	border-left   : 0;
-	min-width     : 42px;
-	max-width     : 42px;
+	min-width     : 62px;
+	max-width     : 62px;
 	height        : 32px;
 	position      : relative;
 	left          : -1px;
