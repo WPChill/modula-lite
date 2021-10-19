@@ -1,3 +1,4 @@
+<hr class="wp-header-end">
 <div class="wrap modula">
 	<h2 class="nav-tab-wrapper wp-clearfix">
 		<?php
