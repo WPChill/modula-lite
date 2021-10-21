@@ -369,7 +369,7 @@ class Modula_CPT_Fields_Helper {
 				"hide_title"        => array(
 					"name"        => esc_html__( 'Hide Title', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
-					"default"     => 0,
+					"default"     => 1,
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 				),
@@ -723,7 +723,7 @@ class Modula_CPT_Fields_Helper {
 			'shuffle'               => 0,
 			'titleColor'            => '',
 			'captionColor'          => '#ffffff',
-			'hide_title'            => 0,
+			'hide_title'            => 1,
 			'hide_description'      => 0,
 			'captionFontSize'       => '14',
 			'titleFontSize'         => '16',

@@ -30,7 +30,7 @@
 		<div class="figc<?php echo '' == $data->title ? ' no-title' : '' ?><?php echo '' == $data->description ? ' no-description' : '' ?>">
 			<div class="figc-inner">
 				<?php if ( ! $data->hide_title ): ?>
-					<h2 class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></h2>
+					<div class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></div>
 				<?php endif ?>
 				<?php if ( ! $data->hide_description && '' != $data->description): ?>
 					<p class="description"><?php echo wp_kses_post( $data->description ); ?></p>

@@ -7,7 +7,7 @@
 		z-index: -1;
 	}
 
-	.modula-gallery .modula-items .modula-item h2 {
+	.modula-gallery .modula-items .modula-item .jtg-title {
 		margin:0;
 	}
 	.modula-gallery .modula-items .modula-item p {
@@ -64,7 +64,7 @@
 	  	height: 100%;
 	}
 
-	.modula-gallery .modula-item.effect-quiet h2 {
+	.modula-gallery .modula-item.effect-quiet .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,-20px,0);
@@ -78,7 +78,7 @@
 		transform: scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-quiet:hover h2,
+	.modula-gallery .modula-item.effect-quiet:hover .jtg-title,
 	.modula-gallery .modula-item.effect-quiet:hover p {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
@@ -104,18 +104,18 @@
 		transform: translate3d(0,0,300px);
 	}
 
-	.modula-gallery .modula-item.effect-seemo h2 {
+	.modula-gallery .modula-item.effect-seemo .jtg-title {
 		width: 100%;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-seemo h2 {
+	.modula-gallery .modula-item.effect-seemo .jtg-title {
 		-webkit-transform: translate3d(0,0px,0) translate3d(0,0,0);
 		transform: translate3d(0,0,0) translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-seemo:hover h2 {
+	.modula-gallery .modula-item.effect-seemo:hover .jtg-title {
 		-webkit-transform: translate3d(0,-20px,0);
 		transform: translate3d(0,-20px,0);
 	}
@@ -154,7 +154,7 @@
 		transform: translate3d(0,10px,0);
 	}
 
-	html body .modula-gallery .modula-item.effect-appear h2 {
+	html body .modula-gallery .modula-item.effect-appear .jtg-title {
 		position: absolute;
 		bottom: 7.5%;
 		left: 0;
@@ -166,7 +166,7 @@
 	}
 
 	@media all and (max-width:480px) {
-		html body .modula-gallery .modula-item.effect-appear h2 {
+		html body .modula-gallery .modula-item.effect-appear .jtg-title {
 			bottom:60px;
 		}
 
@@ -182,7 +182,7 @@
 		}
 	}
 
-	.modula-gallery .modula-item.effect-appear h2 i {
+	.modula-gallery .modula-item.effect-appear .jtg-title i {
 		font-style: normal;
 		opacity: 0;
 		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -196,14 +196,14 @@
 	}
 
 	.modula-gallery .modula-item.effect-appear .figc::before,
-	.modula-gallery .modula-item.effect-appear h2 {
+	.modula-gallery .modula-item.effect-appear .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
 	.modula-gallery .modula-item.effect-appear:hover .figc::before,
-	.modula-gallery .modula-item.effect-appear:hover h2,
-	.modula-gallery .modula-item.effect-appear:hover h2 i {
+	.modula-gallery .modula-item.effect-appear:hover .jtg-title,
+	.modula-gallery .modula-item.effect-appear:hover .jtg-title i {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
@@ -212,7 +212,7 @@
 	/*---------------*/
 	/***** crafty *****/
 	/*---------------*/
-	.modula-gallery .modula-item.effect-crafty h2 {
+	.modula-gallery .modula-item.effect-crafty .jtg-title {
 		margin: 0 0 10px 0;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -229,7 +229,7 @@
 		margin-bottom: 10px;
 	}
 
-	.modula-gallery .modula-item.effect-crafty:hover h2 {
+	.modula-gallery .modula-item.effect-crafty:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -272,7 +272,7 @@
 		text-align: right;
 	}
 
-	html body .modula-gallery .modula-item.effect-pufrobo h2,
+	html body .modula-gallery .modula-item.effect-pufrobo .jtg-title,
 	html body .modula-gallery .modula-item.effect-pufrobo p {
 		position: absolute;
 		right: 30px;
@@ -289,7 +289,7 @@
 		letter-spacing: 1px;
 	}
 
-	.modula-gallery .modula-item.effect-pufrobo h2 {
+	.modula-gallery .modula-item.effect-pufrobo .jtg-title {
 		/*top: 30px;*/
 		top: 10%;
 		-webkit-transition: -webkit-transform 0.35s;
@@ -298,12 +298,12 @@
 		transform: translate3d(0,20px,0);
 	}
 
-	.modula-gallery .modula-item.effect-pufrobo:hover h2 {
+	.modula-gallery .modula-item.effect-pufrobo:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-pufrobo h2::after {
+	.modula-gallery .modula-item.effect-pufrobo .jtg-title::after {
 		position: absolute;
 		top: 80%;
 		left: 0;
@@ -315,14 +315,14 @@
 		transform: translate3d(0,40px,0);
 	}
 
-	.modula-gallery .modula-item.effect-pufrobo h2::after,
+	.modula-gallery .modula-item.effect-pufrobo .jtg-title::after,
 	.modula-gallery .modula-item.effect-pufrobo p {
 		opacity: 0;
 		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 		transition: opacity 0.35s, transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-pufrobo:hover h2::after,
+	.modula-gallery .modula-item.effect-pufrobo:hover .jtg-title::after,
 	.modula-gallery .modula-item.effect-pufrobo:hover p {
 		margin-top: 10px;
 		margin-bottom: 5px;
@@ -366,7 +366,7 @@
 	  	justify-content: center;
 	}
 
-	.modula-gallery .modula-item.effect-hide .figc-inner h2,
+	.modula-gallery .modula-item.effect-hide .figc-inner .jtg-title,
 	.modula-gallery .modula-item.effect-hide .figc-inner p {
 		margin: 0 20px;
 	}
@@ -384,7 +384,7 @@
 		transform: scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-hide h2 {
+	.modula-gallery .modula-item.effect-hide .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,20px,0);
@@ -400,7 +400,7 @@
 		transform: translate3d(0,20px,0) scale(1.1);
 	}
 
-	.modula-gallery .modula-item.effect-hide:hover h2 {
+	.modula-gallery .modula-item.effect-hide:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -446,7 +446,7 @@
 		text-align: left;
 	}
 
-	.modula-gallery .modula-item.effect-sarah h2 {
+	.modula-gallery .modula-item.effect-sarah .jtg-title {
 		position: relative;
 		overflow: hidden;
 		padding: 20px 0;
@@ -456,11 +456,11 @@
 		padding: 20px 0;
 	}
 
-	.modula-gallery .modula-item.effect-sarah h2:before {
+	.modula-gallery .modula-item.effect-sarah .jtg-title:before {
 		display:none;
 	}
 
-	.modula-gallery .modula-item.effect-sarah h2::after {
+	.modula-gallery .modula-item.effect-sarah .jtg-title::after {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -474,7 +474,7 @@
 		transform: translate3d(-100%,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-sarah:hover h2::after {
+	.modula-gallery .modula-item.effect-sarah:hover .jtg-title::after {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -536,18 +536,18 @@
 		box-sizing: border-box;
 	}
 
-	.modula-gallery .modula-item.effect-lily h2,
+	.modula-gallery .modula-item.effect-lily .jtg-title,
 	.modula-gallery .modula-item.effect-lily .jtg-body {
 		-webkit-transform: translate3d(0,40px,0);
 		transform: translate3d(0,40px,0);
 	}
 
-	.modula-gallery .modula-item.effect-lily h2 {
+	.modula-gallery .modula-item.effect-lily .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-lily h2:before {
+	.modula-gallery .modula-item.effect-lily .jtg-title:before {
 		displaY:none;
 	}
 
@@ -564,7 +564,7 @@
 	}
 
 	.modula-gallery .modula-item.effect-lily:hover img,
-	.modula-gallery .modula-item.effect-lily:hover h2,
+	.modula-gallery .modula-item.effect-lily:hover .jtg-title,
 	.modula-gallery .modula-item.effect-lily:hover .jtg-body {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
@@ -608,7 +608,7 @@
 		transform: translate3d(0,50%,0);
 	}
 
-	.modula-gallery .modula-item.effect-sadie h2 {
+	.modula-gallery .modula-item.effect-sadie .jtg-title {
 		position: absolute;
 		top: 50%;
 		left: 0;
@@ -620,7 +620,7 @@
 		transform: translate3d(0,-50%,0);
 	}
 
-	.modula-gallery .modula-item.effect-sadie h2:before {
+	.modula-gallery .modula-item.effect-sadie .jtg-title:before {
 		display:none;
 	}
 
@@ -643,7 +643,7 @@
 		box-sizing: border-box;
 	}
 
-	.modula-gallery .modula-item.effect-sadie:hover h2 {
+	.modula-gallery .modula-item.effect-sadie:hover .jtg-title {
 		color: #fff;
 		-webkit-transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
 		transform: translate3d(0,-50%,0) translate3d(0,-40px,0);
@@ -729,11 +729,11 @@
 		max-width:85%;
 	}
 
-	.modula-gallery .modula-item.effect-roxy h2 {
+	.modula-gallery .modula-item.effect-roxy .jtg-title {
 		padding: 10px 0 10px 0;
 	}
 
-	.modula-gallery .modula-item.effect-roxy h2:before {
+	.modula-gallery .modula-item.effect-roxy .jtg-title:before {
 		display:none;
 	}
 
@@ -820,14 +820,14 @@
 		transform: scale(1,0);
 	}
 
-	.modula-gallery .modula-item.effect-bubba h2 {
+	.modula-gallery .modula-item.effect-bubba .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,-100%,0);
 		transform: translate3d(0,-100%,0);
 	}
 
-	.modula-gallery .modula-item.effect-bubba h2:before {
+	.modula-gallery .modula-item.effect-bubba .jtg-title:before {
 		display:none;
 	}
 
@@ -848,7 +848,7 @@
 		transform: scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-bubba:hover h2,
+	.modula-gallery .modula-item.effect-bubba:hover .jtg-title,
 	.modula-gallery .modula-item.effect-bubba:hover .jtg-body {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
@@ -928,7 +928,7 @@
 		transform: translate3d(-50%,-50%,0) rotate(-45deg);
 	}
 
-	.modula-gallery .modula-item.effect-romeo h2,
+	.modula-gallery .modula-item.effect-romeo .jtg-title,
 	.modula-gallery .modula-item.effect-romeo .jtg-body {
 		position: absolute;
 		top: 50%;
@@ -938,12 +938,12 @@
 		transition: transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-romeo h2 {
+	.modula-gallery .modula-item.effect-romeo .jtg-title {
 		-webkit-transform: translate3d(0,-50%,0) translate3d(0,-150%,0);
 		transform: translate3d(0,-50%,0) translate3d(0,-150%,0);
 	}
 
-	.modula-gallery .modula-item.effect-romeo h2:before {
+	.modula-gallery .modula-item.effect-romeo .jtg-title:before {
 		display:none;
 	}
 
@@ -953,7 +953,7 @@
 		transform: translate3d(0,-50%,0) translate3d(0,150%,0);
 	}
 
-	.modula-gallery .modula-item.effect-romeo:hover h2 {
+	.modula-gallery .modula-item.effect-romeo:hover .jtg-title {
 		-webkit-transform: translate3d(0,-50%,0) translate3d(0,-100%,0);
 		transform: translate3d(0,-50%,0) translate3d(0,-100%,0);
 	}
@@ -1016,13 +1016,13 @@
 		transform-origin: 100% 0;
 	}
 
-	.modula-gallery .modula-item.effect-layla h2 {
+	.modula-gallery .modula-item.effect-layla .jtg-title {
 		padding-top: 26%;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-layla h2:before {
+	.modula-gallery .modula-item.effect-layla .jtg-title:before {
 		display:none;
 	}
 
@@ -1035,7 +1035,7 @@
 	}
 
 	.modula-gallery .modula-item.effect-layla img,
-	.modula-gallery .modula-item.effect-layla h2 {
+	.modula-gallery .modula-item.effect-layla .jtg-title {
 		-webkit-transform: translate3d(0,-30px,0);
 		transform: translate3d(0,-30px,0);
 		min-height:calc(100% + 60px) !important;
@@ -1062,7 +1062,7 @@
 		transform: scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-layla:hover h2,
+	.modula-gallery .modula-item.effect-layla:hover .jtg-title,
 	.modula-gallery .modula-item.effect-layla:hover p {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
@@ -1070,7 +1070,7 @@
 	}
 
 	.modula-gallery .modula-item.effect-layla:hover figc::after,
-	.modula-gallery .modula-item.effect-layla:hover h2,
+	.modula-gallery .modula-item.effect-layla:hover .jtg-title,
 	.modula-gallery .modula-item.effect-layla:hover p,
 	.modula-gallery .modula-item.effect-layla:hover img {
 		-webkit-transition-delay: 0.15s;
@@ -1107,7 +1107,7 @@
 		transform: translate3d(0,10px,0);
 	}
 
-	html body .modula-gallery .modula-item.effect-honey h2 {
+	html body .modula-gallery .modula-item.effect-honey .jtg-title {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -1118,11 +1118,11 @@
 		transform: translate3d(0,-30px,0);
 	}
 
-	.modula-gallery .modula-item.effect-honey h2:before {
+	.modula-gallery .modula-item.effect-honey .jtg-title:before {
 		display:none;
 	}
 
-	.modula-gallery .modula-item.effect-honey h2 i {
+	.modula-gallery .modula-item.effect-honey .jtg-title i {
 		font-style: normal;
 		opacity: 0;
 		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -1132,14 +1132,14 @@
 	}
 
 	.modula-gallery .modula-item.effect-honey .figc::before,
-	.modula-gallery .modula-item.effect-honey h2 {
+	.modula-gallery .modula-item.effect-honey .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
 	.modula-gallery .modula-item.effect-honey:hover .figc::before,
-	.modula-gallery .modula-item.effect-honey:hover h2,
-	.modula-gallery .modula-item.effect-honey:hover h2 i {
+	.modula-gallery .modula-item.effect-honey:hover .jtg-title,
+	.modula-gallery .modula-item.effect-honey:hover .jtg-title i {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
@@ -1177,7 +1177,7 @@
 		content: '';
 	}
 
-	/*.modula-gallery .modula-item.effect-oscar h2.jtg-title {
+	/*.modula-gallery .modula-item.effect-oscar div.jtg-title {
 		margin: 20% 0 10px 0;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -1185,7 +1185,7 @@
 		transform: translate3d(0,100%,0);
 	}*/
 
-	.modula-gallery .modula-item.effect-oscar h2:before {
+	.modula-gallery .modula-item.effect-oscar .jtg-title:before {
 		display:none;
 	}
 
@@ -1198,7 +1198,7 @@
 		transform: scale(0);
 	}
 
-	/*.modula-gallery .modula-item.effect-oscar:hover h2 {
+	/*.modula-gallery .modula-item.effect-oscar:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}*/
@@ -1226,7 +1226,7 @@
 		text-align: right;
 	}
 
-	.modula-gallery .modula-item.effect-marley h2,
+	.modula-gallery .modula-item.effect-marley .jtg-title,
 	.modula-gallery .modula-item.effect-marley p {
 		position: absolute;
 		right: 7.5%;
@@ -1242,7 +1242,7 @@
 		transform: translate3d(0,100%,0);
 	}
 
-	.modula-gallery .modula-item.effect-marley h2 {
+	.modula-gallery .modula-item.effect-marley .jtg-title {
 		top: 7.5%;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -1250,16 +1250,16 @@
 		transform: translate3d(0,20px,0);
 	}
 
-	.modula-gallery .modula-item.effect-marley h2:before {
+	.modula-gallery .modula-item.effect-marley .jtg-title:before {
 		display:none;
 	}
 
-	.modula-gallery .modula-item.effect-marley:hover h2 {
+	.modula-gallery .modula-item.effect-marley:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-marley h2::after {
+	.modula-gallery .modula-item.effect-marley .jtg-title::after {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -1271,14 +1271,14 @@
 		transform: translate3d(0,40px,0);
 	}
 
-	.modula-gallery .modula-item.effect-marley h2::after,
+	.modula-gallery .modula-item.effect-marley .jtg-title::after,
 	.modula-gallery .modula-item.effect-marley p {
 		opacity: 0;
 		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 		transition: opacity 0.35s, transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-marley:hover h2::after,
+	.modula-gallery .modula-item.effect-marley:hover .jtg-title::after,
 	.modula-gallery .modula-item.effect-marley:hover p {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
@@ -1316,7 +1316,7 @@
 		transform: scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-ruby h2 {
+	.modula-gallery .modula-item.effect-ruby .jtg-title {
 		margin-top: 20%;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -1324,7 +1324,7 @@
 		transform: translate3d(0,20px,0);
 	}
 
-	.modula-gallery .modula-item.effect-ruby h2:before {
+	.modula-gallery .modula-item.effect-ruby .jtg-title:before {
 		display:none;
 	}
 
@@ -1340,7 +1340,7 @@
 		z-index:10;
 	}
 
-	.modula-gallery .modula-item.effect-ruby:hover h2 {
+	.modula-gallery .modula-item.effect-ruby:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -1396,7 +1396,7 @@
 		transform: translate3d(0,0,0) scale(1);
 	}
 
-	.modula-gallery .modula-item.effect-milo h2 {
+	.modula-gallery .modula-item.effect-milo .jtg-title {
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -1430,7 +1430,7 @@
 		background: linear-gradient(to bottom, rgba(37,141,200,1) 0%,rgba(104,60,19,1) 100%);
 	}
 
-	.modula-gallery .modula-item.effect-dexter h2:before {
+	.modula-gallery .modula-item.effect-dexter .jtg-title:before {
 		display:none;
 	}
 
@@ -1469,11 +1469,11 @@
 		display:block;
 	}
 
-	.modula-gallery .modula-item.effect-dexter .figc h2.jtg-title {
+	.modula-gallery .modula-item.effect-dexter .figc div.jtg-title {
         padding:10px;
 	}
 
-	#poststuff .modula-effects-preview.modula-gallery .modula-item.effect-dexter .figc h2.jtg-title {
+	#poststuff .modula-effects-preview.modula-gallery .modula-item.effect-dexter .figc .jtg-title {
 		padding: 15px;
 	}
 
@@ -1555,12 +1555,12 @@
 		margin-right:10px;
 	}
 
-	html body .modula-gallery .modula-item.effect-zoe h2 {
+	html body .modula-gallery .modula-item.effect-zoe .jtg-title {
 		float: left;
 		text-align: left;
 	}
 
-	.modula-gallery .modula-item.effect-zoe h2:before {
+	.modula-gallery .modula-item.effect-zoe .jtg-title:before {
 		display:none;
 	}
 
@@ -1589,7 +1589,7 @@
 	    left: 0;
 	}
 
-	.modula-gallery .modula-item.effect-zoe h2,
+	.modula-gallery .modula-item.effect-zoe .jtg-title,
 	.modula-gallery .modula-item.effect-zoe .jtg-social a {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -1602,13 +1602,13 @@
 	}
 
 	.modula-gallery .modula-item.effect-zoe:hover .figc,
-	.modula-gallery .modula-item.effect-zoe:hover h2,
+	.modula-gallery .modula-item.effect-zoe:hover .jtg-title,
 	.modula-gallery .modula-item.effect-zoe:hover .jtg-social a {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-zoe:hover h2 {
+	.modula-gallery .modula-item.effect-zoe:hover .jtg-title {
 		-webkit-transition-delay: 0.05s;
 		transition-delay: 0.05s;
 	}
@@ -1634,7 +1634,7 @@
 	}
 
 	/* Color for admin */
-	.modula-gallery .panel-zoe .modula-item.effect-zoe h2,
+	.modula-gallery .panel-zoe .modula-item.effect-zoe .jtg-title,
 	.modula-gallery .panel-zoe .modula-item.effect-zoe .jtg-social a {
 		color: #000;
 	}
@@ -1688,11 +1688,11 @@
 		padding:5px;
 	}
 
-	.modula-gallery .modula-item.effect-chico h2 {
+	.modula-gallery .modula-item.effect-chico .jtg-title {
 		padding: 20px 0 20px 0;
 	}
 
-	.modula-gallery .modula-item.effect-chico h2:before {
+	.modula-gallery .modula-item.effect-chico .jtg-title:before {
 		display:none;
 	}
 
@@ -1746,12 +1746,12 @@
 		color: #000;
 	}
 
-	.modula-gallery .modula-item.effect-julia h2 {
+	.modula-gallery .modula-item.effect-julia .jtg-title {
 		position: relative;
 		padding: 0.5em 0;
 	}
 
-	.modula-gallery .modula-item.effect-julia h2:before {
+	.modula-gallery .modula-item.effect-julia .jtg-title:before {
 		display:none;
 	}
 
@@ -1824,7 +1824,7 @@
 	}
 
 	.modula-gallery .modula-item.effect-goliath img,
-	.modula-gallery .modula-item.effect-goliath h2 {
+	.modula-gallery .modula-item.effect-goliath .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
@@ -1834,7 +1834,7 @@
 		backface-visibility: hidden;
 	}
 
-	.modula-gallery .modula-item.effect-goliath h2,
+	.modula-gallery .modula-item.effect-goliath .jtg-title,
 	.modula-gallery .modula-item.effect-goliath p {
 		position: absolute;
 		bottom: 0;
@@ -1857,12 +1857,12 @@
 		transform: translate3d(0,-80px,0);
 	}
 
-	.modula-gallery .modula-item.effect-goliath:hover h2 {
+	.modula-gallery .modula-item.effect-goliath:hover .jtg-title {
 		-webkit-transform: translate3d(0,-100px,0);
 		transform: translate3d(0,-100px,0);
 	}
 
-	.modula-gallery .modula-item.effect-goliath h2:before {
+	.modula-gallery .modula-item.effect-goliath .jtg-title:before {
 		display: none;
 	}
 
@@ -1880,15 +1880,15 @@
 		background: #303fa9;
 	}
 
-	.modula-gallery .modula-item.effect-hera h2 {
+	.modula-gallery .modula-item.effect-hera .jtg-title {
 		font-size: 158.75%;
 	}
 
-	.modula-gallery .modula-item.effect-hera h2:before {
+	.modula-gallery .modula-item.effect-hera .jtg-title:before {
 		display: none;
 	}
 
-	.modula-gallery .modula-item.effect-hera h2,
+	.modula-gallery .modula-item.effect-hera .jtg-title,
 	.modula-gallery .modula-item.effect-hera .jtg-social {
 		position: absolute;
 		top: 50%;
@@ -1989,7 +1989,7 @@
 		transform: translate3d(-50%,-50%,0) rotate3d(0,0,1,-45deg) scale3d(1,1,1);
 	}
 
-	.modula-gallery .modula-item.effect-hera:hover h2 {
+	.modula-gallery .modula-item.effect-hera:hover .jtg-title {
 		opacity: 0;
 		-webkit-transform: translate3d(-50%,-50%,0) scale3d(0.8,0.8,1);
 		transform: translate3d(-50%,-50%,0) scale3d(0.8,0.8,1);
@@ -2032,7 +2032,7 @@
 		transform: scale3d(0.95,0.95,1);
 	}
 
-	.modula-gallery .modula-item.effect-selena h2 {
+	.modula-gallery .modula-item.effect-selena .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,20px,0);
@@ -2049,7 +2049,7 @@
 		transform-origin: 50% 0%;
 	}
 
-	.modula-gallery .modula-item.effect-selena:hover h2 {
+	.modula-gallery .modula-item.effect-selena:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -2125,7 +2125,7 @@
 		opacity: 0.85;
 	}
 
-	html body .modula-gallery .modula-item.effect-terry h2 {
+	html body .modula-gallery .modula-item.effect-terry .jtg-title {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -2134,7 +2134,7 @@
 		text-align: left;
 	}
 
-	.modula-gallery .modula-item.effect-terry h2:before {
+	.modula-gallery .modula-item.effect-terry .jtg-title:before {
 		display: none;
 	}
 
@@ -2267,11 +2267,11 @@
 		width:70%;
 	}
 
-	html body .modula-gallery .modula-items .modula-item.effect-apollo h2 {
+	html body .modula-gallery .modula-items .modula-item.effect-apollo .jtg-title {
 		text-align: left;
 	}
 
-	.modula-gallery .modula-item.effect-apollo h2:before {
+	.modula-gallery .modula-item.effect-apollo .jtg-title:before {
 		display: none;
 	}
 
@@ -2350,7 +2350,7 @@
 		transform: translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-kira h2:before {
+	.modula-gallery .modula-item.effect-kira .jtg-title:before {
 		display: none;
 	}
 
@@ -2388,7 +2388,7 @@
 		padding:5%;
 	}
 
-	.modula-gallery .modula-item.effect-steve h2:before {
+	.modula-gallery .modula-item.effect-steve .jtg-title:before {
 		display: none;
 	}
 
@@ -2409,13 +2409,13 @@
 		transform: perspective(1000px) translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-steve h2,
+	.modula-gallery .modula-item.effect-steve .jtg-title,
 	.modula-gallery .modula-item.effect-steve p {
 		background: #fff;
 		color: #2d434e;
 	}
 
-	.modula-gallery .modula-item.effect-steve h2 {
+	.modula-gallery .modula-item.effect-steve .jtg-title {
 		position: relative;
 		margin-top: 2em;
 		padding: 0.25em;
@@ -2490,18 +2490,18 @@
 		flex-direction: column;
 	}
 
-	.modula-gallery .modula-item.effect-jazz h2,
+	.modula-gallery .modula-item.effect-jazz .jtg-title,
 	.modula-gallery .modula-item.effect-jazz p {
 		opacity: 1;
 		-webkit-transform: scale3d(0.8,0.8,1);
 		transform: scale3d(0.8,0.8,1);
 	}
 
-	.modula-gallery .modula-item.effect-jazz h2:before {
+	.modula-gallery .modula-item.effect-jazz .jtg-title:before {
 		display: none;
 	}
 
-	.modula-gallery .modula-item.effect-jazz h2 {
+	.modula-gallery .modula-item.effect-jazz .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
@@ -2525,7 +2525,7 @@
 		transform: rotate3d(0,0,1,45deg) scale3d(1,1,1);
 	}
 
-	.modula-gallery .modula-item.effect-jazz:hover h2,
+	.modula-gallery .modula-item.effect-jazz:hover .jtg-title,
 	.modula-gallery .modula-item.effect-jazz:hover p {
 		opacity: 1;
 		-webkit-transform: scale3d(1,1,1);
@@ -2570,13 +2570,13 @@
 		padding:5%;
 	}
 
-	.modula-gallery .modula-item.effect-ming h2 {
+	.modula-gallery .modula-item.effect-ming .jtg-title {
 		margin: 20% 0 10px 0;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 	}
 
-	.modula-gallery .modula-item.effect-ming h2:before {
+	.modula-gallery .modula-item.effect-ming .jtg-title:before {
 		display: none;
 	}
 
@@ -2589,7 +2589,7 @@
 		z-index:999;
 	}
 
-	.modula-gallery .modula-item.effect-ming:hover h2 {
+	.modula-gallery .modula-item.effect-ming:hover .jtg-title {
 		-webkit-transform: scale(0.9);
 		transform: scale(0.9);
 	}
@@ -2686,7 +2686,7 @@
 		transform: translate3d(0,0,0);
 	}
 
-	html body .modula-gallery .modula-item.effect-lexi h2 {
+	html body .modula-gallery .modula-item.effect-lexi .jtg-title {
 		text-align: left;
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
@@ -2694,7 +2694,7 @@
 		transform: translate3d(5px,5px,0);
 	}
 
-	.modula-gallery .modula-item.effect-lexi h2:before {
+	.modula-gallery .modula-item.effect-lexi .jtg-title:before {
 		display:none;
 	}
 
@@ -2716,7 +2716,7 @@
 		transform: scale3d(1,1,1);
 	}
 
-	html body .modula-gallery .modula-item.effect-lexi:hover h2,
+	html body .modula-gallery .modula-item.effect-lexi:hover .jtg-title,
 	html body .modula-gallery .modula-item.effect-lexi:hover p {
 		opacity: 1;
 		-webkit-transform: translate3d(0,0,0);
@@ -2748,7 +2748,7 @@
 		transform: scale3d(2,2,1);
 	}
 
-	.modula-gallery .modula-item.effect-duke h2 {
+	.modula-gallery .modula-item.effect-duke .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: scale3d(0.8,0.8,1);
@@ -2757,7 +2757,7 @@
 		transform-origin: 50% 100%;
 	}
 
-	.modula-gallery .modula-item.effect-duke h2:before {
+	.modula-gallery .modula-item.effect-duke .jtg-title:before {
 		display: none;
 	}
 
@@ -2778,7 +2778,7 @@
 		width:calc(100% - 40px) !important;
 	}
 
-	.modula-gallery .modula-item.effect-duke:hover h2,
+	.modula-gallery .modula-item.effect-duke:hover .jtg-title,
 	.modula-gallery .modula-item.effect-duke:hover p {
 		opacity: 1;
 		-webkit-transform: scale3d(1,1,1);
@@ -2800,14 +2800,14 @@
 		transform: translateZ(0px); /* Force correct stacking order */
 	}
 
-	.modula-gallery .modula-item.effect-tilt_1 h2:before,
-	.modula-gallery .modula-item.effect-tilt_2 h2:before,
-	.modula-gallery .modula-item.effect-tilt_3 h2:before,
-	.modula-gallery .modula-item.effect-tilt_4 h2:before,
-	.modula-gallery .modula-item.effect-tilt_5 h2:before,
-	.modula-gallery .modula-item.effect-tilt_6 h2:before,
-	.modula-gallery .modula-item.effect-tilt_7 h2:before,
-	.modula-gallery .modula-item.effect-tilt_8 h2:before {
+	.modula-gallery .modula-item.effect-tilt_1 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_2 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_3 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_4 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_5 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_6 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_7 .jtg-title:before,
+	.modula-gallery .modula-item.effect-tilt_8 .jtg-title:before {
 		display:none;
 	}
 
@@ -2999,7 +2999,7 @@
 		height:auto !important;
 	}
 
-	.modula-gallery .modula-items .modula-item.effect-fluid-up h2 {
+	.modula-gallery .modula-items .modula-item.effect-fluid-up .jtg-title {
 		float: left;
 		color:#121212;
 	}
@@ -3017,14 +3017,14 @@
 		-webkit-backface-visibility: hidden; /* Fix for Chrome 37.0.2062.120 (Mac) */
 	}
 
-	.modula-gallery .modula-item.effect-fluid-up h2 {
+	.modula-gallery .modula-item.effect-fluid-up .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,200%,0);
 		transform: translate3d(0,200%,0);
 	}
 
-	.modula-gallery .modula-item.effect-fluid-up h2 {
+	.modula-gallery .modula-item.effect-fluid-up .jtg-title {
 		display: inline-block;
 	}
 
@@ -3033,13 +3033,13 @@
 	}
 
 	.modula-gallery .modula-item:not(.notitle).effect-fluid-up:hover .figc,
-	.modula-gallery .modula-item:not(.notitle).effect-fluid-up:hover h2,
+	.modula-gallery .modula-item:not(.notitle).effect-fluid-up:hover .jtg-title,
 	.modula-gallery .modula-item:not(.notitle).effect-fluid-up:hover p.icon-links a {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
 
-	.modula-gallery .modula-item.effect-fluid-up:hover h2 {
+	.modula-gallery .modula-item.effect-fluid-up:hover .jtg-title {
 		-webkit-transition-delay: 0.05s;
 		transition-delay: 0.05s;
 	}
@@ -3080,7 +3080,7 @@
 		display: block;
 	}
 
-	.modula-gallery .modula-items .modula-item.effect-comodo h2 {
+	.modula-gallery .modula-items .modula-item.effect-comodo .jtg-title {
 		margin-top: 20px;
 	}
 
@@ -3155,14 +3155,14 @@
 		transform-origin: 0 100%;
 	}
 
-	.modula-gallery .modula-item.effect-winston h2 {
+	.modula-gallery .modula-item.effect-winston .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,20px,0);
 		transform: translate3d(0,20px,0);
 	}
 
-	.modula-gallery .modula-item.effect-winston h2:before {
+	.modula-gallery .modula-item.effect-winston .jtg-title:before {
 		display:none;
 	}
 
@@ -3189,7 +3189,7 @@
 		opacity: 0.6;
 	}
 
-	.modula-gallery .modula-item.effect-winston:hover h2 {
+	.modula-gallery .modula-item.effect-winston:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -3253,14 +3253,14 @@
 		transform: scale3d(0.95,0.95,1);
 	}
 
-	.modula-gallery .modula-item.effect-selena h2 {
+	.modula-gallery .modula-item.effect-selena .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: translate3d(0,20px,0);
 		transform: translate3d(0,20px,0);
 	}
 
-	.modula-gallery .modula-item.effect-selena h2:before {
+	.modula-gallery .modula-item.effect-selena .jtg-title:before {
 		display: none;
 	}
 
@@ -3274,7 +3274,7 @@
 		transform-origin: 50% 0%;
 	}
 
-	.modula-gallery .modula-item.effect-selena:hover h2 {
+	.modula-gallery .modula-item.effect-selena:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -3330,7 +3330,7 @@
 		transform: scale3d(1,1,1);
 	}
 
-	.modula-gallery .modula-items .modula-item.effect-phoebe h2 {
+	.modula-gallery .modula-items .modula-item.effect-phoebe .jtg-title {
 		margin-top: 1em;
 		-webkit-transition: transform 0.35s;
 		transition: transform 0.35s;
@@ -3338,11 +3338,11 @@
 		transform: translate3d(0,40px,0);
 	}
 
-	.modula-gallery .modula-item.effect-phoebe h2:before {
+	.modula-gallery .modula-item.effect-phoebe .jtg-title:before {
 		display: none;
 	}
 
-	.modula-gallery .modula-item.effect-phoebe:hover h2 {
+	.modula-gallery .modula-item.effect-phoebe:hover .jtg-title {
 		-webkit-transform: translate3d(0,0,0);
 		transform: translate3d(0,0,0);
 	}
@@ -3414,7 +3414,7 @@
 		margin:5%;
 	}
 
-	.modula-gallery .modula-item.effect-reflex .figc-inner h2,
+	.modula-gallery .modula-item.effect-reflex .figc-inner .jtg-title,
 	.modula-gallery .modula-item.effect-reflex .figc-inner p {
 		border-left: 3px solid #fff;
 		padding-left: 2.5%;
@@ -3429,7 +3429,7 @@
 		opacity: 1
 	}
 
-	html body .modula-gallery .modula-item.effect-reflex h2 {
+	html body .modula-gallery .modula-item.effect-reflex .jtg-title {
 		text-align: left;
 	}
 
@@ -3490,7 +3490,7 @@
 		transform:scaleY(1);
 	}
 
-	html body .modula-gallery .modula-items .effect-curtain h2 {
+	html body .modula-gallery .modula-items .effect-curtain .jtg-title {
 		text-align: left;
 		padding: 0 0 2.5%;
 		border-bottom: 2px solid rgba( 255,255,255,.6 );
@@ -3558,7 +3558,7 @@
 		transform: scale3d(2,2,1);
 	}
 
-	.modula-gallery .modula-item.effect-lens h2 {
+	.modula-gallery .modula-item.effect-lens .jtg-title {
 		-webkit-transition: -webkit-transform 0.35s;
 		transition: transform 0.35s;
 		-webkit-transform: scale3d(0.8,0.8,1);
@@ -3592,7 +3592,7 @@
 		margin-top: 10px;
 	}
 
-	.modula-gallery .modula-item.effect-lens:hover h2,
+	.modula-gallery .modula-item.effect-lens:hover .jtg-title,
 	.modula-gallery .modula-item.effect-lens:hover p {
 		opacity: 1;
 		-webkit-transform: scale3d(1,1,1);
@@ -6556,7 +6556,7 @@ html body .modula-gallery.modula-custom-grid .modula-items .modula-item.effect-u
 .modula-gallery .modula-items .modula-item.effect-under .jtg-social a {
 	opacity: 1;
 }
-.modula-gallery .modula-items .modula-item.effect-under h2:before {
+.modula-gallery .modula-items .modula-item.effect-under .jtg-title:before {
 	display: none;
 }
 
@@ -6615,7 +6615,7 @@ html body .modula-gallery.modula-custom-grid .modula-items .modula-item.effect-u
 	text-align: center;
 }
 
-.modula-gallery .modula-item.effect-milo h2:before {
+.modula-gallery .modula-item.effect-milo .jtg-title:before {
 	display:none;
 }
 
