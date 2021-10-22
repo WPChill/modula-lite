@@ -1804,7 +1804,8 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nt
 	line-height: 20px;
 }
 
-html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td {
+html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td,
+html body .modula-settings-container .modula-tab-content tr[data-container="height"] > td {
 	display:inline-block;
 }
 

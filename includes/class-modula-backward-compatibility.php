@@ -20,10 +20,16 @@ class Modula_Backward_Compatibility {
 		// Lightbox set by default to fancybox
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_fancybox' ), 10, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_fancybox' ), 10 );
+
 		// Responsive gutter
 		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_responsive_gutter' ), 10, 3 );
 		add_filter( 'modula_backwards_compatibility_front', array( $this, 'backward_compatibility_front_responsive_gutter' ), 10 );
 		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_responsive_gutter' ), 10 );
+
+		// Responsive height
+		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_responsive_height' ), 10, 3 );
+		add_filter( 'modula_backwards_compatibility_front', array( $this, 'backward_compatibility_front_responsive_height' ), 10 );
+		add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_responsive_height' ), 10 );
 
 		// Thumbnail sizes
 		// add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_thumb_size' ), 10, 3 );
@@ -203,6 +209,79 @@ class Modula_Backward_Compatibility {
 
 		if ( !isset( $settings[ 'mobile_gutter' ] ) && isset( $settings[ 'gutter' ] ) ) {
 			$settings[ 'mobile_gutter' ] = absint( $settings[ 'gutter' ] );
+		}
+
+		return $settings;
+
+	}
+
+	/**
+	 * Backwards compatibility for responsie height
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.5.6
+	 */
+	public function backward_compatibility_admin_responsive_height( $value, $key, $settings ) {
+
+		if ( 'tablet_height' == $key && !isset( $settings[ 'tablet_height' ] ) && isset( $settings[ 'height' ] ) ) {
+			return absint( $settings[ 'height' ] );
+		}
+
+		if ( 'mobile_height' == $key && !isset( $settings[ 'mobile_height' ] ) && isset( $settings[ 'height' ] ) ) {
+			return absint( $settings[ 'height' ] );
+		}
+
+		return $value;
+
+	}
+
+	/**
+	 *  Backwards compatibility for responsie height
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.5.6
+	 */
+	public function backward_compatibility_front_responsive_height( $settings ) {
+
+		// Backwards compatibility for tablet & mobile height.
+		if ( isset( $settings['height'] ) ) {
+
+			if ( ! isset( $settings['tablet_height'] ) ) {
+				$settings['tablet_height'] = absint( $settings['height'] );
+			}
+
+			if ( ! isset( $settings['mobile_height'] ) ) {
+				$settings['mobile_height'] = absint( $settings['height'] );
+			}
+
+		}
+
+		return $settings;
+
+	}
+
+	/**
+	 *  Backwards compatibility for responsie height
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.5.6
+	 */
+	public function backward_compatibility_backbone_responsive_height( $settings ) {
+
+		if ( !isset( $settings[ 'tablet_height' ] ) && isset( $settings[ 'height' ] ) ) {
+			$settings[ 'tablet_height' ] = absint( $settings[ 'height' ] );
+		}
+
+		if ( !isset( $settings[ 'mobile_height' ] ) && isset( $settings[ 'height' ] ) ) {
+			$settings[ 'mobile_height' ] = absint( $settings[ 'height' ] );
 		}
 
 		return $settings;
