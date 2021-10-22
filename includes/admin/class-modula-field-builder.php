@@ -357,6 +357,19 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
 				}
 				break;
+
+			case 'responsiveInput':
+				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[0] ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[1] ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[2] ) . '"><span class="modula_input_suffix">px</span>';
+				if ( isset( $field['after'] ) ) {
+					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
+				}
+				break;
 			case 'select' :
 				$html = '<select name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '">';
 

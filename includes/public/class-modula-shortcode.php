@@ -210,10 +210,10 @@ class Modula_Shortcode {
 		$modula_shortcode = new Modula_Shortcode;
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings[ 'height' ] ),
-			'tabletHeight'     => isset( $settings[ 'tablet_height' ] ) ? absint( $settings[ 'tablet_height' ] ) : false,
-			'mobileHeight'     => isset( $settings[ 'mobile_height' ] ) ? absint( $settings[ 'mobile_height' ] ) : false,
-			'desktopHeight'    => isset( $settings[ 'height' ] ) ? absint( $settings[ 'height' ] ) : false,
+			'height'           => absint( $settings[ 'height' ][0] ),
+			'tabletHeight'     => isset( $settings[ 'height' ][1] ) ? absint( $settings[ 'height' ][1] ) : false,
+			'mobileHeight'     => isset( $settings[ 'height' ][2] ) ? absint( $settings[ 'height' ][2] ) : false,
+			'desktopHeight'    => isset( $settings[ 'height' ][0] ) ? absint( $settings[ 'height' ][0] ) : false,
 			"enableTwitter"    => boolval( $settings[ 'enableTwitter' ] ),
 			"enableWhatsapp"   => boolval( $settings[ 'enableWhatsapp' ] ),
 			"enableFacebook"   => boolval( $settings[ 'enableFacebook' ] ),
@@ -313,9 +313,9 @@ class Modula_Shortcode {
 
 			// We don't have and need height setting on grid type
 			if ( 'creative-gallery' == $settings['type'] ) {
-				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
-				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . absint( $settings['tablet_height'] ) . "px;}}";
-				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . absint( $settings['mobile_height'] ) . "px;}}";
+				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'][0] ) . "px;}";
+				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][1] ) . "px;}}";
+				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][2] ) . "px;}}";
 			}
 
 		}

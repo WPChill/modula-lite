@@ -311,27 +311,10 @@ class Modula_CPT_Fields_Helper {
 				),
 				"height"         => array(
 					"name"        => esc_html__( 'Height', 'modula-best-grid-gallery' ),
-					"type"        => "gutterInput",
+					"type"        => "responsiveInput",
 					"description" => esc_html__( 'Set the height of the gallery in pixels.', 'modula-best-grid-gallery' ),
-					'default'     => '800',
+					'default'     => array( 800, 800, 800 ),
 					'priority' => 40,
-					'media'       => 'desktop'
-				),
-				"tablet_height"         => array(
-					"name"        => esc_html__( 'Height for tablet', 'modula-best-grid-gallery' ),
-					"type"        => "gutterInput",
-					"description" => esc_html__( 'Set the height of the gallery in pixels for tablet devices.', 'modula-best-grid-gallery' ),
-					'default'     => '800',
-					'priority' => 41,
-					'media'       => 'tablet'
-				),
-				"mobile_height"         => array(
-					"name"        => esc_html__( 'Height for mobile', 'modula-best-grid-gallery' ),
-					"type"        => "gutterInput",
-					"description" => esc_html__( 'Set the height of the gallery in pixels for mobile devices.', 'modula-best-grid-gallery' ),
-					'default'     => '800',
-					'priority' => 42,
-					'media'       => 'mobile'
 				),
 				"randomFactor"   => array(
 					"name"        => esc_html__( 'Random factor', 'modula-best-grid-gallery' ),

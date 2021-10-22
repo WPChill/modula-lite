@@ -226,13 +226,9 @@ class Modula_Backward_Compatibility {
 	 * @since 2.5.6
 	 */
 	public function backward_compatibility_admin_responsive_height( $value, $key, $settings ) {
-
-		if ( 'tablet_height' == $key && !isset( $settings[ 'tablet_height' ] ) && isset( $settings[ 'height' ] ) ) {
-			return absint( $settings[ 'height' ] );
-		}
-
-		if ( 'mobile_height' == $key && !isset( $settings[ 'mobile_height' ] ) && isset( $settings[ 'height' ] ) ) {
-			return absint( $settings[ 'height' ] );
+		if($key == 'height' and !is_array($settings['height'])){
+				$size = str_replace( array('px', '%'), '', $settings['height']);
+				return array( $size, $size, $size );
 		}
 
 		return $value;
@@ -252,12 +248,9 @@ class Modula_Backward_Compatibility {
 		// Backwards compatibility for tablet & mobile height.
 		if ( isset( $settings['height'] ) ) {
 
-			if ( ! isset( $settings['tablet_height'] ) ) {
-				$settings['tablet_height'] = absint( $settings['height'] );
-			}
+			if( !is_array($settings['height'])){
+				$settings['height'] = array( absint($settings['height'] ), absint($settings['height'] ), absint($settings['height'] ) );
 
-			if ( ! isset( $settings['mobile_height'] ) ) {
-				$settings['mobile_height'] = absint( $settings['height'] );
 			}
 
 		}
@@ -276,12 +269,8 @@ class Modula_Backward_Compatibility {
 	 */
 	public function backward_compatibility_backbone_responsive_height( $settings ) {
 
-		if ( !isset( $settings[ 'tablet_height' ] ) && isset( $settings[ 'height' ] ) ) {
-			$settings[ 'tablet_height' ] = absint( $settings[ 'height' ] );
-		}
-
-		if ( !isset( $settings[ 'mobile_height' ] ) && isset( $settings[ 'height' ] ) ) {
-			$settings[ 'mobile_height' ] = absint( $settings[ 'height' ] );
+		if ( isset( $settings[ 'height' ] ) and !is_array($settings[ 'height' ] ) ) {
+			$settings[ 'height' ] = array( absint( $settings[ 'height' ] ),absint( $settings[ 'height' ] ),absint( $settings[ 'height' ] ) );
 		}
 
 		return $settings;

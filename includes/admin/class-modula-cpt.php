@@ -232,18 +232,16 @@ class Modula_CPT {
 				foreach ( $fields as $field_id => $field ) {
 
 					if ( isset( $_POST['modula-settings'][$field_id] ) ) {
-
+						
 						// Values for selects
 						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
 
-
 						switch ( $field_id ) {
 							case 'description':
 								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
 								break;
-							case 'height':
 							case 'randomFactor':
 							case 'captionFontSize':
 							case 'titleFontSize':
@@ -300,6 +298,9 @@ class Modula_CPT {
 								break;
 							case 'gutterInput' :
 								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+								break;
+							case 'height' :
+								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
 								break;
 							default:
 								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
