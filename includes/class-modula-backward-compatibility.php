@@ -226,9 +226,11 @@ class Modula_Backward_Compatibility {
 	 * @since 2.5.6
 	 */
 	public function backward_compatibility_admin_responsive_height( $value, $key, $settings ) {
-		if($key == 'height' and !is_array($settings['height'])){
-				$size = str_replace( array('px', '%'), '', $settings['height']);
-				return array( $size, $size, $size );
+		if(isset($settings['height'])){
+			if($key == 'height' and !is_array($settings['height'])){
+					$size = str_replace( array('px', '%'), '', $settings['height']);
+					return array( $size, $size, $size );
+			}
 		}
 
 		return $value;
