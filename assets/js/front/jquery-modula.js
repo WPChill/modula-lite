@@ -122,6 +122,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.onResize(instance);
 		});
 
+		const resizeObserver = new ResizeObserver(entries => {
+
+			instance.onResize(instance);
+		});
+		resizeObserver.observe(instance.$element[0]);
+
 		$(window).on('modula-update', function() {
 			instance.onResize(instance);
 		});
