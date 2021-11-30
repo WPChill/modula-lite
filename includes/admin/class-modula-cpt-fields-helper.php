@@ -262,7 +262,7 @@ class Modula_CPT_Fields_Helper {
 				"gutter"   => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
 					"type"        => "ui-slider",
-					"description" => esc_html__( 'Use this slider to adjust the spacing of images in your gallery.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Control the spacing between images in a gallery. You can control these values individually for desktop, tablet or mobile devices. Play around with the values to find one that works best for your use case.', 'modula-best-grid-gallery' ),
 					"min"         => 0,
 					"max"         => 100,
 					"step"        => 1,
