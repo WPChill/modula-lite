@@ -1700,21 +1700,28 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nt
 }
 
 .modula .nav-tab .modula-badge {
-    padding: 5px;
-    background: #52ad3a;
-    color: #fff;
-    margin-left: 5px;
-    font-size: 10px;
+  font-size: 10px;
+  background: #f4daa4;
+  padding: 2px 5px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 10px;
 }
 
 .modula-settings-upsell {
     max-width: 600px;
     padding: 15px;
     background: #fff;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.modula-settings-upsell a:first-child {
+.modula-settings-tab-upsell {
+  padding: 20px;
+  background: #fff;
+  color: #3c434a;
+}
+
+.modula-settings-upsell a:first-child, .modula-settings-tab-upsell a:first-child {
   margin-right: 10px;
 }
 

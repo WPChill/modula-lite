@@ -76,7 +76,12 @@ class Modula_Admin {
 
 	public function register_submenus() {
 
-		$this->tabs = apply_filters( 'modula_admin_page_tabs', array() );
+		$this->tabs = apply_filters( 'modula_admin_page_tabs', array( 'shortcodes' => array(
+            'label'    => esc_html__('Advanced Shortcodes', 'modula-best-grid-gallery'),
+            'priority' => 40,
+			'badge'    => 'PRO'
+        ))
+	 );
 
 		$links = array(
 			array(

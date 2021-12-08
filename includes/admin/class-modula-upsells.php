@@ -58,7 +58,11 @@ class Modula_Upsells {
 		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
 
-		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
+		// Modula Advanced Shortcodes settings tab upsells
+		add_action('modula_admin_tab_shortcodes', array($this, 'render_advanced_shortcodes_tab') );
+		add_filter('modula_admin_page_tabs', array($this, 'remove_upsells_badge' ), 999 );
+
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) { 
 			add_filter( 'modula_cpt_metaboxes', array( $this, 'albums_upsell_meta' ) );
 		}
 
@@ -862,4 +866,47 @@ class Modula_Upsells {
 		return $links;
 	}
 
+    /**
+     * Render Importer tab
+     *
+     * @since 2.2.7
+     */
+    public function render_advanced_shortcodes_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-advanced-shortcodes') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Advanced Shortcode', 'modula-best-grid-gallery' ) ?></h3>
+				<p><?php esc_html_e( 'Allows you to dynamically link to specific galleries without creating pages for them by using URLs with query strings.', 'modula-best-grid-gallery' ) ?></p>
+				<p>
+					<?php
+	
+					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<a target="_blank" href="https://chl.so/advanced-shortcodes" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+	
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
+
+	public function remove_upsells_badge( $tabs ){
+		$tabs_slugs = array(
+			'shortcodes'  => 'modula-advanced-shortcodes',
+			'standalone'  => 'modula-albums',
+			'watermark'   => 'modula-watermark',
+			'compression' => 'modula-speedup',
+			'roles'       => 'modula-roles'
+		);
+
+		foreach ($tabs as $key => $tab){
+			if( isset( $tabs_slugs[$key] ) && $this->wpchill_upsells && !$this->wpchill_upsells->is_upgradable_addon( $tabs_slugs[$key] ) ){
+				unset($tabs[$key]['badge']);
+			}
+		}
+	return $tabs;
+	}
+	
 }
