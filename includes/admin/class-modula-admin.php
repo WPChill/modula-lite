@@ -75,13 +75,34 @@ class Modula_Admin {
 	}
 
 	public function register_submenus() {
-
-		$this->tabs = apply_filters( 'modula_admin_page_tabs', array( 'shortcodes' => array(
-            'label'    => esc_html__('Advanced Shortcodes', 'modula-best-grid-gallery'),
-            'priority' => 40,
-			'badge'    => 'PRO'
-        ))
-	 );
+		$tabs =  array(
+			'shortcodes' => array(
+				'label'    => esc_html__('Advanced Shortcodes', 'modula-best-grid-gallery'),
+				'priority' => 40,
+				'badge'    => 'PRO'
+        	),
+			'watermark' => array(
+				'label'    => esc_html__('Watermark', 'modula-best-grid-gallery'),
+				'priority' => 50,
+				'badge'    => 'PRO'
+        	),
+			'compression' => array(
+				'label'    => esc_html__('SpeedUp Settings', 'modula-best-grid-gallery'),
+				'priority' => 30,
+				'badge'    => 'PRO'
+        	),
+			'standalone' => array(
+				'label'    => esc_html__('Standalone', 'modula-best-grid-gallery'),
+				'priority' => 20,
+				'badge'    => 'PRO'
+        	),
+			'roles' => array(
+				'label'    => esc_html__('Roles', 'modula-best-grid-gallery'),
+				'priority' => 120,
+				'badge'    => 'PRO'
+        	)
+		);
+		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 
 		$links = array(
 			array(

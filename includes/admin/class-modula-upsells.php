@@ -59,7 +59,13 @@ class Modula_Upsells {
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
 
 		// Modula Advanced Shortcodes settings tab upsells
-		add_action('modula_admin_tab_shortcodes', array($this, 'render_advanced_shortcodes_tab') );
+		add_action('modula_admin_tab_compression', array( $this, 'render_speedup_tab' ) );
+		add_action('modula_admin_tab_standalone', array( $this, 'render_albums_tab' ) );
+		add_action('modula_admin_tab_shortcodes', array( $this, 'render_advanced_shortcodes_tab' ) );
+		add_action('modula_admin_tab_watermark', array( $this, 'render_watermark_tab' ) );
+		add_action('modula_admin_tab_roles', array( $this, 'render_roles_tab' ) );
+
+		// Remove upsells badge if user's license includes the addon
 		add_filter('modula_admin_page_tabs', array($this, 'remove_upsells_badge' ), 999 );
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) { 
@@ -866,10 +872,37 @@ class Modula_Upsells {
 		return $links;
 	}
 
+
     /**
-     * Render Importer tab
+     * Render Speed Up Addon settings tab
      *
-     * @since 2.2.7
+     * @since 2.5.6
+     */
+    public function render_speedup_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-speedup') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula SpeedUp', 'modula-best-grid-gallery' ) ?></h3>
+				<p><?php esc_html_e( 'Allow Modula to automatically optimize your images to load as fast as possible by reducing their file sizes, resizing them through ShortPixel and serve them from StackPath\'s content delivery network.', 'modula-best-grid-gallery' ) ?></p>
+				<p>
+					<?php
+	
+					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<a target="_blank" href="https://chl.so/modula-speedup" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+	
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
+
+    /**
+     * Render Advanced Shortcodes Addon settings tab
+     *
+     * @since 2.5.6
      */
     public function render_advanced_shortcodes_tab() {
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-advanced-shortcodes') ) {
@@ -892,6 +925,84 @@ class Modula_Upsells {
 		}
     }
 
+
+    /**
+     * Render Albums Addon settings tab
+     *
+     * @since 2.5.6
+     */
+    public function render_albums_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-albums') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Albums', 'modula-best-grid-gallery' ) ?></h3>
+				<p><?php esc_html_e( 'Give your galleries a place to call home with the Albums addon. Create albums, add galleries, manage cover photos, show gallery titles and even image counts in this superb add-on!', 'modula-best-grid-gallery' ) ?></p>
+				<p>
+					<?php
+	
+					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<a target="_blank" href="https://chl.so/modula-albums" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+	
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
+
+    /**
+     * Render Watermark Addon settings tab
+     *
+     * @since 2.5.6
+     */
+    public function render_watermark_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-watermark') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Watermark', 'modula-best-grid-gallery' ) ?></h3>
+				<p><?php esc_html_e( 'Easily protect your photos by adding custom watermarks to your WordPress image galleries with Modula.', 'modula-best-grid-gallery' ) ?></p>
+				<p>
+					<?php
+	
+					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<a target="_blank" href="https://chl.so/modula-watermark" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+	
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
+
+    /**
+     * Render Roles Addon settings tab
+     *
+     * @since 2.5.6
+     */
+    public function render_roles_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-roles') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
+				<p><?php esc_html_e( 'Granular control over which user roles can add, edit or update galleries on your website. Add permissions to an existing user role or remove them by simply checking a checkbox.' ) ?></p>
+				<p>
+					<?php
+	
+					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<a target="_blank" href="https://chl.so/modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+	
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
 	public function remove_upsells_badge( $tabs ){
 		$tabs_slugs = array(
 			'shortcodes'  => 'modula-advanced-shortcodes',
@@ -908,5 +1019,5 @@ class Modula_Upsells {
 		}
 	return $tabs;
 	}
-	
+
 }
