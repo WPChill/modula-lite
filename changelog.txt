@@ -2,6 +2,7 @@
 Fixed: Modula in tabs ( https://github.com/WPChill/modula-lite/issues/620 )
 Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 - https://github.com/WPChill/modula-lite/issues/495
 Changed: Default "Hide Title" value to ON - https://github.com/WPChill/modula-lite/issues/495
+Added: Upsells for addons in settings tabs.
 
 = 2.5.5 - 15/09/2021 =
 Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
