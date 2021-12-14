@@ -888,9 +888,10 @@ class Modula_Upsells {
 				<p>
 					<?php
 	
-					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					echo '<a target="_blank" href="https://chl.so/modula-speedup" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons =  '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .=  '<a target="_blank" href="https://chl.so/modula-speedup" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 	
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-speedup' );
 					?>
 				</p>
 			</div>
@@ -914,9 +915,10 @@ class Modula_Upsells {
 				<p>
 					<?php
 	
-					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					echo '<a target="_blank" href="https://chl.so/advanced-shortcodes" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons =  '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .=  '<a target="_blank" href="https://chl.so/advanced-shortcodes" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 	
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-advanced-shortcodes' );
 					?>
 				</p>
 			</div>
@@ -941,9 +943,10 @@ class Modula_Upsells {
 				<p>
 					<?php
 	
-					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					echo '<a target="_blank" href="https://chl.so/modula-albums" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://chl.so/modula-albums" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 	
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-albums' );
 					?>
 				</p>
 			</div>
@@ -995,9 +998,10 @@ class Modula_Upsells {
 				<p>
 					<?php
 	
-					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					echo '<a target="_blank" href="https://chl.so/modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
-	
+					$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://chl.so/modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-roles' );
 					?>
 				</p>
 			</div>
@@ -1005,6 +1009,8 @@ class Modula_Upsells {
 			<?php
 		}
     }
+
+
 	public function remove_upsells_badge( $tabs ){
 		$tabs_slugs = array(
 			'shortcodes'  => 'modula-advanced-shortcodes',
