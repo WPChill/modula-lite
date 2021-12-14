@@ -962,13 +962,15 @@ class Modula_Upsells {
 			?>
 
 			<div class="modula-settings-tab-upsell">
-				<h3><?php esc_html_e( 'Modula Watermark', 'modula-best-grid-gallery' ) ?></h3>
-				<p><?php esc_html_e( 'Easily protect your photos by adding custom watermarks to your WordPress image galleries with Modula.', 'modula-best-grid-gallery' ) ?></p>
+				<h3><?php esc_html_e( 'Modula Watermark', 'modula-best-grid-gallery' ); ?></h3>
+				<p><?php esc_html_e( 'Easily protect your photos by adding custom watermarks to your WordPress image galleries with Modula.', 'modula-best-grid-gallery' ); ?></p>
 				<p>
 					<?php
 	
-					echo '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					echo '<a target="_blank" href="https://chl.so/modula-watermark" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons =  '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://chl.so/modula-watermark" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-watermark' );
 	
 					?>
 				</p>
