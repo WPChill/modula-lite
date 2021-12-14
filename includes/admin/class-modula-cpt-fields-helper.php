@@ -119,14 +119,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Responsive Settings', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-smartphone",
 				'priority'    => 90,
-			),
-			'customizations' => array(
-				'label'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
-				'title'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
-				'description' => $customizations_description,
-				"icon"        => "dashicons dashicons-admin-tools",
-				'priority'    => 90,
-			),
+			),			
             'misc' => array(
                 'label'       => esc_html__('Misc', 'modula-best-grid-gallery'),
                 'title'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
@@ -156,6 +149,13 @@ class Modula_CPT_Fields_Helper {
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
                 'priority'    => 130,
             ),
+			'customizations' => array(
+				'label'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
+				'title'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
+				'description' => $customizations_description,
+				"icon"        => "dashicons dashicons-admin-tools",
+				'priority'    => 140,
+			),
 
 		) );
 
