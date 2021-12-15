@@ -399,12 +399,26 @@ class Modula_Upsells {
 
 	public function misc_tab_upsell( $tab_content ) {
 
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
-			return;
+		if ( ! $this->wpchill_upsells->is_upgradable_addon( 'modula-deeplink' ) && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-protection' ) ) {
+			return $tab_content;
 		}
 
-		$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
+		if ( $this->wpchill_upsells->is_upgradable_addon( 'modula-deeplink' ) && $this->wpchill_upsells->is_upgradable_addon( 'modula-protection' ) ) {
+
+			$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
+			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
+
+		} elseif ( $this->wpchill_upsells->is_upgradable_addon( 'modula-deeplink' ) && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-protection' ) ) {
+
+			$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox?', 'modula-best-grid-gallery' );
+			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Deeplink add-ons and increase the functionality of your images.', 'modula-best-grid-gallery' );
+
+		} else {
+
+			$upsell_title       = esc_html__( 'Looking to  protect your images from stealing?', 'modula-best-grid-gallery' );
+			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and copyright your images.', 'modula-best-grid-gallery' );
+
+		}
 
 		$tab_content .= '<div class="modula-upsell">';
 		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'misc' );
