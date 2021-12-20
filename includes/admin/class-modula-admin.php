@@ -122,7 +122,7 @@ class Modula_Admin {
 				'priority'   => 100,
 			),
 		);
-		
+
 		$links['modulaalbums'] = array(
 			'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
 			'menu_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
@@ -131,6 +131,25 @@ class Modula_Admin {
 			'function'   => array( $this, 'modula_albums' ),
 			'priority'   => 25,
 		);
+
+		$links['moduladefaults'] = array(
+			'page_title' => esc_html__( 'Gallery Defaults', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Gallery Defaults', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => '#gallery-defaults',
+			'function'   => array( $this, 'modula_gallery_defaults' ),
+			'priority'   => 22,
+		);
+
+		$links['albumsdefaults'] = array(
+			'page_title' => esc_html__( 'Albums Defaults', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Albums Defaults', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => '#albums-defaults',
+			'function'   => array( $this, 'modula_albums_defaults' ),
+			'priority'   => 26,
+		);
+
 
 		if ( current_user_can( 'install_plugins' ) ) {
 			$links[] =
@@ -581,6 +600,14 @@ class Modula_Admin {
 	}
 
 	public function modula_albums() {
+		return;
+	}
+
+	public function modula_gallery_defaults() {
+		return;
+	}
+
+	public function modula_albums_defaults() {
 		return;
 	}
 

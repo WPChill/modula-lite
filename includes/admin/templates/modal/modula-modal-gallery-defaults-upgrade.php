@@ -1,4 +1,4 @@
-<div class="modula-modal__overlay">
+<div class="modula-modal__overlay gallery-defaults">
 	<div class="modula-modal__frame <?php echo esc_attr($settings['classes']); ?>" <?php if ( $settings['dismissible'] ) : ?>data-modula-modal-dismissible data-modula-modal-id="<?php echo esc_attr($id); ?>"<?php endif; ?>>
 		<div class="modula-modal__header">
 			<button class="modula-modal__dismiss">
@@ -9,17 +9,8 @@
 			<div class="modula-upsells-carousel-wrapper-modal">
 				<div class="modula-upsells-carousel-modal">
 					<div class="modula-upsell-modal modula-upsell-item-modal">
-						<h2><?php esc_html_e( 'Modula Albums', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ); ?></h4>
-						<ul class="modula-upsells-list-modal">
-							<li>Redirect to a gallery or a custom URL with the standalone functionality</li>
-							<li>Arrange your albums using columns or the custom grid</li>
-							<li>Hover effects</li>
-							<li>Fully compatible with all the other Modula extensions</li>
-							<li>Premium support</li>
-							<li>Shuffle galleries inside an album on page refresh</li>
-							<li>Shuffle album cover images (randomly pick a cover image from the gallery)</li>
-						</ul>
+						<h2><?php esc_html_e( 'Gallery Defaults', 'modula-best-grid-gallery' ); ?></h2>
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Speed up your gallery creation process by starting from a pre-saved default. Save any gallery\'s settings as a default and reuse them indefinitely. Got a bunch of galleries you want to apply a default to? That\'s possible too with this extension.', 'modula-best-grid-gallery' ); ?></h4>					
 						<p>
 							<?php
 

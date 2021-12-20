@@ -40,7 +40,13 @@ class Modula_Upsells {
 		}
 
 		// Modula albums modal
-		add_action( 'wp_ajax_modula_modal_upgrade', array( $this, 'get_modal_upgrade') );
+		add_action( 'wp_ajax_modula_modal-albums_upgrade', array( $this, 'get_modal_albums_upgrade' ) );
+
+		// Albums Defaults modal
+		add_action( 'wp_ajax_modula_modal-albums-defaults_upgrade', array( $this, 'get_modal_albums_defaults_upgrade' ) );
+
+		// Gallery Defaults modal
+		add_action( 'wp_ajax_modula_modal-gallery-defaults_upgrade', array( $this, 'get_modal_gallery_defaults_upgrade' ) );
 
 		/* Hooks */
 		add_filter( 'modula_general_tab_content', array( $this, 'general_tab_upsell' ) );
@@ -842,18 +848,50 @@ class Modula_Upsells {
 
 		return $met;
 	}
+	
 	/**
-	 * Show the modal to upgrade
+	 * Show the albums modal to upgrade
 	 *
 	 * @since 2.3.0
 	 */
-	public function get_modal_upgrade() {
+	public function get_modal_albums_upgrade() {
 
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula-download') ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
 			wp_die();
 		}
 
-		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-upgrade.php';
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-albums-upgrade.php';
+		wp_die();
+	}
+
+	/**
+	 * Show the albums modal to upgrade
+	 *
+	 * @since 2.3.0
+	 */
+	public function get_modal_albums_defaults_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-defaults' ) ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-albums-defaults-upgrade.php';
+		wp_die();
+
+	}
+
+	/**
+	 * Show the albums modal to upgrade
+	 *
+	 * @since 2.3.0
+	 */
+	public function get_modal_gallery_defaults_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-defaults' ) ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-gallery-defaults-upgrade.php';
 		wp_die();
 
 	}
