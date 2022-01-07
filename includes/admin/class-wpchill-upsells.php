@@ -529,7 +529,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							<?php
 						} else if ( isset( $lite_plan['modula-lite'] ) && 'modula-lite' !== $slug ) {
 							?>
-							<a href="https://chl.so/lite-vs-pro-page" target="_blank"
+							<a href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=about-page&utm_campaign=upsell" target="_blank"
 							   class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
 								<?php echo esc_html__( 'Upgrade now!', 'modula-best-grid-gallery' ); ?>
 							</a>

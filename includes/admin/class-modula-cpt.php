@@ -927,7 +927,7 @@ class Modula_CPT {
 						   class="button"><?php esc_html_e( 'Free vs PRO', 'modula-best-grid-gallery' ) ?></a>
 						<a target="_blank"
 						   style="margin-top:10px;"
-						   href="<?php echo esc_url( 'https://chl.so/get-albums-metabox' ); ?>"
+						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"
 						   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
 					</p>
 				</div>
