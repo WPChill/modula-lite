@@ -996,7 +996,7 @@ class Modula_Upsells {
 					<?php
 	
 					$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-					$buttons .= '<a target="_blank" href="https://wpchill.com/" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-standalone-tab&utm_campaign=modula-albums" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 	
 					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-albums' );
 					?>
