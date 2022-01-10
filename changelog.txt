@@ -4,6 +4,8 @@ Changed: Gallery title html element (from h2 to div),css as the selector is not 
 Changed: Default "Hide Title" value to ON - https://github.com/WPChill/modula-lite/issues/495
 Added: Upsells for addons in settings tabs.
 Changed: Misc tab upsell output
+Added: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox. https://github.com/WPChill/modula-lite/issues/553
+Added: Filter to restore the dragging and the previously saved modula metabox position.
 
 = 2.5.5 - 15/09/2021 =
 Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
