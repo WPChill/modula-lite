@@ -66,7 +66,6 @@ class Modula {
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
 
 		if ( is_admin() ) {
-
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
@@ -166,6 +165,15 @@ class Modula {
 			 // Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
 				return;
+			}
+
+			if ( apply_filters( 'modula_disable_drag_cpt_box', true ) ) {
+
+				//returns modula CPT metaboxes to the default position.
+				add_filter('get_user_option_meta-box-order_modula-gallery', '__return_empty_string');
+
+				//prevents the modula metaboxes from being dragged.
+				wp_deregister_script('postbox');
 			}
 
 			/*
@@ -354,4 +362,5 @@ class Modula {
 
 		return $result;
 	}
+
 }
