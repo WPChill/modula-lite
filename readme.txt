@@ -1,12 +1,12 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
 Contributors: wpchill, silkalns
-Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
+Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery
 Requires at least: 5.2
-Tested up to: 5.8
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 2.5.4
+Stable tag: 2.4.0
 License: GNU General Public License v3.0 or later
-
+ 
 The WordPress gallery plugin that's highlighy customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
 == Description ==
@@ -19,7 +19,7 @@ Modula **fixes all of the above** and more. Read on to see what we're all about.
 
 = Unlock even more features with Modula Pro =
 
-* Defaults Extension: easily create galleries with the same settings starting from a preset. Add a new gallery, select a preset previously created then just add your images. It's lightning fast to create galleries, without having to manually tweak gallery settings every time you create a new one.
+
 * [Video Extension](https://wp-modula.com/demo/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos.
 * [Slideshow](https://wp-modula.com/demo/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): convert your gallery's lightbox view into a stunning slideshow.
 * [Password Protect]((https://wp-modula.com/demo/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages.
@@ -113,8 +113,6 @@ Check the console of the browser and look if you see any error like: "Uncaught T
 This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin. 
 = Why does some image look blurry ? =
 If you get blurry and pixellated images then you need to raise the "Minimum image width" parameter inside the "General" section.
-= I want to use another lightbox instead of the provided one =
-That is no longer officially supported. However, we do offer a freely downloadable lightbox extension that brings back support for 5 more lighboxes. You can read more about it [here](https://wp-modula.com/modula-230/)
 = How can I change the lightbox's background? =
 This is a feature available with every Modula PRO purchase.
 = How can I get support? =
@@ -130,4 +128,4 @@ By asking a question on the [support forums](https://wordpress.org/support/plugi
 
 == Changelog ==
 
-See <a href="https://github.com/wpchill/modula-lite/blob/dev/changelog.txt" target="_blank">changelog</a>
+See <a href="https://github.com/MachoThemes/modula-lite/blob/master/changelog.txt" target="_blank">changelog</a>
