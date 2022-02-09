@@ -113,8 +113,6 @@ Check the console of the browser and look if you see any error like: "Uncaught T
 This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin. 
 = Why does some image look blurry ? =
 If you get blurry and pixellated images then you need to raise the "Minimum image width" parameter inside the "General" section.
-= I want to use another lightbox instead of the provided one =
-That is no longer officially supported. However, we do offer a freely downloadable lightbox extension that brings back support for 5 more lighboxes. You can read more about it [here](https://wp-modula.com/modula-230/)
 = How can I change the lightbox's background? =
 This is a feature available with every Modula PRO purchase.
 = How can I get support? =
