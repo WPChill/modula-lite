@@ -903,7 +903,7 @@ class Modula_Upsells {
 	 *
 	 * @return array
 	 *
-	 * @since 2.5.5
+	 * @since 2.6.0
 	 */
 	public function filter_action_links( $links ) {
 
@@ -916,10 +916,7 @@ class Modula_Upsells {
 			return $links;
 		}
 
-
 		array_unshift( $links, $upgrade['link'] );
-
-		$links = array_merge( $links, );
 
 		return $links;
 	}

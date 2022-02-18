@@ -1,3 +1,6 @@
+= 2.6.1 - 18/02/2022 =
+Fixed - array_merge error - https://wordpress.org/support/topic/error-on-las-update/
+
 = 2.6.0 - 18/02/2022 =
 Fixed: Modula gallery display in tabs/accordions ( https://github.com/WPChill/modula-lite/issues/620 )
 Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 - https://github.com/WPChill/modula-lite/issues/495
