@@ -1,4 +1,4 @@
-= 2.5.6 - TBD =
+= 2.6.0 - TBD =
 Fixed: Modula in tabs ( https://github.com/WPChill/modula-lite/issues/620 )
 Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 - https://github.com/WPChill/modula-lite/issues/495
 Changed: Default "Hide Title" value to ON - https://github.com/WPChill/modula-lite/issues/495
@@ -6,8 +6,6 @@ Added: Upsells for addons in settings tabs.
 Changed: Misc tab upsell output
 Added: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox. https://github.com/WPChill/modula-lite/issues/553
 Added: Filter to restore the dragging and the previously saved modula metabox position.
-
-= 2.5.5 - 15/09/2021 =
 Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
 Fixed: Added tracking db options to uninstall process - https://github.com/WPChill/modula-lite/issues/591
 Fixed: Unset link image attribute when importing from NextGEN - https://github.com/WPChill/modula-lite/issues/590
@@ -21,6 +19,9 @@ Changed: Some settings texts - https://github.com/WPChill/modula-lite/issues/499
 Added: Last 5 galleries now appear in selectize without searching ( https://github.com/WPChill/modula-lite/issues/598 )
 Fixed: Incompatibility with Gutenberg block and widgets - https://github.com/WPChill/modula-lite/issues/599
 Fixed: Modula Widget before and after args - https://github.com/WPChill/modula-lite/issues/483
+
+= 2.5.5 - 04/10/2021 =
+Fixed: WP Cron fatal error.
 
 = 2.5.4 - 14/09/2021 =
 Changed: Upsells update
