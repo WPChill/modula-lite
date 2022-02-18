@@ -143,8 +143,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
-				$this->packages = $packages_transient;
-				$this->upsell_extensions = $this->get_extensions_upsell($this->packages);
+				$this->packages          = $this->create_proper_packages( $packages_transient );
+				$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
 
 				return;
 			}
@@ -160,12 +160,29 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
-					$this->packages          = $data;
+
+					$this->packages          = $this->create_proper_packages( $data );
 					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
-					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, 30 * DAY_IN_SECONDS );
+					set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, 30 * DAY_IN_SECONDS );
 				}
 			}
 
+		}
+
+		/**
+		 * Create proper packages, empty upsells if license is agency.
+		 *
+		 * @param [type] $data
+		 * @return void
+		 */
+		public function create_proper_packages( $data ) {
+
+			// Fix for Agency upgradable path
+			if ( isset( $data['current_package'] ) && 'modula-grid-gallery-lifetime' === $data['current_package']['slug'] ) {
+				$data['upsell_packages'] = array();
+			}
+
+			return $data;
 		}
 
 		/**
@@ -294,7 +311,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				// We don't want the lifetime deals here
 				foreach ( $packages['upsell_packages'] as $key => $package ) {
 
-					if ( strpos( $key,'lifetime' ) > 0 ) {
+					if ( 'modula-grid-gallery-lifetime' !== $key && strpos( $key,'lifetime' ) > 0 ) {
 						unset( $packages['upsell_packages'][ $key ] );
 					}
 				}
