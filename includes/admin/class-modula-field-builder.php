@@ -277,20 +277,23 @@ class Modula_Field_Builder {
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		// Formats for General Gutter
-		if ( 'gutter' == $field[ 'id' ] ) {
-			$format = '<tr data-container="' . esc_attr( $field[ 'id' ] ) . '"><th scope="row" class="' . $child . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
-		}
+		if ( 'gutterInput' == $field['type'] ) {
 
-		if ( 'tablet_gutter' == $field[ 'id' ] ) {
-			$field_name = '<span class="dashicons dashicons-tablet"></span>';
-			$tooltip = '';
-			$format = '<td>%s%s%s<span class="modula_input_suffix">px</span></td>';
-		}
+			if ( 'desktop' == $field['media'] ) {
+				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . $child . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
+			}
 
-		if ( 'mobile_gutter' == $field[ 'id' ] ) {
-			$field_name = '<span class="dashicons dashicons-smartphone"></span>';
-			$tooltip = '';
-			$format = '<td>%s%s%s<span class="modula_input_suffix">px</span></td></tr>';
+			if ( 'tablet' == $field['media'] ) {
+				$field_name = '<span class="dashicons dashicons-tablet"></span>';
+				$tooltip    = '';
+				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td>';
+			}
+
+			if ( 'mobile' == $field['media'] ) {
+				$field_name = '<span class="dashicons dashicons-smartphone"></span>';
+				$tooltip    = '';
+				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td></tr>';
+			}
 		}
 		// End formats for General Gutter
 
@@ -336,6 +339,29 @@ class Modula_Field_Builder {
 				break;
 			case 'number':
 				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				if ( isset( $field['after'] ) ) {
+					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
+				}
+				break;
+			case 'gutterInput':
+				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value ) . '">';
+				if ( isset( $field['after'] ) ) {
+					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
+				}
+
+				if(isset($field['afterrow'])){
+					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
+				}
+				break;
+
+			case 'responsiveInput':
+				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[0] ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[1] ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[2] ) . '"><span class="modula_input_suffix">px</span>';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
@@ -550,7 +576,7 @@ class Modula_Field_Builder {
 						$effect .= '<div class="figc"><div class="figc-inner">';
 
 						if ( $effect_elements[ 'title' ] ) {
-							$effect .= '<h2 class="jtg-title">Lorem ipsum</h2>';
+							$effect .= '<div class="jtg-title">Lorem ipsum</div>';
 						}
 
 						if ( in_array( $key, $jtg_body ) ) {

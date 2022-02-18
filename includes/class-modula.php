@@ -66,7 +66,6 @@ class Modula {
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
 
 		if ( is_admin() ) {
-
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
@@ -95,7 +94,7 @@ class Modula {
 	}
 
 	public function set_locale() {
-		load_plugin_textdomain( 'modula-best-grid-gallery', false, MODULA_LITE_TRANSLATE );
+		load_plugin_textdomain( 'modula-best-grid-gallery', false, dirname( MODULA_FILE ) . '/languages'  );
 	}
 
 	private function define_admin_hooks() {
@@ -172,6 +171,15 @@ class Modula {
 				return;
 			}
 
+			if ( apply_filters( 'modula_disable_drag_cpt_box', true ) ) {
+
+				//returns modula CPT metaboxes to the default position.
+				add_filter('get_user_option_meta-box-order_modula-gallery', '__return_empty_string');
+
+				//prevents the modula metaboxes from being dragged.
+				wp_deregister_script('postbox');
+			}
+
 			/*
 			 CPT Styles & Scripts */
 			// Media Scripts
@@ -183,9 +191,10 @@ class Modula {
 
 			// Get all items from current gallery.
 			$images = get_post_meta( $post_id, 'modula-images', true );
+
 			if ( is_array( $images ) && ! empty( $images ) ) {
 				foreach ( $images as $image ) {
-					if ( ! is_numeric( $image['id'] ) ) {
+					if ( ! is_numeric( $image['id'] ) || 'attachment' !== get_post_type( $image['id'] ) ) {
 						continue;
 					}
 
@@ -257,7 +266,18 @@ class Modula {
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery', 'updates' ), MODULA_LITE_VERSION, true );
+
+			wp_localize_script( 'modula-addon', 'modulaAddons', array(
+				// Add addon slug to verify addon's slug in wp-plugin-install-success action
+				'free_addons'       => apply_filters( 'modula_free_extensions_install', array( ) ),
+				'installing_text'   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
+				'activated_text'    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
+				'deactivated_text'  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
+				'activating_text'   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
+				'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' )
+			) );
+
 		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
 
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header.css', null, MODULA_LITE_VERSION );
@@ -357,4 +377,5 @@ class Modula {
 
 		return $result;
 	}
+
 }

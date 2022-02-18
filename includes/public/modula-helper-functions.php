@@ -323,12 +323,20 @@ function modula_sources_and_sizes( $data ) {
 	// Get the imag meta
 	$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
 
+	$mime_type = '';
+
+	if ( isset( $image_meta['sizes']['thumbnail']['mime-type'] ) ) {
+		$mime_type = $image_meta['sizes']['thumbnail']['mime-type'];
+	} else if ( function_exists( 'mime_content_type' ) ) {
+		$mime_type = mime_content_type( $data->image_info['file_path'] );
+	}
+
 	if ( ! empty( $data->image_info ) ) {
 		$image_meta['sizes']['custom'] = array(
 				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] . '.' . $data->image_info['ext'],
 				'width'     => $data->img_attributes['width'],
 				'height'    => $data->img_attributes['height'],
-				'mime-type' => $image_meta['sizes']['thumbnail']['mime-type']
+				'mime-type' => $mime_type
 		);
 	}
 	// Ensure the image meta exists.

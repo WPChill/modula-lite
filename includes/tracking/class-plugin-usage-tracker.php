@@ -69,7 +69,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			$this->include_goodbye_form = $_include_goodbye_form;
 			$this->marketing = $_marketing;
 			// Only use this on switching theme
-			$this->theme_allows_tracking = get_theme_mod( 'modula-wisdom-allow-tracking', 0 );
+			//$this->theme_allows_tracking = get_theme_mod( 'modula-wisdom-allow-tracking', 0 );
 
 			// Schedule / deschedule tracking when activated / deactivated
 			if( $this->what_am_i == 'theme' ) {
@@ -117,7 +117,9 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			// Deactivation
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
-			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
+			add_action( 'wp_ajax_'.$this->plugin_name.'_goodbye_form', array( $this, 'goodbye_form_callback' ) );
+
+			add_filter( 'modula_uninstall_db_options', array( $this, 'tracking_uninstall_process' ), 30, 1 );
 
 		}
 
@@ -422,8 +424,14 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			}
 
 			$this->send_data( $body );
-			// Clear scheduled update
-			wp_clear_scheduled_hook( 'put_do_weekly_action' );
+
+			remove_action( 'wpchill_do_weekly_action', array( $this, 'do_tracking' ) );
+
+			// Clear scheduled update.
+			if ( ! has_action( 'wpchill_do_weekly_action' ) ) {
+
+				wp_clear_scheduled_hook( 'wpchill_do_weekly_action' );
+			}
 
 			// Clear the wisdom_last_track_time value for this plugin
 			// @since 1.2.2
@@ -749,7 +757,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 */
 		public function optin_notice() {
 			// Check for plugin args
-			if( isset( $_GET['plugin'] ) && isset( $_GET['plugin_action'] ) ) {
+			if ( isset( $_GET['plugin'] ) && $this->plugin_name === $_GET['plugin'] && isset( $_GET['plugin_action'] ) ) {
 				$plugin = sanitize_text_field( $_GET['plugin'] );
 				$action = sanitize_text_field( $_GET['plugin_action'] );
 				if( $action == 'yes' ) {
@@ -820,13 +828,13 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				if( $this->marketing != 1 ) {
 					// Standard notice text
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional. You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional. You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'modula-best-grid-gallery' ),
 						$this->what_am_i
 					);
 				} else {
 					// If we have option 1 for marketing, we include reference to sending product information here
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'modula-best-grid-gallery' ),
 						$this->what_am_i
 					);
 				}
@@ -837,8 +845,8 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $notice_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'singularity' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'singularity' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'modula-best-grid-gallery' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'modula-best-grid-gallery' ); ?></a>
 					</p>
 				</div>
 			<?php
@@ -875,7 +883,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				) );
 
 				$marketing_text = sprintf(
-					__( 'Thank you for opting in to tracking. Would you like to receive occasional news about this %s, including details of new features and special offers?', 'singularity' ),
+					__( 'Thank you for opting in to tracking. Would you like to receive occasional news about this %s, including details of new features and special offers?', 'modula-best-grid-gallery' ),
 					$this->what_am_i
 				);
 				$marketing_text = apply_filters( 'wisdom_marketing_text_' . esc_attr( $this->plugin_name ), $marketing_text ); ?>
@@ -893,17 +901,18 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
 		/**
 		 * Filter the deactivation link to allow us to present a form when the user deactivates the plugin
+		 *
 		 * @since 1.0.0
 		 */
 		public function filter_action_links( $links ) {
-			// Check to see if the user has opted in to tracking
-			if( ! $this->get_is_tracking_allowed() ) {
+			// Check to see if the user has opted in to tracking.
+			if ( ! $this->get_is_tracking_allowed() ) {
 				return $links;
 			}
-			if( isset( $links['deactivate'] ) && $this->include_goodbye_form ) {
+			if ( isset( $links['deactivate'] ) && $this->include_goodbye_form ) {
 				$deactivation_link = $links['deactivate'];
-				// Insert an onClick action to allow form before deactivating
-				$deactivation_link = str_replace( '<a ', '<div class="put-goodbye-form-wrapper"><span class="put-goodbye-form" id="put-goodbye-form-' . esc_attr( $this->plugin_name ) . '"></span></div><a onclick="javascript:event.preventDefault();" id="put-goodbye-link-' . esc_attr( $this->plugin_name ) . '" ', $deactivation_link );
+				// Insert an onClick action to allow form before deactivating.
+				$deactivation_link   = str_replace( '<a ', '<div class="' . esc_attr( $this->plugin_name ) . '-put-goodbye-form-wrapper"><span class="' . esc_attr( $this->plugin_name ) . '-put-goodbye-form" id="' . esc_attr( $this->plugin_name ) . '-put-goodbye-form"></span></div><a onclick="javascript:event.preventDefault();" id="' . esc_attr( $this->plugin_name ) . '-put-goodbye-link" ', $deactivation_link );
 				$links['deactivate'] = $deactivation_link;
 			}
 			return $links;
@@ -916,18 +925,18 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 */
 		public function form_default_text() {
 			$form = array();
-			$form['heading'] = __( 'Sorry to see you go', 'singularity' );
-			$form['body'] = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'singularity' );
+			$form['heading'] = __( 'Sorry to see you go', 'modula-best-grid-gallery' );
+			$form['body'] = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'modula-best-grid-gallery' );
 			$form['options'] = array(
-				__( 'Set up is too difficult', 'singularity' ),
-				__( 'Lack of documentation', 'singularity' ),
-				__( 'Not the features I wanted', 'singularity' ),
-				__( 'Found a better plugin', 'singularity' ),
-				__( 'Installed by mistake', 'singularity' ),
-				__( 'Only required temporarily', 'singularity' ),
-				__( 'Didn\'t work', 'singularity' )
+				__( 'Set up is too difficult', 'modula-best-grid-gallery' ),
+				__( 'Lack of documentation', 'modula-best-grid-gallery' ),
+				__( 'Not the features I wanted', 'modula-best-grid-gallery' ),
+				__( 'Found a better plugin', 'modula-best-grid-gallery' ),
+				__( 'Installed by mistake', 'modula-best-grid-gallery' ),
+				__( 'Only required temporarily', 'modula-best-grid-gallery' ),
+				__( 'Didn\'t work', 'modula-best-grid-gallery' )
 			);
-			$form['details'] = __( 'Details (optional)', 'singularity' );
+			$form['details'] = __( 'Details (optional)', 'modula-best-grid-gallery' );
 			return $form;
 		}
 
@@ -945,32 +954,37 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		/**
 		 * Form text strings
 		 * These can be filtered
+		 *
 		 * @since 1.0.0
 		 */
 		public function goodbye_ajax() {
 			// Get our strings for the form
 			$form = $this->form_filterable_text();
-			if( ! isset( $form['heading'] ) || ! isset( $form['body'] ) || ! isset( $form['options'] ) || ! is_array( $form['options'] ) || ! isset( $form['details'] ) ) {
-				// If the form hasn't been filtered correctly, we revert to the default form
+
+			if ( ! isset( $form['heading'] ) || ! isset( $form['body'] ) || ! isset( $form['options'] ) || ! is_array( $form['options'] ) || ! isset( $form['details'] ) ) {
+				// If the form hasn't been filtered correctly, we revert to the default form.
 				$form = $this->form_default_text();
 			}
-			// Build the HTML to go in the form
-			$html = '<div class="put-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
-			$html .= '<div class="put-goodbye-form-body"><p>' . esc_html( $form['body'] ) . '</p>';
-			if( is_array( $form['options'] ) ) {
-				$html .= '<div class="put-goodbye-options"><p>';
-				foreach( $form['options'] as $option ) {
-					$html .= '<input type="checkbox" name="put-goodbye-options[]" id="' . str_replace( " ", "", esc_attr( $option ) ) . '" value="' . esc_attr( $option ) . '"> <label for="' . str_replace( " ", "", esc_attr( $option ) ) . '">' . esc_attr( $option ) . '</label><br>';
+			// Build the HTML to go in the form.
+			$html  = '<div class="'.esc_attr($this->plugin_name).'-put-goodbye-form-head"><strong>' . esc_html( $form['heading'] ) . '</strong></div>';
+			$html .= '<div class="'.esc_attr($this->plugin_name).'-put-goodbye-form-body"><p>' . esc_html( $form['body'] ) . '</p>';
+
+			if ( is_array( $form['options'] ) ) {
+
+				$html .= '<div class="'.esc_attr($this->plugin_name).'-put-goodbye-options"><p>';
+				foreach ( $form['options'] as $option ) {
+					$html .= '<input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-options[]" id="' . str_replace( ' ', '', esc_attr( $option ) ) . '" value="' . esc_attr( $option ) . '"> <label for="' . str_replace( ' ', '', esc_attr( $option ) ) . '">' . esc_html( $option ) . '</label><br>';
 				}
-				$html .= '</p><label for="put-goodbye-reasons">' . esc_html( $form['details'] ) .'</label><textarea name="put-goodbye-reasons" id="put-goodbye-reasons" rows="2" style="width:100%"></textarea>';
+				$html .= '</p><label for="'.esc_attr($this->plugin_name).'-put-goodbye-reasons">' . esc_html( $form['details'] ) . '</label><textarea name="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" id="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" rows="2" style="width:100%"></textarea>';
 				$html .= '</div><!-- .put-goodbye-options -->';
 			}
+
 			$html .= '</div><!-- .put-goodbye-form-body -->';
-			$html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'singularity' ) . '</p>';
+			$html .= '<p class="'.esc_attr($this->plugin_name).'-deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'download-monitor' ) . '</p>';
 			?>
-			<div class="put-goodbye-form-bg"></div>
+			<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-bg"></div>
 			<style type="text/css">
-				.put-form-active .put-goodbye-form-bg {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-form-active .<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-bg {
 					background: rgba( 0, 0, 0, .5 );
 					position: fixed;
 					top: 0;
@@ -978,7 +992,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					width: 100%;
 					height: 100%;
 				}
-				.put-goodbye-form-wrapper {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-wrapper {
 					position: fixed;
 					z-index: 999;
 					display: none;
@@ -989,13 +1003,13 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					width:100vw;
 					height:100vh;
 				}
-				.put-form-active .put-goodbye-form-wrapper {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-form-active .<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-wrapper {
 					display: block;
 				}
-				.put-goodbye-form {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form {
 					display: none;
 				}
-				.put-form-active .put-goodbye-form {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-form-active .<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form {
 					position: absolute;
 					left:0;
 					right:0;
@@ -1006,73 +1020,86 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					top:50%;
 					transform: translateY(-50%);
 				}
-				.put-goodbye-form-head {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-head {
 					background: #0073aa;
 					color: #fff;
 					padding: 8px 18px;
 				}
-				.put-goodbye-form-body {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-body {
 					padding: 8px 18px;
 					color: #444;
 				}
-				.deactivating-spinner {
+				.<?php echo esc_attr($this->plugin_name); ?>-deactivating-spinner {
 					display: none;
 				}
-				.deactivating-spinner .spinner {
+				.<?php echo esc_attr($this->plugin_name); ?>-deactivating-spinner .spinner {
 					float: none;
 					margin: 4px 4px 0 18px;
 					vertical-align: bottom;
 					visibility: visible;
 				}
-				.put-goodbye-form-footer {
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer {
 					padding: 8px 18px;
 				}
 			</style>
 			<script>
-				jQuery(document).ready(function($){
-					$("#put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>").on("click",function(){
-						// We'll send the user to this deactivation link when they've completed or dismissed the form
-						var url = document.getElementById("put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
-						$('body').toggleClass('put-form-active');
-						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeIn();
-						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").html( '<?php echo $html; ?>' + '<div class="put-goodbye-form-footer"><p><a id="put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'singularity' ); ?></a>&nbsp;<a class="secondary button" href="'+url+'"><?php _e( 'Just Deactivate', 'singularity' ); ?></a></p></div>');
-						$('#put-submit-form').on('click', function(e){
-							// As soon as we click, the body of the form should disappear
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .put-goodbye-form-body").fadeOut();
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .put-goodbye-form-footer").fadeOut();
-							// Fade in spinner
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .deactivating-spinner").fadeIn();
-							e.preventDefault();
-							var values = new Array();
-							$.each($("input[name='put-goodbye-options[]']:checked"), function(){
-								values.push($(this).val());
-							});
-							var details = $('#put-goodbye-reasons').val();
-							var data = {
-								'action': 'goodbye_form',
-								'values': values,
-								'details': details,
-								'security': "<?php echo wp_create_nonce ( 'wisdom_goodbye_form' ); ?>",
-								'dataType': "json"
-							}
-							$.post(
+				jQuery( document ).ready( function ( $ ) {
+
+					var url = document.getElementById( "<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-link" );
+
+					$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-link" ).on( "click", function () {
+						// We'll send the user to this deactivation link when they've completed or dismissed the form.
+						$( 'body' ).toggleClass( '<?php echo esc_attr($this->plugin_name); ?>-put-form-active' );
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).fadeIn();
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).html( '<?php echo $html; ?>' + '<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer"><p><a id="<?php echo esc_attr($this->plugin_name); ?>-put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'download-monitor' ); ?></a>&nbsp;<a class="secondary button" href="' + url + '"><?php _e( 'Just Deactivate', 'download-monitor' ); ?></a></p></div>' );
+					} );
+
+					$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form"  ).on( "click", "#<?php echo esc_attr( $this->plugin_name ); ?>-put-submit-form", function ( e ) {
+						// As soon as we click, the body of the form should disappear.
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form .<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-body" ).fadeOut();
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form .<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer" ).fadeOut();
+						// Fade in spinner.
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form .<?php echo esc_attr($this->plugin_name); ?>-deactivating-spinner" ).fadeIn();
+						e.preventDefault();
+
+						var values = new Array();
+						$.each( $( "input[name='<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-options[]']:checked" ), function () {
+							values.push( $( this ).val() );
+						} );
+
+						var details = $( '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-reasons' ).val();
+
+						var data = {
+							'action'  : '<?php echo esc_attr($this->plugin_name); ?>_goodbye_form',
+							'values'  : values,
+							'details' : details,
+							'security': "<?php echo wp_create_nonce( 'wisdom_goodbye_form' ); ?>",
+							'dataType': "json"
+						}
+
+						$.post(
 								ajaxurl,
 								data,
-								function(response){
-									// Redirect to original deactivation URL
+								function ( response ) {
+									// Redirect to original deactivation URL.
 									window.location.href = url;
 								}
-							);
-						});
-						// If we click outside the form, the form will close
-						$('.put-goodbye-form-bg').on('click',function(){
-							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeOut();
-							$('body').removeClass('put-form-active');
-						});
+						);
+					} );
+
+					// If we click outside the form, the form will close.
+					$( '.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form' ).on( 'click', function (e) {
+						e.stopPropagation();
 					});
-				});
+
+					$( '.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-wrapper' ).on( 'click', function () {
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).fadeOut();
+						$( 'body' ).removeClass( '<?php echo esc_attr($this->plugin_name); ?>-put-form-active' );
+					} );
+				} );
 			</script>
-		<?php }
+			<?php
+		}
 
 		/**
 		 * AJAX callback when the form is submitted
@@ -1120,6 +1147,30 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
 			return $formatted_galleries;
 
+		}
+
+		/**
+		 * Add tracking options to uninstall process
+		 *
+		 * @param $db_options
+		 *
+		 * @return array
+		 */
+		public function tracking_uninstall_process( $db_options ) {
+
+			$tracking_options = array(
+					'modula_wisdom_last_track_time',
+					'wisdom_deactivation_details_' . $this->plugin_name,
+					'wisdom_deactivation_reason_' . $this->plugin_name,
+					'modula_wisdom_admin_emails',
+					'modula_wisdom_collect_email',
+					'modula_wisdom_block_notice',
+					'modula_wisdom_notification_times',
+					'modula_wisdom_last_track_time',
+
+			);
+
+			return array_merge( $db_options, $tracking_options );
 		}
 
 	}

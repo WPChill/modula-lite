@@ -232,18 +232,16 @@ class Modula_CPT {
 				foreach ( $fields as $field_id => $field ) {
 
 					if ( isset( $_POST['modula-settings'][$field_id] ) ) {
-
+						
 						// Values for selects
 						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
 
-
 						switch ( $field_id ) {
 							case 'description':
 								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
 								break;
-							case 'height':
 							case 'randomFactor':
 							case 'captionFontSize':
 							case 'titleFontSize':
@@ -298,7 +296,12 @@ class Modula_CPT {
 									$modula_settings[$field_id] = 'pufrobo';
 								}
 								break;
-
+							case 'gutterInput' :
+								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+								break;
+							case 'height' :
+								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
+								break;
 							default:
 								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
 									$sanitized                  = array_map( 'sanitize_text_field', $_POST['modula-settings'][$field_id] );
@@ -889,13 +892,48 @@ class Modula_CPT {
 		}
 
 		$id                           = $_POST['id'];
-		$settings                     = get_post_meta( $id, 'modula-settings', true );
+
+		// Check if post exists and is modula-gallery CPT
+		if ( ! get_post_type( $id ) || 'modula-gallery' !== get_post_type( $id ) ) {
+			wp_send_json( array( 'status' => 'failed' ) );
+		}
+
+		$settings                     = wp_parse_args( get_post_meta( $id, 'modula-settings', true ), Modula_CPT_Fields_Helper::get_defaults() );
 		$settings['last_visited_tab'] = sanitize_text_field( $_POST['tab'] );
-		$settings                     = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 
 		update_post_meta( $id, 'modula-settings', $settings );
 		die();
 
+	}
+
+	public function output_upsell_albums() {
+		?>
+		<div class="modula-upsells-carousel-wrapper">
+			<div class="modula-upsells-carousel">
+				<div class="modula-upsell modula-upsell-item">
+					<h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ) ?></h4>
+					<ul class="modula-upsells-list">
+						<li>Redirect to a gallery or a custom URL with the standalone functionality</li>
+						<li>Arrange your albums using columns or the custom grid</li>
+						<li>Hover effects</li>
+						<li>Fully compatible with all the other Modula extensions</li>
+						<li>Premium support</li>
+						<li>Shuffle galleries inside an album on page refresh</li>
+						<li>Shuffle album cover images (randomly pick a cover image from the gallery)</li>
+					</ul>
+					<p>
+						<a target="_blank"
+						   href="<?php echo esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro') ); ?>"
+						   class="button"><?php esc_html_e( 'Free vs PRO', 'modula-best-grid-gallery' ) ?></a>
+						<a target="_blank"
+						   style="margin-top:10px;"
+						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"
+						   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<?php
 	}
 }
 

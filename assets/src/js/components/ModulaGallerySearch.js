@@ -1,15 +1,18 @@
-const { __ } = wp.i18n;
-const { Component, Fragment, useEffect, useState } = wp.element;
-const { withSelect } = wp.data;
-const { SelectControl, Button, Spinner, Toolbar, IconButton } = wp.components;
-const { BlockControls } = wp.editor;
-const { compose } = wp.compose;
-const { __experimentalInputControl } = wp.components;
+const { useEffect } = wp.element;
 
 export const ModulaGallerySearch = (props) => {
-	const { onIdChange, id, options } = props;
+	const { onIdChange, id, options, galleries } = props;
 
 	useEffect(() => {
+		let galleriesArray = [];
+		if (galleries != undefined && 0 == galleriesArray.length) {
+			galleries.forEach((gallery) => {
+				galleriesArray.push({
+					value: gallery.id,
+					label: gallery.title.rendered,
+				});
+			});
+		}
 		jQuery('.modula-gallery-input').selectize({
 			valueField: 'value',
 			labelField: 'label',
@@ -20,7 +23,7 @@ export const ModulaGallerySearch = (props) => {
 			preload: true,
 			allowEmptyOptions: true,
 			closeAfterSelect: true,
-			options: options,
+			options: options.concat(galleriesArray),
 			render: {
 				option: function(item, escape) {
 					return (

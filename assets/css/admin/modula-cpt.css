@@ -17,7 +17,7 @@
     color: #9c9c9c;
     cursor: pointer;
     position: relative;
-    width: 190px;
+    min-width: 190px;
     position: relative;
 }
 .modula-settings-container .modula-tabs .modula-tab sup {
@@ -25,7 +25,7 @@
   padding: 2px 5px;
   border-radius: 5px;
   color: #fff;
-  font-size: 8px;
+  font-size: 10px;
   background: #9c9c9c;
   display: inline-block;
   line-height: 1;
@@ -162,8 +162,13 @@ tr label.th-label {
 	min-width:220px;
 }
 
-.modula-settings-container .modula-tabs-content .form-table textarea {
+.modula-settings-container .modula-tabs-content .form-table textarea:not(#modula-style-customcode) {
 	max-width:230px;
+}
+
+textarea#modula-style-customcode {
+	resize : none;
+	height : calc(100vh - 100px);
 }
 
 .modula-settings-container .modula-tabs-content .form-table th.two_child_setting {
@@ -310,7 +315,7 @@ tr label.th-label {
     height: 100%;
     padding: 0;
 }
-.modula-effects-preview .modula-item .figc h2 {
+.modula-effects-preview .modula-item .figc .jtg-title {
     font-size: 21px !important;
     color: #fff;
 }
@@ -320,7 +325,7 @@ tr label.th-label {
     font-style: normal;
 }
 
-.modula .modula-items .modula-item h2 {
+.modula .modula-items .modula-item .jtg-title {
 	margin:0;
 }
 .modula .modula-items .modula-item p {
@@ -385,7 +390,7 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	text-align: right;
 }
 
-.modula .modula-item.effect-pufrobo h2,
+.modula .modula-item.effect-pufrobo .jtg-title,
 .modula .modula-item.effect-pufrobo p {
 	position: absolute;
 	right: 30px;
@@ -405,7 +410,7 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	letter-spacing: 1px;
 }
 
-.modula .modula-item.effect-pufrobo h2 {
+.modula .modula-item.effect-pufrobo .jtg-title {
 	/*top: 30px;*/
 	top: 10%;
 	-webkit-transition: -webkit-transform 0.35s;
@@ -414,12 +419,12 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,20px,0);
 }
 
-.modula .modula-item.effect-pufrobo:hover h2 {
+.modula .modula-item.effect-pufrobo:hover .jtg-title {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
 
-.modula .modula-item.effect-pufrobo h2::after {
+.modula .modula-item.effect-pufrobo .jtg-title::after {
 	position: absolute;
 	top: 80%;
 	left: 0;
@@ -431,14 +436,14 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,40px,0);
 }
 
-.modula .modula-item.effect-pufrobo h2::after,
+.modula .modula-item.effect-pufrobo .jtg-title::after,
 .modula .modula-item.effect-pufrobo p {
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 
-.modula .modula-item.effect-pufrobo:hover h2::after,
+.modula .modula-item.effect-pufrobo:hover .jtg-title::after,
 .modula .modula-item.effect-pufrobo:hover p {
 	margin-top: 10px;
 	margin-bottom: 5px;
@@ -447,11 +452,11 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,0,0);
 }
 
-html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie h2.jtg-title {
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie .jtg-title {
 	color:#fff;
 }
 
-html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-zoe h2.jtg-title,
+html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-zoe .jtg-title,
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-zoe .jtg-social a {
 	color:#000;
 }
@@ -484,24 +489,24 @@ tr[data-container="effect"] > td {
 .modula-effects-preview .modula-item.effect-roxy .figc,
 .modula-effects-preview .modula-item.effect-layla .figc,
 .modula-effects-preview .modula-item.effect-oscar .figc,
-#poststuff .modula-effects-preview .modula-item .figc h2 {
+#poststuff .modula-effects-preview .modula-item .figc .jtg-title {
 	padding : 0;
 }
 
-#poststuff .modula .modula-item.effect-reflex .figc-inner h2 {
+#poststuff .modula .modula-item.effect-reflex .figc-inner .jtg-title {
 	padding-left : 10px;
 }
 
-#poststuff .modula .modula-items .modula-item.effect-comodo h2 {
+#poststuff .modula .modula-items .modula-item.effect-comodo .jtg-title {
 	margin-top : 20px;
 }
 
-#poststuff .modula .modula-item.effect-appear h2,
-#poststuff .modula .modula-item.effect-honey h2 {
+#poststuff .modula .modula-item.effect-appear .jtg-title,
+#poststuff .modula .modula-item.effect-honey .jtg-title {
 	padding : 1em 1.5em;
 }
 
-#poststuff .modula .modula-item.effect-milo h2 {
+#poststuff .modula .modula-item.effect-milo .jtg-title {
 	padding : 1em 1.2em;
 }
 
@@ -510,7 +515,7 @@ tr[data-container="effect"] > td {
 	padding : 0.4em 1em;
 }
 
-#poststuff .modula .modula-item.effect-terry h2 {
+#poststuff .modula .modula-item.effect-terry .jtg-title {
 	padding : 0.4em 15px;
 }
 
@@ -519,7 +524,7 @@ tr[data-container="effect"] > td {
 	padding : 0 1em;
 }
 
-#poststuff .modula .modula-items .modula-item.effect-steve h2 {
+#poststuff .modula .modula-items .modula-item.effect-steve .jtg-title {
 	margin-top : 2em;
 	padding    : 0.25em;
 	color      : #000;
@@ -1695,21 +1700,28 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nt
 }
 
 .modula .nav-tab .modula-badge {
-    padding: 5px;
-    background: #52ad3a;
-    color: #fff;
-    margin-left: 5px;
-    font-size: 10px;
+  font-size: 10px;
+  background: #f4daa4;
+  padding: 2px 5px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 10px;
 }
 
 .modula-settings-upsell {
     max-width: 600px;
     padding: 15px;
     background: #fff;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.modula-settings-upsell a:first-child {
+.modula-settings-tab-upsell {
+  padding: 20px;
+  background: #fff;
+  color: #3c434a;
+}
+
+.modula-settings-upsell a:first-child, .modula-settings-tab-upsell a:first-child {
   margin-right: 10px;
 }
 
@@ -1799,18 +1811,17 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nt
 	line-height: 20px;
 }
 
-html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td {
+html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td,
+html body .modula-settings-container .modula-tab-content tr[data-container="height"] > td {
 	display:inline-block;
 }
 
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="gutter"],
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="tablet_gutter"],
-html body .modula-settings-container .modula-tab-content tr[data-container] input[data-setting="mobile_gutter"] {
+html body .modula-settings-container .modula-tab-content tr[data-container] input.modula-gutter-input {
 	border-radius : 0;
 	border-right  : 0;
 	border-left   : 0;
-	min-width     : 42px;
-	max-width     : 42px;
+	min-width     : 62px;
+	max-width     : 62px;
 	height        : 32px;
 	position      : relative;
 	left          : -1px;

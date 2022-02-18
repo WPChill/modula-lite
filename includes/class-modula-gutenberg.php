@@ -38,7 +38,8 @@ class Modula_Gutenberg {
 	 */
 	public function register_block_type() {
 
-		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
+
 		wp_register_style( 'modula-gutenberg', MODULA_URL . 'assets/css/admin/modula-gutenberg.css', array(), true );
 
 		register_block_type(
@@ -58,8 +59,10 @@ class Modula_Gutenberg {
 	 * @since 2.5.0
 	 */
 	public function enqueue_block_assets() {
+		global $pagenow;
 		$screen = get_current_screen();
-		if ( 'post' === $screen->post_type || 'page' === $screen->post_type ) {
+
+		if ( 'post' === $screen->post_type || 'page' === $screen->post_type || 'widgets.php' === $pagenow ) {
 			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 			do_action( 'modula_block_style' );

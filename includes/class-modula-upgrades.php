@@ -322,7 +322,7 @@ class Modula_Upgrades {
                 'lightbox'                  => 'fancybox',
                 'shuffle'                   => 0,
                 'captionColor'              => '#ffffff',
-                'hide_title'                => 0,
+                'hide_title'                => 1,
                 'hide_description'          => 0,
                 'captionFontSize'           => '14',
                 'titleFontSize'             => '16',

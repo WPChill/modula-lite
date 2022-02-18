@@ -61,7 +61,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).hide();
 
-			rows.filter(' [data-container="randomFactor"],[data-container="maxImagesCount"]').show();
+			rows.filter('[data-container="maxImagesCount"]').show();
 
 			// Rows for grid type
 			rows.filter('[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
@@ -76,7 +76,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).show();
 
-			rows.filter('[data-container="height"],  [data-container="gutter"], [data-container="randomFactor"], [data-container="shuffle"], [data-container="showAllOnLightbox"],[data-container="maxImagesCount"]').show();
+			rows.filter('[data-container="height"],  [data-container="gutter"], [data-container="shuffle"], [data-container="showAllOnLightbox"],[data-container="maxImagesCount"]').show();
 
 
 			// Rows for grid type
@@ -97,6 +97,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		} else {
 
 			rows.filter('[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
+
+			rows.filter('[data-container="randomFactor"]').show();
 		}
 
 		// Check image sizes

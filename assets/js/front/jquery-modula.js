@@ -40,6 +40,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			keepArea: true,
 			type: 'creative-gallery',
 			columns: 12,
+			height: 800,
+			desktopHeight: 800,
+			mobileHeight: 800,
+			tabletHeight: 800,
 			gutter: 10,
 			desktopGutter: 10,
 			mobileGutter: 10,
@@ -117,6 +121,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$(window).resize(function() {
 			instance.onResize(instance);
 		});
+
+		const resizeObserver = new ResizeObserver(entries => {
+
+			instance.onResize(instance);
+		});
+		resizeObserver.observe(instance.$element[0]);
 
 		$(window).on('modula-update', function() {
 			instance.onResize(instance);
@@ -314,6 +324,16 @@ jQuery(window).on('elementor/frontend/init', function () {
 		// if ( this.options.height ) {
 		// 	this.$itemsCnt.height(this.options.height);
 		// }
+		var viewport = document.documentElement.clientWidth;
+
+		if (viewport <= 568) {
+			instance.options.height = instance.options.mobileHeight;
+		} else if (viewport <= 768) {
+			instance.options.height = instance.options.tabletHeight;
+		} else {
+			instance.options.height = instance.options.desktopHeight;
+		}
+
 		this.$itemsCnt.data('area', this.$itemsCnt.width() * this.options.height);
 
 		this.lastWidth = this.$itemsCnt.width();

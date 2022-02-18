@@ -1,5 +1,4 @@
-const { __ } = wp.i18n;
-const { Component, Fragment, useEffect, useState } = wp.element;
+const { Fragment, useEffect } = wp.element;
 
 import ModulaGalleryImage from './ModulaGalleryImage';
 import ModulaStyle from './ModulaStyle';
@@ -7,7 +6,7 @@ import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
-	const { settings, galleryId, checkHoverEffect, modulaRun, modulaSlickRun } = props;
+	const { settings, checkHoverEffect, modulaRun, modulaSlickRun } = props;
 
 	useEffect(() => {
 		if (settings !== undefined) {
@@ -16,7 +15,7 @@ export const ModulaGallery = (props) => {
 		if ('slider' !== settings.type) {
 			modulaRun(jsConfig);
 		} else {
-			modulaSlickRun();
+			modulaSlickRun(id);
 		}
 	}, []);
 

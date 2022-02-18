@@ -1,3 +1,25 @@
+= 2.6.0 - TBD =
+Fixed: Modula in tabs ( https://github.com/WPChill/modula-lite/issues/620 )
+Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 - https://github.com/WPChill/modula-lite/issues/495
+Changed: Default "Hide Title" value to ON - https://github.com/WPChill/modula-lite/issues/495
+Added: Upsells for addons in settings tabs.
+Changed: Misc tab upsell output
+Added: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox. https://github.com/WPChill/modula-lite/issues/553
+Added: Filter to restore the dragging and the previously saved modula metabox position.
+Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
+Fixed: Added tracking db options to uninstall process - https://github.com/WPChill/modula-lite/issues/591
+Fixed: Unset link image attribute when importing from NextGEN - https://github.com/WPChill/modula-lite/issues/590
+Fixed: Fixed error when trying to get images that were not imported correctly / do not exist as entries in db - https://github.com/WPChill/modula-lite/issues/588
+Added: Upgrade to PRO from plugins page
+Changed: Upsell texts - https://github.com/WPChill/modula-lite/issues/523
+Changed: Lazy load default ON - https://github.com/WPChill/modula-lite/issues/520
+Changed: Updated CPT settings conditions - https://github.com/WPChill/modula-lite/issues/516
+Changed: Grid Automatic default Row Height from 150 to 250 - https://github.com/WPChill/modula-lite/issues/517
+Changed: Some settings texts - https://github.com/WPChill/modula-lite/issues/499
+Added: Last 5 galleries now appear in selectize without searching ( https://github.com/WPChill/modula-lite/issues/598 )
+Fixed: Incompatibility with Gutenberg block and widgets - https://github.com/WPChill/modula-lite/issues/599
+Fixed: Modula Widget before and after args - https://github.com/WPChill/modula-lite/issues/483
+
 = 2.5.5 - 04/10/2021 =
 Fixed: WP Cron fatal error.
 
@@ -345,7 +367,7 @@ For more information : https://github.com/MachoThemes/modula-lite/milestone/8?cl
 * Fixed an issue with WPML plugin
 
 = 1.1.13 =
-* Enhanced lightbox compatibility 
+* Enhanced lightbox compatibility
 
 = 1.1.10 =
 * Enhancement in backend UI

@@ -210,7 +210,10 @@ class Modula_Shortcode {
 		$modula_shortcode = new Modula_Shortcode;
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings[ 'height' ] ),
+			'height'           => absint( $settings[ 'height' ][0] ),
+			'tabletHeight'     => isset( $settings[ 'height' ][1] ) ? absint( $settings[ 'height' ][1] ) : false,
+			'mobileHeight'     => isset( $settings[ 'height' ][2] ) ? absint( $settings[ 'height' ][2] ) : false,
+			'desktopHeight'    => isset( $settings[ 'height' ][0] ) ? absint( $settings[ 'height' ][0] ) : false,
 			"enableTwitter"    => boolval( $settings[ 'enableTwitter' ] ),
 			"enableWhatsapp"   => boolval( $settings[ 'enableWhatsapp' ] ),
 			"enableFacebook"   => boolval( $settings[ 'enableFacebook' ] ),
@@ -297,18 +300,22 @@ class Modula_Shortcode {
 
 		if ( 'custom-grid' != $settings['type'] ) {
 
+			$width = ( ! empty( $settings['width'] ) ) ?  $settings['width'] : '100%';
+
 			// max-width is a fix for TwentyTwenty theme
 			$activeTheme = wp_get_theme(); // gets the current theme
 			$themeArray  = array( 'Twenty Twenty' ); // Themes that have this problem
 			if ( in_array( $activeTheme->name, $themeArray ) || in_array( $activeTheme->parent_theme, $themeArray ) ) {
-				$css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
+				$css .= "#{$gallery_id}{max-width:" . esc_attr( $width ) . "}";
 			}
 
-			$css .= "#{$gallery_id} { width:" . esc_attr( $settings['width'] ) . ";}";
+			$css .= "#{$gallery_id} { width:" . esc_attr( $width ) . ";}";
 
 			// We don't have and need height setting on grid type
-			if('creative-gallery' == $settings['type']){
-				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'] ) . "px;}";
+			if ( 'creative-gallery' == $settings['type'] ) {
+				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'][0] ) . "px;}";
+				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][1] ) . "px;}}";
+				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][2] ) . "px;}}";
 			}
 
 		}
