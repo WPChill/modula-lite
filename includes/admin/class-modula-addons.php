@@ -2,9 +2,9 @@
 
 class Modula_Addons {
 
-	public array $addons = array();
+	public $addons = array();
 
-	public array $free_addons = array();
+	public $free_addons = array();
 
 	function __construct() {
 		// Add ajax action to reload extensions
