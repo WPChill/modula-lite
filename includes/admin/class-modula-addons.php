@@ -36,7 +36,7 @@ class Modula_Addons {
 			if ( ! empty( $data ) && is_array( $data ) ) {
 				$addons = $data;
 				// Store the data for a week.
-				set_transient( 'modula_all_extensions', $data, 7 * DAY_IN_SECONDS );
+				set_transient( 'modula_all_extensions', $data, 30 * DAY_IN_SECONDS );
 			}
 		}
 

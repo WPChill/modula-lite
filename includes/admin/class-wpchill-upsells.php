@@ -162,9 +162,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				if ( ! empty( $data ) && is_array( $data ) ) {
 					$this->packages          = $data;
 					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
-					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, '86400' );
+					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, 30 * DAY_IN_SECONDS );
 				}
-
 			}
 
 		}
