@@ -80,7 +80,7 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 
-			
+
 
 		}
 
@@ -125,6 +125,10 @@ class Modula {
 
 		if ( ! is_admin() ) {
 			return;
+		}
+
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		   return;
 		}
 
 		new Modula_Upsells();
