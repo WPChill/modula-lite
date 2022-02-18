@@ -1,9 +1,16 @@
-.modula-addons-container {
+.modula-addons-container,
+.modula-free-addons-container{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding-top:28px;
 }
+
+.modula-addons-container.hidden,
+.modula-free-addons-container.hidden {
+	display : none;
+}
+
 .modula-addon {
 	width: 100%;
     margin-bottom: 10px;
@@ -43,7 +50,8 @@
 	margin-top: 15px;
 	text-align: center;
 }
-.modula-addon .modula-addon-actions{
+.modula-addon .modula-addon-actions,
+.modula-addon .modula-free-addon-actions{
     padding: 6px 20px;
     background-color: #fafafa;
     border-top: 1px solid #ddd;

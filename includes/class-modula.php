@@ -262,7 +262,18 @@ class Modula {
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon.js', array( 'jquery', 'updates' ), MODULA_LITE_VERSION, true );
+
+			wp_localize_script( 'modula-addon', 'modulaAddons', array(
+				// Add addon slug to verify addon's slug in wp-plugin-install-success action
+				'free_addons'       => apply_filters( 'modula_free_extensions_install', array( ) ),
+				'installing_text'   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
+				'activated_text'    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
+				'deactivated_text'  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
+				'activating_text'   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
+				'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' )
+			) );
+
 		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
 
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header.css', null, MODULA_LITE_VERSION );
