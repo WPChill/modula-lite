@@ -1,3 +1,7 @@
+= 2.6.2 - 21/02/2022 =
+Fixed: Mime type giving error if no file_path - https://github.com/WPChill/modula-lite/issues/632
+Fixed: Gallery width when using Full Site Editing - https://github.com/WPChill/modula-lite/issues/601
+
 = 2.6.1 - 18/02/2022 =
 Fixed - array_merge error - https://wordpress.org/support/topic/error-on-las-update/
 
