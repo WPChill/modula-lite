@@ -1,4 +1,4 @@
-= 2.6.2 - 21/02/2022 =
+= 2.6.2 - 22/02/2022 =
 Fixed: Mime type giving error if no file_path - https://github.com/WPChill/modula-lite/issues/632
 Fixed: Gallery width when using Full Site Editing - https://github.com/WPChill/modula-lite/issues/601
 
