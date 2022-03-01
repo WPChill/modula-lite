@@ -300,8 +300,6 @@ class Modula_Shortcode {
 
 		if ( 'custom-grid' != $settings['type'] ) {
 
-			$width = ( ! empty( $settings['width'] ) ) ?  $settings['width'] : '100%';
-
 			// max-width is a fix for TwentyTwenty theme
 			$activeTheme = wp_get_theme(); // gets the current theme
 			$themeArray  = array( 'Twenty Twenty' ); // Themes that have this problem
@@ -309,7 +307,11 @@ class Modula_Shortcode {
 				$css .= "#{$gallery_id}{max-width:" . esc_attr( $width ) . "}";
 			}
 
-			$css .= "#{$gallery_id} { width:" . esc_attr( $width ) . ";}";
+			if ( ! empty( $settings['width'] ) ) {
+				$css .= "#{$gallery_id} { width:" . esc_attr( $settings['width'] ) . ";}";
+			} else {
+				$css .= "#{$gallery_id} { min-width:100%;}";
+			}
 
 			// We don't have and need height setting on grid type
 			if ( 'creative-gallery' == $settings['type'] ) {

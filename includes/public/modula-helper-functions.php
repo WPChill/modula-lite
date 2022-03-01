@@ -327,7 +327,7 @@ function modula_sources_and_sizes( $data ) {
 
 	if ( isset( $image_meta['sizes']['thumbnail']['mime-type'] ) ) {
 		$mime_type = $image_meta['sizes']['thumbnail']['mime-type'];
-	} else if ( function_exists( 'mime_content_type' ) ) {
+	} else if ( function_exists( 'mime_content_type' ) && $data->image_info['file_path'] ) {
 		$mime_type = mime_content_type( $data->image_info['file_path'] );
 	}
 
@@ -344,7 +344,6 @@ function modula_sources_and_sizes( $data ) {
 		echo $image;
 		return;
 	}
-
 
 	$attachment_id = $data->link_attributes['data-image-id'];
 
