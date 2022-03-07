@@ -175,7 +175,7 @@ class Modula {
 
 				//returns modula CPT metaboxes to the default position.
 				add_filter('get_user_option_meta-box-order_modula-gallery', '__return_empty_string');
-
+				add_filter('get_user_option_closedpostboxes_modula-gallery', '__return_empty_string');
 				//prevents the modula metaboxes from being dragged.
 				wp_deregister_script('postbox');
 			}
