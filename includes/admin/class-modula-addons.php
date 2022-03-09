@@ -244,12 +244,7 @@ class Modula_Addons {
 	 * Check if the free addons were released
 	 */
 	public function check_for_release( $addons ) {
-		
-		foreach( $addons as $slug => $addon ) {
-			$response =  wp_remote_post( 'https://wordpress.org/plugins/' . $slug . '/' );
-			var_dump( $response['body'] );
-		}
-		die();
+		return $addons;
 	}
 }
 
