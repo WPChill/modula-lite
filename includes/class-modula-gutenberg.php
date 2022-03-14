@@ -62,6 +62,9 @@ class Modula_Gutenberg {
 		global $pagenow;
 		$screen = get_current_screen();
 
+		//Early return to avoid loading Gutenberg assets on non-Gutenberg pages.
+		if( $screen->post_type === 'modula-gallery') return;
+
 		if ( 'post' === $screen->base || 'page' === $screen->base || 'widgets.php' === $pagenow ) {
 			wp_enqueue_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
