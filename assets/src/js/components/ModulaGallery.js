@@ -44,7 +44,7 @@ export const ModulaGallery = (props) => {
 					: ''}`}
 				data-config={JSON.stringify(jsConfig)}
 			>
-				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div class="modula-grid-sizer"> </div>}
+				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div className="modula-grid-sizer"> </div>}
 				<ModulaItemsExtraComponent {...props} position={'top'} />
 				<div className={itemsClassNames}>
 					{images.length > 0 && (
