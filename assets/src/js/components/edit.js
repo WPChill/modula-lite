@@ -246,7 +246,7 @@ export const ModulaEdit = (props) => {
 	);
 
 	if (id == 0 && 'none' === attributes.galleryType) {
-		return [
+		return (
 			<Fragment>
 				<div className="modula-block-preview">
 					<div className="modula-block-preview__content">
@@ -297,26 +297,24 @@ export const ModulaEdit = (props) => {
 						</div>
 					</div>
 				</div>
-			</Fragment>,
-		];
+			</Fragment>
+		)
 	}
 
 	if (status === 'loading') {
-		return [
-			<Fragment>
+		return (
 				<div className="modula-block-preview">
 					<div className="modula-block-preview__content">
 						<div className="modula-block-preview__logo" />
 						<Spinner />
 					</div>
 				</div>
-			</Fragment>,
-		];
+		);
 	}
 
 	if (id == 0 || images.length === 0) {
-		return [
-			<Fragment>
+		return (
+			<Fragment key="233">
 				<Inspector
 					onIdChange={(id) => onIdChange(id)}
 					selectOptions={selectOptions}
@@ -355,12 +353,12 @@ export const ModulaEdit = (props) => {
 						)}
 					</div>
 				</div>
-			</Fragment>,
-		];
+			</Fragment>
+		);
 	}
 	if (settings) {
-		return [
-			<Fragment>
+		return (
+			<Fragment key="1">
 				{blockControls}
 				<Inspector
 					onIdChange={(id) => {
@@ -377,8 +375,8 @@ export const ModulaEdit = (props) => {
 					checkHoverEffect={checkHoverEffect}
 					galleryId={galleryId}
 				/>
-			</Fragment>,
-		];
+			</Fragment>
+		);
 	}
 
 	return null;

@@ -12,13 +12,13 @@ const ModulaGalleryImageInner = (props) => {
 	return [
 		<Fragment>
 			{effectArray.includes(settings.effect) && (
-				<div class="tilter__deco tilter__deco--shine">
+				<div className="tilter__deco tilter__deco--shine">
 					<div />
 				</div>
 			)}
-			{overlayArray.includes(settings.effect) && <div class="tilter__deco tilter__deco--overlay" />}
+			{overlayArray.includes(settings.effect) && <div className="tilter__deco tilter__deco--overlay" />}
 
-			{svgArray.includes(settings.effect) && <div class="tilter__deco tilter__deco--lines" />}
+			{svgArray.includes(settings.effect) && <div className="tilter__deco tilter__deco--lines" />}
 
 			<div className="figc">
 				<div className="figc-inner">
