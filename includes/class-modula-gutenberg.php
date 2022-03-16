@@ -177,11 +177,14 @@ class Modula_Gutenberg {
 	 * @since 2.5.0
 	 */
 	public function get_jsconfig() {
-		if ( isset( $_POST['nonce'] ) ) {
-			if ( ! wp_verify_nonce( $_POST['nonce'], 'modula_nonce' ) ) {//phpcs:ignore
-				wp_send_json_error();
-				die();
-			}
+		if( !isset( $_POST['nonce'] ) ) {
+			wp_send_json_error( 'no nonce' );
+			die();
+		}
+
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'modula_nonce' ) ) {//phpcs:ignore
+			wp_send_json_error();
+			die();
 		}
 
 		if ( isset( $_POST['settings'] ) ) {
@@ -213,12 +216,16 @@ class Modula_Gutenberg {
 	 * @param string $effect Selected effect so we can check if we add title and caption to it.
 	 */
 	public function check_hover_effect( $effect ) {
-		if ( isset( $_POST['nonce'] ) ) {
-			if ( ! wp_verify_nonce( $_POST['nonce'], 'modula_nonce' ) ) { //phpcs:ignore
-				wp_send_json_error();
-				die();
-			}
+		if( !isset( $_POST['nonce'] ) ) {
+			wp_send_json_error( 'no nonce' );
+			die();
 		}
+
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'modula_nonce' ) ) {//phpcs:ignore
+			wp_send_json_error();
+			die();
+		}
+
 		if ( isset( $_POST['effect'] ) ) {
 			$effect = $_POST['effect']; //phpcs:ignore
 		}
