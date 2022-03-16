@@ -102,9 +102,10 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	if ( 'attachment-page' == $settings['lightbox'] ) {
 
-		$item_data['link_attributes']['class'][] = 'modula-simple-link';
-		$item_data['item_classes'][] = 'modula-simple-link';
-
+		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
+		$item_data['item_classes'][]                = 'modula-simple-link';
+		$item_data['link_attributes']['aria-label'] = 'Open attachment page';
+		$item_data['link_attributes']['title']      = 'Open attachment page';
 		if ( '' != $item['link'] ) {
 
 			$item_data['link_attributes']['href'] = $item['link'];
@@ -120,15 +121,19 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	} else if ( 'direct' == $settings['lightbox'] ) {
 
-		$item_data['link_attributes']['href'] = $item_data['image_full'];
-		$item_data['link_attributes']['class'][] = 'modula-simple-link';
-		$item_data['item_classes'][] = 'modula-simple-link';
+		$item_data['link_attributes']['href']       = $item_data['image_full'];
+		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
+		$item_data['item_classes'][]                = 'modula-simple-link';
+		$item_data['link_attributes']['aria-label'] = 'Open image';
+		$item_data['link_attributes']['title']      = 'Open image';
 
 	} else {
 
 		$item_data['link_attributes']['href']          = $item_data['image_full'];
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
+		$item_data['link_attributes']['aria-label']    = 'Open image in lightbox';
+		$item_data['link_attributes']['title']         = 'Open image in lightbox';
 
 	}
 

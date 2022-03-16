@@ -304,7 +304,7 @@ class Modula_Shortcode {
 			$activeTheme = wp_get_theme(); // gets the current theme
 			$themeArray  = array( 'Twenty Twenty' ); // Themes that have this problem
 			if ( in_array( $activeTheme->name, $themeArray ) || in_array( $activeTheme->parent_theme, $themeArray ) ) {
-				$css .= "#{$gallery_id}{max-width:" . esc_attr( $width ) . "}";
+				$css .= "#{$gallery_id}{max-width:" . esc_attr( $settings['width'] ) . "}";
 			}
 
 			if ( ! empty( $settings['width'] ) ) {
