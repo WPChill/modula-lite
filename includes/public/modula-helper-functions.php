@@ -137,7 +137,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	}
 
-
 	return $item_data;
 }
 
