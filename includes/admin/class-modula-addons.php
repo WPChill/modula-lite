@@ -13,7 +13,7 @@ class Modula_Addons {
 
 		// Add free
 		$this->free_addons = apply_filters( 'modula_free_extensions', array(
-			/* 'modula-foo-migrator' => array(
+			'modula-foo-migrator' => array(
 				'slug' => 'modula-foo-migrator',
 				'name' => __( 'Migrate away from FooGallery', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
@@ -25,7 +25,7 @@ class Modula_Addons {
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
 				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
 			),
-			'modula-envira-migrator' => array(
+			/* 'modula-envira-migrator' => array(
 				'slug' => 'modula-envira-migrator',
 				'name' => __( 'Migrate away from Envira', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
@@ -116,6 +116,14 @@ class Modula_Addons {
 
 				$slug        = $addon['slug'];
 				$plugin_path = $slug . '/' . $slug . '.php';
+
+				if ( 'modula-foo-migrator' === $slug ) {
+					$plugin_path = $slug . '/migrate-away-from-foogallery.php';
+				}
+
+				if ( 'modula-nextgen-migrator' === $slug ) {
+					$plugin_path = $slug . '/migrate-away-from-nextgen.php';
+				}
 
 				$activate_url = add_query_arg(
 					array(
