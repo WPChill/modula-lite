@@ -452,6 +452,10 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,0,0);
 }
 
+.single-modula-gallery.post-type-modula-gallery #poststuff .postbox .handle-actions {
+  display:none;
+}
+
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie .jtg-title {
 	color:#fff;
 }
