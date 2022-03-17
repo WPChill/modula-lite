@@ -1,6 +1,8 @@
 = 2.6.3 - 21/02/2022 =
 Fixed: Sanitization and preparation for WP Core galleries import ( https://github.com/WPChill/modula-lite/issues/625 )
 Fixed: Metaboxes forever opened and arrows hidden ( https://github.com/WPChill/modula-lite/issues/639 )
+Fixed: Custom Posts Gutenberg block ( https://github.com/WPChill/modula-lite/issues/626 )
+Fixed: React warnings ( https://github.com/WPChill/modula-lite/issues/628 )
 
 = 2.6.2 - 22/02/2022 =
 Fixed: Mime type giving error if no file_path - https://github.com/WPChill/modula-lite/issues/632
