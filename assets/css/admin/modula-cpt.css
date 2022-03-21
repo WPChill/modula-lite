@@ -452,7 +452,7 @@ html body .modula.modula-gallery .modula-items .jtg-social {
 	transform: translate3d(0,0,0);
 }
 
-.single-modula-gallery.post-type-modula-gallery #poststuff .postbox .handle-actions {
+.single-modula-gallery.post-type-modula-gallery.modula-no-drag #poststuff .postbox .handle-actions {
   display:none;
 }
 
