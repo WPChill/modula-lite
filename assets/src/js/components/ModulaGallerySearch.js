@@ -61,7 +61,7 @@ export const ModulaGallerySearch = (props) => {
 		});
 	}, []);
 
-	return <input className="modula-gallery-input" value={'0' == id ? '' : id} />;
+	return <input className="modula-gallery-input" defaultValue={'0' == id ? '' : id} />;
 };
 
 export default ModulaGallerySearch;

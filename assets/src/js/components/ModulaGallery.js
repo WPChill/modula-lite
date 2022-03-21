@@ -51,7 +51,7 @@ export const ModulaGallery = (props) => {
 						<Fragment>
 							<Fragment>
 								{images.map((img, index) => {
-									return [ <ModulaGalleryImage {...props} img={img} index={index} /> ];
+									return [ <ModulaGalleryImage {...props} img={img} key={index} index={index} /> ];
 								})}
 							</Fragment>
 						</Fragment>

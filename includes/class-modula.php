@@ -176,6 +176,7 @@ class Modula {
 				//returns modula CPT metaboxes to the default position.
 				add_filter('get_user_option_meta-box-order_modula-gallery', '__return_empty_string');
 				add_filter('get_user_option_closedpostboxes_modula-gallery', '__return_empty_string');
+				add_filter( 'admin_body_class', array( $this, 'no_drag_classes' ), 15, 1 );
 
 				//prevents the modula metaboxes from being dragged.
 				wp_deregister_script('postbox');
@@ -377,6 +378,20 @@ class Modula {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Add the `modula-no-drag` class to body so we know when to hide the arrows
+	 * @param String $classes The classes of the body, a space-separated string of class names instead of an array
+	 * @return String
+	 * 
+	 * @since 2.6.3
+	 */
+	public function no_drag_classes( $classes ) {
+
+		$classes .= ' modula-no-drag';
+
+		return $classes;
 	}
 
 }

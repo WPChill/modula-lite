@@ -49,7 +49,7 @@ class Modula_WP_Core_Gallery_Importer {
             }
         }
 
-        $sql       = "SELECT * FROM " . $wpdb->prefix . "posts WHERE `post_content` LIKE '%[galler%' AND `post_type` IN ($post_in)";
+        $sql = $wpdb->prepare("SELECT ID, post_title, post_content FROM {$wpdb->posts} WHERE post_type IN ({$post_in}) AND post_content LIKE %s", '%[gallery%');
         $galleries = $wpdb->get_results($sql);
 
         if (count($galleries) != 0) {

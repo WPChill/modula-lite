@@ -27,6 +27,32 @@
 		return;
 	}
 
+	function mdulaActivatePlugin( url, text_wrapper, action ) {
+	    $.ajax( {
+	      	async: true,
+	      	type: 'GET',
+	      	dataType: 'html',
+	      	url: url,
+	      	success: function() {
+
+				if ( 'activate' === action ) {
+					if ( !text_wrapper && 'undefined' !== typeof slug ) {
+						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
+					}
+	
+					text_wrapper.text( modulaAddons.activated_text );
+				} else {
+					if ( !text_wrapper && 'undefined' !== typeof slug ) {
+						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
+					}
+
+					text_wrapper.text( modulaAddons.deactivated_text );
+				}
+				
+	      	}
+	    });
+	}
+
 	$( '.modula-free-addons-container .modula-toggle__input' ).on( 'change', function ( e ) {
 
 		var activate_url   = $( this ).data( 'activateurl' ),
@@ -41,60 +67,38 @@
 
 			text_wrapper.text( modulaAddons.installing_text );
 
-			wp.updates.installPlugin( {
-				slug: slug
-			} );
-
-		} else if ( 'activate' === action ) {
-
-			text_wrapper.text( modulaAddons.activating_text );
-			freeModulaPluginAction( activate_url, action, text_wrapper );
-		} else if ( 'installed' === action ) {
-
-			text_wrapper.text( modulaAddons.deactivating_text );
-			freeModulaPluginAction( deactivate_url, action, text_wrapper );
-		}
-
-	});
-
-	function freeModulaPluginAction( url, action, text_wrapper, slug ) {
-
-		$.ajax( {
-			async   : true,
-			type    : 'GET',
-			dataType: 'html',
-			url     : url,
-			success : function () {
-
-				if ( 'activate' === action ) {
-
+			const args = {
+				slug: slug,
+				success: (response) => {
 					if ( !text_wrapper && 'undefined' !== typeof slug ) {
 						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
 					}
 
 					text_wrapper.text( modulaAddons.activated_text );
+					mdulaActivatePlugin( activate_url, text_wrapper, 'activate' );
+				}	
+			};
 
-				} else if ( 'deactivate' === action ) {
+			wp.updates.installPlugin(args);
 
-					if ( !text_wrapper && 'undefined' !== typeof slug ) {
-						text_wrapper = jQuery( 'input[data-slug="' + slug + '"]' ).parents( '.modula-free-addon-actions' ).find( 'span.modula-action-texts' );
-					}
+		} else if ( 'activate' === action ) {
 
-					text_wrapper.text( modulaAddons.deactivated_text );
-				}
+			text_wrapper.text( modulaAddons.activating_text );
+			mdulaActivatePlugin( activate_url, text_wrapper, action );
+		} else if ( 'installed' === action ) {
 
-				setTimeout( function () {
-					text_wrapper.text( '' );
-				}, 3000 );
-			}
-		} );
-	}
+			text_wrapper.text( modulaAddons.deactivating_text );
+			mdulaActivatePlugin( deactivate_url,text_wrapper, action );
+		}
+
+	});
+
 
 	jQuery( document ).on( 'wp-plugin-install-success', function ( response, data ) {
 
 		if ( jQuery.inArray( data.slug, modulaAddons.free_addons ) > -1 ) {
 
-			freeModulaPluginAction( data.activateUrl, 'activate', false, data.slug );
+			mdulaActivatePlugin( data.activateUrl, false, 'activate');
 		}
 	} );
 

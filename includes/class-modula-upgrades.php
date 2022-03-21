@@ -8,7 +8,7 @@ class Modula_Upgrades {
 
 	private $upgrades_key = 'modula_completed_upgrades';
 	private $completed_upgrades = array();
-	
+
 	function __construct() {
 		$upgrades = array(
 			'modula_v2' => array(
@@ -56,7 +56,7 @@ class Modula_Upgrades {
 		// Check if is a new 2.0.0 install or an old install
         $version = get_option( 'modula_version', array() );
 
-        
+
 		$check = false;
 		if(!empty($version) && $version['current_version'] !== MODULA_LITE_VERSION ){
 		    $check = true;
@@ -95,7 +95,7 @@ class Modula_Upgrades {
 
 		$version = get_option( 'modula_version' );
 		foreach ( $this->upgrades as $key => $upgrade ) {
-			
+
 			if ( version_compare( $version['upgraded_from'], $upgrade['version'], $upgrade['compare'] ) && ! $this->check_upgrade_complete( $key ) ) {
 				$this->isNotice = true;
 				printf(
@@ -164,9 +164,9 @@ class Modula_Upgrades {
 		global $wpdb;
 		$table_name = $wpdb->prefix.'modula';
 		$galleries = $wpdb->get_var( "SELECT COUNT(Id) as galleries FROM $table_name" );
-		
+
 		if ( '0' == $galleries ) {
-			
+
 			echo '<div class="wrap" style="text-align:center;margin-top:70px;"><h1>' . esc_html__( 'Hooray you don\'t have any Modula galleries to upgrade.', 'modula-best-grid-gallery' ) . '</h1>';
 			echo '<p class="about-text">' . esc_html__( 'It seems like you didn\'t create any galleries with Modula', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
@@ -196,7 +196,7 @@ class Modula_Upgrades {
 				echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
 				echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
 			}elseif ( 'custom-import' == $tab ) {
-				
+
 				global $wpdb;
 				$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula';
 				$galleries       = $wpdb->get_results( $galleries_query );
@@ -218,7 +218,7 @@ class Modula_Upgrades {
 
 			echo '</div>';
 
-			
+
 			echo '</div>';
 
 		}
@@ -276,11 +276,12 @@ class Modula_Upgrades {
 		}
 
 		global $wpdb;
-		$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula WHERE Id=' . $gallery_ID;
+		$galleries_query = $wpdb->prepare( "SELECT * FROM " . $wpdb->prefix . "modula WHERE Id = %d", $gallery_ID );
+
 		$gallery = $wpdb->get_row( $galleries_query );
 
 		if ( $gallery ) {
-			
+
 			$id = $gallery->Id;
 			$config = json_decode( $gallery->configuration, true );
 
@@ -311,7 +312,7 @@ class Modula_Upgrades {
 
 			$modula_settings[ 'enableSocial' ] = (isset($modula_settings['disableSocial']) && '1' == $modula_settings['disableSocial']) ? 0 : 1;
 			unset( $modula_settings['disableSocial'] );
-			
+
             $default_gallery_settings = array(
                 'type'                      => 'creative-gallery',
                 'width'                     => '100%',
