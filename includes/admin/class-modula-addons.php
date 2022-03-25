@@ -25,12 +25,13 @@ class Modula_Addons {
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
 				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
 			),
-			/* 'modula-envira-migrator' => array(
+			'modula-envira-migrator' => array(
 				'slug' => 'modula-envira-migrator',
 				'name' => __( 'Migrate away from Envira', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
 				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
 			),
+			/*
 			'modula-photoblocks-migrator' => array(
 				'slug' => 'modula-photoblocks-migrator',
 				'name' => __( 'Migrate away from PhotoBlocks', 'modula-best-grid-gallery' ),
