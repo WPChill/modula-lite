@@ -1,4 +1,7 @@
-= 2.6.3 - 21/02/2022 =
+= 2.6.4 - 28/03/2022 =
+Changed: Added Modula Envira Migrator to free extensions
+
+= 2.6.3 - 21/03/2022 =
 Fixed: Sanitization and preparation for WP Core galleries import ( https://github.com/WPChill/modula-lite/issues/625 )
 Fixed: Metaboxes forever opened and arrows hidden ( https://github.com/WPChill/modula-lite/issues/639 )
 Fixed: Custom Posts Gutenberg block - now available everywhere Gutenberg is ( https://github.com/WPChill/modula-lite/issues/626 )
