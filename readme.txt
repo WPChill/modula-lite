@@ -184,18 +184,6 @@ This errors means that the browser doesn't know the Modula JavaScript plugin, mo
 
 If you get blurry and pixellated images then you need to raise the "Minimum image width" parameter inside the "General" section.
 
-= I want to use another lightbox instead of the provided one =
-
-The PRO license bundles 6 different lightboxes. However you can use any other lightbox you want also with the Lite license. If you have installed a lightbox plugin then you just need to select "Direct link to image" in the "Lightbox" settings.
-
-= How can I change the lightbox's background? =
-
-You can change the lightbox popup background color using the following code:
-
-  `body .lg-backdrop {
-    background-color: white;
-    }`
-
 = How can I get support? =
 
 Free support is included only with a PRO license: [Buy Modula PRO](https://wp-modula.com/pricing/)
