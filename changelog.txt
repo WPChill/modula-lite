@@ -1,5 +1,5 @@
 = 2.6.4 - 28/03/2022 =
-Changed: Added Modula Envira Migrator to free extensions
+Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions ( https://github.com/WPChill/modula-lite/issues/647, https://github.com/WPChill/modula-lite/issues/648 )
 
 = 2.6.3 - 21/03/2022 =
 Fixed: Sanitization and preparation for WP Core galleries import ( https://github.com/WPChill/modula-lite/issues/625 )
