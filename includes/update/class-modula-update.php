@@ -120,13 +120,12 @@ class Modula_Update {
 				<div class="hero features">
 
 					<div class="mascot">
-						<img src="<?php echo esc_attr( MODULA_URL ); ?>assets/images/logo-dark.png" alt="<?php esc_attr_e( 'Strong Testimonials Mascot', 'strong-testimonials' ); ?>">
+						<img src="<?php echo esc_attr( MODULA_URL ); ?>assets/images/logo-dark.png" alt="<?php esc_attr_e( 'Modula Logo', 'modula-best-grid-gallery' ); ?>">
 					</div>
 
 					<div class="block">
                         <?php $welcome->display_heading( 'Thank you for installing Modula' ); ?>
 						<?php $welcome->display_subheading( 'You\'re just a few steps away from creating your first fully customizable gallery to showcase your images (or videos) with the easiest to use WordPress gallery plugin on the market.' ); ?>
-                        <?php $welcome->display_subheading( 'Read our step-by-step guide to get started.' ); ?>
                     </div>
                     <div class="button-wrap-single">
                         <?php $welcome->display_button( 'Read our step-by-step guide to get started', 'https://modula.helpscoutdocs.com/article/264-how-to-create-your-first-gallery', true, '#2a9d8f' ); ?>
