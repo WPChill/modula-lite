@@ -144,7 +144,17 @@ class Modula_Update {
                         <?php $welcome->display_extension( 'Zoom in', ' Allow visitors to see your work in detail and admire each piece of your artwork up close in the Lightbox',  esc_attr( MODULA_URL ). 'assets/images/addons/modula-zoom.png', true, '#2a9d8f' ); ?>
                         <?php $welcome->display_extension( 'User role limitations', 'Admins decide which user roles can create, edit, and remove galleries and albums, as well as defaults/presets.',  esc_attr( MODULA_URL ). "assets/images/addons/modula-roles.png", true, '#2a9d8f' ); ?>
 						<?php $welcome->layout_end(); ?>
-
+                    
+                    
+                        <div class="testimonials">
+                            <div class="block clear">
+                                <?php $welcome->display_heading( 'Happy users of the Modula - premium version' ); ?>
+                            
+                                <?php $welcome->display_testimonial( 'Modula is the best gallery plugin for WordPress I’ve ever used. It’s fast, easy to get started, and has some killer features. It’s also super customizable. As a developer I appreciate that for my clients. As a user, I appreciate that I don’t need to add any code.', esc_attr( MODULA_URL ). "assets/images/joe-casabona.webp", 'Joe Casabona'); ?>
+                                <?php $welcome->display_testimonial( 'Finally a beautiful looking image gallery plugin with a development team that actually cares about web performance. If you’re looking to showcase your images, without sacrificing quality and care about the speed of your website, this is the plugin for you.', esc_attr( MODULA_URL ). "assets/images/Brian-Jackson-116x116-1.jpg", 'Brian Jackson'); ?>
+                            </div>
+                        </div><!-- testimonials -->
+   
 						<div class="button-wrap clear">
 							<div class="left">
                                 <?php $welcome->display_button( 'Start Adding Galleries', esc_url( admin_url( 'edit.php?post_type=modula-gallery' ) ), true, '#2a9d8f' ); ?>
@@ -153,6 +163,7 @@ class Modula_Update {
                                 <?php $welcome->display_button( 'Upgrade Now', 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner', true, '#E76F51' ); ?>
 							</div>
 						</div>
+
 					</div>
 				</div><!-- hero -->
 			</div><!-- container -->
