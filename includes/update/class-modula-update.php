@@ -148,7 +148,7 @@ class Modula_Update {
                     
                         <div class="testimonials">
                             <div class="block clear">
-                                <?php $welcome->display_heading( 'Happy users of the Modula - premium version' ); ?>
+                                <?php $welcome->display_heading( 'Happy users Modula' ); ?>
                             
                                 <?php $welcome->display_testimonial( 'Modula is the best gallery plugin for WordPress I’ve ever used. It’s fast, easy to get started, and has some killer features. It’s also super customizable. As a developer I appreciate that for my clients. As a user, I appreciate that I don’t need to add any code.', esc_attr( MODULA_URL ). "assets/images/joe-casabona.webp", 'Joe Casabona'); ?>
                                 <?php $welcome->display_testimonial( 'Finally a beautiful looking image gallery plugin with a development team that actually cares about web performance. If you’re looking to showcase your images, without sacrificing quality and care about the speed of your website, this is the plugin for you.', esc_attr( MODULA_URL ). "assets/images/Brian-Jackson-116x116-1.jpg", 'Brian Jackson'); ?>
