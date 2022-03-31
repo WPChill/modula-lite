@@ -1,7 +1,7 @@
 {
 	"name": "modula-best-grid-gallery",
 	"main": "Gruntfile.js",
-	"version": "2.6.4",
+	"version": "2.6.5",
 	"author": "Macho Themes",
 	"license": "GPL v3",
 	"repository": "https://github.com/machothemes/modula-lite.git",

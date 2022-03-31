@@ -1,3 +1,7 @@
+= 2.6.5 - 04/04/2022 =
+Added: Migrate away from PhotoBlocks Gallery
+Changed: Modified the About page.
+
 = 2.6.4 - 28/03/2022 =
 Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions ( https://github.com/WPChill/modula-lite/issues/647, https://github.com/WPChill/modula-lite/issues/648 )
 
