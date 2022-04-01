@@ -21,7 +21,7 @@ class Modula_About_Page {
 
 		add_filter( 'modula_admin_page_link', array( $this, 'modula_about_menu' ), 25, 1 );
 		add_filter( 'submenu_file', array( $this, 'remove_about_submenu_item' ) );
-		register_activation_hook( MODULA_FILE, array( $this, 'modula_about_redirect' ) );
+		add_action( 'modula_on_activation_check', array( $this, 'on_activate_redirect' ), 15, 3 );
 	}
 
 
@@ -33,7 +33,7 @@ class Modula_About_Page {
 	 * @return mixed
 	 * @since 2.6.5
 	 */
-	function modula_about_menu( $links ) {
+	public function modula_about_menu( $links ) {
 
 		// Register the hidden submenu.
 		$links[] = array(
@@ -75,17 +75,30 @@ class Modula_About_Page {
 		return self::$instance;
 	}
 
+	/**
+	 * Hook to activated_plugin to redirect to about page
+	 *
+	 * @param array $version The current installed version of the plugin.
+	 * @param bool  $checked Whether the plugin has been installed before or note.
+	 *
+	 * @since 2.6.5
+	 */
+	public function on_activate_redirect( $version, $upgrade, $first_install ) {
+
+		if ( $first_install ) {
+			add_action( 'activated_plugin', array( $this, 'modula_about_redirect' ) );
+		}
+	}
 
 	/**
 	 * Redirect to About page when activated
 	 *
-	 * @param $plugin
+	 * @param string $plugin The plugin file.
+	 *
 	 * @since 2.6.5
 	 */
 	public function modula_about_redirect( $plugin ) {
-
-		if ( ! get_option( 'modula_version' ) ) {
-
+		if ( MODULA_FILE === $plugin ) {
 			wp_safe_redirect( admin_url( 'edit.php?post_type=modula-gallery&page=modula-about-page' ) );
 			exit;
 		}

@@ -52,14 +52,14 @@ class Modula_Upgrades {
 	}
 
 	public function check_on_activate() {
-
+		
 		// Check if is a new 2.0.0 install or an old install
-        $version = get_option( 'modula_version', array() );
+        $version       = get_option( 'modula_version', array() );
+		$first_install =  empty( $version );
+		$upgrade       = false;
 
-
-		$check = false;
 		if(!empty($version) && $version['current_version'] !== MODULA_LITE_VERSION ){
-		    $check = true;
+		    $upgrade = true;
         }
 
 		if ( empty( $version ) ) {
@@ -76,6 +76,8 @@ class Modula_Upgrades {
 		}
 
 		update_option( 'modula_version', $version );
+
+		do_action( 'modula_on_activation_check', $version, $upgrade, $first_install );
 
 	}
 
