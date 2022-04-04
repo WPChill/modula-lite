@@ -39,8 +39,13 @@ $welcome = WPChill_Welcome::get_instance();
 				<?php $welcome->display_extension( esc_html__( 'Zoom in', 'modula-best-grid-gallery' ), esc_html__( 'Allow visitors to see your work in detail and admire each piece of your artwork up close in the Lightbox', 'modula-best-grid-gallery' ), esc_attr( MODULA_URL ) . 'assets/images/addons/modula-zoom.png', true, '#2a9d8f' ); ?>
 				<?php $welcome->display_extension( esc_html__( 'User role limitations', 'modula-best-grid-gallery' ), esc_html__( 'Admins decide which user roles can create, edit, and remove galleries and albums, as well as defaults/presets.', 'modula-best-grid-gallery' ), esc_attr( MODULA_URL ) . 'assets/images/addons/modula-roles.png', true, '#2a9d8f' ); ?>
 				<?php $welcome->layout_end(); ?>
-			
-			
+
+				<div class="button-wrap-single">
+					<div class="left">
+						<?php $welcome->display_button( esc_html__( 'Upgrade to pro', 'modula-best-grid-gallery' ), 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner', true, '#E76F51' ); ?>
+					</div>
+				</div>
+
 				<div class="testimonials">
 					<div class="block clear">
 						<?php $welcome->display_heading( esc_html__( 'Happy users Modula', 'modula-best-grid-gallery' ) ); ?>
