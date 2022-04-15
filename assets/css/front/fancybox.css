@@ -344,9 +344,7 @@ html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-foc
 
 html body .modula-fancybox-container .modula-fancybox-button[disabled],
 html body .modula-fancybox-container .modula-fancybox-button[disabled]:hover {
-    color: #888;
-    cursor: default;
-    outline: none;
+    display: none;
 }
 
 /* Fix IE11 */
