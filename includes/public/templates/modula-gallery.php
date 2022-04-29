@@ -49,9 +49,9 @@
 				'img_attributes'    => array(
 					'data-valign'   => esc_attr( $image['valign'] ),
 					'data-halign'   => esc_attr( $image['halign'] ),
-					'alt'           => esc_attr( htmlspecialchars( $image['alt'], ENT_QUOTES ) ),
+					'alt'           => $image['alt'], ENT_QUOTES,
 					'data-full'     => esc_url( $image_object->guid ),
-					'title'         => esc_attr( htmlspecialchars( $image[ 'title' ], ENT_QUOTES ) ),
+					'title'         => $image[ 'title' ], ENT_QUOTES,
 				),
 			);
 
