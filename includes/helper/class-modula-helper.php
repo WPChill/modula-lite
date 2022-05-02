@@ -28,11 +28,9 @@ class Modula_Helper {
 				$value = str_replace( '<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
 				$value = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $value );
-			} else {
-				$value = esc_attr( $value );
 			}
 
-			$return .= ' ' . esc_attr( $name ) . '="' . $value . '"';
+			$return .= ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
 		}
 
 		return $return;

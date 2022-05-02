@@ -2,7 +2,6 @@
 Fixed: Sanitization not showing quotation marks in image title ( https://github.com/WPChill/modula-lite/issues/627 )
 Changed: Last image arrow in lightbox is now hidden ( https://github.com/WPChill/modula-lite/issues/621 )
 
-
 = 2.6.5 - 04/04/2022 =
 Added: Migrate away from PhotoBlocks Gallery
 Changed: Modified the About page.

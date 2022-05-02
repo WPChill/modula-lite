@@ -349,6 +349,14 @@ html body .modula-fancybox-container .modula-fancybox-button[disabled]:hover {
     outline: none;
 }
 
+
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_left[disabled],
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_left[disabled]:hover,
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_right[disabled],
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_right[disabled]:hover  {
+    display:none;
+}
+
 /* Fix IE11 */
 html body .modula-fancybox-container .modula-fancybox-button div {
     height: 100%;
