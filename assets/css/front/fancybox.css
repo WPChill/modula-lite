@@ -344,7 +344,17 @@ html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-foc
 
 html body .modula-fancybox-container .modula-fancybox-button[disabled],
 html body .modula-fancybox-container .modula-fancybox-button[disabled]:hover {
-    display: none;
+    color: #888;
+    cursor: default;
+    outline: none;
+}
+
+
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_left[disabled],
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_left[disabled]:hover,
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_right[disabled],
+html body .modula-fancybox-container .modula-fancybox-button.modula-fancybox-button--arrow_right[disabled]:hover  {
+    display:none;
 }
 
 /* Fix IE11 */
