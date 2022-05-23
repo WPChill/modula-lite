@@ -104,27 +104,28 @@
 
                     <!-- Hide from lightbox -->
                     <div class="setting modula-toggle-lightbox">
-                    <div class="modula-toggle">
-
-                        <input class="modula-toggle__input" type="checkbox" name="togglelightbox" value="1"<# if ( data.togglelightbox == '1' ) { #> checked <# } #> />
-                        <# if ( data.togglelightbox == '1' ) { #> checked <# } else { #> teste <#} #>
-                        <div class="modula-toggle__items">
-                            <span class="modula-toggle__track"></span>
-                            <span class="modula-toggle__thumb"></span>
-                            <svg class="modula-toggle__off" width="6" height="6" aria-hidden="true"
-                                    role="img"
-                                    focusable="false"
-                                    viewBox="0 0 6 6">
-                                <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
-                            </svg>
-                            <svg class="modula-toggle__on" width="2" height="6" aria-hidden="true"
-                                    role="img"
-                                    focusable="false"
-                                    viewBox="0 0 2 6">
-                                <path d="M0 0h2v6H0z"></path>
-                            </svg>
+                        <div class="modula-toggle">
+                            <label class="">
+                                <span class="name"><?php esc_html_e( 'Hide image from lightbox', 'modula-best-grid-gallery' ); ?></span>
+                                <input class="modula-toggle__input" type="checkbox" name="togglelightbox" value="1"<# if ( data.togglelightbox == '1' ) { #> checked <# } #> />
+                                <div class="modula-toggle__items">
+                                    <span class="modula-toggle__track"></span>
+                                    <span class="modula-toggle__thumb"></span>
+                                    <svg class="modula-toggle__off" width="6" height="6" aria-hidden="true"
+                                            role="img"
+                                            focusable="false"
+                                            viewBox="0 0 6 6">
+                                        <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                                    </svg>
+                                    <svg class="modula-toggle__on" width="2" height="6" aria-hidden="true"
+                                            role="img"
+                                            focusable="false"
+                                            viewBox="0 0 2 6">
+                                        <path d="M0 0h2v6H0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
                         </div>
-                    </div>
                     </div>
 
                     <!-- Addons can populate the UI here -->

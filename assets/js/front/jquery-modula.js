@@ -192,18 +192,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 	Plugin.prototype.initLightbox = function() {
 		var self = this;
 
+		self.$element.on('click', '.modula-no-follow', function(evt) {
+			evt.preventDefault();
+		});
+
 		self.$element.on('click', '.modula-item-link:not( .modula-simple-link )', function(evt) {
 			evt.preventDefault();
 			var clickedLink = jQuery(this);
-			var curent = 0;
 			var links = $.map(self.$items, function(o) {
 				if( jQuery(o).find('.modula-item-link:not( .modula-no-follow )').length > 0 ){
 					var link = jQuery(o).find('.modula-item-link:not( .modula-simple-link )'),
 						image = jQuery(o).find('.pic');
-
-					if( jQuery(o).is(clickedLink.parents('.modula-item')) ){
-						curent = o.index;
-					}
 					return {
 						src: link.attr('href'),
 						opts: {
@@ -212,12 +211,16 @@ jQuery(window).on('elementor/frontend/init', function () {
 							alt: image.attr('alt'),
 							image_id: link.attr('data-image-id')
 						},
+						current: jQuery(o).is(clickedLink.parents('.modula-item')) ,
 					};	
 					
 				}
 				}),
-				index = curent;
-				console.log(index);
+				index = $.map(links,function(element,myIndex){
+					if( element.current ){
+						return myIndex;
+					}
+				})[0];
 
 			jQuery.modulaFancybox.open(links, self.options.lightboxOpts, index);
 		});
