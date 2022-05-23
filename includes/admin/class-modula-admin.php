@@ -345,6 +345,7 @@ class Modula_Admin {
 				'target',
 				'width',
 				'height',
+				'togglelightbox',
 			)
 		);
 
@@ -367,6 +368,13 @@ class Modula_Admin {
 						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
 						break;
 					case 'target':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'togglelightbox':
 						if ( isset( $image[ $attribute ] ) ) {
 							$new_image[ $attribute ] = absint( $image[ $attribute ] );
 						} else {
@@ -456,6 +464,7 @@ class Modula_Admin {
 		if ( ! isset( $_POST['image'] ) ) {
 			wp_send_json( array( 'status' => 'failed' ) );
 		}
+
 
 		$image      = json_decode( stripslashes( $_POST['image'] ), true );
 		$old_images = get_post_meta( $gallery_id, 'modula-images', true );

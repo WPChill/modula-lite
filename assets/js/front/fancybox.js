@@ -578,7 +578,7 @@
 
     // Existing slides (for current, next and previous gallery items)
     self.slides = {};
-
+//console.log(content);
     // Create group elements
     self.addContent(content);
 
@@ -3427,7 +3427,7 @@
     }
 
     index = $(items).index($target);
-
+console.log(items);
     // Sometimes current item can not be found
     if (index < 0) {
       index = 0;

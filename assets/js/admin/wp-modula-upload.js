@@ -454,7 +454,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 		},
 
 		generateSingleImage: function( attachment ){
-			var data = { halign: 'center', valign: 'middle', link: '', target: '' }
+			var data = { halign: 'center', valign: 'middle', link: '', target: '', togglelightbox: ''}
 
 			data['full']      = attachment['sizes']['full']['url'];
 			if ( "undefined" != typeof attachment['sizes']['large'] ) {
