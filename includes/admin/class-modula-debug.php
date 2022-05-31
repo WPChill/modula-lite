@@ -316,9 +316,9 @@ class Modula_Debug {
 				<div class="modula-upsell modula-upsell-item">
 					<p class="modula-upsell-description"><?php echo esc_html__( 'Export gallery and send it to Modula\'s support team so that we can debug your problem much easier.', 'modula-best-grid-gallery' ); ?></p>
 					<p>
-						<a href="<?php echo add_query_arg( array(
+						<a href="<?php echo esc_url( add_query_arg( array(
 								'modula_single_download' => absint( get_the_ID() ),
-						) ); ?>"
+						) ) ); ?>"
 						   class="button"><?php esc_html_e( 'Export gallery', 'modula-best-grid-gallery' ) ?></a>
 
 					</p>

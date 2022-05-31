@@ -34,13 +34,13 @@ function modula_duplicate_gallery_save_as_new_post( $status = '' ) {
 				$sendback = remove_query_arg( array( 'trashed', 'untrashed', 'deleted', 'cloned', 'ids' ), $sendback );
 			}
 			// Redirect to the post list screen
-			wp_redirect( add_query_arg( array( 'cloned' => 1, 'ids' => $post->ID ), $sendback ) );
+			wp_redirect( esc_url( add_query_arg( array( 'cloned' => 1, 'ids' => $post->ID ), esc_url( $sendback ) ) ) );
 		} else {
 			// Redirect to the edit screen for the new draft post
-			wp_redirect( add_query_arg( array(
+			wp_redirect( esc_url( add_query_arg( array(
 				'cloned' => 1,
 				'ids'    => $post->ID
-			), admin_url( 'post.php?action=edit&post=' . $new_id ) ) );
+			), admin_url( 'post.php?action=edit&post=' . $new_id ) ) ) );
 		}
 		exit;
 
