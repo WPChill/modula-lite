@@ -636,7 +636,7 @@
         $("head").append(
           '<style id="modula-fancybox-style-noscroll" type="text/css">.compensate-for-scrollbar{margin-right:' +
           (window.innerWidth - document.documentElement.clientWidth) +
-          "px;}</style>"
+          "px;overflow:hidden;}</style>"
         );
 
         $("body").addClass("compensate-for-scrollbar");
