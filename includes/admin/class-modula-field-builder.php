@@ -103,7 +103,7 @@ class Modula_Field_Builder {
 		echo '<div class="upload-info-container">';
 		echo '<div class="upload-info">';
                 if (current_user_can('upload_files')) {
-                    echo sprintf( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ), esc_html( size_format( $max_upload_size ) ) );
+                    echo sprintf( wp_kses_post( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ) ), esc_html( size_format( $max_upload_size ) ) );
                     echo '</div>';
                     echo '<div class="upload-progress">';
                     echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
@@ -114,7 +114,7 @@ class Modula_Field_Builder {
                     echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
                     do_action( 'modula_gallery_media_button');
                 } else {
-                    echo '<b>' . __( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
+                    echo '<b>' . esc_html__( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
                     echo '</div>';
                 }
 		echo '</div>';
@@ -218,7 +218,7 @@ class Modula_Field_Builder {
 		}
 
 		$html = '<div class="modula-settings-container"><div class="modula-tabs">%s</div><div class="modula-tabs-content">%s</div>';
-		printf( $html, $tabs_html, $tabs_content_html );
+		printf( wp_kses_post( $html ), wp_kses_post( $tabs_html ), $tabs_content_html );
 	}
 
 	/* Create HMTL for shortcode metabox */

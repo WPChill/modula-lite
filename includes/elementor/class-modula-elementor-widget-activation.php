@@ -92,9 +92,9 @@ class Modula_Elementor_Widget_Activation {
 
 	public function modula_elementor_ajax_search() {
 
-        if ('modula_elementor_ajax_search' == $_POST['action']) {
+        if ( isset( $_POST['action'] ) && 'modula_elementor_ajax_search' == $_POST['action'] ) {
 
-            if ('' != $_POST['s']) {
+            if ( isset( $_POST['s'] ) && '' != $_POST['s'] ) {
 
                 $args = array(
                     'post_type'      => 'modula-gallery',

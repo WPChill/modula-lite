@@ -277,7 +277,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			}
 			$body['marketing_method'] = $this->marketing;
 
-			$body['server'] = isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : '';
+			$body['server'] = isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( $_SERVER['SERVER_SOFTWARE'] ) : '';
 
 			// Extra PHP fields
 			$body['memory_limit'] = ini_get( 'memory_limit' );
@@ -845,8 +845,8 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $notice_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'modula-best-grid-gallery' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'modula-best-grid-gallery' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php esc_html_e( 'Allow', 'modula-best-grid-gallery' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php esc_html_e( 'Do Not Allow', 'modula-best-grid-gallery' ); ?></a>
 					</p>
 				</div>
 			<?php
@@ -892,8 +892,8 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $marketing_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php _e( 'Yes Please', 'singularity' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php _e( 'No Thank You', 'singularity' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php esc_html_e( 'Yes Please', 'singularity' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php esc_html_e( 'No Thank You', 'singularity' ); ?></a>
 					</p>
 				</div>
 				<?php }
@@ -1051,7 +1051,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 						// We'll send the user to this deactivation link when they've completed or dismissed the form.
 						$( 'body' ).toggleClass( '<?php echo esc_attr($this->plugin_name); ?>-put-form-active' );
 						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).fadeIn();
-						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).html( '<?php echo $html; ?>' + '<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer"><p><a id="<?php echo esc_attr($this->plugin_name); ?>-put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'download-monitor' ); ?></a>&nbsp;<a class="secondary button" href="' + url + '"><?php _e( 'Just Deactivate', 'download-monitor' ); ?></a></p></div>' );
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).html( '<?php echo $html; ?>' + '<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer"><p><a id="<?php echo esc_attr($this->plugin_name); ?>-put-submit-form" class="button primary" href="#"><?php esc_html_e( 'Submit and Deactivate', 'download-monitor' ); ?></a>&nbsp;<a class="secondary button" href="' + url + '"><?php esc_html_e( 'Just Deactivate', 'download-monitor' ); ?></a></p></div>' );
 					} );
 
 					$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form"  ).on( "click", "#<?php echo esc_attr( $this->plugin_name ); ?>-put-submit-form", function ( e ) {
@@ -1106,13 +1106,14 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 * @since 1.0.0
 		 */
 		public function goodbye_form_callback() {
+
 			check_ajax_referer( 'wisdom_goodbye_form', 'security' );
 			if( isset( $_POST['values'] ) ) {
-				$values = json_encode( wp_unslash( $_POST['values'] ) );
+				$values = json_encode( array_map( 'sanitize_text_field', wp_unslash( $_POST['values'] ) ) );
 				update_option( 'wisdom_deactivation_reason_' . $this->plugin_name, $values );
 			}
 			if( isset( $_POST['details'] ) ) {
-				$details = sanitize_text_field( $_POST['details'] );
+				$details = sanitize_text_field( wp_unslash( $_POST['details'] ) );
 				update_option( 'wisdom_deactivation_details_' . $this->plugin_name, $details );
 			}
 			$this->do_tracking(); // Run this straightaway

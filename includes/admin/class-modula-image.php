@@ -130,7 +130,7 @@ class Modula_Image {
             $pathinfo    = parse_url( $url );
             // $uploads_dir = is_multisite() ? '/files/' : '/wp-content/';
             $uploads_dir = is_multisite() ? '/files/' : '/' . str_replace( ABSPATH, '', WP_CONTENT_DIR ) . '/';
-            $file_path   = ABSPATH . str_replace( dirname( $_SERVER['SCRIPT_NAME'] ) . '/', '', strstr( $pathinfo['path'], $uploads_dir ) );
+            $file_path   = ABSPATH . str_replace( dirname( isset( $_SERVER['SCRIPT_NAME'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ) : '' ) . '/', '', strstr( $pathinfo['path'], $uploads_dir ) );
             $file_path   = preg_replace( '/(\/\/)/', '/', $file_path );
         }
 

@@ -256,7 +256,7 @@ class Modula_CPT {
 								break;
 							case 'lightbox' :
 								if ( in_array( $_POST['modula-settings'][$field_id], $lightbox_values ) ) {
-									$modula_settings[$field_id] = sanitize_text_field( $_POST['modula-settings'][$field_id] );
+									$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								} else {
 									$modula_settings[$field_id] = 'fancybox';
 								}
@@ -268,13 +268,13 @@ class Modula_CPT {
 							case 'enablePinterest' :
 							case 'enableEmail':
 							case 'emailSubject':
-								$modula_settings[$field_id] = sanitize_text_field( $_POST['modula-settings'][$field_id] );
+								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'imageMessage':
-								$modula_settings[$field_id] = sanitize_text_field( $_POST['modula-settings'][$field_id] );
+								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'galleryMessage':
-								$modula_settings[$field_id] = sanitize_text_field( $_POST['modula-settings'][$field_id] );
+								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'shuffle' :
 								if ( isset( $_POST['modula-settings'][$field_id] ) ) {
@@ -287,7 +287,7 @@ class Modula_CPT {
 							case 'socialIconColor':
 							case 'borderColor':
 							case 'shadowColor':
-								$modula_settings[$field_id] = Modula_Helper::sanitize_rgba_colour( $_POST['modula-settings'][$field_id] );
+								$modula_settings[$field_id] = Modula_Helper::sanitize_rgba_colour( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'effect' :
 								if ( in_array( $_POST['modula-settings'][$field_id], $effect_values ) ) {
@@ -304,10 +304,10 @@ class Modula_CPT {
 								break;
 							default:
 								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
-									$sanitized                  = array_map( 'sanitize_text_field', $_POST['modula-settings'][$field_id] );
-									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, $_POST['modula-settings'][$field_id], $field_id, $field );
+									$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
 								} else {
-									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( $_POST['modula-settings'][$field_id] ), $_POST['modula-settings'][$field_id], $field_id, $field );
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
 								}
 
 								break;
@@ -388,7 +388,7 @@ class Modula_CPT {
 			Modula_Admin_Helpers::modula_tab_navigation( $tabs, 'galleries' );
 			?>
 
-			<a href="<?php echo admin_url( 'post-new.php?post_type=' . $this->cpt_name ); ?>" class="page-title-action">
+			<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=' . $this->cpt_name ) ); ?>" class="page-title-action">
 				<?php esc_html_e( 'Add New', 'modula-best-grid-gallery' ); ?>
 			</a>
 		</h2>
@@ -501,7 +501,7 @@ class Modula_CPT {
 					<?php if ( is_post_type_viewable( $post_type_object ) ) : ?>
 						<div id="preview-action">
 							<?php
-							$preview_link = esc_url( get_preview_post_link( $post ) );
+							$preview_link =  get_preview_post_link( $post );
 							if ( 'publish' == $post->post_status ) {
 								$preview_button_text = esc_html__( 'Preview Changes', 'modula-best-grid-gallery' );
 							} else {
@@ -515,9 +515,9 @@ class Modula_CPT {
 								esc_html__( '(opens in a new tab)', 'modula-best-grid-gallery' )
 							);
 							?>
-							<a class="preview button" href="<?php echo $preview_link; ?>"
+							<a class="preview button" href="<?php echo esc_url( $preview_link ); ?>"
 							   target="wp-preview-<?php echo (int)$post->ID; ?>"
-							   id="post-preview"><?php echo $preview_button; ?></a>
+							   id="post-preview"><?php echo wp_kses_post( $preview_button ); ?></a>
 							<input type="hidden" name="wp-preview" id="wp-preview" value=""/>
 						</div>
 					<?php endif; // public post type ?>
@@ -543,20 +543,20 @@ class Modula_CPT {
 
 			switch ( $post->post_status ) {
 				case 'private':
-					_e( 'Privately Published' );
+					esc_html_e( 'Privately Published' );
 					break;
 				case 'publish':
-					_e( 'Published' );
+					esc_html_e( 'Published' );
 					break;
 				case 'future':
-					_e( 'Scheduled' );
+					esc_html_e( 'Scheduled' );
 					break;
 				case 'pending':
-					_e( 'Pending Review' );
+					esc_html_e( 'Pending Review' );
 					break;
 				case 'draft':
 				case 'auto-draft':
-					_e( 'Draft' );
+					esc_html_e( 'Draft' );
 					break;
 			}
 			?>
@@ -569,45 +569,45 @@ class Modula_CPT {
 							}
 							?>
 							<a href="#post_status" <?php echo $private_style; ?> class="edit-post-status hide-if-no-js"
-							   role="button"><span aria-hidden="true"><?php _e( 'Edit' ); ?></span> <span
-										class="screen-reader-text"><?php _e( 'Edit status' ); ?></span></a>
+							   role="button"><span aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Edit status' ); ?></span></a>
 
 							<div id="post-status-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_status" id="hidden_post_status"
 								       value="<?php echo esc_attr( ('auto-draft' == $post->post_status) ? 'draft' : $post->post_status ); ?>"/>
-								<label for="post_status" class="screen-reader-text"><?php _e( 'Set status' ); ?></label>
+								<label for="post_status" class="screen-reader-text"><?php esc_html_e( 'Set status' ); ?></label>
 								<select name="post_status" id="post_status">
 									<?php if ( 'publish' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'publish' ); ?>
-												value='publish'><?php _e( 'Published' ); ?></option>
+												value='publish'><?php esc_html_e( 'Published' ); ?></option>
 									<?php elseif ( 'private' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'private' ); ?>
-												value='publish'><?php _e( 'Privately Published' ); ?></option>
+												value='publish'><?php esc_html_e( 'Privately Published' ); ?></option>
 									<?php elseif ( 'future' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'future' ); ?>
-												value='future'><?php _e( 'Scheduled' ); ?></option>
+												value='future'><?php esc_html_e( 'Scheduled' ); ?></option>
 									<?php endif; ?>
 									<option<?php selected( $post->post_status, 'pending' ); ?>
-											value='pending'><?php _e( 'Pending Review' ); ?></option>
+											value='pending'><?php esc_html_e( 'Pending Review' ); ?></option>
 									<?php if ( 'auto-draft' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'auto-draft' ); ?>
-												value='draft'><?php _e( 'Draft' ); ?></option>
+												value='draft'><?php esc_html_e( 'Draft' ); ?></option>
 									<?php else : ?>
 										<option<?php selected( $post->post_status, 'draft' ); ?>
-												value='draft'><?php _e( 'Draft' ); ?></option>
+												value='draft'><?php esc_html_e( 'Draft' ); ?></option>
 									<?php endif; ?>
 								</select>
 								<a href="#post_status"
-								   class="save-post-status hide-if-no-js button"><?php _e( 'OK' ); ?></a>
+								   class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK' ); ?></a>
 								<a href="#post_status"
-								   class="cancel-post-status hide-if-no-js button-cancel"><?php _e( 'Cancel' ); ?></a>
+								   class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel' ); ?></a>
 							</div>
 
 						<?php } ?>
 					</div><!-- .misc-pub-section -->
 
 					<div class="misc-pub-section misc-pub-visibility" id="visibility">
-						<?php _e( 'Visibility:' ); ?> <span id="post-visibility-display">
+						<?php esc_html_e( 'Visibility:' ); ?> <span id="post-visibility-display">
 							<?php
 
 							if ( 'private' == $post->post_status ) {
@@ -630,8 +630,8 @@ class Modula_CPT {
 </span>
 						<?php if ( $can_publish ) { ?>
 							<a href="#visibility" class="edit-visibility hide-if-no-js" role="button"><span
-										aria-hidden="true"><?php _e( 'Edit' ); ?></span> <span
-										class="screen-reader-text"><?php _e( 'Edit visibility' ); ?></span></a>
+										aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Edit visibility' ); ?></span></a>
 
 							<div id="post-visibility-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_password" id="hidden-post-password"
@@ -646,17 +646,17 @@ class Modula_CPT {
 								<input type="radio" name="visibility" id="visibility-radio-public"
 								       value="public" <?php checked( $visibility, 'public' ); ?> /> <label
 										for="visibility-radio-public"
-										class="selectit"><?php _e( 'Public' ); ?></label><br/>
+										class="selectit"><?php esc_html_e( 'Public' ); ?></label><br/>
 								<?php if ( $post_type == 'post' && current_user_can( 'edit_others_posts' ) ) : ?>
 									<span id="sticky-span"><input id="sticky" name="sticky" type="checkbox"
 									                              value="sticky" <?php checked( is_sticky( $post->ID ) ); ?> /> <label
 												for="sticky"
-												class="selectit"><?php _e( 'Stick this post to the front page' ); ?></label><br/></span>
+												class="selectit"><?php esc_html_e( 'Stick this post to the front page' ); ?></label><br/></span>
 								<?php endif; ?>
 								<input type="radio" name="visibility" id="visibility-radio-password"
 								       value="password" <?php checked( $visibility, 'password' ); ?> /> <label
 										for="visibility-radio-password"
-										class="selectit"><?php _e( 'Password protected' ); ?></label><br/>
+										class="selectit"><?php esc_html_e( 'Password protected' ); ?></label><br/>
 								<span id="password-span"><label for="post_password"><?php _e( 'Password:' ); ?></label> <input
 											type="text" name="post_password" id="post_password"
 											value="<?php echo esc_attr( $post->post_password ); ?>"
@@ -664,13 +664,13 @@ class Modula_CPT {
 								<input type="radio" name="visibility" id="visibility-radio-private"
 								       value="private" <?php checked( $visibility, 'private' ); ?> /> <label
 										for="visibility-radio-private"
-										class="selectit"><?php _e( 'Private' ); ?></label><br/>
+										class="selectit"><?php esc_html_e( 'Private' ); ?></label><br/>
 
 								<p>
 									<a href="#visibility"
-									   class="save-post-visibility hide-if-no-js button"><?php _e( 'OK' ); ?></a>
+									   class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK' ); ?></a>
 									<a href="#visibility"
-									   class="cancel-post-visibility hide-if-no-js button-cancel"><?php _e( 'Cancel' ); ?></a>
+									   class="cancel-post-visibility hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel' ); ?></a>
 								</p>
 							</div>
 						<?php } ?>
@@ -720,12 +720,12 @@ class Modula_CPT {
 						<div class="misc-pub-section misc-pub-revisions">
 							<?php
 							/* translators: Post revisions heading. %s: The number of available revisions. */
-							printf( __( 'Revisions: %s' ), '<b>' . number_format_i18n( $args['args']['revisions_count'] ) . '</b>' );
+							printf( esc_html__( 'Revisions: %s' ), '<b>' . esc_html( number_format_i18n( $args['args']['revisions_count'] ) ) . '</b>' );
 							?>
 							<a class="hide-if-no-js"
 							   href="<?php echo esc_url( get_edit_post_link( $args['args']['revision_id'] ) ); ?>"><span
-										aria-hidden="true"><?php _ex( 'Browse', 'revisions' ); ?></span> <span
-										class="screen-reader-text"><?php _e( 'Browse revisions' ); ?></span></a>
+										aria-hidden="true"><?php esc_html( _ex( 'Browse', 'revisions' ) ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Browse revisions' ); ?></span></a>
 						</div>
 					<?php
 					endif;
@@ -737,11 +737,11 @@ class Modula_CPT {
 		<?php printf( $stamp, '<b>' . $date . '</b>' ); ?>
 	</span>
 						<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js" role="button">
-							<span aria-hidden="true"><?php _e( 'Edit' ); ?></span>
-							<span class="screen-reader-text"><?php _e( 'Edit date and time' ); ?></span>
+							<span aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span>
+							<span class="screen-reader-text"><?php esc_html_e( 'Edit date and time' ); ?></span>
 						</a>
 						<fieldset id="timestampdiv" class="hide-if-js">
-							<legend class="screen-reader-text"><?php _e( 'Date and time' ); ?></legend>
+							<legend class="screen-reader-text"><?php esc_html_e( 'Date and time' ); ?></legend>
 							<?php touch_time( ($action === 'edit'), 1 ); ?>
 						</fieldset>
 						</div><?php // /misc-pub-section
@@ -752,7 +752,7 @@ class Modula_CPT {
 						<div class="notice notice-info notice-alt inline">
 							<p>
 								<?php
-								echo sprintf(
+								echo wp_kses_post( sprintf(
 								/* translators: %s: URL to the Customizer. */
 									__( 'This draft comes from your <a href="%s">unpublished customization changes</a>. You can edit, but there&#8217;s no need to publish now. It will be published automatically with those changes.' ),
 									esc_url(
@@ -762,7 +762,7 @@ class Modula_CPT {
 											admin_url( 'customize.php' )
 										)
 									)
-								);
+								) );
 								?>
 							</p>
 						</div>
@@ -812,7 +812,7 @@ class Modula_CPT {
 						}
 						?>
 						<a class="submitdelete deletion"
-						   href="<?php echo get_delete_post_link( $post->ID ); ?>"><?php echo $delete_text; ?></a>
+						   href="<?php echo esc_url( get_delete_post_link( $post->ID ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
 						<?php
 					}
 					?>
@@ -891,7 +891,7 @@ class Modula_CPT {
 			wp_send_json( array( 'status' => 'failed' ) );
 		}
 
-		$id                           = $_POST['id'];
+		$id = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0;
 
 		// Check if post exists and is modula-gallery CPT
 		if ( ! get_post_type( $id ) || 'modula-gallery' !== get_post_type( $id ) ) {
@@ -899,7 +899,7 @@ class Modula_CPT {
 		}
 
 		$settings                     = wp_parse_args( get_post_meta( $id, 'modula-settings', true ), Modula_CPT_Fields_Helper::get_defaults() );
-		$settings['last_visited_tab'] = sanitize_text_field( $_POST['tab'] );
+		$settings['last_visited_tab'] = isset( $_POST['tab'] ) ? sanitize_text_field( wp_unslash( $_POST['tab'] ) ) : '';
 
 		update_post_meta( $id, 'modula-settings', $settings );
 		die();

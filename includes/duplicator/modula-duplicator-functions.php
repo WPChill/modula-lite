@@ -7,7 +7,7 @@ function modula_duplicate_gallery_save_as_new_post( $status = '' ) {
 	}
 
 	// Get the original post
-	$id = ( isset( $_GET['post'] ) ? $_GET['post'] : $_POST['post'] );
+	$id = ( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : absint( $_POST['post'] ) );
 
 	check_admin_referer( 'duplicate-gallery_' . $id );
 
