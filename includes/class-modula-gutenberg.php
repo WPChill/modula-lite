@@ -249,8 +249,6 @@ class Modula_Gutenberg {
 		$nonce = '';
 		if( isset( $_GET['nonce'] ) ){
 			$nonce = $_GET['nonce'];
-		}else{
-			die();
 		}
 
 		if ( ! wp_verify_nonce( $nonce, 'modula_nonce' ) ) {

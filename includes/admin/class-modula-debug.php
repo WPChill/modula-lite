@@ -205,7 +205,7 @@ class Modula_Debug {
 					?>
 					<item>
 						<title><?php echo esc_html( $title ); ?></title>
-						<link><?php esc_url( the_permalink_rss() ); ?></link>
+						<link><?php the_permalink_rss(); ?></link>
 						<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
 						<dc:creator><?php echo $this->wxr_cdata( get_the_author_meta( 'login' ) ); ?></dc:creator>
 						<guid isPermaLink="false"><?php the_guid(); ?></guid>

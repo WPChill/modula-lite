@@ -124,7 +124,7 @@ class Modula_WP_Core_Gallery_Importer {
             }
 
             // Need to make replace so we can search our shortcode in content
-            $galery_atts = str_replace('\"','"', absint( $_POST['id'] ) );
+            $galery_atts = str_replace('\"','"', sanitize_text_field( $_POST['id'] ) );
         }
 
 

@@ -218,7 +218,7 @@ class Modula_Field_Builder {
 		}
 
 		$html = '<div class="modula-settings-container"><div class="modula-tabs">%s</div><div class="modula-tabs-content">%s</div>';
-		printf( wp_kses_post( $html ), wp_kses_post( $tabs_html ), $tabs_content_html );
+		printf( $html, $tabs_html, $tabs_content_html );
 	}
 
 	/* Create HMTL for shortcode metabox */
