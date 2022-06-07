@@ -521,8 +521,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 							$buy_button = apply_filters(
 									'wpchill-upsells-buy-button',
-									array( 'url'   => esc_url( $url ),
-										   'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' )
+									array( 'url'   => $url ,
+										   'label' => __( 'Buy Now', 'modula-best-grid-gallery' )
 									),
 									$slug,
 									$package,
