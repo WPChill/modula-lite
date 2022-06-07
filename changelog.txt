@@ -1,6 +1,5 @@
 = 2.6.7 - TBA =
 Fixed: Images in the background no longer shuffle on lightbox open ( https://github.com/WPChill/modula-lite/issues/661 )
-Changed: Removed "Open image in lightbox" tooltip for images that have a link ( https://github.com/WPChill/modula-pro/issues/481 )
 
 = 2.6.6 - 02/05/2020 =
 Fixed: Sanitization not showing quotation marks in image title ( https://github.com/WPChill/modula-lite/issues/627 )
