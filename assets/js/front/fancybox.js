@@ -3427,7 +3427,7 @@
     }
 
     index = $(items).index($target);
-console.log(items);
+
     // Sometimes current item can not be found
     if (index < 0) {
       index = 0;
