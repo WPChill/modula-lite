@@ -1,5 +1,8 @@
-= 2.6.7 - TBA =
-Fixed: Images in the background no longer shuffle on lightbox open ( https://github.com/WPChill/modula-lite/issues/661 )
+= 2.6.7 - 08/06/2020 =
+Fixed: Sanitization & escapes.
+Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/issues/618 )
+Fixed: Gallery titles with messy display names in Gutenberg ( https://github.com/WPChill/modula-lite/issues/652 )
+Added: Possibility to exclude certain images from the lightbox ( https://github.com/WPChill/modula-lite/issues/445 )
 
 = 2.6.6 - 02/05/2020 =
 Fixed: Sanitization not showing quotation marks in image title ( https://github.com/WPChill/modula-lite/issues/627 )
