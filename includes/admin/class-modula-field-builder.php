@@ -274,13 +274,13 @@ class Modula_Field_Builder {
 			$child = $field['is_child'].'_child_setting';
 		}
 
-		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
+		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
 
 			if ( 'desktop' == $field['media'] ) {
-				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . $child . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
+				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
 			}
 
 			if ( 'tablet' == $field['media'] ) {
@@ -298,7 +298,7 @@ class Modula_Field_Builder {
 		// End formats for General Gutter
 
 		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] || 'hover-effect' == $field['type'] ) {
-			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="' . esc_attr( $child ) . '"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
 		$format = apply_filters( "modula_field_type_{$field['type']}_format", $format, $field );
