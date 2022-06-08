@@ -198,7 +198,7 @@ class Modula_Importer {
     public function get_source_galleries() {
 
         check_ajax_referer('modula-importer', 'nonce');
-        $source = isset($_POST['source']) ? $_POST['source'] : false;
+        $source = isset($_POST['source']) ? sanitize_text_field( wp_unslash( $_POST['source'] ) ) : false;
 
         if (!$source || 'none' == $source) {
             echo esc_html__('There is no source selected', 'modula-best-grid-gallery');

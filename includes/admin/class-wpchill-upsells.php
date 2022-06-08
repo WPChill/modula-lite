@@ -288,7 +288,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			$upsell_packages           = array();
 			$addons                    = array();
-			$current_upsell_extensions = isset( $_GET['extension'] ) ? $_GET['extension'] : false;
+			$current_upsell_extensions = isset( $_GET['extension'] ) ? sanitize_text_field( wp_unslash( $_GET['extension'] ) ) : false;
 
 			$lite_plan['modula-lite'] = array(
 					'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
@@ -396,7 +396,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					<div class="wpchill-pricing-package feature-name">
 						<h3><?php echo esc_html__( 'Sites', 'modula-best-grid-gallery' ); ?></h3>
 					</div>
-					<?php echo $sites; ?>
+					<?php echo wp_kses_post( $sites ); ?>
 				</div>
 				<?php
 			}
@@ -482,7 +482,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				<div class="wpchill-pricing-package feature-name">
 					<h3><?php echo esc_html__( 'Support', 'modula-best-grid-gallery' ); ?></h3>
 				</div>
-				<?php echo $priority; ?>
+				<?php echo wp_kses_post( $priority ) ; ?>
 			</div>
 			<div class="wpchill-plans-table tabled-footer">
 				<div class="wpchill-pricing-package wpchill-empty">
@@ -521,8 +521,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 							$buy_button = apply_filters(
 									'wpchill-upsells-buy-button',
-									array( 'url'   => $url,
-										   'label' => esc_html__( 'Buy Now', 'modula-best-grid-gallery' )
+									array( 'url'   => $url ,
+										   'label' => __( 'Buy Now', 'modula-best-grid-gallery' )
 									),
 									$slug,
 									$package,

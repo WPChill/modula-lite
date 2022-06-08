@@ -81,7 +81,7 @@ class Modula_Admin_Helpers {
 			<div class="modula-status-bar">
 			</div>
 			<div class="modula-header-links">
-				<a href="<?php echo admin_url('edit.php?post_type=modula-gallery&page=modula-about-page'); ?>"
+				<a href="<?php echo esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-about-page') ); ?>"
 				   class="button button-secondary"><span
 							class="dashicons dashicons-admin-plugins"></span><?php esc_html_e( 'About', 'modula-best-grid-gallery' ); ?>
 				</a>

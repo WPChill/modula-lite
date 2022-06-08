@@ -196,7 +196,7 @@ class Modula_Admin {
 
 		// Get current tab
 		if ( isset( $_GET['modula-tab'] ) && isset( $this->tabs[ $_GET['modula-tab'] ] ) ) {
-			$this->current_tab = $_GET['modula-tab'];
+			$this->current_tab = sanitize_text_field( wp_unslash( $_GET['modula-tab'] ) );
 		} else {
 
 			$tabs              = array_keys( $this->tabs );
@@ -238,7 +238,7 @@ class Modula_Admin {
 
 		$active_tab = 'extensions';
 		if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
-			$active_tab = $_GET['tab'];
+			$active_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 		}
 		?>
 		<div class="wrap">
@@ -273,7 +273,7 @@ class Modula_Admin {
 
 					$dt->setTimestamp( $t_ext_timeout - $offset );
 
-					echo $dt->format( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
+					echo esc_html( $dt->format( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
 
 					echo '</span>';
 				}
@@ -300,8 +300,8 @@ class Modula_Admin {
 			?>
 				<div class="modula-subtab-navigation wp-clearfix wrap">
 					<ul class="subsubsub">
-						<li><a href="<?php echo add_query_arg(array('extensions' =>'pro')); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a> | </li>
-						<li><a href="<?php echo add_query_arg(array('extensions' =>'free')); ?>" class="<?php echo !$pro_ext ? 'current' : ''; ?>">Free</a></li>
+						<li><a href="<?php echo esc_url( add_query_arg(array('extensions' =>'pro')) ); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a> | </li>
+						<li><a href="<?php echo esc_url( add_query_arg(array('extensions' =>'free')) ); ?>" class="<?php echo !$pro_ext ? 'current' : ''; ?>">Free</a></li>
 					</ul>
 				</div>
 			<?php
@@ -345,6 +345,7 @@ class Modula_Admin {
 				'target',
 				'width',
 				'height',
+				'togglelightbox',
 			)
 		);
 
@@ -367,6 +368,13 @@ class Modula_Admin {
 						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
 						break;
 					case 'target':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'togglelightbox':
 						if ( isset( $image[ $attribute ] ) ) {
 							$new_image[ $attribute ] = absint( $image[ $attribute ] );
 						} else {
@@ -457,6 +465,7 @@ class Modula_Admin {
 			wp_send_json( array( 'status' => 'failed' ) );
 		}
 
+
 		$image      = json_decode( stripslashes( $_POST['image'] ), true );
 		$old_images = get_post_meta( $gallery_id, 'modula-images', true );
 
@@ -494,14 +503,14 @@ class Modula_Admin {
 			<div class="card">
 				<h3><?php esc_html_e( 'Import Galleries', 'modula-best-grid-gallery' ); ?></h3>
 				<p><?php esc_html_e( 'In order to import exported galleries head over to "Tools -> Import" or click', 'modula-best-grid-gallery' ); ?>
-					<a href="<?php echo admin_url( 'import.php' ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'import.php' ) ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
 				</p>
 				<p><?php echo '<a href="' . esc_url( 'https://wordpress.org/plugins/wordpress-importer/' ) . '" target="_blank">' . esc_html__( 'Install WordPress Importer', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( '( if not installed ). If installed, click on WordPress "Run importer". After that select the export file you desire and click "Upload file and import".', 'modula-best-grid-gallery' ); ?></p>
 			</div>
 			<div class="card">
 				<h3><?php esc_html_e( 'Export Galleries', 'modula-best-grid-gallery' ); ?></h3>
 				<p><?php esc_html_e( 'In order to export Modula galleries head over to "Tools -> Export" or click', 'modula-best-grid-gallery' ); ?>
-					<a href="<?php echo admin_url( 'export.php' ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'export.php' ) ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
 				</p>
 				<p><?php echo esc_html__( 'Select "Galleries" and click "Download Export File". An export file will be created and downloaded, which will be used to import the galleries somewhere else.', 'modula-best-grid-gallery' ); ?></p>
 			</div>
@@ -518,7 +527,12 @@ class Modula_Admin {
 	 */
 	public function modula_lbu_notice() {
 
-		$nonce = $_POST['nonce'];
+		$nonce = '';
+		
+		if( isset( $_POST['nonce'] ) ){
+			$nonce = $_POST['nonce'];
+		}
+
 
 		if ( ! wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
 			wp_send_json_error();

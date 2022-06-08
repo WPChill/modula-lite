@@ -578,7 +578,7 @@
 
     // Existing slides (for current, next and previous gallery items)
     self.slides = {};
-
+//console.log(content);
     // Create group elements
     self.addContent(content);
 
@@ -636,7 +636,7 @@
         $("head").append(
           '<style id="modula-fancybox-style-noscroll" type="text/css">.compensate-for-scrollbar{margin-right:' +
           (window.innerWidth - document.documentElement.clientWidth) +
-          "px;}</style>"
+          "px;overflow:hidden;}</style>"
         );
 
         $("body").addClass("compensate-for-scrollbar");
@@ -3427,7 +3427,7 @@
     }
 
     index = $(items).index($target);
-
+console.log(items);
     // Sometimes current item can not be found
     if (index < 0) {
       index = 0;

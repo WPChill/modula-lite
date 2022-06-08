@@ -45,10 +45,10 @@ class Modula_Ajax_Migrator {
 			return false;
 		}
 
-		$source          = $_POST['source'];
+		$source          = sanitize_text_field( wp_unslash( $_POST['source'] ) );
 		$response        = array();
 		$gallery_id      = absint( $_POST['id'] );
-		$chunk           = absint( $_POST['chunk'] );
+		$chunk           = isset( $_POST['chunk'] ) ? absint( $_POST['chunk'] ) : 0;
 		$modula_importer = Modula_Importer::get_instance();
 		// Get the images
 		$images = $modula_importer->prepare_images( $source, $gallery_id );

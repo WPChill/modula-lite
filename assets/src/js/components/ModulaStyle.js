@@ -83,7 +83,7 @@ const ModulaStyle = (props) => {
 		}`;
 	}
 
-	style += `#jtg-${id}.modula-gallery .modula-item > a, #jtg-${id}.modula-gallery .modula-item, #jtg-${id}.modula-gallery .modula-item-content > a  {
+	style += `#jtg-${id}.modula-gallery .modula-item > a, #jtg-${id}.modula-gallery .modula-item, #jtg-${id}.modula-gallery .modula-item-content > a:not(.modula-no-follow){
 		cursor: ${settings.cursor};
 	}`;
 

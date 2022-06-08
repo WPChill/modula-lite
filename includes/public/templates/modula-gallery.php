@@ -55,6 +55,10 @@
 				),
 			);
 
+			if( isset( $image['togglelightbox'] ) && 1 === $image['togglelightbox'] ){
+				$item_data['link_classes'][] = 'modula-simple-link'; //prevent the lightboxification
+				$item_data['link_classes'][] = 'modula-no-follow'; //prevent the opening of the image
+			}
 			// need this to model the image attributes
       		$image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
 

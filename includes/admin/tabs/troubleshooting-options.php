@@ -130,9 +130,9 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
                                 <?php if ('toggle' == $ts_field['type']) { ?>
                                     <div class="modula-toggle">
                                         <input class="modula-toggle__input" type="checkbox"
-                                               data-setting="modula_troubleshooting_option[<?php echo $key; ?>]"
-                                               id="modula_troubleshooting_option-<?php echo $key; ?>"
-                                               name="modula_troubleshooting_option[<?php echo $key; ?>]"
+                                               data-setting="modula_troubleshooting_option[<?php echo esc_attr($key); ?>]"
+                                               id="modula_troubleshooting_option-<?php echo esc_attr($key); ?>"
+                                               name="modula_troubleshooting_option[<?php echo esc_attr($key); ?>]"
                                                value="1" <?php  checked(1, $troubleshooting_options[ $key ], true ) ?>>
                                         <div class="modula-toggle__items">
                                             <span class="modula-toggle__track"></span>

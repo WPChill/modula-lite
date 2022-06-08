@@ -96,11 +96,11 @@
                 </td>
 
                 <td>
-                    <?php echo !empty($gallery->source) ? $gallery->source : esc_html__("Images", "modula-best-grid-gallery"); ?>
+                    <?php echo !empty($gallery->source) ? esc_html( $gallery->source ) : esc_html__("Images", "modula-best-grid-gallery"); ?>
                 </td>
 
                 <td>
-                    <?php echo $gallery ?>
+                    <?php echo esc_html( $gallery ); ?>
                 </td>
             </tr>
         <?php } ?>

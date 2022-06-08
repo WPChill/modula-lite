@@ -302,10 +302,12 @@ html body .modula .modula-items .modula-item.effect-pufrobo .figc .jtg-title:bef
     display: none;
 }
 
-html body .modula .modula-items .modula-item > a {
+html body .modula .modula-items .modula-item > a:not(.modula-no-follow) {
     cursor: zoom-in;
 }
-
+html body .modula .modula-items .modula-item > a.modula-no-follow {
+    cursor: default;
+}
 
 /**
 Fix for admin bar overfloating

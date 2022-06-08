@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) {
 $sources   = false;
 $galleries = false;
 
-$migrate = isset($_GET['migration']) ? $_GET['migration'] : false;
-$delete  = isset($_GET['delete']) ? $_GET['delete'] : false;
+$migrate = isset($_GET['migration']) ? sanitize_text_field( wp_unslash( $_GET['migration'] ) ) : false;
+$delete  = isset($_GET['delete']) ? sanitize_text_field( wp_unslash( $_GET['delete'] ) )  : false;
 
 $modula_importer = Modula_Importer::get_instance();
 $sources         = $modula_importer->get_sources();

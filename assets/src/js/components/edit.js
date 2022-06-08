@@ -70,7 +70,7 @@ export const ModulaEdit = (props) => {
 						label:
 							'' === res.title.rendered
 								? `Unnamed`
-								: res.title.rendered,
+								: escapeHtml( res.title.rendered ),
 					},
 				],
 			});
@@ -87,8 +87,14 @@ export const ModulaEdit = (props) => {
 			});
 		});
 	};
-
-	const onGalleryLoaded = (id, result) => {
+	function escapeHtml(text) {
+		return text
+			.replace("&#8217;", "'" )
+			.replace("&#8220;", '"' )
+			.replace("&#8216;", "'" );
+	  }
+	  
+		  const onGalleryLoaded = (id, result) => {
 		if (result.success === false) {
 			setAttributes({ id: id, status: 'ready' });
 			return;

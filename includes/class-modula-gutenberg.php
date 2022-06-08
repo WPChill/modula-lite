@@ -246,14 +246,17 @@ class Modula_Gutenberg {
 
 	public function get_gallery() {
 
-		$nonce = $_GET['nonce'];
+		$nonce = '';
+		if( isset( $_GET['nonce'] ) ){
+			$nonce = $_GET['nonce'];
+		}
 
 		if ( ! wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
 			die();
 		}
 
 		$suggestions = array();
-		$term        = sanitize_text_field( $_GET['term'] );
+		$term        = isset( $_GET['term'] ) ? sanitize_text_field( wp_unslash( $_GET['term'] ) ) : '';
 
 		$loop = new WP_Query(
 			array(

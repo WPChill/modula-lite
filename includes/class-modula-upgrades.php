@@ -165,12 +165,12 @@ class Modula_Upgrades {
 
 			echo '<div class="wrap" style="text-align:center;margin-top:70px;"><h1>' . esc_html__( 'Hooray you don\'t have any Modula galleries to upgrade.', 'modula-best-grid-gallery' ) . '</h1>';
 			echo '<p class="about-text">' . esc_html__( 'It seems like you didn\'t create any galleries with Modula', 'modula-best-grid-gallery' ) . '</p>';
-			echo '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'post-new.php?post_type=modula-gallery' ) ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</div>';
 
 		}else{
 
-			$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'import-all';
+			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'import-all';
 
 			echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2', 'modula-best-grid-gallery' ) . '</h1>';
 			echo '<p class="about-text">' . esc_html__( 'Since Modula V2.0.0 we changed how we stored data about your galleries so in order to have all the old galleries you need to run this updater.', 'modula-best-grid-gallery' ) . '</p>';
@@ -178,8 +178,8 @@ class Modula_Upgrades {
 
 			// Tabs
 			echo '<h2 class="nav-tab-wrapper wp-clearfix">';
-			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2' ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
-			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'options.php?page=modula-upgrade-v2' ) ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</h2>';
 
 
@@ -203,7 +203,7 @@ class Modula_Upgrades {
 
 					echo '<label style="width:30%;padding-right:3%;"><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
 					$config = json_decode( $gallery->configuration, true );
-					echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
+					echo esc_html( $config['name'] ) . ' (' . absint( $gallery->Id ) . ')';
 					echo '</label>';
 
 				}
@@ -247,7 +247,7 @@ class Modula_Upgrades {
 		// Run a security check first.
 		check_admin_referer( 'modula-upgrade-gallery-nonce', 'nonce' );
 
-		$gallery_ID = absint( $_POST['gallery_id'] );
+		$gallery_ID = isset( $_POST['gallery_id'] ) ? absint( $_POST['gallery_id'] ) : 0;
 
 		// Check if we already have imported this gallery
 		$post_args = array(
@@ -450,7 +450,7 @@ class Modula_Upgrades {
 
 						var key = $(this).data('key');
 						$.ajax({
-							url:      "<?php echo admin_url( 'admin-ajax.php' ) ?>",
+							url:      "<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>",
 				            type:     'POST',
 				            dataType: 'json',
 				            data: {

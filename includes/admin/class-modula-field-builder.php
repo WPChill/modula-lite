@@ -103,7 +103,7 @@ class Modula_Field_Builder {
 		echo '<div class="upload-info-container">';
 		echo '<div class="upload-info">';
                 if (current_user_can('upload_files')) {
-                    echo sprintf( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ), esc_html( size_format( $max_upload_size ) ) );
+                    echo sprintf( wp_kses_post( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ) ), esc_html( size_format( $max_upload_size ) ) );
                     echo '</div>';
                     echo '<div class="upload-progress">';
                     echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
@@ -114,7 +114,7 @@ class Modula_Field_Builder {
                     echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
                     do_action( 'modula_gallery_media_button');
                 } else {
-                    echo '<b>' . __( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
+                    echo '<b>' . esc_html__( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
                     echo '</div>';
                 }
 		echo '</div>';
@@ -274,13 +274,13 @@ class Modula_Field_Builder {
 			$child = $field['is_child'].'_child_setting';
 		}
 
-		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="'.$child.'"><label>%s</label>%s</th><td>%s</td></tr>';
+		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
 
 			if ( 'desktop' == $field['media'] ) {
-				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . $child . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
+				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
 			}
 
 			if ( 'tablet' == $field['media'] ) {
@@ -298,7 +298,7 @@ class Modula_Field_Builder {
 		// End formats for General Gutter
 
 		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] || 'hover-effect' == $field['type'] ) {
-			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="'.$child.'"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="' . esc_attr( $child ) . '"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
 		$format = apply_filters( "modula_field_type_{$field['type']}_format", $format, $field );
