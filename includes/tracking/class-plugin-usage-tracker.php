@@ -422,6 +422,10 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			if( false !== get_option( 'wisdom_deactivation_details_' . $this->plugin_name ) ) {
 				$body['deactivation_details'] = get_option( 'wisdom_deactivation_details_' . $this->plugin_name );
 			}
+			
+			if( false !== get_option( 'wisdom_deactivation_contact_email_' . $this->plugin_name ) ) {
+				$body['email'] = get_option( 'wisdom_deactivation_contact_email_' . $this->plugin_name );
+			}
 
 			$this->send_data( $body );
 
@@ -958,6 +962,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 		 * @since 1.0.0
 		 */
 		public function goodbye_ajax() {
+			global $wp_version;
 			// Get our strings for the form
 			$form = $this->form_filterable_text();
 
@@ -971,16 +976,25 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 
 			if ( is_array( $form['options'] ) ) {
 
-				$html .= '<div class="'.esc_attr($this->plugin_name).'-put-goodbye-options"><p>';
+				$html .= '<div class="'.esc_attr($this->plugin_name).'-put-goodbye-options">';
 				foreach ( $form['options'] as $option ) {
-					$html .= '<input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-options[]" id="' . str_replace( ' ', '', esc_attr( $option ) ) . '" value="' . esc_attr( $option ) . '"> <label for="' . str_replace( ' ', '', esc_attr( $option ) ) . '">' . esc_html( $option ) . '</label><br>';
+					$html .= '<p><input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-options[]" id="' . str_replace( ' ', '', esc_attr( $option ) ) . '" value="' . esc_attr( $option ) . '"> <label for="' . str_replace( ' ', '', esc_attr( $option ) ) . '">' . esc_html( $option ) . '</label></p>';
 				}
-				$html .= '</p><label for="'.esc_attr($this->plugin_name).'-put-goodbye-reasons">' . esc_html( $form['details'] ) . '</label><textarea name="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" id="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" rows="2" style="width:100%"></textarea>';
+				$html .= '<label for="'.esc_attr($this->plugin_name).'-put-goodbye-reasons">' . esc_html( $form['details'] ) . '</label><textarea name="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" id="'.esc_attr($this->plugin_name).'-put-goodbye-reasons" rows="2" style="width:100%"></textarea>';
+				
+				$html .= '<hr>';
+
+				$html .= '<p><input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" value=""> <label for="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check">' . esc_html__( 'I would like to be contacted.', 'download-monitor' ) . '</label></p>';			
+				$html .= '<p><input type="email" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" value="" placeholder="' . esc_html__( 'Email address.', 'download-monitor' ) . '"></p>';		
 				$html .= '</div><!-- .put-goodbye-options -->';
 			}
+	
 
+			$html .= '<a href="#" id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking">' . esc_html__( 'What info do we collect?', 'download-monitor' ) . '</a>';
+			$html .= '<div id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking-info"><ul><li><strong>' . esc_html__( 'Plugin Version', 'download-monitor' ) . '</strong><code>' . MODULA_LITE_VERSION . '</code></li><li><strong>' . esc_html__( 'WordPress Version', 'download-monitor' ) . '</strong><code>' . $wp_version . '</code></li><li><strong>' . esc_html__( 'Current Website', 'download-monitor' ) . '</strong><code>' . trailingslashit( get_site_url() ) . '</code></li><li><strong>' . esc_html__( 'Uninstall Reason', 'download-monitor' ) . '</strong><i>' . esc_html__( 'Selected reason from above.', 'download-monitor' ) . '</i></li></ul></div>';
+			
 			$html .= '</div><!-- .put-goodbye-form-body -->';
-			$html .= '<p class="'.esc_attr($this->plugin_name).'-deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'download-monitor' ) . '</p>';
+			$html .= '<p class="'.esc_attr($this->plugin_name).'-deactivating-spinner"><span class="spinner"></span> ' . esc_html__( 'Submitting form', 'download-monitor' ) . '</p>';
 			?>
 			<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-bg"></div>
 			<style type="text/css">
@@ -1041,6 +1055,26 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer {
 					padding: 8px 18px;
 				}
+				.<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-options p input, <?php echo esc_attr($this->plugin_name); ?>-put-goodbye-options label{
+					padding: 8px 0;
+				}
+				#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-tracking-info:not(.active),
+				#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-email:not(.active) {
+					display: none;
+				}
+				#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-tracking-info ul li {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					margin-bottom: 0;
+					padding: 5px 0;
+					border-bottom: 1px solid #ccc;
+				}
+				#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-email {
+					width: 100%;
+					margin-bottom: 8px;
+					padding: 8px 10px;
+				}
 			</style>
 			<script>
 				jQuery( document ).ready( function ( $ ) {
@@ -1067,12 +1101,18 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 							values.push( $( this ).val() );
 						} );
 
+						var email = '';
+						if( $( "input[name='<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-check']:checked" ) ){
+							email = $( '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-email' ).val();
+						} 
+
 						var details = $( '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-reasons' ).val();
 
 						var data = {
 							'action'  : '<?php echo esc_attr($this->plugin_name); ?>_goodbye_form',
 							'values'  : values,
 							'details' : details,
+							'email'	  : email,
 							'security': "<?php echo wp_create_nonce( 'wisdom_goodbye_form' ); ?>",
 							'dataType': "json"
 						}
@@ -1096,6 +1136,19 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).fadeOut();
 						$( 'body' ).removeClass( '<?php echo esc_attr($this->plugin_name); ?>-put-form-active' );
 					} );
+
+					// If we click outside the form, the form will close.
+					$( '#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form' ).on( 'click', '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-tracking', function (e) {
+						e.preventDefault();
+						$( '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-tracking-info' ).toggleClass( "active" );
+					});
+
+					// If we click outside the form, the form will close.
+					$( '#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form' ).on( 'change', '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-check', function (e) {
+						e.preventDefault();
+						$( '#<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-contact-email' ).toggleClass( "active" );
+					});
+
 				} );
 			</script>
 			<?php
@@ -1115,6 +1168,10 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 			if( isset( $_POST['details'] ) ) {
 				$details = sanitize_text_field( wp_unslash( $_POST['details'] ) );
 				update_option( 'wisdom_deactivation_details_' . $this->plugin_name, $details );
+			}
+			if( isset( $_POST['email'] ) ) {
+				$email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+				update_option( 'wisdom_deactivation_contact_email_' . $this->plugin_name, $email );
 			}
 			$this->do_tracking(); // Run this straightaway
 			echo 'success';
