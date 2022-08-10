@@ -35,61 +35,61 @@ Modula is the best WordPress gallery plugin for adding custom, unique and respon
 
 **Premium features only available in Modula PRO:**
 
-- [Presets](https://modula.helpscoutdocs.com/article/237-modula-defaults): Use the Defaults extension to easily create galleries with the same settings starting from a preset. Add a new gallery, select a preset previously created then just add your images. It's lightning fast to create galleries, without having to manually tweak gallery settings every time you create a new one.
+- [Presets](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Defaults extension to easily create galleries with the same settings starting from a preset. Add a new gallery, select a preset previously created then just add your images. It's lightning fast to create galleries, without having to manually tweak gallery settings every time you create a new one.
 
-- [Video gallery](https://modula.helpscoutdocs.com/article/182-modula-video-extension) support: Use the Video extension to combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos. 
+- [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) support: Use the Video extension to combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos. 
 [See a demo of a video gallery](https://demo.wp-modula.com/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Lightbox slideshow](https://modula.helpscoutdocs.com/article/220-modula-slideshow): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow. 
+- [Lightbox slideshow](https://modula.helpscoutdocs.com/article/220-modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow. 
 [See a demo for Lightbox Slideshow Extension](https://demo.wp-modula.com/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Password Protect](https://modula.helpscoutdocs.com/article/219-how-to-create-password-protected-galleries): Use Password Protect extension to block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages. 
+- [Password Protect](https://wp-modula.com/kb/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Password Protect extension to block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages. 
 [See a demo for Password Protect Galleries Extension](https://demo.wp-modula.com/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Slider gallery](https://modula.helpscoutdocs.com/article/221-modula-slider): The extension Convert gallery to slider does exactly what the name says. Slider can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode and more. 
+- [Slider gallery](https://wp-modula.com/kb/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): The extension Convert gallery to slider does exactly what the name says. Slider can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode and more. 
 [See a demo for Convert gallery to slider extension](https://demo.wp-modula.com/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Gallery Filters](https://modula.helpscoutdocs.com/article/204-how-to-use-filters-in-modula): Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
+- [Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
 [See a demo for gallery filters](https://demo.wp-modula.com/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Albums](https://modula.helpscoutdocs.com/article/222-modula-albums): Use Albums extensions to create albums, add galleries, manage cover photos, show gallery titles, select hover effect, grid type, randomize album order, randomize album cover photo and display album image counts. 
+- [Albums](https://wp-modula.com/kb/modula-albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Albums extensions to create albums, add galleries, manage cover photos, show gallery titles, select hover effect, grid type, randomize album order, randomize album cover photo and display album image counts. 
 [See a demo for Albums Extension](https://demo.wp-modula.com/albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Deeplink](https://modula.helpscoutdocs.com/article/232-modula-deeplink): Use SEO Deepling extension to can create a unique (and indexable URL - as in Google can access and index this). 
+- [Deeplink](https://wp-modula.com/kb/modula-deeplink?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use SEO Deepling extension to can create a unique (and indexable URL - as in Google can access and index this). 
 [See a demo for deeplinking](https://demo.wp-modula.com/deeplinking/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Image Loading Effects](https://modula.helpscoutdocs.com/article/207-modula-loading-effects): add animations: Rotate or Horizontally/Vertically animate the images on each page loads.
+- [Image Loading Effects](https://wp-modula.com/kb/modula-loading-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): add animations: Rotate or Horizontally/Vertically animate the images on each page loads.
 [See a demo for image loading effects](https://demo.wp-modula.com/image-loaded-effects/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Hover effects](https://modula.helpscoutdocs.com/article/208-modula-hover-effects): access to over 50+ built-in image hover effects.
+- [Hover effects](https://wp-modula.com/kb/modula-hover-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): access to over 50+ built-in image hover effects.
 [See a demo for hover effects](https://demo.wp-modula.com/hover-effects/appear/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Gallery with pagination](https://modula.helpscoutdocs.com/article/249-modula-pagination): group and display images in a gallery on multiple pages. 
+- [Gallery with pagination](https://wp-modula.com/kb/modula-pagination?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): group and display images in a gallery on multiple pages. 
 [See a demo for Pagination extension](https://demo.wp-modula.com/?modula-gallery=modula-pagination)
 
-- [Zoom effects](https://modula.helpscoutdocs.com/article/226-modula-zoom-download-and-exif-extensions): Choose from three different types of image zoom effects - [Basic](https://demo.wp-modula.com/galleries/basic/), [Inner](https://demo.wp-modula.com/galleries/inner-gallery/) and [Lens](https://demo.wp-modula.com/galleries/lens-gallery/) - to magnify and examine an image in detail.
+- [Zoom effects](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Choose from three different types of image zoom effects - [Basic](https://demo.wp-modula.com/galleries/basic/), [Inner](https://demo.wp-modula.com/galleries/inner-gallery/) and [Lens](https://demo.wp-modula.com/galleries/lens-gallery/) - to magnify and examine an image in detail.
 
-- [Download images](https://modula.helpscoutdocs.com/article/226-modula-zoom-download-and-exif-extensions): Allows users to download images from galleries.
+- [Download images](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Allows users to download images from galleries.
 [See demo for the image download functionality](https://demo.wp-modula.com/download/gallery/).
 
-- [Display EXIF data](https://modula.helpscoutdocs.com/article/226-modula-zoom-download-and-exif-extensions): Edit and display EXIF metadata on images in lightboxes.
+- [Display EXIF data](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Edit and display EXIF metadata on images in lightboxes.
 [See a demo for displaying EXIF data](https://demo.wp-modula.com/exif/)
 
-- [Right-Click Protection](https://modula.helpscoutdocs.com/article/233-modula-right-click-protection): use it to prevent visitors from downloading your images with right-click protection. Also disables keyboard shortcuts for download images. 
+- [Right-Click Protection](https://wp-modula.com/kb/right-click-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): use it to prevent visitors from downloading your images with right-click protection. Also disables keyboard shortcuts for download images. 
 [See a demo for right-click protection feature](https://demo.wp-modula.com/demo/right-click-protection/)
 
-- [Watermark images](https://modula.helpscoutdocs.com/article/234-modula-watermark): protect your photos by adding custom watermarks. 
+- [Watermark images](https://wp-modula.com/kb/modula-watermark?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): protect your photos by adding custom watermarks. 
 [See a demo of a watermarked gallery](https://demo.wp-modula.com/watermark/)
 
-- [Advanced Shortcode](https://modula.helpscoutdocs.com/article/218-modula-advanced-shortcode-extension): you can dynamically link to specific galleries without creating pages for them by using URLs with query strings.
+- [Advanced Shortcode](https://wp-modula.com/kb/modula-advanced-shortcode?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): you can dynamically link to specific galleries without creating pages for them by using URLs with query strings.
 
-- [Speed UP](https://modula.helpscoutdocs.com/article/217-speed-up): using this extension you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms and serve them from StackPath's CDN (content delivery network). The result? A really REALLY fast website without the high costs associated.
+- [Speed UP](https://wp-modula.com/kb/modula-speed-up?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): using this extension you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms and serve them from StackPath's CDN (content delivery network). The result? A really REALLY fast website without the high costs associated.
 
-- [Whitelabel](https://modula.helpscoutdocs.com/article/248-modula-whitelabel): this extension helps with removing all mentions of Modula in the plugin and customizing it with your own brand, logo and text.
+- [Whitelabel](https://wp-modula.com/kb/modula-whitelabel?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): this extension helps with removing all mentions of Modula in the plugin and customizing it with your own brand, logo and text.
  
-- [Display images in fullscreen](https://modula.helpscoutdocs.com/article/263-modula-fullscreen): open images in a lightbox in full screen mode.
+- [Display images in fullscreen](https://wp-modula.com/kb/modula-fullscreen?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): open images in a lightbox in full screen mode.
 
-- [Role management](https://modula.helpscoutdocs.com/article/250-modula-roles): Set add, delete and edit gallery permissions for each use role on your website.
+- [Role management](https://wp-modula.com/kb/modula-roles?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Set add, delete and edit gallery permissions for each use role on your website.
 
 - Gallery Sorting: sort the images from your gallery based on date created, date modified, alphabetically, reverse or random.
 
@@ -110,74 +110,74 @@ Your shortcode will look just like this:
 
 **How to create an simple image gallery (FREE feature)**
 
-- Quick&easy tutorial on how to create an [WordPress image gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress/)
-- How to create a [Beaver Builder gallery](https://wp-modula.com/create-beaver-builder-gallery/)
-- How to create a [image gallery in Elementor](https://wp-modula.com/add-gallery-in-elementor/)
-- How to create an [image gallery in Divi Builder](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi/)
+- Quick&easy tutorial on how to create an [WordPress image gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create a [Beaver Builder gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create a [image gallery in Elementor](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create an [image gallery in Divi Builder](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **How to create a video gallery (PRO feature)**
 
-- Quick&easy tutorial on how to create a [video gallery in Wordpress](https://wp-modula.com/add-video-wordpress-page/)
-- Tutorial for creating [galleries with videos embedded from Youtube](https://wp-modula.com/wordpress-youtube-gallery/)
-- Tutorial for creating [galleries with videos embedded from Vimeo](https://wp-modula.com/wordpress-vimeo-gallery/)
+- Quick&easy tutorial on how to create a [video gallery in Wordpress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Tutorial for creating [galleries with videos embedded from Youtube](https://wp-modula.com/wordpress-youtube-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Tutorial for creating [galleries with videos embedded from Vimeo](https://wp-modula.com/wordpress-vimeo-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo of a [video gallery](https://demo.wp-modula.com/?modula-gallery=self-hosted-videos)
-- Refer to our documentation if you need more help [installing and using Modula Video extension](https://modula.helpscoutdocs.com/article/182-modula-video-extension)
+- Refer to our documentation if you need more help [installing and using Modula Video extension](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **How to build a custom grid gallery (FREE feature)**
 
-- Quick&easy tutorial on how to create a [custom grid gallery](https://wp-modula.com/grid-gallery/)
+- Quick&easy tutorial on how to create a [custom grid gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo of a [gallery with images of different sizes and aspect ratios](https://demo.wp-modula.com/demo/custom-grid/)
-- Refer to our documentation to learn the [settings for all the gallery types available](https://modula.helpscoutdocs.com/article/231-gallery-types), including the custom grid
+- Refer to our documentation to learn the [settings for all the gallery types available](https://wp-modula.com/kb/gallery-types&utm_medium=web&utm_campaign=Modula%20Lite), including the custom grid
 
 **How to create a masonry gallery (FREE feature)**
 
-- Quick&easy tutorial on how to create a [masonry image gallery](https://wp-modula.com/masonry-image-gallery/)
-- Refer to our documentation to learn the [settings for all the gallery types available](https://modula.helpscoutdocs.com/article/231-gallery-types), including masonry
+- Quick&easy tutorial on how to create a [masonry image gallery](https://wp-modula.com/masonry-image-gallery&utm_medium=web&utm_campaign=Modula%20Lite)
+- Refer to our documentation to learn the [settings for all the gallery types available](https://wp-modula.com/kb/gallery-types&utm_medium=web&utm_campaign=Modula%20Lite), including masonry
 
 **How to add a galley slider (PRO feature)**
 
-- Quick&easy tutorial on how to create a [gallery slider in WordPress](https://wp-modula.com/wordpress-image-carousel/)
+- Quick&easy tutorial on how to create a [gallery slider in WordPress](https://wp-modula.com/wordpress-image-carousel&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo of an [image slider in full screen](https://demo.wp-modula.com/modula-slider-full-screen/)
-- Refer to our documentation to learn the technicalities to [install and use Modula Slider extension] (https://modula.helpscoutdocs.com/article/221-modula-slider)
+- Refer to our documentation to learn the technicalities to [install and use Modula Slider extension] (https://wp-modula.com/kb/modula-slider&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **Mobile responsive gallery (FREE feature)**
 
-- Quick&easy tutorial on how to create a [mobile responsive gallery](https://wp-modula.com/mobile-responsive-gallery/)
-- Refer to our documentation to learn the [settings for making your galleries mobile responsive](https://modula.helpscoutdocs.com/article/211-optimize-galleries-for-mobile-and-tablet-devices)
+- Quick&easy tutorial on how to create a [mobile responsive gallery](https://wp-modula.com/mobile-responsive-gallery/&utm_medium=web&utm_campaign=Modula%20Lite)
+- Refer to our documentation to learn the [settings for making your galleries mobile responsive](https://wp-modula.com/kb/optimize-galleries-for-mobile-and-tablet-devices&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **How to create a filterable gallery (PRO feature)**
 
-- Quick&easy tutorial on how to create a gallery with categories and how to [filter gallery images](https://wp-modula.com/filter-wordpress-portfolio/) based on those categories
+- Quick&easy tutorial on how to create a gallery with categories and how to [filter gallery images](https://wp-modula.com/filter-wordpress-portfolio&utm_medium=web&utm_campaign=Modula%20Lite) based on those categories
 - Youtube tutorial on [how to apply filters and choose filter styles] (https://youtu.be/etMUFBsLMf4)
 - Demo for all our [filter styles](https://demo.wp-modula.com/demo/filter-styles/)
-- Refer to our documentation to learn all the [filter settings](https://modula.helpscoutdocs.com/article/204-how-to-use-filters-in-modula) available
+- Refer to our documentation to learn all the [filter settings](https://wp-modula.com/kb/use-filters-in-modula&utm_medium=web&utm_campaign=Modula%20Lite) available
 
 **How to password protect a gallery (PRO feature)**
 
-- Quick&easy tutorial on how to create a [password protected gallery](https://wp-modula.com/password-protected-gallery/)
+- Quick&easy tutorial on how to create a [password protected gallery](https://wp-modula.com/password-protected-gallery&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo for a [password protected gallery](https://demo.wp-modula.com/demo/password-protection/)
-- Refer to our documentation to learn all the settings for [Password Protect Extension](https://modula.helpscoutdocs.com/article/219-how-to-create-password-protected-galleries)
+- Refer to our documentation to learn all the settings for [Password Protect Extension](https://wp-modula.com/kb/password-protection&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **How to add pagination to a gallery (PRO feature)**
 
 - Demo for a [gallery with pagination](https://demo.wp-modula.com/?modula-gallery=modula-pagination)
-- Refer to our documentation to learn all the [pagination settings](https://modula.helpscoutdocs.com/article/249-modula-pagination) available
+- Refer to our documentation to learn all the [pagination settings](https://wp-modula.com/kb/modula-pagination&utm_medium=web&utm_campaign=Modula%20Lite) available
 
 **How to create a gallery with hover effects (PRO feature)**
 
 - Modula plugin comes with more than 40 stunning and creative hover effects built in. All hover effects are unique and can feature a title, short description and social icons, resulting in unique and contemporary galleries. The effects are designed to be cross-browser compatible and with the use of modern techniques like CSS3 animations, the effects work perfectly on mobile devices too.
 - Demo example of [hover effect](https://demo.wp-modula.com/demo/hover-effects/pufrobo/)
-- Refer to our documentation to learn the [settings for applying hover effects](https://modula.helpscoutdocs.com/article/208-modula-hover-effects) and see the demos for all hover effects available
+- Refer to our documentation to learn the [settings for applying hover effects](https://wp-modula.com/kb/modula-hover-effects&utm_medium=web&utm_campaign=Modula%20Lite) and see the demos for all hover effects available
 
 **How to organize galleries in albums (PRO feature)**
 
-- Quick&easy tutorial on how to create a [gallery album](https://wp-modula.com/online-photo-album/)
+- Quick&easy tutorial on how to create a [gallery album](https://wp-modula.com/online-photo-album&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo for [organizing multiple galleries in albums](https://demo.wp-modula.com/)
-- Refer to our documentation to learn the [settings for creating gallery albums](https://modula.helpscoutdocs.com/article/222-modula-albums)
+- Refer to our documentation to learn the [settings for creating gallery albums](https://wp-modula.com/kb/modula-albums&utm_medium=web&utm_campaign=Modula%20Lite)
 
 == NEED HELP USING MODULA? ==
 
-- Search our extensive [knowledge base](https://modula.helpscoutdocs.com/) for documentation about installing the plugin/the extensions, available settings and how to use them.
+- Search our extensive [knowledge base](https://wp-modula.com/knowledge-base/) for documentation about installing the plugin/the extensions, available settings and how to use them.
 - Browse [Modula's WordPress forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/) to find answers to your queries or create a new topic.
 - [Contact us](https://wp-modula.com/contact-us/) directly for support.
 
