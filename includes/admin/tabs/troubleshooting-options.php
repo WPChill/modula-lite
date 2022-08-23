@@ -8,7 +8,8 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'lightboxes'       => array(),
     'lazy_load'        => false,
     'disable_edit'     => false,
-    'track_data'       => false
+    'track_data'       => false,
+    'disable_srcset'   => false
 ));
 
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
@@ -29,6 +30,12 @@ $troubleshooting_fields = array(
 		'track_data'            => array(
 				'label'       => esc_html__( 'Track Data', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and Modula settings, which we will use to help us make improvements.', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'priority'    => 10,
+		),
+        'disable_srcset'        => array(
+				'label'       => esc_html__( 'Disable images srcset', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you want to disable the srcset of the front-end images check this option.', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'priority'    => 10,
 		),

@@ -124,6 +124,11 @@ class Modula_Debug {
 						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_edit' ] ) && '1' == $troubleshoot_opt[ 'disable_edit' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
 						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_edit' ] ) && '1' == $troubleshoot_opt[ 'disable_edit' ] ) ? 'Edit gallery link disabled: ' : 'Edit gallery link enabled'
 					),
+					'modula_disable_srcset' => array(
+						'label' => __( 'Disable images srcset', 'modula-best-grid-gallery' ),
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? 'srcset is disabled: ' : 'srcset is enabled'
+					),
 				)
 			)
 		);

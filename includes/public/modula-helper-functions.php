@@ -323,7 +323,14 @@ function modula_sources_and_sizes( $data ) {
 
 	// Lets creat our $image object
 	$image = '<img class="' . esc_attr( implode( ' ', $data->img_classes ) ) . '" ' . Modula_Helper::generate_attributes( $data->img_attributes ) . '/>';
-
+	
+	// Check if srcset is disabled for an early return.
+	$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
+	if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
+		echo $image;
+		return;
+	}
+	
 	// Get the imag meta
 	$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
 
