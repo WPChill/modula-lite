@@ -3,12 +3,9 @@ Added: A widget to help you complete your first post ( https://github.com/WPChil
 
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.
-Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/issues/618 )
-Fixed: Gallery titles with messy display names in Gutenberg ( https://github.com/WPChill/modula-lite/issues/652 )
-Added: Possibility to exclude certain images from the lightbox ( https://github.com/WPChill/modula-lite/issues/445 )
-
-= 2.6.7 - 08/06/2020 =
-Fixed: Sanitization & escapes.
+Fixed: Medicare WP theme compatibility ( [#618](https://github.com/WPChill/modula-lite/issues/618) )
+Fixed: Gallery titles with messy display names in Gutenberg ( [#652](https://github.com/WPChill/modula-lite/issues/652) )
+Added: Possibility to exclude certain images from the lightbox ( [#445](https://github.com/WPChill/modula-lite/issues/445) )
 
 = 2.6.6 - 02/05/2020 =
 Fixed: Sanitization not showing quotation marks in image title ( [#627](https://github.com/WPChill/modula-lite/issues/627) )
