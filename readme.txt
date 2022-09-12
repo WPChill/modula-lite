@@ -263,6 +263,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
+= 2.6.8 - TBA =
+Added: A widget to help you complete your first post ( [#651](https://github.com/WPChill/modula-lite/issues/651) )
+Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode. ( [#681](https://github.com/WPChill/modula-lite/issues/681) )
+
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.
 Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/issues/618 )

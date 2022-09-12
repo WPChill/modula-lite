@@ -48,7 +48,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 				'type'             => 'select',
 				'description'      => esc_html__( 'Content entered here will appear inside the module.', 'modula-best-grid-gallery' ),
 				'toggle_slug'      => 'main_content',
-				'options'          => Modula_Helper::get_galleries(),
+				'options'          => ( ( function_exists( 'et_core_is_fb_enabled' ) && et_core_is_fb_enabled() ) ) ? Modula_Helper::get_galleries() : array(),
 				'default'          => 'none',
 				'computed_affects' => array(
 					'__gallery',
