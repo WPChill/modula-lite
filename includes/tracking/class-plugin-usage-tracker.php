@@ -984,17 +984,25 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 				
 				$html .= '<hr>';
 
-				$html .= '<p><input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" value=""> <label for="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check">' . esc_html__( 'I would like to be contacted.', 'download-monitor' ) . '</label></p>';			
-				$html .= '<p><input type="email" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" value="" placeholder="' . esc_html__( 'Email address.', 'download-monitor' ) . '"></p>';		
+				$html .= '<p><input type="checkbox" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check" value=""> <label for="'.esc_attr($this->plugin_name).'-put-goodbye-contact-check">' . esc_html__( 'I would like to be contacted.', 'modula-best-grid-gallery' ) . '</label></p>';			
+				$html .= '<p><input type="email" name="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" id="'.esc_attr($this->plugin_name).'-put-goodbye-contact-email" value="" placeholder="' . esc_html__( 'Email address.', 'modula-best-grid-gallery' ) . '"></p>';		
 				$html .= '</div><!-- .put-goodbye-options -->';
 			}
 	
 
-			$html .= '<a href="#" id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking">' . esc_html__( 'What info do we collect?', 'download-monitor' ) . '</a>';
-			$html .= '<div id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking-info"><ul><li><strong>' . esc_html__( 'Plugin Version', 'download-monitor' ) . '</strong><code>' . MODULA_LITE_VERSION . '</code></li><li><strong>' . esc_html__( 'WordPress Version', 'download-monitor' ) . '</strong><code>' . $wp_version . '</code></li><li><strong>' . esc_html__( 'Current Website', 'download-monitor' ) . '</strong><code>' . trailingslashit( get_site_url() ) . '</code></li><li><strong>' . esc_html__( 'Uninstall Reason', 'download-monitor' ) . '</strong><i>' . esc_html__( 'Selected reason from above.', 'download-monitor' ) . '</i></li></ul></div>';
+			$html .= '<a href="#" id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking">' . esc_html__( 'What info do we collect?', 'modula-best-grid-gallery' ) . '</a>';
+			$html .= '<div id="'.esc_attr($this->plugin_name).'-put-goodbye-tracking-info">\
+			<ul>\
+				<li><strong>' . esc_html__( 'Plugin Version', 'modula-best-grid-gallery' ) . '</strong><code>' . MODULA_LITE_VERSION . '</code></li>\
+				<li><strong>' . esc_html__( 'WordPress Version', 'modula-best-grid-gallery' ) . '</strong><code>' . $wp_version . '</code></li><li><strong>' . esc_html__( 'Current Website', 'modula-best-grid-gallery' ) . '</strong><code>' . trailingslashit( get_site_url() ) . '</code></li>\
+				<li><strong>' . esc_html__( 'Uninstall Reason', 'modula-best-grid-gallery' ) . '</strong><i>' . esc_html__( 'Selected reason from above.', 'modula-best-grid-gallery' ) . '</i></li>\
+				<li><strong>' . esc_html__( 'Server Information', 'modula-best-grid-gallery' ) . '</strong><i>' . esc_html__( 'Your server information.', 'modula-best-grid-gallery' ) . '</i></li>\
+				<li><strong>' . esc_html__( 'Installed Plugins', 'modula-best-grid-gallery' ) . '</strong><i>' . esc_html__( 'Your active and inactive plugins.', 'modula-best-grid-gallery' ) . '</i></li>\
+				<li><strong>' . esc_html__( 'Active Theme', 'modula-best-grid-gallery' ) . '</strong><i>' . esc_html__( 'Your active theme.', 'modula-best-grid-gallery' ) . '</i></li>\
+			</ul></div>';
 			
 			$html .= '</div><!-- .put-goodbye-form-body -->';
-			$html .= '<p class="'.esc_attr($this->plugin_name).'-deactivating-spinner"><span class="spinner"></span> ' . esc_html__( 'Submitting form', 'download-monitor' ) . '</p>';
+			$html .= '<p class="'.esc_attr($this->plugin_name).'-deactivating-spinner"><span class="spinner"></span> ' . esc_html__( 'Submitting form', 'modula-best-grid-gallery' ) . '</p>';
 			?>
 			<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-bg"></div>
 			<style type="text/css">
@@ -1085,7 +1093,7 @@ if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
 						// We'll send the user to this deactivation link when they've completed or dismissed the form.
 						$( 'body' ).toggleClass( '<?php echo esc_attr($this->plugin_name); ?>-put-form-active' );
 						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).fadeIn();
-						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).html( '<?php echo $html; ?>' + '<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer"><p><a id="<?php echo esc_attr($this->plugin_name); ?>-put-submit-form" class="button primary" href="#"><?php esc_html_e( 'Submit and Deactivate', 'download-monitor' ); ?></a>&nbsp;<a class="secondary button" href="' + url + '"><?php esc_html_e( 'Just Deactivate', 'download-monitor' ); ?></a></p></div>' );
+						$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form" ).html( '<?php echo $html; ?>' + '<div class="<?php echo esc_attr($this->plugin_name); ?>-put-goodbye-form-footer"><p><a id="<?php echo esc_attr($this->plugin_name); ?>-put-submit-form" class="button primary" href="#"><?php esc_html_e( 'Submit and Deactivate', 'modula-best-grid-gallery' ); ?></a>&nbsp;<a class="secondary button" href="' + url + '"><?php esc_html_e( 'Just Deactivate', 'modula-best-grid-gallery' ); ?></a></p></div>' );
 					} );
 
 					$( "#<?php echo esc_attr( $this->plugin_name ); ?>-put-goodbye-form"  ).on( "click", "#<?php echo esc_attr( $this->plugin_name ); ?>-put-submit-form", function ( e ) {
