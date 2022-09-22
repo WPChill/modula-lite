@@ -28,8 +28,9 @@ class Modula {
 		$this->define_public_hooks();
 
 		add_action( 'divi_extensions_init', array( $this, 'initialize_divi_extension' ) );
+
+		// Gallery 'srcset' management.
 		add_action( 'modula_before_gallery', array( $this, 'disable_wp_srcset' ) );
-		
 		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
 	}
 
@@ -299,9 +300,24 @@ class Modula {
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
 
 	}
+
+	/**
+	 * Filters the maximum image width to be included in a 'srcset' attribute.
+	 * 
+	 * @return int
+	 *
+	 */
 	public function disable_wp_responsive_images() {
 		return 1;
 	}
+
+	/**
+	 * Prevents WP from adding srcsets to modula gallery images if srcsets are disabled.
+	 * 
+	 * @param $settings
+	 * @return void
+	 *
+	 */
 
 	public function disable_wp_srcset( $settings ){
 		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
@@ -313,9 +329,15 @@ class Modula {
 		
 	}
 
-	
+	/**
+	 * Allows WP to add srcsets to other content after the gallery was created.
+	 * 
+	 * @param $settings
+	 * @return void
+	 *
+	 */
 	public function enable_wp_srcset( $settings ){
-		
+
 		remove_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ) );
 	}
 
