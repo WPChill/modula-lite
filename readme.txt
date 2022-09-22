@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.6.7
+Stable tag: 2.6.8
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
