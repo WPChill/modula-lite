@@ -28,7 +28,9 @@ class Modula {
 		$this->define_public_hooks();
 
 		add_action( 'divi_extensions_init', array( $this, 'initialize_divi_extension' ) );
-
+		add_action( 'modula_before_gallery', array( $this, 'disable_wp_srcset' ) );
+		
+		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
 	}
 
 	private function load_dependencies() {
@@ -297,8 +299,25 @@ class Modula {
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit.css', null, MODULA_LITE_VERSION );
 
 	}
+	public function disable_wp_responsive_images() {
+		return 1;
+	}
 
+	public function disable_wp_srcset( $settings ){
+		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
 
+		if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
+
+			add_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
+		}
+		
+	}
+
+	
+	public function enable_wp_srcset( $settings ){
+		
+		remove_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ) );
+	}
 
 	// Register and load the widget
 	public function modula_load_widget() {
