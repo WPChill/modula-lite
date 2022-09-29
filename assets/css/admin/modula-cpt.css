@@ -1889,7 +1889,10 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   display:none;
 }
 
-
+.modula-settings-container .modula-tabs-content input[type=checkbox]:disabled{
+  opacity:0;
+  cursor: default;
+}
 
 /**
 Some responsive fixes

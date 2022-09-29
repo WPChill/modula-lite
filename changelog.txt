@@ -5,6 +5,7 @@ Changed: Deactivation survey visual Enhancement ( [#649](https://github.com/WPCh
 Added: A setting to remove srcset from images ( [#675](https://github.com/WPChill/modula-lite/issues/675) )
 Fixed: Preventing the addition of custom image size if it's the same as the original  [#684](https://github.com/WPChill/modula-lite/issues/684) )
 Changed: Removed "Open image in a lightbox" tooltip when hovering over an gallery image. [#686](https://github.com/WPChill/modula-lite/issues/686) )
+Added: Metabox accordeons ( [#687](https://github.com/WPChill/modula-lite/issues/687) )
 
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.

@@ -1,5 +1,16 @@
 wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
+
+	jQuery.fn.setting_off = function() {
+		this.css('opacity', '0.5');
+		this.find('input, textarea, select, button').attr('disabled', 'disabled');
+	}; 
+	jQuery.fn.setting_on = function() {
+		this.css('opacity', '1');
+		this.find('input, textarea, select, button').removeAttr('disabled');
+	}; 
+
+
 var modulaGalleryConditions = Backbone.Model.extend({
 
 	initialize: function( args ){
@@ -55,50 +66,55 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( 'custom-grid' == value ) {
 
 			// Show Responsive tab
-			tabs.filter( '[data-tab="modula-responsive"]' ).show();
+			tabs.filter( '[data-tab="modula-responsive"]' ).setting_on();
 			
-			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).show();
+			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).setting_on();
 
+			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).setting_off();
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).hide();
 
-			rows.filter('[data-container="maxImagesCount"]').show();
+			rows.filter('[data-container="maxImagesCount"]').setting_on();
 
 			// Rows for grid type
 			rows.filter('[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
-
+			rows.filter('[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').setting_off();
 			
 		}else if ( 'creative-gallery' == value ) {
 
 			// Hide Responsive tab
-			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
+			tabs.filter( '[data-tab="modula-responsive"]' ).setting_off();
 
-			rows.filter( '[data-container="columns"]' ).hide();
+			rows.filter( '[data-container="columns"]' ).setting_off();
 
+			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).setting_on();
 			rows.filter( '[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]' ).show();
 
-			rows.filter('[data-container="height"],  [data-container="gutter"], [data-container="shuffle"], [data-container="showAllOnLightbox"],[data-container="maxImagesCount"]').show();
+			rows.filter('[data-container="height"],  [data-container="gutter"], [data-container="shuffle"], [data-container="showAllOnLightbox"],[data-container="maxImagesCount"]').setting_on();
 
 
 			// Rows for grid type
 			rows.filter('[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
+			rows.filter('[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').setting_off();
 
 			
 		} else if('grid' == value){
 
 			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"],[data-container="maxImagesCount"]').show();
+			rows.filter('[data-container="grid_type"], [data-container="width"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"],[data-container="maxImagesCount"]').setting_on();
 
+			rows.filter('[data-container="height"], [data-container="randomFactor"]').setting_off();
 			rows.filter('[data-container="height"], [data-container="randomFactor"]').hide();
 
-			tabs.filter( '[data-tab="modula-responsive"]' ).show();
+			tabs.filter( '[data-tab="modula-responsive"]' ).setting_on();
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 
 
 		} else {
 
-			rows.filter('[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').hide();
+			rows.filter('[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').setting_off();
 
-			rows.filter('[data-container="randomFactor"]').show();
+			rows.filter('[data-container="randomFactor"]').setting_on();
 		}
 
 		// Check image sizes
@@ -118,13 +134,13 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if ( 'fancybox' == value ) {
 
-			rows.filter('[data-container="show_navigation"]').show();
-			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').show();
+			rows.filter('[data-container="show_navigation"]').setting_on();
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').setting_on();
 
 		} else {
 
-			rows.filter('[data-container="show_navigation"]').hide();
-			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').hide();
+			rows.filter('[data-container="show_navigation"]').setting_off();
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').setting_off();
 
 		}
 
@@ -134,8 +150,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		var hoverBoxes = jQuery( '.modula-effects-preview > div' );
 
-		hoverBoxes.hide();
-		hoverBoxes.filter( '.panel-' + value ).show();
+		hoverBoxes.setting_off();
+		hoverBoxes.filter( '.panel-' + value ).setting_on();
 
 	},
 
@@ -144,20 +160,20 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if ( 0 == value ) {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"], [data-container="emailSubject"], [data-container="emailMessage"]' ).hide();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"], [data-container="emailSubject"], [data-container="emailMessage"]' ).setting_off();
 
-			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').hide();
+			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').setting_off();
 			
         }else {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').show();
+			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').setting_on();
 
 			if( 1 == wp.Modula.Settings.get( 'enableEmail') ) {
-				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).show();
+				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_on();
 			} else {
-				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).hide();
+				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_off();
 			}
 
-			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').show();
+			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').setting_on();
         }
 	},
 
@@ -165,9 +181,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		let rows = this.get( 'rows' );
 
 		if ( 1 == value && 1 == wp.Modula.Settings.get( 'enableSocial') ) {
-			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).show();
+			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_on();
 		} else {
-			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).hide();
+			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_off();
 		}
 	},
 
@@ -175,9 +191,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if( 1 == value ) {
-			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').show();
+			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_on();
 		}else {
-			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').hide();
+			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_off();
 		}
 	},
 
@@ -185,9 +201,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if( 1 == value ) {
-			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').hide();
+			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').setting_off();
 		}else {
-			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').show();
+			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').setting_on();
 		}
 	},
 
@@ -195,9 +211,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' );
 
 		if( 1 == value ) {
-			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').hide();
+			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').setting_off();
 		}else {
-			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').show();
+			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').setting_on();
 		}
 	},
 
@@ -213,14 +229,14 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if( 'automatic' == value ) {
 
-			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"]').show();
-			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
+			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"]').setting_on();
+			tabs.filter( '[data-tab="modula-responsive"]' ).setting_off();
 		} else {
 
-			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').hide();
+			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').setting_off();
 
-			rows.filter('[data-container="grid_type"],[data-container="gutter"]').show();
-			tabs.filter( '[data-tab="modula-responsive"]' ).show();
+			rows.filter('[data-container="grid_type"],[data-container="gutter"]').setting_on();
+			tabs.filter( '[data-tab="modula-responsive"]' ).setting_on();
 		}
 
 	},
@@ -232,22 +248,22 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if ( 'custom' == value ) {
 			if ( 'custom-grid' == wp.Modula.Settings.get( 'type') ) {
-				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').show();
-				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').setting_on();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_off();
 			}else{
-				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
-				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').hide();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_on();
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').setting_off();
 			}
 			
 		} else {
 
-			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"], [data-container="img_crop"]').hide();
+			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"], [data-container="img_crop"]').setting_off();
 		}
 
 		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );
-		imagesizes.hide();
+		imagesizes.setting_off();
 		if ( currentInfo.length > 0 ) {
-			currentInfo.show();
+			currentInfo.setting_on();
 		}
 	},
 

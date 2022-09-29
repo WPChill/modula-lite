@@ -264,11 +264,13 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 
 = 2.6.8 - TBA =
-Added: A widget to help you complete your first post ( [#651](https://github.com/WPChill/modula-lite/issues/651) )
 Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode. ( [#681](https://github.com/WPChill/modula-lite/issues/681) )
 Fixed: Warnings if images could not be resized ( [#682](https://github.com/WPChill/modula-lite/issues/682) )
 Changed: Deactivation survey visual Enhancement ( [#649](https://github.com/WPChill/modula-lite/issues/649) )
 Added: A setting to remove srcset from images ( [#675](https://github.com/WPChill/modula-lite/issues/675) )
+Fixed: Preventing the addition of custom image size if it's the same as the original  [#684](https://github.com/WPChill/modula-lite/issues/684) )
+Changed: Removed "Open image in a lightbox" tooltip when hovering over an gallery image. [#686](https://github.com/WPChill/modula-lite/issues/686) )
+Added: Metabox accordeons ( [#687](https://github.com/WPChill/modula-lite/issues/687) )
 
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.
