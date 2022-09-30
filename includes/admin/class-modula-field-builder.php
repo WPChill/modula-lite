@@ -276,6 +276,13 @@ class Modula_Field_Builder {
 
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
+		if( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ){
+
+			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
+			
+			$format = '<tr class="modula_accordion_closed" data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\'><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
+		}
+
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
 
@@ -710,6 +717,13 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+		}
+
+		if( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ){
+
+			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
+			
+			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings') . ' </span>';
 		}
 
 		return apply_filters( "modula_render_field_type", $html, $field, $value );

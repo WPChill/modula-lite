@@ -207,6 +207,7 @@ class Modula_CPT_Fields_Helper {
 					),
 					'default'     => 'automatic',
 					'priority'    => 26,
+					'children'	  => array("grid_row_height", "grid_justify_last_row"),
 				),
 
 				"grid_row_height" => array(
@@ -373,6 +374,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 1,
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
+					'children'	  => array("titleColor", "titleFontSize", "mobileTitleFontSize"),
 				),
 				"titleColor"     => array(
 					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
@@ -406,6 +408,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 0,
 					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
+					'children'	  => array("captionColor", "captionFontSize", "mobileCaptionFontSize"),
 				),
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
@@ -441,6 +444,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 0,
 					"description" => "Enable social sharing on hovering the gallery thumbnail. Off by default.",
 					'priority'    => 10,
+					'children'	  => array("enableTwitter", "enableFacebook", "enableWhatsapp", "enableLinkedin", "enablePinterest", "enableEmail", "emailSubject", "emailMessage", "socialIconColor", "socialIconSize", "socialIconPadding"),
 				),
 				"enableTwitter"   => array(
 					"name"        => esc_html__( 'Twitter', 'modula-best-grid-gallery' ),
@@ -454,7 +458,7 @@ class Modula_CPT_Fields_Helper {
 					"name"        => esc_html__( 'Facebook', 'modula-best-grid-gallery' ),
 					"type"        => "toggle",
 					"default"     => 0,
-					"description" => esc_html__( 'Show Facebook Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Show Facebook Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery'),
 					'is_child'    => true,
 					'priority'    => 20,
 				),
@@ -489,6 +493,7 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show Email Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 40,
+					'children'	  => array( "emailSubject", "emailMessage" ),
 				),
 				"emailSubject"   => array(
 					"name"        => esc_html__( 'Email subject', 'modula-best-grid-gallery' ),
