@@ -1896,17 +1896,12 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 
 .modula-settings-container .modula-tabs-content .modula_settings_accordion {
   float: right;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 16px;
-  color: #2c3338;
-  border-color: #8c8f94;
-  box-shadow: none;
-  border-radius: 3px;
-  padding: 0 24px 0 8px;
-  max-width: 25rem;
+  color: #1d2327;
   cursor: pointer;
-  vertical-align: middle;
 }
+
 .modula-settings-container .modula-tabs-content .modula_settings_accordion:after {
   right: 0;
   content: "\f140";
