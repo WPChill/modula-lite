@@ -25,6 +25,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     		// Tabs specific events
     		'click .modula-tab':     'changeTab',
             'click .modula-tab > *': 'changeTabFromChild',
+            'click .modula_settings_accordion': 'changeAcordeon',
 
     		// Settings specific events
             'keyup input':         'updateModel',
@@ -128,6 +129,42 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             jQuery( event.target ).parent().addClass( 'active-tab' );
             this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' );
 
+        },
+
+        changeAcordeon: function ( event ) {
+            var row = jQuery( event.target ).parents( 'tr' ),
+                settingID = row.data( 'container' ),
+                children  = row.data( 'children' ),
+                rows = jQuery('.modula-settings-container tr[data-container]'),
+                value = wp.Modula.Settings.get( settingID ),
+                display = 'none',
+                opacity = 0.5;
+
+            row.toggleClass( 'modula_accordion_open' );
+
+            jQuery.each(children, function(index, item) {
+
+                var child = jQuery('[data-container="'+item+'"]');
+
+                if ( value ) {
+                    child.css('opacity', '1');
+                    child.find('input, textarea, select, button').removeAttr('disabled');
+                }else{
+                    child.css('opacity', '0.5');
+                    child.find('input, textarea, select, button').attr('disabled', 'disabled');
+                    
+                }
+
+                if ( row.hasClass( 'modula_accordion_open' ) ) {
+                    child.show();
+                    console.log( 'show' );
+                }else{
+                    console.log( 'hide' );
+                    child.hide();
+                }
+
+            });
+                 
         },
 
         initSliders: function() {

@@ -280,7 +280,7 @@ class Modula_Field_Builder {
 
 			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
 			
-			$format = '<tr class="modula_accordion_closed" data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\'><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\'><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 		}
 
 		// Formats for General Gutter

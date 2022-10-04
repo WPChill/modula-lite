@@ -43,7 +43,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
-		jQuery( document ).on('click', '.modula_settings_accordion',  this.accordionOpen);
+		// jQuery( document ).on('click', '.modula_settings_accordion',  this.accordionOpen);
 
 	},
 
@@ -163,28 +163,50 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	enableSocial: function( settings, value){
 
-		var rows = this.get( 'rows' );
+		var rows = this.get( 'rows' ),
+			currentRow = rows.filter('[data-container="enableSocial"]'),
+			settingID = currentRow.data( 'container' ),
+            children  = currentRow.data( 'children' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 0 == value ) {
+            	child.hide();
+            }else{
+            	child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+            }
+
+        });
 
 		if ( 0 == value ) {
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"], [data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
 
-			rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').setting_state( this, 'off');
-			this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'close');
+			currentRow.removeClass( 'modula_accordion_open' );
+
+			// rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"], [data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
+
+			// rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').setting_state( this, 'off');
+			// this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'close');
         }else {
-			this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'open');
+			// this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'open');
 
-			rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').setting_state( this, 'on');
+			// rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').setting_state( this, 'on');
 			
-			if( 1 == wp.Modula.Settings.get( 'enableEmail') ) {
-				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'on');
-				this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'open');
-			} else {
-				rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
-				this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'close');
-			}
+			// if( 1 == wp.Modula.Settings.get( 'enableEmail') ) {
+			// 	rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'on');
+			// 	this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'open');
+			// } else {
+			// 	rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
+			// 	this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'close');
+			// }
 
-			rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').setting_state( this, 'on');
-			
+			// rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').setting_state( this, 'on');
+
+			currentRow.addClass( 'modula_accordion_open' );
+			this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );
 
 		}
 	},
