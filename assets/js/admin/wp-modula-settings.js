@@ -146,10 +146,11 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
                 var child = jQuery('[data-container="'+item+'"]');
 
-                if ( value ) {
+                if ( 0 != value ) {
                     child.css('opacity', '1');
                     child.find('input, textarea, select, button').removeAttr('disabled');
                 }else{
+                    console.log( 'else' );
                     child.css('opacity', '0.5');
                     child.find('input, textarea, select, button').attr('disabled', 'disabled');
                     
@@ -157,9 +158,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
                 if ( row.hasClass( 'modula_accordion_open' ) ) {
                     child.show();
-                    console.log( 'show' );
                 }else{
-                    console.log( 'hide' );
                     child.hide();
                 }
 
