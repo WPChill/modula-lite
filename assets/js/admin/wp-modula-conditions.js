@@ -37,21 +37,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:lightbox', this.changedLightbox );
 		this.listenTo( wp.Modula.Settings, 'change:enableSocial', this.enableSocial );
 		this.listenTo( wp.Modula.Settings, 'change:enableEmail', this.enableEmail);
-		// this.listenTo( wp.Modula.Settings, 'change:cursor', this.changedCursor );
 		this.listenTo( wp.Modula.Settings, 'change:enable_responsive', this.changedResponsiveness );
 		this.listenTo( wp.Modula.Settings, 'change:hide_title', this.hideTitle);
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
-		// jQuery( document ).on('click', '.modula_settings_accordion',  this.accordionOpen);
 
 	},
 
 	initValues: function(){
 
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
-		// this.changedEffect( false, wp.Modula.Settings.get( 'effect' ) );
-		// this.changedCursor( false, wp.Modula.Settings.get( 'cursor' ) );
+
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
 		this.enableSocial (false, wp.Modula.Settings.get('enableSocial') );
 		this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );
@@ -60,7 +57,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.hideCaption ( false, wp.Modula.Settings.get( 'hide_description') );
 		this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 		this.changedGridImageSize(false, wp.Modula.Settings.get('grid_image_size'));
-		//jQuery( document ).on('load', this.accordionOpen( this, '.modula_settings_accordion'));
 
 	},
 
@@ -165,7 +161,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		var rows = this.get( 'rows' ),
 			currentRow = rows.filter('[data-container="enableSocial"]'),
-			settingID = currentRow.data( 'container' ),
             children  = currentRow.data( 'children' );
 
         jQuery.each(children, function(index, item) {
@@ -186,24 +181,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			currentRow.removeClass( 'modula_accordion_open' );
 
-			// rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"], [data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
-
-			// rows.filter('[data-container="socialIconColor"], [data-container="socialIconSize"],[data-container="socialIconPadding"]').setting_state( this, 'off');
-			// this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'close');
         }else {
-			// this.accordionOpenChange(null,rows.filter('[data-container="enableSocial"]')[0], 'open');
-
-			// rows.filter( '[data-container="enableTwitter"],[data-container="enableWhatsapp"],[data-container="enableFacebook"],[data-container="enableLinkedin"],[data-container="enablePinterest"], [data-container="enableEmail"]').setting_state( this, 'on');
-			
-			// if( 1 == wp.Modula.Settings.get( 'enableEmail') ) {
-			// 	rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'on');
-			// 	this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'open');
-			// } else {
-			// 	rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
-			// 	this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'close');
-			// }
-
-			// rows.filter('[data-container="socialIconPadding"],[data-container="socialIconColor"], [data-container="socialIconSize"]').setting_state( this, 'on');
 
 			currentRow.addClass( 'modula_accordion_open' );
 			this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );
@@ -212,14 +190,28 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	enableEmail: function( settings, value ) {
-		let rows = this.get( 'rows' );
+		var rows = this.get( 'rows' ),
+			currentRow = rows.filter('[data-container="enableEmail"]'),
+            children  = currentRow.data( 'children' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 0 == value ) {
+            	child.hide();
+            }else{
+            	child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+            }
+
+        });
 
 		if ( 1 == value && 1 == wp.Modula.Settings.get( 'enableSocial') ) {
-			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'on');
-			this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'open');
+			currentRow.addClass( 'modula_accordion_open' );
 		} else {
-			rows.filter('[data-container="emailSubject"], [data-container="emailMessage"]' ).setting_state( this, 'off');
-			this.accordionOpenChange(null,rows.filter('[data-container="enableEmail"]')[0], 'close');
+			currentRow.removeClass( 'modula_accordion_open' );
 		}
 	},
 
@@ -234,33 +226,86 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	hideTitle: function( settings, value ) {
-		var rows = this.get( 'rows' );
+		var rows = this.get( 'rows' ),
+			currentRow = rows.filter('[data-container="hide_title"]'),
+            children  = currentRow.data( 'children' );
+
+			currentRow.addClass( 'modula_accordion_reversed' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 1 == value ) {
+            	child.hide();
+            }else{
+            	child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+            }
+
+        });
+
 
 		if( 1 == value ) {
-			this.accordionOpenChange(null,rows.filter('[data-container="hide_title"]')[0], 'close');
-			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').setting_state( this, 'off');
+
+			currentRow.removeClass( 'modula_accordion_open' );
 		}else {
-			this.accordionOpenChange(null,rows.filter('[data-container="hide_title"]')[0], 'open');
-			rows.filter( '[data-container="titleColor"],[data-container="titleFontSize"],[data-container="mobileTitleFontSize"]').setting_state( this, 'on');
+
+			currentRow.addClass( 'modula_accordion_open' );
 		}
 	},
 
 	hideCaption: function( settings, value ) {
-		var rows = this.get( 'rows' );
+		var rows = this.get( 'rows' ),
+			currentRow = rows.filter('[data-container="hide_description"]'),
+            children  = currentRow.data( 'children' );
+
+			currentRow.addClass( 'modula_accordion_reversed' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 1 == value ) {
+            	child.hide();
+            }else{
+            	child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+            }
+
+        });
 
 		if( 1 == value ) {
-			this.accordionOpenChange(null,rows.filter('[data-container="hide_description"]')[0], 'close');
-			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').setting_state( this, 'off');
+
+			currentRow.removeClass( 'modula_accordion_open' );
 		}else {
-			this.accordionOpenChange(null,rows.filter('[data-container="hide_description"]')[0], 'open');
-			rows.filter( '[data-container="captionColor"],[data-container="captionFontSize"],[data-container="mobileCaptionFontSize"]').setting_state( this, 'on');
+			
+			currentRow.addClass( 'modula_accordion_open' );
 		}
 	},
 
 	changedGridType: function (settings, value) {
 
-		let rows = this.get( 'rows' );
-		var tabs = this.get( 'tabs' );
+		var rows = this.get( 'rows' ),
+			tabs = this.get( 'tabs' ),
+			currentRow = rows.filter('[data-container="grid_type"]'),
+            children  = currentRow.data( 'children' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 'automatic' != value ) {
+            	child.hide();
+            }else{
+            	child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+            }
+
+        });
 
 		if ( 'grid' != wp.Modula.Settings.get('type') ) {
 
@@ -271,14 +316,14 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"]').setting_state( this, 'on');
 			tabs.filter( '[data-tab="modula-responsive"]' ).setting_state( this, 'off');
-			this.accordionOpenChange(null,rows.filter('[data-container="grid_type"]')[0], 'open');
+
+			
 		} else {
 
 			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').setting_state( this, 'off');
-
 			rows.filter('[data-container="grid_type"],[data-container="gutter"]').setting_state( this, 'on');
 			tabs.filter( '[data-tab="modula-responsive"]' ).setting_state( this, 'on');
-			this.accordionOpenChange(null,rows.filter('[data-container="grid_type"]')[0], 'close');
+
 		}
 
 	},
@@ -307,61 +352,5 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( currentInfo.length > 0 ) {
 			currentInfo.setting_state( this, 'on');
 		}
-	},
-
-	accordionOpen: function(event){
-		// function call on click
-		element = jQuery(this).parents('tr');
-		$children = element.data('children');
-
-
-		if( element.hasClass('modula_accordion_closed') ){
-			element.removeClass('modula_accordion_closed' );
-			element.addClass('modula_accordion_open' );
-			jQuery.each($children, function(index, item) {
-
-				jQuery('[data-container="'+item+'"]').show();
-			});
-	
-		}else{
-			element.removeClass('modula_accordion_open' );
-			element.addClass('modula_accordion_closed' );
-			jQuery.each($children, function(index, item) {
-
-				jQuery('[data-container="'+item+'"]').hide();
-			});
-
-		}
-		
-	},
-
-	accordionOpenChange: function(event, element = null, state){
-
-		if( null == element ){
-			return;
-		}
-
-		element = jQuery(element);
-		$children = element.data('children');
-		
-
-		if( 'open' == state ){
-			element.removeClass('modula_accordion_closed' );
-			element.addClass('modula_accordion_open' );
-			jQuery.each($children, function(index, item) {
-
-				jQuery('[data-container="'+item+'"]').show();
-			});
-	
-		}else{
-			element.removeClass('modula_accordion_open' );
-			element.addClass('modula_accordion_closed' );
-			jQuery.each($children, function(index, item) {
-
-				jQuery('[data-container="'+item+'"]').hide();
-			});
-
-		}
-		
 	},
 });

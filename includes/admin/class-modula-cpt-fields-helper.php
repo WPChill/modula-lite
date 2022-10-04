@@ -207,7 +207,6 @@ class Modula_CPT_Fields_Helper {
 					),
 					'default'     => 'automatic',
 					'priority'    => 26,
-					'children'	  => array("grid_row_height", "grid_justify_last_row"),
 				),
 
 				"grid_row_height" => array(

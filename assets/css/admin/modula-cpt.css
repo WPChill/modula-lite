@@ -1916,9 +1916,7 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   text-decoration: none;
   top: 2px;
 }
-.modula-settings-container .modula-tabs-content .modula_accordion_closed .modula_settings_accordion:after {
-  content: "\f140";
-}
+
 .modula-settings-container .modula-tabs-content .modula_accordion_open .modula_settings_accordion:after {
   content: "\f142";
 }

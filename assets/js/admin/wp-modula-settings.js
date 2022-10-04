@@ -136,11 +136,22 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 settingID = row.data( 'container' ),
                 children  = row.data( 'children' ),
                 rows = jQuery('.modula-settings-container tr[data-container]'),
-                value = wp.Modula.Settings.get( settingID ),
-                display = 'none',
-                opacity = 0.5;
+                value = wp.Modula.Settings.get( settingID );
 
             row.toggleClass( 'modula_accordion_open' );
+
+            if( row.hasClass( 'modula_accordion_reversed' ) ){
+                if( 0 == value ){ value = 1; }else{ value = 0; }
+            }
+
+            // Removing nephews from children array
+            jQuery.each(children, function(index, item) {
+
+                var child = jQuery('[data-container="'+item+'"]');
+                if( child.data( 'children' ) ){
+                    children = children.filter( ( el ) => !child.data( 'children' ).includes( el ) );
+                }
+            });
 
             jQuery.each(children, function(index, item) {
 
@@ -150,7 +161,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                     child.css('opacity', '1');
                     child.find('input, textarea, select, button').removeAttr('disabled');
                 }else{
-                    console.log( 'else' );
                     child.css('opacity', '0.5');
                     child.find('input, textarea, select, button').attr('disabled', 'disabled');
                     
