@@ -220,7 +220,7 @@ class Modula_Shortcode {
 			"enablePinterest"  => boolval( $settings[ 'enablePinterest' ] ),
 			"enableLinkedin"   => boolval( $settings[ 'enableLinkedin' ] ),
 			"enableEmail"      => boolval( $settings[ 'enableEmail' ] ),
-			"randomFactor"     => ( $settings[ 'randomFactor' ] / 100 ),
+			"randomFactor"     => ( absint( $settings[ 'randomFactor' ] ) / 100 ),
 			'type'             => $type,
 			'columns'          => 12,
 			'gutter'           => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : 10,

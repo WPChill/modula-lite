@@ -216,12 +216,31 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	changedResponsiveness: function( settings, value){
-		var rows = this.get( 'rows' );
+		var rows = this.get( 'rows' ),
+			currentRow = rows.filter('[data-container="enable_responsive"]'),
+            children  = currentRow.data( 'children' );
+
+        jQuery.each(children, function(index, item) {
+
+            var child = jQuery('[data-container="'+item+'"]');
+
+            if ( 1 == value ) {
+				child.css('opacity', '1');
+                child.find('input, textarea, select, button').removeAttr('disabled');
+            	child.show();
+
+            }else{
+            	child.hide();
+            }
+
+        });
 
 		if( 1 == value ) {
 			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_state( this, 'on');
+			currentRow.addClass( 'modula_accordion_open' );
 		}else {
 			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_state( this, 'off');
+			currentRow.removeClass( 'modula_accordion_open' );
 		}
 	},
 

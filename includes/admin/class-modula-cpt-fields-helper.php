@@ -651,6 +651,7 @@ class Modula_CPT_Fields_Helper {
 					"type"        => "toggle",
 					"default"     => 0,
 					'priority'    => 10,
+					'children'	  => array( 'tablet_columns', 'mobile_columns' ),
 				),
 				'tablet_columns' => array(
 					"name"        => esc_html__( 'Tablet Columns', 'modula-best-grid-gallery' ),
