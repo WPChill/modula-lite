@@ -135,7 +135,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             var row = jQuery( event.target ).parents( 'tr' ),
                 settingID = row.data( 'container' ),
                 children  = row.data( 'children' ),
-                rows = jQuery('.modula-settings-container tr[data-container]'),
                 value = wp.Modula.Settings.get( settingID );
 
             row.toggleClass( 'modula_accordion_open' );
@@ -143,15 +142,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             if( row.hasClass( 'modula_accordion_reversed' ) ){
                 if( 0 == value ){ value = 1; }else{ value = 0; }
             }
-
-            // Removing nephews from children array
-            jQuery.each(children, function(index, item) {
-
-                var child = jQuery('[data-container="'+item+'"]');
-                if( child.data( 'children' ) ){
-                    children = children.filter( ( el ) => !child.data( 'children' ).includes( el ) );
-                }
-            });
 
             jQuery.each(children, function(index, item) {
 

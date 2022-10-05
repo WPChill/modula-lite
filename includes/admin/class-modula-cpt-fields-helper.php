@@ -443,7 +443,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 0,
 					"description" => "Enable social sharing on hovering the gallery thumbnail. Off by default.",
 					'priority'    => 10,
-					'children'	  => array("enableTwitter", "enableFacebook", "enableWhatsapp", "enableLinkedin", "enablePinterest", "enableEmail", "emailSubject", "emailMessage", "socialIconColor", "socialIconSize", "socialIconPadding"),
+					'children'	  => array("enableTwitter", "enableFacebook", "enableWhatsapp", "enableLinkedin", "enablePinterest", "enableEmail", "socialIconColor", "socialIconSize", "socialIconPadding"),
 				),
 				"enableTwitter"   => array(
 					"name"        => esc_html__( 'Twitter', 'modula-best-grid-gallery' ),
