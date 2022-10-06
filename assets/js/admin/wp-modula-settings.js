@@ -138,7 +138,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 value = wp.Modula.Settings.get( settingID );
 
             row.toggleClass( 'modula_accordion_open' );
-
+           
             if( row.hasClass( 'modula_accordion_reversed' ) ){
                 if( 0 == value ){ value = 1; }else{ value = 0; }
             }
@@ -146,7 +146,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             jQuery.each(children, function(index, item) {
 
                 var child = jQuery('[data-container="'+item+'"]');
-
+                    
                 if ( 0 != value ) {
                     child.css('opacity', '1');
                     child.find('input, textarea, select, button').removeAttr('disabled');
@@ -161,9 +161,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 }else{
                     child.hide();
                 }
-
+                child.find('.modula_settings_accordion').trigger('click');
             });
-                 
+
+            
         },
 
         initSliders: function() {
