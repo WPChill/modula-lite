@@ -184,7 +184,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
         }else {
 
 			currentRow.addClass( 'modula_accordion_open' );
-			this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );
 
 		}
 	},
