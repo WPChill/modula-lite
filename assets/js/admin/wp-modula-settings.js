@@ -38,6 +38,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         initialize: function( args ) {
         	this.initializeLite();
+
+            console.log( this.model );
         },
 
         initializeLite: function(){
@@ -163,6 +165,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 }
                 child.find('.modula_settings_accordion').trigger('click');
             });
+
+            let customEvent = 'toggleAccordeon:'+settingID;
+            this.model.trigger( 'toggleAccordeon' );
+            this.model.trigger( customEvent );
 
             
         },
