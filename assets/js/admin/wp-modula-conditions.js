@@ -197,12 +197,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		var rows = this.get( 'rows' ),
 			currentRow = rows.filter('[data-container="enableSocial"]'),
 			emailRow = rows.filter('[data-container="enableEmail"]'),
-			children  = currentRow.data( 'children' );
+			children  = emailRow.data( 'children' );
 
 		if ( ! currentRow.hasClass( 'modula_accordion_open' ) ) {
 			jQuery.each(children, function(index, item) {
+				var child = jQuery('[data-container="'+item+'"]');
 				child.hide();
 			});
+
+			if ( emailRow.hasClass( 'modula_accordion_open' ) ) {
+				emailRow.removeClass( 'modula_accordion_open' )
+			}
+
 		}
 
 	},

@@ -163,7 +163,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 }else{
                     child.hide();
                 }
-                child.find('.modula_settings_accordion').trigger('click');
+                //child.find('.modula_settings_accordion').trigger('click');
             });
 
             let customEvent = 'toggleAccordeon:'+settingID;
