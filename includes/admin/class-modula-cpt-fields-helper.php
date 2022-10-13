@@ -493,6 +493,7 @@ class Modula_CPT_Fields_Helper {
 					'is_child'    => true,
 					'priority'    => 40,
 					'children'	  => array( "emailSubject", "emailMessage" ),
+					'parent'	  => "enableSocial",
 				),
 				"emailSubject"   => array(
 					"name"        => esc_html__( 'Email subject', 'modula-best-grid-gallery' ),

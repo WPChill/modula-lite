@@ -137,7 +137,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             var row = jQuery( event.target ).parents( 'tr' ),
                 settingID = row.data( 'container' ),
                 children  = row.data( 'children' ),
-                value = wp.Modula.Settings.get( settingID );
+                value = wp.Modula.Settings.get( settingID ),
+                parentval = 1;
 
             row.toggleClass( 'modula_accordion_open' );
            
@@ -145,11 +146,16 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 if( 0 == value ){ value = 1; }else{ value = 0; }
             }
 
+            if( row.data( 'parent' ) ){
+                console.log('parent check');
+                parentval = wp.Modula.Settings.get( row.data( 'parent' ) );
+            }
+
             jQuery.each(children, function(index, item) {
 
                 var child = jQuery('[data-container="'+item+'"]');
                     
-                if ( 0 != value ) {
+                if ( 1 == value && 1 == parentval ) {
                     child.css('opacity', '1');
                     child.find('input, textarea, select, button').removeAttr('disabled');
                 }else{

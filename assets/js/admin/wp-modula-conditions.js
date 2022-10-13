@@ -190,6 +190,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			currentRow.addClass( 'modula_accordion_open' );
 
 		}
+
+		this.enableEmail(false, wp.Modula.Settings.get('enableEmail'));
 	},
 
 	toggleSocial: function(){
@@ -214,6 +216,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	enableEmail: function( settings, value ) {
+		console.log('enableEmail');
 		var rows = this.get( 'rows' ),
 			currentRow = rows.filter('[data-container="enableEmail"]'),
             children  = currentRow.data( 'children' );
@@ -222,7 +225,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
             var child = jQuery('[data-container="'+item+'"]');
 
-            if ( 0 == value ) {
+            if ( 0 == value || 0 == wp.Modula.Settings.get('enableSocial')) {
             	child.hide();
             }else{
             	child.css('opacity', '1');

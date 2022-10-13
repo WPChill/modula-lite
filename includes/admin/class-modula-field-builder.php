@@ -279,8 +279,12 @@ class Modula_Field_Builder {
 		if( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ){
 
 			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
-			
-			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\'><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
+
+			$parent = '';
+			if( isset( $field['parent'] ) && '' != $field['parent']  ){
+				$parent = 'data-parent="' . $field['parent'] . '"';
+			}
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\' ' . $parent . '><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 		}
 
 		// Formats for General Gutter
