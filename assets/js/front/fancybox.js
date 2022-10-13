@@ -2023,8 +2023,8 @@
         })
         .addClass("modula-fancybox-image")
         .attr("src", slide.src)
+        .attr("aria-describedby", 'modula-caption-' + slide.index)
         .appendTo(slide.$content);
-
 
       if ((img.complete || img.readyState == "complete") && $img.naturalWidth && $img.naturalHeight) {
         $img.trigger("load");
@@ -3047,7 +3047,7 @@
         $caption
           .children()
           .eq(0)
-          .html(caption);
+		  .html('<p id="modula-caption-'+ current.index +'" class="modula-fancybox-caption__text">' + caption + '</p>');
       } else {
         self.$caption = null;
       }
@@ -5213,16 +5213,18 @@
         if (!src && item.type === "image") {
           src = item.src;
         }
+		var imageCaption = item.opts.caption.replace(/<p>|<\/p>/igm, '');
 
-        list.push(
-          '<a href="javascript:;" tabindex="0" data-index="' +
-          i +
-          '"' +
-          (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
-          "></a>"
-        );
-      });
+		list.push( '<a href="javascript:;" role="button" aria-label="Click to show image titled '+
+		  imageCaption +
+		  '" tabindex="0" data-index="' +
+		  i +
+		  '"' +
+		  (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
+		  "></a>" );
+        });
 
+ 
       self.$list[0].innerHTML = list.join("");
 
       if (self.opts.axis === "x") {
