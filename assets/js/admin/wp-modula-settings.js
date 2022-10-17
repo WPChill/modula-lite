@@ -38,8 +38,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         initialize: function( args ) {
         	this.initializeLite();
-
-            console.log( this.model );
         },
 
         initializeLite: function(){
