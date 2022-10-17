@@ -766,7 +766,7 @@ class Modula_CPT_Fields_Helper {
 			'tablet_gutter'         => 10,
 			'helpergrid'            => 0,
 			'lazy_load'             => 1,
-			'grid_type'             => '4',
+			'grid_type'             => 'automatic',
 			'grid_image_size'       => 'medium',
 			'grid_image_crop'       => 0,
 			'grid_image_dimensions' => '600',
