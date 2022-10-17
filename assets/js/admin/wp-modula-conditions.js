@@ -43,8 +43,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
 
-
-		// this.listenTo(wp.Modula.Settings, 'toggleAccordeon', function(){console.log( 'toggleAccordeon event' )});
 		this.listenTo(wp.Modula.Settings, 'toggleAccordeon:enableSocial', this.toggleSocial);
 
 	},
@@ -216,7 +214,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	},
 
 	enableEmail: function( settings, value ) {
-		console.log('enableEmail');
+
 		var rows = this.get( 'rows' ),
 			currentRow = rows.filter('[data-container="enableEmail"]'),
             children  = currentRow.data( 'children' );

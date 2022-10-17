@@ -147,7 +147,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             }
 
             if( row.data( 'parent' ) ){
-                console.log('parent check');
                 parentval = wp.Modula.Settings.get( row.data( 'parent' ) );
             }
 
@@ -169,7 +168,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 }else{
                     child.hide();
                 }
-                //child.find('.modula_settings_accordion').trigger('click');
+
             });
 
             let customEvent = 'toggleAccordeon:'+settingID;
