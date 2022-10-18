@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.6.8
+Stable tag: 2.6.9
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -263,7 +263,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
-= 2.6.8 - TBA =
+= 2.6.9 - 18/10/2022 =
+Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )
+
+= 2.6.8 - 18/10/2022 =
 Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode. ( [#681](https://github.com/WPChill/modula-lite/issues/681) )
 Fixed: Warnings if images could not be resized ( [#682](https://github.com/WPChill/modula-lite/issues/682) )
 Changed: Deactivation survey visual Enhancement ( [#649](https://github.com/WPChill/modula-lite/issues/649) )
