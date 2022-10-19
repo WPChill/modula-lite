@@ -375,9 +375,9 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		}
 
 		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );
-		imagesizes.setting_state( this, 'off');
+		imagesizes.hide();
 		if ( currentInfo.length > 0 ) {
-			currentInfo.setting_state( this, 'on');
+			currentInfo.show();
 		}
 	},
 });
