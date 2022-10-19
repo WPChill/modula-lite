@@ -70,7 +70,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( 'custom-grid' == value ) {
 
 			// Show Responsive tab
-			tabs.filter( '[data-tab="modula-responsive"]' ).setting_state( this, 'on');
+			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 			
 			rows.filter( '[data-container="columns"], [data-container="gutter"]' ).setting_state( this, 'on');
 
@@ -86,7 +86,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		}else if ( 'creative-gallery' == value ) {
 
 			// Hide Responsive tab
-			tabs.filter( '[data-tab="modula-responsive"]' ).setting_state( this, 'off');
+			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
 
 			rows.filter( '[data-container="columns"]' ).setting_state( this, 'off');
 
@@ -109,7 +109,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter('[data-container="height"], [data-container="randomFactor"]').setting_state( this, 'off');
 			rows.filter('[data-container="height"], [data-container="randomFactor"]').hide();
 
-			tabs.filter( '[data-tab="modula-responsive"]' ).setting_state( this, 'on');
+			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 
@@ -118,7 +118,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter('[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]').setting_state( this, 'off');
 
-			rows.filter('[data-container="randomFactor"]').setting_state( this, 'on');
+			rows.filter('[data-container="randomFactor"]').show();
 		}
 
 		// Check image sizes
@@ -349,7 +349,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		} else {
 			rows.filter(' [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_justify_last_row"]').setting_state( this, 'off');
 			rows.filter('[data-container="grid_type"],[data-container="gutter"]').setting_state( this, 'on');
-			tabs.filter( '[data-tab="modula-responsive"]' ).hide();
+			tabs.filter( '[data-tab="modula-responsive"]' ).show();
 
 		}
 
