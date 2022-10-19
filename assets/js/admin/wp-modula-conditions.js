@@ -360,18 +360,28 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		let rows = this.get( 'rows' ),
 			imagesizes = this.get( 'imagesizes' );
 
-		if ( 'custom' == value ) {
-			if ( 'custom-grid' == wp.Modula.Settings.get( 'type') ) {
+
+		if ( 'custom-grid' == wp.Modula.Settings.get( 'type' ) ) {
+			if ( 'custom' == value ) {
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').show();
 				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').setting_state( this, 'on');
-				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_state( this, 'off');
 			}else{
-				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_state( this, 'on');
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').hide();
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').show();
 				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').setting_state( this, 'off');
 			}
-			
-		} else {
+		}else{
+			if( 'custom' == wp.Modula.Settings.get( 'grid_image_size' ) ){
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').hide();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_state( this, 'on');
+			}else{
+				rows.filter( '[data-container="img_size"], [data-container="img_crop"]').hide();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').show();
+				rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"]').setting_state( this, 'off');
+			}
 
-			rows.filter( '[data-container="grid_image_dimensions"], [data-container="grid_image_crop"], [data-container="img_size"], [data-container="img_crop"]').setting_state( this, 'off');
 		}
 
 		var currentInfo = imagesizes.filter( '[data-size="' + value + '"]' );
