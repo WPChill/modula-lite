@@ -145,7 +145,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             }
 
             if( row.data( 'parent' ) ){
-                parentval = wp.Modula.Settings.get( row.data( 'parent' ) );
+                //recursively check for parents
+                parentval = this.chechParents(row[0], parentval);
             }
 
             jQuery.each(children, function(index, item) {
@@ -172,6 +173,27 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             let customEvent = 'toggleAccordeon:'+settingID;
             this.model.trigger( 'toggleAccordeon' );
             this.model.trigger( customEvent );
+
+            
+        },
+
+        chechParents: function ( parent, parentval ) {
+
+            if( jQuery(parent).data( 'parent' ) && 1 == parentval ){
+
+                if( 1 == wp.Modula.Settings.get( jQuery(parent).data( 'parent' ) ) ){
+                    
+                    parentval = this.chechParents( jQuery('[data-container="'+jQuery(parent).data( 'parent' ) +'"]'), parentval );
+                }else{
+
+                    parentval = 0;
+                    return 0;
+                   
+                }
+                
+            }
+
+            return parentval;
 
             
         },

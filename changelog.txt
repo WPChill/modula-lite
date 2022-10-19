@@ -1,3 +1,6 @@
+= 2.7.0 - 18/10/2022 =
+Changed: Metabox Accordeons no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+
 = 2.6.9 - 18/10/2022 =
 Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )
 
