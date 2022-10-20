@@ -263,6 +263,11 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
+= 2.6.91 - 20/10/2022 =
+Changed: Metabox Accordeons no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+Fixed: Show only image size that is in effect on "Image Size" admin setting. ( [#692](https://github.com/WPChill/modula-lite/issues/692) )
+Added: Nonce verification and admin user validation for troubleshooting options. ( [#693](https://github.com/WPChill/modula-lite/issues/693) )
+
 = 2.6.9 - 18/10/2022 =
 Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )
 
