@@ -95,7 +95,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
         <?php
             $nonce = wp_create_nonce( 'modula_troubleshooting_option_post' )
         ?>
-        <input type="hidden" name="nonce" value=" <?php echo $nonce; ?>" />
+        <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
         <table class="form-table">
             <tbody>
             <?php

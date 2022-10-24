@@ -250,23 +250,21 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
             var child = jQuery('[data-container="'+item+'"]');
 
-            if ( 1 == value ) {
+            if ( 0 == value && currentRow.hasClass( 'modula_accordion_open' )) {
+            	child.setting_state( this, 'off');
+				child.show();
+            }else if( 0 == value ){
+				child.hide();
+            }else{
 				child.css('opacity', '1');
                 child.find('input, textarea, select, button').removeAttr('disabled');
             	child.show();
-
-            }else{
-            	child.hide();
-            }
+			}
 
         });
 
 		if( 1 == value ) {
-			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_state( this, 'on');
 			currentRow.addClass( 'modula_accordion_open' );
-		}else {
-			rows.filter( '[data-container="tablet_columns"],[data-container="mobile_columns"]').setting_state( this, 'off');
-			currentRow.removeClass( 'modula_accordion_open' );
 		}
 	},
 
