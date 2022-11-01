@@ -5437,10 +5437,10 @@
 
         var text = ( undefined != jQuery( current.$image ).attr( 'title' )  ) ? jQuery( current.$image ).attr( 'title' ) : '';
 
-        if ( '' ==  text ) {
+        if ( '' == text && instance.$caption && typeof instance.$caption.text !== "undefined" ) {
           text = instance.$caption.text();
         }
-
+        
         tpl += current.opts.shareBtnTpl[value]
             .replace( /\{\{media\}\}/g, current.type === "image" ? encodeURIComponent( current.src ) : "" )
             .replace( /\{\{modulaShareUrl\}\}/g, encodeURIComponent( url ) )
