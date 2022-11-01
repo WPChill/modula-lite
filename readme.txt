@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.0 - TBD =
+Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
+
 = 2.6.92 - 24/10/2022 =
 Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
 Fixed: Misc settings nonce bug. ( [#697](https://github.com/WPChill/modula-lite/issues/697) )

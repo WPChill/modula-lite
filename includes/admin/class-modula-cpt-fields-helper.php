@@ -176,7 +176,7 @@ class Modula_CPT_Fields_Helper {
 			'general' => array(
 				'type'           => array(
 					"name"        => esc_html__( 'Gallery Type', 'modula-best-grid-gallery' ),
-					"type"        => "select",
+					"type"        => "icon-radio", 
 					"description" => esc_html__( 'Choose the type of gallery you want to use.', 'modula-best-grid-gallery' ),
 					'default'     => 'creative-gallery',
 					"values"      => array(

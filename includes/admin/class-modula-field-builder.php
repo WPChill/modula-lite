@@ -419,6 +419,28 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+
+				case 'icon-radio' :
+
+					$html .= '<div class="modula-icons-radio-wrapper">';
+					foreach ( $field['values'] as $key => $name ) {
+						$icon = esc_url( MODULA_URL ) .'assets/images/settings/' . $key . '.png';
+						$html .= '<input id="modula-icon-' . esc_attr( $key ) . '" type="radio" name="modula-settings[type]"  data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
+						$html .= '<label class="modula-radio-icon" for="modula-icon-' . esc_attr( $key ) . '"><img src="' . esc_url( $icon ) . '" alt="' . esc_html__( $name, 'modula-best-grid-gallery' ) . '" title="' . esc_html__( $name, 'modula-best-grid-gallery' ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name, 'modula-best-grid-gallery' ) . '</span></label>';
+
+					}
+
+					foreach ( $field['disabled']['values'] as $key => $name ) {
+						$icon = esc_url( MODULA_URL ) .'assets/images/settings/' . $key . '-disabled.png';
+						$html .= '<label class="modula-radio-icon modula-radio-icon-disabled" ><img src="' . esc_url( $icon ) . '" alt="' . esc_html__( $name, 'modula-best-grid-gallery' ) . '" title="' . esc_html__( $name, 'modula-best-grid-gallery' ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name, 'modula-best-grid-gallery' ) . '</span></label>';
+					}
+
+					$html .= '</div>';
+
+					if(isset($field['afterrow'])){
+						$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
+					}
+					break;
 			case 'ui-slider':
 				$min  = isset( $field['min'] ) ? $field['min'] : 0;
 				$max  = isset( $field['max'] ) ? $field['max'] : 100;
@@ -713,6 +735,7 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );
