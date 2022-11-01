@@ -330,8 +330,11 @@ function modula_sources_and_sizes( $data ) {
 		return;
 	}
 	
+	$image_meta = array();
 	// Get the imag meta
-	$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
+	if( isset( $data->link_attributes['data-image-id']  ) ){
+		$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
+	}
 
 	$mime_type = '';
 
@@ -342,7 +345,7 @@ function modula_sources_and_sizes( $data ) {
 	}
 
 	//Add custom size only if it's different than original image size
-	if ( ! empty( $data->image_info ) && $data->image_info && $image_meta['width'] !== $data->img_attributes['width'] && $image_meta['height'] !== $data->img_attributes['height'] ) {
+	if ( ! empty( $data->image_info ) && $data->image_info && !empty( $image_meta ) && $image_meta['width'] !== $data->img_attributes['width'] && $image_meta['height'] !== $data->img_attributes['height'] ) {
 		$image_meta['sizes']['custom'] = array(
 				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] . '.' . $data->image_info['ext'],
 				'width'     => $data->img_attributes['width'],
