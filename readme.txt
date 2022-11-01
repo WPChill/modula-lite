@@ -265,6 +265,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 = 2.7.0 - TBD =
 Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
 Fixed: Fancybox error ( [#678](https://github.com/WPChill/modula-lite/issues/678) )
+Changed: Modula uninstall process - proper target the inputs with js ( [#673](https://github.com/WPChill/modula-lite/issues/673) )
 
 = 2.6.92 - 24/10/2022 =
 Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
