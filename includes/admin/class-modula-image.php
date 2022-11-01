@@ -177,13 +177,6 @@ class Modula_Image {
         $ext  = $info['extension'];
         $name = wp_basename( $file_path, ".$ext" );
 
-
-        if (strpos( $name, '-scaled') !== false) {
-            $scaledLess_name = str_replace( '-scaled', '', $name );
-        }else{
-            $scaledLess_name = false;
-        }
-
         // Suffix applied to filename
         $suffix = "${dest_width}x${dest_height}";
 
@@ -192,13 +185,8 @@ class Modula_Image {
             $suffix .= ( $align ) ? "_${align}" : "_c";
         }
 
-        if( $scaledLess_name &&  file_exists(  "${dir}/${scaledLess_name}-${suffix}.${ext}" ) ){
-            $dest_file_name = "${dir}/${scaledLess_name}-${suffix}.${ext}";
-        }else{
-            $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
-        }
         // Get the destination file name
-
+        $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
 
         // Return the info.
         $info = array(
@@ -284,7 +272,7 @@ class Modula_Image {
 		        'image_info'  => $common
 	        );
         }
- 
+
 	    // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
 
