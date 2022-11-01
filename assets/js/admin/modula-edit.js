@@ -94,7 +94,7 @@
 		modulaOpenModal
 	);
 
-	jQuery(window).load(function () {
+	jQuery(window).on('load', function () {
 
 		let searchParams = new URLSearchParams(window.location.search);
 		if (searchParams.has('page') && 'modula-lite-vs-pro' === searchParams.get('page') && searchParams.has('extension')) {
