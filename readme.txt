@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.7.0
+Stable tag: 2.6.92
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -262,6 +262,14 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.6.92 - 24/10/2022 =
+Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+Fixed: Misc settings nonce bug. ( [#697](https://github.com/WPChill/modula-lite/issues/697) )
+
+= 2.6.91 - 20/10/2022 =
+Changed: Metabox Accordeons no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+Fixed: Show only image size that is in effect on "Image Size" admin setting. ( [#692](https://github.com/WPChill/modula-lite/issues/692) )
+Added: Nonce verification and admin user validation for troubleshooting options. ( [#693](https://github.com/WPChill/modula-lite/issues/693) )
 
 = 2.6.9 - 18/10/2022 =
 Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )

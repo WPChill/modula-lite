@@ -91,6 +91,11 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
 ?>
 <div class="row">
     <form id="modula_troubleshooting_option" method="post">
+
+        <?php
+            $nonce = wp_create_nonce( 'modula_troubleshooting_option_post' )
+        ?>
+        <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
         <table class="form-table">
             <tbody>
             <?php
@@ -119,7 +124,7 @@ uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority'
                     </th>
 					<?php if ('heading' != $ts_field['type']) { ?>
                     <td>
-                        <div class="wrap modula">
+                        <div class="wrap modula"> 
                             <div class="">
                                 <?php if ('select' == $ts_field['type']) { ?>
                                     <div class="modula-select">
