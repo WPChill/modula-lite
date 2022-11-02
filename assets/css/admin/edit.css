@@ -212,3 +212,75 @@ tbody#the-list .no-items {
     line-height: 31px;
     font-weight: bold;
 }
+
+/**
+ Onboarding CSS
+ */
+
+ .modula-onboarding-wrapper {
+	text-align: center;
+	padding: 50px;
+  }
+  
+  .modula-onboarding-title {
+	display: inline-flex;
+	vertical-align: middle;
+	align-items: center;
+  }
+  
+  img.modula-onboarding-title-icon {
+	max-width: 45px;
+	vertical-align: middle;
+  }
+
+  .modula-onboarding-title >span {
+    font-size: 25px;
+    margin-left: 15px;
+    font-weight: 700;
+}
+.modula-onboarding-text-wrap p {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+}
+.modula-onboarding-text-wrap {
+    padding: 50px;
+}
+
+img.modula-onboarding-banner {
+    width: 100%;
+}
+.modula-onboarding-banner-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+}
+a.modula-onboarding-button {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 43px;
+    color: #fff;
+    text-decoration: none;
+    background: #219962;
+    border-radius: 30px;
+    padding: 15px 60px;
+}
+.modula-onboarding-button-wrap {
+    padding: 50px;
+}
+
+p.modula-onboarding-doc {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 44px;
+    text-align: center;
+    color: #000000;
+}
+
+p.modula-onboarding-doc > a {
+    text-decoration: none;
+    color: #219962;
+}
