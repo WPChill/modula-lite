@@ -180,8 +180,6 @@ class Modula {
 				add_filter('get_user_option_closedpostboxes_modula-gallery', '__return_empty_string');
 				add_filter( 'admin_body_class', array( $this, 'no_drag_classes' ), 15, 1 );
 
-				//prevents the modula metaboxes from being dragged.
-				wp_deregister_script('postbox');
 			}
 
 			/*

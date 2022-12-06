@@ -269,6 +269,7 @@ Changed: Modula uninstall process - proper target the inputs with js ( [#673](ht
 Fixed: jQuery .load() deprecated warning ( [#669](https://github.com/WPChill/modula-lite/issues/669) )
 Added: Create new gallery welcome screen ( [#650](https://github.com/WPChill/modula-lite/issues/650) )
 Fixed: WP Core galleries migration ( [#694](https://github.com/WPChill/modula-lite/issues/694) )
+Fixed: Issue preventing gallery status change in gallery edit ( [#703](https://github.com/WPChill/modula-lite/issues/703) )
 
 = 2.6.92 - 24/10/2022 =
 Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
