@@ -1931,10 +1931,13 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 }
 
 .modula-settings-container .modula-tabs-content .modula-radio-icon {
-  border-left: 1px solid #ccd0d4;
-  border-top: 1px solid #ccd0d4;
-  border-bottom: 1px solid #ccd0d4;
-  padding: 15px 15px 12px 15px;
+	border-left: 1px solid #ccd0d4;
+	border-top: 1px solid #ccd0d4;
+	border-bottom: 1px solid #ccd0d4;
+	padding: 15px 15px 12px 15px;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
 }
 .modula-settings-container .modula-tabs-content .modula-radio-icon:last-child {
   border-top-right-radius: 5px;
@@ -1950,7 +1953,6 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   font-weight: 500;
   width: auto;
   position: relative;
-  top: -15px;
 }
 .modula-settings-container .modula-tabs-content .modula-radio-icon > img {
   max-width: 44px;
