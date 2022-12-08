@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'DM Sans';
+	src: url('../../font/dm/DMSans-Regular.ttf');
+}
+
 .post-type-modula-gallery:not( .single-modula-gallery ) .wrap h1.wp-heading-inline,
 .post-type-modula-gallery:not( .single-modula-gallery ) .wrap > .page-title-action {
 	display: none;

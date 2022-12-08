@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'DM Sans';
+	src: url('../../font/dm/DMSans-Regular.ttf');
+}
+
 /* Settings Metabox */
 #modula-settings .inside {
 	padding: 0;
