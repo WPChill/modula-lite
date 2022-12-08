@@ -1960,7 +1960,13 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   position: relative;
 }
 .modula-settings-container .modula-tabs-content .modula-radio-icon > img {
-  max-width: 44px;
+  max-width: 30px;
+}
+
+.modula-icons-radio-wrapper{
+	max-width: 420px;
+	position: relative;
+	left: -85px;
 }
 
 .modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper input[type="radio"]:checked + label {
@@ -1985,6 +1991,20 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   color: #fff;
   border-top-right-radius: 5px;
   letter-spacing: 1px;
+}
+
+@media screen and (max-width: 1360px) {
+	.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
+		display: block;
+	}
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon,
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled{
+		border:1px solid #ccd0d4;
+		border-radius:0;
+	}
+	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after{
+		border-top-right-radius: 0;
+	}
 }
 /**
 Some responsive fixes
