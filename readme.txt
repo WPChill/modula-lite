@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.6.92
+Stable tag: 2.7.0
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -262,7 +262,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.7.0 - TBD =
+= 2.7.0 - 12.12.2022 =
 Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
 Fixed: Fancybox error ( [#678](https://github.com/WPChill/modula-lite/issues/678) )
 Changed: Modula uninstall process - proper target the inputs with js ( [#673](https://github.com/WPChill/modula-lite/issues/673) )
@@ -270,6 +270,8 @@ Fixed: jQuery .load() deprecated warning ( [#669](https://github.com/WPChill/mod
 Added: Create new gallery welcome screen ( [#650](https://github.com/WPChill/modula-lite/issues/650) )
 Fixed: WP Core galleries migration ( [#694](https://github.com/WPChill/modula-lite/issues/694) )
 Fixed: Issue preventing gallery status change in gallery edit ( [#703](https://github.com/WPChill/modula-lite/issues/703) )
+Fixed: Screen options not working when editing a gallery ( [#700](https://github.com/WPChill/modula-lite/issues/700) )
+Fixed: Empty blocks in admin custom grid gallery edit ( [#709](https://github.com/WPChill/modula-lite/issues/709) )
 
 = 2.6.92 - 24/10/2022 =
 Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
