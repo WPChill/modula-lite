@@ -17,7 +17,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique and respon
 
 **Free gallery features in Modula Lite:**
 
-- Create image
+- Create image galleries
 - 100% Gutenberg compatible
 - Image metadata: Title, alt text, caption
 - Add URLs to images
