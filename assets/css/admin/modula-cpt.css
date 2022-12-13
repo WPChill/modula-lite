@@ -1975,9 +1975,11 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 	z-index: 99;
 	box-shadow: 0 0 5px #27be92;
 }
+
 .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled {
-  cursor: default;
-  position: relative;
+	cursor: default;
+	position: relative;
+	opacity: 0.5;
 }
 .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after {
   content: 'PRO';
