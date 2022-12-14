@@ -248,6 +248,8 @@ img.modula-onboarding-title-icon {
 }
 .modula-onboarding-text-wrap {
 	padding: 10px 0 30px 0;
+	max-width:960px;
+	margin:0 auto;
 }
 img.modula-onboarding-banner {
 	width: auto;
