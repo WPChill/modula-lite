@@ -1,3 +1,6 @@
+= 2.7.1 - 15.12.2022 =
+Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
+
 = 2.7.0 - 12.12.2022 =
 Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
 Fixed: Fancybox error ( [#678](https://github.com/WPChill/modula-lite/issues/678) )
