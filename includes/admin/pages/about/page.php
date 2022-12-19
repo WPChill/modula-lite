@@ -6,7 +6,12 @@ if ( ! class_exists( 'WPChill_Welcome' ) ) {
 	return;
 }
 
+if( !isset( $_GET['page'] ) || 'modula-about-page' != $_GET['page'] ){
+	return;
+}
+
 $welcome = WPChill_Welcome::get_instance();
+
 ?>
 <div id="wpchill-welcome">
 
@@ -23,7 +28,7 @@ $welcome = WPChill_Welcome::get_instance();
 			</div>
 			<div class="wpchill-text-center">
 				<div class="button-wrap-single">
-					<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'modula-best-grid-gallery' ), 'https://modula.helpscoutdocs.com/article/264-how-to-create-your-first-gallery', true, '#2a9d8f' ); ?>
+					<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'modula-best-grid-gallery' ), 'https://modula.helpscoutdocs.com/article/264-how-to-create-your-first-gallery', 'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#2a9d8f' ); ?>
 				</div>
 			</div>
 			<?php $welcome->display_empty_space(); ?>
@@ -50,7 +55,7 @@ $welcome = WPChill_Welcome::get_instance();
 				<div class="wpchill-text-center">
 					<div class="button-wrap-single clear">
 						<div class="right">
-							<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'modula-best-grid-gallery' ), 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button', true, '#E76F51' ); ?>
+							<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'modula-best-grid-gallery' ), 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
 						</div>
 					</div>
 				</div>
@@ -67,10 +72,10 @@ $welcome = WPChill_Welcome::get_instance();
 
 				<div class="button-wrap clear">
 					<div class="left">
-						<?php $welcome->display_button( esc_html__( 'Start Adding Galleries', 'modula-best-grid-gallery' ), esc_url( admin_url( 'edit.php?post_type=modula-gallery' ) ), true, '#2a9d8f' ); ?>
+						<?php $welcome->display_button( esc_html__( 'Start Adding Galleries', 'modula-best-grid-gallery' ), esc_url( admin_url( 'edit.php?post_type=modula-gallery' ) ),'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#2a9d8f' ); ?>
 					</div>
 					<div class="right">
-						<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'modula-best-grid-gallery' ), 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button', true, '#E76F51' ); ?>
+						<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'modula-best-grid-gallery' ), 'https://wp-modula.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
 					</div>
 				</div>
 

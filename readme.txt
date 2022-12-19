@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.2 - TBD =
+Fixed: Enqueue welcome banner assets only on the welcome page ( [##716](https://github.com/WPChill/modula-lite/issues/#716) )
+
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
 

@@ -1,3 +1,6 @@
+= 2.7.2 - TBD =
+Fixed: Enqueue welcome banner assets only on the welcome page ( [##716](https://github.com/WPChill/modula-lite/issues/#716) )
+
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
 
