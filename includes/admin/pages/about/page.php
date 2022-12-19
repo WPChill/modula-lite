@@ -6,10 +6,6 @@ if ( ! class_exists( 'WPChill_Welcome' ) ) {
 	return;
 }
 
-if( !isset( $_GET['page'] ) || 'modula-about-page' != $_GET['page'] ){
-	return;
-}
-
 $welcome = WPChill_Welcome::get_instance();
 
 ?>
