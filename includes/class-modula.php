@@ -109,7 +109,7 @@ class Modula {
 			$lang_ext2 = WP_LANG_DIR . "/plugins/modula-best-grid-gallery/{$lang_ext}";
 
 			if ( file_exists( $lang_ext1 ) ) {
-				load_textdomain( 'modula-best-grid-gallery', $mofile_global1 );
+				load_textdomain( 'modula-best-grid-gallery', $lang_ext1 );
 
 			} elseif ( file_exists( $lang_ext2 ) ) {
 				load_textdomain( 'modula-best-grid-gallery', $lang_ext2 );
