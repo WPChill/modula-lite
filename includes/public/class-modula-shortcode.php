@@ -210,7 +210,7 @@ class Modula_Shortcode {
 		$modula_shortcode = new Modula_Shortcode;
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings[ 'height' ][0] ),
+			'height'           => ( isset( $settings['height'][0] ) ) ? absint( $settings[ 'height' ][0] ): false,
 			'tabletHeight'     => isset( $settings[ 'height' ][1] ) ? absint( $settings[ 'height' ][1] ) : false,
 			'mobileHeight'     => isset( $settings[ 'height' ][2] ) ? absint( $settings[ 'height' ][2] ) : false,
 			'desktopHeight'    => isset( $settings[ 'height' ][0] ) ? absint( $settings[ 'height' ][0] ) : false,
