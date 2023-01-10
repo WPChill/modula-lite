@@ -352,7 +352,7 @@ class Modula_CPT {
 
 		$query = new WP_Query(array(
 			'post_type' => 'modula-gallery',
-			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit' ),
+			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending' ),
 		));
 
 		$this->display_feedback_notice();
