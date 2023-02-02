@@ -78,8 +78,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
-	$item_data['link_attributes']['href'] = '#';
-
 	if(class_exists('\Elementor\Plugin')){
 		$item_data['link_attributes']['data-elementor-open-lightbox'] = 'no';
 	}
@@ -108,7 +106,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['title']      = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		if ( '' != $item['link'] ) {
 
-			$item_data['link_attributes']['href'] = $item['link'];
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
 
 				$item_data['link_attributes']['target'] = '_blank';
@@ -121,7 +118,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	} else if ( 'direct' == $settings['lightbox'] ) {
 
-		$item_data['link_attributes']['href']       = $item_data['image_full'];
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open image', 'modula-best-grid-gallery');
@@ -129,7 +125,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	} else {
 
-		$item_data['link_attributes']['href']          = $item_data['image_full'];
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 		$item_data['link_attributes']['aria-label']    = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
