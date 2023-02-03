@@ -551,6 +551,7 @@ class Modula_Field_Builder {
 					'tilt_1'    => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
 					'tilt_3'    => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
 					'tilt_7'    => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
+					'centered-bottom'      => esc_html__( 'Center Bottom', 'modula-best-grid-gallery' ),
 
 				) );
 
@@ -569,7 +570,7 @@ class Modula_Field_Builder {
 				$effect_array  = array( 'tilt_1', 'tilt_3', 'tilt_7', );
 				$overlay_array = array( 'tilt_2', 'tilt_3', 'tilt_7' );
 				$svg_array     = array( 'tilt_1', 'tilt_7' );
-				$jtg_body      = array( 'lily', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
+				$jtg_body      = array( 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
 
 				foreach ( $hovers as $key => $name ) {
 
