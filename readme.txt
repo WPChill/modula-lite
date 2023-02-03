@@ -266,6 +266,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
 Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
 Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/download-monitor/issues/770) )
+Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/download-monitor/issues/774) )
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )

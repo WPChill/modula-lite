@@ -431,8 +431,15 @@ class Modula_Field_Builder {
 					}
 
 					foreach ( $field['disabled']['values'] as $key => $name ) {
+
+						if( $this->is_licensed_addon( 'modula-' . $key ) ){
+							$class = 'modula-radio-icon-install';
+						}else{
+							$class = 'modula-radio-icon-disabled';
+						}
+
 						$icon = esc_url( MODULA_URL .'assets/images/settings/' . $key . '-disabled.png' );
-						$html .= '<label class="modula-radio-icon modula-radio-icon-disabled" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name ) . '</span></label>';
+						$html .= '<label class="modula-radio-icon ' . $class . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name ) . '</span></label>';
 					}
 
 					$html .= '</div>';
@@ -755,6 +762,25 @@ class Modula_Field_Builder {
 
 		return apply_filters( "modula_render_field_type", $html, $field, $value );
 
+	}
+	public function is_licensed_addon( $addon ){
+
+		if ( class_exists( 'WPChill_Upsells' ) ) {
+
+			// Initialize WPChill upsell class
+			$args = apply_filters( 'modula_upsells_args', array(
+					'shop_url' => 'https://wp-modula.com',
+					'slug'     => 'modula',
+			) );
+	
+			$wpchill_upsell = WPChill_Upsells::get_instance( $args );
+	
+			if ( $wpchill_upsell && !$wpchill_upsell->is_upgradable_addon( $addon ) ) { 
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function print_modula_templates() {

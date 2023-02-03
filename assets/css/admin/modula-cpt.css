@@ -1976,11 +1976,33 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 	box-shadow: 0 0 5px #27be92;
 }
 
-.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled {
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled,
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install {
 	cursor: default;
 	position: relative;
+
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled > *,
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install > *{
 	opacity: 0.5;
 }
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after {
+  content: 'NOT INSTALLED';
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  left: -1px;
+  background-color: #9c9c9c;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: #fff;
+  border-top-right-radius: 5px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
 .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after {
   content: 'PRO';
   position: absolute;
@@ -2000,11 +2022,13 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 		display: block;
 	}
 	html body .modula-settings-container .modula-tabs-content .modula-radio-icon,
-	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled{
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled,
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install{
 		border:1px solid #ccd0d4;
 		border-radius:0;
 	}
-	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after{
+	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after,
+	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after{
 		border-top-right-radius: 0;
 	}
 }
