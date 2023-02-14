@@ -116,16 +116,13 @@ class Modula_Script_Manager {
                     if ( ! wp_script_is( $this->scripts[ $i ], 'enqueued') ) {
                         if ( ! in_array( $this->scripts[ $i ], $compress_scripts ) ) {
                             wp_enqueue_script( $this->scripts[ $i ] );
-                        }elseif ( 'modula' == $handles['scripts'][ $i ] && '' != $compressed_handle && ! $main_is_enq ) {
+                        } elseif ( isset( $handles['scripts'][ $i ] ) && 'modula' == $handles['scripts'][ $i ] && '' != $compressed_handle && ! $main_is_enq ) {
                             wp_enqueue_script( $compressed_handle );
                             $main_is_enq = true;
                         }
                     }
                 }
-
-
             }
-
         }else{
 
         	foreach ( $this->compress_versions as $handle => $scripts ) {
