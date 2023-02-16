@@ -268,6 +268,7 @@ Fixed: Issue preventing the display of texts according to the user language ( [#
 Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/modula-lite/issues/770) )
 Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/modula-lite/issues/774) )
 Added: New hover effect "Centered Bottom" ( [#773](https://github.com/WPChill/modula-lite/issues/773) )
+Added: Check user capabilities when addong/removing images from a gallery. ( [#779](https://github.com/WPChill/modula-lite/issues/779) )
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
