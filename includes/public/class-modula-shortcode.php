@@ -311,14 +311,14 @@ class Modula_Shortcode {
 			if ( ! empty( $settings['width'] ) ) {
 				$css .= "#{$gallery_id} { width:" . esc_attr( $settings['width'] ) . ";}";
 			} else {
-				$css .= "#{$gallery_id} { min-width:100%;}";
+				$css .= "#{$gallery_id} { width:100%;}";
 			}
 
 			// We don't have and need height setting on grid type
 			if ( 'creative-gallery' == $settings['type'] ) {
-				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'][0] ) . "px;}";
-				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][1] ) . "px;}}";
-				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][2] ) . "px;}}";
+				$css .= "#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][0] ) ? absint( $settings['height'][0] ) : 800 ) . "px;}";
+				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][1] ) ? absint( $settings['height'][1] ) : 800 ) . "px;}}";
+				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][2] ) ? absint( $settings['height'][2] ) : 800 ) . "px;}}";
 			}
 
 		}
