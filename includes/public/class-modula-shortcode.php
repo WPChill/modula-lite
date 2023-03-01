@@ -75,6 +75,11 @@ class Modula_Shortcode {
 
 		// Check if is an old Modula post or new.
 		$gallery = get_post( $atts['id'] );
+
+		if( 'private' === $gallery->post_status && !is_user_logged_in() ){
+			return;
+		}
+
 		if ( 'modula-gallery' != get_post_type( $gallery ) ) {
 			$gallery_posts = get_posts( array(
 				'post_type' => 'modula-gallery',
