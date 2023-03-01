@@ -269,6 +269,7 @@ Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://git
 Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/modula-lite/issues/774) )
 Added: New hover effect "Centered Bottom" ( [#773](https://github.com/WPChill/modula-lite/issues/773) )
 Added: Check user capabilities when addong/removing images from a gallery. ( [#779](https://github.com/WPChill/modula-lite/issues/779) )
+Fixed: Only having private galleries shows "Create your first gallery" page. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
