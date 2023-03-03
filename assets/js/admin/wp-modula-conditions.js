@@ -1,7 +1,6 @@
 wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
 jQuery.fn.setting_state = function( el, state) {
-
 	if( state == 'off'){
 		this.css('opacity', '0.5');
 		this.find('input, textarea, select, button').attr('disabled', 'disabled');
@@ -42,7 +41,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		this.listenTo( wp.Modula.Settings, 'change:hide_description', this.hideCaption);
 		this.listenTo(wp.Modula.Settings, 'change:grid_type', this.changedGridType);
 		this.listenTo(wp.Modula.Settings, 'change:grid_image_size', this.changedGridImageSize);
-
 		this.listenTo(wp.Modula.Settings, 'toggleAccordeon:enableSocial', this.toggleSocial);
 
 	},
@@ -50,7 +48,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 	initValues: function(){
 
 		this.changedType( false, wp.Modula.Settings.get( 'type' ) );
-
 		this.changedLightbox( false, wp.Modula.Settings.get( 'lightbox' ) );
 		this.enableSocial (false, wp.Modula.Settings.get('enableSocial') );
 		this.enableEmail( false, wp.Modula.Settings.get( 'enableEmail' ) );
@@ -139,12 +136,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		if ( 'fancybox' == value ) {
 
 			rows.filter('[data-container="show_navigation"]').setting_state( this, 'on');
-			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').setting_state( this, 'on');
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').hide();
 
 		} else {
 
 			rows.filter('[data-container="show_navigation"]').setting_state( this, 'off');
-			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').setting_state( this, 'off');
+			tabs.filter('[data-tab="modula-exif"],[data-tab="modula-zoom"]').show();
 
 		}
 
