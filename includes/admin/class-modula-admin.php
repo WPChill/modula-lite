@@ -433,9 +433,8 @@ class Modula_Admin {
 		$current_user = wp_get_current_user();
 		$ptype = get_post_type_object( 'modula-gallery' );
 
-		if( !current_user_can( $ptype->cap->edit_others_posts ) && ( get_post_field( 'post_author', $gallery_id ) != $current_user->ID ) ){
-
-			wp_send_json( array( 'status' => __( 'Sorry, you are not allowed to create posts as this user.' ) ) );
+		if ( ! current_user_can( $ptype->cap->edit_others_posts ) && get_post_field( 'post_author', $gallery_id ) !== $current_user->ID ) {
+			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.' ) ) );
 		}
 
 		if ( ! isset( $_POST['images'] ) ) {
