@@ -576,5 +576,4 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		}
 
 	}
-
 }
