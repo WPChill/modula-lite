@@ -105,19 +105,15 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		$item_data['link_attributes']['title']      = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		if ( '' != $item['link'] ) {
-
+			$item_data['link_attributes']['href'] = $item['link'];
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
-
 				$item_data['link_attributes']['target'] = '_blank';
 			}
-
 		} else {
-
 			$item_data['link_attributes']['href'] = get_attachment_link( $item['id'] );
 		}
-
 	} else if ( 'direct' == $settings['lightbox'] ) {
-
+		$item_data['link_attributes']['href']       = $item_data['image_full'];
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open image', 'modula-best-grid-gallery');
