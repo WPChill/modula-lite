@@ -120,7 +120,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['title']      = esc_html__('Open image', 'modula-best-grid-gallery');
 
 	} else {
-
+		if( modula_href_required() ){
+			$item_data['link_attributes']['href']          = $item_data['image_full'];
+		}
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 		$item_data['link_attributes']['aria-label']    = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
@@ -425,4 +427,25 @@ function modula_sources_and_sizes( $data ) {
 	}
 
 	echo $image;
+}
+
+/**
+ * Checks versions of plugins before we remove href attribute from image link
+ *
+ *
+ * @since 2.7.2
+ */
+function modula_href_required() {
+		
+	if(
+		( ( defined( 'MODULA_PRO_VERSION' ) && version_compare( MODULA_PRO_VERSION, '2.6.3', '>=' ) ) || !defined( 'MODULA_PRO_VERSION' ) ) &&
+		( ( defined( 'MODULA_VIDEO_VERSION' ) && version_compare( MODULA_VIDEO_VERSION, '1.0.9', '>=' ) ) || !defined( 'MODULA_VIDEO_VERSION' ) ) &&
+		( ( defined( 'MODULA_SLIDER_VERSION' ) && version_compare( MODULA_SLIDER_VERSION, '1.1.1', '>=' ) ) || !defined( 'MODULA_SLIDER_VERSION' ) ) &&
+		( ( defined( 'MODULA_SPEEDUP_VERSION' ) && version_compare( MODULA_SPEEDUP_VERSION, '1.0.14', '>=' ) ) || !defined( 'MODULA_SPEEDUP_VERSION' ) ) &&
+		( ( defined( 'MODULA_WATERMARK_VERSION' ) && version_compare( MODULA_WATERMARK_VERSION, '1.0.8', '>=' ) ) || !defined( 'MODULA_WATERMARK_VERSION' ) )
+	){
+		return false;
+	}
+
+	return true;
 }
