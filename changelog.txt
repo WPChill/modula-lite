@@ -1,4 +1,4 @@
-= 2.7.2 - TBD =
+= 2.7.2 - 13.03.2023 =
 Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
 Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
 Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/download-monitor/issues/770) )
@@ -8,6 +8,8 @@ Added: Check user capabilities when addong/removing images from a gallery. ( [#7
 Fixed: Widths and Heights are empty when changing gallery types. ( [#767](https://github.com/WPChill/modula-lite/issues/767) )
 Fixed: Only having private galleries shows "Create your first gallery" page. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
 Fixed: Private galleries won't display for non logged-in users. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
+Fixed: Error when triggering file deletion ( [#721](https://github.com/WPChill/modula-lite/issues/721) )
+Fixed: Gallery type icons coloring ( [#713](https://github.com/WPChill/modula-lite/issues/713) )
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )

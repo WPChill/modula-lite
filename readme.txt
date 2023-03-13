@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -262,15 +262,19 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.7.2 - TBD =
+= 2.7.2 - 13.03.2023 =
 Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
-Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/modula-lite/issues/719) )
-Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/modula-lite/issues/770) )
-Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/modula-lite/issues/774) )
+Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
+Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/download-monitor/issues/770) )
+Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/download-monitor/issues/774) )
 Added: New hover effect "Centered Bottom" ( [#773](https://github.com/WPChill/modula-lite/issues/773) )
 Added: Check user capabilities when addong/removing images from a gallery. ( [#779](https://github.com/WPChill/modula-lite/issues/779) )
+Fixed: Widths and Heights are empty when changing gallery types. ( [#767](https://github.com/WPChill/modula-lite/issues/767) )
 Fixed: Only having private galleries shows "Create your first gallery" page. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
 Fixed: Private galleries won't display for non logged-in users. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
+Fixed: Error when triggering file deletion ( [#721](https://github.com/WPChill/modula-lite/issues/721) )
+Fixed: Gallery type icons coloring ( [#713](https://github.com/WPChill/modula-lite/issues/713) )
+
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
