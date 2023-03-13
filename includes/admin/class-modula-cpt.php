@@ -29,7 +29,7 @@ class Modula_CPT {
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'admin_menu', array( $this, 'replace_submit_meta_box' ) );
 
-		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab' ), 10, 1 );
+		add_filter( 'views_edit-modula-gallery', array( $this, 'add_extensions_tab_onboarding' ), 10, 1 );
 		// Post Table Columns
 		add_filter( "manage_{$this->cpt_name}_posts_columns", array( $this, 'add_columns' ) );
 		add_action( "manage_{$this->cpt_name}_posts_custom_column", array( $this, 'outpu_column' ), 10, 2 );
@@ -348,9 +348,21 @@ class Modula_CPT {
 
 	}
 
-	public function add_extensions_tab( $views ) {
+	public function add_extensions_tab_onboarding( $views ) {
+
+		$query = new WP_Query(array(
+			'post_type' => 'modula-gallery',
+			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending', 'private' ),
+		));
+
 		$this->display_feedback_notice();
 		$this->display_extension_tab();
+
+		if( !$query->have_posts() ){
+			global $wp_list_table;
+			$wp_list_table = new Modula_Onboarding();
+			return array();
+		}
 		return $views;
 	}
 

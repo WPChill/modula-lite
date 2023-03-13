@@ -75,6 +75,11 @@ class Modula_Shortcode {
 
 		// Check if is an old Modula post or new.
 		$gallery = get_post( $atts['id'] );
+
+		if ( null === $gallery || 'private' === $gallery->post_status && ! is_user_logged_in() ) {
+			return;
+		}
+
 		if ( 'modula-gallery' != get_post_type( $gallery ) ) {
 			$gallery_posts = get_posts( array(
 				'post_type' => 'modula-gallery',
@@ -210,7 +215,7 @@ class Modula_Shortcode {
 		$modula_shortcode = new Modula_Shortcode;
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
-			'height'           => absint( $settings[ 'height' ][0] ),
+			'height'           => ( isset( $settings['height'][0] ) ) ? absint( $settings[ 'height' ][0] ): false,
 			'tabletHeight'     => isset( $settings[ 'height' ][1] ) ? absint( $settings[ 'height' ][1] ) : false,
 			'mobileHeight'     => isset( $settings[ 'height' ][2] ) ? absint( $settings[ 'height' ][2] ) : false,
 			'desktopHeight'    => isset( $settings[ 'height' ][0] ) ? absint( $settings[ 'height' ][0] ) : false,
@@ -220,7 +225,7 @@ class Modula_Shortcode {
 			"enablePinterest"  => boolval( $settings[ 'enablePinterest' ] ),
 			"enableLinkedin"   => boolval( $settings[ 'enableLinkedin' ] ),
 			"enableEmail"      => boolval( $settings[ 'enableEmail' ] ),
-			"randomFactor"     => ( $settings[ 'randomFactor' ] / 100 ),
+			"randomFactor"     => ( absint( $settings[ 'randomFactor' ] ) / 100 ),
 			'type'             => $type,
 			'columns'          => 12,
 			'gutter'           => isset( $settings[ 'gutter' ] ) ? absint( $settings[ 'gutter' ] ) : 10,
@@ -311,14 +316,14 @@ class Modula_Shortcode {
 			if ( ! empty( $settings['width'] ) ) {
 				$css .= "#{$gallery_id} { width:" . esc_attr( $settings['width'] ) . ";}";
 			} else {
-				$css .= "#{$gallery_id} { min-width:100%;}";
+				$css .= "#{$gallery_id} { width:100%;}";
 			}
 
 			// We don't have and need height setting on grid type
 			if ( 'creative-gallery' == $settings['type'] ) {
-				$css .= "#{$gallery_id} .modula-items{height:" . absint( $settings['height'][0] ) . "px;}";
-				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][1] ) . "px;}}";
-				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . absint( $settings['height'][2] ) . "px;}}";
+				$css .= "#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][0] ) ? absint( $settings['height'][0] ) : 800 ) . "px;}";
+				$css .= "@media screen and (max-width: 992px) {#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][1] ) ? absint( $settings['height'][1] ) : 800 ) . "px;}}";
+				$css .= "@media screen and (max-width: 768px) {#{$gallery_id} .modula-items{height:" . ( !empty( $settings['height'][2] ) ? absint( $settings['height'][2] ) : 800 ) . "px;}}";
 			}
 
 		}

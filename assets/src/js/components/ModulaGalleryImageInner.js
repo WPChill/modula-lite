@@ -7,7 +7,7 @@ const ModulaGalleryImageInner = (props) => {
 	let effectArray = [ 'tilt_1', 'tilt_3', 'tilt_7' ],
 		overlayArray = [ 'tilt_3', 'tilt_7' ],
 		svgArray = [ 'tilt_1', 'tilt_7' ],
-		jtgBody = [ 'lily', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' ];
+		jtgBody = [ 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' ];
 
 	return [
 		<Fragment>

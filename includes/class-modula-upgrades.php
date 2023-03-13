@@ -92,6 +92,10 @@ class Modula_Upgrades {
 		$version = get_option( 'modula_version' );
 		foreach ( $this->upgrades as $key => $upgrade ) {
 
+			if ( ! isset( $version['upgraded_from'] ) || ! isset( $upgrade['version'] ) || ! isset( $upgrade['compare'] ) ) {
+				return;
+			}
+
 			if ( version_compare( $version['upgraded_from'], $upgrade['version'], $upgrade['compare'] ) && ! $this->check_upgrade_complete( $key ) ) {
 				$this->isNotice = true;
 				printf(

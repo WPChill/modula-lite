@@ -276,6 +276,18 @@ class Modula_Field_Builder {
 
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
+		if( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ){
+
+			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
+
+			$parent = '';
+			if( isset( $field['parent'] ) && '' != $field['parent']  ){
+				$parent = 'data-parent="' . $field['parent'] . '"';
+			}
+			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\' ' . $parent . '><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
+		}
+
+
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
 
@@ -318,7 +330,7 @@ class Modula_Field_Builder {
 
 	/* Create HMTL for a field */
 	private function _render_field( $field, $value = '' ) {
-		$html = '';
+		$html           = '';
 
 		switch ( $field['type'] ) {
 
@@ -330,15 +342,15 @@ class Modula_Field_Builder {
 				$html .= '<span class="modila-image-size-spacer">px</span>';
 				$html .= '</div>';
 				break;
-			case 'text':
-				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+			case 'text': 
+				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $field['default'] ) ) . '">';
 
 				if(isset($field['afterrow'])){
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
 				}
 				break;
 			case 'number':
-				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
+				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $field['default'] ) ) . '">';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
@@ -359,9 +371,9 @@ class Modula_Field_Builder {
 				break;
 
 			case 'responsiveInput':
-				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[0] ) . '"><span class="modula_input_suffix">px</span></td>';
-				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[1] ) . '"><span class="modula_input_suffix">px</span></td>';
-				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . esc_attr( $value[2] ) . '"><span class="modula_input_suffix">px</span>';
+				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( $value[0] ) ? esc_attr( $value[0] ) : esc_attr( $field['default'][0] ) ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[1] ) ? esc_attr( $value[1] ) : esc_attr( $field['default'][1] ) ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[2] ) ? esc_attr( $value[2] ) : esc_attr( $field['default'][2] ) ) . '"><span class="modula_input_suffix">px</span>';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
@@ -408,6 +420,44 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+
+				case 'icon-radio' :
+					$wpchill_upsell = false;
+					if ( class_exists( 'WPChill_Upsells' ) ) {
+						// Initialize WPChill upsell class
+						$args = apply_filters( 'modula_upsells_args', array(
+							'shop_url' => 'https://wp-modula.com',
+							'slug'     => 'modula',
+						) );
+
+						$wpchill_upsell = WPChill_Upsells::get_instance( $args );
+					}
+					$html .= '<div class="modula-icons-radio-wrapper">';
+					foreach ( $field['values'] as $key => $name ) {
+						$icon = esc_url( MODULA_URL .'assets/images/settings/' . $key . '.png' );
+						$html .= '<input id="modula-icon-' . esc_attr( $key ) . '" type="radio" name="modula-settings[type]"  data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
+						$html .= '<label class="modula-radio-icon" for="modula-icon-' . esc_attr( $key ) . '"><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
+
+					}
+
+					foreach ( $field['disabled']['values'] as $key => $name ) {
+
+						if ( $wpchill_upsell && ! $wpchill_upsell->is_upgradable_addon( 'modula-' . $key ) ) {
+							$class = 'modula-radio-icon-install';
+						} else {
+							$class = 'modula-radio-icon-disabled';
+						}
+
+						$icon = esc_url( MODULA_URL .'assets/images/settings/' . $key . '-disabled.png' );
+						$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name ) . '</span></label>';
+					}
+
+					$html .= '</div>';
+
+					if ( isset( $field['afterrow'] ) ) {
+						$html .= '<p class="description ' . esc_attr( $field['id'] ) . '-afterrow">' . esc_html( $field['afterrow'] ) . '</p>';
+					}
+					break;
 			case 'ui-slider':
 				$min  = isset( $field['min'] ) ? $field['min'] : 0;
 				$max  = isset( $field['max'] ) ? $field['max'] : 100;
@@ -511,6 +561,7 @@ class Modula_Field_Builder {
 					'tilt_1'    => esc_html__( 'Tilt Effect 1', 'modula-best-grid-gallery' ),
 					'tilt_3'    => esc_html__( 'Tilt Effect 2', 'modula-best-grid-gallery' ),
 					'tilt_7'    => esc_html__( 'Tilt Effect 3', 'modula-best-grid-gallery' ),
+					'centered-bottom'      => esc_html__( 'Center Bottom', 'modula-best-grid-gallery' ),
 
 				) );
 
@@ -529,7 +580,7 @@ class Modula_Field_Builder {
 				$effect_array  = array( 'tilt_1', 'tilt_3', 'tilt_7', );
 				$overlay_array = array( 'tilt_2', 'tilt_3', 'tilt_7' );
 				$svg_array     = array( 'tilt_1', 'tilt_7' );
-				$jtg_body      = array( 'lily', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
+				$jtg_body      = array( 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
 
 				foreach ( $hovers as $key => $name ) {
 
@@ -702,6 +753,7 @@ class Modula_Field_Builder {
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'.esc_html($field['afterrow']).'</p>';
 				}
 				break;
+
 			default:
 				/* Filter for render custom field types */
 				$html = apply_filters( "modula_render_{$field['type']}_field_type", $html, $field, $value );
@@ -712,6 +764,13 @@ class Modula_Field_Builder {
 				break;
 		}
 
+		if( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ){
+
+			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
+			
+			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings') . ' </span>';
+		}
+
 		return apply_filters( "modula_render_field_type", $html, $field, $value );
 
 	}
@@ -719,5 +778,4 @@ class Modula_Field_Builder {
 	public function print_modula_templates() {
 		include 'modula-js-templates.php';
 	}
-
 }

@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'DM Sans';
+	src: url('../../font/dm/DMSans-Regular.ttf');
+}
+
 /* Settings Metabox */
 #modula-settings .inside {
 	padding: 0;
@@ -1889,8 +1894,144 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   display:none;
 }
 
+.modula-settings-container .modula-tabs-content input[type=checkbox]:disabled{
+  opacity:0;
+  cursor: default;
+}
 
+.modula-settings-container .modula-tabs-content .modula_settings_accordion {
+  float: right;
+  font-size: 12px;
+  line-height: 16px;
+  color: #1d2327;
+  cursor: pointer;
+}
 
+.modula-settings-container .modula-tabs-content .modula_settings_accordion:after {
+  right: 0;
+  content: "\f140";
+  font: normal 20px/1 dashicons;
+  display: inline-block;
+  padding: 0 5px 0 0;
+  bottom: 2px;
+  position: relative;
+  vertical-align: bottom;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none;
+  top: 2px;
+}
+
+.modula-settings-container .modula-tabs-content .modula_accordion_open .modula_settings_accordion:after {
+  content: "\f142";
+}
+
+.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper input[type=radio] {
+  position: absolute;
+  opacity: 0;
+}
+
+.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
+  display: inline-flex;
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon {
+	border-left: 1px solid #ccd0d4;
+	border-top: 1px solid #ccd0d4;
+	border-bottom: 1px solid #ccd0d4;
+	padding: 15px 15px 12px 15px;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+}
+.modula-settings-container .modula-tabs-content .modula-radio-icon:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-right: 1px solid #ccd0d4;
+}
+.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper .modula-radio-icon:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.modula-settings-container .modula-tabs-content .modula-icon-radio-name {
+  margin-left: 10px;
+  font-weight: 500;
+  width: auto;
+  position: relative;
+}
+.modula-settings-container .modula-tabs-content .modula-radio-icon > img {
+  max-width: 30px;
+}
+
+.modula-icons-radio-wrapper{
+	max-width: 420px;
+	position: relative;
+	left: -85px;
+}
+
+.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper input[type="radio"]:checked + label {
+	border: 1px solid #27be92;
+	margin-right: -1px;
+	z-index: 99;
+	box-shadow: 0 0 5px #27be92;
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled,
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install {
+	cursor: default;
+	position: relative;
+
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled > *,
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install > *{
+	opacity: 0.5;
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after {
+  content: 'NOT INSTALLED';
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  left: -1px;
+  background-color: #9c9c9c;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: #fff;
+  border-top-right-radius: 5px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after {
+  content: 'PRO';
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  background-color: #9c9c9c;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-bottom-left-radius: 5px;
+  color: #fff;
+  border-top-right-radius: 5px;
+  letter-spacing: 1px;
+}
+
+@media screen and (max-width: 1360px) {
+	.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
+		display: block;
+	}
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon,
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled,
+	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install{
+		border:1px solid #ccd0d4;
+		border-radius:0;
+	}
+	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled::after,
+	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after{
+		border-top-right-radius: 0;
+	}
+}
 /**
 Some responsive fixes
  */

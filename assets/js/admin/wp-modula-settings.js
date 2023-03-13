@@ -25,6 +25,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     		// Tabs specific events
     		'click .modula-tab':     'changeTab',
             'click .modula-tab > *': 'changeTabFromChild',
+            'click .modula_settings_accordion': 'changeAcordeon',
 
     		// Settings specific events
             'keyup input':         'updateModel',
@@ -128,6 +129,73 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             jQuery( event.target ).parent().addClass( 'active-tab' );
             this.tabContainers.filter( '#' + currentTab ).addClass( 'active-tab' );
 
+        },
+
+        changeAcordeon: function ( event ) {
+            var row = jQuery( event.target ).parents( 'tr' ),
+                settingID = row.data( 'container' ),
+                children  = row.data( 'children' ),
+                value = wp.Modula.Settings.get( settingID ),
+                parentval = 1;
+
+            row.toggleClass( 'modula_accordion_open' );
+           
+            if( row.hasClass( 'modula_accordion_reversed' ) ){
+                if( 0 == value ){ value = 1; }else{ value = 0; }
+            }
+
+            if( row.data( 'parent' ) ){
+                //recursively check for parents
+                parentval = this.chechParents(row[0], parentval);
+            }
+
+            jQuery.each(children, function(index, item) {
+
+                var child = jQuery('[data-container="'+item+'"]');
+                    
+                if ( 1 == value && 1 == parentval ) {
+                    child.css('opacity', '1');
+                    child.find('input, textarea, select, button').removeAttr('disabled');
+                }else{
+                    child.css('opacity', '0.5');
+                    child.find('input, textarea, select, button').attr('disabled', 'disabled');
+                    
+                }
+
+                if ( row.hasClass( 'modula_accordion_open' ) ) {
+                    child.show();
+                }else{
+                    child.hide();
+                }
+
+            });
+
+            let customEvent = 'toggleAccordeon:'+settingID;
+            this.model.trigger( 'toggleAccordeon' );
+            this.model.trigger( customEvent );
+
+            
+        },
+
+        chechParents: function ( parent, parentval ) {
+
+            if( jQuery(parent).data( 'parent' ) && 1 == parentval ){
+
+                if( 1 == wp.Modula.Settings.get( jQuery(parent).data( 'parent' ) ) ){
+                    
+                    parentval = this.chechParents( jQuery('[data-container="'+jQuery(parent).data( 'parent' ) +'"]'), parentval );
+                }else{
+
+                    parentval = 0;
+                    return 0;
+                   
+                }
+                
+            }
+
+            return parentval;
+
+            
         },
 
         initSliders: function() {

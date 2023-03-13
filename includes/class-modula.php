@@ -29,6 +29,9 @@ class Modula {
 
 		add_action( 'divi_extensions_init', array( $this, 'initialize_divi_extension' ) );
 
+		// Gallery 'srcset' management.
+		add_action( 'modula_before_gallery', array( $this, 'disable_wp_srcset' ) );
+		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
 	}
 
 	private function load_dependencies() {
@@ -79,8 +82,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
-
-
+			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 		}
 
@@ -94,7 +96,30 @@ class Modula {
 	}
 
 	public function set_locale() {
-		load_plugin_textdomain( 'modula-best-grid-gallery', false, dirname( MODULA_FILE ) . '/languages'  );
+
+		$modula_lang = dirname( MODULA_FILE ) . '/languages/';
+
+		if( get_user_locale() !== get_locale() ){
+
+			unload_textdomain( 'modula-best-grid-gallery' );
+			$locale = apply_filters( 'plugin_locale', get_user_locale(), 'modula-best-grid-gallery' );
+
+			$lang_ext = sprintf( '%1$s-%2$s.mo', 'modula-best-grid-gallery', $locale );
+			$lang_ext1 = WP_LANG_DIR . "/modula-best-grid-gallery/modula-best-grid-gallery-{$locale}.mo";
+			$lang_ext2 = WP_LANG_DIR . "/plugins/modula-best-grid-gallery/{$lang_ext}";
+
+			if ( file_exists( $lang_ext1 ) ) {
+				load_textdomain( 'modula-best-grid-gallery', $lang_ext1 );
+
+			} elseif ( file_exists( $lang_ext2 ) ) {
+				load_textdomain( 'modula-best-grid-gallery', $lang_ext2 );
+
+			} else {
+				load_plugin_textdomain( 'modula-best-grid-gallery', false, $modula_lang );
+			}
+		} else {
+			load_plugin_textdomain( 'modula-best-grid-gallery', false, $modula_lang );
+		}
 	}
 
 	private function define_admin_hooks() {
@@ -178,8 +203,6 @@ class Modula {
 				add_filter('get_user_option_closedpostboxes_modula-gallery', '__return_empty_string');
 				add_filter( 'admin_body_class', array( $this, 'no_drag_classes' ), 15, 1 );
 
-				//prevents the modula metaboxes from being dragged.
-				wp_deregister_script('postbox');
 			}
 
 			/*
@@ -298,7 +321,45 @@ class Modula {
 
 	}
 
+	/**
+	 * Filters the maximum image width to be included in a 'srcset' attribute.
+	 * 
+	 * @return int
+	 *
+	 */
+	public function disable_wp_responsive_images() {
+		return 1;
+	}
 
+	/**
+	 * Prevents WP from adding srcsets to modula gallery images if srcsets are disabled.
+	 * 
+	 * @param $settings
+	 * @return void
+	 *
+	 */
+
+	public function disable_wp_srcset( $settings ){
+		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
+
+		if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
+
+			add_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
+		}
+		
+	}
+
+	/**
+	 * Allows WP to add srcsets to other content after the gallery was created.
+	 * 
+	 * @param $settings
+	 * @return void
+	 *
+	 */
+	public function enable_wp_srcset( $settings ){
+
+		remove_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ) );
+	}
 
 	// Register and load the widget
 	public function modula_load_widget() {

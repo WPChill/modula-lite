@@ -204,7 +204,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 					var link = jQuery(o).find('.modula-item-link:not( .modula-simple-link )'),
 						image = jQuery(o).find('.pic');
 					return {
-						src: link.attr('href'),
+						src: image.data('full'),
 						opts: {
 							$thumb: image.parents('.modula-item'),
 							caption: link.data('caption'),

@@ -2023,8 +2023,8 @@
         })
         .addClass("modula-fancybox-image")
         .attr("src", slide.src)
+        .attr("aria-describedby", 'modula-caption-' + slide.index)
         .appendTo(slide.$content);
-
 
       if ((img.complete || img.readyState == "complete") && $img.naturalWidth && $img.naturalHeight) {
         $img.trigger("load");
@@ -3047,7 +3047,7 @@
         $caption
           .children()
           .eq(0)
-          .html(caption);
+		  .html('<p id="modula-caption-'+ current.index +'" class="modula-fancybox-caption__text">' + caption + '</p>');
       } else {
         self.$caption = null;
       }
@@ -3427,7 +3427,7 @@
     }
 
     index = $(items).index($target);
-console.log(items);
+
     // Sometimes current item can not be found
     if (index < 0) {
       index = 0;
@@ -5213,16 +5213,18 @@ console.log(items);
         if (!src && item.type === "image") {
           src = item.src;
         }
+		var imageCaption = item.opts.caption.replace(/<p>|<\/p>/igm, '');
 
-        list.push(
-          '<a href="javascript:;" tabindex="0" data-index="' +
-          i +
-          '"' +
-          (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
-          "></a>"
-        );
-      });
+		list.push( '<a href="javascript:;" role="button" aria-label="Click to show image titled '+
+		  imageCaption +
+		  '" tabindex="0" data-index="' +
+		  i +
+		  '"' +
+		  (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
+		  "></a>" );
+        });
 
+ 
       self.$list[0].innerHTML = list.join("");
 
       if (self.opts.axis === "x") {
@@ -5435,10 +5437,10 @@ console.log(items);
 
         var text = ( undefined != jQuery( current.$image ).attr( 'title' )  ) ? jQuery( current.$image ).attr( 'title' ) : '';
 
-        if ( '' ==  text ) {
+        if ( '' == text && instance.$caption && typeof instance.$caption.text !== "undefined" ) {
           text = instance.$caption.text();
         }
-
+        
         tpl += current.opts.shareBtnTpl[value]
             .replace( /\{\{media\}\}/g, current.type === "image" ? encodeURIComponent( current.src ) : "" )
             .replace( /\{\{modulaShareUrl\}\}/g, encodeURIComponent( url ) )

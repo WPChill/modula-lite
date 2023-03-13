@@ -2,77 +2,105 @@
 Contributors: wpchill, silkalns
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
 Requires at least: 5.2
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.6.7
+Stable tag: 2.7.2
 License: GNU General Public License v3.0 or later
-
-The WordPress gallery plugin that's highlighy customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
+The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
 == Description == 
-
 With Modula, it's easier than ever to build stunning [lightbox galleries](https://demo.wp-modula.com/lightbox-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite), masonry grids, custom grids and more in no more than a few clicks right from the WordPress dashboard. 
 
-Modula is the best WordPress gallery plugin for adding custom, unique and responsive galleries to your website. There is a free version of Modula available (Modula Lite) and a premium version (Modula Pro) both of which will allow you to add amazing, fast-loading galleries to your website. 
+Modula is the best WordPress gallery plugin for adding custom, unique and responsive galleries to your website. There is a free version of Modula available (Modula Lite) and a premium version (Modula Pro) both of which will allow you to add amazing, fast-loading galleries to your website.
+
+= MAIN FEATURES FOR GALLERY CUSTOMIZATION =
+
+**Free gallery features in Modula Lite:**
+
+- Create image galleries
+- 100% Gutenberg compatible
+- Image metadata: Title, alt text, caption
+- Add URLs to images
+- Integrations with most popular website builders: Beaver Builder, Elementor, Divi Builder
+- Three gallery types: Creative, Custom grid, Masonry
+- Image and gallery settings: gutter size, width, image size, height, border size, border radius, border color, shadow size, shadow color
+- Shuffle: Show images in random order in gallery
+- Open images in lightbox
+- Show/hide image title, show/hide image caption, change caption color and font size
+- Social buttons for image sharing: Twitter, Facebook, Whatsapp, LinkedIn, Pinterest, Email. [See demo for social sharing](https://demo.wp-modula.com/demo/social-effect/)
+- Zoom-in/zoom-out loading effects
+- Mobile responsive galleries
+- Import/Export tool: really great for moving your galleries to another site without jumping through hoops.
+- Custom CSS personalization
+
+**Premium features only available in Modula PRO:**
+
+- [Presets](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Defaults extension to easily create galleries with the same settings starting from a preset. Add a new gallery, select a preset previously created then just add your images. It's lightning fast to create galleries, without having to manually tweak gallery settings every time you create a new one.
+
+- [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) support: Use the Video extension to combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos. 
+[See a demo of a video gallery](https://demo.wp-modula.com/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Lightbox slideshow](https://modula.helpscoutdocs.com/article/220-modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow. 
+[See a demo for Lightbox Slideshow Extension](https://demo.wp-modula.com/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Password Protect](https://wp-modula.com/kb/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Password Protect extension to block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages. 
+[See a demo for Password Protect Galleries Extension](https://demo.wp-modula.com/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Slider gallery](https://wp-modula.com/kb/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): The extension Convert gallery to slider does exactly what the name says. Slider can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode and more. 
+[See a demo for Convert gallery to slider extension](https://demo.wp-modula.com/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
+[See a demo for gallery filters](https://demo.wp-modula.com/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Albums](https://wp-modula.com/kb/modula-albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Albums extensions to create albums, add galleries, manage cover photos, show gallery titles, select hover effect, grid type, randomize album order, randomize album cover photo and display album image counts. 
+[See a demo for Albums Extension](https://demo.wp-modula.com/albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Deeplink](https://wp-modula.com/kb/modula-deeplink?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use SEO Deepling extension to can create a unique (and indexable URL - as in Google can access and index this). 
+[See a demo for deeplinking](https://demo.wp-modula.com/deeplinking/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Image Loading Effects](https://wp-modula.com/kb/modula-loading-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): add animations: Rotate or Horizontally/Vertically animate the images on each page loads.
+[See a demo for image loading effects](https://demo.wp-modula.com/image-loaded-effects/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Hover effects](https://wp-modula.com/kb/modula-hover-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): access to over 50+ built-in image hover effects.
+[See a demo for hover effects](https://demo.wp-modula.com/hover-effects/appear/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
+- [Gallery with pagination](https://wp-modula.com/kb/modula-pagination?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): group and display images in a gallery on multiple pages. 
+[See a demo for Pagination extension](https://demo.wp-modula.com/?modula-gallery=modula-pagination)
+
+- [Zoom effects](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Choose from three different types of image zoom effects - [Basic](https://demo.wp-modula.com/galleries/basic/), [Inner](https://demo.wp-modula.com/galleries/inner-gallery/) and [Lens](https://demo.wp-modula.com/galleries/lens-gallery/) - to magnify and examine an image in detail.
+
+- [Download images](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Allows users to download images from galleries.
+[See demo for the image download functionality](https://demo.wp-modula.com/download/gallery/).
+
+- [Display EXIF data](https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Edit and display EXIF metadata on images in lightboxes.
+[See a demo for displaying EXIF data](https://demo.wp-modula.com/exif/)
+
+- [Right-Click Protection](https://wp-modula.com/kb/right-click-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): use it to prevent visitors from downloading your images with right-click protection. Also disables keyboard shortcuts for download images. 
+[See a demo for right-click protection feature](https://demo.wp-modula.com/demo/right-click-protection/)
+
+- [Watermark images](https://wp-modula.com/kb/modula-watermark?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): protect your photos by adding custom watermarks. 
+[See a demo of a watermarked gallery](https://demo.wp-modula.com/watermark/)
+
+- [Advanced Shortcode](https://wp-modula.com/kb/modula-advanced-shortcode?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): you can dynamically link to specific galleries without creating pages for them by using URLs with query strings.
+
+- [Speed UP](https://wp-modula.com/kb/modula-speed-up?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): using this extension you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms and serve them from StackPath's CDN (content delivery network). The result? A really REALLY fast website without the high costs associated.
+
+- [Whitelabel](https://wp-modula.com/kb/modula-whitelabel?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): this extension helps with removing all mentions of Modula in the plugin and customizing it with your own brand, logo and text.
+ 
+- [Display images in fullscreen](https://wp-modula.com/kb/modula-fullscreen?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): open images in a lightbox in full screen mode.
+
+- [Role management](https://wp-modula.com/kb/modula-roles?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Set add, delete and edit gallery permissions for each use role on your website.
+
+- Gallery Sorting: sort the images from your gallery based on date created, date modified, alphabetically, reverse or random.
+
+- Support and updates, included with each purchase, for 1 year.
+
+[Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 
 = SEE HOW EASY IT IS TO CREATE A PHOTO GALLERY WITH MODULA =
 
 https://www.youtube.com/watch?v=NxrTXQNExh4
-
-> **Premium features only available in Modula Pro:**
-
-> * Defaults Extension: easily create galleries with the same settings starting from a preset. Add a new gallery, select a preset previously created then just add your images. It's lightning fast to create galleries, without having to manually tweak gallery settings every time you create a new one.
-> * [Video Extension](https://demo.wp-modula.com/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos.
-> * [Slideshow](https://demo.wp-modula.com/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): convert your gallery's lightbox view into a stunning slideshow.
-> * [Password Protect]((https://demo.wp-modula.com/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages.
-> * [Slider]((https://demo.wp-modula.com/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): convert your gallery into a beautiful slider. Slider can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode and more.  
-> * [Gallery Filters]((https://demo.wp-modula.com/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): Allow your website's visitors to easily sort through your gallery by applying one or more filters to your images.
-> * [Albums](https://demo.wp-modula.com/albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)): create albums, add galleries, manage cover photos, show gallery titles, select hover effect, grid type, randomize album order, randomize album cover photo and display album image counts.
-> * [Deeplink](https://demo.wp-modula.com/deeplinking/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): you can create a unique (and indexable URL - as in Google can access and index this).
-> * [Image Loading Effects](https://demo.wp-modula.com/image-loaded-effects/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): add animations: Rotate or Horizontally/Vertically animate the images on each page loads.
-> * [Hover effects](https://demo.wp-modula.com/hover-effects/appear/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): access to over 50+ built-in image hover effects.
-> * Gallery Sorting: sort the images from your gallery based on: date created, date modified, alphabetically, reverse or random.
-> * Right-Click Protection: use it to prevent visitors from downloading your images with right-click protection. Also disables keyboard shortcuts for download images.
-> * Watermark: protect your photos by adding custom watermarks. 
-> * Advanced Shortcodes: you can dynamically link to specific galleries without creating pages for them by using URLs with query strings.
-> * Speed UP: using this extension you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms and serve them from StackPath's CDN (content delivery network). The result? A really REALLY fast website without the high costs associated.
-> * Migration tool: great if you're looking to move over your gallery from any of our competitors. Works great now with NextGen, Envira, Final Tiles Grid Gallery, Photoblocks and even native WordPress galleries can be converted to Modula.
-> * Import/Export tool: really great for moving your galleries to another site without jumping through hoops. 
-> * Email support 
-> * Support and updates, included with each purchase, for 1 year.
->
->[Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
-
-
-**SEE MODULA GALLERIES IN ACTION**
-
-
-Want to see how easy it is to create a filterable WordPress gallery with Modula? [Click here.](https://demo.wp-modula.com/filterable-wordpress-galleries?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-
-* [Modula Filterable Gallery Demo](https://demo.wp-modula.com/filters?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-
-
-* [Custom Grid Gallery](https://demo.wp-modula.com/custom-grid?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-
-**[40+ Built-In Hover Effects](https://demo.wp-modula.com/effects/appear?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)**
-
-The Modula [WordPress gallery plugin](https://wp-modula.com?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) comes with 12 stunning and creative hover effects built in. Using an effect is a great, simple way to engage your audience. All hover effects are unique and can be used with a title, short description and social icons, resulting in unique and contemporary galleries. The effects are designed to be cross-browser compatible and with the use of modern techniques like CSS3 animations, the effects work perfectly on mobile devices too.
-
-*   [Appear](https://demo.wp-modula.com/hover-effects/appear?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Cantinelle](https://demo.wp-modula.com/hover-effects/catinelle?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Comodo](https://demo.wp-modula.com/hover-effects/comodo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Crafty](https://demo.wp-modula.com/hover-effects/crafty?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Curtain](https://demo.wp-modula.com/hover-effects/curtain?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Fluid Up](https://demo.wp-modula.com/hover-effects/fluid-up?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Hide](https://demo.wp-modula.com/hover-effects/hide?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Lens](https://demo.wp-modula.com/hover-effects/lens?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Pufrobo](https://demo.wp-modula.com/hover-effects/pufrobo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Quiet](https://demo.wp-modula.com/hover-effects/quiet?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Reflex](https://demo.wp-modula.com/hover-effects/reflex?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) 
-*   [Seemo](https://demo.wp-modula.com/hover-effects/seemo?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-
-
 
 To insert a gallery onto a WordPress post/page all you need to do is copy the shortcode from your Modula gallery edit page. 
 
@@ -80,68 +108,88 @@ Your shortcode will look just like this:
 
 > [Modula id="1192"]
 
-**SOME MODULA DEMO APPLICATIONS / USAGES**
+**How to create an simple image gallery (FREE feature)**
 
+- Quick&easy tutorial on how to create an [WordPress image gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create a [Beaver Builder gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create a [image gallery in Elementor](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- How to create an [image gallery in Divi Builder](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-Not sure if Modula is the right gallery plugin for you? We encourage you to take a look at other gallery plugins, but one thing you'll notice is that **they all look the same...**
+**How to create a video gallery (PRO feature)**
 
-**Sick and tired of boring galleries? Make your own and stand out with Modula.** 
+- Quick&easy tutorial on how to create a [video gallery in Wordpress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Tutorial for creating [galleries with videos embedded from Youtube](https://wp-modula.com/wordpress-youtube-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Tutorial for creating [galleries with videos embedded from Vimeo](https://wp-modula.com/wordpress-vimeo-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Demo of a [video gallery](https://demo.wp-modula.com/?modula-gallery=self-hosted-videos)
+- Refer to our documentation if you need more help [installing and using Modula Video extension](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-Galleries created with Modula don't always look identical. With the Modula custom grid functionality, you can easily adjust the size and aspect ratio of each individual image by dragging from the bottom right-hand corner in the gallery edit area. 
+**How to build a custom grid gallery (FREE feature)**
 
-Custom grids give you greater flexibility over how you display the images on your website. Easily control the size and look of your gallery - choosing the images you want to stand out, rather than relying on an algorithm.
+- Quick&easy tutorial on how to create a [custom grid gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Demo of a [gallery with images of different sizes and aspect ratios](https://demo.wp-modula.com/demo/custom-grid/)
+- Refer to our documentation to learn the [settings for all the gallery types available](https://wp-modula.com/kb/gallery-types&utm_medium=web&utm_campaign=Modula%20Lite), including the custom grid
 
-Yes, that means you don't have to worry about your gallery awkwardly cropping out your subject or your subject not being at the center of the image.
+**How to create a masonry gallery (FREE feature)**
 
-Modula is the most powerful, customizable and easy-to-use WordPress gallery plugin available because we give you the power to choose everything from the height and width of your gallery down to resizing individual images within the container that makes sure your images never exceed the content area. 
+- Quick&easy tutorial on how to create a [masonry image gallery](https://wp-modula.com/masonry-image-gallery&utm_medium=web&utm_campaign=Modula%20Lite)
+- Refer to our documentation to learn the [settings for all the gallery types available](https://wp-modula.com/kb/gallery-types&utm_medium=web&utm_campaign=Modula%20Lite), including masonry
 
-**Ease-of-use shouldn't mean sample/basic Galleries**
+**How to add a galley slider (PRO feature)**
 
-Modula has been designed to be user-friendly from the ground up so that users of varying WordPress experience can easily create the perfect WordPress photo and image galleries. If you don't want all the customization features, you can leave everything up to the algorithm, and if you do - they're there so you can easily choose gallery size, margins between images, the color and size of captions. 
+- Quick&easy tutorial on how to create a [gallery slider in WordPress](https://wp-modula.com/wordpress-image-carousel&utm_medium=web&utm_campaign=Modula%20Lite)
+- Demo of an [image slider in full screen](https://demo.wp-modula.com/modula-slider-full-screen/)
+- Refer to our documentation to learn the technicalities to [install and use Modula Slider extension] (https://wp-modula.com/kb/modula-slider&utm_medium=web&utm_campaign=Modula%20Lite)
 
-If you can't seem to figure something out, you can always check our [documentation](https://modula.helpscoutdocs.com) or [get in touch](https://wp-modula.com/contact-us) - we're always happy to help...
- 
-**What is Modula good for?** 
+**Mobile responsive gallery (FREE feature)**
 
-Modula is also the best WordPress portfolio plugin as it allows you to easily showcase your amazing work in a stunning gallery. Other applications include:
+- Quick&easy tutorial on how to create a [mobile responsive gallery](https://wp-modula.com/mobile-responsive-gallery/&utm_medium=web&utm_campaign=Modula%20Lite)
+- Refer to our documentation to learn the [settings for making your galleries mobile responsive](https://wp-modula.com/kb/optimize-galleries-for-mobile-and-tablet-devices&utm_medium=web&utm_campaign=Modula%20Lite)
 
-* [Architecture](https://demo.wp-modula.com/applications/architecture?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+**How to create a filterable gallery (PRO feature)**
 
-Modula is the perfect gallery to highlight the details of your architecture work. You can show your photos and drawings in a dynamic and fluid grid and add a short description to explain the subject of each item.
+- Quick&easy tutorial on how to create a gallery with categories and how to [filter gallery images](https://wp-modula.com/filter-wordpress-portfolio&utm_medium=web&utm_campaign=Modula%20Lite) based on those categories
+- Youtube tutorial on [how to apply filters and choose filter styles] (https://youtu.be/etMUFBsLMf4)
+- Demo for all our [filter styles](https://demo.wp-modula.com/demo/filter-styles/)
+- Refer to our documentation to learn all the [filter settings](https://wp-modula.com/kb/use-filters-in-modula&utm_medium=web&utm_campaign=Modula%20Lite) available
 
-* [Art Showcase](https://demo.wp-modula.com/applications/art-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+**How to password protect a gallery (PRO feature)**
 
-Modula is the best gallery plugin to showcase your artistic, and creative work - it is extremely user-friendly, and offers a range of flexible customization options so you can make galleries just as amazing as your artwork.
+- Quick&easy tutorial on how to create a [password protected gallery](https://wp-modula.com/password-protected-gallery&utm_medium=web&utm_campaign=Modula%20Lite)
+- Demo for a [password protected gallery](https://demo.wp-modula.com/demo/password-protection/)
+- Refer to our documentation to learn all the settings for [Password Protect Extension](https://wp-modula.com/kb/password-protection&utm_medium=web&utm_campaign=Modula%20Lite)
 
-* [Photography Portfolio](https://demo.wp-modula.com/applications/blackwhite-photography?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+**How to add pagination to a gallery (PRO feature)**
 
-Showcase your photography portfolio in a professional and creative way with Modula's ability to add captions, change lightbox styles, and add hover effects to each image.
+- Demo for a [gallery with pagination](https://demo.wp-modula.com/?modula-gallery=modula-pagination)
+- Refer to our documentation to learn all the [pagination settings](https://wp-modula.com/kb/modula-pagination&utm_medium=web&utm_campaign=Modula%20Lite) available
 
-* [Food Gallery](https://demo.wp-modula.com/applications/food?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+**How to create a gallery with hover effects (PRO feature)**
 
-Modula is the perfect image gallery plugin for **food blogs** and **restaurant** websites. Let your delicious meals speak for themselves in your unique and creative galleries created with Modula. 
+- Modula plugin comes with more than 40 stunning and creative hover effects built in. All hover effects are unique and can feature a title, short description and social icons, resulting in unique and contemporary galleries. The effects are designed to be cross-browser compatible and with the use of modern techniques like CSS3 animations, the effects work perfectly on mobile devices too.
+- Demo example of [hover effect](https://demo.wp-modula.com/demo/hover-effects/pufrobo/)
+- Refer to our documentation to learn the [settings for applying hover effects](https://wp-modula.com/kb/modula-hover-effects&utm_medium=web&utm_campaign=Modula%20Lite) and see the demos for all hover effects available
 
+**How to organize galleries in albums (PRO feature)**
 
-* [Pets Gallery](https://demo.wp-modula.com/applications/pets-animals?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Quick&easy tutorial on how to create a [gallery album](https://wp-modula.com/online-photo-album&utm_medium=web&utm_campaign=Modula%20Lite)
+- Demo for [organizing multiple galleries in albums](https://demo.wp-modula.com/)
+- Refer to our documentation to learn the [settings for creating gallery albums](https://wp-modula.com/kb/modula-albums&utm_medium=web&utm_campaign=Modula%20Lite)
 
-Give your **pet blog** a stylish and unique touch with Modula Grid Gallery.
+== NEED HELP USING MODULA? ==
 
-* [Tattoo Showcase](https://demo.wp-modula.com/applications/tattoo-attitude?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+- Search our extensive [knowledge base](https://wp-modula.com/knowledge-base/) for documentation about installing the plugin/the extensions, available settings and how to use them.
+- Browse [Modula's WordPress forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/) to find answers to your queries or create a new topic.
+- [Contact us](https://wp-modula.com/contact-us/) directly for support.
 
-Whether you are a **tattooist** or a **tattoo enthusiast** blogger, Modula is the perfect portfolio gallery plugin to create galleries and show your artistic work. Easily and quickly create your stunning galleries and make people share your tattoos by using the built-in social sharing functionality.
+**Do you have galleries already created in NextGen, Envira, Final Tiles Grid Gallery or FooGallery and want to migrate them to Modula?**
+Use our dedicated tools:
+- [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/)
+- [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/)
+- [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/)
+- [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/)
+- [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/)
 
-* [Travel Gallery](https://demo.wp-modula.com/applications/travel-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-
-**Who doesn't love traveling?** Use Modula to create stunning galleries to engage your travel blog or travel agency website's visitors.
-
-* [Wedding Album
-](https://demo.wp-modula.com/applications/wedding-album?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-
-Your **wedding** day has to be perfect, right? So, why not make the perfect **wedding album**? 
-
-Modula is the perfect WordPress photo gallery plugin if you're a wedding planner, wedding blogger or building your own wedding website. 
-
-*Be as proud of your wedding album as you are of your wedding.*
+**_Already love Modula?_ Rate us on [Wordpress](https://wordpress.org/support/plugin/modula-best-grid-gallery/reviews/)!**
 
 == 3rd party or external service disclaimer ==
 
@@ -152,11 +200,11 @@ IT DOES NOT SEND ANY DATA NOR DO WE COLLECT INFORMATION FROM THE REQUEST
 Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy/
 
 == Installation ==
-= For automatic installation: =
+**For automatic installation:**
 
 The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'Modula\' in the search field.
 
-= For manual installation 1: =
+**For manual installation 1:**
 
 1. Login to your website and go to the Plugins section of your admin panel.
 2. Click the Add New button.
@@ -165,7 +213,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 5. You should see a message stating that the plugin was installed successfully.
 6. Click the Activate Plugin link.
 
-= For manual installation 2: =
+**For manual installation 2:**
 
 1. You should have access to the server where WordPress is installed. If you don\'t, see your system administrator.
 2. Copy the plugin zip file (modula.x.x.x.zip) up to your server and unzip it somewhere on the file system.
@@ -174,6 +222,17 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 5. Look for \"Modula\" and click Activate.
 
 == Frequently Asked Questions ==
+
+= How to add a Modula gallery to posts and pages? =
+Check out this article to find out how easy it is to [add Modula galleries to WordPress posts and pages](https://wp-modula.com/how-to-add-modula-to-page/)
+
+= Can I migrate galleries created with other plugins? =
+YES! Whether you have galleries created with NextGEN, FooGallery, Envira Gallery, Final Tiles or Photoblocks, you can transform them into Modula galleries on the spot, with our migrator plugins available in the WordPress repository:
+[Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/)
+[Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/)
+[Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/)
+[Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/)
+[Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/)
 
 = The layout doesn't look correct =
 
@@ -190,6 +249,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 = How can I say thanks? =
 
+* Give us 5 stars on [Wordpress](https://wordpress.org/support/plugin/modula-best-grid-gallery/reviews/)
 * Just recommend our plugin to your friends! or
 * Follow us on [Twitter](https://twitter.com/wpchillhq "Twitter") 
 
@@ -202,64 +262,118 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.2 - 13.03.2023 =
+Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
+Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
+Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/download-monitor/issues/770) )
+Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/download-monitor/issues/774) )
+Added: New hover effect "Centered Bottom" ( [#773](https://github.com/WPChill/modula-lite/issues/773) )
+Added: Check user capabilities when addong/removing images from a gallery. ( [#779](https://github.com/WPChill/modula-lite/issues/779) )
+Fixed: Widths and Heights are empty when changing gallery types. ( [#767](https://github.com/WPChill/modula-lite/issues/767) )
+Fixed: Only having private galleries shows "Create your first gallery" page. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
+Fixed: Private galleries won't display for non logged-in users. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
+Fixed: Error when triggering file deletion ( [#721](https://github.com/WPChill/modula-lite/issues/721) )
+Fixed: Gallery type icons coloring ( [#713](https://github.com/WPChill/modula-lite/issues/713) )
+
+
+= 2.7.1 - 15.12.2022 =
+Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
+
+= 2.7.0 - 12.12.2022 =
+Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
+Fixed: Fancybox error ( [#678](https://github.com/WPChill/modula-lite/issues/678) )
+Changed: Modula uninstall process - proper target the inputs with js ( [#673](https://github.com/WPChill/modula-lite/issues/673) )
+Fixed: jQuery .load() deprecated warning ( [#669](https://github.com/WPChill/modula-lite/issues/669) )
+Added: Create new gallery welcome screen ( [#650](https://github.com/WPChill/modula-lite/issues/650) )
+Fixed: WP Core galleries migration ( [#694](https://github.com/WPChill/modula-lite/issues/694) )
+Fixed: Issue preventing gallery status change in gallery edit ( [#703](https://github.com/WPChill/modula-lite/issues/703) )
+Fixed: Screen options not working when editing a gallery ( [#700](https://github.com/WPChill/modula-lite/issues/700) )
+Fixed: Empty blocks in admin custom grid gallery edit ( [#709](https://github.com/WPChill/modula-lite/issues/709) )
+
+= 2.6.92 - 24/10/2022 =
+Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+Fixed: Misc settings nonce bug. ( [#697](https://github.com/WPChill/modula-lite/issues/697) )
+
+= 2.6.91 - 20/10/2022 =
+Changed: Metabox Accordeons no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
+Fixed: Show only image size that is in effect on "Image Size" admin setting. ( [#692](https://github.com/WPChill/modula-lite/issues/692) )
+Added: Nonce verification and admin user validation for troubleshooting options. ( [#693](https://github.com/WPChill/modula-lite/issues/693) )
+
+= 2.6.9 - 18/10/2022 =
+Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )
+
+= 2.6.8 - 18/10/2022 =
+Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode. ( [#681](https://github.com/WPChill/modula-lite/issues/681) )
+Fixed: Warnings if images could not be resized ( [#682](https://github.com/WPChill/modula-lite/issues/682) )
+Changed: Deactivation survey visual Enhancement ( [#649](https://github.com/WPChill/modula-lite/issues/649) )
+Added: A setting to remove srcset from images ( [#675](https://github.com/WPChill/modula-lite/issues/675) )
+Fixed: Preventing the addition of custom image size if it's the same as the original  [#684](https://github.com/WPChill/modula-lite/issues/684) )
+Changed: Removed "Open image in a lightbox" tooltip when hovering over an gallery image. [#686](https://github.com/WPChill/modula-lite/issues/686) )
+Added: Metabox accordeons ( [#687](https://github.com/WPChill/modula-lite/issues/687) )
+
+= 2.6.7 - 08/06/2020 =
+Fixed: Sanitization & escapes.
+Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/issues/618 )
+Fixed: Gallery titles with messy display names in Gutenberg ( https://github.com/WPChill/modula-lite/issues/652 )
+Added: Possibility to exclude certain images from the lightbox ( https://github.com/WPChill/modula-lite/issues/445 )
 
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.
 
 = 2.6.6 - 02/05/2020 =
-Fixed: Sanitization not showing quotation marks in image title ( https://github.com/WPChill/modula-lite/issues/627 )
-Changed: Last image arrow in lightbox is now hidden ( https://github.com/WPChill/modula-lite/issues/621 )
+Fixed: Sanitization not showing quotation marks in image title ( [#627](https://github.com/WPChill/modula-lite/issues/627) )
+Changed: Last image arrow in lightbox is now hidden ( [#621](https://github.com/WPChill/modula-lite/issues/621) )
 
 = 2.6.5 - 04/04/2022 =
 Added: Migrate away from PhotoBlocks Gallery
 Changed: Modified the About page.
 
 = 2.6.4 - 28/03/2022 =
-Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions ( https://github.com/WPChill/modula-lite/issues/647, https://github.com/WPChill/modula-lite/issues/648 )
+Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions ( [#647](https://github.com/WPChill/modula-lite/issues/647), [#648](https://github.com/WPChill/modula-lite/issues/648) )
 
 = 2.6.3 - 21/03/2022 =
-Fixed: Sanitization and preparation for WP Core galleries import ( https://github.com/WPChill/modula-lite/issues/625 )
-Fixed: Metaboxes forever opened and arrows hidden ( https://github.com/WPChill/modula-lite/issues/639 )
-Fixed: Custom Posts Gutenberg block - now available everywhere Gutenberg is ( https://github.com/WPChill/modula-lite/issues/626 )
-Fixed: React warnings ( https://github.com/WPChill/modula-lite/issues/628 )
-Fixed: Blank links in accesibility reports ( https://github.com/WPChill/modula-lite/issues/640 )
+Fixed: Sanitization and preparation for WP Core galleries import ( [#625](https://github.com/WPChill/modula-lite/issues/625) )
+Fixed: Metaboxes forever opened and arrows hidden ( [#639](https://github.com/WPChill/modula-lite/issues/639) )
+Fixed: Custom Posts Gutenberg block - now available everywhere Gutenberg is ( [#626](https://github.com/WPChill/modula-lite/issues/626) )
+Fixed: React warnings ( [#628](https://github.com/WPChill/modula-lite/issues/628) )
+Fixed: Blank links in accesibility reports ( [#640](https://github.com/WPChill/modula-lite/issues/640) )
 
 = 2.6.2 - 22/02/2022 =
-Fixed: Mime type giving error if no file_path - https://github.com/WPChill/modula-lite/issues/632
-Fixed: Gallery width when using Full Site Editing - https://github.com/WPChill/modula-lite/issues/601
+Fixed: Mime type giving error if no file_path ( [#632](https://github.com/WPChill/modula-lite/issues/632) )
+Fixed: Gallery width when using Full Site Editing ( [#601](https://github.com/WPChill/modula-lite/issues/601) )
 
 = 2.6.1 - 18/02/2022 =
-Fixed - array_merge error - https://wordpress.org/support/topic/error-on-las-update/
+Fixed - array_merge error ( [Error fix](https://wordpress.org/support/topic/error-on-las-update/) )
 
 = 2.6.0 - 18/02/2022 =
-Fixed: Modula gallery display in tabs/accordions ( https://github.com/WPChill/modula-lite/issues/620 )
-Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 - https://github.com/WPChill/modula-lite/issues/495
-Changed: Default "Hide Title" setting value to ON - https://github.com/WPChill/modula-lite/issues/495
-Fixed: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox. https://github.com/WPChill/modula-lite/issues/553
-Fixed: Get proper mime type - https://github.com/WPChill/modula-lite/issues/595#event-5264362667
-Fixed: Added tracking db options to uninstall process - https://github.com/WPChill/modula-lite/issues/591
-Fixed: Unset link image attribute when importing from NextGEN - https://github.com/WPChill/modula-lite/issues/590
-Fixed: Error when trying to get images that were not imported correctly / do not exist as entries in db - https://github.com/WPChill/modula-lite/issues/588
-Changed: Lazy load setting default ON - https://github.com/WPChill/modula-lite/issues/520
-Changed: Updated CPT settings conditions - https://github.com/WPChill/modula-lite/issues/516
-Changed: Grid Automatic default Row Height from 150 to 250 - https://github.com/WPChill/modula-lite/issues/517
-Changed: Update settings texts. - https://github.com/WPChill/modula-lite/issues/499
-Changed: Last 5 galleries now appear in selectize without searching ( https://github.com/WPChill/modula-lite/issues/598 )
-Fixed: Incompatibility with Gutenberg block and widgets - https://github.com/WPChill/modula-lite/issues/599
-Fixed: Modula Widget before and after args - https://github.com/WPChill/modula-lite/issues/483
-Fixed: Sharing on LinkedIn - https://github.com/WPChill/modula-lite/issues/503
-Changed: Import/Export page received a new design - https://github.com/WPChill/modula-lite/issues/492
-Added: Link to Modula's about page in the plugin's branding header - https://github.com/WPChill/modula-lite/issues/511
-Added: Upsell to Modula PRO in plugins page - https://github.com/WPChill/modula-lite/issues/552
-Fixed: Migration from NextGEN galleries replacement for `[nggallery id=”xx″]` shortcode format - https://github.com/WPChill/modula-lite/issues/587
-Fixed: JavaScript error when Syntax Highlighting is disabled - https://github.com/WPChill/modula-lite/issues/586
-Fixed: Don't enqueue scripts/styles when not needed - https://github.com/WPChill/modula-lite/issues/589
-Fixed: Mobile/table gutter not working correctly - https://github.com/WPChill/modula-lite/issues/602
-Fixed: Set a default widht of 100% when there is no value - https://github.com/WPChill/modula-lite/issues/601
+Fixed: Modula gallery display in tabs/accordions ( [#620](https://github.com/WPChill/modula-lite/issues/620) )
+Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 ( [#495](https://github.com/WPChill/modula-lite/issues/495) )
+Changed: Default "Hide Title" setting value to ON ( [#495](https://github.com/WPChill/modula-lite/issues/495) )
+Fixed: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox ( [#553](https://github.com/WPChill/modula-lite/issues/553) )
+Fixed: Get proper mime type ( [#595](https://github.com/WPChill/modula-lite/issues/595#event-5264362667) )
+Fixed: Added tracking db options to uninstall process ( [#591](https://github.com/WPChill/modula-lite/issues/591) )
+Fixed: Unset link image attribute when importing from NextGEN ( [#590](https://github.com/WPChill/modula-lite/issues/590) )
+Fixed: Error when trying to get images that were not imported correctly / do not exist as entries in db ( [#588](https://github.com/WPChill/modula-lite/issues/588) )
+Changed: Lazy load setting default ON ( [#520](https://github.com/WPChill/modula-lite/issues/520) )
+Changed: Updated CPT settings conditions ( [#516](https://github.com/WPChill/modula-lite/issues/516) )
+Changed: Grid Automatic default Row Height from 150 to 250 ( [#517](https://github.com/WPChill/modula-lite/issues/517) )
+Changed: Update settings texts. ( [#499](https://github.com/WPChill/modula-lite/issues/499) )
+Changed: Last 5 galleries now appear in selectize without searching ( [#598](https://github.com/WPChill/modula-lite/issues/598) )
+Fixed: Incompatibility with Gutenberg block and widgets ( [#599](https://github.com/WPChill/modula-lite/issues/599) )
+Fixed: Modula Widget before and after args ( [#483](https://github.com/WPChill/modula-lite/issues/483) )
+Fixed: Sharing on LinkedIn ( [#503](https://github.com/WPChill/modula-lite/issues/503) )
+Changed: Import/Export page received a new design ( [#492](https://github.com/WPChill/modula-lite/issues/492) )
+Added: Link to Modula's about page in the plugin's branding header ( [#511](https://github.com/WPChill/modula-lite/issues/511) )
+Added: Upsell to Modula PRO in plugins page ( [#552](https://github.com/WPChill/modula-lite/issues/552) )
+Fixed: Migration from NextGEN galleries replacement for `[nggallery id=”xx″]` shortcode format ( [#587](https://github.com/WPChill/modula-lite/issues/587) )
+Fixed: JavaScript error when Syntax Highlighting is disabled ( [#586](https://github.com/WPChill/modula-lite/issues/586) )
+Fixed: Don't enqueue scripts/styles when not needed ( [#589](https://github.com/WPChill/modula-lite/issues/589) )
+Fixed: Mobile/table gutter not working correctly ( [#602](https://github.com/WPChill/modula-lite/issues/602) )
+Fixed: Set a default widht of 100% when there is no value ( [#601](https://github.com/WPChill/modula-lite/issues/601) )
 Changed: Improved Upsells
-Fixed: Notice placing in settings - https://github.com/WPChill/modula-lite/issues/617
-Fixed: Compatibility issue with Meow Lightbox - https://github.com/WPChill/modula-lite/issues/575
-Added: Mobile Gallery Height setting  - https://github.com/WPChill/modula-lite/issues/582
+Fixed: Notice placing in settings ( [#617](https://github.com/WPChill/modula-lite/issues/617) )
+Fixed: Compatibility issue with Meow Lightbox ( [#575](https://github.com/WPChill/modula-lite/issues/575) )
+Added: Mobile Gallery Height setting  ( [#581](https://github.com/WPChill/modula-lite/issues/582) )
 
 = 2.5.5 - 04/10/2021 =
 Fixed: WP Cron fatal error.
@@ -283,29 +397,29 @@ Fixed: Backwards compatibility for custom grid image size after Modula update fr
 Fixed: srcset generated a nonexistent image.
 
 = 2.5.0 - 01/04/2021 =
-Added: Only allow certain users to the Extensions page - https://github.com/WPChill/modula-lite/issues/476
-Added: Responsive gutters - https://github.com/WPChill/modula-lite/issues/424
-Added: Srcset and sizes for galleries images for both declared sizes and custom sizes - https://github.com/WPChill/modula-lite/issues/228
-Added: Custom size and WordPress image sizes selection for galleries grid thumbnail - https://github.com/WPChill/modula-lite/issues/194
+Added: Only allow certain users to the Extensions page ( [#476](https://github.com/WPChill/modula-lite/issues/476) )
+Added: Responsive gutters ( [#424](https://github.com/WPChill/modula-lite/issues/424) )
+Added: Srcset and sizes for galleries images for both declared sizes and custom sizes ( [#228](https://github.com/WPChill/modula-lite/issues/228) )
+Added: Custom size and WordPress image sizes selection for galleries grid thumbnail ( [#194](https://github.com/WPChill/modula-lite/issues/194) )
 Added: FREE vs Premium page
-Added: Added debug info using WordPress' Site Health + added an export option to export single galleries, used for both debugging and export/import operations - https://github.com/WPChill/modula-lite/issues/155
-Fixed: Powered by links appear 2 times - https://github.com/WPChill/modula-lite/issues/482
-Fixed: Gutenberg alignment issue when trying to make full width - https://github.com/WPChill/modula-lite/issues/480
-Fixed: Elementor compatibility -  https://github.com/WPChill/modula-lite/issues/468
-Fixed: Selecting a gallery with no images in Gutenberg - https://github.com/WPChill/modula-lite/issues/467
-Fixed: Modula's galleries not being displayed properly in preview in Gutenberg - https://github.com/WPChill/modula-lite/issues/461
-Fixed: Modula's gallery selector not being displayed properly in it's Gutenberg's block - https://github.com/WPChill/modula-lite/issues/460
-Fixed: Avada theme compatibility issue regarding color pickers - https://github.com/WPChill/modula-lite/issues/459
-Fixed: Multiple same gallery in page issue - https://github.com/WPChill/modula-lite/issues/452
-Fixed: JS error in admin when cycling through gallery's images - https://github.com/WPChill/modula-lite/issues/429
-Fixed: Lazy load incompatibility with Site Ground Optimizer plugin and Avada lazy loading - https://github.com/WPChill/modula-lite/issues/395, https://github.com/WPChill/modula-lite/issues/387
-Fixed: Conflict where ResizeSensor was declared as global. Now it has been personalized - https://github.com/WPChill/modula-lite/issues/363
-Fixed: Incompatibility with some themes, where the resize reset of Modula wasn't working correctly - https://github.com/WPChill/modula-lite/issues/297
-Fixed: Modula's instance not being reset on tab switch - https://github.com/WPChill/modula-lite/issues/224
-Fixed: Custom CSS's tab editor was not showing correctly if the last tab was the Custom CSS tab - https://github.com/WPChill/modula-lite/issues/464
+Added: Added debug info using WordPress' Site Health + added an export option to export single galleries, used for both debugging and export/import operations ( [#155](https://github.com/WPChill/modula-lite/issues/155) )
+Fixed: Powered by links appear 2 times ( [#482](https://github.com/WPChill/modula-lite/issues/482) )
+Fixed: Gutenberg alignment issue when trying to make full width ( [#480](https://github.com/WPChill/modula-lite/issues/480) )
+Fixed: Elementor compatibility ( [#468](https://github.com/WPChill/modula-lite/issues/468) )
+Fixed: Selecting a gallery with no images in Gutenberg ( [#467](https://github.com/WPChill/modula-lite/issues/467) )
+Fixed: Modula's galleries not being displayed properly in preview in Gutenberg ( [#461](https://github.com/WPChill/modula-lite/issues/461) )
+Fixed: Modula's gallery selector not being displayed properly in it's Gutenberg's block ( [#460](https://github.com/WPChill/modula-lite/issues/460) )
+Fixed: Avada theme compatibility issue regarding color pickers ( [#459](https://github.com/WPChill/modula-lite/issues/459) )
+Fixed: Multiple same gallery in page issue ( [#452](https://github.com/WPChill/modula-lite/issues/452) )
+Fixed: JS error in admin when cycling through gallery's images ( [#429](https://github.com/WPChill/modula-lite/issues/429) )
+Fixed: Lazy load incompatibility with Site Ground Optimizer plugin and Avada lazy loading ( [#387](https://github.com/WPChill/modula-lite/issues/395, https://github.com/WPChill/modula-lite/issues/387) )
+Fixed: Conflict where ResizeSensor was declared as global. Now it has been personalized ( [#363](https://github.com/WPChill/modula-lite/issues/363) )
+Fixed: Incompatibility with some themes, where the resize reset of Modula wasn't working correctly ( [#297](https://github.com/WPChill/modula-lite/issues/297) )
+Fixed: Modula's instance not being reset on tab switch ( [#224](https://github.com/WPChill/modula-lite/issues/224) )
+Fixed: Custom CSS's tab editor was not showing correctly if the last tab was the Custom CSS tab ( [#464](https://github.com/WPChill/modula-lite/issues/464) )
 Changed: Extensions page and how it works
-Changed: Hover effects tab had been given an UI update - https://github.com/WPChill/modula-lite/issues/114
-Changed: Social share now gives image URL instead of page URL and title/caption of image - https://github.com/WPChill/modula-lite/issues/326
+Changed: Hover effects tab had been given an UI update ( [#114](https://github.com/WPChill/modula-lite/issues/114) )
+Changed: Social share now gives image URL instead of page URL and title/caption of image ( [#326](https://github.com/WPChill/modula-lite/issues/326) )
 
 = 2.4.1 - 14/12/2020 =
 Fixed gallery right margin when on full width container

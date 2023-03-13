@@ -591,6 +591,93 @@
 	}
 
 	/*---------------*/
+	/***** Centered Bottom *****/
+	/*---------------*/
+
+	.modula-gallery .modula-items .modula-item.effect-centered-bottom img {
+		max-width: none;
+		min-width: -webkit-calc(100% + 50px) !important;
+		min-width: calc(100% + 50px) !important;
+		opacity: 0.7;
+		-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+		transition: opacity 0.35s, transform 0.35s;
+		-webkit-transform: translate3d(-20px,0, 0);
+		transform: translate3d(-20px,0,0);
+
+	}
+
+	body .modula-gallery.modula-columns .modula-items .modula-item.effect-centered-bottom img.pic {
+		max-width:none;
+
+	}
+
+	html body .modula-gallery .modula-items .modula-item.effect-centered-bottom .figc {
+		text-align: left;
+	}
+
+	html body .modula-gallery .modula-items .modula-item.effect-centered-bottom .figc > div {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 5%;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom .jtg-title,
+	.modula-gallery .modula-item.effect-centered-bottom .jtg-body {
+		-webkit-transform: translate3d(0,40px,0);
+		transform: translate3d(0,40px,0);
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom .jtg-title {
+		-webkit-transition: -webkit-transform 0.35s;
+		transition: transform 0.35s;
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom .jtg-title:before {
+		displaY:none;
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom .jtg-body {
+		color: rgba(255,255,255,0.8);
+		opacity: 0;
+		-webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
+		transition: opacity 0.2s, transform 0.35s;
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom:hover img,
+	.modula-gallery .modula-item.effect-centered-bottom:hover .jtg-body {
+		opacity: 1;
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom:hover img,
+	.modula-gallery .modula-item.effect-centered-bottom:hover .jtg-title,
+	.modula-gallery .modula-item.effect-centered-bottom:hover .jtg-body {
+		-webkit-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+	}
+
+	.modula-gallery .modula-item.effect-centered-bottom:hover .jtg-body {
+		-webkit-transition-delay: 0.05s;
+		transition-delay: 0.05s;
+		-webkit-transition-duration: 0.35s;
+		transition-duration: 0.35s;
+		z-index:9999;
+	}
+
+	html body .modula-gallery .modula-items .modula-item.effect-centered-bottom .jtg-body .jtg-social {
+		text-align: left;
+		margin-top:10px;
+	}
+
+	@media all and (max-width:480px) {
+		html body .modula-gallery .modula-items .modula-item.effect-centered-bottom .jtg-body .jtg-social a {
+			margin-right:10px;
+			padding:5px;
+		}
+	}
+	/*---------------*/
 	/***** Sadie *****/
 	/*---------------*/
 
@@ -6604,7 +6691,8 @@ html body .modula-gallery.modula-custom-grid .modula-items .modula-item.effect-u
 .modula-gallery .modula-items .modula-item.effect-julia .jtg-social,
 .modula-gallery .modula-items .modula-item.effect-phoebe .jtg-social,
 .modula-gallery .modula-items .modula-item.effect-ming .jtg-social,
-.modula-gallery .modula-items .modula-item.effect-lily .jtg-body .jtg-social {
+.modula-gallery .modula-items .modula-item.effect-lily .jtg-body .jtg-social,
+.modula-gallery .modula-items .modula-item.effect-centered-bottom .jtg-body .jtg-social {
 	position: relative;
 	bottom: auto;
 	right: auto;

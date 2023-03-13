@@ -2,6 +2,10 @@
 	'use strict';
 
 	$(document).ready(function () {
+
+		//prevents the modula metaboxes from being dragged.
+		$('.modula-no-drag #normal-sortables, .modula-no-drag #side-sortables').off();
+
 		$('.modula-feedback-notice .notice-dismiss').click(function (evt) {
 			evt.preventDefault();
 
@@ -94,7 +98,7 @@
 		modulaOpenModal
 	);
 
-	jQuery(window).load(function () {
+	jQuery(window).on('load', function () {
 
 		let searchParams = new URLSearchParams(window.location.search);
 		if (searchParams.has('page') && 'modula-lite-vs-pro' === searchParams.get('page') && searchParams.has('extension')) {

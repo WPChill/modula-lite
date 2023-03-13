@@ -78,8 +78,6 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	// Create link attributes like : title/rel
-	$item_data['link_attributes']['href'] = '#';
-
 	if(class_exists('\Elementor\Plugin')){
 		$item_data['link_attributes']['data-elementor-open-lightbox'] = 'no';
 	}
@@ -107,20 +105,14 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		$item_data['link_attributes']['title']      = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		if ( '' != $item['link'] ) {
-
 			$item_data['link_attributes']['href'] = $item['link'];
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
-
 				$item_data['link_attributes']['target'] = '_blank';
 			}
-
 		} else {
-
 			$item_data['link_attributes']['href'] = get_attachment_link( $item['id'] );
 		}
-
 	} else if ( 'direct' == $settings['lightbox'] ) {
-
 		$item_data['link_attributes']['href']       = $item_data['image_full'];
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
@@ -128,12 +120,12 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['title']      = esc_html__('Open image', 'modula-best-grid-gallery');
 
 	} else {
-
-		$item_data['link_attributes']['href']          = $item_data['image_full'];
+		if( modula_href_required() ){
+			$item_data['link_attributes']['href']          = $item_data['image_full'];
+		}
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 		$item_data['link_attributes']['aria-label']    = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
-		$item_data['link_attributes']['title']         = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
 
 	}
 
@@ -323,19 +315,30 @@ function modula_sources_and_sizes( $data ) {
 
 	// Lets creat our $image object
 	$image = '<img class="' . esc_attr( implode( ' ', $data->img_classes ) ) . '" ' . Modula_Helper::generate_attributes( $data->img_attributes ) . '/>';
-
+	
+	// Check if srcset is disabled for an early return.
+	$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
+	if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
+		echo $image;
+		return;
+	}
+	
+	$image_meta = array();
 	// Get the imag meta
-	$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
+	if( isset( $data->link_attributes['data-image-id']  ) ){
+		$image_meta = wp_get_attachment_metadata( $data->link_attributes['data-image-id'] );
+	}
 
 	$mime_type = '';
 
 	if ( isset( $image_meta['sizes']['thumbnail']['mime-type'] ) ) {
 		$mime_type = $image_meta['sizes']['thumbnail']['mime-type'];
-	} else if ( function_exists( 'mime_content_type' ) && $data->image_info['file_path'] ) {
+	} else if ( function_exists( 'mime_content_type' ) && $data->image_info) {
 		$mime_type = mime_content_type( $data->image_info['file_path'] );
 	}
 
-	if ( ! empty( $data->image_info ) ) {
+	//Add custom size only if it's different than original image size
+	if ( ! empty( $data->image_info ) && $data->image_info && !empty( $image_meta ) && $image_meta['width'] !== $data->img_attributes['width'] && $image_meta['height'] !== $data->img_attributes['height'] ) {
 		$image_meta['sizes']['custom'] = array(
 				'file'      => $data->image_info['name'] . '-' . $data->image_info['suffix'] . '.' . $data->image_info['ext'],
 				'width'     => $data->img_attributes['width'],
@@ -424,4 +427,25 @@ function modula_sources_and_sizes( $data ) {
 	}
 
 	echo $image;
+}
+
+/**
+ * Checks versions of plugins before we remove href attribute from image link
+ *
+ *
+ * @since 2.7.2
+ */
+function modula_href_required() {
+		
+	if(
+		( ( defined( 'MODULA_PRO_VERSION' ) && version_compare( MODULA_PRO_VERSION, '2.6.3', '>=' ) ) || !defined( 'MODULA_PRO_VERSION' ) ) &&
+		( ( defined( 'MODULA_VIDEO_VERSION' ) && version_compare( MODULA_VIDEO_VERSION, '1.0.9', '>=' ) ) || !defined( 'MODULA_VIDEO_VERSION' ) ) &&
+		( ( defined( 'MODULA_SLIDER_VERSION' ) && version_compare( MODULA_SLIDER_VERSION, '1.1.1', '>=' ) ) || !defined( 'MODULA_SLIDER_VERSION' ) ) &&
+		( ( defined( 'MODULA_SPEEDUP_VERSION' ) && version_compare( MODULA_SPEEDUP_VERSION, '1.0.14', '>=' ) ) || !defined( 'MODULA_SPEEDUP_VERSION' ) ) &&
+		( ( defined( 'MODULA_WATERMARK_VERSION' ) && version_compare( MODULA_WATERMARK_VERSION, '1.0.8', '>=' ) ) || !defined( 'MODULA_WATERMARK_VERSION' ) )
+	){
+		return false;
+	}
+
+	return true;
 }

@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'DM Sans';
+	src: url('../../font/dm/DMSans-Regular.ttf');
+}
+
 .post-type-modula-gallery:not( .single-modula-gallery ) .wrap h1.wp-heading-inline,
 .post-type-modula-gallery:not( .single-modula-gallery ) .wrap > .page-title-action {
 	display: none;
@@ -211,4 +216,83 @@ tbody#the-list .no-items {
     height: 31px;
     line-height: 31px;
     font-weight: bold;
+}
+
+/**
+ Onboarding CSS
+ */
+
+ .modula-onboarding-wrapper {
+	text-align: center;
+	padding: 25px;
+  }
+  
+  .modula-onboarding-title {
+	display: inline-flex;
+	vertical-align: middle;
+	align-items: center;
+  }
+img.modula-onboarding-title-icon {
+	max-width: 35px;
+	vertical-align: middle;
+}
+.modula-onboarding-title >span {
+	font-size: 16px;
+	margin-left: 10px;
+	font-weight: 700;
+}
+.modula-onboarding-text-wrap p {
+	font-size: 16px;
+	font-weight: 400;
+	margin: 0;
+}
+.modula-onboarding-text-wrap {
+	padding: 10px 0 30px 0;
+	max-width:960px;
+	margin:0 auto;
+}
+img.modula-onboarding-banner {
+	width: auto;
+	max-width: 300px;
+}
+a.modula-onboarding-button {
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 43px;
+	color: #fff;
+	text-decoration: none;
+	background: #219962;
+	border-radius: 100px;
+	padding: 15px 45px;
+}
+
+a.modula-onboarding-button:hover {
+	background: #1A7A4E;
+}
+
+.modula-onboarding-button-wrap {
+	padding: 30px 0;
+}
+.modula-onboarding-button-wrap {
+	padding: 30px 0 0 0;
+}
+p.modula-onboarding-doc {
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 44px;
+	text-align: center;
+	color: #000000;
+}
+
+p.modula-onboarding-doc a:hover {
+	text-decoration: underline;
+}
+
+p.modula-onboarding-doc > a {
+    text-decoration: none;
+    color: #219962;
 }
