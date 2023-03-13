@@ -287,6 +287,7 @@ class Modula_Field_Builder {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\' ' . $parent . '><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 		}
 
+
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
 
