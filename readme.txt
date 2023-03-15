@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.2
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.7.2
+Stable tag: 2.7.3
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.3 - 15.03.2023 =
+Fixed: No content in lightbox ( [#783](https://github.com/WPChill/modula-lite/issues/783) )
+
 = 2.7.2 - 13.03.2023 =
 Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
 Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
@@ -316,9 +319,6 @@ Fixed: Sanitization & escapes.
 Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/issues/618 )
 Fixed: Gallery titles with messy display names in Gutenberg ( https://github.com/WPChill/modula-lite/issues/652 )
 Added: Possibility to exclude certain images from the lightbox ( https://github.com/WPChill/modula-lite/issues/445 )
-
-= 2.6.7 - 08/06/2020 =
-Fixed: Sanitization & escapes.
 
 = 2.6.6 - 02/05/2020 =
 Fixed: Sanitization not showing quotation marks in image title ( [#627](https://github.com/WPChill/modula-lite/issues/627) )
