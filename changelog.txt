@@ -1,3 +1,6 @@
+= 2.7.3 - 15.03.2023 =
+Fixed: No content in lightbox ( [#783](https://github.com/WPChill/modula-lite/issues/783) )
+
 = 2.7.2 - 13.03.2023 =
 Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
 Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
