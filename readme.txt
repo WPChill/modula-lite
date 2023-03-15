@@ -320,9 +320,6 @@ Fixed: Medicare WP theme compatibility ( https://github.com/WPChill/modula-lite/
 Fixed: Gallery titles with messy display names in Gutenberg ( https://github.com/WPChill/modula-lite/issues/652 )
 Added: Possibility to exclude certain images from the lightbox ( https://github.com/WPChill/modula-lite/issues/445 )
 
-= 2.6.7 - 08/06/2020 =
-Fixed: Sanitization & escapes.
-
 = 2.6.6 - 02/05/2020 =
 Fixed: Sanitization not showing quotation marks in image title ( [#627](https://github.com/WPChill/modula-lite/issues/627) )
 Changed: Last image arrow in lightbox is now hidden ( [#621](https://github.com/WPChill/modula-lite/issues/621) )
