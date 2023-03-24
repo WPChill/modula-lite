@@ -5215,6 +5215,10 @@
         }
 		var imageCaption = item.opts.caption.replace(/<p>|<\/p>/igm, '');
 
+    var imageCaption = imageCaption.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+      return '&#'+i.charCodeAt(0)+';';
+    });
+
 		list.push( '<a href="javascript:;" role="button" aria-label="Click to show image titled '+
 		  imageCaption +
 		  '" tabindex="0" data-index="' +
