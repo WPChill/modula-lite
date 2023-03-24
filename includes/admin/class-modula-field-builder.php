@@ -330,7 +330,13 @@ class Modula_Field_Builder {
 
 	/* Create HMTL for a field */
 	private function _render_field( $field, $value = '' ) {
-		$html           = '';
+		$html = '';
+
+		$default = '';
+		// Check if our field have a default value
+		if ( isset( $field['default'] ) ) {
+			$default = $field['default'];
+		}
 
 		switch ( $field['type'] ) {
 
@@ -343,14 +349,14 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				break;
 			case 'text': 
-				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $field['default'] ) ) . '">';
+				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '">';
 
 				if(isset($field['afterrow'])){
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
 				}
 				break;
 			case 'number':
-				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $field['default'] ) ) . '">';
+				$html = '<input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '">';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
@@ -371,9 +377,9 @@ class Modula_Field_Builder {
 				break;
 
 			case 'responsiveInput':
-				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( $value[0] ) ? esc_attr( $value[0] ) : esc_attr( $field['default'][0] ) ) . '"><span class="modula_input_suffix">px</span></td>';
-				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[1] ) ? esc_attr( $value[1] ) : esc_attr( $field['default'][1] ) ) . '"><span class="modula_input_suffix">px</span></td>';
-				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[2] ) ? esc_attr( $value[2] ) : esc_attr( $field['default'][2] ) ) . '"><span class="modula_input_suffix">px</span>';
+				$html = '<span class="dashicons dashicons-desktop"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( $value[0] ) ? esc_attr( $value[0] ) : esc_attr( $default[0] ) ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-tablet"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[1] ) ? esc_attr( $value[1] ) : esc_attr( $default[1] ) ) . '"><span class="modula_input_suffix">px</span></td>';
+				$html .= '<td><span class="dashicons dashicons-smartphone"></span><input type="number"  name="modula-settings[' . esc_attr( $field['id'] ) . '][]" data-setting="' . esc_attr( $field['id'] ) . '" class="modula-gutter-input" value="' . ( ( '' !== $value[2] ) ? esc_attr( $value[2] ) : esc_attr( $default[2] ) ) . '"><span class="modula_input_suffix">px</span>';
 				if ( isset( $field['after'] ) ) {
 					$html .= '<span class="modula-after-input">' . esc_html( $field['after'] ) . '</span>';
 				}
