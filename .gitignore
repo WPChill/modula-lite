@@ -1,7 +1,7 @@
 node_modules/*
 .idea/*
 package-lock.json
-modula-best-grid-gallery.zip
+**.zip
 .standard.json
 .DS_Store
 .vscode/
