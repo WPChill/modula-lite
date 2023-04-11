@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.5 - TBD =
+Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) )
+
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
 Fixed: Lightbox error if image caption has '"' and thumbnails navigation on ( [#787](https://github.com/WPChill/modula-lite/issues/787) )

@@ -342,7 +342,7 @@ class Modula {
 	public function disable_wp_srcset( $settings ){
 		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
 
-		if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
+		if( ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] )  || ( isset( $settings['lazy_load'] ) && '1' == $settings[ 'lazy_load' ] ) ){
 
 			add_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
