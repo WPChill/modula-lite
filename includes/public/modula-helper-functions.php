@@ -47,6 +47,13 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	}
 
 	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $crop );
+
+	$original_image = false;
+
+	if( 'full' === $grid_sizes ){
+		$original_image = wp_get_original_image_url( $item['id'] );
+	}
+
 	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
 	$image_info = false;
 
@@ -69,7 +76,7 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['image_url']                = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
 	// If thumb_url exists it means we are in predefined sizes
 	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
-	$item_data['img_attributes']['data-src'] = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	$item_data['img_attributes']['data-src'] = $original_image ? $original_image : ( ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url );
 	$item_data['image_info']                 = $image_info;
 
 	return $item_data;
