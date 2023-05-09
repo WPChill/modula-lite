@@ -94,15 +94,10 @@ class Modula_Debug {
 						'value' => count( Modula_Helper::get_galleries() ) - 1,
 						'debug' => 'Total number of galleries: ' . ( count( Modula_Helper::get_galleries() ) - 1 )
 					),
-					'track_data'               => array(
-						'label' => __( 'Track data', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'track_data' ] ) && '1' == $troubleshoot_opt[ 'track_data' ] ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'track_data' ] ) && '1' == $troubleshoot_opt[ 'track_data' ] ) ? 'Track data enabled' : 'Track data disabled'
-					),
 					'enqueue_files'            => array(
 						'label' => __( 'Enqueue Modula\'s assets everywhere', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) && '1' == $troubleshoot_opt[ 'track_data' ] ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) && '1' == $troubleshoot_opt[ 'track_data' ] ) ? 'Enqueue files everywhere' : 'Enqueue files disabled'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) ) ? 'Enqueue files everywhere' : 'Enqueue files disabled'
 					),
 					'grid_type'                => array(
 						'label' => __( 'General grid type enqueued', 'modula-best-grid-gallery' ),

@@ -56,23 +56,6 @@ define( 'MODULA_FILE' , plugin_basename( __FILE__ ) );
 
 define ( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-if( ! class_exists( 'Modula_Plugin_Usage_Tracker') ) {
-	require_once dirname( __FILE__ ) . '/includes/tracking/class-plugin-usage-tracker.php';
-}
-if( ! function_exists( 'modula_best_grid_gallery_start_plugin_tracking' ) ) {
-	function modula_best_grid_gallery_start_plugin_tracking() {
-		$wisdom = new Modula_Plugin_Usage_Tracker(
-			__FILE__,
-			'https://tracking.wp-modula.com/',
-			array(),
-			true,
-			true,
-			0
-		);
-	}
-	modula_best_grid_gallery_start_plugin_tracking();
-}
-
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-modula-activator.php

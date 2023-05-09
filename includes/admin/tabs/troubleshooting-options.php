@@ -8,7 +8,6 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'lightboxes'       => array(),
     'lazy_load'        => false,
     'disable_edit'     => false,
-    'track_data'       => false,
     'disable_srcset'   => false
 ));
 
@@ -24,12 +23,6 @@ $troubleshooting_fields = array(
 		'disable_edit'          => array(
 				'label'       => esc_html__( 'Disable "Edit gallery" link', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'If you want to disable the "Edit gallery" link from the front-end check this option.', 'modula-best-grid-gallery' ),
-				'type'        => 'toggle',
-				'priority'    => 10,
-		),
-		'track_data'            => array(
-				'label'       => esc_html__( 'Track Data', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and Modula settings, which we will use to help us make improvements.', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'priority'    => 10,
 		),
