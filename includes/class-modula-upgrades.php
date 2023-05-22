@@ -117,7 +117,7 @@ class Modula_Upgrades {
 	*/
 	public function add_subpages() {
 		foreach ( $this->upgrades as $key => $upgrade ) {
-			add_submenu_page( null, $upgrade['title'], $upgrade['title'], 'manage_options', $upgrade['id'], array( $this, $upgrade['callback'] ) );
+			add_submenu_page( '', $upgrade['title'], $upgrade['title'], 'manage_options', $upgrade['id'], array( $this, $upgrade['callback'] ) );
 		}
 	}
 
