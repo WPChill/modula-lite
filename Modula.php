@@ -56,6 +56,8 @@ define( 'MODULA_FILE' , plugin_basename( __FILE__ ) );
 
 define ( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
+define( 'MODULA_CPT_NAME' , 'modula-gallery' );
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-modula-activator.php

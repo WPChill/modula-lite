@@ -82,6 +82,7 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
+			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
 
 		}
 

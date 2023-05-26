@@ -22,24 +22,24 @@ Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft. ( 
 Fixed: Show changes to image's alignment in backend ( [#663](https://github.com/WPChill/modula-lite/issues/663) )
 
 = 2.7.4 - 28.03.2023 =
-Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
-Fixed: Lightbox error if image caption has '"' and thumbnails navigation on ( [#787](https://github.com/WPChill/modula-lite/issues/787) )
+Fixed: Undefined index if default value for gallery setting input fields not set
+Fixed: Lightbox error if image caption has '"' and thumbnails navigation on
 
 = 2.7.3 - 15.03.2023 =
-Fixed: No content in lightbox ( [#783](https://github.com/WPChill/modula-lite/issues/783) )
+Fixed: No content in lightbox
 
 = 2.7.2 - 13.03.2023 =
-Fixed: Enqueue welcome banner assets only on the welcome page ( [#716](https://github.com/WPChill/modula-lite/issues/#716) )
-Fixed: Issue preventing the display of texts according to the user language ( [#719](https://github.com/WPChill/download-monitor/issues/719) )
-Changed: Removed "href" attribute from the image's <a> tag. ( [#770](https://github.com/WPChill/download-monitor/issues/770) )
-Changed: "Not installed" badge if Slider addon is included in license ( [#774](https://github.com/WPChill/download-monitor/issues/774) )
-Added: New hover effect "Centered Bottom" ( [#773](https://github.com/WPChill/modula-lite/issues/773) )
-Added: Check user capabilities when addong/removing images from a gallery. ( [#779](https://github.com/WPChill/modula-lite/issues/779) )
-Fixed: Widths and Heights are empty when changing gallery types. ( [#767](https://github.com/WPChill/modula-lite/issues/767) )
-Fixed: Only having private galleries shows "Create your first gallery" page. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
-Fixed: Private galleries won't display for non logged-in users. ( [#720](https://github.com/WPChill/modula-lite/issues/720) )
-Fixed: Error when triggering file deletion ( [#721](https://github.com/WPChill/modula-lite/issues/721) )
-Fixed: Gallery type icons coloring ( [#713](https://github.com/WPChill/modula-lite/issues/713) )
+Fixed: Enqueue welcome banner assets only on the welcome page
+Fixed: Issue preventing the display of texts according to the user language
+Changed: Removed "href" attribute from the image's <a> tag.
+Changed: "Not installed" badge if Slider addon is included in license
+Added: New hover effect "Centered Bottom"
+Added: Check user capabilities when addong/removing images from a gallery.
+Fixed: Widths and Heights are empty when changing gallery types.
+Fixed: Only having private galleries shows "Create your first gallery" page.
+Fixed: Private galleries won't display for non logged-in users.
+Fixed: Error when triggering file deletion
+Fixed: Gallery type icons coloring
 
 = 2.7.1 - 15.12.2022 =
 Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
