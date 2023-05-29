@@ -61,7 +61,7 @@ input#wpchill_dashboard_search:focus {
     box-shadow: none;
 }
 
-.wpchill_dashboard_header_tabs {
+.wpchill_dashboard_header_tabs:not(.nosearch) {
     width: 70%;
 }
 

@@ -125,6 +125,7 @@ class Modula_Dashboard {
         }
     }
 
+    
     public function render_header(){
 
         $active = 'general';
@@ -134,22 +135,27 @@ class Modula_Dashboard {
 
         ?>
             <div id="wpchill_dashboard_header">
-                <div class="wpchill_dashboard_header_tabs">
+                <div class="wpchill_dashboard_header_tabs nosearch">
 
                     <?php foreach( $this->tabs as $slug => $tab ): ?>
                         <a href="<?php echo esc_url( $this->generate_tab_url( $slug ) ); ?>" class="wpchill_dashboard_header_tab wpchill_dashboard_header_tab_<?= $slug?> <?php echo ( ( $active === $slug )? 'tab_active' : '' ); ?>"> <?= $tab['name']; ?> </a>
                     <?php endforeach; ?>
 
                 </div>
-                <div class="wpchill_dashboard_header_search">
-                        <input type="text" name="search" class="wpchill_dashboard_search" id="wpchill_dashboard_search" placeholder="<?php esc_html_e( 'Search...', 'modula-best-grid-gallery' ); ?>" /><button class="wpchill_dashboard_search_btn"><span class="dashicons dashicons-search"></span></button>
-                </div>
 
+            <?php //$this->_render_search_bar(); ?>
             </div>
         <?php
 
     }
 
+    public function _render_search_bar(){
+        ?>
+            <div class="wpchill_dashboard_header_search">
+                    <input type="text" name="search" class="wpchill_dashboard_search" id="wpchill_dashboard_search" placeholder="<?php esc_html_e( 'Search...', 'modula-best-grid-gallery' ); ?>" /><button class="wpchill_dashboard_search_btn"><span class="dashicons dashicons-search"></span></button>
+            </div>
+        <?php
+    }
 
     public function render_content(){
 
@@ -324,7 +330,7 @@ class Modula_Dashboard {
         include_once( ABSPATH . WPINC . '/feed.php' );
   
         // Get a SimplePie feed object from the specified feed source.
-        $rss = fetch_feed( 'https://dev.tamewp.com/feed/' );
+        $rss = fetch_feed( 'https://wp-modula.com/feed/' );
           
         if ( ! is_wp_error( $rss ) ) {
             $maxitems = $rss->get_item_quantity( 2 ); 
@@ -339,6 +345,10 @@ class Modula_Dashboard {
             $start = strpos( $img , '||feed_img_start||') + 18;
             $end = strpos( $img, '||feed_img_end||' ) ;
             $img = substr( $img, $start, $end - $start );
+
+            if( false == strpos( $img , '||feed_img_start||') || false == strpos( $img, '||feed_img_end||' ) ){
+                $img = MODULA_URL .'assets/images/dashboard/blog-default.png';
+            }
 
                 ?>
             <div class="wpchill_dashboard_latest_item">
@@ -392,6 +402,8 @@ class Modula_Dashboard {
                     // Store the data for a week.
                     set_transient( 'modula_all_partners', $data, 7 * DAY_IN_SECONDS );
                 }
+
+                $addons = $data;
             }
 
         }else{
@@ -515,7 +527,7 @@ class Modula_Dashboard {
 	public function get_dashboard_data(){
 		
 		// Make the request
-		$request = wp_remote_get( 'https://dev.tamewp.com/common-use-cases.json' );
+		$request = wp_remote_get( 'https://wp-modula.com/common-use-cases.json' );
 
 		// If the remote request fails, wp_remote_get() will return a WP_Error, so let’s check if the $request variable is an error:
 		if( is_wp_error( $request ) ) {
