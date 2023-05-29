@@ -1,16 +1,4 @@
 
-jQuery.each(modula_common_use_cases, function( index, value ) {
-
-    var item = 
-    '<div class="wpchill_dashboard_use_case"> \
-        <h4 class="wpchill_dashboard_uc_title"> ' + value['title'] + ' </h4> \
-        <p class="wpchill_dashboard_item_text"> ' + value['description'] + ' </p> \
-    </div>';
-
-    jQuery( '#wpchill_use_cases_block' ).append( item );
-
-});
-
 function activatePlugin(url) {
     jQuery.ajax({
       async: true,
