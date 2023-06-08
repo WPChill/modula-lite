@@ -1,4 +1,4 @@
-div#wpchill_dashboard_container {
+body.modula-gallery_page_wpchill-dashboard {
     background-color: #fff;
 }
 
@@ -393,7 +393,7 @@ p.wpchill_dashboard_our_values_text {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding-top:28px;
+    padding: 28px 20px 0;
 }
 
 .wpchill-addons-container.hidden,

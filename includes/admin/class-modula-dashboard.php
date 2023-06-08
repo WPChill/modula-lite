@@ -52,6 +52,8 @@ class Modula_Dashboard {
 
         // Show addon's header on dashboard
         add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
+
+        add_filter( 'modula_admin_page_link', array( $this, 'check_lite_vs_pro_tab' ), 99 );
         
 	}
 
@@ -99,6 +101,22 @@ class Modula_Dashboard {
        }
     }
 
+
+	/**
+	 * Remove Lite vs. Pro tab
+	 *
+	 * @since 2.7.5
+	 */
+	public function check_lite_vs_pro_tab( $links ) {
+
+        if( ! isset( $links['freevspro'] ) ){
+            // Remove lite vs pro tab if page doesn't exist
+            unset( $this->tabs['lite_vs_pro'] );
+        }
+
+		return $links;
+
+    }
 
     public function generate_tab_url( $slug ){
         if( isset( $this->tabs[ $slug ] ) ){

@@ -164,7 +164,7 @@ class Modula {
 		$links = array(
 			'common_use_cases' => 'https://wp-modula.com/common-use-cases.json',
 			'partners' 		   => 'https://wp-modula.com/parteners.json',
-			'documentation'    => 'https://modula.helpscoutdocs.com/',
+			'documentation'    => 'https://wp-modula.com/knowledge-base/',
 			'pricing' 		   => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'feed'             => 'https://wp-modula.com/feed',
 			'blog'             => 'https://wp-modula.com/blog',
