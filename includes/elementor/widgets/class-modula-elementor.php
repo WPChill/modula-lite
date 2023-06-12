@@ -11,6 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 
+	public function get_script_depends() {
+		$g_settings   = $this->get_settings_for_display();
+		$gallery_id = $g_settings['modula_gallery_select'];
+		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $gallery_id, 'modula-settings', true ));
+
+		return apply_filters( 'modula_necessary_scripts', array( 'elementor-frontend', 'modula' ), $settings );
+	}
+
+	public function get_style_depends() {
+		$g_settings   = $this->get_settings_for_display();
+		$gallery_id = $g_settings['modula_gallery_select'];
+		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $gallery_id, 'modula-settings', true ));
+
+		return apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
+	}
+
 	public function get_name() {
 		return 'modula_elementor_gallery';
 	}

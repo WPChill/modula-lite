@@ -266,6 +266,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) ) ( [#37](https://github.com/WPChill/modula-lite/issues/37) )
 Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image. ( [#795](https://github.com/WPChill/modula-lite/issues/795) )
 Changed: Removed tracking ( [#798](https://github.com/WPChill/modula-lite/issues/798) )
+Fixed: Compatibility with Elementor popup. ( [#804](https://github.com/WPChill/modula-lite/issues/804) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )

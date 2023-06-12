@@ -852,6 +852,16 @@ jQuery(document).ready(function() {
 	});
 });
 
+
+jQuery( document ).on( 'elementor/popup/show', ( event, id, instance ) => {
+	var modulaGalleries = jQuery( '#elementor-popup-modal-' + id).find('.modula.modula-gallery');
+	jQuery.each(modulaGalleries, function() {
+		var modulaSettings = jQuery(this).data('config');
+
+		jQuery(this).modulaGallery(modulaSettings);
+	});
+} );
+
 function modulaInViewport(element) {
 	if (typeof jQuery === 'function' && element instanceof jQuery) {
 		element = element[0];
