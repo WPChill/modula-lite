@@ -38,6 +38,7 @@ Fixed: WP Core galleries migration ( [#694](https://github.com/WPChill/modula-li
 Fixed: Issue preventing gallery status change in gallery edit ( [#703](https://github.com/WPChill/modula-lite/issues/703) )
 Fixed: Screen options not working when editing a gallery ( [#700](https://github.com/WPChill/modula-lite/issues/700) )
 Fixed: Empty blocks in admin custom grid gallery edit ( [#709](https://github.com/WPChill/modula-lite/issues/709) )
+Fixed: Security issue ( [#789](https://github.com/WPChill/modula-lite/issues/789) )
 
 = 2.6.92 - 24/10/2022 =
 Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
