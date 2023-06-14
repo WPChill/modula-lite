@@ -85,7 +85,7 @@ class Modula_Admin_Helpers {
 				   class="button button-secondary"><span
 							class="dashicons dashicons-admin-plugins"></span><?php esc_html_e( 'About', 'modula-best-grid-gallery' ); ?>
 				</a>
-				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
+				<a href="https://wp-modula.com/knowledge-base/" target="_blank" id="get-help"
 				   class="button button-secondary"><span
 							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
 				</a>

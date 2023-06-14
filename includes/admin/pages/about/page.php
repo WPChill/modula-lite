@@ -24,7 +24,7 @@ $welcome = WPChill_Welcome::get_instance();
 			</div>
 			<div class="wpchill-text-center">
 				<div class="button-wrap-single">
-					<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'modula-best-grid-gallery' ), 'https://modula.helpscoutdocs.com/article/264-how-to-create-your-first-gallery', 'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#2a9d8f' ); ?>
+					<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'modula-best-grid-gallery' ), 'https://wp-modula.com/kb/create-your-first-gallery/', 'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#2a9d8f' ); ?>
 				</div>
 			</div>
 			<?php $welcome->display_empty_space(); ?>

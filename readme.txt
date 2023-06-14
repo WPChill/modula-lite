@@ -40,7 +40,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique and respon
 - [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) support: Use the Video extension to combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos. 
 [See a demo of a video gallery](https://demo.wp-modula.com/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Lightbox slideshow](https://modula.helpscoutdocs.com/article/220-modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow. 
+- [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow.
 [See a demo for Lightbox Slideshow Extension](https://demo.wp-modula.com/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 - [Password Protect](https://wp-modula.com/kb/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Password Protect extension to block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages. 
