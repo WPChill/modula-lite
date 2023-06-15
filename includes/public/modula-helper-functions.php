@@ -340,7 +340,7 @@ function modula_sources_and_sizes( $data ) {
 
 	if ( isset( $image_meta['sizes']['thumbnail']['mime-type'] ) ) {
 		$mime_type = $image_meta['sizes']['thumbnail']['mime-type'];
-	} else if ( function_exists( 'mime_content_type' ) && $data->image_info) {
+	} else if ( function_exists( 'mime_content_type' ) && isset( $data->image_info ) && $data->image_info ) {
 		$mime_type = mime_content_type( $data->image_info['file_path'] );
 	}
 

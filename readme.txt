@@ -268,6 +268,8 @@ Fixed: data-src attribute now contains the link to the original image instead of
 Changed: Removed tracking ( [#798](https://github.com/WPChill/modula-lite/issues/798) )
 Fixed: Compatibility with Elementor popup. ( [#804](https://github.com/WPChill/modula-lite/issues/804) )
 Fixed: Security issue ( [#789](https://github.com/WPChill/modula-lite/issues/789) )
+Fixed: Parenthesis in Gutenberg pull-down choice menu wrongly spaced. ( [#797](https://github.com/WPChill/modula-lite/issues/797) )
+Fixed: PHP warning: Undefined property ( [#796](https://github.com/WPChill/modula-lite/issues/796) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
