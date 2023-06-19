@@ -130,7 +130,7 @@ class Modula_Gutenberg {
 
 		if ( isset( $atts['galleryType'] ) && 'gallery' !== $atts['galleryType'] ) {
 
-			$html = apply_filters( 'modula_render_defaults_block', 'An error occured', $atts );
+			$html = apply_filters( 'modula_render_defaults_block', 'An error occurred', $atts );
 
 			return $html;
 		} else {
