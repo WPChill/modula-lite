@@ -5,3 +5,4 @@ package-lock.json
 .standard.json
 .DS_Store
 .vscode/
+vendor
