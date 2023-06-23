@@ -184,7 +184,7 @@ class Modula_Helper {
 			'loop'            => false,
 			'arrows'          => false,
 			'toolbar'         => true,
-			'keyboard'        => false,
+			'keyboard'        => true,
 			'wheel'           => false,
 			'buttons'         => array(
 				'close',
