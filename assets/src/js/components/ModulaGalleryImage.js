@@ -5,7 +5,7 @@ const ModulaGalleryImage = (props) => {
 
 	const { img, index } = props;
 
-	return [
+	return (
 		<div
 			className={`modula-item effect-${settings.effect}`}
 			data-width={img['data-width'] ? img['data-width'] : '2'}
@@ -36,7 +36,7 @@ const ModulaGalleryImage = (props) => {
 				)}
 			</div>
 		</div>
-	];
+	);
 };
 
 export default wp.components.withFilters('modula.ModulaGalleryImage')(ModulaGalleryImage);

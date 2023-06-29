@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "modula/gallery",
+  "version": "0.1.0",
+  "title": "Modula Gallery",
+  "category": "modula-gallery",
+  "description": "Make your galleries stand out.",
+  "keywords": [ "modula", "gallery", "images" ],
+  "supports": {
+    "html": false,
+    "align": true,
+    "customClassName": false
+  },
+  "attributes": {
+    "id": {
+      "type": "number",
+      "default": 0
+    },
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "status": {
+      "type": "string",
+      "default": "ready"
+    },
+    "galleryId": {
+      "type": "number",
+      "default": "0"
+    },
+    "defaultSettings": {
+      "type": "object",
+      "default": []
+    },
+    "galleryType": {
+      "type": "string",
+      "default": "none"
+    },
+    "currentGallery": {
+      "type": "object",
+      "default": {}
+    },
+    "currentSelectize": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "textdomain": "modula-best-grid-gallery",
+  "editorScript": ["file:./index.js", "modula-gutenberg"],
+  "editorStyle": ["file:./index.css"],
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

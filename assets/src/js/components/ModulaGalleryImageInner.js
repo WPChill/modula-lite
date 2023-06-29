@@ -9,7 +9,7 @@ const ModulaGalleryImageInner = (props) => {
 		svgArray = [ 'tilt_1', 'tilt_7' ],
 		jtgBody = [ 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' ];
 
-	return [
+	return (
 		<Fragment>
 			{effectArray.includes(settings.effect) && (
 				<div className="tilter__deco tilter__deco--shine">
@@ -75,7 +75,7 @@ const ModulaGalleryImageInner = (props) => {
 				</div>
 			</div>
 		</Fragment>
-	];
+	);
 };
 
 export default ModulaGalleryImageInner;
