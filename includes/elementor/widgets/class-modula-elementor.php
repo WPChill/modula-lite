@@ -12,17 +12,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Modula_Elementor_Widget extends \Elementor\Widget_Base {
 
 	public function get_script_depends() {
+		if( \Elementor\Plugin::$instance->preview->is_preview_mode() ){
+			return array();
+		}
 		$g_settings   = $this->get_settings_for_display();
-		$gallery_id = $g_settings['modula_gallery_select'];
-		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $gallery_id, 'modula-settings', true ));
+		$gallery_id =  isset( $g_settings['modula_gallery_select'] ) ? $g_settings['modula_gallery_select'] : 0;
+		$settings = apply_filters('modula_backwards_compatibility_front', get_post_meta( $gallery_id, 'modula-settings', true ));
 
 		return apply_filters( 'modula_necessary_scripts', array( 'elementor-frontend', 'modula' ), $settings );
 	}
 
 	public function get_style_depends() {
+		if( \Elementor\Plugin::$instance->preview->is_preview_mode() ){
+			return array();
+		}
 		$g_settings   = $this->get_settings_for_display();
-		$gallery_id = $g_settings['modula_gallery_select'];
-		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $gallery_id, 'modula-settings', true ));
+		$gallery_id = isset( $g_settings['modula_gallery_select'] ) ? $g_settings['modula_gallery_select'] : 0;
+		$settings = apply_filters('modula_backwards_compatibility_front', get_post_meta( $gallery_id, 'modula-settings', true ));
 
 		return apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
 	}
