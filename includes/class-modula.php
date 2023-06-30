@@ -229,7 +229,7 @@ class Modula {
 
 					$image['full']        = $image_full[0];
 					$image['thumbnail']   = $image_url[0];
-					$image['orientation'] = $attachment['orientation'];
+					$image['orientation'] = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';
 
 					$modula_helper['items'][] = apply_filters( 'modula_image_properties', $image );
 
