@@ -452,7 +452,7 @@ class Modula_Admin {
 		}
 
 		update_post_meta( $gallery_id, 'modula-images', $new_images );
-		wp_send_json( array( 'status' => 'succes' ) );
+		wp_send_json( array( 'status' => 'success' ) );
 
 	}
 
@@ -495,7 +495,7 @@ class Modula_Admin {
 		}
 
 		update_post_meta( $gallery_id, 'modula-images', $old_images );
-		wp_send_json( array( 'status' => 'succes' ) );
+		wp_send_json( array( 'status' => 'success' ) );
 
 	}
 

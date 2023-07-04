@@ -42,8 +42,11 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-modula-script-manager.php';
 		require_once MODULA_PATH . 'includes/public/modula-helper-functions.php';
 		require_once MODULA_PATH . 'includes/troubleshoot/class-modula-troubleshooting.php';
-
 		require_once MODULA_PATH . 'includes/admin/class-modula-cpt.php';
+
+		// Custom endpoint routes
+		require_once MODULA_PATH . 'includes/routes/class-modula-routes.php';
+
 		// WPChill Upsells
 		require_once MODULA_PATH . 'includes/admin/class-wpchill-upsells.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-upsells.php';

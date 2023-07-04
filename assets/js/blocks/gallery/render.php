@@ -6,12 +6,8 @@
  // Render callback for the block (not a template file).
  // Note: $block, $attributes, and $content variables are available here. The purpose of $content is to enable access to the block's "inner blocks" (child blocks).
 
-// echo "<pre>";
-// print_r($attributes);
-// echo "</pre>";
-
 if ( ! isset( $attributes['id'] ) ) {
-	return;
+	return apply_filters( 'modula_render_defaults_block', 'An error occurred', $atts );
 }
 
 if ( ! isset( $attributes['align'] ) ) {

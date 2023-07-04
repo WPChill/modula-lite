@@ -11,7 +11,7 @@ html body .modula-block-preview {
 	border-radius: 6px;
 	position: relative;
 	overflow: hidden;
-	height: 250px;
+	//height: 250px;
 
 	.components-spinner {
 		display: block;
@@ -118,7 +118,7 @@ html body .modula-block-preview {
 	box-shadow: none;
 	border: 1px solid #e3e5e5;
 	position: relative;
-	width: calc(100% + 20px);
+	//width: calc(100% + 20px);
 
 	svg {
 		position: absolute;
@@ -138,9 +138,10 @@ html body .modula-button-group .modula-button-upsell:hover {
 
 html body .modula-button-group .modula-button-upsell {
 	margin: 0px;
+	margin-top: 20px;
     background: #3FBF90;
 	color: black;
 	height: 50px;
 	font-size: 14px;
-	width: calc(100% + 20px);
+	//width: calc(100% + 20px);
 }

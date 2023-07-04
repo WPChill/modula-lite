@@ -44,7 +44,7 @@
 	                nonce:  modulaUpgraderHelper.get_galleries_nonce,
 	            },
 	            success: function( response ) {
-	            	if ( response.status != 'succes' ) {
+	            	if ( response.status != 'success' ) {
 	            		return;
 	            	}
 
@@ -74,7 +74,7 @@
 		                gallery_id: gallery_id
 		            },
 		            success: function( response ) {
-		            	if ( response.status != 'succes' ) {
+		            	if ( response.status != 'success' ) {
 		            		return;
 		            	}
 
@@ -135,7 +135,7 @@
 	                nonce:  modulaUpgraderHelper.upgrade_complete_nonce,
 	            },
 	            success: function( response ) {
-	            	if ( response.status != 'succes' ) {
+	            	if ( response.status != 'success' ) {
 	            		return;
 	            	}
 
