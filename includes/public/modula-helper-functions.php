@@ -266,13 +266,13 @@ function modula_add_scripts( $scripts, $settings ){
 
 	$needed_scripts = array();
 
-	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ){
+	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ) {
 		$needed_scripts[] = 'modula-lazysizes';
 	}
 
 	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
 		$needed_scripts[] = 'modula-grid-justified-gallery';
-	}else{
+	} else {
 		$needed_scripts[] = 'modula-isotope';
 		$needed_scripts[] = 'modula-isotope-packery';
 	}
@@ -280,7 +280,6 @@ function modula_add_scripts( $scripts, $settings ){
 	if ( 'fancybox' == $settings['lightbox'] ) {
 		$needed_scripts[] = 'modula-fancybox';
 	}
-
 
 	return array_merge( $needed_scripts, $scripts );
 }

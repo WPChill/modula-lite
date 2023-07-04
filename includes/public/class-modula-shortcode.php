@@ -33,7 +33,7 @@ class Modula_Shortcode {
 		add_action( 'modula_item_template_image', 'modula_sources_and_sizes', 35, 1 );
 
 		// Add js scripts
-		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
+		add_filter( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
 
 	}
 
@@ -43,8 +43,8 @@ class Modula_Shortcode {
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery', 'modula-isotope' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );

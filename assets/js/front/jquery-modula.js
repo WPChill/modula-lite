@@ -145,7 +145,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.placeImage(index);
 
 				if (instance.isIsotope) {
-					instance.$itemsCnt.modulaisotope('layout');
+					if ( 'undefined' !== typeof modulaisotope ) {
+						instance.$itemsCnt.modulaisotope('layout');
+					}
 				}
 
 				if ( 'grid' == instance.options.type ) {
