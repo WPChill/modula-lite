@@ -22,6 +22,7 @@ class Modula_Gutenberg {
 			return;
 		}
 
+		// Action hooks.
 		add_action( 'init', array( $this, 'register_block_type' ) );
 		add_action( 'init', array( $this, 'generate_js_vars' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_block_assets' ), 1 );
@@ -29,6 +30,9 @@ class Modula_Gutenberg {
 		add_action( 'wp_ajax_modula_get_gallery', array( $this, 'get_gallery' ) );
 		add_action( 'wp_ajax_modula_get_jsconfig', array( $this, 'get_jsconfig' ) );
 		add_action( 'wp_ajax_modula_check_hover_effect', array( $this, 'check_hover_effect' ) );
+
+		// Filter hooks.
+		add_filter('block_categories_all', array( $this, 'add_new_block_category'), 10, 2);
 	}
 
 	/**
@@ -38,19 +42,28 @@ class Modula_Gutenberg {
 	 */
 	public function register_block_type() {
 
-		wp_register_script( 'modula-gutenberg', MODULA_URL . 'assets/js/admin/wp-modula-gutenberg.js', array( 'wp-blocks', 'wp-element', 'wp-data', 'jquery-ui-autocomplete', 'wp-api-fetch' ), MODULA_LITE_VERSION, true );
+		// Register gallery block.
+		register_block_type( MODULA_PATH . 'assets/js/blocks/gallery' );
+	}
 
-		wp_register_style( 'modula-gutenberg', MODULA_URL . 'assets/css/admin/modula-gutenberg.css', array(), true );
-
-		register_block_type(
-			'modula/gallery',
+	/**
+	 * Add custom block category for the gallery block(s).
+	 *
+	 * @param array[] $categories Array of categories for block types.
+	 * 
+	 * @since 2.7.5
+	 */
+	public function add_new_block_category( $categories )
+	{
+		return array_merge(
+			$categories,
 			array(
-				'render_callback' => array( $this, 'render_modula_gallery' ),
-				'editor_script'   => 'modula-gutenberg',
-				'editor_style'    => 'modula-gutenberg',
+			array(
+					'slug'  => 'modula-gallery',
+					'title' => __('Modula Gallery', 'modula-best-grid-gallery'),
+			),
 			)
 		);
-
 	}
 
 	/**
@@ -95,21 +108,26 @@ class Modula_Gutenberg {
 	 */
 	public function generate_js_vars() {
 
-		wp_localize_script(
-			'modula-gutenberg',
-			'modulaVars',
-			apply_filters(
-				'modula_gutenberg_vars',
-				array(
-					'adminURL'       => admin_url(),
-					'ajaxURL'        => admin_url( 'admin-ajax.php' ),
-					'nonce'          => wp_create_nonce( 'modula_nonce' ),
-					'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
-					'restURL'        => get_rest_url(),
-				)
+		$vars = apply_filters(
+			'modula_gutenberg_vars',
+			array(
+				'adminURL'       => admin_url(),
+				'ajaxURL'        => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'modula_nonce' ),
+				'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
+				'restURL'        => get_rest_url(),
 			)
 		);
 
+		// Import block.json and derive script handle from block name
+		$block = json_decode(file_get_contents(MODULA_PATH . 'assets/js/blocks/gallery/block.json'), true);
+		$blockScriptName = str_replace( '/', '-', $block['name'] ) . '-editor-script';
+
+		wp_add_inline_script(
+			$blockScriptName,
+			'const modulaVars = ' . json_encode( $vars ),
+			'before'
+		);
 	}
 
 	/**

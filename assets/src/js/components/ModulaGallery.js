@@ -1,5 +1,4 @@
-const { Fragment, useEffect } = wp.element;
-
+import { useEffect, Fragment } from '@wordpress/element';
 import ModulaGalleryImage from './ModulaGalleryImage';
 import ModulaStyle from './ModulaStyle';
 import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
@@ -34,8 +33,9 @@ export const ModulaGallery = (props) => {
 			itemsClassNames += ' justified-gallery';
 		}
 	}
-	return [
-		<Fragment>
+
+	return (
+		<>
 			<ModulaStyle id={id} settings={settings} />
 			<div
 				id={`jtg-${id}`}
@@ -47,20 +47,14 @@ export const ModulaGallery = (props) => {
 				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div className="modula-grid-sizer"> </div>}
 				<ModulaItemsExtraComponent {...props} position={'top'} />
 				<div className={itemsClassNames}>
-					{images.length > 0 && (
-						<Fragment>
-							<Fragment>
-								{images.map((img, index) => {
-									return [ <ModulaGalleryImage {...props} img={img} key={index} index={index} /> ];
-								})}
-							</Fragment>
-						</Fragment>
-					)}
+					{images.length > 0 && images.map((img, index) => {
+						return <ModulaGalleryImage {...props} img={img} key={index} />
+					})}
 				</div>
 				<ModulaItemsExtraComponent {...props} position={'bottom'} />
 			</div>
-		</Fragment>
-	];
+		</>
+	);
 };
 
 export default wp.components.withFilters('modula.modulaGallery')(ModulaGallery);
