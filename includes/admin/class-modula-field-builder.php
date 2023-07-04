@@ -668,23 +668,23 @@ class Modula_Field_Builder {
 					if ( $effect_elements[ 'title' ] || $effect_elements[ 'description' ] || $effect_elements[ 'social' ] || $effect_elements[ 'scripts' ] ) {
 						
 						$effect .= '<div class="effect-compatibility">';
-						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-pro' );
+						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 
 						if ( $effect_elements[ 'title' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-pro' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements[ 'description' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-pro' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements[ 'social' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-pro' ) . '</strong></span>';
+							$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span>';
 						}
 						$effect .= '</p>';
 
 						if ( $effect_elements[ 'scripts' ] ) {
-							$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-pro' ) . '</p>';
+							$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-best-grid-gallery' ) . '</p>';
 						} else {
 							$effect .= '<p class="description">&nbsp;</p>';
 						}

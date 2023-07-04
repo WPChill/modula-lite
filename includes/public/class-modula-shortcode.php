@@ -386,12 +386,6 @@ class Modula_Shortcode {
 			$fancybox_options['arrows'] = true;
 		}
 
-		if ( isset( $settings['lightbox_keyboard'] ) && '1' == $settings['lightbox_keyboard'] ) {
-			$fancybox_options['keyboard'] = true;
-		} else {
-			$fancybox_options['keyboard'] = false;
-		}
-
 		$fancybox_options['baseTpl'] = '<div class="modula-fancybox-container modula-lightbox-' . $settings['gallery_id'] . '" role="dialog" tabindex="-1">' .
 		                               '<div class="modula-fancybox-bg"></div>' .
 		                               '<div class="modula-fancybox-inner">' .

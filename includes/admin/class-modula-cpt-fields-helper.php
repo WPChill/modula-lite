@@ -365,13 +365,6 @@ class Modula_CPT_Fields_Helper {
                     "default"     => 1,
                     'priority'    => 2,
                 ),
-                'lightbox_keyboard' => array(
-	                'name'        => esc_html__( 'Keyboard navigation', 'modula-pro' ),
-	                'type'        => 'toggle',
-	                'default'     => 1,
-	                'description' => esc_html__( 'Enable or disable keyboard navigation inside lightbox.', 'modula-pro' ),
-	                'priority'    => 3
-                )
             ),
 			'captions' => array(
 				"hide_title"        => array(
