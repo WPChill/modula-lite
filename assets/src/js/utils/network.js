@@ -47,7 +47,6 @@ export const getGalleryCptData = async (id, setAttributes) => {
 	}
 };
 
-// @todo Make this async/await and return the settings rather than setting them here. The settings part has already been done. Just need to get the jsConfig via a custom REST API endpoint. Need to pass in the settings object though as part of the request, so need to do that first.
 export const getSettings = async (id, setAttributes) => {
 	const settings = await getGalleryCptData(id, setAttributes);
 	const jsConfig = await getJsConfig(settings);
@@ -56,41 +55,4 @@ export const getSettings = async (id, setAttributes) => {
 		settings: settings,
 		jsConfig: jsConfig.js_config,
 	};
-
-	// jQuery.ajax({
-	// 	type: 'POST',
-	// 	data: {
-	// 		action: 'modula_get_jsconfig',
-	// 		nonce: modulaVars.nonce,
-	// 		settings: settings.modulaSettings,
-	// 	},
-	// 	url: modulaVars.ajaxURL,
-	// 	success: (result) => {
-	// 		setAttributes({
-	// 			settings: settings.modulaSettings,
-	// 			jsConfig: result,
-	// 		});
-	// 	},
-	// });
-
-	// fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`)
-	// 	.then((res) => res.json())
-	// 	.then((result) => {
-	// 		let settings = result;
-	// 		jQuery.ajax({
-	// 			type: 'POST',
-	// 			data: {
-	// 				action: 'modula_get_jsconfig',
-	// 				nonce: modulaVars.nonce,
-	// 				settings: settings.modulaSettings,
-	// 			},
-	// 			url: modulaVars.ajaxURL,
-	// 			success: (result) => {
-	// 				setAttributes({
-	// 					settings: settings.modulaSettings,
-	// 					jsConfig: result,
-	// 				});
-	// 			},
-	// 		});
-	// 	});
 };

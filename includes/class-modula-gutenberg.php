@@ -131,34 +131,6 @@ class Modula_Gutenberg {
 	}
 
 	/**
-	 * Render modula gallery callback function for block
-	 *
-	 * @param array $atts Array of attributes from block.
-	 *
-	 * @return mixed
-	 */
-	public function render_modula_gallery( $atts ) {
-		if ( ! isset( $atts['id'] ) ) {
-			return;
-		}
-
-		if ( ! isset( $atts['align'] ) ) {
-			$atts['align'] = '';
-		}
-
-		if ( isset( $atts['galleryType'] ) && 'gallery' !== $atts['galleryType'] ) {
-
-			$html = apply_filters( 'modula_render_defaults_block', 'An error occurred', $atts );
-
-			return $html;
-		} else {
-
-			return '[modula id=' . absint( $atts['id'] ) . ' align=' . esc_attr( $atts['align'] ) . ']';
-
-		}
-	}
-
-	/**
 	 * Gallery meta ajax callback
 	 *
 	 * @since 2.5.0

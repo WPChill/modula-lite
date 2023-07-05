@@ -1,50 +1,69 @@
-import Inspector from '../../components/inspector';
-import { useBlockProps } from '@wordpress/block-editor';
-// import Inspector from './lib/inspector';
+import { __ } from '@wordpress/i18n';
+import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import Inspector from './lib/inspector';
 import ModulaGallery from '../../components/ModulaGallery';
+import { Fragment, useEffect, useState } from '@wordpress/element';
 import ModulaGallerySearch from '../../components/ModulaGallerySearch';
-import icons from '../../utils/icons';
+import { useEntityRecords } from '@wordpress/core-data';
+import { SelectControl, Spinner, Button, withFilters, ToolbarGroup, ToolbarItem } from '@wordpress/components';
+import { getImagesMeta, getGalleryCptData, getJsConfig } from '../../utils/network';
+import { generateSelectOptions, galleryIdUpdated } from '../../utils/utility';
+const equal = require('fast-deep-equal');
 import './editor.scss';
 
-/**
- * WordPress dependencies
- */
-const { __ } = wp.i18n;
-const { Fragment, useEffect, useState } = wp.element;
-const { withSelect } = wp.data;
-const { Button, Spinner, ToolbarGroup, ToolbarItem } = wp.components;
-const { BlockControls } = wp.blockEditor;
-const { compose } = wp.compose;
-
 export const ModulaEdit = (props) => {
-	const { attributes, galleries, setAttributes } = props;
-	const {
-		id,
-		images,
-		status,
-		settings,
-		jsConfig,
-		galleryId,
-		currentGallery,
-		currentSelectize,
-	} = attributes;
-
+	const postType = 'modula-gallery';
+	const { attributes: { id, galleryId, images, status, settings, jsConfig, currentGallery, currentSelectize }, attributes, setAttributes } = props;
+	const { records: galleries, hasResolved } = useEntityRecords('postType', postType);
+	
 	const blockProps = useBlockProps();
 
-	// Check when the alignmnent is changed so we can resize the instance
+	// Check when the alignment is changed so we can resize the instance
 	const [alignmentCheck, setAlignment] = useState(props.attributes.align);
 
 	// Check when id is changed and it is not a component rerender . Saves unnecessary fetch requests
 	const [idCheck, setIdCheck] = useState(id);
 
+	// Set a unique gallery id if not set.
 	useEffect(() => {
+		if (galleryId == "0") {
+			setAttributes({ galleryId: Math.floor(Math.random() * 999) });
+		}
+	}, [galleryId, setAttributes]);
+
+	// Check whether to sync block settings with gallery CPT. i.e. if post settings have been updated.
+	useEffect(() => {
+		const getData = async () => {
+			// Get the latest data from the gallery CPT.
+			const imagesData = await getImagesMeta(id);
+			const settingsData = await getGalleryCptData(id, setAttributes);
+			const jsConfigData = await getJsConfig(settingsData);
+
+			// Only update block attributes if the gallery data has changed (i.e. been edited on the gallery CPT).
+			const compareImages = equal(images, imagesData);
+			const compareSettings = equal(settings, settingsData.modulaSettings);
+
+			//console.log('Compare images:', compareImages);
+			//console.log('Compare settings:', compareSettings);
+
+			if (compareImages === false || compareSettings === false) {
+				console.log('Syncing data...');
+				setAttributes({
+					images: imagesData,
+					settings: settingsData.modulaSettings,
+					jsConfig: jsConfigData.jsConfig,
+				})
+			}
+		};
+
+		// Don't try and sync data if the gallery id hasn't been set yet.
 		if (id !== 0) {
-			onIdChange(id);
+			getData();
 		}
 	}, []);
 
 	useEffect(() => {
-		//Grab the instance and set it as atribute to access it when we want
+		//Grab the instance and set it as attribute to access it when we want
 		jQuery(document).on('modula_api_after_init', function (event, inst) {
 			props.setAttributes({ instance: inst });
 		});
@@ -58,83 +77,16 @@ export const ModulaEdit = (props) => {
 		}
 	});
 
-	const onIdChange = (id) => {
-		console.log('onIdChange');
-		if (isNaN(id) || '' == id) {
-			return;
-		}
-		id = parseInt(id);
-
-		wp.apiFetch({ path: `wp/v2/modula-gallery/${id}` }).then((res) => {
-			setAttributes({ currentGallery: res });
-			setAttributes({
-				currentSelectize: [
-					{
-						value: id,
-						label:
-							'' === res.title.rendered
-								? `Unnamed`
-								: escapeHtml(res.title.rendered),
-					},
-				],
-			});
-
-			jQuery.ajax({
-				type: 'POST',
-				data: {
-					action: 'modula_get_gallery_meta',
-					id: id,
-					nonce: modulaVars.nonce,
-				},
-				url: modulaVars.ajaxURL,
-				success: (result) => onGalleryLoaded(id, result),
-			});
-		});
-	};
-	function escapeHtml(text) {
-		return text
-			.replace("&#8217;", "'")
-			.replace("&#8220;", '"')
-			.replace("&#8216;", "'");
+	if (!hasResolved) {
+		return (
+			<div {...blockProps}>
+				<div style={{ textAlign: "center" }}><Spinner /></div>
+			</div>
+		);
 	}
 
-	const onGalleryLoaded = (id, result) => {
-		if (result.success === false) {
-			setAttributes({ id: id, status: 'ready' });
-			return;
-		}
-		if (idCheck != id || undefined == settings) {
-			getSettings(id);
-		}
-		setAttributes({ id: id, images: result, status: 'ready' });
-	};
-	const getSettings = (id) => {
-		fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`)
-			.then((res) => res.json())
-			.then((result) => {
-				let settings = result;
-				setAttributes({ status: 'loading' });
-				jQuery.ajax({
-					type: 'POST',
-					data: {
-						action: 'modula_get_jsconfig',
-						nonce: modulaVars.nonce,
-						settings: settings.modulaSettings,
-					},
-					url: modulaVars.ajaxURL,
-					success: (result) => {
-						let galleryId = Math.floor(Math.random() * 999);
-
-						setAttributes({
-							galleryId: galleryId,
-							settings: settings.modulaSettings,
-							jsConfig: result,
-							status: 'ready',
-						});
-					},
-				});
-			});
-	};
+	// Important! This should only be defined after 'galleries' has resolved.
+	const options = generateSelectOptions(id, galleries);
 
 	const modulaRun = (checker) => {
 		if (checker != undefined) {
@@ -207,29 +159,6 @@ export const ModulaEdit = (props) => {
 		});
 	};
 
-	const selectOptions = () => {
-		let options = [
-			{
-				value: 0,
-				label: __('select a gallery', 'modula-best-grid-gallery'),
-			},
-		];
-
-		galleries.forEach(function ({ title, id }) {
-			if (title.rendered.length == 0) {
-				options.push({
-					value: id,
-					label:
-						__('Unnamed Gallery', 'modula-best-grid-gallery') + id,
-				});
-			} else {
-				options.push({ value: id, label: title.rendered });
-			}
-		});
-
-		return options;
-	};
-
 	const blockControls = (
 		<BlockControls>
 			{images && images.length > 0 && (
@@ -255,7 +184,7 @@ export const ModulaEdit = (props) => {
 		</BlockControls>
 	);
 
-	if (id == 0 && 'none' === attributes.galleryType) {
+	if (id == 0) {
 		return (
 			<Fragment>
 				<div {...blockProps}>
@@ -273,30 +202,30 @@ export const ModulaEdit = (props) => {
 									</p>
 								)}
 								{galleries.length > 0 && (
-									<Button
-										className="modula-button"
-										target="_blank"
-										onClick={(e) => {
-											setAttributes({
-												status: 'ready',
-												id: 0,
-												galleryType: 'gallery',
-											});
-										}}
-									>
-										{__(
-											'Display An Existing Gallery',
-											'modula-best-grid-gallery'
-										)}
-										{icons.chevronRightFancy}
-									</Button>
+									<>
+										<p>
+											{' '}
+											{__(
+												'Display An Existing Gallery',
+												'modula-best-grid-gallery'
+											)}{' '}
+										</p>
+										<SelectControl
+											value={id}
+											options={options}
+											onChange={val => {
+												galleryIdUpdated(val, setAttributes);
+											}}
+											__nextHasNoMarginBottom
+										/>
+									</>
 								)}
 								{undefined == props.attributes.proInstalled &&
 									galleries.length > 0 && (
 										<Button
 											href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"
 											className="modula-button-upsell"
-											isSecondary
+											variant="secondary"
 											target="_blank"
 										>
 											{__(
@@ -329,11 +258,7 @@ export const ModulaEdit = (props) => {
 	if (id == 0 || images.length === 0) {
 		return (
 			<Fragment key="233">
-				<Inspector
-					onIdChange={(id) => onIdChange(id)}
-					selectOptions={selectOptions}
-					{...props}
-				/>
+				<Inspector attributes={attributes} setAttributes={setAttributes} galleries={galleries} options={options} />
 				<div {...blockProps}>
 					<div className="modula-block-preview">
 						<div className="modula-block-preview__content">
@@ -358,7 +283,7 @@ export const ModulaEdit = (props) => {
 												id +
 												'&action=edit'
 											}
-											isPrimary
+											variant="primary"
 										>
 											{__('Edit Gallery')}
 										</Button>
@@ -386,12 +311,7 @@ export const ModulaEdit = (props) => {
 						galleryId={galleryId}
 					/>
 				</div>
-				<Inspector
-					onIdChange={(id) => {
-						onIdChange(id);
-					}}
-					{...props}
-				/>
+				<Inspector attributes={attributes} setAttributes={setAttributes} galleries={galleries} options={options} />
 			</Fragment>
 		);
 	}
@@ -399,18 +319,4 @@ export const ModulaEdit = (props) => {
 	return null;
 };
 
-const applyWithSelect = withSelect((select, props) => {
-	const { getEntityRecords } = select('core');
-	const query = {
-		post_status: 'publish',
-		per_page: 5,
-	};
-
-	return {
-		galleries: getEntityRecords('postType', 'modula-gallery', query) || [],
-	};
-});
-
-const applyWithFilters = wp.components.withFilters('modula.ModulaEdit');
-
-export default compose(applyWithSelect, applyWithFilters)(ModulaEdit);
+export default withFilters('modula.ModulaEdit')(ModulaEdit);

@@ -240,7 +240,7 @@ class Modula_Upgrades {
 		}
 
 		echo json_encode( array(
-			'status'        => 'succes',
+			'status'        => 'success',
 			'galleries_ids' => $galleries_ids,
 		) );
 		die;
@@ -269,7 +269,7 @@ class Modula_Upgrades {
 
 		if ( $post_galleries->post_count > 0 ) {
 			echo json_encode( array(
-				'status'  => 'succes',
+				'status'  => 'success',
 				'message' => sprintf( esc_html__( 'The gallery with ID: %s was already imported', 'modula-best-grid-gallery' ), $gallery_ID ),
 			) );
 			die();
@@ -391,7 +391,7 @@ class Modula_Upgrades {
 			add_post_meta( $gallery_id, 'modula-id', $id, true );
 
 			echo json_encode( array(
-				'status'  => 'succes',
+				'status'  => 'success',
 				'message' => sprintf( __( '%s gallery was imported', 'modula-best-grid-gallery' ), $config['name'] ),
 			) );
 			die;
@@ -399,7 +399,7 @@ class Modula_Upgrades {
 		}else{
 
 			echo json_encode( array(
-				'status'  => 'succes',
+				'status'  => 'success',
 				'message' => sprintf( __( 'The gallery with ID: %s failed to import', 'modula-best-grid-gallery' ), $gallery_ID ),
 			) );
 			die;
@@ -418,7 +418,7 @@ class Modula_Upgrades {
 		update_option( $this->upgrades_key, $completed );
 
 		echo json_encode( array(
-			'status'  => 'succes',
+			'status'  => 'success',
 			'message' => sprintf( __( 'All Done!', 'modula-best-grid-gallery' ), $gallery_ID ),
 		) );
 		die;

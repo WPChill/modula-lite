@@ -21,7 +21,7 @@ const Inspector = (props) => {
 							<Button
 								target="_blank"
 								href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
-								isSecondary
+								variant="secondary"
 							>
 								{__('Edit gallery')}
 							</Button>
