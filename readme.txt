@@ -262,6 +262,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+
 = 2.7.5 - TBD =
 Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) ) ( [#37](https://github.com/WPChill/modula-lite/issues/37) )
 Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image. ( [#795](https://github.com/WPChill/modula-lite/issues/795) )
