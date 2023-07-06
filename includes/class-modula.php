@@ -323,12 +323,27 @@ class Modula {
 
 	/**
 	 * Filters the maximum image width to be included in a 'srcset' attribute.
-	 * 
+	 *
 	 * @return int
 	 *
 	 */
 	public function disable_wp_responsive_images() {
 		return 1;
+	}
+
+	/**
+	 * Disables the srcset when lazy loading is enabled.
+	 *
+	 * @return bool
+	 * @since 2.7.5
+	 */
+	public function disable_lazy_srcset( $return, $image, $context, $attachment_id ) {
+
+		if ( preg_match( '/data-source="modula"/i', $image ) ) {
+			return false;
+		}
+
+		return $return;
 	}
 
 	/**
@@ -344,18 +359,22 @@ class Modula {
 		if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) {
 			add_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
+
+		if ( isset( $settings['lazy_load'] ) && '1' === $settings['lazy_load'] ) {
+			add_filter( 'wp_img_tag_add_srcset_and_sizes_attr', array( $this, 'disable_lazy_srcset' ), 999, 4 );
+		}
 	}
 
 	/**
 	 * Allows WP to add srcsets to other content after the gallery was created.
-	 * 
+	 *
 	 * @param $settings
+	 *
 	 * @return void
 	 *
 	 */
-	public function enable_wp_srcset( $settings ){
-
-		remove_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ) );
+	public function enable_wp_srcset( $settings ) {
+		remove_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 	}
 
 	// Register and load the widget
@@ -451,5 +470,4 @@ class Modula {
 
 		return $classes;
 	}
-
 }
