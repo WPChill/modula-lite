@@ -50,7 +50,7 @@
 					'data-valign'   => esc_attr( $image['valign'] ),
 					'data-halign'   => esc_attr( $image['halign'] ),
 					'alt'           => $image['alt'],
-					'data-full'     => esc_url( wp_get_attachment_url( $image['id'] ) ),
+					'data-full'     => esc_url( wp_get_original_image_url( $image['id'] ) ),
 					'title'         => $image[ 'title' ],
 				),
 			);
