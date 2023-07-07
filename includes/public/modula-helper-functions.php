@@ -74,8 +74,8 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['img_attributes']['height'] = $sizes['height'];
 	$item_data['image_full']               = $sizes['url'];
 	$item_data['image_url']                = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
-	// If thumb_url exists it means we are in predefined sizes
-	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	// If thumb_url exists it means we are in predefined sizes.
+	$item_data['img_attributes']['src']      = $original_image ? $original_image : ( ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url );
 	$item_data['img_attributes']['data-src'] = $original_image ? $original_image : ( ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url );
 	$item_data['image_info']                 = $image_info;
 
@@ -396,7 +396,7 @@ function modula_sources_and_sizes( $data ) {
 	$srcset = apply_filters( 'modula_template_image_srcset', array(), $data, $image_meta );
 
 	if ( empty( $srcset ) ) {
-		$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
+		$srcset = wp_calculate_image_srcset( $size_array, $data->image_full, $image_meta, $attachment_id );
 	}
 
 	if ( $srcset ) {
