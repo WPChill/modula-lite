@@ -105,6 +105,12 @@ class Modula_Shortcode {
 		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $atts['id'], 'modula-settings', true ));
 
 		$default  = Modula_CPT_Fields_Helper::get_defaults();
+
+		// Check "grid_type" before parsing and unset so defaults could be used.
+		if ( isset( $settings['type'] ) && 'grid' === $settings['type'] && empty( $settings['grid_type'] ) ) {
+			unset( $settings['grid_type'] );
+		}
+
 		$settings = wp_parse_args( $settings, $default );
 
 		$type = 'creative-gallery';
