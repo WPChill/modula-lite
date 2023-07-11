@@ -24,14 +24,14 @@
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => !boolval( $data->settings['enableSocial'] ),
+				'hide_socials'     => ! boolval( $data->settings['enableSocial'] ),
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
-				"lazyLoad"      => boolval( $data->settings['lazy_load'] ),
+				"lazyLoad"         => boolval( $data->settings['lazy_load'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),
@@ -59,9 +59,30 @@
 				$item_data['link_classes'][] = 'modula-simple-link'; //prevent the lightboxification
 				$item_data['link_classes'][] = 'modula-no-follow'; //prevent the opening of the image
 			}
-			// need this to model the image attributes
+			// need this to model the image attributes.
       		$image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
 
+			// Let's set the data used for the srcset and sizes behaviour.
+			// If the image size is custom and cropped, the srcset and sizes should not be set to avoid the browser
+			// to load the wrong image. This is particular problematic when using the SpeedUp extension.
+			if ( in_array( $data->settings['type'], array( 'creative-gallery', 'grid', 'custom-grid' ) ) ) {
+				// Specify if the image size is custom.
+				if ( 'custom' === $data->settings['grid_image_size'] ) {
+					$item_data['custom_grid'] = true;
+				}
+				// Custom grid has a different setting name for the image crop.
+				if ( 'custom-grid' !== $data->settings['type'] ) {
+					// Specify if the image is cropped.
+					if ( '1' === $data->settings['grid_image_crop'] ) {
+						$item_data['crop'] = true;
+					}
+				} else {
+					// Specify if the image is cropped.
+					if ( '1' === $data->settings['img_crop'] ) {
+						$item_data['crop'] = true;
+					}
+				}
+			}
 
 			/**
 			 * Hook: modula_shortcode_item_data.
