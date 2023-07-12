@@ -1,8 +1,12 @@
-import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
-import { Button, PanelBody, PanelRow } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
 import ModulaGallerySearch from './ModulaGallerySearch';
+
+/**
+ * WordPress dependencies
+ */
+const { __ } = wp.i18n;
+const { Fragment } = wp.element;
+const { InspectorControls } = wp.blockEditor;
+const { Button, PanelBody } = wp.components;
 
 /**
  * Inspector controls
@@ -12,24 +16,26 @@ const Inspector = (props) => {
 	const { id, currentSelectize } = attributes;
 
 	return (
-		<InspectorControls>
-			<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
-				{galleries.length > 0 && (
-					<Fragment>
-						<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} galleries={galleries} />
-						{id != 0 && (
-							<Button
-								target="_blank"
-								href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
-								isSecondary
-							>
-								{__('Edit gallery')}
-							</Button>
-						)}
-					</Fragment>
-				)}
-			</PanelBody>
-		</InspectorControls>
+		<Fragment>
+			<InspectorControls>
+				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
+					{galleries.length > 0 && (
+						<Fragment>
+							<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} galleries={galleries}/>
+							{id != 0 && (
+								<Button
+									target="_blank"
+									href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
+									isSecondary
+								>
+									{__('Edit gallery')}
+								</Button>
+							)}
+						</Fragment>
+					)}
+				</PanelBody>
+			</InspectorControls>
+		</Fragment>
 	);
 };
 
