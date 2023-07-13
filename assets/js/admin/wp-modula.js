@@ -18,6 +18,10 @@ wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.u
 	// Modula conditions
 	wp.Modula.Conditions = new modulaGalleryConditions();
 
+	// Add this here in order for other extensions to hook into it. This fixes some problems regarding the
+	// order of execution.
+	jQuery(document).trigger( 'modula_galleries_admin_trigger' );
+
 	// Initiate Modula Resizer
 	if ( 'undefined' == typeof wp.Modula.Resizer &&  wp.Modula.previewer['resizer']) {
 		wp.Modula.Resizer = new wp.Modula.previewer['resizer']();

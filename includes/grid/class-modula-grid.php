@@ -165,9 +165,9 @@ class Modula_Grid {
 					$mobile_width = 100 / absint( $settings['grid_type'] ) . "% - " . ( absint( $settings['mobile_gutter'] ) - absint( $settings['mobile_gutter'] ) / absint( $settings['grid_type'] ) ) . 'px';
 				}
 
-				$css .= "@media (max-width: 768px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . esc_attr( $tablet_width ) . " ) ; } }";
+				$css .= "@media (min-width: 768px) and (max-width:992px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . esc_attr( $tablet_width ) . " ) ; } }";
 
-				$css .= "@media (max-width: 568px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . esc_attr( $mobile_width ) . " ) ; } }";
+				$css .= "@media (max-width: 768px) { html body #{$gallery_id}.modula-gallery .modula-item, html body  #{$gallery_id}.modula-gallery .modula-grid-sizer {width: calc(" . esc_attr( $mobile_width ) . " ) ; } }";
 
 				$css .= "#{$gallery_id} .modula-items{position:relative;}";
 
