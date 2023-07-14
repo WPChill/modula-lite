@@ -299,6 +299,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 			slot.width = size * widthColumns + plugin.options.gutter * (widthColumns - 1);
 			slot.height = Math.round(size) * heightColumns + plugin.options.gutter * (heightColumns - 1);
 
+			// Fix for the under effect.
+			if (jQuery(instance.$items[0]).hasClass('effect-under')) {
+				slot.height = slot.height + $(item).find('.modula-item-content').height();
+			}
+
 			$(item)
 				.data('size', slot)
 				.addClass('tiled')
@@ -366,6 +371,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 			$(item).data('size', slot);
 
 			$(item).addClass('tiled').addClass(slot.width > slot.height ? 'tile-h' : 'tile-v').data('position');
+
+			// Fix for the under effect.
+			if (jQuery(instance.$items[0]).hasClass('effect-under')) {
+				slot.height = slot.height + $(item).find('.modula-item-content').height();
+			}
 
 			$(item).css({
 				width: slot.width,
