@@ -372,11 +372,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			$(item).addClass('tiled').addClass(slot.width > slot.height ? 'tile-h' : 'tile-v').data('position');
 
-			// Fix for the under effect.
-			if (jQuery(instance.$items[0]).hasClass('effect-under')) {
-				slot.height = slot.height + $(item).find('.modula-item-content').height();
-			}
-
 			$(item).css({
 				width: slot.width,
 				height: slot.height
