@@ -299,11 +299,6 @@ jQuery(window).on('elementor/frontend/init', function () {
 			slot.width = size * widthColumns + plugin.options.gutter * (widthColumns - 1);
 			slot.height = Math.round(size) * heightColumns + plugin.options.gutter * (heightColumns - 1);
 
-			// Fix for the under effect.
-			if (jQuery(instance.$items[0]).hasClass('effect-under')) {
-				slot.height = slot.height + $(item).find('.modula-item-content').height();
-			}
-
 			$(item)
 				.data('size', slot)
 				.addClass('tiled')
@@ -650,6 +645,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 					cssProps.right = 0;
 					break;
 			}
+		}
+		// Fix for the under-image effect
+		if ($tile.hasClass('effect-under')) {
+			cssProps.top = cssProps.top - $tile.find('.modula-item-content').height();
 		}
 
 		$image.css(cssProps);
