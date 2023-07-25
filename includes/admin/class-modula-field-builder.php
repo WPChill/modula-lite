@@ -455,7 +455,7 @@ class Modula_Field_Builder {
 						}
 
 						$icon = esc_url( MODULA_URL .'assets/images/settings/' . $key . '-disabled.png' );
-						$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name ) . '</span></label>';
+						$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
 					}
 
 					$html .= '</div>';
@@ -774,7 +774,7 @@ class Modula_Field_Builder {
 
 			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
 			
-			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings') . ' </span>';
+			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings', 'modula-best-grid-gallery' ) . ' </span>';
 		}
 
 		return apply_filters( "modula_render_field_type", $html, $field, $value );

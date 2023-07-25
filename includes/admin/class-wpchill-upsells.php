@@ -384,7 +384,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					?>
 					<div class="<?php echo esc_attr($package_class); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
-						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
+						<p class="wpchill-name"><strong><?php echo esc_html( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php echo ( isset( $package['excerpt'] ) ) ? '<p class="description">' . esc_html( $package['excerpt'] ) . '</p>' : ''; ?>
 					</div>
 				<?php } ?>

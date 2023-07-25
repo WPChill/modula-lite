@@ -88,7 +88,7 @@
                             <input type="text" name="link" value="{{ data.link }}" />
 	                        <span class="dashicons dashicons-editor-break"></span>
                             <span class="description">
-                                <?php esc_html_e( ' You can start typing the first 3 letter and we will autocomplete the rest !' ); ?>
+                                <?php esc_html_e( ' You can start typing the first 3 letter and we will autocomplete the rest !', 'modula-best-grid-gallery' ); ?>
                                 <?php esc_html_e( 'Enter a hyperlink if you wish to link this image to somewhere other than the general selected action.', 'modula-best-grid-gallery' ); ?>
                                 <?php esc_html_e( '( Doesn\'t work for Direct link to image or No link )', 'modula-best-grid-gallery' ); ?>
 

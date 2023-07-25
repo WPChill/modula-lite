@@ -434,7 +434,7 @@ class Modula_Admin {
 		$ptype = get_post_type_object( 'modula-gallery' );
 
 		if ( ( ! current_user_can( $ptype->cap->edit_posts ) ) || ( ! current_user_can( $ptype->cap->edit_others_posts ) && absint( get_post_field( 'post_author', $gallery_id ) ) !== absint( $current_user->ID ) ) ) {
-			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.' ) ) );
+			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.', 'modula-best-grid-gallery' ) ) );
 		}
 
 		if ( ! isset( $_POST['images'] ) ) {
@@ -477,7 +477,7 @@ class Modula_Admin {
 		$ptype = get_post_type_object( 'modula-gallery' );
 
 		if ( ( ! current_user_can( $ptype->cap->edit_posts ) ) || ( ! current_user_can( $ptype->cap->edit_others_posts ) && absint( get_post_field( 'post_author', $gallery_id ) ) !== absint( $current_user->ID ) ) ) {
-			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.' ) ) );
+			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.', 'modula-best-grid-gallery' ) ) );
 		}
 
 		if ( ! isset( $_POST['image'] ) ) {

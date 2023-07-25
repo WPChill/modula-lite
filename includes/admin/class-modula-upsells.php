@@ -759,7 +759,7 @@ class Modula_Upsells {
 		}
 
 		$tabs['roles'] = array(
-				'label'    => esc_html__( 'Roles', 'modula-roles' ),
+				'label'    => esc_html__( 'Roles', 'modula-best-grid-gallery' ),
 				'badge'    => 'PRO',
 				'priority' => 120,
 		);
@@ -1043,7 +1043,7 @@ class Modula_Upsells {
 
 			<div class="modula-settings-tab-upsell">
 				<h3><?php esc_html_e( 'Modula Roles', 'modula-best-grid-gallery' ) ?></h3>
-				<p><?php esc_html_e( 'Granular control over which user roles can add, edit or update galleries on your website. Add permissions to an existing user role or remove them by simply checking a checkbox.' ) ?></p>
+				<p><?php esc_html_e( 'Granular control over which user roles can add, edit or update galleries on your website. Add permissions to an existing user role or remove them by simply checking a checkbox.', 'modula-best-grid-gallery' ) ?></p>
 				<p>
 					<?php
 	

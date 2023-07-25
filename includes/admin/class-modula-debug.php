@@ -72,7 +72,7 @@ class Modula_Debug {
 		}
 
 		$info[ 'modula' ] = array(
-			'label'  => __( 'Modula plugin' ),
+			'label'  => __( 'Modula plugin', 'modula-best-grid-gallery' ),
 			'fields' => apply_filters( 'modula_debug_information', array(
 					'core_version'             => array(
 						'label' => __( 'Core Version', 'modula-best-grid-gallery' ),
@@ -80,7 +80,7 @@ class Modula_Debug {
 						'debug' => 'Core version ' . MODULA_LITE_VERSION,
 					),
 					'requested_php'            => array(
-						'label' => __( 'Minimum PHP' ),
+						'label' => __( 'Minimum PHP', 'modula-best-grid-gallery' ),
 						'value' => 5.6,
 						'debug' => ( (float)5.6 > (float)phpversion() ) ? 'PHP minimum version not met' : 'PHP minimum version met',
 					),

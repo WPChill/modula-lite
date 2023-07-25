@@ -472,7 +472,7 @@ class Modula_CPT {
 		global $post;
 		$post_type = 'modula-gallery';
 		remove_meta_box( 'submitdiv', $post_type, 'side' );
-		add_meta_box( 'submitdiv', __( 'Publish' ), array( $this, 'post_submit_meta_box' ), $post_type, 'side', 'high' );
+		add_meta_box( 'submitdiv', __( 'Publish', 'modula-best-grid-gallery' ), array( $this, 'post_submit_meta_box' ), $post_type, 'side', 'high' );
 
 	}
 
@@ -488,7 +488,7 @@ class Modula_CPT {
 
 				<?php // Hidden submit button early on so that the browser chooses the right button when form is submitted with Return key ?>
 				<div style="display:none;">
-					<?php submit_button( __( 'Save' ), '', 'save' ); ?>
+					<?php submit_button( __( 'Save', 'modula-best-grid-gallery' ), '', 'save' ); ?>
 				</div>
 
 				<div id="minor-publishing-actions">
@@ -501,12 +501,12 @@ class Modula_CPT {
 							}
 							?>
 							<input <?php echo $private_style; ?> type="submit" name="save" id="save-post"
-							                                     value="<?php esc_attr_e( 'Save Draft' ); ?>"
+							                                     value="<?php esc_attr_e( 'Save Draft', 'modula-best-grid-gallery' ); ?>"
 							                                     class="button"/>
 							<span class="spinner"></span>
 						<?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
 							<input type="submit" name="save" id="save-post"
-							       value="<?php esc_attr_e( 'Save as Pending' ); ?>" class="button"/>
+							       value="<?php esc_attr_e( 'Save as Pending', 'modula-best-grid-gallery' ); ?>" class="button"/>
 							<span class="spinner"></span>
 						<?php } ?>
 					</div>
@@ -550,25 +550,25 @@ class Modula_CPT {
 				<div id="misc-publishing-actions">
 
 					<div class="misc-pub-section misc-pub-post-status">
-						<?php _e( 'Status:' ); ?> <span id="post-status-display">
+						<?php _e( 'Status:', 'modula-best-grid-gallery' ); ?> <span id="post-status-display">
 			<?php
 
 			switch ( $post->post_status ) {
 				case 'private':
-					esc_html_e( 'Privately Published' );
+					esc_html_e( 'Privately Published', 'modula-best-grid-gallery' );
 					break;
 				case 'publish':
-					esc_html_e( 'Published' );
+					esc_html_e( 'Published', 'modula-best-grid-gallery' );
 					break;
 				case 'future':
-					esc_html_e( 'Scheduled' );
+					esc_html_e( 'Scheduled', 'modula-best-grid-gallery' );
 					break;
 				case 'pending':
-					esc_html_e( 'Pending Review' );
+					esc_html_e( 'Pending Review', 'modula-best-grid-gallery' );
 					break;
 				case 'draft':
 				case 'auto-draft':
-					esc_html_e( 'Draft' );
+					esc_html_e( 'Draft', 'modula-best-grid-gallery' );
 					break;
 			}
 			?>
@@ -581,60 +581,60 @@ class Modula_CPT {
 							}
 							?>
 							<a href="#post_status" <?php echo $private_style; ?> class="edit-post-status hide-if-no-js"
-							   role="button"><span aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span> <span
-										class="screen-reader-text"><?php esc_html_e( 'Edit status' ); ?></span></a>
+							   role="button"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Edit status', 'modula-best-grid-gallery' ); ?></span></a>
 
 							<div id="post-status-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_status" id="hidden_post_status"
 								       value="<?php echo esc_attr( ('auto-draft' == $post->post_status) ? 'draft' : $post->post_status ); ?>"/>
-								<label for="post_status" class="screen-reader-text"><?php esc_html_e( 'Set status' ); ?></label>
+								<label for="post_status" class="screen-reader-text"><?php esc_html_e( 'Set status', 'modula-best-grid-gallery' ); ?></label>
 								<select name="post_status" id="post_status">
 									<?php if ( 'publish' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'publish' ); ?>
-												value='publish'><?php esc_html_e( 'Published' ); ?></option>
+												value='publish'><?php esc_html_e( 'Published', 'modula-best-grid-gallery' ); ?></option>
 									<?php elseif ( 'private' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'private' ); ?>
-												value='publish'><?php esc_html_e( 'Privately Published' ); ?></option>
+												value='publish'><?php esc_html_e( 'Privately Published', 'modula-best-grid-gallery' ); ?></option>
 									<?php elseif ( 'future' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'future' ); ?>
-												value='future'><?php esc_html_e( 'Scheduled' ); ?></option>
+												value='future'><?php esc_html_e( 'Scheduled', 'modula-best-grid-gallery' ); ?></option>
 									<?php endif; ?>
 									<option<?php selected( $post->post_status, 'pending' ); ?>
-											value='pending'><?php esc_html_e( 'Pending Review' ); ?></option>
+											value='pending'><?php esc_html_e( 'Pending Review', 'modula-best-grid-gallery' ); ?></option>
 									<?php if ( 'auto-draft' == $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'auto-draft' ); ?>
-												value='draft'><?php esc_html_e( 'Draft' ); ?></option>
+												value='draft'><?php esc_html_e( 'Draft', 'modula-best-grid-gallery' ); ?></option>
 									<?php else : ?>
 										<option<?php selected( $post->post_status, 'draft' ); ?>
-												value='draft'><?php esc_html_e( 'Draft' ); ?></option>
+												value='draft'><?php esc_html_e( 'Draft', 'modula-best-grid-gallery' ); ?></option>
 									<?php endif; ?>
 								</select>
 								<a href="#post_status"
-								   class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK' ); ?></a>
+								   class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK', 'modula-best-grid-gallery' ); ?></a>
 								<a href="#post_status"
-								   class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel' ); ?></a>
+								   class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'modula-best-grid-gallery' ); ?></a>
 							</div>
 
 						<?php } ?>
 					</div><!-- .misc-pub-section -->
 
 					<div class="misc-pub-section misc-pub-visibility" id="visibility">
-						<?php esc_html_e( 'Visibility:' ); ?> <span id="post-visibility-display">
+						<?php esc_html_e( 'Visibility:', 'modula-best-grid-gallery' ); ?> <span id="post-visibility-display">
 							<?php
 
 							if ( 'private' == $post->post_status ) {
 								$post->post_password = '';
 								$visibility          = 'private';
-								$visibility_trans    = __( 'Private' );
+								$visibility_trans    = __( 'Private', 'modula-best-grid-gallery' );
 							} elseif ( !empty( $post->post_password ) ) {
 								$visibility       = 'password';
-								$visibility_trans = __( 'Password protected' );
+								$visibility_trans = __( 'Password protected', 'modula-best-grid-gallery' );
 							} elseif ( $post_type == 'post' && is_sticky( $post->ID ) ) {
 								$visibility       = 'public';
-								$visibility_trans = __( 'Public, Sticky' );
+								$visibility_trans = __( 'Public, Sticky', 'modula-best-grid-gallery' );
 							} else {
 								$visibility       = 'public';
-								$visibility_trans = __( 'Public' );
+								$visibility_trans = __( 'Public', 'modula-best-grid-gallery' );
 							}
 
 							echo esc_html( $visibility_trans );
@@ -642,8 +642,8 @@ class Modula_CPT {
 </span>
 						<?php if ( $can_publish ) { ?>
 							<a href="#visibility" class="edit-visibility hide-if-no-js" role="button"><span
-										aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span> <span
-										class="screen-reader-text"><?php esc_html_e( 'Edit visibility' ); ?></span></a>
+										aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Edit visibility', 'modula-best-grid-gallery' ); ?></span></a>
 
 							<div id="post-visibility-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_password" id="hidden-post-password"
@@ -658,31 +658,31 @@ class Modula_CPT {
 								<input type="radio" name="visibility" id="visibility-radio-public"
 								       value="public" <?php checked( $visibility, 'public' ); ?> /> <label
 										for="visibility-radio-public"
-										class="selectit"><?php esc_html_e( 'Public' ); ?></label><br/>
+										class="selectit"><?php esc_html_e( 'Public', 'modula-best-grid-gallery' ); ?></label><br/>
 								<?php if ( $post_type == 'post' && current_user_can( 'edit_others_posts' ) ) : ?>
 									<span id="sticky-span"><input id="sticky" name="sticky" type="checkbox"
 									                              value="sticky" <?php checked( is_sticky( $post->ID ) ); ?> /> <label
 												for="sticky"
-												class="selectit"><?php esc_html_e( 'Stick this post to the front page' ); ?></label><br/></span>
+												class="selectit"><?php esc_html_e( 'Stick this post to the front page', 'modula-best-grid-gallery' ); ?></label><br/></span>
 								<?php endif; ?>
 								<input type="radio" name="visibility" id="visibility-radio-password"
 								       value="password" <?php checked( $visibility, 'password' ); ?> /> <label
 										for="visibility-radio-password"
-										class="selectit"><?php esc_html_e( 'Password protected' ); ?></label><br/>
-								<span id="password-span"><label for="post_password"><?php _e( 'Password:' ); ?></label> <input
+										class="selectit"><?php esc_html_e( 'Password protected', 'modula-best-grid-gallery' ); ?></label><br/>
+								<span id="password-span"><label for="post_password"><?php _e( 'Password:', 'modula-best-grid-gallery' ); ?></label> <input
 											type="text" name="post_password" id="post_password"
 											value="<?php echo esc_attr( $post->post_password ); ?>"
 											maxlength="255"/><br/></span>
 								<input type="radio" name="visibility" id="visibility-radio-private"
 								       value="private" <?php checked( $visibility, 'private' ); ?> /> <label
 										for="visibility-radio-private"
-										class="selectit"><?php esc_html_e( 'Private' ); ?></label><br/>
+										class="selectit"><?php esc_html_e( 'Private', 'modula-best-grid-gallery' ); ?></label><br/>
 
 								<p>
 									<a href="#visibility"
-									   class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK' ); ?></a>
+									   class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK', 'modula-best-grid-gallery' ); ?></a>
 									<a href="#visibility"
-									   class="cancel-post-visibility hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel' ); ?></a>
+									   class="cancel-post-visibility hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'modula-best-grid-gallery' ); ?></a>
 								</p>
 							</div>
 						<?php } ?>
@@ -691,27 +691,27 @@ class Modula_CPT {
 
 					<?php
 					/* translators: Publish box date string. 1: Date, 2: Time. See https://secure.php.net/date */
-					$date_string = __( '%1$s at %2$s' );
+					$date_string = __( '%1$s at %2$s', 'modula-best-grid-gallery' );
 					/* translators: Publish box date format, see https://secure.php.net/date */
-					$date_format = _x( 'M j, Y', 'publish box date format' );
+					$date_format = _x( 'M j, Y', 'publish box date format', 'modula-best-grid-gallery' );
 					/* translators: Publish box time format, see https://secure.php.net/date */
-					$time_format = _x( 'H:i', 'publish box time format' );
+					$time_format = _x( 'H:i', 'publish box time format', 'modula-best-grid-gallery' );
 
 					if ( 0 != $post->ID ) {
 						if ( 'future' == $post->post_status ) { // scheduled for publishing at a future date
 							/* translators: Post date information. %s: Date on which the post is currently scheduled to be published. */
-							$stamp = __( 'Scheduled for: %s' );
+							$stamp = __( 'Scheduled for: %s', 'modula-best-grid-gallery' );
 						} elseif ( 'publish' == $post->post_status || 'private' == $post->post_status ) { // already published
 							/* translators: Post date information. %s: Date on which the post was published. */
-							$stamp = __( 'Published on: %s' );
+							$stamp = __( 'Published on: %s', 'modula-best-grid-gallery' );
 						} elseif ( '0000-00-00 00:00:00' == $post->post_date_gmt ) { // draft, 1 or more saves, no date specified
-							$stamp = __( 'Publish <b>immediately</b>' );
+							$stamp = __( 'Publish <b>immediately</b>', 'modula-best-grid-gallery' );
 						} elseif ( time() < strtotime( $post->post_date_gmt . ' +0000' ) ) { // draft, 1 or more saves, future date specified
 							/* translators: Post date information. %s: Date on which the post is to be published. */
-							$stamp = __( 'Schedule for: %s' );
+							$stamp = __( 'Schedule for: %s', 'modula-best-grid-gallery' );
 						} else { // draft, 1 or more saves, date specified
 							/* translators: Post date information. %s: Date on which the post is to be published. */
-							$stamp = __( 'Publish on: %s' );
+							$stamp = __( 'Publish on: %s', 'modula-best-grid-gallery' );
 						}
 						$date = sprintf(
 							$date_string,
@@ -719,7 +719,7 @@ class Modula_CPT {
 							date_i18n( $time_format, strtotime( $post->post_date ) )
 						);
 					} else { // draft (no saves, and thus no date specified)
-						$stamp = __( 'Publish <b>immediately</b>' );
+						$stamp = __( 'Publish <b>immediately</b>', 'modula-best-grid-gallery' );
 						$date  = sprintf(
 							$date_string,
 							date_i18n( $date_format, strtotime( current_time( 'mysql' ) ) ),
@@ -732,12 +732,12 @@ class Modula_CPT {
 						<div class="misc-pub-section misc-pub-revisions">
 							<?php
 							/* translators: Post revisions heading. %s: The number of available revisions. */
-							printf( esc_html__( 'Revisions: %s' ), '<b>' . esc_html( number_format_i18n( $args['args']['revisions_count'] ) ) . '</b>' );
+							printf( esc_html__( 'Revisions: %s', 'modula-best-grid-gallery' ), '<b>' . esc_html( number_format_i18n( $args['args']['revisions_count'] ) ) . '</b>' );
 							?>
 							<a class="hide-if-no-js"
 							   href="<?php echo esc_url( get_edit_post_link( $args['args']['revision_id'] ) ); ?>"><span
-										aria-hidden="true"><?php esc_html( _ex( 'Browse', 'revisions' ) ); ?></span> <span
-										class="screen-reader-text"><?php esc_html_e( 'Browse revisions' ); ?></span></a>
+										aria-hidden="true"><?php esc_html( _ex( 'Browse', 'revisions', 'modula-best-grid-gallery' ) ); ?></span> <span
+										class="screen-reader-text"><?php esc_html_e( 'Browse revisions', 'modula-best-grid-gallery' ); ?></span></a>
 						</div>
 					<?php
 					endif;
@@ -749,11 +749,11 @@ class Modula_CPT {
 		<?php printf( $stamp, '<b>' . $date . '</b>' ); ?>
 	</span>
 						<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js" role="button">
-							<span aria-hidden="true"><?php esc_html_e( 'Edit' ); ?></span>
-							<span class="screen-reader-text"><?php esc_html_e( 'Edit date and time' ); ?></span>
+							<span aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span>
+							<span class="screen-reader-text"><?php esc_html_e( 'Edit date and time', 'modula-best-grid-gallery' ); ?></span>
 						</a>
 						<fieldset id="timestampdiv" class="hide-if-js">
-							<legend class="screen-reader-text"><?php esc_html_e( 'Date and time' ); ?></legend>
+							<legend class="screen-reader-text"><?php esc_html_e( 'Date and time', 'modula-best-grid-gallery' ); ?></legend>
 							<?php touch_time( ($action === 'edit'), 1 ); ?>
 						</fieldset>
 						</div><?php // /misc-pub-section
@@ -766,7 +766,7 @@ class Modula_CPT {
 								<?php
 								echo wp_kses_post( sprintf(
 								/* translators: %s: URL to the Customizer. */
-									__( 'This draft comes from your <a href="%s">unpublished customization changes</a>. You can edit, but there&#8217;s no need to publish now. It will be published automatically with those changes.' ),
+									__( 'This draft comes from your <a href="%s">unpublished customization changes</a>. You can edit, but there&#8217;s no need to publish now. It will be published automatically with those changes.', 'modula-best-grid-gallery' ),
 									esc_url(
 										add_query_arg(
 											'changeset_uuid',
@@ -818,9 +818,9 @@ class Modula_CPT {
 					<?php
 					if ( current_user_can( 'delete_post', $post->ID ) ) {
 						if ( !EMPTY_TRASH_DAYS ) {
-							$delete_text = __( 'Delete Permanently' );
+							$delete_text = __( 'Delete Permanently', 'modula-best-grid-gallery' );
 						} else {
-							$delete_text = __( 'Move to Trash' );
+							$delete_text = __( 'Move to Trash', 'modula-best-grid-gallery' );
 						}
 						?>
 						<a class="submitdelete deletion"
@@ -838,19 +838,19 @@ class Modula_CPT {
 							if ( !empty( $post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) :
 								?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php echo esc_attr_x( 'Schedule', 'post action/button label' ); ?>"/>
-								<?php submit_button( _x( 'Schedule', 'post action/button label' ), 'primary large', 'publish', false ); ?>
+								       value="<?php echo esc_attr_x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ); ?>"/>
+								<?php submit_button( _x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 							<?php else : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php esc_attr_e( 'Update ' ) . 'modula-gallery';; ?>"/>
+								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery';; ?>"/>
 								<?php submit_button( __( 'Save Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 							<?php
 							endif;
 						else :
 							?>
 							<input name="original_publish" type="hidden" id="original_publish"
-							       value="<?php esc_attr_e( 'Submit for Review' ); ?>"/>
-							<?php submit_button( __( 'Submit for Review' ), 'primary large', 'publish', false ); ?>
+							       value="<?php esc_attr_e( 'Submit for Review', 'modula-best-grid-gallery' ); ?>"/>
+							<?php submit_button( __( 'Submit for Review', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 						<?php
 						endif;
 					} else {
