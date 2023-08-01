@@ -413,24 +413,8 @@ class Modula_Shortcode {
 
 
 	public function affiliate_shortcode_handler( $atts ) {
-		$default_atts = array(
-			'text' => false
-		);
-
-		$atts = wp_parse_args( $atts, $default_atts );
-
-		$affiliate = get_option( 'modula_affiliate', array() );
-		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
-
-		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html( $affiliate['text'] );
-		$html .= '<span>';
-		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
-		$html .= '</span>';
-		$html .= '</p>';
-		$html .= '</div>';
-
-		return $html;
+		// This functionality was removed.
+		return '';
 	}
 
 }
