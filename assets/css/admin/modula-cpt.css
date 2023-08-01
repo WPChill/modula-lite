@@ -1735,12 +1735,7 @@ html body .modula-tabs-content .modula-colorpickers .iris-palette-container a:nt
 }
 
 .modula-columns {
-  display: flex;
-}
-
-.modula-columns .m-col-8 {
-    flex: 0 0 70%;
-    max-width: 70%;
+  display: block;
 }
 
 .modula-columns .m-col-4 {

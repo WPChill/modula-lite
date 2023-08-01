@@ -69,21 +69,19 @@ class Modula_Upsells {
 		add_action('modula_admin_tab_shortcodes', array( $this, 'render_advanced_shortcodes_tab' ) );
 		add_action('modula_admin_tab_watermark', array( $this, 'render_watermark_tab' ) );
 		add_action('modula_admin_tab_roles', array( $this, 'render_roles_tab' ) );
+		add_action('modula_admin_tab_whitelabel', array( $this, 'render_whitelabel_tab' ) );
 
 		// Remove upsells badge if user's license includes the addon
 		add_filter('modula_admin_page_tabs', array($this, 'remove_upsells_badge' ), 999 );
+
+
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) { 
 			add_filter( 'modula_cpt_metaboxes', array( $this, 'albums_upsell_meta' ) );
 		}
 
-		// Add modula whitelabel upsell
-		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
-			add_action( 'modula_side_admin_tab', array( $this, 'render_whitelabel_upsell' ) );
-		}
-
-		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon('modula-roles') ) {
-			add_action( 'modula_side_admin_tab', array( $this, 'render_roles_upsell' ) );
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
+			add_filter('modula_admin_page_tabs', array( $this, 'add_whitelabel_tab' ), 140 );
 		}
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -695,26 +693,6 @@ class Modula_Upsells {
 
 	}
 
-	public function render_roles_upsell_tab() {
-		?>
-
-		<div class="modula-settings-upsell">
-			<p><?php esc_html_e( 'Gain even more control over how your galleries are handled with Modula User Roles. It allows admins to assign user roles that they find appropriate, giving as much access as they think it’s necessary to other users to edit or remove galleries, albums and defaults or presets.', 'modula-best-grid-gallery' ) ?></p>
-			<p>
-				<?php
-
-				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
-
-				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-roles' );
-
-				?>
-			</p>
-		</div>
-
-		<?php
-	}
-
 	public function render_roles_upsell() {
 		?>
 
@@ -726,27 +704,6 @@ class Modula_Upsells {
 
 				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
 				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-roles" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
-
-				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-whitelabel' );
-
-				?>
-			</p>
-		</div>
-
-		<?php
-	}
-
-	public function render_whitelabel_upsell() {
-		?>
-
-		<div class="modula-settings-upsell">
-			<h3><?php esc_html_e( 'Modula Whitelabel', 'modula-best-grid-gallery' ) ?></h3>
-			<p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
-			<p>
-				<?php
-
-				$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-				$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=whitelabel-metabox&utm_campaign=modula-whitelabel" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
 				echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-whitelabel' );
 
@@ -986,6 +943,33 @@ class Modula_Upsells {
 		}
     }
 
+    /**
+     * Render Whitelabel Addon settings tab
+     *
+     * @since 2.7.5
+     */
+    public function render_whitelabel_tab() {
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula-whitelabel') ) {
+			?>
+
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Whitelabel', 'modula-best-grid-gallery' ) ?></h3>
+				<p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
+				<p>
+					<?php
+	
+					$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-whitelabel" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-whitelabel' );
+					?>
+				</p>
+			</div>
+	
+			<?php
+		}
+    }
+
 
 	public function remove_upsells_badge( $tabs ){
 		$tabs_slugs = array(
@@ -993,7 +977,8 @@ class Modula_Upsells {
 			'standalone'  => 'modula-albums',
 			'watermark'   => 'modula-watermark',
 			'compression' => 'modula-speedup',
-			'roles'       => 'modula-roles'
+			'roles'       => 'modula-roles',
+			'whitelabel'  => 'modula-whitelabel',
 		);
 
 		foreach ($tabs as $key => $tab){
@@ -1002,6 +987,17 @@ class Modula_Upsells {
 			}
 		}
 	return $tabs;
+	}
+
+	public function add_whitelabel_tab( $tabs ){
+
+		$tabs['whitelabel'] = array(
+			'label'    => esc_html__( 'Whitelabel', 'modula-best-grid-gallery' ),
+			'priority' => 130,
+			'badge'    => 'PRO',
+		);
+
+		return $tabs;
 	}
 
 }

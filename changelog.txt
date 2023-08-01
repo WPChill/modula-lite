@@ -15,6 +15,7 @@ Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox.
 Changed: Removed "Get in Touch" link. ( [#825](https://github.com/WPChill/modula-lite/issues/825) )
 Changed: Removed "About us" & "Contact us for Support" links. ( [#824](https://github.com/WPChill/modula-lite/issues/824) )
 Changed: Removed "About" page. ( [#823](https://github.com/WPChill/modula-lite/issues/823) )
+Changed: Removed settings sidebar upseells & added Whitelabel upsell tab. ( [#822](https://github.com/WPChill/modula-lite/issues/822) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
