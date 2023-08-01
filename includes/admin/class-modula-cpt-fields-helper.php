@@ -334,13 +334,6 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'Toggle this to ON so that your gallery shuffles with each page load.', 'modula-best-grid-gallery' ),
                     'priority'    => 90,
 				),
-				"powered_by"      => array(
-					"name"        => esc_html__( 'Powered by', 'modula-best-grid-gallery'),
-					"type"        => "toggle",
-					"default"     => 0,
-					"description" => esc_html__( 'Adds a Powered by Modula text at the bottom right of your gallery.', 'modula-best-grid-gallery' ),
-					"priority"    => 92,
-				),
 			),
 			'lightboxes' => array(
                 "lightbox"       => array(
@@ -774,7 +767,6 @@ class Modula_CPT_Fields_Helper {
 			'grid_row_height'       => 250,
 			'grid_justify_last_row' => 'justify',
 			'enable_responsive'     => 0,
-			'powered_by'            => 0,
 			'last_visited_tab'      => 'modula-general'
 		) );
 	}
