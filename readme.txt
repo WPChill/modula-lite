@@ -278,6 +278,8 @@ Fixed: Fatal error if "grid_type" is not properly set. ( [#816](https://github.c
 Changed: Removed upsell from "General" tab. ( [#827](https://github.com/WPChill/modula-lite/issues/827) )
 Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox. ( [#826](https://github.com/WPChill/modula-lite/issues/826) )
 Changed: Removed "Get in Touch" link. ( [#825](https://github.com/WPChill/modula-lite/issues/825) )
+Changed: Removed "About us" & "Contact us for Support" links. ( [#824](https://github.com/WPChill/modula-lite/issues/824) )
+Changed: Removed "About" page. ( [#823](https://github.com/WPChill/modula-lite/issues/823) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
