@@ -73,7 +73,6 @@ class Modula {
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 			require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
-			require_once MODULA_PATH . 'includes/admin/pages/about/class-modula-about-page.php';
 			require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 			require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 			// Admin Helpers
