@@ -189,8 +189,7 @@ class Modula_Field_Builder {
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
 				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="https://wp-modula.com/knowledge-base/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
-				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= apply_filters('modula_admin_contact_link', '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>');
+				$current_tab_content .= apply_filters('modula_tab_content_header_actions', '', $tab );
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
