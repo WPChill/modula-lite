@@ -840,6 +840,12 @@ class Modula_CPT {
 								<input name="original_publish" type="hidden" id="original_publish"
 								       value="<?php echo esc_attr_x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ); ?>"/>
 								<?php submit_button( _x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
+
+							<?php elseif ( in_array( $post->post_status, array( 'draft' ) ) || 0 == $post->ID ) : ?>
+								<input name="original_publish" type="hidden" id="original_publish"
+								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery';; ?>"/>
+								<?php submit_button( __( 'Publish Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
+								
 							<?php else : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
 								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery';; ?>"/>
