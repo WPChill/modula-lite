@@ -49,7 +49,6 @@ class Modula_Upsells {
 		add_action( 'wp_ajax_modula_modal-gallery-defaults_upgrade', array( $this, 'get_modal_gallery_defaults_upgrade' ) );
 
 		/* Hooks */
-		add_filter( 'modula_general_tab_content', array( $this, 'general_tab_upsell' ) );
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
 		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
@@ -126,33 +125,6 @@ class Modula_Upsells {
 		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
 
 		return $upsell_box;
-	}
-
-	public function general_tab_upsell( $tab_content ) {
-
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon('modula') ) {
-			return;
-		}
-
-		$upsell_title       = esc_html__( 'Looking for even more control and even more powerful galleries?', 'modula-best-grid-gallery' );
-		$upsell_description = esc_html__( 'Upgrade to Modula Premium today to get access to Fancybox Lightbox extra options, max images count for desktop and mobile, extra styles and more...', 'modula-best-grid-gallery' );
-
-		$tab_content .= '<div class="modula-upsell">';
-		$tab_content .= $this->generate_upsell_box( $upsell_title, $upsell_description, 'general' );
-
-		$tab_content .= '<p>';
-
-		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=general_tab_upsell-tab&utm_campaign=general" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
-
-		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'general' );
-
-		$tab_content .= $buttons;
-
-		$tab_content .= '</p>';
-		$tab_content .= '</div>';
-
-		return $tab_content;
 	}
 
 	public function loadingeffects_tab_upsell( $tab_content ) {
