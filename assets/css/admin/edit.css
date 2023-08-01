@@ -218,6 +218,10 @@ tbody#the-list .no-items {
     font-weight: bold;
 }
 
+.modula-upsell-modal.modula-upsell-item-modal  ul.modula-upsells-list {
+    padding-left:40px;
+}
+
 /**
  Onboarding CSS
  */

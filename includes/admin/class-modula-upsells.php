@@ -635,19 +635,6 @@ class Modula_Upsells {
 
 	public function add_meta_boxes() {
 
-		if ( $this->wpchill_upsells &&  $this->wpchill_upsells->is_upgradable_addon('modula-defaults') ) {
-
-			add_meta_box(
-				'modula-defaults-upsell',                                             // Unique ID
-				esc_html__( 'Modula Defaults Addon', 'modula-best-grid-gallery' ),    // Title
-				array( $this, 'output_defaults_upsell' ),                             // Callback function
-				'modula-gallery',                                                     // Admin page (or post type)
-				'side',                                                               // Context
-				'high'         // Priority
-			);
-
-		}
-
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon('modula') ) {
 			add_meta_box(
 				'modula-sorting-upsell',                                        // Unique ID
@@ -682,38 +669,6 @@ class Modula_Upsells {
 						$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=sorting-metabox&utm_campaign=modula-sorting" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
 						echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-pro' );
-
-						?>
-					</p>
-				</div>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Output the Defaults Upsell metabox
-	 *
-	 * @since 2.4.0
-	 */
-	public function output_defaults_upsell() {
-		?>
-		<div class="modula-upsells-carousel-wrapper">
-			<div class="modula-upsells-carousel">
-				<div class="modula-upsell modula-upsell-item">
-					<p class="modula-upsell-description">Easily create galleries with the same settings:</p>
-					<ul class="modula-upsells-list">
-						<li>Create default galleries using the desired settings.</li>
-						<li>Add a new gallery and select a default preset previously created. Then add your images.</li>
-						<li>Save your galleries</li>
-					</ul>
-					<p>
-						<?php
-
-						$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-						$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=defaults-metabox&utm_campaign=modula-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
-
-						echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-defaults' );
 
 						?>
 					</p>

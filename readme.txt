@@ -275,7 +275,8 @@ Fixed: Fix type for $parent_slug ( [#805](https://github.com/WPChill/modula-lite
 Changed: Documentation link ( [#803](https://github.com/WPChill/modula-lite/issues/803) )
 Fixed: Shuffle Images setting disabled for Masonry gallery type ( [#813](https://github.com/WPChill/modula-lite/issues/813) )
 Fixed: Fatal error if "grid_type" is not properly set. ( [#816](https://github.com/WPChill/modula-lite/issues/816) )
-Fixed: Removed upsell from "General" tab. ( [#827](https://github.com/WPChill/modula-lite/issues/827) )
+Changed: Removed upsell from "General" tab. ( [#827](https://github.com/WPChill/modula-lite/issues/827) )
+Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox. ( [#826](https://github.com/WPChill/modula-lite/issues/826) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
