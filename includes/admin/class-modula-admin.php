@@ -31,6 +31,12 @@ class Modula_Admin {
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
+        // Add Importer Tab
+        add_filter('modula_admin_page_tabs', array($this, 'add_imp_exp_tab'));
+
+       // Render Importer tab
+        add_action('modula_admin_tab_imp_exp', array($this, 'render_imp_exp_tab'));
+
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -107,14 +113,6 @@ class Modula_Admin {
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 
 		$links = array(
-			array(
-				'page_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
-				'capability' => 'manage_options',
-				'menu_slug'  => 'modula-import-export',
-				'function'   => array( $this, 'import_export_doc' ),
-				'priority'   => 35,
-			),
 			'freevspro' => array(
 				'page_title' => esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ),
 				'menu_title' => esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ),
@@ -135,21 +133,25 @@ class Modula_Admin {
 		);
 
 		$links['moduladefaults'] = array(
-			'page_title' => esc_html__( 'Gallery Defaults', 'modula-best-grid-gallery' ),
-			'menu_title' => esc_html__( 'Gallery Defaults', 'modula-best-grid-gallery' ),
+			'page_title' => esc_html__( 'Defaults', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Defaults', 'modula-best-grid-gallery' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => '#gallery-defaults',
 			'function'   => array( $this, 'modula_gallery_defaults' ),
 			'priority'   => 22,
+			'is_child'   => true,
+			'delimiter'   => true,
 		);
 
 		$links['albumsdefaults'] = array(
-			'page_title' => esc_html__( 'Albums Defaults', 'modula-best-grid-gallery' ),
-			'menu_title' => esc_html__( 'Albums Defaults', 'modula-best-grid-gallery' ),
+			'page_title' => esc_html__( 'Defaults', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Defaults', 'modula-best-grid-gallery' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => '#albums-defaults',
 			'function'   => array( $this, 'modula_albums_defaults' ),
 			'priority'   => 26,
+			'is_child'   => true,
+			'delimiter'   => true,
 		);
 
 
@@ -496,8 +498,25 @@ class Modula_Admin {
 	}
 
 	public function admin_custom_css() {
+		$child_css = "display: inline-block; color: rgba(240, 246, 252, 0.7); font-family: 'dashicons'; transform: scaleX(-1); margin-right: 5px; content: '\\f474';";
+		$limit_css = "border-bottom: 1px solid hsla(0,0%,100%,.2);";
+		$link_child = '';
+
+		foreach( $this->menu_links as $link ){
+
+			if( isset( $link['is_child'] ) && $link['is_child'] ){
+				$link_child .= '#menu-posts-modula-gallery .wp-submenu li a[href$="' . $link['menu_slug'] . '"]::before {' . $child_css . '}';
+			}
+
+			if( isset( $link['delimiter'] ) && $link['delimiter'] ){
+				$link_child .= '#menu-posts-modula-gallery .wp-submenu li a[href$="' . $link['menu_slug'] . '"] {' . $limit_css . '}';
+			}
+		}
+
 		?>
 		<style type="text/css">
+			<?php echo $link_child; ?>
+			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 			a#modula-uninstall-link {color: #FF0000 !important;font-weight:bold;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-lite-vs-pro"] {color: gold;}
@@ -512,7 +531,7 @@ class Modula_Admin {
 	 *
 	 * @since 2.2.7
 	 */
-	public function import_export_doc() {
+	public function import_export_doc() { 
 		?>
 		<div class="wrap">
 			<div class="card">
@@ -533,6 +552,33 @@ class Modula_Admin {
 		<?php
 
 	}
+
+    /**
+     * Add Importer tab
+     *
+     * @param $tabs
+     * @return mixed
+     *
+     * @since 2.2.7
+     */
+    public function add_imp_exp_tab($tabs) {
+        $tabs['imp_exp'] = array(
+            'label'    => esc_html__('Import/Export', 'modula-best-grid-gallery'),
+            'priority' => 60,
+        );
+
+        return $tabs;
+    }
+
+
+    /**
+     * Render Importer tab
+     *
+     * @since 2.2.7
+     */
+    public function render_imp_exp_tab() {
+        $this->import_export_doc();
+    }
 
 
 	/**
