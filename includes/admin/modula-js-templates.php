@@ -1,5 +1,5 @@
 <script type="text/html" id="tmpl-modula-image">
-    <div class="modula-single-image-content {{data.orientation}}" <# if ( data.full != '' ) { #> style="background-image:url('{{ data.thumbnail }}')" <# } #> >
+    <div class="modula-single-image-content {{data.orientation}}" <# if ( data.full != '' ) { #> style="background-image:url('{{ data.thumbnail }}'); background-position: {{ data.valign }} {{ data.halign }};" <# } #> >
         <?php do_action( 'modula_admin_gallery_image_start' ) ?>
         <# if ( data.thumbnail != '' ) { #>
             <img src="{{ data.thumbnail }}">
