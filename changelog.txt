@@ -1,25 +1,27 @@
 = 2.7.5 - TBD =
-Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) ) ( [#37](https://github.com/WPChill/modula-lite/issues/37) )
-Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image. ( [#795](https://github.com/WPChill/modula-lite/issues/795) )
-Changed: Removed tracking ( [#798](https://github.com/WPChill/modula-lite/issues/798) )
-Fixed: Compatibility with Elementor popup. ( [#804](https://github.com/WPChill/modula-lite/issues/804) )
-Fixed: Security issue ( [#789](https://github.com/WPChill/modula-lite/issues/789) )
-Fixed: Parenthesis in Gutenberg pull-down choice menu wrongly spaced. ( [#797](https://github.com/WPChill/modula-lite/issues/797) )
-Fixed: PHP warning: Undefined property ( [#796](https://github.com/WPChill/modula-lite/issues/796) )
-Fixed: Fix type for $parent_slug ( [#805](https://github.com/WPChill/modula-lite/issues/805) )
-Changed: Documentation link ( [#803](https://github.com/WPChill/modula-lite/issues/803) )
-Fixed: Shuffle Images setting disabled for Masonry gallery type ( [#813](https://github.com/WPChill/modula-lite/issues/813) )
-Fixed: Fatal error if "grid_type" is not properly set. ( [#816](https://github.com/WPChill/modula-lite/issues/816) )
-Changed: Removed upsell from "General" tab. ( [#827](https://github.com/WPChill/modula-lite/issues/827) )
-Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox. ( [#826](https://github.com/WPChill/modula-lite/issues/826) )
-Changed: Removed "Get in Touch" link. ( [#825](https://github.com/WPChill/modula-lite/issues/825) )
-Changed: Removed "About us" & "Contact us for Support" links. ( [#824](https://github.com/WPChill/modula-lite/issues/824) )
-Changed: Removed "About" page. ( [#823](https://github.com/WPChill/modula-lite/issues/823) )
-Changed: Removed settings sidebar upseells & added Whitelabel upsell tab. ( [#822](https://github.com/WPChill/modula-lite/issues/822) )
-Changed: Removed "Powered By Modula" meta option. ( [#820](https://github.com/WPChill/modula-lite/issues/820) )
-Changed: Removed "Earn Money" tab. ( [#819](https://github.com/WPChill/modula-lite/issues/819) )
-Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft. ( [#712](https://github.com/WPChill/modula-lite/issues/712) )
-Fixed: Show changes to image's alignment in backend ( [#663](https://github.com/WPChill/modula-lite/issues/663) )
+Fixed: Lazy load not working properly.
+Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image.
+Fixed: Compatibility with Elementor popup.
+Fixed: Security issue.
+Fixed: Parenthesis in Gutenberg pull-down choice menu wrongly spaced.
+Fixed: PHP warning: Undefined property.
+Fixed: Fix type for $parent_slug.
+Fixed: Shuffle Images setting disabled for Masonry gallery type
+Fixed: Fatal error if "grid_type" is not properly set.
+Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft.
+Fixed: Show changes to image's alignment in backend.
+Changed: Removed tracking.
+Changed: Documentation link.
+Changed: Removed upsell from "General" tab.
+Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox.
+Changed: Removed "Get in Touch" link.
+Changed: Removed "About us" & "Contact us for Support" links.
+Changed: Removed "About" page.
+Changed: Removed settings sidebar upseells & added Whitelabel upsell tab.
+Changed: Removed "Powered By Modula" meta option.
+Changed: Removed "Earn Money" tab.
+Changed: Reorganised admin menu.
+Added: "Dashboard" page.
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set
@@ -42,102 +44,102 @@ Fixed: Error when triggering file deletion
 Fixed: Gallery type icons coloring
 
 = 2.7.1 - 15.12.2022 =
-Fixed: Incorrect placement of ' ( [#715](https://github.com/WPChill/modula-lite/issues/715) )
+Fixed: Incorrect placement of '.
 
 = 2.7.0 - 12.12.2022 =
-Changed: Custom icons for Modula Settings  ( [#679](https://github.com/WPChill/modula-lite/issues/679) )
-Fixed: Fancybox error ( [#678](https://github.com/WPChill/modula-lite/issues/678) )
-Changed: Modula uninstall process - proper target the inputs with js ( [#673](https://github.com/WPChill/modula-lite/issues/673) )
-Fixed: jQuery .load() deprecated warning ( [#669](https://github.com/WPChill/modula-lite/issues/669) )
-Added: Create new gallery welcome screen ( [#650](https://github.com/WPChill/modula-lite/issues/650) )
-Fixed: WP Core galleries migration ( [#694](https://github.com/WPChill/modula-lite/issues/694) )
-Fixed: Issue preventing gallery status change in gallery edit ( [#703](https://github.com/WPChill/modula-lite/issues/703) )
-Fixed: Screen options not working when editing a gallery ( [#700](https://github.com/WPChill/modula-lite/issues/700) )
-Fixed: Empty blocks in admin custom grid gallery edit ( [#709](https://github.com/WPChill/modula-lite/issues/709) )
-Fixed: Security issue ( [#789](https://github.com/WPChill/modula-lite/issues/789) )
+Changed: Custom icons for Modula Settings.
+Fixed: Fancybox error.
+Changed: Modula uninstall process - proper target the inputs with js.
+Fixed: jQuery .load() deprecated warning.
+Added: Create new gallery welcome screen.
+Fixed: WP Core galleries migration.
+Fixed: Issue preventing gallery status change in gallery edit.
+Fixed: Screen options not working when editing a gallery.
+Fixed: Empty blocks in admin custom grid gallery edit.
+Fixed: Security issue.
 
 = 2.6.92 - 24/10/2022 =
-Changed: Responsive tab settings no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
-Fixed: Misc settings nonce bug. ( [#697](https://github.com/WPChill/modula-lite/issues/697) )
+Changed: Responsive tab settings no longer collapse on setting disabling.
+Fixed: Misc settings nonce bug.
 
 = 2.6.91 - 20/10/2022 =
-Changed: Metabox Accordeons no longer collapse on setting disabling. ( [#690](https://github.com/WPChill/modula-lite/issues/690) )
-Fixed: Show only image size that is in effect on "Image Size" admin setting. ( [#692](https://github.com/WPChill/modula-lite/issues/692) )
-Added: Nonce verification and admin user validation for troubleshooting options. ( [#693](https://github.com/WPChill/modula-lite/issues/693) )
+Changed: Metabox Accordeons no longer collapse on setting disabling.
+Fixed: Show only image size that is in effect on "Image Size" admin setting.
+Added: Nonce verification and admin user validation for troubleshooting options.
 
 = 2.6.9 - 18/10/2022 =
-Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off. ( [#691](https://github.com/WPChill/modula-lite/issues/691) )
+Fixed: Error preventing the opening of lightbox when "Lazy Load" is turned off.
 
 = 2.6.8 - 18/10/2022 =
-Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode. ( [#681](https://github.com/WPChill/modula-lite/issues/681) )
-Fixed: Warnings if images could not be resized ( [#682](https://github.com/WPChill/modula-lite/issues/682) )
-Changed: Deactivation survey visual Enhancement ( [#649](https://github.com/WPChill/modula-lite/issues/649) )
-Added: A setting to remove srcset from images ( [#675](https://github.com/WPChill/modula-lite/issues/675) )
-Fixed: Preventing the addition of custom image size if it's the same as the original  [#684](https://github.com/WPChill/modula-lite/issues/684) )
-Changed: Removed "Open image in a lightbox" tooltip when hovering over an gallery image. [#686](https://github.com/WPChill/modula-lite/issues/686) )
-Added: Metabox accordeons ( [#687](https://github.com/WPChill/modula-lite/issues/687) )
-Changed: WCAG compliance ( [#689](https://github.com/WPChill/modula-lite/issues/689) )
+Changed: Modula won't query for Modula Galleries if Divi Builder is not in edit mode.
+Fixed: Warnings if images could not be resized.
+Changed: Deactivation survey visual Enhancement.
+Added: A setting to remove srcset from images.
+Fixed: Preventing the addition of custom image size if it's the same as the original.
+Changed: Removed "Open image in a lightbox" tooltip when hovering over an gallery image.
+Added: Metabox accordeons.
+Changed: WCAG compliance.
 
 = 2.6.7 - 08/06/2020 =
 Fixed: Sanitization & escapes.
-Fixed: Medicare WP theme compatibility ( [#618](https://github.com/WPChill/modula-lite/issues/618) )
-Fixed: Gallery titles with messy display names in Gutenberg ( [#652](https://github.com/WPChill/modula-lite/issues/652) )
-Added: Possibility to exclude certain images from the lightbox ( [#445](https://github.com/WPChill/modula-lite/issues/445) )
+Fixed: Medicare WP theme compatibility.
+Fixed: Gallery titles with messy display names in Gutenberg.
+Added: Possibility to exclude certain images from the lightbox.
 
 = 2.6.6 - 02/05/2020 =
-Fixed: Sanitization not showing quotation marks in image title ( [#627](https://github.com/WPChill/modula-lite/issues/627) )
-Changed: Last image arrow in lightbox is now hidden ( [#621](https://github.com/WPChill/modula-lite/issues/621) )
+Fixed: Sanitization not showing quotation marks in image title.
+Changed: Last image arrow in lightbox is now hidden.
 
 = 2.6.5 - 04/04/2022 =
 Added: Migrate away from PhotoBlocks Gallery
 Changed: Modified the About page.
 
 = 2.6.4 - 28/03/2022 =
-Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions ( [#647](https://github.com/WPChill/modula-lite/issues/647), [#648](https://github.com/WPChill/modula-lite/issues/648) )
+Changed: Added Modula Envira Migrator & Final Tiles Migrator to free extensions.
 
 = 2.6.3 - 21/03/2022 =
-Fixed: Sanitization and preparation for WP Core galleries import ( [#625](https://github.com/WPChill/modula-lite/issues/625) )
-Fixed: Metaboxes forever opened and arrows hidden ( [#639](https://github.com/WPChill/modula-lite/issues/639) )
-Fixed: Custom Posts Gutenberg block - now available everywhere Gutenberg is ( [#626](https://github.com/WPChill/modula-lite/issues/626) )
-Fixed: React warnings ( [#628](https://github.com/WPChill/modula-lite/issues/628) )
-Fixed: Blank links in accesibility reports ( [#640](https://github.com/WPChill/modula-lite/issues/640) )
+Fixed: Sanitization and preparation for WP Core galleries import.
+Fixed: Metaboxes forever opened and arrows hidden.
+Fixed: Custom Posts Gutenberg block - now available everywhere Gutenberg is.
+Fixed: React warnings.
+Fixed: Blank links in accesibility reports.
 
 = 2.6.2 - 22/02/2022 =
-Fixed: Mime type giving error if no file_path ( [#632](https://github.com/WPChill/modula-lite/issues/632) )
-Fixed: Gallery width when using Full Site Editing ( [#601](https://github.com/WPChill/modula-lite/issues/601) )
+Fixed: Mime type giving error if no file_path.
+Fixed: Gallery width when using Full Site Editing.
 
 = 2.6.1 - 18/02/2022 =
-Fixed - array_merge error ( [Error fix](https://wordpress.org/support/topic/error-on-las-update/) )
+Fixed - array_merge error.
 
 = 2.6.0 - 18/02/2022 =
-Fixed: Modula gallery display in tabs/accordions ( [#620](https://github.com/WPChill/modula-lite/issues/620) )
-Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2 ( [#495](https://github.com/WPChill/modula-lite/issues/495) )
-Changed: Default "Hide Title" setting value to ON ( [#495](https://github.com/WPChill/modula-lite/issues/495) )
-Fixed: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox ( [#553](https://github.com/WPChill/modula-lite/issues/553) )
-Fixed: Get proper mime type ( [#595](https://github.com/WPChill/modula-lite/issues/595#event-5264362667) )
-Fixed: Added tracking db options to uninstall process ( [#591](https://github.com/WPChill/modula-lite/issues/591) )
-Fixed: Unset link image attribute when importing from NextGEN ( [#590](https://github.com/WPChill/modula-lite/issues/590) )
-Fixed: Error when trying to get images that were not imported correctly / do not exist as entries in db ( [#588](https://github.com/WPChill/modula-lite/issues/588) )
-Changed: Lazy load setting default ON ( [#520](https://github.com/WPChill/modula-lite/issues/520) )
-Changed: Updated CPT settings conditions ( [#516](https://github.com/WPChill/modula-lite/issues/516) )
-Changed: Grid Automatic default Row Height from 150 to 250 ( [#517](https://github.com/WPChill/modula-lite/issues/517) )
-Changed: Update settings texts. ( [#499](https://github.com/WPChill/modula-lite/issues/499) )
-Changed: Last 5 galleries now appear in selectize without searching ( [#598](https://github.com/WPChill/modula-lite/issues/598) )
-Fixed: Incompatibility with Gutenberg block and widgets ( [#599](https://github.com/WPChill/modula-lite/issues/599) )
-Fixed: Modula Widget before and after args ( [#483](https://github.com/WPChill/modula-lite/issues/483) )
-Fixed: Sharing on LinkedIn ( [#503](https://github.com/WPChill/modula-lite/issues/503) )
-Changed: Import/Export page received a new design ( [#492](https://github.com/WPChill/modula-lite/issues/492) )
-Added: Link to Modula's about page in the plugin's branding header ( [#511](https://github.com/WPChill/modula-lite/issues/511) )
-Added: Upsell to Modula PRO in plugins page ( [#552](https://github.com/WPChill/modula-lite/issues/552) )
-Fixed: Migration from NextGEN galleries replacement for `[nggallery id=”xx″]` shortcode format ( [#587](https://github.com/WPChill/modula-lite/issues/587) )
-Fixed: JavaScript error when Syntax Highlighting is disabled ( [#586](https://github.com/WPChill/modula-lite/issues/586) )
-Fixed: Don't enqueue scripts/styles when not needed ( [#589](https://github.com/WPChill/modula-lite/issues/589) )
-Fixed: Mobile/table gutter not working correctly ( [#602](https://github.com/WPChill/modula-lite/issues/602) )
-Fixed: Set a default widht of 100% when there is no value ( [#601](https://github.com/WPChill/modula-lite/issues/601) )
+Fixed: Modula gallery display in tabs/accordions.
+Changed: Gallery title html element (from h2 to div),css as the selector is not longer h2.
+Changed: Default "Hide Title" setting value to ON.
+Fixed: Modula metabox return to default position if previously moved into the sidebar and further prevent dragging the metabox.
+Fixed: Get proper mime type.
+Fixed: Added tracking db options to uninstall process.
+Fixed: Unset link image attribute when importing from NextGEN.
+Fixed: Error when trying to get images that were not imported correctly / do not exist as entries in db.
+Changed: Lazy load setting default ON.
+Changed: Updated CPT settings conditions.
+Changed: Grid Automatic default Row Height from 150 to 250.
+Changed: Update settings texts.
+Changed: Last 5 galleries now appear in selectize without searching.
+Fixed: Incompatibility with Gutenberg block and widgets.
+Fixed: Modula Widget before and after args.
+Fixed: Sharing on LinkedIn.
+Changed: Import/Export page received a new design.
+Added: Link to Modula's about page in the plugin's branding header.
+Added: Upsell to Modula PRO in plugins page.
+Fixed: Migration from NextGEN galleries replacement for `[nggallery id=”xx″]` shortcode format.
+Fixed: JavaScript error when Syntax Highlighting is disabled.
+Fixed: Don't enqueue scripts/styles when not needed.
+Fixed: Mobile/table gutter not working correctly.
+Fixed: Set a default widht of 100% when there is no value.
 Changed: Improved Upsells
-Fixed: Notice placing in settings ( [#617](https://github.com/WPChill/modula-lite/issues/617) )
-Fixed: Compatibility issue with Meow Lightbox ( [#575](https://github.com/WPChill/modula-lite/issues/575) )
-Added: Mobile Gallery Height setting  ( [#581](https://github.com/WPChill/modula-lite/issues/582) )
+Fixed: Notice placing in settings.
+Fixed: Compatibility issue with Meow Lightbox.
+Added: Mobile Gallery Height setting.
 
 = 2.5.5 - 04/10/2021 =
 Fixed: WP Cron fatal error.
@@ -161,29 +163,29 @@ Fixed: Backwards compatibility for custom grid image size after Modula update fr
 Fixed: srcset generated a nonexistent image.
 
 = 2.5.0 - 01/04/2021 =
-Added: Only allow certain users to the Extensions page ( [#476](https://github.com/WPChill/modula-lite/issues/476) )
-Added: Responsive gutters ( [#424](https://github.com/WPChill/modula-lite/issues/424) )
-Added: Srcset and sizes for galleries images for both declared sizes and custom sizes ( [#228](https://github.com/WPChill/modula-lite/issues/228) )
-Added: Custom size and WordPress image sizes selection for galleries grid thumbnail ( [#194](https://github.com/WPChill/modula-lite/issues/194) )
+Added: Only allow certain users to the Extensions page.
+Added: Responsive gutters.
+Added: Srcset and sizes for galleries images for both declared sizes and custom sizes.
+Added: Custom size and WordPress image sizes selection for galleries grid thumbnail.
 Added: FREE vs Premium page
-Added: Added debug info using WordPress' Site Health + added an export option to export single galleries, used for both debugging and export/import operations ( [#155](https://github.com/WPChill/modula-lite/issues/155) )
-Fixed: Powered by links appear 2 times ( [#482](https://github.com/WPChill/modula-lite/issues/482) )
-Fixed: Gutenberg alignment issue when trying to make full width ( [#480](https://github.com/WPChill/modula-lite/issues/480) )
-Fixed: Elementor compatibility ( [#468](https://github.com/WPChill/modula-lite/issues/468) )
-Fixed: Selecting a gallery with no images in Gutenberg ( [#467](https://github.com/WPChill/modula-lite/issues/467) )
-Fixed: Modula's galleries not being displayed properly in preview in Gutenberg ( [#461](https://github.com/WPChill/modula-lite/issues/461) )
-Fixed: Modula's gallery selector not being displayed properly in it's Gutenberg's block ( [#460](https://github.com/WPChill/modula-lite/issues/460) )
-Fixed: Avada theme compatibility issue regarding color pickers ( [#459](https://github.com/WPChill/modula-lite/issues/459) )
-Fixed: Multiple same gallery in page issue ( [#452](https://github.com/WPChill/modula-lite/issues/452) )
-Fixed: JS error in admin when cycling through gallery's images ( [#429](https://github.com/WPChill/modula-lite/issues/429) )
-Fixed: Lazy load incompatibility with Site Ground Optimizer plugin and Avada lazy loading ( [#387](https://github.com/WPChill/modula-lite/issues/395, https://github.com/WPChill/modula-lite/issues/387) )
-Fixed: Conflict where ResizeSensor was declared as global. Now it has been personalized ( [#363](https://github.com/WPChill/modula-lite/issues/363) )
-Fixed: Incompatibility with some themes, where the resize reset of Modula wasn't working correctly ( [#297](https://github.com/WPChill/modula-lite/issues/297) )
-Fixed: Modula's instance not being reset on tab switch ( [#224](https://github.com/WPChill/modula-lite/issues/224) )
-Fixed: Custom CSS's tab editor was not showing correctly if the last tab was the Custom CSS tab ( [#464](https://github.com/WPChill/modula-lite/issues/464) )
+Added: Added debug info using WordPress' Site Health + added an export option to export single galleries, used for both debugging and export/import operations.
+Fixed: Powered by links appear 2 times.
+Fixed: Gutenberg alignment issue when trying to make full width.
+Fixed: Elementor compatibility.
+Fixed: Selecting a gallery with no images in Gutenberg.
+Fixed: Modula's galleries not being displayed properly in preview in Gutenberg.
+Fixed: Modula's gallery selector not being displayed properly in it's Gutenberg's block.
+Fixed: Avada theme compatibility issue regarding color pickers.
+Fixed: Multiple same gallery in page issue.
+Fixed: JS error in admin when cycling through gallery's images.
+Fixed: Lazy load incompatibility with Site Ground Optimizer plugin and Avada lazy loading.
+Fixed: Conflict where ResizeSensor was declared as global. Now it has been personalized.
+Fixed: Incompatibility with some themes, where the resize reset of Modula wasn't working correctly.
+Fixed: Modula's instance not being reset on tab switch.
+Fixed: Custom CSS's tab editor was not showing correctly if the last tab was the Custom CSS tab.
 Changed: Extensions page and how it works
-Changed: Hover effects tab had been given an UI update ( [#114](https://github.com/WPChill/modula-lite/issues/114) )
-Changed: Social share now gives image URL instead of page URL and title/caption of image ( [#326](https://github.com/WPChill/modula-lite/issues/326) )
+Changed: Hover effects tab had been given an UI update.
+Changed: Social share now gives image URL instead of page URL and title/caption of image.
 
 = 2.4.1 - 14/12/2020 =
 Fixed gallery right margin when on full width container
