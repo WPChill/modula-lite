@@ -285,6 +285,8 @@ Changed: Removed "Powered By Modula" meta option. ( [#820](https://github.com/WP
 Changed: Removed "Earn Money" tab. ( [#819](https://github.com/WPChill/modula-lite/issues/819) )
 Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft. ( [#712](https://github.com/WPChill/modula-lite/issues/712) )
 Fixed: Show changes to image's alignment in backend ( [#663](https://github.com/WPChill/modula-lite/issues/663) )
+Added: "Dashboard" page. ( [#800](https://github.com/WPChill/modula-lite/issues/800) )
+Changed: Reorganised admin menu  ( [#633](https://github.com/WPChill/modula-lite/issues/633) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )

@@ -93,6 +93,9 @@ class Modula_Upsells {
 		// Upgrade to PRO plugin action link
 		add_filter( 'plugin_action_links_' . MODULA_FILE, array( $this, 'filter_action_links' ), 60 );
 
+		// GO PRO admim menu link
+		add_filter( 'modula_admin_page_link', array( $this, 'add_go_pro_menu_item' ) );
+        add_action( 'admin_init', array( $this, 'go_pro_redirect' ) );
 
 	}
 
@@ -957,7 +960,7 @@ class Modula_Upsells {
 				<p class="modula-upsell-content"><?php esc_html_e( 'You’re one step closer to becoming a renowned professional! Modula’s brand new Whitelabel addon gives agencies the advantage of replacing every occurrence of the plugin with their brand name and logo, seamlessly integrating the whole Modula pack into their product.', 'modula-best-grid-gallery' ); ?></p>
 				<p>
 					<?php
-	
+
 					$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
 					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=roles-metabox&utm_campaign=modula-whitelabel" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
 
@@ -965,10 +968,10 @@ class Modula_Upsells {
 					?>
 				</p>
 			</div>
-	
+
 			<?php
 		}
-    }
+	}
 
 
 	public function remove_upsells_badge( $tabs ){
@@ -998,6 +1001,31 @@ class Modula_Upsells {
 		);
 
 		return $tabs;
+	}
+
+	public function add_go_pro_menu_item( $links ) {
+
+		$links['gopro'] = array(
+			'page_title' => esc_html__( 'GO PRO', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'GO PRO', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => 'go-pro',
+			'function'   => array( $this, 'go_pro_redirect' ),
+			'priority'   => 999,
+		);
+
+		return $links;
+
+	}
+
+	public function go_pro_redirect() {
+		
+		if ( isset( $_GET['post_type'] ) && 'modula-gallery' === $_GET['post_type'] && isset( $_GET['page'] ) && 'go-pro' === $_GET['page'] ) {
+			$url = 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=admin-menu&utm_campaign=upsell';
+			wp_redirect( $url );
+			exit();
+		}
+
 	}
 
 }

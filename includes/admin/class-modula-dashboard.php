@@ -37,7 +37,7 @@ class Modula_Dashboard {
                 'partners'     => array( 'name' =>__( 'Partners', $this->plugin_txtd ), 'url' => false ),
                 //'troubleshoot' => array( 'name' =>__( 'Troubleshooting', $this->plugin_txtd ), 'url' => false ),
                 'extensions'   => array( 'name' =>__( 'Extensions', $this->plugin_txtd ), 'url' => $this->plugin_link['extensions'] ),
-                'lite_vs_pro'  => array( 'name' =>__( 'Lite vs. Pro', $this->plugin_txtd ), 'url' => $this->plugin_link['lite_vs_pro'] ),
+                'lite_vs_pro'  => array( 'name' =>__( 'Free vs. PRO', $this->plugin_txtd ), 'url' => $this->plugin_link['lite_vs_pro'] ),
 			)
 		);
 
@@ -53,8 +53,8 @@ class Modula_Dashboard {
         // Show addon's header on dashboard
         add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
-        add_filter( 'modula_admin_page_link', array( $this, 'check_lite_vs_pro_tab' ), 99 );
-        
+        add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
+
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Modula_Dashboard {
 	 * @since 2.7.5
 	 */
 	public function add_dashboard_menu_item() {
-        add_submenu_page( 'edit.php?post_type='. $this->plugin_cpt, esc_html__( 'Dashboard', $this->plugin_txtd ), esc_html__( 'Dashboard', $this->plugin_txtd ), 'manage_options', $this->menu_slug, array( $this, 'dashboard_view' ), 0 );
+        add_submenu_page( 'edit.php?post_type='. $this->plugin_cpt, esc_html__( 'Welcome', $this->plugin_txtd ), esc_html__( 'Welcome', $this->plugin_txtd ), 'manage_options', $this->menu_slug, array( $this, 'dashboard_view' ), 0 );
     }
 
     public function clear_admin_notices(){
@@ -99,23 +99,6 @@ class Modula_Dashboard {
             remove_all_actions( 'user_admin_notices' );
             remove_all_actions( 'admin_notices' );
        }
-    }
-
-
-	/**
-	 * Remove Lite vs. Pro tab
-	 *
-	 * @since 2.7.5
-	 */
-	public function check_lite_vs_pro_tab( $links ) {
-
-        if( ! isset( $links['freevspro'] ) ){
-            // Remove lite vs pro tab if page doesn't exist
-            unset( $this->tabs['lite_vs_pro'] );
-        }
-
-		return $links;
-
     }
 
     public function generate_tab_url( $slug ){
@@ -558,6 +541,17 @@ class Modula_Dashboard {
         <?php
         endforeach;
 	}
+
+
+    public function redirect_to_list_or_dash(){
+        if( $this->is_dashboard() && ! isset( $_GET['post_type'] )){
+            $url_to_galleries = add_query_arg( array(
+                'post_type' => 'modula-gallery', 
+            ), admin_url( 'edit.php') );
+            wp_redirect( $url_to_galleries );
+            die();
+        }
+    }
 
 }
 

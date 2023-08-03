@@ -31,11 +31,11 @@ class Modula_Admin {
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
-        // Add Importer Tab
-        add_filter('modula_admin_page_tabs', array($this, 'add_imp_exp_tab'));
+		// Add Importer Tab.
+		add_filter( 'modula_admin_page_tabs', array( $this, 'add_imp_exp_tab' ) );
 
-       // Render Importer tab
-        add_action('modula_admin_tab_imp_exp', array($this, 'render_imp_exp_tab'));
+		// Render Importer tab.
+		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
 
 	}
 
@@ -120,6 +120,7 @@ class Modula_Admin {
 				'menu_slug'  => 'modula-lite-vs-pro',
 				'function'   => array( $this, 'lite_vs_pro' ),
 				'priority'   => 100,
+				'hidden'     => true,
 			),
 		);
 
@@ -139,8 +140,6 @@ class Modula_Admin {
 			'menu_slug'  => '#gallery-defaults',
 			'function'   => array( $this, 'modula_gallery_defaults' ),
 			'priority'   => 22,
-			'is_child'   => true,
-			'delimiter'   => true,
 		);
 
 		$links['albumsdefaults'] = array(
@@ -150,8 +149,6 @@ class Modula_Admin {
 			'menu_slug'  => '#albums-defaults',
 			'function'   => array( $this, 'modula_albums_defaults' ),
 			'priority'   => 26,
-			'is_child'   => true,
-			'delimiter'   => true,
 		);
 
 
@@ -188,8 +185,8 @@ class Modula_Admin {
 
 		if ( ! empty( $this->menu_links ) ) {
 			foreach ( $this->menu_links as $link ) {
-				if(!empty($link)){
-					add_submenu_page( 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
+				if ( ! empty( $link ) ) {
+					add_submenu_page( ( isset( $link['hidden'] ) && $link['hidden'] ) ? null : 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
 				}
 			}
 		}
@@ -498,27 +495,9 @@ class Modula_Admin {
 	}
 
 	public function admin_custom_css() {
-		$child_css = "display: inline-block; color: rgba(240, 246, 252, 0.7); font-family: 'dashicons'; transform: scaleX(-1); margin-right: 5px; content: '\\f474';";
-		$limit_css = "border-bottom: 1px solid hsla(0,0%,100%,.2);";
-		$link_child = '';
-
-		foreach( $this->menu_links as $link ){
-
-			if( isset( $link['is_child'] ) && $link['is_child'] ){
-				$link_child .= '#menu-posts-modula-gallery .wp-submenu li a[href$="' . $link['menu_slug'] . '"]::before {' . $child_css . '}';
-			}
-
-			if( isset( $link['delimiter'] ) && $link['delimiter'] ){
-				$link_child .= '#menu-posts-modula-gallery .wp-submenu li a[href$="' . $link['menu_slug'] . '"] {' . $limit_css . '}';
-			}
-		}
-
 		?>
 		<style type="text/css">
-			<?php echo $link_child; ?>
-			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 			a#modula-uninstall-link {color: #FF0000 !important;font-weight:bold;}
-			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-addons"] {color: #52ad3a;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-lite-vs-pro"] {color: gold;}
 		</style>
 
