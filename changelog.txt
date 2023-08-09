@@ -23,6 +23,7 @@ Changed: Removed "Earn Money" tab.
 Changed: Reorganised admin menu.
 Changed: Removed title from image links.
 Added: "Dashboard" page.
+Added: Image Attribution functionality.
 
 
 = 2.7.4 - 28.03.2023 =

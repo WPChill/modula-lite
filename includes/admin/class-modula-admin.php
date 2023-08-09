@@ -37,6 +37,8 @@ class Modula_Admin {
 		// Render Importer tab.
 		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
 
+		add_action( 'modula_admin_tab_image_attribution', array( $this, 'render_image_attribution_tab' ) );
+		add_action( 'admin_init', array( $this, 'update_image_attribution_options' ) );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -108,6 +110,10 @@ class Modula_Admin {
 				'label'    => esc_html__('Roles', 'modula-best-grid-gallery'),
 				'priority' => 120,
 				'badge'    => 'PRO'
+        	),
+			'image_attribution' => array(
+				'label'    => esc_html__('Image Attribution', 'modula-best-grid-gallery'),
+				'priority' => 150,
         	)
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
@@ -682,6 +688,44 @@ class Modula_Admin {
 		$classes .= ' single-modula-gallery';
 		return $classes;
 
+	}
+
+	public function render_image_attribution_tab() {
+		include MODULA_PATH . 'includes/admin/tabs/image-attribution.php';
+	}
+
+	/**
+	 * Update troubleshooting options.
+	 */
+	public function update_image_attribution_options() {
+
+		if ( ! isset( $_POST['modula-image-attribution-submit'] ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_attribution_option_post' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$options    = isset( $_POST['modula_image_attribution_option'] ) ? wp_unslash( $_POST['modula_image_attribution_option'] ) : false;
+        $ia_options = array();
+
+        if ( is_array( $options ) && ! empty( $options ) ) {
+            foreach ( $options as $option => $value ) {
+                if ( is_array( $value ) ) {
+                    $ia_options[ $option ] = array_map( 'sanitize_text_field', $value );
+                }else{
+                    $ia_options[ $option ] = sanitize_text_field( $value );
+                }
+                
+            }
+        }
+
+        update_option( 'modula_image_attribution_option', $ia_options );
 	}
 
 }
