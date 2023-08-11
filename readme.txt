@@ -289,6 +289,7 @@ Added: "Dashboard" page. ( [#800](https://github.com/WPChill/modula-lite/issues/
 Changed: Reorganised admin menu  ( [#633](https://github.com/WPChill/modula-lite/issues/633) )
 Changed: Removed title from image links  ( [#786](https://github.com/WPChill/modula-lite/issues/786) )
 Added: Image Attribution functionality.(  [#830](https://github.com/WPChill/modula-lite/issues/830) )
+Fixed: Headers already sent warning with Divi theme. (  [#832](https://github.com/WPChill/modula-lite/issues/832) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )

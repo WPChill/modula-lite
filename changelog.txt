@@ -24,6 +24,7 @@ Changed: Reorganised admin menu.
 Changed: Removed title from image links.
 Added: "Dashboard" page.
 Added: Image Attribution functionality.
+Fixed: Headers already sent warning with Divi theme.
 
 
 = 2.7.4 - 28.03.2023 =
