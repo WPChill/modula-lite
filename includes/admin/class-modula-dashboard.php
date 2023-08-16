@@ -16,6 +16,8 @@ class Modula_Dashboard {
     private $plugin_cpt;
     private $plugin_txtd;
     private $images_url;
+	private $plugin_link;
+	private $header_hook;
 
 	public function __construct( $plugin_file, $plugin_cpt, $plugin_txtd, $images_url, $links, $page_header_hook ) {
 
