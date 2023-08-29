@@ -217,6 +217,13 @@ a.wpchill_dashboard_item_button {
     background-color: #33a370;
 }
 
+a.wpchill_dashboard_item_button_reverse {
+    color: #33a370;
+    background-color: #fff;
+    border-color: #33a370;
+    float:right;
+}
+
 a.wpchill_dashboard_item_button .dashicons {
     font-size: 14px;
     width: 14px;
@@ -251,7 +258,6 @@ span.wpchill_dashboard_item_icon {
 }
 
 .wpchill_dashboard_cta_wrap > div {
-    width: 100%;
     display: inline-block;
     vertical-align: middle;
     white-space: normal;
@@ -272,8 +278,24 @@ span.wpchill_dashboard_icon {
     width: 30px;
     height: 30px;
     background-size: cover;
+    background-image: url(../../images/dashboard/icons8-lock-48.png);
+}
+
+span.wpchill_dashboard_icon_features {
     margin-bottom: -2px;
     margin-right: 5px;
+}
+
+span.wpchill_dashboard_icon_blog {
+    margin-bottom: -5px;
+    margin-right: 5px;
+    background-image: url(../../images/dashboard/icons8-help-48.png);
+}
+
+span.wpchill_dashboard_icon_changelog {
+    margin-bottom: -5px;
+    margin-right: 5px;
+    background-image: url(../../images/dashboard/icons8-changelog-48.png);
 }
 
 .wpchill_dashboard_cta_right {
@@ -288,7 +310,6 @@ span.wpchill_dashboard_icon {
     padding: 30px 0;
     box-sizing: border-box;
 }
-
 
 .wpchill_dashboard_latest_item {
     padding: 20px 30px;
@@ -324,14 +345,7 @@ a.wpchill_dashboard_latest_item_title {
     width: 17px;
     height: 17px;
 }
-span.wpchill_dashboard_icon_blog {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-    margin-bottom: -5px;
-    margin-right: 5px;
-}
+
 
 .wpchill_dashboard_late_change{
     display: flex;
@@ -375,6 +389,7 @@ p.wpchill_dashboard_about_us_text {
     background-size: cover;
     position: relative;
     padding: 60px 0px;
+    background-image: url(../../images/dashboard/header-bg-2.png);
 }
 
 h1.wpchill_dashboard_our_values_title {
@@ -419,9 +434,8 @@ p.wpchill_dashboard_our_values_text {
 .wpchill-addons-container,
 .wpchill-free-addons-container{
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
     flex-wrap: wrap;
-    /*padding: 28px 20px 0;*/
 }
 
 .wpchill-addons-container.hidden,
@@ -577,12 +591,13 @@ p.wpchill_dashboard_our_values_text {
         white-space: nowrap;
     }
 
-    .wpchill_dashboard_cta_wrap > div {
-        width: calc( 50% - 30px );
+    .wpchill_dashboard_cta_left {
+        width: calc( 55% - 30px );
     }
 
     .wpchill_dashboard_cta_right {
         text-align: right;
+        width: calc( 45% - 30px );
     }
 
     .wpchill_dashboard_latest_wrap,
