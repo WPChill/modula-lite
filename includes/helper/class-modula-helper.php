@@ -369,27 +369,20 @@ class Modula_Helper {
 		$company     = isset( $image_attribution[ 'image_attribution_company' ] ) ? $image_attribution[ 'image_attribution_company' ] : '';
 		$author      = isset( $image_attribution[ 'image_attribution_author' ] ) ? $image_attribution[ 'image_attribution_author' ] : '';
 
-		ob_start();
-		?>
+		$json_array = array(
+			"@context"   => "https://schema.org/",
+			"@type"      => "ImageObject",
+			"contentUrl" => esc_url( $img_url ),
+			"license"    => esc_url( $license_url ),
+			"creditText" => esc_html( $company ),
+			"creator"    => array(
+				"@type"  =>  "Person",
+				"name"   =>  esc_html( $author ),
+			),
+			"copyrightNotice"=> esc_html( $company ),
+		);
 
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org/",
-				"@type": "ImageObject",
-				"contentUrl": "<?php echo esc_url( $img_url ); ?>",
-				"license": "<?php echo esc_url( $license_url ); ?>",
-				"creditText": "<?php echo esc_html( $company ); ?>",
-				"creator": {
-					"@type": "Person",
-					"name": "<?php echo esc_html( $author ); ?>"
-				},
-				"copyrightNotice": "<?php echo esc_html( $company ); ?>"
-			}
-
-		</script>
-
-		<?php
-		return ob_get_clean();
+		return $json_array;
 		
 	}
 

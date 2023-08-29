@@ -32,8 +32,6 @@ class Modula {
 		// Gallery 'srcset' management.
 		add_action( 'modula_before_gallery', array( $this, 'disable_wp_srcset' ) );
 		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
-		add_action( 'modula_after_gallery', array( $this, 'display_attribution_license' ) );
-		add_action( 'modula_shortcode_after_item', array( $this, 'display_attribution_ld_json' ), 10, 2 );
 		
 	}
 
@@ -67,6 +65,9 @@ class Modula {
 
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
+
+		// Image Attribution
+		require_once MODULA_PATH . 'includes/class-modula-image-attribution.php';
 
 		// Compatibility with other plugins/themes
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
