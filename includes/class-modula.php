@@ -176,7 +176,7 @@ class Modula {
 
 		);
 
-		new Modula_Dashboard( MODULA_FILE, 'modula-gallery', 'modula-best-grid-gallery', MODULA_URL . 'assets/images/dashboard/', $links, 'modula_page_header' );
+		$modula_dashboard = new Modula_Dashboard( MODULA_FILE, 'modula-gallery', 'modula-best-grid-gallery', MODULA_URL . 'assets/images/dashboard/', $links, 'modula_page_header' );
 
 	}
 

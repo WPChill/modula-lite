@@ -37,7 +37,6 @@ class Modula_Dashboard {
                 'general'      => array( 'name' => __( 'Getting Started', $this->plugin_txtd ), 'url' => false ),
                 'about'        => array( 'name' =>__( 'About us', $this->plugin_txtd ), 'url' => false ),
                 'partners'     => array( 'name' =>__( 'Partners', $this->plugin_txtd ), 'url' => false ),
-                //'troubleshoot' => array( 'name' =>__( 'Troubleshooting', $this->plugin_txtd ), 'url' => false ),
                 'extensions'   => array( 'name' =>__( 'Extensions', $this->plugin_txtd ), 'url' => $this->plugin_link['extensions'] ),
                 'lite_vs_pro'  => array( 'name' =>__( 'Free vs. PRO', $this->plugin_txtd ), 'url' => $this->plugin_link['lite_vs_pro'] ),
 			)
@@ -173,38 +172,57 @@ class Modula_Dashboard {
 
     public function _render_getting_started_content(){
     ?>
-        <div class="wpchill_dashboard_content_wrap" >
-            <p class="wpchill_dashboard_default_text"> <?php esc_html_e( 'Thank you for installing Modula. Here are some usefull resources that will help you get started with our plugins: ', $this->plugin_txtd ); ?> </p>
-            <div class="wpchill_dashboard_grid_4" >
-                <div class="wpchill_dashboard_item wpchill_card" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'background-box.png';?>);">
-                   <div> <img src="<?php echo esc_url( $this->images_url ) . 'icons8-book-shelf-96.png';?>" class="wpchill_dashboard_item_icon"/>
-                    <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Documentation', $this->plugin_txtd ); ?> </h3></div>
+        <div class="wpchill_dashboard_content_wrap wpchill_dashboard_getting_started" >
+            <div class="wpchill-heading-section">
+                <h3><?php esc_html_e( 'Thank you for using Modula.', $this->plugin_txtd ); ?></h3>
+                <p> <?php esc_html_e( 'Here are some usefull resources that will help you get started with our plugins: ', $this->plugin_txtd ); ?> </p>
+            </div>
+            
+            <div class="wpchill_dashboard_grid_3" >
+                <div class="wpchill_dashboard_item wpchill_card">
+                    <div class="wpchill_dashboard_item_head">
+                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-book-shelf-96.png';?>" class="wpchill_dashboard_item_icon"/>
+                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Documentation', $this->plugin_txtd ); ?> </h3>
+                    </div>
                     <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Get familiar with our plugin by reading the documentation.', $this->plugin_txtd ); ?> </p>
-                    <a href="<?php echo esc_attr( $this->plugin_link['documentation'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'Read Documentation', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_attr( $this->plugin_link['documentation'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button">
+                        <?php esc_html_e( 'View Documentation', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+                    </a>
                 </div>
-                <div class="wpchill_dashboard_item wpchill_card" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'background-box.png';?>);">
-                <div>  <img src="<?php echo esc_url( $this->images_url ) . 'icons8-services-96.png';?>" class="wpchill_dashboard_item_icon"/>
-                    <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Settings', $this->plugin_txtd ); ?> </h3></div>
+                <div class="wpchill_dashboard_item wpchill_card">
+                    <div class="wpchill_dashboard_item_head"> 
+                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-services-96.png';?>" class="wpchill_dashboard_item_icon"/>
+                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Settings', $this->plugin_txtd ); ?> </h3>
+                    </div>
                     <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Dig deeper into what Modula can do for you.', $this->plugin_txtd ); ?> </p>
-                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula' ) ); ?>" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'View Modula Settings', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula' ) ); ?>" class="wpchill_dashboard_item_button">
+                        <?php esc_html_e( 'View Settings', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+                    </a>
                 </div>
-                <div class="wpchill_dashboard_item wpchill_card" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'background-box.png';?>);">
+                <!-- <div class="wpchill_dashboard_item wpchill_card" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'background-box.png';?>);">
                 <div>  <img src="<?php echo esc_url( $this->images_url ) . 'icons8-galleries-96.png';?>" class="wpchill_dashboard_item_icon"/>
                     <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Galleries', $this->plugin_txtd ); ?> </h3></div>
                     <p class="wpchill_dashboard_item_text"> <?php echo wp_kses_post( __( 'Add your first gallery now. <br> Let\'s build your awesome gallery.', $this->plugin_txtd ) ); ?> </p>
                     <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '' ) ); ?>" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'View Galleries', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
-                </div>
-                <div class="wpchill_dashboard_item wpchill_card" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'background-box.png';?>);">
-                <div>   <img src="<?php echo esc_url( $this->images_url ) . 'icons8-extensions-96.png';?>" class="wpchill_dashboard_item_icon"/>
-                    <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Extensions', $this->plugin_txtd ); ?> </h3></div>
+                </div> -->
+                <div class="wpchill_dashboard_item wpchill_card">
+                    <div class="wpchill_dashboard_item_head">
+                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-extensions-96.png';?>" class="wpchill_dashboard_item_icon"/>
+                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Extensions', $this->plugin_txtd ); ?> </h3>
+                    </div>
                     <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Make the most of Modula by installing awesome extensions.', $this->plugin_txtd ); ?> </p>
-                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'View Modula Extensions', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>" class="wpchill_dashboard_item_button">
+                        <?php esc_html_e( 'View Extensions', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+                    </a>
                 </div>
             </div>
 
             <!-- Common use cases -->
             <div class="wpchill_card wpchill_dashboard_use_cases_wrap" >
-                <h3 class="wpchill_dashboard_item_title"><span class="wpchill_dashboard_item_icon" style="background-color: #3858e9;color: #fff;">?</span><?php esc_html_e( 'Common Use Cases', $this->plugin_txtd ); ?> </h3>
+                <h3 class="wpchill_dashboard_item_title">
+                    <span class="wpchill_dashboard_item_icon wpchill-common-case-icon">?</span>
+                    <?php esc_html_e( 'Common Use Cases', $this->plugin_txtd ); ?>
+                </h3>
                 <div class="wpchill_dashboard_grid_2">
                     <div  id="wpchill_use_cases_block" class="wpchill_dashboard_use_cases">
                         <?php $this->render_common_use_cases(); ?>
@@ -213,30 +231,37 @@ class Modula_Dashboard {
             </div>
 
              <!-- Call to action/upsell -->
-            <div class="wpchill_dashboard_cta_wrap" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'banner-upsell.png';?>);">
+            <div class="wpchill_dashboard_cta_wrap">
                 <div class="wpchill_dashboard_cta_left">
-                    <h2 class="wpchill_dashboard_cta_title"> <span class="wpchill_dashboard_icon" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'icons8-lock-48.png';?>);"></span><?php esc_html_e( 'Unlock all features of Modula', $this->plugin_txtd ); ?> </h2>
-                    <p class="wpchill_dashboard_default_text"> <?php esc_html_e( 'Thank you for installing Modula. Here are some usefull resources that will help you get started with our plugins: ', $this->plugin_txtd ); ?> </p>
+                    <h2 class="wpchill_dashboard_cta_title">
+                        <span class="wpchill_dashboard_icon" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'icons8-lock-48.png';?>);"></span>
+                        <?php esc_html_e( 'Unlock all features of Modula', $this->plugin_txtd ); ?>
+                    </h2>
+                    <p class="wpchill_dashboard_default_text">
+                        <?php esc_html_e( 'Thank you for installing Modula. Here are some usefull resources that will help you get started with our plugins: ', $this->plugin_txtd ); ?>
+                    </p>
                 </div>
                 <div class="wpchill_dashboard_cta_right">
-                    <a href="<?php echo esc_attr( $this->plugin_link['pricing'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'Get Modula Pro', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_attr( $this->plugin_link['pricing'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'Get Modula Pro', $this->plugin_txtd ); ?><span class="dashicons dashicons-arrow-right-alt"></span> </a>
                 </div>
             </div>
             <div class="wpchill_dashboard_late_change">
                 <!-- Latest from the blog -->
                 <div class="wpchill_card wpchill_dashboard_latest_wrap">
-                    <h3 class="wpchill_dashboard_item_title"><span class="wpchill_dashboard_icon_blog" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'icons8-help-48.png';?>);"></span><?php esc_html_e( 'Latest from the blog', $this->plugin_txtd ); ?> </h3>
+                    <h3 class="wpchill_dashboard_item_title">
+                        <span class="wpchill_dashboard_icon_blog" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'icons8-help-48.png';?>);"></span>
+                        <?php esc_html_e( 'Latest from the blog', $this->plugin_txtd ); ?>
+                    </h3>
 
                     <?php $this->_render_rss_feed(); ?>
-                    <a href="<?php echo esc_attr( $this->plugin_link['blog'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370; margin-left: 30px;"> <?php esc_html_e( 'Read the blog', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_attr( $this->plugin_link['blog'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'Read the blog', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
                 </div>
 
                 <!-- Changelog -->
                 <div class="wpchill_card wpchill_dashboard_changelog_wrap">
                     <h3 class="wpchill_dashboard_item_title"><span class="wpchill_dashboard_icon_blog" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'icons8-changelog-48.png';?>);"></span><?php esc_html_e( 'Changelog', $this->plugin_txtd ); ?> </h3>
                     <?php $this->_render_changelog(); ?>
-                    <a href="<?php echo plugin_dir_url( $this->plugin_file ) . "changelog.txt"; ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #33a370; background-color: #fff; border-color: #33a370;float:right; margin-left: 30px;"> <?php esc_html_e( 'View full changelog', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
-
+                    <a href="<?php echo plugin_dir_url( $this->plugin_file ) . "changelog.txt"; ?>" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #33a370; background-color: #fff; border-color: #33a370;float:right;"> <?php esc_html_e( 'View full changelog', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a>
                 </div>
             </div>
         </div>
@@ -247,7 +272,7 @@ class Modula_Dashboard {
     public function _render_about_content(){
 
     ?>
-    <div class="wpchill_dashboard_content_wrap" >
+    <div class="wpchill_dashboard_content_wrap">
 
         <!-- About Us -->
         <div class="wpchill_dashboard_about_us" style="background-image:url(<?php echo esc_url( $this->images_url ) . 'header-bg-2.png';?>);">
@@ -291,7 +316,7 @@ class Modula_Dashboard {
             </div>
         </div>
 
-        <div class="wpchill_dashboard_about_button" > <a href="https://wpchill.com/about/" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370; margin-left: 30px;"> <?php esc_html_e( 'Find more about us', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a> </div>
+        <div class="wpchill_dashboard_about_button" > <a href="https://wpchill.com/about/" target="_BLANK" class="wpchill_dashboard_item_button" style="color: #fff; background-color: #33a370;"> <?php esc_html_e( 'Find more about us', $this->plugin_txtd ); ?> <span class="dashicons dashicons-arrow-right-alt"></span> </a> </div>
 
     </div>
     <?php
@@ -301,8 +326,16 @@ class Modula_Dashboard {
     public function _render_partners_content(){
         ?>
 
-        <div class="wpchill-addons-container">
-            <?php $this->render_partners(); ?>
+        <div class="wpchill_dashboard_partners" >
+            <div class="wpchill-heading-section">
+                <h3><?php esc_html_e( 'Our partners', $this->plugin_txtd ); ?></h3>
+                <p> <?php esc_html_e( 'Here are what our partners devoleped: ', $this->plugin_txtd ); ?> </p>
+            </div>
+
+            
+            <div class="wpchill-addons-container">
+                <?php $this->render_partners(); ?>
+            </div>
         </div>
 
         <?php
@@ -321,7 +354,7 @@ class Modula_Dashboard {
         $rss = fetch_feed(  $this->plugin_link['feed'] );
           
         if ( ! is_wp_error( $rss ) ) {
-            $maxitems = $rss->get_item_quantity( 2 ); 
+            $maxitems = $rss->get_item_quantity( 4 ); 
             $rss_items = $rss->get_items( 0, $maxitems );
         }
 
@@ -342,8 +375,8 @@ class Modula_Dashboard {
             <div class="wpchill_dashboard_latest_item">
                 <img src="<?php echo esc_url( $img ); ?>" class="wpchill_dashboard_latest_item_img" />
                 <div class="wpchill_dashboard_latest_item_data">
-                    <a class="wpchill_dashboard_latest_item_title" href="<?php echo esc_url( $item->get_permalink() ); ?>" > <?php echo esc_html( $item->get_title() ); ?>  </a>
-                    <div class="wpchill_dashboard_latest_item_details"><span class="wpchill_dashboard_latest_item_author"><span class="dashicons dashicons-admin-users""></span> <?php echo esc_html( $item->get_author()->get_name() ); ?> </span> - <span class="wpchill_dashboard_latest_item_date"><span class="dashicons dashicons-clock"></span> <?php echo esc_html( $item->get_date( get_option('date_format') ) ); ?> </span></div>
+                    <a target="_blank" class="wpchill_dashboard_latest_item_title" href="<?php echo esc_url( $item->get_permalink() ); ?>" > <?php echo esc_html( $item->get_title() ); ?></a>
+                    <div class="wpchill_dashboard_latest_item_details"><span class="wpchill_dashboard_latest_item_author"><span class="dashicons dashicons-admin-users"></span> <?php echo esc_html( $item->get_author()->get_name() ); ?> </span> - <span class="wpchill_dashboard_latest_item_date"><span class="dashicons dashicons-clock"></span> <?php echo esc_html( $item->get_date( get_option('date_format') ) ); ?> </span></div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -352,15 +385,18 @@ class Modula_Dashboard {
     }
 
     public function _render_changelog(){
-        $changelog = ABSPATH .'wp-content/plugins/'. dirname( $this->plugin_file) . "/changelog.txt";
+        global $wp_filesystem;
+
+        require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+        WP_Filesystem();
+
+        $changelog = ABSPATH .'wp-content/plugins/'. dirname( $this->plugin_file) . "/last-changelog.txt";
 
         echo '<div class="wpchill_dashboard_changelog">';
 
-        if( file_exists( $changelog ) ){
-            $handle = fopen( $changelog, "r");
-            for( $i = 0; $i < 16; $i++ ){
-                echo nl2br( fgets($handle) );
-            }
+        if ( $wp_filesystem->exists( $changelog ) ) {
+            $content = $wp_filesystem->get_contents( $changelog );
+            echo nl2br(esc_html($content));
         }else{
             esc_html_e( 'The changelog.txt file is missing.', $this->plugin_txtd );
         }
@@ -466,7 +502,6 @@ class Modula_Dashboard {
         echo '<div id="wpchill_dashboard_container">';
             $this->render_header();
             $this->render_content();
-
         echo '</div>';
 	}
 
@@ -515,7 +550,6 @@ class Modula_Dashboard {
     public function enqueue_scripts(){
 
         wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/dashboard.css', null, $this->version );
-    
         wp_enqueue_script( 'modula-dashboard-script', plugin_dir_url( $this->plugin_file ) . 'assets/js/admin/dashboard.js', array( 'jquery', 'updates' ), $this->version, true );
 
     }

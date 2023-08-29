@@ -99,7 +99,7 @@ class Modula_Importer {
     public function add_importer_tab($tabs) {
         $tabs['importer'] = array(
             'label'    => esc_html__('Migrate galleries', 'modula-best-grid-gallery'),
-            'priority' => 50,
+            'priority' => 100,
         );
 
         return $tabs;

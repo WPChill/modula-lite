@@ -114,6 +114,7 @@
 	 *
 	 * @hooked modula_edit_gallery - 100
 	 * @hooked modula_show_schemaorg - 90
+	 * @hooked modula_show_items_schemaorg - 91
 	 * @hooked modula_slider_syncing - 85
 	 */
 	do_action( 'modula_shortcode_after_items', $data->settings, $item_data, $data->images );

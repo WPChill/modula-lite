@@ -1,10 +1,10 @@
 <?php
-$defaults = apply_filters('modula_troubleshooting_defaults', array(
+$defaults = apply_filters( 'modula_troubleshooting_defaults', array(
     'image_attribution'        => 'none',
     'display_with_description' => false,
 ));
 
-$image_attrib_options = get_option( 'modula_image_attribution_option', 'none' );
+$image_attrib_options = get_option( 'modula_image_attribution_option', array() );
 $image_attrib_options = wp_parse_args( $image_attrib_options, $defaults );
 
 $image_attrib_fields = array(
@@ -14,12 +14,12 @@ $image_attrib_fields = array(
         'priority' => 0
     ),
     'image_attribution_author' => array(
-        'label'       => esc_html__( 'Image Author', 'modula-best-grid-gallery' ),
+        'label'       => esc_html__( 'Author', 'modula-best-grid-gallery' ),
         'type'        => 'text',
         'priority'    => 10,
     ),
     'image_attribution_company' => array(
-        'label'       => esc_html__( 'Image Company', 'modula-best-grid-gallery' ),
+        'label'       => esc_html__( 'Company', 'modula-best-grid-gallery' ),
         'type'        => 'text',
         'priority'    => 20,
     ),
@@ -31,8 +31,8 @@ $image_attrib_fields = array(
         'priority'    => 30,
     ),
     'display_with_description' => array(
-        'label'       => esc_html__( 'Display with the description', 'modula-best-grid-gallery' ),
-        'description' => esc_html__( 'Show the license information under each gallery.', 'modula-best-grid-gallery' ),
+        'label'       => esc_html__( 'Display attribution', 'modula-best-grid-gallery' ),
+        'description' => esc_html__( 'Show the attribution information under each gallery.', 'modula-best-grid-gallery' ),
         'type'        => 'toggle',
         'priority'    => 40,
     ),
@@ -45,11 +45,8 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
 ?>
 <div class="row">
     <form id="modula_image_attribution_option" method="post">
-
-        <?php
-            $nonce = wp_create_nonce( 'modula_image_attribution_option_post' )
-        ?>
-        <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
+        <?php $nonce = wp_create_nonce( 'modula_image_attribution_option_post' ) ?>
+        <input type="hidden" name="nonce" value="<?php echo esc_attr($nonce); ?>" />
         <table class="form-table">
             <tbody>
             <?php

@@ -85,36 +85,51 @@ class Modula_Admin {
 	}
 
 	public function register_submenus() {
+
+		/*
+		*  -1 - License
+		*  10 - 
+		*  20 - Standalone
+		*  30 - 
+		*  40 - Advanced Shortcodes
+		*  50 - Watermark
+		*  60 - SpeedUp Settings
+		*  70 - Image Attribution
+		*  80 - Roles
+		*  90 - Misc
+		* 100 - Migrate galleries
+		* 110 - Import/Export
+		*/
 		$tabs =  array(
-			'shortcodes' => array(
-				'label'    => esc_html__('Advanced Shortcodes', 'modula-best-grid-gallery'),
-				'priority' => 40,
-				'badge'    => 'PRO'
-        	),
-			'watermark' => array(
-				'label'    => esc_html__('Watermark', 'modula-best-grid-gallery'),
-				'priority' => 50,
-				'badge'    => 'PRO'
-        	),
-			'compression' => array(
-				'label'    => esc_html__('SpeedUp Settings', 'modula-best-grid-gallery'),
-				'priority' => 30,
-				'badge'    => 'PRO'
-        	),
 			'standalone' => array(
 				'label'    => esc_html__('Standalone', 'modula-best-grid-gallery'),
 				'priority' => 20,
 				'badge'    => 'PRO'
         	),
-			'roles' => array(
-				'label'    => esc_html__('Roles', 'modula-best-grid-gallery'),
-				'priority' => 120,
+        	'compression' => array(
+				'label'    => esc_html__('SpeedUp Settings', 'modula-best-grid-gallery'),
+				'priority' => 30,
 				'badge'    => 'PRO'
         	),
-			'image_attribution' => array(
+        	'shortcodes' => array(
+				'label'    => esc_html__('Advanced Shortcodes', 'modula-best-grid-gallery'),
+				'priority' => 40,
+				'badge'    => 'PRO'
+        	),
+        	'watermark' => array(
+				'label'    => esc_html__('Watermark', 'modula-best-grid-gallery'),
+				'priority' => 50,
+				'badge'    => 'PRO'
+        	),
+        	'image_attribution' => array(
 				'label'    => esc_html__('Image Attribution', 'modula-best-grid-gallery'),
-				'priority' => 150,
-        	)
+				'priority' => 70,
+        	),
+			'roles' => array(
+				'label'    => esc_html__('Roles', 'modula-best-grid-gallery'),
+				'priority' => 80,
+				'badge'    => 'PRO'
+        	),
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 
@@ -185,6 +200,16 @@ class Modula_Admin {
 
 		// Sort tabs based on priority.
 		uasort( $this->tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
+		// move pro tabs at the end
+		$pro_tabs = array();
+		foreach ( $this->tabs as $key => $tab ) {
+			if ( isset( $tab['badge'] ) && 'PRO' == $tab['badge'] ) {
+				$pro_tabs[ $key ] = $tab;
+				unset( $this->tabs[ $key ] );
+			}
+		}
+		$this->tabs = array_merge( $this->tabs, $pro_tabs );
 
 		// Sort menu items based on priority
 		uasort( $this->menu_links, array( 'Modula_Helper', 'sort_data_by_priority' ) );
@@ -549,7 +574,7 @@ class Modula_Admin {
     public function add_imp_exp_tab($tabs) {
         $tabs['imp_exp'] = array(
             'label'    => esc_html__('Import/Export', 'modula-best-grid-gallery'),
-            'priority' => 60,
+            'priority' => 100,
         );
 
         return $tabs;

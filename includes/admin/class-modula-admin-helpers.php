@@ -81,9 +81,8 @@ class Modula_Admin_Helpers {
 			<div class="modula-status-bar">
 			</div>
 			<div class="modula-header-links">
-				<a href="https://wp-modula.com/knowledge-base/" target="_blank" id="get-help"
-				class="button button-secondary"><span
-							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
+				<a href="https://wp-modula.com/knowledge-base/" target="_blank" id="get-help" class="button button-secondary">
+					<span class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
 				</a>
 				<?php do_action( 'modula_header_bar_links' ); ?>
 			</div>
