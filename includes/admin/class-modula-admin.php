@@ -135,8 +135,8 @@ class Modula_Admin {
 
 		$links = array(
 			'freevspro' => array(
-				'page_title' => esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ),
+				'page_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
 				'menu_slug'  => 'modula-lite-vs-pro',
 				'function'   => array( $this, 'lite_vs_pro' ),

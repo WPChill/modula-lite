@@ -328,7 +328,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				if ( is_array( $upsell_packages ) && ! empty( $upsell_packages ) ) {
 					$first_key                             = array_key_first( $upsell_packages );
 					$upsell_packages                       = array_slice( $upsell_packages, 0, 1 );
-					$upsell_packages[ $first_key ]['name'] = esc_html__( 'PRO', 'modula-best-grid-gallery' );
+					$upsell_packages[ $first_key ]['name'] = esc_html__( 'Premium', 'modula-best-grid-gallery' );
 					unset( $upsell_packages[ $first_key ]['upgrade_price'] );
 					unset( $upsell_packages[ $first_key ]['excerpt'] );
 					unset( $upsell_packages[ $first_key ]['extra_features']['sites'] );

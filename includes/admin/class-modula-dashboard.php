@@ -36,7 +36,7 @@ class Modula_Dashboard {
                 'about'        => array( 'name' => __( 'About us', 'modula-best-grid-gallery' ), 'url' => false ),
                 'partners'     => array( 'name' => __( 'Partners', 'modula-best-grid-gallery' ), 'url' => false ),
                 'extensions'   => array( 'name' => __( 'Extensions', 'modula-best-grid-gallery' ), 'url' => $this->plugin_link['extensions'] ),
-                'lite_vs_pro'  => array( 'name' => __( 'Free vs. PRO', 'modula-best-grid-gallery' ), 'url' => $this->plugin_link['lite_vs_pro'] ),
+                'lite_vs_pro'  => array( 'name' => __( 'Free vs. Premium', 'modula-best-grid-gallery' ), 'url' => $this->plugin_link['lite_vs_pro'] ),
 			)
 		);
 
@@ -234,7 +234,7 @@ class Modula_Dashboard {
                     </p>
                 </div>
                 <div class="wpchill_dashboard_cta_right">
-                    <a href="<?php echo esc_attr( $this->plugin_link['pricing'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Get Modula Pro', 'modula-best-grid-gallery' ); ?><span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                    <a href="<?php echo esc_attr( $this->plugin_link['pricing'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Get Modula Premium', 'modula-best-grid-gallery' ); ?><span class="dashicons dashicons-arrow-right-alt"></span> </a>
                 </div>
             </div>
             <div class="wpchill_dashboard_late_change">
@@ -561,7 +561,7 @@ class Modula_Dashboard {
         ?>
         <div class="wpchill_dashboard_use_case"> 
         <h4 class="wpchill_dashboard_uc_title"> <?php echo esc_html( $case['title'] ); ?> </h4> 
-            <p class="wpchill_dashboard_item_text"> <?php echo esc_html( $case['description'] ); ?> </p> 
+            <p class="wpchill_dashboard_item_text"> <?php echo wp_kses_post( $case['description'] ); ?> </p> 
         </div>
 
         <?php

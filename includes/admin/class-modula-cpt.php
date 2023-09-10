@@ -942,11 +942,11 @@ class Modula_CPT {
 					<p>
 						<a target="_blank"
 						   href="<?php echo esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro') ); ?>"
-						   class="button"><?php esc_html_e( 'Free vs PRO', 'modula-best-grid-gallery' ) ?></a>
+						   class="button"><?php esc_html_e( 'Free vs Premium', 'modula-best-grid-gallery' ) ?></a>
 						<a target="_blank"
 						   style="margin-top:10px;"
 						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"
-						   class="button-primary button"><?php esc_html_e( 'Get Modula Pro!', 'modula-best-grid-gallery' ) ?></a>
+						   class="button-primary button"><?php esc_html_e( 'Get Modula Premium!', 'modula-best-grid-gallery' ) ?></a>
 					</p>
 				</div>
 			</div>

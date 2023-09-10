@@ -12,6 +12,7 @@ Fixed: Shuffle Images setting disabled for Masonry gallery type
 Fixed: Fatal error if "grid_type" is not properly set.
 Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft.
 Fixed: Show changes to image's alignment in backend.
+Fixed: Headers already sent warning with Divi theme.
 Changed: Removed tracking.
 Changed: Documentation link.
 Changed: Removed upsell from "General" tab.
@@ -24,13 +25,6 @@ Changed: Removed "Powered By Modula" meta option.
 Changed: Removed "Earn Money" tab.
 Changed: Reorganised admin menu.
 Changed: Removed title from image links.
-<<<<<<< Updated upstream
-Added: "Dashboard" page.
-Added: Image Attribution functionality.
-Fixed: Headers already sent warning with Divi theme.
-
-=======
->>>>>>> Stashed changes
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set

@@ -11,6 +11,7 @@ Fixed: Shuffle Images setting disabled for Masonry gallery type
 Fixed: Fatal error if "grid_type" is not properly set.
 Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft.
 Fixed: Show changes to image's alignment in backend.
+Fixed: Headers already sent warning with Divi theme.
 Changed: Removed tracking.
 Changed: Documentation link.
 Changed: Removed upsell from "General" tab.

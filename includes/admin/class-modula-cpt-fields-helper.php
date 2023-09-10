@@ -185,7 +185,7 @@ class Modula_CPT_Fields_Helper {
 						'grid'             => esc_html__( 'Masonry', 'modula-best-grid-gallery' )
 					),
 					"disabled" => array(
-						'title'  => esc_html__( 'Gallery types with PRO license', 'modula-best-grid-gallery' ),
+						'title'  => esc_html__( 'Gallery types with Premium license', 'modula-best-grid-gallery' ),
 						'values' => array(
 							"slider"     => esc_html__( 'Slider', 'modula-best-grid-gallery' ),
 						),
@@ -574,7 +574,7 @@ class Modula_CPT_Fields_Helper {
 						'zoom-in'  => esc_html__( 'Magnifying Glass', 'modula-best-grid-gallery'),
 					),
 					"disabled" => array(
-						'title'  => esc_html__( 'Cursors with PRO license', 'modula-best-grid-gallery' ),
+						'title'  => esc_html__( 'Cursors with Premium license', 'modula-best-grid-gallery' ),
 						'values' => array(
 							'wait'        => esc_html__( 'Loading', 'modula-best-grid-gallery'),
 							'cell'        => esc_html__( 'Cell', 'modula-best-grid-gallery'),
