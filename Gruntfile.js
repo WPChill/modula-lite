@@ -112,7 +112,7 @@ module.exports = function( grunt ) {
 					'!postcss.config.js',
 					'!webpack.config.js',
 					'!set_tags.sh',
-					'!modula-best-grid-gallery.zip',
+					'!**.zip',
 					'!old/**',
 					'!bin/**',
 					'!tests/**',
