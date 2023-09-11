@@ -1,4 +1,4 @@
-= 2.7.5 - TBD =
+= 2.7.5 - 11.09.2023 =
 Added: "Getting Started" page.
 Added: Image Atributtion
 Fixed: Lazy load not working properly.
@@ -13,6 +13,7 @@ Fixed: Fatal error if "grid_type" is not properly set.
 Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft.
 Fixed: Show changes to image's alignment in backend.
 Fixed: Headers already sent warning with Divi theme.
+Fixed: Do not add srcset and sizes if image is cropped
 Changed: Removed tracking.
 Changed: Documentation link.
 Changed: Removed upsell from "General" tab.
@@ -25,6 +26,10 @@ Changed: Removed "Powered By Modula" meta option.
 Changed: Removed "Earn Money" tab.
 Changed: Reorganised admin menu.
 Changed: Removed title from image links.
+Changed: Migrate closing lightbox with Esc button functionality from PRO to LITE
+Changed: New gallery Guttenberg block
+Added: "Dashboard" page.
+Added: Image Attribution functionality.
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set

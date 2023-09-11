@@ -263,8 +263,8 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
-= 2.7.5 - TBD =
-Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) ) ( [#37](https://github.com/WPChill/modula-lite/issues/37) )
+= 2.7.5 - 11.09.2023 =
+Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) )
 Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image. ( [#795](https://github.com/WPChill/modula-lite/issues/795) )
 Changed: Removed tracking ( [#798](https://github.com/WPChill/modula-lite/issues/798) )
 Fixed: Compatibility with Elementor popup. ( [#804](https://github.com/WPChill/modula-lite/issues/804) )
@@ -290,6 +290,9 @@ Changed: Reorganised admin menu  ( [#633](https://github.com/WPChill/modula-lite
 Changed: Removed title from image links  ( [#786](https://github.com/WPChill/modula-lite/issues/786) )
 Added: Image Attribution functionality.(  [#830](https://github.com/WPChill/modula-lite/issues/830) )
 Fixed: Headers already sent warning with Divi theme. (  [#832](https://github.com/WPChill/modula-lite/issues/832) )
+Fixed: Do not add srcset and sizes if image is cropped (  [#817](https://github.com/WPChill/modula-lite/issues/817) )
+Changed: Migrate closing lightbox with Esc button functionality from PRO to LITE (  [#808](https://github.com/WPChill/modula-lite/issues/808) )
+Changed: New gallery Guttenberg block (  [#812](https://github.com/WPChill/modula-lite/issues/812) )
 
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
