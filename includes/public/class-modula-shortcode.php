@@ -26,14 +26,13 @@ class Modula_Shortcode {
 		add_filter( 'modula_gallery_template_data', 'modula_add_gallery_class', 10 );
 		add_filter( 'modula_gallery_template_data', 'modula_add_align_classes', 99 );
 		add_action( 'modula_shortcode_after_items', 'modula_show_schemaorg', 90 );
-		add_action( 'modula_shortcode_after_items', 'powered_by_modula', 90 );
 		add_action( 'modula_shortcode_after_items', 'modula_edit_gallery', 100);
 
 		// The template image action, used to display the gallery image
 		add_action( 'modula_item_template_image', 'modula_sources_and_sizes', 35, 1 );
 
 		// Add js scripts
-		add_action( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
+		add_filter( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
 
 	}
 
@@ -43,8 +42,8 @@ class Modula_Shortcode {
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery.js', array( 'jquery', 'modula-isotope' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
@@ -105,6 +104,12 @@ class Modula_Shortcode {
 		$settings = apply_filters('modula_backwards_compatibility_front',get_post_meta( $atts['id'], 'modula-settings', true ));
 
 		$default  = Modula_CPT_Fields_Helper::get_defaults();
+
+		// Check "grid_type" before parsing and unset so defaults could be used.
+		if ( isset( $settings['type'] ) && 'grid' === $settings['type'] && empty( $settings['grid_type'] ) ) {
+			unset( $settings['grid_type'] );
+		}
+
 		$settings = wp_parse_args( $settings, $default );
 
 		$type = 'creative-gallery';
@@ -386,49 +391,30 @@ class Modula_Shortcode {
 			$fancybox_options['arrows'] = true;
 		}
 
-		$fancybox_options['baseTpl'] = '<div class="modula-fancybox-container modula-lightbox-' . $settings['gallery_id'] . '" role="dialog" tabindex="-1">'.
-		                               '<div class="modula-fancybox-bg"></div>'.
+		$fancybox_options['baseTpl'] = '<div class="modula-fancybox-container modula-lightbox-' . $settings['gallery_id'] . '" role="dialog" tabindex="-1">' .
+		                               '<div class="modula-fancybox-bg"></div>' .
 		                               '<div class="modula-fancybox-inner">' .
-		                               '<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>'.
-		                               '<div class="modula-fancybox-toolbar">{{buttons}}</div>'.
-		                               '<div class="modula-fancybox-navigation">{{arrows}}</div>'.
-		                               '<div class="modula-fancybox-stage"></div>'.
-		                               '<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>'.
-		                               "</div>".
+		                               '<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>' .
+		                               '<div class="modula-fancybox-toolbar">{{buttons}}</div>' .
+		                               '<div class="modula-fancybox-navigation">{{arrows}}</div>' .
+		                               '<div class="modula-fancybox-stage"></div>' .
+		                               '<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>' .
+		                               "</div>" .
 		                               "</div>";
-
 
 		/**
 		 * Hook: modula_fancybox_options.
 		 *
 		 */
-		$fancybox_options = apply_filters('modula_fancybox_options',$fancybox_options,$settings);
+		$fancybox_options = apply_filters( 'modula_fancybox_options', $fancybox_options, $settings );
 
 		return $fancybox_options;
-
 	}
 
 
-
 	public function affiliate_shortcode_handler( $atts ) {
-		$default_atts = array(
-			'text' => false
-		);
-
-		$atts = wp_parse_args( $atts, $default_atts );
-
-		$affiliate = get_option( 'modula_affiliate', array() );
-		$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
-
-		$html = '<div class="modula-powered">';
-		$html .= '<p>' .  esc_html( $affiliate['text'] );
-		$html .= '<span>';
-		$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
-		$html .= '</span>';
-		$html .= '</p>';
-		$html .= '</div>';
-
-		return $html;
+		// This functionality was removed.
+		return '';
 	}
 
 }

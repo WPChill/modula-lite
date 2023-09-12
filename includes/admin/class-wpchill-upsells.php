@@ -328,7 +328,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				if ( is_array( $upsell_packages ) && ! empty( $upsell_packages ) ) {
 					$first_key                             = array_key_first( $upsell_packages );
 					$upsell_packages                       = array_slice( $upsell_packages, 0, 1 );
-					$upsell_packages[ $first_key ]['name'] = esc_html__( 'PRO', 'modula-best-grid-gallery' );
+					$upsell_packages[ $first_key ]['name'] = esc_html__( 'Premium', 'modula-best-grid-gallery' );
 					unset( $upsell_packages[ $first_key ]['upgrade_price'] );
 					unset( $upsell_packages[ $first_key ]['excerpt'] );
 					unset( $upsell_packages[ $first_key ]['extra_features']['sites'] );
@@ -384,7 +384,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					?>
 					<div class="<?php echo esc_attr($package_class); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
-						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
+						<p class="wpchill-name"><strong><?php echo esc_html( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php echo ( isset( $package['excerpt'] ) ) ? '<p class="description">' . esc_html( $package['excerpt'] ) . '</p>' : ''; ?>
 					</div>
 				<?php } ?>

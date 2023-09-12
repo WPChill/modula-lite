@@ -47,6 +47,13 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	}
 
 	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $crop );
+
+	$original_image = false;
+
+	if( 'full' === $grid_sizes ){
+		$original_image = wp_get_original_image_url( $item['id'] );
+	}
+
 	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );
 	$image_info = false;
 
@@ -67,9 +74,9 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 	$item_data['img_attributes']['height'] = $sizes['height'];
 	$item_data['image_full']               = $sizes['url'];
 	$item_data['image_url']                = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
-	// If thumb_url exists it means we are in predefined sizes
-	$item_data['img_attributes']['src']      = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
-	$item_data['img_attributes']['data-src'] = ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url;
+	// If thumb_url exists it means we are in predefined sizes.
+	$item_data['img_attributes']['src']      = $original_image ? $original_image : ( ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url );
+	$item_data['img_attributes']['data-src'] = $original_image ? $original_image : ( ( isset( $sizes['thumb_url'] ) ) ? $sizes['thumb_url'] : $image_url );
 	$item_data['image_info']                 = $image_info;
 
 	return $item_data;
@@ -103,7 +110,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open attachment page', 'modula-best-grid-gallery');
-		$item_data['link_attributes']['title']      = esc_html__('Open attachment page', 'modula-best-grid-gallery');
 		if ( '' != $item['link'] ) {
 			$item_data['link_attributes']['href'] = $item['link'];
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
@@ -117,7 +123,6 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
 		$item_data['link_attributes']['aria-label'] = esc_html__('Open image', 'modula-best-grid-gallery');
-		$item_data['link_attributes']['title']      = esc_html__('Open image', 'modula-best-grid-gallery');
 
 	} else {
 		if( modula_href_required() ){
@@ -179,9 +184,9 @@ function modula_enable_lazy_load( $item_data, $item, $settings ){
 		// Fix for lazyload scripts when working with Automatic Grid
 		if ( !apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
 			$item_data[ 'img_classes' ][] = 'lazyloaded';
+			return $item_data;
 		}
 
-		return $item_data;
 	}
 
 	if ( isset( $item_data['img_classes'] ) && is_array( $item_data['img_classes'] ) ) {
@@ -259,13 +264,13 @@ function modula_add_scripts( $scripts, $settings ){
 
 	$needed_scripts = array();
 
-	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ){
+	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ) {
 		$needed_scripts[] = 'modula-lazysizes';
 	}
 
 	if ( 'grid' == $settings['type'] && 'automatic' == $settings['grid_type'] ) {
 		$needed_scripts[] = 'modula-grid-justified-gallery';
-	}else{
+	} else {
 		$needed_scripts[] = 'modula-isotope';
 		$needed_scripts[] = 'modula-isotope-packery';
 	}
@@ -274,33 +279,7 @@ function modula_add_scripts( $scripts, $settings ){
 		$needed_scripts[] = 'modula-fancybox';
 	}
 
-
 	return array_merge( $needed_scripts, $scripts );
-}
-
-/**Add the powered by text and link
- *
- * @param $settings
- * @moved here since 2.5.0
- */
-function powered_by_modula( $settings ) {
-	if( !isset($settings['powered_by']) ||  0 == $settings['powered_by'] ) {
-		return;
-	}
-
-	$affiliate = get_option( 'modula_affiliate', array() );
-	$affiliate = wp_parse_args( $affiliate, array( 'link' => 'https://wp-modula.com', 'text' => 'Powered by' ) );
-
-	$html = '<div class="modula-powered">';
-	$html .= '<p>' .  esc_html( $affiliate['text'] );
-	$html .= '<span>';
-	$html .= '<a href=' . esc_url( $affiliate['link'] ) . ' target="_blank" rel="noopener noreferrer"> Modula </a>';
-	$html .= '</span>';
-	$html .= '</p>';
-	$html .= '</div>';
-
-	echo $html;
-
 }
 
 /**
@@ -333,7 +312,7 @@ function modula_sources_and_sizes( $data ) {
 
 	if ( isset( $image_meta['sizes']['thumbnail']['mime-type'] ) ) {
 		$mime_type = $image_meta['sizes']['thumbnail']['mime-type'];
-	} else if ( function_exists( 'mime_content_type' ) && $data->image_info) {
+	} else if ( function_exists( 'mime_content_type' ) && isset( $data->image_info ) && $data->image_info ) {
 		$mime_type = mime_content_type( $data->image_info['file_path'] );
 	}
 
@@ -390,7 +369,7 @@ function modula_sources_and_sizes( $data ) {
 	$srcset = apply_filters( 'modula_template_image_srcset', array(), $data, $image_meta );
 
 	if ( empty( $srcset ) ) {
-		$srcset = wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id );
+		$srcset = wp_calculate_image_srcset( $size_array, $data->image_full, $image_meta, $attachment_id );
 	}
 
 	if ( $srcset ) {

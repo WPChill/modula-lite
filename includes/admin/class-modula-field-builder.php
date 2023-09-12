@@ -188,9 +188,8 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="https://modula.helpscoutdocs.com/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
-				$current_tab_content .= '<span> - or - </span>';
-				$current_tab_content .= apply_filters('modula_admin_contact_link', '<a href="https://wp-modula.com/contact-us/" target="_blank" class="">' . esc_html__( 'Get in touch', 'modula-best-grid-gallery' ) . '</a>');
+				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="https://wp-modula.com/knowledge-base/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
+				$current_tab_content .= apply_filters('modula_tab_content_header_actions', '', $tab );
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
@@ -455,7 +454,7 @@ class Modula_Field_Builder {
 						}
 
 						$icon = esc_url( MODULA_URL .'assets/images/settings/' . $key . '-disabled.png' );
-						$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html__( $name ) . '</span></label>';
+						$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
 					}
 
 					$html .= '</div>';
@@ -668,23 +667,23 @@ class Modula_Field_Builder {
 					if ( $effect_elements[ 'title' ] || $effect_elements[ 'description' ] || $effect_elements[ 'social' ] || $effect_elements[ 'scripts' ] ) {
 						
 						$effect .= '<div class="effect-compatibility">';
-						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-pro' );
+						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 
 						if ( $effect_elements[ 'title' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-pro' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Title', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements[ 'description' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-pro' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements[ 'social' ] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-pro' ) . '</strong></span>';
+							$effect .= '<span><strong> ' . esc_html__( 'Social Icons', 'modula-best-grid-gallery' ) . '</strong></span>';
 						}
 						$effect .= '</p>';
 
 						if ( $effect_elements[ 'scripts' ] ) {
-							$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-pro' ) . '</p>';
+							$effect .= '<p class="description">' . esc_html__( 'This effect will add an extra js script to your gallery', 'modula-best-grid-gallery' ) . '</p>';
 						} else {
 							$effect .= '<p class="description">&nbsp;</p>';
 						}
@@ -774,7 +773,7 @@ class Modula_Field_Builder {
 
 			$children = htmlspecialchars(json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8');
 			
-			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings') . ' </span>';
+			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__(' other settings', 'modula-best-grid-gallery' ) . ' </span>';
 		}
 
 		return apply_filters( "modula_render_field_type", $html, $field, $value );

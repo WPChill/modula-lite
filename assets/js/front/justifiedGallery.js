@@ -419,6 +419,11 @@
       if (i === 0 || minHeight > newImgH) minHeight = newImgH;
     }
 
+    // Fix for the under image effect.
+    if ($entry.hasClass('effect-under')) {
+      minHeight = minHeight + jQuery($entry).find('.modula-item-content').height();
+    }
+
     this.buildingRow.height = minHeight;
     return justify;
   };

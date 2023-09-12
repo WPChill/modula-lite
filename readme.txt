@@ -1,10 +1,10 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
 Contributors: wpchill, silkalns
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
-Requires at least: 5.2
-Tested up to: 6.1
+Requires at least: 5.3
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 2.7.4
+Stable tag: 2.7.5
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -40,7 +40,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique and respon
 - [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) support: Use the Video extension to combine videos with images in your galleries. Works with YouTube, Vimeo and self-hosted videos. 
 [See a demo of a video gallery](https://demo.wp-modula.com/video-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
-- [Lightbox slideshow](https://modula.helpscoutdocs.com/article/220-modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow. 
+- [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use the Lightbox Slideshow extension to convert your gallery's lightbox view into a stunning slideshow.
 [See a demo for Lightbox Slideshow Extension](https://demo.wp-modula.com/modula-slideshow?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 - [Password Protect](https://wp-modula.com/kb/password-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite): Use Password Protect extension to block access to your galleries by using a password. Great for giving access to your clients to specific gallery pages. 
@@ -96,6 +96,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique and respon
 - Support and updates, included with each purchase, for 1 year.
 
 [Learn more about Modula Pro.](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+
 
 
 = SEE HOW EASY IT IS TO CREATE A PHOTO GALLERY WITH MODULA =
@@ -158,6 +159,7 @@ Your shortcode will look just like this:
 - Demo for a [password protected gallery](https://demo.wp-modula.com/demo/password-protection/)
 - Refer to our documentation to learn all the settings for [Password Protect Extension](https://wp-modula.com/kb/password-protection&utm_medium=web&utm_campaign=Modula%20Lite)
 
+
 **How to add pagination to a gallery (PRO feature)**
 
 - Demo for a [gallery with pagination](https://demo.wp-modula.com/?modula-gallery=modula-pagination)
@@ -174,6 +176,7 @@ Your shortcode will look just like this:
 - Quick&easy tutorial on how to create a [gallery album](https://wp-modula.com/online-photo-album&utm_medium=web&utm_campaign=Modula%20Lite)
 - Demo for [organizing multiple galleries in albums](https://demo.wp-modula.com/)
 - Refer to our documentation to learn the [settings for creating gallery albums](https://wp-modula.com/kb/modula-albums&utm_medium=web&utm_campaign=Modula%20Lite)
+
 
 == NEED HELP USING MODULA? ==
 
@@ -262,6 +265,38 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+
+= 2.7.5 - 11.09.2023 =
+Fixed: Lazy load not working properly ( [#688](https://github.com/WPChill/modula-lite/issues/688) )
+Fixed: data-src attribute now contains the link to the original image instead of the scaled WP image. ( [#795](https://github.com/WPChill/modula-lite/issues/795) )
+Changed: Removed tracking ( [#798](https://github.com/WPChill/modula-lite/issues/798) )
+Fixed: Compatibility with Elementor popup. ( [#804](https://github.com/WPChill/modula-lite/issues/804) )
+Fixed: Security issue ( [#789](https://github.com/WPChill/modula-lite/issues/789) )
+Fixed: Parenthesis in Gutenberg pull-down choice menu wrongly spaced. ( [#797](https://github.com/WPChill/modula-lite/issues/797) )
+Fixed: PHP warning: Undefined property ( [#796](https://github.com/WPChill/modula-lite/issues/796) )
+Fixed: Fix type for $parent_slug ( [#805](https://github.com/WPChill/modula-lite/issues/805) )
+Changed: Documentation link ( [#803](https://github.com/WPChill/modula-lite/issues/803) )
+Fixed: Shuffle Images setting disabled for Masonry gallery type ( [#813](https://github.com/WPChill/modula-lite/issues/813) )
+Fixed: Fatal error if "grid_type" is not properly set. ( [#816](https://github.com/WPChill/modula-lite/issues/816) )
+Changed: Removed upsell from "General" tab. ( [#827](https://github.com/WPChill/modula-lite/issues/827) )
+Changed: Removed Modula Defaults upsell from single gallery view (edit) metabox. ( [#826](https://github.com/WPChill/modula-lite/issues/826) )
+Changed: Removed "Get in Touch" link. ( [#825](https://github.com/WPChill/modula-lite/issues/825) )
+Changed: Removed "About us" & "Contact us for Support" links. ( [#824](https://github.com/WPChill/modula-lite/issues/824) )
+Changed: Removed "About" page. ( [#823](https://github.com/WPChill/modula-lite/issues/823) )
+Changed: Removed settings sidebar upseells & added Whitelabel upsell tab. ( [#822](https://github.com/WPChill/modula-lite/issues/822) )
+Changed: Removed "Powered By Modula" meta option. ( [#820](https://github.com/WPChill/modula-lite/issues/820) )
+Changed: Removed "Earn Money" tab. ( [#819](https://github.com/WPChill/modula-lite/issues/819) )
+Fixed: "Save Gallery" text should be "Publish Gallery" if gallery is a draft. ( [#712](https://github.com/WPChill/modula-lite/issues/712) )
+Fixed: Show changes to image's alignment in backend ( [#663](https://github.com/WPChill/modula-lite/issues/663) )
+Added: "Dashboard" page. ( [#800](https://github.com/WPChill/modula-lite/issues/800) )
+Changed: Reorganised admin menu  ( [#633](https://github.com/WPChill/modula-lite/issues/633) )
+Changed: Removed title from image links  ( [#786](https://github.com/WPChill/modula-lite/issues/786) )
+Added: Image Attribution functionality.(  [#830](https://github.com/WPChill/modula-lite/issues/830) )
+Fixed: Headers already sent warning with Divi theme. (  [#832](https://github.com/WPChill/modula-lite/issues/832) )
+Fixed: Do not add srcset and sizes if image is cropped (  [#817](https://github.com/WPChill/modula-lite/issues/817) )
+Changed: Migrate closing lightbox with Esc button functionality from PRO to LITE (  [#808](https://github.com/WPChill/modula-lite/issues/808) )
+Changed: New gallery Guttenberg block (  [#812](https://github.com/WPChill/modula-lite/issues/812) )
+
 = 2.7.4 - 28.03.2023 =
 Fixed: Undefined index if default value for gallery setting input fields not set ( [#788](https://github.com/WPChill/modula-lite/issues/788) )
 Fixed: Lightbox error if image caption has '"' and thumbnails navigation on ( [#787](https://github.com/WPChill/modula-lite/issues/787) )

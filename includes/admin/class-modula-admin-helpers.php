@@ -81,18 +81,10 @@ class Modula_Admin_Helpers {
 			<div class="modula-status-bar">
 			</div>
 			<div class="modula-header-links">
-				<a href="<?php echo esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-about-page') ); ?>"
-				   class="button button-secondary"><span
-							class="dashicons dashicons-admin-plugins"></span><?php esc_html_e( 'About', 'modula-best-grid-gallery' ); ?>
+				<a href="https://wp-modula.com/knowledge-base/" target="_blank" id="get-help" class="button button-secondary">
+					<span class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
 				</a>
-				<a href="https://modula.helpscoutdocs.com/" target="_blank" id="get-help"
-				   class="button button-secondary"><span
-							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?>
-				</a>
-				<a class="button button-secondary"
-				   href="https://wp-modula.com/contact-us/" target="_blank"><span
-							class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'modula-best-grid-gallery' ); ?>
-				</a>
+				<?php do_action( 'modula_header_bar_links' ); ?>
 			</div>
 		</div>
 		<?php

@@ -145,7 +145,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.placeImage(index);
 
 				if (instance.isIsotope) {
-					instance.$itemsCnt.modulaisotope('layout');
+					if ( 'undefined' !== typeof modulaisotope ) {
+						instance.$itemsCnt.modulaisotope('layout');
+					}
 				}
 
 				if ( 'grid' == instance.options.type ) {
@@ -644,6 +646,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 					break;
 			}
 		}
+		// Fix for the under-image effect
+		if ($tile.hasClass('effect-under')) {
+			cssProps.top = cssProps.top - $tile.find('.modula-item-content').height();
+		}
 
 		$image.css(cssProps);
 		this.$items.not('.jtg-hidden').eq(index).addClass('tg-loaded');
@@ -851,6 +857,16 @@ jQuery(document).ready(function() {
 		jQuery(this).modulaGallery(modulaSettings);
 	});
 });
+
+
+jQuery( document ).on( 'elementor/popup/show', ( event, id, instance ) => {
+	var modulaGalleries = jQuery( '#elementor-popup-modal-' + id).find('.modula.modula-gallery');
+	jQuery.each(modulaGalleries, function() {
+		var modulaSettings = jQuery(this).data('config');
+
+		jQuery(this).modulaGallery(modulaSettings);
+	});
+} );
 
 function modulaInViewport(element) {
 	if (typeof jQuery === 'function' && element instanceof jQuery) {

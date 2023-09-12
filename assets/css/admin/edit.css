@@ -218,6 +218,10 @@ tbody#the-list .no-items {
     font-weight: bold;
 }
 
+.modula-upsell-modal.modula-upsell-item-modal  ul.modula-upsells-list {
+    padding-left:40px;
+}
+
 /**
  Onboarding CSS
  */
@@ -296,3 +300,50 @@ p.modula-onboarding-doc > a {
     text-decoration: none;
     color: #219962;
 }
+
+#menu-posts-modula-gallery .wp-submenu li a[href$="go-pro"]::before {
+	content: "\f155";
+	font-family: 'dashicons';
+	font-size: 21px;
+	width: 36px;
+	height: 34px;
+	position: absolute;
+	text-align: center;
+	float: left;
+	left: 0;
+}
+  
+#menu-posts-modula-gallery .wp-submenu li a[href$="go-pro"] {
+	background-color: #397e19;
+	color: #fff;
+	vertical-align: middle;
+	display: flex;
+	align-items: center;
+	position: relative;
+	padding-left: 36px;
+    margin-top: 7px;
+}
+
+#menu-posts-modula-gallery ul.wp-submenu.wp-submenu-wrap {
+    padding-bottom: 0;
+}
+
+#adminmenu #menu-posts-modula-gallery .wp-submenu {
+	border-left: unset;
+}
+#menu-posts-modula-gallery .wp-submenu li a[href$="#albums-defaults"]::before,
+#menu-posts-modula-gallery .wp-submenu li a[href$="#gallery-defaults"]::before {
+	display: inline-block;
+	color: rgba(240, 246, 252, 0.7);
+	font-family: 'dashicons';
+	transform: scaleX(-1);
+	margin-right: 5px;
+	content: '\f474';
+}
+#menu-posts-modula-gallery .wp-submenu li a[href$="#albums-defaults"],
+#menu-posts-modula-gallery .wp-submenu li a[href$="#gallery-defaults"] {
+	border-bottom: 1px solid hsla(0, 0%, 100%, .2);
+}
+
+
+

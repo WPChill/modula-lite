@@ -178,15 +178,15 @@ class Modula_Image {
         $name = wp_basename( $file_path, ".$ext" );
 
         // Suffix applied to filename
-        $suffix = "${dest_width}x${dest_height}";
+        $suffix = "{$dest_width}x{$dest_height}";
 
         // Set alignment information on the file.
         if ( $crop ) {
-            $suffix .= ( $align ) ? "_${align}" : "_c";
+            $suffix .= ( $align ) ? "_{$align}" : "_c";
         }
 
         // Get the destination file name
-        $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
+        $dest_file_name = "{$dir}/{$name}-{$suffix}.{$ext}";
 
         // Return the info.
         $info = array(

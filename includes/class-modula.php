@@ -32,6 +32,7 @@ class Modula {
 		// Gallery 'srcset' management.
 		add_action( 'modula_before_gallery', array( $this, 'disable_wp_srcset' ) );
 		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
+		
 	}
 
 	private function load_dependencies() {
@@ -65,6 +66,9 @@ class Modula {
 		// Backward Compatibility
 		require_once MODULA_PATH . 'includes/class-modula-backward-compatibility.php';
 
+		// Image Attribution
+		require_once MODULA_PATH . 'includes/class-modula-image-attribution.php';
+
 		// Compatibility with other plugins/themes
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
 
@@ -73,7 +77,6 @@ class Modula {
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 			require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
-			require_once MODULA_PATH . 'includes/admin/pages/about/class-modula-about-page.php';
 			require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 			require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 			// Admin Helpers
@@ -83,6 +86,7 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
+			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
 
 		}
 
@@ -161,6 +165,20 @@ class Modula {
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
 
+		$links = array(
+			'common_use_cases' => 'https://wp-modula.com/common-use-cases.json',
+			'partners' 		   => 'https://wp-modula.com/parteners.json',
+			'documentation'    => 'https://wp-modula.com/knowledge-base/',
+			'pricing' 		   => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
+			'feed'             => 'https://wp-modula.com/feed',
+			'blog'             => 'https://wp-modula.com/blog',
+			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' )
+
+		);
+
+		$modula_dashboard = new Modula_Dashboard( MODULA_FILE, 'modula-gallery', MODULA_URL . 'assets/images/dashboard/', $links, 'modula_page_header' );
+
 	}
 
 	private function define_public_hooks() {
@@ -229,7 +247,7 @@ class Modula {
 
 					$image['full']        = $image_full[0];
 					$image['thumbnail']   = $image_url[0];
-					$image['orientation'] = $attachment['orientation'];
+					$image['orientation'] = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';
 
 					$modula_helper['items'][] = apply_filters( 'modula_image_properties', $image );
 
@@ -323,7 +341,7 @@ class Modula {
 
 	/**
 	 * Filters the maximum image width to be included in a 'srcset' attribute.
-	 * 
+	 *
 	 * @return int
 	 *
 	 */
@@ -332,33 +350,49 @@ class Modula {
 	}
 
 	/**
+	 * Disables the srcset when lazy loading is enabled.
+	 *
+	 * @return bool
+	 * @since 2.7.5
+	 */
+	public function disable_lazy_srcset( $return, $image, $context, $attachment_id ) {
+
+		if ( preg_match( '/data-source="modula"/i', $image ) ) {
+			return false;
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Prevents WP from adding srcsets to modula gallery images if srcsets are disabled.
-	 * 
+	 *
 	 * @param $settings
+	 *
 	 * @return void
 	 *
 	 */
-
-	public function disable_wp_srcset( $settings ){
+	public function disable_wp_srcset( $settings ) {
 		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-
-		if( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ){
-
-			add_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
+		if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) {
+			add_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
-		
+
+		if ( isset( $settings['lazy_load'] ) && '1' === $settings['lazy_load'] ) {
+			add_filter( 'wp_img_tag_add_srcset_and_sizes_attr', array( $this, 'disable_lazy_srcset' ), 999, 4 );
+		}
 	}
 
 	/**
 	 * Allows WP to add srcsets to other content after the gallery was created.
-	 * 
+	 *
 	 * @param $settings
+	 *
 	 * @return void
 	 *
 	 */
-	public function enable_wp_srcset( $settings ){
-
-		remove_filter('max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ) );
+	public function enable_wp_srcset( $settings ) {
+		remove_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 	}
 
 	// Register and load the widget
@@ -455,4 +489,32 @@ class Modula {
 		return $classes;
 	}
 
+	public function display_attribution_license( $settings ){
+		$image_attrib_options = get_option( 'modula_image_attribution_option', false );
+		$html = apply_filters( 'modula_display_attribution_box', false, $image_attrib_options, $settings );
+
+		if( false === $html ){
+			if( $image_attrib_options && isset( $image_attrib_options[ 'display_with_description' ] ) && '1' === $image_attrib_options[ 'display_with_description' ] && isset( $image_attrib_options[ 'image_attribution' ] ) && 'none' !== $image_attrib_options[ 'image_attribution' ] ){
+				$html = Modula_Helper::render_ia_license_box( $image_attrib_options[ 'image_attribution' ] );
+			}
+		}
+		if( '' != $html ){
+			echo $html;
+		}
+
+	}
+	public function display_attribution_ld_json( $settings, $item ){
+
+		$image_attrib_options = get_option( 'modula_image_attribution_option', false );
+		$html = apply_filters( 'modula_display_attribution_json', false, $image_attrib_options, $settings, $item );
+
+		if( ! $html ){
+			
+			if( $image_attrib_options && isset( $image_attrib_options[ 'image_attribution' ] ) && 'none' !== $image_attrib_options[ 'image_attribution' ] ){
+
+				$html = Modula_Helper::render_ia_item_ld_json( $image_attrib_options, $item['img_attributes']['data-full'] );
+			}
+		}
+		echo $html;
+	}
 }

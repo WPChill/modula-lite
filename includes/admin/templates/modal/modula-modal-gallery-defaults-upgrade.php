@@ -10,13 +10,18 @@
 				<div class="modula-upsells-carousel-modal">
 					<div class="modula-upsell-modal modula-upsell-item-modal">
 						<h2><?php esc_html_e( 'Gallery Defaults', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Speed up your gallery creation process by starting from a pre-saved default. Save any gallery\'s settings as a default and reuse them indefinitely. Got a bunch of galleries you want to apply a default to? That\'s possible too with this extension.', 'modula-best-grid-gallery' ); ?></h4>					
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Speed up your gallery creation process by starting from a pre-saved default. Save any gallery\'s settings as a default and reuse them indefinitely. Got a bunch of galleries you want to apply a default to? That\'s possible too with this extension.', 'modula-best-grid-gallery' ); ?></h4>
+						<ul class="modula-upsells-list">
+							<li>Create default galleries using the desired settings.</li>
+							<li>Add a new gallery and select a default preset previously created. Then add your images.</li>
+							<li>Save your galleries</li>
+						</ul>
 						<p>
 							<?php
 
 							$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
-							$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'Free vs PRO', 'modula-best-grid-gallery' ) . '</a>';
-							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-gallery-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get PRO!', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-gallery-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 							echo apply_filters( 'modula_upsell_buttons', $buttons, 'albums' );
 

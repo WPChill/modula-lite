@@ -589,3 +589,11 @@ html body div.modula-powered svg.modula-logo {
 .modula-gallery.modula-gallery-initialized .modula-items .modula-item {
     visibility: visible;
 }
+
+.modula-creative-commons-wrap p {
+    margin: 0;
+}
+.modula-creative-commons-wrap img {
+    height: 20px;
+    margin-right: 10px;
+}

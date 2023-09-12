@@ -30,9 +30,9 @@ export const ModulaGallerySearch = (props) => {
 						'<div>' +
 						'<span className="title">' +
 						item.label+
-						'<span className="name">( #' +
+						'<span className="name"> (#' +
 						escape(item.value) +
-						' )</span>' +
+						')</span>' +
 						'</div>'
 					);
 				}

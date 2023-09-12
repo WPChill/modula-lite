@@ -88,7 +88,7 @@ class Modula_Divi_Module extends ET_Builder_Module {
 
 	}
 
-	public function render( $attrs, $content = null, $render_slug ) {
+	public function render( $attrs, $content = null, $render_slug = null ) {
 
 		$gallery_id = $post_type = $this->props['gallery_select'];
 		$gallery    = get_post( $gallery_id );

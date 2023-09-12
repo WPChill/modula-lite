@@ -32,8 +32,6 @@ class Modula_Importer {
         // Include required scripts for import
         add_action('admin_enqueue_scripts', array($this, 'admin_importer_scripts'));
 
-        add_filter('modula_admin_page_link',array($this,'migrator_menu'), 5,1);
-
         // Required files
         require_once MODULA_PATH . 'includes/migrate/wp-core-gallery/class-modula-wp-core-gallery-importer.php';
 
@@ -41,27 +39,6 @@ class Modula_Importer {
         $this->init();
 
     }
-
-	/**
-	 * Add sub-menu entry for Migrate
-	 *
-	 * @param $links
-	 *
-	 * @return mixed
-	 */
-    public function migrator_menu($links) {
-
-        $links[] = array(
-        	'page_title' => esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
-	        'menu_title'=> esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
-	        'capability' => 'manage_options',
-	        'menu_slug' => 'edit.php?post_type=modula-gallery&page=modula&modula-tab=importer',
-	        'function' => '',
-	        'priority' => 45
-        );
-        return $links;
-    }
-
 
     /**
      * Loads the plugin into WordPress.
@@ -122,7 +99,7 @@ class Modula_Importer {
     public function add_importer_tab($tabs) {
         $tabs['importer'] = array(
             'label'    => esc_html__('Migrate galleries', 'modula-best-grid-gallery'),
-            'priority' => 50,
+            'priority' => 100,
         );
 
         return $tabs;

@@ -17,31 +17,31 @@ class Modula_Addons {
 				'slug' => 'modula-foo-migrator',
 				'name' => __( 'Migrate away from FooGallery', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
 			),
 			'modula-nextgen-migrator' => array(
 				'slug' => 'modula-nextgen-migrator',
 				'name' => __( 'Migrate away from NextGEN', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
 			),
 			'modula-envira-migrator' => array(
 				'slug' => 'modula-envira-migrator',
 				'name' => __( 'Migrate away from Envira', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
 			),
 			'modula-photoblocks-gallery-migrator' => array(
 				'slug' => 'modula-photoblocks-gallery-migrator',
 				'name' => __( 'Migrate away from PhotoBlocks', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
 			),
 			'modula-final-tiles-migrator' => array(
 				'slug' => 'modula-final-tiles-migrator',
 				'name' => __( 'Migrate away from Final Tiles', 'modula-best-grid-gallery' ),
 				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'moudla-best-grid-gallery')
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
 			)
 		) );
 	}
