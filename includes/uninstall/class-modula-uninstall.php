@@ -27,7 +27,7 @@ class Modula_Uninstall {
     public function uninstall_scripts(){
 
         $current_screen = get_current_screen();
-        if ( 'plugins' == $current_screen->base ) {
+	    if ( in_array( $current_screen->base, array( 'plugins', 'plugins-network' ) ) ) {
             wp_enqueue_style( 'modula-uninstall', MODULA_URL . 'assets/css/admin/uninstall.css' );
             wp_enqueue_script( 'modula-uninstall', MODULA_URL . 'assets/js/admin/modula-uninstall.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
             wp_localize_script( 'modula-uninstall', 'wpModulaUninstall', array(
@@ -167,7 +167,7 @@ class Modula_Uninstall {
         // Delete transients
         if ( '1' == $uninstall_option['delete_transients'] ) {
             // filter for transients to be added by Modula's add-ons
-            $transients_array = apply_filters( 'modula_uninstall_transients' , array ( 'modula_all_extensions' , 'modula-galleries' , 'modula_pro_licensed_extensions' ) );
+            $transients_array = apply_filters( 'modula_uninstall_transients' , array ( 'modula_all_extensions' , 'modula-galleries' , 'modula_pro_licensed_extensions') );
 
             foreach ( $transients_array as $db_transient ) {
                 delete_transient( $db_transient );

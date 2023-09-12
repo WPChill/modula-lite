@@ -108,7 +108,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 				if ( Array.isArray( models ) && models.length > 1 ) {
 					// Create an array with elements that we don't have in our selection
 					differences = _.difference( _.pluck(models, 'cid'), _.pluck(this.models, 'cid') );
-
 					// Check if we have mode elements that we need
 					if ( differences.length > needed ) {
 						// Filter our models, to have only that we don't have already
@@ -129,7 +128,43 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 			 */
 			return wp.media.model.Attachments.prototype.add.call( this, models, options );
 		},
+		single: function( model ) {
+			var previous = this._single;
 
+			// If a `model` is provided, use it as the single model.
+			if ( model ) {
+				this._single = model;
+			}
+			// If the single model isn't in the selection, remove it.
+			if ( this._single && ! this.get( this._single.cid ) ) {
+				delete this._single;
+			}
+
+			this._single = this._single || this.last();
+
+			// If single has changed, fire an event.
+			if ( this._single !== previous ) {
+				if ( previous ) {
+					previous.trigger( 'selection:unsingle', previous, this );
+
+					// If the model was already removed, trigger the collection
+					// event manually.
+					if ( ! this.get( previous.cid ) ) {
+						this.trigger( 'selection:unsingle', previous, this );
+					}
+				}
+				if ( this._single ) {
+					this._single.trigger( 'selection:single', this._single, this );
+				}
+			}
+
+			if(this.length < 20){
+				wp.media.frames.modula.trigger( 'modula:hide-error', {'message' : modulaHelper.strings.limitExceeded } );
+			}
+
+			// Return the single model, or the last model as a fallback.
+			return this._single;
+		}
 	});
 
 	var ModulaLibrary = wp.media.controller.Library.extend({
@@ -283,6 +318,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 	            selection.single( selection.last() );
 
 	        } );
+
+			wp.media.frames.modula.on( 'close', function() {
+
+				wp.media.frames.modula.trigger( 'modula:hide-error', {'message' : modulaHelper.strings.limitExceeded } );
+
+			} );
 	        
 
 	        // Insert into Gallery Button Clicked
@@ -367,7 +408,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 		fileupload: function( up, file, info ){
 
 			var modulaGalleryObject = this;
-
 			var response = JSON.parse( info.response );
 			modulaGalleryObject.generateSingleImage( response['data'] );
 
@@ -414,12 +454,17 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 		},
 
 		generateSingleImage: function( attachment ){
-			var data = { halign: 'center', valign: 'middle', link: '', target: '' }
+			var data = { halign: 'center', valign: 'middle', link: '', target: '', togglelightbox: ''}
 
-			data['full']      = attachment['sizes']['full']['url'];
-			if ( "undefined" != typeof attachment['sizes']['large'] ) {
-				data['thumbnail'] = attachment['sizes']['large']['url'];
-			}else{
+			if ('undefined' !== typeof attachment['sizes']) {
+				data['full'] = attachment['sizes']['full']['url'];
+				if ('undefined' != typeof attachment['sizes']['large']) {
+					data['thumbnail'] = attachment['sizes']['large']['url'];
+				} else {
+					data['thumbnail'] = data['full'];
+				}
+			} else {
+				data['full']      = attachment['url'];
 				data['thumbnail'] = data['full'];
 			}
 

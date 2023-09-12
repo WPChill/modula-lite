@@ -5,16 +5,20 @@ jQuery( function ( $ ) {
 			var $gallery = $scope.find( '.modula-gallery' );
 
 			if ( $gallery.length > 0 ) {
-				var galleryID      = $gallery.attr( 'id' ),
-				    modulaSettings = $gallery.data( 'config' ),
-				    modulaInstance = jQuery( '#' + galleryID ).data( 'plugin_modulaGallery' );
 
-				if ( modulaInstance ) {
-					modulaInstance.destroy();
-					jQuery( '#' + galleryID ).data( 'plugin_modulaGallery', null );
-				}
+				$gallery.each(function(){
 
-				jQuery( '#' + galleryID ).modulaGallery( modulaSettings );
+					var gal = jQuery( this );
+					var modulaSettings = gal.data( 'config' ),
+					    modulaInstance = gal.data( 'plugin_modulaGallery' );
+
+					if ( modulaInstance ) {
+						modulaInstance.destroy();
+						gal.data( 'plugin_modulaGallery', null );
+					}
+
+					gal.modulaGallery( modulaSettings );
+				} );
 			}
 		});
 	}
@@ -26,16 +30,19 @@ jQuery( function ( $ ) {
 			var $gallery = $scope.find( '.modula-gallery' );
 
 			if ( $gallery.length > 0 ) {
-				var galleryID      = $gallery.attr( 'id' ),
-				    modulaSettings = $gallery.data( 'config' ),
-				    modulaInstance = jQuery( '#' + galleryID ).data( 'plugin_modulaGallery' );
+				$gallery.each(function(){
 
-				if ( modulaInstance ) {
-					modulaInstance.destroy();
-					jQuery( '#' + galleryID ).data( 'plugin_modulaGallery', null );
-				}
+					var gal = jQuery( this );
+					var modulaSettings = gal.data( 'config' ),
+					    modulaInstance = gal.data( 'plugin_modulaGallery' );
 
-				jQuery( '#' + galleryID ).modulaGallery( modulaSettings );
+					if ( modulaInstance ) {
+						modulaInstance.destroy();
+						gal.data( 'plugin_modulaGallery', null );
+					}
+
+					gal.modulaGallery( modulaSettings );
+				});
 			}
 		});
 

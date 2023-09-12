@@ -6,78 +6,118 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'deeplink'         => false,
     'gridtypes'        => array(),
     'lightboxes'       => array(),
-    'lazy_load'        => false
+    'lazy_load'        => false,
+    'disable_edit'     => false,
+    'disable_srcset'   => false
 ));
+
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
 $troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 $troubleshooting_fields = array(
-    'enqueue_files' => array(
-        'label'       => esc_html__('Enqueue Modula assets', 'modula-best-grid-gallery'),
-        'description' => esc_html__('Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery'),
-        'type'        => 'toggle',
-        'default'     => 0,
-        'priority'    => 10,
-    ),
-    'gridtypes'     => array(
-        'label'       => esc_html__('Grid Types', 'modula-best-grid-gallery'),
-        'description' => esc_html__('Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery'),
-        'type'        => 'select',
-        'values'      => array(
-            'isotope-grid'   => __( 'General Grid ( Creative / Custom / Columns )', 'modula-best-grid-gallery' ),
-            'justified-grid' => __( 'Justified Grid', 'modula-best-grid-gallery' )
-        ),
-        'priority'    => 20,
+		'misc_settings'         => array(
+				'label'    => esc_html__( 'Miscelaneous settings', 'modula-best-grid-gallery' ),
+				'type'     => 'heading',
+				'priority' => 0
+		),
+		'disable_edit'          => array(
+				'label'       => esc_html__( 'Disable "Edit gallery" link', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you want to disable the "Edit gallery" link from the front-end check this option.', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'priority'    => 10,
+		),
+        'disable_srcset'        => array(
+				'label'       => esc_html__( 'Disable images srcset', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you want to disable the srcset of the front-end images check this option.', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'priority'    => 10,
+		),
+		'enqueue_files_heaging' => array(
+				'label'       => esc_html__( 'Enqueue assets on all pages.', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery' ),
+				'type'        => 'heading',
+				'priority'    => 10,
+		),
+		'enqueue_files'         => array(
+				'label'       => esc_html__( 'Enqueue Modula assets', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Enqueue CSS & JS files on all pages', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'default'     => 0,
+				'priority'    => 10,
+		),
+		'gridtypes'             => array(
+				'label'       => esc_html__( 'Grid Types', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Select which grid type you are using to enqueue scripts and styles', 'modula-best-grid-gallery' ),
+				'type'        => 'select',
+				'values'      => array(
+						'isotope-grid'   => __( 'General Grid ( Creative / Custom / Columns )', 'modula-best-grid-gallery' ),
+						'justified-grid' => __( 'Justified Grid', 'modula-best-grid-gallery' )
+				),
+				'priority'    => 20,
+				'class'       => array( 'troubleshoot-subfield' ),
 
-    ),
-    'lightboxes'    => array(
-        'label'       => esc_html__('Lightbox & links', 'modula-best-grid-gallery'),
-        'description' => esc_html__('Enqueue Fancybox lightbox scripts and styles everywhere.', 'modula-best-grid-gallery'),
-        'type'        => 'select',
-        'values'      => array(
-            'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' )
-        ),
-        'priority'    => 30,
-    ),
-    'lazy_load'     => array(
-        'label'       => esc_html__('Lazy Load', 'modula-best-grid-gallery'),
-        'description' => esc_html__('Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery'),
-        'type'        => 'toggle',
-        'priority'    => 40,
-    )
+		),
+		'lightboxes'            => array(
+				'label'       => esc_html__( 'Lightbox & links', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Enqueue Fancybox lightbox scripts and styles everywhere.', 'modula-best-grid-gallery' ),
+				'type'        => 'select',
+				'values'      => array(
+						'fancybox' => esc_html__( 'Fancybox', 'modula-best-grid-gallery' )
+				),
+				'class'       => array( 'troubleshoot-subfield' ),
+				'priority'    => 30,
+		),
+		'lazy_load'             => array(
+				'label'       => esc_html__( 'Lazy Load', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'Check this if you\'re using Lazyload with your galleries', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'class'       => array( 'troubleshoot-subfield' ),
+				'priority'    => 40,
+		),
 );
 
 $troubleshooting_fields = apply_filters( 'modula_troubleshooting_fields', $troubleshooting_fields );
-$class = 'troubleshoot-subfield';
-if ( ! $troubleshooting_options['enqueue_files'] ) {
-    $class .= ' hide';
-}
+
+uasort( $troubleshooting_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) );
+
 
 ?>
 <div class="row">
-    <h1 class="wp-clearfix"><?php echo esc_html__('Select Modula\'s CSS files and/or JS files to be enqueued on all pages.', 'modula-best-grid-gallery'); ?></h1>
-    <p><?php echo esc_html__('If you have problems with displaying or running Modula Galleries you might want to enqueue Modula CSS and JS in all pages.', 'modula-best-grid-gallery'); ?></p>
     <form id="modula_troubleshooting_option" method="post">
+
+        <?php
+            $nonce = wp_create_nonce( 'modula_troubleshooting_option_post' )
+        ?>
+        <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
         <table class="form-table">
             <tbody>
             <?php
             foreach ($troubleshooting_fields as $key => $ts_field) {
-                ?>
-                <tr valign="top" class="<?php echo 'enqueue_files' != $key ? $class : '' ?>">
-                    <th scope="row" valign="top">
-                        <?php 
-                        echo esc_html( $ts_field['label'] ); 
+                $class = isset( $ts_field['class'] ) ? $ts_field['class'] : array();
+                if ( ! $troubleshooting_options['enqueue_files'] && in_array( 'troubleshoot-subfield', $class ) ) {
+                    $class[] = ' hide';
+                }
 
-                        if ( isset( $ts_field['description'] ) ) {
-                            echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
-                            echo wp_kses_post( $ts_field['description'] );
-                            echo '</div></div>';
+				?>
+                <tr valign="top" class="<?php echo esc_attr( implode( ' ', $class ) ) ?>">
+					<th scope="row" style="width:300px;" valign="top" <?php echo 'heading' == $ts_field['type'] ? 'colspan="2"' : ''; ?>>
+                        <?php
+						echo ( 'heading' == $ts_field['type'] ) ? '<h2>' . esc_html( $ts_field['label'] ) . '</h2>' : esc_html( $ts_field['label'] ) ;
+
+                        if ( isset( $ts_field['description'] )  ) {
+                        	if('heading' != $ts_field['type']){
+								echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
+								echo wp_kses_post( $ts_field['description'] );
+								echo '</div></div>';
+							} else {
+								echo '<p style="font-weight:normal;">' . esc_html( $ts_field['description'] ) . '</p>';
+							}
                         }
-
                         ?>
                     </th>
+					<?php if ('heading' != $ts_field['type']) { ?>
                     <td>
-                        <div class="wrap modula">
+                        <div class="wrap modula"> 
                             <div class="">
                                 <?php if ('select' == $ts_field['type']) { ?>
                                     <div class="modula-select">
@@ -95,9 +135,9 @@ if ( ! $troubleshooting_options['enqueue_files'] ) {
                                 <?php if ('toggle' == $ts_field['type']) { ?>
                                     <div class="modula-toggle">
                                         <input class="modula-toggle__input" type="checkbox"
-                                               data-setting="modula_troubleshooting_option[<?php echo $key; ?>]"
-                                               id="modula_troubleshooting_option-<?php echo $key; ?>"
-                                               name="modula_troubleshooting_option[<?php echo $key; ?>]"
+                                               data-setting="modula_troubleshooting_option[<?php echo esc_attr($key); ?>]"
+                                               id="modula_troubleshooting_option-<?php echo esc_attr($key); ?>"
+                                               name="modula_troubleshooting_option[<?php echo esc_attr($key); ?>]"
                                                value="1" <?php  checked(1, $troubleshooting_options[ $key ], true ) ?>>
                                         <div class="modula-toggle__items">
                                             <span class="modula-toggle__track"></span>
@@ -120,6 +160,7 @@ if ( ! $troubleshooting_options['enqueue_files'] ) {
                             </div>
                         </div>
                     </td>
+					<?php } ?>
                 </tr>
                 <?php
             }

@@ -5,26 +5,34 @@ wp.Modula.modal = 'undefined' === typeof( wp.Modula.modal ) ? {} : wp.Modula.mod
 wp.Modula.items = 'undefined' === typeof( wp.Modula.items ) ? {} : wp.Modula.items;
 wp.Modula.upload = 'undefined' === typeof( wp.Modula.upload ) ? {} : wp.Modula.upload;
 
-jQuery( document ).ready( function( $ ){
+(function( $ ){
 
 	// Here we will have all gallery's items.
-	wp.Modula.Items = new wp.Modula.items['collection']();
-	
+	if(wp.Modula.items['collection']){
+		wp.Modula.Items = new wp.Modula.items['collection']();
+	}
+
 	// Settings related objects.
 	wp.Modula.Settings = new wp.Modula.settings['model']( modulaHelper.settings );
 
 	// Modula conditions
 	wp.Modula.Conditions = new modulaGalleryConditions();
 
+	// Add this here in order for other extensions to hook into it. This fixes some problems regarding the
+	// order of execution.
+	jQuery(document).trigger( 'modula_galleries_admin_trigger' );
+
 	// Initiate Modula Resizer
-	if ( 'undefined' == typeof wp.Modula.Resizer ) {
+	if ( 'undefined' == typeof wp.Modula.Resizer &&  wp.Modula.previewer['resizer']) {
 		wp.Modula.Resizer = new wp.Modula.previewer['resizer']();
 	}
 	
 	// Initiate Gallery View
-	wp.Modula.GalleryView = new wp.Modula.previewer['view']({
-		'el' : $( '#modula-uploader-container' ),
-	});
+	if(wp.Modula.previewer['view']){
+		wp.Modula.GalleryView = new wp.Modula.previewer['view']({
+			'el' : $( '#modula-uploader-container' ),
+		});
+	}
 
 	// Modula edit item modal.
 	wp.Modula.EditModal = new wp.Modula.modal['model']({
@@ -39,7 +47,10 @@ jQuery( document ).ready( function( $ ){
 	}
 
 	// Initiate Modula Gallery Upload
-	new wp.Modula.upload['uploadHandler']();
+	if(wp.Modula.upload['uploadHandler']){
+		new wp.Modula.upload['uploadHandler']();
+	}
+
 
 	// Copy shortcode functionality
     $('.copy-modula-shortcode').click(function (e) {
@@ -99,22 +110,6 @@ jQuery( document ).ready( function( $ ){
 		});
 	});
 
-	$('body').on('click','#lightbox-upgrade-notice .notice-dismiss',function (e) {
-
-		e.preventDefault();
-		var notice = $(this).parent();
-
-		var data = {
-			'action': 'modula_lbu_notice_2',
-			'nonce' : modulaHelper._wpnonce
-		};
-
-		$.post(modulaHelper.ajax_url, data, function (response) {
-			// Redirect to plugins page
-			notice.remove();
-		});
-	});
-
 	// Save on CTRL/Meta Key + S
 	$( document ).keydown( function ( e ) {
 		if ( ( e.keyCode === 115 || e.keyCode === 83 ) && ( e.ctrlKey || e.metaKey ) && !( e.altKey ) ) {
@@ -133,5 +128,30 @@ jQuery( document ).ready( function( $ ){
 			value += placeholder;
 			return value;
 		})
-	}) 
-});
+	})
+
+	/** Remember last tab on update */
+	// search for modula in hash so we won't do the function on every hash
+	if( window.location.hash.length != 0 && window.location.hash.indexOf('modula') ) {
+		var modulaTabHash = window.location.hash.split( '#!' )[1];
+		$( '.modula-tabs,.modula-tabs-content' ).find( '.active-tab' ).removeClass( 'active-tab' );
+		$( '.modula-tabs' ).find( '.' + modulaTabHash ).addClass( 'active-tab' );
+		$( '#' + modulaTabHash ).addClass( 'active-tab').trigger('modula-current-tab');
+		var postAction = $( "#post" ).attr('action');
+		if( postAction ) {
+			postAction = postAction.split( '#' )[0];
+			$( '#post' ).attr( 'action', postAction + window.location.hash );
+		}
+	}
+
+	var inputs = $('#modula-hover-effect .modula-hover-effect-item input[type="radio"]');
+	$( '#modula-hover-effect .modula-hover-effect-item' ).on( 'click',function () {
+		let input = $( this ).find( 'input[type="radio"]' );
+
+		if ( input.length > 0 ) {
+			input.prop( "checked", false );
+			input.prop( "checked", true );
+		}
+	} );
+
+})(jQuery);

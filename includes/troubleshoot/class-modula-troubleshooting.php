@@ -129,7 +129,15 @@ class Modula_Troubleshooting {
             return;
         }
 
-        $troubleshooting_options = isset($_POST['modula_troubleshooting_option']) ? $_POST['modula_troubleshooting_option'] : false;
+        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_troubleshooting_option_post' ) ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $troubleshooting_options = isset($_POST['modula_troubleshooting_option']) ? wp_unslash( $_POST['modula_troubleshooting_option'] ) : false;
         $ts_options              = array();
 
         if ( is_array( $troubleshooting_options ) && !empty( $troubleshooting_options ) ) {

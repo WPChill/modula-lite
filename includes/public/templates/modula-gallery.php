@@ -24,13 +24,14 @@
 				/* What to show from elements */
 				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'     => !boolval( $data->settings['enableSocial'] ),
+				'hide_socials'     => ! boolval( $data->settings['enableSocial'] ),
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),
 				"enableWhatsapp"   => boolval( $data->settings['enableWhatsapp'] ),
 				"enableFacebook"   => boolval( $data->settings['enableFacebook'] ),
 				"enablePinterest"  => boolval( $data->settings['enablePinterest'] ),
 				"enableLinkedin"   => boolval( $data->settings['enableLinkedin'] ),
 				"enableEmail"      => boolval( $data->settings['enableEmail'] ),
+				"lazyLoad"         => boolval( $data->settings['lazy_load'] ),
 
 				/* Item container attributes & classes */
 				'item_classes'     => array( 'modula-item' ),
@@ -43,19 +44,45 @@
 				),
 
 				/* Item img attributes & classes */
-				'img_classes'      => array( 'pic' ),
+				'img_classes'      => array( 'pic', 'wp-image-' . $image['id'] ),
 
-				'img_attributes' => array(
-					'data-valign' => esc_attr( $image['valign'] ),
-					'data-halign' => esc_attr( $image['halign'] ),
-					'alt'         => esc_attr( $image['alt'] ),
-					'data-full'   => esc_url( $image_object->guid )
+				'img_attributes'    => array(
+					'data-valign'   => esc_attr( $image['valign'] ),
+					'data-halign'   => esc_attr( $image['halign'] ),
+					'alt'           => $image['alt'],
+					'data-full'     => esc_url( wp_get_original_image_url( $image['id'] ) ),
+					'title'         => $image[ 'title' ],
 				),
 			);
 
-			// need this to model the image attributes
-      		$image = apply_filters('modula_shortcode_image_data',$image,$data->settings);
+			if( isset( $image['togglelightbox'] ) && 1 === $image['togglelightbox'] ){
+				$item_data['link_classes'][] = 'modula-simple-link'; //prevent the lightboxification
+				$item_data['link_classes'][] = 'modula-no-follow'; //prevent the opening of the image
+			}
+			// need this to model the image attributes.
+      		$image = apply_filters( 'modula_shortcode_image_data', $image, $data->settings );
 
+			// Let's set the data used for the srcset and sizes behaviour.
+			// If the image size is custom and cropped, the srcset and sizes should not be set to avoid the browser
+			// to load the wrong image. This is particular problematic when using the SpeedUp extension.
+			if ( in_array( $data->settings['type'], array( 'creative-gallery', 'grid', 'custom-grid' ) ) ) {
+				// Specify if the image size is custom.
+				if ( 'custom' === $data->settings['grid_image_size'] ) {
+					$item_data['custom_grid'] = true;
+				}
+				// Custom grid has a different setting name for the image crop.
+				if ( 'custom-grid' !== $data->settings['type'] ) {
+					// Specify if the image is cropped.
+					if ( '1' === $data->settings['grid_image_crop'] ) {
+						$item_data['crop'] = true;
+					}
+				} else {
+					// Specify if the image is cropped.
+					if ( '1' === $data->settings['img_crop'] ) {
+						$item_data['crop'] = true;
+					}
+				}
+			}
 
 			/**
 			 * Hook: modula_shortcode_item_data.
@@ -85,7 +112,9 @@
 	/**
 	 * Hook: modula_shortcode_after_items.
 	 *
+	 * @hooked modula_edit_gallery - 100
 	 * @hooked modula_show_schemaorg - 90
+	 * @hooked modula_show_items_schemaorg - 91
 	 * @hooked modula_slider_syncing - 85
 	 */
 	do_action( 'modula_shortcode_after_items', $data->settings, $item_data, $data->images );

@@ -8,7 +8,7 @@ class Modula_Upgrades {
 
 	private $upgrades_key = 'modula_completed_upgrades';
 	private $completed_upgrades = array();
-	
+
 	function __construct() {
 		$upgrades = array(
 			'modula_v2' => array(
@@ -52,14 +52,14 @@ class Modula_Upgrades {
 	}
 
 	public function check_on_activate() {
-
+		
 		// Check if is a new 2.0.0 install or an old install
-        $version = get_option( 'modula_version', array() );
+        $version       = get_option( 'modula_version', array() );
+		$first_install =  empty( $version );
+		$upgrade       = false;
 
-        
-		$check = false;
 		if(!empty($version) && $version['current_version'] !== MODULA_LITE_VERSION ){
-		    $check = true;
+		    $upgrade = true;
         }
 
 		if ( empty( $version ) ) {
@@ -77,11 +77,7 @@ class Modula_Upgrades {
 
 		update_option( 'modula_version', $version );
 
-		if ( class_exists( 'Modula_Update' ) ) {
-			// Check to see if we redirect or not to About page
-        	$modula_update = Modula_Update::get_instance();
-        	$modula_update->modula_on_activation( $check );
-		}
+		do_action( 'modula_on_activation_check', $version, $upgrade, $first_install );
 
 	}
 
@@ -95,7 +91,11 @@ class Modula_Upgrades {
 
 		$version = get_option( 'modula_version' );
 		foreach ( $this->upgrades as $key => $upgrade ) {
-			
+
+			if ( ! isset( $version['upgraded_from'] ) || ! isset( $upgrade['version'] ) || ! isset( $upgrade['compare'] ) ) {
+				return;
+			}
+
 			if ( version_compare( $version['upgraded_from'], $upgrade['version'], $upgrade['compare'] ) && ! $this->check_upgrade_complete( $key ) ) {
 				$this->isNotice = true;
 				printf(
@@ -117,7 +117,7 @@ class Modula_Upgrades {
 	*/
 	public function add_subpages() {
 		foreach ( $this->upgrades as $key => $upgrade ) {
-			add_submenu_page( null, $upgrade['title'], $upgrade['title'], 'manage_options', $upgrade['id'], array( $this, $upgrade['callback'] ) );
+			add_submenu_page( '', $upgrade['title'], $upgrade['title'], 'manage_options', $upgrade['id'], array( $this, $upgrade['callback'] ) );
 		}
 	}
 
@@ -164,17 +164,17 @@ class Modula_Upgrades {
 		global $wpdb;
 		$table_name = $wpdb->prefix.'modula';
 		$galleries = $wpdb->get_var( "SELECT COUNT(Id) as galleries FROM $table_name" );
-		
+
 		if ( '0' == $galleries ) {
-			
+
 			echo '<div class="wrap" style="text-align:center;margin-top:70px;"><h1>' . esc_html__( 'Hooray you don\'t have any Modula galleries to upgrade.', 'modula-best-grid-gallery' ) . '</h1>';
 			echo '<p class="about-text">' . esc_html__( 'It seems like you didn\'t create any galleries with Modula', 'modula-best-grid-gallery' ) . '</p>';
-			echo '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'post-new.php?post_type=modula-gallery' ) ) . '" class="button button-primary button-hero">' . esc_html__( 'Create a gallery now !', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</div>';
 
 		}else{
 
-			$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'import-all';
+			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'import-all';
 
 			echo '<div class="wrap"><h1>' . esc_html__( 'Upgrade to Modula V2', 'modula-best-grid-gallery' ) . '</h1>';
 			echo '<p class="about-text">' . esc_html__( 'Since Modula V2.0.0 we changed how we stored data about your galleries so in order to have all the old galleries you need to run this updater.', 'modula-best-grid-gallery' ) . '</p>';
@@ -182,8 +182,8 @@ class Modula_Upgrades {
 
 			// Tabs
 			echo '<h2 class="nav-tab-wrapper wp-clearfix">';
-			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2' ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
-			echo '<a href="' . admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'options.php?page=modula-upgrade-v2' ) ) . '" class="nav-tab ' . ( 'import-all' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Import All', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<a href="' . esc_url( admin_url( 'options.php?page=modula-upgrade-v2&tab=custom-import' ) ) . '" class="nav-tab ' . ( 'custom-import' == $tab ? 'nav-tab-active' : '' ) . '">' . esc_html__( 'Custom Import', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</h2>';
 
 
@@ -196,7 +196,7 @@ class Modula_Upgrades {
 				echo '<p>' . esc_html__( 'This will import all your galleries.', 'modula-best-grid-gallery' ) . '</p>';
 				echo '<a href="#" id="modula-upgrade-v2" class="button button-primary">' . esc_html__( 'Start upgrade', 'modula-best-grid-gallery' ) . '</a>';
 			}elseif ( 'custom-import' == $tab ) {
-				
+
 				global $wpdb;
 				$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula';
 				$galleries       = $wpdb->get_results( $galleries_query );
@@ -207,7 +207,7 @@ class Modula_Upgrades {
 
 					echo '<label style="width:30%;padding-right:3%;"><input type="checkbox" class="modula-gallery-to-upgrade" value="' . absint( $gallery->Id ) . '">';
 					$config = json_decode( $gallery->configuration, true );
-					echo $config['name'] . ' (' . absint( $gallery->Id ) . ')';
+					echo esc_html( $config['name'] ) . ' (' . absint( $gallery->Id ) . ')';
 					echo '</label>';
 
 				}
@@ -218,7 +218,7 @@ class Modula_Upgrades {
 
 			echo '</div>';
 
-			
+
 			echo '</div>';
 
 		}
@@ -251,7 +251,7 @@ class Modula_Upgrades {
 		// Run a security check first.
 		check_admin_referer( 'modula-upgrade-gallery-nonce', 'nonce' );
 
-		$gallery_ID = absint( $_POST['gallery_id'] );
+		$gallery_ID = isset( $_POST['gallery_id'] ) ? absint( $_POST['gallery_id'] ) : 0;
 
 		// Check if we already have imported this gallery
 		$post_args = array(
@@ -276,11 +276,12 @@ class Modula_Upgrades {
 		}
 
 		global $wpdb;
-		$galleries_query = 'SELECT * FROM ' . $wpdb->prefix . 'modula WHERE Id=' . $gallery_ID;
+		$galleries_query = $wpdb->prepare( "SELECT * FROM " . $wpdb->prefix . "modula WHERE Id = %d", $gallery_ID );
+
 		$gallery = $wpdb->get_row( $galleries_query );
 
 		if ( $gallery ) {
-			
+
 			$id = $gallery->Id;
 			$config = json_decode( $gallery->configuration, true );
 
@@ -311,7 +312,7 @@ class Modula_Upgrades {
 
 			$modula_settings[ 'enableSocial' ] = (isset($modula_settings['disableSocial']) && '1' == $modula_settings['disableSocial']) ? 0 : 1;
 			unset( $modula_settings['disableSocial'] );
-			
+
             $default_gallery_settings = array(
                 'type'                      => 'creative-gallery',
                 'width'                     => '100%',
@@ -322,7 +323,7 @@ class Modula_Upgrades {
                 'lightbox'                  => 'fancybox',
                 'shuffle'                   => 0,
                 'captionColor'              => '#ffffff',
-                'hide_title'                => 0,
+                'hide_title'                => 1,
                 'hide_description'          => 0,
                 'captionFontSize'           => '14',
                 'titleFontSize'             => '16',
@@ -367,7 +368,7 @@ class Modula_Upgrades {
 
 			foreach ( $images as $image ) {
 
-				$sizes = $resizer->get_image_size( $image['imageId'], $img_size );
+				$sizes = $resizer->get_image_size( $image['imageId'], $img_size, $modula_settings );
 				if ( ! is_wp_error( $sizes ) ) {
 					$resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'] );
 				}
@@ -453,7 +454,7 @@ class Modula_Upgrades {
 
 						var key = $(this).data('key');
 						$.ajax({
-							url:      "<?php echo admin_url( 'admin-ajax.php' ) ?>",
+							url:      "<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>",
 				            type:     'POST',
 				            dataType: 'json',
 				            data: {

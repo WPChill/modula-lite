@@ -4,15 +4,15 @@ jQuery(document).ready(function ($) {
 
     formContainer.on('click', '#delete_all', function () {
         if ( $('#delete_all').is(':checked') ) {
-            $('#delete_options').prop('checked', true);
-            $('#delete_transients').prop('checked', true);
-            $('#delete_cpt').prop('checked', true);
-            $('#delete_old_tables').prop('checked', true);
+            formContainer.parent().find('#delete_options').prop('checked', true);
+            formContainer.parent().find('#delete_transients').prop('checked', true);
+            formContainer.parent().find('#delete_cpt').prop('checked', true);
+            formContainer.parent().find('#delete_old_tables').prop('checked', true);
         } else {
-            $('#delete_options').prop('checked', false);
-            $('#delete_transients').prop('checked', false);
-            $('#delete_cpt').prop('checked', false);
-            $('#delete_old_tables').prop('checked', false);
+            formContainer.parent().find('#delete_options').prop('checked', false);
+            formContainer.parent().find('#delete_transients').prop('checked', false);
+            formContainer.parent().find('#delete_cpt').prop('checked', false);
+            formContainer.parent().find('#delete_old_tables').prop('checked', false);
         }
     });
 
@@ -24,10 +24,10 @@ jQuery(document).ready(function ($) {
         formContainer.on('click', '#modula-uninstall-submit-form', function (e) {
             formContainer.addClass('toggle-spinner');
             var selectedOptions = {
-                delete_options: ($('#delete_options').is(':checked')) ? 1 : 0,
-                delete_transients: ($('#delete_transients').is(':checked')) ? 1 : 0,
-                delete_cpt: ($('#delete_cpt').is(':checked')) ? 1 : 0,
-                delete_old_tables: ($('#delete_old_tables').is(':checked')) ? 1 : 0,
+                delete_options: (formContainer.parent().find('#delete_options').is(':checked')) ? 1 : 0,
+                delete_transients: (formContainer.parent().find('#delete_transients').is(':checked')) ? 1 : 0,
+                delete_cpt: (formContainer.parent().find('#delete_cpt').is(':checked')) ? 1 : 0,
+                delete_old_tables: (formContainer.parent().find('#delete_old_tables').is(':checked')) ? 1 : 0,
             };
 
             var data = {

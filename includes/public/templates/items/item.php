@@ -9,16 +9,28 @@
 			<a<?php echo Modula_Helper::generate_attributes( $data->link_attributes ) ?> class="<?php echo esc_attr(implode( ' ', $data->link_classes )) ?>"></a>
 		<?php endif ?>
 
-		<?php do_action( 'modula_item_after_link', $data ); ?>
+		<?php
+		/**
+		 * Hook: modula_item_after_link
+		 */
+		do_action( 'modula_item_after_link', $data );
 
-		<img class='<?php echo esc_attr(implode( ' ', $data->img_classes )) ?>'<?php echo Modula_Helper::generate_attributes( $data->img_attributes ) ?>/>
+		/**
+		 *Hook : modula_item_template_image
+		 * @hooked: modula_sources_and_sizes
+		 */
+		do_action( 'modula_item_template_image', $data );
 
-		<?php do_action( 'modula_item_after_image', $data ); ?>
+		/**
+		 * Hook: modula_item_after_image
+		 */
+		do_action( 'modula_item_after_image', $data );
+		?>
 
 		<div class="figc<?php echo '' == $data->title ? ' no-title' : '' ?><?php echo '' == $data->description ? ' no-description' : '' ?>">
 			<div class="figc-inner">
 				<?php if ( ! $data->hide_title ): ?>
-					<h2 class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></h2>
+					<div class='jtg-title'><?php echo wp_kses_post( $data->title ); ?></div>
 				<?php endif ?>
 				<?php if ( ! $data->hide_description && '' != $data->description): ?>
 					<p class="description"><?php echo wp_kses_post( $data->description ); ?></p>

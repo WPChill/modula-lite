@@ -525,20 +525,20 @@
   // =============================================
 
   var inViewport = function (elem) {
-    var elemCenter, rez;
-
-    if (!elem || elem.ownerDocument !== document) {
+    // we create the element variable which contains the link that triggers the lightbox opening
+    var elemCenter, rez, element = elem.find('a.tile-inner')[0];
+    if (!element || element.ownerDocument !== document) {
       return false;
     }
 
     $(".modula-fancybox-container").css("pointer-events", "none");
 
     elemCenter = {
-      x: elem.getBoundingClientRect().left + elem.offsetWidth / 2,
-      y: elem.getBoundingClientRect().top + elem.offsetHeight / 2
+      x: element.getBoundingClientRect().left + element.offsetWidth / 2,
+      y: element.getBoundingClientRect().top + element.offsetHeight / 2
     };
 
-    rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === elem;
+    rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === element;
 
     $(".modula-fancybox-container").css("pointer-events", "");
 
@@ -578,7 +578,7 @@
 
     // Existing slides (for current, next and previous gallery items)
     self.slides = {};
-
+//console.log(content);
     // Create group elements
     self.addContent(content);
 
@@ -636,7 +636,7 @@
         $("head").append(
           '<style id="modula-fancybox-style-noscroll" type="text/css">.compensate-for-scrollbar{margin-right:' +
           (window.innerWidth - document.documentElement.clientWidth) +
-          "px;}</style>"
+          "px;overflow:hidden;}</style>"
         );
 
         $("body").addClass("compensate-for-scrollbar");
@@ -1214,7 +1214,7 @@
 
         $.each(self.slides, function (index, slide) {
           slide.$slide.removeClass("modula-fancybox-animated").removeClass(function (index, className) {
-            return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+            return (className.match(/(^|\s)modula-fancybox-fx-\S+/g) || []).join(" ");
           });
 
           // Make sure that each slide is in equal distance
@@ -2006,6 +2006,10 @@
             $img.attr( 'image-id', slide.opts.image_id );
           }
 
+          if ( slide.$thumb ) {
+            $img.attr( 'title', slide.$thumb.find( 'img.pic' ).attr( 'title' ) )
+          }
+
           // Hide temporary image after some delay
           if (slide.$ghost) {
             setTimeout(function () {
@@ -2019,8 +2023,8 @@
         })
         .addClass("modula-fancybox-image")
         .attr("src", slide.src)
+        .attr("aria-describedby", 'modula-caption-' + slide.index)
         .appendTo(slide.$content);
-
 
       if ((img.complete || img.readyState == "complete") && $img.naturalWidth && $img.naturalHeight) {
         $img.trigger("load");
@@ -2541,7 +2545,7 @@
       $.modulaFancybox.stop($slide);
 
       //effectClassName = "fancybox-animated fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " fancybox-fx-" + effect;
-      effectClassName = "modula-fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " modula-fancybox-animated fancybox-fx-" + effect;
+      effectClassName = "modula-fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " modula-fancybox-animated modula-fancybox-fx-" + effect;
 
       $slide.addClass(effectClassName).removeClass("modula-fancybox-slide--current"); //.addClass(effectClassName);
 
@@ -2584,7 +2588,7 @@
         bbw,
         blw;
 
-      if (!$thumb || !inViewport($thumb[0])) {
+      if (!$thumb || !inViewport($thumb)) {
         return false;
       }
 
@@ -3043,7 +3047,7 @@
         $caption
           .children()
           .eq(0)
-          .html(caption);
+		  .html('<p id="modula-caption-'+ current.index +'" class="modula-fancybox-caption__text">' + caption + '</p>');
       } else {
         self.$caption = null;
       }
@@ -4191,7 +4195,7 @@
             })
             .removeClass("modula-fancybox-animated")
             .removeClass(function (index, className) {
-              return (className.match(/(^|\s)fancybox-fx-\S+/g) || []).join(" ");
+              return (className.match(/(^|\s)modula-fancybox-fx-\S+/g) || []).join(" ");
             });
 
           if (slide.pos === instance.current.pos) {
@@ -5209,16 +5213,22 @@
         if (!src && item.type === "image") {
           src = item.src;
         }
+		var imageCaption = item.opts.caption.replace(/<p>|<\/p>/igm, '');
 
-        list.push(
-          '<a href="javascript:;" tabindex="0" data-index="' +
-          i +
-          '"' +
-          (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
-          "></a>"
-        );
-      });
+    var imageCaption = imageCaption.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+      return '&#'+i.charCodeAt(0)+';';
+    });
 
+		list.push( '<a href="javascript:;" role="button" aria-label="Click to show image titled '+
+		  imageCaption +
+		  '" tabindex="0" data-index="' +
+		  i +
+		  '"' +
+		  (src && src.length ? ' style="background-image:url(' + src + ')"' : 'class="modula-fancybox-thumbs-missing"') +
+		  "></a>" );
+        });
+
+ 
       self.$list[0].innerHTML = list.join("");
 
       if (self.opts.axis === "x") {
@@ -5428,12 +5438,19 @@
 	  $.each(current.opts.modulaShare, function (index, value) {
       var rawEmailMessage = (current.opts.lightboxEmailMessage.length) ? current.opts.lightboxEmailMessage : 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
       var emailMessage = rawEmailMessage.replace( /\%%gallery_link%%/g, window.location.href).replace( /\%%image_link%%/g, current.src) ;
-		  tpl += current.opts.shareBtnTpl[value]
-			  .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
-			  .replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
-			  .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "")
-              .replace(/\{\{subject\}\}/g, encodeURIComponent(current.opts.lightboxEmailSubject))
-              .replace(/\{\{emailMessage\}\}/g, encodeURIComponent( emailMessage ))
+
+        var text = ( undefined != jQuery( current.$image ).attr( 'title' )  ) ? jQuery( current.$image ).attr( 'title' ) : '';
+
+        if ( '' == text && instance.$caption && typeof instance.$caption.text !== "undefined" ) {
+          text = instance.$caption.text();
+        }
+        
+        tpl += current.opts.shareBtnTpl[value]
+            .replace( /\{\{media\}\}/g, current.type === "image" ? encodeURIComponent( current.src ) : "" )
+            .replace( /\{\{modulaShareUrl\}\}/g, encodeURIComponent( url ) )
+            .replace( /\{\{descr\}\}/g, encodeURIComponent( text ) )
+            .replace( /\{\{subject\}\}/g, encodeURIComponent( current.opts.lightboxEmailSubject ) )
+            .replace( /\{\{emailMessage\}\}/g, encodeURIComponent( emailMessage ) );
 	  });
 
 	  tpl += "</p><p><input class='modula-fancybox-share__input' type='text' value='{{url_raw}}' /></p></div>";

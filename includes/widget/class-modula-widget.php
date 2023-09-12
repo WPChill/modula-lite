@@ -37,13 +37,17 @@ class Modula_Widget extends WP_Widget {
             return;
         }
 
+		echo $args['before_widget'];
+
         $title = isset( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : '';
 
         if ( ! empty( $title ) )
             echo $args['before_title'] . wp_kses_post( $title ) . $args['after_title'];
 
         // Output Modula Gallery
-        echo isset( $instance['gallery-id'] ) ? do_shortcode('[modula id="' . absint( $instance['gallery-id'] ) . '"]') : '';;
+        echo isset( $instance['gallery-id'] ) ? do_shortcode('[modula id="' . absint( $instance['gallery-id'] ) . '"]') : '';
+
+		echo $args['after_widget'];
 
     }
 
@@ -116,7 +120,7 @@ class Modula_Widget extends WP_Widget {
             // check if is set, else set to defaults
             $so_posts = isset( $siteorigin_post_types['post-types'] ) ? $siteorigin_post_types['post-types'] : array('post', 'page');
 
-            if (in_array( $current_screen->post_type, $so_posts ) ) {
+			if ( in_array( $current_screen->post_type, $so_posts ) && 'modula-gallery' != $current_screen->post_type ) {
                 wp_register_style('modula', MODULA_URL . 'assets/css/front/modula.min.css', null, MODULA_LITE_VERSION);
                 wp_register_script('modula-preview', MODULA_URL . 'assets/js/front/jquery-modula.min.js', array('jquery'), MODULA_LITE_VERSION, true);
                 wp_register_script('modula-siteorigin-preview', MODULA_URL . 'assets/js/admin/modula-siteorigin-preview.js', array('jquery'), MODULA_LITE_VERSION, true);

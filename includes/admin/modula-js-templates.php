@@ -1,5 +1,5 @@
 <script type="text/html" id="tmpl-modula-image">
-    <div class="modula-single-image-content {{data.orientation}}" <# if ( data.full != '' ) { #> style="background-image:url({{ data.thumbnail }})" <# } #> >
+    <div class="modula-single-image-content {{data.orientation}}" <# if ( data.full != '' ) { #> style="background-image:url('{{ data.thumbnail }}'); background-position: {{ data.valign }} {{ data.halign }};" <# } #> >
         <?php do_action( 'modula_admin_gallery_image_start' ) ?>
         <# if ( data.thumbnail != '' ) { #>
             <img src="{{ data.thumbnail }}">
@@ -88,7 +88,7 @@
                             <input type="text" name="link" value="{{ data.link }}" />
 	                        <span class="dashicons dashicons-editor-break"></span>
                             <span class="description">
-                                <?php esc_html_e( ' You can start typing the first 3 letter and we will autocomplete the rest !' ); ?>
+                                <?php esc_html_e( ' You can start typing the first 3 letter and we will autocomplete the rest !', 'modula-best-grid-gallery' ); ?>
                                 <?php esc_html_e( 'Enter a hyperlink if you wish to link this image to somewhere other than the general selected action.', 'modula-best-grid-gallery' ); ?>
                                 <?php esc_html_e( '( Doesn\'t work for Direct link to image or No link )', 'modula-best-grid-gallery' ); ?>
 
@@ -101,7 +101,32 @@
                         </span>
                         </label>
                     </div>
-                    
+
+                    <!-- Hide from lightbox -->
+                    <div class="setting modula-toggle-lightbox">
+                        <div class="modula-toggle">
+                            <label class="">
+                                <span class="name"><?php esc_html_e( 'Hide image from lightbox', 'modula-best-grid-gallery' ); ?></span>
+                                <input class="modula-toggle__input" type="checkbox" name="togglelightbox" value="1"<# if ( data.togglelightbox == '1' ) { #> checked <# } #> />
+                                <div class="modula-toggle__items">
+                                    <span class="modula-toggle__track"></span>
+                                    <span class="modula-toggle__thumb"></span>
+                                    <svg class="modula-toggle__off" width="6" height="6" aria-hidden="true"
+                                            role="img"
+                                            focusable="false"
+                                            viewBox="0 0 6 6">
+                                        <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+                                    </svg>
+                                    <svg class="modula-toggle__on" width="2" height="6" aria-hidden="true"
+                                            role="img"
+                                            focusable="false"
+                                            viewBox="0 0 2 6">
+                                        <path d="M0 0h2v6H0z"></path>
+                                    </svg>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
 
                     <!-- Addons can populate the UI here -->
                     <div class="modula-addons"></div>

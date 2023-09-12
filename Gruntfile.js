@@ -53,7 +53,7 @@ module.exports = function( grunt ) {
 	                include: [],                      // List of files or directories to include.
 	                mainFile: 'Modula.php',                     // Main project file.
 	                potComments: '',                  // The copyright at the beginning of the POT file.
-	                potFilename: 'modula-best-grid-gallery.po',                  // Name of the POT file.
+	                potFilename: 'modula-best-grid-gallery.pot',                  // Name of the POT file.
 	                potHeaders: {
 	                    poedit: true,                 // Includes common Poedit headers.
 	                    'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
@@ -112,8 +112,12 @@ module.exports = function( grunt ) {
 					'!postcss.config.js',
 					'!webpack.config.js',
 					'!set_tags.sh',
-					'!modula-best-grid-gallery.zip',
+					'!**.zip',
 					'!old/**',
+					'!bin/**',
+					'!tests/**',
+					'!codeception.dist.yml',
+					'!regconfig.json',
 					'!nbproject/**'
 				],
 				dest: 'build/'
@@ -222,7 +226,7 @@ module.exports = function( grunt ) {
 			build: {
 				options: {
 					pretty: true,                           // Pretty print file sizes when logging.
-					archive: '<%= pkg.name %>.zip'
+					archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
 				},
 				expand: true,
 				cwd: 'build/',

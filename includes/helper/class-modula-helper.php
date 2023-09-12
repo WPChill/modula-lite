@@ -28,11 +28,9 @@ class Modula_Helper {
 				$value = str_replace( '<script', '&lt;script', $value );
 				$value = strip_tags( htmlspecialchars( $value ) );
 				$value = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $value );
-			} else {
-				$value = esc_attr( $value );
 			}
 
-			$return .= ' ' . esc_attr( $name ) . '="' . $value . '"';
+			$return .= ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
 		}
 
 		return $return;
@@ -70,9 +68,9 @@ class Modula_Helper {
 
 	public static function hover_effects_elements( $effect ) {
 
-		$effects_with_title         = apply_filters( 'modula_effects_with_title', array( 'under', 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo', 'lily', 'sadie', 'honey', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7' ) );
-		$effects_with_description   = apply_filters( 'modula_effects_with_description', array( 'under', 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo', 'lily', 'sadie', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'selena', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7' ) );
-		$effects_with_social        = apply_filters( 'modula_effects_with_social', array( 'under', 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo', 'lily', 'sadie', 'zoe', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'ming', 'tilt_1', 'tilt_3', 'tilt_7' ) );
+		$effects_with_title         = apply_filters( 'modula_effects_with_title', array( 'under', 'fluid-up', 'hide', 'quiet', 'reflex', 'curtain', 'lens', 'appear', 'crafty', 'seemo', 'comodo', 'pufrobo', 'lily', 'sadie', 'honey', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7','greyscale', 'centered-bottom' ) );
+		$effects_with_description   = apply_filters( 'modula_effects_with_description', array( 'under', 'fluid-up', 'hide', 'reflex', 'lens', 'crafty', 'pufrobo', 'lily', 'sadie', 'layla', 'zoe', 'oscar', 'marley', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'milo', 'julia', 'selena', 'apollo', 'steve', 'jazz', 'ming', 'lexi', 'duke', 'tilt_1', 'tilt_3', 'tilt_7','greyscale', 'centered-bottom' ) );
+		$effects_with_social        = apply_filters( 'modula_effects_with_social', array( 'under', 'comodo', 'seemo', 'appear', 'lens', 'curtain', 'reflex', 'catinelle', 'quiet', 'hide', 'pufrobo', 'lily', 'sadie', 'zoe', 'ruby', 'roxy', 'bubba', 'dexter', 'sarah', 'chico', 'julia', 'hera', 'winston', 'selena', 'terry', 'phoebe', 'ming','greyscale', 'centered-bottom' ) );
 		$effects_with_extra_scripts = apply_filters( 'modula_effects_with_scripts', array( 'tilt_1', 'tilt_3', 'tilt_7' ) );
 
 		return array(
@@ -186,7 +184,7 @@ class Modula_Helper {
 			'loop'            => false,
 			'arrows'          => false,
 			'toolbar'         => true,
-			'keyboard'        => false,
+			'keyboard'        => true,
 			'wheel'           => false,
 			'buttons'         => array(
 				'close',
@@ -312,5 +310,82 @@ class Modula_Helper {
 
 		return str_replace( $values['setting'], $values['front'], $value);
 	}
+
+	public static function get_default_image_attributions(){
+		return array(
+            'none'     => array( 'name' => __( 'None', 'modula-best-grid-gallery' ), 'image' => '', 'license' => ''),
+            'by'       => array( 'name' => __( 'Attribution 4.0 International License (CC BY 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by/4.0/' ),
+            'by-sa'    => array( 'name' => __( 'Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-sa/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-sa/4.0/' ),
+            'by-nc'    => array( 'name' => __( 'Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc/4.0/' ),
+            'by-nc-sa' => array( 'name' => __( 'Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/' ),
+            'by-nc-nd' => array( 'name' => __( 'Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc-nd/4.0/' ),
+            'by-nd'    => array( 'name' => __( 'Attribution-NoDerivatives 4.0 International License (CC BY-ND 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nd/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nd/4.0/' ),
+            'cc0'      => array( 'name' => __( 'CC0 Universal Public Domain Dedication license (CC0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/zero/1.0/88x31.png', 'license' => 'https://creativecommons.org/publicdomain/zero/1.0/' ),
+		);
+	}
+
+	/**
+	 * Returns Image Attributions licenses
+	 *
+	 *
+	 * @return array
+	 * @since 2.7.5
+	 */
+	public static function get_image_attributions( $specific = false ){
+		
+		$defaults = self::get_default_image_attributions();
+		$filtered = apply_filters( 'modula-image-attribution-licenses', $defaults );
+		
+		if( $specific ){
+			return isset( $filtered[ $specific ] ) ? $filtered[ $specific ] : array();
+		}
+
+		return $filtered;
+	}
+
+	public static function render_ia_license_box( $image_attribution = 'none' ){
+		if( 'none' === $image_attribution ){
+			$image_attrib_options = get_option( 'modula_image_attribution_option', false );
+			$image_attribution = $image_attrib_options['image_attribution'];
+		}
+		$ccs = self::get_image_attributions();
+		$cc  = $ccs[ $image_attribution ];
+
+		ob_start();
+		?>
+		<div class="modula-creative-commons-wrap">
+			<a rel="license" href="<?php echo esc_attr( $cc['license'] ); ?>" target="_BLANK"><img alt="Creative Commons License" style="border-width:0" src="<?php echo esc_attr( $cc['image'] ); ?>" /></a>
+			<span> <?php printf( __( 'This work is licensed under a %s %s %s' ), '<a rel="license" href="' . esc_attr( $cc['license'] ) . '" target="_BLANK" >', esc_html( $cc['name'] ), '</a>' ); ?></span>
+		</div>
+		<?php
+		return ob_get_clean();
+		
+	}
+
+
+	public static function render_ia_item_ld_json( $image_attribution, $img_url ){
+
+		$license_url = self::get_image_attributions( $image_attribution[ 'image_attribution' ] )['license'];
+		$company     = isset( $image_attribution[ 'image_attribution_company' ] ) ? $image_attribution[ 'image_attribution_company' ] : '';
+		$author      = isset( $image_attribution[ 'image_attribution_author' ] ) ? $image_attribution[ 'image_attribution_author' ] : '';
+
+		$json_array = array(
+			"@context"   => "https://schema.org/",
+			"@type"      => "ImageObject",
+			"contentUrl" => esc_url( $img_url ),
+			"license"    => esc_url( $license_url ),
+			"creditText" => esc_html( $company ),
+			"creator"    => array(
+				"@type"  =>  "Person",
+				"name"   =>  esc_html( $author ),
+			),
+			"copyrightNotice"=> esc_html( $company ),
+		);
+
+		return $json_array;
+		
+	}
+
+
 
 }

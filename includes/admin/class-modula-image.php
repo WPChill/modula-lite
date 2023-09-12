@@ -5,23 +5,23 @@
  */
 class Modula_Image {
 	
-	function __construct() {
-		# code...
-	}
+	function __construct() {}
 
 	/**
-     * Helper method to return the image size depending on image orientation( landscape/portrait ).
-     *
-     * @since 2.0.0
-     *
-     * @param int $id          The image ID.
-     * @param int $img_size    The desired image size.
-     * @return WP_Error|string Return WP_Error on error, array of data on success.
-     */
-	public function get_image_size( $id, $img_size, $type = 'creative-gallery', $sizes = array() ) {
+	 * Helper method to return the image size depending on image orientation( landscape/portrait ).
+	 *
+	 * @param int    $id The image ID.
+	 * @param string $type
+	 * @param array  $sizes
+	 * @param        $crop
+	 *
+	 * @return WP_Error|string Return WP_Error on error, array of data on success.
+	 * @since 2.0.0
+	 *
+	 */
+	public function get_image_size( $id, $type = 'creative-gallery', $sizes = array(), $crop = false ) {
 
 		$image_full = wp_get_attachment_image_src( $id, 'full' );
-
 
 		if ( $image_full ) {
 
@@ -29,28 +29,72 @@ class Modula_Image {
 				'url' => $image_full[0],
 			);
 
-            switch ( $type ) {
-                case 'creative-gallery':
-                    if ( $image_full[1] > $image_full[2] ) {
-                        $return['width'] = $img_size;
-                        $return['height'] = 99999;
-                    }else{
-                        $return['width'] = 99999;
-                        $return['height'] = $img_size;
-                    }
-                    return $return;
-                    break;
-                case 'custom-grid':
-                	$return['width'] = absint( $img_size ) * absint( $sizes['width'] );
-                    $return['height'] = absint( $img_size ) * absint( $sizes['height'] );
-                    return $return;
-                    break;
-                default:
-                    $return = apply_filters( "modula_resize_image_{$type}", $return, $id, $img_size, $sizes );
-                    return $return;
-                    break;
-            }
-            
+			$gallery_types = array( 'creative-gallery','custom-grid','grid' );
+
+			if( in_array( $type, $gallery_types ) ) {
+
+				if ( is_array( $sizes ) && ! empty( $sizes ) ) {
+
+					if ( ! $crop ){
+
+						$ratio  = (float)( (int)$image_full[1] / (int)$image_full[2] );
+						$width  = absint($sizes['width']);
+						$height = absint($sizes['height']);
+
+                        if (0 == $width || 0 == $height) {
+                            if (0 == $width) {
+                                $width = $height * $ratio;
+                            } else {
+                                $height = $width / $ratio;
+                            }
+                        } elseif ( $sizes['width'] / $sizes['height'] != $image_full[1] / $image_full[2] ) {
+
+							if ( $sizes['width'] <= $sizes['height']   ){
+								$height = $sizes['width'] / $ratio;
+							} else {
+								$width = $sizes['height'] * $ratio;
+							}
+
+						}
+
+                        if ( $width > $image_full[1] || $height > $image_full[2] ) {
+                            $return['width']  = $image_full[1];
+                            $return['height'] = $image_full[2];
+                        }else{
+                            $return['width']  = (int)$width;
+                            $return['height'] = (int)$height;
+                        }
+
+						
+					} else {
+
+                        if ( $sizes['width'] > $image_full[1] || $sizes['height'] > $image_full[2] ) {
+                            $return['width']  = $image_full[1];
+                            $return['height'] = $image_full[2];
+                        }else{
+                            $return['width']  = $sizes['width'];
+                            $return['height'] = $sizes['height'];
+                        }
+
+					}
+
+				} else {
+
+					$image_sizes = wp_get_attachment_image_src( $id, $sizes );
+
+					if ( $image_sizes ){
+						$return['width']     = $image_sizes[1];
+						$return['height']    = $image_sizes[2];
+						$return['thumb_url'] = $image_sizes[0];
+					}
+
+				}
+			} else {
+				$return = apply_filters( "modula_resize_image_{$type}", $return, $id, $sizes, $crop );
+			}
+
+			return $return;
+
 		}else{
 			return new WP_Error( 'modula-gallery-error-no-url', esc_html__( 'No image with this ID.', 'modula-best-grid-gallery' ) );
 		}
@@ -86,7 +130,7 @@ class Modula_Image {
             $pathinfo    = parse_url( $url );
             // $uploads_dir = is_multisite() ? '/files/' : '/wp-content/';
             $uploads_dir = is_multisite() ? '/files/' : '/' . str_replace( ABSPATH, '', WP_CONTENT_DIR ) . '/';
-            $file_path   = ABSPATH . str_replace( dirname( $_SERVER['SCRIPT_NAME'] ) . '/', '', strstr( $pathinfo['path'], $uploads_dir ) );
+            $file_path   = ABSPATH . str_replace( dirname( isset( $_SERVER['SCRIPT_NAME'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ) : '' ) . '/', '', strstr( $pathinfo['path'], $uploads_dir ) );
             $file_path   = preg_replace( '/(\/\/)/', '/', $file_path );
         }
 
@@ -134,15 +178,15 @@ class Modula_Image {
         $name = wp_basename( $file_path, ".$ext" );
 
         // Suffix applied to filename
-        $suffix = "${dest_width}x${dest_height}";
+        $suffix = "{$dest_width}x{$dest_height}";
 
         // Set alignment information on the file.
         if ( $crop ) {
-            $suffix .= ( $align ) ? "_${align}" : "_c";
+            $suffix .= ( $align ) ? "_{$align}" : "_c";
         }
 
         // Get the destination file name
-        $dest_file_name = "${dir}/${name}-${suffix}.${ext}";
+        $dest_file_name = "{$dir}/{$name}-{$suffix}.{$ext}";
 
         // Return the info.
         $info = array(
@@ -211,7 +255,7 @@ class Modula_Image {
             return $url;
         }
 
-        // Get image info
+	    // Get image info
         $common = $this->get_image_info( $args );
 
         // Unpack variables if an array, otherwise return WP_Error.
@@ -223,12 +267,15 @@ class Modula_Image {
 
         // If the destination width/height values are the same as the original, don't do anything.
         if ( !$force_overwrite && $orig_width === $dest_width && $orig_height === $dest_height ) {
-            return $url;
+	        return array(
+		        'resized_url' => $url,
+		        'image_info'  => $common
+	        );
         }
 
-
-        // If the file doesn't exist yet, we need to create it.
+	    // If the file doesn't exist yet, we need to create it.
         if ( ! file_exists( $dest_file_name ) || ( file_exists( $dest_file_name ) && $force_overwrite ) ) {
+
             // We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
             $_wp_attached_file = str_replace( $upload_dir['baseurl'] . '/' , '', $url );
             $get_attachment = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_wp_attached_file' AND meta_value='%s'", $_wp_attached_file ) );
@@ -322,8 +369,12 @@ class Modula_Image {
             $resized_url = str_replace( basename( $url ), basename( $dest_file_name ), $url );
         }
 
+	    $return = array(
+		    'resized_url' => $resized_url,
+		    'image_info'  => $common
+	    );
         // Return the resized image URL.
-        return $resized_url;
+        return $return;
 
     }
 
