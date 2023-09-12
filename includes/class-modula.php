@@ -379,7 +379,9 @@ class Modula {
 		}
 
 		if ( isset( $settings['lazy_load'] ) && '1' === $settings['lazy_load'] ) {
-			add_filter( 'wp_img_tag_add_srcset_and_sizes_attr', array( $this, 'disable_lazy_srcset' ), 999, 4 );
+			// @todo: For the moment comment this filter as in some cases it breaks the gallery layout. The script
+			// that places the images in the gallery is not able to find the right position for the images.
+			//add_filter( 'wp_img_tag_add_srcset_and_sizes_attr', array( $this, 'disable_lazy_srcset' ), 999, 4 );
 		}
 	}
 
