@@ -1,3 +1,6 @@
+= 2.7.6 - 12.09.2023 =
+Fixed: Lazyload and srcset bug
+
 = 2.7.5 - 11.09.2023 =
 Added: "Getting Started" page.
 Added: Image Atributtion

@@ -145,7 +145,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.placeImage(index);
 
 				if (instance.isIsotope) {
-					if ( 'undefined' !== typeof modulaisotope ) {
+					if ('undefined' !== typeof instance.$itemsCnt.data('modulaisotope')) {
 						instance.$itemsCnt.modulaisotope('layout');
 					}
 				}
