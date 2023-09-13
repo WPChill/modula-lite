@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.7 - TBD =
+Changed: Hidden "Debug gallery" meta box by default.
+
 = 2.7.6 - 12.09.2023 =
 Fixed: Lazyload and srcset bug
 

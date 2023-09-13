@@ -26,7 +26,11 @@ class Modula_Debug {
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'debug_meta_box_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'debug_meta_box_setup' ) );
+
+		// Hide debug gallery by default
+		add_filter( 'hidden_meta_boxes' , array( $this, 'hide_meta_box' ), 10, 2 );
 	}
+
 
 
 	/**
@@ -303,6 +307,22 @@ class Modula_Debug {
 		);
 
 	}
+
+	
+	/**
+	 * Default hidden debug metabox
+	 *
+	 * @since 2.7.7
+	 */
+	public function hide_meta_box( $hidden, $screen ) {
+	
+		//make sure we are dealing with the correct screen
+		if ( ('post' == $screen->base) && ('modula-gallery' == $screen->id) ){
+
+		  $hidden[] ='modula-debug';
+		}
+		return $hidden;
+	  }
 
 	/**
 	 * Output the Debug Gallery metabox
