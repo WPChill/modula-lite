@@ -308,21 +308,19 @@ class Modula_Debug {
 
 	}
 
-	
 	/**
 	 * Default hidden debug metabox
 	 *
 	 * @since 2.7.7
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
-	
 		//make sure we are dealing with the correct screen
-		if ( ('post' == $screen->base) && ('modula-gallery' == $screen->id) ){
-
-		  $hidden[] ='modula-debug';
+		if ( ( 'post' === $screen->base ) && ( 'modula-gallery' === $screen->id ) ) {
+			$hidden[] = 'modula-debug';
 		}
+
 		return $hidden;
-	  }
+	}
 
 	/**
 	 * Output the Debug Gallery metabox
