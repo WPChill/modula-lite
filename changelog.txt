@@ -1,3 +1,7 @@
+= 2.7.7 - 14.09.2023 =
+Changed: Hidden "Debug gallery" meta box by default.
+Fixed: Image attribution when "none" is selected
+
 = 2.7.6 - 12.09.2023 =
 Fixed: Lazyload and srcset bug
 
