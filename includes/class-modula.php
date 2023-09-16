@@ -73,6 +73,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
 
 		if ( is_admin() ) {
+			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
@@ -86,7 +87,9 @@ class Modula {
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
+
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
+
 
 		}
 
