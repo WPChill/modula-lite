@@ -2,9 +2,9 @@
 	"name": "modula-best-grid-gallery",
 	"main": "Gruntfile.js",
 	"version": "2.7.7",
-	"author": "Macho Themes",
+	"author": "WPChill",
 	"license": "GPL v3",
-	"repository": "https://github.com/machothemes/modula-lite.git",
+	"repository": "https://github.com/wpchill/modula-lite.git",
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
