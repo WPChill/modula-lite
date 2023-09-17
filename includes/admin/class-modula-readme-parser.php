@@ -1,11 +1,9 @@
 <?php
 
-use admin\Parsedown;
 
-if ( ! class_exists( 'WPCHill_Readme_Parser' ) ) {
-	require_once MODULA_PATH . 'includes/admin/class-readme-parser.php'; //added by Cristi in 2.7.8
+if ( ! class_exists( 'WPChill_Readme_Parser' ) ) {
+	require_once MODULA_PATH . 'includes/admin/parser/class-readme-parser.php'; //added by Cristi in 2.7.8
 }
-
 
 
 /**
@@ -34,8 +32,8 @@ class WPChill_Modula_Readme_Parser extends WPChill_Readme_Parser {
 	 * @return string
 	 */
 	public function parse_markdown( $text ) {
-		if ( ! class_exists( 'admin\Parsedown' ) ) {
-			require_once MODULA_PATH . 'includes/admin/Parsedown.php';
+		if ( ! class_exists( 'Parsedown' ) ) {
+			require_once MODULA_PATH . 'includes/admin/parser/Parsedown.php';
 		}
 		static $markdown = null;
 
@@ -56,7 +54,7 @@ class WPChill_Modula_Readme_Parser extends WPChill_Readme_Parser {
 		foreach ( get_object_vars( $this ) as $key => $value ) {
 			$data[ $key ] = 'contributors' === $key ? $this->create_contributors( $value ) : $value;
 		}
-		foreach( $data['sections'] as $section_key => $section ) {
+		foreach ( $data['sections'] as $section_key => $section ) {
 			if ( 'faq' === $section_key ) {
 				$data = $this->faq_as_h4( $data );
 			} else {
@@ -122,7 +120,7 @@ class WPChill_Modula_Readme_Parser extends WPChill_Readme_Parser {
 	 * Converts wp.org readme section items to h4 style.
 	 *
 	 * @param string $section Readme section.
-	 * @param array  $data Array of parsed readme data.
+	 * @param array $data Array of parsed readme data.
 	 *
 	 * @return array $data
 	 */
@@ -144,7 +142,7 @@ class WPChill_Modula_Readme_Parser extends WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $desc
-	 * @param int    $length
+	 * @param int $length
 	 *
 	 * @return string
 	 */

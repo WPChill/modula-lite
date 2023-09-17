@@ -13,7 +13,7 @@
 #
 #
 
-namespace admin;
+namespace admin\parser;
 class Parsedown {
 	# ~
 

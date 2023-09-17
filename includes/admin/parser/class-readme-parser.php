@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress.org Plugin Readme Parser.
  *
@@ -158,6 +159,7 @@ class WPChill_Readme_Parser {
 
 	/**
 	 * @param string $file
+	 *
 	 * @return bool
 	 */
 	public function parse_readme( $file ) {
@@ -216,9 +218,9 @@ class WPChill_Readme_Parser {
 				}
 			}
 
-			$bits                = explode( ':', trim( $line ), 2 );
+			$bits = explode( ':', trim( $line ), 2 );
 			list( $key, $value ) = $bits;
-			$key                 = strtolower( trim( $key, " \t*-\r\n" ) );
+			$key = strtolower( trim( $key, " \t*-\r\n" ) );
 			if ( isset( $this->valid_headers[ $key ] ) ) {
 				$headers[ $this->valid_headers[ $key ] ] = trim( $value );
 			}
@@ -316,7 +318,7 @@ class WPChill_Readme_Parser {
 
 				// If we encounter an unknown section header, include the provided Title, we'll filter it to other_notes later.
 				if ( ! in_array( $section_name, $this->expected_sections ) ) {
-					$current     .= '<h3>' . $section_title . '</h3>';
+					$current      .= '<h3>' . $section_title . '</h3>';
 					$section_name = 'other_notes';
 				}
 				continue;
@@ -377,7 +379,7 @@ class WPChill_Readme_Parser {
 			if ( $screenshots ) {
 				$i = 1; // Screenshots start from 1.
 				foreach ( $screenshots as $ss ) {
-					$this->screenshots[ $i++ ] = $this->filter_text( $ss[1] );
+					$this->screenshots[ $i ++ ] = $this->filter_text( $ss[1] );
 				}
 			}
 			unset( $this->sections['screenshots'] );
@@ -393,7 +395,7 @@ class WPChill_Readme_Parser {
 			if ( $this->faq ) {
 				$this->sections['faq'] .= "\n<dl>\n";
 				foreach ( $this->faq as $question => $answer ) {
-					$question_slug          = sanitize_title_with_dashes( $question );
+					$question_slug         = sanitize_title_with_dashes( $question );
 					$this->sections['faq'] .= "<dt id='{$question_slug}'>{$question}</dt>\n<dd>{$answer}</dd>\n";
 				}
 				$this->sections['faq'] .= "\n</dl>\n";
@@ -410,6 +412,7 @@ class WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $contents
+	 *
 	 * @return string
 	 */
 	protected function get_first_nonwhitespace( &$contents ) {
@@ -427,6 +430,7 @@ class WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $line
+	 *
 	 * @return string
 	 */
 	protected function strip_newlines( $line ) {
@@ -437,7 +441,8 @@ class WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $desc
-	 * @param int    $length
+	 * @param int $length
+	 *
 	 * @return string
 	 */
 	protected function trim_length( $desc, $length = 150 ) {
@@ -445,7 +450,7 @@ class WPChill_Readme_Parser {
 			$desc = mb_substr( $desc, 0, $length ) . ' &hellip;';
 
 			// If not a full sentence, and one ends within 20% of the end, trim it to that.
-			if ( '.' !== mb_substr( $desc, -1 ) && ( $pos = mb_strrpos( $desc, '.' ) ) > ( 0.8 * $length ) ) {
+			if ( '.' !== mb_substr( $desc, - 1 ) && ( $pos = mb_strrpos( $desc, '.' ) ) > ( 0.8 * $length ) ) {
 				$desc = mb_substr( $desc, 0, $pos + 1 );
 			}
 		}
@@ -457,6 +462,7 @@ class WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $text
+	 *
 	 * @return string
 	 */
 	protected function filter_text( $text ) {
@@ -504,6 +510,7 @@ class WPChill_Readme_Parser {
 	 * @access protected
 	 *
 	 * @param string $text
+	 *
 	 * @return string
 	 */
 	protected function sanitize_text( $text ) {
@@ -519,6 +526,7 @@ class WPChill_Readme_Parser {
 	 * Sanitize provided contributors to valid WordPress users
 	 *
 	 * @param array $users Array of user_login's or user_nicename's.
+	 *
 	 * @return array Array of user_logins.
 	 */
 	protected function sanitize_contributors( $users ) {
@@ -549,6 +557,7 @@ class WPChill_Readme_Parser {
 	 * Sanitize the provided stable tag to something we expect.
 	 *
 	 * @param string $stable_tag the raw Stable Tag line from the readme.
+	 *
 	 * @return string The sanitized $stable_tag.
 	 */
 	protected function sanitize_stable_tag( $stable_tag ) {
@@ -569,6 +578,7 @@ class WPChill_Readme_Parser {
 	 * Sanitizes the Requires PHP header to ensure that it's a valid version header.
 	 *
 	 * @param string $version
+	 *
 	 * @return string The sanitized $version
 	 */
 	protected function sanitize_requires_php( $version ) {
@@ -588,6 +598,7 @@ class WPChill_Readme_Parser {
 	 * Sanitizes the Tested header to ensure that it's a valid version header.
 	 *
 	 * @param string $version
+	 *
 	 * @return string The sanitized $version
 	 */
 	protected function sanitize_tested_version( $version ) {
@@ -600,7 +611,7 @@ class WPChill_Readme_Parser {
 				'WordPress',
 				'WP',
 			];
-			$version = trim( str_ireplace( $strip_phrases, '', $version ) );
+			$version       = trim( str_ireplace( $strip_phrases, '', $version ) );
 
 			// Strip off any -alpha, -RC, -beta suffixes, as these complicate comparisons and are rarely used.
 			list( $version, ) = explode( '-', $version );
@@ -611,7 +622,7 @@ class WPChill_Readme_Parser {
 				// Allow plugins to mark themselves as compatible with Stable+0.1 (trunk/master) but not higher
 				(
 					defined( 'WP_CORE_STABLE_BRANCH' ) &&
-					version_compare( (float)$version, (float)WP_CORE_STABLE_BRANCH+0.1, '>' )
+					version_compare( (float) $version, (float) WP_CORE_STABLE_BRANCH + 0.1, '>' )
 				)
 			) {
 				$this->warnings['tested_header_ignored'] = true;
@@ -627,6 +638,7 @@ class WPChill_Readme_Parser {
 	 * Sanitizes the Requires at least header to ensure that it's a valid version header.
 	 *
 	 * @param string $version
+	 *
 	 * @return string The sanitized $version
 	 */
 	protected function sanitize_requires_version( $version ) {
@@ -642,7 +654,7 @@ class WPChill_Readme_Parser {
 				'and above',
 				'+',
 			];
-			$version = trim( str_ireplace( $strip_phrases, '', $version ) );
+			$version       = trim( str_ireplace( $strip_phrases, '', $version ) );
 
 			// Strip off any -alpha, -RC, -beta suffixes, as these complicate comparisons and are rarely used.
 			list( $version, ) = explode( '-', $version );
@@ -651,7 +663,7 @@ class WPChill_Readme_Parser {
 				// x.y or x.y.z
 				! preg_match( '!^\d+\.\d(\.\d+)?$!', $version ) ||
 				// Allow plugins to mark themselves as requireing Stable+0.1 (trunk/master) but not higher
-				defined( 'WP_CORE_STABLE_BRANCH' ) && ( (float)$version > (float)WP_CORE_STABLE_BRANCH+0.1 )
+				defined( 'WP_CORE_STABLE_BRANCH' ) && ( (float) $version > (float) WP_CORE_STABLE_BRANCH + 0.1 )
 			) {
 				$this->warnings['requires_header_ignored'] = true;
 				// Ignore the readme value.
@@ -669,6 +681,7 @@ class WPChill_Readme_Parser {
 	 * We support headings which are either `= Heading`, `# Heading` or `** Heading`.
 	 *
 	 * @param string|array $lines The lines of the section to parse.
+	 *
 	 * @return array
 	 */
 	protected function parse_section( $lines ) {
@@ -694,7 +707,7 @@ class WPChill_Readme_Parser {
 		}
 
 		$line_count = count( $lines );
-		for ( $i = 0; $i < $line_count; $i++ ) {
+		for ( $i = 0; $i < $line_count; $i ++ ) {
 			$line    = &$lines[ $i ];
 			$trimmed = &$trimmed_lines[ $i ];
 			if ( ! $trimmed ) {
@@ -705,7 +718,7 @@ class WPChill_Readme_Parser {
 			$is_heading = false;
 			if ( 'heading' == $heading_style && ( $trimmed[0] == '#' || $trimmed[0] == '=' ) ) {
 				$is_heading = true;
-			} elseif ( 'bold' == $heading_style && ( substr( $trimmed, 0, 2 ) == '**' && substr( $trimmed, -2 ) == '**' ) ) {
+			} elseif ( 'bold' == $heading_style && ( substr( $trimmed, 0, 2 ) == '**' && substr( $trimmed, - 2 ) == '**' ) ) {
 				$is_heading = true;
 			}
 
@@ -732,6 +745,7 @@ class WPChill_Readme_Parser {
 
 	/**
 	 * @param string $text
+	 *
 	 * @return string
 	 */
 	protected function parse_markdown( $text ) {
