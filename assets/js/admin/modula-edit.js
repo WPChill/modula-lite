@@ -93,9 +93,32 @@
 
     $('body').on(
         'click',
+        '#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#modula-lightbox"]',
+        {upsell: 'lightbox'},
+        modulaOpenModal
+    );
+
+    $('body').on(
+        'click',
+        '#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#modula-lightbox-defaults"]',
+        {upsell: 'lightbox-defaults'},
+        modulaOpenModal
+    );
+
+    $('body').on(
+        'click',
         '#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#albums-defaults"]',
         {upsell: 'albums-defaults'},
         modulaOpenModal
+    );
+
+    $('body').on(
+        'click',
+        '#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=go-pro"]',
+        function (e) {
+            e.preventDefault();
+            window.open('https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=admin-menu&utm_campaign=upsell', '_blank');
+        }
     );
 
     jQuery(window).on('load', function () {
