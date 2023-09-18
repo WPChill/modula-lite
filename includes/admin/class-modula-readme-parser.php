@@ -33,7 +33,7 @@ class WPChill_Modula_Readme_Parser extends WPChill_Readme_Parser {
 	 */
 	public function parse_markdown( $text ) {
 		if ( ! class_exists( 'Parsedown' ) ) {
-			require_once MODULA_PATH . 'includes/admin/parser/Parsedown.php';
+			require_once MODULA_PATH . 'includes/admin/parser/Parsedown.php'; //added by Cristi in 2.7.8
 		}
 		static $markdown = null;
 

@@ -481,27 +481,40 @@ class Modula_Dashboard {
 	}
 
 	public function _render_changelog() {
+		$versionLines   = array();
+		$currentVersion = '';
+		$changelog      = MODULA_PATH . "readme.txt";
+		$readme         = new WPChill_Modula_Readme_Parser( $changelog );
 
-		$changelog = MODULA_PATH . "readme.txt";
-		$readme    = new WPChill_Modula_Readme_Parser( $changelog );
-		$content   = explode( PHP_EOL, ( $readme->sections['changelog'] ) );
-		$counter   = 0;
+		$content = $readme->sections['changelog'];
+		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags($content) );
 
-		echo '<div class="wpchill_dashboard_changelog">';
-		echo '<ul>';
-		foreach ( $content as $item ) {
-			if ( $counter < 50 ) {
-				if ( strpos( $item, 'p' ) ) {
-					$item = str_replace( '<p>', '', $item );
-                    $item = str_replace('=', '', $item);
 
+		foreach ( $content as $line ) {
+
+			if ( strpos( $line, '=' ) === 0 ) {
+				// This line starts with an equal sign, indicating a new version.
+				$currentVersion = $line;
+			} else {
+				// This line does not start with an equal sign; it's a change description.
+				if ( ! empty( $currentVersion ) ) {
+					// Append the change description to the current version.
+					$versionLines[ $currentVersion ][] = $line;
 				}
-				echo '<li>' . $item . '</li>';
 			}
-			$counter ++;
 		}
 
-		echo '</ul>';
+
+		echo '<div class="wpchill_dashboard_changelog">';
+		// Now, you can access the extracted data like this:
+		foreach ( $versionLines as $version => $changes ) {
+			echo '<h4>' . esc_html( $version ) . '</h4>';
+			foreach ( $changes as $change ) {
+				echo '<p>' . wp_kses_post( $change ) . '</p>';
+			}
+			echo "\n";
+            break;
+		}
 		echo '</div>';
 
 	}
