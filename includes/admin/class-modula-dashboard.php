@@ -487,7 +487,7 @@ class Modula_Dashboard {
 		$readme         = new WPChill_Modula_Readme_Parser( $changelog );
 
 		$content = $readme->sections['changelog'];
-		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags($content) );
+		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content ) ); // we use strip tags here because the parser adds extra <p> tags
 
 
 		foreach ( $content as $line ) {
@@ -500,6 +500,7 @@ class Modula_Dashboard {
 				if ( ! empty( $currentVersion ) ) {
 					// Append the change description to the current version.
 					$versionLines[ $currentVersion ][] = $line;
+
 				}
 			}
 		}
@@ -509,17 +510,18 @@ class Modula_Dashboard {
 		// Now, you can access the extracted data like this:
 		foreach ( $versionLines as $version => $changes ) {
 			echo '<h4>' . esc_html( $version ) . '</h4>';
+			echo '<ul>';
 			foreach ( $changes as $change ) {
-				echo '<p>' . wp_kses_post( $change ) . '</p>';
+				echo '<li>' . wp_kses_post( $change ) . '</li>';
 			}
-			echo "\n";
-            break;
+			echo '</ul>';
+			break; // we only want to get the last release
+
 		}
 		echo '</div>';
-
 	}
 
-	public function render_partners() {
+	function render_partners() {
 
 		$addons = get_transient( 'wpchill_all_partners' );
 
@@ -616,7 +618,7 @@ class Modula_Dashboard {
 	 *
 	 * @since 2.3.4
 	 */
-	public function dashboard_view() {
+	function dashboard_view() {
 
 		echo '<div id="wpchill_dashboard_container">';
 		$this->render_header();
@@ -629,7 +631,8 @@ class Modula_Dashboard {
 	 * @return string
 	 * @since 1.0.5
 	 */
-	public function is_addon_installed( $plugin_path ) {
+
+	function is_addon_installed( $plugin_path ) {
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
@@ -657,7 +660,8 @@ class Modula_Dashboard {
 	 * @return bool|mixed
 	 * @since 2.5.3
 	 */
-	public function is_dashboard() {
+
+	function is_dashboard() {
 
 		if ( isset( $_GET['page'] ) && 'wpchill-dashboard' === $_GET['page'] ) {
 			return true;
@@ -666,7 +670,8 @@ class Modula_Dashboard {
 		return false;
 	}
 
-	public function enqueue_scripts() {
+
+	function enqueue_scripts() {
 
 		wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/dashboard.css', null, $this->version );
 		wp_enqueue_script( 'modula-dashboard-script', plugin_dir_url( $this->plugin_file ) . 'assets/js/admin/dashboard.js', array(
@@ -676,7 +681,8 @@ class Modula_Dashboard {
 
 	}
 
-	public function render_common_use_cases() {
+
+	function render_common_use_cases() {
 
 		// Make the request
 		$request = wp_remote_get( $this->plugin_link['common_use_cases'] );
@@ -701,7 +707,7 @@ class Modula_Dashboard {
 	}
 
 
-	public function redirect_to_list_or_dash() {
+	function redirect_to_list_or_dash() {
 		if ( $this->is_dashboard() && ! isset( $_GET['post_type'] ) ) {
 			$url_to_galleries = add_query_arg( array(
 				'post_type' => 'modula-gallery',
