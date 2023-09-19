@@ -491,7 +491,7 @@ class Modula_Dashboard {
 		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
 
-// Process the text data
+		// Process the text data
 		foreach ( $content as $line ) {
 			$line = trim( $line ); // Remove leading/trailing whitespace
 
@@ -511,10 +511,11 @@ class Modula_Dashboard {
 			}
 		}
 
-        // Display the changelog
+		// Display the changelog
 		echo '<div class="wpchill_dashboard_changelog">';
 		if ( ! empty( $versionLines ) ) {
-			$latestVersion = end( array_keys( $versionLines ) );
+
+			$latestVersion = array_shift( array_keys( $versionLines ) );
 			echo '<h4>' . esc_html( $latestVersion ) . '</h4>';
 			echo '<ul>';
 			foreach ( $versionLines[ $latestVersion ] as $change ) {
