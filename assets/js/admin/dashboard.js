@@ -1,10 +1,6 @@
 function activatePlugin(url) {
     jQuery.ajax({
-        async: true,
-        type: "GET",
-        dataType: "html",
-        url: url,
-        success: function () {
+        async: true, type: "GET", dataType: "html", url: url, success: function () {
             location.reload();
         },
     });
@@ -28,14 +24,12 @@ jQuery(".wpchill_install_partener_addon").on("click", (event) => {
         current.html(dashboardStrings.installing_plugin);
 
         const args = {
-            slug: plugin_slug,
-            success: (response) => {
+            slug: plugin_slug, success: (response) => {
 
                 current.html(dashboardStrings.activating_plugin);
 
                 activatePlugin(response.activateUrl);
-            },
-            error: (response) => {
+            }, error: (response) => {
                 current.removeClass("updating-message");
 
             },
