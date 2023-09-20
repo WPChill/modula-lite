@@ -114,8 +114,6 @@ module.exports = function( grunt ) {
 					'!old/**',
 					'!bin/**',
 					'!tests/**',
-					'!codeception.dist.yml',
-					'!regconfig.json',
 					'!nbproject/**',
 					'!SECURITY.md'
 				],

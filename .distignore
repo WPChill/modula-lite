@@ -9,5 +9,4 @@ Gruntfile.js
 package.json
 package-lock.json
 postcss.config.js
-regconfig.json
 webpack.config.js
