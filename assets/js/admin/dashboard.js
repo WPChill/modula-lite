@@ -1,4 +1,3 @@
-//TODO: localize strings
 function activatePlugin(url) {
     jQuery.ajax({
         async: true,
@@ -25,11 +24,14 @@ jQuery(".wpchill_install_partener_addon").on("click", (event) => {
 
 
     if ("install" === plugin_action) {
-        current.html("Installing plugin...", true);
+
+        current.html(dashboardStrings.installing_plugin);
+
         const args = {
             slug: plugin_slug,
             success: (response) => {
-                current.html("Activating plugin...");
+
+                current.html(dashboardStrings.activating_plugin);
 
                 activatePlugin(response.activateUrl);
             },
@@ -41,7 +43,7 @@ jQuery(".wpchill_install_partener_addon").on("click", (event) => {
 
         wp.updates.installPlugin(args);
     } else if ("activate" === plugin_action) {
-        current.html("Activating plugin...");
+        current.html(dashboardStrings.activating_plugin);
 
         activatePlugin(activate_url);
     }
