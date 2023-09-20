@@ -676,6 +676,13 @@ class Modula_Dashboard {
 			'updates'
 		), $this->version, true );
 
+		$dashboard_strings = array(
+			'installing_plugin' => esc_html__( 'Installing plugin', 'modula-best-grid-gallery' ),
+			'activating_plugin' => esc_html__( 'Activating plugin', 'modula-best-grid-gallery' )
+		);
+
+		wp_localize_script( 'modula-dashboard-script', 'dashboardStrings', $dashboard_strings );
+
 	}
 
 
