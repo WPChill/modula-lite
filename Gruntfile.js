@@ -107,8 +107,6 @@ module.exports = function( grunt ) {
 					'!svn-ignore.txt',
 					'!Gruntfile.js',
 					'!package.json',
-					'!composer.json',
-					'!composer.lock',
 					'!postcss.config.js',
 					'!webpack.config.js',
 					'!set_tags.sh',
