@@ -490,40 +490,32 @@ class Modula_Dashboard {
 		$content = $readme->sections['changelog'];
 		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
-
+		echo '<div class="wpchill_dashboard_changelog">';
+		echo '<ul>';
 		// Process the text data
 		foreach ( $content as $line ) {
 			$line = trim( $line ); // Remove leading/trailing whitespace
 
 			if ( strpos( $line, '=' ) === 0 ) {
+
 				// This line starts with an equal sign, indicating a new version.
 				$equalSignCount ++;
 
 				if ( $equalSignCount <= 1 ) {
-					$currentVersion = $line;
+					echo '<h4>' . esc_html( $line ) . '</h4>';
+
 				} else {
 					// Break the loop after encountering the second equal sign
 					break;
 				}
-			} elseif ( ! empty( $currentVersion ) ) {
-				// This line does not start with an equal sign; it's a change description.
-				$versionLines[ $currentVersion ][] = $line;
+			} else {
+				echo '<li>' . wp_kses_post( $line ) . '</li>';
 			}
 		}
-
-		// Display the changelog
-		echo '<div class="wpchill_dashboard_changelog">';
-		if ( ! empty( $versionLines ) ) {
-
-			$latestVersion = array_shift( array_keys( $versionLines ) );
-			echo '<h4>' . esc_html( $latestVersion ) . '</h4>';
-			echo '<ul>';
-			foreach ( $versionLines[ $latestVersion ] as $change ) {
-				echo '<li>' . wp_kses_post( $change ) . '</li>';
-			}
-			echo '</ul>';
-		}
+		echo '</ul>';
 		echo '</div>';
+
+
 	}
 
 	function render_partners() {
