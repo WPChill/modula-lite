@@ -262,6 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.8 - TBD =
+Fixed: Addons in "Partners" page not updating their install status. ( [#845](https://github.com/WPChill/modula-lite/issues/845) )
+
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )
 Fixed: Image attribution when "none" is selected ( [#840](https://github.com/WPChill/modula-lite/issues/840) )

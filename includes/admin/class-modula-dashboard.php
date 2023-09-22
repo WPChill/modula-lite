@@ -551,9 +551,8 @@ class Modula_Dashboard {
 		if ( ! empty( $addons ) ) {
 
 			foreach ( $addons as $addon ) {
-
-				$addon_path   = $addon['slug'] . '/' . $addon['slug'] . '.php';
-				$addon_status = $this->is_addon_installed( $addon_path ); // should look like 'wp-smtp/wp-smtp.php'
+				$addon_path   = isset( $addon['path'] ) ? $addon['path'] : $addon['slug'] . '/' . $addon['slug'] . '.php';
+				$addon_status = $this->is_addon_installed( $addon_path );
 
 				echo '<div class="wpchill-addon">';
 				echo '<div class="wpchill-addon-box">';
