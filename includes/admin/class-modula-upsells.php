@@ -1006,8 +1006,8 @@ class Modula_Upsells {
 	public function add_go_pro_menu_item( $links ) {
 
 		$links['gopro'] = array(
-			'page_title' => esc_html__( 'GO Premium', 'modula-best-grid-gallery' ),
-			'menu_title' => esc_html__( 'GO Premium', 'modula-best-grid-gallery' ),
+			'page_title' => esc_html__( 'Get Premium', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Get Premium', 'modula-best-grid-gallery' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'go-pro',
 			'function'   => array( $this, 'go_pro_redirect' ),
