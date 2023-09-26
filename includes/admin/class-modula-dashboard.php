@@ -481,8 +481,6 @@ class Modula_Dashboard {
 	}
 
 	public function render_changelog() {
-		$versionLines   = array();
-		$currentVersion = '';
 		$equalSignCount = 0;
 		$changelog      = MODULA_PATH . "readme.txt";
 		$readme         = new WPChill_Modula_Readme_Parser( $changelog );
