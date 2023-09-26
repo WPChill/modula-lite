@@ -1,5 +1,10 @@
 <?php
 
+/** TODO:
+ * - use only the w.org parser to render the common uses cases as well
+ *- remove unused variables and clean up code
+ */
+
 /**
  * The cpt plugin class.
  *
@@ -55,7 +60,7 @@ class Modula_Dashboard {
 		// Clear all notices
 		add_action( 'in_admin_header', array( $this, 'clear_admin_notices' ), 99 );
 
-		// Show addon's header on dashboard
+		// Show addon header on dashboard
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
@@ -95,10 +100,16 @@ class Modula_Dashboard {
 	 * @since 2.7.5
 	 */
 	public function add_dashboard_menu_item() {
-		add_submenu_page( 'edit.php?post_type=' . $this->plugin_cpt, esc_html__( 'Welcome', 'modula-best-grid-gallery' ), esc_html__( 'Welcome', 'modula-best-grid-gallery' ), 'manage_options', $this->menu_slug, array(
-			$this,
-			'dashboard_view'
-		), 0 );
+		add_submenu_page( 'edit.php?post_type=' . $this->plugin_cpt,
+			esc_html__( 'Welcome', 'modula-best-grid-gallery' ),
+			esc_html__( 'Welcome', 'modula-best-grid-gallery' ),
+			'manage_options', $this->menu_slug,
+			array(
+				$this,
+				'dashboard_view'
+			),
+			0
+		);
 	}
 
 	public function clear_admin_notices() {
