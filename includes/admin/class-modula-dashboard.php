@@ -488,6 +488,18 @@ class Modula_Dashboard {
 		$content = $readme->sections['changelog'];
 		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
+		/**
+		 * $content looks like this
+         *
+		 * Array
+		 * (
+		 * [0] => = 2.7.7 - 14.09.2023 =
+		 * [1] => Changed: Hidden "Debug gallery" meta box by default.( #839 )
+		 * [2] => Fixed: Image attribution when "none" is selected ( #840 )
+		 * [3] => = 2.7.6 - 12.09.2023 =
+         * )
+		 */
+
 		echo '<div class="wpchill_dashboard_changelog">';
 		echo '<ul>';
 		// Process the text data
