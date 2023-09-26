@@ -796,7 +796,7 @@ class Modula_Upsells {
 
 		$upgrade = apply_filters( 'modula_upgrade_plugin_action', array(
 				'upgrade_available' => true,
-				'link'              => '<a  target="_blank" class="modula-lite-vs-pro" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to Premium!', 'modula-best-grid-gallery' ) . '</a>'
+				'link'              => '<a  target="_blank" class="modula-lite-vs-pro" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' .  esc_html__( 'Upgrade to Premium', 'modula-best-grid-gallery' ) . '</a>'
 		) );
 
 		if ( ! $upgrade['upgrade_available'] ) {
