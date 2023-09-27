@@ -113,6 +113,15 @@
 }
 
 a.modula-lite-vs-pro {
-    color:orange;
-    font-weight:bold;
+    font-weight:600;
+    color: #33a370; /* we use the same green color as on the site */
+}
+
+a.modula-lite-vs-pro:before {
+    display: inline-block;
+    color: #000;
+    font-family: 'dashicons';
+    transform: scaleX(-1);
+    margin-right: 5px;
+    content: '\f474';
 }

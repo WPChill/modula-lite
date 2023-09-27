@@ -1,5 +1,10 @@
 <?php
 
+/** TODO:
+ * - use only the w.org parser to render the common uses cases as well
+ *- remove unused variables and clean up code
+ */
+
 /**
  * The cpt plugin class.
  *
@@ -55,7 +60,7 @@ class Modula_Dashboard {
 		// Clear all notices
 		add_action( 'in_admin_header', array( $this, 'clear_admin_notices' ), 99 );
 
-		// Show addon's header on dashboard
+		// Show addon header on dashboard
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
@@ -95,10 +100,16 @@ class Modula_Dashboard {
 	 * @since 2.7.5
 	 */
 	public function add_dashboard_menu_item() {
-		add_submenu_page( 'edit.php?post_type=' . $this->plugin_cpt, esc_html__( 'Welcome', 'modula-best-grid-gallery' ), esc_html__( 'Welcome', 'modula-best-grid-gallery' ), 'manage_options', $this->menu_slug, array(
-			$this,
-			'dashboard_view'
-		), 0 );
+		add_submenu_page( 'edit.php?post_type=' . $this->plugin_cpt,
+			esc_html__( 'Welcome', 'modula-best-grid-gallery' ),
+			esc_html__( 'Welcome', 'modula-best-grid-gallery' ),
+			'manage_options', $this->menu_slug,
+			array(
+				$this,
+				'dashboard_view'
+			),
+			0
+		);
 	}
 
 	public function clear_admin_notices() {
@@ -280,9 +291,9 @@ class Modula_Dashboard {
                     <h3 class="wpchill_dashboard_item_title"><span
                                 class="wpchill_dashboard_icon wpchill_dashboard_icon_changelog"></span><?php esc_html_e( 'Changelog', 'modula-best-grid-gallery' ); ?>
                     </h3>
-					<?php $this->_render_changelog(); ?>
+					<?php $this->render_changelog(); ?>
                     <a href="<?php echo plugin_dir_url( $this->plugin_file ) . "changelog.txt"; ?>" target="_BLANK"
-                       class="wpchill_dashboard_item_button wpchill_dashboard_item_button_reverse"> <?php esc_html_e( 'View full changelog', 'modula-best-grid-gallery' ); ?>
+                       class="wpchill_dashboard_item_button"> <?php esc_html_e( 'View full changelog', 'modula-best-grid-gallery' ); ?>
                         <span class="dashicons dashicons-arrow-right-alt"></span> </a>
                 </div>
             </div>
@@ -304,110 +315,128 @@ class Modula_Dashboard {
             </div>
 
             <!-- Our Values -->
-            <h1 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Our values', 'modula-best-grid-gallery' ); ?></h1>
-            <div class="wpchill_dashboard_our_values">
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
-                                                                              fill="none" viewBox="0 0 60 60"
-                                                                              height="60" width="60"> <rect
-                                        fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
-                                        stroke-width="0.125" stroke="#38A0CE"
-                                        d="M13.0625 46.9375V12.0625H47.9375V46.9375H13.0625Z"></path> <path
-                                        stroke-miterlimit="10" stroke-width="2" stroke="#38A0CE"
-                                        d="M30.5 33.875C35.3325 33.875 39.25 29.9575 39.25 25.125C39.25 20.2925 35.3325 16.375 30.5 16.375C25.6675 16.375 21.75 20.2925 21.75 25.125C21.75 29.9575 25.6675 33.875 30.5 33.875Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M17.2383 41.5315C18.5821 39.2034 20.5152 37.27 22.8431 35.9259C25.1711 34.5817 27.8119 33.874 30.5 33.874C33.1881 33.874 35.8289 34.5817 38.1569 35.9259C40.4848 37.27 42.4179 39.2034 43.7617 41.5315"></path> </svg></span>
+            <div class="wpchill_dashboard_about_us_wrapper">
+                <h1 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Our values', 'modula-best-grid-gallery' ); ?></h1>
+                <div class="wpchill_dashboard_our_values">
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                  fill="none" viewBox="0 0 60 60"
+                                                                                  height="60" width="60"> <rect
+                                            fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
+                                            stroke-width="0.125" stroke="#38A0CE"
+                                            d="M13.0625 46.9375V12.0625H47.9375V46.9375H13.0625Z"></path> <path
+                                            stroke-miterlimit="10" stroke-width="2" stroke="#38A0CE"
+                                            d="M30.5 33.875C35.3325 33.875 39.25 29.9575 39.25 25.125C39.25 20.2925 35.3325 16.375 30.5 16.375C25.6675 16.375 21.75 20.2925 21.75 25.125C21.75 29.9575 25.6675 33.875 30.5 33.875Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M17.2383 41.5315C18.5821 39.2034 20.5152 37.27 22.8431 35.9259C25.1711 34.5817 27.8119 33.874 30.5 33.874C33.1881 33.874 35.8289 34.5817 38.1569 35.9259C40.4848 37.27 42.4179 39.2034 43.7617 41.5315"></path> </svg></span>
+                        </div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Commitment', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'It is powered by a deep need to help others and build a customer-centric culture.', 'modula-best-grid-gallery' ); ?></p>
                     </div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Commitment', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'It is powered by a deep need to help others and build a customer-centric culture.', 'modula-best-grid-gallery' ); ?></p>
-                </div>
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60" height="60" width="60">
-                            <rect fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect>
-                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                  d="M31.2777 41.9711L42.3519 30.8969C45.0726 28.1625 45.4691 23.6918 42.8988 20.8344C42.2542 20.1143 41.4695 19.5332 40.5928 19.1266C39.716 18.72 38.7655 18.4964 37.7995 18.4695C36.8334 18.4427 35.872 18.6131 34.9739 18.9703C34.0759 19.3275 33.2602 19.8641 32.5765 20.5472L30.4984 22.639L28.7074 20.8344C25.973 18.1137 21.5023 17.7172 18.6449 20.2875C17.9248 20.9321 17.3437 21.7167 16.9371 22.5935C16.5305 23.4703 16.307 24.4207 16.2801 25.3868C16.2532 26.3529 16.4236 27.3143 16.7808 28.2123C17.1381 29.1104 17.6747 29.9261 18.3578 30.6097L29.7191 41.9711C29.9265 42.1765 30.2066 42.2917 30.4984 42.2917C30.7903 42.2917 31.0703 42.1765 31.2777 41.9711V41.9711Z"></path>
-                        </svg>
-                        </span></div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Passion', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'We love our work & craft and allow it to define us. We take pride in the work we deliver.', 'modula-best-grid-gallery' ); ?></p>
-                </div>
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
-                                                                              fill="none" viewBox="0 0 60 60"
-                                                                              height="60" width="60"> <rect
-                                        fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M42.5312 18.5625H18.4688C17.8647 18.5625 17.375 19.0522 17.375 19.6562V39.3438C17.375 39.9478 17.8647 40.4375 18.4688 40.4375H42.5312C43.1353 40.4375 43.625 39.9478 43.625 39.3438V19.6562C43.625 19.0522 43.1353 18.5625 42.5312 18.5625Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M23.3906 25.125H37.6094"></path> <path stroke-linejoin="round"
-                                                                                  stroke-linecap="round"
-                                                                                  stroke-width="2" stroke="#38A0CE"
-                                                                                  d="M23.3906 29.5H37.6094"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M23.3906 33.875H37.6094"></path> </svg></span></div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Learning', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Honing our craft, staying ahead of the curve, and over-delivering on all fronts.', 'modula-best-grid-gallery' ); ?></p>
-                </div>
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
-                                                                              fill="none" viewBox="0 0 60 60"
-                                                                              height="60" width="60"> <rect
-                                        fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M23.9375 40.3438C26.3537 40.3438 28.3125 38.385 28.3125 35.9688C28.3125 33.5525 26.3537 31.5938 23.9375 31.5938C21.5213 31.5938 19.5625 33.5525 19.5625 35.9688C19.5625 38.385 21.5213 40.3438 23.9375 40.3438Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M17.375 43.625C18.1391 42.6062 19.1299 41.7793 20.269 41.2098C21.408 40.6403 22.664 40.3438 23.9375 40.3438C25.211 40.3438 26.467 40.6403 27.606 41.2098C28.7451 41.7793 29.7359 42.6062 30.5 43.625"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M23.9375 26.125C26.3537 26.125 28.3125 24.1662 28.3125 21.75C28.3125 19.3338 26.3537 17.375 23.9375 17.375C21.5213 17.375 19.5625 19.3338 19.5625 21.75C19.5625 24.1662 21.5213 26.125 23.9375 26.125Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M17.375 29.4062C18.1391 28.3875 19.1299 27.5606 20.269 26.991C21.408 26.4215 22.664 26.125 23.9375 26.125C25.211 26.125 26.467 26.4215 27.606 26.991C28.7451 27.5606 29.7359 28.3875 30.5 29.4062"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M37.0625 40.3438C39.4787 40.3438 41.4375 38.385 41.4375 35.9688C41.4375 33.5525 39.4787 31.5938 37.0625 31.5938C34.6463 31.5938 32.6875 33.5525 32.6875 35.9688C32.6875 38.385 34.6463 40.3438 37.0625 40.3438Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M30.5 43.625C31.2641 42.6062 32.2549 41.7793 33.394 41.2098C34.533 40.6403 35.789 40.3438 37.0625 40.3438C38.336 40.3438 39.592 40.6403 40.731 41.2098C41.8701 41.7793 42.8609 42.6062 43.625 43.625"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M37.0625 26.125C39.4787 26.125 41.4375 24.1662 41.4375 21.75C41.4375 19.3338 39.4787 17.375 37.0625 17.375C34.6463 17.375 32.6875 19.3338 32.6875 21.75C32.6875 24.1662 34.6463 26.125 37.0625 26.125Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M30.5 29.4062C31.2641 28.3875 32.2549 27.5606 33.394 26.991C34.533 26.4215 35.789 26.125 37.0625 26.125C38.336 26.125 39.592 26.4215 40.731 26.991C41.8701 27.5606 42.8609 28.3875 43.625 29.4062"></path> </svg></span>
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60" height="60"
+                                 width="60">
+                                <rect fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect>
+                                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
+                                      d="M31.2777 41.9711L42.3519 30.8969C45.0726 28.1625 45.4691 23.6918 42.8988 20.8344C42.2542 20.1143 41.4695 19.5332 40.5928 19.1266C39.716 18.72 38.7655 18.4964 37.7995 18.4695C36.8334 18.4427 35.872 18.6131 34.9739 18.9703C34.0759 19.3275 33.2602 19.8641 32.5765 20.5472L30.4984 22.639L28.7074 20.8344C25.973 18.1137 21.5023 17.7172 18.6449 20.2875C17.9248 20.9321 17.3437 21.7167 16.9371 22.5935C16.5305 23.4703 16.307 24.4207 16.2801 25.3868C16.2532 26.3529 16.4236 27.3143 16.7808 28.2123C17.1381 29.1104 17.6747 29.9261 18.3578 30.6097L29.7191 41.9711C29.9265 42.1765 30.2066 42.2917 30.4984 42.2917C30.7903 42.2917 31.0703 42.1765 31.2777 41.9711V41.9711Z"></path>
+                            </svg>
+                            </span></div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Passion', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'We love our work & craft and allow it to define us. We take pride in the work we deliver.', 'modula-best-grid-gallery' ); ?></p>
                     </div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Teamwork', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'We are working together to deliver the best possible customer experience and product.', 'modula-best-grid-gallery' ); ?></p>
-                </div>
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
-                                                                              fill="none" viewBox="0 0 60 60"
-                                                                              height="60" width="60"> <rect
-                                        fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M30.5 43.625C37.7487 43.625 43.625 37.7487 43.625 30.5C43.625 23.2513 37.7487 17.375 30.5 17.375C23.2513 17.375 17.375 23.2513 17.375 30.5C17.375 37.7487 23.2513 43.625 30.5 43.625Z"></path> <path
-                                        stroke-width="0.125" stroke="#38A0CE" fill="#38A0CE"
-                                        d="M27.1562 27.7656C27.1562 28.6372 26.4497 29.3438 25.5781 29.3438C24.7066 29.3438 24 28.6372 24 27.7656C24 26.8941 24.7066 26.1875 25.5781 26.1875C26.4497 26.1875 27.1562 26.8941 27.1562 27.7656Z"></path> <path
-                                        stroke-width="0.125" stroke="#38A0CE" fill="#38A0CE"
-                                        d="M37 27.7656C37 28.6372 36.2934 29.3438 35.4219 29.3438C34.5503 29.3438 33.8438 28.6372 33.8438 27.7656C33.8438 26.8941 34.5503 26.1875 35.4219 26.1875C36.2934 26.1875 37 26.8941 37 27.7656Z"></path> <path
-                                        stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
-                                        d="M36.1875 33.7812C35.6093 34.7774 34.7796 35.6042 33.7815 36.1789C32.7834 36.7536 31.6518 37.0562 30.5 37.0562C29.3482 37.0562 28.2166 36.7536 27.2185 36.1789C26.2204 35.6042 25.3907 34.7774 24.8125 33.7812"></path> </svg></span>
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                  fill="none" viewBox="0 0 60 60"
+                                                                                  height="60" width="60"> <rect
+                                            fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M42.5312 18.5625H18.4688C17.8647 18.5625 17.375 19.0522 17.375 19.6562V39.3438C17.375 39.9478 17.8647 40.4375 18.4688 40.4375H42.5312C43.1353 40.4375 43.625 39.9478 43.625 39.3438V19.6562C43.625 19.0522 43.1353 18.5625 42.5312 18.5625Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M23.3906 25.125H37.6094"></path> <path stroke-linejoin="round"
+                                                                                      stroke-linecap="round"
+                                                                                      stroke-width="2" stroke="#38A0CE"
+                                                                                      d="M23.3906 29.5H37.6094"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M23.3906 33.875H37.6094"></path> </svg></span></div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Learning', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Honing our craft, staying ahead of the curve, and over-delivering on all fronts.', 'modula-best-grid-gallery' ); ?></p>
                     </div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Fun', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Setting a fun environment where ideas can take shape is a vital part of the creation process.', 'modula-best-grid-gallery' ); ?></p>
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                  fill="none" viewBox="0 0 60 60"
+                                                                                  height="60" width="60"> <rect
+                                            fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M23.9375 40.3438C26.3537 40.3438 28.3125 38.385 28.3125 35.9688C28.3125 33.5525 26.3537 31.5938 23.9375 31.5938C21.5213 31.5938 19.5625 33.5525 19.5625 35.9688C19.5625 38.385 21.5213 40.3438 23.9375 40.3438Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M17.375 43.625C18.1391 42.6062 19.1299 41.7793 20.269 41.2098C21.408 40.6403 22.664 40.3438 23.9375 40.3438C25.211 40.3438 26.467 40.6403 27.606 41.2098C28.7451 41.7793 29.7359 42.6062 30.5 43.625"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M23.9375 26.125C26.3537 26.125 28.3125 24.1662 28.3125 21.75C28.3125 19.3338 26.3537 17.375 23.9375 17.375C21.5213 17.375 19.5625 19.3338 19.5625 21.75C19.5625 24.1662 21.5213 26.125 23.9375 26.125Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M17.375 29.4062C18.1391 28.3875 19.1299 27.5606 20.269 26.991C21.408 26.4215 22.664 26.125 23.9375 26.125C25.211 26.125 26.467 26.4215 27.606 26.991C28.7451 27.5606 29.7359 28.3875 30.5 29.4062"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M37.0625 40.3438C39.4787 40.3438 41.4375 38.385 41.4375 35.9688C41.4375 33.5525 39.4787 31.5938 37.0625 31.5938C34.6463 31.5938 32.6875 33.5525 32.6875 35.9688C32.6875 38.385 34.6463 40.3438 37.0625 40.3438Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M30.5 43.625C31.2641 42.6062 32.2549 41.7793 33.394 41.2098C34.533 40.6403 35.789 40.3438 37.0625 40.3438C38.336 40.3438 39.592 40.6403 40.731 41.2098C41.8701 41.7793 42.8609 42.6062 43.625 43.625"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M37.0625 26.125C39.4787 26.125 41.4375 24.1662 41.4375 21.75C41.4375 19.3338 39.4787 17.375 37.0625 17.375C34.6463 17.375 32.6875 19.3338 32.6875 21.75C32.6875 24.1662 34.6463 26.125 37.0625 26.125Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M30.5 29.4062C31.2641 28.3875 32.2549 27.5606 33.394 26.991C34.533 26.4215 35.789 26.125 37.0625 26.125C38.336 26.125 39.592 26.4215 40.731 26.991C41.8701 27.5606 42.8609 28.3875 43.625 29.4062"></path> </svg></span>
+                        </div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Teamwork', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'We are working together to deliver the best possible customer experience and product.', 'modula-best-grid-gallery' ); ?></p>
+                    </div>
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                  fill="none" viewBox="0 0 60 60"
+                                                                                  height="60" width="60"> <rect
+                                            fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M30.5 43.625C37.7487 43.625 43.625 37.7487 43.625 30.5C43.625 23.2513 37.7487 17.375 30.5 17.375C23.2513 17.375 17.375 23.2513 17.375 30.5C17.375 37.7487 23.2513 43.625 30.5 43.625Z"></path> <path
+                                            stroke-width="0.125" stroke="#38A0CE" fill="#38A0CE"
+                                            d="M27.1562 27.7656C27.1562 28.6372 26.4497 29.3438 25.5781 29.3438C24.7066 29.3438 24 28.6372 24 27.7656C24 26.8941 24.7066 26.1875 25.5781 26.1875C26.4497 26.1875 27.1562 26.8941 27.1562 27.7656Z"></path> <path
+                                            stroke-width="0.125" stroke="#38A0CE" fill="#38A0CE"
+                                            d="M37 27.7656C37 28.6372 36.2934 29.3438 35.4219 29.3438C34.5503 29.3438 33.8438 28.6372 33.8438 27.7656C33.8438 26.8941 34.5503 26.1875 35.4219 26.1875C36.2934 26.1875 37 26.8941 37 27.7656Z"></path> <path
+                                            stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                            stroke="#38A0CE"
+                                            d="M36.1875 33.7812C35.6093 34.7774 34.7796 35.6042 33.7815 36.1789C32.7834 36.7536 31.6518 37.0562 30.5 37.0562C29.3482 37.0562 28.2166 36.7536 27.2185 36.1789C26.2204 35.6042 25.3907 34.7774 24.8125 33.7812"></path> </svg></span>
+                        </div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Fun', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Setting a fun environment where ideas can take shape is a vital part of the creation process.', 'modula-best-grid-gallery' ); ?></p>
+                    </div>
+                    <div class="wpchill_dashboard_our_values_item">
+                        <div class="wpchill_dashboard_our_values_icon"><span><svg width="60" height="60"
+                                                                                  viewBox="0 0 60 60"
+                                                                                  fill="none"
+                                                                                  xmlns="http://www.w3.org/2000/svg"> <rect
+                                            opacity="0.1" width="60" height="60" rx="30" fill="#38A0CE"></rect> <path
+                                            d="M31.2777 41.9711L42.3519 30.8969C45.0726 28.1625 45.4691 23.6918 42.8988 20.8344C42.2542 20.1143 41.4695 19.5332 40.5928 19.1266C39.716 18.72 38.7655 18.4964 37.7995 18.4695C36.8334 18.4427 35.872 18.6131 34.9739 18.9703C34.0759 19.3275 33.2602 19.8641 32.5765 20.5472L30.4984 22.639L28.7074 20.8344C25.973 18.1137 21.5023 17.7172 18.6449 20.2875C17.9248 20.9321 17.3437 21.7167 16.9371 22.5935C16.5305 23.4703 16.307 24.4207 16.2801 25.3868C16.2532 26.3529 16.4236 27.3143 16.7808 28.2123C17.1381 29.1104 17.6747 29.9261 18.3578 30.6097L29.7191 41.9711C29.9265 42.1765 30.2066 42.2917 30.4984 42.2917C30.7903 42.2917 31.0703 42.1765 31.2777 41.9711V41.9711Z"
+                                            stroke="#38A0CE" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round"></path> </svg></span></div>
+                        <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Integrity', 'modula-best-grid-gallery' ); ?></h2>
+                        <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Acting with solid ethics is a priority for everyone representing the organization.', 'modula-best-grid-gallery' ); ?></p>
+                    </div>
                 </div>
-                <div class="wpchill_dashboard_our_values_item">
-                    <div class="wpchill_dashboard_our_values_icon"><span><svg width="60" height="60" viewBox="0 0 60 60"
-                                                                              fill="none"
-                                                                              xmlns="http://www.w3.org/2000/svg"> <rect
-                                        opacity="0.1" width="60" height="60" rx="30" fill="#38A0CE"></rect> <path
-                                        d="M31.2777 41.9711L42.3519 30.8969C45.0726 28.1625 45.4691 23.6918 42.8988 20.8344C42.2542 20.1143 41.4695 19.5332 40.5928 19.1266C39.716 18.72 38.7655 18.4964 37.7995 18.4695C36.8334 18.4427 35.872 18.6131 34.9739 18.9703C34.0759 19.3275 33.2602 19.8641 32.5765 20.5472L30.4984 22.639L28.7074 20.8344C25.973 18.1137 21.5023 17.7172 18.6449 20.2875C17.9248 20.9321 17.3437 21.7167 16.9371 22.5935C16.5305 23.4703 16.307 24.4207 16.2801 25.3868C16.2532 26.3529 16.4236 27.3143 16.7808 28.2123C17.1381 29.1104 17.6747 29.9261 18.3578 30.6097L29.7191 41.9711C29.9265 42.1765 30.2066 42.2917 30.4984 42.2917C30.7903 42.2917 31.0703 42.1765 31.2777 41.9711V41.9711Z"
-                                        stroke="#38A0CE" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"></path> </svg></span></div>
-                    <h2 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Integrity', 'modula-best-grid-gallery' ); ?></h2>
-                    <p class="wpchill_dashboard_our_values_text"><?php esc_html_e( 'Acting with solid ethics is a priority for everyone representing the organization.', 'modula-best-grid-gallery' ); ?></p>
-                </div>
+
+                <div class="wpchill_dashboard_about_button"><a href="https://wpchill.com/about/" target="_BLANK"
+                                                               class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Find more about us', 'modula-best-grid-gallery' ); ?>
+                        <span class="dashicons dashicons-arrow-right-alt"></span> </a></div>
+
             </div>
-
-            <div class="wpchill_dashboard_about_button"><a href="https://wpchill.com/about/" target="_BLANK"
-                                                           class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Find more about us', 'modula-best-grid-gallery' ); ?>
-                    <span class="dashicons dashicons-arrow-right-alt"></span> </a></div>
-
         </div>
 		<?php
 
@@ -480,45 +509,52 @@ class Modula_Dashboard {
 		<?php
 	}
 
-	public function _render_changelog() {
-		$versionLines   = array();
-		$currentVersion = '';
+	public function render_changelog() {
+		$equalSignCount = 0;
 		$changelog      = MODULA_PATH . "readme.txt";
 		$readme         = new WPChill_Modula_Readme_Parser( $changelog );
 
 		$content = $readme->sections['changelog'];
-		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content ) ); // we use strip tags here because the parser adds extra <p> tags
+		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
-
-		foreach ( $content as $line ) {
-
-			if ( strpos( $line, '=' ) === 0 ) {
-				// This line starts with an equal sign, indicating a new version.
-				$currentVersion = $line;
-			} else {
-				// This line does not start with an equal sign; it's a change description.
-				if ( ! empty( $currentVersion ) ) {
-					// Append the change description to the current version.
-					$versionLines[ $currentVersion ][] = $line;
-
-				}
-			}
-		}
-
+		/**
+		 * $content looks like this
+		 *
+		 * Array
+		 * (
+		 * [0] => = 2.7.7 - 14.09.2023 =
+		 * [1] => Changed: Hidden "Debug gallery" meta box by default.( #839 )
+		 * [2] => Fixed: Image attribution when "none" is selected ( #840 )
+		 * [3] => = 2.7.6 - 12.09.2023 =
+		 * )
+		 */
 
 		echo '<div class="wpchill_dashboard_changelog">';
-		// Now, you can access the extracted data like this:
-		foreach ( $versionLines as $version => $changes ) {
-			echo '<h4>' . esc_html( $version ) . '</h4>';
-			echo '<ul>';
-			foreach ( $changes as $change ) {
-				echo '<li>' . wp_kses_post( $change ) . '</li>';
-			}
-			echo '</ul>';
-			break; // we only want to get the last release
+		echo '<ul>';
+		// Process the text data
+		foreach ( $content as $line ) {
+			$line = trim( $line ); // Remove leading/trailing whitespace
 
+			if ( strpos( $line, '=' ) === 0 ) {
+
+				// This line starts with an equal sign, indicating a new version.
+				$equalSignCount ++;
+
+				if ( $equalSignCount <= 1 ) {
+					echo '<h4>' . esc_html( $line ) . '</h4>';
+
+				} else {
+					// Break the loop after encountering the second equal sign
+					break;
+				}
+			} else {
+				echo '<li>' . wp_kses_post( $line ) . '</li>';
+			}
 		}
+		echo '</ul>';
 		echo '</div>';
+
+
 	}
 
 	function render_partners() {
@@ -677,6 +713,13 @@ class Modula_Dashboard {
 			'jquery',
 			'updates'
 		), $this->version, true );
+
+		$dashboard_strings = array(
+			'installing_plugin' => esc_html__( 'Installing plugin', 'modula-best-grid-gallery' ),
+			'activating_plugin' => esc_html__( 'Activating plugin', 'modula-best-grid-gallery' )
+		);
+
+		wp_localize_script( 'modula-dashboard-script', 'dashboardStrings', $dashboard_strings );
 
 	}
 

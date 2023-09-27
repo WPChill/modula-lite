@@ -216,7 +216,6 @@ img.wpchill_dashboard_item_icon {
 
 .wpchill_dashboard_item_button {
     padding: 10px 30px;
-
     margin: 15px 0;
     font-size: 16px;
     line-height: 1.5rem;
@@ -228,14 +227,14 @@ img.wpchill_dashboard_item_icon {
     background-color: #33a370;
 }
 
-a.wpchill_dashboard_item_button_reverse {
+.wpchill_dashboard_item_button:hover {
     color: #33a370;
     background-color: #fff;
-    border-color: #33a370;
-    float:right;
 }
 
-a.wpchill_dashboard_item_button .dashicons {
+
+
+.wpchill_dashboard_item_button .dashicons {
     font-size: 14px;
     width: 14px;
     height: 14px;
@@ -421,13 +420,18 @@ h1.wpchill_dashboard_our_values_title {
     margin-bottom: 60px;
 }
 
+.wpchill_dashboard_about_us_wrapper {
+    max-width: 1006px;
+    margin: 0 auto;
+}
+
 .wpchill_dashboard_our_values {
     display: flex;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 60px;
+    gap: 30px;
 }
 
 .wpchill_dashboard_our_values_item {

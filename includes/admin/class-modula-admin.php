@@ -528,7 +528,6 @@ class Modula_Admin {
 	public function admin_custom_css() {
 		?>
 		<style type="text/css">
-			a#modula-uninstall-link {color: #FF0000 !important;font-weight:bold;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-lite-vs-pro"] {color: gold;}
 		</style>
 

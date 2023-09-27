@@ -796,7 +796,7 @@ class Modula_Upsells {
 
 		$upgrade = apply_filters( 'modula_upgrade_plugin_action', array(
 				'upgrade_available' => true,
-				'link'              => '<a  target="_blank" class="modula-lite-vs-pro" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to Premium!', 'modula-best-grid-gallery' ) . '</a>'
+				'link'              => '<a  target="_blank" class="modula-lite-vs-pro" href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' .  esc_html__( 'Upgrade to Premium', 'modula-best-grid-gallery' ) . '</a>'
 		) );
 
 		if ( ! $upgrade['upgrade_available'] ) {
@@ -1006,8 +1006,8 @@ class Modula_Upsells {
 	public function add_go_pro_menu_item( $links ) {
 
 		$links['gopro'] = array(
-			'page_title' => esc_html__( 'GO Premium', 'modula-best-grid-gallery' ),
-			'menu_title' => esc_html__( 'GO Premium', 'modula-best-grid-gallery' ),
+			'page_title' => esc_html__( 'Get Premium', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Get Premium', 'modula-best-grid-gallery' ),
 			'capability' => 'manage_options',
 			'menu_slug'  => 'go-pro',
 			'function'   => array( $this, 'go_pro_redirect' ),
