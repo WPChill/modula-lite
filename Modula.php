@@ -66,27 +66,9 @@ function modula_activate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-modula-upgrades.php';
 	$upgrades = Modula_Upgrades::get_instance();
 	$upgrades->check_on_activate();
-
-	// Redirect to welcome page, after the plugin activated.
-	add_action( 'activated_plugin', 'modula_dashboard_redirect' );
 }
 
 register_activation_hook( __FILE__, 'modula_activate' );
-
-/**
- * Redirect to dashboard when activated
- *
- * @param string $plugin The plugin file.
- *
- * @since 2.7.5
- */
-function modula_dashboard_redirect( $plugin ) {
-
-	if ( MODULA_FILE === $plugin ) {
-		wp_safe_redirect( admin_url( 'edit.php?post_type=modula-gallery&page=wpchill-dashboard' ) );
-		exit;
-	}
-}
 
 /**
  * The core plugin class that is used to define internationalization,
