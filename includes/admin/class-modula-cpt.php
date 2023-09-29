@@ -58,7 +58,7 @@ class Modula_CPT {
 	public function register_cpt() {
 
 		$this->labels = apply_filters( 'modula_cpt_labels', array(
-			'name'                  => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+			'name'                  => esc_html__( 'Modula Galleries', 'modula-best-grid-gallery' ),
 			'singular_name'         => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
 			'menu_name'             => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
 			'name_admin_bar'        => esc_html__( 'Modula', 'modula-best-grid-gallery' ),

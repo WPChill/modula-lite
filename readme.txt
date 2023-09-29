@@ -264,6 +264,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 = 2.7.8 - TBD =
 Fixed: Addons in "Partners" page not updating their install status. ( [#845](https://github.com/WPChill/modula-lite/issues/845) )
+Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid confusion between other galleries. ( [#706](https://github.com/WPChill/modula-lite/issues/706) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )
