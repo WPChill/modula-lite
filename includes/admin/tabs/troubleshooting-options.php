@@ -8,7 +8,8 @@ $defaults = apply_filters('modula_troubleshooting_defaults', array(
     'lightboxes'       => array(),
     'lazy_load'        => false,
     'disable_edit'     => false,
-    'disable_srcset'   => false
+    'disable_srcset'   => false,
+    'disable_autosave' => false
 ));
 
 $troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
@@ -29,6 +30,12 @@ $troubleshooting_fields = array(
         'disable_srcset'        => array(
 				'label'       => esc_html__( 'Disable images srcset', 'modula-best-grid-gallery' ),
 				'description' => esc_html__( 'If you want to disable the srcset of the front-end images check this option.', 'modula-best-grid-gallery' ),
+				'type'        => 'toggle',
+				'priority'    => 10,
+		),
+        'disable_autosave'        => array(
+				'label'       => esc_html__( 'Disable autosaving galleries', 'modula-best-grid-gallery' ),
+				'description' => esc_html__( 'If you want to disable the autosaving of the gallery edit screen check this option.', 'modula-best-grid-gallery' ),
 				'type'        => 'toggle',
 				'priority'    => 10,
 		),

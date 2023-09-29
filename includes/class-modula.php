@@ -210,6 +210,13 @@ class Modula {
 
 			}
 
+			// Check if we need to disable the autosaving
+			$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
+			if ( isset( $troubleshoot_opt['disable_autosave'] ) && '1' == $troubleshoot_opt['disable_autosave'] ) {
+
+				add_filter( 'wp_print_scripts', array( $this, 'disable_wp_autosaving' ), 999 );
+			}
+
 			/*
 			 CPT Styles & Scripts */
 			// Media Scripts
@@ -496,6 +503,20 @@ class Modula {
 
 		return $classes;
 	}
+
+	/**
+	 * Dequeues the autosaving of modula galleries cpt.
+	 *
+	 * @return void
+	 *
+	 * @since 2.7.8
+	 */
+	public function disable_wp_autosaving(){
+
+		wp_deregister_script( 'autosave' );
+		
+	}
+
 
 	public function display_attribution_license( $settings ) {
 		$image_attrib_options = get_option( 'modula_image_attribution_option', false );
