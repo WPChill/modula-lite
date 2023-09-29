@@ -128,11 +128,6 @@ class Modula_Debug {
 						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
 						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? 'srcset is disabled: ' : 'srcset is enabled'
 					),
-					'modula_disable_autosave' => array(
-						'label' => __( 'Disable autosaving galleries', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_autosave' ] ) && '1' == $troubleshoot_opt[ 'disable_autosave' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_autosave' ] ) && '1' == $troubleshoot_opt[ 'disable_autosave' ] ) ? 'autosave is disabled: ' : 'autosave is enabled'
-					),
 				)
 			)
 		);
