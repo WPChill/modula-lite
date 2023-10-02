@@ -16,7 +16,7 @@ export const ModulaGallerySearch = (props) => {
 		jQuery('.modula-gallery-input').selectize({
 			valueField: 'value',
 			labelField: 'label',
-			searchField: [ 'label', 'value' ],
+			searchField: ['label', 'value'],
 			create: false,
 			maxItems: 1,
 			placeholder: 'Search for a gallery...',
@@ -25,19 +25,19 @@ export const ModulaGallerySearch = (props) => {
 			closeAfterSelect: true,
 			options: options.concat(galleriesArray),
 			render: {
-				option: function(item, escape) {
+				option: function (item, escape) {
 					return (
 						'<div>' +
 						'<span className="title">' +
-						item.label+
+						item.label +
 						'<span className="name"> (#' +
 						escape(item.value) +
 						')</span>' +
 						'</div>'
 					);
-				}
+				},
 			},
-			load: function(query, callback) {
+			load: function (query, callback) {
 				if (!query.length) {
 					return callback();
 				}
@@ -48,20 +48,25 @@ export const ModulaGallerySearch = (props) => {
 					data: {
 						action: 'modula_get_gallery',
 						nonce: modulaVars.nonce,
-						term: query
+						term: query,
 					},
 					success: (res) => {
 						callback(res);
-					}
+					},
 				});
 			},
 			onChange: (value) => {
 				onIdChange(value);
-			}
+			},
 		});
 	}, []);
 
-	return <input className="modula-gallery-input" defaultValue={'0' == id ? '' : id} />;
+	return (
+		<input
+			className="modula-gallery-input"
+			defaultValue={'0' == id ? '' : id}
+		/>
+	);
 };
 
 export default ModulaGallerySearch;

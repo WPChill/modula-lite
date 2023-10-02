@@ -1,22 +1,22 @@
 'use strict';
-module.exports = function( grunt ) {
-
+module.exports = function (grunt) {
 	// load all tasks
-	require( 'load-grunt-tasks' )( grunt, { scope: 'devDependencies' } );
+	require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
 
-	grunt.config.init( {
-		pkg: grunt.file.readJSON( 'package.json' ),
+	grunt.config.init({
+		pkg: grunt.file.readJSON('package.json'),
 
 		dirs: {
 			css: '/assets/css',
-			js: '/assets/js'
+			js: '/assets/js',
 		},
 		checktextdomain: {
 			standard: {
 				options: {
-					text_domain: [ 'modula-best-grid-gallery' ], //Specify allowed domain(s)
+					text_domain: ['modula-best-grid-gallery'], //Specify allowed domain(s)
 					create_report_file: 'true',
-					keywords: [ //List keyword specifications
+					keywords: [
+						//List keyword specifications
 						'__:1,2d',
 						'_e:1,2d',
 						'_x:1,2c,3d',
@@ -30,67 +30,67 @@ module.exports = function( grunt ) {
 						'_n:1,2,4d',
 						'_nx:1,2,4c,5d',
 						'_n_noop:1,2,3d',
-						'_nx_noop:1,2,3c,4d'
-					]
+						'_nx_noop:1,2,3c,4d',
+					],
 				},
 				files: [
 					{
-						src: [
-							'**/*.php',
-							'!**/node_modules/**',
-						], //all php
-						expand: true
-					}
-				]
-			}
+						src: ['**/*.php', '!**/node_modules/**'], //all php
+						expand: true,
+					},
+				],
+			},
 		},
 		makepot: {
-	        target: {
-	            options: {
-	                cwd: '',                          // Directory of files to internationalize.
-	                domainPath: 'languages/',         // Where to save the POT file.
-	                exclude: [],                      // List of files or directories to ignore.
-	                include: [],                      // List of files or directories to include.
-	                mainFile: 'Modula.php',                     // Main project file.
-	                potComments: '',                  // The copyright at the beginning of the POT file.
-	                potFilename: 'modula-best-grid-gallery.pot',                  // Name of the POT file.
-	                potHeaders: {
-	                    poedit: true,                 // Includes common Poedit headers.
-	                    'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
-	                },                                // Headers to add to the generated POT file.
-	                processPot: null,                 // A callback function for manipulating the POT file.
-	                type: 'wp-plugin',                // Type of project (wp-plugin or wp-theme).
-	                updateTimestamp: true,            // Whether the POT-Creation-Date should be updated without other changes.
-	                updatePoFiles: false              // Whether to update PO files in the same directory as the POT file.
-	            }
-	        }
-	    },
+			target: {
+				options: {
+					cwd: '', // Directory of files to internationalize.
+					domainPath: 'languages/', // Where to save the POT file.
+					exclude: [], // List of files or directories to ignore.
+					include: [], // List of files or directories to include.
+					mainFile: 'Modula.php', // Main project file.
+					potComments: '', // The copyright at the beginning of the POT file.
+					potFilename: 'modula-best-grid-gallery.pot', // Name of the POT file.
+					potHeaders: {
+						poedit: true, // Includes common Poedit headers.
+						'x-poedit-keywordslist': true, // Include a list of all possible gettext functions.
+					}, // Headers to add to the generated POT file.
+					processPot: null, // A callback function for manipulating the POT file.
+					type: 'wp-plugin', // Type of project (wp-plugin or wp-theme).
+					updateTimestamp: true, // Whether the POT-Creation-Date should be updated without other changes.
+					updatePoFiles: false, // Whether to update PO files in the same directory as the POT file.
+				},
+			},
+		},
 		cssmin: {
 			target: {
 				files: [
 					{
 						expand: true,
 						cwd: 'assets/css/front',
-						src: [ '*.css', '!*.min.css' ],
+						src: ['*.css', '!*.min.css'],
 						dest: 'assets/css/front',
-						ext: '.min.css'
-					}
-				]
-			}
+						ext: '.min.css',
+					},
+				],
+			},
 		},
 		clean: {
-			css: [ 'assets/css/front/*.min.css', '!assets/css/jquery-ui.min.css' ],
+			css: [
+				'assets/css/front/*.min.css',
+				'!assets/css/jquery-ui.min.css',
+			],
 			init: {
-				src: [ 'build/' ]
+				src: ['build/'],
 			},
-			jsmin : {
+			jsmin: {
 				src: [
 					'assets/js/*.min.js',
 					'assets/js/front/*.min.js',
 					'assets/js/*.min.js.map',
-					'!assets/js/resizesensor.min.js'
-				]
-			}
+					'!assets/js/resizesensor.min.js',
+				],
+			},
 		},
 		copy: {
 			build: {
@@ -108,28 +108,29 @@ module.exports = function( grunt ) {
 					'!Gruntfile.js',
 					'!package.json',
 					'!postcss.config.js',
-					'!webpack.config.js',
+					'!webpack2.config.js',
 					'!set_tags.sh',
 					'!**.zip',
 					'!old/**',
 					'!bin/**',
 					'!tests/**',
 					'!nbproject/**',
-					'!SECURITY.md'
+					'!SECURITY.md',
 				],
-				dest: 'build/'
-			}
+				dest: 'build/',
+			},
 		},
 
 		concat: {
 			css: {
-				src : [
+				src: [
 					'assets/css/front/fancybox.min.css',
 					'assets/css/front/modula.min.css',
 				],
-				dest: 'assets/css/front.css'
-			},js: {
-				src : [
+				dest: 'assets/css/front.css',
+			},
+			js: {
+				src: [
 					'assets/js/front/isotope.min.js',
 					'assets/js/front/isotope-packery.min.js',
 					'assets/js/front/justifiedGallery.min.js',
@@ -137,111 +138,110 @@ module.exports = function( grunt ) {
 					'assets/js/front/lazysizes.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-all.js'
+				dest: 'assets/js/modula-all.js',
 			},
 			modulawf: {
-				src : [
+				src: [
 					'assets/js/front/isotope.min.js',
 					'assets/js/front/isotope-packery.min.js',
 					'assets/js/front/lazysizes.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-wf.js'
+				dest: 'assets/js/modula-wf.js',
 			},
 			modulawl: {
-				src : [
+				src: [
 					'assets/js/front/isotope.min.js',
 					'assets/js/front/isotope-packery.min.js',
 					'assets/js/front/fancybox.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-wl.js'
+				dest: 'assets/js/modula-wl.js',
 			},
 			modulawlf: {
-				src : [
+				src: [
 					'assets/js/front/isotope.min.js',
 					'assets/js/front/isotope-packery.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-wfl.js'
+				dest: 'assets/js/modula-wfl.js',
 			},
 			modulajwf: {
-				src : [
+				src: [
 					'assets/js/front/justifiedGallery.min.js',
 					'assets/js/front/lazysizes.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-justified-wf.js'
+				dest: 'assets/js/modula-justified-wf.js',
 			},
 			modulajwl: {
-				src : [
+				src: [
 					'assets/js/front/justifiedGallery.min.js',
 					'assets/js/front/fancybox.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-justified-wl.js'
+				dest: 'assets/js/modula-justified-wl.js',
 			},
 			modulajwfl: {
-				src : [
+				src: [
 					'assets/js/front/justifiedGallery.min.js',
 					'assets/js/front/jquery-modula.min.js',
 				],
-				dest: 'assets/js/modula-justified-wfl.js'
+				dest: 'assets/js/modula-justified-wfl.js',
 			},
 		},
 
 		uglify: {
 			options: {
-		      compress: {
-		        global_defs: {
-		          'DEBUG': true
-		        },
-		        dead_code: true
-		      }
-		    },
+				compress: {
+					global_defs: {
+						DEBUG: true,
+					},
+					dead_code: true,
+				},
+			},
 			jsfiles: {
-				files: [ {
-					expand: true,
-					cwd   : 'assets/js/front/',
-					src   : [
-						'*.js',
-						'!*.min.js',
-						'!Gruntfile.js',
-						'!wp-modula-*.js',
-						'!modula-addon.js',
-						'!modula-upgrade.js',
-						'!wp-modula.js',
-						'!resizesensor.js'
-					],
-					dest  : 'assets/js/front/',
-					ext   : '.min.js'
-				} ]
-			}
+				files: [
+					{
+						expand: true,
+						cwd: 'assets/js/front/',
+						src: [
+							'*.js',
+							'!*.min.js',
+							'!Gruntfile.js',
+							'!wp-modula-*.js',
+							'!modula-addon.js',
+							'!modula-upgrade.js',
+							'!wp-modula.js',
+							'!resizesensor.js',
+						],
+						dest: 'assets/js/front/',
+						ext: '.min.js',
+					},
+				],
+			},
 		},
 
 		compress: {
 			build: {
 				options: {
-					pretty: true,                           // Pretty print file sizes when logging.
-					archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
+					pretty: true, // Pretty print file sizes when logging.
+					archive: '<%= pkg.name %>-<%= pkg.version %>.zip',
 				},
 				expand: true,
 				cwd: 'build/',
-				src: [ '**/*' ],
-				dest: '<%= pkg.name %>/'
-			}
+				src: ['**/*'],
+				dest: '<%= pkg.name %>/',
+			},
 		},
+	});
 
-	} );
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
-
-	grunt.registerTask( 'textdomain', [
-		'checktextdomain',
-		'makepot'
-	] );
-	grunt.registerTask( 'minjs', [  // Minify CSS
+	grunt.registerTask('textdomain', ['checktextdomain', 'makepot']);
+	grunt.registerTask('minjs', [
+		// Minify CSS
 		'clean:jsmin',
 		'uglify',
 		'concat:js',
@@ -250,19 +250,20 @@ module.exports = function( grunt ) {
 		'concat:modulawlf',
 		'concat:modulajwf',
 		'concat:modulajwl',
-		'concat:modulajwfl'
-	] );
-	grunt.registerTask( 'mincss', [  // Minify CSS
+		'concat:modulajwfl',
+	]);
+	grunt.registerTask('mincss', [
+		// Minify CSS
 		'clean:css',
 		'cssmin',
-		'concat:css'
-	] );
-	
+		'concat:css',
+	]);
+
 	// Build task
-	grunt.registerTask( 'build-archive', [
+	grunt.registerTask('build-archive', [
 		'clean:init',
 		'copy',
 		'compress:build',
-		'clean:init'
-	] );
+		'clean:init',
+	]);
 };

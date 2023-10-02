@@ -92,9 +92,8 @@ body.modula-gallery_page_wpchill-dashboard .nav-tab-wrapper {
 body.modula-gallery_page_modula-addons .modula-page-header,
 body.modula-gallery_page_modula-lite-vs-pro .modula-page-header,
 body.modula-gallery_page_modula .modula-page-header,
-body.post-type-modula-gallery .modula-page-header,
-body.modula-gallery_page_wpchill-dashboard .modula-page-header {
-	border-bottom : 1px solid #ccc;
+body.post-type-modula-gallery .modula-page-header {
+	border-bottom : 1px solid #ddd;
 }
 
 body.modula-gallery_page_modula-addons .modula-page-header .modula-header-links a,

@@ -20,9 +20,15 @@ class Modula_Compatibility {
 	function __construct() {
 
 		add_filter( 'modula_speedup_tab_content', array( $this, 'modula_lazyloading_compatibilty_admin' ), 5 );
-		add_filter( 'modula_field_type_toggle_format', array( $this, 'modula_lazyloading_compatibilty_admin_field' ), 99, 2 );
+		add_filter( 'modula_field_type_toggle_format', array(
+			$this,
+			'modula_lazyloading_compatibilty_admin_field'
+		), 99, 2 );
 		add_filter( 'modula_gallery_settings', array( $this, 'modula_gallery_config_compatibility' ), 99 );
-		add_filter( 'modula_lazyload_compatibility_script', array( $this, 'modula_lazyload_compatibility_script' ), 99 );
+		add_filter( 'modula_lazyload_compatibility_script', array(
+			$this,
+			'modula_lazyload_compatibility_script'
+		), 99 );
 		add_filter( 'modula_lazyload_compatibility_item', array( $this, 'modula_lazyload_compatibility_item' ), 99 );
 		add_filter( 'modula_admin_field_value', array( $this, 'lazyload_admin_compatibility' ), 99, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'lazyload_backbone_compatibility' ), 99 );
@@ -37,7 +43,7 @@ class Modula_Compatibility {
 	 */
 	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !( self::$instance instanceof Modula_Compatibility ) ) {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Modula_Compatibility ) ) {
 			self::$instance = new Modula_Compatibility();
 		}
 
@@ -117,15 +123,15 @@ class Modula_Compatibility {
 	 *
 	 * @return bool
 	 */
-	public function avada_check(){
+	public function avada_check() {
 
-		if ( !defined('AVADA_VERSION') || !class_exists('FusionReduxFramework') ){
+		if ( ! defined( 'AVADA_VERSION' ) || ! class_exists( 'FusionReduxFramework' ) ) {
 			return false;
 		}
 
 		$avada_options = get_option( 'fusion_options' );
 
-		if ( $avada_options && isset( $avada_options['lazy_load'] ) && 'avada' == $avada_options['lazy_load'] ){
+		if ( $avada_options && isset( $avada_options['lazy_load'] ) && 'avada' == $avada_options['lazy_load'] ) {
 			return true;
 		}
 
@@ -137,15 +143,15 @@ class Modula_Compatibility {
 	 *
 	 * @return bool
 	 */
-	public function jetpack_check(){
+	public function jetpack_check() {
 
-		if ( !class_exists('Jetpack') || !defined('JETPACK__VERSION') ){
+		if ( ! class_exists( 'Jetpack' ) || ! defined( 'JETPACK__VERSION' ) ) {
 			return false;
 		}
 
 		$jetpack_modules = get_option( 'jetpack_active_modules' );
 
-		if ( $jetpack_modules && in_array( 'lazy-images', $jetpack_modules ) ){
+		if ( $jetpack_modules && in_array( 'lazy-images', $jetpack_modules ) ) {
 			return true;
 		}
 
@@ -181,7 +187,7 @@ class Modula_Compatibility {
 
 		if ( $this->check_lazyloading() ) {
 
-			if ( 'lazy_load' == $field[ 'id' ] ) {
+			if ( 'lazy_load' == $field['id'] ) {
 				$format .= '<div class="modula-compatibility-block"></div>';
 			}
 		}
@@ -201,7 +207,7 @@ class Modula_Compatibility {
 
 		if ( $this->check_lazyloading() ) {
 
-			$js_config[ 'lazyLoad' ] = 1;
+			$js_config['lazyLoad'] = 1;
 		}
 
 		return $js_config;
@@ -213,10 +219,10 @@ class Modula_Compatibility {
 	 * @return bool
 	 * @since 2.5.0
 	 */
-	public function modula_lazyload_compatibility_script($return) {
+	public function modula_lazyload_compatibility_script( $return ) {
 
-		if ( $this->check_lazyloading() ){
-			if ( !$this->jetpack_check() ){
+		if ( $this->check_lazyloading() ) {
+			if ( ! $this->jetpack_check() ) {
 				return false;
 			} else {
 				return true;
@@ -252,10 +258,10 @@ class Modula_Compatibility {
 	 * @return int
 	 * @since 2.5.0
 	 */
-	public function lazyload_admin_compatibility( $value, $key, $settings ){
+	public function lazyload_admin_compatibility( $value, $key, $settings ) {
 
-		if ( 'lazy_load' == $key && $this->check_lazyloading() ){
-			if ( !$this->jetpack_check() ){
+		if ( 'lazy_load' == $key && $this->check_lazyloading() ) {
+			if ( ! $this->jetpack_check() ) {
 				return 0;
 			} else {
 				return 1;
@@ -273,11 +279,11 @@ class Modula_Compatibility {
 	 * @return mixed
 	 * @since 2.5.0
 	 */
-	public function lazyload_backbone_compatibility( $settings ){
+	public function lazyload_backbone_compatibility( $settings ) {
 
-		if ( isset( $settings['lazy_load'] ) && $this->check_lazyloading() ){
+		if ( isset( $settings['lazy_load'] ) && $this->check_lazyloading() ) {
 
-			if ( !$this->jetpack_check() ){
+			if ( ! $this->jetpack_check() ) {
 				$settings['lazy_load'] = 0;
 			} else {
 				$settings['lazy_load'] = 1;

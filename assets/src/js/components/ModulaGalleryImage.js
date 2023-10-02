@@ -28,15 +28,32 @@ const ModulaGalleryImage = (props) => {
 						settings={settings}
 						img={img}
 						index={index}
-						hideTitle={undefined != effectCheck && effectCheck.title == true ? false : true}
-						hideDescription={undefined != effectCheck && effectCheck.description == true ? false : true}
-						hideSocial={undefined != effectCheck && effectCheck.social == true ? false : true}
+						hideTitle={
+							undefined != effectCheck &&
+							effectCheck.title == true
+								? false
+								: true
+						}
+						hideDescription={
+							undefined != effectCheck &&
+							effectCheck.description == true
+								? false
+								: true
+						}
+						hideSocial={
+							undefined != effectCheck &&
+							effectCheck.social == true
+								? false
+								: true
+						}
 						effectCheck={effectCheck}
 					/>
 				)}
 			</div>
-		</div>
+		</div>,
 	];
 };
 
-export default wp.components.withFilters('modula.ModulaGalleryImage')(ModulaGalleryImage);
+export default wp.components.withFilters('modula.ModulaGalleryImage')(
+	ModulaGalleryImage
+);

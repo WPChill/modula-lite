@@ -18,14 +18,29 @@ const Inspector = (props) => {
 	return (
 		<Fragment>
 			<InspectorControls>
-				<PanelBody title={__('Gallery Settings', 'modula-best-grid-gallery')} initialOpen={true}>
+				<PanelBody
+					title={__('Gallery Settings', 'modula-best-grid-gallery')}
+					initialOpen={true}
+				>
 					{galleries.length > 0 && (
 						<Fragment>
-							<ModulaGallerySearch id={id} key={id} value={id} options={currentSelectize} onIdChange={onIdChange} galleries={galleries}/>
+							<ModulaGallerySearch
+								id={id}
+								key={id}
+								value={id}
+								options={currentSelectize}
+								onIdChange={onIdChange}
+								galleries={galleries}
+							/>
 							{id != 0 && (
 								<Button
 									target="_blank"
-									href={modulaVars.adminURL + 'post.php?post=' + id + '&action=edit'}
+									href={
+										modulaVars.adminURL +
+										'post.php?post=' +
+										id +
+										'&action=edit'
+									}
 									isSecondary
 								>
 									{__('Edit gallery')}

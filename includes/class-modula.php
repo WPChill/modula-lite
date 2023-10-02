@@ -169,18 +169,19 @@ class Modula {
 		$upgrades->initialize_admin();
 
 		$links = array(
-			'common_use_cases' => 'https://wp-modula.com/common-use-cases.json',
 			'partners'         => 'https://wp-modula.com/parteners.json',
 			'documentation'    => 'https://wp-modula.com/knowledge-base/',
 			'pricing'          => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'feed'             => 'https://wp-modula.com/feed',
 			'blog'             => 'https://wp-modula.com/blog',
 			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' )
+			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
+			'support'          => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
+			'fbcommunity'      => 'www.facebook.com/groups/wpmodula/'
 
 		);
 
-		$modula_dashboard = new Modula_Dashboard(
+		new Modula_Dashboard(
 			MODULA_FILE,
 			'modula-gallery',
 			MODULA_URL . 'assets/images/dashboard/',
