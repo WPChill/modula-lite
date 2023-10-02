@@ -126,6 +126,7 @@ class Modula_Field_Builder {
 				echo '<div id="modula-grid" style="display:none"></div>';
 			echo '</div>';
 			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
+			echo '<input type="hidden" id="modula-editor-images" value="" name="modula-images" />';
 		echo '</div>';
 
 		// Helper Guildelines Toggle
