@@ -266,6 +266,8 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 Fixed: Addons in "Partners" page not updating their install status. ( [#845](https://github.com/WPChill/modula-lite/issues/845) )
 Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid confusion between other galleries. ( [#706](https://github.com/WPChill/modula-lite/issues/706) )
 Added: Placeholder for text settings inputs and placeholders for image dimensions. ( [#814](https://github.com/WPChill/modula-lite/issues/814) )
+Changed: Gallery image changes are now saved on post update not every time an image was edited. ( [#474](https://github.com/WPChill/modula-lite/issues/474) )
+Changed: Updated enqueue methods for css & js ( [#846](https://github.com/WPChill/modula-lite/issues/846) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )
