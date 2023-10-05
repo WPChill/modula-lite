@@ -1,19 +1,20 @@
 ### Generating a .POT file
-> npm run pot\
+> npm run pot
 
 ### Optimizing images
-> tinypng -r -k your_api_key_here\
+> tinypng -r -k your_api_key_here
  
 ### Minifying files
-> npm run min:js\
-> npm run min:css (this command will also concat files from the /front/ folder into front.css)\
+> npm run min:js
+\
+> npm run min:css (this command will also concat files from the /front/ folder into front.css)
 
 ### Minify + generate pot
-> npm run wpchill\
+> npm run wpchill
 
 
 ### Generating a ZIP
-> npm run plugin-zip\
+> npm run plugin-zip
 
 
 #### Assumptions:
