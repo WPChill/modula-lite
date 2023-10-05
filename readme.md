@@ -8,6 +8,10 @@
 > npm run min:js
 > npm run min:css (this command will also concat files from the /front/ folder into front.css)
 
+### Minify + generate pot
+> npm run wpchill
+
+
 ### Generating a ZIP
 > npm run plugin-zip
 
