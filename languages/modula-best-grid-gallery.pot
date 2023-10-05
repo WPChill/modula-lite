@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modula 2.7.7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/modula-lite\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/modula-best-grid-gallery\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-30T13:53:43+00:00\n"
+"POT-Creation-Date: 2023-10-05T10:30:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: modula-best-grid-gallery\n"
@@ -72,7 +72,7 @@ msgid "Upgrade to unlock this feature"
 msgstr ""
 
 #: includes/admin/class-modula-admin-helpers.php:85
-#: includes/admin/class-modula-dashboard.php:239
+#: includes/admin/class-modula-dashboard.php:210
 #: includes/admin/class-modula-field-builder.php:191
 msgid "Documentation"
 msgstr ""
@@ -150,22 +150,22 @@ msgstr ""
 #: includes/admin/class-modula-admin.php:180
 #: includes/admin/class-modula-admin.php:261
 #: includes/admin/class-modula-cpt.php:390
-#: includes/admin/class-modula-dashboard.php:67
-#: includes/admin/class-modula-dashboard.php:284
+#: includes/admin/class-modula-dashboard.php:41
+#: includes/admin/class-modula-dashboard.php:255
 msgid "Extensions"
 msgstr ""
 
 #: includes/admin/class-modula-admin.php:190
 #: includes/admin/class-modula-admin.php:191
 #: includes/admin/class-modula-cpt.php:116
-#: includes/admin/class-modula-dashboard.php:254
+#: includes/admin/class-modula-dashboard.php:225
 msgid "Settings"
 msgstr ""
 
 #: includes/admin/class-modula-admin.php:246
 #: includes/admin/class-modula-cpt.php:61
 #: includes/admin/class-modula-cpt.php:68
-#: includes/admin/class-modula-dashboard.php:269
+#: includes/admin/class-modula-dashboard.php:240
 msgid "Galleries"
 msgstr ""
 
@@ -1386,185 +1386,189 @@ msgstr ""
 msgid "Get Modula Premium!"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:63
+#: includes/admin/class-modula-dashboard.php:37
 msgid "Getting Started"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:64
+#: includes/admin/class-modula-dashboard.php:38
 msgid "About us"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:65
+#: includes/admin/class-modula-dashboard.php:39
 msgid "Partners"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:71
+#: includes/admin/class-modula-dashboard.php:45
 msgid "Free vs. Premium"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:75
+#: includes/admin/class-modula-dashboard.php:49
 msgid "Changelog"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:131
-#: includes/admin/class-modula-dashboard.php:132
+#: includes/admin/class-modula-dashboard.php:105
+#: includes/admin/class-modula-dashboard.php:106
 msgid "Welcome"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:190
+#: includes/admin/class-modula-dashboard.php:164
 msgid "Search..."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:230
+#: includes/admin/class-modula-dashboard.php:201
 msgid "Thank you for choosing Modula."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:231
+#: includes/admin/class-modula-dashboard.php:202
 msgid "Here are some valuable resources to help you begin with our plugin."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:242
+#: includes/admin/class-modula-dashboard.php:213
 msgid "Become familiar with our plugin by reading the documentation."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:245
+#: includes/admin/class-modula-dashboard.php:216
 msgid "View Documentation"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:257
+#: includes/admin/class-modula-dashboard.php:228
 msgid "Explore the full potential of what Modula can offer you."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:260
+#: includes/admin/class-modula-dashboard.php:231
 msgid "View Settings"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:272
+#: includes/admin/class-modula-dashboard.php:243
 msgid "Create your amazing gallery using Modula."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:275
-#: includes/admin/class-modula-dashboard.php:290
+#: includes/admin/class-modula-dashboard.php:246
+#: includes/admin/class-modula-dashboard.php:261
 msgid "View Extensions"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:287
+#: includes/admin/class-modula-dashboard.php:258
 msgid "Enhance your Modula experience by installing fantastic extensions."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:303
+#: includes/admin/class-modula-dashboard.php:274
 msgid "Common Use Cases"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:317
+#: includes/admin/class-modula-dashboard.php:288
 msgid "Need help or advice?"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:320
+#: includes/admin/class-modula-dashboard.php:291
 msgid "Got a question or need help with the plugin?  "
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:321
+#: includes/admin/class-modula-dashboard.php:292
 msgid "You can always submit a support ticket or ask for help in our friendly Facebook community."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:325
+#: includes/admin/class-modula-dashboard.php:296
 msgid "Join Facebook Community"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:328
+#: includes/admin/class-modula-dashboard.php:299
 msgid "Submit a Support Ticket"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:344
+#: includes/admin/class-modula-dashboard.php:315
 msgid "About Us"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:345
+#: includes/admin/class-modula-dashboard.php:316
 msgid "WPChill is a WordPress development studio currently located in Bucharest, Romania. <br> We're a handful of friendly developers, marketers & happiness engineers. <br> Say hi 👋"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:351
+#: includes/admin/class-modula-dashboard.php:322
 msgid "Our values"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:366
+#: includes/admin/class-modula-dashboard.php:337
 msgid "Commitment"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:367
+#: includes/admin/class-modula-dashboard.php:338
 msgid "It is powered by a deep need to help others and build a customer-centric culture."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:379
+#: includes/admin/class-modula-dashboard.php:350
 msgid "Passion"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:380
+#: includes/admin/class-modula-dashboard.php:351
 msgid "We love our work & craft and allow it to define us. We take pride in the work we deliver."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:400
+#: includes/admin/class-modula-dashboard.php:371
 msgid "Learning"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:401
+#: includes/admin/class-modula-dashboard.php:372
 msgid "Honing our craft, staying ahead of the curve, and over-delivering on all fronts."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:433
+#: includes/admin/class-modula-dashboard.php:404
 msgid "Teamwork"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:434
+#: includes/admin/class-modula-dashboard.php:405
 msgid "We are working together to deliver the best possible customer experience and product."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:452
+#: includes/admin/class-modula-dashboard.php:423
 msgid "Fun"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:453
+#: includes/admin/class-modula-dashboard.php:424
 msgid "Setting a fun environment where ideas can take shape is a vital part of the creation process."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:464
+#: includes/admin/class-modula-dashboard.php:435
 msgid "Integrity"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:465
+#: includes/admin/class-modula-dashboard.php:436
 msgid "Acting with solid ethics is a priority for everyone representing the organization."
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:470
+#: includes/admin/class-modula-dashboard.php:441
 msgid "Find more about us"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:484
+#: includes/admin/class-modula-dashboard.php:455
 msgid "Our Partners"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:485
+#: includes/admin/class-modula-dashboard.php:456
 msgid "Other plugins that are known to work great alongside Modula"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:563
+#: includes/admin/class-modula-dashboard.php:512
 msgid "Version:"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:651
+#: includes/admin/class-modula-dashboard.php:597
+msgid "%s Addon"
+msgstr ""
+
+#: includes/admin/class-modula-dashboard.php:602
 msgid "Already installed"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:655
+#: includes/admin/class-modula-dashboard.php:606
 msgid "Find more"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:736
+#: includes/admin/class-modula-dashboard.php:689
 msgid "Installing plugin"
 msgstr ""
 
-#: includes/admin/class-modula-dashboard.php:737
+#: includes/admin/class-modula-dashboard.php:690
 msgid "Activating plugin"
 msgstr ""
 
@@ -2646,23 +2650,23 @@ msgstr ""
 msgid "All Done!"
 msgstr ""
 
-#: includes/class-modula.php:343
+#: includes/class-modula.php:342
 msgid "Installing addon..."
 msgstr ""
 
-#: includes/class-modula.php:344
+#: includes/class-modula.php:343
 msgid "Addon activated!"
 msgstr ""
 
-#: includes/class-modula.php:345
+#: includes/class-modula.php:344
 msgid "Addon deactivated!"
 msgstr ""
 
-#: includes/class-modula.php:346
+#: includes/class-modula.php:345
 msgid "Activating addon..."
 msgstr ""
 
-#: includes/class-modula.php:347
+#: includes/class-modula.php:346
 msgid "Deactivating addon..."
 msgstr ""
 

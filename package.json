@@ -22,6 +22,13 @@
 		"start:hot": "wp-scripts start --hot",
 		"prepare": "husky install",
 		"scss": "sass --watch assets/scss:assets/css",
+		"min:js": "uglifyjs-folder './assets/js/' -eo './assets/js/' ",
+		"min:css:backend": "cleancss --batch --batch-suffix '.min' './assets/css/admin/*.css' !'./assets/css/admin/*.min.css' ",
+		"min:css:frontend": "cleancss --batch --batch-suffix '.min' './assets/css/front/*.css' !'./assets/css/front/*.min.css'",
+		"concat:css:frontend": "concat -o './assets/css/front.css' './assets/css/front/fancybox.min.css' './assets/css/front/modula.min.css' ",
+		"min:css": "npm run min:css:frontend && npm run min:css:backend && npm run concat:css:frontend",
+		"makepot": "wp i18n make-pot . languages/modula-best-grid-gallery.pot",
+		"wpchill": "npm run min:css && npm run makepot",
 		"reload": "browser-sync start --proxy 'http://localhost:8888' --files './assets/css/*/*.css' --logLevel 'debug'"
 	},
 	"prettier": "@wordpress/prettier-config",
@@ -41,12 +48,20 @@
 		"@wordpress/stylelint-config": "^21.25.0",
 		"browser-sync": "^2.29.3",
 		"browser-sync-webpack-plugin": "^2.3.0",
+		"clean-css-cli": "^5.6.2",
+		"concat": "^1.0.3",
 		"eslint-config-prettier": "^9.0.0",
 		"husky": "^8.0.3",
 		"imagemin-cli": "^7.0.0",
 		"lint-staged": "^14.0.1",
+		"postcss": "^8.4.31",
 		"sass": "^1.68.0",
 		"tinypng-cli": "^0.0.7",
+		"uglifyjs-folder": "^3.3.0",
 		"webpack-remove-empty-scripts": "^1.0.4"
+	},
+	"dependencies": {
+		"@node-minify/core": "^8.0.6",
+		"@node-minify/uglify-js": "^8.0.6"
 	}
 }

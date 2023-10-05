@@ -1,66 +1,66 @@
-var defaultConfig = require('@wordpress/scripts/config/webpack.config');
-var TerserPlugin = require('terser-webpack-plugin');
-var glob = require('glob');
-var path = require('path');
+const path = require('path');
+//const ExtractTextPlugin       = require('extract-text-webpack-plugin');
+//const UglifyJSPlugin            = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CssEntryPlugin = require('css-entry-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-	...defaultConfig,
-	target: 'node',
+const config = {
 	entry: {
-		scripts: glob.sync('./assets/**/*.js', { dotRelative: true }),
-		styles: glob.sync('./assets/**/*.css', { dotRelative: true }),
+		wp_modula_gutenberg: './assets/src/js/wp-modula-gutenberg.js'
 	},
 	output: {
-		path: path.resolve(__dirname, 'assets'),
-		filename: '[name].min.js',
-		sourceMapFilename: '[name].js.map',
-		clean: true,
-	},
-	resolve: {
-		// Add `.ts` and `.tsx` as a resolvable extension.
-		extensions: ['.js', '.css', '.scss'],
-	},
-	optimization: {
-		minimize: true,
-		minimizer: [
-			new TerserPlugin({
-				terserOptions: {
-					parse: {},
-					compress: {
-						drop_console: true,
-					},
-					mangle: true, // Note `mangle.properties` is `false` by default.
-					module: false,
-					sourceMap: true,
-				},
-			}),
-		],
+		filename: 'js/admin/wp-modula-gutenberg.js',
+		path: path.resolve(__dirname, 'assets')
 	},
 	module: {
-		...defaultConfig.module,
 		rules: [
-			...defaultConfig.module.rules,
 			{
-				use: ['css-loader'],
 				test: /\.scss$/,
-				use: [
-					{
-						loader: 'resolve-url-loader',
-						options: { attempts: 1, sourceMap: true },
-					},
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-							sourceMap: true,
-							url: false,
-							importLoaders: 2,
-						},
-					},
-					{ loader: 'sass-loader', options: { sourceMap: true } }, // to convert SASS to CSS
-				],
+				/* 		use: ExtractTextPlugin.extract({
+					fallback: 'style-loader', */
+				use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'postcss-loader', 'sass-loader' ]
+				//}),
 			},
-		],
+			{
+				test: /\.js$/,
+				exclude: /(node_modules)/,
+				loader: 'babel-loader'
+			}
+		]
 	},
-	plugins: [...defaultConfig.plugins],
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: '/css/admin/modula-gutenberg.css'
+		}),
+		//new ExtractTextPlugin('/css/[name].css'),
+		new BrowserSyncPlugin({
+			proxy: 'localhost/',
+			port: 3000,
+			files: [ '**/*.php' ],
+			ghostMode: {
+				clicks: false,
+				location: false,
+				forms: false,
+				scroll: false
+			},
+			injectChanges: true,
+			logFileChanges: true,
+			logLevel: 'debug',
+			logPrefix: 'wepback',
+			notify: false,
+			reloadDelay: 0
+		})
+	]
 };
+
+//If true JS and CSS files will be minified
+if (process.env.NODE_ENV === 'production') {
+	config.plugins.push(
+		//new UglifyJSPlugin(),
+		new OptimizeCssAssetsPlugin()
+	);
+}
+
+module.exports = config;
