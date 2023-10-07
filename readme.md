@@ -14,7 +14,7 @@ Modula is the fastest, most customizable, and versatile image gallery plugin for
 
 Welcome to the Modula Gallery Plugin GitHub repository. Here you can browse the source, look at open issues, and contribute to the project.
 
-This repository exists for opening up new issues, reporting existing bugs, and anything else related to development. This is not the place to ask for support, so please[reach out to us](https://wp-modula.com/contact-us/) and we'll happily assist you.
+This repository exists for opening up new issues, reporting existing bugs, and anything else related to development. This is not the place to ask for support, so please [reach out to us](https://wp-modula.com/contact-us/) and we'll happily assist you.
 
  ## 🙋 Support
 
@@ -37,7 +37,7 @@ Most of us are using [Local by Flywheel](https://localbyflywheel.com/) to develo
 
 ## 💻 Local Development
 
-To get started developing on the GiveWP platform you will need to perform the following steps:
+To get started developing you will need to perform the following steps:
 
 1. Create a new WordPress site using your favorite local development software.
 2. `cd` into your local plugins directory: `/wp-content/plugins/`
