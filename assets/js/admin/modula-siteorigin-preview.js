@@ -1,44 +1,40 @@
 jQuery(function ($) {
-    $(window).load(function () {
-        // set timeout to let the editor preview load completely
-        setTimeout(function () {
-            gallery_preview();
-            block_preview_image_click();
-        }, 600);
-    });
+	$(window).load(function () {
+		// set timeout to let the editor preview load completely
+		setTimeout(function () {
+			gallery_preview();
+			block_preview_image_click();
+		}, 600);
+	});
 
-    /**
-     * Reinitiate the Modula Gallery when editing the post and nonlive preview
-     */
-    function gallery_preview() {
+	/**
+	 * Reinitiate the Modula Gallery when editing the post and nonlive preview
+	 */
+	function gallery_preview() {
+		var modula_gallery = $('.modula-gallery');
 
-        var modula_gallery = $('.modula-gallery');
+		if (modula_gallery.length > 0) {
+			modula_gallery.each(function () {
+				var gal = jQuery(this);
+				var modulaSettings = gal.data('config'),
+					modulaInstance = gal.data('plugin_modulaGallery');
 
-        if (modula_gallery.length > 0) {
+				if (modulaInstance) {
+					modulaInstance.destroy();
+					gal.data('plugin_modulaGallery', null);
+				}
 
-            modula_gallery.each(function(){
+				gal.modulaGallery(modulaSettings);
+			});
+		}
+	}
 
-                var gal = jQuery( this );
-                var modulaSettings = gal.data( 'config' ),
-                    modulaInstance = gal.data( 'plugin_modulaGallery' );
-
-                if ( modulaInstance ) {
-                    modulaInstance.destroy();
-                    gal.data( 'plugin_modulaGallery', null );
-                }
-
-                gal.modulaGallery( modulaSettings );
-            });
-
-        }
-    }
-
-    /**
-     * Prevent lightbox openinng when
-     */
-    function block_preview_image_click() {
-        $('.modula-gallery a.tile-inner').click(function (e) {
-            e.preventDefault();
-        });
-    }
+	/**
+	 * Prevent lightbox openinng when
+	 */
+	function block_preview_image_click() {
+		$('.modula-gallery a.tile-inner').click(function (e) {
+			e.preventDefault();
+		});
+	}
 });

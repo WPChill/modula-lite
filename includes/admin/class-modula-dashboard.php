@@ -1,10 +1,5 @@
 <?php
 
-/** TODO:
- * - use only the w.org parser to render the common uses cases as well
- *- remove unused variables and clean up code
- */
-
 /**
  * The cpt plugin class.
  *
@@ -22,16 +17,18 @@ class Modula_Dashboard {
 	private $images_url;
 	private $plugin_link;
 	private $header_hook;
+	private $readme_parser;
 
 	public function __construct( $plugin_file, $plugin_cpt, $images_url, $links, $page_header_hook ) {
 
 		$this->version = '1.0.0';
 
-		$this->plugin_file = $plugin_file;
-		$this->plugin_cpt  = $plugin_cpt;
-		$this->images_url  = $images_url;
-		$this->plugin_link = $links;
-		$this->header_hook = $page_header_hook; // Like modula_page_header, dlm_page_header, wpmtst_page_header
+		$this->plugin_file   = $plugin_file;
+		$this->plugin_cpt    = $plugin_cpt;
+		$this->images_url    = $images_url;
+		$this->plugin_link   = $links;
+		$this->header_hook   = $page_header_hook; // Like modula_page_header, dlm_page_header, wpmtst_page_header
+		$this->readme_parser = new WPChill_Modula_Readme_Parser( MODULA_PATH . 'readme.txt' );
 
 		$this->menu_slug = 'wpchill-dashboard';
 		$this->tabs      = apply_filters(
@@ -47,6 +44,10 @@ class Modula_Dashboard {
 				'lite_vs_pro' => array(
 					'name' => __( 'Free vs. Premium', 'modula-best-grid-gallery' ),
 					'url'  => $this->plugin_link['lite_vs_pro']
+				),
+				'changelog'   => array(
+					'name' => __( 'Changelog', 'modula-best-grid-gallery' ),
+					'url'  => false,
 				),
 			)
 		);
@@ -76,7 +77,7 @@ class Modula_Dashboard {
 	public function wpchill_dashboard_redirect( $plugin ) {
 
 		if ( $this->plugin_file === $plugin ) {
-			wp_safe_redirect( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=wpchill-dashboard' ) );
+			wp_safe_redirect( admin_url( 'edit . php ? post_type = ' . $this->plugin_cpt . ' & page = wpchill - dashboard' ) );
 			exit;
 		}
 	}
@@ -171,8 +172,8 @@ class Modula_Dashboard {
 			case 'partners':
 				$this->_render_partners_content();
 				break;
-			case 'troubleshoot':
-				$this->_render_troubleshoot_content();
+			case 'changelog':
+				$this->render_changelog( $this->readme_parser );
 				break;
 			default:
 				do_action( "wpchill_dashboard_tab_{$active}" );
@@ -183,108 +184,110 @@ class Modula_Dashboard {
 
 	public function _render_getting_started_content() {
 		?>
-        <div class="wpchill_dashboard_content_wrap wpchill_dashboard_getting_started">
-            <div class="wpchill-heading-section">
-                <h3><?php esc_html_e( 'Thank you for using Modula.', 'modula-best-grid-gallery' ); ?></h3>
-                <p> <?php esc_html_e( 'Here are some useful resources that will help you get started with our plugins: ', 'modula-best-grid-gallery' ); ?> </p>
-            </div>
+        <div class="wpchill_dashboard_content_wrap">
+            <div class="wpchill_dashboard_getting_started">
+                <div class="wpchill-heading-section">
+                    <h3><?php esc_html_e( 'Thank you for choosing Modula.', 'modula-best-grid-gallery' ); ?></h3>
+                    <p> <?php esc_html_e( 'Here are some valuable resources to help you begin with our plugin.', 'modula-best-grid-gallery' ); ?> </p>
+                </div>
 
-            <div class="wpchill_dashboard_grid_3">
-                <div class="wpchill_dashboard_item wpchill_card">
-                    <div class="wpchill_dashboard_item_head">
-                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-book-shelf-96.png'; ?>"
-                             class="wpchill_dashboard_item_icon"/>
-                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?> </h3>
+                <div class="wpchill_dashboard_grid">
+                    <div class="wpchill_dashboard_item wpchill_card">
+                        <div class="wpchill_dashboard_item_head">
+                            <img src="<?php echo esc_url( $this->images_url ) . 'icons8-book-shelf-96.png'; ?>"
+                                 class="wpchill_dashboard_item_icon"/>
+                            <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Documentation', 'modula-best-grid-gallery' ); ?> </h3>
+                        </div>
+                        <div class="wpchill_dashboard_item_content">
+                            <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Become familiar with our plugin by reading the documentation.', 'modula-best-grid-gallery' ); ?> </p>
+                            <a href="<?php echo esc_attr( $this->plugin_link['documentation'] ); ?>" target="_BLANK"
+                               class="wpchill_dashboard_item_button">
+								<?php esc_html_e( 'View Documentation', 'modula-best-grid-gallery' ); ?> <span
+                                        class="dashicons dashicons-arrow-right-alt"></span>
+                            </a>
+                        </div>
                     </div>
-                    <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Get familiar with our plugin by reading the documentation.', 'modula-best-grid-gallery' ); ?> </p>
-                    <a href="<?php echo esc_attr( $this->plugin_link['documentation'] ); ?>" target="_BLANK"
-                       class="wpchill_dashboard_item_button">
-						<?php esc_html_e( 'View Documentation', 'modula-best-grid-gallery' ); ?> <span
-                                class="dashicons dashicons-arrow-right-alt"></span>
-                    </a>
-                </div>
-                <div class="wpchill_dashboard_item wpchill_card">
-                    <div class="wpchill_dashboard_item_head">
-                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-services-96.png'; ?>"
-                             class="wpchill_dashboard_item_icon"/>
-                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Settings', 'modula-best-grid-gallery' ); ?> </h3>
+                    <div class="wpchill_dashboard_item wpchill_card">
+                        <div class="wpchill_dashboard_item_head">
+                            <img src="<?php echo esc_url( $this->images_url ) . 'icons8-services-96.png'; ?>"
+                                 class="wpchill_dashboard_item_icon"/>
+                            <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Settings', 'modula-best-grid-gallery' ); ?> </h3>
+                        </div>
+                        <div class="wpchill_dashboard_item_content">
+                            <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Explore the full potential of what Modula can offer you.', 'modula-best-grid-gallery' ); ?> </p>
+                            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula' ) ); ?>"
+                               class="wpchill_dashboard_item_button">
+								<?php esc_html_e( 'View Settings', 'modula-best-grid-gallery' ); ?> <span
+                                        class="dashicons dashicons-arrow-right-alt"></span>
+                            </a>
+                        </div>
                     </div>
-                    <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Dig deeper into what Modula can do for you.', 'modula-best-grid-gallery' ); ?> </p>
-                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula' ) ); ?>"
-                       class="wpchill_dashboard_item_button">
-						<?php esc_html_e( 'View Settings', 'modula-best-grid-gallery' ); ?> <span
-                                class="dashicons dashicons-arrow-right-alt"></span>
-                    </a>
-                </div>
-                <div class="wpchill_dashboard_item wpchill_card">
-                    <div class="wpchill_dashboard_item_head">
-                        <img src="<?php echo esc_url( $this->images_url ) . 'icons8-extensions-96.png'; ?>"
-                             class="wpchill_dashboard_item_icon"/>
-                        <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Extensions', 'modula-best-grid-gallery' ); ?> </h3>
+                    <div class="wpchill_dashboard_item wpchill_card">
+                        <div class="wpchill_dashboard_item_head">
+                            <img src="<?php echo esc_url( $this->images_url ) . 'icons8-galleries-96.png'; ?>"
+                                 class="wpchill_dashboard_item_icon"/>
+                            <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Galleries', 'modula-best-grid-gallery' ); ?> </h3>
+                        </div>
+                        <div class="wpchill_dashboard_item_content">
+                            <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Create your amazing gallery using Modula.', 'modula-best-grid-gallery' ); ?> </p>
+                            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>"
+                               class="wpchill_dashboard_item_button">
+								<?php esc_html_e( 'View Extensions', 'modula-best-grid-gallery' ); ?> <span
+                                        class="dashicons dashicons-arrow-right-alt"></span>
+                            </a>
+                        </div>
                     </div>
-                    <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Make the most of Modula by installing awesome extensions.', 'modula-best-grid-gallery' ); ?> </p>
-                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>"
-                       class="wpchill_dashboard_item_button">
-						<?php esc_html_e( 'View Extensions', 'modula-best-grid-gallery' ); ?> <span
-                                class="dashicons dashicons-arrow-right-alt"></span>
-                    </a>
+                    <div class="wpchill_dashboard_item wpchill_card">
+                        <div class="wpchill_dashboard_item_head">
+                            <img src="<?php echo esc_url( $this->images_url ) . 'icons8-extensions-96.png'; ?>"
+                                 class="wpchill_dashboard_item_icon"/>
+                            <h3 class="wpchill_dashboard_item_title"> <?php esc_html_e( 'Extensions', 'modula-best-grid-gallery' ); ?> </h3>
+                        </div>
+                        <div class="wpchill_dashboard_item_content">
+                            <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Enhance your Modula experience by installing fantastic extensions.', 'modula-best-grid-gallery' ); ?> </p>
+                            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>"
+                               class="wpchill_dashboard_item_button">
+								<?php esc_html_e( 'View Extensions', 'modula-best-grid-gallery' ); ?> <span
+                                        class="dashicons dashicons-arrow-right-alt"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Common use cases -->
+
+
             <div class="wpchill_card wpchill_dashboard_use_cases_wrap">
                 <h3 class="wpchill_dashboard_item_title">
-                    <span class="wpchill_dashboard_item_icon wpchill-common-case-icon">?</span>
 					<?php esc_html_e( 'Common Use Cases', 'modula-best-grid-gallery' ); ?>
                 </h3>
                 <div class="wpchill_dashboard_grid_2">
                     <div id="wpchill_use_cases_block" class="wpchill_dashboard_use_cases">
-						<?php $this->render_common_use_cases(); ?>
+						<?php $this->render_common_use_cases( $this->readme_parser ); ?>
                     </div>
                 </div>
             </div>
 
             <!-- Call to action/upsell -->
             <div class="wpchill_dashboard_cta_wrap">
-                <div class="wpchill_dashboard_cta_left">
-                    <h2 class="wpchill_dashboard_cta_title">
-                        <span class="wpchill_dashboard_icon wpchill_dashboard_icon_features"></span>
-						<?php esc_html_e( 'Unlock all features of Modula', 'modula-best-grid-gallery' ); ?>
-                    </h2>
-                    <p class="wpchill_dashboard_default_text">
-						<?php esc_html_e( 'Ready to take your image galleries to the next level? Upgrade to Modula Premium today and unlock more features. ', 'modula-best-grid-gallery' ); ?>
-                    </p>
-                </div>
-                <div class="wpchill_dashboard_cta_right">
-                    <a href="<?php echo esc_attr( $this->plugin_link['pricing'] ); ?>" target="_BLANK"
-                       class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Get Modula Premium', 'modula-best-grid-gallery' ); ?>
-                        <span class="dashicons dashicons-arrow-right-alt"></span> </a>
-                </div>
-            </div>
-            <div class="wpchill_dashboard_late_change">
-                <!-- Latest from the blog -->
-                <div class="wpchill_card wpchill_dashboard_latest_wrap">
-                    <h3 class="wpchill_dashboard_item_title">
-                        <span class="wpchill_dashboard_icon wpchill_dashboard_icon_blog"></span>
-						<?php esc_html_e( 'Latest from the blog', 'modula-best-grid-gallery' ); ?>
-                    </h3>
 
-					<?php $this->_render_rss_feed(); ?>
-                    <a href="<?php echo esc_attr( $this->plugin_link['blog'] ); ?>" target="_BLANK"
-                       class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Read the blog', 'modula-best-grid-gallery' ); ?>
-                        <span class="dashicons dashicons-arrow-right-alt"></span> </a>
+                <h2 class="wpchill_dashboard_item_title">
+                    <span class="wpchill_dashboard_icon wpchill_dashboard_icon_features"></span>
+					<?php esc_html_e( 'Need help or advice?', 'modula-best-grid-gallery' ); ?>
+                </h2>
+                <div class="wpchill_dashboard_default_text">
+                    <p><?php esc_html_e( 'Got a question or need help with the plugin?  ', 'modula-best-grid-gallery' ); ?></p>
+                    <p><?php esc_html_e( 'You can always submit a support ticket or ask for help in our friendly Facebook community.', 'modula-best-grid-gallery' ); ?></p>
                 </div>
 
-                <!-- Changelog -->
-                <div class="wpchill_card wpchill_dashboard_changelog_wrap">
-                    <h3 class="wpchill_dashboard_item_title"><span
-                                class="wpchill_dashboard_icon wpchill_dashboard_icon_changelog"></span><?php esc_html_e( 'Changelog', 'modula-best-grid-gallery' ); ?>
-                    </h3>
-					<?php $this->render_changelog(); ?>
-                    <a href="<?php echo plugin_dir_url( $this->plugin_file ) . "changelog.txt"; ?>" target="_BLANK"
-                       class="wpchill_dashboard_item_button"> <?php esc_html_e( 'View full changelog', 'modula-best-grid-gallery' ); ?>
-                        <span class="dashicons dashicons-arrow-right-alt"></span> </a>
-                </div>
+                <a href="<?php echo esc_attr( $this->plugin_link['fbcommunity'] ); ?>" target="_BLANK"
+                   class="wpchill_dashboard_item_button"> <?php esc_html_e( 'Join Facebook Community', 'modula-best-grid-gallery' ); ?>
+                </a>
+                <a href="<?php echo esc_attr( $this->plugin_link['support'] ); ?>" target="_BLANK"
+                   class="wpchill_dashboard_item_button wpchill_dashboard_item_button_ghost"> <?php esc_html_e( 'Submit a Support Ticket', 'modula-best-grid-gallery' ); ?>
+                </a>
+
             </div>
         </div>
 		<?php
@@ -294,7 +297,7 @@ class Modula_Dashboard {
 	public function _render_about_content() {
 
 		?>
-        <div class="wpchill_dashboard_content_wrap">
+        <div class="wpchill_dashboard_about_us_wrapper">
 
             <!-- About Us -->
             <div class="wpchill_dashboard_about_us">
@@ -304,7 +307,7 @@ class Modula_Dashboard {
             </div>
 
             <!-- Our Values -->
-            <div class="wpchill_dashboard_about_us_wrapper">
+            <div class="wpchill_dashboard_about_content">
                 <h1 class="wpchill_dashboard_our_values_title"><?php esc_html_e( 'Our values', 'modula-best-grid-gallery' ); ?></h1>
                 <div class="wpchill_dashboard_our_values">
                     <div class="wpchill_dashboard_our_values_item">
@@ -328,7 +331,8 @@ class Modula_Dashboard {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 60 60" height="60"
                                  width="60">
                                 <rect fill="#38A0CE" rx="30" height="60" width="60" opacity="0.1"></rect>
-                                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#38A0CE"
+                                <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                                      stroke="#38A0CE"
                                       d="M31.2777 41.9711L42.3519 30.8969C45.0726 28.1625 45.4691 23.6918 42.8988 20.8344C42.2542 20.1143 41.4695 19.5332 40.5928 19.1266C39.716 18.72 38.7655 18.4964 37.7995 18.4695C36.8334 18.4427 35.872 18.6131 34.9739 18.9703C34.0759 19.3275 33.2602 19.8641 32.5765 20.5472L30.4984 22.639L28.7074 20.8344C25.973 18.1137 21.5023 17.7172 18.6449 20.2875C17.9248 20.9321 17.3437 21.7167 16.9371 22.5935C16.5305 23.4703 16.307 24.4207 16.2801 25.3868C16.2532 26.3529 16.4236 27.3143 16.7808 28.2123C17.1381 29.1104 17.6747 29.9261 18.3578 30.6097L29.7191 41.9711C29.9265 42.1765 30.2066 42.2917 30.4984 42.2917C30.7903 42.2917 31.0703 42.1765 31.2777 41.9711V41.9711Z"></path>
                             </svg>
                             </span></div>
@@ -347,7 +351,8 @@ class Modula_Dashboard {
                                             stroke="#38A0CE"
                                             d="M23.3906 25.125H37.6094"></path> <path stroke-linejoin="round"
                                                                                       stroke-linecap="round"
-                                                                                      stroke-width="2" stroke="#38A0CE"
+                                                                                      stroke-width="2"
+                                                                                      stroke="#38A0CE"
                                                                                       d="M23.3906 29.5H37.6094"></path> <path
                                             stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
                                             stroke="#38A0CE"
@@ -434,7 +439,7 @@ class Modula_Dashboard {
 	public function _render_partners_content() {
 		?>
 
-        <div class="wpchill_dashboard_partners">
+        <div class="wpchill_dashboard_content_wrap">
             <div class="wpchill-heading-section">
                 <h3><?php esc_html_e( 'Our Partners', 'modula-best-grid-gallery' ); ?></h3>
                 <p> <?php esc_html_e( 'Other plugins that are known to work great alongside Modula', 'modula-best-grid-gallery' ); ?> </p>
@@ -446,104 +451,65 @@ class Modula_Dashboard {
             </div>
         </div>
 
+
 		<?php
 	}
 
-	public function _render_troubleshoot_content() {
 
-		echo 'pagee!';
-
-	}
-
-	public function _render_rss_feed() {
-		include_once( ABSPATH . WPINC . '/feed.php' );
-
-		// Get a SimplePie feed object from the specified feed source.
-		$rss = fetch_feed( $this->plugin_link['feed'] );
-
-		if ( ! is_wp_error( $rss ) ) {
-			$maxitems  = $rss->get_item_quantity( 4 );
-			$rss_items = $rss->get_items( 0, $maxitems );
-		}
-
-		?>
-        <div class="wpchill_dashboard_latest_items">
-			<?php foreach ( $rss_items as $item ) : ?>
-				<?php
-				$img   = $item->get_description();
-				$start = strpos( $img, '||feed_img_start||' ) + 18;
-				$end   = strpos( $img, '||feed_img_end||' );
-				$img   = substr( $img, $start, $end - $start );
-
-				if ( false == strpos( $img, '||feed_img_start||' ) || false == strpos( $img, '||feed_img_end||' ) ) {
-					$img = plugin_dir_url( $this->plugin_file ) . 'assets/images/dashboard/blog-default.png';
-				}
-
-				?>
-                <div class="wpchill_dashboard_latest_item">
-                    <img src="<?php echo esc_url( $img ); ?>" class="wpchill_dashboard_latest_item_img"/>
-                    <div class="wpchill_dashboard_latest_item_data">
-                        <a target="_blank" class="wpchill_dashboard_latest_item_title"
-                           href="<?php echo esc_url( $item->get_permalink() ); ?>"> <?php echo esc_html( $item->get_title() ); ?></a>
-                        <div class="wpchill_dashboard_latest_item_details"><span
-                                    class="wpchill_dashboard_latest_item_author"><span
-                                        class="dashicons dashicons-admin-users"></span> <?php echo esc_html( $item->get_author()->get_name() ); ?> </span>
-                            - <span class="wpchill_dashboard_latest_item_date"><span
-                                        class="dashicons dashicons-clock"></span> <?php echo esc_html( $item->get_date( get_option( 'date_format' ) ) ); ?> </span>
-                        </div>
-                    </div>
-                </div>
-			<?php endforeach; ?>
-        </div>
-		<?php
-	}
-
-	public function render_changelog() {
-		$equalSignCount = 0;
-		$changelog      = MODULA_PATH . "readme.txt";
-		$readme         = new WPChill_Modula_Readme_Parser( $changelog );
+	public function render_changelog( $readme ) {
 
 		$content = $readme->sections['changelog'];
 		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
-		/**
-		 * $content looks like this
-		 *
-		 * Array
-		 * (
-		 * [0] => = 2.7.7 - 14.09.2023 =
-		 * [1] => Changed: Hidden "Debug gallery" meta box by default.( #839 )
-		 * [2] => Fixed: Image attribution when "none" is selected ( #840 )
-		 * [3] => = 2.7.6 - 12.09.2023 =
-		 * )
-		 */
-
-		echo '<div class="wpchill_dashboard_changelog">';
-		echo '<ul>';
-		// Process the text data
+		// Iterate through each line in the changelog.
 		foreach ( $content as $line ) {
-			$line = trim( $line ); // Remove leading/trailing whitespace
+			// Check if the line contains a version header (e.g., "= 2.7.7 - 14.09.2023 =").
+			if ( preg_match( '/= ([\d.]+) - (\d+\.\d+\.\d+) =/', $line, $matches ) ) {
+				// Extract the date and version.
 
-			if ( strpos( $line, '=' ) === 0 ) {
+				$version = $matches[1];
+				$date    = $matches[2];
 
-				// This line starts with an equal sign, indicating a new version.
-				$equalSignCount ++;
+				// Extract the year from the date.
+				$data = explode( '.', $date );
+				$year = $data[2]; // year is the last item in the array
+				$date = date( 'F', mktime( 0, 0, 0, $data[1], 10 ) ); // turn date numbers into nicenames; ex: xx.09.xxxx turns into September
 
-				if ( $equalSignCount <= 1 ) {
-					echo '<h4>' . esc_html( $line ) . '</h4>';
-
-				} else {
-					// Break the loop after encountering the second equal sign
-					break;
+				// Create a sub-array for the version if it doesn't exist.
+				if ( ! isset( $results[ $year ][ $date ][ $version ] ) ) {
+					$results[ $year ][ $date ][ $version ] = array();
 				}
 			} else {
-				echo '<li>' . wp_kses_post( $line ) . '</li>';
+				// If the line is not a version header, it's a change description.
+				// Add the change to the current version.
+				$results[ $year ][ $date ][ $version ][] = trim( $line );
 			}
 		}
-		echo '</ul>';
+
+		echo '<div class="wpchill_dashboard_changelog_wrapper">';
+		// Iterate through the result and echo the data.
+		foreach ( $results as $year => $yearData ) {
+
+			echo '<h2 class="wpchill_dashboard_changelog_year">' . esc_html( $year ) . '</h2>';
+
+			foreach ( $yearData as $month => $monthData ) {
+				echo '<h3 class="wpchill_dashboard_changelog_month">' . esc_html( $month ) . '</h3>';
+
+
+				foreach ( $monthData as $version => $changes ) {
+
+					echo '<h4 class="wpchill_dashboard_changelog_version">' . esc_html__( 'Version:', 'modula-best-grid-gallery' ) . ' ' . esc_html( $version ) . '</h4>';
+
+					echo '<ul>';
+					foreach ( $changes as $change ) {
+						echo '<li>' . wp_kses_post( $change ) . '</li>';
+					}
+					echo '</ul>';
+
+				}
+			}
+		}
 		echo '</div>';
-
-
 	}
 
 	function render_partners() {
@@ -615,7 +581,9 @@ class Modula_Dashboard {
                         <button class="button wpchill_install_partener_addon"
                                 data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
                                 data-action="<?php echo( 'install' == $addon_status ? 'install' : 'activate' ); ?>"
-                                data-activation_url="<?php echo esc_url( $activate_url ); ?>"><?php echo sprintf( esc_html__( '%s Addon', 'check-email' ), ( 'install' == $addon_status ? 'Install' : 'Activate' ) ); ?></button>
+                                data-activation_url="<?php echo esc_url( $activate_url ); ?>">
+                            <?php echo sprintf( esc_html__( '%s Addon', 'modula-best-grid-gallery' ), ( 'install' == $addon_status ? 'Install' : 'Activate' ) ); ?>
+                        </button>
 
 					<?php else: ?>
                         <button class="button"
@@ -697,44 +665,69 @@ class Modula_Dashboard {
 
 	function enqueue_scripts() {
 
-		wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/dashboard.css', null, $this->version );
-		wp_enqueue_script( 'modula-dashboard-script', plugin_dir_url( $this->plugin_file ) . 'assets/js/admin/dashboard.js', array(
-			'jquery',
-			'updates'
-		), $this->version, true );
+		// only load assets on dashboard pages
+		if ( $this->is_dashboard() ) {
+			wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/dashboard.css', null, $this->version );
+			wp_enqueue_script( 'modula-dashboard-script', plugin_dir_url( $this->plugin_file ) . 'assets/js/admin/dashboard.js', array(
+				'jquery',
+				'updates'
+			), $this->version, true );
 
-		$dashboard_strings = array(
-			'installing_plugin' => esc_html__( 'Installing plugin', 'modula-best-grid-gallery' ),
-			'activating_plugin' => esc_html__( 'Activating plugin', 'modula-best-grid-gallery' )
-		);
+			$dashboard_strings = array(
+				'installing_plugin' => esc_html__( 'Installing plugin', 'modula-best-grid-gallery' ),
+				'activating_plugin' => esc_html__( 'Activating plugin', 'modula-best-grid-gallery' )
+			);
 
-		wp_localize_script( 'modula-dashboard-script', 'dashboardStrings', $dashboard_strings );
+			wp_localize_script( 'modula-dashboard-script', 'dashboardStrings', $dashboard_strings );
+		}
 
 	}
 
 
-	function render_common_use_cases() {
+	function render_common_use_cases( $readme ) {
 
-		// Make the request
-		$request = wp_remote_get( $this->plugin_link['common_use_cases'] );
+		$content = $readme->sections['faq'];
 
-		$cases = array();
-		if ( ! is_wp_error( $request ) ) {
+		/**
+		 * change the markup to browser built-in html accordions
+         *
+         * starting markup
+         * <dl>
+         *     <dt> = title = </dt>
+         *         <dd> <p> description </p> </dd>
+         * </dl>
+		 *
+		 * ending markup should look like this:
+		 *  <details>
+		 *      <summary>
+		 *          <span>{title}</span>
+		 *     </summary>
+		 *      <div class="">{accordion_body}</div>
+		 * </details>
+		 *
+		 *
+		 */
+		$content = str_replace(
+			array(
+				'<dl>',
+				'</dl>',
+				'<dt>',
+				'</dt>',
+				'<dd>',
+				'</dd>'
+			),
+			array(
+				'<div class="wpchill-accordion">',
+				'</div><!--/.wpchill-accordion-->',
+				'<details><summary class="wpchill-accordion-title"><span>',
+				'</span></summary><!--/.wpchill-accordion-title-->',
+				'<div class="wpchill-accordion-body">',
+				'</div></details>'
+			),
+			$content );
 
-			// Decode the data that we got.
-			$data = json_decode( str_replace( "\'s", "'s", $request['body'] ), true );
+		print_r( $content );
 
-			$cases = $data;
-		}
-		foreach ( $cases as $case ):
-			?>
-            <div class="wpchill_dashboard_use_case">
-                <h4 class="wpchill_dashboard_uc_title"> <?php echo esc_html( $case['title'] ); ?> </h4>
-                <p class="wpchill_dashboard_item_text"> <?php echo wp_kses_post( $case['description'] ); ?> </p>
-            </div>
-
-		<?php
-		endforeach;
 	}
 
 
@@ -747,6 +740,5 @@ class Modula_Dashboard {
 			die();
 		}
 	}
-
 }
 

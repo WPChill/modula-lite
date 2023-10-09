@@ -1,6 +1,7 @@
-export const ModulaItemsExtraComponent = ( props ) => {
+export const ModulaItemsExtraComponent = (props) => {
+	return null;
+};
 
-    return null;
-}
-
-export default wp.components.withFilters( 'modula.ModulaItemsExtraComponent')(ModulaItemsExtraComponent);
+export default wp.components.withFilters('modula.ModulaItemsExtraComponent')(
+	ModulaItemsExtraComponent
+);

@@ -26,7 +26,6 @@ class Modula {
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->initiate_dashboard_page();
 
 		add_action( 'divi_extensions_init', array( $this, 'initialize_divi_extension' ) );
 
@@ -165,6 +164,26 @@ class Modula {
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
 
+		$links = array(
+			'partners'         => 'https://wp-modula.com/parteners.json',
+			'documentation'    => 'https://wp-modula.com/knowledge-base/',
+			'pricing'          => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
+			'feed'             => 'https://wp-modula.com/feed',
+			'blog'             => 'https://wp-modula.com/blog',
+			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
+			'support'          => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
+			'fbcommunity'      => 'www.facebook.com/groups/wpmodula/'
+
+		);
+
+		new Modula_Dashboard(
+			MODULA_FILE,
+			'modula-gallery',
+			MODULA_URL . 'assets/images/dashboard/',
+			$links,
+			'modula_page_header'
+		);
 
 	}
 
@@ -529,30 +548,4 @@ class Modula {
 		echo $html;
 	}
 
-	public function initiate_dashboard_page(){
-
-		if ( ! class_exists( 'Modula_Dashboard' ) ) {
-			return;
-		}
-
-		$links = array(
-			'common_use_cases' => 'https://wp-modula.com/common-use-cases.json',
-			'partners'         => 'https://wp-modula.com/parteners.json',
-			'documentation'    => 'https://wp-modula.com/knowledge-base/',
-			'pricing'          => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
-			'feed'             => 'https://wp-modula.com/feed',
-			'blog'             => 'https://wp-modula.com/blog',
-			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' )
-
-		);
-
-		$modula_dashboard = new Modula_Dashboard(
-			MODULA_FILE,
-			'modula-gallery',
-			MODULA_URL . 'assets/images/dashboard/',
-			$links,
-			'modula_page_header'
-		);
-	}
 }

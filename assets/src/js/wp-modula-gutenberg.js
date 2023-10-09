@@ -8,77 +8,80 @@ import icons from './utils/icons';
 /**
  * WordPress dependencies
  */
-const {__} = wp.i18n;
-const {registerBlockType} = wp.blocks;
+const { __ } = wp.i18n;
+const { registerBlockType } = wp.blocks;
 
 class ModulaGutenberg {
-    constructor() {
-        this.registerBlock();
-    }
+	constructor() {
+		this.registerBlock();
+	}
 
-    registerBlock() {
-        this.blockName = 'modula/gallery';
+	registerBlock() {
+		this.blockName = 'modula/gallery';
 
-        this.blockAttributes = {
-            id: {
-                type: 'number',
-                default: 0
-            },
-            images: {
-                type: 'array',
-                default: []
-            },
-            status: {
-                type: 'string',
-                default: 'ready'
-            },
-            galleryId: {
-                type: 'number',
-                default: 0
-            },
-            defaultSettings: {
-                type: 'object',
-                default: []
-            },
-            galleryType: {
-                type: 'string',
-                default: 'none'
-            },
-            // Attribute for current gallery
-            currentGallery: {
-                type: 'object',
-                default: {}
-            },
-            // Attribute for current gallery option in selectize
-            currentSelectize: {
-                type: 'array',
-                default: []
-            }
-        };
+		this.blockAttributes = {
+			id: {
+				type: 'number',
+				default: 0,
+			},
+			images: {
+				type: 'array',
+				default: [],
+			},
+			status: {
+				type: 'string',
+				default: 'ready',
+			},
+			galleryId: {
+				type: 'number',
+				default: 0,
+			},
+			defaultSettings: {
+				type: 'object',
+				default: [],
+			},
+			galleryType: {
+				type: 'string',
+				default: 'none',
+			},
+			// Attribute for current gallery
+			currentGallery: {
+				type: 'object',
+				default: {},
+			},
+			// Attribute for current gallery option in selectize
+			currentSelectize: {
+				type: 'array',
+				default: [],
+			},
+		};
 
-        registerBlockType(this.blockName, {
-            title: modulaVars.gutenbergTitle,
-            icon: icons.modula,
-            description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
-            keywords: [__('gallery'), __('modula'), __('images')],
-            category: 'common',
-            supports: {
-                align: true,
-                customClassName: false
-            },
-            attributes: this.blockAttributes,
-            // getEditWrapperProps() {
-            // 	return {
-            // 		'data-align': 'full'
-            // 	};
-            // },
-            edit: Edit,
-            save() {
-                // Rendering in PHP
-                return null;
-            }
-        });
-    }
+		registerBlockType(this.blockName, {
+			title: modulaVars.gutenbergTitle,
+			icon: icons.modula,
+			description: __(
+				'Make your galleries stand out.',
+				'modula-best-grid-gallery'
+			),
+			keywords: [__('gallery'), __('modula'), __('images')],
+			category: 'common',
+			supports: {
+				align: true,
+				customClassName: false,
+			},
+			attributes: this.blockAttributes,
+			// getEditWrapperProps() {
+			// 	return {
+			// 		'data-align': 'full'
+			// 	};
+			// },
+			edit: Edit,
+			save() {
+				// Rendering in PHP
+				return null;
+			},
+		});
+	}
 }
 
 let modulaGutenberg = new ModulaGutenberg();

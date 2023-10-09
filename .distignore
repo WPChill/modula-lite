@@ -6,4 +6,4 @@ Gruntfile.js
 package.json
 package-lock.json
 postcss.config.js
-webpack.config.js
+webpack2.config.js

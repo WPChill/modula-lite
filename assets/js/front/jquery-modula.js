@@ -7,32 +7,38 @@
 function tg_getURLParameter(name) {
 	return (
 		decodeURIComponent(
-			(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [ , '' ])[1]
-				.replace(/\+/g, '%20')
+			(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(
+				location.search
+			) || [, ''])[1].replace(/\+/g, '%20')
 		) || null
 	);
 }
 
 // Compatibility with WPBakery Page Builder
-jQuery(document).on('vc-full-width-row-single vc-full-width-row', function(event, element) {
-	if (jQuery('body').find('.modula').length > 0) {
-		jQuery(window).trigger('modula-update');
+jQuery(document).on(
+	'vc-full-width-row-single vc-full-width-row',
+	function (event, element) {
+		if (jQuery('body').find('.modula').length > 0) {
+			jQuery(window).trigger('modula-update');
+		}
 	}
-});
+);
 
 // Compatibility with Elementor
 jQuery(window).on('elementor/frontend/init', function () {
-	if ( window.elementorFrontend ) {
-		window.elementorFrontend.hooks.addAction('frontend/element_ready/global', function ($scope) {
-			if ( jQuery('body').find('.modula').length > 0 ) {
-				//jQuery(window).trigger('modula-update');
-
+	if (window.elementorFrontend) {
+		window.elementorFrontend.hooks.addAction(
+			'frontend/element_ready/global',
+			function ($scope) {
+				if (jQuery('body').find('.modula').length > 0) {
+					//jQuery(window).trigger('modula-update');
+				}
 			}
-		});
+		);
 	}
 });
 
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 	// Create the defaults once
 	var pluginName = 'modulaGallery',
 		defaults = {
@@ -58,7 +64,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			initLightbox: false,
 			lightbox: 'fancybox',
 			lightboxOpts: {},
-			inView: false
+			inView: false,
 		};
 
 	// The actual plugin constructor
@@ -85,7 +91,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.init();
 	}
 
-	Plugin.prototype.init = function() {
+	Plugin.prototype.init = function () {
 		var instance = this,
 			viewport = document.documentElement.clientWidth;
 
@@ -98,7 +104,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		// Trigger event before init
-		$(document).trigger('modula_api_before_init', [ instance ]);
+		$(document).trigger('modula_api_before_init', [instance]);
 
 		if ('custom-grid' === this.options.type) {
 			this.createCustomGallery();
@@ -114,57 +120,67 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		// Fix for custom grid elements not organizing correctly on some themes
 		// where at first the scrollbar is missing
-		if ('custom-grid' === this.options.type && $(window).height() < $('html').height()) {
+		if (
+			'custom-grid' === this.options.type &&
+			$(window).height() < $('html').height()
+		) {
 			instance.onResize(instance);
 		}
 
-		$(window).resize(function() {
+		$(window).resize(function () {
 			instance.onResize(instance);
 		});
 
-		const resizeObserver = new ResizeObserver(entries => {
-
+		const resizeObserver = new ResizeObserver((entries) => {
 			instance.onResize(instance);
 		});
 		resizeObserver.observe(instance.$element[0]);
 
-		$(window).on('modula-update', function() {
+		$(window).on('modula-update', function () {
 			instance.onResize(instance);
 		});
 
-		$(document).on('lazyloaded', function(evt) {
+		$(document).on('lazyloaded', function (evt) {
 			var element = $(evt.target),
 				parent,
 				index;
 
 			if ('modula' == element.data('source')) {
-				element.data('size', { width: element.width(), height: element.height() });
+				element.data('size', {
+					width: element.width(),
+					height: element.height(),
+				});
 				parent = element.parents('.modula-item');
 				parent.addClass('tg-loaded');
 				index = instance.$items.not('.jtg-hidden').index(parent);
 				instance.placeImage(index);
 
 				if (instance.isIsotope) {
-					if ('undefined' !== typeof instance.$itemsCnt.data('modulaisotope')) {
+					if (
+						'undefined' !==
+						typeof instance.$itemsCnt.data('modulaisotope')
+					) {
 						instance.$itemsCnt.modulaisotope('layout');
 					}
 				}
 
-				if ( 'grid' == instance.options.type ) {
-					if ( 'automatic' == instance.options.grid_type ) {
+				if ('grid' == instance.options.type) {
+					if ('automatic' == instance.options.grid_type) {
 						instance.$itemsCnt.justifiedGallery();
 					}
 				}
-
 			}
 		});
 
 		if (instance.options.inView) {
-			jQuery(window).on('DOMContentLoaded load resize scroll', function() {
-				if (modulaInViewport(instance.$element)) {
-					instance.$element.addClass('modula-loaded-scale');
+			jQuery(window).on(
+				'DOMContentLoaded load resize scroll',
+				function () {
+					if (modulaInViewport(instance.$element)) {
+						instance.$element.addClass('modula-loaded-scale');
+					}
 				}
-			});
+			);
 		}
 
 		// Gives error on front
@@ -183,64 +199,82 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		// Init lightox
-		if ('fancybox' == instance.options['lightbox'] && !instance.options['initLightbox']) {
+		if (
+			'fancybox' == instance.options['lightbox'] &&
+			!instance.options['initLightbox']
+		) {
 			this.initLightbox();
 		}
 
 		// Trigger event after init
-		$(document).trigger('modula_api_after_init', [ instance ]);
+		$(document).trigger('modula_api_after_init', [instance]);
 	};
 
-	Plugin.prototype.initLightbox = function() {
+	Plugin.prototype.initLightbox = function () {
 		var self = this;
 
-		self.$element.on('click', '.modula-no-follow', function(evt) {
+		self.$element.on('click', '.modula-no-follow', function (evt) {
 			evt.preventDefault();
 		});
 
-		self.$element.on('click', '.modula-item-link:not( .modula-simple-link )', function(evt) {
-			evt.preventDefault();
-			var clickedLink = jQuery(this);
-			var links = $.map(self.$items, function(o) {
-				if( jQuery(o).find('.modula-item-link:not( .modula-no-follow )').length > 0 ){
-					var link = jQuery(o).find('.modula-item-link:not( .modula-simple-link )'),
-						image = jQuery(o).find('.pic');
-					return {
-						src: image.data('full'),
-						opts: {
-							$thumb: image.parents('.modula-item'),
-							caption: link.data('caption'),
-							alt: image.attr('alt'),
-							image_id: link.attr('data-image-id')
-						},
-						current: jQuery(o).is(clickedLink.parents('.modula-item')) ,
-					};	
-					
-				}
-				}),
-				index = $.map(links,function(element,myIndex){
-					if( element.current ){
-						return myIndex;
-					}
-				})[0];
+		self.$element.on(
+			'click',
+			'.modula-item-link:not( .modula-simple-link )',
+			function (evt) {
+				evt.preventDefault();
+				var clickedLink = jQuery(this);
+				var links = $.map(self.$items, function (o) {
+						if (
+							jQuery(o).find(
+								'.modula-item-link:not( .modula-no-follow )'
+							).length > 0
+						) {
+							var link = jQuery(o).find(
+									'.modula-item-link:not( .modula-simple-link )'
+								),
+								image = jQuery(o).find('.pic');
+							return {
+								src: image.data('full'),
+								opts: {
+									$thumb: image.parents('.modula-item'),
+									caption: link.data('caption'),
+									alt: image.attr('alt'),
+									image_id: link.attr('data-image-id'),
+								},
+								current: jQuery(o).is(
+									clickedLink.parents('.modula-item')
+								),
+							};
+						}
+					}),
+					index = $.map(links, function (element, myIndex) {
+						if (element.current) {
+							return myIndex;
+						}
+					})[0];
 
-			jQuery.modulaFancybox.open(links, self.options.lightboxOpts, index);
-		});
+				jQuery.modulaFancybox.open(
+					links,
+					self.options.lightboxOpts,
+					index
+				);
+			}
+		);
 	};
 
-	Plugin.prototype.trunc = function(v) {
+	Plugin.prototype.trunc = function (v) {
 		if (Math.trunc) {
 			return Math.trunc(v);
 		} else {
 			v = +v;
 			if (!isFinite(v)) return v;
 
-			return v - v % 1 || (v < 0 ? -0 : v === 0 ? v : 0);
+			return v - (v % 1) || (v < 0 ? -0 : v === 0 ? v : 0);
 		}
 	};
 
 	// Create custom grid gallery based on packery.
-	Plugin.prototype.createCustomGallery = function() {
+	Plugin.prototype.createCustomGallery = function () {
 		var instance = this,
 			size,
 			containerWidth = this.$element.find('.modula-items').width(),
@@ -257,12 +291,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		if (this.options.gutter > 0) {
-			size = (containerWidth - this.options.gutter * (columns - 1)) / columns;
+			size =
+				(containerWidth - this.options.gutter * (columns - 1)) /
+				columns;
 		} else {
-			size = Math.floor(containerWidth / columns * 1000) / 1000;
+			size = Math.floor((containerWidth / columns) * 1000) / 1000;
 		}
 
-		this.$items.not('.jtg-hidden').each(function(i, item) {
+		this.$items.not('.jtg-hidden').each(function (i, item) {
 			var slot = {},
 				widthColumns,
 				heightColumns,
@@ -282,22 +318,28 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 				if (1 == columns) {
 					widthColumns = 1;
-					heightColumns = widthColumns * auxHeight / auxWidth;
+					heightColumns = (widthColumns * auxHeight) / auxWidth;
 				} else {
-					widthColumns = Math.round(columns * auxWidth / 12);
+					widthColumns = Math.round((columns * auxWidth) / 12);
 					if (widthColumns < 1) {
 						widthColumns = 1;
 					}
 
-					heightColumns = Math.round(widthColumns * auxHeight / auxWidth);
+					heightColumns = Math.round(
+						(widthColumns * auxHeight) / auxWidth
+					);
 					if (heightColumns < 1) {
 						heightColumns = 1;
 					}
 				}
 			}
 
-			slot.width = size * widthColumns + plugin.options.gutter * (widthColumns - 1);
-			slot.height = Math.round(size) * heightColumns + plugin.options.gutter * (heightColumns - 1);
+			slot.width =
+				size * widthColumns +
+				plugin.options.gutter * (widthColumns - 1);
+			slot.height =
+				Math.round(size) * heightColumns +
+				plugin.options.gutter * (heightColumns - 1);
 
 			$(item)
 				.data('size', slot)
@@ -306,10 +348,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 				.data('position');
 
 			$(item).css($(item).data('size'));
-			$(item).find('.figc').css({
-				width: $(item).data('size').width,
-				height: $(item).data('size').height
-			});
+			$(item)
+				.find('.figc')
+				.css({
+					width: $(item).data('size').width,
+					height: $(item).data('size').height,
+				});
 
 			// Load Images
 			instance.loadImage(i);
@@ -319,8 +363,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 			itemSelector: '.modula-item',
 			layoutMode: 'packery',
 			packery: {
-				gutter: parseInt(plugin.options.gutter)
-			}
+				gutter: parseInt(plugin.options.gutter),
+			},
 		};
 
 		this.$itemsCnt.modulaisotope(packery_args);
@@ -328,7 +372,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 	};
 
 	// Create Modula default gallery grid
-	Plugin.prototype.createGrid = function() {
+	Plugin.prototype.createGrid = function () {
 		var instance = this;
 
 		// if ( this.options.width ) {
@@ -348,7 +392,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.options.height = instance.options.desktopHeight;
 		}
 
-		this.$itemsCnt.data('area', this.$itemsCnt.width() * this.options.height);
+		this.$itemsCnt.data(
+			'area',
+			this.$itemsCnt.width() * this.options.height
+		);
 
 		this.lastWidth = this.$itemsCnt.width();
 
@@ -356,25 +403,28 @@ jQuery(window).on('elementor/frontend/init', function () {
 			this.tiles.push(instance.getSlot());
 		}
 
-		this.tiles.sort(function(x, y) {
+		this.tiles.sort(function (x, y) {
 			return x.position - y.position;
 		});
 
-		this.$items.not('.jtg-hidden').each(function(i, item) {
+		this.$items.not('.jtg-hidden').each(function (i, item) {
 			var slot = instance.tiles[i];
 
 			$(item).data('size', slot);
 
-			$(item).addClass('tiled').addClass(slot.width > slot.height ? 'tile-h' : 'tile-v').data('position');
+			$(item)
+				.addClass('tiled')
+				.addClass(slot.width > slot.height ? 'tile-h' : 'tile-v')
+				.data('position');
 
 			$(item).css({
 				width: slot.width,
-				height: slot.height
+				height: slot.height,
 			});
 
 			$(item).find('.figc').css({
 				width: slot.width,
-				height: slot.height
+				height: slot.height,
 			});
 
 			instance.loadImage(i);
@@ -386,8 +436,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 				itemSelector: '.modula-item',
 				layoutMode: 'packery',
 				packery: {
-					gutter: parseInt(instance.options.gutter)
-				}
+					gutter: parseInt(instance.options.gutter),
+				},
 			};
 
 			this.$itemsCnt.modulaisotope(packery_args);
@@ -395,7 +445,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 	};
 
-	Plugin.prototype.createAutoGrid = function() {
+	Plugin.prototype.createAutoGrid = function () {
 		var plugin = this;
 
 		this.$itemsCnt.justifiedGallery({
@@ -406,11 +456,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 			border: 0,
 			imgSelector: '.pic',
 			cssAnimation: true,
-			imagesAnimationDuration: 700
+			imagesAnimationDuration: 700,
 		});
 	};
 
-	Plugin.prototype.createColumnsGrid = function() {
+	Plugin.prototype.createColumnsGrid = function () {
 		var instance = this;
 
 		this.$itemsCnt.modulaisotope({
@@ -420,28 +470,27 @@ jQuery(window).on('elementor/frontend/init', function () {
 			layoutMode: 'packery',
 			packery: {
 				// use element for option
-				gutter: parseInt(this.options.gutter)
-			}
+				gutter: parseInt(this.options.gutter),
+			},
 		});
 
 		// Load Images
-		this.$items.each(function(index, el) {
+		this.$items.each(function (index, el) {
 			instance.loadImage(index);
 		});
 
 		this.isIsotope = true;
-	}
+	};
 
 	Plugin.prototype.getSlot = function () {
-		if ( this.tiles.length == 0 ) {
-
+		if (this.tiles.length == 0) {
 			var tile = {
 				top: 0,
 				left: 0,
 				width: this.$itemsCnt.width(),
 				height: this.options.height,
 				area: this.$itemsCnt.width() * this.options.height,
-				position: 0
+				position: 0,
 			};
 
 			return tile;
@@ -460,28 +509,41 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var maxTileData = this.tiles[maxTileIdx];
 
 		if (maxTileData.width > maxTileData.height) {
-			var randomMaxDelta = maxTileData.width / 2 * this.options.randomFactor;
+			var randomMaxDelta =
+				(maxTileData.width / 2) * this.options.randomFactor;
 
 			maxTileData.prevWidth = maxTileData.width;
-			maxTileData.width = Math.floor(maxTileData.width / 2 + randomMaxDelta * (Math.random() - 0.5));
+			maxTileData.width = Math.floor(
+				maxTileData.width / 2 + randomMaxDelta * (Math.random() - 0.5)
+			);
 
 			tile = {
 				top: maxTileData.top,
-				left: maxTileData.left + maxTileData.width + this.options.gutter,
-				width: maxTileData.prevWidth - maxTileData.width - this.options.gutter,
-				height: maxTileData.height
+				left:
+					maxTileData.left + maxTileData.width + this.options.gutter,
+				width:
+					maxTileData.prevWidth -
+					maxTileData.width -
+					this.options.gutter,
+				height: maxTileData.height,
 			};
 		} else {
-			var randomMaxDelta = maxTileData.height / 2 * this.options.randomFactor;
+			var randomMaxDelta =
+				(maxTileData.height / 2) * this.options.randomFactor;
 
 			maxTileData.prevHeight = maxTileData.height;
-			maxTileData.height = Math.floor(maxTileData.height / 2 + randomMaxDelta * (Math.random() - 0.5));
+			maxTileData.height = Math.floor(
+				maxTileData.height / 2 + randomMaxDelta * (Math.random() - 0.5)
+			);
 
 			tile = {
 				left: maxTileData.left,
 				top: maxTileData.top + maxTileData.height + this.options.gutter,
 				width: maxTileData.width,
-				height: maxTileData.prevHeight - maxTileData.height - this.options.gutter
+				height:
+					maxTileData.prevHeight -
+					maxTileData.height -
+					this.options.gutter,
 			};
 		}
 
@@ -496,7 +558,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		return tile;
 	};
 
-	Plugin.prototype.reset = function() {
+	Plugin.prototype.reset = function () {
 		var instance = this;
 		instance.tiles = [];
 
@@ -515,10 +577,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 		instance.lastWidth = instance.$itemsCnt.width();
 
 		// Trigger event after init
-		$(document).trigger('modula_api_reset', [ instance ]);
+		$(document).trigger('modula_api_reset', [instance]);
 	};
 
-	Plugin.prototype.onResize = function(instance) {
+	Plugin.prototype.onResize = function (instance) {
 		if (instance.lastWidth == instance.$itemsCnt.width()) return;
 
 		var viewport = document.documentElement.clientWidth;
@@ -532,7 +594,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		clearTimeout(instance.resizeTO);
-		instance.resizeTO = setTimeout(function() {
+		instance.resizeTO = setTimeout(function () {
 			if (instance.options.keepArea) {
 				var area = instance.$itemsCnt.data('area');
 				instance.$itemsCnt.height(area / instance.$itemsCnt.width());
@@ -544,16 +606,15 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.$itemsCnt
 					.modulaisotope({
 						packery: {
-							gutter: parseInt(instance.options.gutter)
-						}
+							gutter: parseInt(instance.options.gutter),
+						},
 					})
 					.modulaisotope('layout');
 			}
 		}, 100);
 	};
 
-	Plugin.prototype.loadImage = function(index) {
-
+	Plugin.prototype.loadImage = function (index) {
 		var instance = this,
 			source = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
 			size = {};
@@ -564,7 +625,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 
 		var img = new Image();
-		img.onload = function() {
+		img.onload = function () {
 			size = { width: this.width, height: this.height };
 			source.data('size', size);
 			instance.placeImage(index);
@@ -572,13 +633,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		if ('undefined' != source.attr('src')) {
 			img.src = source.attr('src');
-
 		} else {
 			img.src = source.data('src');
 		}
 	};
 
-	Plugin.prototype.placeImage = function(index) {
+	Plugin.prototype.placeImage = function (index) {
 		if ('grid' == this.options.type) {
 			return;
 		}
@@ -610,10 +670,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			width: 'auto',
 			height: 'auto',
 			margin: '0',
-			maxWidth: '999em'
+			maxWidth: '999em',
 		};
 
-		var newHeight = tSize.width * iSize.height / iSize.width;
+		var newHeight = (tSize.width * iSize.height) / iSize.width;
 
 		if (newHeight > tSize.height) {
 			cssProps.width = tSize.width;
@@ -624,7 +684,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 					cssProps.top = 0;
 					break;
 				case 'middle':
-					cssProps.top = 0 - (tSize.width * (1 / iRatio) - tSize.height) / 2;
+					cssProps.top =
+						0 - (tSize.width * (1 / iRatio) - tSize.height) / 2;
 					break;
 				case 'bottom':
 					cssProps.bottom = 0;
@@ -639,7 +700,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 					cssProps.left = 0;
 					break;
 				case 'center':
-					cssProps.left = 0 - (tSize.height * iRatio - tSize.width) / 2;
+					cssProps.left =
+						0 - (tSize.height * iRatio - tSize.width) / 2;
 					break;
 				case 'right':
 					cssProps.right = 0;
@@ -648,14 +710,15 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 		// Fix for the under-image effect
 		if ($tile.hasClass('effect-under')) {
-			cssProps.top = cssProps.top - $tile.find('.modula-item-content').height();
+			cssProps.top =
+				cssProps.top - $tile.find('.modula-item-content').height();
 		}
 
 		$image.css(cssProps);
 		this.$items.not('.jtg-hidden').eq(index).addClass('tg-loaded');
 	};
 
-	Plugin.prototype.setupSocial = function() {
+	Plugin.prototype.setupSocial = function () {
 		if (this.options.enableTwitter) {
 			setupTwitter(this.$items, this);
 		}
@@ -676,7 +739,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 	};
 
-	Plugin.prototype.destroy = function() {
+	Plugin.prototype.destroy = function () {
 		if (this.isPackeryActive) {
 			this.$itemsCnt.packery('destroy');
 			this.isPackeryActive = false;
@@ -684,7 +747,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 	};
 
 	//credits James Padolsey http://james.padolsey.com/
-	var qualifyURL = function(url) {
+	var qualifyURL = function (url) {
 		var img = document.createElement('img');
 		img.src = url; // set string url
 		url = img.src; // get qualified url
@@ -692,8 +755,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 		return url;
 	};
 
-	var setupTwitter = function($tiles, plugin) {
-		$tiles.find('.modula-icon-twitter').click(function(e) {
+	var setupTwitter = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-twitter').click(function (e) {
 			e.preventDefault();
 
 			var image = $(this).parents('.modula-item').find('img.pic');
@@ -709,7 +772,10 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 
 			var w = window.open(
-				'https://twitter.com/intent/tweet?url=' + encodeURI(image_link) + '&text=' + encodeURI(text),
+				'https://twitter.com/intent/tweet?url=' +
+					encodeURI(image_link) +
+					'&text=' +
+					encodeURI(text),
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
@@ -718,8 +784,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
-	var setupFacebook = function($tiles, plugin) {
-		$tiles.find('.modula-icon-facebook').click(function(e) {
+	var setupFacebook = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-facebook').click(function (e) {
 			e.preventDefault();
 
 			var image = $(this).parents('.modula-item').find('img.pic');
@@ -727,20 +793,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var url = '//www.facebook.com/sharer.php?u=' + image_link;
 
-			var w = window.open(url, 'ftgw', 'location=1,status=1,scrollbars=1,width=600,height=400');
-			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
-			return false;
-		});
-	};
-
-	var setupWhatsapp = function($tiles, plugin) {
-		$tiles.find('.modula-icon-whatsapp').click(function(e) {
-			e.preventDefault();
-
-			var image_link = $(this).parents('.modula-item').find('img.pic').attr('data-full');
-
 			var w = window.open(
-				'https://api.whatsapp.com/send?text=' + encodeURI(image_link) + '&preview_url=true',
+				url,
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
@@ -749,8 +803,29 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
-	var setupPinterest = function($tiles, plugin) {
-		$tiles.find('.modula-icon-pinterest').click(function(e) {
+	var setupWhatsapp = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-whatsapp').click(function (e) {
+			e.preventDefault();
+
+			var image_link = $(this)
+				.parents('.modula-item')
+				.find('img.pic')
+				.attr('data-full');
+
+			var w = window.open(
+				'https://api.whatsapp.com/send?text=' +
+					encodeURI(image_link) +
+					'&preview_url=true',
+				'ftgw',
+				'location=1,status=1,scrollbars=1,width=600,height=400'
+			);
+			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
+			return false;
+		});
+	};
+
+	var setupPinterest = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-pinterest').click(function (e) {
 			e.preventDefault();
 
 			var image = $(this).parents('.modula-item').find('img.pic');
@@ -777,28 +852,44 @@ jQuery(window).on('elementor/frontend/init', function () {
 				url += '&media=' + qualifyURL(src);
 			}
 
-			var w = window.open(url, 'ftgw', 'location=1,status=1,scrollbars=1,width=600,height=400');
+			var w = window.open(
+				url,
+				'ftgw',
+				'location=1,status=1,scrollbars=1,width=600,height=400'
+			);
 			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
 			return false;
 		});
 	};
 
-	var setupLinkedIN = function($tiles, plugin) {
-		$tiles.find('.modula-icon-linkedin').click(function(e) {
+	var setupLinkedIN = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-linkedin').click(function (e) {
 			e.preventDefault();
-			var image_link = $(this).parents('.modula-item').find('img.pic').attr('data-full');
-			var url = '//linkedin.com/shareArticle?mini=true&url=' + encodeURI(image_link);
+			var image_link = $(this)
+				.parents('.modula-item')
+				.find('img.pic')
+				.attr('data-full');
+			var url =
+				'//linkedin.com/shareArticle?mini=true&url=' +
+				encodeURI(image_link);
 
-			var w = window.open(url, 'ftgw', 'location=1,status=1,scrollbars=1,width=600,height=400');
+			var w = window.open(
+				url,
+				'ftgw',
+				'location=1,status=1,scrollbars=1,width=600,height=400'
+			);
 			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
 			return false;
 		});
 	};
 
-	var setupEmail = function($tiles, plugin) {
-		$tiles.find('.modula-icon-email').click(function(e) {
+	var setupEmail = function ($tiles, plugin) {
+		$tiles.find('.modula-icon-email').click(function (e) {
 			var subject = encodeURI(plugin.options.email_subject);
-			var imageLink = jQuery('.modula-icon-email').parents('.modula-item').find('img.pic').attr('data-full');
+			var imageLink = jQuery('.modula-icon-email')
+				.parents('.modula-item')
+				.find('img.pic')
+				.attr('data-full');
 			var galleryLink = location.href;
 
 			var emailMessage = encodeURI(
@@ -808,33 +899,51 @@ jQuery(window).on('elementor/frontend/init', function () {
 			);
 
 			var url = 'mailto:?subject=' + subject + '&body=' + emailMessage;
-			var w = window.open(url, 'ftgw', 'location=1,status=1,scrollbars=1,width=600,height=400');
+			var w = window.open(
+				url,
+				'ftgw',
+				'location=1,status=1,scrollbars=1,width=600,height=400'
+			);
 			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
 			return false;
 		});
 	};
 
-	$.fn[pluginName] = function(options) {
+	$.fn[pluginName] = function (options) {
 		var args = arguments;
 
 		if (options === undefined || typeof options === 'object') {
-			return this.each(function() {
+			return this.each(function () {
 				if (!$.data(this, 'plugin_' + pluginName)) {
-					$.data(this, 'plugin_' + pluginName, new Plugin(this, options));
+					$.data(
+						this,
+						'plugin_' + pluginName,
+						new Plugin(this, options)
+					);
 				}
 			});
-		} else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
+		} else if (
+			typeof options === 'string' &&
+			options[0] !== '_' &&
+			options !== 'init'
+		) {
 			var returns;
 
-			this.each(function() {
+			this.each(function () {
 				var instance = $.data(this, 'plugin_' + pluginName);
 
 				// Tests that there's already a plugin-instance
 				// and checks that the requested public method exists
-				if (instance instanceof Plugin && typeof instance[options] === 'function') {
+				if (
+					instance instanceof Plugin &&
+					typeof instance[options] === 'function'
+				) {
 					// Call the method of our plugin instance,
 					// and pass it the supplied arguments.
-					returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
+					returns = instance[options].apply(
+						instance,
+						Array.prototype.slice.call(args, 1)
+					);
 				}
 
 				// Allow instances to be destroyed via the 'destroy' method
@@ -848,25 +957,26 @@ jQuery(window).on('elementor/frontend/init', function () {
 	};
 })(jQuery, window, document);
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
 	var modulaGalleries = jQuery('.modula.modula-gallery');
 
-	jQuery.each(modulaGalleries, function() {
+	jQuery.each(modulaGalleries, function () {
 		var modulaSettings = jQuery(this).data('config');
 
 		jQuery(this).modulaGallery(modulaSettings);
 	});
 });
 
-
-jQuery( document ).on( 'elementor/popup/show', ( event, id, instance ) => {
-	var modulaGalleries = jQuery( '#elementor-popup-modal-' + id).find('.modula.modula-gallery');
-	jQuery.each(modulaGalleries, function() {
+jQuery(document).on('elementor/popup/show', (event, id, instance) => {
+	var modulaGalleries = jQuery('#elementor-popup-modal-' + id).find(
+		'.modula.modula-gallery'
+	);
+	jQuery.each(modulaGalleries, function () {
 		var modulaSettings = jQuery(this).data('config');
 
 		jQuery(this).modulaGallery(modulaSettings);
 	});
-} );
+});
 
 function modulaInViewport(element) {
 	if (typeof jQuery === 'function' && element instanceof jQuery) {
@@ -876,7 +986,8 @@ function modulaInViewport(element) {
 	var elementBounds = element.getBoundingClientRect();
 
 	return (
-		(elementBounds.top - jQuery(window).height() <= -100 && elementBounds.top - jQuery(window).height() >= -400) ||
+		(elementBounds.top - jQuery(window).height() <= -100 &&
+			elementBounds.top - jQuery(window).height() >= -400) ||
 		elementBounds.bottom <= jQuery(window).height()
 	);
 }

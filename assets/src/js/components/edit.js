@@ -70,7 +70,7 @@ export const ModulaEdit = (props) => {
 						label:
 							'' === res.title.rendered
 								? `Unnamed`
-								: escapeHtml( res.title.rendered ),
+								: escapeHtml(res.title.rendered),
 					},
 				],
 			});
@@ -89,12 +89,12 @@ export const ModulaEdit = (props) => {
 	};
 	function escapeHtml(text) {
 		return text
-			.replace("&#8217;", "'" )
-			.replace("&#8220;", '"' )
-			.replace("&#8216;", "'" );
-	  }
-	  
-		  const onGalleryLoaded = (id, result) => {
+			.replace('&#8217;', "'")
+			.replace('&#8220;', '"')
+			.replace('&#8216;', "'");
+	}
+
+	const onGalleryLoaded = (id, result) => {
 		if (result.success === false) {
 			setAttributes({ id: id, status: 'ready' });
 			return;
@@ -152,8 +152,7 @@ export const ModulaEdit = (props) => {
 		setAttributes({ status: 'ready' });
 		const modulaSliders = jQuery('.modula-slider');
 		if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick) {
-
-			let config = jQuery( `#${id}` ).data('config'),
+			let config = jQuery(`#${id}`).data('config'),
 				nav = jQuery(`#${id}`).find('.modula-slider-nav'),
 				main = jQuery(`#${id}`).find('.modula-items');
 
@@ -304,17 +303,17 @@ export const ModulaEdit = (props) => {
 					</div>
 				</div>
 			</Fragment>
-		)
+		);
 	}
 
 	if (status === 'loading') {
 		return (
-				<div className="modula-block-preview">
-					<div className="modula-block-preview__content">
-						<div className="modula-block-preview__logo" />
-						<Spinner />
-					</div>
+			<div className="modula-block-preview">
+				<div className="modula-block-preview__content">
+					<div className="modula-block-preview__logo" />
+					<Spinner />
 				</div>
+			</div>
 		);
 	}
 
