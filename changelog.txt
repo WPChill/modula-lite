@@ -1,3 +1,10 @@
+= 2.7.8 - TBD =
+Fixed: Addons in "Partners" page not updating their install status.
+Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid confusion between other galleries.
+Added: Placeholder for text settings inputs and placeholders for image dimensions.
+Changed: Gallery image changes are now saved on post update not every time an image was edited.
+Changed: Updated enqueue methods for css & js.
+
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
 -Fixed: Image attribution when "none" is selected

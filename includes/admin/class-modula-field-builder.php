@@ -126,6 +126,7 @@ class Modula_Field_Builder {
 				echo '<div id="modula-grid" style="display:none"></div>';
 			echo '</div>';
 			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
+			echo '<input type="hidden" id="modula-editor-images" value="" name="modula-images" />';
 		echo '</div>';
 
 		// Helper Guildelines Toggle
@@ -340,15 +341,21 @@ class Modula_Field_Builder {
 		switch ( $field['type'] ) {
 
 			case 'image-size':
+				$placeholder           = array();
+				$placeholder['width']  = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['width'] ) ) ? $field['placeholder']['width'] : '';
+				$placeholder['height'] = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['height'] ) ) ? $field['placeholder']['height'] : '';
+
 				$html = '<div class="modula-image-size">';
-				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][width]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['width'])) ? esc_attr( $value['width'] ) : '') . '">';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][width]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['width'])) ? esc_attr( $value['width'] ) : '') . '" placeholder="' . esc_attr( $placeholder['width'] ) . '">';
 				$html .= '<span class="modila-image-size-spacer">x</span>';
-				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][height]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['height'])) ? esc_attr( $value['height'] ) : '') . '">';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][height]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['height'])) ? esc_attr( $value['height'] ) : '') . '" placeholder="' . esc_attr( $placeholder['height'] ) . '">';
 				$html .= '<span class="modila-image-size-spacer">px</span>';
 				$html .= '</div>';
 				break;
 			case 'text': 
-				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '">';
+
+				$placeholder = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '" placeholder="'. esc_attr( $placeholder ) .'">';
 
 				if(isset($field['afterrow'])){
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';

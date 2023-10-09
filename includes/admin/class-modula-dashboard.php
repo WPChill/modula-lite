@@ -52,8 +52,6 @@ class Modula_Dashboard {
 			)
 		);
 
-		register_activation_hook( $this->plugin_file, array( $this, 'on_activate_redirect' ) );
-
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
 		add_filter( 'admin_menu', array( $this, 'add_dashboard_menu_item' ), 99, 1 );
@@ -66,17 +64,7 @@ class Modula_Dashboard {
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
 
-	}
-
-	/**
-	 * Hook to activated_plugin to redirect to dashboard
-	 *
-	 * @since 2.7.5
-	 */
-	public function on_activate_redirect() {
-
 		add_action( 'activated_plugin', array( $this, 'wpchill_dashboard_redirect' ) );
-
 	}
 
 	/**
@@ -87,6 +75,7 @@ class Modula_Dashboard {
 	 * @since 2.7.5
 	 */
 	public function wpchill_dashboard_redirect( $plugin ) {
+
 		if ( $this->plugin_file === $plugin ) {
 			wp_safe_redirect( admin_url( 'edit . php ? post_type = ' . $this->plugin_cpt . ' & page = wpchill - dashboard' ) );
 			exit;
@@ -553,9 +542,8 @@ class Modula_Dashboard {
 		if ( ! empty( $addons ) ) {
 
 			foreach ( $addons as $addon ) {
-
-				$addon_path   = $addon['slug'] . '/' . $addon['slug'] . '.php';
-				$addon_status = $this->is_addon_installed( $addon_path ); // should look like 'wp-smtp/wp-smtp.php'
+				$addon_path   = isset( $addon['path'] ) ? $addon['path'] : $addon['slug'] . '/' . $addon['slug'] . '.php';
+				$addon_status = $this->is_addon_installed( $addon_path );
 
 				echo '<div class="wpchill-addon">';
 				echo '<div class="wpchill-addon-box">';

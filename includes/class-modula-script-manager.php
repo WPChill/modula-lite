@@ -5,20 +5,10 @@ class Modula_Script_Manager {
 
 	private $scripts = array();
 	private $styles  = array();
-	private $compress_versions = array(
-		'modula-all' => array( 'modula-isotope-packery', 'modula-isotope', 'modula-grid-justified-gallery', 'modula-fancybox', 'modula-lazysizes', 'modula' ),
-		'modula-wf'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-lazysizes', 'modula' ),
-		'modula-wl'  => array( 'modula-isotope-packery', 'modula-isotope', 'modula-fancybox', 'modula' ),
-		'modula-wfl' => array( 'modula-isotope-packery', 'modula-isotope', 'modula' ),
-		'modula-justified-wf'  => array( 'modula-grid-justified-gallery', 'modula-lazysizes', 'modula' ),
-		'modula-justified-wl'  => array( 'modula-grid-justified-gallery', 'modula-fancybox', 'modula' ),
-		'modula-justified-wfl' => array( 'modula-grid-justified-gallery', 'modula' ),
-	);
 
 	function __construct() {
 
 		add_action( 'wp_footer', array( $this, 'enqueue_scripts' ), 10 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
 
 	}
 
@@ -28,18 +18,6 @@ class Modula_Script_Manager {
 			$inst = new Modula_Script_Manager();
 		}
 		return $inst;
-	}
-
-	public function register_scripts(){
-
-		wp_register_script( 'modula-all', MODULA_URL . 'assets/js/modula-all.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-wf', MODULA_URL . 'assets/js/modula-wf.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-wl', MODULA_URL . 'assets/js/modula-wl.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-wfl', MODULA_URL . 'assets/js/modula-wfl.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-justified-wf', MODULA_URL . 'assets/js/modula-justified-wf.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-justified-wl', MODULA_URL . 'assets/js/modula-justified-wl.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-justified-wfl', MODULA_URL . 'assets/js/modula-justified-wfl.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-
 	}
 
 	public function enqueue_scripts(){
@@ -72,99 +50,38 @@ class Modula_Script_Manager {
              */
             $handles = apply_filters( 'modula_troubleshooting_frontend_handles', $handles, $ts_opt );
 
-            foreach ( $this->compress_versions as $handle => $scripts ) {
+			$scripts = array();
+			$styles  = array();
 
-            	$compressed_handle = $handle;
-            	foreach ( $scripts as $key ) {
-            		
-            		if ( ! in_array( $key, $handles['scripts'] ) ) {
-            			$compressed_handle = '';
-            			break;
-            		}
+			$scripts = array_unique( array_merge( $handles['scripts'], $this->scripts ) );
+			$styles = array_unique( array_merge( $handles ['styles'], $this->styles ) );
+        	
+			foreach ( $scripts as $script ) {
+        		if ( ! wp_script_is( $script, 'enqueued') && ! empty( $script ) ) {
+        				wp_enqueue_script( $script );
+				}
+			}     
 
-            	}
+			foreach ( $styles as $style ) {
+        		if ( ! wp_style_is( $style, 'enqueued') && ! empty( $style ) ) {
+        				wp_enqueue_style( $script );
+				}
+			}
 
-            	if ( '' != $compressed_handle ) {
-            		break;
-            	}
-
-            }
-
-            $max = max( count( $handles['scripts'] ), count( $this->scripts ) );
-
-            if ( '' == $compressed_handle || ! isset( $this->compress_versions[ $compressed_handle ] ) ) {
-                $compress_scripts = array();
-            }else{
-                $compress_scripts = $this->compress_versions[ $compressed_handle ];
-            }
-
-            $main_is_enq = false;
-            for ( $i=0; $i < $max; $i++ ) { 
-                
-                if ( isset( $handles['scripts'][ $i ] ) ) {
-                    if ( ! wp_script_is( $handles['scripts'][ $i ], 'enqueued') ) {
-                        if ( ! in_array( $handles['scripts'][ $i ], $compress_scripts ) ) {
-                            wp_enqueue_script( $handles['scripts'][ $i ] );
-                        }elseif ( 'modula' == $handles['scripts'][ $i ] && '' != $compressed_handle && ! $main_is_enq ) {
-                            wp_enqueue_script( $compressed_handle );
-                            $main_is_enq = true;
-                        }
-                    }
-                }
-
-                if ( isset( $this->scripts[ $i ] ) ) {
-                    if ( ! wp_script_is( $this->scripts[ $i ], 'enqueued') ) {
-                        if ( ! in_array( $this->scripts[ $i ], $compress_scripts ) ) {
-                            wp_enqueue_script( $this->scripts[ $i ] );
-                        } elseif ( isset( $handles['scripts'][ $i ] ) && 'modula' == $handles['scripts'][ $i ] && '' != $compressed_handle && ! $main_is_enq ) {
-                            wp_enqueue_script( $compressed_handle );
-                            $main_is_enq = true;
-                        }
-                    }
-                }
-            }
         }else{
-
-        	foreach ( $this->compress_versions as $handle => $scripts ) {
-
-            	$compressed_handle = $handle;
-            	foreach ( $scripts as $key ) {
-            		
-            		if ( ! in_array( $key, $this->scripts ) ) {
-            			$compressed_handle = '';
-            			break;
-            		}
-
-            	}
-
-            	if ( '' != $compressed_handle ) {
-            		break;
-            	}
-
-            }
-
-        	if ( '' == $compressed_handle || ! isset( $this->compress_versions[ $compressed_handle ] ) ) {
-        		$compress_scripts = array();
-        	}else{
-        		$compress_scripts = $this->compress_versions[ $compressed_handle ];
-        	}
-
-        	foreach ( $this->scripts as $key ) {
-        		
-        		if ( ! wp_script_is( $key, 'enqueued') ) {
-        			if ( ! in_array( $key, $compress_scripts  ) ) {
-        				wp_enqueue_script( $key );
-        			}elseif ( 'modula' == $key && '' != $compressed_handle ) {
-        				wp_enqueue_script( $compressed_handle );
-        			}
-                    
-                }
-
-        	}
-
-        }
-
+        	foreach ( $this->scripts as $script ) {
+        		if ( ! wp_script_is( $script, 'enqueued') ) {
+        				wp_enqueue_script( $script );
+				}
+			}
+        	foreach ( $this->styles as $style ) {
+        		if ( ! wp_style_is( $style, 'enqueued') ) {
+        				wp_enqueue_script( $style );
+				}
+			}
+		}
 	}
+	
 
 	public function add_script( $handler ){
 		$this->scripts[] = $handler;
@@ -183,5 +100,3 @@ class Modula_Script_Manager {
 	}
 
 }
-
-new Modula_Script_Manager();
