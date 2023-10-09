@@ -16,8 +16,7 @@ class Modula_Onboarding extends WP_Posts_List_Table {
         <div class="modula-onboarding-wrapper">
 
             <div class="modula-onboarding-title">
-                <img src="<?php echo esc_url( MODULA_URL ) . 'assets/images/onboarding/WPChill Onboarding Wave.png'; ?>"
-                     class="modula-onboarding-title-icon"/>
+                  
                 <span><?php esc_html_e( 'Hi, there!', 'modula-best-grid-gallery' ); ?></span>
             </div>
             <div class="modula-onboarding-text-wrap">
