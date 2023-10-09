@@ -64,23 +64,9 @@ class Modula_Dashboard {
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
 
-		add_action( 'activated_plugin', array( $this, 'wpchill_dashboard_redirect' ) );
 	}
 
-	/**
-	 * Redirect to dashboard when activated
-	 *
-	 * @param string $plugin The plugin file.
-	 *
-	 * @since 2.7.5
-	 */
-	public function wpchill_dashboard_redirect( $plugin ) {
 
-		if ( $this->plugin_file === $plugin ) {
-			wp_safe_redirect( admin_url( 'edit . php ? post_type = ' . $this->plugin_cpt . ' & page = wpchill - dashboard' ) );
-			exit;
-		}
-	}
 
 	/**
 	 * Adds dashboard to addon's admin menu
