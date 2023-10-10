@@ -67,7 +67,6 @@ class Modula_Dashboard {
 	}
 
 
-
 	/**
 	 * Adds dashboard to addon's admin menu
 	 *
@@ -444,6 +443,10 @@ class Modula_Dashboard {
 
 	public function render_changelog( $readme ) {
 
+		$year    = '';
+		$date    = '';
+		$version = '';
+
 		$content = $readme->sections['changelog'];
 		$content = preg_split( "/(\r\n|\n|\r)/", strip_tags( $content, '<a>' ) ); // we use strip tags here because the parser adds extra <p> tags
 
@@ -568,7 +571,7 @@ class Modula_Dashboard {
                                 data-slug="<?php echo esc_attr( $addon['slug'] ); ?>"
                                 data-action="<?php echo( 'install' == $addon_status ? 'install' : 'activate' ); ?>"
                                 data-activation_url="<?php echo esc_url( $activate_url ); ?>">
-                            <?php echo sprintf( esc_html__( '%s Addon', 'modula-best-grid-gallery' ), ( 'install' == $addon_status ? 'Install' : 'Activate' ) ); ?>
+							<?php echo sprintf( esc_html__( '%s Addon', 'modula-best-grid-gallery' ), ( 'install' == $addon_status ? 'Install' : 'Activate' ) ); ?>
                         </button>
 
 					<?php else: ?>
@@ -676,12 +679,12 @@ class Modula_Dashboard {
 
 		/**
 		 * change the markup to browser built-in html accordions
-         *
-         * starting markup
-         * <dl>
-         *     <dt> = title = </dt>
-         *         <dd> <p> description </p> </dd>
-         * </dl>
+		 *
+		 * starting markup
+		 * <dl>
+		 *     <dt> = title = </dt>
+		 *         <dd> <p> description </p> </dd>
+		 * </dl>
 		 *
 		 * ending markup should look like this:
 		 *  <details>
