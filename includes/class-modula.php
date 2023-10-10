@@ -168,12 +168,10 @@ class Modula {
 			'partners'         => 'https://wp-modula.com/parteners.json',
 			'documentation'    => 'https://wp-modula.com/knowledge-base/',
 			'pricing'          => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
-			'feed'             => 'https://wp-modula.com/feed',
-			'blog'             => 'https://wp-modula.com/blog',
 			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
 			'support'          => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
-			'fbcommunity'      => 'www.facebook.com/groups/wpmodula/'
+			'fbcommunity'      => 'https://www.facebook.com/groups/wpmodula/'
 
 		);
 
