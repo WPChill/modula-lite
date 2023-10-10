@@ -132,7 +132,7 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
-		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
+		add_action( 'init', array( $this, 'admin_start' ), 20 );
 
 		add_action( 'init', array( $this, 'set_locale' ) );
 
