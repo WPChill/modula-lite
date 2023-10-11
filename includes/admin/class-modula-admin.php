@@ -215,7 +215,7 @@ class Modula_Admin {
 		if ( ! empty( $this->menu_links ) ) {
 			foreach ( $this->menu_links as $link ) {
 				if ( ! empty( $link ) ) {
-					add_submenu_page( ( isset( $link['hidden'] ) && $link['hidden'] ) ? null : 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
+					add_submenu_page( ( isset( $link['hidden'] ) && $link['hidden'] ) ? '' : 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
 				}
 			}
 		}
