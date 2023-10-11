@@ -26,7 +26,6 @@ html body .modula-block-preview {
 	.modula-gallery-input {
 		text-align: left;
 
-
 		.selectize-dropdown-content {
 			max-height: 100px;
 		}
@@ -41,7 +40,6 @@ html body .modula-block-preview {
 .modula-block-preview__logo {
 	width: 100%;
 	height: 60px;
-	background: url(../../images/block-preview-bg.svg) no-repeat 50% 0%;
 	background-size: 75%;
 }
 
@@ -98,8 +96,6 @@ html body .modula-block-preview {
 	flex-direction: column;
 	width: fit-content;
 	margin: 0 auto;
-
-
 }
 
 .modula-button {
@@ -119,7 +115,6 @@ html body .modula-block-preview {
 	}
 }
 
-
 .modula-button:hover {
 	color: #478db6 !important;
 	text-decoration: underline !important;
@@ -138,4 +133,3 @@ html body .modula-button-group .modula-button-upsell {
 	font-size: 14px;
 	width: calc(100% + 20px);
 }
-

@@ -18,7 +18,7 @@
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start",
+		"start": "wp-scripts start --webpack-src-dir='./blocks'",
 		"start:hot": "wp-scripts start --hot",
 		"prepare": "husky install",
 		"scss": "sass --watch assets/scss:assets/css",
