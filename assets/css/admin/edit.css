@@ -318,7 +318,8 @@ p.modula-onboarding-doc > a {
     top: 0;
 }
 
-#menu-posts-modula-gallery .wp-submenu li a[href$="go-pro"] {
+#menu-posts-modula-gallery .wp-submenu li a[href$="go-pro"],
+.folded #adminmenu li.menu-top .wp-submenu > li > a[href$=go-pro] {
     background-color: #219962;
     color: #fff;
     position: relative;
