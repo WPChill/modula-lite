@@ -9,7 +9,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 import './editor.scss';
 
 
-export function Edit() {
+export function Edit(props) {
+	const blockProps = useBlockProps();
 	const { attributes, galleries, setAttributes } = props;
 	const {
 		id,
@@ -393,6 +394,6 @@ const applyWithSelect = withSelect((select, props) => {
 	};
 });
 
-const applyWithFilters = wp.components.withFilters('modula.ModulaEdit');
+const applyWithFilters = wp.components.withFilters('modula.Edit');
 
-export default compose(applyWithSelect, applyWithFilters)(ModulaEdit);
+export default compose(applyWithSelect, applyWithFilters)(Edit);

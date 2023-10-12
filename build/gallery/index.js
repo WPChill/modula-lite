@@ -43,7 +43,8 @@ const {
 } = wp.compose;
 
 
-function Edit() {
+function Edit(props) {
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
   const {
     attributes,
     galleries,
@@ -340,8 +341,8 @@ const applyWithSelect = withSelect((select, props) => {
     galleries: getEntityRecords('postType', 'modula-gallery', query) || []
   };
 });
-const applyWithFilters = wp.components.withFilters('modula.ModulaEdit');
-/* harmony default export */ __webpack_exports__["default"] = (compose(applyWithSelect, applyWithFilters)(ModulaEdit));
+const applyWithFilters = wp.components.withFilters('modula.Edit');
+/* harmony default export */ __webpack_exports__["default"] = (compose(applyWithSelect, applyWithFilters)(Edit));
 
 /***/ }),
 
