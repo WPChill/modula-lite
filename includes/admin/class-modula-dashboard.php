@@ -62,7 +62,7 @@ class Modula_Dashboard {
 		// Show addon header on dashboard
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
-
+		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
 
 
 
@@ -719,6 +719,17 @@ class Modula_Dashboard {
 
 		print_r( $content );
 
+	}
+
+
+	function redirect_to_list_or_dash() {
+		if ( $this->is_dashboard() && ! isset( $_GET['post_type'] ) ) {
+			$url_to_galleries = add_query_arg( array(
+				'post_type' => 'modula-gallery',
+			), admin_url( 'edit.php' ) );
+			wp_redirect( $url_to_galleries );
+			die();
+		}
 	}
 }
 
