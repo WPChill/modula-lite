@@ -132,7 +132,8 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
-		add_action( 'init', array( $this, 'admin_start' ), 20 );
+		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
+		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
 		add_action( 'init', array( $this, 'set_locale' ) );
 
@@ -153,6 +154,28 @@ class Modula {
 
 	}
 
+	public function dashboard_start() {
+
+		$links = array(
+			'partners'      => 'https://wp-modula.com/parteners.json',
+			'documentation' => 'https://wp-modula.com/knowledge-base/',
+			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
+			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+			'lite_vs_pro'   => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
+			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
+			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/'
+
+		);
+
+		new Modula_Dashboard(
+			MODULA_FILE,
+			'modula-gallery',
+			MODULA_URL . 'assets/images/dashboard/',
+			$links,
+			'modula_page_header'
+		);
+	}
+
 	public function admin_start() {
 
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
@@ -164,24 +187,6 @@ class Modula {
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
 
-		$links = array(
-			'partners'         => 'https://wp-modula.com/parteners.json',
-			'documentation'    => 'https://wp-modula.com/knowledge-base/',
-			'pricing'          => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
-			'extensions'       => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			'lite_vs_pro'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
-			'support'          => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
-			'fbcommunity'      => 'https://www.facebook.com/groups/wpmodula/'
-
-		);
-
-		new Modula_Dashboard(
-			MODULA_FILE,
-			'modula-gallery',
-			MODULA_URL . 'assets/images/dashboard/',
-			$links,
-			'modula_page_header'
-		);
 
 	}
 

@@ -62,7 +62,7 @@ class Modula_Dashboard {
 		// Show addon header on dashboard
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
-		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
+		add_action( 'adminmenu', array( $this, 'redirect_to_list_or_dash' ) );
 
 	}
 
