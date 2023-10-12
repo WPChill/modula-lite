@@ -64,6 +64,8 @@ class Modula_Dashboard {
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
 
+
+
 	}
 
 
