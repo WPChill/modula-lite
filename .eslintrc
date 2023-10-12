@@ -1,0 +1,33 @@
+{
+	"parser": "babel-eslint",
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:jsx-a11y/recommended",
+		"plugin:@wordpress/eslint-plugin/recommended"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"plugins": ["react", "import", "jsx-a11y"],
+	"rules": {
+		"react/prop-types": 0,
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"import/no-unresolved": "error"
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
+}
