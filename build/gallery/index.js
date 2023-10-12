@@ -69,7 +69,12 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  deprecated: [{
+    save() {
+      return null;
+    }
+  }]
 });
 
 /***/ }),
