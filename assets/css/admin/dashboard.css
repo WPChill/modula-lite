@@ -39,7 +39,7 @@
   display: inline-block;
   max-width: 80%;
   margin: 10px auto;
-  border: none;
+  border: 1px solid #33a370;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_item_button:hover {
   color: #33a370;
