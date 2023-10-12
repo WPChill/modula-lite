@@ -6,6 +6,27 @@
  */
 
 .modula-gallery_page_wpchill-dashboard { // custom body class
+
+  #wpcontent {
+    padding-left: 0;
+  }
+
+  .modula-page-header {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    width: 100%;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    padding: 30px 0;
+
+    img {
+      max-width: 150px;
+    }
+  }
+
+
+
   background-color: #FFF;
 
   .wpchill_dashboard_getting_started, // vertical spacing between sections
@@ -19,12 +40,12 @@
     line-height: 20px;
     text-decoration: none;
     border-radius: 4px;
-    border: 1px solid;
     color: #fff;
     background-color: #33a370;
     display: inline-block;
     max-width: 80%;
     margin: 10px auto;
+    border: none;
 
     &:hover {
       color: #33a370;
@@ -43,6 +64,7 @@
   }
 
   .wpchill_dashboard_header_tabs { // header/nav tabs
+text-align: center;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
 
@@ -73,7 +95,7 @@
   }
 
   .wpchill_dashboard_content_wrap { //content container
-    margin: 0 auto;
+    margin: 60px auto;
     max-width: 1100px;
 
     .wpchill-heading-section {
