@@ -9,8 +9,10 @@
   "description": "Make your galleries stand out.",
   "supports": {
     "html": false,
+    "reusable": true,
+    "multiple": true,
     "align": true,
-    "customClassName": false
+    "customClassName": true
   },
   "keywords": [
     "gallery",
@@ -24,37 +26,13 @@
   "render": "file:./render.php",
   "viewScript": "file:./view.js",
   "attributes": {
-    "id": {
-      "type": "number",
-      "default": 0
-    },
     "images": {
       "type": "array",
       "default": []
     },
-    "status": {
-      "type": "string",
-      "default": "ready"
-    },
     "galleryId": {
       "type": "number",
       "default": 0
-    },
-    "defaultSettings": {
-      "type": "object",
-      "default": []
-    },
-    "galleryType": {
-      "type": "string",
-      "default": "none"
-    },
-    "currentGallery": {
-      "type": "object",
-      "default": {}
-    },
-    "currentSelectize": {
-      "type": "array",
-      "default": []
     }
   }
 }

@@ -1,5 +1,11 @@
+import { useBlockProps } from '@wordpress/block-editor'
+
 export const UiBlock = () => {
-	return <div className="modula-block-preview">
+	const blockProps = useBlockProps({
+		className: 'modula-block-preview',
+	});
+
+	return <div {...blockProps}>
 		Hello world - it's going to be ok
 	</div>
 }
