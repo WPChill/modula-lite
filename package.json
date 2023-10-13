@@ -22,14 +22,14 @@
 		"start:hot": "wp-scripts start --hot",
 		"prepare": "husky install",
 		"scss": "sass --watch assets/scss:assets/css",
-		"min:js": "uglifyjs-folder './assets/js/' -eo './assets/js/' --pattern '**/*.js,!**/*min.js' ",
-		"min:css:backend": "cleancss --batch --batch-suffix '.min' './assets/css/admin/*.css' !'./assets/css/admin/*.min.css' ",
-		"min:css:frontend": "cleancss --batch --batch-suffix '.min' './assets/css/front/*.css' !'./assets/css/front/*.min.css'",
-		"concat:css:frontend": "concat -o './assets/css/front.css' './assets/css/front/fancybox.min.css' './assets/css/front/modula.min.css' ",
+		"min:js": "uglifyjs-folder \"./assets/js/\" -eo \"./assets/js/\" --pattern \"**/*.js,!**/*min.js\" ",
+		"min:css:backend": "cleancss --batch --batch-suffix \".min\" \"./assets/css/admin/*.css\" !\"./assets/css/admin/*.min.css\" ",
+		"min:css:frontend": "cleancss --batch --batch-suffix \".min\" \"./assets/css/front/*.css\" !\"./assets/css/front/*.min.css\" ",
+		"concat:css:frontend": "concat -o \"./assets/css/front.css\" \"./assets/css/front/fancybox.min.css\" \"./assets/css/front/modula.min.css\" ",
 		"min:css": "npm run min:css:frontend && npm run min:css:backend && npm run concat:css:frontend",
 		"makepot": "wp i18n make-pot . languages/modula-best-grid-gallery.pot",
 		"wpchill": "npm run min:css && npm run makepot",
-		"reload": "browser-sync start --proxy 'http://localhost:8888' --files './assets/css/*/*.css' --logLevel 'debug'"
+		"reload": "browser-sync start --proxy 'http://localhost:8888' --files \"./assets/css/*/*.css\" --logLevel 'debug'"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"stylelint": {
