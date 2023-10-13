@@ -268,6 +268,7 @@ Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid c
 Added: Placeholder for text settings inputs and placeholders for image dimensions. ( [#814](https://github.com/WPChill/modula-lite/issues/814) )
 Changed: Gallery image changes are now saved on post update not every time an image was edited. ( [#474](https://github.com/WPChill/modula-lite/issues/474) )
 Changed: Updated enqueue methods for css & js ( [#846](https://github.com/WPChill/modula-lite/issues/846) )
+Changed: Active hover effect on top of list. ( [#864](https://github.com/WPChill/modula-lite/issues/864) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )
