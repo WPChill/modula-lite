@@ -1,10 +1,18 @@
 import './editor.scss';
+import { BlockProvider } from './context/BlockContext';
+import { InspectorControls } from './components/InspectorControls';
+import { UiBlock } from './components/UiBlock';
 
-export function Edit(props) {
+export function Edit({ attributes, setAttributes }) {
+	const initialValues = {};
+
 	return (
-		<div className="modula-block-preview">
-			Hello world - it's going to be ok
-		</div>
+		<BlockProvider initialValues={initialValues} attributes={attributes} setAttributes={setAttributes}>
+			{/* Main block UI */}
+			<UiBlock />
+			{/* These render in the right sidebar - but needs to be put here */}
+			<InspectorControls />
+		</BlockProvider>
 	);
 }
 

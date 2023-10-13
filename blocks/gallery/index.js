@@ -31,6 +31,40 @@ registerBlockType(metadata.name, {
 	 */
 	edit: Edit,
 	deprecated: [{
+		attributes: {
+			id: {
+				"type": "number",
+				"default": 0
+			},
+			images: {
+				"type": "array",
+				"default": []
+			},
+			status: {
+				"type": "string",
+				"default": "ready"
+			},
+			galleryId: {
+				"type": "number",
+				"default": 0
+			},
+			defaultSettings: {
+				"type": "object",
+				"default": []
+			},
+			galleryType: {
+				"type": "string",
+				"default": "none"
+			},
+			currentGallery: {
+				"type": "object",
+				"default": {}
+			},
+			currentSelectize: {
+				"type": "array",
+				"default": []
+			}
+		},
 		save() {
 			return null
 		}
