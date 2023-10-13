@@ -28,17 +28,14 @@ const InspectorControls = () => {
     attributes,
     setAttributes
   } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  const {
-    myText
-  } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: "My Block Settings",
     initialOpen: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-    label: "My Text Setting",
-    value: myText,
+    label: "My gallery id",
+    value: Number(attributes.galleryId),
     onChange: value => setAttributes({
-      myText: value
+      galleryId: Number(value)
     })
   })));
 };
@@ -109,7 +106,7 @@ const BlockProvider = ({
       attributes,
       setAttributes
     };
-  }, [setAttributes]);
+  }, [attributes, setAttributes]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockContext.Provider, {
     value: value
   }, children);

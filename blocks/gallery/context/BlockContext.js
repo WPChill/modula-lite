@@ -13,7 +13,7 @@ export const BlockProvider = ({ children, initialValues, attributes, setAttribut
 			attributes,
 			setAttributes
 		}
-	}, [setAttributes])
+	}, [attributes, setAttributes])
 
 	return (
 		<BlockContext.Provider value={value}>
