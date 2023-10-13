@@ -5,7 +5,5 @@ export const UiBlock = () => {
 		className: 'modula-block-preview',
 	});
 
-	return <div {...blockProps}>
-		Hello world - it's going to be ok
-	</div>
-}
+	return <div {...blockProps}>Hello world - it's going to be ok</div>;
+};

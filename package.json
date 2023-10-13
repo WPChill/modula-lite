@@ -29,7 +29,9 @@
 		"min:css": "npm run min:css:frontend && npm run min:css:backend && npm run concat:css:frontend",
 		"makepot": "wp i18n make-pot . languages/modula-best-grid-gallery.pot",
 		"wpchill": "npm run min:css && npm run makepot",
-		"reload": "browser-sync start --proxy 'http://localhost:8888' --files './assets/css/*/*.css' --logLevel 'debug'"
+		"reload": "browser-sync start --proxy 'http://localhost:8888' --files './assets/css/*/*.css' --logLevel 'debug'",
+		"eslint": "eslint blocks/",
+		"eslint:fix": "eslint --fix blocks/"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"stylelint": {
@@ -43,6 +45,8 @@
 		"*.scss": "npx stylelint --fix"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.23.2",
+		"@babel/eslint-parser": "^7.22.15",
 		"@wordpress/eslint-plugin": "^16.0.6",
 		"@wordpress/prettier-config": "^3.0.0",
 		"@wordpress/scripts": "^26.13.0",
@@ -51,7 +55,10 @@
 		"browser-sync-webpack-plugin": "^2.3.0",
 		"clean-css-cli": "^5.6.2",
 		"concat": "^1.0.3",
+		"eslint": "^8.51.0",
 		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-import": "^2.28.1",
+		"eslint-plugin-react-hooks": "^4.6.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^14.0.1",
 		"postcss": "^8.4.31",

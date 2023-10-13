@@ -1,5 +1,5 @@
 {
-	"parser": "babel-eslint",
+	"parser": "@babel/eslint-parser",
 	"env": {
 		"browser": true,
 		"es6": true,
@@ -7,6 +7,7 @@
 	},
 	"extends": [
 		"eslint:recommended",
+		"plugin:import/recommended",
 		"plugin:react/recommended",
 		"plugin:jsx-a11y/recommended",
 		"plugin:@wordpress/eslint-plugin/recommended"
@@ -18,12 +19,20 @@
 			"jsx": true
 		}
 	},
-	"plugins": ["react", "import", "jsx-a11y"],
+	"plugins": ["react", "import", "jsx-a11y", "react-hooks"],
 	"rules": {
+		"react/no-unescaped-entities": "off",
 		"react/prop-types": 0,
 		"react/jsx-uses-react": "error",
 		"react/jsx-uses-vars": "error",
-		"import/no-unresolved": "error"
+		"import/no-unresolved": "error",
+		"react/jsx-no-duplicate-props": "error",
+		"react/jsx-no-undef": "error",
+		"react/jsx-pascal-case": "error",
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"no-unused-vars": "warn",
+		"no-undef": "error"
 	},
 	"settings": {
 		"react": {

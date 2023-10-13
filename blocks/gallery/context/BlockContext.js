@@ -1,26 +1,28 @@
-import { createContext, useMemo, useReducer } from '@wordpress/element';
+import { createContext, useReducer, useMemo } from '@wordpress/element';
 import { reducer } from './reducer';
 import { initialState } from './state';
 
 const BlockContext = createContext();
 
-export const BlockProvider = ({ children, initialValues, attributes, setAttributes }) => {
+export const BlockProvider = ({
+	children,
+	initialValues,
+	attributes,
+	setAttributes,
+}) => {
 	const mergedInitialState = { ...initialState, ...initialValues };
 	const [state, dispatch] = useReducer(reducer, mergedInitialState);
 
 	const value = useMemo(() => {
 		return {
 			attributes,
-			setAttributes
-		}
-	}, [attributes, setAttributes])
+			setAttributes,
+		};
+	}, [setAttributes, attributes]);
 
 	return (
-		<BlockContext.Provider value={value}>
-			{children}
-		</BlockContext.Provider>
+		<BlockContext.Provider value={value}>{children}</BlockContext.Provider>
 	);
 };
 
 export default BlockContext;
-
