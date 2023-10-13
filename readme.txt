@@ -269,6 +269,7 @@ Added: Placeholder for text settings inputs and placeholders for image dimension
 Changed: Gallery image changes are now saved on post update not every time an image was edited. ( [#474](https://github.com/WPChill/modula-lite/issues/474) )
 Changed: Updated enqueue methods for css & js ( [#846](https://github.com/WPChill/modula-lite/issues/846) )
 Changed: Active hover effect on top of list. ( [#864](https://github.com/WPChill/modula-lite/issues/864) )
+Fixed: Compatibility with Photograph theme. ( [#865](https://github.com/WPChill/modula-lite/issues/865) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )
