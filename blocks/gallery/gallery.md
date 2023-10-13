@@ -79,7 +79,3 @@ This file exports an `initialState` object.
 -   Keep components small and focused on a single concern.
 -   Use the `useBlockContext` hook to access global state within components.
 -   Maintain a clean and organized folder structure to keep the codebase manageable.
-
----
-
-Feel free to modify and extend these guidelines to better fit the project's needs and coding standards.
