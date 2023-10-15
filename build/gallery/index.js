@@ -56,15 +56,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
 
 
 const UiBlock = () => {
+  const {
+    step,
+    incrementStep,
+    decrementStep
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__["default"])();
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     className: 'modula-block-preview'
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, "Hello world - it's going to be ok");
+  }, "Hello world - it's going to be ok - step: ", step, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: decrementStep
+  }, "Click will go znrrr -"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: incrementStep
+  }, "Click will go brrr +")));
 };
 
 /***/ }),
@@ -101,12 +112,35 @@ const BlockProvider = ({
     ...initialValues
   };
   const [state, dispatch] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useReducer)(_reducer__WEBPACK_IMPORTED_MODULE_2__.reducer, mergedInitialState);
+  const incrementStep = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
+    dispatch({
+      type: 'INCREMENT_STEP'
+    });
+  }, []);
+  const decrementStep = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
+    dispatch({
+      type: 'DECREMENT_STEP'
+    });
+  }, []);
+  const goToStep = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(step => {
+    dispatch({
+      type: 'GO_TO_STEP',
+      payload: Number(step)
+    });
+  }, []);
   const value = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
     return {
+      // Wp core stuff
       attributes,
-      setAttributes
+      setAttributes,
+      // State management
+      incrementStep,
+      decrementStep,
+      goToStep,
+      // Exposed state
+      step: state.step
     };
-  }, [attributes, setAttributes]);
+  }, [attributes, setAttributes, incrementStep, decrementStep, goToStep, state.step]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(BlockContext.Provider, {
     value: value
   }, children);
@@ -127,6 +161,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'INCREMENT_STEP':
+      return {
+        ...state,
+        step: state.step + 1
+      };
+    case 'DECREMENT_STEP':
+      return {
+        ...state,
+        step: state.step > 0 ? state.step - 1 : 0
+      };
+    case 'GO_TO_STEP':
+      return {
+        ...state,
+        step: action.step
+      };
     default:
       return state;
   }
@@ -144,7 +193,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   initialState: function() { return /* binding */ initialState; }
 /* harmony export */ });
-const initialState = {};
+const initialState = {
+  step: 0
+};
 
 /***/ }),
 
@@ -156,7 +207,7 @@ const initialState = {};
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Edit: function() { return /* binding */ Edit; }
+/* harmony export */   "default": function() { return /* binding */ Edit; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -180,7 +231,6 @@ function Edit({
     setAttributes: setAttributes
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_UiBlock__WEBPACK_IMPORTED_MODULE_4__.UiBlock, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_InspectorControls__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null));
 }
-/* harmony default export */ __webpack_exports__["default"] = (Edit);
 
 /***/ }),
 
@@ -254,36 +304,36 @@ __webpack_require__.r(__webpack_exports__);
   deprecated: [{
     attributes: {
       id: {
-        "type": "number",
-        "default": 0
+        type: 'number',
+        default: 0
       },
       images: {
-        "type": "array",
-        "default": []
+        type: 'array',
+        default: []
       },
       status: {
-        "type": "string",
-        "default": "ready"
+        type: 'string',
+        default: 'ready'
       },
       galleryId: {
-        "type": "number",
-        "default": 0
+        type: 'number',
+        default: 0
       },
       defaultSettings: {
-        "type": "object",
-        "default": []
+        type: 'object',
+        default: []
       },
       galleryType: {
-        "type": "string",
-        "default": "none"
+        type: 'string',
+        default: 'none'
       },
       currentGallery: {
-        "type": "object",
-        "default": {}
+        type: 'object',
+        default: {}
       },
       currentSelectize: {
-        "type": "array",
-        "default": []
+        type: 'array',
+        default: []
       }
     },
     save() {
