@@ -67,6 +67,26 @@ This file exports a reducer function for use with `useReducer`.
 
 This file exports an `initialState` object.
 
+### Data Fetching with SWR
+
+We are utilizing the [SWR](https://swr.vercel.app/) library to handle data fetching within our block. SWR is a React Hooks library for remote data fetching and provides a clean and efficient way to fetch and manage data from our WordPress REST API. It is configured to use `apiFetch` from WordPress as the fetcher function, providing a seamless integration with the WordPress environment.
+
+Here's a snippet on how it's being utilized in our block:
+
+```javascript
+import useSWR from 'swr';
+import apiFetch from '@wordpress/api-fetch';
+
+// this is already created in utils/fetcher.js
+const fetcher = (...args) => apiFetch(...args);
+
+export const UiBlock = () => {
+    const { data, error } = useSWR('/wp/v2/modula-gallery', fetcher);
+
+	console.log(data)
+    // ... rest of the component
+};
+
 ## Development Workflow
 
 1. **Component Development**: Build and test individual components within the `components/` folder.
@@ -79,3 +99,4 @@ This file exports an `initialState` object.
 -   Keep components small and focused on a single concern.
 -   Use the `useBlockContext` hook to access global state within components.
 -   Maintain a clean and organized folder structure to keep the codebase manageable.
+```

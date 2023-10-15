@@ -72,6 +72,7 @@
 		"@node-minify/uglify-js": "^8.0.6",
 		"@wordpress/api-fetch": "^6.40.0",
 		"@wordpress/components": "^25.9.0",
-		"@wordpress/media-utils": "^4.34.0"
+		"@wordpress/media-utils": "^4.34.0",
+		"swr": "^2.2.4"
 	}
 }
