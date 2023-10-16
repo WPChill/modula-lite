@@ -1,9 +1,7 @@
 import {
     ContrastChecker,
     InspectorControls as WPInspectorControls,
-    PanelColorSettings,
-    RichText,
-    useBlockProps
+    PanelColorSettings
 } from '@wordpress/block-editor';
 import {
     Panel,
@@ -12,8 +10,7 @@ import {
     SelectControl,
     RangeControl,
     RadioControl,
-    FontSizePicker,
-    ToggleControl
+    FontSizePicker
 } from '@wordpress/components';
 import useBlockContext from '../hooks/useBlockContext';
 import {__} from "@wordpress/i18n";
@@ -86,12 +83,12 @@ export const InspectorControls = () => {
                             {
                                 value: blockColor,
                                 onChange: (blockColor) => setAttributes({blockColor}),
-                                label: __('Font Color', 'wholesome-plugin'),
+                                label: __('Font Color', 'modula-best-grid-gallery'),
                             },
                             {
                                 value: blockBackground,
                                 onChange: (blockBackground) => setAttributes({blockBackground}),
-                                label: __('Background Color', 'wholesome-plugin'),
+                                label: __('Background Color', 'modula-best-grid-gallery'),
                             }
                         ]}>
                         <ContrastChecker
@@ -130,8 +127,8 @@ export const InspectorControls = () => {
                         selected={imageTitleVisibility}
                         onChange={(value) => setAttributes({imageTitleVisibility: String(value)})}
                         options={[
-                            {label: 'Visible', value: 'visible'},
-                            {label: 'Hidden', value: 'hidden'},
+                            {label: __('Visible', 'modula-best-grid-gallery'), value: 'visible'},
+                            {label: __('Hidden', 'modula-best-grid-gallery'), value: 'hidden'},
                         ]}
                     />
 

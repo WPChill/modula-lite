@@ -104,13 +104,13 @@ const InspectorControls = () => {
       onChange: blockColor => setAttributes({
         blockColor
       }),
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Font Color', 'wholesome-plugin')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Font Color', 'modula-best-grid-gallery')
     }, {
       value: blockBackground,
       onChange: blockBackground => setAttributes({
         blockBackground
       }),
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Background Color', 'wholesome-plugin')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Background Color', 'modula-best-grid-gallery')
     }]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.ContrastChecker, {
     isLargeText: "false",
@@ -145,10 +145,10 @@ const InspectorControls = () => {
       imageTitleVisibility: String(value)
     }),
     options: [{
-      label: 'Visible',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Visible', 'modula-best-grid-gallery'),
       value: 'visible'
     }, {
-      label: 'Hidden',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Hidden', 'modula-best-grid-gallery'),
       value: 'hidden'
     }]
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
@@ -192,8 +192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swr */ "./node_modules/swr/core/dist/index.mjs");
 /* harmony import */ var _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/fetcher */ "./blocks/gallery/utils/fetcher.js");
-/* harmony import */ var _components_splash_initial__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/splash-initial */ "./blocks/gallery/components/splash-initial.js");
-/* harmony import */ var _components_splash_add_new__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/splash-add-new */ "./blocks/gallery/components/splash-add-new.js");
+/* harmony import */ var _components_initialSplash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/initialSplash */ "./blocks/gallery/components/initialSplash.js");
+/* harmony import */ var _components_addNewSplash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/addNewSplash */ "./blocks/gallery/components/addNewSplash.js");
 
 
 
@@ -219,17 +219,17 @@ const UiBlock = () => {
   if (!posts) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "Loading...");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_splash_initial__WEBPACK_IMPORTED_MODULE_5__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_initialSplash__WEBPACK_IMPORTED_MODULE_5__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_splash_add_new__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_addNewSplash__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
 };
 
 /***/ }),
 
-/***/ "./blocks/gallery/components/splash-add-new.js":
-/*!*****************************************************!*\
-  !*** ./blocks/gallery/components/splash-add-new.js ***!
-  \*****************************************************/
+/***/ "./blocks/gallery/components/addNewSplash.js":
+/*!***************************************************!*\
+  !*** ./blocks/gallery/components/addNewSplash.js ***!
+  \***************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -259,10 +259,10 @@ const AddNewSplash = () => {
 
 /***/ }),
 
-/***/ "./blocks/gallery/components/splash-initial.js":
-/*!*****************************************************!*\
-  !*** ./blocks/gallery/components/splash-initial.js ***!
-  \*****************************************************/
+/***/ "./blocks/gallery/components/initialSplash.js":
+/*!****************************************************!*\
+  !*** ./blocks/gallery/components/initialSplash.js ***!
+  \****************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

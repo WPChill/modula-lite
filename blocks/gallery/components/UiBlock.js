@@ -2,8 +2,8 @@ import {useBlockProps} from '@wordpress/block-editor';
 import useBlockContext from '../hooks/useBlockContext';
 import useSWR from 'swr';
 import {fetcher} from '../utils/fetcher';
-import InitialSplash from '../components/splash-initial';
-import AddNewSplash from '../components/splash-add-new';
+import InitialSplash from '../components/initialSplash';
+import AddNewSplash from '../components/addNewSplash';
 
 
 export const UiBlock = () => {
