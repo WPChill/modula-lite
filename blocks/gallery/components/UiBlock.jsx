@@ -2,8 +2,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 import useBlockContext from '../hooks/useBlockContext';
 import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
-import InitialSplash from '../components/InitialSplash';
-import AddNewSplash from '../components/AddNewSplash';
+import InitialSplash from './InitialSplash';
+import AddNewSplash from './AddNewSplash';
 
 export const UiBlock = () => {
 	const { step, incrementStep, decrementStep } = useBlockContext();

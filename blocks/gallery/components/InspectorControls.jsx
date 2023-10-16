@@ -138,8 +138,8 @@ export const InspectorControls = () => {
 						colorSettings={[
 							{
 								value: blockColor,
-								onChange: (blockColor) =>
-									setAttributes({ blockColor }),
+								onChange: (val) =>
+									setAttributes({ blockColor: val }),
 								label: __(
 									'Font Color',
 									'modula-best-grid-gallery'
@@ -147,8 +147,8 @@ export const InspectorControls = () => {
 							},
 							{
 								value: blockBackground,
-								onChange: (blockBackground) =>
-									setAttributes({ blockBackground }),
+								onChange: (val) =>
+									setAttributes({ blockBackground: val }),
 								label: __(
 									'Background Color',
 									'modula-best-grid-gallery'

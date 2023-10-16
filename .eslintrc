@@ -19,6 +19,7 @@
 			"jsx": true
 		}
 	},
+	"ignorePatterns": ["node_modules/"],
 	"plugins": ["react", "import", "jsx-a11y", "react-hooks"],
 	"rules": {
 		"react/no-unescaped-entities": "off",
