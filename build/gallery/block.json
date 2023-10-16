@@ -33,6 +33,20 @@
     "galleryId": {
       "type": "number",
       "default": 0
+    },
+    "blockColor": {
+      "type": "string"
+    },
+    "blockBackground": {
+      "type": "string"
+    },
+    "fontSize": {
+      "type": "number",
+      "default": 16
+    },
+    "imageTitleVisibility": {
+      "type": "string",
+      "default": "visible"
     }
   }
 }

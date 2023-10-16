@@ -1,34 +1,52 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "modula/gallery",
-	"version": "0.1.0",
-	"title": "Modula Gallery",
-	"category": "media",
-	"icon": "smiley",
-	"description": "Make your galleries stand out.",
-	"supports": {
-		"html": false,
-		"reusable": true,
-		"multiple": true,
-		"align": true,
-		"customClassName": true
-	},
-	"keywords": ["gallery", "modula", "images"],
-	"textdomain": "modula-best-grid-gallery",
-	"editorScript": "file:./index.js",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"render": "file:./render.php",
-	"viewScript": "file:./view.js",
-	"attributes": {
-		"images": {
-			"type": "array",
-			"default": []
-		},
-		"galleryId": {
-			"type": "number",
-			"default": 0
-		}
-	}
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "modula/gallery",
+  "version": "0.1.0",
+  "title": "Modula Gallery",
+  "category": "media",
+  "icon": "smiley",
+  "description": "Make your galleries stand out.",
+  "supports": {
+    "html": false,
+    "reusable": true,
+    "multiple": true,
+    "align": true,
+    "customClassName": true
+  },
+  "keywords": [
+    "gallery",
+    "modula",
+    "images"
+  ],
+  "textdomain": "modula-best-grid-gallery",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "galleryId": {
+      "type": "number",
+      "default": 0
+    },
+    "blockColor": {
+      "type": "string"
+    },
+    "blockBackground": {
+      "type": "string"
+    },
+    "fontSize": {
+      "type": "number",
+      "default": 16
+    },
+    "imageTitleVisibility": {
+      "type": "string",
+      "default": "visible"
+    }
+  }
 }

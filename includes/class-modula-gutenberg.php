@@ -41,7 +41,7 @@ class Modula_Gutenberg
 	 */
 	public function register_block_type()
 	{
-		register_block_type(MODULA_PATH . '/build/gallery');
+		register_block_type(MODULA_PATH . 'build/gallery');
 	}
 
 	/**

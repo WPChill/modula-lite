@@ -1,13 +1,31 @@
-html body .modula-block-preview {
-	background: #f3f3f5;
-	border-radius: 6px;
-	position: relative;
-	overflow: hidden;
-	height: 250px;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
+.modula-splash-container {
+  background: #fff;
+  color: rgb(51, 65, 85);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+
+  > svg { // Modula Icon sizing
+    max-width: 60px;
+    fill: #34A371;
+  }
+
+  &:focus {
+    outline: 1px solid var(--wp-admin-theme-color);
+  }
+
+  .modula-splash-buttons {
+    button {
+      margin-right: 12px;
+    }
+  }
 }
