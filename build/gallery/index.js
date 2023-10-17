@@ -1,10 +1,176 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./blocks/gallery/components/InspectorControls.js":
-/*!********************************************************!*\
-  !*** ./blocks/gallery/components/InspectorControls.js ***!
-  \********************************************************/
+/***/ "./blocks/gallery/components/AddNewSplash.jsx":
+/*!****************************************************!*\
+  !*** ./blocks/gallery/components/AddNewSplash.jsx ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/icons */ "./blocks/gallery/utils/icons.jsx");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
+
+
+
+
+const AddNewSplash = () => {
+  const {
+    step,
+    incrementStep,
+    decrementStep
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+};
+/* harmony default export */ __webpack_exports__["default"] = (AddNewSplash);
+
+/***/ }),
+
+/***/ "./blocks/gallery/components/GallerySelector.jsx":
+/*!*******************************************************!*\
+  !*** ./blocks/gallery/components/GallerySelector.jsx ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GallerySelector: function() { return /* binding */ GallerySelector; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swr */ "./node_modules/swr/core/dist/index.mjs");
+/* harmony import */ var _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/fetcher */ "./blocks/gallery/utils/fetcher.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
+
+
+
+
+
+
+const GallerySelector = () => {
+  const {
+    attributes,
+    setAttributes
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_6__["default"])();
+  const {
+    galleryId
+  } = attributes;
+
+  // This will fetch data from the API
+  const {
+    data,
+    error,
+    isLoading
+  } = (0,swr__WEBPACK_IMPORTED_MODULE_3__["default"])('/wp/v2/modula-gallery', _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__.fetcher);
+  const posts = [];
+  if (data) {
+    data.map(item => {
+      posts.push({
+        value: item.id,
+        label: item.title.rendered
+      });
+    });
+  }
+
+  // Compute options here
+  const options = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useMemo)(() => {
+    if (isLoading) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null);
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (!data) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No galleries found, please go ahead and create a new Modula gallery.', 'modula-best-grid-gallery'));
+    }
+
+    // return the options - this will be an array of objects with label being the post title and value being the post id
+    return posts;
+  }, data);
+
+  // consider moving logic from render to component
+  const onChangeCb = val => {
+    setAttributes({
+      galleryId: Number(val)
+    });
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Gallery', 'modula-best-grid-gallery'),
+    value: galleryId,
+    onChange: onChangeCb,
+    options: options
+  });
+};
+
+/***/ }),
+
+/***/ "./blocks/gallery/components/InitialSplash.jsx":
+/*!*****************************************************!*\
+  !*** ./blocks/gallery/components/InitialSplash.jsx ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/icons */ "./blocks/gallery/utils/icons.jsx");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
+
+
+
+
+const InitialSplash = () => {
+  const {
+    step,
+    incrementStep,
+    decrementStep
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_icons__WEBPACK_IMPORTED_MODULE_1__.ModulaIcon, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Create a new gallery or choose from an existing one.', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: 'modula-splash-buttons'
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "primary",
+    size: 'compact',
+    iconPosition: 'right',
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add New Gallery', 'modula-best-grid-gallery'),
+    onClick: decrementStep
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add New Gallery', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "secondary",
+    size: 'compact',
+    iconPosition: 'right',
+    onClick: incrementStep,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Insert Existing Gallery', 'modula-best-grid-gallery')
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Insert Existing Gallery', 'modula-best-grid-gallery'))));
+};
+/* harmony default export */ __webpack_exports__["default"] = (InitialSplash);
+
+/***/ }),
+
+/***/ "./blocks/gallery/components/InspectorControls.jsx":
+/*!*********************************************************!*\
+  !*** ./blocks/gallery/components/InspectorControls.jsx ***!
+  \*********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,6 +187,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_GallerySelector__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/GallerySelector */ "./blocks/gallery/components/GallerySelector.jsx");
+
 
 
 
@@ -40,26 +208,7 @@ const InspectorControls = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Modula Settings', 'modula-best-grid-gallery'),
     initialOpen: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Gallery ID', 'modula-best-grid-gallery'),
-    value: Number(attributes.galleryId),
-    onChange: value => setAttributes({
-      galleryId: Number(value)
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Gallery Type', 'modula-best-grid-gallery'),
-    value: 'creative-gallery',
-    options: [{
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Creative Gallery', 'modula-best-grid-gallery'),
-      value: 'creative-gallery'
-    }, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Custom Grid Gallery', 'modula-best-grid-gallery'),
-      value: 'custom-grid-gallery'
-    }, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Masonry Gallery', 'modula-best-grid-gallery'),
-      value: 'masonry-gallery'
-    }]
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_GallerySelector__WEBPACK_IMPORTED_MODULE_5__.GallerySelector, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Columns', 'modula-best-grid-gallery'),
     value: 'creative-gallery',
     options: [{
@@ -101,14 +250,14 @@ const InspectorControls = () => {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Color Settings', 'modula-best-grid-gallery'),
     colorSettings: [{
       value: blockColor,
-      onChange: blockColor => setAttributes({
-        blockColor
+      onChange: val => setAttributes({
+        blockColor: val
       }),
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Font Color', 'modula-best-grid-gallery')
     }, {
       value: blockBackground,
-      onChange: blockBackground => setAttributes({
-        blockBackground
+      onChange: val => setAttributes({
+        blockBackground: val
       }),
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Background Color', 'modula-best-grid-gallery')
     }]
@@ -174,10 +323,10 @@ const InspectorControls = () => {
 
 /***/ }),
 
-/***/ "./blocks/gallery/components/UiBlock.js":
-/*!**********************************************!*\
-  !*** ./blocks/gallery/components/UiBlock.js ***!
-  \**********************************************/
+/***/ "./blocks/gallery/components/UiBlock.jsx":
+/*!***********************************************!*\
+  !*** ./blocks/gallery/components/UiBlock.jsx ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -192,8 +341,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
 /* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swr */ "./node_modules/swr/core/dist/index.mjs");
 /* harmony import */ var _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/fetcher */ "./blocks/gallery/utils/fetcher.js");
-/* harmony import */ var _components_initialSplash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/initialSplash */ "./blocks/gallery/components/initialSplash.js");
-/* harmony import */ var _components_addNewSplash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/addNewSplash */ "./blocks/gallery/components/addNewSplash.js");
+/* harmony import */ var _InitialSplash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./InitialSplash */ "./blocks/gallery/components/InitialSplash.jsx");
+/* harmony import */ var _AddNewSplash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./AddNewSplash */ "./blocks/gallery/components/AddNewSplash.jsx");
 
 
 
@@ -214,102 +363,25 @@ const UiBlock = () => {
     data: posts,
     error
   } = (0,swr__WEBPACK_IMPORTED_MODULE_3__["default"])('/wp/v2/modula-gallery', _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__.fetcher);
-  console.log(`posts loading: ${!posts && !error}`, posts);
-  if (error) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "Error loading posts");
-  if (!posts) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "Loading...");
+
+  //
+  // console.log(`posts loading: ${!posts && !error}`, posts);
+  // if (error) return <div>Error loading posts</div>;
+  // if (!posts) return <div>Loading...</div>;
+
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_initialSplash__WEBPACK_IMPORTED_MODULE_5__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_InitialSplash__WEBPACK_IMPORTED_MODULE_5__["default"], null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_addNewSplash__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddNewSplash__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
 };
 
 /***/ }),
 
-/***/ "./blocks/gallery/components/addNewSplash.js":
-/*!***************************************************!*\
-  !*** ./blocks/gallery/components/addNewSplash.js ***!
-  \***************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/icons */ "./blocks/gallery/utils/icons.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
-
-
-
-
-
-const AddNewSplash = () => {
-  const {
-    step,
-    incrementStep,
-    decrementStep
-  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-};
-/* harmony default export */ __webpack_exports__["default"] = (AddNewSplash);
-
-/***/ }),
-
-/***/ "./blocks/gallery/components/initialSplash.js":
-/*!****************************************************!*\
-  !*** ./blocks/gallery/components/initialSplash.js ***!
-  \****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/icons */ "./blocks/gallery/utils/icons.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
-
-
-
-
-
-const InitialSplash = () => {
-  const {
-    step,
-    incrementStep,
-    decrementStep
-  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_icons__WEBPACK_IMPORTED_MODULE_1__.ModulaIcon, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Create a new gallery or choose from an existing one.', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "modula-splash-buttons"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "primary",
-    size: "compact",
-    iconPosition: "right",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add New Gallery', 'modula-best-grid-gallery'),
-    onClick: decrementStep
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Add New Gallery', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "secondary",
-    size: "compact",
-    iconPosition: "right",
-    onClick: incrementStep,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Insert Existing Gallery', 'modula-best-grid-gallery')
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Insert Existing Gallery', 'modula-best-grid-gallery'))));
-};
-/* harmony default export */ __webpack_exports__["default"] = (InitialSplash);
-
-/***/ }),
-
-/***/ "./blocks/gallery/context/BlockContext.js":
-/*!************************************************!*\
-  !*** ./blocks/gallery/context/BlockContext.js ***!
-  \************************************************/
+/***/ "./blocks/gallery/context/BlockContext.jsx":
+/*!*************************************************!*\
+  !*** ./blocks/gallery/context/BlockContext.jsx ***!
+  \*************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -442,9 +514,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./blocks/gallery/editor.scss");
-/* harmony import */ var _context_BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context/BlockContext */ "./blocks/gallery/context/BlockContext.js");
-/* harmony import */ var _components_InspectorControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InspectorControls */ "./blocks/gallery/components/InspectorControls.js");
-/* harmony import */ var _components_UiBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/UiBlock */ "./blocks/gallery/components/UiBlock.js");
+/* harmony import */ var _context_BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context/BlockContext */ "./blocks/gallery/context/BlockContext.jsx");
+/* harmony import */ var _components_InspectorControls__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/InspectorControls */ "./blocks/gallery/components/InspectorControls.jsx");
+/* harmony import */ var _components_UiBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/UiBlock */ "./blocks/gallery/components/UiBlock.jsx");
 
 
 
@@ -474,7 +546,7 @@ function Edit({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _context_BlockContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../context/BlockContext */ "./blocks/gallery/context/BlockContext.js");
+/* harmony import */ var _context_BlockContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../context/BlockContext */ "./blocks/gallery/context/BlockContext.jsx");
 
 
 const useBlockContext = () => {
@@ -596,10 +668,10 @@ const fetcher = url => _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default
 
 /***/ }),
 
-/***/ "./blocks/gallery/utils/icons.js":
-/*!***************************************!*\
-  !*** ./blocks/gallery/utils/icons.js ***!
-  \***************************************/
+/***/ "./blocks/gallery/utils/icons.jsx":
+/*!****************************************!*\
+  !*** ./blocks/gallery/utils/icons.jsx ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2467,7 +2539,7 @@ const SWRConfig = swr_internal__WEBPACK_IMPORTED_MODULE_3__.OBJECT.definePropert
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"blockColor":{"type":"string"},"blockBackground":{"type":"string"},"fontSize":{"type":"number","default":16},"imageTitleVisibility":{"type":"string","default":"visible"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"galleryTitle":{"type":"string","default":""},"blockColor":{"type":"string"},"blockBackground":{"type":"string"},"fontSize":{"type":"number","default":16},"imageTitleVisibility":{"type":"string","default":"visible"}}}');
 
 /***/ })
 

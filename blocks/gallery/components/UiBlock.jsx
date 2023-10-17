@@ -12,9 +12,10 @@ export const UiBlock = () => {
 	});
 	const { data: posts, error } = useSWR('/wp/v2/modula-gallery', fetcher);
 
-	console.log(`posts loading: ${!posts && !error}`, posts);
-	if (error) return <div>Error loading posts</div>;
-	if (!posts) return <div>Loading...</div>;
+	//
+	// console.log(`posts loading: ${!posts && !error}`, posts);
+	// if (error) return <div>Error loading posts</div>;
+	// if (!posts) return <div>Loading...</div>;
 
 	return (
 		<>

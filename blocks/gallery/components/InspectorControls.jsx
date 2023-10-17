@@ -14,6 +14,7 @@ import {
 } from '@wordpress/components';
 import useBlockContext from '../hooks/useBlockContext';
 import { __ } from '@wordpress/i18n';
+import { GallerySelector } from '../components/GallerySelector';
 
 export const InspectorControls = () => {
 	const { attributes, setAttributes } = useBlockContext();
@@ -27,40 +28,7 @@ export const InspectorControls = () => {
 					title={__('Modula Settings', 'modula-best-grid-gallery')}
 					initialOpen={true}
 				>
-					<TextControl
-						label={__('Gallery ID', 'modula-best-grid-gallery')}
-						value={Number(attributes.galleryId)}
-						onChange={(value) =>
-							setAttributes({ galleryId: Number(value) })
-						}
-					/>
-					<SelectControl
-						label={__('Gallery Type', 'modula-best-grid-gallery')}
-						value={'creative-gallery'}
-						options={[
-							{
-								label: __(
-									'Creative Gallery',
-									'modula-best-grid-gallery'
-								),
-								value: 'creative-gallery',
-							},
-							{
-								label: __(
-									'Custom Grid Gallery',
-									'modula-best-grid-gallery'
-								),
-								value: 'custom-grid-gallery',
-							},
-							{
-								label: __(
-									'Masonry Gallery',
-									'modula-best-grid-gallery'
-								),
-								value: 'masonry-gallery',
-							},
-						]}
-					></SelectControl>
+					<GallerySelector />
 					<SelectControl
 						label={__('Columns', 'modula-best-grid-gallery')}
 						value={'creative-gallery'}
