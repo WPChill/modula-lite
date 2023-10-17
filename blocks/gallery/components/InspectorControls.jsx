@@ -6,7 +6,6 @@ import {
 import {
 	Panel,
 	PanelBody,
-	TextControl,
 	SelectControl,
 	RangeControl,
 	RadioControl,

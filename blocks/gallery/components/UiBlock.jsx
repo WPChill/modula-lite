@@ -3,16 +3,13 @@ import useBlockContext from '../hooks/useBlockContext';
 import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
 import InitialSplash from './InitialSplash';
-import AddNewSplash from './AddNewSplash';
 
 export const UiBlock = () => {
 	const { step, incrementStep, decrementStep } = useBlockContext();
 	const blockProps = useBlockProps({
 		className: 'modula-splash-container',
 	});
-	const { data: posts, error } = useSWR('/wp/v2/modula-gallery', fetcher);
 
-	//
 	// console.log(`posts loading: ${!posts && !error}`, posts);
 	// if (error) return <div>Error loading posts</div>;
 	// if (!posts) return <div>Loading...</div>;
@@ -21,10 +18,6 @@ export const UiBlock = () => {
 		<>
 			<div {...blockProps}>
 				<InitialSplash />
-			</div>
-
-			<div {...blockProps}>
-				<AddNewSplash />
 			</div>
 		</>
 	);

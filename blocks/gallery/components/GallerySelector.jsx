@@ -9,10 +9,7 @@ export const GallerySelector = () => {
 	const { attributes, setAttributes } = useBlockContext();
 	const { galleryId } = attributes;
 
-	// This will fetch data from the API
 	const { data, error, isLoading } = useSWR('/wp/v2/modula-gallery', fetcher);
-
-	// Compute options here
 	const options = useMemo(() => {
 		if (isLoading) {
 			return [
@@ -41,7 +38,6 @@ export const GallerySelector = () => {
 			];
 		}
 
-		// return the options - this will be an array of objects with label being the post title and value being the post id
 		return data.map((post) => {
 			return {
 				value: post.id,
@@ -51,10 +47,20 @@ export const GallerySelector = () => {
 	}, [data, error, isLoading]);
 
 	const onChangeCb = (val) => {
+		const keysToSync = ['blockColor', 'blockBackground', 'fontSize'];
+		const gallery = data.find((post) => post.id === Number(val));
 		setAttributes({ galleryId: Number(val) });
+
+		const selectedSettings = Object.keys(gallery.modulaSettings)
+			.filter((key) => keysToSync.includes(key))
+			.reduce((obj, key) => {
+				obj[key] = gallery.modulaSettings[key];
+				return obj;
+			}, {});
+
+		setAttributes(selectedSettings);
 	};
 
-	// You can even consider using conditional rendering
 	if (isLoading) {
 		return <Spinner />;
 	}
@@ -91,7 +97,7 @@ export const GallerySelector = () => {
 			label={__('Choose a gallery', 'modula-best-grid-gallery')}
 			value={galleryId}
 			onChange={onChangeCb}
-			options={options}
+			options={[{ value: -1, label: 'a' }, ...options]}
 		/>
 	);
 };

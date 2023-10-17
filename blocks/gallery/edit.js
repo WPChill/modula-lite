@@ -4,7 +4,9 @@ import { InspectorControls } from './components/InspectorControls';
 import { UiBlock } from './components/UiBlock';
 
 export default function Edit({ attributes, setAttributes }) {
-	const initialValues = {};
+	const initialValues = {
+		blockBackground: '#000000',
+	};
 
 	return (
 		<BlockProvider

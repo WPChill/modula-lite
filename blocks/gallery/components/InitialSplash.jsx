@@ -4,12 +4,13 @@ import { Button } from '@wordpress/components';
 import useBlockContext from '../hooks/useBlockContext';
 
 const InitialSplash = () => {
-	const { step, incrementStep, decrementStep } = useBlockContext();
+	const { step, incrementStep, decrementStep, attributes } =
+		useBlockContext();
 
 	return (
 		<>
 			<ModulaIcon />
-
+			{attributes.galleryId}
 			<p>
 				{__(
 					'Create a new gallery or choose from an existing one.',
