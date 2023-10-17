@@ -11,50 +11,67 @@ export const GallerySelector = () => {
 
 	// This will fetch data from the API
 	const { data, error, isLoading } = useSWR('/wp/v2/modula-gallery', fetcher);
-	const posts = [];
-
-	if (data) {
-		data.map((item) => {
-			posts.push({
-				value: item.id,
-				label: item.title.rendered,
-			});
-		});
-	}
 
 	// Compute options here
 	const options = useMemo(() => {
 		if (isLoading) {
-			return <Spinner />;
+			return [
+				{
+					value: -1,
+					label: __('Fetching Galleries', 'modula-best-grid-gallery'),
+				},
+			];
 		}
 
 		if (error) {
-			console.log(error);
+			return [
+				{
+					value: -1,
+					label: __('Error', 'modula-best-grid-gallery'),
+				},
+			];
 		}
 
 		if (!data) {
-			return (
-				<>
-					{__(
-						'No galleries found, please go ahead and create a new Modula gallery.',
-						'modula-best-grid-gallery'
-					)}
-				</>
-			);
+			return [
+				{
+					value: -1,
+					label: __('No galleries found', 'modula-best-grid-gallery'),
+				},
+			];
 		}
 
 		// return the options - this will be an array of objects with label being the post title and value being the post id
-		return posts;
-	}, data);
+		return data.map((post) => {
+			return {
+				value: post.id,
+				label: post.title.rendered,
+			};
+		});
+	}, [data, error, isLoading]);
 
-	// consider moving logic from render to component
 	const onChangeCb = (val) => {
 		setAttributes({ galleryId: Number(val) });
 	};
 
+	console.log(data);
+
+	// You can even consider using conditional rendering
+	if (isLoading) {
+		return <Spinner />;
+	}
+
+	if (error) {
+		return <>{__('Error!', 'modula-best-grid-gallery')}</>;
+	}
+
+	if (!data) {
+		return <>{__('No Galleries found', 'modula-best-grid-gallery')}</>;
+	}
+
 	return (
 		<SelectControl
-			label={__('Gallery', 'modula-best-grid-gallery')}
+			label={__('Choose a gallery', 'modula-best-grid-gallery')}
 			value={galleryId}
 			onChange={onChangeCb}
 			options={options}

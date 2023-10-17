@@ -78,40 +78,55 @@ const GallerySelector = () => {
     error,
     isLoading
   } = (0,swr__WEBPACK_IMPORTED_MODULE_3__["default"])('/wp/v2/modula-gallery', _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__.fetcher);
-  const posts = [];
-  if (data) {
-    data.map(item => {
-      posts.push({
-        value: item.id,
-        label: item.title.rendered
-      });
-    });
-  }
 
   // Compute options here
   const options = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useMemo)(() => {
     if (isLoading) {
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null);
+      return [{
+        value: -1,
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Fetching Galleries', 'modula-best-grid-gallery')
+      }];
     }
     if (error) {
-      console.log(error);
+      return [{
+        value: -1,
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Error', 'modula-best-grid-gallery')
+      }];
     }
     if (!data) {
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No galleries found, please go ahead and create a new Modula gallery.', 'modula-best-grid-gallery'));
+      return [{
+        value: -1,
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No galleries found', 'modula-best-grid-gallery')
+      }];
     }
 
     // return the options - this will be an array of objects with label being the post title and value being the post id
-    return posts;
-  }, data);
-
-  // consider moving logic from render to component
+    return data.map(post => {
+      return {
+        value: post.id,
+        label: post.title.rendered
+      };
+    });
+  }, [data, error, isLoading]);
   const onChangeCb = val => {
     setAttributes({
       galleryId: Number(val)
     });
   };
+  console.log(data);
+
+  // You can even consider using conditional rendering
+  if (isLoading) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null);
+  }
+  if (error) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Error!', 'modula-best-grid-gallery'));
+  }
+  if (!data) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('No Galleries found', 'modula-best-grid-gallery'));
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.SelectControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Gallery', 'modula-best-grid-gallery'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Choose a gallery', 'modula-best-grid-gallery'),
     value: galleryId,
     onChange: onChangeCb,
     options: options
