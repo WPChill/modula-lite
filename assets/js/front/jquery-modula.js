@@ -2,19 +2,10 @@
  *  Project: jQuery Modula 2
  *  Version: 1.0
  *  Description: Artistic gallery
- *  Author: Macho Themes
+ *  Author: WP Modula
  */
-function tg_getURLParameter(name) {
-	return (
-		decodeURIComponent(
-			(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(
-				location.search
-			) || [, ''])[1].replace(/\+/g, '%20')
-		) || null
-	);
-}
 
-// Compatibility with WPBakery Page Builder
+// Compatibility with WPBakery Page Builder( reset modula after section go full width )
 jQuery(document).on(
 	'vc-full-width-row-single vc-full-width-row',
 	function (event, element) {
@@ -24,7 +15,7 @@ jQuery(document).on(
 	}
 );
 
-// Compatibility with Elementor
+// Compatibility with Elementor( reset modula after section go full width )
 jQuery(window).on('elementor/frontend/init', function () {
 	if (window.elementorFrontend) {
 		window.elementorFrontend.hooks.addAction(
@@ -91,6 +82,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.init();
 	}
 
+	// initialization of our modula instance
 	Plugin.prototype.init = function () {
 		var instance = this,
 			viewport = document.documentElement.clientWidth;
@@ -210,6 +202,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$(document).trigger('modula_api_after_init', [instance]);
 	};
 
+	// function wich collect all the images for lightbox and initialize the lightbox.
 	Plugin.prototype.initLightbox = function () {
 		var self = this;
 
@@ -445,6 +438,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 	};
 
+	// initialize the justified gallery.
 	Plugin.prototype.createAutoGrid = function () {
 		var plugin = this;
 
@@ -460,6 +454,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// create the mansonry gallery
 	Plugin.prototype.createColumnsGrid = function () {
 		var instance = this;
 
@@ -482,6 +477,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.isIsotope = true;
 	};
 
+	// generate a slot with random width and height for creative gallery
+	// To Do: keep the ratio of picture when generate slot.
 	Plugin.prototype.getSlot = function () {
 		if (this.tiles.length == 0) {
 			var tile = {
@@ -558,6 +555,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		return tile;
 	};
 
+	// Re-initialize the gallery
 	Plugin.prototype.reset = function () {
 		var instance = this;
 		instance.tiles = [];
@@ -580,6 +578,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$(document).trigger('modula_api_reset', [instance]);
 	};
 
+	// function used to reset the gallery
 	Plugin.prototype.onResize = function (instance) {
 		if (instance.lastWidth == instance.$itemsCnt.width()) return;
 
@@ -614,6 +613,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}, 100);
 	};
 
+	// load the image in order to get the width and heoght of the picture.
 	Plugin.prototype.loadImage = function (index) {
 		var instance = this,
 			source = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
@@ -638,6 +638,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 	};
 
+	// function used to place the image in container based on the alignment select by the user.
 	Plugin.prototype.placeImage = function (index) {
 		if ('grid' == this.options.type) {
 			return;
@@ -718,6 +719,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		this.$items.not('.jtg-hidden').eq(index).addClass('tg-loaded');
 	};
 
+	// based on settings set the needed socials.
 	Plugin.prototype.setupSocial = function () {
 		if (this.options.enableTwitter) {
 			setupTwitter(this.$items, this);
@@ -739,6 +741,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		}
 	};
 
+	// destroy the packery object.
 	Plugin.prototype.destroy = function () {
 		if (this.isPackeryActive) {
 			this.$itemsCnt.packery('destroy');
@@ -755,6 +758,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		return url;
 	};
 
+	// get all the information that twitter needs
 	var setupTwitter = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-twitter').click(function (e) {
 			e.preventDefault();
@@ -784,6 +788,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// get all the information that facebook needs
 	var setupFacebook = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-facebook').click(function (e) {
 			e.preventDefault();
@@ -803,6 +808,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// get all the information that whatsapp needs
 	var setupWhatsapp = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-whatsapp').click(function (e) {
 			e.preventDefault();
@@ -824,6 +830,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// get all the information that pinterest needs
 	var setupPinterest = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-pinterest').click(function (e) {
 			e.preventDefault();
@@ -862,6 +869,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// get all the information that linkedin needs
 	var setupLinkedIN = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-linkedin').click(function (e) {
 			e.preventDefault();
@@ -883,6 +891,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
+	// get all the information that email needs
 	var setupEmail = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-email').click(function (e) {
 			var subject = encodeURI(plugin.options.email_subject);
@@ -967,6 +976,7 @@ jQuery(document).ready(function () {
 	});
 });
 
+// initiliaza galleries that are in elementor popup
 jQuery(document).on('elementor/popup/show', (event, id, instance) => {
 	var modulaGalleries = jQuery('#elementor-popup-modal-' + id).find(
 		'.modula.modula-gallery'
@@ -978,6 +988,7 @@ jQuery(document).on('elementor/popup/show', (event, id, instance) => {
 	});
 });
 
+// function to check if modula is in viewport
 function modulaInViewport(element) {
 	if (typeof jQuery === 'function' && element instanceof jQuery) {
 		element = element[0];

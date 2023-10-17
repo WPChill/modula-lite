@@ -4,6 +4,7 @@ Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid c
 Added: Placeholder for text settings inputs and placeholders for image dimensions.
 Changed: Gallery image changes are now saved on post update not every time an image was edited.
 Changed: Updated enqueue methods for css & js.
+Changed: Active hover effect on top of list.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.

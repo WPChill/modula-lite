@@ -1789,7 +1789,7 @@
 				canPan,
 				isZoomable;
 
-			if (!current || self.isClosing || !self.Guestures) {
+			if (!current || self.isClosing || !self.ModulaGestures) {
 				return;
 			}
 
@@ -4227,8 +4227,8 @@
 })(jQuery);
 // ==========================================================================
 //
-// Guestures
-// Adds touch guestures, handles click and tap events
+// ModulaGestures
+// Adds touch ModulaGestures, handles click and tap events
 //
 // ==========================================================================
 (function (window, document, $) {
@@ -4361,7 +4361,7 @@
 		return rez;
 	};
 
-	var Guestures = function (instance) {
+	var ModulaGestures = function (instance) {
 		var self = this;
 
 		self.instance = instance;
@@ -4378,7 +4378,7 @@
 		);
 	};
 
-	Guestures.prototype.destroy = function () {
+	ModulaGestures.prototype.destroy = function () {
 		var self = this;
 
 		self.$container.off('.fb.touch');
@@ -4396,7 +4396,7 @@
 		}
 	};
 
-	Guestures.prototype.ontouchstart = function (e) {
+	ModulaGestures.prototype.ontouchstart = function (e) {
 		var self = this,
 			$target = $(e.target),
 			instance = self.instance,
@@ -4583,7 +4583,7 @@
 		}
 	};
 
-	Guestures.prototype.onscroll = function (e) {
+	ModulaGestures.prototype.onscroll = function (e) {
 		var self = this;
 
 		self.isScrolling = true;
@@ -4591,7 +4591,7 @@
 		document.removeEventListener('scroll', self.onscroll, true);
 	};
 
-	Guestures.prototype.ontouchmove = function (e) {
+	ModulaGestures.prototype.ontouchmove = function (e) {
 		var self = this;
 
 		// Make sure user has not released over iframe or disabled element
@@ -4639,7 +4639,7 @@
 		}
 	};
 
-	Guestures.prototype.onSwipe = function (e) {
+	ModulaGestures.prototype.onSwipe = function (e) {
 		var self = this,
 			instance = self.instance,
 			swiping = self.isSwiping,
@@ -4782,7 +4782,7 @@
 		});
 	};
 
-	Guestures.prototype.onPan = function () {
+	ModulaGestures.prototype.onPan = function () {
 		var self = this;
 
 		// Prevent accidental movement (sometimes, when tapping casually, finger can move a bit)
@@ -4808,7 +4808,7 @@
 	};
 
 	// Make panning sticky to the edges
-	Guestures.prototype.limitMovement = function () {
+	ModulaGestures.prototype.limitMovement = function () {
 		var self = this;
 
 		var canvasWidth = self.canvasWidth;
@@ -4899,7 +4899,7 @@
 		};
 	};
 
-	Guestures.prototype.limitPosition = function (
+	ModulaGestures.prototype.limitPosition = function (
 		newOffsetX,
 		newOffsetY,
 		newWidth,
@@ -4938,7 +4938,7 @@
 		};
 	};
 
-	Guestures.prototype.onZoom = function () {
+	ModulaGestures.prototype.onZoom = function () {
 		var self = this;
 
 		// Calculate current distance between points to get pinch ratio and new width and height
@@ -5013,7 +5013,7 @@
 		});
 	};
 
-	Guestures.prototype.ontouchend = function (e) {
+	ModulaGestures.prototype.ontouchend = function (e) {
 		var self = this;
 
 		var swiping = self.isSwiping;
@@ -5064,7 +5064,7 @@
 		return;
 	};
 
-	Guestures.prototype.endSwiping = function (swiping, scrolling) {
+	ModulaGestures.prototype.endSwiping = function (swiping, scrolling) {
 		var self = this,
 			ret = false,
 			len = self.instance.group.length,
@@ -5107,7 +5107,7 @@
 
 	// Limit panning from edges
 	// ========================
-	Guestures.prototype.endPanning = function () {
+	ModulaGestures.prototype.endPanning = function () {
 		var self = this,
 			newOffsetX,
 			newOffsetY,
@@ -5139,7 +5139,7 @@
 		$.modulaFancybox.animate(self.$content, newPos, 366);
 	};
 
-	Guestures.prototype.endZooming = function () {
+	ModulaGestures.prototype.endZooming = function () {
 		var self = this;
 
 		var current = self.instance.current;
@@ -5188,7 +5188,7 @@
 		}
 	};
 
-	Guestures.prototype.onTap = function (e) {
+	ModulaGestures.prototype.onTap = function (e) {
 		var self = this;
 		var $target = $(e.target);
 
@@ -5336,13 +5336,13 @@
 
 	$(document)
 		.on('onActivate.fb', function (e, instance) {
-			if (instance && !instance.Guestures) {
-				instance.Guestures = new Guestures(instance);
+			if (instance && !instance.ModulaGestures) {
+				instance.ModulaGestures = new ModulaGestures(instance);
 			}
 		})
 		.on('beforeClose.fb', function (e, instance) {
-			if (instance && instance.Guestures) {
-				instance.Guestures.destroy();
+			if (instance && instance.ModulaGestures) {
+				instance.ModulaGestures.destroy();
 			}
 		});
 })(window, document, jQuery);

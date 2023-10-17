@@ -593,6 +593,7 @@ class Modula_Field_Builder {
 				$overlay_array = array( 'tilt_2', 'tilt_3', 'tilt_7' );
 				$svg_array     = array( 'tilt_1', 'tilt_7' );
 				$jtg_body      = array( 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
+				$effects_html  = '';
 
 				foreach ( $hovers as $key => $name ) {
 
@@ -612,8 +613,11 @@ class Modula_Field_Builder {
 
 					$effect .= '<div class="modula-preview-item-container">';
 					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
-						$effect  .= '<span class="modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
+						$effect  .= '<span class="modula-effects-badge modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
 						$class[]  = 'pro-only';
+					}
+					if ( $key === $value ) {
+						$effect  .= '<span class="modula-effects-badge modula-selected-effect-badge">' . esc_html__( 'Currently Active', 'modula-best-grid-gallery' ) . '</span>';
 					}
 					$effect .= '<div class="' . esc_attr( implode( ' ', $class ) ) . '">';
 
@@ -703,10 +707,14 @@ class Modula_Field_Builder {
 					$effect .= '</div>';
 					$effect .= '</div>';
 
-					$html .= $effect;
+					if( $key === $value ){
+						$effects_html = $effect . $effects_html;
+					}else{
+						$effects_html .= $effect;
+					}
 				}
 
-				$html .= '</div></div>';
+				$html .= $effects_html . '</div></div>';
 
 				// Hook to change how hover effects field is rendered
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );
