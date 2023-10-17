@@ -20,7 +20,6 @@ const InitialSplash = () => {
 				<Button
 					variant="primary"
 					size={'compact'}
-					iconPosition={'right'}
 					label={__('Add New Gallery', 'modula-best-grid-gallery')}
 					onClick={decrementStep}
 				>
@@ -29,7 +28,6 @@ const InitialSplash = () => {
 				<Button
 					variant="secondary"
 					size={'compact'}
-					iconPosition={'right'}
 					onClick={incrementStep}
 					label={__(
 						'Insert Existing Gallery',

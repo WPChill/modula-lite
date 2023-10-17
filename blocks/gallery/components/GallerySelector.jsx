@@ -1,4 +1,4 @@
-import { SelectControl, Spinner } from '@wordpress/components';
+import { SelectControl, Spinner, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
@@ -54,19 +54,36 @@ export const GallerySelector = () => {
 		setAttributes({ galleryId: Number(val) });
 	};
 
-	console.log(data);
-
 	// You can even consider using conditional rendering
 	if (isLoading) {
 		return <Spinner />;
 	}
 
 	if (error) {
-		return <>{__('Error!', 'modula-best-grid-gallery')}</>;
+		return <p>{__('Error!', 'modula-best-grid-gallery')}</p>;
 	}
 
-	if (!data) {
-		return <>{__('No Galleries found', 'modula-best-grid-gallery')}</>;
+	if (!options.length) {
+		return (
+			<div>
+				<p>{__('No Galleries found :(', 'modula-best-grid-gallery')}</p>
+				<p>
+					<Button
+						variant="primary"
+						onClick={undefined}
+						label={__(
+							'Click here to create a new gallery',
+							'modula-best-grid-gallery'
+						)}
+					>
+						{__(
+							'Click here to create a new gallery',
+							'modula-best-grid-gallery'
+						)}
+					</Button>
+				</p>
+			</div>
+		);
 	}
 
 	return (
