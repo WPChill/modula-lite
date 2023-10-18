@@ -26,5 +26,45 @@
 .modula-splash-container .modula-splash-buttons button {
   margin-right: 12px;
 }
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/InitialSplash.module.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.dx05q2qG2zJtiZmS6O2A {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.KFDctZuTahJ6979Q7TG5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.KFDctZuTahJ6979Q7TG5 > svg {
+  margin: 0;
+  margin-left: 5px;
+}
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Gallery/Image.module.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.O0glSvEWivybx1Z3RYvW {
+  width: 100px;
+  height: 65px;
+  background-color: bisque;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Gallery.module.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
+.dU7H6rTeaNFO1gsVLzIk {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
 
 /*# sourceMappingURL=index.css.map*/

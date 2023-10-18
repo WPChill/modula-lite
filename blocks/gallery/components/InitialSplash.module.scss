@@ -1,0 +1,16 @@
+.buttonContainer {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+.button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	> svg {
+		margin: 0;
+		margin-left: 5px;
+	}
+}

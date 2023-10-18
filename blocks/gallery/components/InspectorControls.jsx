@@ -13,7 +13,7 @@ import {
 } from '@wordpress/components';
 import useBlockContext from '../hooks/useBlockContext';
 import { __ } from '@wordpress/i18n';
-import { GallerySelector } from '../components/GallerySelector';
+import { GallerySelector } from '../components/shared/GallerySelector';
 
 export const InspectorControls = () => {
 	const { attributes, setAttributes } = useBlockContext();

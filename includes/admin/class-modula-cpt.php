@@ -154,6 +154,25 @@ class Modula_CPT {
 				return update_post_meta( $object->ID, 'modula-settings', $value );
 			},
 		) );
+		register_rest_field( 'modula-gallery', 'modulaImages', array(
+			'get_callback' => function ( $post_arr ) {
+				$images = get_post_meta( $post_arr['id'], 'modula-images', true );
+				foreach ( $images as $k => $image ) {
+					if ( !  $image['id'] || 'attachment' !== get_post_type( $image['id'] ) ) {
+						continue;
+					}
+
+					$attachment = wp_prepare_attachment_for_js( $image['id'] );
+					$image_url  = wp_get_attachment_image_src( $image['id'], 'large' );
+					$image_full = wp_get_attachment_image_src( $image['id'], 'full' );
+
+					$images[$k]['full']        = $image_full[0];
+					$images[$k]['thumbnail']   = $image_url[0];
+					$images[$k]['orientation'] = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';	
+				}
+				return $images;
+			},
+		) );
 	}
 
 	/**

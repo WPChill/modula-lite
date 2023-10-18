@@ -1,9 +1,9 @@
 import { SelectControl, Spinner, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import useSWR from 'swr';
-import { fetcher } from '../utils/fetcher';
+import { fetcher } from '../../utils/fetcher';
+import useBlockContext from '../../hooks/useBlockContext';
 import { __ } from '@wordpress/i18n';
-import useBlockContext from '../hooks/useBlockContext';
 
 export const GallerySelector = () => {
 	const { attributes, setAttributes } = useBlockContext();

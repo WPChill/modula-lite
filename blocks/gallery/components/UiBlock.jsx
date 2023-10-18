@@ -10,14 +10,12 @@ export const UiBlock = () => {
 	});
 
 	return (
-		<>
-			<div {...blockProps}>
-				{!attributes.galleryId ? (
-					<InitialSplash />
-				) : (
-					<ImportExistingSplash />
-				)}
-			</div>
-		</>
+		<div {...blockProps}>
+			{attributes.galleryId > 0 ? (
+				<ImportExistingSplash />
+			) : (
+				<InitialSplash />
+			)}
+		</div>
 	);
 };
