@@ -10,7 +10,7 @@ const InitialSplash = () => {
 	return (
 		<>
 			<ModulaIcon />
-			{attributes.galleryId}
+
 			<p>
 				{__(
 					'Create a new gallery or choose from an existing one.',
