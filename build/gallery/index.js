@@ -107,6 +107,32 @@ const GallerySelector = () => {
 
 /***/ }),
 
+/***/ "./blocks/gallery/components/ImportExistingSplash.jsx":
+/*!************************************************************!*\
+  !*** ./blocks/gallery/components/ImportExistingSplash.jsx ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
+
+
+const ImportExistingSplash = () => {
+  const {
+    attributes
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(`Rendering gallery: ${attributes.galleryId}`, 'modula-best-grid-gallery'));
+};
+/* harmony default export */ __webpack_exports__["default"] = (ImportExistingSplash);
+
+/***/ }),
+
 /***/ "./blocks/gallery/components/InitialSplash.jsx":
 /*!*****************************************************!*\
   !*** ./blocks/gallery/components/InitialSplash.jsx ***!
@@ -135,7 +161,7 @@ const InitialSplash = () => {
     decrementStep,
     attributes
   } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_icons__WEBPACK_IMPORTED_MODULE_1__.ModulaIcon, null), attributes.galleryId, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Create a new gallery or choose from an existing one.', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_utils_icons__WEBPACK_IMPORTED_MODULE_1__.ModulaIcon, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Create a new gallery or choose from an existing one.', 'modula-best-grid-gallery')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: 'modula-splash-buttons'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
     variant: "primary",
@@ -325,10 +351,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
-/* harmony import */ var swr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swr */ "./node_modules/swr/core/dist/index.mjs");
-/* harmony import */ var _utils_fetcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/fetcher */ "./blocks/gallery/utils/fetcher.js");
-/* harmony import */ var _InitialSplash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./InitialSplash */ "./blocks/gallery/components/InitialSplash.jsx");
-
+/* harmony import */ var _InitialSplash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./InitialSplash */ "./blocks/gallery/components/InitialSplash.jsx");
+/* harmony import */ var _ImportExistingSplash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ImportExistingSplash */ "./blocks/gallery/components/ImportExistingSplash.jsx");
 
 
 
@@ -336,21 +360,14 @@ __webpack_require__.r(__webpack_exports__);
 
 const UiBlock = () => {
   const {
-    step,
-    incrementStep,
-    decrementStep
+    attributes
   } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__["default"])();
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     className: 'modula-splash-container'
   });
-
-  // console.log(`posts loading: ${!posts && !error}`, posts);
-  // if (error) return <div>Error loading posts</div>;
-  // if (!posts) return <div>Loading...</div>;
-
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_InitialSplash__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+  }, !attributes.galleryId ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_InitialSplash__WEBPACK_IMPORTED_MODULE_3__["default"], null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ImportExistingSplash__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
 };
 
 /***/ }),
@@ -412,19 +429,16 @@ const BlockProvider = ({
   }, []);
   const saveGalleryPost = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(async () => {
     try {
-      await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
+      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
         path: `/wp/v2/modula-gallery/${attributes.galleryId}`,
         method: 'POST',
         data: {
-          // This does not work because of how meta field is registered
-          // it needs update callback
-          meta: {
-            modulaSettings: {
-              ...attributes
-            }
+          modulaSettings: {
+            ...attributes
           }
         }
       });
+      console.log(response);
     } catch (err) {
       console.log(err);
     }

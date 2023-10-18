@@ -47,6 +47,7 @@
     "devDependencies": {
         "@babel/core": "^7.23.2",
         "@babel/eslint-parser": "^7.22.15",
+        "@wordpress/block-editor": "^12.11.1",
         "@wordpress/eslint-plugin": "^17.0.0",
         "@wordpress/prettier-config": "^3.0.0",
         "@wordpress/scripts": "^26.14.0",

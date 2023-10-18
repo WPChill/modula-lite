@@ -36,15 +36,14 @@ export const BlockProvider = ({
 
 	const saveGalleryPost = useCallback(async () => {
 		try {
-			await apiFetch({
+			const response = await apiFetch({
 				path: `/wp/v2/modula-gallery/${attributes.galleryId}`,
 				method: 'POST',
 				data: {
-					// This does not work because of how meta field is registered
-					// it needs update callback
-					meta: { modulaSettings: { ...attributes } },
+					modulaSettings: { ...attributes },
 				},
 			});
+			console.log(response);
 		} catch (err) {
 			console.log(err);
 		}
