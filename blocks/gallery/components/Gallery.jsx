@@ -28,7 +28,6 @@ export const Gallery = () => {
 		}));
 	}, [data, error, isLoading]);
 
-	console.log(images);
 	if (isLoading) {
 		return <Spinner />;
 	}
