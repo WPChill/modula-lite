@@ -448,7 +448,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			lastRow: this.options.lastRow,
 			captions: false,
 			border: 0,
-			imgSelector: '.pic',
+			imgSelector: 'img.pic',
 			cssAnimation: true,
 			imagesAnimationDuration: 700,
 		});
