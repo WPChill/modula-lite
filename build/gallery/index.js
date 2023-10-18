@@ -44,18 +44,22 @@ const Gallery = () => {
     if (isLoading || error || !data) {
       return [];
     }
+    if (!Array.isArray(data.modulaImages)) {
+      return [];
+    }
     return data.modulaImages.map(image => ({
       id: image.id,
       src: image.thumbnail
     }));
   }, [data, error, isLoading]);
+  console.log(images);
   if (isLoading) {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Spinner, null);
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: _Gallery_module_scss__WEBPACK_IMPORTED_MODULE_7__["default"].galleryContainer
   }, images.map(image => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Gallery_Image__WEBPACK_IMPORTED_MODULE_6__.Image, {
-    key: image.id,
+    key: `${attributes.galleryId}-${image.id}`,
     id: image.id,
     src: image.src
   })));
@@ -437,19 +441,19 @@ const GallerySelector = () => {
   const options = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useMemo)(() => {
     if (isLoading) {
       return [{
-        value: -1,
+        value: 0,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Fetching Galleries', 'modula-best-grid-gallery')
       }];
     }
     if (error) {
       return [{
-        value: -1,
+        value: 0,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Error', 'modula-best-grid-gallery')
       }];
     }
     if (!data) {
       return [{
-        value: -1,
+        value: 0,
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('No galleries found', 'modula-best-grid-gallery')
       }];
     }
@@ -466,6 +470,9 @@ const GallerySelector = () => {
     setAttributes({
       galleryId: Number(val)
     });
+    if (!gallery?.modulaSettings) {
+      return;
+    }
     const selectedSettings = Object.keys(gallery.modulaSettings).filter(key => keysToSync.includes(key)).reduce((obj, key) => {
       obj[key] = gallery.modulaSettings[key];
       return obj;
@@ -490,8 +497,8 @@ const GallerySelector = () => {
     value: galleryId,
     onChange: onChangeCb,
     options: [{
-      value: -1,
-      label: 'a'
+      value: 0,
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Select a gallery')
     }, ...options]
   });
 };

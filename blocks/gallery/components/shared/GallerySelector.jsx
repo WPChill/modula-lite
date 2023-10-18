@@ -14,7 +14,7 @@ export const GallerySelector = () => {
 		if (isLoading) {
 			return [
 				{
-					value: -1,
+					value: 0,
 					label: __('Fetching Galleries', 'modula-best-grid-gallery'),
 				},
 			];
@@ -23,7 +23,7 @@ export const GallerySelector = () => {
 		if (error) {
 			return [
 				{
-					value: -1,
+					value: 0,
 					label: __('Error', 'modula-best-grid-gallery'),
 				},
 			];
@@ -32,7 +32,7 @@ export const GallerySelector = () => {
 		if (!data) {
 			return [
 				{
-					value: -1,
+					value: 0,
 					label: __('No galleries found', 'modula-best-grid-gallery'),
 				},
 			];
@@ -50,6 +50,10 @@ export const GallerySelector = () => {
 		const keysToSync = ['blockColor', 'blockBackground', 'fontSize'];
 		const gallery = data.find((post) => post.id === Number(val));
 		setAttributes({ galleryId: Number(val) });
+
+		if (!gallery?.modulaSettings) {
+			return;
+		}
 
 		const selectedSettings = Object.keys(gallery.modulaSettings)
 			.filter((key) => keysToSync.includes(key))
@@ -97,7 +101,7 @@ export const GallerySelector = () => {
 			label={__('Choose a gallery', 'modula-best-grid-gallery')}
 			value={galleryId}
 			onChange={onChangeCb}
-			options={[{ value: -1, label: 'a' }, ...options]}
+			options={[{ value: 0, label: __('Select a gallery') }, ...options]}
 		/>
 	);
 };

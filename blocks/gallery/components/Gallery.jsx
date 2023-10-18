@@ -18,12 +18,17 @@ export const Gallery = () => {
 			return [];
 		}
 
+		if (!Array.isArray(data.modulaImages)) {
+			return [];
+		}
+
 		return data.modulaImages.map((image) => ({
 			id: image.id,
 			src: image.thumbnail,
 		}));
 	}, [data, error, isLoading]);
 
+	console.log(images);
 	if (isLoading) {
 		return <Spinner />;
 	}
@@ -31,7 +36,11 @@ export const Gallery = () => {
 	return (
 		<div className={styles.galleryContainer}>
 			{images.map((image) => (
-				<Image key={image.id} id={image.id} src={image.src} />
+				<Image
+					key={`${attributes.galleryId}-${image.id}`}
+					id={image.id}
+					src={image.src}
+				/>
 			))}
 		</div>
 	);
