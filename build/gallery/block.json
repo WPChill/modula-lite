@@ -51,6 +51,10 @@
     "imageTitleVisibility": {
       "type": "string",
       "default": "visible"
+    },
+    "galleryType": {
+      "type": "string",
+      "default": "creative"
     }
   }
 }

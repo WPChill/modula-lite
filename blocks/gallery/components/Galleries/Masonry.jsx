@@ -1,12 +1,13 @@
 import useSWR from 'swr';
-import { fetcher } from '../utils/fetcher';
-import useBlockContext from '../hooks/useBlockContext';
+import { fetcher } from '../../utils/fetcher';
+import useBlockContext from '../../hooks/useBlockContext';
 import { Spinner } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
-import { Image } from './Gallery/Image';
-import styles from './Gallery.module.scss';
+import { Image } from './Masonry/Image';
+import { Masonry as ReactMasonry } from 'react-masonry';
+import styles from './Masonry.module.scss';
 
-export const Gallery = () => {
+export const Masonry = () => {
 	const { attributes } = useBlockContext();
 	const { data, error, isLoading } = useSWR(
 		`/wp/v2/modula-gallery/${attributes.galleryId}`,
@@ -25,6 +26,7 @@ export const Gallery = () => {
 		return data.modulaImages.map((image) => ({
 			id: image.id,
 			src: image.thumbnail,
+			orientation: image.orientation,
 		}));
 	}, [data, error, isLoading]);
 
@@ -34,13 +36,17 @@ export const Gallery = () => {
 
 	return (
 		<div className={styles.galleryContainer}>
-			{images.map((image) => (
-				<Image
-					key={`${attributes.galleryId}-${image.id}`}
-					id={image.id}
-					src={image.src}
-				/>
-			))}
+			<ReactMasonry>
+				{images.map((image, index) => (
+					<Image
+						key={index}
+						index={index}
+						id={image.id}
+						orientation={image.orientation}
+						src={image.src}
+					/>
+				))}
+			</ReactMasonry>
 		</div>
 	);
 };

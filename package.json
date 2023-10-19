@@ -75,6 +75,7 @@
         "@wordpress/components": "^25.9.1",
         "@wordpress/i18n": "^4.43.0",
         "@wordpress/media-utils": "^4.34.0",
+        "react-masonry": "^1.0.7",
         "swr": "^2.2.4"
     }
 }

@@ -1,9 +1,11 @@
 .image {
 	width: 100px;
-	height: 65px;
 	background-color: bisque;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-size: cover;
+	flex-basis: calc(33.33% - 5px);
+	height: 0;
+	padding-bottom: calc(33.33% - 5px);
 }

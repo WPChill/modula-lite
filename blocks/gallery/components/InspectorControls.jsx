@@ -29,6 +29,36 @@ export const InspectorControls = () => {
 				>
 					<GallerySelector />
 					<SelectControl
+						label={__('Gallery', 'modula-best-grid-gallery')}
+						value={attributes.galleryType || 'creative'}
+						onChange={(value) =>
+							setAttributes({ galleryType: value })
+						}
+						options={[
+							{
+								label: __(
+									'Creative',
+									'modula-best-grid-gallery'
+								),
+								value: 'creative',
+							},
+							{
+								label: __(
+									'Masonry',
+									'modula-best-grid-gallery'
+								),
+								value: 'masonry',
+							},
+							{
+								label: __(
+									'Custom grid',
+									'modula-best-grid-gallery'
+								),
+								value: 'custom-grid',
+							},
+						]}
+					/>
+					<SelectControl
 						label={__('Columns', 'modula-best-grid-gallery')}
 						value={'creative-gallery'}
 						options={[
@@ -75,7 +105,7 @@ export const InspectorControls = () => {
 								value: 'modula-automatic-columns',
 							},
 						]}
-					></SelectControl>
+					/>
 				</PanelBody>
 				<PanelBody
 					title={__('Lightbox Settings', 'modula-best-grid-gallery')}
