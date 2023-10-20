@@ -471,10 +471,12 @@ class Modula_Field_Builder {
 					}
 					break;
 			case 'ui-slider':
-				$min  = isset( $field['min'] ) ? $field['min'] : 0;
-				$max  = isset( $field['max'] ) ? $field['max'] : 100;
-				$step = isset( $field['step'] ) ? $field['step'] : 1;
-				if ( '' === $value ) {
+				$min  = isset( $field['min'] ) ? floatval( $field['min'] ) : 0;
+				$max  = isset( $field['max'] ) ? floatval( $field['max'] ) : 100;
+				$step = isset( $field['step'] ) ? absint( $field['step'] ) : 1;
+				$value = floatval( $value );
+
+				if ( '' === $value || $value < $min || $value > $max ) {
 					if ( isset( $field['default'] ) ) {
 						$value = $field['default'];
 					}else{
