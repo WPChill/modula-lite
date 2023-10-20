@@ -49,15 +49,14 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Gallery/Image.module.scss ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************/
 .GnILeVOQV13weqBNNBPn {
-  width: 100px;
+  width: calc(100% / var(--columns) - 5px);
   background-color: bisque;
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: cover;
-  flex-basis: calc(33.33% - 5px);
-  height: 0;
-  padding-bottom: calc(33.33% - 5px);
+  background-position: center;
+  height: 350px;
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Gallery.module.scss ***!
@@ -65,9 +64,8 @@
 .jM3AhXxJkvrWgUNU9Ofs {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
   gap: 5px;
+  width: 100%;
 }
 /*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Masonry/Image.module.scss ***!

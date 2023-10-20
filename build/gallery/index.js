@@ -81,17 +81,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Image_module_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Image.module.scss */ "./blocks/gallery/components/Galleries/Gallery/Image.module.scss");
+/* harmony import */ var _hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../hooks/useBlockContext */ "./blocks/gallery/hooks/useBlockContext.js");
+
 
 
 const Image = ({
   id,
   src
 }) => {
+  const {
+    attributes
+  } = (0,_hooks_useBlockContext__WEBPACK_IMPORTED_MODULE_2__["default"])();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     id: id,
     className: _Image_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].image,
     style: {
-      backgroundImage: `url(${src})`
+      backgroundImage: `url(${src})`,
+      '--columns': attributes.galleryColumns
     }
   });
 };
@@ -387,26 +393,37 @@ const InspectorControls = () => {
     }]
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Columns', 'modula-best-grid-gallery'),
-    value: 'creative-gallery',
+    value: attributes.galleryColumns,
+    onChange: value => setAttributes({
+      galleryColumns: Number(value)
+    }),
     options: [{
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('One Column', 'modula-best-grid-gallery'),
-      value: 'modula-one-column'
+      value: 1
     }, {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Two Columns', 'modula-best-grid-gallery'),
-      value: 'modula-two-columns'
+      value: 2
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Three Columns', 'modula-best-grid-gallery'),
+      value: 3
     }, {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Four Columns', 'modula-best-grid-gallery'),
-      value: 'modula-four-columns'
+      value: 4
     }, {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Five Columns', 'modula-best-grid-gallery'),
-      value: 'modula-five-columns'
+      value: 5
     }, {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Six Columns', 'modula-best-grid-gallery'),
-      value: 'modula-six-columns'
-    }, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Automatic ', 'modula-best-grid-gallery'),
-      value: 'modula-automatic-columns'
-    }]
+      value: 6
+    }
+    // {
+    // 	label: __(
+    // 		'Automatic ',
+    // 		'modula-best-grid-gallery'
+    // 	),
+    // 	value: 'modula-automatic-columns',
+    // },
+    ]
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Lightbox Settings', 'modula-best-grid-gallery'),
     initialOpen: false
@@ -4406,7 +4423,7 @@ const SWRConfig = swr_internal__WEBPACK_IMPORTED_MODULE_3__.OBJECT.definePropert
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"galleryTitle":{"type":"string","default":""},"blockColor":{"type":"string"},"blockBackground":{"type":"string"},"fontSize":{"type":"number","default":16},"imageTitleVisibility":{"type":"string","default":"visible"},"galleryType":{"type":"string","default":"creative"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"galleryColumns":{"type":"number","default":1},"galleryTitle":{"type":"string","default":""},"blockColor":{"type":"string"},"blockBackground":{"type":"string"},"fontSize":{"type":"number","default":16},"imageTitleVisibility":{"type":"string","default":"visible"},"galleryType":{"type":"string","default":"creative"}}}');
 
 /***/ })
 

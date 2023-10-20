@@ -30,6 +30,10 @@
 			"type": "number",
 			"default": 0
 		},
+		"galleryColumns": {
+			"type": "number",
+			"default": 1
+		},
 		"galleryTitle": {
 			"type": "string",
 			"default": ""

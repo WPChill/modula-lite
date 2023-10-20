@@ -47,11 +47,11 @@
     "devDependencies": {
         "@babel/core": "^7.23.2",
         "@babel/eslint-parser": "^7.22.15",
-        "@wordpress/block-editor": "^12.11.1",
-        "@wordpress/eslint-plugin": "^17.0.0",
-        "@wordpress/prettier-config": "^3.0.0",
-        "@wordpress/scripts": "^26.14.0",
-        "@wordpress/stylelint-config": "^21.26.0",
+        "@wordpress/block-editor": "^12.12.0",
+        "@wordpress/eslint-plugin": "^17.1.0",
+        "@wordpress/prettier-config": "^3.1.0",
+        "@wordpress/scripts": "^26.15.0",
+        "@wordpress/stylelint-config": "^21.27.0",
         "browser-sync": "^2.29.3",
         "browser-sync-webpack-plugin": "^2.3.0",
         "clean-css-cli": "^5.6.2",
@@ -71,10 +71,10 @@
     "dependencies": {
         "@node-minify/core": "^8.0.6",
         "@node-minify/uglify-js": "^8.0.6",
-        "@wordpress/api-fetch": "^6.40.0",
-        "@wordpress/components": "^25.9.1",
-        "@wordpress/i18n": "^4.43.0",
-        "@wordpress/media-utils": "^4.34.0",
+        "@wordpress/api-fetch": "^6.41.0",
+        "@wordpress/components": "^25.10.0",
+        "@wordpress/i18n": "^4.44.0",
+        "@wordpress/media-utils": "^4.35.0",
         "react-masonry": "^1.0.7",
         "swr": "^2.2.4"
     }

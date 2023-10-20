@@ -60,50 +60,60 @@ export const InspectorControls = () => {
 					/>
 					<SelectControl
 						label={__('Columns', 'modula-best-grid-gallery')}
-						value={'creative-gallery'}
+						value={attributes.galleryColumns}
+						onChange={(value) =>
+							setAttributes({ galleryColumns: Number(value) })
+						}
 						options={[
 							{
 								label: __(
 									'One Column',
 									'modula-best-grid-gallery'
 								),
-								value: 'modula-one-column',
+								value: 1,
 							},
 							{
 								label: __(
 									'Two Columns',
 									'modula-best-grid-gallery'
 								),
-								value: 'modula-two-columns',
+								value: 2,
+							},
+							{
+								label: __(
+									'Three Columns',
+									'modula-best-grid-gallery'
+								),
+								value: 3,
 							},
 							{
 								label: __(
 									'Four Columns',
 									'modula-best-grid-gallery'
 								),
-								value: 'modula-four-columns',
+								value: 4,
 							},
 							{
 								label: __(
 									'Five Columns',
 									'modula-best-grid-gallery'
 								),
-								value: 'modula-five-columns',
+								value: 5,
 							},
 							{
 								label: __(
 									'Six Columns',
 									'modula-best-grid-gallery'
 								),
-								value: 'modula-six-columns',
+								value: 6,
 							},
-							{
-								label: __(
-									'Automatic ',
-									'modula-best-grid-gallery'
-								),
-								value: 'modula-automatic-columns',
-							},
+							// {
+							// 	label: __(
+							// 		'Automatic ',
+							// 		'modula-best-grid-gallery'
+							// 	),
+							// 	value: 'modula-automatic-columns',
+							// },
 						]}
 					/>
 				</PanelBody>
