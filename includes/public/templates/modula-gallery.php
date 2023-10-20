@@ -98,7 +98,9 @@
 
 			do_action( 'modula_shortcode_before_item', $data->settings, $item_data );
 			$data->loader->set_template_data( $item_data );
-			$data->loader->get_template_part( 'items/item', apply_filters( 'modula_item_template_name', $data->settings['effect'] , $data->settings, $image ) );
+			$slug = apply_filters( 'modula_item_template_slug', 'items/item' , $data->settings, $image );
+			$name = apply_filters( 'modula_item_template_name', $data->settings['effect'] , $data->settings, $image );
+			$data->loader->get_template_part( $slug, $name );
 			do_action( 'modula_shortcode_after_item', $data->settings, $item_data );
 		}
 
