@@ -476,12 +476,16 @@ class Modula_Field_Builder {
 				$step = isset( $field['step'] ) ? absint( $field['step'] ) : 1;
 				$value = floatval( $value );
 
-				if ( '' === $value || $value < $min || $value > $max ) {
+				if ( '' === $value ){
 					if ( isset( $field['default'] ) ) {
 						$value = $field['default'];
 					}else{
 						$value = $min;
 					}
+				}elseif ( $value < $min ){
+					$value = $min;
+				}elseif ( $value > $max ) {
+					$value = $max;
 				}
 				$attributes = 'data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '"';
 				$html .= '<div class="slider-container modula-ui-slider-container">';
