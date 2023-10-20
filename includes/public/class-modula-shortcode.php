@@ -146,7 +146,7 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-        do_action('modula_extra_scripts', $settings);
+        do_action('modula_extra_scripts', $settings, $images );
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
