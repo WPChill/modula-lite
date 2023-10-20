@@ -1,0 +1,10 @@
+{
+	"core": "WordPress/WordPress",
+	"plugins": ["."],
+	"themes": [],
+	"config": {
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": true
+	},
+	"port": 8888
+}
