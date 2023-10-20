@@ -35,8 +35,8 @@ class Modula_Admin {
 		// Render Importer tab.
 		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
 
-		add_action( 'modula_admin_tab_image_attribution', array( $this, 'render_image_attribution_tab' ) );
-		add_action( 'admin_init', array( $this, 'update_image_attribution_options' ) );
+		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
+		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -92,7 +92,7 @@ class Modula_Admin {
 		*  40 - Advanced Shortcodes
 		*  50 - Watermark
 		*  60 - SpeedUp Settings
-		*  70 - Image Attribution
+		*  70 - Licensing
 		*  80 - Roles
 		*  90 - Misc
 		* 100 - Migrate galleries
@@ -119,8 +119,8 @@ class Modula_Admin {
 				'priority' => 50,
 				'badge'    => 'PRO'
         	),
-        	'image_attribution' => array(
-				'label'    => esc_html__('Image Attribution', 'modula-best-grid-gallery'),
+        	'image_licensing' => array(
+				'label'    => esc_html__('Licensing', 'modula-best-grid-gallery'),
 				'priority' => 70,
         	),
 			'roles' => array(
@@ -546,20 +546,20 @@ class Modula_Admin {
 
 	}
 
-	public function render_image_attribution_tab() {
-		include MODULA_PATH . 'includes/admin/tabs/image-attribution.php';
+	public function render_image_licensing_tab() {
+		include MODULA_PATH . 'includes/admin/tabs/image-licensing.php';
 	}
 
 	/**
 	 * Update troubleshooting options.
 	 */
-	public function update_image_attribution_options() {
+	public function update_image_licensing_options() {
 
-		if ( ! isset( $_POST['modula-image-attribution-submit'] ) ) {
+		if ( ! isset( $_POST['modula-image-licensing-submit'] ) ) {
 			return;
 		}
 
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_attribution_option_post' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_licensing_option_post' ) ) {
 			return;
 		}
 
@@ -567,7 +567,7 @@ class Modula_Admin {
 			return;
 		}
 
-		$options    = isset( $_POST['modula_image_attribution_option'] ) ? wp_unslash( $_POST['modula_image_attribution_option'] ) : false;
+		$options    = isset( $_POST['modula_image_licensing_option'] ) ? wp_unslash( $_POST['modula_image_licensing_option'] ) : false;
         $ia_options = array();
 
         if ( is_array( $options ) && ! empty( $options ) ) {
@@ -581,7 +581,7 @@ class Modula_Admin {
             }
         }
 
-        update_option( 'modula_image_attribution_option', $ia_options );
+        update_option( 'modula_image_licensing_option', $ia_options );
 	}
 
 }

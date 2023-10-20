@@ -1,51 +1,51 @@
 <?php
 $defaults = apply_filters( 'modula_troubleshooting_defaults', array(
-    'image_attribution'        => 'none',
+    'image_licensing'        => 'none',
     'display_with_description' => false,
 ));
 
-$image_attrib_options = get_option( 'modula_image_attribution_option', array() );
+$image_attrib_options = get_option( 'modula_image_licensing_option', array() );
 $image_attrib_options = wp_parse_args( $image_attrib_options, $defaults );
 
 $image_attrib_fields = array(
     'misc_settings' => array(
-        'label'    => esc_html__( 'Image Attribution settings', 'modula-best-grid-gallery' ),
+        'label'    => esc_html__( 'Licensing settings', 'modula-best-grid-gallery' ),
         'type'     => 'heading',
         'priority' => 0
     ),
-    'image_attribution_author' => array(
+    'image_licensing_author' => array(
         'label'       => esc_html__( 'Author', 'modula-best-grid-gallery' ),
         'type'        => 'text',
         'priority'    => 10,
     ),
-    'image_attribution_company' => array(
+    'image_licensing_company' => array(
         'label'       => esc_html__( 'Company', 'modula-best-grid-gallery' ),
         'type'        => 'text',
         'priority'    => 20,
     ),
-    'image_attribution' => array(
-        'label'       => esc_html__( 'Image Attribution', 'modula-best-grid-gallery' ),
+    'image_licensing' => array(
+        'label'       => esc_html__( 'Image licensing', 'modula-best-grid-gallery' ),
         'description' => esc_html__( 'Select a license for your images that are inside a gallery', 'modula-best-grid-gallery' ),
         'type'        => 'radio',
-        'values'      => Modula_Helper::get_image_attributions(),
+        'values'      => Modula_Helper::get_image_licenses(),
         'priority'    => 30,
     ),
     'display_with_description' => array(
-        'label'       => esc_html__( 'Display attribution', 'modula-best-grid-gallery' ),
-        'description' => esc_html__( 'Show the attribution information under each gallery.', 'modula-best-grid-gallery' ),
+        'label'       => esc_html__( 'Display licensing', 'modula-best-grid-gallery' ),
+        'description' => esc_html__( 'Show the licensing information under each gallery.', 'modula-best-grid-gallery' ),
         'type'        => 'toggle',
         'priority'    => 40,
     ),
 );
 
-$image_attrib_fields = apply_filters( 'modula_image_attribution_fields', $image_attrib_fields );
+$image_attrib_fields = apply_filters( 'modula_image_licensing_fields', $image_attrib_fields );
 
 uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
 ?>
 <div class="row">
-    <form id="modula_image_attribution_option" method="post">
-        <?php $nonce = wp_create_nonce( 'modula_image_attribution_option_post' ) ?>
+    <form id="modula_image_licensing_option" method="post">
+        <?php $nonce = wp_create_nonce( 'modula_image_licensing_option_post' ) ?>
         <input type="hidden" name="nonce" value="<?php echo esc_attr($nonce); ?>" />
         <table class="form-table">
             <tbody>
@@ -78,9 +78,9 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                                     <div class="modula-radio-item">
                                         <div class="modula-toggle">
                                             <input class="modula-toggle__input" type="radio"
-                                                data-setting="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
-                                                id="modula_image_attribution_option<?php echo esc_attr($key); ?>"
-                                                name="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
+                                                data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
+                                                id="modula_image_licensing_option<?php echo esc_attr($key); ?>"
+                                                name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
                                                 value="<?php echo esc_attr( $val_key ); ?>" <?php  checked( $val_key, $image_attrib_options[ $key ], true ) ?>>
                                             <div class="modula-toggle__items">
                                                 <span class="modula-toggle__track"></span>
@@ -107,9 +107,9 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                                 <?php if ('toggle' == $ts_field['type']) { ?>
                                     <div class="modula-toggle">
                                         <input class="modula-toggle__input" type="checkbox"
-                                            data-setting="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
-                                            id="modula_image_attribution_option-<?php echo esc_attr($key); ?>"
-                                            name="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
+                                            data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
+                                            id="modula_image_licensing_option-<?php echo esc_attr($key); ?>"
+                                            name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
                                             value="1" <?php  checked(1, $image_attrib_options[ $key ], true ) ?>>
                                         <div class="modula-toggle__items">
                                             <span class="modula-toggle__track"></span>
@@ -132,9 +132,9 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                                 <!-- Text Inputs -->
                                 <?php if ('text' == $ts_field['type']) { ?>
                                         <input class="modula-toggle__input" type="text"
-                                            data-setting="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
-                                            id="modula_image_attribution_option-<?php echo esc_attr($key); ?>"
-                                            name="modula_image_attribution_option[<?php echo esc_attr($key); ?>]"
+                                            data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
+                                            id="modula_image_licensing_option-<?php echo esc_attr($key); ?>"
+                                            name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
                                             value="<?php echo isset( $image_attrib_options[ $key ] ) ? esc_attr( $image_attrib_options[ $key ] ) : '' ; ?> " >
                                 <?php } ?>
                             </div>
@@ -148,7 +148,7 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
             <tr valign="top">
                 <td>
                     <div>
-                        <?php submit_button(__('Save', 'modula-best-grid-gallery'), 'primary', 'modula-image-attribution-submit', false); ?>
+                        <?php submit_button(__('Save', 'modula-best-grid-gallery'), 'primary', 'modula-image-licensing-submit', false); ?>
                     </div>
                 </td>
             </tr>
