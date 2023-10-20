@@ -1,5 +1,5 @@
 import useBlockContext from '../hooks/useBlockContext';
-import { Text } from './shared/Text';
+import { __experimentalText as Text } from '@wordpress/components';
 import { Gallery } from './Galleries/Gallery';
 import { Masonry } from './Galleries/Masonry';
 

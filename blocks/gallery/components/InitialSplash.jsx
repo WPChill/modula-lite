@@ -1,11 +1,10 @@
 import { ModulaIcon } from '../utils/icons';
 import { __ } from '@wordpress/i18n';
-import { Button, Modal, Spinner } from '@wordpress/components';
+import { Button, Modal, Placeholder } from '@wordpress/components';
+import { BlockIcon } from '@wordpress/block-editor';
 import useBlockContext from '../hooks/useBlockContext';
 import { usePostCreator } from '../hooks/usePostCreator';
 import { useCallback } from '@wordpress/element';
-import styles from './InitialSplash.module.scss';
-import { Text } from './shared/Text';
 
 const InitialSplash = () => {
 	const { createPost, loading, data } = usePostCreator();
@@ -25,40 +24,32 @@ const InitialSplash = () => {
 	}, [createPost, setAttributes]);
 
 	return (
-		<>
-			<ModulaIcon />
-
-			<Text>
-				{__(
-					'Create a new gallery or choose from an existing one.',
+		<Placeholder
+			icon={<BlockIcon icon={<ModulaIcon />} />}
+			label={__('Modula Gallery Block', 'random-image')}
+			instructions={__(
+				'Create a new gallery or choose from an existing one.',
+				'modula-best-grid-gallery'
+			)}
+		>
+			<Button
+				isBusy={loading}
+				variant="primary"
+				label={__('Add New Gallery', 'modula-best-grid-gallery')}
+				onClick={createPostCb}
+			>
+				{__('Add New Gallery', 'modula-best-grid-gallery')}
+			</Button>
+			<Button
+				onClick={incrementStep}
+				label={__(
+					'Insert Existing Gallery',
 					'modula-best-grid-gallery'
 				)}
-			</Text>
-			<div className={styles.buttonContainer}>
-				<Button
-					variant="primary"
-					size={'compact'}
-					label={__('Add New Gallery', 'modula-best-grid-gallery')}
-					onClick={createPostCb}
-					className={styles.button}
-				>
-					{__('Add New Gallery', 'modula-best-grid-gallery')}
-					{loading && <Spinner />}
-				</Button>
-				<Button
-					className={styles.button}
-					variant="secondary"
-					size={'compact'}
-					onClick={incrementStep}
-					label={__(
-						'Insert Existing Gallery',
-						'modula-best-grid-gallery'
-					)}
-				>
-					{__('Insert Existing Gallery', 'modula-best-grid-gallery')}
-				</Button>
-			</div>
-		</>
+			>
+				{__('Insert Existing Gallery', 'modula-best-grid-gallery')}
+			</Button>
+		</Placeholder>
 	);
 };
 

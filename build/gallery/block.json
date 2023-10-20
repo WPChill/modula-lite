@@ -12,6 +12,7 @@
     "reusable": true,
     "multiple": true,
     "align": true,
+    "anchor": true,
     "customClassName": true
   },
   "keywords": [
@@ -38,27 +39,47 @@
       "type": "number",
       "default": 1
     },
+    "galleryType": {
+      "type": "string",
+      "default": "creative"
+    },
+    "galleryLightbox": {
+      "type": "string",
+      "default": "enabled"
+    },
+    "rowHeight": {
+      "type": "string",
+      "default": ""
+    },
+    "lastRow": {
+      "type": "boolean",
+      "default": false
+    },
     "galleryTitle": {
       "type": "string",
       "default": ""
     },
-    "blockColor": {
+    "titleColor": {
       "type": "string"
     },
-    "blockBackground": {
-      "type": "string"
-    },
-    "fontSize": {
+    "titleFontSize": {
       "type": "number",
       "default": 16
     },
-    "imageTitleVisibility": {
+    "titleVisibility": {
       "type": "string",
       "default": "visible"
     },
-    "galleryType": {
+    "captionColor": {
+      "type": "string"
+    },
+    "captionFontSize": {
+      "type": "number",
+      "default": 16
+    },
+    "captionVisibility": {
       "type": "string",
-      "default": "creative"
+      "default": "visible"
     }
   }
 }

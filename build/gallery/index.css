@@ -1,50 +1,7 @@
 /*!***************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/editor.scss ***!
   \***************************************************************************************************************************************************************************************************************************************************/
-.modula-splash-container {
-  background: #fff;
-  color: rgb(51, 65, 85);
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  padding: 30px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.modula-splash-container > svg {
-  max-width: 60px;
-  fill: #34A371;
-}
-.modula-splash-container:focus {
-  outline: 1px solid var(--wp-admin-theme-color);
-}
-.modula-splash-container .modula-splash-buttons button {
-  margin-right: 12px;
-}
-/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/InitialSplash.module.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************/
-.dx05q2qG2zJtiZmS6O2A {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-}
 
-.KFDctZuTahJ6979Q7TG5 {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.KFDctZuTahJ6979Q7TG5 > svg {
-  margin: 0;
-  margin-left: 5px;
-}
 /*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Gallery/Image.module.scss ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************/
