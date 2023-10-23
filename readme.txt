@@ -2,7 +2,7 @@
 Contributors: wpchill, silkalns
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
 Requires at least: 5.3
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
 Stable tag: 2.7.8
 License: GNU General Public License v3.0 or later
