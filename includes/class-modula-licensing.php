@@ -2,7 +2,7 @@
 
 /**
  * Class Modula_Licensing
- * Used to display the licensing under each gallery.
+ * Used to display the image licensing under each gallery.
  *
  * @since 2.7.5
  */
@@ -25,7 +25,7 @@ class Modula_Licensing {
 
 
 	/**
-	 * Display the licensing license under each gallery
+	 * Display the image licensing license under each gallery
 	 *
 	 * @param array $settings The gallery settings.
 	 *

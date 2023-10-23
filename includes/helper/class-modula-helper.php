@@ -325,7 +325,7 @@ class Modula_Helper {
 	}
 
 	/**
-	 * Returns Licensing licenses
+	 * Returns Image Licensing licenses
 	 *
 	 *
 	 * @return array

@@ -92,7 +92,7 @@ class Modula_Admin {
 		*  40 - Advanced Shortcodes
 		*  50 - Watermark
 		*  60 - SpeedUp Settings
-		*  70 - Licensing
+		*  70 - Image Licensing
 		*  80 - Roles
 		*  90 - Misc
 		* 100 - Migrate galleries
@@ -120,7 +120,7 @@ class Modula_Admin {
 				'badge'    => 'PRO'
         	),
         	'image_licensing' => array(
-				'label'    => esc_html__('Licensing', 'modula-best-grid-gallery'),
+				'label'    => esc_html__('Image Licensing', 'modula-best-grid-gallery'),
 				'priority' => 70,
         	),
 			'roles' => array(
