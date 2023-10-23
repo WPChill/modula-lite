@@ -5,7 +5,6 @@ Added: Placeholder for text settings inputs and placeholders for image dimension
 Changed: Gallery image changes are now saved on post update not every time an image was edited.
 Changed: Updated enqueue methods for css & js.
 Changed: Active hover effect on top of list.
-Changed: Save gallery settings with the right format.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
