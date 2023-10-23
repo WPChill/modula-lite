@@ -303,47 +303,19 @@ class Modula_CPT {
 								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
 								break;
 							default:
-
-								$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
-								switch ( $data_type ) {
-									case 'text':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										}else{
-											$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										}
-										break;
-									case 'number':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
-										}else{
-
-											$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
-										}
-										break;
-									case 'bool':
-										
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][$field_id] );
-										}else{
-											$modula_settings[$field_id] = rest_sanitize_boolean( $_POST['modula-settings'][$field_id] );
-										}
-										break;
-									default:
-									if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
-										$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
-									} else {
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
-									}
-									break;
+								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
+									$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
+								} else {
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
 								}
+
 								break;
 						}
 
 					} else {
 						if ( 'toggle' == $field['type'] ) {
-							$modula_settings[$field_id] = false;
+							$modula_settings[$field_id] = '0';
 						} else if ( 'hidden' == $field['type'] ) {
 
 							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
