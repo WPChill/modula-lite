@@ -1,4 +1,4 @@
-= 2.7.8 - TBD =
+= 2.7.8 - 23.10.2023 =
 Fixed: Addons in "Partners" page not updating their install status.
 Changed: Custom post type name from "Galleries" to "Modula Galleries" to avoid confusion between other galleries.
 Added: Placeholder for text settings inputs and placeholders for image dimensions.
