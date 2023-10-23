@@ -1,8 +1,8 @@
 node_modules/*
 .idea/*
-package-lock.json
 **.zip
 .standard.json
 .DS_Store
 .vscode/
 vendor
+assets/.DS_Store

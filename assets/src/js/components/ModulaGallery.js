@@ -39,19 +39,31 @@ export const ModulaGallery = (props) => {
 			<ModulaStyle id={id} settings={settings} />
 			<div
 				id={`jtg-${id}`}
-				className={`${galleryClassNames} ${props.attributes.modulaDivClassName != undefined
-					? props.attributes.modulaDivClassName
-					: ''}`}
+				className={`${galleryClassNames} ${
+					props.attributes.modulaDivClassName != undefined
+						? props.attributes.modulaDivClassName
+						: ''
+				}`}
 				data-config={JSON.stringify(jsConfig)}
 			>
-				{settings.type == 'grid' && 'automatic' != settings.grid_type && <div className="modula-grid-sizer"> </div>}
+				{settings.type == 'grid' &&
+					'automatic' != settings.grid_type && (
+						<div className="modula-grid-sizer"> </div>
+					)}
 				<ModulaItemsExtraComponent {...props} position={'top'} />
 				<div className={itemsClassNames}>
 					{images.length > 0 && (
 						<Fragment>
 							<Fragment>
 								{images.map((img, index) => {
-									return [ <ModulaGalleryImage {...props} img={img} key={index} index={index} /> ];
+									return [
+										<ModulaGalleryImage
+											{...props}
+											img={img}
+											key={index}
+											index={index}
+										/>,
+									];
 								})}
 							</Fragment>
 						</Fragment>
@@ -59,7 +71,7 @@ export const ModulaGallery = (props) => {
 				</div>
 				<ModulaItemsExtraComponent {...props} position={'bottom'} />
 			</div>
-		</Fragment>
+		</Fragment>,
 	];
 };
 

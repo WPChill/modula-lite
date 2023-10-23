@@ -22,49 +22,52 @@ class ModulaGutenberg {
 		this.blockAttributes = {
 			id: {
 				type: 'number',
-				default: 0
+				default: 0,
 			},
 			images: {
 				type: 'array',
-				default: []
+				default: [],
 			},
 			status: {
 				type: 'string',
-				default: 'ready'
+				default: 'ready',
 			},
 			galleryId: {
 				type: 'number',
-				default: 0
+				default: 0,
 			},
 			defaultSettings: {
 				type: 'object',
-				default: []
+				default: [],
 			},
 			galleryType: {
 				type: 'string',
-				default: 'none'
+				default: 'none',
 			},
-			// Attribut for current gallery
+			// Attribute for current gallery
 			currentGallery: {
 				type: 'object',
-				default: {}
+				default: {},
 			},
-			// Attribut for current gallery option in selectize
+			// Attribute for current gallery option in selectize
 			currentSelectize: {
 				type: 'array',
-				default: []
-			}
+				default: [],
+			},
 		};
 
 		registerBlockType(this.blockName, {
 			title: modulaVars.gutenbergTitle,
 			icon: icons.modula,
-			description: __('Make your galleries stand out.', 'modula-best-grid-gallery'),
-			keywords: [ __('gallery'), __('modula'), __('images') ],
+			description: __(
+				'Make your galleries stand out.',
+				'modula-best-grid-gallery'
+			),
+			keywords: [__('gallery'), __('modula'), __('images')],
 			category: 'common',
 			supports: {
 				align: true,
-				customClassName: false
+				customClassName: false,
 			},
 			attributes: this.blockAttributes,
 			// getEditWrapperProps() {
@@ -76,7 +79,7 @@ class ModulaGutenberg {
 			save() {
 				// Rendering in PHP
 				return null;
-			}
+			},
 		});
 	}
 }

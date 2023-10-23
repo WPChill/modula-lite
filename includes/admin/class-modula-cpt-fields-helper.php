@@ -246,10 +246,14 @@ class Modula_CPT_Fields_Helper {
 				"grid_image_dimensions" => array(
 					"name"        => esc_html__( ' Image dimensions', 'modula-best-grid-gallery' ),
 					"type"        => "image-size",
-					"description" => esc_html__( 'Define image width. If Crop images isn\'t enabled, images will be proportional.', 'modula-best-grid-gallery' ),
+					"description" => esc_html__( 'Define image width and height. If Crop images isn\'t enabled, images will be proportional.', 'modula-best-grid-gallery' ),
 					'default'     => '600',
 					'is_child'    => true,
 					'priority'    => 38,
+					'placeholder' => array(
+						'width'  => __( 'Width', 'modula-best-grid-gallery' ),
+						'height' => __( 'Height', 'modula-best-grid-gallery' ),
+					),
 				),
 				"img_size" => array(
 					"name"        => esc_html__( ' Block size', 'modula-best-grid-gallery' ),

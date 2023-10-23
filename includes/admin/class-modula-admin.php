@@ -21,8 +21,6 @@ class Modula_Admin {
 		// Add CSS to admin menu
 		add_action( 'admin_head', array( $this, 'admin_custom_css' ) );
 
-		add_action( 'wp_ajax_modula_save_images', array( $this, 'save_images' ) );
-		add_action( 'wp_ajax_modula_save_image', array( $this, 'save_image' ) );
 		add_action( 'modula_scripts_before_wp_modula', array( $this, 'add_autosuggest_scripts' ) );
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url' ) );
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
@@ -37,8 +35,8 @@ class Modula_Admin {
 		// Render Importer tab.
 		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
 
-		add_action( 'modula_admin_tab_image_attribution', array( $this, 'render_image_attribution_tab' ) );
-		add_action( 'admin_init', array( $this, 'update_image_attribution_options' ) );
+		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
+		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -94,7 +92,7 @@ class Modula_Admin {
 		*  40 - Advanced Shortcodes
 		*  50 - Watermark
 		*  60 - SpeedUp Settings
-		*  70 - Image Attribution
+		*  70 - Image Licensing
 		*  80 - Roles
 		*  90 - Misc
 		* 100 - Migrate galleries
@@ -121,8 +119,8 @@ class Modula_Admin {
 				'priority' => 50,
 				'badge'    => 'PRO'
         	),
-        	'image_attribution' => array(
-				'label'    => esc_html__('Image Attribution', 'modula-best-grid-gallery'),
+        	'image_licensing' => array(
+				'label'    => esc_html__('Image Licensing', 'modula-best-grid-gallery'),
 				'priority' => 70,
         	),
 			'roles' => array(
@@ -217,7 +215,7 @@ class Modula_Admin {
 		if ( ! empty( $this->menu_links ) ) {
 			foreach ( $this->menu_links as $link ) {
 				if ( ! empty( $link ) ) {
-					add_submenu_page( ( isset( $link['hidden'] ) && $link['hidden'] ) ? null : 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
+					add_submenu_page( ( isset( $link['hidden'] ) && $link['hidden'] ) ? '' : 'edit.php?post_type=modula-gallery', $link['page_title'], $link['menu_title'], $link['capability'], $link['menu_slug'], $link['function'], $link['priority'] );
 				}
 			}
 		}
@@ -359,176 +357,9 @@ class Modula_Admin {
 		include 'tabs/general.php';
 	}
 
-	private function sanitize_image( $image ) {
-
-		$new_image = array();
-
-		// This list will not contain id because we save our images based on image id.
-		$image_attributes = apply_filters(
-			'modula_gallery_image_attributes',
-			array(
-				'id',
-				'alt',
-				'title',
-				'description',
-				'halign',
-				'valign',
-				'link',
-				'target',
-				'width',
-				'height',
-				'togglelightbox',
-			)
-		);
-
-		foreach ( $image_attributes as $attribute ) {
-			if ( isset( $image[ $attribute ] ) ) {
-
-				switch ( $attribute ) {
-					case 'alt':
-						$new_image[ $attribute ] = sanitize_text_field( $image[ $attribute ] );
-						break;
-					case 'width':
-					case 'height':
-						$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						break;
-					case 'title':
-					case 'description':
-						$new_image[ $attribute ] = wp_filter_post_kses( $image[ $attribute ] );
-						break;
-					case 'link':
-						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
-						break;
-					case 'target':
-						if ( isset( $image[ $attribute ] ) ) {
-							$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						} else {
-							$new_image[ $attribute ] = 0;
-						}
-						break;
-					case 'togglelightbox':
-						if ( isset( $image[ $attribute ] ) ) {
-							$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						} else {
-							$new_image[ $attribute ] = 0;
-						}
-						break;
-					case 'halign':
-						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ) ) ) {
-							$new_image[ $attribute ] = $image[ $attribute ];
-						} else {
-							$new_image[ $attribute ] = 'center';
-						}
-						break;
-					case 'valign':
-						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ) ) ) {
-							$new_image[ $attribute ] = $image[ $attribute ];
-						} else {
-							$new_image[ $attribute ] = 'middle';
-						}
-						break;
-					default:
-						$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $image[ $attribute ] ), $image[ $attribute ], $attribute );
-						break;
-				}
-			} else {
-				$new_image[ $attribute ] = '';
-			}
-		}
-
-		return $new_image;
-
-	}
-
-	public function save_images() {
-
-		$nonce = $_POST['_wpnonce'];
-		if ( ! wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		if ( ! isset( $_POST['gallery'] ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$gallery_id = absint( $_POST['gallery'] );
-
-		if ( 'modula-gallery' != get_post_type( $gallery_id ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$current_user = wp_get_current_user();
-		$ptype = get_post_type_object( 'modula-gallery' );
-
-		if ( ( ! current_user_can( $ptype->cap->edit_posts ) ) || ( ! current_user_can( $ptype->cap->edit_others_posts ) && absint( get_post_field( 'post_author', $gallery_id ) ) !== absint( $current_user->ID ) ) ) {
-			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.', 'modula-best-grid-gallery' ) ) );
-		}
-
-		if ( ! isset( $_POST['images'] ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$old_images = get_post_meta( $gallery_id, 'modula-images', true );
-		$images     = json_decode( stripslashes( $_POST['images'] ), true );
-		$new_images = array();
-
-		if ( is_array( $images ) ) {
-			foreach ( $images as $image ) {
-				$new_images[] = $this->sanitize_image( $image );
-			}
-		}
-
-		update_post_meta( $gallery_id, 'modula-images', $new_images );
-		wp_send_json( array( 'status' => 'succes' ) );
-
-	}
-
-	public function save_image() {
-
-		$nonce = $_POST['_wpnonce'];
-		if ( ! wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		if ( ! isset( $_POST['gallery'] ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$gallery_id = absint( $_POST['gallery'] );
-
-		if ( 'modula-gallery' != get_post_type( $gallery_id ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$current_user = wp_get_current_user();
-		$ptype = get_post_type_object( 'modula-gallery' );
-
-		if ( ( ! current_user_can( $ptype->cap->edit_posts ) ) || ( ! current_user_can( $ptype->cap->edit_others_posts ) && absint( get_post_field( 'post_author', $gallery_id ) ) !== absint( $current_user->ID ) ) ) {
-			wp_send_json( array( 'status' => __( 'Sorry, you do not have enough permissions.', 'modula-best-grid-gallery' ) ) );
-		}
-
-		if ( ! isset( $_POST['image'] ) ) {
-			wp_send_json( array( 'status' => 'failed' ) );
-		}
-
-		$image      = json_decode( stripslashes( $_POST['image'] ), true );
-		$old_images = get_post_meta( $gallery_id, 'modula-images', true );
-
-		foreach ( $old_images as $key => $old_image ) {
-			if ( $old_image['id'] == $image['id'] ) {
-				$old_images[ $key ] = $this->sanitize_image( $image );
-			}
-		}
-
-		update_post_meta( $gallery_id, 'modula-images', $old_images );
-		wp_send_json( array( 'status' => 'succes' ) );
-
-	}
-
 	public function admin_custom_css() {
 		?>
 		<style type="text/css">
-			a#modula-uninstall-link {color: #FF0000 !important;font-weight:bold;}
 			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-lite-vs-pro"] {color: gold;}
 		</style>
 
@@ -715,20 +546,20 @@ class Modula_Admin {
 
 	}
 
-	public function render_image_attribution_tab() {
-		include MODULA_PATH . 'includes/admin/tabs/image-attribution.php';
+	public function render_image_licensing_tab() {
+		include MODULA_PATH . 'includes/admin/tabs/image-licensing.php';
 	}
 
 	/**
 	 * Update troubleshooting options.
 	 */
-	public function update_image_attribution_options() {
+	public function update_image_licensing_options() {
 
-		if ( ! isset( $_POST['modula-image-attribution-submit'] ) ) {
+		if ( ! isset( $_POST['modula-image-licensing-submit'] ) ) {
 			return;
 		}
 
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_attribution_option_post' ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_licensing_option_post' ) ) {
 			return;
 		}
 
@@ -736,7 +567,7 @@ class Modula_Admin {
 			return;
 		}
 
-		$options    = isset( $_POST['modula_image_attribution_option'] ) ? wp_unslash( $_POST['modula_image_attribution_option'] ) : false;
+		$options    = isset( $_POST['modula_image_licensing_option'] ) ? wp_unslash( $_POST['modula_image_licensing_option'] ) : false;
         $ia_options = array();
 
         if ( is_array( $options ) && ! empty( $options ) ) {
@@ -750,7 +581,7 @@ class Modula_Admin {
             }
         }
 
-        update_option( 'modula_image_attribution_option', $ia_options );
+        update_option( 'modula_image_licensing_option', $ia_options );
 	}
 
 }

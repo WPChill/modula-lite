@@ -311,7 +311,7 @@ class Modula_Helper {
 		return str_replace( $values['setting'], $values['front'], $value);
 	}
 
-	public static function get_default_image_attributions(){
+	public static function get_default_image_licenses(){
 		return array(
             'none'     => array( 'name' => __( 'None', 'modula-best-grid-gallery' ), 'image' => '', 'license' => ''),
             'by'       => array( 'name' => __( 'Attribution 4.0 International License (CC BY 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by/4.0/' ),
@@ -325,16 +325,16 @@ class Modula_Helper {
 	}
 
 	/**
-	 * Returns Image Attributions licenses
+	 * Returns Image Licensing licenses
 	 *
 	 *
 	 * @return array
 	 * @since 2.7.5
 	 */
-	public static function get_image_attributions( $specific = false ){
+	public static function get_image_licenses( $specific = false ){
 		
-		$defaults = self::get_default_image_attributions();
-		$filtered = apply_filters( 'modula-image-attribution-licenses', $defaults );
+		$defaults = self::get_default_image_licenses();
+		$filtered = apply_filters( 'modula-image-licensing-licenses', $defaults );
 		
 		if( $specific ){
 			return isset( $filtered[ $specific ] ) ? $filtered[ $specific ] : array();
@@ -343,13 +343,13 @@ class Modula_Helper {
 		return $filtered;
 	}
 
-	public static function render_ia_license_box( $image_attribution = 'none' ){
-		if( 'none' === $image_attribution ){
-			$image_attrib_options = get_option( 'modula_image_attribution_option', false );
-			$image_attribution = $image_attrib_options['image_attribution'];
+	public static function render_license_box( $image_licensing = 'none' ){
+		if( 'none' === $image_licensing ){
+			$image_attrib_options = get_option( 'modula_image_licensing_option', false );
+			$image_licensing = $image_attrib_options['image_licensing'];
 		}
-		$ccs = self::get_image_attributions();
-		$cc  = $ccs[ $image_attribution ];
+		$ccs = self::get_image_licenses();
+		$cc  = $ccs[ $image_licensing ];
 
 		ob_start();
 		?>
@@ -363,11 +363,11 @@ class Modula_Helper {
 	}
 
 
-	public static function render_ia_item_ld_json( $image_attribution, $img_url ){
+	public static function render_ia_item_ld_json( $image_licensing, $img_url ){
 
-		$license_url = self::get_image_attributions( $image_attribution[ 'image_attribution' ] )['license'];
-		$company     = isset( $image_attribution[ 'image_attribution_company' ] ) ? $image_attribution[ 'image_attribution_company' ] : '';
-		$author      = isset( $image_attribution[ 'image_attribution_author' ] ) ? $image_attribution[ 'image_attribution_author' ] : '';
+		$license_url = self::get_image_licenses( $image_licensing[ 'image_licensing' ] )['license'];
+		$company     = isset( $image_licensing[ 'image_licensing_company' ] ) ? $image_licensing[ 'image_licensing_company' ] : '';
+		$author      = isset( $image_licensing[ 'image_licensing_author' ] ) ? $image_licensing[ 'image_licensing_author' ] : '';
 
 		$json_array = array(
 			"@context"   => "https://schema.org/",

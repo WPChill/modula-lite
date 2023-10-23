@@ -5,8 +5,11 @@ const ModulaStyle = (props) => {
 
 	if ('grid' == settings.type) {
 		if ('automatic' != settings.grid_type) {
-			style += `#jtg-${id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(${100 /
-				settings.grid_type}% - ${settings.gutter - settings.gutter / settings.grid_type}px) !important}`;
+			style += `#jtg-${id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(${
+				100 / settings.grid_type
+			}% - ${
+				settings.gutter - settings.gutter / settings.grid_type
+			}px) !important}`;
 		}
 	}
 
@@ -104,7 +107,7 @@ const ModulaStyle = (props) => {
 				style += `#jtg-${id} .modula-items {
 				height: ${settings.height}px;
 			}`;
-			} else if ( 'slider' == settings.type ) {
+			} else if ('slider' == settings.type) {
 				style += `#jtg-${id} .modula-items {
 				height: auto;
 			}`;
@@ -118,7 +121,10 @@ const ModulaStyle = (props) => {
 
 	//RESPONSIVE FIXES
 	let mobileStyle = ``;
-	if ('' != settings.mobileTitleFontSize && 0 != settings.mobileTitleFontSize) {
+	if (
+		'' != settings.mobileTitleFontSize &&
+		0 != settings.mobileTitleFontSize
+	) {
 		mobileStyle += `#jtg-${id} .modula-item .figc .jtg-title {
 			font-size: ${settings.mobileTitleFontSize}px
 		}`;
@@ -195,7 +201,7 @@ const ModulaStyle = (props) => {
 	}`;
 
 	if ('slider' == settings['type']) {
-		if( "true" == jQuery("[aria-label=Settings]").attr('aria-expanded')  ) {
+		if ('true' == jQuery('[aria-label=Settings]').attr('aria-expanded')) {
 			style += `#jtg-${id} {
 					width: 800px;
 					}`;
@@ -214,10 +220,10 @@ const ModulaStyle = (props) => {
 		}`;
 	}
 
-	if(undefined != settings['filters'] && settings['filters'].length > 1 ) {
+	if (undefined != settings['filters'] && settings['filters'].length > 1) {
 		style += `#jtg-${id}.modula-gallery .filters {
 			text-align: ${settings['filterTextAlignment']};
-		}`
+		}`;
 	}
 
 	return (
@@ -225,7 +231,7 @@ const ModulaStyle = (props) => {
 			dangerouslySetInnerHTML={{
 				__html: `
       				${style}
-    				`
+    				`,
 			}}
 		/>
 	);

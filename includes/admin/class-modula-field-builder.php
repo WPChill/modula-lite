@@ -126,6 +126,7 @@ class Modula_Field_Builder {
 				echo '<div id="modula-grid" style="display:none"></div>';
 			echo '</div>';
 			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
+			echo '<input type="hidden" id="modula-editor-images" value="" name="modula-images" />';
 		echo '</div>';
 
 		// Helper Guildelines Toggle
@@ -340,15 +341,21 @@ class Modula_Field_Builder {
 		switch ( $field['type'] ) {
 
 			case 'image-size':
+				$placeholder           = array();
+				$placeholder['width']  = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['width'] ) ) ? $field['placeholder']['width'] : '';
+				$placeholder['height'] = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['height'] ) ) ? $field['placeholder']['height'] : '';
+
 				$html = '<div class="modula-image-size">';
-				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][width]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['width'])) ? esc_attr( $value['width'] ) : '') . '">';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][width]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['width'])) ? esc_attr( $value['width'] ) : '') . '" placeholder="' . esc_attr( $placeholder['width'] ) . '">';
 				$html .= '<span class="modila-image-size-spacer">x</span>';
-				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][height]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['height'])) ? esc_attr( $value['height'] ) : '') . '">';
+				$html .= '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . '][height]" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ((is_array($value) && isset($value['height'])) ? esc_attr( $value['height'] ) : '') . '" placeholder="' . esc_attr( $placeholder['height'] ) . '">';
 				$html .= '<span class="modila-image-size-spacer">px</span>';
 				$html .= '</div>';
 				break;
 			case 'text': 
-				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '">';
+
+				$placeholder = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+				$html = '<input type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . ( ( '' !== $value ) ? esc_attr( $value ) : esc_attr( $default ) ) . '" placeholder="'. esc_attr( $placeholder ) .'">';
 
 				if(isset($field['afterrow'])){
 					$html .= '<p class="description '.esc_attr($field['id']).'-afterrow">'. wp_kses_post( $field['afterrow'] ) .'</p>';
@@ -464,15 +471,21 @@ class Modula_Field_Builder {
 					}
 					break;
 			case 'ui-slider':
-				$min  = isset( $field['min'] ) ? $field['min'] : 0;
-				$max  = isset( $field['max'] ) ? $field['max'] : 100;
-				$step = isset( $field['step'] ) ? $field['step'] : 1;
-				if ( '' === $value ) {
+				$min  = isset( $field['min'] ) ? floatval( $field['min'] ) : 0;
+				$max  = isset( $field['max'] ) ? floatval( $field['max'] ) : 100;
+				$step = isset( $field['step'] ) ? absint( $field['step'] ) : 1;
+				$value = floatval( $value );
+
+				if ( '' === $value ){
 					if ( isset( $field['default'] ) ) {
 						$value = $field['default'];
 					}else{
 						$value = $min;
 					}
+				}elseif ( $value < $min ){
+					$value = $min;
+				}elseif ( $value > $max ) {
+					$value = $max;
 				}
 				$attributes = 'data-min="' . esc_attr( $min ) . '" data-max="' . esc_attr( $max ) . '" data-step="' . esc_attr( $step ) . '"';
 				$html .= '<div class="slider-container modula-ui-slider-container">';
@@ -586,6 +599,7 @@ class Modula_Field_Builder {
 				$overlay_array = array( 'tilt_2', 'tilt_3', 'tilt_7' );
 				$svg_array     = array( 'tilt_1', 'tilt_7' );
 				$jtg_body      = array( 'lily','centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming' );
+				$effects_html  = '';
 
 				foreach ( $hovers as $key => $name ) {
 
@@ -605,8 +619,11 @@ class Modula_Field_Builder {
 
 					$effect .= '<div class="modula-preview-item-container">';
 					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
-						$effect  .= '<span class="modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
+						$effect  .= '<span class="modula-effects-badge modula-preview-badge">' . esc_html__( 'Premium', 'modula-best-grid-gallery' ) . '</span>';
 						$class[]  = 'pro-only';
+					}
+					if ( $key === $value ) {
+						$effect  .= '<span class="modula-effects-badge modula-selected-effect-badge">' . esc_html__( 'Currently Active', 'modula-best-grid-gallery' ) . '</span>';
 					}
 					$effect .= '<div class="' . esc_attr( implode( ' ', $class ) ) . '">';
 
@@ -696,10 +713,14 @@ class Modula_Field_Builder {
 					$effect .= '</div>';
 					$effect .= '</div>';
 
-					$html .= $effect;
+					if( $key === $value ){
+						$effects_html = $effect . $effects_html;
+					}else{
+						$effects_html .= $effect;
+					}
 				}
 
-				$html .= '</div></div>';
+				$html .= $effects_html . '</div></div>';
 
 				// Hook to change how hover effects field is rendered
 				$html = apply_filters( "modula_render_hover_effect_field_type", $html, $field );

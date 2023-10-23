@@ -342,7 +342,7 @@ html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .m
     width: 100%;
 }
 
-html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content .pic {
+html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content img.pic {
     position: absolute;
     top: 50%;
     left: 50%;

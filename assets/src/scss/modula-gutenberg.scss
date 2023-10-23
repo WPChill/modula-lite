@@ -18,8 +18,8 @@ html body .modula-block-preview {
 		text-align: center;
 
 		select.components-select-control__input {
-			min-height:40px;
-			line-height:20px;
+			min-height: 40px;
+			line-height: 20px;
 		}
 	}
 
@@ -32,7 +32,7 @@ html body .modula-block-preview {
 		}
 
 		.selectize-input::after {
-			content: '';
+			content: "";
 			border: 0;
 		}
 	}
@@ -41,7 +41,7 @@ html body .modula-block-preview {
 .modula-block-preview__logo {
 	width: 100%;
 	height: 60px;
-	background:url(../../images/block-preview-bg.svg) no-repeat 50% 0%;
+	background: url(../../images/block-preview-bg.svg) no-repeat 50% 0%;
 	background-size: 75%;
 }
 
@@ -54,7 +54,7 @@ html body .modula-block-preview {
 
 .modula-preview-image-wrap {
 	width: 23%;
-	height: 0px;
+	height: 0;
 	padding-bottom: 23%;
 	position: relative;
 	margin: 1%;
@@ -72,6 +72,7 @@ html body .modula-block-preview {
 .modula-appender-media {
 	height: 60px;
 }
+
 .modula-preview-image-wrap {
 	width: 31%;
 	padding-bottom: 23%;
@@ -94,15 +95,15 @@ html body .modula-block-preview {
 
 .modula-button-group {
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 	width: fit-content;
 	margin: 0 auto;
 
 
 }
 
-.modula-button{
-	margin: 0px;
+.modula-button {
+	margin: 0;
 	background: white;
 	color: black !important;
 	height: 50px;
@@ -119,24 +120,22 @@ html body .modula-block-preview {
 }
 
 
-
 .modula-button:hover {
-	color: #478DB6!important;
-	text-decoration: underline!important;
+	color: #478db6 !important;
+	text-decoration: underline !important;
 }
 
 html body .modula-button-group .modula-button-upsell:hover {
 	text-decoration: underline;
-	color:black!important;
+	color: black !important;
 }
 
 html body .modula-button-group .modula-button-upsell {
-	margin: 0px;
-    background: #3FBF90;
+	margin: 0;
+	background: #3fbf90;
 	color: black;
 	height: 50px;
 	font-size: 14px;
 	width: calc(100% + 20px);
 }
-
 

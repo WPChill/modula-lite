@@ -1,0 +1,379 @@
+/** TODO
+* - using CSS grid we should take the number of items from a data attribute; example: <div class="grid" data-chlgrid-items="4">
+ grid-template-columns: repeat(auto-fill, minmax($container/div[data-chlgrid-items], 1fr));
+* By leveraging SASS or even CSS variables, we can always fill in a grid with a number of columns w/o having to write the CSS all the time
+* in this scenario, we have a width of 1100px and we want 4 columns, that comes out as each column's width of: 1100/4 = 275px
+ */
+
+.modula-gallery_page_wpchill-dashboard { // custom body class
+
+  #wpcontent {
+    padding-left: 0;
+  }
+
+  .modula-page-header {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    width: 100%;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    padding: 30px 0;
+
+    img {
+      max-width: 150px;
+    }
+  }
+
+
+
+  background-color: #FFF;
+
+  .wpchill_dashboard_getting_started, // vertical spacing between sections
+  .wpchill_dashboard_use_cases_wrap {
+    margin-bottom: 60px;
+  }
+
+  .wpchill_dashboard_item_button { // button
+    padding: 10px 15px;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #33a370;
+    display: inline-block;
+    max-width: 80%;
+    margin: 10px auto;
+    border: 1px solid #33a370;
+
+    &:hover {
+      color: #33a370;
+      background-color: #fff;
+    }
+
+    &.wpchill_dashboard_item_button_ghost { // alternate button style
+      background-color: #fff;
+      color: #33a370;
+    }
+  }
+
+  .wpchill_dashboard_item_title { // dashboard sub-section title
+    font-size: 28px;
+    line-height: 1.5rem;
+  }
+
+  .wpchill_dashboard_header_tabs { // header/nav tabs
+text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+
+    .wpchill_dashboard_header_tab { // navbar headers
+      position: relative;
+      margin-right: 30px;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      padding: 15px 0;
+
+      &:first-child { // align the first menu item with the logo
+        margin-left: 20px;
+      }
+
+      &.tab_active {
+        &:before { //active_nav tab indicator
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -3px;
+          height: 4px;
+          width: 100%;
+          border-bottom: 4px solid #33a370;
+        }
+      }
+    }
+  }
+
+  .wpchill_dashboard_content_wrap { //content container
+    margin: 60px auto;
+    max-width: 1100px;
+
+    .wpchill-heading-section {
+      text-align: center;
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: 34px;
+        font-weight: 500;
+        line-height: 1.5rem;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.5rem;
+        color: #333;
+      }
+    }
+
+    .wpchill_dashboard_getting_started {
+
+      .wpchill_dashboard_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .wpchill_dashboard_item {
+          border: 1px solid #e8d9cd;
+          border-radius: 6px;
+          padding: 15px 0;
+          background-image: url('../../images/dashboard/background-box.png');
+          background-size: cover;
+          background-position: center -40px;
+          background-repeat: no-repeat;
+
+          .wpchill_dashboard_item_head {
+
+
+            .wpchill_dashboard_item_icon {
+              height: 70px;
+              margin: 15px auto;
+            }
+          }
+        }
+
+        .wpchill_dashboard_item_content {
+          padding: 0 15px;
+
+        }
+
+
+      }
+    }
+
+    .wpchill_dashboard_use_cases_wrap {
+
+      dt {
+        border-top: 1px solid #eee;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 1rem 0;
+
+
+        &:before {
+          content: "\f347";
+          float: right;
+          font-family: dashicons;
+          margin: 0 1rem;
+        }
+
+
+      }
+
+      .wpchill-accordion {
+
+        details {
+
+          cursor: pointer;
+          margin-bottom: 15px;
+          border-bottom: 1px dashed #ddd2cb;
+        }
+
+        .wpchill-accordion-title {
+          font-size: 16px;
+        }
+
+        .wpchill-accordion-body {
+          font-size: 14px;
+
+          a {
+            text-decoration-line: none;
+
+            &:after {
+              font-family: 'dashicons';
+              content: '\f504';
+              margin-left: 0.25rem;
+            }
+          }
+
+        }
+
+        .wpchill-accordion-title,
+        .wpchill-accordion-body {
+          padding: 12px;
+        }
+      }
+    }
+
+    // CTA
+    .wpchill_dashboard_cta_wrap {
+      padding: 20px 0;
+      border-radius: 4px;
+      text-align: center;
+      background-color: #FDE5CF;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3CradialGradient id='a' gradientUnits='objectBoundingBox'%3E%3Cstop offset='0' stop-color='%23FDF3EB'/%3E%3Cstop offset='1' stop-color='%23FDE5CF'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='750' x2='1550' y2='750'%3E%3Cstop offset='0' stop-color='%23fdecdd'/%3E%3Cstop offset='1' stop-color='%23FDE5CF'/%3E%3C/linearGradient%3E%3Cpath id='s' fill='url(%23b)' d='M1549.2 51.6c-5.4 99.1-20.2 197.6-44.2 293.6c-24.1 96-57.4 189.4-99.3 278.6c-41.9 89.2-92.4 174.1-150.3 253.3c-58 79.2-123.4 152.6-195.1 219c-71.7 66.4-149.6 125.8-232.2 177.2c-82.7 51.4-170.1 94.7-260.7 129.1c-90.6 34.4-184.4 60-279.5 76.3C192.6 1495 96.1 1502 0 1500c96.1-2.1 191.8-13.3 285.4-33.6c93.6-20.2 185-49.5 272.5-87.2c87.6-37.7 171.3-83.8 249.6-137.3c78.4-53.5 151.5-114.5 217.9-181.7c66.5-67.2 126.4-140.7 178.6-218.9c52.3-78.3 96.9-161.4 133-247.9c36.1-86.5 63.8-176.2 82.6-267.6c18.8-91.4 28.6-184.4 29.6-277.4c0.3-27.6 23.2-48.7 50.8-48.4s49.5 21.8 49.2 49.5c0 0.7 0 1.3-0.1 2L1549.2 51.6z'/%3E%3Cg id='g'%3E%3Cuse href='%23s' transform='scale(0.12) rotate(60)'/%3E%3Cuse href='%23s' transform='scale(0.2) rotate(10)'/%3E%3Cuse href='%23s' transform='scale(0.25) rotate(40)'/%3E%3Cuse href='%23s' transform='scale(0.3) rotate(-20)'/%3E%3Cuse href='%23s' transform='scale(0.4) rotate(-30)'/%3E%3Cuse href='%23s' transform='scale(0.5) rotate(20)'/%3E%3Cuse href='%23s' transform='scale(0.6) rotate(60)'/%3E%3Cuse href='%23s' transform='scale(0.7) rotate(10)'/%3E%3Cuse href='%23s' transform='scale(0.835) rotate(-40)'/%3E%3Cuse href='%23s' transform='scale(0.9) rotate(40)'/%3E%3Cuse href='%23s' transform='scale(1.05) rotate(25)'/%3E%3Cuse href='%23s' transform='scale(1.2) rotate(8)'/%3E%3Cuse href='%23s' transform='scale(1.333) rotate(-60)'/%3E%3Cuse href='%23s' transform='scale(1.45) rotate(-30)'/%3E%3Cuse href='%23s' transform='scale(1.6) rotate(10)'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='rotate(0 0 0)'%3E%3Cg transform='rotate(0 0 0)'%3E%3Ccircle fill='url(%23a)' r='3000'/%3E%3Cg opacity='0.5'%3E%3Ccircle fill='url(%23a)' r='2000'/%3E%3Ccircle fill='url(%23a)' r='1800'/%3E%3Ccircle fill='url(%23a)' r='1700'/%3E%3Ccircle fill='url(%23a)' r='1651'/%3E%3Ccircle fill='url(%23a)' r='1450'/%3E%3Ccircle fill='url(%23a)' r='1250'/%3E%3Ccircle fill='url(%23a)' r='1175'/%3E%3Ccircle fill='url(%23a)' r='900'/%3E%3Ccircle fill='url(%23a)' r='750'/%3E%3Ccircle fill='url(%23a)' r='500'/%3E%3Ccircle fill='url(%23a)' r='380'/%3E%3Ccircle fill='url(%23a)' r='250'/%3E%3C/g%3E%3Cg transform='rotate(0 0 0)'%3E%3Cuse href='%23g' transform='rotate(10)'/%3E%3Cuse href='%23g' transform='rotate(120)'/%3E%3Cuse href='%23g' transform='rotate(240)'/%3E%3C/g%3E%3Ccircle fill-opacity='0.1' fill='url(%23a)' r='3000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+
+      .wpchill_dashboard_default_text {
+        p {
+          font-size: 15px;
+          line-height: 1.5rem;
+        }
+      }
+
+    }
+  }
+
+  //changelog
+  .wpchill_dashboard_changelog_wrapper {
+    padding: 30px 0;
+    margin: 0 auto;
+    max-width: 1100px;
+
+    .wpchill_dashboard_changelog_year,
+    .wpchill_dashboard_changelog_month {
+      position: relative;
+      left: -150px;
+    }
+
+    .wpchill_dashboard_changelog_year {
+      padding-bottom: 15px;
+    }
+
+    ul {
+      border-left: 1px solid #DDD;
+      list-style: initial;
+      padding-left: 30px;
+    }
+  }
+
+  /* About us page */
+  .wpchill_dashboard_about_us_wrapper {
+    text-align: center;
+
+    .wpchill_dashboard_about_us_title {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.5rem;
+
+      margin-bottom: 60px;
+      color: #fff;
+    }
+
+    .wpchill_dashboard_about_us_text {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 23px;
+      margin-bottom: 60px;
+      color: #fff;
+    }
+
+    .wpchill_dashboard_about_us {
+      background-color: #002860;
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-size: cover;
+      position: relative;
+      padding: 60px 0;
+      background-image: url(../../images/dashboard/header-bg-2.png);
+    }
+
+    .wpchill_dashboard_about_content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .wpchill_dashboard_our_values {
+      margin: 60px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wpchill_dashboard_our_values_text {
+      font-size: 16px;
+      line-height: 1.5rem;
+    }
+  }
+
+  /* Partners page */
+
+  .wpchill-addons-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    &.hidden {
+      display: none;
+    }
+
+  }
+
+
+  .wpchill-addon {
+    width: 32%;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    padding-bottom: 60px;
+    position: relative;
+    border-radius: 5px;
+
+
+    .wpchill-addon-box {
+
+      padding: 20px 20px 10px;
+      text-align: center;
+    }
+
+    .wpchill-addon-box-image {
+      height: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .wpchill-addon-box img {
+      display: block;
+      max-width: 80%;
+      max-height: 50px;
+      margin: 0 auto;
+    }
+
+    .wpchill-addon-box img {
+      display: block;
+      max-width: 50px;
+      max-height: 50px;
+      margin: 0 auto;
+    }
+
+    .wpchill-addon-box h3 {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .wpchill-addon-actions {
+      padding: 6px 20px;
+      background-color: #fafafa;
+      border-top: 1px solid #ddd;
+      overflow: hidden;
+      text-align: center;
+      bottom: 0;
+      position: absolute;
+      width: calc(100% - 40px);
+    }
+
+    .wpchill-addon-info {
+      display: inline;
+      width: calc(100% - 40px);
+      padding: 6px 200px;
+    }
+  }
+}
+
+/*# sourceMappingURL=dashboard.css.map */

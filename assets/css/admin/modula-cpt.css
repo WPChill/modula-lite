@@ -1,8 +1,3 @@
-@font-face {
-	font-family: 'DM Sans';
-	src: url('../../font/dm/DMSans-Regular.ttf');
-}
-
 /* Settings Metabox */
 #modula-settings .inside {
 	padding: 0;
@@ -22,7 +17,7 @@
     color: #9c9c9c;
     cursor: pointer;
     position: relative;
-    min-width: 190px;
+    min-width: 200px;
     position: relative;
 }
 .modula-settings-container .modula-tabs .modula-tab sup {
@@ -1850,6 +1845,21 @@ html body .modula-settings-container .modula-tab-content tr[data-container] inpu
   right: 5px;
   z-index: 1;
 }
+.modula-preview-item-container .modula-selected-effect-badge {
+  background: #2271b1;
+  color: #fff;
+  padding: 5px 10px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+}
+
+.modula-preview-item-container:hover .modula-effects-badge{
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
 .modula-preview-item-container .modula-preview-item-content {
   background: #f1f1f1;
   padding: 0 10px;

@@ -289,7 +289,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             var saved = this.$el.find( '.saved' );
             saved.fadeIn();
 
-            wp.Modula.Save.saveImage( item.get( 'id' ), function(){
+            wp.Modula.Save.saveImages( function(){
                 // Tell the view we've finished successfully
                 self.trigger( 'loaded loaded:success' );
                 saved.fadeOut();

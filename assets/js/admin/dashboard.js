@@ -1,48 +1,48 @@
+(function ($) {
+	function activatePlugin(url) {
+		$.ajax({
+			async: true,
+			type: 'GET',
+			dataType: 'html',
+			url: url,
+			success: function () {
+				location.reload();
+			},
+		});
+	}
 
-function activatePlugin(url) {
-    jQuery.ajax({
-      async: true,
-      type: "GET",
-      dataType: "html",
-      url: url,
-      success: function () {
-        location.reload();
-      },
-    });
-  }
+	// Install plugins actions
+	$('.wpchill_install_partener_addon').on('click', (event) => {
+		event.preventDefault();
 
-  // Install plugins actions
-  jQuery(".wpchill_install_partener_addon").on("click", (event) => {
-    event.preventDefault();
-    const current = jQuery(event.currentTarget);
-    console.log( current.data("slug"));
-    const plugin_slug = current.data("slug");
-    const plugin_action = current.data("action");
-    const activate_url = current.data("activation_url");
+		var current = $(event.currentTarget),
+			plugin_slug = current.data('slug'),
+			plugin_action = current.data('action'),
+			activate_url = current.data('activation_url');
 
-    // Now let's disable the button and show the action text
-    //current.attr("disabled", true);
-    
+		if ('install' === plugin_action) {
+			current.html(dashboardStrings.installing_plugin);
 
-    if ("install" === plugin_action) {
-        current.html("Installing plugin...", true);
-      const args = {
-        slug: plugin_slug,
-        success: (response) => {
-          current.html("Activating plugin...");
+			let args = {
+				slug: plugin_slug,
+				success: (response) => {
+					current.html(dashboardStrings.activating_plugin);
 
-          activatePlugin(response.activateUrl);
-        },
-        error: (response) => {
-          current.removeClass("updating-message");
+					activatePlugin(response.activateUrl);
+				},
+				error: (response) => {
+					current.removeClass('updating-message');
+				},
+			};
 
-        },
-      };
+			wp.updates.installPlugin(args);
+		} else if ('activate' === plugin_action) {
+			current.html(dashboardStrings.activating_plugin);
 
-      wp.updates.installPlugin(args);
-    } else if ("activate" === plugin_action) {
-        current.html("Activating plugin...");
+			activatePlugin(activate_url);
+		}
+	});
 
-      activatePlugin(activate_url);
-    }
-  });
+	/* When document is ready, do */
+	$(document).ready(function ($) {});
+})(jQuery);

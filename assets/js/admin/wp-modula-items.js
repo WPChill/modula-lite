@@ -294,7 +294,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.render();
 
             // Save Image
-            wp.Modula.Save.saveImage( this.model.get( 'id' ) );
+            wp.Modula.Save.saveImages();
             modula.GalleryView.resetPackary();
         },
 
