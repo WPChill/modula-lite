@@ -73,6 +73,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			'toggleAccordeon:enableSocial',
 			this.toggleSocial
 		);
+		this.listenTo(
+			wp.Modula.Settings,
+			'change:cursor',
+			this.changeCursor
+		);
 	},
 
 	initValues: function () {
@@ -91,6 +96,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			false,
 			wp.Modula.Settings.get('grid_image_size')
 		);
+		this.changeCursor( false, wp.Modula.Settings.get( 'cursor' ) );
 	},
 
 	changedType: function (settings, value) {
@@ -192,9 +198,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		);
 	},
 
-	changedCursor: function (settings, value) {
-		var cursorBox = jQuery('.modula-effects-preview > div');
-		cursorBox.css('cursor', value);
+	changeCursor: function (settings, value) {
+        if ( 'custom' != value ) {
+			var cursorBox = jQuery( '.modula-effects-preview > div' );
+            cursorBox.css('cursor', wp.Modula.Settings.get( 'cursor' ) );
+        }
 	},
 
 	changedLightbox: function (settings, value) {

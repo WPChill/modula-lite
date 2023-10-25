@@ -271,6 +271,7 @@ Changed: Active hover effect on top of list. ( [#864](https://github.com/WPChill
 Fixed: Compatibility with Photograph theme. ( [#865](https://github.com/WPChill/modula-lite/issues/865) )
 Fixed: Ui-Slider setting input type value should not be outside the min-max values. ( [#867](https://github.com/WPChill/modula-lite/issues/867) )
 Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
+Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )

@@ -6,6 +6,7 @@ Changed: Gallery image changes are now saved on post update not every time an im
 Changed: Updated enqueue methods for css & js.
 Changed: Active hover effect on top of list.
 Changed: Save gallery settings with the right format.
+Changed: Hover effects cursor not changing in previewer.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
