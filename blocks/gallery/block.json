@@ -80,6 +80,45 @@
         "captionVisibility": {
             "type": "string",
             "default": "visible"
+        },
+        "socialIconsFontSize": {
+            "type": "number",
+            "default": 16
+        },
+        "socialIconsGutter": {
+            "type": "number",
+            "default": 10
+        },
+        "enableFacebook": {
+            "type": "boolean",
+            "default": false
+        },
+        "enableTwitter": {
+            "type": "boolean",
+            "default": false
+        },
+        "enableWhatsapp": {
+            "type": "boolean",
+            "default": false
+        },
+        "enableLinkedIN": {
+            "type": "boolean",
+            "default": false
+        },
+        "enablePinterest": {
+            "type": "boolean",
+            "default": false
+        },
+        "enableEmail": {
+            "type": "boolean",
+            "default": false
+        },
+        "hoverColor": {
+            "type": "string"
+        },
+        "hoverOpacity": {
+            "type": "number",
+            "default": 10
         }
     }
 }

@@ -377,7 +377,17 @@ const InspectorControls = () => {
     titleVisibility,
     captionColor,
     captionFontSize,
-    captionVisibility
+    captionVisibility,
+    socialIconsFontSize,
+    socialIconsGutter,
+    enableFacebook,
+    enableTwitter,
+    enableWhatsapp,
+    enableLinkedIN,
+    enablePinterest,
+    enableEmail,
+    hoverColor,
+    hoverOpacity
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
     group: 'settings'
@@ -561,15 +571,103 @@ const InspectorControls = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Socials', 'modula-best-grid-gallery'),
     initialOpen: false
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.FontSizePicker, {
+    fontSizes: [{
+      name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Small', 'modula-best-grid-gallery'),
+      size: 12,
+      slug: 'small'
+    }, {
+      name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Normal', 'modula-best-grid-gallery'),
+      size: 16,
+      slug: 'normal'
+    }, {
+      name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Big', 'modula-best-grid-gallery'),
+      size: 26,
+      slug: 'big'
+    }],
+    onChange: value => setAttributes({
+      socialIconsFontSize: Number(value)
+    }),
+    withReset: false,
+    units: ['px', 'em', 'rem'],
+    value: socialIconsFontSize
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Gutter', 'modula-best-grid-gallery'),
+    value: socialIconsGutter,
+    allowReset: false,
+    onChange: value => setAttributes({
+      socialIconsGutter: Number(value)
+    }),
+    min: 0,
+    initialPosition: 10,
+    max: 20
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Facebook', 'modula-best-grid-gallery'),
+    checked: enableFacebook,
+    onChange: value => {
+      setAttributes({
+        enableFacebook: Boolean(value)
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Twitter', 'modula-best-grid-gallery'),
+    checked: enableTwitter,
+    onChange: value => {
+      setAttributes({
+        enableTwitter: Boolean(value)
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Whatsapp', 'modula-best-grid-gallery'),
+    checked: enableWhatsapp,
+    onChange: value => {
+      setAttributes({
+        enableWhatsapp: Boolean(value)
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('LinkedIN', 'modula-best-grid-gallery'),
+    checked: enableLinkedIN,
+    onChange: value => {
+      setAttributes({
+        enableLinkedIN: Boolean(value)
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Pinterest', 'modula-best-grid-gallery'),
+    checked: enablePinterest,
+    onChange: value => {
+      setAttributes({
+        enablePinterest: Boolean(value)
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Email', 'modula-best-grid-gallery'),
+    checked: enableEmail,
+    onChange: value => {
+      setAttributes({
+        enableEmail: Boolean(value)
+      });
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Hover Effects', 'modula-best-grid-gallery'),
     initialOpen: false
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    color: hoverColor,
+    onChange: value => {
+      setAttributes({
+        hoverColor: value
+      });
+    },
+    enableAlpha: true,
+    defaultValue: "#FFF"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Hover Effect Opacity', 'modula-best-grid-gallery'),
-    value: '50',
-    allowReset: true
-    //onChange={(value) => setColumns(value)}
-    ,
+    value: hoverOpacity,
+    allowReset: false,
+    onChange: value => setAttributes({
+      hoverOpacity: Number(value)
+    }),
     min: 0,
     initialPosition: 100,
     max: 100
@@ -4447,7 +4545,7 @@ const SWRConfig = swr_internal__WEBPACK_IMPORTED_MODULE_3__.OBJECT.definePropert
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"anchor":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"galleryColumns":{"type":"number","default":1},"galleryType":{"type":"string","default":"creative"},"galleryLightbox":{"type":"string","default":"enabled"},"rowHeight":{"type":"string","default":""},"lastRow":{"type":"boolean","default":false},"galleryTitle":{"type":"string","default":""},"titleColor":{"type":"string"},"titleFontSize":{"type":"number","default":16},"titleVisibility":{"type":"string","default":"visible"},"captionColor":{"type":"string"},"captionFontSize":{"type":"number","default":16},"captionVisibility":{"type":"string","default":"visible"}}}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"modula/gallery","version":"0.1.0","title":"Modula Gallery","category":"media","icon":"smiley","description":"Make your galleries stand out.","supports":{"html":false,"reusable":true,"multiple":true,"align":true,"anchor":true,"customClassName":true},"keywords":["gallery","modula","images"],"textdomain":"modula-best-grid-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"images":{"type":"array","default":[]},"galleryId":{"type":"number","default":0},"galleryColumns":{"type":"number","default":1},"galleryType":{"type":"string","default":"creative"},"galleryLightbox":{"type":"string","default":"enabled"},"rowHeight":{"type":"string","default":""},"lastRow":{"type":"boolean","default":false},"galleryTitle":{"type":"string","default":""},"titleColor":{"type":"string"},"titleFontSize":{"type":"number","default":16},"titleVisibility":{"type":"string","default":"visible"},"captionColor":{"type":"string"},"captionFontSize":{"type":"number","default":16},"captionVisibility":{"type":"string","default":"visible"},"socialIconsFontSize":{"type":"number","default":16},"socialIconsGutter":{"type":"number","default":10},"enableFacebook":{"type":"boolean","default":false},"enableTwitter":{"type":"boolean","default":false},"enableWhatsapp":{"type":"boolean","default":false},"enableLinkedIN":{"type":"boolean","default":false},"enablePinterest":{"type":"boolean","default":false},"enableEmail":{"type":"boolean","default":false},"hoverColor":{"type":"string"},"hoverOpacity":{"type":"number","default":10}}}');
 
 /***/ })
 
