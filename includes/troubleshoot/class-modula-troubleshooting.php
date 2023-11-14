@@ -102,6 +102,11 @@ class Modula_Troubleshooting {
                     wp_enqueue_style($style_slug);
                 }
             }
+            foreach ( $handles['scripts'] as $script_slug ) {
+                if ( ! wp_script_is($script_slug, 'enqueued') ) {
+                    wp_enqueue_script($script_slug);
+                }
+            }
         }
 
     }
