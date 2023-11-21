@@ -22,7 +22,7 @@ class Modula {
 	 * @since    2.0.0
 	 */
 	public function __construct() {
-
+		$this->set_offer();
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -551,4 +551,147 @@ class Modula {
 		echo $html;
 	}
 
+	/**
+	 * Adds the filters and actions to add modula offers display by month
+	 *
+	 * @since 2.7.9
+	 */
+	private function set_offer(){
+		$month = date('m');
+		$this->offer = array( 'class' => '', 'column' => '', 'label' => __( 'Get Premium', 'download-monitor' ) );
+	
+		if ( 11 == $month ) { 
+			add_filter( 'modula_upsell_buttons', array( $this, 'bf_buttons' ) , 15, 2 );
+			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
+		}
+		if ( 12 == $month ) { 
+			add_filter( 'modula_upsell_buttons', array( $this, 'xmas_buttons' ) , 15, 2 );
+			add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
+		}
+	}
+
+	/**
+	 * Replaces upsells button with Black Friday text buttons
+	 *
+	 * @since 2.7.9
+	 */
+	public function bf_buttons( $buttons, $campaign ){
+		preg_match_all('~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches);
+
+		$buttons =  '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .=  '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-bf-upsell button">' . esc_html__( '40% OFF for Black Friday', 'modula-best-grid-gallery' ) . '</a>';
+		return $buttons;
+	}
+
+	/**
+	 * Replaces upsells button with Christmas text buttons
+	 *
+	 * @since 2.7.9
+	 */
+	public function xmas_buttons( $buttons, $campaign ){
+		preg_match_all('~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches);
+
+		$buttons =  '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .=  '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-xmas-upsell button">' . esc_html__( '25% OFF for Christmas', 'modula-best-grid-gallery' ) . '</a>';
+		return $buttons;
+	}
+
+	/**
+	 * Echoes Black Friday script to footer
+	 *
+	 * @since 2.7.9
+	 */
+	public function footer_bf_styles(){
+
+		$css = '<style>
+		.modula-upsell,
+		#poststuff .modula-upsell h2,
+		.modula-modal__overlay .modula-modal__frame,
+		.modula-settings-tab-upsell {
+			color: #fff;
+			background-color: #000;
+		}
+		.modula-upsell p,
+		.modula-upsell p.modula-upsell-description,
+		.modula-modal__overlay .modula-modal__frame h2,
+		.modula-settings-tab-upsell h3,
+		.modula-settings-tab-upsell p {
+			color: #fff;
+		}
+		.wpchill-bf-upsell.button {
+			background-color: #f8003e;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.wpchill-bf-upsell.button:hover {
+			background-color: red;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.modula-tooltip .modula-tooltip-content{
+			background-color: #fff;
+			color: #000;
+		}
+		.modula-settings-tab-upsell{
+			margin-top: 10px;
+		}
+		</style>';
+		echo $css;
+	}
+
+	/**
+	 * Echoes Christmas style to footer
+	 *
+	 * @since 2.7.9
+	 */
+	public function footer_xmas_styles(){
+
+		$css = '<style>
+		.modula-upsell::before,
+		.modula-settings-tab-upsell::before,
+		.modula-modal__overlay .modula-modal__frame::before{
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 50px;
+			background-image: url(' . MODULA_URL . 'assets/images/upsells/x-mas.jpg' .');
+			background-position-x: 15px;
+			left: 0;
+			top: 0;
+			background-size: contain;
+			z-index: 0;
+		}
+
+		.wpchill-xmas-upsell.button {
+			background-color: #f8003e;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.wpchill-xmas-upsell.button:hover {
+			background-color: red;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.modula-settings-tab-upsell,
+		.modula-upsell{
+			position: relative;
+			padding-top: 50px;
+		}
+		.modula-settings-tab-upsell{
+			margin-top: 10px;
+		}
+		.modula-upsell{
+			background-color: #fff;
+		}
+		#modula-settings .modula-upsell{
+			padding-top: 70px;
+		}
+
+		</style>';
+		echo $css;
+	}
 }
