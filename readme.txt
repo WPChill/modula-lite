@@ -273,6 +273,7 @@ Fixed: Ui-Slider setting input type value should not be outside the min-max valu
 Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
 Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
 Fixec: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
+Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )

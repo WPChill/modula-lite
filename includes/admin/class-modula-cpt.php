@@ -234,7 +234,7 @@ class Modula_CPT {
 					if ( isset( $_POST['modula-settings'][$field_id] ) ) {
 						
 						// Values for selects
-						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
+						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
 

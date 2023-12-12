@@ -151,6 +151,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 // Disable right button
                 this.$el.find( 'button.right' ).addClass( 'disabled' );
             }
+            // Hide / show the url input based on gallery settings.
+            if ( modula.Settings.get('lightbox') != 'external-url' ) {
+                this.$el.find( '.setting.modula-link' ).addClass('modula-hide');
+            }else{
+                this.$el.find( '.setting.modula-link' ).removeClass('modula-hide');
+            }
 
             // Return
             return this;
