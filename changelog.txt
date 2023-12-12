@@ -7,7 +7,9 @@ Changed: Updated enqueue methods for css & js.
 Changed: Active hover effect on top of list.
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.
-Fixec: Troubleshooting scripts not being enqueued.
+Fixed: Troubleshooting scripts not being enqueued.
+Changed: Lightbox & links settings - overhaul.
+Fixed: Welcome page header flex properly spaced.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
