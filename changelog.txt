@@ -1,3 +1,11 @@
+= 2.7.10 - TBD =
+Changed: Save gallery settings with the right format.
+Changed: Hover effects cursor not changing in previewer.
+Fixed: Troubleshooting scripts not being enqueued.
+Changed: Lightbox & links settings - overhaul.
+Fixed: Welcome page header flex properly spaced.
+Changed: Removed feedback notification.
+
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
 
@@ -8,11 +16,8 @@ Added: Placeholder for text settings inputs and placeholders for image dimension
 Changed: Gallery image changes are now saved on post update not every time an image was edited.
 Changed: Updated enqueue methods for css & js.
 Changed: Active hover effect on top of list.
-Changed: Save gallery settings with the right format.
-Changed: Hover effects cursor not changing in previewer.
-Fixed: Troubleshooting scripts not being enqueued.
-Changed: Lightbox & links settings - overhaul.
-Fixed: Welcome page header flex properly spaced.
+Fixed: Compatibility with Photograph theme. 
+Fixed: Ui-Slider setting input type value should not be outside the min-max values.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
