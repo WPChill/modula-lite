@@ -105,7 +105,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		return $item_data;
 	}
 
-	if ( 'attachment-page' == $settings['lightbox'] ) {
+	if ( 'external-url' == $settings['lightbox'] ) {
 
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
@@ -126,7 +126,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 
 	} else {
 		if( modula_href_required() ){
-			$item_data['link_attributes']['href']          = $item_data['image_full'];
+			$item_data['link_attributes']['href']      = $item_data['image_full'];
 		}
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;

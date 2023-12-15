@@ -350,5 +350,7 @@ p.modula-onboarding-doc > a {
     border-bottom: 1px solid hsla(0, 0%, 100%, .2);
 }
 
-
+.setting.modula-hide{
+    display:none;
+}
 

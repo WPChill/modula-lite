@@ -347,10 +347,10 @@ class Modula_CPT_Fields_Helper {
                     'default'     => 'fancybox',
                     "values"      => array(
 
-                        "no-link"         => esc_html__( 'No link', 'modula-best-grid-gallery' ),
-                        "direct"          => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
-                        "attachment-page" => esc_html__( 'Attachment page', 'modula-best-grid-gallery' ),
-                        "fancybox" => esc_html__( 'Open Images in a Lightbox', 'modula-best-grid-gallery' ),
+                        "no-link"      => esc_html__( 'No link', 'modula-best-grid-gallery' ),
+                        "direct"       => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
+                        "external-url" => esc_html__( 'External URL', 'modula-best-grid-gallery' ),
+                        "fancybox"     => esc_html__( 'Open Images in a Lightbox', 'modula-best-grid-gallery' ),
 
                     ),
                     'priority' => 1,
@@ -746,9 +746,9 @@ class Modula_CPT_Fields_Helper {
 			'socialIconColor'       => '#ffffff',
 			'socialIconSize'        => 16,
 			'socialIconPadding'     => 10,
-			'loadedScale'           => '100',
-			'inView'                => '100',
-			'cursor'                => 'magnifying-glass',
+			'loadedScale'           => 100,
+			'inView'                => 100,
+			'cursor'                => 'zoom-in',
 			'effect'                => 'pufrobo',
 			'borderColor'           => '#ffffff',
 			'borderRadius'          => '0',
