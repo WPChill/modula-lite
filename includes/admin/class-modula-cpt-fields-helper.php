@@ -191,7 +191,6 @@ class Modula_CPT_Fields_Helper {
 						),
 					),
 					'priority' => 10,
-					'data_type' => 'text',
 				),
 				"grid_type" => array(
 					"name"        => esc_html__( 'Column Type', 'modula-best-grid-gallery' ),
@@ -208,7 +207,6 @@ class Modula_CPT_Fields_Helper {
 					),
 					'default'     => 'automatic',
 					'priority'    => 26,
-					'data_type' => 'text',
 				),
 
 				"grid_row_height" => array(
@@ -219,7 +217,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 250,
 					'is_child'    => true,
 					"priority"    => 27,
-					'data_type' => 'number',
 				),
 
 				"grid_justify_last_row" => array(
@@ -235,7 +232,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "justify",
 					'is_child'    => true,
 					"priority"    => 28,
-					'data_type' => 'text',
 				),
 
 				"grid_image_size" => array(
@@ -245,7 +241,6 @@ class Modula_CPT_Fields_Helper {
 					'values'      => Modula_Helper::get_image_sizes( true ),
 					'default'     => 'medium',
 					'priority'    => 37,
-					'data_type' => 'text',
 				),
 
 				"grid_image_dimensions" => array(
@@ -259,16 +254,14 @@ class Modula_CPT_Fields_Helper {
 						'width'  => __( 'Width', 'modula-best-grid-gallery' ),
 						'height' => __( 'Height', 'modula-best-grid-gallery' ),
 					),
-					'data_type' => 'number',
 				),
 				"img_size" => array(
 					"name"        => esc_html__( ' Block size', 'modula-best-grid-gallery' ),
 					"type"        => "text",
 					"afterrow"    => esc_html__( '👋 Block size setting allows you to choose how big one individual square(block) from the custom grid should be. For example, if you were to set the block size to 300 px and resize images in the custom grid to be as large as 4 x 4 squares, the image will be of size 1200 x 1200 px in size.', 'modula-best-grid-gallery' ),
-					'default'     => 200,
+					'default'     => '200',
 					'is_child'    => true,
 					'priority'    => 38,
-					'data_type' => 'number',
 				),
 				"img_crop" => array(
 					"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
@@ -277,7 +270,6 @@ class Modula_CPT_Fields_Helper {
 					'default'     => 1,
 					'is_child'    => true,
 					'priority'    => 39,
-					'data_type' => 'bool',
 				),
 				"grid_image_crop" => array(
 					"name"        => esc_html__( 'Crop Images', 'modula-best-grid-gallery' ),
@@ -286,7 +278,6 @@ class Modula_CPT_Fields_Helper {
 					'default'     => 0,
 					'is_child'    => true,
 					'priority'    => 39,
-					'data_type' => 'bool',
 				),
 				"gutter"        => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
@@ -295,8 +286,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 10,
 					'priority'    => 30,
 					// Attribute specific for gutterInput type fields
-					'media'       => 'desktop',
-					'data_type' => 'number',
+					'media'       => 'desktop'
 				),
 				'tablet_gutter' => array(
 					"name"        => esc_html__( 'Gutter for tablet', 'modula-best-grid-gallery' ),
@@ -305,8 +295,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 10,
 					'priority'    => 31,
 					// Attribute specific for gutterInput type fields
-					'media'       => 'tablet',
-					'data_type' => 'number',
+					'media'       => 'tablet'
 				),
 				'mobile_gutter' => array(
 					"name"        => esc_html__( 'Gutter for mobile', 'modula-best-grid-gallery' ),
@@ -316,8 +305,7 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 10,
 					'priority'    => 32,
 					// Attribute specific for gutterInput type fields
-					'media'       => 'mobile',
-					'data_type' => 'number',
+					'media'       => 'mobile'
 				),
 				"width"          => array(
 					"name"        => esc_html__( 'Width', 'modula-best-grid-gallery' ),
@@ -325,7 +313,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Change the width of your gallery. It can be in percentages or pixels.', 'modula-best-grid-gallery' ),
 					'default'     => '100%',
 					'priority' => 33,
-					'data_type' => 'text',
 				),
 				"height"         => array(
 					"name"        => esc_html__( 'Height', 'modula-best-grid-gallery' ),
@@ -333,7 +320,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Set the height of the gallery in pixels.', 'modula-best-grid-gallery' ),
 					'default'     => array( 800, 800, 800 ),
 					'priority' => 40,
-					'data_type' => 'number',
 				),
 				"randomFactor"   => array(
 					"name"        => esc_html__( 'Random factor', 'modula-best-grid-gallery' ),
@@ -344,7 +330,6 @@ class Modula_CPT_Fields_Helper {
 					"step"        => 1,
 					"default"     => 50,
 					'priority' => 70,
-					'data_type' => 'number',
 				),
                 "shuffle"         => array(
                     "name"        => esc_html__( 'Shuffle images', 'modula-best-grid-gallery' ),
@@ -352,7 +337,6 @@ class Modula_CPT_Fields_Helper {
                     "default"     => 0,
                     "description" => esc_html__( 'Toggle this to ON so that your gallery shuffles with each page load.', 'modula-best-grid-gallery' ),
                     'priority'    => 90,
-					'data_type' => 'bool',
 				),
 			),
 			'lightboxes' => array(
@@ -370,7 +354,6 @@ class Modula_CPT_Fields_Helper {
 
                     ),
                     'priority' => 1,
-					'data_type' => 'text',
                 ),
                 "show_navigation" => array(
                     "name"        => esc_html__( 'Navigation arrows', 'modula-best-grid-gallery' ),
@@ -378,7 +361,6 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'Enable this to display navigation arrows.', 'modula-best-grid-gallery' ),
                     "default"     => 1,
                     'priority'    => 2,
-					'data_type' => 'bool',
                 ),
             ),
 			'captions' => array(
@@ -389,7 +371,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image titles from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 10,
 					'children'	  => array("titleColor", "titleFontSize", "mobileTitleFontSize"),
-					'data_type' => 'bool',
 				),
 				"titleColor"     => array(
 					"name"        => esc_html__( 'Title Color', 'modula-best-grid-gallery' ),
@@ -398,7 +379,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "",
 					'is_child'    => true,
 					'priority'    => 30,
-					'data_type' => 'text',
 				),
 				"titleFontSize"    => array(
 					"name"        => esc_html__( 'Title Font Size', 'modula-best-grid-gallery' ),
@@ -408,7 +388,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults).', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 40,
-					'data_type' => 'number',
 				),
                 "mobileTitleFontSize"    => array(
                     "name"        => esc_html__( 'Mobile Title Font Size', 'modula-best-grid-gallery' ),
@@ -418,7 +397,6 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'The title font size in pixels (set to 0 to use the theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
                     'is_child'    => true,
                     'priority'    => 40,
-					'data_type' => 'number',
                 ),
 				"hide_description"        => array(
 					"name"        => esc_html__( 'Hide Caption', 'modula-best-grid-gallery' ),
@@ -427,7 +405,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Hide image captions from your gallery.', 'modula-best-grid-gallery' ),
 					'priority'    => 50,
 					'children'	  => array("captionColor", "captionFontSize", "mobileCaptionFontSize"),
-					'data_type' => 'bool',
 				),
 				"captionColor"     => array(
 					"name"        => esc_html__( 'Caption Color', 'modula-best-grid-gallery' ),
@@ -436,7 +413,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "#ffffff",
 					'is_child'    => true,
 					'priority'    => 70,
-					'data_type' => 'text',
 				),
 				"captionFontSize"  => array(
 					"name"        => esc_html__( 'Caption Font Size', 'modula-best-grid-gallery' ),
@@ -446,7 +422,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults).', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 80,
-					'data_type' => 'number',
 				),
                 "mobileCaptionFontSize"  => array(
                     "name"        => esc_html__( 'Mobile Caption Font Size', 'modula-best-grid-gallery' ),
@@ -456,7 +431,6 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'The caption font size in pixels (set to 0 to use theme defaults) for mobile view.', 'modula-best-grid-gallery' ),
                     'is_child'    => true,
                     'priority'    => 100,
-					'data_type' => 'number',
                 ),
 			),
 			'social' => array(
@@ -467,7 +441,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => "Enable social sharing on hovering the gallery thumbnail. Off by default.",
 					'priority'    => 10,
 					'children'	  => array("enableTwitter", "enableFacebook", "enableWhatsapp", "enableLinkedin", "enablePinterest", "enableEmail", "socialIconColor", "socialIconSize", "socialIconPadding"),
-					'data_type' => 'bool',
 				),
 				"enableTwitter"   => array(
 					"name"        => esc_html__( 'Twitter', 'modula-best-grid-gallery' ),
@@ -476,7 +449,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show Twitter Share Icon when hovering the gallery thumbnail.', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 10,
-					'data_type' => 'bool',
 				),
 				"enableFacebook"  => array(
 					"name"        => esc_html__( 'Facebook', 'modula-best-grid-gallery' ),
@@ -485,7 +457,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show Facebook Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery'),
 					'is_child'    => true,
 					'priority'    => 20,
-					'data_type' => 'bool',
 				),
 				"enableWhatsapp"  => array(
 					"name"        => esc_html__( 'Whatsapp', 'modula-best-grid-gallery' ),
@@ -494,7 +465,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show Whatsapp Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 20,
-					'data_type' => 'bool',
 				),
 				"enableLinkedin"  => array(
 					"name"        => esc_html__( 'LinkedIn', 'modula-best-grid-gallery' ),
@@ -503,7 +473,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show LinkedIn Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 30,
-					'data_type' => 'bool',
 				),
 				"enablePinterest" => array(
 					"name"        => esc_html__( 'Pinterest', 'modula-best-grid-gallery' ),
@@ -512,7 +481,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Show Pinterest Share Icon when hovering the gallery thumbnail', 'modula-best-grid-gallery' ),
 					'is_child'    => true,
 					'priority'    => 40,
-					'data_type' => 'bool',
 				),
 				"enableEmail" => array(
 					"name"        => esc_html__( 'Email', 'modula-best-grid-gallery' ),
@@ -523,7 +491,6 @@ class Modula_CPT_Fields_Helper {
 					'priority'    => 40,
 					'children'	  => array( "emailSubject", "emailMessage" ),
 					'parent'	  => "enableSocial",
-					'data_type' => 'bool',
 				),
 				"emailSubject"   => array(
 					"name"        => esc_html__( 'Email subject', 'modula-best-grid-gallery' ),
@@ -532,7 +499,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Email subject text, used in hover social sharing', 'modula-best-grid-gallery' ),
 					'is_child'    => 'two',
 					'priority'    => 41,
-					'data_type' => 'text',
 				),
 				"emailMessage"   => array(
 					"name"        => esc_html__( 'Email message', 'modula-best-grid-gallery' ),
@@ -545,7 +511,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Email share text,used in hover social sharing', 'modula-best-grid-gallery' ),
 					'is_child'    => 'two',
 					'priority'    => 42,
-					'data_type' => 'text',
 				),
 				"socialIconColor" => array(
 					"name"        => esc_html__( 'Color', 'modula-best-grid-gallery' ),
@@ -554,7 +519,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => "#ffffff",
 					'is_child'    => true,
 					'priority'    => 50,
-					'data_type' => 'text',
 				),
 				"socialIconSize" => array(
 					"name"        => esc_html__( 'Size', 'modula-best-grid-gallery' ),
@@ -564,7 +528,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 16,
 					'is_child'    => true,
 					'priority'    => 50,
-					'data_type' => 'number',
 				),
 				"socialIconPadding" => array(
 					"name"        => esc_html__( 'Gutter', 'modula-best-grid-gallery' ),
@@ -575,7 +538,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 10,
 					'is_child'    => true,
 					'priority'    => 50,
-					'data_type' => 'number',
 				),
 			),
 			'image-loaded-effects' => array(
@@ -587,7 +549,6 @@ class Modula_CPT_Fields_Helper {
 					"max"         => 200,
 					"default"     => 100,
 					'priority' => 10,
-					'data_type' => 'number',
 				),
                 "inView"  => array(
                     "name"        => esc_html__( 'Load in view', 'modula-best-grid-gallery' ),
@@ -595,7 +556,6 @@ class Modula_CPT_Fields_Helper {
                     "type"        => "toggle",
                     "default"     => 0,
                     'priority' => 50,
-					'data_type' => 'bool',
                 ),
 			),
 			'hover-effect' => array(
@@ -605,7 +565,6 @@ class Modula_CPT_Fields_Helper {
 					"type"        => "hover-effect",
 					'default'     => 'pufrobo',
 					'priority'    => 15,
-					'data_type' => 'text',
 				),
 
 				"cursor"  => array(
@@ -629,7 +588,6 @@ class Modula_CPT_Fields_Helper {
 							'custom'      => esc_html__( 'Custom', 'modula-best-grid-gallery'),
 						),
 					),
-					'data_type' => 'text',
 				),
 			),
 			'style' => array(
@@ -641,7 +599,6 @@ class Modula_CPT_Fields_Helper {
 					"max"         => 10,
 					"default"     => 0,
 					'priority'    => 10,
-					'data_type' => 'number',
 				),
 				"borderRadius" => array(
 					"name"        => esc_html__( 'Border Radius', 'modula-best-grid-gallery' ),
@@ -651,7 +608,6 @@ class Modula_CPT_Fields_Helper {
 					"max"         => 100,
 					"default"     => 0,
 					'priority'    => 20,
-					'data_type' => 'number',
 				),
 				"borderColor"  => array(
 					"name"        => esc_html__( 'Border Color', 'modula-best-grid-gallery' ),
@@ -659,7 +615,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Set the color of your image borders in this gallery.', 'modula-best-grid-gallery' ),
 					"default"     => "#ffffff",
 					'priority'    => 30,
-					'data_type' => 'text',
 				),
 				"shadowSize"   => array(
 					"name"        => esc_html__( 'Shadow Size', 'modula-best-grid-gallery' ),
@@ -669,7 +624,6 @@ class Modula_CPT_Fields_Helper {
 					"max"         => 20,
 					"default"     => 0,
 					'priority'    => 40,
-					'data_type' => 'number',
 				),
 				"shadowColor"  => array(
 					"name"        => esc_html__( 'Shadow Color', 'modula-best-grid-gallery' ),
@@ -677,7 +631,6 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Set the color of image shadows in this gallery', 'modula-best-grid-gallery' ),
 					"default"     => "#ffffff",
 					'priority'    => 50,
-					'data_type' => 'text',
 				),
 			),
 			'speedup'    => array(
@@ -687,7 +640,6 @@ class Modula_CPT_Fields_Helper {
 					"type"        => "toggle",
 					"default"     => 1,
 					'priority'    => 1,
-					'data_type' => 'bool',
 				),
 			),
 			'responsive' => array(
@@ -698,7 +650,6 @@ class Modula_CPT_Fields_Helper {
 					"default"     => 0,
 					'priority'    => 10,
 					'children'	  => array( 'tablet_columns', 'mobile_columns' ),
-					'data_type' => 'bool',
 				),
 				'tablet_columns' => array(
 					"name"        => esc_html__( 'Tablet Columns', 'modula-best-grid-gallery' ),
@@ -709,7 +660,6 @@ class Modula_CPT_Fields_Helper {
 					"step"        => 1,
 					"default"     => 2,
 					'priority'    => 20,
-					'data_type' => 'number',
 				),
 				'mobile_columns' => array(
 					"name"        => esc_html__( 'Mobile Columns', 'modula-best-grid-gallery' ),
@@ -720,7 +670,6 @@ class Modula_CPT_Fields_Helper {
 					"step"        => 1,
 					"default"     => 1,
 					'priority'    => 30,
-					'data_type' => 'number',
 				),
 			),
 			'customizations' => array(
@@ -730,7 +679,6 @@ class Modula_CPT_Fields_Helper {
 					"syntax"      => 'css',
 					"description" => '',
 					'priority' => 20,
-					'data_type' => 'string',
 				),
 			),
 			'hidden' => array(
@@ -739,7 +687,6 @@ class Modula_CPT_Fields_Helper {
 					"type" => 'hidden',
 					"description" => '',
 					'priority' => 20,
-					'data_type' => 'string',
 				)
 			)
 		) );
@@ -773,8 +720,8 @@ class Modula_CPT_Fields_Helper {
 		return apply_filters( 'modula_lite_default_settings', array(
 			'type'                  => 'creative-gallery',
 			'width'                 => '100%',
-			'height'                => 800,
-			'randomFactor'          => 50,
+			'height'                => '800',
+			'randomFactor'          => '50',
 			'lightbox'              => 'fancybox',
 			'show_navigation'       => 1,
 			'shuffle'               => 0,
@@ -782,10 +729,10 @@ class Modula_CPT_Fields_Helper {
 			'captionColor'          => '#ffffff',
 			'hide_title'            => 1,
 			'hide_description'      => 0,
-			'captionFontSize'       => 14,
-			'titleFontSize'         => 16,
-			'mobileCaptionFontSize' => 10,
-			'mobileTitleFontSize'   => 12,
+			'captionFontSize'       => '14',
+			'titleFontSize'         => '16',
+			'mobileCaptionFontSize' => '10',
+			'mobileTitleFontSize'   => '12',
 			'enableSocial'          => 0,
 			'enableFacebook'        => 0,
 			'enableLinkedin'        => 0,
@@ -819,8 +766,8 @@ class Modula_CPT_Fields_Helper {
 			'grid_type'             => 'automatic',
 			'grid_image_size'       => 'medium',
 			'grid_image_crop'       => 0,
-			'grid_image_dimensions' => 600,
-			'img_size'              => 200,
+			'grid_image_dimensions' => '600',
+			'img_size'              => '200',
 			'grid_row_height'       => 250,
 			'grid_justify_last_row' => 'justify',
 			'enable_responsive'     => 0,

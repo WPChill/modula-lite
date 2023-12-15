@@ -303,47 +303,19 @@ class Modula_CPT {
 								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
 								break;
 							default:
-
-								$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
-								switch ( $data_type ) {
-									case 'text':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										}else{
-											$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										}
-										break;
-									case 'number':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
-										}else{
-
-											$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
-										}
-										break;
-									case 'bool':
-										
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][$field_id] );
-										}else{
-											$modula_settings[$field_id] = rest_sanitize_boolean( $_POST['modula-settings'][$field_id] );
-										}
-										break;
-									default:
-									if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
-										$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
-									} else {
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
-									}
-									break;
+								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
+									$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
+								} else {
+									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
 								}
+
 								break;
 						}
 
 					} else {
 						if ( 'toggle' == $field['type'] ) {
-							$modula_settings[$field_id] = false;
+							$modula_settings[$field_id] = '0';
 						} else if ( 'hidden' == $field['type'] ) {
 
 							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
@@ -967,6 +939,9 @@ class Modula_CPT {
 	}
 
 	public function output_upsell_albums() {
+		$buttons = '<a target="_blank" href="' . esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro') ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
 		?>
 		<div class="modula-upsells-carousel-wrapper">
 			<div class="modula-upsells-carousel">
@@ -982,13 +957,7 @@ class Modula_CPT {
 						<li>Shuffle album cover images (randomly pick a cover image from the gallery)</li>
 					</ul>
 					<p>
-						<a target="_blank"
-						   href="<?php echo esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro') ); ?>"
-						   class="button"><?php esc_html_e( 'Free vs Premium', 'modula-best-grid-gallery' ) ?></a>
-						<a target="_blank"
-						   style="margin-top:10px;"
-						   href="<?php echo esc_url( 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums' ); ?>"
-						   class="button-primary button"><?php esc_html_e( 'Get Modula Premium!', 'modula-best-grid-gallery' ) ?></a>
+						<?php echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-albums' ); ?>
 					</p>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 {
 	"name": "modula-best-grid-gallery",
-	"version": "2.7.7",
+	"version": "2.7.9",
 	"description": "Modula Image Gallery build tools",
 	"author": "WPChill",
 	"license": "GPL-2.0-or-later",
@@ -62,6 +62,7 @@
 	},
 	"dependencies": {
 		"@node-minify/core": "^8.0.6",
-		"@node-minify/uglify-js": "^8.0.6"
+		"@node-minify/uglify-js": "^8.0.6",
+		"latest": "^0.2.0"
 	}
 }
