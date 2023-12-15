@@ -1,3 +1,11 @@
+.post-type-modula-gallery:not( .single-modula-gallery ) .wrap h1.wp-heading-inline,
+.post-type-modula-gallery:not( .single-modula-gallery ) .wrap > .page-title-action {
+    display: none;
+}
+
+.post-type-modula-gallery .wrap .nav-tab-wrapper .page-title-action {
+    top: 7px;
+}
 
 /* Copy Shortcode */
 .modula-copy-shortcode {
