@@ -179,41 +179,52 @@ class Modula_Helper {
 
 
 	public static function lightbox_default_options() {
-
 		$fancybox_options = array(
-			'loop'            => false,
-			'arrows'          => false,
-			'toolbar'         => true,
-			'keyboard'        => true,
-			'wheel'           => false,
-			'buttons'         => array(
-				'close',
+			'animated' => true,
+			'Thumbs'  => array(
+				'type' => 'modern',
 			),
-			'hash'            => false,
-			'lang'            => 'en',
-			'touch'           => false,
-			'protect'         => false,
-			'i18n'            => array(
-				'en' => array(
-					'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
-					'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
-					'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
-					'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
-					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
-					'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
-					'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
-					'THUMBS'      => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
-					'DOWNLOAD'    => esc_html__( 'Download', 'modula-best-grid-gallery' ),
-					'SHARE'       => esc_html__( 'Share', 'modula-best-grid-gallery' ),
-					'ZOOM'        => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
-				)
+			'Toolbar' => array(
+				'display' => array(
+					'right' => array(
+						'close',
+					),
+				),
 			),
-			'clickSlide'      => false,
-			'clickOutside'    => false,
-			'dblclickContent' => false,
-			'dblclickSlide'   => false,
-			'dblclickOutside' => false,
-			'clickContent'    => false,
+			'Carousel' => array(
+				'infinite' => false,
+			),
+			'keyboard' => array(
+				'Escape' => "close",
+				'Delete' => false,
+				'Backspace' => false,
+				'PageUp' => false,
+				'PageDown' => false,
+				'ArrowUp' => false,
+				'ArrowDown' => false,
+				'ArrowRight' => false,
+				'ArrowLeft' => false,
+			),
+			'backdropClick' => false, //The action to perform when the user clicks on the backdrop
+			'i18n' => array(
+				'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
+				'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
+				'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
+				'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
+				'PLAY_START'  => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
+				'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
+				'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
+				'THUMBS'      => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
+				'DOWNLOAD'    => esc_html__( 'Download', 'modula-best-grid-gallery' ),
+				'SHARE'       => esc_html__( 'Share', 'modula-best-grid-gallery' ),
+				'ZOOM'        => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
+			),
+			'Images' => array(
+				'Panzoom' => array(
+					'maxScale' => 2,
+				),
+			),
+
 		);
 
 		return $fancybox_options;
