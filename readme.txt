@@ -268,6 +268,7 @@ Fixec: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/W
 Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
 Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Added: Modula Image Licensing addon upsells. ( [#899](https://github.com/WPChill/modula-lite/issues/899) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

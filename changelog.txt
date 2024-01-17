@@ -5,6 +5,7 @@ Fixed: Troubleshooting scripts not being enqueued.
 Changed: Lightbox & links settings - overhaul.
 Fixed: Welcome page header flex properly spaced.
 Changed: Removed feedback notification.
+Added: Modula Image Licensing addon upsells.
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

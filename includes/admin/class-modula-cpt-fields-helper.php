@@ -63,6 +63,13 @@ class Modula_CPT_Fields_Helper {
 				"icon"        => "dashicons dashicons-image-rotate",
 				'priority'    => 40,
 			),
+			'image_licensing' => array(
+				'label'       => esc_html__( 'Image Licensing', 'modula-best-grid-gallery' ),
+				'title'       => esc_html__( 'Image Licensing Settings', 'modula-best-grid-gallery' ),
+				"icon"        => "dashicons dashicons-images-alt2",
+				'badge'       => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+				'priority'    => 45,
+			),
 			'hover-effect' => array(
 				'label'       => esc_html__( 'Hover effects', 'modula-best-grid-gallery' ),
 				'title'       => esc_html__( 'Hover Effect Settings', 'modula-best-grid-gallery' ),

@@ -183,6 +183,15 @@ class Modula_Admin {
 				);
 		}
 
+		$links['modulalicense'] = array(
+			'page_title' => esc_html__( 'Image Licenses', 'modula-best-grid-gallery'),
+			'menu_title' => esc_html__( 'Image Licenses', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => '#modula-licenses',
+			'function'   => array( $this, 'modula_licenses' ),
+			'priority'   => 28,
+		);
+
 		if ( ! empty( $this->tabs ) ) {
 			$links[] = array(
 				'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
@@ -519,6 +528,10 @@ class Modula_Admin {
 	}
 
 	public function modula_albums() {
+		return;
+	}
+
+	public function modula_licenses() {
 		return;
 	}
 
