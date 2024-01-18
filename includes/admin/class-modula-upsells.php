@@ -805,7 +805,7 @@ class Modula_Upsells {
 	/**
 	 * Show the licenses modal to upgrade
 	 *
-	 * @since 2.7.10
+	 * @since 2.7.91
 	 */
 	public function get_modal_licenses_upgrade() {
 
