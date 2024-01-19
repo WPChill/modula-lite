@@ -346,9 +346,19 @@ class Modula_Helper {
 	public static function render_license_box( $image_licensing = 'none' ){
 		if( 'none' === $image_licensing ){
 			$image_attrib_options = get_option( 'modula_image_licensing_option', false );
+			if( ! $image_attrib_options ){
+				return '';
+			}
+
 			$image_licensing = $image_attrib_options['image_licensing'];
 		}
+		
 		$ccs = self::get_image_licenses();
+
+		if( !isset( $ccs[ $image_licensing ] ) ){
+			return '';
+		}
+
 		$cc  = $ccs[ $image_licensing ];
 
 		ob_start();
@@ -365,7 +375,8 @@ class Modula_Helper {
 
 	public static function render_ia_item_ld_json( $image_licensing, $img_url ){
 
-		$license_url = self::get_image_licenses( $image_licensing[ 'image_licensing' ] )['license'];
+		$license     = self::get_image_licenses( $image_licensing[ 'image_licensing' ] );
+		$license_url = isset( $license[ 'license' ] ) ? $license[ 'license' ] : '';
 		$company     = isset( $image_licensing[ 'image_licensing_company' ] ) ? $image_licensing[ 'image_licensing_company' ] : '';
 		$author      = isset( $image_licensing[ 'image_licensing_author' ] ) ? $image_licensing[ 'image_licensing_author' ] : '';
 

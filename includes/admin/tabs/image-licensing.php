@@ -5,7 +5,15 @@ $defaults = apply_filters( 'modula_troubleshooting_defaults', array(
 ));
 
 $image_attrib_options = get_option( 'modula_image_licensing_option', array() );
-$image_attrib_options = wp_parse_args( $image_attrib_options, $defaults );
+$licenses             = Modula_Helper::get_image_licenses();
+
+if( empty( $image_attrib_options ) || ! isset( $image_attrib_options['image_licensing'] ) || ! isset( $licenses[$image_attrib_options['image_licensing']] ) ){
+    if( ! isset( $licenses[$image_attrib_options['image_licensing']] ) ){
+        // the license no longer exists? unset and to get default with parse_args.
+        unset( $image_attrib_options['image_licensing'] );
+    }
+    $image_attrib_options = wp_parse_args( $image_attrib_options, $defaults );
+}
 
 $image_attrib_fields = array(
     'misc_settings' => array(
