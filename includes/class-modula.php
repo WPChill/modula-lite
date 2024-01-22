@@ -512,36 +512,6 @@ class Modula {
 		return $classes;
 	}
 
-	public function display_licensing_license( $settings ) {
-		$image_attrib_options = get_option( 'modula_image_licensing_option', false );
-		$html                 = apply_filters( 'modula_display_licensing_box', false, $image_attrib_options, $settings );
-
-		if ( false === $html ) {
-			if ( $image_attrib_options && isset( $image_attrib_options['display_with_description'] ) && '1' === $image_attrib_options['display_with_description'] && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
-				$html = Modula_Helper::render_license_box( $image_attrib_options['image_licensing'] );
-			}
-		}
-		if ( '' != $html ) {
-			echo $html;
-		}
-
-	}
-
-	public function display_licensing_ld_json( $settings, $item ) {
-
-		$image_attrib_options = get_option( 'modula_image_licensing_option', false );
-		$html                 = apply_filters( 'modula_display_licensing_json', false, $image_attrib_options, $settings, $item );
-
-		if ( ! $html ) {
-
-			if ( $image_attrib_options && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
-
-				$html = Modula_Helper::render_ia_item_ld_json( $image_attrib_options, $item['img_attributes']['data-full'] );
-			}
-		}
-		echo $html;
-	}
-
 	/**
 	 * Adds the filters and actions to add modula offers display by month
 	 *

@@ -346,7 +346,7 @@ class Modula_Helper {
 	public static function render_license_box( $image_licensing = 'none' ){
 		if( 'none' === $image_licensing ){
 			$image_attrib_options = get_option( 'modula_image_licensing_option', false );
-			if( ! $image_attrib_options ){
+			if( ! $image_attrib_options || ! isset( $image_attrib_options['image_licensing'] ) || 'none' == $image_attrib_options['image_licensing'] ){
 				return '';
 			}
 
