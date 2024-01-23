@@ -270,6 +270,7 @@ Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WP
 Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Added: Modula Image Licensing addon upsells. ( [#899](https://github.com/WPChill/modula-lite/issues/899) )
 Changed: Restored edit view title and "Add new" button. ( [#886]( https://github.com/WPChill/modula-lite/issues/886) )
+Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars ( [#902]( https://github.com/WPChill/modula-lite/issues/902) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

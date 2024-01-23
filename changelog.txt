@@ -7,6 +7,7 @@ Fixed: Welcome page header flex properly spaced.
 Changed: Removed feedback notification.
 Added: Modula Image Licensing addon upsells.
 Changed: Restored edit view title and "Add new" button.
+Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars.
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
