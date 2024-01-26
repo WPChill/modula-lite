@@ -46,28 +46,24 @@
 		"@wordpress/eslint-plugin": "^17.7.0",
 		"@wordpress/scripts": "^27.1.0",
 		"@wordpress/stylelint-config": "^21.33.0",
-		"browser-sync": "^3.0.2",
-		"browser-sync-webpack-plugin": "^2.3.0",
 		"clean-css-cli": "^5.6.3",
 		"concat": "^1.0.3",
 		"eslint-config-prettier": "^9.1.0",
 		"husky": "^9.0.6",
-		"imagemin-cli": "^7.0.0",
 		"lint-staged": "^15.2.0",
 		"postcss": "^8.4.33",
 		"sass": "^1.70.0",
 		"tinypng-cli": "^0.0.7",
-		"uglifyjs-folder": "^3.3.0",
-		"webpack-remove-empty-scripts": "^1.0.4"
+		"uglifyjs-folder": "^3.3.0"
 	},
 	"dependencies": {
 		"@node-minify/core": "^8.0.6",
 		"@node-minify/uglify-js": "^8.0.6",
       "@wordpress/api-fetch": "^6.47.0",
-        "@wordpress/components": "^25.16.0",
-        "@wordpress/i18n": "^4.50.0",
-        "@wordpress/media-utils": "^4.41.0",
-        "react-masonry": "^1.0.7",
-        "swr": "^2.2.4"
+      "@wordpress/components": "^25.16.0",
+      "@wordpress/i18n": "^4.50.0",
+      "@wordpress/media-utils": "^4.41.0",
+      "react-masonry": "^1.0.7",
+      "swr": "^2.2.4"
 	}
 }
