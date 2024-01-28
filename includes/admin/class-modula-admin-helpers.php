@@ -80,10 +80,7 @@ class Modula_Admin_Helpers {
 			</div>
 			<div class="modula-status-bar">
 			</div>
-			<div class="modula-header-links">
 
-				<?php do_action( 'modula_header_bar_links' ); ?>
-			</div>
 		</div>
 		<?php
 	}
