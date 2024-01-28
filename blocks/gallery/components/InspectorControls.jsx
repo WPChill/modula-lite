@@ -59,21 +59,21 @@ export const InspectorControls = () => {
 							{
 								label: __(
 									'Creative',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								),
 								value: 'creative',
 							},
 							{
 								label: __(
 									'Masonry',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								),
 								value: 'masonry',
 							},
 							{
 								label: __(
 									'Custom grid',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								),
 								value: 'custom-grid',
 							},
@@ -84,7 +84,7 @@ export const InspectorControls = () => {
 							<SelectControl
 								label={__(
 									'Columns',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								)}
 								value={galleryColumns}
 								onChange={(value) =>
@@ -96,42 +96,42 @@ export const InspectorControls = () => {
 									{
 										label: __(
 											'One Column',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 1,
 									},
 									{
 										label: __(
 											'Two Columns',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 2,
 									},
 									{
 										label: __(
 											'Three Columns',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 3,
 									},
 									{
 										label: __(
 											'Four Columns',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 4,
 									},
 									{
 										label: __(
 											'Five Columns',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 5,
 									},
 									{
 										label: __(
 											'Six Columns',
-											'modula-best-grid-gallery'
+											'modula-best-grid-gallery',
 										),
 										value: 6,
 									},
@@ -148,7 +148,7 @@ export const InspectorControls = () => {
 							<TextControl
 								label={__(
 									'Row Height',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								)}
 								type="number"
 								onChange={(value) =>
@@ -160,7 +160,7 @@ export const InspectorControls = () => {
 							<CheckboxControl
 								label={__(
 									'Enable last row',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								)}
 								checked={lastRow}
 								onChange={(value) => {
@@ -177,7 +177,7 @@ export const InspectorControls = () => {
 					<RadioControl
 						label={__(
 							'Enable Lightbox',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 						onChange={(value) =>
 							setAttributes({ galleryLightbox: Boolean(value) })
@@ -192,14 +192,14 @@ export const InspectorControls = () => {
 				<PanelBody
 					title={__(
 						'Image Title Settings',
-						'modula-best-grid-gallery'
+						'modula-best-grid-gallery',
 					)}
 					initialOpen={false}
 				>
 					<Text>
 						{__(
 							'Pick a color for the gallery title.',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 					</Text>
 					<ColorPicker
@@ -240,7 +240,7 @@ export const InspectorControls = () => {
 					<RadioControl
 						label={__(
 							'Show/Hide title',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 						selected={titleVisibility}
 						onChange={(value) =>
@@ -252,7 +252,7 @@ export const InspectorControls = () => {
 							{
 								label: __(
 									'Visible',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								),
 								value: 'visible',
 							},
@@ -268,14 +268,14 @@ export const InspectorControls = () => {
 				<PanelBody
 					title={__(
 						'Image Caption Settings',
-						'modula-best-grid-gallery'
+						'modula-best-grid-gallery',
 					)}
 					initialOpen={false}
 				>
 					<Text>
 						{__(
 							'Pick a color for the gallery caption.',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 					</Text>
 					<ColorPicker
@@ -316,7 +316,7 @@ export const InspectorControls = () => {
 					<RadioControl
 						label={__(
 							'Show/Hide Caption',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 						selected={captionVisibility}
 						onChange={(value) =>
@@ -328,7 +328,7 @@ export const InspectorControls = () => {
 							{
 								label: __(
 									'Visible',
-									'modula-best-grid-gallery'
+									'modula-best-grid-gallery',
 								),
 								value: 'visible',
 							},
@@ -442,7 +442,7 @@ export const InspectorControls = () => {
 					<RangeControl
 						label={__(
 							'Hover Effect Opacity',
-							'modula-best-grid-gallery'
+							'modula-best-grid-gallery',
 						)}
 						value={hoverOpacity}
 						allowReset={false}

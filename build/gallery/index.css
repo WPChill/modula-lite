@@ -1,53 +1,5 @@
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/editor.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
 
-/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Gallery/Image.module.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************/
-.GnILeVOQV13weqBNNBPn {
-  width: calc(100% / var(--columns) - 5px);
-  background-color: bisque;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  height: 350px;
-}
-/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Gallery.module.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************/
-.jM3AhXxJkvrWgUNU9Ofs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  width: 100%;
-}
-/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Masonry/Image.module.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************/
-.DLS4SKjAea3yZImHL0fV {
-  background-color: bisque;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.n1jAlHtO5QzyJKGTfnkD {
-  display: "flex";
-  align-items: "center";
-  justify-content: "center";
-  padding: 5px;
-}
-/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./blocks/gallery/components/Galleries/Masonry.module.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************/
-.cgt92h_Pw_KUIHq8sMrO {
-  width: 100%;
-}
-
-/*# sourceMappingURL=index.css.map*/
+.GnILeVOQV13weqBNNBPn{width:calc(100%/var(--columns) - 5px);background-color:bisque;display:flex;justify-content:center;align-items:center;background-size:cover;background-position:center;height:350px}
+.jM3AhXxJkvrWgUNU9Ofs{display:flex;flex-wrap:wrap;gap:5px;width:100%}
+.DLS4SKjAea3yZImHL0fV{background-color:bisque;display:flex;justify-content:center;align-items:center;background-size:cover;width:100%;height:100%}.n1jAlHtO5QzyJKGTfnkD{display:"flex";align-items:"center";justify-content:"center";padding:5px}
+.cgt92h_Pw_KUIHq8sMrO{width:100%}

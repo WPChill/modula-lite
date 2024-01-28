@@ -6,3 +6,4 @@ node_modules/*
 .vscode/
 vendor
 assets/.DS_Store
+/.php-cs-fixer.cache
