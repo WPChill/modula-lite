@@ -251,7 +251,7 @@ class Modula_Shortcode {
 
 		// Check for lightbox
 		$js_config['lightbox']    = $settings['lightbox'];
-		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url' ) ) ) {
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
   			$js_config['lightbox'] = 'fancybox';
 		}
 
