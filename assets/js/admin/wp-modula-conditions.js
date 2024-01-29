@@ -3,14 +3,11 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 jQuery.fn.setting_state = function (el, state) {
 	if (state == 'off') {
 		this.css('opacity', '0.5');
-		this.find('input, textarea, select, button').attr(
-			'disabled',
-			'disabled'
-		);
+		this.find('input, textarea, select, button').addClass('modula-no-pointer');
 	}
 	if (state == 'on') {
 		this.css('opacity', '1');
-		this.find('input, textarea, select, button').removeAttr('disabled');
+		this.find('input, textarea, select, button').removeClass('modula-no-pointer');
 	}
 };
 
@@ -73,6 +70,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			'toggleAccordeon:enableSocial',
 			this.toggleSocial
 		);
+		this.listenTo(
+			wp.Modula.Settings,
+			'change:cursor',
+			this.changeCursor
+		);
 	},
 
 	initValues: function () {
@@ -91,6 +93,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			false,
 			wp.Modula.Settings.get('grid_image_size')
 		);
+		this.changeCursor( false, wp.Modula.Settings.get( 'cursor' ) );
 	},
 
 	changedType: function (settings, value) {
@@ -192,15 +195,16 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		);
 	},
 
-	changedCursor: function (settings, value) {
-		var cursorBox = jQuery('.modula-effects-preview > div');
-		cursorBox.css('cursor', value);
+	changeCursor: function (settings, value) {
+        if ( 'custom' != value ) {
+			var cursorBox = jQuery( '.modula-effects-preview > div' );
+            cursorBox.css('cursor', wp.Modula.Settings.get( 'cursor' ) );
+        }
 	},
 
 	changedLightbox: function (settings, value) {
 		var rows = this.get('rows'),
-			tabs = this.get('tabs'),
-			link_options = ['no-link', 'direct', 'attachment-page'];
+			tabs = this.get('tabs');
 
 		if ('fancybox' == value) {
 			rows.filter(

@@ -78,12 +78,7 @@ class Modula_Admin_Helpers {
 			<div class="modula-header-logo">
 				<img src="<?php echo esc_url( MODULA_URL . 'assets/images/logo-dark.webp' ); ?>" class="modula-logo">
 			</div>
-			<div class="modula-status-bar">
-			</div>
-			<div class="modula-header-links">
 
-				<?php do_action( 'modula_header_bar_links' ); ?>
-			</div>
 		</div>
 		<?php
 	}

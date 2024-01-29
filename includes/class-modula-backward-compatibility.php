@@ -70,7 +70,7 @@ class Modula_Backward_Compatibility {
 
 	public function backward_compatibility_admin_fancybox( $value, $key, $settings ){
 
-		if ( 'lightbox' == $key && apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $value, array( 'no-link', 'direct', 'attachment-page' ) ) ) {
+		if ( 'lightbox' == $key && apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $value, array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
 			return 'fancybox';
 		}
 
@@ -78,14 +78,12 @@ class Modula_Backward_Compatibility {
 
 	}
 
-	public function backward_compatibility_backbone_fancybox( $settings ){
-
-		if ( apply_filters( 'modula_disable_lightboxes', true ) && isset( $settings['lightbox'] ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'attachment-page' ) ) ) {
+	public function backward_compatibility_backbone_fancybox( $settings ) {
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && isset( $settings['lightbox'] ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
 			$settings['lightbox'] = 'fancybox';
 		}
 
 		return $settings;
-
 	}
 
 	/**

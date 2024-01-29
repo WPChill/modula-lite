@@ -1,3 +1,15 @@
+= 2.7.91 - 29.01.2024 =
+Changed: Save gallery settings with the right format.
+Changed: Hover effects cursor not changing in previewer.
+Fixed: Troubleshooting scripts not being enqueued.
+Changed: Lightbox & links settings - overhaul.
+Fixed: Welcome page header flex properly spaced.
+Changed: Removed feedback notification.
+Added: Modula Image Licensing addon upsells.
+Changed: Restored edit view title and "Add new" button.
+Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars.
+Fixed: Setting value lost when setting's parent is disabled and the gallery is updated.
+
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
 

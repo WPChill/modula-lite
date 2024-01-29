@@ -234,7 +234,7 @@ class Modula_CPT {
 					if ( isset( $_POST['modula-settings'][$field_id] ) ) {
 						
 						// Values for selects
-						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'attachment-page' ) );
+						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
 						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
 
@@ -303,14 +303,42 @@ class Modula_CPT {
 								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
 								break;
 							default:
-								if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
-									$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
-								} else {
-									$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
+								$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
+								switch ( $data_type ) {
+									case 'text':
+										if( is_array( $_POST['modula-settings'][$field_id] ) ){
+											$modula_settings[$field_id] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
+										}else{
+											$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+										}
+										break;
+									case 'number':
+										if( is_array( $_POST['modula-settings'][$field_id] ) ){
+											$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
+										}else{
+
+											$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+										}
+										break;
+									case 'bool':
+
+										if( is_array( $_POST['modula-settings'][$field_id] ) ){
+											$modula_settings[$field_id] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][$field_id] );
+										}else{
+											$modula_settings[$field_id] = rest_sanitize_boolean( $_POST['modula-settings'][$field_id] );
+										}
+										break;
+									default:
+									if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
+										$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
+										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
+									} else {
+										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
+									}
+									break;
 								}
 
-								break;
+							break;
 						}
 
 					} else {
@@ -362,6 +390,87 @@ class Modula_CPT {
 
 	}
 
+	private function sanitize_image( $image ) {
+
+		$new_image = array();
+
+		// This list will not contain id because we save our images based on image id.
+		$image_attributes = apply_filters(
+			'modula_gallery_image_attributes',
+			array(
+				'id',
+				'alt',
+				'title',
+				'description',
+				'halign',
+				'valign',
+				'link',
+				'target',
+				'width',
+				'height',
+				'togglelightbox',
+			)
+		);
+
+		foreach ( $image_attributes as $attribute ) {
+			if ( isset( $image[ $attribute ] ) ) {
+
+				switch ( $attribute ) {
+					case 'alt':
+						$new_image[ $attribute ] = sanitize_text_field( $image[ $attribute ] );
+						break;
+					case 'width':
+					case 'height':
+						$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						break;
+					case 'title':
+					case 'description':
+						$new_image[ $attribute ] = wp_filter_post_kses( $image[ $attribute ] );
+						break;
+					case 'link':
+						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
+						break;
+					case 'target':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'togglelightbox':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'halign':
+						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ) ) ) {
+							$new_image[ $attribute ] = $image[ $attribute ];
+						} else {
+							$new_image[ $attribute ] = 'center';
+						}
+						break;
+					case 'valign':
+						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ) ) ) {
+							$new_image[ $attribute ] = $image[ $attribute ];
+						} else {
+							$new_image[ $attribute ] = 'middle';
+						}
+						break;
+					default:
+						$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $image[ $attribute ] ), $image[ $attribute ], $attribute );
+						break;
+				}
+			} else {
+				$new_image[ $attribute ] = '';
+			}
+		}
+
+		return $new_image;
+
+	}
+
 	public function add_extensions_tab_onboarding( $views ) {
 
 		$query = new WP_Query(array(
@@ -369,7 +478,6 @@ class Modula_CPT {
 			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending', 'private' ),
 		));
 
-		$this->display_feedback_notice();
 		$this->display_extension_tab();
 
 		if( !$query->have_posts() ){
@@ -414,39 +522,9 @@ class Modula_CPT {
 			Modula_Admin_Helpers::modula_tab_navigation( $tabs, 'galleries' );
 			?>
 
-			<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=' . $this->cpt_name ) ); ?>" class="page-title-action">
-				<?php esc_html_e( 'Add New', 'modula-best-grid-gallery' ); ?>
-			</a>
+
 		</h2>
 		<br/>
-		<?php
-	}
-
-	public function display_feedback_notice() {
-
-		$modula_options = get_option( 'modula-checks', array() );
-		if ( isset( $modula_options['edit-notice'] ) ) {
-			return;
-		}
-
-		$galleries = get_posts( 'post_type=modula-gallery' );
-		if ( count( $galleries ) == 0 ) {
-			return;
-		}
-
-		?>
-
-		<div class="notice modula-feedback-notice">
-			<p class="modula-feedback-title">
-				<?php echo apply_filters( 'modula_svg_icon', '<svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 32 32"><path fill="#f0f5fa" d="M9.3 25.3c-2.4-0.7-4.7-1.4-7.1-2.1 2.4-3.5 4.7-7 7-10.5C9.3 12.9 9.3 24.9 9.3 25.3z"/><path fill="#f0f5fa" d="M9.6 20.1c3.7 2 7.4 3.9 11.1 5.9 -0.1 0.1-5 5-5.2 5.2C13.6 27.5 11.6 23.9 9.6 20.1 9.6 20.2 9.6 20.2 9.6 20.1z"/><path fill="#f0f5fa" d="M22.3 11.9c-3.7-2-7.4-4-11-6 0 0 0 0 0 0 0 0 0 0 0 0 1.7-1.7 3.4-3.3 5.1-5 0 0 0 0 0.1-0.1C18.5 4.5 20.4 8.2 22.3 11.9 22.4 11.9 22.3 11.9 22.3 11.9z"/><path fill="#f0f5fa" d="M4.7 15c-0.6-2.4-1.2-4.7-1.8-7 0.2 0 11.9 0.6 12.7 0.6 0 0 0 0 0 0 0 0 0 0 0 0 -3.6 2.1-7.2 4.2-10.7 6.3C4.8 15 4.8 15 4.7 15z"/><path fill="#f0f5fa" d="M22.9 19.6c-0.2-4.2-0.3-8.3-0.5-12.5 2.4 0.6 4.8 1.2 7.1 1.8C27.4 12.4 25.1 16 22.9 19.6 22.9 19.6 22.9 19.6 22.9 19.6z"/><path fill="#f0f5fa" d="M27.7 16.8c0.6 2.4 1.2 4.7 1.9 7.1 -4.2-0.2-8.5-0.4-12.7-0.5 0 0 0 0 0 0C20.5 21.2 24.1 19 27.7 16.8z"/></svg>' ); ?>
-				<?php echo apply_filters( 'modula_admin_feedback_title', esc_html( 'Modula Image Gallery' ) ); ?>
-			</p>
-			<p><?php echo apply_filters( 'modula_admin_feedback_paragraph', esc_html( 'Do you enjoy using Modula? Please take a minute to suggest a feature or tell us what you think.', 'modula-best-grid-gallery' ) ); ?></p>
-			<a class="button" target="_blank"
-			   href="<?php echo apply_filters( 'modula_admin_feedback_link', 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform' ); ?>"><?php esc_html_e( 'Submit Feedback', 'modula-best-grid-gallery' ); ?></a>
-			<a href="#" class="notice-dismiss"></a>
-		</div>
-
 		<?php
 	}
 
@@ -480,7 +558,6 @@ class Modula_CPT {
 		die( '1' );
 
 	}
-
 
 	public function replace_submit_meta_box() {
 		global $post;
@@ -857,12 +934,12 @@ class Modula_CPT {
 
 							<?php elseif ( in_array( $post->post_status, array( 'draft' ) ) || 0 == $post->ID ) : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery';; ?>"/>
+								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 								<?php submit_button( __( 'Publish Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
-								
+
 							<?php else : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery';; ?>"/>
+								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 								<?php submit_button( __( 'Save Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 							<?php
 							endif;
@@ -964,89 +1041,6 @@ class Modula_CPT {
 		</div>
 		<?php
 	}
-
-
-	private function sanitize_image( $image ) {
-
-		$new_image = array();
-
-		// This list will not contain id because we save our images based on image id.
-		$image_attributes = apply_filters(
-			'modula_gallery_image_attributes',
-			array(
-				'id',
-				'alt',
-				'title',
-				'description',
-				'halign',
-				'valign',
-				'link',
-				'target',
-				'width',
-				'height',
-				'togglelightbox',
-			)
-		);
-
-		foreach ( $image_attributes as $attribute ) {
-			if ( isset( $image[ $attribute ] ) ) {
-
-				switch ( $attribute ) {
-					case 'alt':
-						$new_image[ $attribute ] = sanitize_text_field( $image[ $attribute ] );
-						break;
-					case 'width':
-					case 'height':
-						$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						break;
-					case 'title':
-					case 'description':
-						$new_image[ $attribute ] = wp_filter_post_kses( $image[ $attribute ] );
-						break;
-					case 'link':
-						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
-						break;
-					case 'target':
-						if ( isset( $image[ $attribute ] ) ) {
-							$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						} else {
-							$new_image[ $attribute ] = 0;
-						}
-						break;
-					case 'togglelightbox':
-						if ( isset( $image[ $attribute ] ) ) {
-							$new_image[ $attribute ] = absint( $image[ $attribute ] );
-						} else {
-							$new_image[ $attribute ] = 0;
-						}
-						break;
-					case 'halign':
-						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ) ) ) {
-							$new_image[ $attribute ] = $image[ $attribute ];
-						} else {
-							$new_image[ $attribute ] = 'center';
-						}
-						break;
-					case 'valign':
-						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ) ) ) {
-							$new_image[ $attribute ] = $image[ $attribute ];
-						} else {
-							$new_image[ $attribute ] = 'middle';
-						}
-						break;
-					default:
-						$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $image[ $attribute ] ), $image[ $attribute ], $attribute );
-						break;
-				}
-			} else {
-				$new_image[ $attribute ] = '';
-			}
-		}
-
-		return $new_image;
-
-	}
 }
-
 
 

@@ -331,61 +331,82 @@ class Modula_Helper {
 	 * @return array
 	 * @since 2.7.5
 	 */
-	public static function get_image_licenses( $specific = false ){
-		
+	public static function get_image_licenses( $specific = false ) {
 		$defaults = self::get_default_image_licenses();
 		$filtered = apply_filters( 'modula-image-licensing-licenses', $defaults );
-		
-		if( $specific ){
+
+		if ( $specific ) {
 			return isset( $filtered[ $specific ] ) ? $filtered[ $specific ] : array();
 		}
 
 		return $filtered;
 	}
 
-	public static function render_license_box( $image_licensing = 'none' ){
-		if( 'none' === $image_licensing ){
+	/**
+	 * Returns Image Licensing licenses
+	 *
+	 *
+	 * @return string
+	 * @since 2.7.9
+	 */
+	public static function render_license_box( $image_licensing = 'none' ) {
+		if ( 'none' === $image_licensing ) {
 			$image_attrib_options = get_option( 'modula_image_licensing_option', false );
+			// If no image licensing options are set, return empty string
+			if ( ! $image_attrib_options || ! isset( $image_attrib_options['image_licensing'] ) || 'none' === $image_attrib_options['image_licensing'] ) {
+				return '';
+			}
+			// Set image licensing to the option value because the image licensing is set to "none"
 			$image_licensing = $image_attrib_options['image_licensing'];
 		}
+
 		$ccs = self::get_image_licenses();
-		$cc  = $ccs[ $image_licensing ];
+		// If the image licensing options are not set, return empty string
+		if ( ! isset( $ccs[ $image_licensing ] ) ) {
+			return '';
+		}
+
+		$cc = $ccs[ $image_licensing ];
 
 		ob_start();
 		?>
 		<div class="modula-creative-commons-wrap">
-			<a rel="license" href="<?php echo esc_attr( $cc['license'] ); ?>" target="_BLANK"><img alt="Creative Commons License" style="border-width:0" src="<?php echo esc_attr( $cc['image'] ); ?>" /></a>
-			<span> <?php printf( __( 'This work is licensed under a %s %s %s' ), '<a rel="license" href="' . esc_attr( $cc['license'] ) . '" target="_BLANK" >', esc_html( $cc['name'] ), '</a>' ); ?></span>
+			<a rel="license" href="<?php
+			echo esc_url( $cc['license'] ); ?>" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="<?php
+				echo esc_url( $cc['image'] ); ?>"/></a>
+			<span> <?php
+				printf( __( 'This work is licensed under a %s %s %s' ), '<a rel="license" href="' . esc_url( $cc['license'] ) . '" target="_blank" >', esc_html( $cc['name'] ), '</a>' ); ?></span>
 		</div>
 		<?php
 		return ob_get_clean();
-		
 	}
 
-
-	public static function render_ia_item_ld_json( $image_licensing, $img_url ){
-
-		$license_url = self::get_image_licenses( $image_licensing[ 'image_licensing' ] )['license'];
-		$company     = isset( $image_licensing[ 'image_licensing_company' ] ) ? $image_licensing[ 'image_licensing_company' ] : '';
-		$author      = isset( $image_licensing[ 'image_licensing_author' ] ) ? $image_licensing[ 'image_licensing_author' ] : '';
+	/**
+	 * Render Image Licensing licenses
+	 *
+	 *
+	 * @return string
+	 * @since 2.7.9
+	 */
+	public static function render_ia_item_ld_json( $image_licensing, $img_url ) {
+		$license     = self::get_image_licenses( $image_licensing['image_licensing'] );
+		$license_url = isset( $license['license'] ) ? $license['license'] : '';
+		$company     = isset( $image_licensing['image_licensing_company'] ) ? $image_licensing['image_licensing_company'] : '';
+		$author      = isset( $image_licensing['image_licensing_author'] ) ? $image_licensing['image_licensing_author'] : '';
 
 		$json_array = array(
-			"@context"   => "https://schema.org/",
-			"@type"      => "ImageObject",
-			"contentUrl" => esc_url( $img_url ),
-			"license"    => esc_url( $license_url ),
-			"creditText" => esc_html( $company ),
-			"creator"    => array(
-				"@type"  =>  "Person",
-				"name"   =>  esc_html( $author ),
+			"@context"        => "https://schema.org/",
+			"@type"           => "ImageObject",
+			"contentUrl"      => esc_url( $img_url ),
+			"license"         => esc_url( $license_url ),
+			"creditText"      => esc_html( $company ),
+			"creator"         => array(
+				"@type" => "Person",
+				"name"  => esc_html( $author ),
 			),
-			"copyrightNotice"=> esc_html( $company ),
+			"copyrightNotice" => esc_html( $company ),
 		);
 
 		return $json_array;
-		
 	}
-
-
-
 }

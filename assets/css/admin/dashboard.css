@@ -288,5 +288,21 @@
 }
 
 
+.modula-gallery_page_wpchill-dashboard .modula-header-logo {
+  margin: 0 auto;
+  flex: 0 0 40%;
+  text-align: center;
+}
+.modula-gallery_page_wpchill-dashboard .modula-header-links {
+  margin-left: auto;
+  margin-right: 10px;
+  flex: 0 0 calc( 30% - 10px );
+  text-align: right;
+}
+.modula-page-header span.dashicons {
+  position: relative;
+  top: 5px;
+  right: 3px;
+}
 
 /*# sourceMappingURL=dashboard.css.map */

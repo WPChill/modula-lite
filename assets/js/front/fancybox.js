@@ -5940,9 +5940,9 @@
 				);
 
 				list.push(
-					'<a href="javascript:;" role="button" aria-label="Click to show image titled ' +
-						imageCaption +
-						'" tabindex="0" data-index="' +
+					'<a href="javascript:;" role="button" aria-label=\'Click to show image titled ' +
+					imageCaption +
+						'\' tabindex="0" data-index="' +
 						i +
 						'"' +
 						(src && src.length

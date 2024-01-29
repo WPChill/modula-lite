@@ -251,7 +251,7 @@ class Modula_Shortcode {
 
 		// Check for lightbox
 		$js_config['lightbox']    = $settings['lightbox'];
-		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'attachment-page' ) ) ) {
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
   			$js_config['lightbox'] = 'fancybox';
 		}
 
@@ -343,8 +343,9 @@ class Modula_Shortcode {
 		if ( '' != $settings['titleColor'] ) {
 			$css .= "#{$gallery_id} .modula-items .figc .jtg-title { color:" . Modula_Helper::sanitize_rgba_colour( $settings['titleColor'] ) . "; }";
 		}
-
-		$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a:not(.modula-no-follow) { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		if ( ! isset( $settings['lightbox'] ) || 'no-link' != $settings['lightbox'] ) {
+			$css .= "#{$gallery_id}.modula-gallery .modula-item > a, #{$gallery_id}.modula-gallery .modula-item, #{$gallery_id}.modula-gallery .modula-item-content > a:not(.modula-no-follow) { cursor:" . esc_attr( $settings['cursor'] ) . "; } ";
+		}
 		$css .= "#{$gallery_id}.modula-gallery .modula-item-content .modula-no-follow { cursor: default; } ";
 		$css = apply_filters( 'modula_shortcode_css', $css, $gallery_id, $settings );
 

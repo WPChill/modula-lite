@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 2.7.9
+Stable tag: 2.7.91
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,18 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.91 - 29.01.2024 =
+Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
+Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
+Fixed: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
+Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
+Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Added: Modula Image Licensing addon upsells. ( [#899](https://github.com/WPChill/modula-lite/issues/899) )
+Changed: Restored edit view title and "Add new" button. ( [#886]( https://github.com/WPChill/modula-lite/issues/886) )
+Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars ( [#902]( https://github.com/WPChill/modula-lite/issues/902) )
+Fixed: Setting value lost when setting's parent is disabled and the gallery is updated. ( [#903]( https://github.com/WPChill/modula-lite/issues/903) )
+
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
 

@@ -48,6 +48,9 @@ class Modula_Upsells {
 		// Gallery Defaults modal
 		add_action( 'wp_ajax_modula_modal-gallery-defaults_upgrade', array( $this, 'get_modal_gallery_defaults_upgrade' ) );
 
+		// Modula licenses modal
+		add_action( 'wp_ajax_modula_modal-image-licensing_upgrade', array( $this, 'get_modal_licenses_upgrade' ) );
+
 		/* Hooks */
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
@@ -62,6 +65,7 @@ class Modula_Upsells {
 		add_filter( 'modula_download_tab_content', array( $this, 'download_tab_upsell' ) );
 		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
 		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
+		add_filter( 'modula_image_licensing_tab_content', array( $this, 'image_licensing_tab_upsell' ) );
 
 		// Modula Advanced Shortcodes settings tab upsells
 		add_action('modula_admin_tab_compression', array( $this, 'render_speedup_tab' ) );
@@ -122,8 +126,9 @@ class Modula_Upsells {
 			}
 			$upsell_box .= '</ul>';
 		}
-
-		$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
+		if( $description ){
+			$upsell_box .= '<p class="modula-upsell-description">' . esc_html( $description ) . '</p>';
+		}
 
 		return $upsell_box;
 	}
@@ -627,6 +632,52 @@ class Modula_Upsells {
 
 	}
 
+	public function image_licensing_tab_upsell( $tab_content ) {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-image-licensing' ) ) {
+			return;
+		}
+
+		$upsell_title       = esc_html__( 'Trying to add image licenses to your gallery?', 'modula-best-grid-gallery' );
+		$upsell_description = esc_html__( "Streamline licensing, protect your work, and monetize effortlessly with our extension.", 'modula-best-grid-gallery' );
+		$features           = array(
+				array(
+						'feature' => 'You simplify your image licensing process, saving time and effort, perfect for your regular licensing needs.',
+				),
+				array(
+						'feature' => 'You ensure proper attribution for all your images, protecting against copyright infringement and upholding your rights.',
+				),
+				array(
+						'feature' => 'You enjoy the flexibility to set different licensing terms for your images, catering to your unique needs and scenarios.',
+				),
+				array(
+						'feature' => 'You add a layer of professionalism to your portfolio, demonstrating your serious approach to copyright and image management.',
+				),
+				array(
+						'feature' => 'You open new revenue streams by monetizing your work directly through your portfolio, enhancing your earning potential',
+				),
+		);
+
+		$tab_content .= '<div class="modula-upsell">';
+		$tab_content .= $this->generate_upsell_box( $upsell_title, false, 'image-licensing', $features );
+
+		$tab_content .= '<p>';
+
+		$buttons = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-image-licensing_tab_upsell-tab&utm_campaign=modula-image-licensing" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+		$buttons = apply_filters( 'modula_upsell_buttons', $buttons, 'modula-image-licensing' );
+
+		$tab_content .= $buttons;
+
+		$tab_content .= '</p>';
+		$tab_content .= '</div>';
+
+		return $tab_content;
+
+	}
+	
+
 	public function meta_boxes_setup() {
 
 		/* Add meta boxes on the 'add_meta_boxes' hook. */
@@ -748,6 +799,21 @@ class Modula_Upsells {
 		}
 
 		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-albums-upgrade.php';
+		wp_die();
+	}
+
+	/**
+	 * Show the licenses modal to upgrade
+	 *
+	 * @since 2.7.91
+	 */
+	public function get_modal_licenses_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-image-licensing' ) ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-image-licensing-upgrade.php';
 		wp_die();
 	}
 

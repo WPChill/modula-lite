@@ -89,10 +89,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
-
-
 		}
-
 	}
 
 	/**
@@ -186,8 +183,6 @@ class Modula {
 
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
-
-
 	}
 
 	private function define_public_hooks() {
@@ -281,8 +276,6 @@ class Modula {
 			wp_enqueue_style( 'modula-jquery-ui', MODULA_URL . 'assets/css/admin/jquery-ui' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-pro-effects', MODULA_URL . 'assets/css/admin/effects' . $suffix . '.css', null, MODULA_LITE_VERSION );
-
-
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/admin/resizesensor' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/admin/packery' . $suffix . '.js', array(
 				'jquery',
@@ -321,14 +314,12 @@ class Modula {
 				return;
 			}
 
-
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		} elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
 			// Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
 				return;
 			}
-
 
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons' . $suffix . '.css', null, MODULA_LITE_VERSION );
@@ -521,36 +512,6 @@ class Modula {
 		return $classes;
 	}
 
-	public function display_licensing_license( $settings ) {
-		$image_attrib_options = get_option( 'modula_image_licensing_option', false );
-		$html                 = apply_filters( 'modula_display_licensing_box', false, $image_attrib_options, $settings );
-
-		if ( false === $html ) {
-			if ( $image_attrib_options && isset( $image_attrib_options['display_with_description'] ) && '1' === $image_attrib_options['display_with_description'] && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
-				$html = Modula_Helper::render_license_box( $image_attrib_options['image_licensing'] );
-			}
-		}
-		if ( '' != $html ) {
-			echo $html;
-		}
-
-	}
-
-	public function display_licensing_ld_json( $settings, $item ) {
-
-		$image_attrib_options = get_option( 'modula_image_licensing_option', false );
-		$html                 = apply_filters( 'modula_display_licensing_json', false, $image_attrib_options, $settings, $item );
-
-		if ( ! $html ) {
-
-			if ( $image_attrib_options && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
-
-				$html = Modula_Helper::render_ia_item_ld_json( $image_attrib_options, $item['img_attributes']['data-full'] );
-			}
-		}
-		echo $html;
-	}
-
 	/**
 	 * Adds the filters and actions to add modula offers display by month
 	 *
@@ -558,8 +519,7 @@ class Modula {
 	 */
 	private function set_offer(){
 		$month = date('m');
-		$this->offer = array( 'class' => '', 'column' => '', 'label' => __( 'Get Premium', 'download-monitor' ) );
-	
+
 		if ( 11 == $month ) { 
 			add_filter( 'modula_upsell_buttons', array( $this, 'bf_buttons' ) , 15, 2 );
 			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
