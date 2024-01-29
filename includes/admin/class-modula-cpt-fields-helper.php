@@ -369,7 +369,6 @@ class Modula_CPT_Fields_Helper {
                     "description" => esc_html__( 'Choose how the gallery should behave on image clicking.', 'modula-best-grid-gallery' ),
                     'default'     => 'fancybox',
                     "values"      => array(
-
                         "no-link"      => esc_html__( 'No link', 'modula-best-grid-gallery' ),
                         "direct"       => esc_html__( 'Direct link to image', 'modula-best-grid-gallery' ),
                         "external-url" => esc_html__( 'External URL', 'modula-best-grid-gallery' ),

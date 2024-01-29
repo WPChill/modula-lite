@@ -105,7 +105,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		return $item_data;
 	}
 
-	if ( 'external-url' == $settings['lightbox'] ) {
+	if ( 'external-url' == $settings['lightbox'] || 'attachment-page' === $settings['lightbox'] ) {
 
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';

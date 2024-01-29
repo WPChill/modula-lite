@@ -204,8 +204,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedLightbox: function (settings, value) {
 		var rows = this.get('rows'),
-			tabs = this.get('tabs'),
-			link_options = ['no-link', 'direct', 'external-url'];
+			tabs = this.get('tabs');
 
 		if ('fancybox' == value) {
 			rows.filter(
