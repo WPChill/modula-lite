@@ -106,7 +106,7 @@ class Modula_Ajax_Migrator {
 				'ID'      => $queried[0]->ID,
 				'title'   => $queried[0]->post_title,
 				'alt'     => get_post_meta( $queried[0]->ID, '_wp_attachment_image_alt', true ),
-				'caption' => $queried[0]->post_content
+				'caption' => $description
 			);
 		}
 

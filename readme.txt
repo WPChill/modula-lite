@@ -271,6 +271,7 @@ Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/mod
 Added: Modula Image Licensing addon upsells. ( [#899](https://github.com/WPChill/modula-lite/issues/899) )
 Changed: Restored edit view title and "Add new" button. ( [#886]( https://github.com/WPChill/modula-lite/issues/886) )
 Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars ( [#902]( https://github.com/WPChill/modula-lite/issues/902) )
+Fixed: Setting value lost when setting's parent is disabled and the gallery is updated. ( [#903]( https://github.com/WPChill/modula-lite/issues/903) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
