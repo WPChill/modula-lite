@@ -369,7 +369,6 @@ class Modula_CPT {
 				$modula_settings['helpergrid'] = 0;
 			}
 
-			//var_dump( $_POST['modula-settings']['show_navigation'], $modula_settings['show_navigation']);wp_die();
 			// Add settings to gallery meta
 			update_post_meta( $post_id, 'modula-settings', $modula_settings );
 
