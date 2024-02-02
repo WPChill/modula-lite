@@ -293,7 +293,7 @@ class Modula_Admin {
 				$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
 				$timezone      = get_option( 'timezone_string' );
 				$gmt_offset    = get_option( 'gmt_offset' );
-				$offset        = ( 7 * 24 * 60 * 60 );
+				$offset        = 30 * DAY_IN_SECONDS;
 
 				$dt = new DateTime();
 

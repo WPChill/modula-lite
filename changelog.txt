@@ -1,3 +1,6 @@
+= 2.7.92 - TBD =
+Fixed: Extensions -> Last reload date.
+
 = 2.7.91 - 29.01.2024 =
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.
