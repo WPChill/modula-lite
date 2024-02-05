@@ -264,10 +264,11 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 = 2.7.91 - TBD =
 Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
 Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
-Fixec: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
+Fixed: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
 Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
 Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Changed: Upgraded lightbox to Fancybox 5. ( [#894](https://github.com/WPChill/modula-lite/issues/894) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

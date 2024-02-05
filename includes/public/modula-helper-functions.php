@@ -277,6 +277,7 @@ function modula_add_scripts( $scripts, $settings ){
 
 	if ( 'fancybox' == $settings['lightbox'] ) {
 		$needed_scripts[] = 'modula-fancybox';
+		$needed_scripts[] = 'modulaFancybox';
 	}
 
 	return array_merge( $needed_scripts, $scripts );
