@@ -34,6 +34,7 @@ var modulaFancybox = {
             };
         }
 
+        opts.on = {};
         opts.on['Carousel.ready'] = function (fancybox, eventName) {
             var options = fancybox.options,
                 pauseOnHover = (typeof options.Slideshow !== 'undefined' && typeof options.Slideshow.pauseOnHover !== 'undefined') ? options.Slideshow.pauseOnHover : false,
