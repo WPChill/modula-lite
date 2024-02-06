@@ -396,10 +396,10 @@ function modula_sources_and_sizes( $data ) {
 				$attr .= sprintf( ' data-sizes="%1$s"', esc_attr( $sizes ) );
 			}
 		} else {
-			$attr = sprintf( 'srcset="%s"', esc_attr( $srcset ) );
+			$attr = sprintf( ' srcset="%s"', esc_attr( $srcset ) );
 
 			if ( is_string( $sizes ) ) {
-				$attr .= sprintf( ' sizes="%s""', esc_attr( $sizes ) );
+				$attr .= sprintf( ' sizes="%s"', esc_attr( $sizes ) );
 			}
 		}
 

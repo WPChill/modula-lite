@@ -8,6 +8,7 @@ Changed: Removed feedback notification.
 Changed: Upgraded lightbox to Fancybox 5.
 Changed: Improved publish metabox.
 Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance.
+Fixed: ADA compliance issues.
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

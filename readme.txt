@@ -270,6 +270,8 @@ Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WP
 Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Changed: Upgraded lightbox to Fancybox 5. ( [#894](https://github.com/WPChill/modula-lite/issues/894) )
 Changed: Improved publish metabox. ( [#290](https://github.com/WPChill/modula-lite/issues/290) )
+Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance. ( [#299](https://github.com/WPChill/modula-lite/issues/299) )
+Fixed: ADA compliance issues. ( [#708](https://github.com/WPChill/modula-lite/issues/708) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
