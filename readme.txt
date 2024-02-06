@@ -269,6 +269,7 @@ Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChi
 Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 Changed: Upgraded lightbox to Fancybox 5. ( [#894](https://github.com/WPChill/modula-lite/issues/894) )
+Changed: Improved publish metabox. ( [#290](https://github.com/WPChill/modula-lite/issues/290) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
