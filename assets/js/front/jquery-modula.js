@@ -211,9 +211,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 
 		self.$element.on(
-			'click',
+			'click keypress',
 			'.modula-item-link:not( .modula-simple-link )',
 			function (evt) {
+				// Added accesibility support.
+				if (evt.which !== 13 && evt.type !== 'click') {
+					return;
+				}
 				evt.preventDefault();
 				var clickedLink = jQuery(this);
 				var links = $.map(self.$items, function (o) {

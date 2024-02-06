@@ -89,6 +89,9 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['data-elementor-open-lightbox'] = 'no';
 	}
 
+	// ADA Compliance. Makes tag focusable using tab key.
+	$item_data['link_attributes']['tabindex'] = 0;
+
 	$caption = "";
 
 	if ( isset( $item['description'] ) && '' != $item['description'] ) {
