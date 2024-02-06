@@ -272,6 +272,7 @@ Changed: Upgraded lightbox to Fancybox 5. ( [#894](https://github.com/WPChill/mo
 Changed: Improved publish metabox. ( [#290](https://github.com/WPChill/modula-lite/issues/290) )
 Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance. ( [#299](https://github.com/WPChill/modula-lite/issues/299) )
 Fixed: ADA compliance issues. ( [#708](https://github.com/WPChill/modula-lite/issues/708) )
+Added: Made lightbox strings translatable. ( [#301](https://github.com/WPChill/modula-lite/issues/301) )
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

@@ -12,9 +12,9 @@
 						<h2><?php esc_html_e( 'Gallery Defaults', 'modula-best-grid-gallery' ); ?></h2>
 						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Speed up your gallery creation process by starting from a pre-saved default. Save any gallery\'s settings as a default and reuse them indefinitely. Got a bunch of galleries you want to apply a default to? That\'s possible too with this extension.', 'modula-best-grid-gallery' ); ?></h4>
 						<ul class="modula-upsells-list">
-							<li>Create default galleries using the desired settings.</li>
-							<li>Add a new gallery and select a default preset previously created. Then add your images.</li>
-							<li>Save your galleries</li>
+							<li><?php esc_html_e( 'Create default galleries using the desired settings.', 'modula-best-grid-gallery' ); ?></li>
+							<li><?php esc_html_e( 'Add a new gallery and select a default preset previously created. Then add your images.', 'modula-best-grid-gallery' ); ?></li>
+							<li><?php esc_html_e( 'Save your galleries', 'modula-best-grid-gallery' ); ?></li>
 						</ul>
 						<p>
 							<?php

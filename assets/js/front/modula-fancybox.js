@@ -87,13 +87,12 @@ function ModulaOpenShare() {
     var instance = ModulaFancybox.getInstance();
     var current = ModulaFancybox.getSlide();
     var url = (typeof current.opts.image_src !== 'undefined') ? current.opts.image_src : current.src;
-    var tpl = "<div class='modula-fancybox-share'><h1>" + instance.options.i18n.SHARE + "</h1><p>";
+    var tpl = "<div class='modula-fancybox-share'><h1>" + instance.options.l10n.SHARE + "</h1><p>";
     var shareBtnTpl = JSON.parse(ModulaShareButtons);
 
     instance.options.modulaShare.forEach(function (value, index) {
         var rawEmailMessage = instance.options.lightboxEmailMessage.length ?
-            instance.options.lightboxEmailMessage :
-            'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
+            instance.options.lightboxEmailMessage :instance.options.l10n.EMAIL;
 
         var emailMessage = rawEmailMessage
             .replace(/\%%gallery_link%%/g, window.location.href)
