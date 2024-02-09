@@ -190,6 +190,7 @@ class Modula_Helper {
 						'close',
 					),
 				),
+				'enabled' => true,
 			),
 			'Carousel' => array(
 				'infinite' => false,

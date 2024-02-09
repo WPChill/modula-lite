@@ -40,6 +40,12 @@ class Modula_Backward_Compatibility {
 		// add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_thumb_size' ), 10, 3 );
 		// add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_thumb_size' ), 10 );
 
+		// Backwards compatibility for using fancybox 5 & vimeo video links.
+		add_filter( 'modula_shortcode_item_data', array( $this, 'backward_compatibility_video_vimeo_link' ), 81, 3 );
+		add_filter( 'modula_album_lightbox_item', array( $this, 'backward_compatibility_video_vimeo_link_albums' ), 99999, 3 );
+		add_filter( 'modula_album_template_data', array( $this, 'backward_compatibility_albums_jsconfig' ), 99999 );
+		
+		
 	}
 
 	public function backward_compatibility_admin_margin( $value, $key, $settings ){
@@ -418,8 +424,10 @@ class Modula_Backward_Compatibility {
 							
 					}
 				}
+				// This is required to show the toolbar if there aren't
+				// any images in lightbox ( eg. 2 videos, 0 images ).
+				$options['Toolbar']['enabled'] = true;
 			}
-
 			unset( $options['buttons'] );
 		}
 
@@ -490,7 +498,37 @@ class Modula_Backward_Compatibility {
 		if( isset( $options['options'] ) && isset( $options['options']['protect'] ) ){
 			$options['Images']['protected'] = $options['options']['protect'];
 		}
-		//echo '<pre>';var_dump($options);wp_die();
+
+		// Video Backwards comp.
+		$video_attrs = array(
+			'controls',
+			'muted',
+			'playsinline',
+			'controlsList',
+			'autoplay'
+		);
+
+		if ( isset( $settings['loop-videos'] ) && 1 == $settings['loop-videos'] ) {
+
+			$video_attrs[] = 'loop';
+		}
+
+		if ( ! isset( $settings['autoplay-videos'] ) || 1 != $settings['autoplay-videos'] ) {
+			//Set autoplay false, default is true.
+			$options['Html']['videoAutoplay'] = 0;
+
+			//Remove autoplay attr.
+			array_pop( $video_attrs );
+		}
+
+		$video_attrs = implode( ' ', $video_attrs );
+		$browser_support = sprintf( 'Sorry, your browser doesn\'t support embedded videos, %s download %s and watch with your favorite video player!', '<a href="{{src}}">','</a>' );
+		$video_tpl = '<video class="fancybox__html5video" '. esc_attr( $video_attrs ) .' controlsList="nodownload" poster="{{poster}}" src="{{src}}" type="{{format}}" >  '. $browser_support .' </video>';
+		
+		$options['Html']['videoTpl'] = $video_tpl;
+
+		unset( $options['video'], $options['youtube'], $options['vimeo'] );
+		// END Video Backwards comp.
 		return $options;
 	}
 
@@ -519,8 +557,101 @@ class Modula_Backward_Compatibility {
 		return $css;
 	}
 
-	
+	/**
+	 * Vimeo video compatibility for fancybox5
+	 *
+	 * @param $item_data
+	 * @param $image
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.8.0
+	 */
+	public function backward_compatibility_video_vimeo_link( $item_data, $image, $settings ){
 
+		if ( isset( $image['video_url'] ) && '' !== $image['video_url']  && strpos( $image['video_url'] , 'vimeo' ) ) {
+			$video_url = esc_url( $image['video_url'] );
+			// check if it is not in simple format.
+			if ( ! strpos( $video_url, 'player' ) ) {
+				
+				$item_data['img_attributes']['data-full'] = $video_url;
+				return $item_data;
+			} else {
+				$pattern = '/player.vimeo.com\/video\/(\d+)\?/';
+
+				// Check if the embed URL matches the pattern
+				if ( preg_match( $pattern, $video_url, $matches ) ) {
+					// Construct the video link using the extracted video ID
+					$video_id = $matches[1];
+					$video_link = "https://vimeo.com/{$video_id}";
+			
+					$item_data['img_attributes']['data-full'] = $video_link;
+				}
+			}
+		}
+
+		return $item_data;
+	}
+	
+	/**
+	 * Vimeo albums video compatibility for fancybox5
+	 *
+	 * @param $item_data
+	 * @param $image
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.8.0
+	 */
+	public function backward_compatibility_video_vimeo_link_albums( $image_config, $image, $gallery_settings ){
+
+		if ( isset( $image['video_url'] ) && '' !== $image['video_url']  && strpos( $image['video_url'] , 'vimeo' ) ) {
+			$video_url = $image['video_url'];
+			// check if it is not in simple format.
+			if ( ! strpos( $video_url, 'player' ) ) {
+
+				$image_config['src'] = esc_url( $video_url );
+				return $image_config;
+			} else {
+				$pattern = '/player.vimeo.com\/video\/(\d+)\?/';
+
+				// Check if the embed URL matches the pattern
+				if ( preg_match( $pattern, $video_url, $matches ) ) {
+					// Construct the video link using the extracted video ID
+					$video_id = $matches[1];
+					$video_link = "https://vimeo.com/{$video_id}";
+			
+					$image_config['src'] = esc_url( $video_link );
+				}
+			}
+		}
+
+		return $image_config;
+	}
+
+	/**
+	 * Vimeo albums video compatibility for fancybox5
+	 *
+	 * @param $item_data
+	 * @param $image
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.8.0
+	 */
+	public function backward_compatibility_albums_jsconfig( $template_data ){
+		
+		// Get lightbox config data.
+		$data = json_decode( $template_data['album_container']['data-config'], true );
+		// Set Modula's fancybox 5 default options.
+		$data['lightbox_settings'] = array_merge( Modula_Helper::lightbox_default_options(), $data['lightbox_settings'] );
+		// Convert old fancybox settings to new.
+		$js_config['lightbox_settings'] = $this->modula_fancybox_5_settings_matcher( $data['lightbox_settings'], $template_data['settings'] );
+		// Insert new settings in tempalte data.
+		$template_data['album_container']['data-config'] = json_encode($js_config);
+	
+		return $template_data;
+	}
 }
 
 new Modula_Backward_Compatibility();

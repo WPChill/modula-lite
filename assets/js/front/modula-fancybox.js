@@ -35,7 +35,7 @@ var modulaFancybox = {
         }
 
         opts.on = {};
-        opts.on['Carousel.ready'] = function (fancybox, eventName) {
+        opts.on['Carousel.ready Carousel.change'] = function (fancybox, eventName) {
             var options = fancybox.options,
                 pauseOnHover = (typeof options.Slideshow !== 'undefined' && typeof options.Slideshow.pauseOnHover !== 'undefined') ? options.Slideshow.pauseOnHover : false,
                 autoplay = fancybox.plugins.Slideshow.ref,
@@ -56,6 +56,10 @@ var modulaFancybox = {
                     }
                 });
             }
+        };
+
+        opts.on['init'] = function (fancybox) {
+            jQuery(document).trigger('modula_fancybox_lightbox_on_init', [ fancybox, this ]);
         };
 
         return new ModulaFancybox(links, opts);
