@@ -10,6 +10,7 @@ Changed: Improved publish metabox.
 Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance.
 Fixed: ADA compliance issues.
 Added: Made lightbox strings translatable.
+Added: Backwards compatibility to update Modula Speedup cdn.
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
