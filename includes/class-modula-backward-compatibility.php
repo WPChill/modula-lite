@@ -35,6 +35,13 @@ class Modula_Backward_Compatibility {
 		// add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_thumb_size' ), 10, 3 );
 		// add_filter( 'modula_backbone_settings', array( $this, 'backward_compatibility_backbone_thumb_size' ), 10 );
 
+		// Backwards compatibility SpeedUp
+		add_filter( 'modula_shortcode_item_data', array( $this, 'generate_optimized_image_links' ), 110, 3 );
+		add_filter( 'modula_album_shortcode_item_data', array( $this, 'generate_optimized_image_links' ), 110, 3 );
+		add_filter( 'modula_album_lightbox_item', array( $this, 'generate_optimized_image_links' ), 110, 3 );
+		add_filter( 'modula_link_item', array( $this, 'generate_modula_link_image_url' ), 110, 4 );
+		add_filter( 'modula_template_image_srcset', array( $this, 'modula_speedup_srcset' ), 31, 3 );
+
 	}
 
 	public function backward_compatibility_admin_margin( $value, $key, $settings ){
@@ -335,6 +342,73 @@ class Modula_Backward_Compatibility {
 		}
 
 		return $settings;
+
+	}
+
+
+	/**
+	 * SpeedUp compatibility
+	 *
+	 * @param $item_data
+	 * @param $image
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.7.92
+	 */
+	public function generate_optimized_image_links( $item_data, $item, $settings ) {
+
+
+		// Ensure that the settings are set.
+		$settings = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
+
+		if ( 'disabled' == $settings['enable_optimization'] ) {
+			return $item_data;
+		}
+
+		$old = 'cdn.wp-modula.com';
+		$new = apply_filters( 'modula_speedup_compatibility_domain', 'wp-modula.b-cdn.net' );
+
+		if( isset( $item_data['img_attributes']['data-full'] ) ){
+			$item_data['img_attributes']['data-full'] = str_replace( $old, $new, $item_data['img_attributes']['data-full'] );
+		}
+		if( isset( $item_data['img_attributes']['src'] ) ){
+			$item_data['img_attributes']['src'] = str_replace( $old, $new, $item_data['img_attributes']['data-src'] );
+		}
+		if( isset( $item_data['img_attributes']['data-src'] ) ){
+			$item_data['img_attributes']['data-src'] = str_replace( $old, $new, $item_data['img_attributes']['data-src'] );
+		}
+		if( isset( $item_data['link_attributes']['data-thumb'] ) ){
+			$item_data['link_attributes']['data-thumb'] = str_replace( $old, $new, $item_data['link_attributes']['data-thumb'] );
+		}
+		if( isset( $item_data['src'] ) ){
+			$item_data['src'] = str_replace( $old, $new, $item_data['src'] );
+		}
+		if( isset( $item_data['opts']['thumb'] ) ){
+			$item_data['opts']['thumb'] = str_replace( $old, $new, $item_data['opts']['thumb'] );
+		}
+
+		return $item_data;
+
+	}
+
+	public function generate_modula_link_image_url( $image_config, $image, $image_id, $gallery_settings ){
+
+		return $this->generate_optimized_image_links( $image_config, $image, $gallery_settings );
+	}
+
+	public function modula_speedup_srcset( $srcset, $data, $image_meta ) {
+
+		if ( ! isset( $data->compression ) || ! $data->compression ) {
+			return $srcset;
+		}
+
+		$old = 'cdn.wp-modula.com';
+		$new = apply_filters( 'modula_speedup_compatibility_domain', 'wp-modula.b-cdn.net' );
+
+		$srcset = str_replace( $old, $new, $srcset ); 
+
+		return $srcset;
 
 	}
 
