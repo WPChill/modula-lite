@@ -675,7 +675,7 @@ class Modula_Backward_Compatibility {
 		// Ensure that the settings are set.
 		$settings = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 
-		if ( 'disabled' == $settings['enable_optimization'] ) {
+		if ( ! isset( $settings['enable_optimization']) || 'disabled' == $settings['enable_optimization'] ) {
 			return $item_data;
 		}
 
