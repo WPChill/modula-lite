@@ -34,7 +34,7 @@ class Modula {
 		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
 
 		// backwards compatibility -- remove after 2 versions. curr ver 2.7.92
-		add_action( 'upgrader_process_complete', array( $this, 'after_modula_update' ), 10, 2 ); 
+		add_action( 'admin_init', array( $this, 'after_modula_update' ) ); 
 
 	}
 
@@ -658,38 +658,36 @@ class Modula {
 		echo $css;
 	}
 
-	public function after_modula_update( $upgrader_object, $options ){
+	public function after_modula_update(){
 
-		if ( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
-	        foreach( $options['plugins'] as $plugin ) {
-	            // Check to ensure it's my plugin
-	            if( $plugin == 'modula-lite/Modula.php' ) {
+		$option = get_option( 'wpmodulaupdate', false );
+
+		if ( $option ) {
+			return;
+		}
 	                
-	            	if ( defined( 'MODULA_PRO_PATH' ) ) {
+    	if ( defined( 'MODULA_PRO_PATH' ) ) {
 
-						if ( ! class_exists( 'Wpchill_License_Checker' ) ) {
-							require_once MODULA_PRO_PATH . 'includes/license-checker/class-wpchill-license-checker.php';
-						}
-						
-						$args = array(
-				            'plugin_slug' => 'modula-best-grid-gallery',
-				            'plugin_nicename' => 'Modula',
-				            'store_url' => MODULA_PRO_STORE_URL,
-				            'item_id' => MODULA_PRO_STORE_ITEM_ID,
-				            'license' => 'modula_pro_license_key',
-				            'license_status' => 'modula_pro_license_status',
-				            'plugin_file' => MODULA_PRO_FILE,
-				        );
+			if ( ! class_exists( 'Wpchill_License_Checker' ) ) {
+				require_once MODULA_PRO_PATH . 'includes/license-checker/class-wpchill-license-checker.php';
+			}
+			
+			$args = array(
+	            'plugin_slug' => 'modula-best-grid-gallery',
+	            'plugin_nicename' => 'Modula',
+	            'store_url' => MODULA_PRO_STORE_URL,
+	            'item_id' => MODULA_PRO_STORE_ITEM_ID,
+	            'license' => 'modula_pro_license_key',
+	            'license_status' => 'modula_pro_license_status',
+	            'plugin_file' => MODULA_PRO_FILE,
+	        );
 
-				        $wpchill_license_checker = Wpchill_License_Checker::get_instance('modula', $args);
-				        $wpchill_license_checker->check_license_valability();
+	        $wpchill_license_checker = Wpchill_License_Checker::get_instance('modula', $args);
+	        $wpchill_license_checker->check_license_valability();
 
-					}
+	        update_option( 'wpmodulaupdate', true );
 
-
-	            }
-	        }
-	    }
+		}
 
 	}
 
