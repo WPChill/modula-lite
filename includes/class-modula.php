@@ -685,9 +685,9 @@ class Modula {
 	        $wpchill_license_checker = Wpchill_License_Checker::get_instance('modula', $args);
 	        $wpchill_license_checker->check_license_valability();
 
-	        update_option( 'wpmodulaupdate', true );
-
 		}
+
+		update_option( 'wpmodulaupdate', true );
 
 	}
 
