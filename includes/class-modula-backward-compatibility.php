@@ -358,11 +358,10 @@ class Modula_Backward_Compatibility {
 	 */
 	public function generate_optimized_image_links( $item_data, $item, $settings ) {
 
-
 		// Ensure that the settings are set.
 		$settings = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 
-		if ( 'disabled' == $settings['enable_optimization'] ) {
+		if ( isset( $settings['enable_optimization'] ) && 'disabled' == $settings['enable_optimization'] ) {
 			return $item_data;
 		}
 
