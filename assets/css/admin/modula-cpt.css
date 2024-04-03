@@ -1584,6 +1584,8 @@ Ups-sells carousel
 	margin-top:0;
 }
 
+#modula_image_licensing_option h2,
+.modula .row th > h2,
 #modula_troubleshooting_option h2 {
 	margin : 0;
 }

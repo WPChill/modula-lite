@@ -293,7 +293,7 @@ class Modula_Admin {
 				$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
 				$timezone      = get_option( 'timezone_string' );
 				$gmt_offset    = get_option( 'gmt_offset' );
-				$offset        = ( 7 * 24 * 60 * 60 );
+				$offset        = 30 * DAY_IN_SECONDS;
 
 				$dt = new DateTime();
 
@@ -339,7 +339,7 @@ class Modula_Admin {
 			?>
 				<div class="modula-subtab-navigation wp-clearfix wrap">
 					<ul class="subsubsub">
-						<li><a href="<?php echo esc_url( add_query_arg(array('extensions' =>'pro')) ); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a> | </li>
+						<li><a href="<?php echo esc_url( add_query_arg(array('extensions' =>'pro')) ); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>">PRO</a></li>
 						<li><a href="<?php echo esc_url( add_query_arg(array('extensions' =>'free')) ); ?>" class="<?php echo !$pro_ext ? 'current' : ''; ?>">Free</a></li>
 					</ul>
 				</div>

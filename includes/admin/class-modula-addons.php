@@ -194,6 +194,13 @@ class Modula_Addons {
 		delete_transient( 'modula_all_extensions' );
 		delete_transient( 'modula_pro_licensed_extensions' );
 
+		/**
+		 * Action to do when reloading extensions. Used for extension to hook into this action and reload their data.
+		 *
+		 * @since 2.8.0
+		 */
+		do_action( 'modula_reload_extensions' );
+
 		$this->addons = $this->check_for_addons();
 
 		die;

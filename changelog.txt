@@ -1,3 +1,12 @@
+= 2.7.94 - 03.04.2024 =
+Fixed: Divi Theme & WP 6.5 compatibility.
+
+= 2.7.93 - 27.02.2024 =
+Fixed: Warning undefined array key “enable_optimization”.
+
+= 2.7.92 - 23.02.2023 =
+Fixed: Extensions -> Last reload date.
+
 = 2.7.91 - 29.01.2024 =
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.
