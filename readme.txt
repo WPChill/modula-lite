@@ -1,6 +1,6 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
 Contributors: wpchill, silkalns, giucu91
-Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
+Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
