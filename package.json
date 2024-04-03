@@ -44,9 +44,9 @@
 	},
 	"devDependencies": {
 		"@wordpress/eslint-plugin": "^16.0.0",
-		"@wordpress/scripts": "^26.13.0",
+		"@wordpress/scripts": "^26.19.0",
 		"@wordpress/stylelint-config": "^21.25.0",
-		"browser-sync": "^2.29.3",
+		"browser-sync": "^3.0.2",
 		"browser-sync-webpack-plugin": "^2.3.0",
 		"clean-css-cli": "^5.6.2",
 		"concat": "^1.0.3",
