@@ -1,3 +1,6 @@
+= 2.7.94 - 03.04.2024 =
+Fixed: Divi Theme & WP 6.5 compatibility.
+
 = 2.7.93 - 27.02.2024 =
 Fixed: Warning undefined array key “enable_optimization”.
 

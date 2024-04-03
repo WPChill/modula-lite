@@ -2,9 +2,9 @@
 Contributors: wpchill, silkalns, giucu91
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
 Requires at least: 5.3
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.7.93
+Stable tag: 2.7.94
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,8 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.94 - 03.04.2024 =
+Fixed: Divi Theme & WP 6.5 compatibility. ( [#926](https://github.com/WPChill/modula-lite/issues/926) )
 
 = 2.7.93 - 27.02.2024 =
 Fixed: Warning undefined array key “enable_optimization” ( [#915](https://github.com/WPChill/modula-lite/issues/915) )
