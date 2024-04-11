@@ -261,6 +261,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.7.95 - TBD =
+Fixed: Accesibility fix for aria-label when lightbox display is used. ( [#884](https://github.com/WPChill/modula-lite/issues/884) )
+
 = 2.7.94 - 03.04.2024 =
 Fixed: Divi Theme & WP 6.5 compatibility. ( [#926](https://github.com/WPChill/modula-lite/issues/926) )
 

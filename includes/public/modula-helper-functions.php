@@ -131,6 +131,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 		$item_data['link_attributes']['aria-label']    = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
+		$item_data['link_attributes']['role']       = 'button';
 
 	}
 
