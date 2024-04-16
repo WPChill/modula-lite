@@ -25,6 +25,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'General Settings', 'modula-best-grid-gallery' ),
 				'description' => $general_description,
 				"icon"        => "dashicons dashicons-admin-generic",
+				'docs_url'    => 'https://wp-modula.com/kb/gallery-types-explained/',
 				'priority'    => 10,
 			),
             'lightboxes' => array(
@@ -32,6 +33,7 @@ class Modula_CPT_Fields_Helper {
                 'title' => esc_html__('Lightbox & Links settings','modula-best-grid-gallery'),
                 'description' => '',
                 'icon' => 'dashicons dashicons-layout',
+				'docs_url'    => 'https://wp-modula.com/kb/lightbox-links/',
                 'priority'    => 10,
             ),
 			'filters' => array(
@@ -40,6 +42,7 @@ class Modula_CPT_Fields_Helper {
 				'description' => $filters_description,
 				"icon"     => "dashicons dashicons-filter",
 				'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+				'docs_url'    => 'https://wp-modula.com/kb/how-to-use-filters-in-modula/',
 				'priority' => 15,
 			),
 			'captions' => array(
@@ -47,6 +50,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Caption Settings', 'modula-best-grid-gallery' ),
 				'description' => $caption_description,
 				"icon"        => "dashicons dashicons-text",
+				'docs_url'    => 'https://wp-modula.com/kb/modula-caption-configuration/',
 				'priority'    => 20,
 			),
 			'social' => array(
@@ -54,6 +58,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Social Settings', 'modula-best-grid-gallery' ),
 				'description' => $social_description,
 				"icon"        => "dashicons dashicons-admin-links",
+				'docs_url'    => 'https://wp-modula.com/kb/add-social-share-buttons/',
 				'priority'    => 30,
 			),
 			'image-loaded-effects' => array(
@@ -61,6 +66,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Loading Effects Settings', 'modula-best-grid-gallery' ),
 				'description' => $loadingeffects_description,
 				"icon"        => "dashicons dashicons-image-rotate",
+				'docs_url'    => 'https://wp-modula.com/kb/modula-loading-effects/',
 				'priority'    => 40,
 			),
 			'image_licensing' => array(
@@ -68,6 +74,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Image Licensing Settings', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-images-alt2",
 				'badge'       => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+				'docs_url'    => 'https://wp-modula.com/kb/image-licensing-settings/',
 				'priority'    => 45,
 			),
 			'hover-effect' => array(
@@ -75,6 +82,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Hover Effect Settings', 'modula-best-grid-gallery' ),
 				'description' => $hover_description,
 				"icon"        => "dashicons dashicons-layout",
+				'docs_url'    => 'https://wp-modula.com/kb/modula-hover-effects/',
 				'priority'    => 50,
 			),
 			'video' => array(
@@ -82,6 +90,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Video Settings', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-video-alt3",
 				'badge'       => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-video/',
 				'priority'    => 60,
 			),
 			'style' => array(
@@ -89,6 +98,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Style Settings', 'modula-best-grid-gallery' ),
 				'description' => $style_description,
 				"icon"        => "dashicons dashicons-admin-appearance",
+				'docs_url'    => 'https://wp-modula.com/kb/modula-style-settings/',
 				'priority'    => 70,
 			),
 			'speedup' => array(
@@ -96,6 +106,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Optimize your images', 'modula-best-grid-gallery' ),
 				"icon"        => "dashicons dashicons-dashboard",
 				'badge'       => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-speed-up/ ',
 				'priority'    => 80,
 	    	),
 			'exif' => array(
@@ -104,6 +115,7 @@ class Modula_CPT_Fields_Helper {
 				'description' => esc_html__( "The settings bellow adjust what type of picture information is displayed in the lightbox.", "modula-best-grid-gallery" ),
 				'icon'        => "dashicons dashicons-camera-alt",
 				'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/ ',
 				'priority'    => 85,
 			),
 			'download' => array(
@@ -112,6 +124,7 @@ class Modula_CPT_Fields_Helper {
 				'description' => esc_html__( "The settings bellow adjust the download options .", "modula-best-grid-gallery" ),
 				'icon'        => "dashicons dashicons-download",
 				'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/',
 				'priority'    => 86,
 			),
 			'zoom' => array(
@@ -120,6 +133,7 @@ class Modula_CPT_Fields_Helper {
 				'description' => esc_html__( "The settings bellow adjust what type of zoom is displayed in the lightbox.", "modula-best-grid-gallery" ),
 				'icon'        => "dashicons dashicons-search",
 				'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/',
 				'priority'    => 87,
 			),
 	    	'responsive' => array(
@@ -133,6 +147,7 @@ class Modula_CPT_Fields_Helper {
                 'title'       => esc_html__('Miscellaneous', 'modula-best-grid-gallery'),
                 "icon"        => "dashicons dashicons-image-filter",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/right-click-protection/',
                 'priority'    => 100,
             ),
             'slideshow' => array(
@@ -141,6 +156,7 @@ class Modula_CPT_Fields_Helper {
                 'description' => esc_html__( 'Here you can modify the settings for lightbox slideshow like : autoplay / autoplay time / pause on hover', 'modula-best-grid-gallery' ),
                 "icon"        => "dashicons dashicons-images-alt2",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/lightbox-slideshow/ ',
                 'priority'    => 110,
             ),
             'password_protect' => array(
@@ -148,6 +164,7 @@ class Modula_CPT_Fields_Helper {
                 'title'       => esc_html__('Password protect your galleries', 'modula-best-grid-gallery'),
                 "icon"        => "dashicons dashicons-shield",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/password-protection-extension/ ',
                 'priority'    => 120,
             ),
             'watermark' => array(
@@ -155,6 +172,7 @@ class Modula_CPT_Fields_Helper {
                 'title'       => esc_html__('Watermark settings', 'modula-best-grid-gallery'),
                 "icon"        => "dashicons dashicons-id-alt",
                 'badge'       => esc_html__('PRO', 'modula-best-grid-gallery'),
+				'docs_url'    => 'https://wp-modula.com/kb/modula-watermark/ ',
                 'priority'    => 130,
             ),
 			'customizations' => array(
@@ -162,6 +180,7 @@ class Modula_CPT_Fields_Helper {
 				'title'       => esc_html__( 'Custom CSS', 'modula-best-grid-gallery' ),
 				'description' => $customizations_description,
 				"icon"        => "dashicons dashicons-admin-tools",
+				'docs_url'    => 'https://wp-modula.com/kb-cat/custom-css-customizations/',
 				'priority'    => 140,
 			),
 
