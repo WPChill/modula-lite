@@ -1,4 +1,5 @@
-= 2.7.95 - TBD =
+= 2.7.95 - 16.04.2024 =
+Changed: Change image attribution license selection from radio to select input
 Fixed: Accesibility fix for aria-label when lightbox display is used.
 
 = 2.7.94 - 03.04.2024 =
