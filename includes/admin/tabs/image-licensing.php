@@ -80,7 +80,6 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                     <td>
                         <div class="wrap modula"> 
                             <div class="">
-                                <!-- Radio Toggles -->
                                 <?php if ('select' == $ts_field['type']) { ?>
                                     <select data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
                                             id="modula_image_licensing_option<?php echo esc_attr($key); ?>"
