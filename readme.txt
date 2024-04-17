@@ -261,7 +261,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.7.95 - 16.04.2024 =
+= 2.7.95 - 17.04.2024 =
 Changed: Change image attribution license selection from radio to select input ( [#930](https://github.com/WPChill/modula-lite/issues/930) )
 Fixed: Accesibility fix for aria-label when lightbox display is used. ( [#884](https://github.com/WPChill/modula-lite/issues/884) )
 Fixed: Direct documentation link for each plugin setting tab. ( [#931](https://github.com/WPChill/modula-lite/issues/931) )
