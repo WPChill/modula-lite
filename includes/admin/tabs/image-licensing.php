@@ -34,7 +34,7 @@ $image_attrib_fields = array(
     'image_licensing' => array(
         'label'       => esc_html__( 'Image licensing', 'modula-best-grid-gallery' ),
         'description' => esc_html__( 'Select a license for your images that are inside a gallery', 'modula-best-grid-gallery' ),
-        'type'        => 'radio',
+        'type'        => 'select',
         'values'      => Modula_Helper::get_image_licenses(),
         'priority'    => 30,
     ),
@@ -80,36 +80,14 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                     <td>
                         <div class="wrap modula"> 
                             <div class="">
-                                <!-- Radio Toggles -->
-                                <?php if ('radio' == $ts_field['type']) { ?>
-                                    <?php foreach( $ts_field['values'] as $val_key => $val ): ?>
-                                    <div class="modula-radio-item">
-                                        <div class="modula-toggle">
-                                            <input class="modula-toggle__input" type="radio"
-                                                data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
-                                                id="modula_image_licensing_option<?php echo esc_attr($key); ?>"
-                                                name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
-                                                value="<?php echo esc_attr( $val_key ); ?>" <?php  checked( $val_key, $image_attrib_options[ $key ], true ) ?>>
-                                            <div class="modula-toggle__items">
-                                                <span class="modula-toggle__track"></span>
-                                                <span class="modula-toggle__thumb"></span>
-                                                <svg class="modula-toggle__off" width="6" height="6" aria-hidden="true"
-                                                    role="img"
-                                                    focusable="false"
-                                                    viewBox="0 0 6 6">
-                                                    <path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
-                                                </svg>
-                                                <svg class="modula-toggle__on" width="2" height="6" aria-hidden="true"
-                                                    role="img"
-                                                    focusable="false"
-                                                    viewBox="0 0 2 6">
-                                                    <path d="M0 0h2v6H0z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <span><?php echo esc_html( $val['name'] ); ?></span>
-                                    </div>
-                                    <?php endforeach; ?>
+                                <?php if ('select' == $ts_field['type']) { ?>
+                                    <select data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
+                                            id="modula_image_licensing_option<?php echo esc_attr($key); ?>"
+                                            name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]">
+                                            <?php foreach( $ts_field['values'] as $val_key => $val ): ?>
+                                                <option <?php echo ($val_key == $image_attrib_options[ $key ] ) ? 'selected="selected"': ''; ?> value="<?php echo esc_attr($val_key); ?>"><?php echo esc_html($val['name']); ?></option>
+                                            <?php endforeach; ?>
+                                    </select>
                                 <?php } ?>
                                 <!-- Checkbox Toggles -->
                                 <?php if ('toggle' == $ts_field['type']) { ?>

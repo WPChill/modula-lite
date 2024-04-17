@@ -167,6 +167,7 @@ class Modula_Field_Builder {
 		foreach ( $tabs as $tab_id => $tab ) {
 			$tab['id'] = $tab_id;
 			$tabs_html .= $this->_render_tab( $tab, $first );
+			$doc_url = isset( $tab['docs_url'] ) ? $tab['docs_url'] : 'https://wp-modula.com/knowledge-base/';
 
 			$fields = Modula_CPT_Fields_Helper::get_fields( $tab_id );
 			// Sort fields based on priority.
@@ -189,7 +190,7 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="https://wp-modula.com/knowledge-base/" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
+				$current_tab_content .= apply_filters('modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>');
 				$current_tab_content .= apply_filters('modula_tab_content_header_actions', '', $tab );
 				$current_tab_content .= '</div>';
 
