@@ -1,4 +1,4 @@
-= 2.7.95 - 16.04.2024 =
+= 2.7.95 - 17.04.2024 =
 Changed: Change image attribution license selection from radio to select input
 Fixed: Accesibility fix for aria-label when lightbox display is used.
 Fixed: Direct documentation link for each plugin setting tab.
