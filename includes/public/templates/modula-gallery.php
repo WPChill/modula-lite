@@ -10,7 +10,10 @@
 		foreach ( $data->images as $image ) {
 
 			$image_object = get_post( $image['id'] );
-			if ( is_wp_error( $image_object ) || get_post_type( $image_object ) != 'attachment' ) {
+
+			$item_is_not_image = ( is_wp_error( $image_object ) || get_post_type( $image_object ) != 'attachment' );
+
+			if ( apply_filters( 'modula_check_item_not_image', $item_is_not_image, $image ) ) {
 				continue;
 			}
 

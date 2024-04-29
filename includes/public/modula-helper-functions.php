@@ -2,7 +2,7 @@
 
 function modula_generate_image_links( $item_data, $item, $settings ){
 
-	if( ! apply_filters( 'modula_resize_images', true, $settings ) ){
+	if( ! apply_filters( 'modula_resize_images', true, $settings, $item_data ) ){
 		return $item_data;
 	}
 
