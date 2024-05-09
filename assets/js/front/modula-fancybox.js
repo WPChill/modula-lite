@@ -34,8 +34,18 @@ var modulaFancybox = {
             };
         }
 
+        // Define opts.on so we can add events to it.
         opts.on = {};
+
+        // Create a custom trigger for each fancybox event.
+        opts.on['*'] = function (fancybox, eventName) {
+            // replace . from event name with _ and set custom event.
+            jQuery(document).trigger('modula_fancybox_' + eventName.replace(/\./g, '_'), [ fancybox, this ]);
+        };
+
+        // Slide pause on hover event
         opts.on['Carousel.ready Carousel.change'] = function (fancybox, eventName) {
+           
             var options = fancybox.options,
                 pauseOnHover = (typeof options.Slideshow !== 'undefined' && typeof options.Slideshow.pauseOnHover !== 'undefined') ? options.Slideshow.pauseOnHover : false,
                 autoplay = fancybox.plugins.Slideshow.ref,
