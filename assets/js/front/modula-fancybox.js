@@ -66,8 +66,6 @@ var modulaFancybox = {
                     }
                 });
             }
-
-            jQuery(document).trigger('modula_fancybox_' + eventName.replace(/\./g, '_'), [ fancybox, this ]);
         };
 
         opts.on['init'] = function (fancybox) {
