@@ -578,8 +578,6 @@ class Modula_Backward_Compatibility {
 			$video_url = esc_url( $image['video_url'] );
 			// check if it is not in simple format.
 			if ( ! strpos( $video_url, 'player' ) ) {
-				
-				$item_data['img_attributes']['data-full'] = $video_url;
 				return $item_data;
 			} else {
 				$pattern = '/player.vimeo.com\/video\/(\d+)\?/';
