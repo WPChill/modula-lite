@@ -505,32 +505,35 @@ class Modula_Backward_Compatibility {
 		}
 
 		// Video Backwards comp.
-		$video_attrs = array(
-			'controls',
-			'muted',
-			'playsinline',
-			'controlsList',
-			'autoplay'
-		);
-
-		if ( isset( $settings['loop-videos'] ) && 1 == $settings['loop-videos'] ) {
-
-			$video_attrs[] = 'loop';
+		if( ! isset( $options['Html']['videoTpl'] ) ) {
+			$video_attrs = array(
+				'controls',
+				'muted',
+				'playsinline',
+				'controlsList',
+				'autoplay'
+			);
+	
+			if ( isset( $settings['loop-videos'] ) && 1 == $settings['loop-videos'] ) {
+	
+				$video_attrs[] = 'loop';
+			}
+	
+			if ( ! isset( $settings['autoplay-videos'] ) || 1 != $settings['autoplay-videos'] ) {
+				//Set autoplay false, default is true.
+				$options['Html']['videoAutoplay'] = 0;
+	
+				//Remove autoplay attr.
+				array_pop( $video_attrs );
+			}
+	
+			$video_attrs = implode( ' ', $video_attrs );
+			$browser_support = sprintf( 'Sorry, your browser doesn\'t support embedded videos, %s download %s and watch with your favorite video player!', '<a href="{{src}}">','</a>' );
+			$video_tpl = '<video class="fancybox__html5video" '. esc_attr( $video_attrs ) .' controlsList="nodownload" poster="{{poster}}" src="{{src}}" type="{{format}}" >  '. $browser_support .' </video>';
+			
+			$options['Html']['videoTpl'] = $video_tpl;
 		}
 
-		if ( ! isset( $settings['autoplay-videos'] ) || 1 != $settings['autoplay-videos'] ) {
-			//Set autoplay false, default is true.
-			$options['Html']['videoAutoplay'] = 0;
-
-			//Remove autoplay attr.
-			array_pop( $video_attrs );
-		}
-
-		$video_attrs = implode( ' ', $video_attrs );
-		$browser_support = sprintf( 'Sorry, your browser doesn\'t support embedded videos, %s download %s and watch with your favorite video player!', '<a href="{{src}}">','</a>' );
-		$video_tpl = '<video class="fancybox__html5video" '. esc_attr( $video_attrs ) .' controlsList="nodownload" poster="{{poster}}" src="{{src}}" type="{{format}}" >  '. $browser_support .' </video>';
-		
-		$options['Html']['videoTpl'] = $video_tpl;
 
 		unset( $options['video'], $options['youtube'], $options['vimeo'] );
 		// END Video Backwards comp.
