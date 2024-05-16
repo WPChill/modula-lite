@@ -89,6 +89,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
+			require_once MODULA_PATH . 'includes/libraries/class-wpchill-tracking.php';
 		}
 	}
 
@@ -178,7 +179,7 @@ class Modula {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			return;
 		}
-
+		new WPChill_Tracking('wp-modula', 'wp-modula-tracking-option');
 		new Modula_Upsells();
 
 		$upgrades = Modula_Upgrades::get_instance();
