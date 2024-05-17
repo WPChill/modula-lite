@@ -6,7 +6,7 @@ class WPChill_Tracking
     protected $tracking_v = '1.0.0';
     protected $optin_option_name;
 
-    const TRACKING_URL = 'https://staging-api.imageseo.com/track';
+    const TRACKING_URL = 'https://api.imageseo.com/track';
 
     public function __construct(
         string $plugin_name,
