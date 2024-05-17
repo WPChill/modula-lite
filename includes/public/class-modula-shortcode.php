@@ -207,11 +207,12 @@ class Modula_Shortcode {
 		 * @hooked modula_add_align_classes - 99
 		 */
 		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
+		$template_name = apply_filters( 'modula_gallery_template_name', 'gallery', $type );
 
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		do_action( 'modula_before_gallery', $settings );
 		$this->loader->set_template_data( $template_data );
-		$this->loader->get_template_part( 'modula', 'gallery' );
+		$this->loader->get_template_part( 'modula', $template_name );
 		do_action( 'modula_after_gallery', $settings );
 
     	$html = ob_get_clean();
