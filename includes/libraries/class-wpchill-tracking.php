@@ -28,18 +28,12 @@ class WPChill_Tracking
             return;
         }
 
+        $option = get_option($this->optin_option_name, null);
 
         add_filter('modula_gallery_fields', [$this, 'add_tracking_field']);
         add_action('save_post', [$this, 'save_meta_boxes_hook'], 10, 2);
 
-        $option = get_option($this->optin_option_name, null);
-        if (is_null($option)) {
-            // Show admin notice
-            add_action('admin_notices', [$this, 'show_notice']);
-            // Register AJAX actions
-            add_action('wp_ajax_dismiss_tracking_notice', [$this, 'dismiss_tracking_notice']);
-            add_action('wp_ajax_optout_tracking_notice', [$this, 'optout_tracking_notice']);
-        }
+        $this->add_notice_if_needed($option);
 
         if ($option !== 'true') {
             return;
@@ -47,6 +41,17 @@ class WPChill_Tracking
 
         // Schedule weekly event
         $this->schedule_weekly_event();
+    }
+
+    public function add_notice_if_needed($option)
+    {
+        if (is_null($option)) {
+            // Show admin notice
+            add_action('admin_notices', [$this, 'show_notice']);
+            // Register AJAX actions
+            add_action('wp_ajax_dismiss_tracking_notice', [$this, 'dismiss_tracking_notice']);
+            add_action('wp_ajax_optout_tracking_notice', [$this, 'optout_tracking_notice']);
+        }
     }
 
     public function show_notice()
