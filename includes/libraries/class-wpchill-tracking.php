@@ -28,6 +28,10 @@ class WPChill_Tracking
             return;
         }
 
+
+        add_filter('modula_gallery_fields', [$this, 'add_tracking_field']);
+        add_action('save_post', [$this, 'save_meta_boxes_hook'], 10, 2);
+
         $option = get_option($this->optin_option_name, null);
         if (is_null($option)) {
             // Show admin notice
@@ -202,5 +206,41 @@ class WPChill_Tracking
             $arr[] = $post->ID;
         }
         return $arr;
+    }
+
+    public function add_tracking_field($fields)
+    {
+        $fields['general'][$this->optin_option_name] = [
+            "name"        => esc_html__('Enable plugin usage tracking', 'modula-best-grid-gallery'),
+            "type"        => "toggle",
+            "default"     => 1,
+            "description" => esc_html__('By enabling this option, you agree to allow us to collect anonymous usage data to help improve our product. Rest assured that no sensitive information is collected.', 'modula-best-grid-gallery'),
+        ];
+
+        return $fields;
+    }
+
+    public function save_meta_boxes_hook($post_id, $post)
+    {
+        $post_type = get_post_type_object($post->post_type);
+        if (!current_user_can($post_type->cap->edit_post, $post_id) || 'modula-gallery' !== $post_type->name) {
+            return $post_id;
+        }
+
+        if (!isset($_POST['modula-settings'])) {
+            return $post_id;
+        }
+
+        if (
+            is_array($_POST['modula-settings']) &&
+            !isset($_POST['modula-settings'][$this->optin_option_name])
+        ) {
+            update_option($this->optin_option_name, 'optout');
+            return $post_id;
+        }
+
+        $optin = rest_sanitize_boolean($_POST['modula-settings'][$this->optin_option_name]);
+
+        update_option($this->optin_option_name, $optin ? 'true' : 'optout');
     }
 }
