@@ -378,10 +378,12 @@ class Modula_Backward_Compatibility {
 				$options['Toolbar']['display']['right'] = [];
 			}
 		}
-				
-		if( isset( $options['infobar'] )){
+					
+		if( isset( $options['infobar'] ) && $options['infobar'] ){
 			unset( $options['infobar'] );
 			$options['Toolbar']['display']['left'][] = 'infobar';
+		}elseif( isset( $options['infobar'] ) && !$options['infobar'] ){
+			$options['Toolbar']['display']['left'] = array();
 		}
 
 		if( isset( $options['buttons'] )){
@@ -435,7 +437,7 @@ class Modula_Backward_Compatibility {
 			}
 			unset( $options['buttons'] );
 		}
-
+		
 		if( isset( $options['keyboard'] ) ){
 			if( $options['keyboard'] ){
 				$options['keyboard'] = array(
@@ -452,9 +454,16 @@ class Modula_Backward_Compatibility {
 			}else{
 				$options['keyboard'] = array(
 					'Escape' => "close",
+					'Delete' => "close",
+					'Backspace' => "close",
+					'PageUp' => false,
+					'PageDown' => false,
+					'ArrowUp' => false,
+					'ArrowDown' => false,
+					'ArrowRight' => false,
+					'ArrowLeft' => false,
 				);
 			}
-
 		}
 
 		if( isset( $options['wheel'] ) && $options['wheel'] ){
@@ -537,6 +546,12 @@ class Modula_Backward_Compatibility {
 
 		unset( $options['video'], $options['youtube'], $options['vimeo'] );
 		// END Video Backwards comp.
+
+		if( isset( $settings['lightbox_touch'] ) && '1' === $settings['lightbox_touch'] ){
+
+			$options['Carousel']['Panzoom']['touch'] = true;
+		}
+
 		return $options;
 	}
 
@@ -556,11 +571,6 @@ class Modula_Backward_Compatibility {
 		if ( isset( $settings['lightbox_background_color'] ) && '' != $settings['lightbox_background_color'] ) {
 			$css .= '.modula-fancybox-container.modula-lightbox-'.$settings['gallery_id'].' .fancybox__backdrop{background:' . $settings['lightbox_background_color'] . ';opacity:1 !important;}';
 		}
-		
-		if ( isset( $settings['lightbox_active_colors'] ) && '' != $settings['lightbox_active_colors'] ){
-			$css .= 'html body .modula-fancybox-container.modula-lightbox-'. $settings['gallery_id'] . ' .f-progress{background-color:' . $settings['lightbox_active_colors'] . ';}';
-		}
-
 		
 		return $css;
 	}

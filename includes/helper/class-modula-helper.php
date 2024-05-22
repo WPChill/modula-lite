@@ -193,19 +193,13 @@ class Modula_Helper {
 				'enabled' => true,
 			),
 			'Carousel' => array(
+				'Panzoom' => array(
+					'touch' => false,
+				),
 				'infinite' => false,
 			),
-			'keyboard' => array(
-				'Escape' => "close",
-				'Delete' => false,
-				'Backspace' => false,
-				'PageUp' => false,
-				'PageDown' => false,
-				'ArrowUp' => false,
-				'ArrowDown' => false,
-				'ArrowRight' => false,
-				'ArrowLeft' => false,
-			),
+			'keyboard' => false,
+			"touch" => false,
 			'backdropClick' => false, //The action to perform when the user clicks on the backdrop
 			'l10n' => array(
 				'CLOSE'             => esc_html__( 'Close', 'modula-best-grid-gallery' ),
