@@ -186,11 +186,9 @@ class Modula_Helper {
 			),
 			'Toolbar' => array(
 				'display' => array(
-					'right' => array(
-						'close',
-					),
+					'right' => array(),
 				),
-				'enabled' => true,
+				'enabled' => false,
 			),
 			'Carousel' => array(
 				'Panzoom' => array(
