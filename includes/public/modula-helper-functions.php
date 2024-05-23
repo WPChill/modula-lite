@@ -48,6 +48,10 @@ function modula_generate_image_links( $item_data, $item, $settings ){
 
 	$sizes = $resizer->get_image_size( $item['id'], $gallery_type, $grid_sizes, $crop );
 
+	if ( is_wp_error( $sizes ) ) {
+		return $item_data;
+	}
+
 	$original_image = false;
 
 	if( 'full' === $grid_sizes ){
