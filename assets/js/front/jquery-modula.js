@@ -767,16 +767,15 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-twitter').click(function (e) {
 			e.preventDefault();
 
-			var $caption = image.data('caption');
-			var $title   = image.attr('title');
-			var text     = document.title;
-
 			let socialLink     = $(this),
 				image          = $(this).parents('.modula-item').find('img.pic'),
 				imageUrl       = socialLink.data('modula-image-src'),
 				currentPageUrl = window.location.href,
 				imageID        = socialLink.data('modula-item-id'),
 				galleryID      = socialLink.data('modula-gallery-id');
+			var $caption       = image.data('caption');
+			var $title         = image.attr('title');
+			var text           = document.title;
 			// Create a URL object from the original URL
 			const urlObj       = new URL(currentPageUrl);
 			const urlParams    = new URLSearchParams(urlObj.search);
@@ -803,8 +802,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			if ($title.length > 0) {
 				text = $.trim($title);
@@ -862,8 +871,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var url = '//www.facebook.com/sharer.php?u=' + encodeURIComponent(newUrl);
 
@@ -913,8 +932,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var w = window.open(
 				'https://api.whatsapp.com/send?text=' +
@@ -968,8 +997,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var text = document.title;
 
@@ -1036,8 +1075,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var url =
 					'//linkedin.com/shareArticle?mini=true&url=' +
@@ -1090,8 +1139,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + urlParams.toString();
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var emailMessage = encodeURI(
 				plugin.options.email_message

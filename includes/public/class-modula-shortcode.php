@@ -148,12 +148,21 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-        do_action('modula_extra_scripts', $settings, $images );
+		/**
+		 * Hook: modula_extra_scripts.
+		 *
+		 * Hook used to add extra scripts to the gallery.
+		 *
+		 * @param  array  $settings  Gallery settings.
+		 * @param  array  $images    Gallery images.
+		 *
+		 * @hooked modula_extra_scripts - 10
+		 */
+		do_action( 'modula_extra_scripts', $settings, $images );
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
 		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
-
 
 		if ( ! empty( $necessary_scripts ) ) {
 			$script_manager->add_scripts( $necessary_scripts );
