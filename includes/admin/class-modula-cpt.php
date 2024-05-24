@@ -267,7 +267,6 @@ class Modula_CPT {
 							case 'enableFacebook' :
 							case 'enablePinterest' :
 							case 'enableEmail':
-							case 'emailSubject':
 								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'imageMessage':

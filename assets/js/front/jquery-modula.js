@@ -1104,7 +1104,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 	// get all the information that email needs
 	var setupEmail = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-email').click(function (e) {
-			var subject = encodeURI(plugin.options.email_subject);
+			var subject = plugin.options.email_subject;
 
 			let socialLink     = $(this),
 				image          = $(this).parents('.modula-item').find('img.pic'),
@@ -1149,21 +1149,20 @@ jQuery(window).on('elementor/frontend/init', function () {
 				})
 			);
 			// Reconstruct the URL with the updated parameters
-			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent(urlParams.toString());
 
-			var emailMessage = encodeURI(
-				plugin.options.email_message
-					  .replace(/%%image_link%%/g, encodeURIComponent(imageUrl))
-					  .replace(/%%gallery_link%%/g, encodeURIComponent(newUrl))
-			);
+			var email = plugin.options.email_message
+				.replace('%%image_link%%', imageUrl)
+				.replace('%%gallery_link%%', newUrl);
 
-			var url = 'mailto:?subject=' + subject + '&body=' + emailMessage;
+			var url = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(email);
 
-			var w   = window.open(
+			var w = window.open(
 				url,
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
+
 			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
 			return false;
 		});
