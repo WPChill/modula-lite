@@ -274,6 +274,7 @@ Added: Focusable images using "Tab" key and selecting images using "Enter" key f
 Fixed: ADA compliance issues. ( [#708](https://github.com/WPChill/modula-lite/issues/708) )
 Added: Made lightbox strings translatable. ( [#301](https://github.com/WPChill/modula-lite/issues/301) )
 Added: Backwards compatibility to update Modula Speedup cdn. ( [#909](https://github.com/WPChill/modula-lite/issues/909) )
+Changed: Social shares now share the page and added Rich View Snippets for social shares. ( [#945](https://github.com/WPChill/modula-lite/issues/945) )
 
 = 2.7.95 - 17.04.2024 =
 Changed: Change image attribution license selection from radio to select input ( [#930](https://github.com/WPChill/modula-lite/issues/930) )
