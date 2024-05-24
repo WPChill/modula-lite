@@ -378,6 +378,9 @@ function modula_sources_and_sizes( $data ) {
 	$srcset = apply_filters( 'modula_template_image_srcset', array(), $data, $image_meta );
 
 	if ( empty( $srcset ) ) {
+		if( ! isset( $data->image_full ) ){
+			$data->image_full = $image_src;
+		}
 		$srcset = wp_calculate_image_srcset( $size_array, $data->image_full, $image_meta, $attachment_id );
 	}
 
