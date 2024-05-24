@@ -962,15 +962,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-pinterest').click(function (e) {
 			e.preventDefault();
 
-			var $caption = image.data('caption');
-			var $title   = image.attr('title');
-
 			let socialLink     = $(this),
 				image          = $(this).parents('.modula-item').find('img.pic'),
 				imageUrl       = socialLink.data('modula-image-src'),
 				currentPageUrl = window.location.href,
 				imageID        = socialLink.data('modula-item-id'),
 				galleryID      = socialLink.data('modula-gallery-id');
+			var $caption = image.data('caption');
+			var $title   = image.attr('title');
 			// Create a URL object from the original URL
 			const urlObj       = new URL(currentPageUrl);
 			const urlParams    = new URLSearchParams(urlObj.search);
@@ -1154,11 +1153,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var emailMessage = encodeURI(
 				plugin.options.email_message
-					  .replace(/%%image_link%%/g, imageUrl)
-					  .replace(/%%gallery_link%%/g, newUrl)
+					  .replace(/%%image_link%%/g, encodeURIComponent(imageUrl))
+					  .replace(/%%gallery_link%%/g, encodeURIComponent(newUrl))
 			);
 
 			var url = 'mailto:?subject=' + subject + '&body=' + emailMessage;
+
 			var w   = window.open(
 				url,
 				'ftgw',
