@@ -1,8 +1,8 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
-Contributors: wpchill, silkalns
-Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin, masonry gallery, media gallery, portfolio gallery, simple gallery, responsive gallery, photo gallery, grid gallery, product gallery, 
+Contributors: wpchill, silkalns, giucu91
+Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin
 Requires at least: 5.3
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.6
 Stable tag: 2.8.0
 License: GNU General Public License v3.0 or later
@@ -275,6 +275,32 @@ Fixed: ADA compliance issues. ( [#708](https://github.com/WPChill/modula-lite/is
 Added: Made lightbox strings translatable. ( [#301](https://github.com/WPChill/modula-lite/issues/301) )
 Added: Backwards compatibility to update Modula Speedup cdn. ( [#909](https://github.com/WPChill/modula-lite/issues/909) )
 
+= 2.7.95 - 17.04.2024 =
+Changed: Change image attribution license selection from radio to select input ( [#930](https://github.com/WPChill/modula-lite/issues/930) )
+Fixed: Accesibility fix for aria-label when lightbox display is used. ( [#884](https://github.com/WPChill/modula-lite/issues/884) )
+Fixed: Direct documentation link for each plugin setting tab. ( [#931](https://github.com/WPChill/modula-lite/issues/931) )
+
+= 2.7.94 - 03.04.2024 =
+Fixed: Divi Theme & WP 6.5 compatibility. ( [#926](https://github.com/WPChill/modula-lite/issues/926) )
+
+= 2.7.93 - 27.02.2024 =
+Fixed: Warning undefined array key “enable_optimization” ( [#915](https://github.com/WPChill/modula-lite/issues/915) )
+
+= 2.7.92 - 23.02.2024 =
+Fixed: Extensions -> Last reload date. ( [#907](https://github.com/WPChill/modula-lite/issues/907) )
+
+= 2.7.91 - 29.01.2024 =
+Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
+Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
+Fixed: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
+Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
+Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Added: Modula Image Licensing addon upsells. ( [#899](https://github.com/WPChill/modula-lite/issues/899) )
+Changed: Restored edit view title and "Add new" button. ( [#886]( https://github.com/WPChill/modula-lite/issues/886) )
+Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars ( [#902]( https://github.com/WPChill/modula-lite/issues/902) )
+Fixed: Setting value lost when setting's parent is disabled and the gallery is updated. ( [#903]( https://github.com/WPChill/modula-lite/issues/903) )
+
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
 
@@ -287,11 +313,6 @@ Changed: Updated enqueue methods for css & js ( [#846](https://github.com/WPChil
 Changed: Active hover effect on top of list. ( [#864](https://github.com/WPChill/modula-lite/issues/864) )
 Fixed: Compatibility with Photograph theme. ( [#865](https://github.com/WPChill/modula-lite/issues/865) )
 Fixed: Ui-Slider setting input type value should not be outside the min-max values. ( [#867](https://github.com/WPChill/modula-lite/issues/867) )
-Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
-Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
-Fixec: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
-Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
-Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
 
 = 2.7.7 - 14.09.2023 =
 Changed: Hidden "Debug gallery" meta box by default.( [#839](https://github.com/WPChill/modula-lite/issues/839) )

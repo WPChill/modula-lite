@@ -131,6 +131,15 @@
 		}
 	);
 
+	$('body').on(
+		'click',
+		'#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#modula-licenses"]',
+		{
+			upsell: 'image-licensing',
+		},
+		modulaOpenModal
+	);
+
 	jQuery(window).on('load', function () {
 		let searchParams = new URLSearchParams(window.location.search);
 		if (

@@ -3,14 +3,11 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 jQuery.fn.setting_state = function (el, state) {
 	if (state == 'off') {
 		this.css('opacity', '0.5');
-		this.find('input, textarea, select, button').attr(
-			'disabled',
-			'disabled'
-		);
+		this.find('input, textarea, select, button').addClass('modula-no-pointer');
 	}
 	if (state == 'on') {
 		this.css('opacity', '1');
-		this.find('input, textarea, select, button').removeAttr('disabled');
+		this.find('input, textarea, select, button').removeClass('modula-no-pointer');
 	}
 };
 
@@ -207,8 +204,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 	changedLightbox: function (settings, value) {
 		var rows = this.get('rows'),
-			tabs = this.get('tabs'),
-			link_options = ['no-link', 'direct', 'external-url'];
+			tabs = this.get('tabs');
 
 		if ('fancybox' == value) {
 			rows.filter(

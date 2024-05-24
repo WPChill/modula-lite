@@ -183,6 +183,15 @@ class Modula_Admin {
 				);
 		}
 
+		$links['modulalicense'] = array(
+			'page_title' => esc_html__( 'Image Licenses', 'modula-best-grid-gallery'),
+			'menu_title' => esc_html__( 'Image Licenses', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => '#modula-licenses',
+			'function'   => array( $this, 'modula_licenses' ),
+			'priority'   => 28,
+		);
+
 		if ( ! empty( $this->tabs ) ) {
 			$links[] = array(
 				'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
@@ -284,7 +293,7 @@ class Modula_Admin {
 				$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
 				$timezone      = get_option( 'timezone_string' );
 				$gmt_offset    = get_option( 'gmt_offset' );
-				$offset        = ( 7 * 24 * 60 * 60 );
+				$offset        = 30 * DAY_IN_SECONDS;
 
 				$dt = new DateTime();
 
@@ -519,6 +528,10 @@ class Modula_Admin {
 	}
 
 	public function modula_albums() {
+		return;
+	}
+
+	public function modula_licenses() {
 		return;
 	}
 

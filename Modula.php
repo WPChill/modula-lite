@@ -1,24 +1,24 @@
 <?php
 /**
-* Plugin Name: 				Modula
-* Plugin URI: 				https://wp-modula.com/
-* Description: 				Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.
-* Author: 					WPChill
-* Version: 					2.8.0
-* Author URI: 				https://www.wpchill.com/
-* License: 					GPLv3 or later
-* License URI:         		http://www.gnu.org/licenses/gpl-3.0.html
-* Requires PHP: 	    	5.6
-* Text Domain: 				modula-best-grid-gallery
-* Domain Path: 				/languages
+* Plugin Name:              Modula
+* Plugin URI:               https://wp-modula.com/
+* Description:              Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.
+* Author:                   WPChill
+* Version:                  2.8.0
+* Author URI:               https://www.wpchill.com/
+* License:                  GPLv3 or later
+* License URI:              http://www.gnu.org/licenses/gpl-3.0.html
+* Requires PHP:             5.6
+* Text Domain:              modula-best-grid-gallery
+* Domain Path:              /languages
 *
-* Copyright 2015-2017 		GreenTreeLabs 		diego@greentreelabs.net
-* Copyright 2017-2020 		MachoThemes 		hello@wp-modula.com
-* Copyright 2020			WPchill  			hello@wp-modula.com
+* Copyright 2015-2017       GreenTreeLabs       diego@greentreelabs.net
+* Copyright 2017-2020       MachoThemes         hello@wp-modula.com
+* Copyright 2020            WPchill             hello@wp-modula.com
 *
-* Original Plugin URI: 		https://modula.greentreelabs.net/
-* Original Author URI: 		https://greentreelabs.net
-* Original Author: 			https://profiles.wordpress.org/greentreelabs/
+* Original Plugin URI:      https://modula.greentreelabs.net/
+* Original Author URI:      https://greentreelabs.net
+* Original Author:          https://profiles.wordpress.org/greentreelabs/
 *
 * NOTE:
 * GreenTreeLabs transferred ownership rights on: 03/29/2017 06:34:07 PM when ownership was handed over to MachoThemes
@@ -47,16 +47,16 @@
  * @since    2.0.2
  */
 
-define( 'MODULA_LITE_VERSION' , '2.8.0' );
-define( 'MODULA_PATH' , plugin_dir_path( __FILE__ ) );
-define( 'MODULA_URL' , plugin_dir_url( __FILE__ ) );
-defined( 'MODULA_PRO_STORE_URL' ) || define( 'MODULA_PRO_STORE_URL' , 'https://wp-modula.com' );
-defined( 'MODULA_PRO_STORE_UPGRADE_URL' ) || define( 'MODULA_PRO_STORE_UPGRADE_URL' , 'https://wp-modula.com/pricing' );
-define( 'MODULA_FILE' , plugin_basename( __FILE__ ) );
+define( 'MODULA_LITE_VERSION', '2.8.0' );
+define( 'MODULA_PATH', plugin_dir_path( __FILE__ ) );
+define( 'MODULA_URL', plugin_dir_url( __FILE__ ) );
+defined( 'MODULA_PRO_STORE_URL' ) || define( 'MODULA_PRO_STORE_URL', 'https://wp-modula.com' );
+defined( 'MODULA_PRO_STORE_UPGRADE_URL' ) || define( 'MODULA_PRO_STORE_UPGRADE_URL', 'https://wp-modula.com/pricing' );
+define( 'MODULA_FILE', plugin_basename( __FILE__ ) );
 
-define ( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+define( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
-define( 'MODULA_CPT_NAME' , 'modula-gallery' );
+define( 'MODULA_CPT_NAME', 'modula-gallery' );
 
 /**
  * The code that runs during plugin activation.
@@ -86,10 +86,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-modula.php';
  * @since    2.0.0
  */
 function modula_run() {
-
 	// Our core class
 	$plugin = new Modula();
-
 }
 
 modula_run();

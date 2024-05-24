@@ -572,6 +572,10 @@ tr[data-container="effect"] > td {
 #modula-zoom .modula-upsell .modula-upsell-features li {
   width: 50%;
 }
+#modula-image_licensing .modula-upsell .modula-upsell-features li {
+  width: 100%;
+}
+
 
 /* We're handling the upsells inside metaboxes slightly different */
 .form-table-wrapper .modula-upsell {
@@ -1580,6 +1584,8 @@ Ups-sells carousel
 	margin-top:0;
 }
 
+#modula_image_licensing_option h2,
+.modula .row th > h2,
 #modula_troubleshooting_option h2 {
 	margin : 0;
 }

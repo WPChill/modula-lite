@@ -1,9 +1,9 @@
-! function(t, e) {
+! function (t, e) {
     "object" == typeof exports && "undefined" != typeof module ? e(exports) : "function" == typeof define && define.amd ? define(["exports"], e) : e((t = "undefined" != typeof globalThis ? globalThis : t || self).window = t.window || {})
-}(this, (function(t) {
+}(this, (function (t) {
     "use strict";
     const e = (t, e = 1e4) => (t = parseFloat(t + "") || 0, Math.round((t + Number.EPSILON) * e) / e),
-        i = function(t) {
+        i = function (t) {
             if (!(t && t instanceof Element && t.offsetParent)) return !1;
             const e = t.scrollHeight > t.clientHeight,
                 i = window.getComputedStyle(t).overflowY,
@@ -11,10 +11,10 @@
                 s = -1 !== i.indexOf("visible");
             return e && !n && !s
         },
-        n = function(t, e = void 0) {
+        n = function (t, e = void 0) {
             return !(!t || t === document.body || e && t === e) && (i(t) ? t : n(t.parentElement, e))
         },
-        s = function(t) {
+        s = function (t) {
             var e = (new DOMParser).parseFromString(t, "text/html").body;
             if (e.childElementCount > 1) {
                 for (var i = document.createElement("div"); e.firstChild;) i.appendChild(e.firstChild);
@@ -22,7 +22,7 @@
             }
             return e.firstChild
         },
-        o = t => `${t||""}`.split(" ").filter((t => !!t)),
+        o = t => `${t || ""}`.split(" ").filter((t => !!t)),
         a = (t, e, i) => {
             t && o(e).forEach((e => {
                 t.classList.toggle(e, i || !1)
@@ -74,8 +74,8 @@
     class c {
         constructor(t, {
             start: e = (() => !0),
-            move: i = (() => {}),
-            end: n = (() => {})
+            move: i = (() => { }),
+            end: n = (() => { })
         }) {
             Object.defineProperty(this, "element", {
                 enumerable: !0,
@@ -190,7 +190,7 @@
             }
             return t
         },
-        p = function(t, e) {
+        p = function (t, e) {
             return t.split(".").reduce(((t, e) => "object" == typeof t ? t[e] : void 0), e)
         };
     class g {
@@ -219,7 +219,7 @@
         optionFor(t, e, i, ...n) {
             let s = p(e, t);
             var o;
-            "string" != typeof(o = s) || isNaN(o) || isNaN(parseFloat(o)) || (s = parseFloat(s)), "true" === s && (s = !0), "false" === s && (s = !1), s && "function" == typeof s && (s = s.call(this, this, t, ...n));
+            "string" != typeof (o = s) || isNaN(o) || isNaN(parseFloat(o)) || (s = parseFloat(s)), "true" === s && (s = !0), "false" === s && (s = !1), s && "function" == typeof s && (s = s.call(this, this, t, ...n));
             let a = p(e, this.options);
             return a && "function" == typeof a ? s = a.call(this, this, t, ...n, s) : void 0 === s && (s = a), void 0 === s ? i : s
         }
@@ -230,7 +230,7 @@
         localize(t, e = []) {
             t = String(t).replace(/\{\{(\w+).?(\w+)?\}\}/g, ((t, e, i) => {
                 let n = "";
-                return i ? n = this.option(`${e[0]+e.toLowerCase().substring(1)}.l10n.${i}`) : e && (n = this.option(`l10n.${e}`)), n || (n = t), n
+                return i ? n = this.option(`${e[0] + e.toLowerCase().substring(1)}.l10n.${i}`) : e && (n = this.option(`l10n.${e}`)), n || (n = t), n
             }));
             for (let i = 0; i < e.length; i++) t = t.split(e[i][0]).join(e[i][1]);
             return t = t.replace(/\{\{(.*?)\}\}/g, ((t, e) => e))
@@ -295,7 +295,7 @@
         }
     }
     var b;
-    ! function(t) {
+    ! function (t) {
         t[t.Init = 0] = "Init", t[t.Error = 1] = "Error", t[t.Ready = 2] = "Ready", t[t.Panning = 3] = "Panning", t[t.Mousemove = 4] = "Mousemove", t[t.Destroy = 5] = "Destroy"
     }(b || (b = {}));
     const v = ["a", "b", "c", "d", "e", "f"],
@@ -464,179 +464,179 @@
         constructor(t, e = {}, i = {}) {
             var n;
             if (super(e), Object.defineProperty(this, "pointerTracker", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "resizeObserver", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "updateTimer", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "clickTimer", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "rAF", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "isTicking", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), Object.defineProperty(this, "ignoreBounds", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), Object.defineProperty(this, "isBouncingX", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), Object.defineProperty(this, "isBouncingY", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), Object.defineProperty(this, "clicks", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "trackingPoints", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: []
-                }), Object.defineProperty(this, "pwt", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "cwd", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "pmme", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: void 0
-                }), Object.defineProperty(this, "friction", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "state", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: b.Init
-                }), Object.defineProperty(this, "isDragging", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), Object.defineProperty(this, "container", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: void 0
-                }), Object.defineProperty(this, "content", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: void 0
-                }), Object.defineProperty(this, "spinner", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "containerRect", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {
-                        width: 0,
-                        height: 0,
-                        innerWidth: 0,
-                        innerHeight: 0
-                    }
-                }), Object.defineProperty(this, "contentRect", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        left: 0,
-                        fullWidth: 0,
-                        fullHeight: 0,
-                        fitWidth: 0,
-                        fitHeight: 0,
-                        width: 0,
-                        height: 0
-                    }
-                }), Object.defineProperty(this, "dragStart", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {
-                        x: 0,
-                        y: 0,
-                        top: 0,
-                        left: 0,
-                        time: 0
-                    }
-                }), Object.defineProperty(this, "dragOffset", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {
-                        x: 0,
-                        y: 0,
-                        time: 0
-                    }
-                }), Object.defineProperty(this, "current", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: Object.assign({}, T)
-                }), Object.defineProperty(this, "target", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: Object.assign({}, T)
-                }), Object.defineProperty(this, "velocity", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {
-                        a: 0,
-                        b: 0,
-                        c: 0,
-                        d: 0,
-                        e: 0,
-                        f: 0
-                    }
-                }), Object.defineProperty(this, "lockedAxis", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: !1
-                }), !t) throw new Error("Container Element Not Found");
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "resizeObserver", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "updateTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "clickTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "rAF", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "isTicking", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "ignoreBounds", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "isBouncingX", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "isBouncingY", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "clicks", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "trackingPoints", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "pwt", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "cwd", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "pmme", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "friction", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: b.Init
+            }), Object.defineProperty(this, "isDragging", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "content", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "spinner", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "containerRect", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    width: 0,
+                    height: 0,
+                    innerWidth: 0,
+                    innerHeight: 0
+                }
+            }), Object.defineProperty(this, "contentRect", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    fullWidth: 0,
+                    fullHeight: 0,
+                    fitWidth: 0,
+                    fitHeight: 0,
+                    width: 0,
+                    height: 0
+                }
+            }), Object.defineProperty(this, "dragStart", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    x: 0,
+                    y: 0,
+                    top: 0,
+                    left: 0,
+                    time: 0
+                }
+            }), Object.defineProperty(this, "dragOffset", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    x: 0,
+                    y: 0,
+                    time: 0
+                }
+            }), Object.defineProperty(this, "current", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Object.assign({}, T)
+            }), Object.defineProperty(this, "target", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Object.assign({}, T)
+            }), Object.defineProperty(this, "velocity", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    a: 0,
+                    b: 0,
+                    c: 0,
+                    d: 0,
+                    e: 0,
+                    f: 0
+                }
+            }), Object.defineProperty(this, "lockedAxis", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), !t) throw new Error("Container Element Not Found");
             this.container = t, this.initContent(), this.attachPlugins(Object.assign(Object.assign({}, I.Plugins), i)), this.emit("attachPlugins"), this.emit("init");
             const o = this.content;
             if (o.addEventListener("load", this.onLoad), o.addEventListener("error", this.onError), this.isContentLoading) {
@@ -782,7 +782,7 @@
             }
         }
         setEdgeForce() {
-            if (this.ignoreBounds || this.isDragging || this.panMode === A || this.targetScale < this.scale) return this.isBouncingX = !1, void(this.isBouncingY = !1);
+            if (this.ignoreBounds || this.isDragging || this.panMode === A || this.targetScale < this.scale) return this.isBouncingX = !1, void (this.isBouncingY = !1);
             const {
                 target: t
             } = this, {
@@ -810,9 +810,9 @@
             if (!i || t.defaultPrevented) return;
             if (i.hasAttribute("disabled")) return t.preventDefault(), void t.stopPropagation();
             if ((() => {
-                    const t = window.getSelection();
-                    return t && "Range" === t.type
-                })() && !i.closest("button")) return;
+                const t = window.getSelection();
+                return t && "Range" === t.type
+            })() && !i.closest("button")) return;
             const n = i.closest("[data-panzoom-action]"),
                 s = i.closest("[data-panzoom-change]"),
                 o = n || s,
@@ -829,7 +829,7 @@
                     }
                     return void this.applyChange(t)
                 }
-                if (i) return void(this[i] && this[i]())
+                if (i) return void (this[i] && this[i]())
             }
             if (Math.abs(this.dragOffset.x) > 3 || Math.abs(this.dragOffset.y) > 3) return t.preventDefault(), void t.stopPropagation();
             if (i.closest("[data-fancybox]")) return;
@@ -838,10 +838,10 @@
             if (l.time && !this.canZoomOut() && (Math.abs(r.x - l.x) > 2 || Math.abs(r.y - l.y) > 2)) return;
             this.dragStart.time = 0;
             const c = e => {
-                    this.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof this[e] && (t.preventDefault(), this[e]({
-                        event: t
-                    }))
-                },
+                this.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof this[e] && (t.preventDefault(), this[e]({
+                    event: t
+                }))
+            },
                 h = this.option("click", t),
                 d = this.option("dblClick", t);
             d ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout((() => {
@@ -862,19 +862,19 @@
             }, this.trackingPoints = [];
             const s = this.content.getBoundingClientRect();
             if (this.dragStart = {
-                    x: s.x,
-                    y: s.y,
-                    top: s.top,
-                    left: s.left,
-                    time: Date.now()
-                }, this.clickTimer) return !1;
+                x: s.x,
+                y: s.y,
+                top: s.top,
+                left: s.left,
+                time: Date.now()
+            }, this.clickTimer) return !1;
             if (this.panMode === A && this.targetScale > 1) return t.preventDefault(), t.stopPropagation(), !1;
             const o = t.composedPath()[0];
             if (!i.length) {
                 if (["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO", "IFRAME"].includes(o.nodeName) || o.closest("[contenteditable],[data-selectable],[data-draggable],[data-clickable],[data-panzoom-change],[data-panzoom-action]")) return !1;
                 null === (n = window.getSelection()) || void 0 === n || n.removeAllRanges()
             }
-            if ("mousedown" === t.type)["A", "BUTTON"].includes(o.nodeName) || t.preventDefault();
+            if ("mousedown" === t.type) ["A", "BUTTON"].includes(o.nodeName) || t.preventDefault();
             else if (Math.abs(this.velocity.a) > .3) return !1;
             return this.target.e = this.current.e, this.target.f = this.current.f, this.stop(), this.isDragging || (this.isDragging = !0, this.addTrackingPoint(e), this.emit("touchStart", t)), !0
         }
@@ -924,7 +924,7 @@
             })
         }
         onPointerUp(t, e, i) {
-            if (i.length) return this.dragOffset.x = 0, this.dragOffset.y = 0, void(this.trackingPoints = []);
+            if (i.length) return this.dragOffset.x = 0, this.dragOffset.y = 0, void (this.trackingPoints = []);
             this.container.classList.remove(this.cn("isDragging")), this.isDragging && (this.addTrackingPoint(e), this.panOnlyZoomed && this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1 && (this.trackingPoints = []), n(t.target, this.content) && "y" === this.lockedAxis && (this.trackingPoints = []), this.emit("touchEnd", t), this.isDragging = !1, this.lockedAxis = !1, this.state !== b.Destroy && (t.defaultPrevented || this.startDecelAnim()))
         }
         startDecelAnim() {
@@ -964,7 +964,7 @@
             }), this.emit("decel", u, f, m, b)
         }
         onWheel(t) {
-            var e = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function(t, e) {
+            var e = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
                 return Math.abs(e) > Math.abs(t) ? e : t
             }));
             const i = Math.max(-1, Math.min(1, e));
@@ -1150,10 +1150,10 @@
                     minScale: h
                 } = t;
             let d = {
-                    toggleMax: r - h < .5 * (c - h) ? c : h,
-                    toggleCover: r - h < .5 * (l - h) ? l : h,
-                    toggleZoom: r - h < .5 * (o - h) ? o : h
-                } [t.option("click") || ""] || h,
+                toggleMax: r - h < .5 * (c - h) ? c : h,
+                toggleCover: r - h < .5 * (l - h) ? l : h,
+                toggleZoom: r - h < .5 * (o - h) ? o : h
+            }[t.option("click") || ""] || h,
                 u = t.canZoomIn(),
                 f = t.canZoomOut(),
                 p = n === L && !!this.option("touch"),
@@ -1267,7 +1267,7 @@
             const i = Date.now();
             if (i - this.pwt < 45) return void t.preventDefault();
             this.pwt = i;
-            var n = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function(t, e) {
+            var n = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
                 return Math.abs(e) > Math.abs(t) ? e : t
             }));
             const s = Math.max(-1, Math.min(1, n)),
@@ -1455,14 +1455,14 @@
         writable: !0,
         value: {}
     });
-    const D = function(t, e) {
-            let i = !0;
-            return (...n) => {
-                i && (i = !1, t(...n), setTimeout((() => {
-                    i = !0
-                }), e))
-            }
-        },
+    const D = function (t, e) {
+        let i = !0;
+        return (...n) => {
+            i && (i = !1, t(...n), setTimeout((() => {
+                i = !0
+            }), e))
+        }
+    },
         F = (t, e) => {
             let i = [];
             return t.childNodes.forEach((t => {
@@ -1508,30 +1508,30 @@
             }
         };
     var H;
-    ! function(t) {
+    ! function (t) {
         t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Destroy = 2] = "Destroy"
     }(H || (H = {}));
     const B = t => {
-            if ("string" == typeof t || t instanceof HTMLElement) t = {
-                html: t
-            };
-            else {
-                const e = t.thumb;
-                void 0 !== e && ("string" == typeof e && (t.thumbSrc = e), e instanceof HTMLImageElement && (t.thumbEl = e, t.thumbElSrc = e.src, t.thumbSrc = e.src), delete t.thumb)
-            }
-            return Object.assign({
-                html: "",
-                el: null,
-                isDom: !1,
-                class: "",
-                customClass: "",
-                index: -1,
-                dim: 0,
-                gap: 0,
-                pos: 0,
-                transition: !1
-            }, t)
-        },
+        if ("string" == typeof t || t instanceof HTMLElement) t = {
+            html: t
+        };
+        else {
+            const e = t.thumb;
+            void 0 !== e && ("string" == typeof e && (t.thumbSrc = e), e instanceof HTMLImageElement && (t.thumbEl = e, t.thumbElSrc = e.src, t.thumbSrc = e.src), delete t.thumb)
+        }
+        return Object.assign({
+            html: "",
+            el: null,
+            isDom: !1,
+            class: "",
+            customClass: "",
+            index: -1,
+            dim: 0,
+            gap: 0,
+            pos: 0,
+            transition: !1
+        }, t)
+    },
         N = (t = {}) => Object.assign({
             index: -1,
             slides: [],
@@ -1547,8 +1547,8 @@
                 value: t
             })
         }
-        attach() {}
-        detach() {}
+        attach() { }
+        detach() { }
     }
     const $ = {
         classes: {
@@ -1692,7 +1692,7 @@
             n.setAttribute("tabindex", "0"), n.setAttribute("title", i.localize(`{{${t.toUpperCase()}}}`)), C(n, this.cn("button") + " " + this.cn(t === q ? "isNext" : "isPrev"));
             const s = i.isRTL ? t === q ? Y : q : t;
             var o;
-            return n.innerHTML = i.localize(this.option(`${s}Tpl`)), n.dataset[`carousel${o=t,o?o.match("^[a-z]")?o.charAt(0).toUpperCase()+o.substring(1):o:""}`] = "true", null === (e = this.container) || void 0 === e || e.appendChild(n), n
+            return n.innerHTML = i.localize(this.option(`${s}Tpl`)), n.dataset[`carousel${o = t, o ? o.match("^[a-z]") ? o.charAt(0).toUpperCase() + o.substring(1) : o : ""}`] = "true", null === (e = this.container) || void 0 === e || e.appendChild(n), n
         }
         build() {
             const t = this.instance.container,
@@ -1833,10 +1833,10 @@
         }
     });
     const U = {
-            Navigation: V,
-            Dots: W,
-            Sync: Z
-        },
+        Navigation: V,
+        Dots: W,
+        Sync: Z
+    },
         G = "animationend",
         K = "isSelected",
         J = "slide";
@@ -1865,86 +1865,86 @@
         }
         constructor(t, e = {}, i = {}) {
             if (super(), Object.defineProperty(this, "bp", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: ""
-                }), Object.defineProperty(this, "lp", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "userOptions", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {}
-                }), Object.defineProperty(this, "userPlugins", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: {}
-                }), Object.defineProperty(this, "state", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: H.Init
-                }), Object.defineProperty(this, "page", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "prevPage", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "container", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: void 0
-                }), Object.defineProperty(this, "viewport", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "track", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "slides", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: []
-                }), Object.defineProperty(this, "pages", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: []
-                }), Object.defineProperty(this, "panzoom", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: null
-                }), Object.defineProperty(this, "inTransition", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: new Set
-                }), Object.defineProperty(this, "contentDim", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), Object.defineProperty(this, "viewportDim", {
-                    enumerable: !0,
-                    configurable: !0,
-                    writable: !0,
-                    value: 0
-                }), "string" == typeof t && (t = document.querySelector(t)), !t || !S(t)) throw new Error("No Element found");
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: ""
+            }), Object.defineProperty(this, "lp", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "userOptions", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            }), Object.defineProperty(this, "userPlugins", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: H.Init
+            }), Object.defineProperty(this, "page", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "prevPage", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "viewport", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "track", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "slides", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "pages", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "panzoom", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "inTransition", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: new Set
+            }), Object.defineProperty(this, "contentDim", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "viewportDim", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), "string" == typeof t && (t = document.querySelector(t)), !t || !S(t)) throw new Error("No Element found");
             this.container = t, this.slideNext = D(this.slideNext.bind(this), 150), this.slidePrev = D(this.slidePrev.bind(this), 150), this.userOptions = e, this.userPlugins = i, queueMicrotask((() => {
                 this.processOptions()
             }))
@@ -2050,7 +2050,7 @@
             let s = 0,
                 o = 0,
                 a = 0;
-            for (const e of this.slides)(!t.length || o + e.dim - i > .05 || a >= n) && (t.push(N()), s = t.length - 1, o = 0, a = 0), t[s].slides.push(e), o += e.dim + e.gap, a++;
+            for (const e of this.slides) (!t.length || o + e.dim - i > .05 || a >= n) && (t.push(N()), s = t.length - 1, o = 0, a = 0), t[s].slides.push(e), o += e.dim + e.gap, a++;
             return t
         }
         processPages() {
@@ -2064,13 +2064,13 @@
                 a = this.option("fill"),
                 r = a && o && i > n && !s;
             if (t.forEach(((t, e) => {
-                    var s;
-                    t.index = e, t.pos = (null === (s = t.slides[0]) || void 0 === s ? void 0 : s.pos) || 0, t.dim = 0;
-                    for (const [e, i] of t.slides.entries()) t.dim += i.dim, e < t.slides.length - 1 && (t.dim += i.gap);
-                    r && t.pos + .5 * t.dim < .5 * n ? t.pos = 0 : r && t.pos + .5 * t.dim >= i - .5 * n ? t.pos = i - n : o && (t.pos += -.5 * (n - t.dim))
-                })), t.forEach((t => {
-                    a && !s && i > n && (t.pos = Math.max(t.pos, 0), t.pos = Math.min(t.pos, i - n)), t.pos = e(t.pos, 1e3), t.dim = e(t.dim, 1e3), Math.abs(t.pos) <= .1 && (t.pos = 0)
-                })), s) return t;
+                var s;
+                t.index = e, t.pos = (null === (s = t.slides[0]) || void 0 === s ? void 0 : s.pos) || 0, t.dim = 0;
+                for (const [e, i] of t.slides.entries()) t.dim += i.dim, e < t.slides.length - 1 && (t.dim += i.gap);
+                r && t.pos + .5 * t.dim < .5 * n ? t.pos = 0 : r && t.pos + .5 * t.dim >= i - .5 * n ? t.pos = i - n : o && (t.pos += -.5 * (n - t.dim))
+            })), t.forEach((t => {
+                a && !s && i > n && (t.pos = Math.max(t.pos, 0), t.pos = Math.min(t.pos, i - n)), t.pos = e(t.pos, 1e3), t.dim = e(t.dim, 1e3), Math.abs(t.pos) <= .1 && (t.pos = 0)
+            })), s) return t;
             const l = [];
             let c;
             return t.forEach((t => {
@@ -2141,17 +2141,17 @@
         }
         repositionSlides() {
             let t, {
-                    isHorizontal: i,
-                    isRTL: n,
-                    isInfinite: s,
-                    viewport: o,
-                    viewportDim: a,
-                    contentDim: r,
-                    page: l,
-                    pages: c,
-                    slides: h,
-                    panzoom: d
-                } = this,
+                isHorizontal: i,
+                isRTL: n,
+                isInfinite: s,
+                viewport: o,
+                viewportDim: a,
+                contentDim: r,
+                page: l,
+                pages: c,
+                slides: h,
+                panzoom: d
+            } = this,
                 u = 0,
                 f = 0,
                 p = 0,
@@ -2159,7 +2159,7 @@
             d ? g = -1 * d.current[this.axis] : c[l] && (g = c[l].pos || 0), t = i ? n ? "right" : "left" : "top", n && i && (g *= -1);
             for (const i of h) {
                 const n = i.el;
-                n ? ("top" === t ? (n.style.right = "", n.style.left = "") : n.style.top = "", i.index !== u ? n.style[t] = 0 === f ? "" : `${e(f,1e3)}px` : n.style[t] = "", p += i.dim + i.gap, u++) : f += i.dim + i.gap
+                n ? ("top" === t ? (n.style.right = "", n.style.left = "") : n.style.top = "", i.index !== u ? n.style[t] = 0 === f ? "" : `${e(f, 1e3)}px` : n.style[t] = "", p += i.dim + i.gap, u++) : f += i.dim + i.gap
             }
             if (s && p && o) {
                 let n = getComputedStyle(o),
@@ -2167,12 +2167,12 @@
                     l = i ? "Right" : "Bottom",
                     c = parseFloat(n[s + (i ? "Left" : "Top")]);
                 g -= c, a += c, a += parseFloat(n[s + l]);
-                for (const i of h) i.el && (e(i.pos) < e(a) && e(i.pos + i.dim + i.gap) < e(g) && e(g) > e(r - a) && (i.el.style[t] = `${e(f+p,1e3)}px`), e(i.pos + i.gap) >= e(r - a) && e(i.pos) > e(g + a) && e(g) < e(a) && (i.el.style[t] = `-${e(p,1e3)}px`))
+                for (const i of h) i.el && (e(i.pos) < e(a) && e(i.pos + i.dim + i.gap) < e(g) && e(g) > e(r - a) && (i.el.style[t] = `${e(f + p, 1e3)}px`), e(i.pos + i.gap) >= e(r - a) && e(i.pos) > e(g + a) && e(g) < e(a) && (i.el.style[t] = `-${e(p, 1e3)}px`))
             }
             let m, b, v = [...this.inTransition];
             if (v.length > 1 && (m = c[v[0]], b = c[v[1]]), m && b) {
                 let i = 0;
-                for (const n of h) n.el ? this.inTransition.has(n.index) && m.slides.indexOf(n) < 0 && (n.el.style[t] = `${e(i+(m.pos-b.pos),1e3)}px`) : i += n.dim + n.gap
+                for (const n of h) n.el ? this.inTransition.has(n.index) && m.slides.indexOf(n) < 0 && (n.el.style[t] = `${e(i + (m.pos - b.pos), 1e3)}px`) : i += n.dim + n.gap
             }
         }
         createSlideEl(t) {
@@ -2202,7 +2202,7 @@
             const i = null == t ? void 0 : t.el;
             if (!i || !i.parentNode) return;
             const n = this.cn(K);
-            if (i.classList.contains(n) && (P(i, n), this.emit("unselectSlide", t)), t.isDom && !e) return i.removeAttribute("aria-hidden"), i.removeAttribute("data-index"), void(i.style.left = "");
+            if (i.classList.contains(n) && (P(i, n), this.emit("unselectSlide", t)), t.isDom && !e) return i.removeAttribute("aria-hidden"), i.removeAttribute("data-index"), void (i.style.left = "");
             this.emit("removeSlide", t);
             const s = new CustomEvent(G);
             i.dispatchEvent(s), t.el && (t.el.remove(), t.el = null)
@@ -2232,7 +2232,7 @@
             u || e === J || (e = "fadeFast", g = null);
             const b = this.isRTL ? "next" : "prev",
                 v = this.isRTL ? "prev" : "next";
-            return g && (this.inTransition.add(f.index), f.transition = e, g.addEventListener(G, this.onAnimationEnd), g.classList.add(`f-${e}Out`, `to-${h>0?v:b}`)), m && (p.transition = e, m.addEventListener(G, this.onAnimationEnd), m.classList.add(`f-${e}In`, `from-${h>0?b:v}`)), l.current[this.axis] = d, l.target[this.axis] = d, l.requestTick(), this.onChange(c), !0
+            return g && (this.inTransition.add(f.index), f.transition = e, g.addEventListener(G, this.onAnimationEnd), g.classList.add(`f-${e}Out`, `to-${h > 0 ? v : b}`)), m && (p.transition = e, m.addEventListener(G, this.onAnimationEnd), m.classList.add(`f-${e}In`, `from-${h > 0 ? b : v}`)), l.current[this.axis] = d, l.target[this.axis] = d, l.requestTick(), this.onChange(c), !0
         }
         manageSlideVisiblity() {
             const t = new Set,
@@ -2402,7 +2402,7 @@
                     i = l.target[s] * h;
                 if (2 === c) d += e * Math.floor(parseFloat(t + "") / 2);
                 else {
-                    d = [d, d - e, d + e].reduce((function(t, e) {
+                    d = [d, d - e, d + e].reduce((function (t, e) {
                         return Math.abs(e - i) < Math.abs(t - i) ? e : t
                     }))
                 }
@@ -2525,7 +2525,7 @@
                 h = c,
                 d = c;
             this.isInfinite && !0 !== n && (h = e((l - r.pos + a) / (1 * r.dim), 1e3), d = e((l - r.pos - a) / (1 * r.dim), 1e3));
-            let u = [c, h, d].reduce((function(t, e) {
+            let u = [c, h, d].reduce((function (t, e) {
                 return Math.abs(e) < Math.abs(t) ? e : t
             }));
             return i ? u : u > 1 ? 1 : u < -1 ? -1 : u
@@ -2643,23 +2643,23 @@
         writable: !0,
         value: U
     });
-    const tt = function(t) {
-            if (!S(t)) return 0;
-            const e = window.scrollY,
-                i = window.innerHeight,
-                n = e + i,
-                s = t.getBoundingClientRect(),
-                o = s.y + e,
-                a = s.height,
-                r = o + a;
-            if (e > r || n < o) return 0;
-            if (e < o && n > r) return 100;
-            if (o < e && r > n) return 100;
-            let l = a;
-            o < e && (l -= e - o), r > n && (l -= r - n);
-            const c = l / i * 100;
-            return Math.round(c)
-        },
+    const tt = function (t) {
+        if (!S(t)) return 0;
+        const e = window.scrollY,
+            i = window.innerHeight,
+            n = e + i,
+            s = t.getBoundingClientRect(),
+            o = s.y + e,
+            a = s.height,
+            r = o + a;
+        if (e > r || n < o) return 0;
+        if (e < o && n > r) return 100;
+        if (o < e && r > n) return 100;
+        let l = a;
+        o < e && (l -= e - o), r > n && (l -= r - n);
+        const c = l / i * 100;
+        return Math.round(c)
+    },
         et = !("undefined" == typeof window || !window.document || !window.document.createElement);
     let it;
     const nt = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden]):not(.fancybox-focus-guard)", "iframe", "object", "embed", "video", "audio", "[contenteditable]", '[tabindex]:not([tabindex^="-"]):not([disabled]):not([aria-hidden])'].join(","),
@@ -2683,7 +2683,7 @@
                             behavior: "auto"
                         })
                     }
-                } catch (t) {}
+                } catch (t) { }
             }
         },
         ot = () => {
@@ -2692,13 +2692,13 @@
                 n = "",
                 s = "";
             return t.fullscreenEnabled ? (i = "requestFullscreen", n = "exitFullscreen", s = "fullscreenElement") : t.webkitFullscreenEnabled && (i = "webkitRequestFullscreen", n = "webkitExitFullscreen", s = "webkitFullscreenElement"), i && (e = {
-                request: function(e = t.documentElement) {
+                request: function (e = t.documentElement) {
                     return "webkitRequestFullscreen" === i ? e[i](Element.ALLOW_KEYBOARD_INPUT) : e[i]()
                 },
-                exit: function() {
+                exit: function () {
                     return t[s] && t[n]()
                 },
-                isFullscreen: function() {
+                isFullscreen: function () {
                     return t[s]
                 }
             }), e
@@ -2771,12 +2771,12 @@
             wheel: "zoom"
         };
     var rt, lt;
-    ! function(t) {
+    ! function (t) {
         t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Closing = 2] = "Closing", t[t.CustomClosing = 3] = "CustomClosing", t[t.Destroy = 4] = "Destroy"
     }(rt || (rt = {})),
-    function(t) {
-        t[t.Loading = 0] = "Loading", t[t.Opening = 1] = "Opening", t[t.Ready = 2] = "Ready", t[t.Closing = 3] = "Closing"
-    }(lt || (lt = {}));
+        function (t) {
+            t[t.Loading = 0] = "Loading", t[t.Opening = 1] = "Opening", t[t.Ready = 2] = "Ready", t[t.Closing = 3] = "Closing"
+        }(lt || (lt = {}));
     const ct = () => {
         queueMicrotask((() => {
             (() => {
@@ -2829,13 +2829,13 @@
             o && "true" !== o && (l = "#" + o + (!a && e.slides.length > 1 ? "-" + (i.index + 1) : "")), n && (this.origHash = s !== l ? s : ""), l && s !== l && (this.timer = setTimeout((() => {
                 try {
                     t.state === rt.Ready && window.history[n ? "pushState" : "replaceState"]({}, document.title, window.location.pathname + window.location.search + l)
-                } catch (t) {}
+                } catch (t) { }
             }), 300))
         }
         onClose() {
             if (this.timer && clearTimeout(this.timer), !0 !== ht.hasSilentClose) try {
                 window.history.replaceState({}, document.title, window.location.pathname + window.location.search + (this.origHash || ""))
-            } catch (t) {}
+            } catch (t) { }
         }
         attach() {
             const t = this.instance;
@@ -2866,9 +2866,9 @@
             if (!e) return;
             let n = document.querySelector(`[data-slug="${t}"]`);
             if (n && n.dispatchEvent(new CustomEvent("click", {
-                    bubbles: !0,
-                    cancelable: !0
-                })), ye.getInstance()) return;
+                bubbles: !0,
+                cancelable: !0
+            })), ye.getInstance()) return;
             const s = document.querySelectorAll(`[data-fancybox="${e}"]`);
             s.length && (n = s[i - 1], n && n.dispatchEvent(new CustomEvent("click", {
                 bubbles: !0,
@@ -2932,8 +2932,8 @@
             const c = i.getBoundingClientRect();
             1 === ((null === (t = window.visualViewport) || void 0 === t ? void 0 : t.scale) || 1) && Object.assign(i.style, {
                 position: "absolute",
-                top: `${i.offsetTop+window.scrollY}px`,
-                left: `${i.offsetLeft+window.scrollX}px`,
+                top: `${i.offsetTop + window.scrollY}px`,
+                left: `${i.offsetLeft + window.scrollX}px`,
                 bottom: "auto",
                 right: "auto",
                 width: `${c.width}px`,
@@ -3001,7 +3001,7 @@
                     }))).then((() => {
                         i.hideLoading(t), t.state = lt.Opening, this.instance.emit("reveal", t), this.zoomIn(t).then((() => {
                             h(), this.instance.done(t)
-                        }), (() => {})), c && setTimeout((() => {
+                        }), (() => { })), c && setTimeout((() => {
                             h()
                         }), a > 2500 ? 800 : 200)
                     }), (() => {
@@ -3034,7 +3034,7 @@
                     if (l = document.createElement("img"), l instanceof HTMLImageElement) {
                         let i = "",
                             n = t.caption;
-                        i = "string" == typeof n && n ? n.replace(/<[^>]+>/gi, "").substring(0, 1e3) : `Image ${t.index+1} of ${(null===(o=a.carousel)||void 0===o?void 0:o.pages.length)||1}`, l.src = e || "", l.alt = i, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), this.instance.isOpeningSlide(t) && (l.fetchPriority = "high")
+                        i = "string" == typeof n && n ? n.replace(/<[^>]+>/gi, "").substring(0, 1e3) : `Image ${t.index + 1} of ${(null === (o = a.carousel) || void 0 === o ? void 0 : o.pages.length) || 1}`, l.src = e || "", l.alt = i, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), this.instance.isOpeningSlide(t) && (l.fetchPriority = "high")
                     }
                     t.sizes && l.setAttribute("sizes", t.sizes)
                 }
@@ -3110,8 +3110,8 @@
                     ignoreBounds: !0
                 }), o.stop("current");
                 const g = {
-                        event: "mousemove" === o.panMode ? n.prevMouseMoveEvent || n.options.event : void 0
-                    },
+                    event: "mousemove" === o.panMode ? n.prevMouseMoveEvent || n.options.event : void 0
+                },
                     m = this.optionFor(t, "initialSize");
                 C(s, ut), n.hideLoading(t), "full" === m ? o.zoomToFull(g) : "cover" === m ? o.zoomToCover(g) : "max" === m ? o.zoomToMax(g) : o.reset(.172)
             }))
@@ -3251,7 +3251,7 @@
             if (i.type === yt) {
                 try {
                     null === (s = null === (n = i.el) || void 0 === n ? void 0 : n.querySelector("video")) || void 0 === s || s.pause()
-                } catch (t) {}
+                } catch (t) { }
                 return
             }
             let o;
@@ -3281,14 +3281,14 @@
                     const t = document.getElementById(e.id);
                     t && (t.dataset.ready = "true")
                 }
-            } catch (t) {}
+            } catch (t) { }
         }
         loadAjaxContent(t) {
             const e = this.instance.optionFor(t, "src") || "";
             this.instance.showLoading(t);
             const i = this.instance,
                 n = new XMLHttpRequest;
-            i.showLoading(t), n.onreadystatechange = function() {
+            i.showLoading(t), n.onreadystatechange = function () {
                 n.readyState === XMLHttpRequest.DONE && i.state === rt.Ready && (i.hideLoading(t), 200 === n.status ? i.setContent(t, n.responseText) : i.setError(t, 404 === n.status ? "{{AJAX_NOT_FOUND}}" : "{{AJAX_FORBIDDEN}}"))
             };
             const s = t.ajax || null;
@@ -3362,7 +3362,7 @@
                         n = t.body;
                     r.width = "", n.style.overflow = "hidden", o = o || i.scrollWidth + e, r.width = `${o}px`, n.style.overflow = "", r.flex = "0 0 auto", r.height = `${n.scrollHeight}px`, a = i.scrollHeight + s
                 }
-            } catch (t) {}
+            } catch (t) { }
             if (o || a) {
                 const t = {
                     flex: "0 1 auto",
@@ -3384,11 +3384,11 @@
                 const t = e.querySelector("video");
                 if (t) {
                     const e = t.play();
-                    void 0 !== e && e.then((() => {})).catch((e => {
+                    void 0 !== e && e.then((() => { })).catch((e => {
                         t.muted = !0, t.play()
                     }))
                 }
-            } catch (t) {}
+            } catch (t) { }
             if (t.type !== bt && t.type !== vt) return;
             const i = () => {
                 if (t.iframeEl && t.iframeEl.contentWindow) {
@@ -3399,7 +3399,7 @@
                     } : {
                         method: "play",
                         value: "true"
-                    }, e && t.iframeEl.contentWindow.postMessage(JSON.stringify(e), "*"), void(t.poller = void 0);
+                    }, e && t.iframeEl.contentWindow.postMessage(JSON.stringify(e), "*"), void (t.poller = void 0);
                     t.type === bt && (e = {
                         event: "listening",
                         id: t.iframeEl.getAttribute("id")
@@ -3410,7 +3410,7 @@
             i()
         }
         processType(t) {
-            if (t.html) return t.type = pt, t.src = t.html, void(t.html = "");
+            if (t.html) return t.type = pt, t.src = t.html, void (t.html = "");
             const e = this.instance.optionFor(t, "src", "");
             if (!e || "string" != typeof e) return;
             let i = t.type,
@@ -3420,7 +3420,7 @@
                     {
                         nocookie: o
                     } = s,
-                    a = function(t, e) {
+                    a = function (t, e) {
                         var i = {};
                         for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && e.indexOf(n) < 0 && (i[n] = t[n]);
                         if (null != t && "function" == typeof Object.getOwnPropertySymbols) {
@@ -3429,7 +3429,7 @@
                         }
                         return i
                     }(s, ["nocookie"]),
-                    r = `www.youtube${o?"-nocookie":""}.com`,
+                    r = `www.youtube${o ? "-nocookie" : ""}.com`,
                     l = wt(e, a),
                     c = encodeURIComponent(n[2]);
                 t.videoId = c, t.src = `https://${r}/embed/${c}?${l}`, t.thumbSrc = t.thumbSrc || `https://i.ytimg.com/vi/${c}/mqdefault.jpg`, i = bt
@@ -3437,13 +3437,13 @@
                 const s = wt(e, this.optionFor(t, vt)),
                     o = encodeURIComponent(n[1]),
                     a = n[4] || "";
-                t.videoId = o, t.src = `https://player.vimeo.com/video/${o}?${a?`h=${a}${s?"&":""}`:""}${s}`, i = vt
+                t.videoId = o, t.src = `https://player.vimeo.com/video/${o}?${a ? `h=${a}${s ? "&" : ""}` : ""}${s}`, i = vt
             }
             if (!i && t.triggerEl) {
                 const e = t.triggerEl.dataset.type;
                 Et.includes(e) && (i = e)
             }
-            i || "string" == typeof e && ("#" === e.charAt(0) ? i = "inline" : (n = e.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i = yt, t.videoFormat = t.videoFormat || "video/" + ("ogv" === n[1] ? "ogg" : n[1])) : e.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i = gt : e.match(/\.(pdf)((\?|#).*)?$/i) && (i = "pdf")), (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t.src = `https://maps.google.${n[1]}/?ll=${(n[2]?n[2]+"&z="+Math.floor(parseFloat(n[3]))+(n[4]?n[4].replace(/^\//,"&"):""):n[4]+"").replace(/\?/,"&")}&output=${n[4]&&n[4].indexOf("layer=c")>0?"svembed":"embed"}`, i = mt) : (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t.src = `https://maps.google.${n[1]}/maps?q=${n[2].replace("query=","q=").replace("api=1","")}&output=embed`, i = mt), i = i || this.instance.option("defaultType"), t.type = i, i === gt && (t.thumbSrc = t.thumbSrc || t.src)
+            i || "string" == typeof e && ("#" === e.charAt(0) ? i = "inline" : (n = e.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i = yt, t.videoFormat = t.videoFormat || "video/" + ("ogv" === n[1] ? "ogg" : n[1])) : e.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i = gt : e.match(/\.(pdf)((\?|#).*)?$/i) && (i = "pdf")), (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t.src = `https://maps.google.${n[1]}/?ll=${(n[2] ? n[2] + "&z=" + Math.floor(parseFloat(n[3])) + (n[4] ? n[4].replace(/^\//, "&") : "") : n[4] + "").replace(/\?/, "&")}&output=${n[4] && n[4].indexOf("layer=c") > 0 ? "svembed" : "embed"}`, i = mt) : (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t.src = `https://maps.google.${n[1]}/maps?q=${n[2].replace("query=", "q=").replace("api=1", "")}&output=embed`, i = mt), i = i || this.instance.option("defaultType"), t.type = i, i === gt && (t.thumbSrc = t.thumbSrc || t.src)
         }
         setContent(t) {
             const e = this.instance.optionFor(t, "src") || "";
@@ -3752,7 +3752,7 @@
         type: "modern"
     };
     var Lt;
-    ! function(t) {
+    ! function (t) {
         t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Hidden = 2] = "Hidden"
     }(Lt || (Lt = {}));
     const zt = "isResting",
@@ -3906,32 +3906,32 @@
             let c = l.querySelector("." + r);
             c || (c = document.createElement("div"), C(c, t.cn("track")), l.appendChild(c)), t.track = c;
             const h = f({}, {
-                    track: c,
-                    infinite: !1,
-                    center: !0,
-                    fill: "classic" === s,
-                    dragFree: !0,
-                    slidesPerPage: 1,
-                    transition: !1,
-                    preload: .25,
-                    friction: .12,
-                    Panzoom: {
-                        maxVelocity: 0
-                    },
-                    Dots: !1,
-                    Navigation: !1,
-                    classes: {
-                        container: "f-thumbs",
-                        viewport: "f-thumbs__viewport",
-                        track: "f-thumbs__track",
-                        slide: "f-thumbs__slide"
-                    }
-                }, t.option("Carousel") || {}, {
-                    Sync: {
-                        target: e
-                    },
-                    slides: n
-                }),
+                track: c,
+                infinite: !1,
+                center: !0,
+                fill: "classic" === s,
+                dragFree: !0,
+                slidesPerPage: 1,
+                transition: !1,
+                preload: .25,
+                friction: .12,
+                Panzoom: {
+                    maxVelocity: 0
+                },
+                Dots: !1,
+                Navigation: !1,
+                classes: {
+                    container: "f-thumbs",
+                    viewport: "f-thumbs__viewport",
+                    track: "f-thumbs__track",
+                    slide: "f-thumbs__slide"
+                }
+            }, t.option("Carousel") || {}, {
+                Sync: {
+                    target: e
+                },
+                slides: n
+            }),
                 d = new e.constructor(l, h);
             d.on("createSlide", ((e, i) => {
                 t.setProps(i.index), t.emit("createSlide", i, i.el)
@@ -4044,10 +4044,10 @@
         value: At
     });
     const Ft = Object.assign(Object.assign({}, At), {
-            key: "t",
-            showOnStart: !0,
-            parentEl: null
-        }),
+        key: "t",
+        showOnStart: !0,
+        parentEl: null
+    }),
         jt = "is-masked",
         Ht = "aria-hidden";
     class Bt extends _ {
@@ -4128,7 +4128,7 @@
         }
         toggle() {
             const t = this.ref;
-            if (t && !t.isDisabled()) return t.state === Lt.Hidden ? (t.state = Lt.Init, void t.build()) : void(this.hidden ? this.show() : this.hide())
+            if (t && !t.isDisabled()) return t.state === Lt.Hidden ? (t.state = Lt.Init, void t.build()) : void (this.hidden ? this.show() : this.hide())
         }
         show() {
             const t = this.ref;
@@ -4245,45 +4245,45 @@
         }
     };
     var _t;
-    ! function(t) {
+    ! function (t) {
         t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Disabled = 2] = "Disabled"
     }(_t || (_t = {}));
     const $t = {
-            absolute: "auto",
-            display: {
-                left: ["infobar"],
-                middle: [],
-                right: ["iterateZoom", "slideshow", "fullscreen", "thumbs", "close"]
-            },
-            enabled: "auto",
-            items: {
-                infobar: {
-                    tpl: '<div class="fancybox__infobar" tabindex="-1"><span data-fancybox-current-index></span>/<span data-fancybox-count></span></div>'
-                },
-                download: {
-                    tpl: '<a class="f-button" title="{{DOWNLOAD}}" data-fancybox-download href="javasript:;"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></a>'
-                },
-                prev: {
-                    tpl: '<button class="f-button" title="{{PREV}}" data-fancybox-prev><svg><path d="m15 6-6 6 6 6"/></svg></button>'
-                },
-                next: {
-                    tpl: '<button class="f-button" title="{{NEXT}}" data-fancybox-next><svg><path d="m9 6 6 6-6 6"/></svg></button>'
-                },
-                slideshow: {
-                    tpl: '<button class="f-button" title="{{TOGGLE_SLIDESHOW}}" data-fancybox-toggle-slideshow><svg><g><path d="M8 4v16l13 -8z"></path></g><g><path d="M8 4v15M17 4v15"/></g></svg></button>'
-                },
-                fullscreen: {
-                    tpl: '<button class="f-button" title="{{TOGGLE_FULLSCREEN}}" data-fancybox-toggle-fullscreen><svg><g><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/></g><g><path d="M15 19v-2a2 2 0 0 1 2-2h2M15 5v2a2 2 0 0 0 2 2h2M5 15h2a2 2 0 0 1 2 2v2M5 9h2a2 2 0 0 0 2-2V5"/></g></svg></button>'
-                },
-                thumbs: {
-                    tpl: '<button class="f-button" title="{{TOGGLE_THUMBS}}" data-fancybox-toggle-thumbs><svg><circle cx="5.5" cy="5.5" r="1"/><circle cx="12" cy="5.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/><circle cx="5.5" cy="18.5" r="1"/><circle cx="12" cy="18.5" r="1"/><circle cx="18.5" cy="18.5" r="1"/></svg></button>'
-                },
-                close: {
-                    tpl: '<button class="f-button" title="{{CLOSE}}" data-fancybox-close><svg><path d="m19.5 4.5-15 15M4.5 4.5l15 15"/></svg></button>'
-                }
-            },
-            parentEl: null
+        absolute: "auto",
+        display: {
+            left: ["infobar"],
+            middle: [],
+            right: ["iterateZoom", "slideshow", "fullscreen", "thumbs", "close"]
         },
+        enabled: "auto",
+        items: {
+            infobar: {
+                tpl: '<div class="fancybox__infobar" tabindex="-1"><span data-fancybox-current-index></span>/<span data-fancybox-count></span></div>'
+            },
+            download: {
+                tpl: '<a class="f-button" title="{{DOWNLOAD}}" data-fancybox-download href="javasript:;"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></a>'
+            },
+            prev: {
+                tpl: '<button class="f-button" title="{{PREV}}" data-fancybox-prev><svg><path d="m15 6-6 6 6 6"/></svg></button>'
+            },
+            next: {
+                tpl: '<button class="f-button" title="{{NEXT}}" data-fancybox-next><svg><path d="m9 6 6 6-6 6"/></svg></button>'
+            },
+            slideshow: {
+                tpl: '<button class="f-button" title="{{TOGGLE_SLIDESHOW}}" data-fancybox-toggle-slideshow><svg><g><path d="M8 4v16l13 -8z"></path></g><g><path d="M8 4v15M17 4v15"/></g></svg></button>'
+            },
+            fullscreen: {
+                tpl: '<button class="f-button" title="{{TOGGLE_FULLSCREEN}}" data-fancybox-toggle-fullscreen><svg><g><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/></g><g><path d="M15 19v-2a2 2 0 0 1 2-2h2M15 5v2a2 2 0 0 0 2 2h2M5 15h2a2 2 0 0 1 2 2v2M5 9h2a2 2 0 0 0 2-2V5"/></g></svg></button>'
+            },
+            thumbs: {
+                tpl: '<button class="f-button" title="{{TOGGLE_THUMBS}}" data-fancybox-toggle-thumbs><svg><circle cx="5.5" cy="5.5" r="1"/><circle cx="12" cy="5.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/><circle cx="5.5" cy="18.5" r="1"/><circle cx="12" cy="18.5" r="1"/><circle cx="18.5" cy="18.5" r="1"/></svg></button>'
+            },
+            close: {
+                tpl: '<button class="f-button" title="{{CLOSE}}" data-fancybox-close><svg><path d="m19.5 4.5-15 15M4.5 4.5l15 15"/></svg></button>'
+            }
+        },
+        parentEl: null
+    },
         Wt = {
             tabindex: "-1",
             width: "24",
@@ -4317,7 +4317,7 @@
                 const t = this.instance.carousel;
                 let e = 0;
                 if (t)
-                    for (const i of t.slides)(i.panzoom || "image" === i.type) && e++;
+                    for (const i of t.slides) (i.panzoom || "image" === i.type) && e++;
                 e || (s = !1)
             }
             s || (i = void 0);
@@ -4340,7 +4340,7 @@
                     C(i, qt + "__column is-" + t);
                     for (const t of e) i.appendChild(t);
                     "auto" !== n || "middle" !== t || e.length || (n = !0), r.appendChild(i)
-                }!0 === n && C(r, "is-absolute"), this.state = _t.Ready, this.onRefresh()
+                } !0 === n && C(r, "is-absolute"), this.state = _t.Ready, this.onRefresh()
             } else this.state = _t.Disabled
         }
         onClick(t) {
@@ -4351,13 +4351,13 @@
                 a = t.target,
                 r = a && S(a) ? a.dataset : null;
             if (!r) return;
-            if (void 0 !== r.fancyboxToggleThumbs) return t.preventDefault(), t.stopPropagation(), void(null === (e = n.plugins.Thumbs) || void 0 === e || e.toggle());
+            if (void 0 !== r.fancyboxToggleThumbs) return t.preventDefault(), t.stopPropagation(), void (null === (e = n.plugins.Thumbs) || void 0 === e || e.toggle());
             if (void 0 !== r.fancyboxToggleFullscreen) return t.preventDefault(), t.stopPropagation(), void this.instance.toggleFullscreen();
             if (void 0 !== r.fancyboxToggleSlideshow) {
                 t.preventDefault(), t.stopPropagation();
                 const e = null === (i = n.carousel) || void 0 === i ? void 0 : i.plugins.Autoplay;
                 let s = e.isActive;
-                return o && "mousemove" === o.panMode && !s && o.reset(), void(s ? e.stop() : e.start())
+                return o && "mousemove" === o.panMode && !s && o.reset(), void (s ? e.stop() : e.start())
             }
             const l = r.panzoomAction,
                 c = r.panzoomChange;
@@ -4365,7 +4365,7 @@
                 let t = {};
                 try {
                     t = JSON.parse(c)
-                } catch (t) {}
+                } catch (t) { }
                 o && o.applyChange(t)
             } else l && o && o[l] && o[l]()
         }
@@ -4416,7 +4416,7 @@
             const o = i.slides.length || 0;
             let a = 0,
                 r = 0;
-            for (const t of i.slides)(t.panzoom || "image" === t.type) && a++, ("image" === t.type || t.downloadSrc) && r++;
+            for (const t of i.slides) (t.panzoom || "image" === t.type) && a++, ("image" === t.type || t.downloadSrc) && r++;
             if (o < 2 && ["infobar", "prev", "next"].includes(t)) return n;
             if (void 0 !== Nt[t] && !a) return null;
             if ("download" === t && !r) return null;
@@ -4465,13 +4465,13 @@
         value: $t
     });
     const Vt = {
-            Hash: ht,
-            Html: St,
-            Images: ft,
-            Slideshow: Ot,
-            Thumbs: Bt,
-            Toolbar: Yt
-        },
+        Hash: ht,
+        Html: St,
+        Images: ft,
+        Slideshow: Ot,
+        Thumbs: Bt,
+        Toolbar: Yt
+    },
         Zt = "with-fancybox",
         Ut = "hide-scrollbar",
         Gt = "--fancybox-scrollbar-compensate",
@@ -4489,7 +4489,7 @@
         le = "href",
         ce = "src",
         he = t => "string" == typeof t,
-        de = function() {
+        de = function () {
             var t = window.getSelection();
             return !!t && "Range" === t.type
         };
@@ -4748,7 +4748,7 @@
             if (e && i > 1) {
                 let t = `${e.offsetLeft}px`,
                     a = `${e.offsetTop}px`;
-                n = e.width * i + "px", s = e.height * i + "px", o = `translate3d(${t}, ${a}, 0) scale(${1/i})`
+                n = e.width * i + "px", s = e.height * i + "px", o = `translate3d(${t}, ${a}, 0) scale(${1 / i})`
             }
             t.style.transform = o, t.style.width = n, t.style.height = s
         }
@@ -4768,7 +4768,7 @@
             if (Math.abs(t.pageX - ge) > 30 || Math.abs(t.pageY - me) > 30) return;
             const o = document.activeElement;
             if (de() && o && i.contains(o)) return;
-            if (n && "image" === (null === (e = this.getSlide()) || void 0 === e ? void 0 : e.type)) return void(this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout((() => {
+            if (n && "image" === (null === (e = this.getSlide()) || void 0 === e ? void 0 : e.type)) return void (this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout((() => {
                 this.toggleIdle(), this.clickTimer = null
             }), 350));
             if (this.emit("click", t), t.defaultPrevented) return;
@@ -4788,7 +4788,7 @@
             let i = this.option("wheel", t);
             e.closest(".fancybox__thumbs") && (i = "slide");
             const s = "slide" === i,
-                o = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function(t, e) {
+                o = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
                     return Math.abs(e) > Math.abs(t) ? e : t
                 })),
                 a = Math.max(-1, Math.min(1, o)),
@@ -4854,7 +4854,7 @@
             if (t || (t = this.getSlide()), !t || o && !this.isCurrentSlide(t)) return;
             const r = t.el;
             let l = this.optionFor(t, "caption", "");
-            if (!l) return void(o && this.caption && this.animate(this.caption, "f-fadeOut", (() => {
+            if (!l) return void (o && this.caption && this.animate(this.caption, "f-fadeOut", (() => {
                 this.caption && (this.caption.innerHTML = "")
             })));
             let c = null;
@@ -4923,7 +4923,7 @@
             return (null === (t = ye.getInstance()) || void 0 === t ? void 0 : t.id) == this.id
         }
         animate(t = null, e = "", i) {
-            if (!t || !e) return void(i && i());
+            if (!t || !e) return void (i && i());
             this.stop(t);
             const n = s => {
                 s.target === t && t.dataset.animationName && (t.removeEventListener("animationend", n), delete t.dataset.animationName, i && i(), P(t, e))
@@ -4946,7 +4946,7 @@
                 const t = document.createElement("div");
                 t.appendChild(o), o = t
             }
-            S(o) && t.filter && !t.error && (o = o.querySelector(t.filter)), o && S(o) ? (C(o, "fancybox__content"), t.id && o.setAttribute("id", t.id), "none" !== o.style.display && "none" !== getComputedStyle(o).getPropertyValue("display") || (o.style.display = t.display || this.option("defaultDisplay") || "flex"), n.classList.add(`has-${t.error?"error":t.type||"unknown"}`), n.prepend(o), t.contentEl = o, i && this.revealContent(t), this.manageCloseBtn(t), this.manageCaption(t)) : this.setError(t, "{{ELEMENT_NOT_FOUND}}")
+            S(o) && t.filter && !t.error && (o = o.querySelector(t.filter)), o && S(o) ? (C(o, "fancybox__content"), t.id && o.setAttribute("id", t.id), "none" !== o.style.display && "none" !== getComputedStyle(o).getPropertyValue("display") || (o.style.display = t.display || this.option("defaultDisplay") || "flex"), n.classList.add(`has-${t.error ? "error" : t.type || "unknown"}`), n.prepend(o), t.contentEl = o, i && this.revealContent(t), this.manageCloseBtn(t), this.manageCaption(t)) : this.setError(t, "{{ELEMENT_NOT_FOUND}}")
         }
         revealContent(t, e) {
             const i = t.el,
@@ -5003,7 +5003,7 @@
             if (void 0 === t.state) return;
             this.emit("clearContent", t), t.contentEl && (t.contentEl.remove(), t.contentEl = void 0);
             const e = t.el;
-            e && (P(e, "has-error"), P(e, "has-unknown"), P(e, `has-${t.type||"unknown"}`)), t.closeBtnEl && t.closeBtnEl.remove(), t.closeBtnEl = void 0, t.captionEl && t.captionEl.remove(), t.captionEl = void 0, t.spinnerEl && t.spinnerEl.remove(), t.spinnerEl = void 0
+            e && (P(e, "has-error"), P(e, "has-unknown"), P(e, `has-${t.type || "unknown"}`)), t.closeBtnEl && t.closeBtnEl.remove(), t.closeBtnEl = void 0, t.captionEl && t.captionEl.remove(), t.captionEl = void 0, t.spinnerEl && t.spinnerEl.remove(), t.spinnerEl = void 0
         }
         getSlide() {
             var t;
@@ -5129,9 +5129,9 @@
             if (!(e && e instanceof Element)) return;
             let n, s, o, a;
             if ([...ye.openers].reverse().find((([t, i]) => !(!t.contains(e) || ![...i].reverse().find((([i, r]) => {
-                    let l = e.closest(i);
-                    return !!l && (n = t, s = i, o = l, a = r, !0)
-                }))))), !n || !s || !o) return;
+                let l = e.closest(i);
+                return !!l && (n = t, s = i, o = l, a = r, !0)
+            }))))), !n || !s || !o) return;
             a = a || {}, t.preventDefault(), e = o;
             let r = [],
                 l = f({}, at, a);
@@ -5226,4 +5226,3 @@
         value: new Map
     }), t.Carousel = Q, t.ModulaFancybox = ye, t.Panzoom = I
 }));
-

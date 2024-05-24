@@ -51,6 +51,7 @@ class Modula_Backward_Compatibility {
 		add_filter( 'modula_album_lightbox_item', array( $this, 'generate_optimized_image_links' ), 110, 3 );
 		add_filter( 'modula_link_item', array( $this, 'generate_modula_link_image_url' ), 110, 4 );
 		add_filter( 'modula_template_image_srcset', array( $this, 'modula_speedup_srcset' ), 31, 3 );
+
 	}
 
 	public function backward_compatibility_admin_margin( $value, $key, $settings ){
@@ -86,7 +87,7 @@ class Modula_Backward_Compatibility {
 
 	public function backward_compatibility_admin_fancybox( $value, $key, $settings ){
 
-		if ( 'lightbox' == $key && apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $value, array( 'no-link', 'direct', 'external-url' ) ) ) {
+		if ( 'lightbox' == $key && apply_filters( 'modula_disable_lightboxes', true ) && ! in_array( $value, array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
 			return 'fancybox';
 		}
 
@@ -94,14 +95,12 @@ class Modula_Backward_Compatibility {
 
 	}
 
-	public function backward_compatibility_backbone_fancybox( $settings ){
-
-		if ( apply_filters( 'modula_disable_lightboxes', true ) && isset( $settings['lightbox'] ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url' ) ) ) {
+	public function backward_compatibility_backbone_fancybox( $settings ) {
+		if ( apply_filters( 'modula_disable_lightboxes', true ) && isset( $settings['lightbox'] ) && ! in_array( $settings['lightbox'], array( 'no-link', 'direct', 'external-url', 'attachment-page' ) ) ) {
 			$settings['lightbox'] = 'fancybox';
 		}
 
 		return $settings;
-
 	}
 
 	/**
@@ -670,6 +669,7 @@ class Modula_Backward_Compatibility {
 	}
 
 	
+
 	/**
 	 * SpeedUp compatibility
 	 *
@@ -682,11 +682,10 @@ class Modula_Backward_Compatibility {
 	 */
 	public function generate_optimized_image_links( $item_data, $item, $settings ) {
 
-
 		// Ensure that the settings are set.
 		$settings = wp_parse_args( $settings, Modula_CPT_Fields_Helper::get_defaults() );
 
-		if ( ! isset( $settings['enable_optimization']) || 'disabled' == $settings['enable_optimization'] ) {
+		if ( isset( $settings['enable_optimization'] ) && 'disabled' == $settings['enable_optimization'] ) {
 			return $item_data;
 		}
 

@@ -112,11 +112,11 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		return $item_data;
 	}
 
-	if ( 'external-url' == $settings['lightbox'] ) {
+	if ( 'external-url' == $settings['lightbox'] || 'attachment-page' === $settings['lightbox'] ) {
 
 		$item_data['link_attributes']['class'][]    = 'modula-simple-link';
 		$item_data['item_classes'][]                = 'modula-simple-link';
-		$item_data['link_attributes']['aria-label'] = esc_html__('Open attachment page', 'modula-best-grid-gallery');
+		$item_data['link_attributes']['aria-label'] = esc_html__('Open external link', 'modula-best-grid-gallery');
 		if ( '' != $item['link'] ) {
 			$item_data['link_attributes']['href'] = $item['link'];
 			if ( isset( $item['target'] ) && '1' == $item['target'] ) {
@@ -138,6 +138,7 @@ function modula_check_lightboxes_and_links( $item_data, $item, $settings ) {
 		$item_data['link_attributes']['rel']           = $settings['gallery_id'];
 		$item_data['link_attributes']['data-caption']  = $caption;
 		$item_data['link_attributes']['aria-label']    = esc_html__('Open image in lightbox', 'modula-best-grid-gallery');
+		$item_data['link_attributes']['role']       = 'button';
 
 	}
 

@@ -12,6 +12,11 @@ Fixed: ADA compliance issues.
 Added: Made lightbox strings translatable.
 Added: Backwards compatibility to update Modula Speedup cdn.
 
+= 2.7.95 - 17.04.2024 =
+Changed: Change image attribution license selection from radio to select input
+Fixed: Accesibility fix for aria-label when lightbox display is used.
+Fixed: Direct documentation link for each plugin setting tab.
+
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.
 
@@ -22,8 +27,6 @@ Added: Placeholder for text settings inputs and placeholders for image dimension
 Changed: Gallery image changes are now saved on post update not every time an image was edited.
 Changed: Updated enqueue methods for css & js.
 Changed: Active hover effect on top of list.
-Fixed: Compatibility with Photograph theme. 
-Fixed: Ui-Slider setting input type value should not be outside the min-max values.
 
 = 2.7.7 - 14.09.2023 =
 -Changed: Hidden "Debug gallery" meta box by default.
