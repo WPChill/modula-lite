@@ -767,11 +767,42 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-twitter').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
 			var $caption = image.data('caption');
 			var image_link = image.data('full');
 			var $title = image.attr('title');
 			var text = document.title;
+
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
+
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
 
 			if ($title.length > 0) {
 				text = $.trim($title);
@@ -781,7 +812,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var w = window.open(
 				'https://twitter.com/intent/tweet?url=' +
-					encodeURI(image_link) +
+					encodeURI(pageUrl) +
 					'&text=' +
 					encodeURI(text),
 				'ftgw',
@@ -797,10 +828,39 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-facebook').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
-			var image_link = image.attr('data-full');
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
 
-			var url = '//www.facebook.com/sharer.php?u=' + image_link;
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
+
+			var url = '//www.facebook.com/sharer.php?u=' + pageUrl;
 
 			var w = window.open(
 				url,
@@ -816,15 +876,42 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var setupWhatsapp = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-whatsapp').click(function (e) {
 			e.preventDefault();
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
 
-			var image_link = $(this)
-				.parents('.modula-item')
-				.find('img.pic')
-				.attr('data-full');
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
+			console.log(pageUrl);return;
 
 			var w = window.open(
 				'https://api.whatsapp.com/send?text=' +
-					encodeURI(image_link) +
+					encodeURI(pageUrl) +
 					'&preview_url=true',
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
@@ -839,10 +926,41 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-pinterest').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
 			var image_link = image.data('full');
 			var $caption = image.data('caption');
 			var $title = image.attr('title');
+
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
+
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
 
 			var text = document.title;
 
@@ -854,7 +972,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var url =
 				'http://pinterest.com/pin/create/button/?url=' +
-				encodeURI(image_link) +
+				encodeURI(pageUrl) +
 				'&description=' +
 				encodeURI(text);
 
@@ -881,9 +999,41 @@ jQuery(window).on('elementor/frontend/init', function () {
 				.parents('.modula-item')
 				.find('img.pic')
 				.attr('data-full');
+
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
+
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
 			var url =
 				'//linkedin.com/shareArticle?mini=true&url=' +
-				encodeURI(image_link);
+				encodeURI(pageUrl);
 
 			var w = window.open(
 				url,
@@ -903,12 +1053,43 @@ jQuery(window).on('elementor/frontend/init', function () {
 				.parents('.modula-item')
 				.find('img.pic')
 				.attr('data-full');
-			var galleryLink = location.href;
+
+			let socialLink = $(this),
+				image      = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl   = socialLink.data('modula-image-src'),
+				currentPageUrl    = window.location.href,
+				imageID    = socialLink.data('modula-item-id'),
+				galleryID  = socialLink.data('modula-gallery-id');
+			// Define the page URL that will be shared
+			let pageUrl = currentPageUrl;
+
+			// Add the galleryID and imageID to the pageUrl
+			if ('undefined' !== typeof galleryID) {
+				pageUrl += '?modula_gallery_id=' + galleryID;
+			}
+			if ('undefined' !== typeof imageID) {
+				pageUrl += '&modula_image_id=' + imageID;
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// If data is not undefined, add it to the pageUrl
+						if ('undefined' !== typeof data) {
+							pageUrl += '&' + value + '=' + data;
+						}
+					}
+				}
+			}
 
 			var emailMessage = encodeURI(
 				plugin.options.email_message
-					.replace(/%%image_link%%/g, imageLink)
-					.replace(/%%gallery_link%%/g, galleryLink)
+					  .replace(/%%image_link%%/g, imageLink)
+					  .replace(/%%gallery_link%%/g, pageUrl)
 			);
 
 			var url = 'mailto:?subject=' + subject + '&body=' + emailMessage;

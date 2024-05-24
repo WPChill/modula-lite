@@ -72,6 +72,9 @@ class Modula {
 		// Compatibility with other plugins/themes
 		require_once MODULA_PATH . 'includes/compatibility/class-modula-compatibility.php';
 
+		// The meta handling class
+		require_once MODULA_PATH . 'includes/public/meta/class-modula-meta.php';
+
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
