@@ -129,6 +129,9 @@ class Modula_Meta {
 			$description = '&nbsp;';
 		}
 
+		// Get image sizes
+		$image_sizes = wp_get_attachment_image_src( $current_gallery_image['id'], 'full' );
+
 		// Set the OG data
 		$og_data = apply_filters(
 			'modula_og_data',
@@ -140,6 +143,8 @@ class Modula_Meta {
 				'url'            => $social_url,
 				'author'         => $author_name,
 				'published_date' => $date_published,
+				'img_width'      => ! empty( $image_sizes[1] ) ? $image_sizes[1] : '640',
+				'img_height'     => ! empty( $image_sizes[2] ) ? $image_sizes[2] : '480',
 			),
 		);
 		include __DIR__ . '/social_meta.php';
@@ -165,7 +170,7 @@ class Modula_Meta {
 			 *
 			 * @since 2.8.0
 			 */
-			'const modulaMetaVars = ' . wp_json_encode( apply_filters( 'modula_jquery_vars', array('item_to_add') ) ) . ';',
+			'const modulaMetaVars = ' . wp_json_encode( apply_filters( 'modula_jquery_vars', array() ) ) . ';',
 			'before'
 		);
 	}

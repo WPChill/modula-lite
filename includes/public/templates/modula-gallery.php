@@ -58,10 +58,9 @@
 					'title'         => $image[ 'title' ],
 				),
 				'social_attributes' => array(
-					'data-modula-gallery-id' => $data->gallery_id,
+					'data-modula-gallery-id' => preg_replace( '/[^0-9]/', '', $data->gallery_id ),
 					'data-modula-item-id'    => absint( $image['id'] ),
 					'data-modula-image-src'  => $full_img_src,
-					'data-item_to_add'       => 'thingy',
 				),
 			);
 
