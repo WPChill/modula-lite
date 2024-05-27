@@ -1,3 +1,7 @@
+= 2.8.1 - 27.05.2024 =
+Changed: Plugin analytics and tracking moved to plugin settings
+Changed: Improved analytics notice text
+
 = 2.8.0 - 27.05.2024 =
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.

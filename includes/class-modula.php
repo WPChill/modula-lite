@@ -34,8 +34,7 @@ class Modula {
 		add_action( 'modula_after_gallery', array( $this, 'enable_wp_srcset' ) );
 
 		// backwards compatibility -- remove after 2 versions. curr ver 2.7.92
-		add_action( 'admin_init', array( $this, 'after_modula_update' ) ); 
-
+		add_action( 'admin_init', array( $this, 'after_modula_update' ) );
 	}
 
 	private function load_dependencies() {
@@ -155,7 +154,6 @@ class Modula {
 
 		// Initiate modula cpts
 		new Modula_CPT();
-
 	}
 
 	public function dashboard_start() {
@@ -167,7 +165,7 @@ class Modula {
 			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			'lite_vs_pro'   => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
 			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
-			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/'
+			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/',
 
 		);
 
@@ -185,7 +183,7 @@ class Modula {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			return;
 		}
-		new WPChill_Tracking('wp-modula', 'wp-modula-tracking-option');
+		new WPChill_Tracking( 'wp-modula', 'wp-modula-tracking-option' );
 		new Modula_Upsells();
 
 		$upgrades = Modula_Upgrades::get_instance();
@@ -193,7 +191,6 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
-
 	}
 
 	/* Enqueue Admin Scripts */
@@ -237,7 +234,7 @@ class Modula {
 			}
 
 			/*
-			 CPT Styles & Scripts */
+			CPT Styles & Scripts */
 			// Media Scripts
 			wp_enqueue_media(
 				array(
@@ -284,20 +281,32 @@ class Modula {
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-pro-effects', MODULA_URL . 'assets/css/admin/effects' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script( 'modula-resize-senzor', MODULA_URL . 'assets/js/admin/resizesensor' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-packery', MODULA_URL . 'assets/js/admin/packery' . $suffix . '.js', array(
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-widget',
-				'jquery-ui-droppable',
-				'jquery-ui-resizable',
-				'jquery-ui-draggable'
-			), MODULA_LITE_VERSION, true );
-			wp_enqueue_script( 'modula-settings', MODULA_URL . 'assets/js/admin/wp-modula-settings' . $suffix . '.js', array(
-				'jquery',
-				'jquery-ui-slider',
-				'wp-color-picker',
-				'jquery-ui-sortable'
-			), MODULA_LITE_VERSION, true );
+			wp_enqueue_script(
+				'modula-packery',
+				MODULA_URL . 'assets/js/admin/packery' . $suffix . '.js',
+				array(
+					'jquery',
+					'jquery-ui-core',
+					'jquery-ui-widget',
+					'jquery-ui-droppable',
+					'jquery-ui-resizable',
+					'jquery-ui-draggable',
+				),
+				MODULA_LITE_VERSION,
+				true
+			);
+			wp_enqueue_script(
+				'modula-settings',
+				MODULA_URL . 'assets/js/admin/wp-modula-settings' . $suffix . '.js',
+				array(
+					'jquery',
+					'jquery-ui-slider',
+					'wp-color-picker',
+					'jquery-ui-sortable',
+				),
+				MODULA_LITE_VERSION,
+				true
+			);
 			wp_enqueue_script( 'modula-pro-tilt', MODULA_URL . 'assets/js/admin/modula-pro-tilt' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 			wp_enqueue_script( 'modula-save', MODULA_URL . 'assets/js/admin/wp-modula-save' . $suffix . '.js', array(), MODULA_LITE_VERSION, true );
@@ -330,20 +339,30 @@ class Modula {
 
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons' . $suffix . '.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_script( 'modula-addon', MODULA_URL . 'assets/js/admin/modula-addon' . $suffix . '.js', array(
-				'jquery',
-				'updates'
-			), MODULA_LITE_VERSION, true );
+			wp_enqueue_script(
+				'modula-addon',
+				MODULA_URL . 'assets/js/admin/modula-addon' . $suffix . '.js',
+				array(
+					'jquery',
+					'updates',
+				),
+				MODULA_LITE_VERSION,
+				true
+			);
 
-			wp_localize_script( 'modula-addon', 'modulaAddons', array(
-				// Add addon slug to verify addon's slug in wp-plugin-install-success action
-				'free_addons'       => apply_filters( 'modula_free_extensions_install', array() ),
-				'installing_text'   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
-				'activated_text'    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
-				'deactivated_text'  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
-				'activating_text'   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
-				'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' )
-			) );
+			wp_localize_script(
+				'modula-addon',
+				'modulaAddons',
+				array(
+					// Add addon slug to verify addon's slug in wp-plugin-install-success action
+					'free_addons'       => apply_filters( 'modula_free_extensions_install', array() ),
+					'installing_text'   => esc_html__( 'Installing addon...', 'modula-best-grid-gallery' ),
+					'activated_text'    => esc_html__( 'Addon activated!', 'modula-best-grid-gallery' ),
+					'deactivated_text'  => esc_html__( 'Addon deactivated!', 'modula-best-grid-gallery' ),
+					'activating_text'   => esc_html__( 'Activating addon...', 'modula-best-grid-gallery' ),
+					'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' ),
+				)
+			);
 
 		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
 
@@ -360,7 +379,6 @@ class Modula {
 		wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit' . $suffix . '.css', null, MODULA_LITE_VERSION );
-
 	}
 
 	/**
@@ -459,7 +477,6 @@ class Modula {
 		$galleries = Modula_Helper::get_galleries();
 		include 'admin/tinymce-galleries.php';
 		wp_die();
-
 	}
 
 	/**
@@ -524,15 +541,15 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	private function set_offer(){
-		$month = date('m');
+	private function set_offer() {
+		$month = date( 'm' );
 
-		if ( 11 == $month ) { 
-			add_filter( 'modula_upsell_buttons', array( $this, 'bf_buttons' ) , 15, 2 );
+		if ( 11 == $month ) {
+			add_filter( 'modula_upsell_buttons', array( $this, 'bf_buttons' ), 15, 2 );
 			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
 		}
-		if ( 12 == $month ) { 
-			add_filter( 'modula_upsell_buttons', array( $this, 'xmas_buttons' ) , 15, 2 );
+		if ( 12 == $month ) {
+			add_filter( 'modula_upsell_buttons', array( $this, 'xmas_buttons' ), 15, 2 );
 			add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
 		}
 	}
@@ -542,11 +559,11 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function bf_buttons( $buttons, $campaign ){
-		preg_match_all('~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches);
+	public function bf_buttons( $buttons, $campaign ) {
+		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
 
-		$buttons =  '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-		$buttons .=  '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-bf-upsell button">' . esc_html__( '40% OFF for Black Friday', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-bf-upsell button">' . esc_html__( '40% OFF for Black Friday', 'modula-best-grid-gallery' ) . '</a>';
 		return $buttons;
 	}
 
@@ -555,11 +572,11 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function xmas_buttons( $buttons, $campaign ){
-		preg_match_all('~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches);
+	public function xmas_buttons( $buttons, $campaign ) {
+		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
 
-		$buttons =  '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-		$buttons .=  '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-xmas-upsell button">' . esc_html__( '25% OFF for Christmas', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-xmas-upsell button">' . esc_html__( '25% OFF for Christmas', 'modula-best-grid-gallery' ) . '</a>';
 		return $buttons;
 	}
 
@@ -568,7 +585,7 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function footer_bf_styles(){
+	public function footer_bf_styles() {
 
 		$css = '<style>
 		.modula-upsell,
@@ -613,7 +630,7 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function footer_xmas_styles(){
+	public function footer_xmas_styles() {
 
 		$css = '<style>
 		.modula-upsell::before,
@@ -623,7 +640,7 @@ class Modula {
 			position: absolute;
 			width: 100%;
 			height: 50px;
-			background-image: url(' . MODULA_URL . 'assets/images/upsells/x-mas.jpg' .');
+			background-image: url(' . MODULA_URL . 'assets/images/upsells/x-mas.jpg' . ');
 			background-position-x: 15px;
 			left: 0;
 			top: 0;
@@ -662,37 +679,35 @@ class Modula {
 		echo $css;
 	}
 
-	public function after_modula_update(){
+	public function after_modula_update() {
 
 		$option = get_option( 'wpmodulaupdate', false );
 
 		if ( $option ) {
 			return;
 		}
-	                
-    	if ( defined( 'MODULA_PRO_PATH' ) ) {
+
+		if ( defined( 'MODULA_PRO_PATH' ) ) {
 
 			if ( ! class_exists( 'Wpchill_License_Checker' ) ) {
 				require_once MODULA_PRO_PATH . 'includes/license-checker/class-wpchill-license-checker.php';
 			}
-			
-			$args = array(
-	            'plugin_slug' => 'modula-best-grid-gallery',
-	            'plugin_nicename' => 'Modula',
-	            'store_url' => MODULA_PRO_STORE_URL,
-	            'item_id' => MODULA_PRO_STORE_ITEM_ID,
-	            'license' => 'modula_pro_license_key',
-	            'license_status' => 'modula_pro_license_status',
-	            'plugin_file' => MODULA_PRO_FILE,
-	        );
 
-	        $wpchill_license_checker = Wpchill_License_Checker::get_instance('modula', $args);
-	        $wpchill_license_checker->check_license_valability();
+			$args = array(
+				'plugin_slug'     => 'modula-best-grid-gallery',
+				'plugin_nicename' => 'Modula',
+				'store_url'       => MODULA_PRO_STORE_URL,
+				'item_id'         => MODULA_PRO_STORE_ITEM_ID,
+				'license'         => 'modula_pro_license_key',
+				'license_status'  => 'modula_pro_license_status',
+				'plugin_file'     => MODULA_PRO_FILE,
+			);
+
+			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'modula', $args );
+			$wpchill_license_checker->check_license_valability();
 
 		}
 
 		update_option( 'wpmodulaupdate', true );
-
 	}
-
 }
