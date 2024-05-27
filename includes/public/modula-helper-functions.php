@@ -219,10 +219,19 @@ function modula_add_align_classes( $template_data ){
 	return $template_data;
 }
 
-function modula_show_schemaorg( $settings ){
+function modula_show_schemaorg( $settings ) {
 	global $wp;
-
-	$current_url = esc_url( home_url( add_query_arg( array(), $wp->request ) ) );
+	global $post;
+	// Check if $post exists and is not an error
+	if ( ! is_wp_error( $post ) || ! empty( $post ) ) {
+		try {
+			$current_url = get_the_permalink( $post->ID );
+		} catch ( Exception $e ) {
+			$current_url = esc_url( home_url( add_query_arg( array(), $wp->request ) ) );
+		}
+	} else {
+		$current_url = esc_url( home_url( add_query_arg( array(), $wp->request ) ) );
+	}
 
 	?>
 
