@@ -1,4 +1,4 @@
-= 2.8.0 - TBD =
+= 2.8.0 - 27.05.2024 =
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.
 Fixed: Troubleshooting scripts not being enqueued.
