@@ -1,3 +1,6 @@
+= 2.8.2 - 27.05.2024 =
+Fixed: Fatal error in some systems because the "`" was used instead of "'"
+
 = 2.8.1 - 27.05.2024 =
 Changed: Plugin analytics and tracking moved to plugin settings
 Changed: Improved analytics notice text

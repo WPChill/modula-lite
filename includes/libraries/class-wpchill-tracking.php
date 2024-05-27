@@ -69,7 +69,7 @@ class WPChill_Tracking {
 	public function show_notice() {
 		?>
 		<div class="notice notice-info is-dismissible wpchill-tracking-notice">
-			<p><?php _e( `Plugin tracking: clicking on the 'Agree' button below means you'll be allowing Modula to track, anonymously, plugin usage. This includes gallery settings, and general plugin options. NO emails or PERSONAL information is ever sent back to Modula's servers.`, 'modula-best-grid-gallery' ); ?></p>
+			<p><?php _e( "Plugin tracking: clicking on the 'Agree' button below means you'll be allowing Modula to track, anonymously, plugin usage. This includes gallery settings, and general plugin options. NO emails or PERSONAL information is ever sent back to Modula's servers.", 'modula-best-grid-gallery' ); ?></p>
 			<p>
 				<a href="#" class="button button-primary wpchill-dismiss-notice" data-action="agree_tracking_notice"><?php _e( 'Agree', 'modula-best-grid-gallery' ); ?></a>
 				<a href="#" class="button wpchill-optout-notice" data-action="optout_tracking_notice"><?php _e( 'Disagree', 'modula-best-grid-gallery' ); ?></a>
