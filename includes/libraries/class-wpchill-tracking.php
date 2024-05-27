@@ -19,6 +19,7 @@ class WPChill_Tracking {
 	}
 
 	public function init() {
+
 		if ( ! is_admin() ) {
 			return;
 		}
@@ -27,14 +28,26 @@ class WPChill_Tracking {
 			return;
 		}
 
+		add_filter(
+			'modula_troubleshooting_fields',
+			array( $this, 'add_tracking_field' ),
+			9999999
+		);
+		add_filter(
+			'modula_troubleshooting_defaults',
+			array( $this, 'add_tracking_field_default' ),
+			9999999
+		);
+		add_filter(
+			'modula_troubleshooting_options_updated',
+			array( $this, 'handle_tracking_option_update' )
+		);
+
 		$option = get_option( $this->optin_option_name, null );
-
-		add_filter( 'modula_gallery_fields', array( $this, 'add_tracking_field' ), 9999999 );
-		add_action( 'save_post', array( $this, 'save_meta_boxes_hook' ), 10, 2 );
-
 		$this->add_notice_if_needed( $option );
 
 		if ( $option !== 'true' ) {
+			$this->remove_schedules();
 			return;
 		}
 
@@ -49,16 +62,17 @@ class WPChill_Tracking {
 			// Register AJAX actions
 			add_action( 'wp_ajax_dismiss_tracking_notice', array( $this, 'dismiss_tracking_notice' ) );
 			add_action( 'wp_ajax_optout_tracking_notice', array( $this, 'optout_tracking_notice' ) );
+			add_action( 'wp_ajax_agree_tracking_notice', array( $this, 'agree_tracking_notice' ) );
 		}
 	}
 
 	public function show_notice() {
 		?>
 		<div class="notice notice-info is-dismissible wpchill-tracking-notice">
-			<p><?php _e( 'Plugin tracking analytics is enabled to help us improve our product. This is anonymous. If you wish to opt out, you can do so below:', 'modula-best-grid-gallery' ); ?></p>
+			<p><?php _e( `Plugin tracking: clicking on the 'Agree' button below means you'll be allowing Modula to track, anonymously, plugin usage. This includes gallery settings, and general plugin options. NO emails or PERSONAL information is ever sent back to Modula's servers.`, 'modula-best-grid-gallery' ); ?></p>
 			<p>
-				<a href="#" class="button button-primary wpchill-dismiss-notice" data-action="dismiss_tracking_notice"><?php _e( 'Dismiss', 'modula-best-grid-gallery' ); ?></a>
-				<a href="#" class="button wpchill-optout-notice" data-action="optout_tracking_notice"><?php _e( 'Opt-out', 'modula-best-grid-gallery' ); ?></a>
+				<a href="#" class="button button-primary wpchill-dismiss-notice" data-action="agree_tracking_notice"><?php _e( 'Agree', 'modula-best-grid-gallery' ); ?></a>
+				<a href="#" class="button wpchill-optout-notice" data-action="optout_tracking_notice"><?php _e( 'Disagree', 'modula-best-grid-gallery' ); ?></a>
 			</p>
 		</div>
 		<script type="text/javascript">
@@ -89,9 +103,22 @@ class WPChill_Tracking {
 		wp_die();
 	}
 
+	public function agree_tracking_notice() {
+		update_option( $this->optin_option_name, 'true' );
+		wp_die();
+	}
+
 	public function optout_tracking_notice() {
 		update_option( $this->optin_option_name, 'optout' );
 		wp_die();
+	}
+
+	public function remove_schedules() {
+		if ( ! wp_next_scheduled( "wpchill_{$this->plugin_name}_weekly_tracking_event" ) ) {
+			return;
+		}
+
+		wp_clear_scheduled_hook( "wpchill_{$this->plugin_name}_weekly_tracking_event" );
 	}
 
 	public function schedule_weekly_event() {
@@ -210,36 +237,42 @@ class WPChill_Tracking {
 	}
 
 	public function add_tracking_field( $fields ) {
-		$fields['general'][ $this->optin_option_name ] = array(
-			'name'        => esc_html__( 'Enable plugin usage tracking', 'modula-best-grid-gallery' ),
-			'type'        => 'toggle',
-			'default'     => 1,
-			'description' => esc_html__( 'By enabling this option, you agree to allow us to collect anonymous usage data to help improve our product. Rest assured that no sensitive information is collected.', 'modula-best-grid-gallery' ),
+		return array_merge(
+			$fields,
+			array(
+				'plugin_tracking_heading' => array(
+					'label' => esc_html__( 'Plugin analytics.', 'modula-best-grid-gallery' ),
+					'type'  => 'heading',
+				),
+				$this->optin_option_name  => array(
+					'label'       => esc_html__( 'Enable plugin usage tracking', 'modula-best-grid-gallery' ),
+					'description' => esc_html__( 'By enabling this option, you agree to allow us to collect anonymous usage data to help improve our product. Rest assured that no sensitive information is collected.', 'modula-best-grid-gallery' ),
+					'type'        => 'toggle',
+				),
+			)
 		);
-
-		return $fields;
 	}
 
-	public function save_meta_boxes_hook( $post_id, $post ) {
-		$post_type = get_post_type_object( $post->post_type );
-		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' !== $post_type->name ) {
-			return $post_id;
-		}
+	public function add_tracking_field_default( $defaults ) {
+		$option = get_option( $this->optin_option_name, null );
+		return array_merge(
+			$defaults,
+			array(
+				$this->optin_option_name => $option === 'true' ? 1 : 0,
+			)
+		);
+	}
 
-		if ( ! isset( $_POST['modula-settings'] ) ) {
-			return $post_id;
-		}
-
-		if (
-			is_array( $_POST['modula-settings'] ) &&
-			! isset( $_POST['modula-settings'][ $this->optin_option_name ] )
-		) {
+	public function handle_tracking_option_update( $options ) {
+		if ( ! isset( $options[ $this->optin_option_name ] ) ) {
 			update_option( $this->optin_option_name, 'optout' );
-			return $post_id;
+			return $options;
 		}
 
-		$optin = rest_sanitize_boolean( $_POST['modula-settings'][ $this->optin_option_name ] );
+		$value = $options[ $this->optin_option_name ];
+		update_option( $this->optin_option_name, $value === '1' ? 'true' : 'optout' );
 
-		update_option( $this->optin_option_name, $optin ? 'true' : 'optout' );
+		unset( $options[ $this->optin_option_name ] );
+		return $options;
 	}
 }
