@@ -815,7 +815,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			// Reconstruct the URL with the updated parameters
 			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
-			if ($title.length > 0) {
+			if ($title.length > 0 && $caption.length > 0) {
+				text = $.trim($title) + ' - ' + $.trim($caption);
+			} else if ($title.length > 0) {
 				text = $.trim($title);
 			} else if ($caption.length > 0) {
 				text = $.trim($caption);
