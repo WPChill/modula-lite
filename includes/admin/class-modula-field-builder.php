@@ -111,7 +111,12 @@ class Modula_Field_Builder {
                     echo '</div>';
                     echo '</div>';
                     echo '<div class="buttons">';
-                    echo '<a href="#" id="modula-uploader-browser" class="button">' . esc_html__( 'Upload image files', 'modula-best-grid-gallery' ) . '</a><a href="#" id="modula-wp-gallery" class="button button-primary">' . esc_html__( 'Select from Library', 'modula-best-grid-gallery' ) . '</a>';
+					echo '<button class="button" id="modula_gallery_add_action_button" >' . esc_html__( 'Add New', 'modula-best-grid-gallery' ) . ' </button>';
+					echo '<ul id="modula_gallery_add_action" style="display:none;">';
+						echo '<li id="modula-uploader-browser">' . esc_html__( 'Upload Image', 'modula-best-grid-gallery' ) . '</li>';
+						echo '<li id="modula-wp-gallery">' . esc_html__( 'Image from Library', 'modula-best-grid-gallery' ) . '</li>';
+						do_action( 'modula_gallery_media_select_option');
+					echo '</ul>';
                     do_action( 'modula_gallery_media_button');
                 } else {
                     echo '<b>' . esc_html__( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
@@ -249,7 +254,8 @@ class Modula_Field_Builder {
 		if ( isset( $tab['badge'] ) ) {
 			$badge = '<sup>' . esc_html( $tab['badge'] ) . '</sup>';
 		}
-		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . ' modula-' . esc_attr( $tab['id'] ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( $tab['label'] ) . $badge . '</div>';
+		
+		return '<div class="modula-tab' . ( $first ? ' active-tab' : '' ) . ' modula-' . esc_attr( $tab['id'] ) . '" data-tab="modula-' . esc_attr( $tab['id'] ) . '">' . $icon . wp_kses_post( isset($tab['label']) ? $tab['label'] : '' ) . $badge . '</div>';
 	}
 
 	/* Create HMTL for a row */

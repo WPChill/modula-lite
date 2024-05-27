@@ -32,50 +32,50 @@ jQuery(window).on('elementor/frontend/init', function () {
 (function ($, window, document, undefined) {
 	// Create the defaults once
 	var pluginName = 'modulaGallery',
-		defaults = {
-			resizer: '/',
-			keepArea: true,
-			type: 'creative-gallery',
-			columns: 12,
-			height: 800,
-			desktopHeight: 800,
-			mobileHeight: 800,
-			tabletHeight: 800,
-			gutter: 10,
-			desktopGutter: 10,
-			mobileGutter: 10,
-			tabletGutter: 10,
-			enableTwitter: false,
-			enableFacebook: false,
-			enableWhatsapp: false,
+		defaults   = {
+			resizer        : '/',
+			keepArea       : true,
+			type           : 'creative-gallery',
+			columns        : 12,
+			height         : 800,
+			desktopHeight  : 800,
+			mobileHeight   : 800,
+			tabletHeight   : 800,
+			gutter         : 10,
+			desktopGutter  : 10,
+			mobileGutter   : 10,
+			tabletGutter   : 10,
+			enableTwitter  : false,
+			enableFacebook : false,
+			enableWhatsapp : false,
 			enablePinterest: false,
-			enableLinkedin: false,
-			enableEmail: false,
-			lazyLoad: 0,
-			initLightbox: false,
-			lightbox: 'fancybox',
-			lightboxOpts: {},
-			inView: false,
+			enableLinkedin : false,
+			enableEmail    : false,
+			lazyLoad       : 0,
+			initLightbox   : false,
+			lightbox       : 'fancybox',
+			lightboxOpts   : {},
+			inView         : false,
 		};
 
 	// The actual plugin constructor
 	function Plugin(element, options) {
-		this.element = element;
-		this.$element = $(element);
+		this.element   = element;
+		this.$element  = $(element);
 		this.$itemsCnt = this.$element.find('.modula-items');
-		this.$items = this.$itemsCnt.find('.modula-item');
+		this.$items    = this.$itemsCnt.find('.modula-item');
 
 		this.options = $.extend({}, defaults, options);
 
 		this._defaults = defaults;
-		this._name = pluginName;
+		this._name     = pluginName;
 
-		this.tiles = [];
-		this.$tilesCnt = null;
-		this.completed = false;
-		this.lastWidth = 0;
-		this.resizeTO = 0;
-		this.isIsotope = false;
+		this.tiles        = [];
+		this.$tilesCnt    = null;
+		this.completed    = false;
+		this.lastWidth    = 0;
+		this.resizeTO     = 0;
+		this.isIsotope    = false;
 		this.isLazyLoaded = true;
 
 		// Initiate Gallery
@@ -139,7 +139,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			if ('modula' == element.data('source')) {
 				element.data('size', {
-					width: element.width(),
+					width : element.width(),
 					height: element.height(),
 				});
 				parent = element.parents('.modula-item');
@@ -211,27 +211,31 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 
 		self.$element.on(
-			'click',
+			'click keypress',
 			'.modula-item-link:not( .modula-simple-link )',
 			function (evt) {
+				// Added accesibility support.
+				if (evt.which !== 13 && evt.type !== 'click') {
+					return;
+				}
 				evt.preventDefault();
 				var clickedLink = jQuery(this);
-				var links = $.map(self.$items, function (o) {
+				var links       = $.map(self.$items, function (o) {
 						if (
 							jQuery(o).find(
 								'.modula-item-link:not( .modula-no-follow )'
 							).length > 0
 						) {
-							var link = jQuery(o).find(
+							var link  = jQuery(o).find(
 									'.modula-item-link:not( .modula-simple-link )'
 								),
 								image = jQuery(o).find('.pic');
 							return {
-								src: image.data('full'),
-								opts: {
-									$thumb: image.parents('.modula-item'),
-									caption: link.data('caption'),
-									alt: image.attr('alt'),
+								src    : image.data('full'),
+								opts   : {
+									$thumb  : image.parents('.modula-item'),
+									caption : link.data('caption'),
+									alt     : image.attr('alt'),
 									image_id: link.attr('data-image-id'),
 								},
 								current: jQuery(o).is(
@@ -240,7 +244,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 							};
 						}
 					}),
-					index = $.map(links, function (element, myIndex) {
+					index       = $.map(links, function (element, myIndex) {
 						if (element.current) {
 							return myIndex;
 						}
@@ -268,12 +272,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	// Create custom grid gallery based on packery.
 	Plugin.prototype.createCustomGallery = function () {
-		var instance = this,
+		var instance       = this,
 			size,
 			containerWidth = this.$element.find('.modula-items').width(),
-			plugin = this,
-			columns = this.options.columns,
-			viewport = document.documentElement.clientWidth;
+			plugin         = this,
+			columns        = this.options.columns,
+			viewport       = document.documentElement.clientWidth;
 
 		if ('1' == this.options.enableResponsive) {
 			if (viewport <= 568) {
@@ -298,7 +302,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				auxWidth,
 				auxHeight;
 
-			widthColumns = $(item).data('width');
+			widthColumns  = $(item).data('width');
 			heightColumns = $(item).data('height');
 
 			if (widthColumns > 12) {
@@ -306,11 +310,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 
 			if ('1' == plugin.options.enableResponsive) {
-				auxWidth = widthColumns;
+				auxWidth  = widthColumns;
 				auxHeight = heightColumns;
 
 				if (1 == columns) {
-					widthColumns = 1;
+					widthColumns  = 1;
 					heightColumns = (widthColumns * auxHeight) / auxWidth;
 				} else {
 					widthColumns = Math.round((columns * auxWidth) / 12);
@@ -327,7 +331,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				}
 			}
 
-			slot.width =
+			slot.width  =
 				size * widthColumns +
 				plugin.options.gutter * (widthColumns - 1);
 			slot.height =
@@ -344,9 +348,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 			$(item)
 				.find('.figc')
 				.css({
-					width: $(item).data('size').width,
-					height: $(item).data('size').height,
-				});
+						 width : $(item).data('size').width,
+						 height: $(item).data('size').height,
+					 });
 
 			// Load Images
 			instance.loadImage(i);
@@ -354,8 +358,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var packery_args = {
 			itemSelector: '.modula-item',
-			layoutMode: 'packery',
-			packery: {
+			layoutMode  : 'packery',
+			packery     : {
 				gutter: parseInt(plugin.options.gutter),
 			},
 		};
@@ -411,14 +415,14 @@ jQuery(window).on('elementor/frontend/init', function () {
 				.data('position');
 
 			$(item).css({
-				width: slot.width,
-				height: slot.height,
-			});
+							width : slot.width,
+							height: slot.height,
+						});
 
 			$(item).find('.figc').css({
-				width: slot.width,
-				height: slot.height,
-			});
+										  width : slot.width,
+										  height: slot.height,
+									  });
 
 			instance.loadImage(i);
 		});
@@ -426,9 +430,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 		if (!this.isIsotope) {
 			var packery_args = {
 				resizesContainer: false,
-				itemSelector: '.modula-item',
-				layoutMode: 'packery',
-				packery: {
+				itemSelector    : '.modula-item',
+				layoutMode      : 'packery',
+				packery         : {
 					gutter: parseInt(instance.options.gutter),
 				},
 			};
@@ -443,15 +447,15 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var plugin = this;
 
 		this.$itemsCnt.justifiedGallery({
-			rowHeight: this.options.rowHeight,
-			margins: this.options.gutter,
-			lastRow: this.options.lastRow,
-			captions: false,
-			border: 0,
-			imgSelector: 'img.pic',
-			cssAnimation: true,
-			imagesAnimationDuration: 700,
-		});
+											rowHeight              : this.options.rowHeight,
+											margins                : this.options.gutter,
+											lastRow                : this.options.lastRow,
+											captions               : false,
+											border                 : 0,
+											imgSelector            : 'img.pic',
+											cssAnimation           : true,
+											imagesAnimationDuration: 700,
+										});
 	};
 
 	// create the mansonry gallery
@@ -459,15 +463,15 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var instance = this;
 
 		this.$itemsCnt.modulaisotope({
-			// set itemSelector so .grid-sizer is not used in layout
-			itemSelector: '.modula-item',
-			// percentPosition: true,
-			layoutMode: 'packery',
-			packery: {
-				// use element for option
-				gutter: parseInt(this.options.gutter),
-			},
-		});
+										 // set itemSelector so .grid-sizer is not used in layout
+										 itemSelector: '.modula-item',
+										 // percentPosition: true,
+										 layoutMode: 'packery',
+										 packery   : {
+											 // use element for option
+											 gutter: parseInt(this.options.gutter),
+										 },
+									 });
 
 		// Load Images
 		this.$items.each(function (index, el) {
@@ -482,11 +486,11 @@ jQuery(window).on('elementor/frontend/init', function () {
 	Plugin.prototype.getSlot = function () {
 		if (this.tiles.length == 0) {
 			var tile = {
-				top: 0,
-				left: 0,
-				width: this.$itemsCnt.width(),
-				height: this.options.height,
-				area: this.$itemsCnt.width() * this.options.height,
+				top     : 0,
+				left    : 0,
+				width   : this.$itemsCnt.width(),
+				height  : this.options.height,
+				area    : this.$itemsCnt.width() * this.options.height,
 				position: 0,
 			};
 
@@ -507,18 +511,18 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		if (maxTileData.width > maxTileData.height) {
 			var randomMaxDelta =
-				(maxTileData.width / 2) * this.options.randomFactor;
+					(maxTileData.width / 2) * this.options.randomFactor;
 
 			maxTileData.prevWidth = maxTileData.width;
-			maxTileData.width = Math.floor(
+			maxTileData.width     = Math.floor(
 				maxTileData.width / 2 + randomMaxDelta * (Math.random() - 0.5)
 			);
 
 			tile = {
-				top: maxTileData.top,
-				left:
+				top   : maxTileData.top,
+				left  :
 					maxTileData.left + maxTileData.width + this.options.gutter,
-				width:
+				width :
 					maxTileData.prevWidth -
 					maxTileData.width -
 					this.options.gutter,
@@ -526,17 +530,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 			};
 		} else {
 			var randomMaxDelta =
-				(maxTileData.height / 2) * this.options.randomFactor;
+					(maxTileData.height / 2) * this.options.randomFactor;
 
 			maxTileData.prevHeight = maxTileData.height;
-			maxTileData.height = Math.floor(
+			maxTileData.height     = Math.floor(
 				maxTileData.height / 2 + randomMaxDelta * (Math.random() - 0.5)
 			);
 
 			tile = {
-				left: maxTileData.left,
-				top: maxTileData.top + maxTileData.height + this.options.gutter,
-				width: maxTileData.width,
+				left  : maxTileData.left,
+				top   : maxTileData.top + maxTileData.height + this.options.gutter,
+				width : maxTileData.width,
 				height:
 					maxTileData.prevHeight -
 					maxTileData.height -
@@ -544,12 +548,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 			};
 		}
 
-		tile.area = tile.width * tile.height;
+		tile.area     = tile.width * tile.height;
 		tile.position = tile.top * 1000 + tile.left;
 
 		maxTileData.position = maxTileData.top * 1000 + maxTileData.left;
 
-		this.tiles[maxTileIdx] = maxTileData;
+		this.tiles[maxTileIdx]      = maxTileData;
 		this.tiles[maxTileIdx].area = maxTileData.width * maxTileData.height;
 
 		return tile;
@@ -557,7 +561,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	// Re-initialize the gallery
 	Plugin.prototype.reset = function () {
-		var instance = this;
+		var instance   = this;
 		instance.tiles = [];
 
 		if ('custom-grid' === this.options.type) {
@@ -603,12 +607,12 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			if (instance.isIsotope) {
 				instance.$itemsCnt
-					.modulaisotope({
-						packery: {
-							gutter: parseInt(instance.options.gutter),
-						},
-					})
-					.modulaisotope('layout');
+						.modulaisotope({
+										   packery: {
+											   gutter: parseInt(instance.options.gutter),
+										   },
+									   })
+						.modulaisotope('layout');
 			}
 		}, 100);
 	};
@@ -616,17 +620,17 @@ jQuery(window).on('elementor/frontend/init', function () {
 	// load the image in order to get the width and heoght of the picture.
 	Plugin.prototype.loadImage = function (index) {
 		var instance = this,
-			source = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
-			size = {};
+			source   = instance.$items.not('.jtg-hidden').eq(index).find('.pic'),
+			size     = {};
 
 		if ('0' != instance.options.lazyLoad) {
 			instance.placeImage(index);
 			return;
 		}
 
-		var img = new Image();
+		var img    = new Image();
 		img.onload = function () {
-			size = { width: this.width, height: this.height };
+			size = {width: this.width, height: this.height};
 			source.data('size', size);
 			instance.placeImage(index);
 		};
@@ -644,7 +648,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			return;
 		}
 
-		var $tile = this.$items.not('.jtg-hidden').eq(index);
+		var $tile  = this.$items.not('.jtg-hidden').eq(index);
 		var $image = $tile.find('.pic');
 
 		var tSize = $tile.data('size');
@@ -664,13 +668,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var halign = $image.data('halign') ? $image.data('halign') : 'center';
 
 		var cssProps = {
-			top: 'auto',
-			bottom: 'auto',
-			left: 'auto',
-			right: 'auto',
-			width: 'auto',
-			height: 'auto',
-			margin: '0',
+			top     : 'auto',
+			bottom  : 'auto',
+			left    : 'auto',
+			right   : 'auto',
+			width   : 'auto',
+			height  : 'auto',
+			margin  : '0',
 			maxWidth: '999em',
 		};
 
@@ -678,7 +682,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		if (newHeight > tSize.height) {
 			cssProps.width = tSize.width;
-			cssProps.left = 0;
+			cssProps.left  = 0;
 
 			switch (valign) {
 				case 'top':
@@ -694,7 +698,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 		} else {
 			cssProps.height = tSize.height;
-			cssProps.top = 0;
+			cssProps.top    = 0;
 
 			switch (halign) {
 				case 'left':
@@ -753,7 +757,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var qualifyURL = function (url) {
 		var img = document.createElement('img');
 		img.src = url; // set string url
-		url = img.src; // get qualified url
+		url     = img.src; // get qualified url
 		img.src = null; // no server request
 		return url;
 	};
@@ -763,13 +767,57 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-twitter').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
-			var $caption = image.data('caption');
-			var image_link = image.data('full');
-			var $title = image.attr('title');
-			var text = document.title;
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
+			var $caption       = image.data('caption');
+			var $title         = image.attr('title');
+			var text           = document.title;
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
 
-			if ($title.length > 0) {
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
+
+			if ($title.length > 0 && $caption.length > 0) {
+				text = $.trim($title) + ' - ' + $.trim($caption);
+			} else if ($title.length > 0) {
 				text = $.trim($title);
 			} else if ($caption.length > 0) {
 				text = $.trim($caption);
@@ -777,9 +825,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 			var w = window.open(
 				'https://twitter.com/intent/tweet?url=' +
-					encodeURI(image_link) +
-					'&text=' +
-					encodeURI(text),
+				encodeURIComponent(newUrl) +
+				'&text=' +
+				encodeURI(text),
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
@@ -793,10 +841,52 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-facebook').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
-			var image_link = image.attr('data-full');
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
 
-			var url = '//www.facebook.com/sharer.php?u=' + image_link;
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
+
+			var url = '//www.facebook.com/sharer.php?u=' + encodeURIComponent(newUrl);
 
 			var w = window.open(
 				url,
@@ -812,16 +902,55 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var setupWhatsapp = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-whatsapp').click(function (e) {
 			e.preventDefault();
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
 
-			var image_link = $(this)
-				.parents('.modula-item')
-				.find('img.pic')
-				.attr('data-full');
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var w = window.open(
 				'https://api.whatsapp.com/send?text=' +
-					encodeURI(image_link) +
-					'&preview_url=true',
+				encodeURIComponent(newUrl) +
+				'&preview_url=true',
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
@@ -835,10 +964,52 @@ jQuery(window).on('elementor/frontend/init', function () {
 		$tiles.find('.modula-icon-pinterest').click(function (e) {
 			e.preventDefault();
 
-			var image = $(this).parents('.modula-item').find('img.pic');
-			var image_link = image.data('full');
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
 			var $caption = image.data('caption');
-			var $title = image.attr('title');
+			var $title   = image.attr('title');
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
+
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
 
 			var text = document.title;
 
@@ -849,14 +1020,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 			}
 
 			var url =
-				'http://pinterest.com/pin/create/button/?url=' +
-				encodeURI(image_link) +
-				'&description=' +
-				encodeURI(text);
+					'http://pinterest.com/pin/create/button/?url=' +
+					encodeURIComponent(newUrl) +
+					'&description=' +
+					encodeURI(text);
 
-			if (image.length >= 1) {
-				var src = image.attr('data-full');
-				url += '&media=' + qualifyURL(src);
+			if ('undefined' !== typeof imageUrl && imageUrl.length > 0) {
+				url += '&media=' + qualifyURL(imageUrl);
 			}
 
 			var w = window.open(
@@ -873,13 +1043,55 @@ jQuery(window).on('elementor/frontend/init', function () {
 	var setupLinkedIN = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-linkedin').click(function (e) {
 			e.preventDefault();
-			var image_link = $(this)
-				.parents('.modula-item')
-				.find('img.pic')
-				.attr('data-full');
+
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
+
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
+			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent( urlParams.toString() );
+
 			var url =
-				'//linkedin.com/shareArticle?mini=true&url=' +
-				encodeURI(image_link);
+					'//linkedin.com/shareArticle?mini=true&url=' +
+					encodeURIComponent(newUrl);
 
 			var w = window.open(
 				url,
@@ -894,25 +1106,65 @@ jQuery(window).on('elementor/frontend/init', function () {
 	// get all the information that email needs
 	var setupEmail = function ($tiles, plugin) {
 		$tiles.find('.modula-icon-email').click(function (e) {
-			var subject = encodeURI(plugin.options.email_subject);
-			var imageLink = jQuery('.modula-icon-email')
-				.parents('.modula-item')
-				.find('img.pic')
-				.attr('data-full');
-			var galleryLink = location.href;
+			var subject = plugin.options.email_subject;
 
-			var emailMessage = encodeURI(
-				plugin.options.email_message
-					.replace(/%%image_link%%/g, imageLink)
-					.replace(/%%gallery_link%%/g, galleryLink)
+			let socialLink     = $(this),
+				image          = $(this).parents('.modula-item').find('img.pic'),
+				imageUrl       = socialLink.data('modula-image-src'),
+				currentPageUrl = window.location.href,
+				imageID        = socialLink.data('modula-item-id'),
+				galleryID      = socialLink.data('modula-gallery-id');
+			// Create a URL object from the original URL
+			const urlObj       = new URL(currentPageUrl);
+			const urlParams    = new URLSearchParams(urlObj.search);
+
+			// Update the parameters
+			if ('undefined' !== typeof galleryID) {
+				urlParams.set('modula_gallery_id', encodeURIComponent(galleryID));
+			}
+			if ('undefined' !== typeof imageID) {
+				urlParams.set('modula_image_id', encodeURIComponent(imageID));
+			}
+
+			// Check if modulaMetaVars is defined
+			if ('object' === typeof modulaMetaVars) {
+				// Check if it's not empty
+				if (0 !== Object.keys(modulaMetaVars).length) {
+					// Cycle through the values of the object and get the .data() value of the socialLink
+					for (const [key, value] of Object.entries(modulaMetaVars)) {
+						let data = socialLink.data(value);
+						// Update the parameters
+						if ('undefined' !== typeof data) {
+							urlParams.set(value, data);
+						}
+					}
+				}
+			}
+			// Trigger event to allow for custom URL parameters
+			document.dispatchEvent(
+				new CustomEvent('modula_social_url_params', {
+					detail: {
+						'url': urlObj,
+						'params': urlParams,
+						'meta': modulaMetaVars
+					}
+				})
 			);
+			// Reconstruct the URL with the updated parameters
+			const newUrl = urlObj.origin + urlObj.pathname + '?' + decodeURIComponent(urlParams.toString());
 
-			var url = 'mailto:?subject=' + subject + '&body=' + emailMessage;
+			var email = plugin.options.email_message
+				.replace('%%image_link%%', imageUrl)
+				.replace('%%gallery_link%%', newUrl);
+
+			var url = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(email);
+
 			var w = window.open(
 				url,
 				'ftgw',
 				'location=1,status=1,scrollbars=1,width=600,height=400'
 			);
+
 			w.moveTo(screen.width / 2 - 300, screen.height / 2 - 200);
 			return false;
 		});
@@ -998,7 +1250,7 @@ function modulaInViewport(element) {
 
 	return (
 		(elementBounds.top - jQuery(window).height() <= -100 &&
-			elementBounds.top - jQuery(window).height() >= -400) ||
+		 elementBounds.top - jQuery(window).height() >= -400) ||
 		elementBounds.bottom <= jQuery(window).height()
 	);
 }

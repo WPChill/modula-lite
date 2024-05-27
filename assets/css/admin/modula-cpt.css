@@ -2054,6 +2054,29 @@ html body .modula .modula-radio-item {
   margin-top: 10px;
 }
 
+html body ul#modula_gallery_add_action {
+  position: absolute;
+  z-index: 999;
+  background-color: #fff;
+  border: 1px solid #8c8f94;
+  border-radius: 3px;
+  top: 35px;
+  right: 20px;
+}
+html body ul#modula_gallery_add_action li:not(:last-child) {
+  border-bottom: 1px solid #8c8f94;
+}
+html body ul#modula_gallery_add_action li {
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 0;
+}
+html body ul#modula_gallery_add_action li:hover {
+  background-color: #f8fcfd;
+}
+
+
+
 /**
 Some responsive fixes
  */

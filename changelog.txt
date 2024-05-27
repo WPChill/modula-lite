@@ -1,28 +1,23 @@
-= 2.7.95 - 17.04.2024 =
-Changed: Change image attribution license selection from radio to select input
-Fixed: Accesibility fix for aria-label when lightbox display is used.
-Fixed: Direct documentation link for each plugin setting tab.
-
-= 2.7.94 - 03.04.2024 =
-Fixed: Divi Theme & WP 6.5 compatibility.
-
-= 2.7.93 - 27.02.2024 =
-Fixed: Warning undefined array key “enable_optimization”.
-
-= 2.7.92 - 23.02.2023 =
-Fixed: Extensions -> Last reload date.
-
-= 2.7.91 - 29.01.2024 =
+= 2.8.0 - 27.05.2024 =
 Changed: Save gallery settings with the right format.
 Changed: Hover effects cursor not changing in previewer.
 Fixed: Troubleshooting scripts not being enqueued.
 Changed: Lightbox & links settings - overhaul.
 Fixed: Welcome page header flex properly spaced.
 Changed: Removed feedback notification.
-Added: Modula Image Licensing addon upsells.
-Changed: Restored edit view title and "Add new" button.
-Changed: Lightbox's thumbnails aria-label attribute inserts unencoded html chars.
-Fixed: Setting value lost when setting's parent is disabled and the gallery is updated.
+Changed: Upgraded lightbox to Fancybox 5.
+Changed: Improved publish metabox.
+Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance.
+Fixed: ADA compliance issues.
+Added: Made lightbox strings translatable.
+Added: Backwards compatibility to update Modula Speedup cdn.
+Changed: Social shares now share the page and added Rich View Snippets for social shares.
+Fixed: Social shares accesibility notices.
+
+= 2.7.95 - 17.04.2024 =
+Changed: Change image attribution license selection from radio to select input
+Fixed: Accesibility fix for aria-label when lightbox display is used.
+Fixed: Direct documentation link for each plugin setting tab.
 
 = 2.7.9 - 21.11.2023 =
 Added: Upsells seasonal offers.

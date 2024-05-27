@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.7.95
+Stable tag: 2.8.0
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,21 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.0 - 27.05.2024 =
+Changed: Save gallery settings with the right format. ( [#868](https://github.com/WPChill/modula-lite/issues/868) )
+Changed: Hover effects cursor not changing in previewer. ( [#852](https://github.com/WPChill/modula-lite/issues/852) )
+Fixed: Troubleshooting scripts not being enqueued. ( [#877](https://github.com/WPChill/modula-lite/issues/877) )
+Changed: Lightbox & links settings - overhaul. ( [#885](https://github.com/WPChill/modula-lite/issues/885) )
+Fixed: Welcome page header flex properly spaced.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Changed: Removed feedback notification.  ( [#880](https://github.com/WPChill/modula-lite/issues/880) )
+Changed: Upgraded lightbox to Fancybox 5. ( [#894](https://github.com/WPChill/modula-lite/issues/894) )
+Changed: Improved publish metabox. ( [#290](https://github.com/WPChill/modula-lite/issues/290) )
+Added: Focusable images using "Tab" key and selecting images using "Enter" key for ADA Compliance. ( [#299](https://github.com/WPChill/modula-lite/issues/299) )
+Fixed: ADA compliance issues. ( [#708](https://github.com/WPChill/modula-lite/issues/708) )
+Added: Made lightbox strings translatable. ( [#301](https://github.com/WPChill/modula-lite/issues/301) )
+Added: Backwards compatibility to update Modula Speedup cdn. ( [#909](https://github.com/WPChill/modula-lite/issues/909) )
+Changed: Social shares now share the page and added Rich View Snippets for social shares. ( [#945](https://github.com/WPChill/modula-lite/issues/945) )
+
 = 2.7.95 - 17.04.2024 =
 Changed: Change image attribution license selection from radio to select input ( [#930](https://github.com/WPChill/modula-lite/issues/930) )
 Fixed: Accesibility fix for aria-label when lightbox display is used. ( [#884](https://github.com/WPChill/modula-lite/issues/884) )

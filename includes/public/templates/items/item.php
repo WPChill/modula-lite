@@ -17,6 +17,7 @@
 
 		/**
 		 *Hook : modula_item_template_image
+		 *
 		 * @hooked: modula_sources_and_sizes
 		 */
 		do_action( 'modula_item_template_image', $data );
@@ -38,27 +39,26 @@
 				<?php if ( ! $data->hide_socials ): ?>
 					<div class="jtg-social">
 						<?php if ( $data->enableTwitter ): ?>
-							<a class="modula-icon-twitter"
-							   href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
+							<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on Twitter', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enableFacebook ): ?>
-							<a class="modula-icon-facebook"
+							<a class="modula-icon-facebook" aria-label="<?php echo esc_html__( 'Share on Facebook', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?>
 							   href="#"><?php echo Modula_Helper::get_icon( 'facebook' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enableWhatsapp ): ?>
-							<a class="modula-icon-whatsapp"
+							<a class="modula-icon-whatsapp" aria-label="<?php echo esc_html__( 'Share on Whatsapp', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?>
 							   href="#"><?php echo Modula_Helper::get_icon( 'whatsapp' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enablePinterest ): ?>
-							<a class="modula-icon-pinterest"
+							<a class="modula-icon-pinterest" aria-label="<?php echo esc_html__( 'Share on Pinterest', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?>
 							   href="#"><?php echo Modula_Helper::get_icon( 'pinterest' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enableLinkedin ): ?>
-							<a class="modula-icon-linkedin"
+							<a class="modula-icon-linkedin" aria-label="<?php echo esc_html__( 'Share on LinkedIn', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?>
 							   href="#"><?php echo Modula_Helper::get_icon( 'linkedin' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enableEmail ): ?>
-							<a class="modula-icon-email" href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
+							<a class="modula-icon-email" aria-label="<?php echo esc_html__( 'Share by Email', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'email' ) ?></a>
 						<?php endif ?>
 						<?php do_action('modula_extra_socials',$data); ?>
 					</div>

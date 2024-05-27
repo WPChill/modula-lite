@@ -73,6 +73,8 @@ class Modula_Elementor_Widget_Activation {
 		wp_enqueue_script( 'modula-grid-justified-gallery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
+		wp_enqueue_script( 'modulaFancybox' );
+		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( \Modula_Helper::render_lightbox_share_template() ) ) . "'" , 'before' );
 
 		do_action( 'modula_elementor_before_enqueue_elementor-preview' );
 

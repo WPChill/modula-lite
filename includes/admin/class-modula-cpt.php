@@ -267,7 +267,6 @@ class Modula_CPT {
 							case 'enableFacebook' :
 							case 'enablePinterest' :
 							case 'enableEmail':
-							case 'emailSubject':
 								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
 								break;
 							case 'imageMessage':
@@ -708,116 +707,7 @@ class Modula_CPT {
 
 						<?php } ?>
 					</div><!-- .misc-pub-section -->
-
-					<div class="misc-pub-section misc-pub-visibility" id="visibility">
-						<?php esc_html_e( 'Visibility:', 'modula-best-grid-gallery' ); ?> <span id="post-visibility-display">
-							<?php
-
-							if ( 'private' == $post->post_status ) {
-								$post->post_password = '';
-								$visibility          = 'private';
-								$visibility_trans    = __( 'Private', 'modula-best-grid-gallery' );
-							} elseif ( !empty( $post->post_password ) ) {
-								$visibility       = 'password';
-								$visibility_trans = __( 'Password protected', 'modula-best-grid-gallery' );
-							} elseif ( $post_type == 'post' && is_sticky( $post->ID ) ) {
-								$visibility       = 'public';
-								$visibility_trans = __( 'Public, Sticky', 'modula-best-grid-gallery' );
-							} else {
-								$visibility       = 'public';
-								$visibility_trans = __( 'Public', 'modula-best-grid-gallery' );
-							}
-
-							echo esc_html( $visibility_trans );
-							?>
-</span>
-						<?php if ( $can_publish ) { ?>
-							<a href="#visibility" class="edit-visibility hide-if-no-js" role="button"><span
-										aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span> <span
-										class="screen-reader-text"><?php esc_html_e( 'Edit visibility', 'modula-best-grid-gallery' ); ?></span></a>
-
-							<div id="post-visibility-select" class="hide-if-js">
-								<input type="hidden" name="hidden_post_password" id="hidden-post-password"
-								       value="<?php echo esc_attr( $post->post_password ); ?>"/>
-								<?php if ( $post_type == 'post' ) : ?>
-									<input type="checkbox" style="display:none" name="hidden_post_sticky"
-									       id="hidden-post-sticky"
-									       value="sticky" <?php checked( is_sticky( $post->ID ) ); ?> />
-								<?php endif; ?>
-								<input type="hidden" name="hidden_post_visibility" id="hidden-post-visibility"
-								       value="<?php echo esc_attr( $visibility ); ?>"/>
-								<input type="radio" name="visibility" id="visibility-radio-public"
-								       value="public" <?php checked( $visibility, 'public' ); ?> /> <label
-										for="visibility-radio-public"
-										class="selectit"><?php esc_html_e( 'Public', 'modula-best-grid-gallery' ); ?></label><br/>
-								<?php if ( $post_type == 'post' && current_user_can( 'edit_others_posts' ) ) : ?>
-									<span id="sticky-span"><input id="sticky" name="sticky" type="checkbox"
-									                              value="sticky" <?php checked( is_sticky( $post->ID ) ); ?> /> <label
-												for="sticky"
-												class="selectit"><?php esc_html_e( 'Stick this post to the front page', 'modula-best-grid-gallery' ); ?></label><br/></span>
-								<?php endif; ?>
-								<input type="radio" name="visibility" id="visibility-radio-password"
-								       value="password" <?php checked( $visibility, 'password' ); ?> /> <label
-										for="visibility-radio-password"
-										class="selectit"><?php esc_html_e( 'Password protected', 'modula-best-grid-gallery' ); ?></label><br/>
-								<span id="password-span"><label for="post_password"><?php _e( 'Password:', 'modula-best-grid-gallery' ); ?></label> <input
-											type="text" name="post_password" id="post_password"
-											value="<?php echo esc_attr( $post->post_password ); ?>"
-											maxlength="255"/><br/></span>
-								<input type="radio" name="visibility" id="visibility-radio-private"
-								       value="private" <?php checked( $visibility, 'private' ); ?> /> <label
-										for="visibility-radio-private"
-										class="selectit"><?php esc_html_e( 'Private', 'modula-best-grid-gallery' ); ?></label><br/>
-
-								<p>
-									<a href="#visibility"
-									   class="save-post-visibility hide-if-no-js button"><?php esc_html_e( 'OK', 'modula-best-grid-gallery' ); ?></a>
-									<a href="#visibility"
-									   class="cancel-post-visibility hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'modula-best-grid-gallery' ); ?></a>
-								</p>
-							</div>
-						<?php } ?>
-
-					</div><!-- .misc-pub-section -->
-
 					<?php
-					/* translators: Publish box date string. 1: Date, 2: Time. See https://secure.php.net/date */
-					$date_string = __( '%1$s at %2$s', 'modula-best-grid-gallery' );
-					/* translators: Publish box date format, see https://secure.php.net/date */
-					$date_format = _x( 'M j, Y', 'publish box date format', 'modula-best-grid-gallery' );
-					/* translators: Publish box time format, see https://secure.php.net/date */
-					$time_format = _x( 'H:i', 'publish box time format', 'modula-best-grid-gallery' );
-
-					if ( 0 != $post->ID ) {
-						if ( 'future' == $post->post_status ) { // scheduled for publishing at a future date
-							/* translators: Post date information. %s: Date on which the post is currently scheduled to be published. */
-							$stamp = __( 'Scheduled for: %s', 'modula-best-grid-gallery' );
-						} elseif ( 'publish' == $post->post_status || 'private' == $post->post_status ) { // already published
-							/* translators: Post date information. %s: Date on which the post was published. */
-							$stamp = __( 'Published on: %s', 'modula-best-grid-gallery' );
-						} elseif ( '0000-00-00 00:00:00' == $post->post_date_gmt ) { // draft, 1 or more saves, no date specified
-							$stamp = __( 'Publish <b>immediately</b>', 'modula-best-grid-gallery' );
-						} elseif ( time() < strtotime( $post->post_date_gmt . ' +0000' ) ) { // draft, 1 or more saves, future date specified
-							/* translators: Post date information. %s: Date on which the post is to be published. */
-							$stamp = __( 'Schedule for: %s', 'modula-best-grid-gallery' );
-						} else { // draft, 1 or more saves, date specified
-							/* translators: Post date information. %s: Date on which the post is to be published. */
-							$stamp = __( 'Publish on: %s', 'modula-best-grid-gallery' );
-						}
-						$date = sprintf(
-							$date_string,
-							date_i18n( $date_format, strtotime( $post->post_date ) ),
-							date_i18n( $time_format, strtotime( $post->post_date ) )
-						);
-					} else { // draft (no saves, and thus no date specified)
-						$stamp = __( 'Publish <b>immediately</b>', 'modula-best-grid-gallery' );
-						$date  = sprintf(
-							$date_string,
-							date_i18n( $date_format, strtotime( current_time( 'mysql' ) ) ),
-							date_i18n( $time_format, strtotime( current_time( 'mysql' ) ) )
-						);
-					}
-
 					if ( !empty( $args['args']['revisions_count'] ) ) :
 						?>
 						<div class="misc-pub-section misc-pub-revisions">
@@ -832,24 +722,7 @@ class Modula_CPT {
 						</div>
 					<?php
 					endif;
-
-					if ( $can_publish ) : // Contributors don't get to choose the date of publish
-						?>
-						<div class="misc-pub-section curtime misc-pub-curtime">
-						<span id="timestamp">
-		<?php printf( $stamp, '<b>' . $date . '</b>' ); ?>
-	</span>
-						<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js" role="button">
-							<span aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span>
-							<span class="screen-reader-text"><?php esc_html_e( 'Edit date and time', 'modula-best-grid-gallery' ); ?></span>
-						</a>
-						<fieldset id="timestampdiv" class="hide-if-js">
-							<legend class="screen-reader-text"><?php esc_html_e( 'Date and time', 'modula-best-grid-gallery' ); ?></legend>
-							<?php touch_time( ($action === 'edit'), 1 ); ?>
-						</fieldset>
-						</div><?php // /misc-pub-section
-						?>
-					<?php endif; ?>
+					?>
 
 					<?php if ( 'draft' === $post->post_status && get_post_meta( $post->ID, '_customize_changeset_uuid', true ) ) : ?>
 						<div class="notice notice-info notice-alt inline">

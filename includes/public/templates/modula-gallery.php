@@ -10,9 +10,13 @@
 		foreach ( $data->images as $image ) {
 
 			$image_object = get_post( $image['id'] );
-			if ( is_wp_error( $image_object ) || get_post_type( $image_object ) != 'attachment' ) {
+
+			$item_is_not_image = ( is_wp_error( $image_object ) || get_post_type( $image_object ) != 'attachment' );
+
+			if ( apply_filters( 'modula_check_item_not_image', $item_is_not_image, $image ) ) {
 				continue;
 			}
+			$full_img_src = esc_url( wp_get_original_image_url( $image['id'] ) );
 
 			// Create array with data in order to send it to image template
 			$item_data = array(
@@ -50,8 +54,13 @@
 					'data-valign'   => esc_attr( $image['valign'] ),
 					'data-halign'   => esc_attr( $image['halign'] ),
 					'alt'           => $image['alt'],
-					'data-full'     => esc_url( wp_get_original_image_url( $image['id'] ) ),
+					'data-full'     => $full_img_src,
 					'title'         => $image[ 'title' ],
+				),
+				'social_attributes' => array(
+					'data-modula-gallery-id' => preg_replace( '/[^0-9]/', '', $data->gallery_id ),
+					'data-modula-item-id'    => absint( $image['id'] ),
+					'data-modula-image-src'  => $full_img_src,
 				),
 			);
 

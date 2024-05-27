@@ -1,6549 +1,5228 @@
-// ==================================================
-// fancyBox v3.5.7
-//
-// Licensed GPLv3 for open source use
-// or fancyBox Commercial License for commercial use
-//
-// http://fancyapps.com/fancybox/
-// Copyright 2019 fancyApps
-//
-// ==================================================
-(function (window, document, $, undefined) {
-	'use strict';
-
-	window.console = window.console || {
-		info: function (stuff) {},
-	};
-
-	// If there's no jQuery, fancyBox can't work
-	// =========================================
-
-	if (!$) {
-		return;
-	}
-
-	// Check if fancyBox is already initialized
-	// ========================================
-
-	if ($.fn.modulaFancybox) {
-		console.info('fancyBox already initialized');
-
-		return;
-	}
-
-	// Private default settings
-	// ========================
-
-	var defaults = {
-		// Close existing modals
-		// Set this to false if you do not need to stack multiple instances
-		closeExisting: false,
-
-		// Enable infinite gallery navigation
-		loop: false,
-
-		// Horizontal space between slides
-		gutter: 50,
-
-		// Enable keyboard navigation
-		keyboard: true,
-
-		// Should allow caption to overlap the content
-		preventCaptionOverlap: true,
-
-		// Should display navigation arrows at the screen edges
-		arrows: true,
-
-		// Should display counter at the top left corner
-		infobar: true,
-
-		// Should display close button (using `btnTpl.smallBtn` template) over the content
-		// Can be true, false, "auto"
-		// If "auto" - will be automatically enabled for "html", "inline" or "ajax" items
-		smallBtn: 'auto',
-
-		// Should display toolbar (buttons at the top)
-		// Can be true, false, "auto"
-		// If "auto" - will be automatically hidden if "smallBtn" is enabled
-		toolbar: 'auto',
-
-		// What buttons should appear in the top right corner.
-		// Buttons will be created using templates from `btnTpl` option
-		// and they will be placed into toolbar (class="fancybox-toolbar"` element)
-		buttons: [
-			'zoom',
-			//"share",
-			'slideShow',
-			//"fullScreen",
-			//"download",
-			'thumbs',
-			'close',
-		],
-
-		// Detect "idle" time in seconds
-		idleTime: 3,
-
-		// Disable right-click and use simple image protection for images
-		protect: false,
-
-		// Shortcut to make content "modal" - disable keyboard navigtion, hide buttons, etc
-		modal: false,
-
-		image: {
-			// Wait for images to load before displaying
-			//   true  - wait for image to load and then display;
-			//   false - display thumbnail and load the full-sized image over top,
-			//           requires predefined image dimensions (`data-width` and `data-height` attributes)
-			preload: false,
-		},
-
-		ajax: {
-			// Object containing settings for ajax request
-			settings: {
-				// This helps to indicate that request comes from the modal
-				// Feel free to change naming
-				data: {
-					fancybox: true,
-				},
-			},
-		},
-
-		iframe: {
-			// Iframe template
-			tpl: '<iframe id="modula-fancybox-frame{rnd}" name="modula-fancybox-frame{rnd}" class="modula-fancybox-iframe" allowfullscreen="allowfullscreen" allow="autoplay; fullscreen" src=""></iframe>',
-
-			// Preload iframe before displaying it
-			// This allows to calculate iframe content width and height
-			// (note: Due to "Same Origin Policy", you can't get cross domain data).
-			preload: true,
-
-			// Custom CSS styling for iframe wrapping element
-			// You can use this to set custom iframe dimensions
-			css: {},
-
-			// Iframe tag attributes
-			attr: {
-				scrolling: 'auto',
-			},
-		},
-
-		// For HTML5 video only
-		video: {
-			tpl:
-				'<video class="modula-fancybox-video" controls controlsList="nodownload" poster="{{poster}}">' +
-				'<source src="{{src}}" type="{{format}}" />' +
-				'Sorry, your browser doesn\'t support embedded videos, <a href="{{src}}">download</a> and watch with your favorite video player!' +
-				'</video>',
-			format: '', // custom video format
-			autoStart: true,
-		},
-
-		// Default content type if cannot be detected automatically
-		defaultType: 'image',
-
-		// Open/close animation type
-		// Possible values:
-		//   false            - disable
-		//   "zoom"           - zoom images from/to thumbnail
-		//   "fade"
-		//   "zoom-in-out"
-		//
-		animationEffect: 'zoom',
-
-		// Duration in ms for open/close animation
-		animationDuration: 366,
-
-		// Should image change opacity while zooming
-		// If opacity is "auto", then opacity will be changed if image and thumbnail have different aspect ratios
-		zoomOpacity: 'auto',
-
-		// Transition effect between slides
-		//
-		// Possible values:
-		//   false            - disable
-		//   "fade'
-		//   "slide'
-		//   "circular'
-		//   "tube'
-		//   "zoom-in-out'
-		//   "rotate'
-		//
-		transitionEffect: 'fade',
-
-		// Duration in ms for transition animation
-		transitionDuration: 366,
-
-		// Custom CSS class for slide element
-		slideClass: '',
-
-		// Custom CSS class for layout
-		baseClass: '',
-
-		// Base template for layout
-		baseTpl:
-			'<div class="modula-fancybox-container" role="dialog" tabindex="-1">' +
-			'<div class="modula-fancybox-bg"></div>' +
-			'<div class="modula-fancybox-inner">' +
-			'<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>' +
-			'<div class="modula-fancybox-toolbar">{{buttons}}</div>' +
-			'<div class="modula-fancybox-navigation">{{arrows}}</div>' +
-			'<div class="modula-fancybox-stage"></div>' +
-			'<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>' +
-			'</div>' +
-			'</div>',
-
-		// Loading indicator template
-		spinnerTpl: '<div class="modula-fancybox-loading"></div>',
-
-		// Error message template
-		errorTpl: '<div class="modula-fancybox-error"><p>{{ERROR}}</p></div>',
-
-		btnTpl: {
-			download:
-				'<a download data-fancybox-download class="modula-fancybox-button modula-fancybox-button--download" title="{{DOWNLOAD}}" href="javascript:;">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.62 17.09V19H5.38v-1.91zm-2.97-6.96L17 11.45l-5 4.87-5-4.87 1.36-1.32 2.68 2.64V5h1.92v7.77z"/></svg>' +
-				'</a>',
-
-			zoom:
-				'<button data-fancybox-zoom class="modula-fancybox-button modula-fancybox-button--zoom" title="{{ZOOM}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.7 17.3l-3-3a5.9 5.9 0 0 0-.6-7.6 5.9 5.9 0 0 0-8.4 0 5.9 5.9 0 0 0 0 8.4 5.9 5.9 0 0 0 7.7.7l3 3a1 1 0 0 0 1.3 0c.4-.5.4-1 0-1.5zM8.1 13.8a4 4 0 0 1 0-5.7 4 4 0 0 1 5.7 0 4 4 0 0 1 0 5.7 4 4 0 0 1-5.7 0z"/></svg>' +
-				'</button>',
-
-			close:
-				'<button data-fancybox-close class="modula-fancybox-button modula-fancybox-button--close" title="{{CLOSE}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"/></svg>' +
-				'</button>',
-
-			// Arrows
-			arrowLeft:
-				'<button data-fancybox-prev class="modula-fancybox-button modula-fancybox-button--arrow_left" title="{{PREV}}">' +
-				'<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.28 15.7l-1.34 1.37L5 12l4.94-5.07 1.34 1.38-2.68 2.72H19v1.94H8.6z"/></svg></div>' +
-				'</button>',
-
-			arrowRight:
-				'<button data-fancybox-next class="modula-fancybox-button modula-fancybox-button--arrow_right" title="{{NEXT}}">' +
-				'<div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.4 12.97l-2.68 2.72 1.34 1.38L19 12l-4.94-5.07-1.34 1.38 2.68 2.72H5v1.94z"/></svg></div>' +
-				'</button>',
-
-			// This small close button will be appended to your html/inline/ajax content by default,
-			// if "smallBtn" option is not set to false
-			smallBtn:
-				'<button type="button" data-fancybox-close class="modula-fancybox-button modula-fancybox-close-small" title="{{CLOSE}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"/></svg>' +
-				'</button>',
-		},
-
-		modulaShare: [
-			'facebook',
-			'twitter',
-			'pinterest',
-			'whatsapp',
-			'linkedin',
-			'email',
-		],
-
-		shareBtnTpl: {
-			facebook:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{modulaShareUrl}}">' +
-				'<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m287 456v-299c0-21 6-35 35-35h38v-63c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254h-205v72h196" /></svg>' +
-				'<span>Facebook</span></a>',
-
-			twitter:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={{modulaShareUrl}}&text={{descr}}">' +
-				'<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>' +
-				'<span>Twitter</span></a>',
-
-			pinterest:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={{modulaShareUrl}}&description={{descr}}&media={{media}}">' +
-				'<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m265 56c-109 0-164 78-164 144 0 39 15 74 47 87 5 2 10 0 12-5l4-19c2-6 1-8-3-13-9-11-15-25-15-45 0-58 43-110 113-110 62 0 96 38 96 88 0 67-30 122-73 122-24 0-42-19-36-44 6-29 20-60 20-81 0-19-10-35-31-35-25 0-44 26-44 60 0 21 7 36 7 36l-30 125c-8 37-1 83 0 87 0 3 4 4 5 2 2-3 32-39 42-75l16-64c8 16 31 29 56 29 74 0 124-67 124-157 0-69-58-132-146-132z" fill="#fff"/></svg>' +
-				'<span>Pinterest</span></a>',
-
-			// Arrows
-			whatsapp:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--wa" href="https://api.whatsapp.com/send?text={{modulaShareUrl}}&review_url=true">' +
-				'<svg aria-hidden="true" focusable="false" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1536 1600"><path d="M985 878q13 0 97.5 44t89.5 53q2 5 2 15q0 33-17 76q-16 39-71 65.5T984 1158q-57 0-190-62q-98-45-170-118T476 793q-72-107-71-194v-8q3-91 74-158q24-22 52-22q6 0 18 1.5t19 1.5q19 0 26.5 6.5T610 448q8 20 33 88t25 75q0 21-34.5 57.5T599 715q0 7 5 15q34 73 102 137q56 53 151 101q12 7 22 7q15 0 54-48.5t52-48.5zm-203 530q127 0 243.5-50t200.5-134t134-200.5t50-243.5t-50-243.5T1226 336t-200.5-134T782 152t-243.5 50T338 336T204 536.5T154 780q0 203 120 368l-79 233l242-77q158 104 345 104zm0-1382q153 0 292.5 60T1315 247t161 240.5t60 292.5t-60 292.5t-161 240.5t-240.5 161t-292.5 60q-195 0-365-94L0 1574l136-405Q28 991 28 780q0-153 60-292.5T249 247T489.5 86T782 26z" fill="currentColor"/></svg>' +
-				'<span>WhatsApp</span></a>',
-
-			linkedin:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--li" href="//linkedin.com/shareArticle?mini=true&url={{modulaShareUrl}}">' +
-				'<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>' +
-				'<span>LinkedIn</span></a>',
-			email:
-				'<a class="modula-fancybox-share__button modula-fancybox-share__button--email" href="mailto:?subject={{subject}}&body={{emailMessage}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" fill="currentColor"></path></svg>' +
-				'<span>Email</span></a>',
-		},
-
-		// Container is injected into this element
-		parentEl: 'body',
-
-		// Hide browser vertical scrollbars; use at your own risk
-		hideScrollbar: true,
-
-		// Focus handling
-		// ==============
-
-		// Try to focus on the first focusable element after opening
-		autoFocus: true,
-
-		// Put focus back to active element after closing
-		backFocus: true,
-
-		// Do not let user to focus on element outside modal content
-		trapFocus: true,
-
-		// Module specific options
-		// =======================
-
-		fullScreen: {
-			autoStart: false,
-		},
-
-		// Set `touch: false` to disable panning/swiping
-		touch: {
-			vertical: true, // Allow to drag content vertically
-			momentum: true, // Continue movement after releasing mouse/touch when panning
-		},
-
-		// Hash value when initializing manually,
-		// set `false` to disable hash change
-		hash: null,
-
-		// Customize or add new media types
-		// Example:
-		/*
-      media : {
-        youtube : {
-          params : {
-            autoplay : 0
-          }
+! function (t, e) {
+    "object" == typeof exports && "undefined" != typeof module ? e(exports) : "function" == typeof define && define.amd ? define(["exports"], e) : e((t = "undefined" != typeof globalThis ? globalThis : t || self).window = t.window || {})
+}(this, (function (t) {
+    "use strict";
+    const e = (t, e = 1e4) => (t = parseFloat(t + "") || 0, Math.round((t + Number.EPSILON) * e) / e),
+        i = function (t) {
+            if (!(t && t instanceof Element && t.offsetParent)) return !1;
+            const e = t.scrollHeight > t.clientHeight,
+                i = window.getComputedStyle(t).overflowY,
+                n = -1 !== i.indexOf("hidden"),
+                s = -1 !== i.indexOf("visible");
+            return e && !n && !s
+        },
+        n = function (t, e = void 0) {
+            return !(!t || t === document.body || e && t === e) && (i(t) ? t : n(t.parentElement, e))
+        },
+        s = function (t) {
+            var e = (new DOMParser).parseFromString(t, "text/html").body;
+            if (e.childElementCount > 1) {
+                for (var i = document.createElement("div"); e.firstChild;) i.appendChild(e.firstChild);
+                return i
+            }
+            return e.firstChild
+        },
+        o = t => `${t || ""}`.split(" ").filter((t => !!t)),
+        a = (t, e, i) => {
+            t && o(e).forEach((e => {
+                t.classList.toggle(e, i || !1)
+            }))
+        };
+    class r {
+        constructor(t) {
+            Object.defineProperty(this, "pageX", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "pageY", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "clientX", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "clientY", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "id", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "time", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "nativePointer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), this.nativePointer = t, this.pageX = t.pageX, this.pageY = t.pageY, this.clientX = t.clientX, this.clientY = t.clientY, this.id = self.Touch && t instanceof Touch ? t.identifier : -1, this.time = Date.now()
         }
-      }
-    */
-		media: {},
-
-		slideShow: {
-			autoStart: false,
-			speed: 3000,
-		},
-
-		thumbs: {
-			autoStart: false, // Display thumbnails on opening
-			hideOnClose: true, // Hide thumbnail grid when closing animation starts
-			parentEl: '.modula-fancybox-container', // Container is injected into this element
-			axis: 'y', // Vertical (y) or horizontal (x) scrolling
-		},
-
-		// Use mousewheel to navigate gallery
-		// If 'auto' - enabled for images only
-		wheel: 'auto',
-
-		// Callbacks
-		//==========
-
-		// See Documentation/API/Events for more information
-		// Example:
-		/*
-      afterShow: function( instance, current ) {
-        console.info( 'Clicked element:' );
-        console.info( current.opts.$orig );
-      }
-    */
-
-		onInit: $.noop, // When instance has been initialized
-
-		beforeLoad: $.noop, // Before the content of a slide is being loaded
-		afterLoad: $.noop, // When the content of a slide is done loading
-
-		beforeShow: $.noop, // Before open animation starts
-		afterShow: $.noop, // When content is done loading and animating
-
-		beforeClose: $.noop, // Before the instance attempts to close. Return false to cancel the close.
-		afterClose: $.noop, // After instance has been closed
-
-		onActivate: $.noop, // When instance is brought to front
-		onDeactivate: $.noop, // When other instance has been activated
-
-		// Interaction
-		// ===========
-
-		// Use options below to customize taken action when user clicks or double clicks on the fancyBox area,
-		// each option can be string or method that returns value.
-		//
-		// Possible values:
-		//   "close"           - close instance
-		//   "next"            - move to next gallery item
-		//   "nextOrClose"     - move to next gallery item or close if gallery has only one item
-		//   "toggleControls"  - show/hide controls
-		//   "zoom"            - zoom image (if loaded)
-		//   false             - do nothing
-
-		// Clicked on the content
-		clickContent: function (current, event) {
-			return current.type === 'image' ? 'zoom' : false;
-		},
-
-		// Clicked on the slide
-		clickSlide: 'close',
-
-		// Clicked on the background (backdrop) element;
-		// if you have not changed the layout, then most likely you need to use `clickSlide` option
-		clickOutside: 'close',
-
-		// Same as previous two, but for double click
-		dblclickContent: false,
-		dblclickSlide: false,
-		dblclickOutside: false,
-
-		// Custom options when mobile device is detected
-		// =============================================
-
-		mobile: {
-			preventCaptionOverlap: false,
-			idleTime: false,
-			clickContent: function (current, event) {
-				return current.type === 'image' ? 'toggleControls' : false;
-			},
-			clickSlide: function (current, event) {
-				return current.type === 'image' ? 'toggleControls' : 'close';
-			},
-			dblclickContent: function (current, event) {
-				return current.type === 'image' ? 'zoom' : false;
-			},
-			dblclickSlide: function (current, event) {
-				return current.type === 'image' ? 'zoom' : false;
-			},
-		},
-
-		// Internationalization
-		// ====================
-
-		lang: 'en',
-		i18n: {
-			en: {
-				CLOSE: 'Close',
-				NEXT: 'Next',
-				PREV: 'Previous',
-				ERROR: 'The requested content cannot be loaded. <br/> Please try again later.',
-				PLAY_START: 'Start slideshow',
-				PLAY_STOP: 'Pause slideshow',
-				FULL_SCREEN: 'Full screen',
-				THUMBS: 'Thumbnails',
-				DOWNLOAD: 'Download',
-				SHARE: 'Share',
-				ZOOM: 'Zoom',
-			},
-			de: {
-				CLOSE: 'Schlie&szlig;en',
-				NEXT: 'Weiter',
-				PREV: 'Zur&uuml;ck',
-				ERROR: 'Die angeforderten Daten konnten nicht geladen werden. <br/> Bitte versuchen Sie es sp&auml;ter nochmal.',
-				PLAY_START: 'Diaschau starten',
-				PLAY_STOP: 'Diaschau beenden',
-				FULL_SCREEN: 'Vollbild',
-				THUMBS: 'Vorschaubilder',
-				DOWNLOAD: 'Herunterladen',
-				SHARE: 'Teilen',
-				ZOOM: 'Vergr&ouml;&szlig;ern',
-			},
-		},
-	};
-
-	// Few useful variables and methods
-	// ================================
-
-	var $W = $(window);
-	var $D = $(document);
-
-	var called = 0;
-
-	// Check if an object is a jQuery object and not a native JavaScript object
-	// ========================================================================
-	var isQuery = function (obj) {
-		return obj && obj.hasOwnProperty && obj instanceof $;
-	};
-
-	// Handle multiple browsers for "requestAnimationFrame" and "cancelAnimationFrame"
-	// ===============================================================================
-	var requestAFrame = (function () {
-		return (
-			window.requestAnimationFrame ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
-			// if all else fails, use setTimeout
-			function (callback) {
-				return window.setTimeout(callback, 1000 / 60);
-			}
-		);
-	})();
-
-	var cancelAFrame = (function () {
-		return (
-			window.cancelAnimationFrame ||
-			window.webkitCancelAnimationFrame ||
-			window.mozCancelAnimationFrame ||
-			window.oCancelAnimationFrame ||
-			function (id) {
-				window.clearTimeout(id);
-			}
-		);
-	})();
-
-	// Detect the supported transition-end event property name
-	// =======================================================
-	var transitionEnd = (function () {
-		var el = document.createElement('fakeelement'),
-			t;
-
-		var transitions = {
-			transition: 'transitionend',
-			OTransition: 'oTransitionEnd',
-			MozTransition: 'transitionend',
-			WebkitTransition: 'webkitTransitionEnd',
-		};
-
-		for (t in transitions) {
-			if (el.style[t] !== undefined) {
-				return transitions[t];
-			}
-		}
-
-		return 'transitionend';
-	})();
-
-	// Force redraw on an element.
-	// This helps in cases where the browser doesn't redraw an updated element properly
-	// ================================================================================
-	var forceRedraw = function ($el) {
-		return $el && $el.length && $el[0].offsetHeight;
-	};
-
-	// Exclude array (`buttons`) options from deep merging
-	// ===================================================
-	var mergeOpts = function (opts1, opts2) {
-		var rez = $.extend(true, {}, opts1, opts2);
-
-		$.each(opts2, function (key, value) {
-			if ($.isArray(value)) {
-				rez[key] = value;
-			}
-		});
-
-		return rez;
-	};
-
-	// How much of an element is visible in viewport
-	// =============================================
-
-	var inViewport = function (elem) {
-		// we create the element variable which contains the link that triggers the lightbox opening
-		var elemCenter,
-			rez,
-			element = elem.find('a.tile-inner')[0];
-		if (!element || element.ownerDocument !== document) {
-			return false;
-		}
-
-		$('.modula-fancybox-container').css('pointer-events', 'none');
-
-		elemCenter = {
-			x: element.getBoundingClientRect().left + element.offsetWidth / 2,
-			y: element.getBoundingClientRect().top + element.offsetHeight / 2,
-		};
-
-		rez = document.elementFromPoint(elemCenter.x, elemCenter.y) === element;
-
-		$('.modula-fancybox-container').css('pointer-events', '');
-
-		return rez;
-	};
-
-	// Class definition
-	// ================
-
-	var modulaFancyBox = function (content, opts, index) {
-		var self = this;
-
-		self.opts = mergeOpts(
-			{
-				index: index,
-			},
-			$.modulaFancybox.defaults
-		);
-
-		if ($.isPlainObject(opts)) {
-			self.opts = mergeOpts(self.opts, opts);
-		}
-
-		if ($.modulaFancybox.isMobile) {
-			self.opts = mergeOpts(self.opts, self.opts.mobile);
-		}
-
-		self.id = self.opts.id || ++called;
-
-		self.currIndex = parseInt(self.opts.index, 10) || 0;
-		self.prevIndex = null;
-
-		self.prevPos = null;
-		self.currPos = 0;
-
-		self.firstRun = true;
-
-		// All group items
-		self.group = [];
-
-		// Existing slides (for current, next and previous gallery items)
-		self.slides = {};
-		//console.log(content);
-		// Create group elements
-		self.addContent(content);
-
-		if (!self.group.length) {
-			return;
-		}
-
-		self.init();
-	};
-
-	$.extend(modulaFancyBox.prototype, {
-		// Create DOM structure
-		// ====================
-
-		init: function () {
-			// In case of filters this.currIndex will give -1
-			// and gives us error
-			var self = this;
-			if (self.currIndex < 0) {
-				self.currIndex = 0;
-			}
-
-			if ('undefined' == typeof self.group[self.currIndex]) {
-				jQuery.each(this.group, function (index, value) {
-					if (self.currIndex == parseInt(value.opts.image_id)) {
-						self.currIndex = index;
-						return;
-					}
-				});
-			}
-
-			var firstItem = self.group[self.currIndex],
-				firstItemOpts = firstItem.opts,
-				$container,
-				buttonStr;
-
-			if (firstItemOpts.closeExisting) {
-				$.modulaFancybox.close(true);
-			}
-
-			// Hide scrollbars
-			// ===============
-
-			$('body').addClass('modula-fancybox-active');
-
-			if (
-				!$.modulaFancybox.getInstance() &&
-				firstItemOpts.hideScrollbar !== false &&
-				!$.modulaFancybox.isMobile &&
-				document.body.scrollHeight > window.innerHeight
-			) {
-				$('head').append(
-					'<style id="modula-fancybox-style-noscroll" type="text/css">.compensate-for-scrollbar{margin-right:' +
-						(window.innerWidth -
-							document.documentElement.clientWidth) +
-						'px;overflow:hidden;}</style>'
-				);
-
-				$('body').addClass('compensate-for-scrollbar');
-			}
-
-			// Build html markup and set references
-			// ====================================
-
-			// Build html code for buttons and insert into main template
-			buttonStr = '';
-
-			$.each(firstItemOpts.buttons, function (index, value) {
-				buttonStr += firstItemOpts.btnTpl[value] || '';
-			});
-
-			// Create markup from base template, it will be initially hidden to
-			// avoid unnecessary work like painting while initializing is not complete
-			$container = $(
-				self.translate(
-					self,
-					firstItemOpts.baseTpl
-						.replace('{{buttons}}', buttonStr)
-						.replace(
-							'{{arrows}}',
-							firstItemOpts.btnTpl.arrowLeft +
-								firstItemOpts.btnTpl.arrowRight
-						)
-				)
-			)
-				.attr('id', 'modula-fancybox-container-' + self.id)
-				.addClass(firstItemOpts.baseClass)
-				.data('modulaFancyBox', self)
-				.appendTo(firstItemOpts.parentEl);
-
-			// Create object holding references to jQuery wrapped nodes
-			self.$refs = {
-				container: $container,
-			};
-
-			[
-				'bg',
-				'inner',
-				'infobar',
-				'toolbar',
-				'stage',
-				'caption',
-				'navigation',
-			].forEach(function (item) {
-				self.$refs[item] = $container.find('.modula-fancybox-' + item);
-			});
-
-			self.trigger('onInit');
-
-			// Enable events, deactive previous instances
-			self.activate();
-
-			// Build slides, load and reveal content
-			self.jumpTo(self.currIndex);
-		},
-
-		// Simple i18n support - replaces object keys found in template
-		// with corresponding values
-		// ============================================================
-
-		translate: function (obj, str) {
-			var arr = obj.opts.i18n[obj.opts.lang] || obj.opts.i18n.en;
-
-			return str.replace(/\{\{(\w+)\}\}/g, function (match, n) {
-				return arr[n] === undefined ? match : arr[n];
-			});
-		},
-
-		// Populate current group with fresh content
-		// Check if each object has valid type and content
-		// ===============================================
-
-		addContent: function (content) {
-			var self = this,
-				items = $.makeArray(content),
-				thumbs;
-
-			$.each(items, function (i, item) {
-				var obj = {},
-					opts = {},
-					$item,
-					type,
-					found,
-					src,
-					srcParts;
-
-				// Step 1 - Make sure we have an object
-				// ====================================
-
-				if ($.isPlainObject(item)) {
-					// We probably have manual usage here, something like
-					// $.modulaFancybox.open( [ { src : "image.jpg", type : "image" } ] )
-
-					obj = item;
-					opts = item.opts || item;
-				} else if ($.type(item) === 'object' && $(item).length) {
-					// Here we probably have jQuery collection returned by some selector
-					$item = $(item);
-
-					// Support attributes like `data-options='{"touch" : false}'` and `data-touch='false'`
-					opts = $item.data() || {};
-					opts = $.extend(true, {}, opts, opts.options);
-
-					// Here we store clicked element
-					opts.$orig = $item;
-
-					obj.src = self.opts.src || opts.src || $item.attr('href');
-
-					// Assume that simple syntax is used, for example:
-					//   `$.modulaFancybox.open( $("#test"), {} );`
-					if (!obj.type && !obj.src) {
-						obj.type = 'inline';
-						obj.src = item;
-					}
-				} else {
-					// Assume we have a simple html code, for example:
-					//   $.modulaFancybox.open( '<div><h1>Hi!</h1></div>' );
-					obj = {
-						type: 'html',
-						src: item + '',
-					};
-				}
-
-				// Each gallery object has full collection of options
-				obj.opts = $.extend(true, {}, self.opts, opts);
-
-				// Do not merge buttons array
-				if ($.isArray(opts.buttons)) {
-					obj.opts.buttons = opts.buttons;
-				}
-
-				if ($.modulaFancybox.isMobile && obj.opts.mobile) {
-					obj.opts = mergeOpts(obj.opts, obj.opts.mobile);
-				}
-
-				// Step 2 - Make sure we have content type, if not - try to guess
-				// ==============================================================
-
-				type = obj.type || obj.opts.type;
-				src = obj.src || '';
-
-				if (!type && src) {
-					if (
-						(found = src.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i))
-					) {
-						type = 'video';
-
-						if (!obj.opts.video.format) {
-							obj.opts.video.format =
-								'video/' +
-								(found[1] === 'ogv' ? 'ogg' : found[1]);
-						}
-					} else if (
-						src.match(
-							/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i
-						)
-					) {
-						type = 'image';
-					} else if (src.match(/\.(pdf)((\?|#).*)?$/i)) {
-						type = 'iframe';
-						obj = $.extend(true, obj, {
-							contentType: 'pdf',
-							opts: {
-								iframe: {
-									preload: false,
-								},
-							},
-						});
-					} else if (src.charAt(0) === '#') {
-						type = 'inline';
-					}
-				}
-
-				if (type) {
-					obj.type = type;
-				} else {
-					self.trigger('objectNeedsType', obj);
-				}
-
-				if (!obj.contentType) {
-					obj.contentType =
-						$.inArray(obj.type, ['html', 'inline', 'ajax']) > -1
-							? 'html'
-							: obj.type;
-				}
-
-				// Step 3 - Some adjustments
-				// =========================
-
-				obj.index = self.group.length;
-
-				if (obj.opts.smallBtn == 'auto') {
-					obj.opts.smallBtn =
-						$.inArray(obj.type, ['html', 'inline', 'ajax']) > -1;
-				}
-
-				if (obj.opts.toolbar === 'auto') {
-					obj.opts.toolbar = !obj.opts.smallBtn;
-				}
-
-				// Find thumbnail image, check if exists and if is in the viewport
-				obj.$thumb = obj.opts.$thumb || null;
-
-				if (obj.opts.$trigger && obj.index === self.opts.index) {
-					obj.$thumb = obj.opts.$trigger.find('img:first');
-
-					if (obj.$thumb.length) {
-						obj.opts.$orig = obj.opts.$trigger;
-					}
-				}
-
-				if (!(obj.$thumb && obj.$thumb.length) && obj.opts.$orig) {
-					obj.$thumb = obj.opts.$orig.find('img:first');
-				}
-
-				if (obj.$thumb && !obj.$thumb.length) {
-					obj.$thumb = null;
-				}
-
-				obj.thumb =
-					obj.opts.thumb || (obj.$thumb ? obj.$thumb[0].src : null);
-
-				// "caption" is a "special" option, it can be used to customize caption per gallery item
-				if ($.type(obj.opts.caption) === 'function') {
-					obj.opts.caption = obj.opts.caption.apply(item, [
-						self,
-						obj,
-					]);
-				}
-
-				if ($.type(self.opts.caption) === 'function') {
-					obj.opts.caption = self.opts.caption.apply(item, [
-						self,
-						obj,
-					]);
-				}
-
-				// Make sure we have caption as a string or jQuery object
-				if (!(obj.opts.caption instanceof $)) {
-					obj.opts.caption =
-						obj.opts.caption === undefined
-							? ''
-							: obj.opts.caption + '';
-				}
-
-				// Check if url contains "filter" used to filter the content
-				// Example: "ajax.html #something"
-				if (obj.type === 'ajax') {
-					srcParts = src.split(/\s+/, 2);
-
-					if (srcParts.length > 1) {
-						obj.src = srcParts.shift();
-
-						obj.opts.filter = srcParts.shift();
-					}
-				}
-
-				// Hide all buttons and disable interactivity for modal items
-				if (obj.opts.modal) {
-					obj.opts = $.extend(true, obj.opts, {
-						trapFocus: true,
-						// Remove buttons
-						infobar: 0,
-						toolbar: 0,
-
-						smallBtn: 0,
-
-						// Disable keyboard navigation
-						keyboard: 0,
-
-						// Disable some modules
-						slideShow: 0,
-						fullScreen: 0,
-						thumbs: 0,
-						touch: 0,
-
-						// Disable click event handlers
-						clickContent: false,
-						clickSlide: false,
-						clickOutside: false,
-						dblclickContent: false,
-						dblclickSlide: false,
-						dblclickOutside: false,
-					});
-				}
-
-				// Step 4 - Add processed object to group
-				// ======================================
-
-				self.group.push(obj);
-			});
-
-			// Update controls if gallery is already opened
-			if (Object.keys(self.slides).length) {
-				self.updateControls();
-
-				// Update thumbnails, if needed
-				thumbs = self.Thumbs;
-
-				if (thumbs && thumbs.isActive) {
-					thumbs.create();
-
-					thumbs.focus();
-				}
-			}
-		},
-
-		// Attach an event handler functions for:
-		//   - navigation buttons
-		//   - browser scrolling, resizing;
-		//   - focusing
-		//   - keyboard
-		//   - detecting inactivity
-		// ======================================
-
-		addEvents: function () {
-			var self = this;
-
-			self.removeEvents();
-
-			// Make navigation elements clickable
-			// ==================================
-
-			self.$refs.container
-				.on('click.fb-close', '[data-fancybox-close]', function (e) {
-					e.stopPropagation();
-					e.preventDefault();
-
-					self.close(e);
-				})
-				.on(
-					'touchstart.fb-prev click.fb-prev',
-					'[data-fancybox-prev]',
-					function (e) {
-						e.stopPropagation();
-						e.preventDefault();
-
-						self.previous();
-					}
-				)
-				.on(
-					'touchstart.fb-next click.fb-next',
-					'[data-fancybox-next]',
-					function (e) {
-						e.stopPropagation();
-						e.preventDefault();
-
-						self.next();
-					}
-				)
-				.on('click.fb', '[data-fancybox-zoom]', function (e) {
-					// Click handler for zoom button
-					self[
-						self.isScaledDown() ? 'scaleToActual' : 'scaleToFit'
-					]();
-				});
-
-			// Handle page scrolling and browser resizing
-			// ==========================================
-
-			$W.on('orientationchange.fb resize.fb', function (e) {
-				if (e && e.originalEvent && e.originalEvent.type === 'resize') {
-					if (self.requestId) {
-						cancelAFrame(self.requestId);
-					}
-
-					self.requestId = requestAFrame(function () {
-						self.update(e);
-					});
-				} else {
-					if (self.current && self.current.type === 'iframe') {
-						self.$refs.stage.hide();
-					}
-
-					setTimeout(
-						function () {
-							self.$refs.stage.show();
-
-							self.update(e);
-						},
-						$.modulaFancybox.isMobile ? 600 : 250
-					);
-				}
-			});
-
-			$D.on('keydown.fb', function (e) {
-				var instance = $.modulaFancybox
-						? $.modulaFancybox.getInstance()
-						: null,
-					current = instance.current,
-					keycode = e.keyCode || e.which;
-
-				// Trap keyboard focus inside of the modal
-				// =======================================
-
-				if (keycode == 9) {
-					if (current.opts.trapFocus) {
-						self.focus(e);
-					}
-
-					return;
-				}
-
-				// Enable keyboard navigation
-				// ==========================
-
-				if (
-					!current.opts.keyboard ||
-					e.ctrlKey ||
-					e.altKey ||
-					e.shiftKey ||
-					$(e.target).is('input,textarea,video,audio,select')
-				) {
-					return;
-				}
-
-				// Backspace and Esc keys
-				if (keycode === 8 || keycode === 27) {
-					e.preventDefault();
-
-					self.close(e);
-
-					return;
-				}
-
-				// Left arrow and Up arrow
-				if (keycode === 37 || keycode === 38) {
-					e.preventDefault();
-
-					self.previous();
-
-					return;
-				}
-
-				// Righ arrow and Down arrow
-				if (keycode === 39 || keycode === 40) {
-					e.preventDefault();
-
-					self.next();
-
-					return;
-				}
-
-				self.trigger('afterKeydown', e, keycode);
-			});
-
-			// Hide controls after some inactivity period
-			if (self.group[self.currIndex].opts.idleTime) {
-				self.idleSecondsCounter = 0;
-
-				$D.on(
-					'mousemove.fb-idle mouseleave.fb-idle mousedown.fb-idle touchstart.fb-idle touchmove.fb-idle scroll.fb-idle keydown.fb-idle',
-					function (e) {
-						self.idleSecondsCounter = 0;
-
-						if (self.isIdle) {
-							self.showControls();
-						}
-
-						self.isIdle = false;
-					}
-				);
-
-				self.idleInterval = window.setInterval(function () {
-					self.idleSecondsCounter++;
-
-					if (
-						self.idleSecondsCounter >=
-							self.group[self.currIndex].opts.idleTime &&
-						!self.isDragging
-					) {
-						self.isIdle = true;
-						self.idleSecondsCounter = 0;
-
-						self.hideControls();
-					}
-				}, 1000);
-			}
-		},
-
-		// Remove events added by the core
-		// ===============================
-
-		removeEvents: function () {
-			var self = this;
-
-			$W.off('orientationchange.fb resize.fb');
-			$D.off('keydown.fb .fb-idle');
-
-			this.$refs.container.off('.fb-close .fb-prev .fb-next');
-
-			if (self.idleInterval) {
-				window.clearInterval(self.idleInterval);
-
-				self.idleInterval = null;
-			}
-		},
-
-		// Change to previous gallery item
-		// ===============================
-
-		previous: function (duration) {
-			return this.jumpTo(this.currPos - 1, duration);
-		},
-
-		// Change to next gallery item
-		// ===========================
-
-		next: function (duration) {
-			return this.jumpTo(this.currPos + 1, duration);
-		},
-
-		// Switch to selected gallery item
-		// ===============================
-
-		jumpTo: function (pos, duration) {
-			var self = this,
-				groupLen = self.group.length,
-				firstRun,
-				isMoved,
-				loop,
-				current,
-				previous,
-				slidePos,
-				stagePos,
-				prop,
-				diff;
-
-			if (
-				self.isDragging ||
-				self.isClosing ||
-				(self.isAnimating && self.firstRun)
-			) {
-				return;
-			}
-
-			// Should loop?
-			pos = parseInt(pos, 10);
-			loop = self.current ? self.current.opts.loop : self.opts.loop;
-
-			if (!loop && (pos < 0 || pos >= groupLen)) {
-				return false;
-			}
-
-			// Check if opening for the first time; this helps to speed things up
-			firstRun = self.firstRun = !Object.keys(self.slides).length;
-
-			// Create slides
-			previous = self.current;
-
-			self.prevIndex = self.currIndex;
-			self.prevPos = self.currPos;
-
-			current = self.createSlide(pos);
-
-			if (groupLen > 1) {
-				if (loop || current.index < groupLen - 1) {
-					self.createSlide(pos + 1);
-				}
-
-				if (loop || current.index > 0) {
-					self.createSlide(pos - 1);
-				}
-			}
-
-			self.current = current;
-			self.currIndex = current.index;
-			self.currPos = current.pos;
-
-			self.trigger('beforeShow', firstRun);
-
-			self.updateControls();
-
-			// Validate duration length
-			current.forcedDuration = undefined;
-
-			if ($.isNumeric(duration)) {
-				current.forcedDuration = duration;
-			} else {
-				duration =
-					current.opts[
-						firstRun ? 'animationDuration' : 'transitionDuration'
-					];
-			}
-
-			duration = parseInt(duration, 10);
-
-			// Check if user has swiped the slides or if still animating
-			isMoved = self.isMoved(current);
-
-			// Make sure current slide is visible
-			current.$slide.addClass('modula-fancybox-slide--current');
-
-			// Fresh start - reveal container, current slide and start loading content
-			if (firstRun) {
-				if (current.opts.animationEffect && duration) {
-					self.$refs.container.css(
-						'transition-duration',
-						duration + 'ms'
-					);
-				}
-
-				self.$refs.container
-					.addClass('modula-fancybox-is-open')
-					.trigger('focus');
-
-				// Attempt to load content into slide
-				// This will later call `afterLoad` -> `revealContent`
-				self.loadSlide(current);
-
-				self.preload('image');
-
-				return;
-			}
-
-			// Get actual slide/stage positions (before cleaning up)
-			slidePos = $.modulaFancybox.getTranslate(previous.$slide);
-			stagePos = $.modulaFancybox.getTranslate(self.$refs.stage);
-
-			// Clean up all slides
-			$.each(self.slides, function (index, slide) {
-				$.modulaFancybox.stop(slide.$slide, true);
-			});
-
-			if (previous.pos !== current.pos) {
-				previous.isComplete = false;
-			}
-
-			previous.$slide.removeClass(
-				'modula-fancybox-slide--complete modula-fancybox-slide--current'
-			);
-
-			// If slides are out of place, then animate them to correct position
-			if (isMoved) {
-				// Calculate horizontal swipe distance
-				diff =
-					slidePos.left -
-					(previous.pos * slidePos.width +
-						previous.pos * previous.opts.gutter);
-
-				$.each(self.slides, function (index, slide) {
-					slide.$slide
-						.removeClass('modula-fancybox-animated')
-						.removeClass(function (index, className) {
-							return (
-								className.match(
-									/(^|\s)modula-fancybox-fx-\S+/g
-								) || []
-							).join(' ');
-						});
-
-					// Make sure that each slide is in equal distance
-					// This is mostly needed for freshly added slides, because they are not yet positioned
-					var leftPos =
-						slide.pos * slidePos.width +
-						slide.pos * slide.opts.gutter;
-
-					$.modulaFancybox.setTranslate(slide.$slide, {
-						top: 0,
-						left: leftPos - stagePos.left + diff,
-					});
-
-					if (slide.pos !== current.pos) {
-						slide.$slide.addClass(
-							'modula-fancybox-slide--' +
-								(slide.pos > current.pos ? 'next' : 'previous')
-						);
-					}
-
-					// Redraw to make sure that transition will start
-					forceRedraw(slide.$slide);
-
-					// Animate the slide
-					$.modulaFancybox.animate(
-						slide.$slide,
-						{
-							top: 0,
-							left:
-								(slide.pos - current.pos) * slidePos.width +
-								(slide.pos - current.pos) * slide.opts.gutter,
-						},
-						duration,
-						function () {
-							slide.$slide
-								.css({
-									transform: '',
-									opacity: '',
-								})
-								.removeClass(
-									'modula-fancybox-slide--next modula-fancybox-slide--previous'
-								);
-
-							if (slide.pos === self.currPos) {
-								self.complete();
-							}
-						}
-					);
-				});
-			} else if (duration && current.opts.transitionEffect) {
-				// Set transition effect for previously active slide
-				prop =
-					'modula-fancybox-animated modula-fancybox-fx-' +
-					current.opts.transitionEffect;
-
-				previous.$slide.addClass(
-					'modula-fancybox-slide--' +
-						(previous.pos > current.pos ? 'next' : 'previous')
-				);
-
-				$.modulaFancybox.animate(
-					previous.$slide,
-					prop,
-					duration,
-					function () {
-						previous.$slide
-							.removeClass(prop)
-							.removeClass(
-								'modula-fancybox-slide--next modula-fancybox-slide--previous'
-							);
-					},
-					false
-				);
-			}
-
-			if (current.isLoaded) {
-				self.revealContent(current);
-			} else {
-				self.loadSlide(current);
-			}
-
-			self.preload('image');
-		},
-
-		// Create new "slide" element
-		// These are gallery items  that are actually added to DOM
-		// =======================================================
-
-		createSlide: function (pos) {
-			var self = this,
-				$slide,
-				index;
-
-			index = pos % self.group.length;
-			index = index < 0 ? self.group.length + index : index;
-
-			if (!self.slides[pos] && self.group[index]) {
-				$slide = $(
-					'<div class="modula-fancybox-slide"></div>'
-				).appendTo(self.$refs.stage);
-
-				self.slides[pos] = $.extend(true, {}, self.group[index], {
-					pos: pos,
-					$slide: $slide,
-					isLoaded: false,
-				});
-
-				self.updateSlide(self.slides[pos]);
-			}
-
-			return self.slides[pos];
-		},
-
-		// Scale image to the actual size of the image;
-		// x and y values should be relative to the slide
-		// ==============================================
-
-		scaleToActual: function (x, y, duration) {
-			var self = this,
-				current = self.current,
-				$content = current.$content,
-				canvasWidth = $.modulaFancybox.getTranslate(
-					current.$slide
-				).width,
-				canvasHeight = $.modulaFancybox.getTranslate(
-					current.$slide
-				).height,
-				newImgWidth = current.width,
-				newImgHeight = current.height,
-				imgPos,
-				posX,
-				posY,
-				scaleX,
-				scaleY;
-
-			if (
-				self.isAnimating ||
-				self.isMoved() ||
-				!$content ||
-				!(
-					current.type == 'image' &&
-					current.isLoaded &&
-					!current.hasError
-				)
-			) {
-				return;
-			}
-
-			self.isAnimating = true;
-
-			$.modulaFancybox.stop($content);
-
-			x = x === undefined ? canvasWidth * 0.5 : x;
-			y = y === undefined ? canvasHeight * 0.5 : y;
-
-			imgPos = $.modulaFancybox.getTranslate($content);
-
-			imgPos.top -= $.modulaFancybox.getTranslate(current.$slide).top;
-			imgPos.left -= $.modulaFancybox.getTranslate(current.$slide).left;
-
-			scaleX = newImgWidth / imgPos.width;
-			scaleY = newImgHeight / imgPos.height;
-
-			// Get center position for original image
-			posX = canvasWidth * 0.5 - newImgWidth * 0.5;
-			posY = canvasHeight * 0.5 - newImgHeight * 0.5;
-
-			// Make sure image does not move away from edges
-			if (newImgWidth > canvasWidth) {
-				posX = imgPos.left * scaleX - (x * scaleX - x);
-
-				if (posX > 0) {
-					posX = 0;
-				}
-
-				if (posX < canvasWidth - newImgWidth) {
-					posX = canvasWidth - newImgWidth;
-				}
-			}
-
-			if (newImgHeight > canvasHeight) {
-				posY = imgPos.top * scaleY - (y * scaleY - y);
-
-				if (posY > 0) {
-					posY = 0;
-				}
-
-				if (posY < canvasHeight - newImgHeight) {
-					posY = canvasHeight - newImgHeight;
-				}
-			}
-
-			self.updateCursor(newImgWidth, newImgHeight);
-
-			$.modulaFancybox.animate(
-				$content,
-				{
-					top: posY,
-					left: posX,
-					scaleX: scaleX,
-					scaleY: scaleY,
-				},
-				duration || 366,
-				function () {
-					self.isAnimating = false;
-				}
-			);
-
-			// Stop slideshow
-			if (self.SlideShow && self.SlideShow.isActive) {
-				self.SlideShow.stop();
-			}
-		},
-
-		// Scale image to fit inside parent element
-		// ========================================
-
-		scaleToFit: function (duration) {
-			var self = this,
-				current = self.current,
-				$content = current.$content,
-				end;
-
-			if (
-				self.isAnimating ||
-				self.isMoved() ||
-				!$content ||
-				!(
-					current.type == 'image' &&
-					current.isLoaded &&
-					!current.hasError
-				)
-			) {
-				return;
-			}
-
-			self.isAnimating = true;
-
-			$.modulaFancybox.stop($content);
-
-			end = self.getFitPos(current);
-
-			self.updateCursor(end.width, end.height);
-
-			$.modulaFancybox.animate(
-				$content,
-				{
-					top: end.top,
-					left: end.left,
-					scaleX: end.width / $content.width(),
-					scaleY: end.height / $content.height(),
-				},
-				duration || 366,
-				function () {
-					self.isAnimating = false;
-				}
-			);
-		},
-
-		// Calculate image size to fit inside viewport
-		// ===========================================
-
-		getFitPos: function (slide) {
-			var self = this,
-				$content = slide.$content,
-				$slide = slide.$slide,
-				width = slide.width || slide.opts.width,
-				height = slide.height || slide.opts.height,
-				maxWidth,
-				maxHeight,
-				minRatio,
-				aspectRatio,
-				rez = {};
-
-			if (!slide.isLoaded || !$content || !$content.length) {
-				return false;
-			}
-
-			maxWidth = $.modulaFancybox.getTranslate(self.$refs.stage).width;
-			maxHeight = $.modulaFancybox.getTranslate(self.$refs.stage).height;
-
-			maxWidth -=
-				parseFloat($slide.css('paddingLeft')) +
-				parseFloat($slide.css('paddingRight')) +
-				parseFloat($content.css('marginLeft')) +
-				parseFloat($content.css('marginRight'));
-
-			maxHeight -=
-				parseFloat($slide.css('paddingTop')) +
-				parseFloat($slide.css('paddingBottom')) +
-				parseFloat($content.css('marginTop')) +
-				parseFloat($content.css('marginBottom'));
-
-			if (!width || !height) {
-				width = maxWidth;
-				height = maxHeight;
-			}
-
-			minRatio = Math.min(1, maxWidth / width, maxHeight / height);
-
-			width = minRatio * width;
-			height = minRatio * height;
-
-			// Adjust width/height to precisely fit into container
-			if (width > maxWidth - 0.5) {
-				width = maxWidth;
-			}
-
-			if (height > maxHeight - 0.5) {
-				height = maxHeight;
-			}
-
-			if (slide.type === 'image') {
-				rez.top =
-					Math.floor((maxHeight - height) * 0.5) +
-					parseFloat($slide.css('paddingTop'));
-				rez.left =
-					Math.floor((maxWidth - width) * 0.5) +
-					parseFloat($slide.css('paddingLeft'));
-			} else if (slide.contentType === 'video') {
-				// Force aspect ratio for the video
-				// "I say the whole world must learn of our peaceful ways… by force!"
-				aspectRatio =
-					slide.opts.width && slide.opts.height
-						? width / height
-						: slide.opts.ratio || 16 / 9;
-
-				if (height > width / aspectRatio) {
-					height = width / aspectRatio;
-				} else if (width > height * aspectRatio) {
-					width = height * aspectRatio;
-				}
-			}
-
-			rez.width = width;
-			rez.height = height;
-
-			return rez;
-		},
-
-		// Update content size and position for all slides
-		// ==============================================
-
-		update: function (e) {
-			var self = this;
-
-			$.each(self.slides, function (key, slide) {
-				self.updateSlide(slide, e);
-			});
-		},
-
-		// Update slide content position and size
-		// ======================================
-
-		updateSlide: function (slide, e) {
-			var self = this,
-				$content = slide && slide.$content,
-				width = slide.width || slide.opts.width,
-				height = slide.height || slide.opts.height,
-				$slide = slide.$slide;
-
-			// First, prevent caption overlap, if needed
-			self.adjustCaption(slide);
-
-			// Then resize content to fit inside the slide
-			if (
-				$content &&
-				(width || height || slide.contentType === 'video') &&
-				!slide.hasError
-			) {
-				$.modulaFancybox.stop($content);
-
-				$.modulaFancybox.setTranslate($content, self.getFitPos(slide));
-
-				if (slide.pos === self.currPos) {
-					self.isAnimating = false;
-
-					self.updateCursor();
-				}
-			}
-
-			// Then some adjustments
-			self.adjustLayout(slide);
-
-			if ($slide.length) {
-				$slide.trigger('refresh');
-
-				if (slide.pos === self.currPos) {
-					self.$refs.toolbar
-						.add(
-							self.$refs.navigation.find(
-								'.modula-fancybox-button--arrow_right'
-							)
-						)
-						.toggleClass(
-							'compensate-for-scrollbar',
-							$slide.get(0).scrollHeight >
-								$slide.get(0).clientHeight
-						);
-				}
-			}
-
-			self.trigger('onUpdate', slide, e);
-		},
-
-		// Horizontally center slide
-		// =========================
-
-		centerSlide: function (duration) {
-			var self = this,
-				current = self.current,
-				$slide = current.$slide;
-
-			if (self.isClosing || !current) {
-				return;
-			}
-
-			$slide.siblings().css({
-				transform: '',
-				opacity: '',
-			});
-
-			$slide
-				.parent()
-				.children()
-				.removeClass(
-					'modula-fancybox-slide--previous modula-fancybox-slide--next'
-				);
-
-			$.modulaFancybox.animate(
-				$slide,
-				{
-					top: 0,
-					left: 0,
-					opacity: 1,
-				},
-				duration === undefined ? 0 : duration,
-				function () {
-					// Clean up
-					$slide.css({
-						transform: '',
-						opacity: '',
-					});
-
-					if (!current.isComplete) {
-						self.complete();
-					}
-				},
-				false
-			);
-		},
-
-		// Check if current slide is moved (swiped)
-		// ========================================
-
-		isMoved: function (slide) {
-			var current = slide || this.current,
-				slidePos,
-				stagePos;
-
-			if (!current) {
-				return false;
-			}
-
-			stagePos = $.modulaFancybox.getTranslate(this.$refs.stage);
-			slidePos = $.modulaFancybox.getTranslate(current.$slide);
-
-			return (
-				!current.$slide.hasClass('modula-fancybox-animated') &&
-				(Math.abs(slidePos.top - stagePos.top) > 0.5 ||
-					Math.abs(slidePos.left - stagePos.left) > 0.5)
-			);
-		},
-
-		// Update cursor style depending if content can be zoomed
-		// ======================================================
-
-		updateCursor: function (nextWidth, nextHeight) {
-			var self = this,
-				current = self.current,
-				$container = self.$refs.container,
-				canPan,
-				isZoomable;
-
-			if (!current || self.isClosing || !self.ModulaGestures) {
-				return;
-			}
-
-			$container.removeClass(
-				'modula-fancybox-is-zoomable modula-fancybox-can-zoomIn modula-fancybox-can-zoomOut modula-fancybox-can-swipe modula-fancybox-can-pan'
-			);
-
-			canPan = self.canPan(nextWidth, nextHeight);
-
-			isZoomable = canPan ? true : self.isZoomable();
-
-			$container.toggleClass('modula-fancybox-is-zoomable', isZoomable);
-
-			$('[data-fancybox-zoom]').prop('disabled', !isZoomable);
-
-			if (canPan) {
-				$container.addClass('modula-fancybox-can-pan');
-			} else if (
-				isZoomable &&
-				(current.opts.clickContent === 'zoom' ||
-					($.isFunction(current.opts.clickContent) &&
-						current.opts.clickContent(current) == 'zoom'))
-			) {
-				$container.addClass('modula-fancybox-can-zoomIn');
-			} else if (
-				current.opts.touch &&
-				(current.opts.touch.vertical || self.group.length > 1) &&
-				current.contentType !== 'video'
-			) {
-				$container.addClass('modula-fancybox-can-swipe');
-			}
-		},
-
-		// Check if current slide is zoomable
-		// ==================================
-
-		isZoomable: function () {
-			var self = this,
-				current = self.current,
-				fitPos;
-
-			// Assume that slide is zoomable if:
-			//   - image is still loading
-			//   - actual size of the image is smaller than available area
-			if (
-				current &&
-				!self.isClosing &&
-				current.type === 'image' &&
-				!current.hasError
-			) {
-				if (!current.isLoaded) {
-					return true;
-				}
-
-				fitPos = self.getFitPos(current);
-
-				if (
-					fitPos &&
-					(current.width > fitPos.width ||
-						current.height > fitPos.height)
-				) {
-					return true;
-				}
-			}
-
-			return false;
-		},
-
-		// Check if current image dimensions are smaller than actual
-		// =========================================================
-
-		isScaledDown: function (nextWidth, nextHeight) {
-			var self = this,
-				rez = false,
-				current = self.current,
-				$content = current.$content;
-
-			if (nextWidth !== undefined && nextHeight !== undefined) {
-				rez = nextWidth < current.width && nextHeight < current.height;
-			} else if ($content) {
-				rez = $.modulaFancybox.getTranslate($content);
-				rez = rez.width < current.width && rez.height < current.height;
-			}
-
-			return rez;
-		},
-
-		// Check if image dimensions exceed parent element
-		// ===============================================
-
-		canPan: function (nextWidth, nextHeight) {
-			var self = this,
-				current = self.current,
-				pos = null,
-				rez = false;
-
-			if (
-				current.type === 'image' &&
-				(current.isComplete || (nextWidth && nextHeight)) &&
-				!current.hasError
-			) {
-				rez = self.getFitPos(current);
-
-				if (nextWidth !== undefined && nextHeight !== undefined) {
-					pos = {
-						width: nextWidth,
-						height: nextHeight,
-					};
-				} else if (current.isComplete) {
-					pos = $.modulaFancybox.getTranslate(current.$content);
-				}
-
-				if (pos && rez) {
-					rez =
-						Math.abs(pos.width - rez.width) > 1.5 ||
-						Math.abs(pos.height - rez.height) > 1.5;
-				}
-			}
-
-			return rez;
-		},
-
-		// Load content into the slide
-		// ===========================
-
-		loadSlide: function (slide) {
-			var self = this,
-				type,
-				$slide,
-				ajaxLoad;
-
-			if (slide.isLoading || slide.isLoaded) {
-				return;
-			}
-
-			slide.isLoading = true;
-
-			if (self.trigger('beforeLoad', slide) === false) {
-				slide.isLoading = false;
-
-				return false;
-			}
-
-			type = slide.type;
-			$slide = slide.$slide;
-
-			$slide
-				.off('refresh')
-				.trigger('onReset')
-				.addClass(slide.opts.slideClass);
-
-			// Create content depending on the type
-			switch (type) {
-				case 'image':
-					self.setImage(slide);
-
-					break;
-
-				case 'iframe':
-					self.setIframe(slide);
-
-					break;
-
-				case 'html':
-					self.setContent(slide, slide.src || slide.content);
-
-					break;
-
-				case 'video':
-					self.setContent(
-						slide,
-						slide.opts.video.tpl
-							.replace(/\{\{src\}\}/gi, slide.src)
-							.replace(
-								'{{format}}',
-								slide.opts.videoFormat ||
-									slide.opts.video.format ||
-									''
-							)
-							.replace('{{poster}}', slide.thumb || '')
-					);
-
-					break;
-
-				case 'inline':
-					if ($(slide.src).length) {
-						self.setContent(slide, $(slide.src));
-					} else {
-						self.setError(slide);
-					}
-
-					break;
-
-				case 'ajax':
-					self.showLoading(slide);
-
-					ajaxLoad = $.ajax(
-						$.extend({}, slide.opts.ajax.settings, {
-							url: slide.src,
-							success: function (data, textStatus) {
-								if (textStatus === 'success') {
-									self.setContent(slide, data);
-								}
-							},
-							error: function (jqXHR, textStatus) {
-								if (jqXHR && textStatus !== 'abort') {
-									self.setError(slide);
-								}
-							},
-						})
-					);
-
-					$slide.one('onReset', function () {
-						ajaxLoad.abort();
-					});
-
-					break;
-
-				default:
-					self.setError(slide);
-
-					break;
-			}
-
-			return true;
-		},
-
-		// Use thumbnail image, if possible
-		// ================================
-
-		setImage: function (slide) {
-			var self = this,
-				ghost;
-
-			// Check if need to show loading icon
-			setTimeout(function () {
-				var $img = slide.$image;
-
-				if (
-					!self.isClosing &&
-					slide.isLoading &&
-					(!$img || !$img.length || !$img[0].complete) &&
-					!slide.hasError
-				) {
-					self.showLoading(slide);
-				}
-			}, 50);
-
-			//Check if image has srcset
-			self.checkSrcset(slide);
-
-			// This will be wrapper containing both ghost and actual image
-			slide.$content = $('<div class="modula-fancybox-content"></div>')
-				.addClass('modula-fancybox-is-hidden')
-				.appendTo(
-					slide.$slide.addClass('modula-fancybox-slide--image')
-				);
-
-			// If we have a thumbnail, we can display it while actual image is loading
-			// Users will not stare at black screen and actual image will appear gradually
-			if (
-				slide.opts.preload !== false &&
-				slide.opts.width &&
-				slide.opts.height &&
-				slide.thumb
-			) {
-				slide.width = slide.opts.width;
-				slide.height = slide.opts.height;
-
-				ghost = document.createElement('img');
-
-				ghost.onerror = function () {
-					$(this).remove();
-
-					slide.$ghost = null;
-				};
-
-				ghost.onload = function () {
-					self.afterLoad(slide);
-				};
-
-				slide.$ghost = $(ghost)
-					.addClass('modula-fancybox-image')
-					.appendTo(slide.$content)
-					.attr('src', slide.thumb);
-
-				if ('undifined' != typeof slide.src) {
-					slide.$ghost.attr('alt', slide.alt);
-				}
-			}
-
-			// Start loading actual image
-			self.setBigImage(slide);
-		},
-
-		// Check if image has srcset and get the source
-		// ============================================
-		checkSrcset: function (slide) {
-			var srcset = slide.opts.srcset || slide.opts.image.srcset,
-				found,
-				temp,
-				pxRatio,
-				windowWidth;
-
-			// If we have "srcset", then we need to find first matching "src" value.
-			// This is necessary, because when you set an src attribute, the browser will preload the image
-			// before any javascript or even CSS is applied.
-			if (srcset) {
-				pxRatio = window.devicePixelRatio || 1;
-				windowWidth = window.innerWidth * pxRatio;
-
-				temp = srcset.split(',').map(function (el) {
-					var ret = {};
-
-					el.trim()
-						.split(/\s+/)
-						.forEach(function (el, i) {
-							var value = parseInt(
-								el.substring(0, el.length - 1),
-								10
-							);
-
-							if (i === 0) {
-								return (ret.url = el);
-							}
-
-							if (value) {
-								ret.value = value;
-								ret.postfix = el[el.length - 1];
-							}
-						});
-
-					return ret;
-				});
-
-				// Sort by value
-				temp.sort(function (a, b) {
-					return a.value - b.value;
-				});
-
-				// Ok, now we have an array of all srcset values
-				for (var j = 0; j < temp.length; j++) {
-					var el = temp[j];
-
-					if (
-						(el.postfix === 'w' && el.value >= windowWidth) ||
-						(el.postfix === 'x' && el.value >= pxRatio)
-					) {
-						found = el;
-						break;
-					}
-				}
-
-				// If not found, take the last one
-				if (!found && temp.length) {
-					found = temp[temp.length - 1];
-				}
-
-				if (found) {
-					slide.src = found.url;
-
-					// If we have default width/height values, we can calculate height for matching source
-					if (slide.width && slide.height && found.postfix == 'w') {
-						slide.height =
-							(slide.width / slide.height) * found.value;
-						slide.width = found.value;
-					}
-
-					slide.opts.srcset = srcset;
-				}
-			}
-		},
-
-		// Create full-size image
-		// ======================
-
-		setBigImage: function (slide) {
-			var self = this,
-				img = document.createElement('img'),
-				$img = $(img);
-
-			slide.$image = $img
-				.one('error', function () {
-					self.setError(slide);
-				})
-				.one('load', function () {
-					var sizes;
-
-					if (!slide.$ghost) {
-						self.resolveImageSlideSize(
-							slide,
-							this.naturalWidth,
-							this.naturalHeight
-						);
-
-						self.afterLoad(slide);
-					}
-
-					if (self.isClosing) {
-						return;
-					}
-
-					if (slide.opts.srcset) {
-						sizes = slide.opts.sizes;
-
-						if (!sizes || sizes === 'auto') {
-							sizes =
-								(slide.width / slide.height > 1 &&
-								$W.width() / $W.height() > 1
-									? '100'
-									: Math.round(
-											(slide.width / slide.height) * 100
-									  )) + 'vw';
-						}
-
-						$img.attr('sizes', sizes).attr(
-							'srcset',
-							slide.opts.srcset
-						);
-					}
-
-					// Add alt to image
-					if (slide.opts.alt) {
-						$img.attr('alt', slide.opts.alt);
-					}
-
-					// Add attachment ID to image
-					if (slide.opts.image_id) {
-						$img.attr('image-id', slide.opts.image_id);
-					}
-
-					if (slide.$thumb) {
-						$img.attr(
-							'title',
-							slide.$thumb.find('img.pic').attr('title')
-						);
-					}
-
-					// Hide temporary image after some delay
-					if (slide.$ghost) {
-						setTimeout(
-							function () {
-								if (slide.$ghost && !self.isClosing) {
-									slide.$ghost.hide();
-								}
-							},
-							Math.min(300, Math.max(1000, slide.height / 1600))
-						);
-					}
-
-					self.hideLoading(slide);
-				})
-				.addClass('modula-fancybox-image')
-				.attr('src', slide.src)
-				.attr('aria-describedby', 'modula-caption-' + slide.index)
-				.appendTo(slide.$content);
-
-			if (
-				(img.complete || img.readyState == 'complete') &&
-				$img.naturalWidth &&
-				$img.naturalHeight
-			) {
-				$img.trigger('load');
-			} else if (img.error) {
-				$img.trigger('error');
-			}
-		},
-
-		// Computes the slide size from image size and maxWidth/maxHeight
-		// ==============================================================
-
-		resolveImageSlideSize: function (slide, imgWidth, imgHeight) {
-			var maxWidth = parseInt(slide.opts.width, 10),
-				maxHeight = parseInt(slide.opts.height, 10);
-
-			// Sets the default values from the image
-			slide.width = imgWidth;
-			slide.height = imgHeight;
-
-			if (maxWidth > 0) {
-				slide.width = maxWidth;
-				slide.height = Math.floor((maxWidth * imgHeight) / imgWidth);
-			}
-
-			if (maxHeight > 0) {
-				slide.width = Math.floor((maxHeight * imgWidth) / imgHeight);
-				slide.height = maxHeight;
-			}
-		},
-
-		// Create iframe wrapper, iframe and bindings
-		// ==========================================
-
-		setIframe: function (slide) {
-			var self = this,
-				opts = slide.opts.iframe,
-				$slide = slide.$slide,
-				$iframe;
-
-			slide.$content = $(
-				'<div class="modula-fancybox-content' +
-					(opts.preload ? ' modula-fancybox-is-hidden' : '') +
-					'"></div>'
-			)
-				.css(opts.css)
-				.appendTo($slide);
-
-			$slide.addClass('modula-fancybox-slide--' + slide.contentType);
-
-			slide.$iframe = $iframe = $(
-				opts.tpl.replace(/\{rnd\}/g, new Date().getTime())
-			)
-				.attr(opts.attr)
-				.appendTo(slide.$content);
-
-			if (opts.preload) {
-				self.showLoading(slide);
-
-				// Unfortunately, it is not always possible to determine if iframe is successfully loaded
-				// (due to browser security policy)
-
-				$iframe.on('load.fb error.fb', function (e) {
-					this.isReady = 1;
-
-					slide.$slide.trigger('refresh');
-
-					self.afterLoad(slide);
-				});
-
-				// Recalculate iframe content size
-				// ===============================
-
-				$slide.on('refresh.fb', function () {
-					var $content = slide.$content,
-						frameWidth = opts.css.width,
-						frameHeight = opts.css.height,
-						$contents,
-						$body;
-
-					if ($iframe[0].isReady !== 1) {
-						return;
-					}
-
-					try {
-						$contents = $iframe.contents();
-						$body = $contents.find('body');
-					} catch (ignore) {}
-
-					// Calculate content dimensions, if it is accessible
-					if ($body && $body.length && $body.children().length) {
-						// Avoid scrolling to top (if multiple instances)
-						$slide.css('overflow', 'visible');
-
-						$content.css({
-							width: '100%',
-							'max-width': '100%',
-							height: '9999px',
-						});
-
-						if (frameWidth === undefined) {
-							frameWidth = Math.ceil(
-								Math.max(
-									$body[0].clientWidth,
-									$body.outerWidth(true)
-								)
-							);
-						}
-
-						$content
-							.css('width', frameWidth ? frameWidth : '')
-							.css('max-width', '');
-
-						if (frameHeight === undefined) {
-							frameHeight = Math.ceil(
-								Math.max(
-									$body[0].clientHeight,
-									$body.outerHeight(true)
-								)
-							);
-						}
-
-						$content.css('height', frameHeight ? frameHeight : '');
-
-						$slide.css('overflow', 'auto');
-					}
-
-					$content.removeClass('modula-fancybox-is-hidden');
-				});
-			} else {
-				self.afterLoad(slide);
-			}
-
-			$iframe.attr('src', slide.src);
-
-			// Remove iframe if closing or changing gallery item
-			$slide.one('onReset', function () {
-				// This helps IE not to throw errors when closing
-				try {
-					$(this)
-						.find('iframe')
-						.hide()
-						.unbind()
-						.attr('src', '//about:blank');
-				} catch (ignore) {}
-
-				$(this).off('refresh.fb').empty();
-
-				slide.isLoaded = false;
-				slide.isRevealed = false;
-			});
-		},
-
-		// Wrap and append content to the slide
-		// ======================================
-
-		setContent: function (slide, content) {
-			var self = this;
-
-			if (self.isClosing) {
-				return;
-			}
-
-			self.hideLoading(slide);
-
-			if (slide.$content) {
-				$.modulaFancybox.stop(slide.$content);
-			}
-
-			slide.$slide.empty();
-
-			// If content is a jQuery object, then it will be moved to the slide.
-			// The placeholder is created so we will know where to put it back.
-			if (isQuery(content) && content.parent().length) {
-				// Make sure content is not already moved to fancyBox
-				if (
-					content.hasClass('modula-fancybox-content') ||
-					content.parent().hasClass('modula-fancybox-content')
-				) {
-					content
-						.parents('.modula-fancybox-slide')
-						.trigger('onReset');
-				}
-
-				// Create temporary element marking original place of the content
-				slide.$placeholder = $('<div>').hide().insertAfter(content);
-
-				// Make sure content is visible
-				content.css('display', 'inline-block');
-			} else if (!slide.hasError) {
-				// If content is just a plain text, try to convert it to html
-				if ($.type(content) === 'string') {
-					content = $('<div>').append($.trim(content)).contents();
-				}
-
-				// If "filter" option is provided, then filter content
-				if (slide.opts.filter) {
-					content = $('<div>').html(content).find(slide.opts.filter);
-				}
-			}
-
-			slide.$slide.one('onReset', function () {
-				// Pause all html5 video/audio
-				$(this).find('video,audio').trigger('pause');
-
-				// Put content back
-				if (slide.$placeholder) {
-					slide.$placeholder
-						.after(
-							content
-								.removeClass('modula-fancybox-content')
-								.hide()
-						)
-						.remove();
-
-					slide.$placeholder = null;
-				}
-
-				// Remove custom close button
-				if (slide.$smallBtn) {
-					slide.$smallBtn.remove();
-
-					slide.$smallBtn = null;
-				}
-
-				// Remove content and mark slide as not loaded
-				if (!slide.hasError) {
-					$(this).empty();
-
-					slide.isLoaded = false;
-					slide.isRevealed = false;
-				}
-			});
-
-			$(content).appendTo(slide.$slide);
-
-			if ($(content).is('video,audio')) {
-				$(content).addClass('modula-fancybox-video');
-
-				$(content).wrap('<div></div>');
-
-				slide.contentType = 'video';
-
-				slide.opts.width = slide.opts.width || $(content).attr('width');
-				slide.opts.height =
-					slide.opts.height || $(content).attr('height');
-			}
-
-			slide.$content = slide.$slide
-				.children()
-				.filter(
-					'div,form,main,video,audio,article,.modula-fancybox-content'
-				)
-				.first();
-
-			slide.$content.siblings().hide();
-
-			// Re-check if there is a valid content
-			// (in some cases, ajax response can contain various elements or plain text)
-			if (!slide.$content.length) {
-				slide.$content = slide.$slide
-					.wrapInner('<div></div>')
-					.children()
-					.first();
-			}
-
-			slide.$content.addClass('modula-fancybox-content');
-
-			slide.$slide.addClass(
-				'modula-fancybox-slide--' + slide.contentType
-			);
-
-			self.afterLoad(slide);
-		},
-
-		// Display error message
-		// =====================
-
-		setError: function (slide) {
-			slide.hasError = true;
-
-			slide.$slide
-				.trigger('onReset')
-				.removeClass('modula-fancybox-slide--' + slide.contentType)
-				.addClass('modula-fancybox-slide--error');
-
-			slide.contentType = 'html';
-
-			this.setContent(slide, this.translate(slide, slide.opts.errorTpl));
-
-			if (slide.pos === this.currPos) {
-				this.isAnimating = false;
-			}
-		},
-
-		// Show loading icon inside the slide
-		// ==================================
-
-		showLoading: function (slide) {
-			var self = this;
-
-			slide = slide || self.current;
-
-			if (slide && !slide.$spinner) {
-				slide.$spinner = $(self.translate(self, self.opts.spinnerTpl))
-					.appendTo(slide.$slide)
-					.hide()
-					.fadeIn('fast');
-			}
-		},
-
-		// Remove loading icon from the slide
-		// ==================================
-
-		hideLoading: function (slide) {
-			var self = this;
-
-			slide = slide || self.current;
-
-			if (slide && slide.$spinner) {
-				slide.$spinner.stop().remove();
-
-				delete slide.$spinner;
-			}
-		},
-
-		// Adjustments after slide content has been loaded
-		// ===============================================
-
-		afterLoad: function (slide) {
-			var self = this;
-
-			if (self.isClosing) {
-				return;
-			}
-
-			slide.isLoading = false;
-			slide.isLoaded = true;
-
-			self.trigger('afterLoad', slide);
-
-			self.hideLoading(slide);
-
-			// Add small close button
-			if (
-				slide.opts.smallBtn &&
-				(!slide.$smallBtn || !slide.$smallBtn.length)
-			) {
-				slide.$smallBtn = $(
-					self.translate(slide, slide.opts.btnTpl.smallBtn)
-				).appendTo(slide.$content);
-			}
-
-			// Disable right click
-			if (slide.opts.protect && slide.$content && !slide.hasError) {
-				slide.$content.on('contextmenu.fb', function (e) {
-					if (e.button == 2) {
-						e.preventDefault();
-					}
-
-					return true;
-				});
-
-				// Add fake element on top of the image
-				// This makes a bit harder for user to select image
-				if (slide.type === 'image') {
-					$('<div class="modula-fancybox-spaceball"></div>').appendTo(
-						slide.$content
-					);
-				}
-			}
-
-			self.adjustCaption(slide);
-
-			self.adjustLayout(slide);
-
-			if (slide.pos === self.currPos) {
-				self.updateCursor();
-			}
-
-			self.revealContent(slide);
-		},
-
-		// Prevent caption overlap,
-		// fix css inconsistency across browsers
-		// =====================================
-
-		adjustCaption: function (slide) {
-			var self = this,
-				current = slide || self.current,
-				caption = current.opts.caption,
-				preventOverlap = current.opts.preventCaptionOverlap,
-				$caption = self.$refs.caption,
-				$clone,
-				captionH = false;
-
-			$caption.toggleClass(
-				'modula-fancybox-caption--separate',
-				preventOverlap
-			);
-
-			if (preventOverlap && caption && caption.length) {
-				if (current.pos !== self.currPos) {
-					$clone = $caption.clone().appendTo($caption.parent());
-
-					$clone.children().eq(0).empty().html(caption);
-
-					captionH = $clone.outerHeight(true);
-
-					$clone.empty().remove();
-				} else if (self.$caption) {
-					captionH = self.$caption.outerHeight(true);
-				}
-
-				current.$slide.css('padding-bottom', captionH || '');
-			}
-		},
-
-		// Simple hack to fix inconsistency across browsers, described here (affects Edge, too):
-		// https://bugzilla.mozilla.org/show_bug.cgi?id=748518
-		// ====================================================================================
-
-		adjustLayout: function (slide) {
-			var self = this,
-				current = slide || self.current,
-				scrollHeight,
-				marginBottom,
-				inlinePadding,
-				actualPadding;
-
-			if (current.isLoaded && current.opts.disableLayoutFix !== true) {
-				current.$content.css('margin-bottom', '');
-
-				// If we would always set margin-bottom for the content,
-				// then it would potentially break vertical align
-				if (
-					current.$content.outerHeight() >
-					current.$slide.height() + 0.5
-				) {
-					inlinePadding = current.$slide[0].style['padding-bottom'];
-					actualPadding = current.$slide.css('padding-bottom');
-
-					if (parseFloat(actualPadding) > 0) {
-						scrollHeight = current.$slide[0].scrollHeight;
-
-						current.$slide.css('padding-bottom', 0);
-
-						if (
-							Math.abs(
-								scrollHeight - current.$slide[0].scrollHeight
-							) < 1
-						) {
-							marginBottom = actualPadding;
-						}
-
-						current.$slide.css('padding-bottom', inlinePadding);
-					}
-				}
-
-				current.$content.css('margin-bottom', marginBottom);
-			}
-		},
-
-		// Make content visible
-		// This method is called right after content has been loaded or
-		// user navigates gallery and transition should start
-		// ============================================================
-
-		revealContent: function (slide) {
-			var self = this,
-				$slide = slide.$slide,
-				end = false,
-				start = false,
-				isMoved = self.isMoved(slide),
-				isRevealed = slide.isRevealed,
-				effect,
-				effectClassName,
-				duration,
-				opacity;
-
-			slide.isRevealed = true;
-
-			effect =
-				slide.opts[
-					self.firstRun ? 'animationEffect' : 'transitionEffect'
-				];
-			duration =
-				slide.opts[
-					self.firstRun ? 'animationDuration' : 'transitionDuration'
-				];
-
-			duration = parseInt(
-				slide.forcedDuration === undefined
-					? duration
-					: slide.forcedDuration,
-				10
-			);
-
-			if (isMoved || slide.pos !== self.currPos || !duration) {
-				effect = false;
-			}
-
-			// Check if can zoom
-			if (effect === 'zoom') {
-				if (
-					slide.pos === self.currPos &&
-					duration &&
-					slide.type === 'image' &&
-					!slide.hasError &&
-					(start = self.getThumbPos(slide))
-				) {
-					end = self.getFitPos(slide);
-				} else {
-					effect = 'fade';
-				}
-			}
-
-			// Zoom animation
-			// ==============
-			if (effect === 'zoom') {
-				self.isAnimating = true;
-
-				end.scaleX = end.width / start.width;
-				end.scaleY = end.height / start.height;
-
-				// Check if we need to animate opacity
-				opacity = slide.opts.zoomOpacity;
-
-				if (opacity == 'auto') {
-					opacity =
-						Math.abs(
-							slide.width / slide.height -
-								start.width / start.height
-						) > 0.1;
-				}
-
-				if (opacity) {
-					start.opacity = 0.1;
-					end.opacity = 1;
-				}
-
-				// Draw image at start position
-				$.modulaFancybox.setTranslate(
-					slide.$content.removeClass('modula-fancybox-is-hidden'),
-					start
-				);
-
-				forceRedraw(slide.$content);
-
-				// Start animation
-				$.modulaFancybox.animate(
-					slide.$content,
-					end,
-					duration,
-					function () {
-						self.isAnimating = false;
-
-						self.complete();
-					}
-				);
-
-				return;
-			}
-
-			self.updateSlide(slide);
-
-			// Simply show content if no effect
-			// ================================
-			if (!effect) {
-				slide.$content.removeClass('modula-fancybox-is-hidden');
-
-				if (
-					!isRevealed &&
-					isMoved &&
-					slide.type === 'image' &&
-					!slide.hasError
-				) {
-					slide.$content.hide().fadeIn('fast');
-				}
-
-				if (slide.pos === self.currPos) {
-					self.complete();
-				}
-
-				return;
-			}
-
-			// Prepare for CSS transiton
-			// =========================
-			$.modulaFancybox.stop($slide);
-
-			//effectClassName = "fancybox-animated fancybox-slide--" + (slide.pos >= self.prevPos ? "next" : "previous") + " fancybox-fx-" + effect;
-			effectClassName =
-				'modula-fancybox-slide--' +
-				(slide.pos >= self.prevPos ? 'next' : 'previous') +
-				' modula-fancybox-animated modula-fancybox-fx-' +
-				effect;
-
-			$slide
-				.addClass(effectClassName)
-				.removeClass('modula-fancybox-slide--current'); //.addClass(effectClassName);
-
-			slide.$content.removeClass('modula-fancybox-is-hidden');
-
-			// Force reflow
-			forceRedraw($slide);
-
-			if (slide.type !== 'image') {
-				slide.$content.hide().show(0);
-			}
-
-			$.modulaFancybox.animate(
-				$slide,
-				'modula-fancybox-slide--current',
-				duration,
-				function () {
-					$slide.removeClass(effectClassName).css({
-						transform: '',
-						opacity: '',
-					});
-
-					if (slide.pos === self.currPos) {
-						self.complete();
-					}
-				},
-				true
-			);
-		},
-
-		// Check if we can and have to zoom from thumbnail
-		//================================================
-
-		getThumbPos: function (slide) {
-			var rez = false,
-				$thumb = slide.$thumb,
-				thumbPos,
-				btw,
-				brw,
-				bbw,
-				blw;
-
-			if (!$thumb || !inViewport($thumb)) {
-				return false;
-			}
-
-			thumbPos = $.modulaFancybox.getTranslate($thumb);
-
-			btw = parseFloat($thumb.css('border-top-width') || 0);
-			brw = parseFloat($thumb.css('border-right-width') || 0);
-			bbw = parseFloat($thumb.css('border-bottom-width') || 0);
-			blw = parseFloat($thumb.css('border-left-width') || 0);
-
-			rez = {
-				top: thumbPos.top + btw,
-				left: thumbPos.left + blw,
-				width: thumbPos.width - brw - blw,
-				height: thumbPos.height - btw - bbw,
-				scaleX: 1,
-				scaleY: 1,
-			};
-
-			return thumbPos.width > 0 && thumbPos.height > 0 ? rez : false;
-		},
-
-		// Final adjustments after current gallery item is moved to position
-		// and it`s content is loaded
-		// ==================================================================
-
-		complete: function () {
-			var self = this,
-				current = self.current,
-				slides = {},
-				$el;
-
-			if (self.isMoved() || !current.isLoaded) {
-				return;
-			}
-
-			if (!current.isComplete) {
-				current.isComplete = true;
-
-				current.$slide.siblings().trigger('onReset');
-
-				self.preload('inline');
-
-				// Trigger any CSS transiton inside the slide
-				forceRedraw(current.$slide);
-
-				current.$slide.addClass('modula-fancybox-slide--complete');
-
-				// Remove unnecessary slides
-				$.each(self.slides, function (key, slide) {
-					if (
-						slide.pos >= self.currPos - 1 &&
-						slide.pos <= self.currPos + 1
-					) {
-						slides[slide.pos] = slide;
-					} else if (slide) {
-						$.modulaFancybox.stop(slide.$slide);
-
-						slide.$slide.off().remove();
-					}
-				});
-
-				self.slides = slides;
-			}
-
-			self.isAnimating = false;
-
-			self.updateCursor();
-
-			self.trigger('afterShow');
-
-			// Autoplay first html5 video/audio
-			if (!!current.opts.video.autoStart) {
-				current.$slide
-					.find('video,audio')
-					.filter(':visible:first')
-					.trigger('play')
-					.one('ended', function () {
-						if (Document.exitFullscreen) {
-							Document.exitFullscreen();
-						} else if (this.webkitExitFullscreen) {
-							this.webkitExitFullscreen();
-						}
-
-						self.next();
-					});
-			}
-
-			// Try to focus on the first focusable element
-			if (current.opts.autoFocus && current.contentType === 'html') {
-				// Look for the first input with autofocus attribute
-				$el = current.$content.find(
-					'input[autofocus]:enabled:visible:first'
-				);
-
-				if ($el.length) {
-					$el.trigger('focus');
-				} else {
-					self.focus(null, true);
-				}
-			}
-
-			// Avoid jumping
-			current.$slide.scrollTop(0).scrollLeft(0);
-		},
-
-		// Preload next and previous slides
-		// ================================
-
-		preload: function (type) {
-			var self = this,
-				prev,
-				next;
-
-			if (self.group.length < 2) {
-				return;
-			}
-
-			next = self.slides[self.currPos + 1];
-			prev = self.slides[self.currPos - 1];
-
-			if (prev && prev.type === type) {
-				self.loadSlide(prev);
-			}
-
-			if (next && next.type === type) {
-				self.loadSlide(next);
-			}
-		},
-
-		// Try to find and focus on the first focusable element
-		// ====================================================
-
-		focus: function (e, firstRun) {
-			var self = this,
-				focusableStr = [
-					'a[href]',
-					'area[href]',
-					'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-					'select:not([disabled]):not([aria-hidden])',
-					'textarea:not([disabled]):not([aria-hidden])',
-					'button:not([disabled]):not([aria-hidden])',
-					'iframe',
-					'object',
-					'embed',
-					'video',
-					'audio',
-					'[contenteditable]',
-					'[tabindex]:not([tabindex^="-"])',
-				].join(','),
-				focusableItems,
-				focusedItemIndex;
-
-			if (self.isClosing) {
-				return;
-			}
-
-			if (e || !self.current || !self.current.isComplete) {
-				// Focus on any element inside fancybox
-				focusableItems = self.$refs.container.find('*:visible');
-			} else {
-				// Focus inside current slide
-				focusableItems = self.current.$slide.find(
-					'*:visible' +
-						(firstRun ? ':not(.modula-fancybox-close-small)' : '')
-				);
-			}
-
-			focusableItems = focusableItems
-				.filter(focusableStr)
-				.filter(function () {
-					return (
-						$(this).css('visibility') !== 'hidden' &&
-						!$(this).hasClass('disabled')
-					);
-				});
-
-			if (focusableItems.length) {
-				focusedItemIndex = focusableItems.index(document.activeElement);
-
-				if (e && e.shiftKey) {
-					// Back tab
-					if (focusedItemIndex < 0 || focusedItemIndex == 0) {
-						e.preventDefault();
-
-						focusableItems
-							.eq(focusableItems.length - 1)
-							.trigger('focus');
-					}
-				} else {
-					// Outside or Forward tab
-					if (
-						focusedItemIndex < 0 ||
-						focusedItemIndex == focusableItems.length - 1
-					) {
-						if (e) {
-							e.preventDefault();
-						}
-
-						focusableItems.eq(0).trigger('focus');
-					}
-				}
-			} else {
-				self.$refs.container.trigger('focus');
-			}
-		},
-
-		// Activates current instance - brings container to the front and enables keyboard,
-		// notifies other instances about deactivating
-		// =================================================================================
-
-		activate: function () {
-			var self = this;
-
-			// Deactivate all instances
-			$('.modula-fancybox-container').each(function () {
-				var instance = $(this).data('modulaFancyBox');
-
-				// Skip self and closing instances
-				if (
-					instance &&
-					instance.id !== self.id &&
-					!instance.isClosing
-				) {
-					instance.trigger('onDeactivate');
-
-					instance.removeEvents();
-
-					instance.isVisible = false;
-				}
-			});
-
-			self.isVisible = true;
-
-			if (self.current || self.isIdle) {
-				self.update();
-
-				self.updateControls();
-			}
-
-			self.trigger('onActivate');
-
-			self.addEvents();
-		},
-
-		// Start closing procedure
-		// This will start "zoom-out" animation if needed and clean everything up afterwards
-		// =================================================================================
-
-		close: function (e, d) {
-			var self = this,
-				current = self.current,
-				effect,
-				duration,
-				$content,
-				domRect,
-				opacity,
-				start,
-				end;
-
-			var done = function () {
-				self.cleanUp(e);
-			};
-
-			if (self.isClosing) {
-				return false;
-			}
-
-			self.isClosing = true;
-
-			// If beforeClose callback prevents closing, make sure content is centered
-			if (self.trigger('beforeClose', e) === false) {
-				self.isClosing = false;
-
-				requestAFrame(function () {
-					self.update();
-				});
-
-				return false;
-			}
-
-			// Remove all events
-			// If there are multiple instances, they will be set again by "activate" method
-			self.removeEvents();
-
-			$content = current.$content;
-			effect = current.opts.animationEffect;
-			duration = $.isNumeric(d)
-				? d
-				: effect
-				? current.opts.animationDuration
-				: 0;
-
-			current.$slide.removeClass(
-				'modula-fancybox-slide--complete modula-fancybox-slide--next modula-fancybox-slide--previous modula-fancybox-animated'
-			);
-
-			if (e !== true) {
-				$.modulaFancybox.stop(current.$slide);
-			} else {
-				effect = false;
-			}
-
-			// Remove other slides
-			current.$slide.siblings().trigger('onReset').remove();
-
-			// Trigger animations
-			if (duration) {
-				self.$refs.container
-					.removeClass('modula-fancybox-is-open')
-					.addClass('modula-fancybox-is-closing')
-					.css('transition-duration', duration + 'ms');
-			}
-
-			// Clean up
-			self.hideLoading(current);
-
-			self.hideControls(true);
-
-			self.updateCursor();
-
-			// Check if possible to zoom-out
-			if (
-				effect === 'zoom' &&
-				!(
-					$content &&
-					duration &&
-					current.type === 'image' &&
-					!self.isMoved() &&
-					!current.hasError &&
-					(end = self.getThumbPos(current))
-				)
-			) {
-				effect = 'fade';
-			}
-
-			if (effect === 'zoom') {
-				$.modulaFancybox.stop($content);
-
-				domRect = $.modulaFancybox.getTranslate($content);
-
-				start = {
-					top: domRect.top,
-					left: domRect.left,
-					scaleX: domRect.width / end.width,
-					scaleY: domRect.height / end.height,
-					width: end.width,
-					height: end.height,
-				};
-
-				// Check if we need to animate opacity
-				opacity = current.opts.zoomOpacity;
-
-				if (opacity == 'auto') {
-					opacity =
-						Math.abs(
-							current.width / current.height -
-								end.width / end.height
-						) > 0.1;
-				}
-
-				if (opacity) {
-					end.opacity = 0;
-				}
-
-				$.modulaFancybox.setTranslate($content, start);
-
-				forceRedraw($content);
-
-				$.modulaFancybox.animate($content, end, duration, done);
-
-				return true;
-			}
-
-			if (effect && duration) {
-				$.modulaFancybox.animate(
-					current.$slide
-						.addClass('modula-fancybox-slide--previous')
-						.removeClass('modula-fancybox-slide--current'),
-					'modula-fancybox-animated modula-fancybox-fx-' + effect,
-					duration,
-					done
-				);
-			} else {
-				// If skip animation
-				if (e === true) {
-					setTimeout(done, duration);
-				} else {
-					done();
-				}
-			}
-
-			return true;
-		},
-
-		// Final adjustments after removing the instance
-		// =============================================
-
-		cleanUp: function (e) {
-			var self = this,
-				instance,
-				$focus = self.current.opts.$orig,
-				x,
-				y;
-
-			self.current.$slide.trigger('onReset');
-
-			self.$refs.container.empty().remove();
-
-			self.trigger('afterClose', e);
-
-			// Place back focus
-			if (!!self.current.opts.backFocus) {
-				if (!$focus || !$focus.length || !$focus.is(':visible')) {
-					$focus = self.$trigger;
-				}
-
-				if ($focus && $focus.length) {
-					x = window.scrollX;
-					y = window.scrollY;
-
-					$focus.trigger('focus');
-
-					$('html, body').scrollTop(y).scrollLeft(x);
-				}
-			}
-
-			self.current = null;
-
-			// Check if there are other instances
-			instance = $.modulaFancybox.getInstance();
-
-			if (instance) {
-				instance.activate();
-			} else {
-				$('body').removeClass(
-					'modula-fancybox-active compensate-for-scrollbar'
-				);
-
-				$('#modula-fancybox-style-noscroll').remove();
-			}
-		},
-
-		// Call callback and trigger an event
-		// ==================================
-
-		trigger: function (name, slide) {
-			var args = Array.prototype.slice.call(arguments, 1),
-				self = this,
-				obj = slide && slide.opts ? slide : self.current,
-				rez;
-
-			if (obj) {
-				args.unshift(obj);
-			} else {
-				obj = self;
-			}
-
-			args.unshift(self);
-
-			if ($.isFunction(obj.opts[name])) {
-				rez = obj.opts[name].apply(obj, args);
-			}
-
-			if (rez === false) {
-				return rez;
-			}
-
-			if (name === 'afterClose' || !self.$refs) {
-				$D.trigger(name + '.fb', args);
-			} else {
-				self.$refs.container.trigger(name + '.fb', args);
-			}
-		},
-
-		// Update infobar values, navigation button states and reveal caption
-		// ==================================================================
-
-		updateControls: function () {
-			var self = this,
-				current = self.current,
-				index = current.index,
-				$container = self.$refs.container,
-				$caption = self.$refs.caption,
-				caption = current.opts.caption;
-
-			// Recalculate content dimensions
-			current.$slide.trigger('refresh');
-
-			// Set caption
-			if (caption && caption.length) {
-				self.$caption = $caption;
-
-				$caption
-					.children()
-					.eq(0)
-					.html(
-						'<p id="modula-caption-' +
-							current.index +
-							'" class="modula-fancybox-caption__text">' +
-							caption +
-							'</p>'
-					);
-			} else {
-				self.$caption = null;
-			}
-
-			if (!self.hasHiddenControls && !self.isIdle) {
-				self.showControls();
-			}
-
-			// Update info and navigation elements
-			$container.find('[data-fancybox-count]').html(self.group.length);
-			$container.find('[data-fancybox-index]').html(index + 1);
-
-			$container
-				.find('[data-fancybox-prev]')
-				.prop('disabled', !current.opts.loop && index <= 0);
-			$container
-				.find('[data-fancybox-next]')
-				.prop(
-					'disabled',
-					!current.opts.loop && index >= self.group.length - 1
-				);
-
-			if (current.type === 'image') {
-				// Re-enable buttons; update download button source
-				$container
-					.find('[data-fancybox-zoom]')
-					.show()
-					.end()
-					.find('[data-fancybox-download]')
-					.attr('href', current.opts.image.src || current.src)
-					.show();
-			} else if (current.opts.toolbar) {
-				$container
-					.find('[data-fancybox-download],[data-fancybox-zoom]')
-					.hide();
-			}
-
-			// Make sure focus is not on disabled button/element
-			if ($(document.activeElement).is(':hidden,[disabled]')) {
-				self.$refs.container.trigger('focus');
-			}
-		},
-
-		// Hide toolbar and caption
-		// ========================
-
-		hideControls: function (andCaption) {
-			var self = this,
-				arr = ['infobar', 'toolbar', 'nav'];
-
-			if (andCaption || !self.current.opts.preventCaptionOverlap) {
-				arr.push('caption');
-			}
-
-			this.$refs.container.removeClass(
-				arr
-					.map(function (i) {
-						return 'modula-fancybox-show-' + i;
-					})
-					.join(' ')
-			);
-
-			this.hasHiddenControls = true;
-		},
-
-		showControls: function () {
-			var self = this,
-				opts = self.current ? self.current.opts : self.opts,
-				$container = self.$refs.container;
-
-			self.hasHiddenControls = false;
-			self.idleSecondsCounter = 0;
-
-			$container
-				.toggleClass(
-					'modula-fancybox-show-toolbar',
-					!!(opts.toolbar && opts.buttons)
-				)
-				.toggleClass(
-					'modula-fancybox-show-infobar',
-					!!(opts.infobar && self.group.length > 1)
-				)
-				.toggleClass('modula-fancybox-show-caption', !!self.$caption)
-				.toggleClass(
-					'modula-fancybox-show-nav',
-					!!(opts.arrows && self.group.length > 1)
-				)
-				.toggleClass('modula-fancybox-is-modal', !!opts.modal);
-		},
-
-		// Toggle toolbar and caption
-		// ==========================
-
-		toggleControls: function () {
-			if (this.hasHiddenControls) {
-				this.showControls();
-			} else {
-				this.hideControls();
-			}
-		},
-	});
-
-	$.modulaFancybox = {
-		version: '3.5.7',
-		defaults: defaults,
-
-		// Get current instance and execute a command.
-		//
-		// Examples of usage:
-		//
-		//   $instance = $.modulaFancybox.getInstance();
-		//   $.modulaFancybox.getInstance().jumpTo( 1 );
-		//   $.modulaFancybox.getInstance( 'jumpTo', 1 );
-		//   $.modulaFancybox.getInstance( function() {
-		//       console.info( this.currIndex );
-		//   });
-		// ======================================================
-
-		getInstance: function (command) {
-			var instance = $(
-					'.modula-fancybox-container:not(".modula-fancybox-is-closing"):last'
-				).data('modulaFancyBox'),
-				args = Array.prototype.slice.call(arguments, 1);
-
-			if (instance instanceof modulaFancyBox) {
-				if ($.type(command) === 'string') {
-					instance[command].apply(instance, args);
-				} else if ($.type(command) === 'function') {
-					command.apply(instance, args);
-				}
-
-				return instance;
-			}
-
-			return false;
-		},
-
-		// Create new instance
-		// ===================
-
-		open: function (items, opts, index) {
-			return new modulaFancyBox(items, opts, index);
-		},
-
-		// Close current or all instances
-		// ==============================
-
-		close: function (all) {
-			var instance = this.getInstance();
-
-			if (instance) {
-				instance.close();
-
-				// Try to find and close next instance
-				if (all === true) {
-					this.close(all);
-				}
-			}
-		},
-
-		// Close all instances and unbind all events
-		// =========================================
-
-		destroy: function () {
-			this.close(true);
-
-			$D.add('body').off('click.fb-start', '**');
-		},
-
-		// Try to detect mobile devices
-		// ============================
-
-		isMobile:
-			/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-				navigator.userAgent
-			),
-
-		// Detect if 'translate3d' support is available
-		// ============================================
-
-		use3d: (function () {
-			var div = document.createElement('div');
-
-			return (
-				window.getComputedStyle &&
-				window.getComputedStyle(div) &&
-				window.getComputedStyle(div).getPropertyValue('transform') &&
-				!(document.documentMode && document.documentMode < 11)
-			);
-		})(),
-
-		// Helper function to get current visual state of an element
-		// returns array[ top, left, horizontal-scale, vertical-scale, opacity ]
-		// =====================================================================
-
-		getTranslate: function ($el) {
-			var domRect;
-
-			if (!$el || !$el.length) {
-				return false;
-			}
-
-			domRect = $el[0].getBoundingClientRect();
-
-			return {
-				top: domRect.top || 0,
-				left: domRect.left || 0,
-				width: domRect.width,
-				height: domRect.height,
-				opacity: parseFloat($el.css('opacity')),
-			};
-		},
-
-		// Shortcut for setting "translate3d" properties for element
-		// Can set be used to set opacity, too
-		// ========================================================
-
-		setTranslate: function ($el, props) {
-			var str = '',
-				css = {};
-
-			if (!$el || !props) {
-				return;
-			}
-
-			if (props.left !== undefined || props.top !== undefined) {
-				str =
-					(props.left === undefined
-						? $el.position().left
-						: props.left) +
-					'px, ' +
-					(props.top === undefined ? $el.position().top : props.top) +
-					'px';
-
-				if (this.use3d) {
-					str = 'translate3d(' + str + ', 0px)';
-				} else {
-					str = 'translate(' + str + ')';
-				}
-			}
-
-			if (props.scaleX !== undefined && props.scaleY !== undefined) {
-				str += ' scale(' + props.scaleX + ', ' + props.scaleY + ')';
-			} else if (props.scaleX !== undefined) {
-				str += ' scaleX(' + props.scaleX + ')';
-			}
-
-			if (str.length) {
-				css.transform = str;
-			}
-
-			if (props.opacity !== undefined) {
-				css.opacity = props.opacity;
-			}
-
-			if (props.width !== undefined) {
-				css.width = props.width;
-			}
-
-			if (props.height !== undefined) {
-				css.height = props.height;
-			}
-
-			return $el.css(css);
-		},
-
-		// Simple CSS transition handler
-		// =============================
-
-		animate: function ($el, to, duration, callback, leaveAnimationName) {
-			var self = this,
-				from;
-
-			if ($.isFunction(duration)) {
-				callback = duration;
-				duration = null;
-			}
-
-			self.stop($el);
-
-			from = self.getTranslate($el);
-
-			$el.on(transitionEnd, function (e) {
-				// Skip events from child elements and z-index change
-				if (
-					e &&
-					e.originalEvent &&
-					(!$el.is(e.originalEvent.target) ||
-						e.originalEvent.propertyName == 'z-index')
-				) {
-					return;
-				}
-
-				self.stop($el);
-
-				if ($.isNumeric(duration)) {
-					$el.css('transition-duration', '');
-				}
-
-				if ($.isPlainObject(to)) {
-					if (to.scaleX !== undefined && to.scaleY !== undefined) {
-						self.setTranslate($el, {
-							top: to.top,
-							left: to.left,
-							width: from.width * to.scaleX,
-							height: from.height * to.scaleY,
-							scaleX: 1,
-							scaleY: 1,
-						});
-					}
-				} else if (leaveAnimationName !== true) {
-					$el.removeClass(to);
-				}
-
-				if ($.isFunction(callback)) {
-					callback(e);
-				}
-			});
-
-			if ($.isNumeric(duration)) {
-				$el.css('transition-duration', duration + 'ms');
-			}
-
-			// Start animation by changing CSS properties or class name
-			if ($.isPlainObject(to)) {
-				if (to.scaleX !== undefined && to.scaleY !== undefined) {
-					delete to.width;
-					delete to.height;
-
-					if ($el.parent().hasClass('modula-fancybox-slide--image')) {
-						$el.parent().addClass('modula-fancybox-is-scaling');
-					}
-				}
-
-				$.modulaFancybox.setTranslate($el, to);
-			} else {
-				$el.addClass(to);
-			}
-
-			// Make sure that `transitionend` callback gets fired
-			$el.data(
-				'timer',
-				setTimeout(function () {
-					$el.trigger(transitionEnd);
-				}, duration + 33)
-			);
-		},
-
-		stop: function ($el, callCallback) {
-			if ($el && $el.length) {
-				clearTimeout($el.data('timer'));
-
-				if (callCallback) {
-					$el.trigger(transitionEnd);
-				}
-
-				$el.off(transitionEnd).css('transition-duration', '');
-
-				$el.parent().removeClass('modula-fancybox-is-scaling');
-			}
-		},
-	};
-
-	// Default click handler for "fancyboxed" links
-	// ============================================
-
-	function _run(e, opts) {
-		var items = [],
-			index = 0,
-			$target,
-			value,
-			instance;
-
-		// Avoid opening multiple times
-		if (e && e.isDefaultPrevented()) {
-			return;
-		}
-
-		e.preventDefault();
-
-		opts = opts || {};
-
-		if (e && e.data) {
-			opts = mergeOpts(e.data.options, opts);
-		}
-
-		$target = opts.$target || $(e.currentTarget).trigger('blur');
-		instance = $.modulaFancybox.getInstance();
-
-		if (instance && instance.$trigger && instance.$trigger.is($target)) {
-			return;
-		}
-
-		if (opts.selector) {
-			items = $(opts.selector);
-		} else {
-			// Get all related items and find index for clicked one
-			value = $target.attr('data-fancybox') || '';
-
-			if (value) {
-				items = e.data ? e.data.items : [];
-				items = items.length
-					? items.filter('[data-fancybox="' + value + '"]')
-					: $('[data-fancybox="' + value + '"]');
-			} else {
-				items = [$target];
-			}
-		}
-
-		index = $(items).index($target);
-
-		// Sometimes current item can not be found
-		if (index < 0) {
-			index = 0;
-		}
-
-		instance = $.modulaFancybox.open(items, opts, index);
-
-		// Save last active element
-		instance.$trigger = $target;
-	}
-
-	// Create a jQuery plugin
-	// ======================
-
-	$.fn.modulaFancybox = function (options) {
-		var selector;
-
-		options = options || {};
-		selector = options.selector || false;
-
-		if (selector) {
-			// Use body element instead of document so it executes first
-			$('body').off('click.fb-start', selector).on(
-				'click.fb-start',
-				selector,
-				{
-					options: options,
-				},
-				_run
-			);
-		} else {
-			this.off('click.fb-start').on(
-				'click.fb-start',
-				{
-					items: this,
-					options: options,
-				},
-				_run
-			);
-		}
-
-		return this;
-	};
-
-	// Self initializing plugin for all elements having `data-fancybox` attribute
-	// ==========================================================================
-
-	$D.on('click.fb-start', '[data-fancybox]', _run);
-
-	// Enable "trigger elements"
-	// =========================
-
-	$D.on('click.fb-start', '[data-fancybox-trigger]', function (e) {
-		$('[data-fancybox="' + $(this).attr('data-fancybox-trigger') + '"]')
-			.eq($(this).attr('data-fancybox-index') || 0)
-			.trigger('click.fb-start', {
-				$trigger: $(this),
-			});
-	});
-
-	// Track focus event for better accessibility styling
-	// ==================================================
-	(function () {
-		var buttonStr = '.modula-fancybox-button',
-			focusStr = 'modula-fancybox-focus',
-			$pressed = null;
-
-		$D.on('mousedown mouseup focus blur', buttonStr, function (e) {
-			switch (e.type) {
-				case 'mousedown':
-					$pressed = $(this);
-					break;
-				case 'mouseup':
-					$pressed = null;
-					break;
-				case 'focusin':
-					$(buttonStr).removeClass(focusStr);
-
-					if (!$(this).is($pressed) && !$(this).is('[disabled]')) {
-						$(this).addClass(focusStr);
-					}
-					break;
-				case 'focusout':
-					$(buttonStr).removeClass(focusStr);
-					break;
-			}
-		});
-	})();
-})(window, document, jQuery);
-// ==========================================================================
-//
-// Media
-// Adds additional media type support
-//
-// ==========================================================================
-(function ($) {
-	'use strict';
-
-	// Object containing properties for each media type
-	var defaults = {
-		youtube: {
-			matcher:
-				/(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(watch\?(.*&)?v=|v\/|u\/|embed\/?)?(videoseries\?list=(.*)|[\w-]{11}|\?listType=(.*)&list=(.*))(.*)/i,
-			params: {
-				autoplay: 1,
-				autohide: 1,
-				fs: 1,
-				rel: 0,
-				hd: 1,
-				wmode: 'transparent',
-				enablejsapi: 1,
-				html5: 1,
-			},
-			paramPlace: 8,
-			type: 'iframe',
-			url: 'https://www.youtube-nocookie.com/embed/$4',
-			thumb: 'https://img.youtube.com/vi/$4/hqdefault.jpg',
-		},
-
-		vimeo: {
-			matcher: /^.+vimeo.com\/(.*\/)?([\d]+)(.*)?/,
-			params: {
-				autoplay: 1,
-				hd: 1,
-				show_title: 1,
-				show_byline: 1,
-				show_portrait: 0,
-				fullscreen: 1,
-			},
-			paramPlace: 3,
-			type: 'iframe',
-			url: '//player.vimeo.com/video/$2',
-		},
-
-		instagram: {
-			matcher: /(instagr\.am|instagram\.com)\/p\/([a-zA-Z0-9_\-]+)\/?/i,
-			type: 'image',
-			url: '//$1/p/$2/media/?size=l',
-		},
-
-		// Examples:
-		// http://maps.google.com/?ll=48.857995,2.294297&spn=0.007666,0.021136&t=m&z=16
-		// https://www.google.com/maps/@37.7852006,-122.4146355,14.65z
-		// https://www.google.com/maps/@52.2111123,2.9237542,6.61z?hl=en
-		// https://www.google.com/maps/place/Googleplex/@37.4220041,-122.0833494,17z/data=!4m5!3m4!1s0x0:0x6c296c66619367e0!8m2!3d37.4219998!4d-122.0840572
-		gmap_place: {
-			matcher:
-				/(maps\.)?google\.([a-z]{2,3}(\.[a-z]{2})?)\/(((maps\/(place\/(.*)\/)?\@(.*),(\d+.?\d+?)z))|(\?ll=))(.*)?/i,
-			type: 'iframe',
-			url: function (rez) {
-				return (
-					'//maps.google.' +
-					rez[2] +
-					'/?ll=' +
-					(rez[9]
-						? rez[9] +
-						  '&z=' +
-						  Math.floor(rez[10]) +
-						  (rez[12] ? rez[12].replace(/^\//, '&') : '')
-						: rez[12] + ''
-					).replace(/\?/, '&') +
-					'&output=' +
-					(rez[12] && rez[12].indexOf('layer=c') > 0
-						? 'svembed'
-						: 'embed')
-				);
-			},
-		},
-
-		// Examples:
-		// https://www.google.com/maps/search/Empire+State+Building/
-		// https://www.google.com/maps/search/?api=1&query=centurylink+field
-		// https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393
-		gmap_search: {
-			matcher:
-				/(maps\.)?google\.([a-z]{2,3}(\.[a-z]{2})?)\/(maps\/search\/)(.*)/i,
-			type: 'iframe',
-			url: function (rez) {
-				return (
-					'//maps.google.' +
-					rez[2] +
-					'/maps?q=' +
-					rez[5].replace('query=', 'q=').replace('api=1', '') +
-					'&output=embed'
-				);
-			},
-		},
-	};
-
-	// Formats matching url to final form
-	var format = function (url, rez, params) {
-		if (!url) {
-			return;
-		}
-
-		params = params || '';
-
-		if ($.type(params) === 'object') {
-			params = $.param(params, true);
-		}
-
-		$.each(rez, function (key, value) {
-			url = url.replace('$' + key, value || '');
-		});
-
-		if (params.length) {
-			url += (url.indexOf('?') > 0 ? '&' : '?') + params;
-		}
-
-		return url;
-	};
-
-	$(document).on('objectNeedsType.fb', function (e, instance, item) {
-		var url = item.src || '',
-			type = false,
-			media,
-			thumb,
-			rez,
-			params,
-			urlParams,
-			paramObj,
-			provider;
-
-		media = $.extend(true, {}, defaults, item.opts.media);
-
-		// Look for any matching media type
-		$.each(media, function (providerName, providerOpts) {
-			rez = url.match(providerOpts.matcher);
-
-			if (!rez) {
-				return;
-			}
-
-			type = providerOpts.type;
-			provider = providerName;
-			paramObj = {};
-
-			if (providerOpts.paramPlace && rez[providerOpts.paramPlace]) {
-				urlParams = rez[providerOpts.paramPlace];
-
-				if (urlParams[0] == '?') {
-					urlParams = urlParams.substring(1);
-				}
-
-				urlParams = urlParams.split('&');
-
-				for (var m = 0; m < urlParams.length; ++m) {
-					var p = urlParams[m].split('=', 2);
-
-					if (p.length == 2) {
-						paramObj[p[0]] = decodeURIComponent(
-							p[1].replace(/\+/g, ' ')
-						);
-					}
-				}
-			}
-
-			params = $.extend(
-				true,
-				{},
-				providerOpts.params,
-				item.opts[providerName],
-				paramObj
-			);
-
-			url =
-				$.type(providerOpts.url) === 'function'
-					? providerOpts.url.call(this, rez, params, item)
-					: format(providerOpts.url, rez, params);
-
-			thumb =
-				$.type(providerOpts.thumb) === 'function'
-					? providerOpts.thumb.call(this, rez, params, item)
-					: format(providerOpts.thumb, rez);
-
-			if (providerName === 'youtube') {
-				url = url.replace(/&t=(\d+)/, function (match, p1) {
-					return '&start=' + p1;
-				});
-			} else if (providerName === 'vimeo') {
-				url = url.replace('&%23', '#');
-			}
-
-			return false;
-		});
-
-		// If it is found, then change content type and update the url
-
-		if (type) {
-			if (
-				!item.opts.thumb &&
-				!(item.opts.$thumb && item.opts.$thumb.length)
-			) {
-				item.opts.thumb = thumb;
-			}
-
-			if (type === 'iframe') {
-				item.opts = $.extend(true, item.opts, {
-					iframe: {
-						preload: false,
-						attr: {
-							scrolling: 'no',
-						},
-					},
-				});
-			}
-
-			$.extend(item, {
-				type: type,
-				src: url,
-				origSrc: item.src,
-				contentSource: provider,
-				contentType:
-					type === 'image'
-						? 'image'
-						: provider == 'gmap_place' || provider == 'gmap_search'
-						? 'map'
-						: 'video',
-			});
-		} else if (url) {
-			item.type = item.opts.defaultType;
-		}
-	});
-
-	// Load YouTube/Video API on request to detect when video finished playing
-	var VideoAPILoader = {
-		youtube: {
-			src: 'https://www.youtube.com/iframe_api',
-			class: 'YT',
-			loading: false,
-			loaded: false,
-		},
-
-		vimeo: {
-			src: 'https://player.vimeo.com/api/player.js',
-			class: 'Vimeo',
-			loading: false,
-			loaded: false,
-		},
-
-		load: function (vendor) {
-			var _this = this,
-				script;
-
-			if (this[vendor].loaded) {
-				setTimeout(function () {
-					_this.done(vendor);
-				});
-				return;
-			}
-
-			if (this[vendor].loading) {
-				return;
-			}
-
-			this[vendor].loading = true;
-
-			script = document.createElement('script');
-			script.type = 'text/javascript';
-			script.src = this[vendor].src;
-
-			if (vendor === 'youtube') {
-				window.onYouTubeIframeAPIReady = function () {
-					_this[vendor].loaded = true;
-					_this.done(vendor);
-				};
-			} else {
-				script.onload = function () {
-					_this[vendor].loaded = true;
-					_this.done(vendor);
-				};
-			}
-
-			document.body.appendChild(script);
-		},
-		done: function (vendor) {
-			var instance, $el, player;
-
-			if (vendor === 'youtube') {
-				delete window.onYouTubeIframeAPIReady;
-			}
-
-			instance = $.modulaFancybox.getInstance();
-
-			if (instance) {
-				$el = instance.current.$content.find('iframe');
-
-				if (vendor === 'youtube' && YT !== undefined && YT) {
-					player = new YT.Player($el.attr('id'), {
-						events: {
-							onStateChange: function (e) {
-								if (e.data == 0) {
-									instance.next();
-								}
-							},
-						},
-					});
-				} else if (vendor === 'vimeo' && Vimeo !== undefined && Vimeo) {
-					player = new Vimeo.Player($el);
-
-					player.on('ended', function () {
-						instance.next();
-					});
-				}
-			}
-		},
-	};
-
-	$(document).on({
-		'afterShow.fb': function (e, instance, current) {
-			if (
-				instance.group.length > 1 &&
-				(current.contentSource === 'youtube' ||
-					current.contentSource === 'vimeo')
-			) {
-				VideoAPILoader.load(current.contentSource);
-			}
-		},
-	});
-})(jQuery);
-// ==========================================================================
-//
-// ModulaGestures
-// Adds touch ModulaGestures, handles click and tap events
-//
-// ==========================================================================
-(function (window, document, $) {
-	'use strict';
-
-	var requestAFrame = (function () {
-		return (
-			window.requestAnimationFrame ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
-			// if all else fails, use setTimeout
-			function (callback) {
-				return window.setTimeout(callback, 1000 / 60);
-			}
-		);
-	})();
-
-	var cancelAFrame = (function () {
-		return (
-			window.cancelAnimationFrame ||
-			window.webkitCancelAnimationFrame ||
-			window.mozCancelAnimationFrame ||
-			window.oCancelAnimationFrame ||
-			function (id) {
-				window.clearTimeout(id);
-			}
-		);
-	})();
-
-	var getPointerXY = function (e) {
-		var result = [];
-
-		e = e.originalEvent || e || window.e;
-		e =
-			e.touches && e.touches.length
-				? e.touches
-				: e.changedTouches && e.changedTouches.length
-				? e.changedTouches
-				: [e];
-
-		for (var key in e) {
-			if (e[key].pageX) {
-				result.push({
-					x: e[key].pageX,
-					y: e[key].pageY,
-				});
-			} else if (e[key].clientX) {
-				result.push({
-					x: e[key].clientX,
-					y: e[key].clientY,
-				});
-			}
-		}
-
-		return result;
-	};
-
-	var distance = function (point2, point1, what) {
-		if (!point1 || !point2) {
-			return 0;
-		}
-
-		if (what === 'x') {
-			return point2.x - point1.x;
-		} else if (what === 'y') {
-			return point2.y - point1.y;
-		}
-
-		return Math.sqrt(
-			Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2)
-		);
-	};
-
-	var isClickable = function ($el) {
-		if (
-			$el.is(
-				'a,area,button,[role="button"],input,label,select,summary,textarea,video,audio,iframe'
-			) ||
-			$.isFunction($el.get(0).onclick) ||
-			$el.data('selectable')
-		) {
-			return true;
-		}
-
-		// Check for attributes like data-fancybox-next or data-fancybox-close
-		for (var i = 0, atts = $el[0].attributes, n = atts.length; i < n; i++) {
-			if (atts[i].nodeName.substr(0, 14) === 'data-fancybox-') {
-				return true;
-			}
-		}
-
-		return false;
-	};
-
-	var hasScrollbars = function (el) {
-		var overflowY = window.getComputedStyle(el)['overflow-y'],
-			overflowX = window.getComputedStyle(el)['overflow-x'],
-			vertical =
-				(overflowY === 'scroll' || overflowY === 'auto') &&
-				el.scrollHeight > el.clientHeight,
-			horizontal =
-				(overflowX === 'scroll' || overflowX === 'auto') &&
-				el.scrollWidth > el.clientWidth;
-
-		return vertical || horizontal;
-	};
-
-	var isScrollable = function ($el) {
-		var rez = false;
-
-		while (true) {
-			rez = hasScrollbars($el.get(0));
-
-			if (rez) {
-				break;
-			}
-
-			$el = $el.parent();
-
-			if (
-				!$el.length ||
-				$el.hasClass('modula-fancybox-stage') ||
-				$el.is('body')
-			) {
-				break;
-			}
-		}
-
-		return rez;
-	};
-
-	var ModulaGestures = function (instance) {
-		var self = this;
-
-		self.instance = instance;
-
-		self.$bg = instance.$refs.bg;
-		self.$stage = instance.$refs.stage;
-		self.$container = instance.$refs.container;
-
-		self.destroy();
-
-		self.$container.on(
-			'touchstart.fb.touch mousedown.fb.touch',
-			$.proxy(self, 'ontouchstart')
-		);
-	};
-
-	ModulaGestures.prototype.destroy = function () {
-		var self = this;
-
-		self.$container.off('.fb.touch');
-
-		$(document).off('.fb.touch');
-
-		if (self.requestId) {
-			cancelAFrame(self.requestId);
-			self.requestId = null;
-		}
-
-		if (self.tapped) {
-			clearTimeout(self.tapped);
-			self.tapped = null;
-		}
-	};
-
-	ModulaGestures.prototype.ontouchstart = function (e) {
-		var self = this,
-			$target = $(e.target),
-			instance = self.instance,
-			current = instance.current,
-			$slide = current.$slide,
-			$content = current.$content,
-			isTouchDevice = e.type == 'touchstart';
-
-		// Do not respond to both (touch and mouse) events
-		if (isTouchDevice) {
-			self.$container.off('mousedown.fb.touch');
-		}
-
-		// Ignore right click
-		if (e.originalEvent && e.originalEvent.button == 2) {
-			return;
-		}
-
-		// Ignore taping on links, buttons, input elements
-		if (
-			!$slide.length ||
-			!$target.length ||
-			isClickable($target) ||
-			isClickable($target.parent())
-		) {
-			return;
-		}
-		// Ignore clicks on the scrollbar
-		if (
-			!$target.is('img') &&
-			e.originalEvent.clientX >
-				$target[0].clientWidth + $target.offset().left
-		) {
-			return;
-		}
-
-		// Ignore clicks while zooming or closing
-		if (
-			!current ||
-			instance.isAnimating ||
-			current.$slide.hasClass('modula-fancybox-animated')
-		) {
-			e.stopPropagation();
-			e.preventDefault();
-
-			return;
-		}
-
-		self.realPoints = self.startPoints = getPointerXY(e);
-
-		if (!self.startPoints.length) {
-			return;
-		}
-
-		// Allow other scripts to catch touch event if "touch" is set to false
-		if (current.touch) {
-			e.stopPropagation();
-		}
-
-		self.startEvent = e;
-
-		self.canTap = true;
-		self.$target = $target;
-		self.$content = $content;
-		self.opts = current.opts.touch;
-
-		self.isPanning = false;
-		self.isSwiping = false;
-		self.isZooming = false;
-		self.isScrolling = false;
-		self.canPan = instance.canPan();
-
-		self.startTime = new Date().getTime();
-		self.distanceX = self.distanceY = self.distance = 0;
-
-		self.canvasWidth = Math.round($slide[0].clientWidth);
-		self.canvasHeight = Math.round($slide[0].clientHeight);
-
-		self.contentLastPos = null;
-		self.contentStartPos = $.modulaFancybox.getTranslate(self.$content) || {
-			top: 0,
-			left: 0,
-		};
-		self.sliderStartPos = $.modulaFancybox.getTranslate($slide);
-
-		// Since position will be absolute, but we need to make it relative to the stage
-		self.stagePos = $.modulaFancybox.getTranslate(instance.$refs.stage);
-
-		self.sliderStartPos.top -= self.stagePos.top;
-		self.sliderStartPos.left -= self.stagePos.left;
-
-		self.contentStartPos.top -= self.stagePos.top;
-		self.contentStartPos.left -= self.stagePos.left;
-
-		$(document)
-			.off('.fb.touch')
-			.on(
-				isTouchDevice
-					? 'touchend.fb.touch touchcancel.fb.touch'
-					: 'mouseup.fb.touch mouseleave.fb.touch',
-				$.proxy(self, 'ontouchend')
-			)
-			.on(
-				isTouchDevice ? 'touchmove.fb.touch' : 'mousemove.fb.touch',
-				$.proxy(self, 'ontouchmove')
-			);
-
-		if ($.modulaFancybox.isMobile) {
-			document.addEventListener('scroll', self.onscroll, true);
-		}
-
-		// Skip if clicked outside the sliding area
-		if (
-			!(self.opts || self.canPan) ||
-			!($target.is(self.$stage) || self.$stage.find($target).length)
-		) {
-			if ($target.is('.modula-fancybox-image')) {
-				e.preventDefault();
-			}
-
-			if (
-				!(
-					$.modulaFancybox.isMobile &&
-					$target.parents('.modula-fancybox-caption').length
-				)
-			) {
-				return;
-			}
-		}
-
-		self.isScrollable =
-			isScrollable($target) || isScrollable($target.parent());
-
-		// Check if element is scrollable and try to prevent default behavior (scrolling)
-		if (!($.modulaFancybox.isMobile && self.isScrollable)) {
-			e.preventDefault();
-		}
-
-		// One finger or mouse click - swipe or pan an image
-		if (self.startPoints.length === 1 || current.hasError) {
-			if (self.canPan) {
-				$.modulaFancybox.stop(self.$content);
-
-				self.isPanning = true;
-			} else {
-				self.isSwiping = true;
-			}
-
-			self.$container.addClass('modula-fancybox-is-grabbing');
-		}
-
-		// Two fingers - zoom image
-		if (
-			self.startPoints.length === 2 &&
-			current.type === 'image' &&
-			(current.isLoaded || current.$ghost)
-		) {
-			self.canTap = false;
-			self.isSwiping = false;
-			self.isPanning = false;
-
-			self.isZooming = true;
-
-			$.modulaFancybox.stop(self.$content);
-
-			self.centerPointStartX =
-				(self.startPoints[0].x + self.startPoints[1].x) * 0.5 -
-				$(window).scrollLeft();
-			self.centerPointStartY =
-				(self.startPoints[0].y + self.startPoints[1].y) * 0.5 -
-				$(window).scrollTop();
-
-			self.percentageOfImageAtPinchPointX =
-				(self.centerPointStartX - self.contentStartPos.left) /
-				self.contentStartPos.width;
-			self.percentageOfImageAtPinchPointY =
-				(self.centerPointStartY - self.contentStartPos.top) /
-				self.contentStartPos.height;
-
-			self.startDistanceBetweenFingers = distance(
-				self.startPoints[0],
-				self.startPoints[1]
-			);
-		}
-	};
-
-	ModulaGestures.prototype.onscroll = function (e) {
-		var self = this;
-
-		self.isScrolling = true;
-
-		document.removeEventListener('scroll', self.onscroll, true);
-	};
-
-	ModulaGestures.prototype.ontouchmove = function (e) {
-		var self = this;
-
-		// Make sure user has not released over iframe or disabled element
-		if (
-			e.originalEvent.buttons !== undefined &&
-			e.originalEvent.buttons === 0
-		) {
-			self.ontouchend(e);
-			return;
-		}
-
-		if (self.isScrolling) {
-			self.canTap = false;
-			return;
-		}
-
-		self.newPoints = getPointerXY(e);
-
-		if (
-			!(self.opts || self.canPan) ||
-			!self.newPoints.length ||
-			!self.newPoints.length
-		) {
-			return;
-		}
-
-		if (!(self.isSwiping && self.isSwiping === true)) {
-			e.preventDefault();
-		}
-
-		self.distanceX = distance(self.newPoints[0], self.startPoints[0], 'x');
-		self.distanceY = distance(self.newPoints[0], self.startPoints[0], 'y');
-
-		self.distance = distance(self.newPoints[0], self.startPoints[0]);
-
-		// Skip false ontouchmove events (Chrome)
-		if (self.distance > 0) {
-			if (self.isSwiping) {
-				self.onSwipe(e);
-			} else if (self.isPanning) {
-				self.onPan();
-			} else if (self.isZooming) {
-				self.onZoom();
-			}
-		}
-	};
-
-	ModulaGestures.prototype.onSwipe = function (e) {
-		var self = this,
-			instance = self.instance,
-			swiping = self.isSwiping,
-			left = self.sliderStartPos.left || 0,
-			angle;
-
-		// If direction is not yet determined
-		if (swiping === true) {
-			// We need at least 10px distance to correctly calculate an angle
-			if (Math.abs(self.distance) > 10) {
-				self.canTap = false;
-
-				if (instance.group.length < 2 && self.opts.vertical) {
-					self.isSwiping = 'y';
-				} else if (
-					instance.isDragging ||
-					self.opts.vertical === false ||
-					(self.opts.vertical === 'auto' && $(window).width() > 800)
-				) {
-					self.isSwiping = 'x';
-				} else {
-					angle = Math.abs(
-						(Math.atan2(self.distanceY, self.distanceX) * 180) /
-							Math.PI
-					);
-
-					self.isSwiping = angle > 45 && angle < 135 ? 'y' : 'x';
-				}
-
-				if (
-					self.isSwiping === 'y' &&
-					$.modulaFancybox.isMobile &&
-					self.isScrollable
-				) {
-					self.isScrolling = true;
-
-					return;
-				}
-
-				instance.isDragging = self.isSwiping;
-
-				// Reset points to avoid jumping, because we dropped first swipes to calculate the angle
-				self.startPoints = self.newPoints;
-
-				$.each(instance.slides, function (index, slide) {
-					var slidePos, stagePos;
-
-					$.modulaFancybox.stop(slide.$slide);
-
-					slidePos = $.modulaFancybox.getTranslate(slide.$slide);
-					stagePos = $.modulaFancybox.getTranslate(
-						instance.$refs.stage
-					);
-
-					slide.$slide
-						.css({
-							transform: '',
-							opacity: '',
-							'transition-duration': '',
-						})
-						.removeClass('modula-fancybox-animated')
-						.removeClass(function (index, className) {
-							return (
-								className.match(
-									/(^|\s)modula-fancybox-fx-\S+/g
-								) || []
-							).join(' ');
-						});
-
-					if (slide.pos === instance.current.pos) {
-						self.sliderStartPos.top = slidePos.top - stagePos.top;
-						self.sliderStartPos.left =
-							slidePos.left - stagePos.left;
-					}
-
-					$.modulaFancybox.setTranslate(slide.$slide, {
-						top: slidePos.top - stagePos.top,
-						left: slidePos.left - stagePos.left,
-					});
-				});
-
-				// Stop slideshow
-				if (instance.SlideShow && instance.SlideShow.isActive) {
-					instance.SlideShow.stop();
-				}
-			}
-
-			return;
-		}
-
-		// Sticky edges
-		if (swiping == 'x') {
-			if (
-				self.distanceX > 0 &&
-				(self.instance.group.length < 2 ||
-					(self.instance.current.index === 0 &&
-						!self.instance.current.opts.loop))
-			) {
-				left = left + Math.pow(self.distanceX, 0.8);
-			} else if (
-				self.distanceX < 0 &&
-				(self.instance.group.length < 2 ||
-					(self.instance.current.index ===
-						self.instance.group.length - 1 &&
-						!self.instance.current.opts.loop))
-			) {
-				left = left - Math.pow(-self.distanceX, 0.8);
-			} else {
-				left = left + self.distanceX;
-			}
-		}
-
-		self.sliderLastPos = {
-			top: swiping == 'x' ? 0 : self.sliderStartPos.top + self.distanceY,
-			left: left,
-		};
-
-		if (self.requestId) {
-			cancelAFrame(self.requestId);
-
-			self.requestId = null;
-		}
-
-		self.requestId = requestAFrame(function () {
-			if (self.sliderLastPos) {
-				$.each(self.instance.slides, function (index, slide) {
-					var pos = slide.pos - self.instance.currPos;
-
-					$.modulaFancybox.setTranslate(slide.$slide, {
-						top: self.sliderLastPos.top,
-						left:
-							self.sliderLastPos.left +
-							pos * self.canvasWidth +
-							pos * slide.opts.gutter,
-					});
-				});
-
-				self.$container.addClass('modula-fancybox-is-sliding');
-			}
-		});
-	};
-
-	ModulaGestures.prototype.onPan = function () {
-		var self = this;
-
-		// Prevent accidental movement (sometimes, when tapping casually, finger can move a bit)
-		if (
-			distance(self.newPoints[0], self.realPoints[0]) <
-			($.modulaFancybox.isMobile ? 10 : 5)
-		) {
-			self.startPoints = self.newPoints;
-			return;
-		}
-
-		self.canTap = false;
-
-		self.contentLastPos = self.limitMovement();
-
-		if (self.requestId) {
-			cancelAFrame(self.requestId);
-		}
-
-		self.requestId = requestAFrame(function () {
-			$.modulaFancybox.setTranslate(self.$content, self.contentLastPos);
-		});
-	};
-
-	// Make panning sticky to the edges
-	ModulaGestures.prototype.limitMovement = function () {
-		var self = this;
-
-		var canvasWidth = self.canvasWidth;
-		var canvasHeight = self.canvasHeight;
-
-		var distanceX = self.distanceX;
-		var distanceY = self.distanceY;
-
-		var contentStartPos = self.contentStartPos;
-
-		var currentOffsetX = contentStartPos.left;
-		var currentOffsetY = contentStartPos.top;
-
-		var currentWidth = contentStartPos.width;
-		var currentHeight = contentStartPos.height;
-
-		var minTranslateX,
-			minTranslateY,
-			maxTranslateX,
-			maxTranslateY,
-			newOffsetX,
-			newOffsetY;
-
-		if (currentWidth > canvasWidth) {
-			newOffsetX = currentOffsetX + distanceX;
-		} else {
-			newOffsetX = currentOffsetX;
-		}
-
-		newOffsetY = currentOffsetY + distanceY;
-
-		// Slow down proportionally to traveled distance
-		minTranslateX = Math.max(0, canvasWidth * 0.5 - currentWidth * 0.5);
-		minTranslateY = Math.max(0, canvasHeight * 0.5 - currentHeight * 0.5);
-
-		maxTranslateX = Math.min(
-			canvasWidth - currentWidth,
-			canvasWidth * 0.5 - currentWidth * 0.5
-		);
-		maxTranslateY = Math.min(
-			canvasHeight - currentHeight,
-			canvasHeight * 0.5 - currentHeight * 0.5
-		);
-
-		//   ->
-		if (distanceX > 0 && newOffsetX > minTranslateX) {
-			newOffsetX =
-				minTranslateX -
-					1 +
-					Math.pow(
-						-minTranslateX + currentOffsetX + distanceX,
-						0.8
-					) || 0;
-		}
-
-		//    <-
-		if (distanceX < 0 && newOffsetX < maxTranslateX) {
-			newOffsetX =
-				maxTranslateX +
-					1 -
-					Math.pow(maxTranslateX - currentOffsetX - distanceX, 0.8) ||
-				0;
-		}
-
-		//   \/
-		if (distanceY > 0 && newOffsetY > minTranslateY) {
-			newOffsetY =
-				minTranslateY -
-					1 +
-					Math.pow(
-						-minTranslateY + currentOffsetY + distanceY,
-						0.8
-					) || 0;
-		}
-
-		//   /\
-		if (distanceY < 0 && newOffsetY < maxTranslateY) {
-			newOffsetY =
-				maxTranslateY +
-					1 -
-					Math.pow(maxTranslateY - currentOffsetY - distanceY, 0.8) ||
-				0;
-		}
-
-		return {
-			top: newOffsetY,
-			left: newOffsetX,
-		};
-	};
-
-	ModulaGestures.prototype.limitPosition = function (
-		newOffsetX,
-		newOffsetY,
-		newWidth,
-		newHeight
-	) {
-		var self = this;
-
-		var canvasWidth = self.canvasWidth;
-		var canvasHeight = self.canvasHeight;
-
-		if (newWidth > canvasWidth) {
-			newOffsetX = newOffsetX > 0 ? 0 : newOffsetX;
-			newOffsetX =
-				newOffsetX < canvasWidth - newWidth
-					? canvasWidth - newWidth
-					: newOffsetX;
-		} else {
-			// Center horizontally
-			newOffsetX = Math.max(0, canvasWidth / 2 - newWidth / 2);
-		}
-
-		if (newHeight > canvasHeight) {
-			newOffsetY = newOffsetY > 0 ? 0 : newOffsetY;
-			newOffsetY =
-				newOffsetY < canvasHeight - newHeight
-					? canvasHeight - newHeight
-					: newOffsetY;
-		} else {
-			// Center vertically
-			newOffsetY = Math.max(0, canvasHeight / 2 - newHeight / 2);
-		}
-
-		return {
-			top: newOffsetY,
-			left: newOffsetX,
-		};
-	};
-
-	ModulaGestures.prototype.onZoom = function () {
-		var self = this;
-
-		// Calculate current distance between points to get pinch ratio and new width and height
-		var contentStartPos = self.contentStartPos;
-
-		var currentWidth = contentStartPos.width;
-		var currentHeight = contentStartPos.height;
-
-		var currentOffsetX = contentStartPos.left;
-		var currentOffsetY = contentStartPos.top;
-
-		var endDistanceBetweenFingers = distance(
-			self.newPoints[0],
-			self.newPoints[1]
-		);
-
-		var pinchRatio =
-			endDistanceBetweenFingers / self.startDistanceBetweenFingers;
-
-		var newWidth = Math.floor(currentWidth * pinchRatio);
-		var newHeight = Math.floor(currentHeight * pinchRatio);
-
-		// This is the translation due to pinch-zooming
-		var translateFromZoomingX =
-			(currentWidth - newWidth) * self.percentageOfImageAtPinchPointX;
-		var translateFromZoomingY =
-			(currentHeight - newHeight) * self.percentageOfImageAtPinchPointY;
-
-		// Point between the two touches
-		var centerPointEndX =
-			(self.newPoints[0].x + self.newPoints[1].x) / 2 -
-			$(window).scrollLeft();
-		var centerPointEndY =
-			(self.newPoints[0].y + self.newPoints[1].y) / 2 -
-			$(window).scrollTop();
-
-		// And this is the translation due to translation of the centerpoint
-		// between the two fingers
-		var translateFromTranslatingX =
-			centerPointEndX - self.centerPointStartX;
-		var translateFromTranslatingY =
-			centerPointEndY - self.centerPointStartY;
-
-		// The new offset is the old/current one plus the total translation
-		var newOffsetX =
-			currentOffsetX +
-			(translateFromZoomingX + translateFromTranslatingX);
-		var newOffsetY =
-			currentOffsetY +
-			(translateFromZoomingY + translateFromTranslatingY);
-
-		var newPos = {
-			top: newOffsetY,
-			left: newOffsetX,
-			scaleX: pinchRatio,
-			scaleY: pinchRatio,
-		};
-
-		self.canTap = false;
-
-		self.newWidth = newWidth;
-		self.newHeight = newHeight;
-
-		self.contentLastPos = newPos;
-
-		if (self.requestId) {
-			cancelAFrame(self.requestId);
-		}
-
-		self.requestId = requestAFrame(function () {
-			$.modulaFancybox.setTranslate(self.$content, self.contentLastPos);
-		});
-	};
-
-	ModulaGestures.prototype.ontouchend = function (e) {
-		var self = this;
-
-		var swiping = self.isSwiping;
-		var panning = self.isPanning;
-		var zooming = self.isZooming;
-		var scrolling = self.isScrolling;
-
-		self.endPoints = getPointerXY(e);
-		self.dMs = Math.max(new Date().getTime() - self.startTime, 1);
-
-		self.$container.removeClass('modula-fancybox-is-grabbing');
-
-		$(document).off('.fb.touch');
-
-		document.removeEventListener('scroll', self.onscroll, true);
-
-		if (self.requestId) {
-			cancelAFrame(self.requestId);
-
-			self.requestId = null;
-		}
-
-		self.isSwiping = false;
-		self.isPanning = false;
-		self.isZooming = false;
-		self.isScrolling = false;
-
-		self.instance.isDragging = false;
-
-		if (self.canTap) {
-			return self.onTap(e);
-		}
-
-		self.speed = 100;
-
-		// Speed in px/ms
-		self.velocityX = (self.distanceX / self.dMs) * 0.5;
-		self.velocityY = (self.distanceY / self.dMs) * 0.5;
-
-		if (panning) {
-			self.endPanning();
-		} else if (zooming) {
-			self.endZooming();
-		} else {
-			self.endSwiping(swiping, scrolling);
-		}
-
-		return;
-	};
-
-	ModulaGestures.prototype.endSwiping = function (swiping, scrolling) {
-		var self = this,
-			ret = false,
-			len = self.instance.group.length,
-			distanceX = Math.abs(self.distanceX),
-			canAdvance =
-				swiping == 'x' &&
-				len > 1 &&
-				((self.dMs > 130 && distanceX > 10) || distanceX > 50),
-			speedX = 300;
-
-		self.sliderLastPos = null;
-
-		// Close if swiped vertically / navigate if horizontally
-		if (swiping == 'y' && !scrolling && Math.abs(self.distanceY) > 50) {
-			// Continue vertical movement
-			$.modulaFancybox.animate(
-				self.instance.current.$slide,
-				{
-					top:
-						self.sliderStartPos.top +
-						self.distanceY +
-						self.velocityY * 150,
-					opacity: 0,
-				},
-				200
-			);
-			ret = self.instance.close(true, 250);
-		} else if (canAdvance && self.distanceX > 0) {
-			ret = self.instance.previous(speedX);
-		} else if (canAdvance && self.distanceX < 0) {
-			ret = self.instance.next(speedX);
-		}
-
-		if (ret === false && (swiping == 'x' || swiping == 'y')) {
-			self.instance.centerSlide(200);
-		}
-
-		self.$container.removeClass('modula-fancybox-is-sliding');
-	};
-
-	// Limit panning from edges
-	// ========================
-	ModulaGestures.prototype.endPanning = function () {
-		var self = this,
-			newOffsetX,
-			newOffsetY,
-			newPos;
-
-		if (!self.contentLastPos) {
-			return;
-		}
-
-		if (self.opts.momentum === false || self.dMs > 350) {
-			newOffsetX = self.contentLastPos.left;
-			newOffsetY = self.contentLastPos.top;
-		} else {
-			// Continue movement
-			newOffsetX = self.contentLastPos.left + self.velocityX * 500;
-			newOffsetY = self.contentLastPos.top + self.velocityY * 500;
-		}
-
-		newPos = self.limitPosition(
-			newOffsetX,
-			newOffsetY,
-			self.contentStartPos.width,
-			self.contentStartPos.height
-		);
-
-		newPos.width = self.contentStartPos.width;
-		newPos.height = self.contentStartPos.height;
-
-		$.modulaFancybox.animate(self.$content, newPos, 366);
-	};
-
-	ModulaGestures.prototype.endZooming = function () {
-		var self = this;
-
-		var current = self.instance.current;
-
-		var newOffsetX, newOffsetY, newPos, reset;
-
-		var newWidth = self.newWidth;
-		var newHeight = self.newHeight;
-
-		if (!self.contentLastPos) {
-			return;
-		}
-
-		newOffsetX = self.contentLastPos.left;
-		newOffsetY = self.contentLastPos.top;
-
-		reset = {
-			top: newOffsetY,
-			left: newOffsetX,
-			width: newWidth,
-			height: newHeight,
-			scaleX: 1,
-			scaleY: 1,
-		};
-
-		// Reset scalex/scaleY values; this helps for perfomance and does not break animation
-		$.modulaFancybox.setTranslate(self.$content, reset);
-
-		if (newWidth < self.canvasWidth && newHeight < self.canvasHeight) {
-			self.instance.scaleToFit(150);
-		} else if (newWidth > current.width || newHeight > current.height) {
-			self.instance.scaleToActual(
-				self.centerPointStartX,
-				self.centerPointStartY,
-				150
-			);
-		} else {
-			newPos = self.limitPosition(
-				newOffsetX,
-				newOffsetY,
-				newWidth,
-				newHeight
-			);
-
-			$.modulaFancybox.animate(self.$content, newPos, 150);
-		}
-	};
-
-	ModulaGestures.prototype.onTap = function (e) {
-		var self = this;
-		var $target = $(e.target);
-
-		var instance = self.instance;
-		var current = instance.current;
-
-		var endPoints = (e && getPointerXY(e)) || self.startPoints;
-
-		var tapX = endPoints[0]
-			? endPoints[0].x - $(window).scrollLeft() - self.stagePos.left
-			: 0;
-		var tapY = endPoints[0]
-			? endPoints[0].y - $(window).scrollTop() - self.stagePos.top
-			: 0;
-
-		var where;
-
-		var process = function (prefix) {
-			var action = current.opts[prefix];
-
-			if ($.isFunction(action)) {
-				action = action.apply(instance, [current, e]);
-			}
-
-			if (!action) {
-				return;
-			}
-
-			switch (action) {
-				case 'close':
-					instance.close(self.startEvent);
-
-					break;
-
-				case 'toggleControls':
-					instance.toggleControls();
-
-					break;
-
-				case 'next':
-					instance.next();
-
-					break;
-
-				case 'nextOrClose':
-					if (instance.group.length > 1) {
-						instance.next();
-					} else {
-						instance.close(self.startEvent);
-					}
-
-					break;
-
-				case 'zoom':
-					if (
-						current.type == 'image' &&
-						(current.isLoaded || current.$ghost)
-					) {
-						if (instance.canPan()) {
-							instance.scaleToFit();
-						} else if (instance.isScaledDown()) {
-							instance.scaleToActual(tapX, tapY);
-						} else if (instance.group.length < 2) {
-							instance.close(self.startEvent);
-						}
-					}
-
-					break;
-			}
-		};
-
-		// Ignore right click
-		if (e.originalEvent && e.originalEvent.button == 2) {
-			return;
-		}
-
-		// Skip if clicked on the scrollbar
-		if (
-			!$target.is('img') &&
-			tapX > $target[0].clientWidth + $target.offset().left
-		) {
-			return;
-		}
-
-		// Check where is clicked
-		if (
-			$target.is(
-				'.modula-fancybox-bg,.modula-fancybox-inner,.modula-fancybox-outer,.modula-fancybox-container'
-			)
-		) {
-			where = 'Outside';
-		} else if ($target.is('.modula-fancybox-slide')) {
-			where = 'Slide';
-		} else if (
-			instance.current.$content &&
-			instance.current.$content.find($target).addBack().filter($target)
-				.length
-		) {
-			where = 'Content';
-		} else {
-			return;
-		}
-
-		// Check if this is a double tap
-		if (self.tapped) {
-			// Stop previously created single tap
-			clearTimeout(self.tapped);
-			self.tapped = null;
-
-			// Skip if distance between taps is too big
-			if (
-				Math.abs(tapX - self.tapX) > 50 ||
-				Math.abs(tapY - self.tapY) > 50
-			) {
-				return this;
-			}
-
-			// OK, now we assume that this is a double-tap
-			process('dblclick' + where);
-		} else {
-			// Single tap will be processed if user has not clicked second time within 300ms
-			// or there is no need to wait for double-tap
-			self.tapX = tapX;
-			self.tapY = tapY;
-
-			if (
-				current.opts['dblclick' + where] &&
-				current.opts['dblclick' + where] !==
-					current.opts['click' + where]
-			) {
-				self.tapped = setTimeout(function () {
-					self.tapped = null;
-
-					if (!instance.isAnimating) {
-						process('click' + where);
-					}
-				}, 500);
-			} else {
-				process('click' + where);
-			}
-		}
-
-		return this;
-	};
-
-	$(document)
-		.on('onActivate.fb', function (e, instance) {
-			if (instance && !instance.ModulaGestures) {
-				instance.ModulaGestures = new ModulaGestures(instance);
-			}
-		})
-		.on('beforeClose.fb', function (e, instance) {
-			if (instance && instance.ModulaGestures) {
-				instance.ModulaGestures.destroy();
-			}
-		});
-})(window, document, jQuery);
-// ==========================================================================
-//
-// SlideShow
-// Enables slideshow functionality
-//
-// Example of usage:
-// $.modulaFancybox.getInstance().SlideShow.start()
-//
-// ==========================================================================
-(function (document, $) {
-	'use strict';
-
-	$.extend(true, $.modulaFancybox.defaults, {
-		btnTpl: {
-			slideShow:
-				'<button data-fancybox-play class="modula-fancybox-button modula-fancybox-button--play" title="{{PLAY_START}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 5.4v13.2l11-6.6z"/></svg>' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.33 5.75h2.2v12.5h-2.2V5.75zm5.15 0h2.2v12.5h-2.2V5.75z"/></svg>' +
-				'</button>',
-		},
-		slideShow: {
-			autoStart: false,
-			speed: 3000,
-			progress: true,
-		},
-	});
-
-	var SlideShow = function (instance) {
-		this.instance = instance;
-		this.init();
-	};
-
-	$.extend(SlideShow.prototype, {
-		timer: null,
-		isActive: false,
-		$button: null,
-
-		init: function () {
-			var self = this,
-				instance = self.instance,
-				opts = instance.group[instance.currIndex].opts.slideShow;
-
-			self.$button = instance.$refs.toolbar
-				.find('[data-fancybox-play]')
-				.on('click', function () {
-					self.toggle();
-				});
-
-			if (instance.group.length < 2 || !opts) {
-				self.$button.hide();
-			} else if (opts.progress) {
-				self.$progress = $(
-					'<div class="modula-fancybox-progress"></div>'
-				).appendTo(instance.$refs.inner);
-			}
-		},
-
-		set: function (force) {
-			var self = this,
-				instance = self.instance,
-				current = instance.current;
-
-			// Check if reached last element
-			if (
-				current &&
-				(force === true ||
-					current.opts.loop ||
-					instance.currIndex < instance.group.length - 1)
-			) {
-				if (self.isActive && current.contentType !== 'video') {
-					if (self.$progress) {
-						$.modulaFancybox.animate(
-							self.$progress.show(),
-							{
-								scaleX: 1,
-							},
-							current.opts.slideShow.speed
-						);
-					}
-
-					self.timer = setTimeout(function () {
-						if (
-							!instance.current.opts.loop &&
-							instance.current.index == instance.group.length - 1
-						) {
-							instance.jumpTo(0);
-						} else {
-							instance.next();
-						}
-					}, current.opts.slideShow.speed);
-				}
-			} else {
-				self.stop();
-				instance.idleSecondsCounter = 0;
-				instance.showControls();
-			}
-		},
-
-		clear: function () {
-			var self = this;
-
-			clearTimeout(self.timer);
-
-			self.timer = null;
-
-			if (self.$progress) {
-				self.$progress.removeAttr('style').hide();
-			}
-		},
-
-		start: function () {
-			var self = this,
-				current = self.instance.current;
-
-			if (current) {
-				self.$button
-					.attr(
-						'title',
-						(
-							current.opts.i18n[current.opts.lang] ||
-							current.opts.i18n.en
-						).PLAY_STOP
-					)
-					.removeClass('modula-fancybox-button--play')
-					.addClass('modula-fancybox-button--pause');
-
-				self.isActive = true;
-
-				if (current.isComplete) {
-					self.set(true);
-				}
-
-				self.instance.trigger('onSlideShowChange', true);
-			}
-		},
-
-		stop: function () {
-			var self = this,
-				current = self.instance.current;
-
-			self.clear();
-
-			self.$button
-				.attr(
-					'title',
-					(
-						current.opts.i18n[current.opts.lang] ||
-						current.opts.i18n.en
-					).PLAY_START
-				)
-				.removeClass('modula-fancybox-button--pause')
-				.addClass('modula-fancybox-button--play');
-
-			self.isActive = false;
-
-			self.instance.trigger('onSlideShowChange', false);
-
-			if (self.$progress) {
-				self.$progress.removeAttr('style').hide();
-			}
-		},
-
-		toggle: function () {
-			var self = this;
-
-			if (self.isActive) {
-				self.stop();
-			} else {
-				self.start();
-			}
-		},
-	});
-
-	$(document).on({
-		'onInit.fb': function (e, instance) {
-			if (instance && !instance.SlideShow) {
-				instance.SlideShow = new SlideShow(instance);
-			}
-		},
-
-		'beforeShow.fb': function (e, instance, current, firstRun) {
-			var SlideShow = instance && instance.SlideShow;
-
-			if (firstRun) {
-				if (SlideShow && current.opts.slideShow.autoStart) {
-					SlideShow.start();
-				}
-			} else if (SlideShow && SlideShow.isActive) {
-				SlideShow.clear();
-			}
-		},
-
-		'afterShow.fb': function (e, instance, current) {
-			var SlideShow = instance && instance.SlideShow;
-
-			if (SlideShow && SlideShow.isActive) {
-				SlideShow.set();
-			}
-		},
-
-		'afterKeydown.fb': function (e, instance, current, keypress, keycode) {
-			var SlideShow = instance && instance.SlideShow;
-
-			// "P" or Spacebar
-			if (
-				SlideShow &&
-				current.opts.slideShow &&
-				(keycode === 80 || keycode === 32) &&
-				!$(document.activeElement).is('button,a,input')
-			) {
-				keypress.preventDefault();
-
-				SlideShow.toggle();
-			}
-		},
-
-		'beforeClose.fb onDeactivate.fb': function (e, instance) {
-			var SlideShow = instance && instance.SlideShow;
-
-			if (SlideShow) {
-				SlideShow.stop();
-			}
-		},
-	});
-
-	// Page Visibility API to pause slideshow when window is not active
-	$(document).on('visibilitychange', function () {
-		var instance = $.modulaFancybox.getInstance(),
-			SlideShow = instance && instance.SlideShow;
-
-		if (SlideShow && SlideShow.isActive) {
-			if (document.hidden) {
-				SlideShow.clear();
-			} else {
-				SlideShow.set();
-			}
-		}
-	});
-})(document, jQuery);
-// ==========================================================================
-//
-// FullScreen
-// Adds fullscreen functionality
-//
-// ==========================================================================
-(function (document, $) {
-	'use strict';
-
-	// Collection of methods supported by user browser
-	var fn = (function () {
-		var fnMap = [
-			[
-				'requestFullscreen',
-				'exitFullscreen',
-				'fullscreenElement',
-				'fullscreenEnabled',
-				'fullscreenchange',
-				'fullscreenerror',
-			],
-			// new WebKit
-			[
-				'webkitRequestFullscreen',
-				'webkitExitFullscreen',
-				'webkitFullscreenElement',
-				'webkitFullscreenEnabled',
-				'webkitfullscreenchange',
-				'webkitfullscreenerror',
-			],
-			// old WebKit (Safari 5.1)
-			[
-				'webkitRequestFullScreen',
-				'webkitCancelFullScreen',
-				'webkitCurrentFullScreenElement',
-				'webkitCancelFullScreen',
-				'webkitfullscreenchange',
-				'webkitfullscreenerror',
-			],
-			[
-				'mozRequestFullScreen',
-				'mozCancelFullScreen',
-				'mozFullScreenElement',
-				'mozFullScreenEnabled',
-				'mozfullscreenchange',
-				'mozfullscreenerror',
-			],
-			[
-				'msRequestFullscreen',
-				'msExitFullscreen',
-				'msFullscreenElement',
-				'msFullscreenEnabled',
-				'MSFullscreenChange',
-				'MSFullscreenError',
-			],
-		];
-
-		var ret = {};
-
-		for (var i = 0; i < fnMap.length; i++) {
-			var val = fnMap[i];
-
-			if (val && val[1] in document) {
-				for (var j = 0; j < val.length; j++) {
-					ret[fnMap[0][j]] = val[j];
-				}
-
-				return ret;
-			}
-		}
-
-		return false;
-	})();
-
-	if (fn) {
-		var FullScreen = {
-			request: function (elem) {
-				elem = elem || document.documentElement;
-
-				elem[fn.requestFullscreen](elem.ALLOW_KEYBOARD_INPUT);
-			},
-			exit: function () {
-				document[fn.exitFullscreen]();
-			},
-			toggle: function (elem) {
-				elem = elem || document.documentElement;
-
-				if (this.isFullscreen()) {
-					this.exit();
-				} else {
-					this.request(elem);
-				}
-			},
-			isFullscreen: function () {
-				return Boolean(document[fn.fullscreenElement]);
-			},
-			enabled: function () {
-				return Boolean(document[fn.fullscreenEnabled]);
-			},
-		};
-
-		$.extend(true, $.modulaFancybox.defaults, {
-			btnTpl: {
-				fullScreen:
-					'<button data-fancybox-fullscreen class="modula-fancybox-button modula-fancybox-button--fsenter" title="{{FULL_SCREEN}}">' +
-					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>' +
-					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5zm3-8H5v2h5V5H8zm6 11h2v-3h3v-2h-5zm2-11V5h-2v5h5V8z"/></svg>' +
-					'</button>',
-			},
-			fullScreen: {
-				autoStart: false,
-			},
-		});
-
-		$(document).on(fn.fullscreenchange, function () {
-			var isFullscreen = FullScreen.isFullscreen(),
-				instance = $.modulaFancybox.getInstance();
-
-			if (instance) {
-				// If image is zooming, then force to stop and reposition properly
-				if (
-					instance.current &&
-					instance.current.type === 'image' &&
-					instance.isAnimating
-				) {
-					instance.isAnimating = false;
-
-					instance.update(true, true, 0);
-
-					if (!instance.isComplete) {
-						instance.complete();
-					}
-				}
-
-				instance.trigger('onFullscreenChange', isFullscreen);
-
-				instance.$refs.container.toggleClass(
-					'modula-fancybox-is-fullscreen',
-					isFullscreen
-				);
-
-				instance.$refs.toolbar
-					.find('[data-fancybox-fullscreen]')
-					.toggleClass(
-						'modula-fancybox-button--fsenter',
-						!isFullscreen
-					)
-					.toggleClass(
-						'modula-fancybox-button--fsexit',
-						isFullscreen
-					);
-			}
-		});
-	}
-
-	$(document).on({
-		'onInit.fb': function (e, instance) {
-			var $container;
-
-			if (!fn) {
-				instance.$refs.toolbar
-					.find('[data-fancybox-fullscreen]')
-					.remove();
-
-				return;
-			}
-
-			if (
-				instance &&
-				instance.group[instance.currIndex].opts.fullScreen
-			) {
-				$container = instance.$refs.container;
-
-				$container.on(
-					'click.fb-fullscreen',
-					'[data-fancybox-fullscreen]',
-					function (e) {
-						e.stopPropagation();
-						e.preventDefault();
-
-						FullScreen.toggle();
-					}
-				);
-
-				if (
-					instance.opts.fullScreen &&
-					instance.opts.fullScreen.autoStart === true
-				) {
-					FullScreen.request();
-				}
-
-				// Expose API
-				instance.FullScreen = FullScreen;
-			} else if (instance) {
-				instance.$refs.toolbar
-					.find('[data-fancybox-fullscreen]')
-					.hide();
-			}
-		},
-
-		'afterKeydown.fb': function (e, instance, current, keypress, keycode) {
-			// "F"
-			if (instance && instance.FullScreen && keycode === 70) {
-				keypress.preventDefault();
-
-				instance.FullScreen.toggle();
-			}
-		},
-
-		'beforeClose.fb': function (e, instance) {
-			if (
-				instance &&
-				instance.FullScreen &&
-				instance.$refs.container.hasClass(
-					'modula-fancybox-is-fullscreen'
-				)
-			) {
-				FullScreen.exit();
-			}
-		},
-	});
-})(document, jQuery);
-// ==========================================================================
-//
-// Thumbs
-// Displays thumbnails in a grid
-//
-// ==========================================================================
-(function (document, $) {
-	'use strict';
-
-	var CLASS = 'modula-fancybox-thumbs',
-		CLASS_ACTIVE = CLASS + '-active';
-
-	// Make sure there are default values
-	$.modulaFancybox.defaults = $.extend(
-		true,
-		{
-			btnTpl: {
-				thumbs:
-					'<button data-fancybox-thumbs class="modula-fancybox-button modula-fancybox-button--thumbs" title="{{THUMBS}}">' +
-					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.59 14.59h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76H5.65v-3.76zm8.94-4.47h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76h-3.76v-3.76zm-4.47 0h3.76v3.76H5.65v-3.76zm8.94-4.47h3.76v3.76h-3.76V5.65zm-4.47 0h3.76v3.76h-3.76V5.65zm-4.47 0h3.76v3.76H5.65V5.65z"/></svg>' +
-					'</button>',
-			},
-			thumbs: {
-				autoStart: false, // Display thumbnails on opening
-				hideOnClose: true, // Hide thumbnail grid when closing animation starts
-				parentEl: '.modula-fancybox-container', // Container is injected into this element
-				axis: 'y', // Vertical (y) or horizontal (x) scrolling
-			},
-		},
-		$.modulaFancybox.defaults
-	);
-
-	var modulaFancyThumbs = function (instance) {
-		this.init(instance);
-	};
-
-	$.extend(modulaFancyThumbs.prototype, {
-		$button: null,
-		$grid: null,
-		$list: null,
-		isVisible: false,
-		isActive: false,
-
-		init: function (instance) {
-			var self = this,
-				group = instance.group,
-				enabled = 0;
-
-			self.instance = instance;
-			self.opts = group[instance.currIndex].opts.thumbs;
-
-			instance.Thumbs = self;
-
-			self.$button = instance.$refs.toolbar.find(
-				'[data-fancybox-thumbs]'
-			);
-			// Enable thumbs if at least two group items have thumbnails
-			for (var i = 0, len = group.length; i < len; i++) {
-				if (group[i].thumb) {
-					enabled++;
-				}
-
-				if (enabled > 1) {
-					break;
-				}
-			}
-
-			if (enabled > 1 && !!self.opts) {
-				self.$button.removeAttr('style').on('click', function () {
-					self.toggle();
-				});
-
-				self.isActive = true;
-			} else {
-				self.$button.hide();
-			}
-		},
-
-		create: function () {
-			var self = this,
-				instance = self.instance,
-				parentEl = self.opts.parentEl,
-				list = [],
-				src;
-
-			if (!self.$grid) {
-				// Create main element
-				self.$grid = $(
-					'<div class="' +
-						CLASS +
-						' ' +
-						CLASS +
-						'-' +
-						self.opts.axis +
-						'"></div>'
-				).appendTo(
-					instance.$refs.container
-						.find(parentEl)
-						.addBack()
-						.filter(parentEl)
-				);
-
-				// Add "click" event that performs gallery navigation
-				self.$grid.on('click', 'a', function () {
-					instance.jumpTo($(this).attr('data-index'));
-				});
-			}
-
-			// Build the list
-			if (!self.$list) {
-				self.$list = $('<div class="' + CLASS + '__list">').appendTo(
-					self.$grid
-				);
-			}
-
-			$.each(instance.group, function (i, item) {
-				src = item.thumb;
-
-				if (!src && item.type === 'image') {
-					src = item.src;
-				}
-				var imageCaption = item.opts.caption.replace(
-					/<p>|<\/p>/gim,
-					''
-				);
-
-				var imageCaption = imageCaption.replace(
-					/[\u00A0-\u9999<>\&]/g,
-					function (i) {
-						return '&#' + i.charCodeAt(0) + ';';
-					}
-				);
-
-				list.push(
-					'<a href="javascript:;" role="button" aria-label=\'Click to show image titled ' +
-					imageCaption +
-						'\' tabindex="0" data-index="' +
-						i +
-						'"' +
-						(src && src.length
-							? ' style="background-image:url(' + src + ')"'
-							: 'class="modula-fancybox-thumbs-missing"') +
-						'></a>'
-				);
-			});
-
-			self.$list[0].innerHTML = list.join('');
-
-			if (self.opts.axis === 'x') {
-				// Set fixed width for list element to enable horizontal scrolling
-				self.$list.width(
-					parseInt(self.$grid.css('padding-right'), 10) +
-						instance.group.length *
-							self.$list.children().eq(0).outerWidth(true)
-				);
-			}
-		},
-
-		focus: function (duration) {
-			var self = this,
-				$list = self.$list,
-				$grid = self.$grid,
-				thumb,
-				thumbPos;
-
-			if (!self.instance.current) {
-				return;
-			}
-
-			thumb = $list
-				.children()
-				.removeClass(CLASS_ACTIVE)
-				.filter('[data-index="' + self.instance.current.index + '"]')
-				.addClass(CLASS_ACTIVE);
-
-			thumbPos = thumb.position();
-
-			// Check if need to scroll to make current thumb visible
-			if (
-				self.opts.axis === 'y' &&
-				(thumbPos.top < 0 ||
-					thumbPos.top > $list.height() - thumb.outerHeight())
-			) {
-				$list.stop().animate(
-					{
-						scrollTop: $list.scrollTop() + thumbPos.top,
-					},
-					duration
-				);
-			} else if (
-				self.opts.axis === 'x' &&
-				(thumbPos.left < $grid.scrollLeft() ||
-					thumbPos.left >
-						$grid.scrollLeft() +
-							($grid.width() - thumb.outerWidth()))
-			) {
-				$list.parent().stop().animate(
-					{
-						scrollLeft: thumbPos.left,
-					},
-					duration
-				);
-			}
-		},
-
-		update: function () {
-			var that = this;
-			that.instance.$refs.container.toggleClass(
-				'modula-fancybox-show-thumbs',
-				this.isVisible
-			);
-
-			if (that.isVisible) {
-				if (!that.$grid) {
-					that.create();
-				}
-
-				that.instance.trigger('onThumbsShow');
-
-				that.focus(0);
-			} else if (that.$grid) {
-				that.instance.trigger('onThumbsHide');
-			}
-
-			// Update content position
-			that.instance.update();
-		},
-
-		hide: function () {
-			this.isVisible = false;
-			this.update();
-		},
-
-		show: function () {
-			this.isVisible = true;
-			this.update();
-		},
-
-		toggle: function () {
-			this.isVisible = !this.isVisible;
-			this.update();
-		},
-	});
-
-	$(document).on({
-		'onInit.fb': function (e, instance) {
-			var Thumbs;
-
-			if (instance && !instance.Thumbs) {
-				Thumbs = new modulaFancyThumbs(instance);
-
-				if (Thumbs.isActive && Thumbs.opts.autoStart === true) {
-					Thumbs.show();
-				}
-			}
-		},
-
-		'beforeShow.fb': function (e, instance, item, firstRun) {
-			var Thumbs = instance && instance.Thumbs;
-
-			if (Thumbs && Thumbs.isVisible) {
-				Thumbs.focus(firstRun ? 0 : 250);
-			}
-		},
-
-		'afterKeydown.fb': function (e, instance, current, keypress, keycode) {
-			var Thumbs = instance && instance.Thumbs;
-
-			// "G"
-			if (Thumbs && Thumbs.isActive && keycode === 71) {
-				keypress.preventDefault();
-
-				Thumbs.toggle();
-			}
-		},
-
-		'beforeClose.fb': function (e, instance) {
-			var Thumbs = instance && instance.Thumbs;
-
-			if (
-				Thumbs &&
-				Thumbs.isVisible &&
-				Thumbs.opts.hideOnClose !== false
-			) {
-				Thumbs.$grid.hide();
-			}
-		},
-	});
-})(document, jQuery);
-//// ==========================================================================
-//
-// Share
-// Displays simple form for sharing current url
-//
-// ==========================================================================
-(function (document, $) {
-	'use strict';
-
-	$.extend(true, $.modulaFancybox.defaults, {
-		btnTpl: {
-			share:
-				'<button data-fancybox-share class="modula-fancybox-button modula-fancybox-button--share" title="{{SHARE}}">' +
-				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.55 19c1.4-8.4 9.1-9.8 11.9-9.8V5l7 7-7 6.3v-3.5c-2.8 0-10.5 2.1-11.9 4.2z"/></svg>' +
-				'</button>',
-		},
-		share: {
-			url: function (instance, item) {
-				return (
-					(!instance.currentHash &&
-					!(item.type === 'inline' || item.type === 'html')
-						? item.origSrc || item.src
-						: false) || window.location
-				);
-			},
-			/* tpl: '<div class="modula-fancybox-share">' +
-        "<h1>{{SHARE}}</h1>" +
-        "<p>" +
-        '<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={{url}}">' +
-        '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m287 456v-299c0-21 6-35 35-35h38v-63c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254h-205v72h196" /></svg>' +
-        "<span>Facebook</span>" +
-        "</a>" +
-        '<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={{url}}&text={{descr}}">' +
-        '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>' +
-        "<span>Twitter</span>" +
-        "</a>" +
-        '<a class="modula-fancybox-share__button modula-fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={{url}}&description={{descr}}&media={{media}}">' +
-        '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m265 56c-109 0-164 78-164 144 0 39 15 74 47 87 5 2 10 0 12-5l4-19c2-6 1-8-3-13-9-11-15-25-15-45 0-58 43-110 113-110 62 0 96 38 96 88 0 67-30 122-73 122-24 0-42-19-36-44 6-29 20-60 20-81 0-19-10-35-31-35-25 0-44 26-44 60 0 21 7 36 7 36l-30 125c-8 37-1 83 0 87 0 3 4 4 5 2 2-3 32-39 42-75l16-64c8 16 31 29 56 29 74 0 124-67 124-157 0-69-58-132-146-132z" fill="#fff"/></svg>' +
-        "<span>Pinterest</span>" +
-        "</a>" +
-        "</p>" +
-        '<p><input class="modula-fancybox-share__input" type="text" value="{{url_raw}}" onclick="select()" /></p>' +
-        "</div>"*/
-		},
-	});
-
-	function escapeHtml(string) {
-		var entityMap = {
-			'&': '&amp;',
-			'<': '&lt;',
-			'>': '&gt;',
-			'"': '&quot;',
-			"'": '&#39;',
-			'/': '&#x2F;',
-			'`': '&#x60;',
-			'=': '&#x3D;',
-		};
-
-		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-			return entityMap[s];
-		});
-	}
-
-	$(document).on('click', '[data-fancybox-share]', function () {
-		var instance = $.modulaFancybox.getInstance(),
-			current = instance.current || null,
-			url,
-			tpl = "<div class='modula-fancybox-share'><h1>{{SHARE}}</h1><p>";
-
-		if (!current) {
-			return;
-		}
-
-		if ($.type(current.opts.share.url) === 'function') {
-			url = current.opts.share.url.apply(current, [instance, current]);
-		}
-
-		$.each(current.opts.modulaShare, function (index, value) {
-			var rawEmailMessage = current.opts.lightboxEmailMessage.length
-				? current.opts.lightboxEmailMessage
-				: 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%%';
-			var emailMessage = rawEmailMessage
-				.replace(/\%%gallery_link%%/g, window.location.href)
-				.replace(/\%%image_link%%/g, current.src);
-
-			var text =
-				undefined != jQuery(current.$image).attr('title')
-					? jQuery(current.$image).attr('title')
-					: '';
-
-			if (
-				'' == text &&
-				instance.$caption &&
-				typeof instance.$caption.text !== 'undefined'
-			) {
-				text = instance.$caption.text();
-			}
-
-			tpl += current.opts.shareBtnTpl[value]
-				.replace(
-					/\{\{media\}\}/g,
-					current.type === 'image'
-						? encodeURIComponent(current.src)
-						: ''
-				)
-				.replace(/\{\{modulaShareUrl\}\}/g, encodeURIComponent(url))
-				.replace(/\{\{descr\}\}/g, encodeURIComponent(text))
-				.replace(
-					/\{\{subject\}\}/g,
-					encodeURIComponent(current.opts.lightboxEmailSubject)
-				)
-				.replace(
-					/\{\{emailMessage\}\}/g,
-					encodeURIComponent(emailMessage)
-				);
-		});
-
-		tpl +=
-			"</p><p><input class='modula-fancybox-share__input' type='text' value='{{url_raw}}' /></p></div>";
-
-		tpl = tpl.replace(/\{\{url_raw\}\}/g, escapeHtml(url));
-
-		/*
-    tpl = current.opts.share.tpl
-      .replace(/\{\{media\}\}/g, current.type === "image" ? encodeURIComponent(current.src) : "")
-      .replace(/\{\{url\}\}/g, encodeURIComponent(url))
-      .replace(/\{\{url_raw\}\}/g, escapeHtml(url))
-      .replace(/\{\{descr\}\}/g, instance.$caption ? encodeURIComponent(instance.$caption.text()) : "");*/
-
-		$.modulaFancybox.open({
-			src: instance.translate(instance, tpl),
-			type: 'html',
-			opts: {
-				touch: false,
-				animationEffect: false,
-				afterLoad: function (shareInstance, shareCurrent) {
-					// Close self if parent instance is closing
-					instance.$refs.container.one('beforeClose.fb', function () {
-						shareInstance.close(null, 0);
-					});
-
-					// Opening links in a popup window
-					shareCurrent.$content
-						.find('.modula-fancybox-share__button')
-						.click(function () {
-							window.open(
-								this.href,
-								'Share',
-								'width=550, height=450'
-							);
-							return false;
-						});
-				},
-				mobile: {
-					autoFocus: false,
-				},
-			},
-		});
-	});
-})(document, jQuery);
-// ==========================================================================
-//
-// Hash
-// Enables linking to each modal
-//
-// ==========================================================================
-(function (window, document, $) {
-	'use strict';
-
-	// Simple $.escapeSelector polyfill (for jQuery prior v3)
-	if (!$.escapeSelector) {
-		$.escapeSelector = function (sel) {
-			var rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g;
-			var fcssescape = function (ch, asCodePoint) {
-				if (asCodePoint) {
-					// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
-					if (ch === '\0') {
-						return '\uFFFD';
-					}
-
-					// Control characters and (dependent upon position) numbers get escaped as code points
-					return (
-						ch.slice(0, -1) +
-						'\\' +
-						ch.charCodeAt(ch.length - 1).toString(16) +
-						' '
-					);
-				}
-
-				// Other potentially-special ASCII characters get backslash-escaped
-				return '\\' + ch;
-			};
-
-			return (sel + '').replace(rcssescape, fcssescape);
-		};
-	}
-
-	// Get info about gallery name and current index from url
-	function parseUrl() {
-		var hash = window.location.hash.substr(1),
-			rez = hash.split('-'),
-			index =
-				rez.length > 1 && /^\+?\d+$/.test(rez[rez.length - 1])
-					? parseInt(rez.pop(-1), 10) || 1
-					: 1,
-			gallery = rez.join('-');
-
-		return {
-			hash: hash,
-			/* Index is starting from 1 */
-			index: index < 1 ? 1 : index,
-			gallery: gallery,
-		};
-	}
-
-	// Trigger click evnt on links to open new fancyBox instance
-	function triggerFromUrl(url) {
-		if (url.gallery !== '') {
-			// If we can find element matching 'data-fancybox' atribute,
-			// then triggering click event should start fancyBox
-			$("[data-fancybox='" + $.escapeSelector(url.gallery) + "']")
-				.eq(url.index - 1)
-				.focus()
-				.trigger('click.fb-start');
-		}
-	}
-
-	// Get gallery name from current instance
-	function getGalleryID(instance) {
-		var opts, ret;
-
-		if (!instance) {
-			return false;
-		}
-
-		opts = instance.current ? instance.current.opts : instance.opts;
-		ret =
-			opts.hash ||
-			(opts.$orig
-				? opts.$orig.data('fancybox') ||
-				  opts.$orig.data('fancybox-trigger')
-				: '');
-
-		return ret === '' ? false : ret;
-	}
-
-	// Start when DOM becomes ready
-	$(function () {
-		// Check if user has disabled this module
-		if ($.modulaFancybox.defaults.hash === false) {
-			return;
-		}
-
-		// Update hash when opening/closing fancyBox
-		$(document).on({
-			'onInit.fb': function (e, instance) {
-				var url, gallery;
-
-				if (instance.group[instance.currIndex].opts.hash === false) {
-					return;
-				}
-
-				url = parseUrl();
-				gallery = getGalleryID(instance);
-
-				// Make sure gallery start index matches index from hash
-				/* if (gallery && url.gallery && gallery == url.gallery) {
-          instance.currIndex = url.index - 1;
-        }*/
-			},
-
-			'beforeShow.fb': function (e, instance, current, firstRun) {
-				var gallery;
-
-				if (!current || current.opts.hash === false) {
-					return;
-				}
-
-				// Check if need to update window hash
-				gallery = getGalleryID(instance);
-
-				if (!gallery) {
-					return;
-				}
-
-				// Variable containing last hash value set by fancyBox
-				// It will be used to determine if fancyBox needs to close after hash change is detected
-				instance.currentHash =
-					gallery +
-					(instance.group.length > 1
-						? '-' + current.opts.image_id
-						: '');
-
-				// If current hash is the same (this instance most likely is opened by hashchange), then do nothing
-				if (window.location.hash === '#' + instance.currentHash) {
-					return;
-				}
-
-				if (firstRun && !instance.origHash) {
-					instance.origHash = window.location.hash;
-				}
-
-				if (instance.hashTimer) {
-					clearTimeout(instance.hashTimer);
-				}
-
-				// Update hash
-				instance.hashTimer = setTimeout(function () {
-					if ('replaceState' in window.history) {
-						window.history[firstRun ? 'pushState' : 'replaceState'](
-							{},
-							document.title,
-							window.location.pathname +
-								window.location.search +
-								'#' +
-								instance.currentHash
-						);
-
-						if (firstRun) {
-							instance.hasCreatedHistory = true;
-						}
-					} else {
-						window.location.hash = instance.currentHash;
-					}
-
-					instance.hashTimer = null;
-				}, 300);
-			},
-
-			'beforeClose.fb': function (e, instance, current) {
-				if (!current || current.opts.hash === false) {
-					return;
-				}
-
-				clearTimeout(instance.hashTimer);
-
-				// Goto previous history entry
-				if (instance.currentHash && instance.hasCreatedHistory) {
-					window.history.back();
-				} else if (instance.currentHash) {
-					if ('replaceState' in window.history) {
-						window.history.replaceState(
-							{},
-							document.title,
-							window.location.pathname +
-								window.location.search +
-								(instance.origHash || '')
-						);
-					} else {
-						window.location.hash = instance.origHash;
-					}
-				}
-
-				instance.currentHash = null;
-			},
-		});
-
-		// Check if need to start/close after url has changed
-		$(window).on('hashchange.fb', function () {
-			var url = parseUrl(),
-				fb = null;
-
-			// Find last fancyBox instance that has "hash"
-			$.each(
-				$('.modula-fancybox-container').get().reverse(),
-				function (index, value) {
-					var tmp = $(value).data('modulaFancyBox');
-
-					if (tmp && tmp.currentHash) {
-						fb = tmp;
-						return false;
-					}
-				}
-			);
-
-			if (fb) {
-				// Now, compare hash values
-				if (
-					fb.currentHash !== url.gallery + '-' + url.index &&
-					!(url.index === 1 && fb.currentHash == url.gallery)
-				) {
-					fb.currentHash = null;
-
-					fb.close();
-				}
-			} else if (url.gallery !== '') {
-				triggerFromUrl(url);
-			}
-		});
-
-		// Check current hash and trigger click event on matching element to start fancyBox, if needed
-		setTimeout(function () {
-			if (!$.modulaFancybox.getInstance()) {
-				triggerFromUrl(parseUrl());
-			}
-		}, 50);
-	});
-})(window, document, jQuery);
-// ==========================================================================
-//
-// Wheel
-// Basic mouse weheel support for gallery navigation
-//
-// ==========================================================================
-(function (document, $) {
-	'use strict';
-
-	var prevTime = new Date().getTime();
-
-	$(document).on({
-		'onInit.fb': function (e, instance, current) {
-			instance.$refs.stage.on(
-				'mousewheel DOMMouseScroll wheel MozMousePixelScroll',
-				function (e) {
-					var current = instance.current,
-						currTime = new Date().getTime();
-
-					if (
-						instance.group.length < 2 ||
-						current.opts.wheel === false ||
-						(current.opts.wheel === 'auto' &&
-							current.type !== 'image')
-					) {
-						return;
-					}
-
-					e.preventDefault();
-					e.stopPropagation();
-
-					if (current.$slide.hasClass('modula-fancybox-animated')) {
-						return;
-					}
-
-					e = e.originalEvent || e;
-
-					if (currTime - prevTime < 250) {
-						return;
-					}
-
-					prevTime = currTime;
-
-					instance[
-						(-e.deltaY || -e.deltaX || e.wheelDelta || -e.detail) <
-						0
-							? 'next'
-							: 'previous'
-					]();
-				}
-			);
-		},
-	});
-})(document, jQuery);
+    }
+    const l = {
+        passive: !1
+    };
+    class c {
+        constructor(t, {
+            start: e = (() => !0),
+            move: i = (() => { }),
+            end: n = (() => { })
+        }) {
+            Object.defineProperty(this, "element", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "startCallback", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "moveCallback", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "endCallback", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "currentPointers", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "startPointers", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), this.element = t, this.startCallback = e, this.moveCallback = i, this.endCallback = n;
+            for (const t of ["onPointerStart", "onTouchStart", "onMove", "onTouchEnd", "onPointerEnd", "onWindowBlur"]) this[t] = this[t].bind(this);
+            this.element.addEventListener("mousedown", this.onPointerStart, l), this.element.addEventListener("touchstart", this.onTouchStart, l), this.element.addEventListener("touchmove", this.onMove, l), this.element.addEventListener("touchend", this.onTouchEnd), this.element.addEventListener("touchcancel", this.onTouchEnd)
+        }
+        onPointerStart(t) {
+            if (!t.buttons || 0 !== t.button) return;
+            const e = new r(t);
+            this.currentPointers.some((t => t.id === e.id)) || this.triggerPointerStart(e, t) && (window.addEventListener("mousemove", this.onMove), window.addEventListener("mouseup", this.onPointerEnd), window.addEventListener("blur", this.onWindowBlur))
+        }
+        onTouchStart(t) {
+            for (const e of Array.from(t.changedTouches || [])) this.triggerPointerStart(new r(e), t);
+            window.addEventListener("blur", this.onWindowBlur)
+        }
+        onMove(t) {
+            const e = this.currentPointers.slice(),
+                i = "changedTouches" in t ? Array.from(t.changedTouches || []).map((t => new r(t))) : [new r(t)],
+                n = [];
+            for (const t of i) {
+                const e = this.currentPointers.findIndex((e => e.id === t.id));
+                e < 0 || (n.push(t), this.currentPointers[e] = t)
+            }
+            n.length && this.moveCallback(t, this.currentPointers.slice(), e)
+        }
+        onPointerEnd(t) {
+            t.buttons > 0 && 0 !== t.button || (this.triggerPointerEnd(t, new r(t)), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur))
+        }
+        onTouchEnd(t) {
+            for (const e of Array.from(t.changedTouches || [])) this.triggerPointerEnd(t, new r(e))
+        }
+        triggerPointerStart(t, e) {
+            return !!this.startCallback(e, t, this.currentPointers.slice()) && (this.currentPointers.push(t), this.startPointers.push(t), !0)
+        }
+        triggerPointerEnd(t, e) {
+            const i = this.currentPointers.findIndex((t => t.id === e.id));
+            i < 0 || (this.currentPointers.splice(i, 1), this.startPointers.splice(i, 1), this.endCallback(t, e, this.currentPointers.slice()))
+        }
+        onWindowBlur() {
+            this.clear()
+        }
+        clear() {
+            for (; this.currentPointers.length;) {
+                const t = this.currentPointers[this.currentPointers.length - 1];
+                this.currentPointers.splice(this.currentPointers.length - 1, 1), this.startPointers.splice(this.currentPointers.length - 1, 1), this.endCallback(new Event("touchend", {
+                    bubbles: !0,
+                    cancelable: !0,
+                    clientX: t.clientX,
+                    clientY: t.clientY
+                }), t, this.currentPointers.slice())
+            }
+        }
+        stop() {
+            this.element.removeEventListener("mousedown", this.onPointerStart, l), this.element.removeEventListener("touchstart", this.onTouchStart, l), this.element.removeEventListener("touchmove", this.onMove, l), this.element.removeEventListener("touchend", this.onTouchEnd), this.element.removeEventListener("touchcancel", this.onTouchEnd), window.removeEventListener("mousemove", this.onMove), window.removeEventListener("mouseup", this.onPointerEnd), window.removeEventListener("blur", this.onWindowBlur)
+        }
+    }
+
+    function h(t, e) {
+        return e ? Math.sqrt(Math.pow(e.clientX - t.clientX, 2) + Math.pow(e.clientY - t.clientY, 2)) : 0
+    }
+
+    function d(t, e) {
+        return e ? {
+            clientX: (t.clientX + e.clientX) / 2,
+            clientY: (t.clientY + e.clientY) / 2
+        } : t
+    }
+    const u = t => "object" == typeof t && null !== t && t.constructor === Object && "[object Object]" === Object.prototype.toString.call(t),
+        f = (t, ...e) => {
+            const i = e.length;
+            for (let n = 0; n < i; n++) {
+                const i = e[n] || {};
+                Object.entries(i).forEach((([e, i]) => {
+                    const n = Array.isArray(i) ? [] : {};
+                    t[e] || Object.assign(t, {
+                        [e]: n
+                    }), u(i) ? Object.assign(t[e], f(n, i)) : Array.isArray(i) ? Object.assign(t, {
+                        [e]: [...i]
+                    }) : Object.assign(t, {
+                        [e]: i
+                    })
+                }))
+            }
+            return t
+        },
+        p = function (t, e) {
+            return t.split(".").reduce(((t, e) => "object" == typeof t ? t[e] : void 0), e)
+        };
+    class g {
+        constructor(t = {}) {
+            Object.defineProperty(this, "options", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: t
+            }), Object.defineProperty(this, "events", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: new Map
+            }), this.setOptions(t);
+            for (const t of Object.getOwnPropertyNames(Object.getPrototypeOf(this))) t.startsWith("on") && "function" == typeof this[t] && (this[t] = this[t].bind(this))
+        }
+        setOptions(t) {
+            this.options = t ? f({}, this.constructor.defaults, t) : {};
+            for (const [t, e] of Object.entries(this.option("on") || {})) this.on(t, e)
+        }
+        option(t, ...e) {
+            let i = p(t, this.options);
+            return i && "function" == typeof i && (i = i.call(this, this, ...e)), i
+        }
+        optionFor(t, e, i, ...n) {
+            let s = p(e, t);
+            var o;
+            "string" != typeof (o = s) || isNaN(o) || isNaN(parseFloat(o)) || (s = parseFloat(s)), "true" === s && (s = !0), "false" === s && (s = !1), s && "function" == typeof s && (s = s.call(this, this, t, ...n));
+            let a = p(e, this.options);
+            return a && "function" == typeof a ? s = a.call(this, this, t, ...n, s) : void 0 === s && (s = a), void 0 === s ? i : s
+        }
+        cn(t) {
+            const e = this.options.classes;
+            return e && e[t] || ""
+        }
+        localize(t, e = []) {
+            t = String(t).replace(/\{\{(\w+).?(\w+)?\}\}/g, ((t, e, i) => {
+                let n = "";
+                return i ? n = this.option(`${e[0] + e.toLowerCase().substring(1)}.l10n.${i}`) : e && (n = this.option(`l10n.${e}`)), n || (n = t), n
+            }));
+            for (let i = 0; i < e.length; i++) t = t.split(e[i][0]).join(e[i][1]);
+            return t = t.replace(/\{\{(.*?)\}\}/g, ((t, e) => e))
+        }
+        on(t, e) {
+            let i = [];
+            "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), this.events || (this.events = new Map), i.forEach((t => {
+                let i = this.events.get(t);
+                i || (this.events.set(t, []), i = []), i.includes(e) || i.push(e), this.events.set(t, i)
+            }))
+        }
+        off(t, e) {
+            let i = [];
+            "string" == typeof t ? i = t.split(" ") : Array.isArray(t) && (i = t), i.forEach((t => {
+                const i = this.events.get(t);
+                if (Array.isArray(i)) {
+                    const t = i.indexOf(e);
+                    t > -1 && i.splice(t, 1)
+                }
+            }))
+        }
+        emit(t, ...e) {
+            [...this.events.get(t) || []].forEach((t => t(this, ...e))), "*" !== t && this.emit("*", t, ...e)
+        }
+    }
+    Object.defineProperty(g, "version", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: "5.0.31"
+    }), Object.defineProperty(g, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+    });
+    class m extends g {
+        constructor(t = {}) {
+            super(t), Object.defineProperty(this, "plugins", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            })
+        }
+        attachPlugins(t = {}) {
+            const e = new Map;
+            for (const [i, n] of Object.entries(t)) {
+                const t = this.option(i),
+                    s = this.plugins[i];
+                s || !1 === t ? s && !1 === t && (s.detach(), delete this.plugins[i]) : e.set(i, new n(this, t || {}))
+            }
+            for (const [t, i] of e) this.plugins[t] = i, i.attach()
+        }
+        detachPlugins(t) {
+            t = t || Object.keys(this.plugins);
+            for (const e of t) {
+                const t = this.plugins[e];
+                t && t.detach(), delete this.plugins[e]
+            }
+            return this.emit("detachPlugins"), this
+        }
+    }
+    var b;
+    ! function (t) {
+        t[t.Init = 0] = "Init", t[t.Error = 1] = "Error", t[t.Ready = 2] = "Ready", t[t.Panning = 3] = "Panning", t[t.Mousemove = 4] = "Mousemove", t[t.Destroy = 5] = "Destroy"
+    }(b || (b = {}));
+    const v = ["a", "b", "c", "d", "e", "f"],
+        y = {
+            PANUP: "Move up",
+            PANDOWN: "Move down",
+            PANLEFT: "Move left",
+            PANRIGHT: "Move right",
+            ZOOMIN: "Zoom in",
+            ZOOMOUT: "Zoom out",
+            TOGGLEZOOM: "Toggle zoom level",
+            TOGGLE1TO1: "Toggle zoom level",
+            ITERATEZOOM: "Toggle zoom level",
+            ROTATECCW: "Rotate counterclockwise",
+            ROTATECW: "Rotate clockwise",
+            FLIPX: "Flip horizontally",
+            FLIPY: "Flip vertically",
+            FITX: "Fit horizontally",
+            FITY: "Fit vertically",
+            RESET: "Reset",
+            TOGGLEFS: "Toggle fullscreen"
+        },
+        w = {
+            content: null,
+            width: "auto",
+            height: "auto",
+            panMode: "drag",
+            touch: !0,
+            dragMinThreshold: 3,
+            lockAxis: !1,
+            mouseMoveFactor: 1,
+            mouseMoveFriction: .12,
+            zoom: !0,
+            pinchToZoom: !0,
+            panOnlyZoomed: "auto",
+            minScale: 1,
+            maxScale: 2,
+            friction: .25,
+            dragFriction: .35,
+            decelFriction: .05,
+            click: "toggleZoom",
+            dblClick: !1,
+            wheel: "zoom",
+            wheelLimit: 7,
+            spinner: !0,
+            bounds: "auto",
+            infinite: !1,
+            rubberband: !0,
+            bounce: !0,
+            maxVelocity: 75,
+            transformParent: !1,
+            classes: {
+                content: "f-panzoom__content",
+                isLoading: "is-loading",
+                canZoomIn: "can-zoom_in",
+                canZoomOut: "can-zoom_out",
+                isDraggable: "is-draggable",
+                isDragging: "is-dragging",
+                inFullscreen: "in-fullscreen",
+                htmlHasFullscreen: "with-panzoom-in-fullscreen"
+            },
+            l10n: y
+        },
+        x = '<circle cx="25" cy="25" r="20"></circle>',
+        E = '<div class="f-spinner"><svg viewBox="0 0 50 50">' + x + x + "</svg></div>",
+        S = t => t && null !== t && t instanceof Element && "nodeType" in t,
+        P = (t, e) => {
+            t && o(e).forEach((e => {
+                t.classList.remove(e)
+            }))
+        },
+        C = (t, e) => {
+            t && o(e).forEach((e => {
+                t.classList.add(e)
+            }))
+        },
+        T = {
+            a: 1,
+            b: 0,
+            c: 0,
+            d: 1,
+            e: 0,
+            f: 0
+        },
+        M = 1e5,
+        O = 1e4,
+        A = "mousemove",
+        L = "drag",
+        z = "content";
+    let R = null,
+        k = null;
+    class I extends m {
+        get fits() {
+            return this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1
+        }
+        get isTouchDevice() {
+            return null === k && (k = window.matchMedia("(hover: none)").matches), k
+        }
+        get isMobile() {
+            return null === R && (R = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)), R
+        }
+        get panMode() {
+            return this.options.panMode !== A || this.isTouchDevice ? L : A
+        }
+        get panOnlyZoomed() {
+            const t = this.options.panOnlyZoomed;
+            return "auto" === t ? this.isTouchDevice : t
+        }
+        get isInfinite() {
+            return this.option("infinite")
+        }
+        get angle() {
+            return 180 * Math.atan2(this.current.b, this.current.a) / Math.PI || 0
+        }
+        get targetAngle() {
+            return 180 * Math.atan2(this.target.b, this.target.a) / Math.PI || 0
+        }
+        get scale() {
+            const {
+                a: t,
+                b: e
+            } = this.current;
+            return Math.sqrt(t * t + e * e) || 1
+        }
+        get targetScale() {
+            const {
+                a: t,
+                b: e
+            } = this.target;
+            return Math.sqrt(t * t + e * e) || 1
+        }
+        get minScale() {
+            return this.option("minScale") || 1
+        }
+        get fullScale() {
+            const {
+                contentRect: t
+            } = this;
+            return t.fullWidth / t.fitWidth || 1
+        }
+        get maxScale() {
+            return this.fullScale * (this.option("maxScale") || 1) || 1
+        }
+        get coverScale() {
+            const {
+                containerRect: t,
+                contentRect: e
+            } = this, i = Math.max(t.height / e.fitHeight, t.width / e.fitWidth) || 1;
+            return Math.min(this.fullScale, i)
+        }
+        get isScaling() {
+            return Math.abs(this.targetScale - this.scale) > 1e-5 && !this.isResting
+        }
+        get isContentLoading() {
+            const t = this.content;
+            return !!(t && t instanceof HTMLImageElement) && !t.complete
+        }
+        get isResting() {
+            if (this.isBouncingX || this.isBouncingY) return !1;
+            for (const t of v) {
+                const e = "e" == t || "f" === t ? 1e-4 : 1e-5;
+                if (Math.abs(this.target[t] - this.current[t]) > e) return !1
+            }
+            return !(!this.ignoreBounds && !this.checkBounds().inBounds)
+        }
+        constructor(t, e = {}, i = {}) {
+            var n;
+            if (super(e), Object.defineProperty(this, "pointerTracker", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "resizeObserver", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "updateTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "clickTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "rAF", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "isTicking", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "ignoreBounds", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "isBouncingX", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "isBouncingY", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "clicks", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "trackingPoints", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "pwt", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "cwd", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "pmme", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "friction", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: b.Init
+            }), Object.defineProperty(this, "isDragging", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "content", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "spinner", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "containerRect", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    width: 0,
+                    height: 0,
+                    innerWidth: 0,
+                    innerHeight: 0
+                }
+            }), Object.defineProperty(this, "contentRect", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    fullWidth: 0,
+                    fullHeight: 0,
+                    fitWidth: 0,
+                    fitHeight: 0,
+                    width: 0,
+                    height: 0
+                }
+            }), Object.defineProperty(this, "dragStart", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    x: 0,
+                    y: 0,
+                    top: 0,
+                    left: 0,
+                    time: 0
+                }
+            }), Object.defineProperty(this, "dragOffset", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    x: 0,
+                    y: 0,
+                    time: 0
+                }
+            }), Object.defineProperty(this, "current", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Object.assign({}, T)
+            }), Object.defineProperty(this, "target", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Object.assign({}, T)
+            }), Object.defineProperty(this, "velocity", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {
+                    a: 0,
+                    b: 0,
+                    c: 0,
+                    d: 0,
+                    e: 0,
+                    f: 0
+                }
+            }), Object.defineProperty(this, "lockedAxis", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), !t) throw new Error("Container Element Not Found");
+            this.container = t, this.initContent(), this.attachPlugins(Object.assign(Object.assign({}, I.Plugins), i)), this.emit("attachPlugins"), this.emit("init");
+            const o = this.content;
+            if (o.addEventListener("load", this.onLoad), o.addEventListener("error", this.onError), this.isContentLoading) {
+                if (this.option("spinner")) {
+                    t.classList.add(this.cn("isLoading"));
+                    const e = s(E);
+                    !t.contains(o) || o.parentElement instanceof HTMLPictureElement ? this.spinner = t.appendChild(e) : this.spinner = (null === (n = o.parentElement) || void 0 === n ? void 0 : n.insertBefore(e, o)) || null
+                }
+                this.emit("beforeLoad")
+            } else queueMicrotask((() => {
+                this.enable()
+            }))
+        }
+        initContent() {
+            const {
+                container: t
+            } = this, e = this.cn(z);
+            let i = this.option(z) || t.querySelector(`.${e}`);
+            if (i || (i = t.querySelector("img,picture") || t.firstElementChild, i && C(i, e)), i instanceof HTMLPictureElement && (i = i.querySelector("img")), !i) throw new Error("No content found");
+            this.content = i
+        }
+        onLoad() {
+            const {
+                spinner: t,
+                container: e,
+                state: i
+            } = this;
+            t && (t.remove(), this.spinner = null), this.option("spinner") && e.classList.remove(this.cn("isLoading")), this.emit("afterLoad"), i === b.Init ? this.enable() : this.updateMetrics()
+        }
+        onError() {
+            this.state !== b.Destroy && (this.spinner && (this.spinner.remove(), this.spinner = null), this.stop(), this.detachEvents(), this.state = b.Error, this.emit("error"))
+        }
+        attachObserver() {
+            var t;
+            const e = () => {
+                const {
+                    container: t,
+                    containerRect: e
+                } = this;
+                return Math.abs(e.width - t.getBoundingClientRect().width) > .1 || Math.abs(e.height - t.getBoundingClientRect().height) > .1
+            };
+            this.resizeObserver || void 0 === window.ResizeObserver || (this.resizeObserver = new ResizeObserver((() => {
+                this.updateTimer || (e() ? (this.onResize(), this.isMobile && (this.updateTimer = setTimeout((() => {
+                    e() && this.onResize(), this.updateTimer = null
+                }), 500))) : this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null))
+            }))), null === (t = this.resizeObserver) || void 0 === t || t.observe(this.container)
+        }
+        detachObserver() {
+            var t;
+            null === (t = this.resizeObserver) || void 0 === t || t.disconnect()
+        }
+        attachEvents() {
+            const {
+                container: t
+            } = this;
+            t.addEventListener("click", this.onClick, {
+                passive: !1,
+                capture: !1
+            }), t.addEventListener("wheel", this.onWheel, {
+                passive: !1
+            }), this.pointerTracker = new c(t, {
+                start: this.onPointerDown,
+                move: this.onPointerMove,
+                end: this.onPointerUp
+            }), document.addEventListener(A, this.onMouseMove)
+        }
+        detachEvents() {
+            var t;
+            const {
+                container: e
+            } = this;
+            e.removeEventListener("click", this.onClick, {
+                passive: !1,
+                capture: !1
+            }), e.removeEventListener("wheel", this.onWheel, {
+                passive: !1
+            }), null === (t = this.pointerTracker) || void 0 === t || t.stop(), this.pointerTracker = null, document.removeEventListener(A, this.onMouseMove), document.removeEventListener("keydown", this.onKeydown, !0), this.clickTimer && (clearTimeout(this.clickTimer), this.clickTimer = null), this.updateTimer && (clearTimeout(this.updateTimer), this.updateTimer = null)
+        }
+        animate() {
+            this.setTargetForce();
+            const t = this.friction,
+                e = this.option("maxVelocity");
+            for (const i of v) t ? (this.velocity[i] *= 1 - t, e && !this.isScaling && (this.velocity[i] = Math.max(Math.min(this.velocity[i], e), -1 * e)), this.current[i] += this.velocity[i]) : this.current[i] = this.target[i];
+            this.setTransform(), this.setEdgeForce(), !this.isResting || this.isDragging ? this.rAF = requestAnimationFrame((() => this.animate())) : this.stop("current")
+        }
+        setTargetForce() {
+            for (const t of v) "e" === t && this.isBouncingX || "f" === t && this.isBouncingY || (this.velocity[t] = (1 / (1 - this.friction) - 1) * (this.target[t] - this.current[t]))
+        }
+        checkBounds(t = 0, e = 0) {
+            const {
+                current: i
+            } = this, n = i.e + t, s = i.f + e, o = this.getBounds(), {
+                x: a,
+                y: r
+            } = o, l = a.min, c = a.max, h = r.min, d = r.max;
+            let u = 0,
+                f = 0;
+            return l !== 1 / 0 && n < l ? u = l - n : c !== 1 / 0 && n > c && (u = c - n), h !== 1 / 0 && s < h ? f = h - s : d !== 1 / 0 && s > d && (f = d - s), Math.abs(u) < 1e-4 && (u = 0), Math.abs(f) < 1e-4 && (f = 0), Object.assign(Object.assign({}, o), {
+                xDiff: u,
+                yDiff: f,
+                inBounds: !u && !f
+            })
+        }
+        clampTargetBounds() {
+            const {
+                target: t
+            } = this, {
+                x: e,
+                y: i
+            } = this.getBounds();
+            e.min !== 1 / 0 && (t.e = Math.max(t.e, e.min)), e.max !== 1 / 0 && (t.e = Math.min(t.e, e.max)), i.min !== 1 / 0 && (t.f = Math.max(t.f, i.min)), i.max !== 1 / 0 && (t.f = Math.min(t.f, i.max))
+        }
+        calculateContentDim(t = this.current) {
+            const {
+                content: e,
+                contentRect: i
+            } = this, {
+                fitWidth: n,
+                fitHeight: s,
+                fullWidth: o,
+                fullHeight: a
+            } = i;
+            let r = o,
+                l = a;
+            if (this.option("zoom") || 0 !== this.angle) {
+                const i = !(e instanceof HTMLImageElement) && ("none" === window.getComputedStyle(e).maxWidth || "none" === window.getComputedStyle(e).maxHeight),
+                    c = i ? o : n,
+                    h = i ? a : s,
+                    d = this.getMatrix(t),
+                    u = new DOMPoint(0, 0).matrixTransform(d),
+                    f = new DOMPoint(0 + c, 0).matrixTransform(d),
+                    p = new DOMPoint(0 + c, 0 + h).matrixTransform(d),
+                    g = new DOMPoint(0, 0 + h).matrixTransform(d),
+                    m = Math.abs(p.x - u.x),
+                    b = Math.abs(p.y - u.y),
+                    v = Math.abs(g.x - f.x),
+                    y = Math.abs(g.y - f.y);
+                r = Math.max(m, v), l = Math.max(b, y)
+            }
+            return {
+                contentWidth: r,
+                contentHeight: l
+            }
+        }
+        setEdgeForce() {
+            if (this.ignoreBounds || this.isDragging || this.panMode === A || this.targetScale < this.scale) return this.isBouncingX = !1, void (this.isBouncingY = !1);
+            const {
+                target: t
+            } = this, {
+                x: e,
+                y: i,
+                xDiff: n,
+                yDiff: s
+            } = this.checkBounds();
+            const o = this.option("maxVelocity");
+            let a = this.velocity.e,
+                r = this.velocity.f;
+            0 !== n ? (this.isBouncingX = !0, n * a <= 0 ? a += .14 * n : (a = .14 * n, e.min !== 1 / 0 && (this.target.e = Math.max(t.e, e.min)), e.max !== 1 / 0 && (this.target.e = Math.min(t.e, e.max))), o && (a = Math.max(Math.min(a, o), -1 * o))) : this.isBouncingX = !1, 0 !== s ? (this.isBouncingY = !0, s * r <= 0 ? r += .14 * s : (r = .14 * s, i.min !== 1 / 0 && (this.target.f = Math.max(t.f, i.min)), i.max !== 1 / 0 && (this.target.f = Math.min(t.f, i.max))), o && (r = Math.max(Math.min(r, o), -1 * o))) : this.isBouncingY = !1, this.isBouncingX && (this.velocity.e = a), this.isBouncingY && (this.velocity.f = r)
+        }
+        enable() {
+            const {
+                content: t
+            } = this, e = new DOMMatrixReadOnly(window.getComputedStyle(t).transform);
+            for (const t of v) this.current[t] = this.target[t] = e[t];
+            this.updateMetrics(), this.attachObserver(), this.attachEvents(), this.state = b.Ready, this.emit("ready")
+        }
+        onClick(t) {
+            var e;
+            "click" === t.type && 0 === t.detail && (this.dragOffset.x = 0, this.dragOffset.y = 0), this.isDragging && (null === (e = this.pointerTracker) || void 0 === e || e.clear(), this.trackingPoints = [], this.startDecelAnim());
+            const i = t.target;
+            if (!i || t.defaultPrevented) return;
+            if (i.hasAttribute("disabled")) return t.preventDefault(), void t.stopPropagation();
+            if ((() => {
+                const t = window.getSelection();
+                return t && "Range" === t.type
+            })() && !i.closest("button")) return;
+            const n = i.closest("[data-panzoom-action]"),
+                s = i.closest("[data-panzoom-change]"),
+                o = n || s,
+                a = o && S(o) ? o.dataset : null;
+            if (a) {
+                const e = a.panzoomChange,
+                    i = a.panzoomAction;
+                if ((e || i) && t.preventDefault(), e) {
+                    let t = {};
+                    try {
+                        t = JSON.parse(e)
+                    } catch (t) {
+                        console && console.warn("The given data was not valid JSON")
+                    }
+                    return void this.applyChange(t)
+                }
+                if (i) return void (this[i] && this[i]())
+            }
+            if (Math.abs(this.dragOffset.x) > 3 || Math.abs(this.dragOffset.y) > 3) return t.preventDefault(), void t.stopPropagation();
+            if (i.closest("[data-fancybox]")) return;
+            const r = this.content.getBoundingClientRect(),
+                l = this.dragStart;
+            if (l.time && !this.canZoomOut() && (Math.abs(r.x - l.x) > 2 || Math.abs(r.y - l.y) > 2)) return;
+            this.dragStart.time = 0;
+            const c = e => {
+                this.option("zoom", t) && e && "string" == typeof e && /(iterateZoom)|(toggle(Zoom|Full|Cover|Max)|(zoomTo(Fit|Cover|Max)))/.test(e) && "function" == typeof this[e] && (t.preventDefault(), this[e]({
+                    event: t
+                }))
+            },
+                h = this.option("click", t),
+                d = this.option("dblClick", t);
+            d ? (this.clicks++, 1 == this.clicks && (this.clickTimer = setTimeout((() => {
+                1 === this.clicks ? (this.emit("click", t), !t.defaultPrevented && h && c(h)) : (this.emit("dblClick", t), t.defaultPrevented || c(d)), this.clicks = 0, this.clickTimer = null
+            }), 350))) : (this.emit("click", t), !t.defaultPrevented && h && c(h))
+        }
+        addTrackingPoint(t) {
+            const e = this.trackingPoints.filter((t => t.time > Date.now() - 100));
+            e.push(t), this.trackingPoints = e
+        }
+        onPointerDown(t, e, i) {
+            var n;
+            if (!1 === this.option("touch", t)) return !1;
+            this.pwt = 0, this.dragOffset = {
+                x: 0,
+                y: 0,
+                time: 0
+            }, this.trackingPoints = [];
+            const s = this.content.getBoundingClientRect();
+            if (this.dragStart = {
+                x: s.x,
+                y: s.y,
+                top: s.top,
+                left: s.left,
+                time: Date.now()
+            }, this.clickTimer) return !1;
+            if (this.panMode === A && this.targetScale > 1) return t.preventDefault(), t.stopPropagation(), !1;
+            const o = t.composedPath()[0];
+            if (!i.length) {
+                if (["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO", "IFRAME"].includes(o.nodeName) || o.closest("[contenteditable],[data-selectable],[data-draggable],[data-clickable],[data-panzoom-change],[data-panzoom-action]")) return !1;
+                null === (n = window.getSelection()) || void 0 === n || n.removeAllRanges()
+            }
+            if ("mousedown" === t.type) ["A", "BUTTON"].includes(o.nodeName) || t.preventDefault();
+            else if (Math.abs(this.velocity.a) > .3) return !1;
+            return this.target.e = this.current.e, this.target.f = this.current.f, this.stop(), this.isDragging || (this.isDragging = !0, this.addTrackingPoint(e), this.emit("touchStart", t)), !0
+        }
+        onPointerMove(t, i, s) {
+            if (!1 === this.option("touch", t)) return;
+            if (!this.isDragging) return;
+            if (i.length < 2 && this.panOnlyZoomed && e(this.targetScale) <= e(this.minScale)) return;
+            if (this.emit("touchMove", t), t.defaultPrevented) return;
+            this.addTrackingPoint(i[0]);
+            const {
+                content: o
+            } = this, a = d(s[0], s[1]), r = d(i[0], i[1]);
+            let l = 0,
+                c = 0;
+            if (i.length > 1) {
+                const t = o.getBoundingClientRect();
+                l = a.clientX - t.left - .5 * t.width, c = a.clientY - t.top - .5 * t.height
+            }
+            const u = h(s[0], s[1]),
+                f = h(i[0], i[1]);
+            let p = u ? f / u : 1,
+                g = r.clientX - a.clientX,
+                m = r.clientY - a.clientY;
+            this.dragOffset.x += g, this.dragOffset.y += m, this.dragOffset.time = Date.now() - this.dragStart.time;
+            let b = e(this.targetScale) === e(this.minScale) && this.option("lockAxis");
+            if (b && !this.lockedAxis)
+                if ("xy" === b || "y" === b || "touchmove" === t.type) {
+                    if (Math.abs(this.dragOffset.x) < 6 && Math.abs(this.dragOffset.y) < 6) return void t.preventDefault();
+                    const e = Math.abs(180 * Math.atan2(this.dragOffset.y, this.dragOffset.x) / Math.PI);
+                    this.lockedAxis = e > 45 && e < 135 ? "y" : "x", this.dragOffset.x = 0, this.dragOffset.y = 0, g = 0, m = 0
+                } else this.lockedAxis = b;
+            if (n(t.target, this.content) && (b = "x", this.dragOffset.y = 0), b && "xy" !== b && this.lockedAxis !== b && e(this.targetScale) === e(this.minScale)) return;
+            t.cancelable && t.preventDefault(), this.container.classList.add(this.cn("isDragging"));
+            const v = this.checkBounds(g, m);
+            this.option("rubberband") ? ("x" !== this.isInfinite && (v.xDiff > 0 && g < 0 || v.xDiff < 0 && g > 0) && (g *= Math.max(0, .5 - Math.abs(.75 / this.contentRect.fitWidth * v.xDiff))), "y" !== this.isInfinite && (v.yDiff > 0 && m < 0 || v.yDiff < 0 && m > 0) && (m *= Math.max(0, .5 - Math.abs(.75 / this.contentRect.fitHeight * v.yDiff)))) : (v.xDiff && (g = 0), v.yDiff && (m = 0));
+            const y = this.targetScale,
+                w = this.minScale,
+                x = this.maxScale;
+            y < .5 * w && (p = Math.max(p, w)), y > 1.5 * x && (p = Math.min(p, x)), "y" === this.lockedAxis && e(y) === e(w) && (g = 0), "x" === this.lockedAxis && e(y) === e(w) && (m = 0), this.applyChange({
+                originX: l,
+                originY: c,
+                panX: g,
+                panY: m,
+                scale: p,
+                friction: this.option("dragFriction"),
+                ignoreBounds: !0
+            })
+        }
+        onPointerUp(t, e, i) {
+            if (i.length) return this.dragOffset.x = 0, this.dragOffset.y = 0, void (this.trackingPoints = []);
+            this.container.classList.remove(this.cn("isDragging")), this.isDragging && (this.addTrackingPoint(e), this.panOnlyZoomed && this.contentRect.width - this.contentRect.fitWidth < 1 && this.contentRect.height - this.contentRect.fitHeight < 1 && (this.trackingPoints = []), n(t.target, this.content) && "y" === this.lockedAxis && (this.trackingPoints = []), this.emit("touchEnd", t), this.isDragging = !1, this.lockedAxis = !1, this.state !== b.Destroy && (t.defaultPrevented || this.startDecelAnim()))
+        }
+        startDecelAnim() {
+            var t;
+            const i = this.isScaling;
+            this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = !1, this.isBouncingY = !1;
+            for (const t of v) this.velocity[t] = 0;
+            this.target.e = this.current.e, this.target.f = this.current.f, P(this.container, "is-scaling"), P(this.container, "is-animating"), this.isTicking = !1;
+            const {
+                trackingPoints: n
+            } = this, s = n[0], o = n[n.length - 1];
+            let a = 0,
+                r = 0,
+                l = 0;
+            o && s && (a = o.clientX - s.clientX, r = o.clientY - s.clientY, l = o.time - s.time);
+            const c = (null === (t = window.visualViewport) || void 0 === t ? void 0 : t.scale) || 1;
+            1 !== c && (a *= c, r *= c);
+            let h = 0,
+                d = 0,
+                u = 0,
+                f = 0,
+                p = this.option("decelFriction");
+            const g = this.targetScale;
+            if (l > 0) {
+                u = Math.abs(a) > 3 ? a / (l / 30) : 0, f = Math.abs(r) > 3 ? r / (l / 30) : 0;
+                const t = this.option("maxVelocity");
+                t && (u = Math.max(Math.min(u, t), -1 * t), f = Math.max(Math.min(f, t), -1 * t))
+            }
+            u && (h = u / (1 / (1 - p) - 1)), f && (d = f / (1 / (1 - p) - 1)), ("y" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "y" === this.lockedAxis && e(g) === this.minScale) && (h = u = 0), ("x" === this.option("lockAxis") || "xy" === this.option("lockAxis") && "x" === this.lockedAxis && e(g) === this.minScale) && (d = f = 0);
+            const m = this.dragOffset.x,
+                b = this.dragOffset.y,
+                y = this.option("dragMinThreshold") || 0;
+            Math.abs(m) < y && Math.abs(b) < y && (h = d = 0, u = f = 0), (this.option("zoom") && (g < this.minScale - 1e-5 || g > this.maxScale + 1e-5) || i && !h && !d) && (p = .35), this.applyChange({
+                panX: h,
+                panY: d,
+                friction: p
+            }), this.emit("decel", u, f, m, b)
+        }
+        onWheel(t) {
+            var e = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
+                return Math.abs(e) > Math.abs(t) ? e : t
+            }));
+            const i = Math.max(-1, Math.min(1, e));
+            if (this.emit("wheel", t, i), this.panMode === A) return;
+            if (t.defaultPrevented) return;
+            const n = this.option("wheel");
+            "pan" === n ? (t.preventDefault(), this.panOnlyZoomed && !this.canZoomOut() || this.applyChange({
+                panX: 2 * -t.deltaX,
+                panY: 2 * -t.deltaY,
+                bounce: !1
+            })) : "zoom" === n && !1 !== this.option("zoom") && this.zoomWithWheel(t)
+        }
+        onMouseMove(t) {
+            this.panWithMouse(t)
+        }
+        onKeydown(t) {
+            "Escape" === t.key && this.toggleFS()
+        }
+        onResize() {
+            this.updateMetrics(), this.checkBounds().inBounds || this.requestTick()
+        }
+        setTransform() {
+            this.emit("beforeTransform");
+            const {
+                current: t,
+                target: i,
+                content: n,
+                contentRect: s
+            } = this, o = Object.assign({}, T);
+            for (const n of v) {
+                const s = "e" == n || "f" === n ? O : M;
+                o[n] = e(t[n], s), Math.abs(i[n] - t[n]) < ("e" == n || "f" === n ? .51 : .001) && (t[n] = i[n])
+            }
+            let {
+                a: a,
+                b: r,
+                c: l,
+                d: c,
+                e: h,
+                f: d
+            } = o, u = `matrix(${a}, ${r}, ${l}, ${c}, ${h}, ${d})`, f = n.parentElement instanceof HTMLPictureElement ? n.parentElement : n;
+            if (this.option("transformParent") && (f = f.parentElement || f), f.style.transform === u) return;
+            f.style.transform = u;
+            const {
+                contentWidth: p,
+                contentHeight: g
+            } = this.calculateContentDim();
+            s.width = p, s.height = g, this.emit("afterTransform")
+        }
+        updateMetrics(t = !1) {
+            var i;
+            if (!this || this.state === b.Destroy) return;
+            if (this.isContentLoading) return;
+            const n = Math.max(1, (null === (i = window.visualViewport) || void 0 === i ? void 0 : i.scale) || 1),
+                {
+                    container: s,
+                    content: o
+                } = this,
+                a = o instanceof HTMLImageElement,
+                r = s.getBoundingClientRect(),
+                l = getComputedStyle(this.container);
+            let c = r.width * n,
+                h = r.height * n;
+            const d = parseFloat(l.paddingTop) + parseFloat(l.paddingBottom),
+                u = c - (parseFloat(l.paddingLeft) + parseFloat(l.paddingRight)),
+                f = h - d;
+            this.containerRect = {
+                width: c,
+                height: h,
+                innerWidth: u,
+                innerHeight: f
+            };
+            let p = this.option("width") || "auto",
+                g = this.option("height") || "auto";
+            "auto" === p && (p = parseFloat(o.dataset.width || "") || (t => {
+                let e = 0;
+                return e = t instanceof HTMLImageElement ? t.naturalWidth : t instanceof SVGElement ? t.width.baseVal.value : Math.max(t.offsetWidth, t.scrollWidth), e || 0
+            })(o)), "auto" === g && (g = parseFloat(o.dataset.height || "") || (t => {
+                let e = 0;
+                return e = t instanceof HTMLImageElement ? t.naturalHeight : t instanceof SVGElement ? t.height.baseVal.value : Math.max(t.offsetHeight, t.scrollHeight), e || 0
+            })(o));
+            let m = o.parentElement instanceof HTMLPictureElement ? o.parentElement : o;
+            this.option("transformParent") && (m = m.parentElement || m);
+            const v = m.getAttribute("style") || "";
+            m.style.setProperty("transform", "none", "important"), a && (m.style.width = "", m.style.height = ""), m.offsetHeight;
+            const y = o.getBoundingClientRect();
+            let w = y.width * n,
+                x = y.height * n,
+                E = 0,
+                S = 0;
+            a && (Math.abs(p - w) > 1 || Math.abs(g - x) > 1) && ({
+                width: w,
+                height: x,
+                top: E,
+                left: S
+            } = ((t, e, i, n) => {
+                const s = i / n;
+                return s > t / e ? (i = t, n = t / s) : (i = e * s, n = e), {
+                    width: i,
+                    height: n,
+                    top: .5 * (e - n),
+                    left: .5 * (t - i)
+                }
+            })(w, x, p, g)), this.contentRect = Object.assign(Object.assign({}, this.contentRect), {
+                top: y.top - r.top + E,
+                bottom: r.bottom - y.bottom + E,
+                left: y.left - r.left + S,
+                right: r.right - y.right + S,
+                fitWidth: w,
+                fitHeight: x,
+                width: w,
+                height: x,
+                fullWidth: p,
+                fullHeight: g
+            }), m.style.cssText = v, a && (m.style.width = `${w}px`, m.style.height = `${x}px`), this.setTransform(), !0 !== t && this.emit("refresh"), this.ignoreBounds || (e(this.targetScale) < e(this.minScale) ? this.zoomTo(this.minScale, {
+                friction: 0
+            }) : this.targetScale > this.maxScale ? this.zoomTo(this.maxScale, {
+                friction: 0
+            }) : this.state === b.Init || this.checkBounds().inBounds || this.requestTick()), this.updateControls()
+        }
+        calculateBounds() {
+            const {
+                contentWidth: t,
+                contentHeight: i
+            } = this.calculateContentDim(this.target), {
+                targetScale: n,
+                lockedAxis: s
+            } = this, {
+                fitWidth: o,
+                fitHeight: a
+            } = this.contentRect;
+            let r = 0,
+                l = 0,
+                c = 0,
+                h = 0;
+            const d = this.option("infinite");
+            if (!0 === d || s && d === s) r = -1 / 0, c = 1 / 0, l = -1 / 0, h = 1 / 0;
+            else {
+                let {
+                    containerRect: s,
+                    contentRect: d
+                } = this, u = e(o * n, O), f = e(a * n, O), {
+                    innerWidth: p,
+                    innerHeight: g
+                } = s;
+                if (s.width === u && (p = s.width), s.width === f && (g = s.height), t > p) {
+                    c = .5 * (t - p), r = -1 * c;
+                    let e = .5 * (d.right - d.left);
+                    r += e, c += e
+                }
+                if (o > p && t < p && (r -= .5 * (o - p), c -= .5 * (o - p)), i > g) {
+                    h = .5 * (i - g), l = -1 * h;
+                    let t = .5 * (d.bottom - d.top);
+                    l += t, h += t
+                }
+                a > g && i < g && (r -= .5 * (a - g), c -= .5 * (a - g))
+            }
+            return {
+                x: {
+                    min: r,
+                    max: c
+                },
+                y: {
+                    min: l,
+                    max: h
+                }
+            }
+        }
+        getBounds() {
+            const t = this.option("bounds");
+            return "auto" !== t ? t : this.calculateBounds()
+        }
+        updateControls() {
+            const t = this,
+                i = t.container,
+                {
+                    panMode: n,
+                    contentRect: s,
+                    fullScale: o,
+                    targetScale: r,
+                    coverScale: l,
+                    maxScale: c,
+                    minScale: h
+                } = t;
+            let d = {
+                toggleMax: r - h < .5 * (c - h) ? c : h,
+                toggleCover: r - h < .5 * (l - h) ? l : h,
+                toggleZoom: r - h < .5 * (o - h) ? o : h
+            }[t.option("click") || ""] || h,
+                u = t.canZoomIn(),
+                f = t.canZoomOut(),
+                p = n === L && !!this.option("touch"),
+                g = f && p;
+            if (p && (e(r) < e(h) && !this.panOnlyZoomed && (g = !0), (e(s.width, 1) > e(s.fitWidth, 1) || e(s.height, 1) > e(s.fitHeight, 1)) && (g = !0)), e(s.width * r, 1) < e(s.fitWidth, 1) && (g = !1), n === A && (g = !1), a(i, this.cn("isDraggable"), g), !this.option("zoom")) return;
+            let m = u && e(d) > e(r),
+                b = !m && !g && f && e(d) < e(r);
+            a(i, this.cn("canZoomIn"), m), a(i, this.cn("canZoomOut"), b);
+            for (const t of i.querySelectorAll('[data-panzoom-action="zoomIn"]')) u ? (t.removeAttribute("disabled"), t.removeAttribute("tabindex")) : (t.setAttribute("disabled", ""), t.setAttribute("tabindex", "-1"));
+            for (const t of i.querySelectorAll('[data-panzoom-action="zoomOut"]')) f ? (t.removeAttribute("disabled"), t.removeAttribute("tabindex")) : (t.setAttribute("disabled", ""), t.setAttribute("tabindex", "-1"));
+            for (const t of i.querySelectorAll('[data-panzoom-action="toggleZoom"],[data-panzoom-action="iterateZoom"]')) {
+                u || f ? (t.removeAttribute("disabled"), t.removeAttribute("tabindex")) : (t.setAttribute("disabled", ""), t.setAttribute("tabindex", "-1"));
+                const e = t.querySelector("g");
+                e && (e.style.display = u ? "" : "none")
+            }
+        }
+        panTo({
+            x: t = this.target.e,
+            y: e = this.target.f,
+            scale: i = this.targetScale,
+            friction: n = this.option("friction"),
+            angle: s = 0,
+            originX: o = 0,
+            originY: a = 0,
+            flipX: r = !1,
+            flipY: l = !1,
+            ignoreBounds: c = !1
+        }) {
+            this.state !== b.Destroy && this.applyChange({
+                panX: t - this.target.e,
+                panY: e - this.target.f,
+                scale: i / this.targetScale,
+                angle: s,
+                originX: o,
+                originY: a,
+                friction: n,
+                flipX: r,
+                flipY: l,
+                ignoreBounds: c
+            })
+        }
+        applyChange({
+            panX: t = 0,
+            panY: i = 0,
+            scale: n = 1,
+            angle: s = 0,
+            originX: o = -this.current.e,
+            originY: a = -this.current.f,
+            friction: r = this.option("friction"),
+            flipX: l = !1,
+            flipY: c = !1,
+            ignoreBounds: h = !1,
+            bounce: d = this.option("bounce")
+        }) {
+            const u = this.state;
+            if (u === b.Destroy) return;
+            this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.friction = r || 0, this.ignoreBounds = h;
+            const {
+                current: f
+            } = this, p = f.e, g = f.f, m = this.getMatrix(this.target);
+            let y = (new DOMMatrix).translate(p, g).translate(o, a).translate(t, i);
+            if (this.option("zoom")) {
+                if (!h) {
+                    const t = this.targetScale,
+                        e = this.minScale,
+                        i = this.maxScale;
+                    t * n < e && (n = e / t), t * n > i && (n = i / t)
+                }
+                y = y.scale(n)
+            }
+            y = y.translate(-o, -a).translate(-p, -g).multiply(m), s && (y = y.rotate(s)), l && (y = y.scale(-1, 1)), c && (y = y.scale(1, -1));
+            for (const t of v) "e" !== t && "f" !== t && (y[t] > this.minScale + 1e-5 || y[t] < this.minScale - 1e-5) ? this.target[t] = y[t] : this.target[t] = e(y[t], O);
+            (this.targetScale < this.scale || Math.abs(n - 1) > .1 || this.panMode === A || !1 === d) && !h && this.clampTargetBounds(), u === b.Init ? this.animate() : this.isResting || (this.state = b.Panning, this.requestTick())
+        }
+        stop(t = !1) {
+            if (this.state === b.Init || this.state === b.Destroy) return;
+            const e = this.isTicking;
+            this.rAF && (cancelAnimationFrame(this.rAF), this.rAF = null), this.isBouncingX = !1, this.isBouncingY = !1;
+            for (const e of v) this.velocity[e] = 0, "current" === t ? this.current[e] = this.target[e] : "target" === t && (this.target[e] = this.current[e]);
+            this.setTransform(), P(this.container, "is-scaling"), P(this.container, "is-animating"), this.isTicking = !1, this.state = b.Ready, e && (this.emit("endAnimation"), this.updateControls())
+        }
+        requestTick() {
+            this.isTicking || (this.emit("startAnimation"), this.updateControls(), C(this.container, "is-animating"), this.isScaling && C(this.container, "is-scaling")), this.isTicking = !0, this.rAF || (this.rAF = requestAnimationFrame((() => this.animate())))
+        }
+        panWithMouse(t, i = this.option("mouseMoveFriction")) {
+            if (this.pmme = t, this.panMode !== A || !t) return;
+            if (e(this.targetScale) <= e(this.minScale)) return;
+            this.emit("mouseMove", t);
+            const {
+                container: n,
+                containerRect: s,
+                contentRect: o
+            } = this, a = s.width, r = s.height, l = n.getBoundingClientRect(), c = (t.clientX || 0) - l.left, h = (t.clientY || 0) - l.top;
+            let {
+                contentWidth: d,
+                contentHeight: u
+            } = this.calculateContentDim(this.target);
+            const f = this.option("mouseMoveFactor");
+            f > 1 && (d !== a && (d *= f), u !== r && (u *= f));
+            let p = .5 * (d - a) - c / a * 100 / 100 * (d - a);
+            p += .5 * (o.right - o.left);
+            let g = .5 * (u - r) - h / r * 100 / 100 * (u - r);
+            g += .5 * (o.bottom - o.top), this.applyChange({
+                panX: p - this.target.e,
+                panY: g - this.target.f,
+                friction: i
+            })
+        }
+        zoomWithWheel(t) {
+            if (this.state === b.Destroy || this.state === b.Init) return;
+            const i = Date.now();
+            if (i - this.pwt < 45) return void t.preventDefault();
+            this.pwt = i;
+            var n = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
+                return Math.abs(e) > Math.abs(t) ? e : t
+            }));
+            const s = Math.max(-1, Math.min(1, n)),
+                {
+                    targetScale: o,
+                    maxScale: a,
+                    minScale: r
+                } = this;
+            let l = o * (100 + 45 * s) / 100;
+            e(l) < e(r) && e(o) <= e(r) ? (this.cwd += Math.abs(s), l = r) : e(l) > e(a) && e(o) >= e(a) ? (this.cwd += Math.abs(s), l = a) : (this.cwd = 0, l = Math.max(Math.min(l, a), r)), this.cwd > this.option("wheelLimit") || (t.preventDefault(), e(l) !== e(o) && this.zoomTo(l, {
+                event: t
+            }))
+        }
+        canZoomIn() {
+            return this.option("zoom") && (e(this.contentRect.width, 1) < e(this.contentRect.fitWidth, 1) || e(this.targetScale) < e(this.maxScale))
+        }
+        canZoomOut() {
+            return this.option("zoom") && e(this.targetScale) > e(this.minScale)
+        }
+        zoomIn(t = 1.25, e) {
+            this.zoomTo(this.targetScale * t, e)
+        }
+        zoomOut(t = .8, e) {
+            this.zoomTo(this.targetScale * t, e)
+        }
+        zoomToFit(t) {
+            this.zoomTo("fit", t)
+        }
+        zoomToCover(t) {
+            this.zoomTo("cover", t)
+        }
+        zoomToFull(t) {
+            this.zoomTo("full", t)
+        }
+        zoomToMax(t) {
+            this.zoomTo("max", t)
+        }
+        toggleZoom(t) {
+            this.zoomTo(this.targetScale - this.minScale < .5 * (this.fullScale - this.minScale) ? "full" : "fit", t)
+        }
+        toggleMax(t) {
+            this.zoomTo(this.targetScale - this.minScale < .5 * (this.maxScale - this.minScale) ? "max" : "fit", t)
+        }
+        toggleCover(t) {
+            this.zoomTo(this.targetScale - this.minScale < .5 * (this.coverScale - this.minScale) ? "cover" : "fit", t)
+        }
+        iterateZoom(t) {
+            this.zoomTo("next", t)
+        }
+        zoomTo(t = 1, {
+            friction: e = "auto",
+            originX: i = "auto",
+            originY: n = "auto",
+            event: s
+        } = {}) {
+            if (this.isContentLoading || this.state === b.Destroy) return;
+            const {
+                targetScale: o
+            } = this;
+            this.stop();
+            let a = 1;
+            if (this.panMode === A && (s = this.pmme || s), s || "auto" === i || "auto" === n) {
+                const t = this.content.getBoundingClientRect(),
+                    e = this.container.getBoundingClientRect(),
+                    o = s ? s.clientX : e.left + .5 * e.width,
+                    a = s ? s.clientY : e.top + .5 * e.height;
+                i = o - t.left - .5 * t.width, n = a - t.top - .5 * t.height
+            }
+            const r = this.fullScale,
+                l = this.maxScale,
+                c = this.coverScale;
+            if ("number" == typeof t) a = t / o || 1;
+            else if ("full" === t) a = r / o || 1;
+            else if ("cover" === t) a = c / o || 1;
+            else if ("max" === t) a = l / o || 1;
+            else if ("fit" === t) a = 1 / o || 1;
+            else if ("next" === t) {
+                let t = [1, r, l].sort(((t, e) => t - e)),
+                    e = t.findIndex((t => t > o + 1e-5));
+                a = t[e] / o || 1 / o
+            }
+            e = "auto" === e ? a > 1 ? .15 : .25 : e, this.applyChange({
+                scale: a,
+                originX: i,
+                originY: n,
+                friction: e
+            }), s && this.panMode === A && this.panWithMouse(s, e)
+        }
+        rotateCCW() {
+            this.applyChange({
+                angle: -90
+            })
+        }
+        rotateCW() {
+            this.applyChange({
+                angle: 90
+            })
+        }
+        flipX() {
+            this.applyChange({
+                flipX: !0
+            })
+        }
+        flipY() {
+            this.applyChange({
+                flipY: !0
+            })
+        }
+        fitX() {
+            this.stop("target");
+            const {
+                containerRect: t,
+                contentRect: e,
+                target: i
+            } = this;
+            this.applyChange({
+                panX: .5 * t.width - (e.left + .5 * e.fitWidth) - i.e,
+                panY: .5 * t.height - (e.top + .5 * e.fitHeight) - i.f,
+                scale: t.width / e.fitWidth / this.targetScale,
+                originX: 0,
+                originY: 0,
+                ignoreBounds: !0
+            })
+        }
+        fitY() {
+            this.stop("target");
+            const {
+                containerRect: t,
+                contentRect: e,
+                target: i
+            } = this;
+            this.applyChange({
+                panX: .5 * t.width - (e.left + .5 * e.fitWidth) - i.e,
+                panY: .5 * t.innerHeight - (e.top + .5 * e.fitHeight) - i.f,
+                scale: t.height / e.fitHeight / this.targetScale,
+                originX: 0,
+                originY: 0,
+                ignoreBounds: !0
+            })
+        }
+        toggleFS() {
+            const {
+                container: t
+            } = this, e = this.cn("inFullscreen"), i = this.cn("htmlHasFullscreen");
+            t.classList.toggle(e);
+            const n = t.classList.contains(e);
+            n ? (document.documentElement.classList.add(i), document.addEventListener("keydown", this.onKeydown, !0)) : (document.documentElement.classList.remove(i), document.removeEventListener("keydown", this.onKeydown, !0)), this.updateMetrics(), this.emit(n ? "enterFS" : "exitFS")
+        }
+        getMatrix(t = this.current) {
+            const {
+                a: e,
+                b: i,
+                c: n,
+                d: s,
+                e: o,
+                f: a
+            } = t;
+            return new DOMMatrix([e, i, n, s, o, a])
+        }
+        reset(t) {
+            if (this.state !== b.Init && this.state !== b.Destroy) {
+                this.stop("current");
+                for (const t of v) this.target[t] = T[t];
+                this.target.a = this.minScale, this.target.d = this.minScale, this.clampTargetBounds(), this.isResting || (this.friction = void 0 === t ? this.option("friction") : t, this.state = b.Panning, this.requestTick())
+            }
+        }
+        destroy() {
+            this.stop(), this.state = b.Destroy, this.detachEvents(), this.detachObserver();
+            const {
+                container: t,
+                content: e
+            } = this, i = this.option("classes") || {};
+            for (const e of Object.values(i)) t.classList.remove(e + "");
+            e && (e.removeEventListener("load", this.onLoad), e.removeEventListener("error", this.onError)), this.detachPlugins()
+        }
+    }
+    Object.defineProperty(I, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: w
+    }), Object.defineProperty(I, "Plugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+    });
+    const D = function (t, e) {
+        let i = !0;
+        return (...n) => {
+            i && (i = !1, t(...n), setTimeout((() => {
+                i = !0
+            }), e))
+        }
+    },
+        F = (t, e) => {
+            let i = [];
+            return t.childNodes.forEach((t => {
+                t.nodeType !== Node.ELEMENT_NODE || e && !t.matches(e) || i.push(t)
+            })), i
+        },
+        j = {
+            viewport: null,
+            track: null,
+            enabled: !0,
+            slides: [],
+            axis: "x",
+            transition: "fade",
+            preload: 1,
+            slidesPerPage: "auto",
+            initialPage: 0,
+            friction: .12,
+            Panzoom: {
+                decelFriction: .12
+            },
+            center: !0,
+            infinite: !0,
+            fill: !0,
+            dragFree: !1,
+            adaptiveHeight: !1,
+            direction: "ltr",
+            classes: {
+                container: "f-carousel",
+                viewport: "f-carousel__viewport",
+                track: "f-carousel__track",
+                slide: "f-carousel__slide",
+                isLTR: "is-ltr",
+                isRTL: "is-rtl",
+                isHorizontal: "is-horizontal",
+                isVertical: "is-vertical",
+                inTransition: "in-transition",
+                isSelected: "is-selected"
+            },
+            l10n: {
+                NEXT: "Next slide",
+                PREV: "Previous slide",
+                GOTO: "Go to slide #%d"
+            }
+        };
+    var H;
+    ! function (t) {
+        t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Destroy = 2] = "Destroy"
+    }(H || (H = {}));
+    const B = t => {
+        if ("string" == typeof t || t instanceof HTMLElement) t = {
+            html: t
+        };
+        else {
+            const e = t.thumb;
+            void 0 !== e && ("string" == typeof e && (t.thumbSrc = e), e instanceof HTMLImageElement && (t.thumbEl = e, t.thumbElSrc = e.src, t.thumbSrc = e.src), delete t.thumb)
+        }
+        return Object.assign({
+            html: "",
+            el: null,
+            isDom: !1,
+            class: "",
+            customClass: "",
+            index: -1,
+            dim: 0,
+            gap: 0,
+            pos: 0,
+            transition: !1
+        }, t)
+    },
+        N = (t = {}) => Object.assign({
+            index: -1,
+            slides: [],
+            dim: 0,
+            pos: -1
+        }, t);
+    class _ extends g {
+        constructor(t, e) {
+            super(e), Object.defineProperty(this, "instance", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: t
+            })
+        }
+        attach() { }
+        detach() { }
+    }
+    const $ = {
+        classes: {
+            list: "f-carousel__dots",
+            isDynamic: "is-dynamic",
+            hasDots: "has-dots",
+            dot: "f-carousel__dot",
+            isBeforePrev: "is-before-prev",
+            isPrev: "is-prev",
+            isCurrent: "is-current",
+            isNext: "is-next",
+            isAfterNext: "is-after-next"
+        },
+        dotTpl: '<button type="button" data-carousel-page="%i" aria-label="{{GOTO}}"><span class="f-carousel__dot" aria-hidden="true"></span></button>',
+        dynamicFrom: 11,
+        maxCount: 1 / 0,
+        minCount: 2
+    };
+    class W extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "isDynamic", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "list", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        onRefresh() {
+            this.refresh()
+        }
+        build() {
+            let t = this.list;
+            if (!t) {
+                t = document.createElement("ul"), C(t, this.cn("list")), t.setAttribute("role", "tablist");
+                const e = this.instance.container;
+                e.appendChild(t), C(e, this.cn("hasDots")), this.list = t
+            }
+            return t
+        }
+        refresh() {
+            var t;
+            const e = this.instance.pages.length,
+                i = Math.min(2, this.option("minCount")),
+                n = Math.max(2e3, this.option("maxCount")),
+                s = this.option("dynamicFrom");
+            if (e < i || e > n) return void this.cleanup();
+            const o = "number" == typeof s && e > 5 && e >= s,
+                r = !this.list || this.isDynamic !== o || this.list.children.length !== e;
+            r && this.cleanup();
+            const l = this.build();
+            if (a(l, this.cn("isDynamic"), !!o), r)
+                for (let t = 0; t < e; t++) l.append(this.createItem(t));
+            let c, h = 0;
+            for (const e of [...l.children]) {
+                const i = h === this.instance.page;
+                i && (c = e), a(e, this.cn("isCurrent"), i), null === (t = e.children[0]) || void 0 === t || t.setAttribute("aria-selected", i ? "true" : "false");
+                for (const t of ["isBeforePrev", "isPrev", "isNext", "isAfterNext"]) P(e, this.cn(t));
+                h++
+            }
+            if (c = c || l.firstChild, o && c) {
+                const t = c.previousElementSibling,
+                    e = t && t.previousElementSibling;
+                C(t, this.cn("isPrev")), C(e, this.cn("isBeforePrev"));
+                const i = c.nextElementSibling,
+                    n = i && i.nextElementSibling;
+                C(i, this.cn("isNext")), C(n, this.cn("isAfterNext"))
+            }
+            this.isDynamic = o
+        }
+        createItem(t = 0) {
+            var e;
+            const i = document.createElement("li");
+            i.setAttribute("role", "presentation");
+            const n = s(this.instance.localize(this.option("dotTpl"), [
+                ["%d", t + 1]
+            ]).replace(/\%i/g, t + ""));
+            return i.appendChild(n), null === (e = i.children[0]) || void 0 === e || e.setAttribute("role", "tab"), i
+        }
+        cleanup() {
+            this.list && (this.list.remove(), this.list = null), this.isDynamic = !1, P(this.instance.container, this.cn("hasDots"))
+        }
+        attach() {
+            this.instance.on(["refresh", "change"], this.onRefresh)
+        }
+        detach() {
+            this.instance.off(["refresh", "change"], this.onRefresh), this.cleanup()
+        }
+    }
+    Object.defineProperty(W, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: $
+    });
+    const X = "disabled",
+        q = "next",
+        Y = "prev";
+    class V extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "prev", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "next", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "isDom", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            })
+        }
+        onRefresh() {
+            const t = this.instance,
+                e = t.pages.length,
+                i = t.page;
+            if (e < 2) return void this.cleanup();
+            this.build();
+            let n = this.prev,
+                s = this.next;
+            n && s && (n.removeAttribute(X), s.removeAttribute(X), t.isInfinite || (i <= 0 && n.setAttribute(X, ""), i >= e - 1 && s.setAttribute(X, "")))
+        }
+        addBtn(t) {
+            var e;
+            const i = this.instance,
+                n = document.createElement("button");
+            n.setAttribute("tabindex", "0"), n.setAttribute("title", i.localize(`{{${t.toUpperCase()}}}`)), C(n, this.cn("button") + " " + this.cn(t === q ? "isNext" : "isPrev"));
+            const s = i.isRTL ? t === q ? Y : q : t;
+            var o;
+            return n.innerHTML = i.localize(this.option(`${s}Tpl`)), n.dataset[`carousel${o = t, o ? o.match("^[a-z]") ? o.charAt(0).toUpperCase() + o.substring(1) : o : ""}`] = "true", null === (e = this.container) || void 0 === e || e.appendChild(n), n
+        }
+        build() {
+            const t = this.instance.container,
+                e = this.cn("container");
+            let {
+                container: i,
+                prev: n,
+                next: s
+            } = this;
+            i || (i = t.querySelector("." + e), this.isDom = !!i), i || (i = document.createElement("div"), C(i, e), t.appendChild(i)), this.container = i, s || (s = i.querySelector("[data-carousel-next]")), s || (s = this.addBtn(q)), this.next = s, n || (n = i.querySelector("[data-carousel-prev]")), n || (n = this.addBtn(Y)), this.prev = n
+        }
+        cleanup() {
+            this.isDom || (this.prev && this.prev.remove(), this.next && this.next.remove(), this.container && this.container.remove()), this.prev = null, this.next = null, this.container = null, this.isDom = !1
+        }
+        attach() {
+            this.instance.on(["refresh", "change"], this.onRefresh)
+        }
+        detach() {
+            this.instance.off(["refresh", "change"], this.onRefresh), this.cleanup()
+        }
+    }
+    Object.defineProperty(V, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+            classes: {
+                container: "f-carousel__nav",
+                button: "f-button",
+                isNext: "is-next",
+                isPrev: "is-prev"
+            },
+            nextTpl: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M9 3l9 9-9 9"/></svg>',
+            prevTpl: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M15 3l-9 9 9 9"/></svg>'
+        }
+    });
+    class Z extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "selectedIndex", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "target", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "nav", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        addAsTargetFor(t) {
+            this.target = this.instance, this.nav = t, this.attachEvents()
+        }
+        addAsNavFor(t) {
+            this.nav = this.instance, this.target = t, this.attachEvents()
+        }
+        attachEvents() {
+            const {
+                nav: t,
+                target: e
+            } = this;
+            t && e && (t.options.initialSlide = e.options.initialPage, t.state === H.Ready ? this.onNavReady(t) : t.on("ready", this.onNavReady), e.state === H.Ready ? this.onTargetReady(e) : e.on("ready", this.onTargetReady))
+        }
+        onNavReady(t) {
+            t.on("createSlide", this.onNavCreateSlide), t.on("Panzoom.click", this.onNavClick), t.on("Panzoom.touchEnd", this.onNavTouch), this.onTargetChange()
+        }
+        onTargetReady(t) {
+            t.on("change", this.onTargetChange), t.on("Panzoom.refresh", this.onTargetChange), this.onTargetChange()
+        }
+        onNavClick(t, e, i) {
+            this.onNavTouch(t, t.panzoom, i)
+        }
+        onNavTouch(t, e, i) {
+            var n, s;
+            if (Math.abs(e.dragOffset.x) > 3 || Math.abs(e.dragOffset.y) > 3) return;
+            const o = i.target,
+                {
+                    nav: a,
+                    target: r
+                } = this;
+            if (!a || !r || !o) return;
+            const l = o.closest("[data-index]");
+            if (i.stopPropagation(), i.preventDefault(), !l) return;
+            const c = parseInt(l.dataset.index || "", 10) || 0,
+                h = r.getPageForSlide(c),
+                d = a.getPageForSlide(c);
+            a.slideTo(d), r.slideTo(h, {
+                friction: (null === (s = null === (n = this.nav) || void 0 === n ? void 0 : n.plugins) || void 0 === s ? void 0 : s.Sync.option("friction")) || 0
+            }), this.markSelectedSlide(c)
+        }
+        onNavCreateSlide(t, e) {
+            e.index === this.selectedIndex && this.markSelectedSlide(e.index)
+        }
+        onTargetChange() {
+            var t, e;
+            const {
+                target: i,
+                nav: n
+            } = this;
+            if (!i || !n) return;
+            if (n.state !== H.Ready || i.state !== H.Ready) return;
+            const s = null === (e = null === (t = i.pages[i.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0 === e ? void 0 : e.index,
+                o = n.getPageForSlide(s);
+            this.markSelectedSlide(s), n.slideTo(o, null === n.prevPage && null === i.prevPage ? {
+                friction: 0
+            } : void 0)
+        }
+        markSelectedSlide(t) {
+            const e = this.nav;
+            e && e.state === H.Ready && (this.selectedIndex = t, [...e.slides].map((e => {
+                e.el && e.el.classList[e.index === t ? "add" : "remove"]("is-nav-selected")
+            })))
+        }
+        attach() {
+            const t = this;
+            let e = t.options.target,
+                i = t.options.nav;
+            e ? t.addAsNavFor(e) : i && t.addAsTargetFor(i)
+        }
+        detach() {
+            const t = this,
+                e = t.nav,
+                i = t.target;
+            e && (e.off("ready", t.onNavReady), e.off("createSlide", t.onNavCreateSlide), e.off("Panzoom.click", t.onNavClick), e.off("Panzoom.touchEnd", t.onNavTouch)), t.nav = null, i && (i.off("ready", t.onTargetReady), i.off("refresh", t.onTargetChange), i.off("change", t.onTargetChange)), t.target = null
+        }
+    }
+    Object.defineProperty(Z, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+            friction: .35
+        }
+    });
+    const U = {
+        Navigation: V,
+        Dots: W,
+        Sync: Z
+    },
+        G = "animationend",
+        K = "isSelected",
+        J = "slide";
+    class Q extends m {
+        get axis() {
+            return this.isHorizontal ? "e" : "f"
+        }
+        get isEnabled() {
+            return this.state === H.Ready
+        }
+        get isInfinite() {
+            let t = !1;
+            const {
+                contentDim: e,
+                viewportDim: i,
+                pages: n,
+                slides: s
+            } = this, o = s[0];
+            return n.length >= 2 && o && e + o.dim >= i && (t = this.option("infinite")), t
+        }
+        get isRTL() {
+            return "rtl" === this.option("direction")
+        }
+        get isHorizontal() {
+            return "x" === this.option("axis")
+        }
+        constructor(t, e = {}, i = {}) {
+            if (super(), Object.defineProperty(this, "bp", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: ""
+            }), Object.defineProperty(this, "lp", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "userOptions", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            }), Object.defineProperty(this, "userPlugins", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: H.Init
+            }), Object.defineProperty(this, "page", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "prevPage", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), Object.defineProperty(this, "viewport", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "track", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "slides", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "pages", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "panzoom", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "inTransition", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: new Set
+            }), Object.defineProperty(this, "contentDim", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "viewportDim", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), "string" == typeof t && (t = document.querySelector(t)), !t || !S(t)) throw new Error("No Element found");
+            this.container = t, this.slideNext = D(this.slideNext.bind(this), 150), this.slidePrev = D(this.slidePrev.bind(this), 150), this.userOptions = e, this.userPlugins = i, queueMicrotask((() => {
+                this.processOptions()
+            }))
+        }
+        processOptions() {
+            var t, e;
+            const i = f({}, Q.defaults, this.userOptions);
+            let n = "";
+            const s = i.breakpoints;
+            if (s && u(s))
+                for (const [t, e] of Object.entries(s)) window.matchMedia(t).matches && u(e) && (n += t, f(i, e));
+            n === this.bp && this.state !== H.Init || (this.bp = n, this.state === H.Ready && (i.initialSlide = (null === (e = null === (t = this.pages[this.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0 === e ? void 0 : e.index) || 0), this.state !== H.Init && this.destroy(), super.setOptions(i), !1 === this.option("enabled") ? this.attachEvents() : setTimeout((() => {
+                this.init()
+            }), 0))
+        }
+        init() {
+            this.state = H.Init, this.emit("init"), this.attachPlugins(Object.assign(Object.assign({}, Q.Plugins), this.userPlugins)), this.emit("attachPlugins"), this.initLayout(), this.initSlides(), this.updateMetrics(), this.setInitialPosition(), this.initPanzoom(), this.attachEvents(), this.state = H.Ready, this.emit("ready")
+        }
+        initLayout() {
+            const {
+                container: t
+            } = this, e = this.option("classes");
+            C(t, this.cn("container")), a(t, e.isLTR, !this.isRTL), a(t, e.isRTL, this.isRTL), a(t, e.isVertical, !this.isHorizontal), a(t, e.isHorizontal, this.isHorizontal);
+            let i = this.option("viewport") || t.querySelector(`.${e.viewport}`);
+            i || (i = document.createElement("div"), C(i, e.viewport), i.append(...F(t, `.${e.slide}`)), t.prepend(i)), i.addEventListener("scroll", this.onScroll);
+            let n = this.option("track") || t.querySelector(`.${e.track}`);
+            n || (n = document.createElement("div"), C(n, e.track), n.append(...Array.from(i.childNodes))), n.setAttribute("aria-live", "polite"), i.contains(n) || i.prepend(n), this.viewport = i, this.track = n, this.emit("initLayout")
+        }
+        initSlides() {
+            const {
+                track: t
+            } = this;
+            if (!t) return;
+            const e = [...this.slides],
+                i = [];
+            [...F(t, `.${this.cn(J)}`)].forEach((t => {
+                if (S(t)) {
+                    const e = B({
+                        el: t,
+                        isDom: !0,
+                        index: this.slides.length
+                    });
+                    i.push(e)
+                }
+            }));
+            for (let t of [...this.option("slides", []) || [], ...e]) i.push(B(t));
+            this.slides = i;
+            for (let t = 0; t < this.slides.length; t++) this.slides[t].index = t;
+            for (const t of i) this.emit("beforeInitSlide", t, t.index), this.emit("initSlide", t, t.index);
+            this.emit("initSlides")
+        }
+        setInitialPage() {
+            const t = this.option("initialSlide");
+            this.page = "number" == typeof t ? this.getPageForSlide(t) : parseInt(this.option("initialPage", 0) + "", 10) || 0
+        }
+        setInitialPosition() {
+            const {
+                track: t,
+                pages: e,
+                isHorizontal: i
+            } = this;
+            if (!t || !e.length) return;
+            let n = this.page;
+            e[n] || (this.page = n = 0);
+            const s = (e[n].pos || 0) * (this.isRTL && i ? 1 : -1),
+                o = i ? `${s}px` : "0",
+                a = i ? "0" : `${s}px`;
+            t.style.transform = `translate3d(${o}, ${a}, 0) scale(1)`, this.option("adaptiveHeight") && this.setViewportHeight()
+        }
+        initPanzoom() {
+            this.panzoom && (this.panzoom.destroy(), this.panzoom = null);
+            const t = this.option("Panzoom") || {};
+            this.panzoom = new I(this.viewport, f({}, {
+                content: this.track,
+                zoom: !1,
+                panOnlyZoomed: !1,
+                lockAxis: this.isHorizontal ? "x" : "y",
+                infinite: this.isInfinite,
+                click: !1,
+                dblClick: !1,
+                touch: t => !(this.pages.length < 2 && !t.options.infinite),
+                bounds: () => this.getBounds(),
+                maxVelocity: t => Math.abs(t.target[this.axis] - t.current[this.axis]) < 2 * this.viewportDim ? 100 : 0
+            }, t)), this.panzoom.on("*", ((t, e, ...i) => {
+                this.emit(`Panzoom.${e}`, t, ...i)
+            })), this.panzoom.on("decel", this.onDecel), this.panzoom.on("refresh", this.onRefresh), this.panzoom.on("beforeTransform", this.onBeforeTransform), this.panzoom.on("endAnimation", this.onEndAnimation)
+        }
+        attachEvents() {
+            const t = this.container;
+            t && (t.addEventListener("click", this.onClick, {
+                passive: !1,
+                capture: !1
+            }), t.addEventListener("slideTo", this.onSlideTo)), window.addEventListener("resize", this.onResize)
+        }
+        createPages() {
+            let t = [];
+            const {
+                contentDim: e,
+                viewportDim: i
+            } = this;
+            let n = this.option("slidesPerPage");
+            n = ("auto" === n || e <= i) && !1 !== this.option("fill") ? 1 / 0 : parseFloat(n + "");
+            let s = 0,
+                o = 0,
+                a = 0;
+            for (const e of this.slides) (!t.length || o + e.dim - i > .05 || a >= n) && (t.push(N()), s = t.length - 1, o = 0, a = 0), t[s].slides.push(e), o += e.dim + e.gap, a++;
+            return t
+        }
+        processPages() {
+            const t = this.pages,
+                {
+                    contentDim: i,
+                    viewportDim: n,
+                    isInfinite: s
+                } = this,
+                o = this.option("center"),
+                a = this.option("fill"),
+                r = a && o && i > n && !s;
+            if (t.forEach(((t, e) => {
+                var s;
+                t.index = e, t.pos = (null === (s = t.slides[0]) || void 0 === s ? void 0 : s.pos) || 0, t.dim = 0;
+                for (const [e, i] of t.slides.entries()) t.dim += i.dim, e < t.slides.length - 1 && (t.dim += i.gap);
+                r && t.pos + .5 * t.dim < .5 * n ? t.pos = 0 : r && t.pos + .5 * t.dim >= i - .5 * n ? t.pos = i - n : o && (t.pos += -.5 * (n - t.dim))
+            })), t.forEach((t => {
+                a && !s && i > n && (t.pos = Math.max(t.pos, 0), t.pos = Math.min(t.pos, i - n)), t.pos = e(t.pos, 1e3), t.dim = e(t.dim, 1e3), Math.abs(t.pos) <= .1 && (t.pos = 0)
+            })), s) return t;
+            const l = [];
+            let c;
+            return t.forEach((t => {
+                const e = Object.assign({}, t);
+                c && e.pos === c.pos ? (c.dim += e.dim, c.slides = [...c.slides, ...e.slides]) : (e.index = l.length, c = e, l.push(e))
+            })), l
+        }
+        getPageFromIndex(t = 0) {
+            const e = this.pages.length;
+            let i;
+            return t = parseInt((t || 0).toString()) || 0, i = this.isInfinite ? (t % e + e) % e : Math.max(Math.min(t, e - 1), 0), i
+        }
+        getSlideMetrics(t) {
+            var i, n;
+            const s = this.isHorizontal ? "width" : "height";
+            let o = 0,
+                a = 0,
+                r = t.el;
+            const l = !(!r || r.parentNode);
+            if (r ? o = parseFloat(r.dataset[s] || "") || 0 : (r = document.createElement("div"), r.style.visibility = "hidden", (this.track || document.body).prepend(r)), C(r, this.cn(J) + " " + t.class + " " + t.customClass), o) r.style[s] = `${o}px`, r.style["width" === s ? "height" : "width"] = "";
+            else {
+                l && (this.track || document.body).prepend(r), o = r.getBoundingClientRect()[s] * Math.max(1, (null === (i = window.visualViewport) || void 0 === i ? void 0 : i.scale) || 1);
+                let t = r[this.isHorizontal ? "offsetWidth" : "offsetHeight"];
+                t - 1 > o && (o = t)
+            }
+            const c = getComputedStyle(r);
+            return "content-box" === c.boxSizing && (this.isHorizontal ? (o += parseFloat(c.paddingLeft) || 0, o += parseFloat(c.paddingRight) || 0) : (o += parseFloat(c.paddingTop) || 0, o += parseFloat(c.paddingBottom) || 0)), a = parseFloat(c[this.isHorizontal ? "marginRight" : "marginBottom"]) || 0, l ? null === (n = r.parentElement) || void 0 === n || n.removeChild(r) : t.el || r.remove(), {
+                dim: e(o, 1e3),
+                gap: e(a, 1e3)
+            }
+        }
+        getBounds() {
+            const {
+                isInfinite: t,
+                isRTL: e,
+                isHorizontal: i,
+                pages: n
+            } = this;
+            let s = {
+                min: 0,
+                max: 0
+            };
+            if (t) s = {
+                min: -1 / 0,
+                max: 1 / 0
+            };
+            else if (n.length) {
+                const t = n[0].pos,
+                    o = n[n.length - 1].pos;
+                s = e && i ? {
+                    min: t,
+                    max: o
+                } : {
+                    min: -1 * o,
+                    max: -1 * t
+                }
+            }
+            return {
+                x: i ? s : {
+                    min: 0,
+                    max: 0
+                },
+                y: i ? {
+                    min: 0,
+                    max: 0
+                } : s
+            }
+        }
+        repositionSlides() {
+            let t, {
+                isHorizontal: i,
+                isRTL: n,
+                isInfinite: s,
+                viewport: o,
+                viewportDim: a,
+                contentDim: r,
+                page: l,
+                pages: c,
+                slides: h,
+                panzoom: d
+            } = this,
+                u = 0,
+                f = 0,
+                p = 0,
+                g = 0;
+            d ? g = -1 * d.current[this.axis] : c[l] && (g = c[l].pos || 0), t = i ? n ? "right" : "left" : "top", n && i && (g *= -1);
+            for (const i of h) {
+                const n = i.el;
+                n ? ("top" === t ? (n.style.right = "", n.style.left = "") : n.style.top = "", i.index !== u ? n.style[t] = 0 === f ? "" : `${e(f, 1e3)}px` : n.style[t] = "", p += i.dim + i.gap, u++) : f += i.dim + i.gap
+            }
+            if (s && p && o) {
+                let n = getComputedStyle(o),
+                    s = "padding",
+                    l = i ? "Right" : "Bottom",
+                    c = parseFloat(n[s + (i ? "Left" : "Top")]);
+                g -= c, a += c, a += parseFloat(n[s + l]);
+                for (const i of h) i.el && (e(i.pos) < e(a) && e(i.pos + i.dim + i.gap) < e(g) && e(g) > e(r - a) && (i.el.style[t] = `${e(f + p, 1e3)}px`), e(i.pos + i.gap) >= e(r - a) && e(i.pos) > e(g + a) && e(g) < e(a) && (i.el.style[t] = `-${e(p, 1e3)}px`))
+            }
+            let m, b, v = [...this.inTransition];
+            if (v.length > 1 && (m = c[v[0]], b = c[v[1]]), m && b) {
+                let i = 0;
+                for (const n of h) n.el ? this.inTransition.has(n.index) && m.slides.indexOf(n) < 0 && (n.el.style[t] = `${e(i + (m.pos - b.pos), 1e3)}px`) : i += n.dim + n.gap
+            }
+        }
+        createSlideEl(t) {
+            const {
+                track: e,
+                slides: i
+            } = this;
+            if (!e || !t) return;
+            if (t.el && t.el.parentNode) return;
+            const n = t.el || document.createElement("div");
+            C(n, this.cn(J)), C(n, t.class), C(n, t.customClass);
+            const s = t.html;
+            s && (s instanceof HTMLElement ? n.appendChild(s) : n.innerHTML = t.html + "");
+            const o = [];
+            i.forEach(((t, e) => {
+                t.el && o.push(e)
+            }));
+            const a = t.index;
+            let r = null;
+            if (o.length) {
+                r = i[o.reduce(((t, e) => Math.abs(e - a) < Math.abs(t - a) ? e : t))]
+            }
+            const l = r && r.el && r.el.parentNode ? r.index < t.index ? r.el.nextSibling : r.el : null;
+            e.insertBefore(n, e.contains(l) ? l : null), t.el = n, this.emit("createSlide", t)
+        }
+        removeSlideEl(t, e = !1) {
+            const i = null == t ? void 0 : t.el;
+            if (!i || !i.parentNode) return;
+            const n = this.cn(K);
+            if (i.classList.contains(n) && (P(i, n), this.emit("unselectSlide", t)), t.isDom && !e) return i.removeAttribute("aria-hidden"), i.removeAttribute("data-index"), void (i.style.left = "");
+            this.emit("removeSlide", t);
+            const s = new CustomEvent(G);
+            i.dispatchEvent(s), t.el && (t.el.remove(), t.el = null)
+        }
+        transitionTo(t = 0, e = this.option("transition")) {
+            var i, n, s, o;
+            if (!e) return !1;
+            const a = this.page,
+                {
+                    pages: r,
+                    panzoom: l
+                } = this;
+            t = parseInt((t || 0).toString()) || 0;
+            const c = this.getPageFromIndex(t);
+            if (!l || !r[c] || r.length < 2 || Math.abs(((null === (n = null === (i = r[a]) || void 0 === i ? void 0 : i.slides[0]) || void 0 === n ? void 0 : n.dim) || 0) - this.viewportDim) > 1) return !1;
+            const h = t > a ? 1 : -1,
+                d = r[c].pos * (this.isRTL ? 1 : -1);
+            if (a === c && Math.abs(d - l.target[this.axis]) < 1) return !1;
+            this.clearTransitions();
+            const u = l.isResting;
+            C(this.container, this.cn("inTransition"));
+            const f = (null === (s = r[a]) || void 0 === s ? void 0 : s.slides[0]) || null,
+                p = (null === (o = r[c]) || void 0 === o ? void 0 : o.slides[0]) || null;
+            this.inTransition.add(p.index), this.createSlideEl(p);
+            let g = f.el,
+                m = p.el;
+            u || e === J || (e = "fadeFast", g = null);
+            const b = this.isRTL ? "next" : "prev",
+                v = this.isRTL ? "prev" : "next";
+            return g && (this.inTransition.add(f.index), f.transition = e, g.addEventListener(G, this.onAnimationEnd), g.classList.add(`f-${e}Out`, `to-${h > 0 ? v : b}`)), m && (p.transition = e, m.addEventListener(G, this.onAnimationEnd), m.classList.add(`f-${e}In`, `from-${h > 0 ? b : v}`)), l.current[this.axis] = d, l.target[this.axis] = d, l.requestTick(), this.onChange(c), !0
+        }
+        manageSlideVisiblity() {
+            const t = new Set,
+                e = new Set,
+                i = this.getVisibleSlides(parseFloat(this.option("preload", 0) + "") || 0);
+            for (const n of this.slides) i.has(n) ? t.add(n) : e.add(n);
+            for (const e of this.inTransition) t.add(this.slides[e]);
+            for (const e of t) this.createSlideEl(e), this.lazyLoadSlide(e);
+            for (const i of e) t.has(i) || this.removeSlideEl(i);
+            this.markSelectedSlides(), this.repositionSlides()
+        }
+        markSelectedSlides() {
+            if (!this.pages[this.page] || !this.pages[this.page].slides) return;
+            const t = "aria-hidden";
+            let e = this.cn(K);
+            if (e)
+                for (const i of this.slides) {
+                    const n = i.el;
+                    n && (n.dataset.index = `${i.index}`, n.classList.contains("f-thumbs__slide") ? this.getVisibleSlides(0).has(i) ? n.removeAttribute(t) : n.setAttribute(t, "true") : this.pages[this.page].slides.includes(i) ? (n.classList.contains(e) || (C(n, e), this.emit("selectSlide", i)), n.removeAttribute(t)) : (n.classList.contains(e) && (P(n, e), this.emit("unselectSlide", i)), n.setAttribute(t, "true")))
+                }
+        }
+        flipInfiniteTrack() {
+            const {
+                axis: t,
+                isHorizontal: e,
+                isInfinite: i,
+                isRTL: n,
+                viewportDim: s,
+                contentDim: o
+            } = this, a = this.panzoom;
+            if (!a || !i) return;
+            let r = a.current[t],
+                l = a.target[t] - r,
+                c = 0,
+                h = .5 * s;
+            n && e ? (r < -h && (c = -1, r += o), r > o - h && (c = 1, r -= o)) : (r > h && (c = 1, r -= o), r < -o + h && (c = -1, r += o)), c && (a.current[t] = r, a.target[t] = r + l)
+        }
+        lazyLoadImg(t, e) {
+            const i = this,
+                n = "f-fadeIn",
+                o = "is-preloading";
+            let a = !1,
+                r = null;
+            const l = () => {
+                a || (a = !0, r && (r.remove(), r = null), P(e, o), e.complete && (C(e, n), setTimeout((() => {
+                    P(e, n)
+                }), 350)), this.option("adaptiveHeight") && t.el && this.pages[this.page].slides.indexOf(t) > -1 && (i.updateMetrics(), i.setViewportHeight()), this.emit("load", t))
+            };
+            C(e, o), e.src = e.dataset.lazySrcset || e.dataset.lazySrc || "", delete e.dataset.lazySrc, delete e.dataset.lazySrcset, e.addEventListener("error", (() => {
+                l()
+            })), e.addEventListener("load", (() => {
+                l()
+            })), setTimeout((() => {
+                const i = e.parentNode;
+                i && t.el && (e.complete ? l() : a || (r = s(E), i.insertBefore(r, e)))
+            }), 300)
+        }
+        lazyLoadSlide(t) {
+            const e = t && t.el;
+            if (!e) return;
+            const i = new Set;
+            let n = Array.from(e.querySelectorAll("[data-lazy-src],[data-lazy-srcset]"));
+            e.dataset.lazySrc && n.push(e), n.map((t => {
+                t instanceof HTMLImageElement ? i.add(t) : t instanceof HTMLElement && t.dataset.lazySrc && (t.style.backgroundImage = `url('${t.dataset.lazySrc}')`, delete t.dataset.lazySrc)
+            }));
+            for (const e of i) this.lazyLoadImg(t, e)
+        }
+        onAnimationEnd(t) {
+            var e;
+            const i = t.target,
+                n = i ? parseInt(i.dataset.index || "", 10) || 0 : -1,
+                s = this.slides[n],
+                o = t.animationName;
+            if (!i || !s || !o) return;
+            const a = !!this.inTransition.has(n) && s.transition;
+            a && o.substring(0, a.length + 2) === `f-${a}` && this.inTransition.delete(n), this.inTransition.size || this.clearTransitions(), n === this.page && (null === (e = this.panzoom) || void 0 === e ? void 0 : e.isResting) && this.emit("settle")
+        }
+        onDecel(t, e = 0, i = 0, n = 0, s = 0) {
+            if (this.option("dragFree")) return void this.setPageFromPosition();
+            const {
+                isRTL: o,
+                isHorizontal: a,
+                axis: r,
+                pages: l
+            } = this, c = l.length, h = Math.abs(Math.atan2(i, e) / (Math.PI / 180));
+            let d = 0;
+            if (d = h > 45 && h < 135 ? a ? 0 : i : a ? e : 0, !c) return;
+            let u = this.page,
+                f = o && a ? 1 : -1;
+            const p = t.current[r] * f;
+            let {
+                pageIndex: g
+            } = this.getPageFromPosition(p);
+            Math.abs(d) > 5 ? (l[u].dim < document.documentElement["client" + (this.isHorizontal ? "Width" : "Height")] - 1 && (u = g), u = o && a ? d < 0 ? u - 1 : u + 1 : d < 0 ? u + 1 : u - 1) : u = 0 === n && 0 === s ? u : g, this.slideTo(u, {
+                transition: !1,
+                friction: t.option("decelFriction")
+            })
+        }
+        onClick(t) {
+            const e = t.target,
+                i = e && S(e) ? e.dataset : null;
+            let n, s;
+            i && (void 0 !== i.carouselPage ? (s = "slideTo", n = i.carouselPage) : void 0 !== i.carouselNext ? s = "slideNext" : void 0 !== i.carouselPrev && (s = "slidePrev")), s ? (t.preventDefault(), t.stopPropagation(), e && !e.hasAttribute("disabled") && this[s](n)) : this.emit("click", t)
+        }
+        onSlideTo(t) {
+            const e = t.detail || 0;
+            this.slideTo(this.getPageForSlide(e), {
+                friction: 0
+            })
+        }
+        onChange(t, e = 0) {
+            const i = this.page;
+            this.prevPage = i, this.page = t, this.option("adaptiveHeight") && this.setViewportHeight(), t !== i && (this.markSelectedSlides(), this.emit("change", t, i, e))
+        }
+        onRefresh() {
+            let t = this.contentDim,
+                e = this.viewportDim;
+            this.updateMetrics(), this.contentDim === t && this.viewportDim === e || this.slideTo(this.page, {
+                friction: 0,
+                transition: !1
+            })
+        }
+        onScroll() {
+            var t;
+            null === (t = this.viewport) || void 0 === t || t.scroll(0, 0)
+        }
+        onResize() {
+            this.option("breakpoints") && this.processOptions()
+        }
+        onBeforeTransform(t) {
+            this.lp !== t.current[this.axis] && (this.flipInfiniteTrack(), this.manageSlideVisiblity()), this.lp = t.current.e
+        }
+        onEndAnimation() {
+            this.inTransition.size || this.emit("settle")
+        }
+        reInit(t = null, e = null) {
+            this.destroy(), this.state = H.Init, this.prevPage = null, this.userOptions = t || this.userOptions, this.userPlugins = e || this.userPlugins, this.processOptions()
+        }
+        slideTo(t = 0, {
+            friction: e = this.option("friction"),
+            transition: i = this.option("transition")
+        } = {}) {
+            if (this.state === H.Destroy) return;
+            t = parseInt((t || 0).toString()) || 0;
+            const n = this.getPageFromIndex(t),
+                {
+                    axis: s,
+                    isHorizontal: o,
+                    isRTL: a,
+                    pages: r,
+                    panzoom: l
+                } = this,
+                c = r.length,
+                h = a && o ? 1 : -1;
+            if (!l || !c) return;
+            if (this.page !== n) {
+                const e = new Event("beforeChange", {
+                    bubbles: !0,
+                    cancelable: !0
+                });
+                if (this.emit("beforeChange", e, t), e.defaultPrevented) return
+            }
+            if (this.transitionTo(t, i)) return;
+            let d = r[n].pos;
+            if (this.isInfinite) {
+                const e = this.contentDim,
+                    i = l.target[s] * h;
+                if (2 === c) d += e * Math.floor(parseFloat(t + "") / 2);
+                else {
+                    d = [d, d - e, d + e].reduce((function (t, e) {
+                        return Math.abs(e - i) < Math.abs(t - i) ? e : t
+                    }))
+                }
+            }
+            d *= h, Math.abs(l.target[s] - d) < 1 || (l.panTo({
+                x: o ? d : 0,
+                y: o ? 0 : d,
+                friction: e
+            }), this.onChange(n))
+        }
+        slideToClosest(t) {
+            if (this.panzoom) {
+                const {
+                    pageIndex: e
+                } = this.getPageFromPosition();
+                this.slideTo(e, t)
+            }
+        }
+        slideNext() {
+            this.slideTo(this.page + 1)
+        }
+        slidePrev() {
+            this.slideTo(this.page - 1)
+        }
+        clearTransitions() {
+            this.inTransition.clear(), P(this.container, this.cn("inTransition"));
+            const t = ["to-prev", "to-next", "from-prev", "from-next"];
+            for (const e of this.slides) {
+                const i = e.el;
+                if (i) {
+                    i.removeEventListener(G, this.onAnimationEnd), i.classList.remove(...t);
+                    const n = e.transition;
+                    n && i.classList.remove(`f-${n}Out`, `f-${n}In`)
+                }
+            }
+            this.manageSlideVisiblity()
+        }
+        addSlide(t, e) {
+            var i, n, s, o;
+            const a = this.panzoom,
+                r = (null === (i = this.pages[this.page]) || void 0 === i ? void 0 : i.pos) || 0,
+                l = (null === (n = this.pages[this.page]) || void 0 === n ? void 0 : n.dim) || 0,
+                c = this.contentDim < this.viewportDim;
+            let h = Array.isArray(e) ? e : [e];
+            const d = [];
+            for (const t of h) d.push(B(t));
+            this.slides.splice(t, 0, ...d);
+            for (let t = 0; t < this.slides.length; t++) this.slides[t].index = t;
+            for (const t of d) this.emit("beforeInitSlide", t, t.index);
+            if (this.page >= t && (this.page += d.length), this.updateMetrics(), a) {
+                const e = (null === (s = this.pages[this.page]) || void 0 === s ? void 0 : s.pos) || 0,
+                    i = (null === (o = this.pages[this.page]) || void 0 === o ? void 0 : o.dim) || 0,
+                    n = this.pages.length || 1,
+                    h = this.isRTL ? l - i : i - l,
+                    d = this.isRTL ? r - e : e - r;
+                c && 1 === n ? (t <= this.page && (a.current[this.axis] -= h, a.target[this.axis] -= h), a.panTo({
+                    [this.isHorizontal ? "x" : "y"]: -1 * e
+                })) : d && t <= this.page && (a.target[this.axis] -= d, a.current[this.axis] -= d, a.requestTick())
+            }
+            for (const t of d) this.emit("initSlide", t, t.index)
+        }
+        prependSlide(t) {
+            this.addSlide(0, t)
+        }
+        appendSlide(t) {
+            this.addSlide(this.slides.length, t)
+        }
+        removeSlide(t) {
+            const e = this.slides.length;
+            t = (t % e + e) % e;
+            const i = this.slides[t];
+            if (i) {
+                this.removeSlideEl(i, !0), this.slides.splice(t, 1);
+                for (let t = 0; t < this.slides.length; t++) this.slides[t].index = t;
+                this.updateMetrics(), this.slideTo(this.page, {
+                    friction: 0,
+                    transition: !1
+                }), this.emit("destroySlide", i)
+            }
+        }
+        updateMetrics() {
+            const {
+                panzoom: t,
+                viewport: i,
+                track: n,
+                slides: s,
+                isHorizontal: o,
+                isInfinite: a
+            } = this;
+            if (!n) return;
+            const r = o ? "width" : "height",
+                l = o ? "offsetWidth" : "offsetHeight";
+            if (i) {
+                let t = Math.max(i[l], e(i.getBoundingClientRect()[r], 1e3)),
+                    n = getComputedStyle(i),
+                    s = "padding",
+                    a = o ? "Right" : "Bottom";
+                t -= parseFloat(n[s + (o ? "Left" : "Top")]) + parseFloat(n[s + a]), this.viewportDim = t
+            }
+            let c, h = 0;
+            for (const [t, i] of s.entries()) {
+                let n = 0,
+                    o = 0;
+                !i.el && c ? (n = c.dim, o = c.gap) : (({
+                    dim: n,
+                    gap: o
+                } = this.getSlideMetrics(i)), c = i), n = e(n, 1e3), o = e(o, 1e3), i.dim = n, i.gap = o, i.pos = h, h += n, (a || t < s.length - 1) && (h += o)
+            }
+            h = e(h, 1e3), this.contentDim = h, t && (t.contentRect[r] = h, t.contentRect[o ? "fullWidth" : "fullHeight"] = h), this.pages = this.createPages(), this.pages = this.processPages(), this.state === H.Init && this.setInitialPage(), this.page = Math.max(0, Math.min(this.page, this.pages.length - 1)), this.manageSlideVisiblity(), this.emit("refresh")
+        }
+        getProgress(t, i = !1, n = !1) {
+            void 0 === t && (t = this.page);
+            const s = this,
+                o = s.panzoom,
+                a = s.contentDim,
+                r = s.pages[t] || 0;
+            if (!r || !o) return t > this.page ? -1 : 1;
+            let l = -1 * o.current.e,
+                c = e((l - r.pos) / (1 * r.dim), 1e3),
+                h = c,
+                d = c;
+            this.isInfinite && !0 !== n && (h = e((l - r.pos + a) / (1 * r.dim), 1e3), d = e((l - r.pos - a) / (1 * r.dim), 1e3));
+            let u = [c, h, d].reduce((function (t, e) {
+                return Math.abs(e) < Math.abs(t) ? e : t
+            }));
+            return i ? u : u > 1 ? 1 : u < -1 ? -1 : u
+        }
+        setViewportHeight() {
+            const {
+                page: t,
+                pages: e,
+                viewport: i,
+                isHorizontal: n
+            } = this;
+            if (!i || !e[t]) return;
+            let s = 0;
+            n && this.track && (this.track.style.height = "auto", e[t].slides.forEach((t => {
+                t.el && (s = Math.max(s, t.el.offsetHeight))
+            }))), i.style.height = s ? `${s}px` : ""
+        }
+        getPageForSlide(t) {
+            for (const e of this.pages)
+                for (const i of e.slides)
+                    if (i.index === t) return e.index;
+            return -1
+        }
+        getVisibleSlides(t = 0) {
+            var e;
+            const i = new Set;
+            let {
+                panzoom: n,
+                contentDim: s,
+                viewportDim: o,
+                pages: a,
+                page: r
+            } = this;
+            if (o) {
+                s = s + (null === (e = this.slides[this.slides.length - 1]) || void 0 === e ? void 0 : e.gap) || 0;
+                let l = 0;
+                l = n && n.state !== b.Init && n.state !== b.Destroy ? -1 * n.current[this.axis] : a[r] && a[r].pos || 0, this.isInfinite && (l -= Math.floor(l / s) * s), this.isRTL && this.isHorizontal && (l *= -1);
+                const c = l - o * t,
+                    h = l + o * (t + 1),
+                    d = this.isInfinite ? [-1, 0, 1] : [0];
+                for (const t of this.slides)
+                    for (const e of d) {
+                        const n = t.pos + e * s,
+                            o = n + t.dim + t.gap;
+                        n < h && o > c && i.add(t)
+                    }
+            }
+            return i
+        }
+        getPageFromPosition(t) {
+            const {
+                viewportDim: e,
+                contentDim: i,
+                slides: n,
+                pages: s,
+                panzoom: o
+            } = this, a = s.length, r = n.length, l = n[0], c = n[r - 1], h = this.option("center");
+            let d = 0,
+                u = 0,
+                f = 0,
+                p = void 0 === t ? -1 * ((null == o ? void 0 : o.target[this.axis]) || 0) : t;
+            h && (p += .5 * e), this.isInfinite ? (p < l.pos - .5 * c.gap && (p -= i, f = -1), p > c.pos + c.dim + .5 * c.gap && (p -= i, f = 1)) : p = Math.max(l.pos || 0, Math.min(p, c.pos));
+            let g = c,
+                m = n.find((t => {
+                    const e = t.pos - .5 * g.gap,
+                        i = t.pos + t.dim + .5 * t.gap;
+                    return g = t, p >= e && p < i
+                }));
+            return m || (m = c), u = this.getPageForSlide(m.index), d = u + f * a, {
+                page: d,
+                pageIndex: u
+            }
+        }
+        setPageFromPosition() {
+            const {
+                pageIndex: t
+            } = this.getPageFromPosition();
+            this.onChange(t)
+        }
+        destroy() {
+            if ([H.Destroy].includes(this.state)) return;
+            this.state = H.Destroy;
+            const {
+                container: t,
+                viewport: e,
+                track: i,
+                slides: n,
+                panzoom: s
+            } = this, o = this.option("classes");
+            t.removeEventListener("click", this.onClick, {
+                passive: !1,
+                capture: !1
+            }), t.removeEventListener("slideTo", this.onSlideTo), window.removeEventListener("resize", this.onResize), s && (s.destroy(), this.panzoom = null), n && n.forEach((t => {
+                this.removeSlideEl(t)
+            })), this.detachPlugins(), e && (e.removeEventListener("scroll", this.onScroll), e.offsetParent && i && i.offsetParent && e.replaceWith(...i.childNodes));
+            for (const [e, i] of Object.entries(o)) "container" !== e && i && t.classList.remove(i);
+            this.track = null, this.viewport = null, this.page = 0, this.slides = [];
+            const a = this.events.get("ready");
+            this.events = new Map, a && this.events.set("ready", a)
+        }
+    }
+    Object.defineProperty(Q, "Panzoom", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: I
+    }), Object.defineProperty(Q, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: j
+    }), Object.defineProperty(Q, "Plugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: U
+    });
+    const tt = function (t) {
+        if (!S(t)) return 0;
+        const e = window.scrollY,
+            i = window.innerHeight,
+            n = e + i,
+            s = t.getBoundingClientRect(),
+            o = s.y + e,
+            a = s.height,
+            r = o + a;
+        if (e > r || n < o) return 0;
+        if (e < o && n > r) return 100;
+        if (o < e && r > n) return 100;
+        let l = a;
+        o < e && (l -= e - o), r > n && (l -= r - n);
+        const c = l / i * 100;
+        return Math.round(c)
+    },
+        et = !("undefined" == typeof window || !window.document || !window.document.createElement);
+    let it;
+    const nt = ["a[href]", "area[href]", 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', "select:not([disabled]):not([aria-hidden])", "textarea:not([disabled]):not([aria-hidden])", "button:not([disabled]):not([aria-hidden]):not(.fancybox-focus-guard)", "iframe", "object", "embed", "video", "audio", "[contenteditable]", '[tabindex]:not([tabindex^="-"]):not([disabled]):not([aria-hidden])'].join(","),
+        st = t => {
+            if (t && et) {
+                void 0 === it && document.createElement("div").focus({
+                    get preventScroll() {
+                        return it = !0, !1
+                    }
+                });
+                try {
+                    if (it) t.focus({
+                        preventScroll: !0
+                    });
+                    else {
+                        const e = window.scrollY || document.body.scrollTop,
+                            i = window.scrollX || document.body.scrollLeft;
+                        t.focus(), document.body.scrollTo({
+                            top: e,
+                            left: i,
+                            behavior: "auto"
+                        })
+                    }
+                } catch (t) { }
+            }
+        },
+        ot = () => {
+            const t = document;
+            let e, i = "",
+                n = "",
+                s = "";
+            return t.fullscreenEnabled ? (i = "requestFullscreen", n = "exitFullscreen", s = "fullscreenElement") : t.webkitFullscreenEnabled && (i = "webkitRequestFullscreen", n = "webkitExitFullscreen", s = "webkitFullscreenElement"), i && (e = {
+                request: function (e = t.documentElement) {
+                    return "webkitRequestFullscreen" === i ? e[i](Element.ALLOW_KEYBOARD_INPUT) : e[i]()
+                },
+                exit: function () {
+                    return t[s] && t[n]()
+                },
+                isFullscreen: function () {
+                    return t[s]
+                }
+            }), e
+        },
+        at = {
+            dragToClose: !0,
+            hideScrollbar: !0,
+            Carousel: {
+                classes: {
+                    container: "fancybox__carousel",
+                    viewport: "fancybox__viewport",
+                    track: "fancybox__track",
+                    slide: "fancybox__slide"
+                }
+            },
+            contentClick: "toggleZoom",
+            contentDblClick: !1,
+            backdropClick: "close",
+            animated: !0,
+            idle: 3500,
+            showClass: "f-zoomInUp",
+            hideClass: "f-fadeOut",
+            commonCaption: !1,
+            parentEl: null,
+            startIndex: 0,
+            l10n: Object.assign(Object.assign({}, y), {
+                CLOSE: "Close",
+                NEXT: "Next",
+                PREV: "Previous",
+                MODAL: "You can close this modal content with the ESC key",
+                ERROR: "Something Went Wrong, Please Try Again Later",
+                IMAGE_ERROR: "Image Not Found",
+                ELEMENT_NOT_FOUND: "HTML Element Not Found",
+                AJAX_NOT_FOUND: "Error Loading AJAX : Not Found",
+                AJAX_FORBIDDEN: "Error Loading AJAX : Forbidden",
+                IFRAME_ERROR: "Error Loading Page",
+                TOGGLE_ZOOM: "Toggle zoom level",
+                TOGGLE_THUMBS: "Toggle thumbnails",
+                TOGGLE_SLIDESHOW: "Toggle slideshow",
+                TOGGLE_FULLSCREEN: "Toggle full-screen mode",
+                DOWNLOAD: "Download"
+            }),
+            tpl: {
+                closeButton: '<button data-fancybox-close class="f-button is-close-btn" title="{{CLOSE}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg></button>',
+                main: '<div class="fancybox__container" role="dialog" aria-modal="true" aria-label="{{MODAL}}" tabindex="-1">\n    <div class="fancybox__backdrop"></div>\n    <div class="fancybox__carousel"></div>\n    <div class="fancybox__footer"></div>\n  </div>'
+            },
+            groupAll: !1,
+            groupAttr: "data-fancybox",
+            defaultType: "image",
+            defaultDisplay: "block",
+            autoFocus: !0,
+            trapFocus: !0,
+            placeFocusBack: !0,
+            closeButton: "auto",
+            keyboard: {
+                Escape: "close",
+                Delete: "close",
+                Backspace: "close",
+                PageUp: "next",
+                PageDown: "prev",
+                ArrowUp: "prev",
+                ArrowDown: "next",
+                ArrowRight: "next",
+                ArrowLeft: "prev"
+            },
+            Fullscreen: {
+                autoStart: !1
+            },
+            compact: () => window.matchMedia("(max-width: 578px), (max-height: 578px)").matches,
+            wheel: "zoom"
+        };
+    var rt, lt;
+    ! function (t) {
+        t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Closing = 2] = "Closing", t[t.CustomClosing = 3] = "CustomClosing", t[t.Destroy = 4] = "Destroy"
+    }(rt || (rt = {})),
+        function (t) {
+            t[t.Loading = 0] = "Loading", t[t.Opening = 1] = "Opening", t[t.Ready = 2] = "Ready", t[t.Closing = 3] = "Closing"
+        }(lt || (lt = {}));
+    const ct = () => {
+        queueMicrotask((() => {
+            (() => {
+                const {
+                    slug: t,
+                    index: e
+                } = ht.parseURL(), i = ye.getInstance();
+                if (i && !1 !== i.option("Hash")) {
+                    const n = i.carousel;
+                    if (t && n) {
+                        for (let e of n.slides)
+                            if (e.slug && e.slug === t) return n.slideTo(e.index);
+                        if (t === i.option("slug")) return n.slideTo(e - 1);
+                        const s = i.getSlide(),
+                            o = s && s.triggerEl && s.triggerEl.dataset;
+                        if (o && o.fancybox === t) return n.slideTo(e - 1)
+                    }
+                    ht.hasSilentClose = !0, i.close()
+                }
+                ht.startFromUrl()
+            })()
+        }))
+    };
+    class ht extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "origHash", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: ""
+            }), Object.defineProperty(this, "timer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        onChange() {
+            const t = this.instance,
+                e = t.carousel;
+            this.timer && clearTimeout(this.timer);
+            const i = t.getSlide();
+            if (!e || !i) return;
+            const n = t.isOpeningSlide(i),
+                s = new URL(document.URL).hash;
+            let o, a = i.slug || void 0,
+                r = i.triggerEl || void 0;
+            o = a || this.instance.option("slug"), !o && r && r.dataset && (o = r.dataset.fancybox);
+            let l = "";
+            o && "true" !== o && (l = "#" + o + (!a && e.slides.length > 1 ? "-" + (i.index + 1) : "")), n && (this.origHash = s !== l ? s : ""), l && s !== l && (this.timer = setTimeout((() => {
+                try {
+                    t.state === rt.Ready && window.history[n ? "pushState" : "replaceState"]({}, document.title, window.location.pathname + window.location.search + l)
+                } catch (t) { }
+            }), 300))
+        }
+        onClose() {
+            if (this.timer && clearTimeout(this.timer), !0 !== ht.hasSilentClose) try {
+                window.history.replaceState({}, document.title, window.location.pathname + window.location.search + (this.origHash || ""))
+            } catch (t) { }
+        }
+        attach() {
+            const t = this.instance;
+            t.on(["Carousel.ready", "Carousel.change"], this.onChange), t.on("close", this.onClose)
+        }
+        detach() {
+            const t = this.instance;
+            t.off(["Carousel.ready", "Carousel.change"], this.onChange), t.off("close", this.onClose)
+        }
+        static parseURL() {
+            const t = window.location.hash.slice(1),
+                e = t.split("-"),
+                i = e[e.length - 1],
+                n = i && /^\+?\d+$/.test(i) && parseInt(e.pop() || "1", 10) || 1;
+            return {
+                hash: t,
+                slug: e.join("-"),
+                index: n
+            }
+        }
+        static startFromUrl() {
+            if (ht.hasSilentClose = !1, ye.getInstance() || !1 === ye.defaults.Hash) return;
+            const {
+                hash: t,
+                slug: e,
+                index: i
+            } = ht.parseURL();
+            if (!e) return;
+            let n = document.querySelector(`[data-slug="${t}"]`);
+            if (n && n.dispatchEvent(new CustomEvent("click", {
+                bubbles: !0,
+                cancelable: !0
+            })), ye.getInstance()) return;
+            const s = document.querySelectorAll(`[data-fancybox="${e}"]`);
+            s.length && (n = s[i - 1], n && n.dispatchEvent(new CustomEvent("click", {
+                bubbles: !0,
+                cancelable: !0
+            })))
+        }
+        static destroy() {
+            window.removeEventListener("hashchange", ct, !1)
+        }
+    }
+
+    function dt() {
+        window.addEventListener("hashchange", ct, !1), setTimeout((() => {
+            ht.startFromUrl()
+        }), 500)
+    }
+    Object.defineProperty(ht, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {}
+    }), Object.defineProperty(ht, "hasSilentClose", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: !1
+    }), et && (/complete|interactive|loaded/.test(document.readyState) ? dt() : document.addEventListener("DOMContentLoaded", dt));
+    const ut = "is-zooming-in";
+    class ft extends _ {
+        onCreateSlide(t, e, i) {
+            const n = this.instance.optionFor(i, "src") || "";
+            i.el && "image" === i.type && "string" == typeof n && this.setImage(i, n)
+        }
+        onRemoveSlide(t, e, i) {
+            i.panzoom && i.panzoom.destroy(), i.panzoom = void 0, i.imageEl = void 0
+        }
+        onChange(t, e, i, n) {
+            P(this.instance.container, ut);
+            for (const t of e.slides) {
+                const e = t.panzoom;
+                e && t.index !== i && e.reset(.35)
+            }
+        }
+        onClose() {
+            var t;
+            const e = this.instance,
+                i = e.container,
+                n = e.getSlide();
+            if (!i || !i.parentElement || !n) return;
+            const {
+                el: s,
+                contentEl: o,
+                panzoom: a,
+                thumbElSrc: r
+            } = n;
+            if (!s || !r || !o || !a || a.isContentLoading || a.state === b.Init || a.state === b.Destroy) return;
+            a.updateMetrics();
+            let l = this.getZoomInfo(n);
+            if (!l) return;
+            this.instance.state = rt.CustomClosing, i.classList.remove(ut), i.classList.add("is-zooming-out"), o.style.backgroundImage = `url('${r}')`;
+            const c = i.getBoundingClientRect();
+            1 === ((null === (t = window.visualViewport) || void 0 === t ? void 0 : t.scale) || 1) && Object.assign(i.style, {
+                position: "absolute",
+                top: `${i.offsetTop + window.scrollY}px`,
+                left: `${i.offsetLeft + window.scrollX}px`,
+                bottom: "auto",
+                right: "auto",
+                width: `${c.width}px`,
+                height: `${c.height}px`,
+                overflow: "hidden"
+            });
+            const {
+                x: h,
+                y: d,
+                scale: u,
+                opacity: f
+            } = l;
+            if (f) {
+                const t = ((t, e, i, n) => {
+                    const s = e - t,
+                        o = n - i;
+                    return e => i + ((e - t) / s * o || 0)
+                })(a.scale, u, 1, 0);
+                a.on("afterTransform", (() => {
+                    o.style.opacity = t(a.scale) + ""
+                }))
+            }
+            a.on("endAnimation", (() => {
+                e.destroy()
+            })), a.target.a = u, a.target.b = 0, a.target.c = 0, a.target.d = u, a.panTo({
+                x: h,
+                y: d,
+                scale: u,
+                friction: f ? .2 : .33,
+                ignoreBounds: !0
+            }), a.isResting && e.destroy()
+        }
+        setImage(t, e) {
+            const i = this.instance;
+            t.src = e, this.process(t, e).then((e => {
+                const {
+                    contentEl: n,
+                    imageEl: s,
+                    thumbElSrc: o,
+                    el: a
+                } = t;
+                if (i.isClosing() || !n || !s) return;
+                n.offsetHeight;
+                const r = !!i.isOpeningSlide(t) && this.getZoomInfo(t);
+                if (this.option("protected") && a) {
+                    a.addEventListener("contextmenu", (t => {
+                        t.preventDefault()
+                    }));
+                    const t = document.createElement("div");
+                    C(t, "fancybox-protected"), n.appendChild(t)
+                }
+                if (o && r) {
+                    const s = e.contentRect,
+                        a = Math.max(s.fullWidth, s.fullHeight);
+                    let c = null;
+                    !r.opacity && a > 1200 && (c = document.createElement("img"), C(c, "fancybox-ghost"), c.src = o, n.appendChild(c));
+                    const h = () => {
+                        c && (C(c, "f-fadeFastOut"), setTimeout((() => {
+                            c && (c.remove(), c = null)
+                        }), 200))
+                    };
+                    (l = o, new Promise(((t, e) => {
+                        const i = new Image;
+                        i.onload = t, i.onerror = e, i.src = l
+                    }))).then((() => {
+                        i.hideLoading(t), t.state = lt.Opening, this.instance.emit("reveal", t), this.zoomIn(t).then((() => {
+                            h(), this.instance.done(t)
+                        }), (() => { })), c && setTimeout((() => {
+                            h()
+                        }), a > 2500 ? 800 : 200)
+                    }), (() => {
+                        i.hideLoading(t), i.revealContent(t)
+                    }))
+                } else {
+                    const n = this.optionFor(t, "initialSize"),
+                        s = this.optionFor(t, "zoom"),
+                        o = {
+                            event: i.prevMouseMoveEvent || i.options.event,
+                            friction: s ? .12 : 0
+                        };
+                    let a = i.optionFor(t, "showClass") || void 0,
+                        r = !0;
+                    i.isOpeningSlide(t) && ("full" === n ? e.zoomToFull(o) : "cover" === n ? e.zoomToCover(o) : "max" === n ? e.zoomToMax(o) : r = !1, e.stop("current")), r && a && (a = e.isDragging ? "f-fadeIn" : ""), i.hideLoading(t), i.revealContent(t, a)
+                }
+                var l
+            }), (() => {
+                i.setError(t, "{{IMAGE_ERROR}}")
+            }))
+        }
+        process(t, e) {
+            return new Promise(((i, n) => {
+                var o;
+                const a = this.instance,
+                    r = t.el;
+                a.clearContent(t), a.showLoading(t);
+                let l = this.optionFor(t, "content");
+                if ("string" == typeof l && (l = s(l)), !l || !S(l)) {
+                    if (l = document.createElement("img"), l instanceof HTMLImageElement) {
+                        let i = "",
+                            n = t.caption;
+                        i = "string" == typeof n && n ? n.replace(/<[^>]+>/gi, "").substring(0, 1e3) : `Image ${t.index + 1} of ${(null === (o = a.carousel) || void 0 === o ? void 0 : o.pages.length) || 1}`, l.src = e || "", l.alt = i, l.draggable = !1, t.srcset && l.setAttribute("srcset", t.srcset), this.instance.isOpeningSlide(t) && (l.fetchPriority = "high")
+                    }
+                    t.sizes && l.setAttribute("sizes", t.sizes)
+                }
+                C(l, "fancybox-image"), t.imageEl = l, a.setContent(t, l, !1);
+                t.panzoom = new I(r, f({
+                    transformParent: !0
+                }, this.option("Panzoom") || {}, {
+                    content: l,
+                    width: a.optionFor(t, "width", "auto"),
+                    height: a.optionFor(t, "height", "auto"),
+                    wheel: () => {
+                        const t = a.option("wheel");
+                        return ("zoom" === t || "pan" == t) && t
+                    },
+                    click: (e, i) => {
+                        var n, s;
+                        if (a.isCompact || a.isClosing()) return !1;
+                        if (t.index !== (null === (n = a.getSlide()) || void 0 === n ? void 0 : n.index)) return !1;
+                        if (i) {
+                            const t = i.composedPath()[0];
+                            if (["A", "BUTTON", "TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].includes(t.nodeName)) return !1
+                        }
+                        let o = !i || i.target && (null === (s = t.contentEl) || void 0 === s ? void 0 : s.contains(i.target));
+                        return a.option(o ? "contentClick" : "backdropClick") || !1
+                    },
+                    dblClick: () => a.isCompact ? "toggleZoom" : a.option("contentDblClick") || !1,
+                    spinner: !1,
+                    panOnlyZoomed: !0,
+                    wheelLimit: 1 / 0,
+                    on: {
+                        ready: t => {
+                            i(t)
+                        },
+                        error: () => {
+                            n()
+                        },
+                        destroy: () => {
+                            n()
+                        }
+                    }
+                }))
+            }))
+        }
+        zoomIn(t) {
+            return new Promise(((e, i) => {
+                const n = this.instance,
+                    s = n.container,
+                    {
+                        panzoom: o,
+                        contentEl: a,
+                        el: r
+                    } = t;
+                o && o.updateMetrics();
+                const l = this.getZoomInfo(t);
+                if (!(l && r && a && o && s)) return void i();
+                const {
+                    x: c,
+                    y: h,
+                    scale: d,
+                    opacity: u
+                } = l, f = () => {
+                    t.state !== lt.Closing && (u && (a.style.opacity = Math.max(Math.min(1, 1 - (1 - o.scale) / (1 - d)), 0) + ""), o.scale >= 1 && o.scale > o.targetScale - .1 && e(o))
+                }, p = t => {
+                    (t.scale < .99 || t.scale > 1.01) && !t.isDragging || (P(s, ut), a.style.opacity = "", t.off("endAnimation", p), t.off("touchStart", p), t.off("afterTransform", f), e(t))
+                };
+                o.on("endAnimation", p), o.on("touchStart", p), o.on("afterTransform", f), o.on(["error", "destroy"], (() => {
+                    i()
+                })), o.panTo({
+                    x: c,
+                    y: h,
+                    scale: d,
+                    friction: 0,
+                    ignoreBounds: !0
+                }), o.stop("current");
+                const g = {
+                    event: "mousemove" === o.panMode ? n.prevMouseMoveEvent || n.options.event : void 0
+                },
+                    m = this.optionFor(t, "initialSize");
+                C(s, ut), n.hideLoading(t), "full" === m ? o.zoomToFull(g) : "cover" === m ? o.zoomToCover(g) : "max" === m ? o.zoomToMax(g) : o.reset(.172)
+            }))
+        }
+        getZoomInfo(t) {
+            const {
+                el: e,
+                imageEl: i,
+                thumbEl: n,
+                panzoom: s
+            } = t, o = this.instance, a = o.container;
+            if (!e || !i || !n || !s || tt(n) < 3 || !this.optionFor(t, "zoom") || !a || o.state === rt.Destroy) return !1;
+            if ("0" === getComputedStyle(a).getPropertyValue("--f-images-zoom")) return !1;
+            const r = window.visualViewport || null;
+            if (1 !== (r ? r.scale : 1)) return !1;
+            let {
+                top: l,
+                left: c,
+                width: h,
+                height: d
+            } = n.getBoundingClientRect(), {
+                top: u,
+                left: f,
+                fitWidth: p,
+                fitHeight: g
+            } = s.contentRect;
+            if (!(h && d && p && g)) return !1;
+            const m = s.container.getBoundingClientRect();
+            f += m.left, u += m.top;
+            const b = -1 * (f + .5 * p - (c + .5 * h)),
+                v = -1 * (u + .5 * g - (l + .5 * d)),
+                y = h / p;
+            let w = this.option("zoomOpacity") || !1;
+            return "auto" === w && (w = Math.abs(h / d - p / g) > .1), {
+                x: b,
+                y: v,
+                scale: y,
+                opacity: w
+            }
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("Carousel.change", t.onChange), e.on("Carousel.createSlide", t.onCreateSlide), e.on("Carousel.removeSlide", t.onRemoveSlide), e.on("close", t.onClose)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("Carousel.change", t.onChange), e.off("Carousel.createSlide", t.onCreateSlide), e.off("Carousel.removeSlide", t.onRemoveSlide), e.off("close", t.onClose)
+        }
+    }
+    Object.defineProperty(ft, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+            initialSize: "fit",
+            Panzoom: {
+                maxScale: 1
+            },
+            protected: !1,
+            zoom: !0,
+            zoomOpacity: "auto"
+        }
+    }), "function" == typeof SuppressedError && SuppressedError;
+    const pt = "html",
+        gt = "image",
+        mt = "map",
+        bt = "youtube",
+        vt = "vimeo",
+        yt = "html5video",
+        wt = (t, e = {}) => {
+            const i = new URL(t),
+                n = new URLSearchParams(i.search),
+                s = new URLSearchParams;
+            for (const [t, i] of [...n, ...Object.entries(e)]) {
+                let e = i + "";
+                if ("t" === t) {
+                    let t = e.match(/((\d*)m)?(\d*)s?/);
+                    t && s.set("start", 60 * parseInt(t[2] || "0") + parseInt(t[3] || "0") + "")
+                } else s.set(t, e)
+            }
+            let o = s + "",
+                a = t.match(/#t=((.*)?\d+s)/);
+            return a && (o += `#t=${a[1]}`), o
+        },
+        xt = {
+            ajax: null,
+            autoSize: !0,
+            iframeAttr: {
+                allow: "autoplay; fullscreen",
+                scrolling: "auto"
+            },
+            preload: !0,
+            videoAutoplay: !0,
+            videoRatio: 16 / 9,
+            videoTpl: '<video class="fancybox__html5video" playsinline controls controlsList="nodownload" poster="{{poster}}">\n  <source src="{{src}}" type="{{format}}" />Sorry, your browser doesn\'t support embedded videos.</video>',
+            videoFormat: "",
+            vimeo: {
+                byline: 1,
+                color: "00adef",
+                controls: 1,
+                dnt: 1,
+                muted: 0
+            },
+            youtube: {
+                controls: 1,
+                enablejsapi: 1,
+                nocookie: 1,
+                rel: 0,
+                fs: 1
+            }
+        },
+        Et = ["image", "html", "ajax", "inline", "clone", "iframe", "map", "pdf", "html5video", "youtube", "vimeo"];
+    class St extends _ {
+        onBeforeInitSlide(t, e, i) {
+            this.processType(i)
+        }
+        onCreateSlide(t, e, i) {
+            this.setContent(i)
+        }
+        onClearContent(t, e) {
+            e.xhr && (e.xhr.abort(), e.xhr = null);
+            const i = e.iframeEl;
+            i && (i.onload = i.onerror = null, i.src = "//about:blank", e.iframeEl = null);
+            const n = e.contentEl,
+                s = e.placeholderEl;
+            if ("inline" === e.type && n && s) n.classList.remove("fancybox__content"), "none" !== n.style.display && (n.style.display = "none"), s.parentNode && s.parentNode.insertBefore(n, s), s.remove(), e.contentEl = void 0, e.placeholderEl = void 0;
+            else
+                for (; e.el && e.el.firstChild;) e.el.removeChild(e.el.firstChild)
+        }
+        onSelectSlide(t, e, i) {
+            i.state === lt.Ready && this.playVideo()
+        }
+        onUnselectSlide(t, e, i) {
+            var n, s;
+            if (i.type === yt) {
+                try {
+                    null === (s = null === (n = i.el) || void 0 === n ? void 0 : n.querySelector("video")) || void 0 === s || s.pause()
+                } catch (t) { }
+                return
+            }
+            let o;
+            i.type === vt ? o = {
+                method: "pause",
+                value: "true"
+            } : i.type === bt && (o = {
+                event: "command",
+                func: "pauseVideo"
+            }), o && i.iframeEl && i.iframeEl.contentWindow && i.iframeEl.contentWindow.postMessage(JSON.stringify(o), "*"), i.poller && clearTimeout(i.poller)
+        }
+        onDone(t, e) {
+            t.isCurrentSlide(e) && !t.isClosing() && this.playVideo()
+        }
+        onRefresh(t, e) {
+            e.slides.forEach((t => {
+                t.el && (this.resizeIframe(t), this.setAspectRatio(t))
+            }))
+        }
+        onMessage(t) {
+            try {
+                let e = JSON.parse(t.data);
+                if ("https://player.vimeo.com" === t.origin) {
+                    if ("ready" === e.event)
+                        for (let e of Array.from(document.getElementsByClassName("fancybox__iframe"))) e instanceof HTMLIFrameElement && e.contentWindow === t.source && (e.dataset.ready = "true")
+                } else if (t.origin.match(/^https:\/\/(www.)?youtube(-nocookie)?.com$/) && "onReady" === e.event) {
+                    const t = document.getElementById(e.id);
+                    t && (t.dataset.ready = "true")
+                }
+            } catch (t) { }
+        }
+        loadAjaxContent(t) {
+            const e = this.instance.optionFor(t, "src") || "";
+            this.instance.showLoading(t);
+            const i = this.instance,
+                n = new XMLHttpRequest;
+            i.showLoading(t), n.onreadystatechange = function () {
+                n.readyState === XMLHttpRequest.DONE && i.state === rt.Ready && (i.hideLoading(t), 200 === n.status ? i.setContent(t, n.responseText) : i.setError(t, 404 === n.status ? "{{AJAX_NOT_FOUND}}" : "{{AJAX_FORBIDDEN}}"))
+            };
+            const s = t.ajax || null;
+            n.open(s ? "POST" : "GET", e + ""), n.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"), n.setRequestHeader("X-Requested-With", "XMLHttpRequest"), n.send(s), t.xhr = n
+        }
+        setInlineContent(t) {
+            let e = null;
+            if (S(t.src)) e = t.src;
+            else if ("string" == typeof t.src) {
+                const i = t.src.split("#", 2).pop();
+                e = i ? document.getElementById(i) : null
+            }
+            if (e) {
+                if ("clone" === t.type || e.closest(".fancybox__slide")) {
+                    e = e.cloneNode(!0);
+                    const i = e.dataset.animationName;
+                    i && (e.classList.remove(i), delete e.dataset.animationName);
+                    let n = e.getAttribute("id");
+                    n = n ? `${n}--clone` : `clone-${this.instance.id}-${t.index}`, e.setAttribute("id", n)
+                } else if (e.parentNode) {
+                    const i = document.createElement("div");
+                    i.classList.add("fancybox-placeholder"), e.parentNode.insertBefore(i, e), t.placeholderEl = i
+                }
+                this.instance.setContent(t, e)
+            } else this.instance.setError(t, "{{ELEMENT_NOT_FOUND}}")
+        }
+        setIframeContent(t) {
+            const {
+                src: e,
+                el: i
+            } = t;
+            if (!e || "string" != typeof e || !i) return;
+            i.classList.add("is-loading");
+            const n = this.instance,
+                s = document.createElement("iframe");
+            s.className = "fancybox__iframe", s.setAttribute("id", `fancybox__iframe_${n.id}_${t.index}`);
+            for (const [e, i] of Object.entries(this.optionFor(t, "iframeAttr") || {})) s.setAttribute(e, i);
+            s.onerror = () => {
+                n.setError(t, "{{IFRAME_ERROR}}")
+            }, t.iframeEl = s;
+            const o = this.optionFor(t, "preload");
+            if ("iframe" !== t.type || !1 === o) return s.setAttribute("src", t.src + ""), n.setContent(t, s, !1), this.resizeIframe(t), void n.revealContent(t);
+            n.showLoading(t), s.onload = () => {
+                if (!s.src.length) return;
+                const e = "true" !== s.dataset.ready;
+                s.dataset.ready = "true", this.resizeIframe(t), e ? n.revealContent(t) : n.hideLoading(t)
+            }, s.setAttribute("src", e), n.setContent(t, s, !1)
+        }
+        resizeIframe(t) {
+            const {
+                type: e,
+                iframeEl: i
+            } = t;
+            if (e === bt || e === vt) return;
+            const n = null == i ? void 0 : i.parentElement;
+            if (!i || !n) return;
+            let s = t.autoSize;
+            void 0 === s && (s = this.optionFor(t, "autoSize"));
+            let o = t.width || 0,
+                a = t.height || 0;
+            o && a && (s = !1);
+            const r = n && n.style;
+            if (!1 !== t.preload && !1 !== s && r) try {
+                const t = window.getComputedStyle(n),
+                    e = parseFloat(t.paddingLeft) + parseFloat(t.paddingRight),
+                    s = parseFloat(t.paddingTop) + parseFloat(t.paddingBottom),
+                    l = i.contentWindow;
+                if (l) {
+                    const t = l.document,
+                        i = t.getElementsByTagName(pt)[0],
+                        n = t.body;
+                    r.width = "", n.style.overflow = "hidden", o = o || i.scrollWidth + e, r.width = `${o}px`, n.style.overflow = "", r.flex = "0 0 auto", r.height = `${n.scrollHeight}px`, a = i.scrollHeight + s
+                }
+            } catch (t) { }
+            if (o || a) {
+                const t = {
+                    flex: "0 1 auto",
+                    width: "",
+                    height: ""
+                };
+                o && "auto" !== o && (t.width = `${o}px`), a && "auto" !== a && (t.height = `${a}px`), Object.assign(r, t)
+            }
+        }
+        playVideo() {
+            const t = this.instance.getSlide();
+            if (!t) return;
+            const {
+                el: e
+            } = t;
+            if (!e || !e.offsetParent) return;
+            if (!this.optionFor(t, "videoAutoplay")) return;
+            if (t.type === yt) try {
+                const t = e.querySelector("video");
+                if (t) {
+                    const e = t.play();
+                    void 0 !== e && e.then((() => { })).catch((e => {
+                        t.muted = !0, t.play()
+                    }))
+                }
+            } catch (t) { }
+            if (t.type !== bt && t.type !== vt) return;
+            const i = () => {
+                if (t.iframeEl && t.iframeEl.contentWindow) {
+                    let e;
+                    if ("true" === t.iframeEl.dataset.ready) return e = t.type === bt ? {
+                        event: "command",
+                        func: "playVideo"
+                    } : {
+                        method: "play",
+                        value: "true"
+                    }, e && t.iframeEl.contentWindow.postMessage(JSON.stringify(e), "*"), void (t.poller = void 0);
+                    t.type === bt && (e = {
+                        event: "listening",
+                        id: t.iframeEl.getAttribute("id")
+                    }, t.iframeEl.contentWindow.postMessage(JSON.stringify(e), "*"))
+                }
+                t.poller = setTimeout(i, 250)
+            };
+            i()
+        }
+        processType(t) {
+            if (t.html) return t.type = pt, t.src = t.html, void (t.html = "");
+            const e = this.instance.optionFor(t, "src", "");
+            if (!e || "string" != typeof e) return;
+            let i = t.type,
+                n = null;
+            if (n = e.match(/(youtube\.com|youtu\.be|youtube\-nocookie\.com)\/(?:watch\?(?:.*&)?v=|v\/|u\/|shorts\/|embed\/?)?(videoseries\?list=(?:.*)|[\w-]{11}|\?listType=(?:.*)&list=(?:.*))(?:.*)/i)) {
+                const s = this.optionFor(t, bt),
+                    {
+                        nocookie: o
+                    } = s,
+                    a = function (t, e) {
+                        var i = {};
+                        for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && e.indexOf(n) < 0 && (i[n] = t[n]);
+                        if (null != t && "function" == typeof Object.getOwnPropertySymbols) {
+                            var s = 0;
+                            for (n = Object.getOwnPropertySymbols(t); s < n.length; s++) e.indexOf(n[s]) < 0 && Object.prototype.propertyIsEnumerable.call(t, n[s]) && (i[n[s]] = t[n[s]])
+                        }
+                        return i
+                    }(s, ["nocookie"]),
+                    r = `www.youtube${o ? "-nocookie" : ""}.com`,
+                    l = wt(e, a),
+                    c = encodeURIComponent(n[2]);
+                t.videoId = c, t.src = `https://${r}/embed/${c}?${l}`, t.thumbSrc = t.thumbSrc || `https://i.ytimg.com/vi/${c}/mqdefault.jpg`, i = bt
+            } else if (n = e.match(/^.+vimeo.com\/(?:\/)?([\d]+)((\/|\?h=)([a-z0-9]+))?(.*)?/)) {
+                const s = wt(e, this.optionFor(t, vt)),
+                    o = encodeURIComponent(n[1]),
+                    a = n[4] || "";
+                t.videoId = o, t.src = `https://player.vimeo.com/video/${o}?${a ? `h=${a}${s ? "&" : ""}` : ""}${s}`, i = vt
+            }
+            if (!i && t.triggerEl) {
+                const e = t.triggerEl.dataset.type;
+                Et.includes(e) && (i = e)
+            }
+            i || "string" == typeof e && ("#" === e.charAt(0) ? i = "inline" : (n = e.match(/\.(mp4|mov|ogv|webm)((\?|#).*)?$/i)) ? (i = yt, t.videoFormat = t.videoFormat || "video/" + ("ogv" === n[1] ? "ogg" : n[1])) : e.match(/(^data:image\/[a-z0-9+\/=]*,)|(\.(jp(e|g|eg)|gif|png|bmp|webp|svg|ico)((\?|#).*)?$)/i) ? i = gt : e.match(/\.(pdf)((\?|#).*)?$/i) && (i = "pdf")), (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:(?:(?:maps\/(?:place\/(?:.*)\/)?\@(.*),(\d+.?\d+?)z))|(?:\?ll=))(.*)?/i)) ? (t.src = `https://maps.google.${n[1]}/?ll=${(n[2] ? n[2] + "&z=" + Math.floor(parseFloat(n[3])) + (n[4] ? n[4].replace(/^\//, "&") : "") : n[4] + "").replace(/\?/, "&")}&output=${n[4] && n[4].indexOf("layer=c") > 0 ? "svembed" : "embed"}`, i = mt) : (n = e.match(/(?:maps\.)?google\.([a-z]{2,3}(?:\.[a-z]{2})?)\/(?:maps\/search\/)(.*)/i)) && (t.src = `https://maps.google.${n[1]}/maps?q=${n[2].replace("query=", "q=").replace("api=1", "")}&output=embed`, i = mt), i = i || this.instance.option("defaultType"), t.type = i, i === gt && (t.thumbSrc = t.thumbSrc || t.src)
+        }
+        setContent(t) {
+            const e = this.instance.optionFor(t, "src") || "";
+            if (t && t.type && e) {
+                switch (t.type) {
+                    case pt:
+                        this.instance.setContent(t, e);
+                        break;
+                    case yt:
+                        const i = this.option("videoTpl");
+                        i && this.instance.setContent(t, i.replace(/\{\{src\}\}/gi, e + "").replace(/\{\{format\}\}/gi, this.optionFor(t, "videoFormat") || "").replace(/\{\{poster\}\}/gi, t.poster || t.thumbSrc || ""));
+                        break;
+                    case "inline":
+                    case "clone":
+                        this.setInlineContent(t);
+                        break;
+                    case "ajax":
+                        this.loadAjaxContent(t);
+                        break;
+                    case "pdf":
+                    case mt:
+                    case bt:
+                    case vt:
+                        t.preload = !1;
+                    case "iframe":
+                        this.setIframeContent(t)
+                }
+                this.setAspectRatio(t)
+            }
+        }
+        setAspectRatio(t) {
+            const e = t.contentEl;
+            if (!(t.el && e && t.type && [bt, vt, yt].includes(t.type))) return;
+            let i, n = t.width || "auto",
+                s = t.height || "auto";
+            if ("auto" === n || "auto" === s) {
+                i = this.optionFor(t, "videoRatio");
+                const e = (i + "").match(/(\d+)\s*\/\s?(\d+)/);
+                i = e && e.length > 2 ? parseFloat(e[1]) / parseFloat(e[2]) : parseFloat(i + "")
+            } else n && s && (i = n / s);
+            if (!i) return;
+            e.style.aspectRatio = "", e.style.width = "", e.style.height = "", e.offsetHeight;
+            const o = e.getBoundingClientRect(),
+                a = o.width || 1,
+                r = o.height || 1;
+            e.style.aspectRatio = i + "", i < a / r ? (s = "auto" === s ? r : Math.min(r, s), e.style.width = "auto", e.style.height = `${s}px`) : (n = "auto" === n ? a : Math.min(a, n), e.style.width = `${n}px`, e.style.height = "auto")
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("Carousel.beforeInitSlide", t.onBeforeInitSlide), e.on("Carousel.createSlide", t.onCreateSlide), e.on("Carousel.selectSlide", t.onSelectSlide), e.on("Carousel.unselectSlide", t.onUnselectSlide), e.on("Carousel.Panzoom.refresh", t.onRefresh), e.on("done", t.onDone), e.on("clearContent", t.onClearContent), window.addEventListener("message", t.onMessage)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("Carousel.beforeInitSlide", t.onBeforeInitSlide), e.off("Carousel.createSlide", t.onCreateSlide), e.off("Carousel.selectSlide", t.onSelectSlide), e.off("Carousel.unselectSlide", t.onUnselectSlide), e.off("Carousel.Panzoom.refresh", t.onRefresh), e.off("done", t.onDone), e.off("clearContent", t.onClearContent), window.removeEventListener("message", t.onMessage)
+        }
+    }
+    Object.defineProperty(St, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: xt
+    });
+    const Pt = "play",
+        Ct = "pause",
+        Tt = "ready";
+    class Mt extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Tt
+            }), Object.defineProperty(this, "inHover", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "timer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "progressBar", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        get isActive() {
+            return this.state !== Tt
+        }
+        onReady(t) {
+            this.option("autoStart") && (t.isInfinite || t.page < t.pages.length - 1) && this.start()
+        }
+        onChange() {
+            this.removeProgressBar(), this.pause()
+        }
+        onSettle() {
+            this.resume()
+        }
+        onVisibilityChange() {
+            "visible" === document.visibilityState ? this.resume() : this.pause()
+        }
+        onMouseEnter() {
+            this.inHover = !0, this.pause()
+        }
+        onMouseLeave() {
+            var t;
+            this.inHover = !1, (null === (t = this.instance.panzoom) || void 0 === t ? void 0 : t.isResting) && this.resume()
+        }
+        onTimerEnd() {
+            const t = this.instance;
+            "play" === this.state && (t.isInfinite || t.page !== t.pages.length - 1 ? t.slideNext() : t.slideTo(0))
+        }
+        removeProgressBar() {
+            this.progressBar && (this.progressBar.remove(), this.progressBar = null)
+        }
+        createProgressBar() {
+            var t;
+            if (!this.option("showProgress")) return null;
+            this.removeProgressBar();
+            const e = this.instance,
+                i = (null === (t = e.pages[e.page]) || void 0 === t ? void 0 : t.slides) || [];
+            let n = this.option("progressParentEl");
+            if (n || (n = (1 === i.length ? i[0].el : null) || e.viewport), !n) return null;
+            const s = document.createElement("div");
+            return C(s, "f-progress"), n.prepend(s), this.progressBar = s, s.offsetHeight, s
+        }
+        set() {
+            const t = this,
+                e = t.instance;
+            if (e.pages.length < 2) return;
+            if (t.timer) return;
+            const i = t.option("timeout");
+            t.state = Pt, C(e.container, "has-autoplay");
+            let n = t.createProgressBar();
+            n && (n.style.transitionDuration = `${i}ms`, n.style.transform = "scaleX(1)"), t.timer = setTimeout((() => {
+                t.timer = null, t.inHover || t.onTimerEnd()
+            }), i), t.emit("set")
+        }
+        clear() {
+            const t = this;
+            t.timer && (clearTimeout(t.timer), t.timer = null), t.removeProgressBar()
+        }
+        start() {
+            const t = this;
+            if (t.set(), t.state !== Tt) {
+                if (t.option("pauseOnHover")) {
+                    const e = t.instance.container;
+                    e.addEventListener("mouseenter", t.onMouseEnter, !1), e.addEventListener("mouseleave", t.onMouseLeave, !1)
+                }
+                document.addEventListener("visibilitychange", t.onVisibilityChange, !1), t.emit("start")
+            }
+        }
+        stop() {
+            const t = this,
+                e = t.state,
+                i = t.instance.container;
+            t.clear(), t.state = Tt, i.removeEventListener("mouseenter", t.onMouseEnter, !1), i.removeEventListener("mouseleave", t.onMouseLeave, !1), document.removeEventListener("visibilitychange", t.onVisibilityChange, !1), P(i, "has-autoplay"), e !== Tt && t.emit("stop")
+        }
+        pause() {
+            const t = this;
+            t.state === Pt && (t.state = Ct, t.clear(), t.emit(Ct))
+        }
+        resume() {
+            const t = this,
+                e = t.instance;
+            if (e.isInfinite || e.page !== e.pages.length - 1)
+                if (t.state !== Pt) {
+                    if (t.state === Ct && !t.inHover) {
+                        const e = new Event("resume", {
+                            bubbles: !0,
+                            cancelable: !0
+                        });
+                        t.emit("resume", e), e.defaultPrevented || t.set()
+                    }
+                } else t.set();
+            else t.stop()
+        }
+        toggle() {
+            this.state === Pt || this.state === Ct ? this.stop() : this.start()
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("ready", t.onReady), e.on("Panzoom.startAnimation", t.onChange), e.on("Panzoom.endAnimation", t.onSettle), e.on("Panzoom.touchMove", t.onChange)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("ready", t.onReady), e.off("Panzoom.startAnimation", t.onChange), e.off("Panzoom.endAnimation", t.onSettle), e.off("Panzoom.touchMove", t.onChange), t.stop()
+        }
+    }
+    Object.defineProperty(Mt, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+            autoStart: !0,
+            pauseOnHover: !0,
+            progressParentEl: null,
+            showProgress: !0,
+            timeout: 3e3
+        }
+    });
+    class Ot extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "ref", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        onPrepare(t) {
+            const e = t.carousel;
+            if (!e) return;
+            const i = t.container;
+            i && (e.options.Autoplay = f({
+                autoStart: !1
+            }, this.option("Autoplay") || {}, {
+                pauseOnHover: !1,
+                timeout: this.option("timeout"),
+                progressParentEl: () => this.option("progressParentEl") || null,
+                on: {
+                    start: () => {
+                        t.emit("startSlideshow")
+                    },
+                    set: e => {
+                        var n;
+                        i.classList.add("has-slideshow"), (null === (n = t.getSlide()) || void 0 === n ? void 0 : n.state) !== lt.Ready && e.pause()
+                    },
+                    stop: () => {
+                        i.classList.remove("has-slideshow"), t.isCompact || t.endIdle(), t.emit("endSlideshow")
+                    },
+                    resume: (e, i) => {
+                        var n, s, o;
+                        !i || !i.cancelable || (null === (n = t.getSlide()) || void 0 === n ? void 0 : n.state) === lt.Ready && (null === (o = null === (s = t.carousel) || void 0 === s ? void 0 : s.panzoom) || void 0 === o ? void 0 : o.isResting) || i.preventDefault()
+                    }
+                }
+            }), e.attachPlugins({
+                Autoplay: Mt
+            }), this.ref = e.plugins.Autoplay)
+        }
+        onReady(t) {
+            const e = t.carousel,
+                i = this.ref;
+            i && e && this.option("playOnStart") && (e.isInfinite || e.page < e.pages.length - 1) && i.start()
+        }
+        onDone(t, e) {
+            const i = this.ref,
+                n = t.carousel;
+            if (!i || !n) return;
+            const s = e.panzoom;
+            s && s.on("startAnimation", (() => {
+                t.isCurrentSlide(e) && i.stop()
+            })), t.isCurrentSlide(e) && i.resume()
+        }
+        onKeydown(t, e) {
+            var i;
+            const n = this.ref;
+            n && e === this.option("key") && "BUTTON" !== (null === (i = document.activeElement) || void 0 === i ? void 0 : i.nodeName) && n.toggle()
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("Carousel.init", t.onPrepare), e.on("Carousel.ready", t.onReady), e.on("done", t.onDone), e.on("keydown", t.onKeydown)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("Carousel.init", t.onPrepare), e.off("Carousel.ready", t.onReady), e.off("done", t.onDone), e.off("keydown", t.onKeydown)
+        }
+    }
+    Object.defineProperty(Ot, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: {
+            key: " ",
+            playOnStart: !1,
+            progressParentEl: t => {
+                var e;
+                return (null === (e = t.instance.container) || void 0 === e ? void 0 : e.querySelector(".fancybox__toolbar [data-fancybox-toggle-slideshow]")) || t.instance.container
+            },
+            timeout: 3e3
+        }
+    });
+    const At = {
+        classes: {
+            container: "f-thumbs f-carousel__thumbs",
+            viewport: "f-thumbs__viewport",
+            track: "f-thumbs__track",
+            slide: "f-thumbs__slide",
+            isResting: "is-resting",
+            isSelected: "is-selected",
+            isLoading: "is-loading",
+            hasThumbs: "has-thumbs"
+        },
+        minCount: 2,
+        parentEl: null,
+        thumbTpl: '<button class="f-thumbs__slide__button" tabindex="0" type="button" aria-label="{{GOTO}}" data-carousel-index="%i"><img class="f-thumbs__slide__img" data-lazy-src="{{%s}}" alt="" /></button>',
+        type: "modern"
+    };
+    var Lt;
+    ! function (t) {
+        t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Hidden = 2] = "Hidden"
+    }(Lt || (Lt = {}));
+    const zt = "isResting",
+        Rt = "thumbWidth",
+        kt = "thumbHeight",
+        It = "thumbClipWidth";
+    let Dt = class extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "type", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: "modern"
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "track", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "carousel", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "thumbWidth", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "thumbClipWidth", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "thumbHeight", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "thumbGap", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "thumbExtraGap", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: Lt.Init
+            })
+        }
+        get isModern() {
+            return "modern" === this.type
+        }
+        onInitSlide(t, e) {
+            const i = e.el ? e.el.dataset : void 0;
+            i && (e.thumbSrc = i.thumbSrc || e.thumbSrc || "", e[It] = parseFloat(i[It] || "") || e[It] || 0, e[kt] = parseFloat(i.thumbHeight || "") || e[kt] || 0), this.addSlide(e)
+        }
+        onInitSlides() {
+            this.build()
+        }
+        onChange() {
+            var t;
+            if (!this.isModern) return;
+            const e = this.container,
+                i = this.instance,
+                n = i.panzoom,
+                s = this.carousel,
+                o = s ? s.panzoom : null,
+                r = i.page;
+            if (n && s && o) {
+                if (n.isDragging) {
+                    P(e, this.cn(zt));
+                    let n = (null === (t = s.pages[r]) || void 0 === t ? void 0 : t.pos) || 0;
+                    n += i.getProgress(r) * (this[It] + this.thumbGap);
+                    let a = o.getBounds(); - 1 * n > a.x.min && -1 * n < a.x.max && o.panTo({
+                        x: -1 * n,
+                        friction: .12
+                    })
+                } else a(e, this.cn(zt), n.isResting);
+                this.shiftModern()
+            }
+        }
+        onRefresh() {
+            this.updateProps();
+            for (const t of this.instance.slides || []) this.resizeModernSlide(t);
+            this.shiftModern()
+        }
+        isDisabled() {
+            const t = this.option("minCount") || 0;
+            if (t) {
+                const e = this.instance;
+                let i = 0;
+                for (const t of e.slides || []) t.thumbSrc && i++;
+                if (i < t) return !0
+            }
+            const e = this.option("type");
+            return ["modern", "classic"].indexOf(e) < 0
+        }
+        getThumb(t) {
+            const e = this.option("thumbTpl") || "";
+            return {
+                html: this.instance.localize(e, [
+                    ["%i", t.index],
+                    ["%d", t.index + 1],
+                    ["%s", t.thumbSrc || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"]
+                ])
+            }
+        }
+        addSlide(t) {
+            const e = this.carousel;
+            e && e.addSlide(t.index, this.getThumb(t))
+        }
+        getSlides() {
+            const t = [];
+            for (const e of this.instance.slides || []) t.push(this.getThumb(e));
+            return t
+        }
+        resizeModernSlide(t) {
+            this.isModern && (t[Rt] = t[It] && t[kt] ? Math.round(this[kt] * (t[It] / t[kt])) : this[Rt])
+        }
+        updateProps() {
+            const t = this.container;
+            if (!t) return;
+            const e = e => parseFloat(getComputedStyle(t).getPropertyValue("--f-thumb-" + e)) || 0;
+            this.thumbGap = e("gap"), this.thumbExtraGap = e("extra-gap"), this[Rt] = e("width") || 40, this[It] = e("clip-width") || 40, this[kt] = e("height") || 40
+        }
+        build() {
+            const t = this;
+            if (t.state !== Lt.Init) return;
+            if (t.isDisabled()) return void t.emit("disabled");
+            const e = t.instance,
+                i = e.container,
+                n = t.getSlides(),
+                s = t.option("type");
+            t.type = s;
+            const o = t.option("parentEl"),
+                a = t.cn("container"),
+                r = t.cn("track");
+            let l = null == o ? void 0 : o.querySelector("." + a);
+            l || (l = document.createElement("div"), C(l, a), o ? o.appendChild(l) : i.after(l)), C(l, `is-${s}`), C(i, t.cn("hasThumbs")), t.container = l, t.updateProps();
+            let c = l.querySelector("." + r);
+            c || (c = document.createElement("div"), C(c, t.cn("track")), l.appendChild(c)), t.track = c;
+            const h = f({}, {
+                track: c,
+                infinite: !1,
+                center: !0,
+                fill: "classic" === s,
+                dragFree: !0,
+                slidesPerPage: 1,
+                transition: !1,
+                preload: .25,
+                friction: .12,
+                Panzoom: {
+                    maxVelocity: 0
+                },
+                Dots: !1,
+                Navigation: !1,
+                classes: {
+                    container: "f-thumbs",
+                    viewport: "f-thumbs__viewport",
+                    track: "f-thumbs__track",
+                    slide: "f-thumbs__slide"
+                }
+            }, t.option("Carousel") || {}, {
+                Sync: {
+                    target: e
+                },
+                slides: n
+            }),
+                d = new e.constructor(l, h);
+            d.on("createSlide", ((e, i) => {
+                t.setProps(i.index), t.emit("createSlide", i, i.el)
+            })), d.on("ready", (() => {
+                t.shiftModern(), t.emit("ready")
+            })), d.on("refresh", (() => {
+                t.shiftModern()
+            })), d.on("Panzoom.click", ((e, i, n) => {
+                t.onClick(n)
+            })), t.carousel = d, t.state = Lt.Ready
+        }
+        onClick(t) {
+            t.preventDefault(), t.stopPropagation();
+            const e = this.instance,
+                {
+                    pages: i,
+                    page: n
+                } = e,
+                s = t => {
+                    if (t) {
+                        const e = t.closest("[data-carousel-index]");
+                        if (e) return [parseInt(e.dataset.carouselIndex || "", 10) || 0, e]
+                    }
+                    return [-1, void 0]
+                },
+                o = (t, e) => {
+                    const i = document.elementFromPoint(t, e);
+                    return i ? s(i) : [-1, void 0]
+                };
+            let [a, r] = s(t.target);
+            if (a > -1) return;
+            const l = this[It],
+                c = t.clientX,
+                h = t.clientY;
+            let [d, u] = o(c - l, h), [f, p] = o(c + l, h);
+            u && p ? (a = Math.abs(c - u.getBoundingClientRect().right) < Math.abs(c - p.getBoundingClientRect().left) ? d : f, a === n && (a = a === d ? f : d)) : u ? a = d : p && (a = f), a > -1 && i[a] && e.slideTo(a)
+        }
+        getShift(t) {
+            var e;
+            const i = this,
+                {
+                    instance: n
+                } = i,
+                s = i.carousel;
+            if (!n || !s) return 0;
+            const o = i[Rt],
+                a = i[It],
+                r = i.thumbGap,
+                l = i.thumbExtraGap;
+            if (!(null === (e = s.slides[t]) || void 0 === e ? void 0 : e.el)) return 0;
+            const c = .5 * (o - a),
+                h = n.pages.length - 1;
+            let d = n.getProgress(0),
+                u = n.getProgress(h),
+                f = n.getProgress(t, !1, !0),
+                p = 0,
+                g = c + l + r;
+            const m = d < 0 && d > -1,
+                b = u > 0 && u < 1;
+            return 0 === t ? (p = g * Math.abs(d), b && 1 === d && (p -= g * Math.abs(u))) : t === h ? (p = g * Math.abs(u) * -1, m && -1 === u && (p += g * Math.abs(d))) : m || b ? (p = -1 * g, p += g * Math.abs(d), p += g * (1 - Math.abs(u))) : p = g * f, p
+        }
+        setProps(t) {
+            var i;
+            const n = this;
+            if (!n.isModern) return;
+            const {
+                instance: s
+            } = n, o = n.carousel;
+            if (s && o) {
+                const a = null === (i = o.slides[t]) || void 0 === i ? void 0 : i.el;
+                if (a && a.childNodes.length) {
+                    let i = e(1 - Math.abs(s.getProgress(t))),
+                        o = e(n.getShift(t));
+                    a.style.setProperty("--progress", i ? i + "" : ""), a.style.setProperty("--shift", o + "")
+                }
+            }
+        }
+        shiftModern() {
+            const t = this;
+            if (!t.isModern) return;
+            const {
+                instance: e,
+                track: i
+            } = t, n = e.panzoom, s = t.carousel;
+            if (!(e && i && n && s)) return;
+            if (n.state === b.Init || n.state === b.Destroy) return;
+            for (const i of e.slides) t.setProps(i.index);
+            let o = (t[It] + t.thumbGap) * (s.slides.length || 0);
+            i.style.setProperty("--width", o + "")
+        }
+        cleanup() {
+            const t = this;
+            t.carousel && t.carousel.destroy(), t.carousel = null, t.container && t.container.remove(), t.container = null, t.track && t.track.remove(), t.track = null, t.state = Lt.Init, P(t.instance.container, t.cn("hasThumbs"))
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("initSlide", t.onInitSlide), e.state === H.Init ? e.on("initSlides", t.onInitSlides) : t.onInitSlides(), e.on(["change", "Panzoom.afterTransform"], t.onChange), e.on("Panzoom.refresh", t.onRefresh)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("initSlide", t.onInitSlide), e.off("initSlides", t.onInitSlides), e.off(["change", "Panzoom.afterTransform"], t.onChange), e.off("Panzoom.refresh", t.onRefresh), t.cleanup()
+        }
+    };
+    Object.defineProperty(Dt, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: At
+    });
+    const Ft = Object.assign(Object.assign({}, At), {
+        key: "t",
+        showOnStart: !0,
+        parentEl: null
+    }),
+        jt = "is-masked",
+        Ht = "aria-hidden";
+    class Bt extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "ref", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "hidden", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            })
+        }
+        get isEnabled() {
+            const t = this.ref;
+            return t && !t.isDisabled()
+        }
+        get isHidden() {
+            return this.hidden
+        }
+        onClick(t, e) {
+            e.stopPropagation()
+        }
+        onCreateSlide(t, e) {
+            var i, n, s;
+            const o = (null === (s = null === (n = null === (i = this.instance) || void 0 === i ? void 0 : i.carousel) || void 0 === n ? void 0 : n.slides[e.index]) || void 0 === s ? void 0 : s.type) || "",
+                a = e.el;
+            if (a && o) {
+                let t = `for-${o}`;
+                ["video", "youtube", "vimeo", "html5video"].includes(o) && (t += " for-video"), C(a, t)
+            }
+        }
+        onInit() {
+            var t;
+            const e = this,
+                i = e.instance,
+                n = i.carousel;
+            if (e.ref || !n) return;
+            const s = e.option("parentEl") || i.footer || i.container;
+            if (!s) return;
+            const o = f({}, e.options, {
+                parentEl: s,
+                classes: {
+                    container: "f-thumbs fancybox__thumbs"
+                },
+                Carousel: {
+                    Sync: {
+                        friction: i.option("Carousel.friction") || 0
+                    }
+                },
+                on: {
+                    ready: t => {
+                        const i = t.container;
+                        i && this.hidden && (e.refresh(), i.style.transition = "none", e.hide(), i.offsetHeight, queueMicrotask((() => {
+                            i.style.transition = "", e.show()
+                        })))
+                    }
+                }
+            });
+            o.Carousel = o.Carousel || {}, o.Carousel.on = f((null === (t = e.options.Carousel) || void 0 === t ? void 0 : t.on) || {}, {
+                click: this.onClick,
+                createSlide: this.onCreateSlide
+            }), n.options.Thumbs = o, n.attachPlugins({
+                Thumbs: Dt
+            }), e.ref = n.plugins.Thumbs, e.option("showOnStart") || (e.ref.state = Lt.Hidden, e.hidden = !0)
+        }
+        onResize() {
+            var t;
+            const e = null === (t = this.ref) || void 0 === t ? void 0 : t.container;
+            e && (e.style.maxHeight = "")
+        }
+        onKeydown(t, e) {
+            const i = this.option("key");
+            i && i === e && this.toggle()
+        }
+        toggle() {
+            const t = this.ref;
+            if (t && !t.isDisabled()) return t.state === Lt.Hidden ? (t.state = Lt.Init, void t.build()) : void (this.hidden ? this.show() : this.hide())
+        }
+        show() {
+            const t = this.ref;
+            if (!t || t.isDisabled()) return;
+            const e = t.container;
+            e && (this.refresh(), e.offsetHeight, e.removeAttribute(Ht), e.classList.remove(jt), this.hidden = !1)
+        }
+        hide() {
+            const t = this.ref,
+                e = t && t.container;
+            e && (this.refresh(), e.offsetHeight, e.classList.add(jt), e.setAttribute(Ht, "true")), this.hidden = !0
+        }
+        refresh() {
+            const t = this.ref;
+            if (!t || !t.state) return;
+            const e = t.container,
+                i = (null == e ? void 0 : e.firstChild) || null;
+            e && i && i.childNodes.length && (e.style.maxHeight = `${i.getBoundingClientRect().height}px`)
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.state === rt.Init ? e.on("Carousel.init", t.onInit) : t.onInit(), e.on("resize", t.onResize), e.on("keydown", t.onKeydown)
+        }
+        detach() {
+            var t;
+            const e = this,
+                i = e.instance;
+            i.off("Carousel.init", e.onInit), i.off("resize", e.onResize), i.off("keydown", e.onKeydown), null === (t = i.carousel) || void 0 === t || t.detachPlugins(["Thumbs"]), e.ref = null
+        }
+    }
+    Object.defineProperty(Bt, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: Ft
+    });
+    const Nt = {
+        panLeft: {
+            icon: '<svg><path d="M5 12h14M5 12l6 6M5 12l6-6"/></svg>',
+            change: {
+                panX: -100
+            }
+        },
+        panRight: {
+            icon: '<svg><path d="M5 12h14M13 18l6-6M13 6l6 6"/></svg>',
+            change: {
+                panX: 100
+            }
+        },
+        panUp: {
+            icon: '<svg><path d="M12 5v14M18 11l-6-6M6 11l6-6"/></svg>',
+            change: {
+                panY: -100
+            }
+        },
+        panDown: {
+            icon: '<svg><path d="M12 5v14M18 13l-6 6M6 13l6 6"/></svg>',
+            change: {
+                panY: 100
+            }
+        },
+        zoomIn: {
+            icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>',
+            action: "zoomIn"
+        },
+        zoomOut: {
+            icon: '<svg><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+            action: "zoomOut"
+        },
+        toggle1to1: {
+            icon: '<svg><path d="M3.51 3.07c5.74.02 11.48-.02 17.22.02 1.37.1 2.34 1.64 2.18 3.13 0 4.08.02 8.16 0 12.23-.1 1.54-1.47 2.64-2.79 2.46-5.61-.01-11.24.02-16.86-.01-1.36-.12-2.33-1.65-2.17-3.14 0-4.07-.02-8.16 0-12.23.1-1.36 1.22-2.48 2.42-2.46Z"/><path d="M5.65 8.54h1.49v6.92m8.94-6.92h1.49v6.92M11.5 9.4v.02m0 5.18v0"/></svg>',
+            action: "toggleZoom"
+        },
+        toggleZoom: {
+            icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+            action: "toggleZoom"
+        },
+        iterateZoom: {
+            icon: '<svg><g><line x1="11" y1="8" x2="11" y2="14"></line></g><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.35-4.35M8 11h6"/></svg>',
+            action: "iterateZoom"
+        },
+        rotateCCW: {
+            icon: '<svg><path d="M15 4.55a8 8 0 0 0-6 14.9M9 15v5H4M18.37 7.16v.01M13 19.94v.01M16.84 18.37v.01M19.37 15.1v.01M19.94 11v.01"/></svg>',
+            action: "rotateCCW"
+        },
+        rotateCW: {
+            icon: '<svg><path d="M9 4.55a8 8 0 0 1 6 14.9M15 15v5h5M5.63 7.16v.01M4.06 11v.01M4.63 15.1v.01M7.16 18.37v.01M11 19.94v.01"/></svg>',
+            action: "rotateCW"
+        },
+        flipX: {
+            icon: '<svg style="stroke-width: 1.3"><path d="M12 3v18M16 7v10h5L16 7M8 7v10H3L8 7"/></svg>',
+            action: "flipX"
+        },
+        flipY: {
+            icon: '<svg style="stroke-width: 1.3"><path d="M3 12h18M7 16h10L7 21v-5M7 8h10L7 3v5"/></svg>',
+            action: "flipY"
+        },
+        fitX: {
+            icon: '<svg><path d="M4 12V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6M10 18H3M21 18h-7M6 15l-3 3 3 3M18 15l3 3-3 3"/></svg>',
+            action: "fitX"
+        },
+        fitY: {
+            icon: '<svg><path d="M12 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6M18 14v7M18 3v7M15 18l3 3 3-3M15 6l3-3 3 3"/></svg>',
+            action: "fitY"
+        },
+        reset: {
+            icon: '<svg><path d="M20 11A8.1 8.1 0 0 0 4.5 9M4 5v4h4M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>',
+            action: "reset"
+        },
+        toggleFS: {
+            icon: '<svg><g><path d="M14.5 9.5 21 3m0 0h-6m6 0v6M3 21l6.5-6.5M3 21v-6m0 6h6"/></g><g><path d="m14 10 7-7m-7 7h6m-6 0V4M3 21l7-7m0 0v6m0-6H4"/></g></svg>',
+            action: "toggleFS"
+        }
+    };
+    var _t;
+    ! function (t) {
+        t[t.Init = 0] = "Init", t[t.Ready = 1] = "Ready", t[t.Disabled = 2] = "Disabled"
+    }(_t || (_t = {}));
+    const $t = {
+        absolute: "auto",
+        display: {
+            left: ["infobar"],
+            middle: [],
+            right: ["iterateZoom", "slideshow", "fullscreen", "thumbs", "close"]
+        },
+        enabled: "auto",
+        items: {
+            infobar: {
+                tpl: '<div class="fancybox__infobar" tabindex="-1"><span data-fancybox-current-index></span>/<span data-fancybox-count></span></div>'
+            },
+            download: {
+                tpl: '<a class="f-button" title="{{DOWNLOAD}}" data-fancybox-download href="javasript:;"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></a>'
+            },
+            prev: {
+                tpl: '<button class="f-button" title="{{PREV}}" data-fancybox-prev><svg><path d="m15 6-6 6 6 6"/></svg></button>'
+            },
+            next: {
+                tpl: '<button class="f-button" title="{{NEXT}}" data-fancybox-next><svg><path d="m9 6 6 6-6 6"/></svg></button>'
+            },
+            slideshow: {
+                tpl: '<button class="f-button" title="{{TOGGLE_SLIDESHOW}}" data-fancybox-toggle-slideshow><svg><g><path d="M8 4v16l13 -8z"></path></g><g><path d="M8 4v15M17 4v15"/></g></svg></button>'
+            },
+            fullscreen: {
+                tpl: '<button class="f-button" title="{{TOGGLE_FULLSCREEN}}" data-fancybox-toggle-fullscreen><svg><g><path d="M4 8V6a2 2 0 0 1 2-2h2M4 16v2a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v2M16 20h2a2 2 0 0 0 2-2v-2"/></g><g><path d="M15 19v-2a2 2 0 0 1 2-2h2M15 5v2a2 2 0 0 0 2 2h2M5 15h2a2 2 0 0 1 2 2v2M5 9h2a2 2 0 0 0 2-2V5"/></g></svg></button>'
+            },
+            thumbs: {
+                tpl: '<button class="f-button" title="{{TOGGLE_THUMBS}}" data-fancybox-toggle-thumbs><svg><circle cx="5.5" cy="5.5" r="1"/><circle cx="12" cy="5.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="5.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18.5" cy="12" r="1"/><circle cx="5.5" cy="18.5" r="1"/><circle cx="12" cy="18.5" r="1"/><circle cx="18.5" cy="18.5" r="1"/></svg></button>'
+            },
+            close: {
+                tpl: '<button class="f-button" title="{{CLOSE}}" data-fancybox-close><svg><path d="m19.5 4.5-15 15M4.5 4.5l15 15"/></svg></button>'
+            }
+        },
+        parentEl: null
+    },
+        Wt = {
+            tabindex: "-1",
+            width: "24",
+            height: "24",
+            viewBox: "0 0 24 24",
+            xmlns: "http://www.w3.org/2000/svg"
+        },
+        Xt = "has-toolbar",
+        qt = "fancybox__toolbar";
+    class Yt extends _ {
+        constructor() {
+            super(...arguments), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: _t.Init
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            })
+        }
+        onReady(t) {
+            var e;
+            if (!t.carousel) return;
+            let i = this.option("display"),
+                n = this.option("absolute"),
+                s = this.option("enabled");
+            if ("auto" === s) {
+                const t = this.instance.carousel;
+                let e = 0;
+                if (t)
+                    for (const i of t.slides) (i.panzoom || "image" === i.type) && e++;
+                e || (s = !1)
+            }
+            s || (i = void 0);
+            let o = 0;
+            const a = {
+                left: [],
+                middle: [],
+                right: []
+            };
+            if (i)
+                for (const t of ["left", "middle", "right"])
+                    for (const n of i[t]) {
+                        const i = this.createEl(n);
+                        i && (null === (e = a[t]) || void 0 === e || e.push(i), o++)
+                    }
+            let r = null;
+            if (o && (r = this.createContainer()), r) {
+                for (const [t, e] of Object.entries(a)) {
+                    const i = document.createElement("div");
+                    C(i, qt + "__column is-" + t);
+                    for (const t of e) i.appendChild(t);
+                    "auto" !== n || "middle" !== t || e.length || (n = !0), r.appendChild(i)
+                } !0 === n && C(r, "is-absolute"), this.state = _t.Ready, this.onRefresh()
+            } else this.state = _t.Disabled
+        }
+        onClick(t) {
+            var e, i;
+            const n = this.instance,
+                s = n.getSlide(),
+                o = null == s ? void 0 : s.panzoom,
+                a = t.target,
+                r = a && S(a) ? a.dataset : null;
+            if (!r) return;
+            if (void 0 !== r.fancyboxToggleThumbs) return t.preventDefault(), t.stopPropagation(), void (null === (e = n.plugins.Thumbs) || void 0 === e || e.toggle());
+            if (void 0 !== r.fancyboxToggleFullscreen) return t.preventDefault(), t.stopPropagation(), void this.instance.toggleFullscreen();
+            if (void 0 !== r.fancyboxToggleSlideshow) {
+                t.preventDefault(), t.stopPropagation();
+                const e = null === (i = n.carousel) || void 0 === i ? void 0 : i.plugins.Autoplay;
+                let s = e.isActive;
+                return o && "mousemove" === o.panMode && !s && o.reset(), void (s ? e.stop() : e.start())
+            }
+            const l = r.panzoomAction,
+                c = r.panzoomChange;
+            if ((c || l) && (t.preventDefault(), t.stopPropagation()), c) {
+                let t = {};
+                try {
+                    t = JSON.parse(c)
+                } catch (t) { }
+                o && o.applyChange(t)
+            } else l && o && o[l] && o[l]()
+        }
+        onChange() {
+            this.onRefresh()
+        }
+        onRefresh() {
+            if (this.instance.isClosing()) return;
+            const t = this.container;
+            if (!t) return;
+            const e = this.instance.getSlide();
+            if (!e || e.state !== lt.Ready) return;
+            const i = e && !e.error && e.panzoom;
+            for (const e of t.querySelectorAll("[data-panzoom-action]")) i ? (e.removeAttribute("disabled"), e.removeAttribute("tabindex")) : (e.setAttribute("disabled", ""), e.setAttribute("tabindex", "-1"));
+            let n = i && i.canZoomIn(),
+                s = i && i.canZoomOut();
+            for (const e of t.querySelectorAll('[data-panzoom-action="zoomIn"]')) n ? (e.removeAttribute("disabled"), e.removeAttribute("tabindex")) : (e.setAttribute("disabled", ""), e.setAttribute("tabindex", "-1"));
+            for (const e of t.querySelectorAll('[data-panzoom-action="zoomOut"]')) s ? (e.removeAttribute("disabled"), e.removeAttribute("tabindex")) : (e.setAttribute("disabled", ""), e.setAttribute("tabindex", "-1"));
+            for (const e of t.querySelectorAll('[data-panzoom-action="toggleZoom"],[data-panzoom-action="iterateZoom"]')) {
+                s || n ? (e.removeAttribute("disabled"), e.removeAttribute("tabindex")) : (e.setAttribute("disabled", ""), e.setAttribute("tabindex", "-1"));
+                const t = e.querySelector("g");
+                t && (t.style.display = n ? "" : "none")
+            }
+        }
+        onDone(t, e) {
+            var i;
+            null === (i = e.panzoom) || void 0 === i || i.on("afterTransform", (() => {
+                this.instance.isCurrentSlide(e) && this.onRefresh()
+            })), this.instance.isCurrentSlide(e) && this.onRefresh()
+        }
+        createContainer() {
+            const t = this.instance.container;
+            if (!t) return null;
+            const e = this.option("parentEl") || t;
+            let i = e.querySelector("." + qt);
+            return i || (i = document.createElement("div"), C(i, qt), e.prepend(i)), i.addEventListener("click", this.onClick, {
+                passive: !1,
+                capture: !0
+            }), t && C(t, Xt), this.container = i, i
+        }
+        createEl(t) {
+            const e = this.instance,
+                i = e.carousel;
+            if (!i) return null;
+            if ("toggleFS" === t) return null;
+            if ("fullscreen" === t && !ot()) return null;
+            let n = null;
+            const o = i.slides.length || 0;
+            let a = 0,
+                r = 0;
+            for (const t of i.slides) (t.panzoom || "image" === t.type) && a++, ("image" === t.type || t.downloadSrc) && r++;
+            if (o < 2 && ["infobar", "prev", "next"].includes(t)) return n;
+            if (void 0 !== Nt[t] && !a) return null;
+            if ("download" === t && !r) return null;
+            if ("thumbs" === t) {
+                const t = e.plugins.Thumbs;
+                if (!t || !t.isEnabled) return null
+            }
+            if ("slideshow" === t) {
+                if (!i.plugins.Autoplay || o < 2) return null
+            }
+            if (void 0 !== Nt[t]) {
+                const e = Nt[t];
+                n = document.createElement("button"), n.setAttribute("title", this.instance.localize(`{{${t.toUpperCase()}}}`)), C(n, "f-button"), e.action && (n.dataset.panzoomAction = e.action), e.change && (n.dataset.panzoomChange = JSON.stringify(e.change)), n.appendChild(s(this.instance.localize(e.icon)))
+            } else {
+                const e = (this.option("items") || [])[t];
+                e && (n = s(this.instance.localize(e.tpl)), "function" == typeof e.click && n.addEventListener("click", (t => {
+                    t.preventDefault(), t.stopPropagation(), "function" == typeof e.click && e.click.call(this, this, t)
+                })))
+            }
+            const l = null == n ? void 0 : n.querySelector("svg");
+            if (l)
+                for (const [t, e] of Object.entries(Wt)) l.getAttribute(t) || l.setAttribute(t, String(e));
+            return n
+        }
+        removeContainer() {
+            const t = this.container;
+            t && t.remove(), this.container = null, this.state = _t.Disabled;
+            const e = this.instance.container;
+            e && P(e, Xt)
+        }
+        attach() {
+            const t = this,
+                e = t.instance;
+            e.on("Carousel.initSlides", t.onReady), e.on("done", t.onDone), e.on(["reveal", "Carousel.change"], t.onChange), t.onReady(t.instance)
+        }
+        detach() {
+            const t = this,
+                e = t.instance;
+            e.off("Carousel.initSlides", t.onReady), e.off("done", t.onDone), e.off(["reveal", "Carousel.change"], t.onChange), t.removeContainer()
+        }
+    }
+    Object.defineProperty(Yt, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: $t
+    });
+    const Vt = {
+        Hash: ht,
+        Html: St,
+        Images: ft,
+        Slideshow: Ot,
+        Thumbs: Bt,
+        Toolbar: Yt
+    },
+        Zt = "with-fancybox",
+        Ut = "hide-scrollbar",
+        Gt = "--fancybox-scrollbar-compensate",
+        Kt = "--fancybox-body-margin",
+        Jt = "aria-hidden",
+        Qt = "is-using-tab",
+        te = "is-animated",
+        ee = "is-compact",
+        ie = "is-loading",
+        ne = "is-opening",
+        se = "has-caption",
+        oe = "disabled",
+        ae = "tabindex",
+        re = "download",
+        le = "href",
+        ce = "src",
+        he = t => "string" == typeof t,
+        de = function () {
+            var t = window.getSelection();
+            return !!t && "Range" === t.type
+        };
+    let ue, fe = null,
+        pe = null,
+        ge = 0,
+        me = 0;
+    const be = new Map;
+    let ve = 0;
+    class ye extends m {
+        get isIdle() {
+            return this.idle
+        }
+        get isCompact() {
+            return this.option("compact")
+        }
+        constructor(t = [], e = {}, i = {}) {
+            super(e), Object.defineProperty(this, "userSlides", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: []
+            }), Object.defineProperty(this, "userPlugins", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: {}
+            }), Object.defineProperty(this, "idle", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "idleTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "clickTimer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "pwt", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "ignoreFocusChange", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "startedFs", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: !1
+            }), Object.defineProperty(this, "state", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: rt.Init
+            }), Object.defineProperty(this, "id", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: 0
+            }), Object.defineProperty(this, "container", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "caption", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "footer", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "carousel", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "lastFocus", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: null
+            }), Object.defineProperty(this, "prevMouseMoveEvent", {
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+                value: void 0
+            }), ue || (ue = ot()), this.id = e.id || ++ve, be.set(this.id, this), this.userSlides = t, this.userPlugins = i, queueMicrotask((() => {
+                this.init()
+            }))
+        }
+        init() {
+            if (this.state === rt.Destroy) return;
+            this.state = rt.Init, this.attachPlugins(Object.assign(Object.assign({}, ye.Plugins), this.userPlugins)), this.emit("init"), this.emit("attachPlugins"), !0 === this.option("hideScrollbar") && (() => {
+                if (!et) return;
+                const t = document,
+                    e = t.body,
+                    i = t.documentElement;
+                if (e.classList.contains(Ut)) return;
+                let n = window.innerWidth - i.getBoundingClientRect().width;
+                const s = parseFloat(window.getComputedStyle(e).marginRight);
+                n < 0 && (n = 0), i.style.setProperty(Gt, `${n}px`), s && e.style.setProperty(Kt, `${s}px`), e.classList.add(Ut)
+            })(), this.initLayout(), this.scale();
+            const t = () => {
+                this.initCarousel(this.userSlides), this.state = rt.Ready, this.attachEvents(), this.emit("ready"), setTimeout((() => {
+                    this.container && this.container.setAttribute(Jt, "false")
+                }), 16)
+            };
+            this.option("Fullscreen.autoStart") && ue && !ue.isFullscreen() ? ue.request().then((() => {
+                this.startedFs = !0, t()
+            })).catch((() => t())) : t()
+        }
+        initLayout() {
+            var t, e;
+            const i = this.option("parentEl") || document.body,
+                n = s(this.localize(this.option("tpl.main") || ""));
+            n && (n.setAttribute("id", `fancybox-${this.id}`), n.setAttribute("aria-label", this.localize("{{MODAL}}")), n.classList.toggle(ee, this.isCompact), C(n, this.option("mainClass") || ""), C(n, ne), this.container = n, this.footer = n.querySelector(".fancybox__footer"), i.appendChild(n), C(document.documentElement, Zt), fe && pe || (fe = document.createElement("span"), C(fe, "fancybox-focus-guard"), fe.setAttribute(ae, "0"), fe.setAttribute(Jt, "true"), fe.setAttribute("aria-label", "Focus guard"), pe = fe.cloneNode(), null === (t = n.parentElement) || void 0 === t || t.insertBefore(fe, n), null === (e = n.parentElement) || void 0 === e || e.append(pe)), n.addEventListener("mousedown", (t => {
+                ge = t.pageX, me = t.pageY, P(n, Qt)
+            })), this.option("animated") && (C(n, te), setTimeout((() => {
+                this.isClosing() || P(n, te)
+            }), 350)), this.emit("initLayout"))
+        }
+        initCarousel(t) {
+            const e = this.container;
+            if (!e) return;
+            const n = e.querySelector(".fancybox__carousel");
+            if (!n) return;
+            const s = this.carousel = new Q(n, f({}, {
+                slides: t,
+                transition: "fade",
+                Panzoom: {
+                    lockAxis: this.option("dragToClose") ? "xy" : "x",
+                    infinite: !!this.option("dragToClose") && "y"
+                },
+                Dots: !1,
+                Navigation: {
+                    classes: {
+                        container: "fancybox__nav",
+                        button: "f-button",
+                        isNext: "is-next",
+                        isPrev: "is-prev"
+                    }
+                },
+                initialPage: this.option("startIndex"),
+                l10n: this.option("l10n")
+            }, this.option("Carousel") || {}));
+            s.on("*", ((t, e, ...i) => {
+                this.emit(`Carousel.${e}`, t, ...i)
+            })), s.on(["ready", "change"], (() => {
+                this.manageCaption()
+            })), this.on("Carousel.removeSlide", ((t, e, i) => {
+                this.clearContent(i), i.state = void 0
+            })), s.on("Panzoom.touchStart", (() => {
+                var t, e;
+                this.isCompact || this.endIdle(), (null === (t = document.activeElement) || void 0 === t ? void 0 : t.closest(".f-thumbs")) && (null === (e = this.container) || void 0 === e || e.focus())
+            })), s.on("settle", (() => {
+                this.idleTimer || this.isCompact || !this.option("idle") || this.setIdle(), this.option("autoFocus") && !this.isClosing && this.checkFocus()
+            })), this.option("dragToClose") && (s.on("Panzoom.afterTransform", ((t, e) => {
+                const n = this.getSlide();
+                if (n && i(n.el)) return;
+                const s = this.container;
+                if (s) {
+                    const t = Math.abs(e.current.f),
+                        i = t < 1 ? "" : Math.max(.5, Math.min(1, 1 - t / e.contentRect.fitHeight * 1.5));
+                    s.style.setProperty("--fancybox-ts", i ? "0s" : ""), s.style.setProperty("--fancybox-opacity", i + "")
+                }
+            })), s.on("Panzoom.touchEnd", ((t, e, n) => {
+                var s;
+                const o = this.getSlide();
+                if (o && i(o.el)) return;
+                if (e.isMobile && document.activeElement && -1 !== ["TEXTAREA", "INPUT"].indexOf(null === (s = document.activeElement) || void 0 === s ? void 0 : s.nodeName)) return;
+                const a = Math.abs(e.dragOffset.y);
+                "y" === e.lockedAxis && (a >= 200 || a >= 50 && e.dragOffset.time < 300) && (n && n.cancelable && n.preventDefault(), this.close(n, "f-throwOut" + (e.current.f < 0 ? "Up" : "Down")))
+            }))), s.on("change", (t => {
+                var e;
+                let i = null === (e = this.getSlide()) || void 0 === e ? void 0 : e.triggerEl;
+                if (i) {
+                    const e = new CustomEvent("slideTo", {
+                        bubbles: !0,
+                        cancelable: !0,
+                        detail: t.page
+                    });
+                    i.dispatchEvent(e)
+                }
+            })), s.on(["refresh", "change"], (t => {
+                const e = this.container;
+                if (!e) return;
+                for (const i of e.querySelectorAll("[data-fancybox-current-index]")) i.innerHTML = t.page + 1;
+                for (const i of e.querySelectorAll("[data-fancybox-count]")) i.innerHTML = t.pages.length;
+                if (!t.isInfinite) {
+                    for (const i of e.querySelectorAll("[data-fancybox-next]")) t.page < t.pages.length - 1 ? (i.removeAttribute(oe), i.removeAttribute(ae)) : (i.setAttribute(oe, ""), i.setAttribute(ae, "-1"));
+                    for (const i of e.querySelectorAll("[data-fancybox-prev]")) t.page > 0 ? (i.removeAttribute(oe), i.removeAttribute(ae)) : (i.setAttribute(oe, ""), i.setAttribute(ae, "-1"))
+                }
+                const i = this.getSlide();
+                if (!i) return;
+                let n = i.downloadSrc || "";
+                n || "image" !== i.type || i.error || !he(i[ce]) || (n = i[ce]);
+                for (const t of e.querySelectorAll("[data-fancybox-download]")) {
+                    const e = i.downloadFilename;
+                    n ? (t.removeAttribute(oe), t.removeAttribute(ae), t.setAttribute(le, n), t.setAttribute(re, e || n), t.setAttribute("target", "_blank")) : (t.setAttribute(oe, ""), t.setAttribute(ae, "-1"), t.removeAttribute(le), t.removeAttribute(re))
+                }
+            })), this.emit("initCarousel")
+        }
+        attachEvents() {
+            const t = this,
+                e = t.container;
+            if (!e) return;
+            e.addEventListener("click", t.onClick, {
+                passive: !1,
+                capture: !1
+            }), e.addEventListener("wheel", t.onWheel, {
+                passive: !1,
+                capture: !1
+            }), document.addEventListener("keydown", t.onKeydown, {
+                passive: !1,
+                capture: !0
+            }), document.addEventListener("visibilitychange", t.onVisibilityChange, !1), document.addEventListener("mousemove", t.onMousemove), t.option("trapFocus") && document.addEventListener("focus", t.onFocus, !0), window.addEventListener("resize", t.onResize);
+            const i = window.visualViewport;
+            i && (i.addEventListener("scroll", t.onResize), i.addEventListener("resize", t.onResize))
+        }
+        detachEvents() {
+            const t = this,
+                e = t.container;
+            if (!e) return;
+            document.removeEventListener("keydown", t.onKeydown, {
+                passive: !1,
+                capture: !0
+            }), e.removeEventListener("wheel", t.onWheel, {
+                passive: !1,
+                capture: !1
+            }), e.removeEventListener("click", t.onClick, {
+                passive: !1,
+                capture: !1
+            }), document.removeEventListener("mousemove", t.onMousemove), window.removeEventListener("resize", t.onResize);
+            const i = window.visualViewport;
+            i && (i.removeEventListener("resize", t.onResize), i.removeEventListener("scroll", t.onResize)), document.removeEventListener("visibilitychange", t.onVisibilityChange, !1), document.removeEventListener("focus", t.onFocus, !0)
+        }
+        scale() {
+            const t = this.container;
+            if (!t) return;
+            const e = window.visualViewport,
+                i = Math.max(1, (null == e ? void 0 : e.scale) || 1);
+            let n = "",
+                s = "",
+                o = "";
+            if (e && i > 1) {
+                let t = `${e.offsetLeft}px`,
+                    a = `${e.offsetTop}px`;
+                n = e.width * i + "px", s = e.height * i + "px", o = `translate3d(${t}, ${a}, 0) scale(${1 / i})`
+            }
+            t.style.transform = o, t.style.width = n, t.style.height = s
+        }
+        onClick(t) {
+            var e;
+            const {
+                container: i,
+                isCompact: n
+            } = this;
+            if (!i || this.isClosing()) return;
+            !n && this.option("idle") && this.resetIdle();
+            const s = t.composedPath()[0];
+            if (s.closest(".fancybox-spinner") || s.closest("[data-fancybox-close]")) return t.preventDefault(), void this.close(t);
+            if (s.closest("[data-fancybox-prev]")) return t.preventDefault(), void this.prev();
+            if (s.closest("[data-fancybox-next]")) return t.preventDefault(), void this.next();
+            if ("click" === t.type && 0 === t.detail) return;
+            if (Math.abs(t.pageX - ge) > 30 || Math.abs(t.pageY - me) > 30) return;
+            const o = document.activeElement;
+            if (de() && o && i.contains(o)) return;
+            if (n && "image" === (null === (e = this.getSlide()) || void 0 === e ? void 0 : e.type)) return void (this.clickTimer ? (clearTimeout(this.clickTimer), this.clickTimer = null) : this.clickTimer = setTimeout((() => {
+                this.toggleIdle(), this.clickTimer = null
+            }), 350));
+            if (this.emit("click", t), t.defaultPrevented) return;
+            let a = !1;
+            if (s.closest(".fancybox__content")) {
+                if (o) {
+                    if (o.closest("[contenteditable]")) return;
+                    s.matches(nt) || o.blur()
+                }
+                if (de()) return;
+                a = this.option("contentClick")
+            } else s.closest(".fancybox__carousel") && !s.matches(nt) && (a = this.option("backdropClick"));
+            "close" === a ? (t.preventDefault(), this.close(t)) : "next" === a ? (t.preventDefault(), this.next()) : "prev" === a && (t.preventDefault(), this.prev())
+        }
+        onWheel(t) {
+            const e = t.target;
+            let i = this.option("wheel", t);
+            e.closest(".fancybox__thumbs") && (i = "slide");
+            const s = "slide" === i,
+                o = [-t.deltaX || 0, -t.deltaY || 0, -t.detail || 0].reduce((function (t, e) {
+                    return Math.abs(e) > Math.abs(t) ? e : t
+                })),
+                a = Math.max(-1, Math.min(1, o)),
+                r = Date.now();
+            this.pwt && r - this.pwt < 300 ? s && t.preventDefault() : (this.pwt = r, this.emit("wheel", t, a), t.defaultPrevented || ("close" === i ? (t.preventDefault(), this.close(t)) : "slide" === i && (n(e) || (t.preventDefault(), this[a > 0 ? "prev" : "next"]()))))
+        }
+        onKeydown(t) {
+            if (!this.isTopmost()) return;
+            this.isCompact || !this.option("idle") || this.isClosing() || this.resetIdle();
+            const e = t.key,
+                i = this.option("keyboard");
+            if (!i) return;
+            const n = t.composedPath()[0],
+                s = document.activeElement && document.activeElement.classList,
+                o = s && s.contains("f-button") || n.dataset.carouselPage || n.dataset.carouselIndex;
+            if ("Escape" !== e && !o && S(n)) {
+                if (n.isContentEditable || -1 !== ["TEXTAREA", "OPTION", "INPUT", "SELECT", "VIDEO"].indexOf(n.nodeName)) return
+            }
+            if ("Tab" === t.key ? C(this.container, Qt) : P(this.container, Qt), t.ctrlKey || t.altKey || t.shiftKey) return;
+            this.emit("keydown", e, t);
+            const a = i[e];
+            a && "function" == typeof this[a] && (t.preventDefault(), this[a]())
+        }
+        onResize() {
+            const t = this.container;
+            if (!t) return;
+            const e = this.isCompact;
+            t.classList.toggle(ee, e), this.manageCaption(this.getSlide()), this.isCompact ? this.clearIdle() : this.endIdle(), this.scale(), this.emit("resize")
+        }
+        onFocus(t) {
+            this.isTopmost() && this.checkFocus(t)
+        }
+        onMousemove(t) {
+            this.prevMouseMoveEvent = t, !this.isCompact && this.option("idle") && this.resetIdle()
+        }
+        onVisibilityChange() {
+            "visible" === document.visibilityState ? this.checkFocus() : this.endIdle()
+        }
+        manageCloseBtn(t) {
+            const e = this.optionFor(t, "closeButton") || !1;
+            if ("auto" === e) {
+                const t = this.plugins.Toolbar;
+                if (t && t.state === _t.Ready) return
+            }
+            if (!e) return;
+            if (!t.contentEl || t.closeBtnEl) return;
+            const i = this.option("tpl.closeButton");
+            if (i) {
+                const e = s(this.localize(i));
+                t.closeBtnEl = t.contentEl.appendChild(e), t.el && C(t.el, "has-close-btn")
+            }
+        }
+        manageCaption(t = void 0) {
+            var e, i;
+            const n = "fancybox__caption",
+                s = this.container;
+            if (!s) return;
+            P(s, se);
+            const o = this.isCompact || this.option("commonCaption"),
+                a = !o;
+            if (this.caption && this.stop(this.caption), a && this.caption && (this.caption.remove(), this.caption = null), o && !this.caption)
+                for (const t of (null === (e = this.carousel) || void 0 === e ? void 0 : e.slides) || []) t.captionEl && (t.captionEl.remove(), t.captionEl = void 0, P(t.el, se), null === (i = t.el) || void 0 === i || i.removeAttribute("aria-labelledby"));
+            if (t || (t = this.getSlide()), !t || o && !this.isCurrentSlide(t)) return;
+            const r = t.el;
+            let l = this.optionFor(t, "caption", "");
+            if (!l) return void (o && this.caption && this.animate(this.caption, "f-fadeOut", (() => {
+                this.caption && (this.caption.innerHTML = "")
+            })));
+            let c = null;
+            if (a) {
+                if (c = t.captionEl || null, r && !c) {
+                    const e = n + `_${this.id}_${t.index}`;
+                    c = document.createElement("div"), C(c, n), c.setAttribute("id", e), t.captionEl = r.appendChild(c), C(r, se), r.setAttribute("aria-labelledby", e)
+                }
+            } else {
+                if (c = this.caption, c || (c = s.querySelector("." + n)), !c) {
+                    c = document.createElement("div"), c.dataset.fancyboxCaption = "", C(c, n);
+                    (this.footer || s).prepend(c)
+                }
+                C(s, se), this.caption = c
+            }
+            c && (c.innerHTML = "", he(l) || "number" == typeof l ? c.innerHTML = l + "" : l instanceof HTMLElement && c.appendChild(l))
+        }
+        checkFocus(t) {
+            this.focus(t)
+        }
+        focus(t) {
+            var e;
+            if (this.ignoreFocusChange) return;
+            const i = document.activeElement || null,
+                n = (null == t ? void 0 : t.target) || null,
+                s = this.container,
+                o = null === (e = this.carousel) || void 0 === e ? void 0 : e.viewport;
+            if (!s || !o) return;
+            if (!t && i && s.contains(i)) return;
+            const a = this.getSlide(),
+                r = a && a.state === lt.Ready ? a.el : null;
+            if (!r || r.contains(i) || s === i) return;
+            t && t.cancelable && t.preventDefault(), this.ignoreFocusChange = !0;
+            const l = Array.from(s.querySelectorAll(nt));
+            let c = [],
+                h = null;
+            for (let t of l) {
+                const e = !t.offsetParent || !!t.closest('[aria-hidden="true"]'),
+                    i = r && r.contains(t),
+                    n = !o.contains(t);
+                if (t === s || (i || n) && !e) {
+                    c.push(t);
+                    const e = t.dataset.origTabindex;
+                    void 0 !== e && e && (t.tabIndex = parseFloat(e)), t.removeAttribute("data-orig-tabindex"), !t.hasAttribute("autoFocus") && h || (h = t)
+                } else {
+                    const e = void 0 === t.dataset.origTabindex ? t.getAttribute("tabindex") || "" : t.dataset.origTabindex;
+                    e && (t.dataset.origTabindex = e), t.tabIndex = -1
+                }
+            }
+            let d = null;
+            t ? (!n || c.indexOf(n) < 0) && (d = h || s, c.length && (i === pe ? d = c[0] : this.lastFocus !== s && i !== fe || (d = c[c.length - 1]))) : d = a && "image" === a.type ? s : h || s, d && st(d), this.lastFocus = document.activeElement, this.ignoreFocusChange = !1
+        }
+        next() {
+            const t = this.carousel;
+            t && t.pages.length > 1 && t.slideNext()
+        }
+        prev() {
+            const t = this.carousel;
+            t && t.pages.length > 1 && t.slidePrev()
+        }
+        jumpTo(...t) {
+            this.carousel && this.carousel.slideTo(...t)
+        }
+        isTopmost() {
+            var t;
+            return (null === (t = ye.getInstance()) || void 0 === t ? void 0 : t.id) == this.id
+        }
+        animate(t = null, e = "", i) {
+            if (!t || !e) return void (i && i());
+            this.stop(t);
+            const n = s => {
+                s.target === t && t.dataset.animationName && (t.removeEventListener("animationend", n), delete t.dataset.animationName, i && i(), P(t, e))
+            };
+            t.dataset.animationName = e, t.addEventListener("animationend", n), C(t, e)
+        }
+        stop(t) {
+            t && t.dispatchEvent(new CustomEvent("animationend", {
+                bubbles: !1,
+                cancelable: !0,
+                currentTarget: t
+            }))
+        }
+        setContent(t, e = "", i = !0) {
+            if (this.isClosing()) return;
+            const n = t.el;
+            if (!n) return;
+            let o = null;
+            if (S(e) ? o = e : (o = s(e + ""), S(o) || (o = document.createElement("div"), o.innerHTML = e + "")), ["img", "picture", "iframe", "video", "audio"].includes(o.nodeName.toLowerCase())) {
+                const t = document.createElement("div");
+                t.appendChild(o), o = t
+            }
+            S(o) && t.filter && !t.error && (o = o.querySelector(t.filter)), o && S(o) ? (C(o, "fancybox__content"), t.id && o.setAttribute("id", t.id), "none" !== o.style.display && "none" !== getComputedStyle(o).getPropertyValue("display") || (o.style.display = t.display || this.option("defaultDisplay") || "flex"), n.classList.add(`has-${t.error ? "error" : t.type || "unknown"}`), n.prepend(o), t.contentEl = o, i && this.revealContent(t), this.manageCloseBtn(t), this.manageCaption(t)) : this.setError(t, "{{ELEMENT_NOT_FOUND}}")
+        }
+        revealContent(t, e) {
+            const i = t.el,
+                n = t.contentEl;
+            i && n && (this.emit("reveal", t), this.hideLoading(t), t.state = lt.Opening, (e = this.isOpeningSlide(t) ? void 0 === e ? this.optionFor(t, "showClass") : e : "f-fadeIn") ? this.animate(n, e, (() => {
+                this.done(t)
+            })) : this.done(t))
+        }
+        done(t) {
+            this.isClosing() || (t.state = lt.Ready, this.emit("done", t), C(t.el, "is-done"), this.isCurrentSlide(t) && this.option("autoFocus") && queueMicrotask((() => {
+                var e;
+                null === (e = t.panzoom) || void 0 === e || e.updateControls(), this.option("autoFocus") && this.focus()
+            })), this.isOpeningSlide(t) && (P(this.container, ne), !this.isCompact && this.option("idle") && this.setIdle()))
+        }
+        isCurrentSlide(t) {
+            const e = this.getSlide();
+            return !(!t || !e) && e.index === t.index
+        }
+        isOpeningSlide(t) {
+            var e, i;
+            return null === (null === (e = this.carousel) || void 0 === e ? void 0 : e.prevPage) && t.index === (null === (i = this.getSlide()) || void 0 === i ? void 0 : i.index)
+        }
+        showLoading(t) {
+            t.state = lt.Loading;
+            const e = t.el;
+            if (!e) return;
+            C(e, ie), this.emit("loading", t), t.spinnerEl || setTimeout((() => {
+                if (!this.isClosing() && !t.spinnerEl && t.state === lt.Loading) {
+                    let i = s(E);
+                    C(i, "fancybox-spinner"), t.spinnerEl = i, e.prepend(i), this.animate(i, "f-fadeIn")
+                }
+            }), 250)
+        }
+        hideLoading(t) {
+            const e = t.el;
+            if (!e) return;
+            const i = t.spinnerEl;
+            this.isClosing() ? null == i || i.remove() : (P(e, ie), i && this.animate(i, "f-fadeOut", (() => {
+                i.remove()
+            })), t.state === lt.Loading && (this.emit("loaded", t), t.state = lt.Ready))
+        }
+        setError(t, e) {
+            if (this.isClosing()) return;
+            const i = new Event("error", {
+                bubbles: !0,
+                cancelable: !0
+            });
+            if (this.emit("error", i, t), i.defaultPrevented) return;
+            t.error = e, this.hideLoading(t), this.clearContent(t);
+            const n = document.createElement("div");
+            n.classList.add("fancybox-error"), n.innerHTML = this.localize(e || "<p>{{ERROR}}</p>"), this.setContent(t, n)
+        }
+        clearContent(t) {
+            if (void 0 === t.state) return;
+            this.emit("clearContent", t), t.contentEl && (t.contentEl.remove(), t.contentEl = void 0);
+            const e = t.el;
+            e && (P(e, "has-error"), P(e, "has-unknown"), P(e, `has-${t.type || "unknown"}`)), t.closeBtnEl && t.closeBtnEl.remove(), t.closeBtnEl = void 0, t.captionEl && t.captionEl.remove(), t.captionEl = void 0, t.spinnerEl && t.spinnerEl.remove(), t.spinnerEl = void 0
+        }
+        getSlide() {
+            var t;
+            const e = this.carousel;
+            return (null === (t = null == e ? void 0 : e.pages[null == e ? void 0 : e.page]) || void 0 === t ? void 0 : t.slides[0]) || void 0
+        }
+        close(t, e) {
+            if (this.isClosing()) return;
+            const i = new Event("shouldClose", {
+                bubbles: !0,
+                cancelable: !0
+            });
+            if (this.emit("shouldClose", i, t), i.defaultPrevented) return;
+            t && t.cancelable && (t.preventDefault(), t.stopPropagation());
+            const n = () => {
+                this.proceedClose(t, e)
+            };
+            this.startedFs && ue && ue.isFullscreen() ? Promise.resolve(ue.exit()).then((() => n())) : n()
+        }
+        clearIdle() {
+            this.idleTimer && clearTimeout(this.idleTimer), this.idleTimer = null
+        }
+        setIdle(t = !1) {
+            const e = () => {
+                this.clearIdle(), this.idle = !0, C(this.container, "is-idle"), this.emit("setIdle")
+            };
+            if (this.clearIdle(), !this.isClosing())
+                if (t) e();
+                else {
+                    const t = this.option("idle");
+                    t && (this.idleTimer = setTimeout(e, t))
+                }
+        }
+        endIdle() {
+            this.clearIdle(), this.idle && !this.isClosing() && (this.idle = !1, P(this.container, "is-idle"), this.emit("endIdle"))
+        }
+        resetIdle() {
+            this.endIdle(), this.setIdle()
+        }
+        toggleIdle() {
+            this.idle ? this.endIdle() : this.setIdle(!0)
+        }
+        toggleFullscreen() {
+            ue && (ue.isFullscreen() ? ue.exit() : ue.request().then((() => {
+                this.startedFs = !0
+            })))
+        }
+        isClosing() {
+            return [rt.Closing, rt.CustomClosing, rt.Destroy].includes(this.state)
+        }
+        proceedClose(t, e) {
+            var i, n;
+            this.state = rt.Closing, this.clearIdle(), this.detachEvents();
+            const s = this.container,
+                o = this.carousel,
+                a = this.getSlide(),
+                r = a && this.option("placeFocusBack") ? a.triggerEl || this.option("triggerEl") : null;
+            if (r && (tt(r) ? st(r) : r.focus()), s && (P(s, ne), C(s, "is-closing"), s.setAttribute(Jt, "true"), this.option("animated") && C(s, te), s.style.pointerEvents = "none"), o) {
+                o.clearTransitions(), null === (i = o.panzoom) || void 0 === i || i.destroy(), null === (n = o.plugins.Navigation) || void 0 === n || n.detach();
+                for (const t of o.slides) {
+                    t.state = lt.Closing, this.hideLoading(t);
+                    const e = t.contentEl;
+                    e && this.stop(e);
+                    const i = null == t ? void 0 : t.panzoom;
+                    i && (i.stop(), i.detachEvents(), i.detachObserver()), this.isCurrentSlide(t) || o.emit("removeSlide", t)
+                }
+            }
+            this.emit("close", t), this.state !== rt.CustomClosing ? (void 0 === e && a && (e = this.optionFor(a, "hideClass")), e && a ? (this.animate(a.contentEl, e, (() => {
+                o && o.emit("removeSlide", a)
+            })), setTimeout((() => {
+                this.destroy()
+            }), 500)) : this.destroy()) : setTimeout((() => {
+                this.destroy()
+            }), 500)
+        }
+        destroy() {
+            var t;
+            if (this.state === rt.Destroy) return;
+            this.state = rt.Destroy, null === (t = this.carousel) || void 0 === t || t.destroy();
+            const e = this.container;
+            e && e.remove(), be.delete(this.id);
+            const i = ye.getInstance();
+            i ? i.focus() : (fe && (fe.remove(), fe = null), pe && (pe.remove(), pe = null), P(document.documentElement, Zt), (() => {
+                if (!et) return;
+                const t = document,
+                    e = t.body;
+                e.classList.remove(Ut), e.style.setProperty(Kt, ""), t.documentElement.style.setProperty(Gt, "")
+            })(), this.emit("destroy"))
+        }
+        static bind(t, e, i) {
+            if (!et) return;
+            let n, s = "",
+                o = {};
+            if (void 0 === t ? n = document.body : he(t) ? (n = document.body, s = t, "object" == typeof e && (o = e || {})) : (n = t, he(e) && (s = e), "object" == typeof i && (o = i || {})), !n || !S(n)) return;
+            s = s || "[data-fancybox]";
+            const a = ye.openers.get(n) || new Map;
+            a.set(s, o), ye.openers.set(n, a), 1 === a.size && n.addEventListener("click", ye.fromEvent)
+        }
+        static unbind(t, e) {
+            let i, n = "";
+            if (he(t) ? (i = document.body, n = t) : (i = t, he(e) && (n = e)), !i) return;
+            const s = ye.openers.get(i);
+            s && n && s.delete(n), n && s || (ye.openers.delete(i), i.removeEventListener("click", ye.fromEvent))
+        }
+        static destroy() {
+            let t;
+            for (; t = ye.getInstance();) t.destroy();
+            for (const t of ye.openers.keys()) t.removeEventListener("click", ye.fromEvent);
+            ye.openers = new Map
+        }
+        static fromEvent(t) {
+            if (t.defaultPrevented) return;
+            if (t.button && 0 !== t.button) return;
+            if (t.ctrlKey || t.metaKey || t.shiftKey) return;
+            let e = t.composedPath()[0];
+            const i = e.closest("[data-fancybox-trigger]");
+            if (i) {
+                const t = i.dataset.fancyboxTrigger || "",
+                    n = document.querySelectorAll(`[data-fancybox="${t}"]`),
+                    s = parseInt(i.dataset.fancyboxIndex || "", 10) || 0;
+                e = n[s] || e
+            }
+            if (!(e && e instanceof Element)) return;
+            let n, s, o, a;
+            if ([...ye.openers].reverse().find((([t, i]) => !(!t.contains(e) || ![...i].reverse().find((([i, r]) => {
+                let l = e.closest(i);
+                return !!l && (n = t, s = i, o = l, a = r, !0)
+            }))))), !n || !s || !o) return;
+            a = a || {}, t.preventDefault(), e = o;
+            let r = [],
+                l = f({}, at, a);
+            l.event = t, l.triggerEl = e, l.delegate = i;
+            const c = l.groupAll,
+                h = l.groupAttr,
+                d = h && e ? e.getAttribute(`${h}`) : "";
+            if ((!e || d || c) && (r = [].slice.call(n.querySelectorAll(s))), e && !c && (r = d ? r.filter((t => t.getAttribute(`${h}`) === d)) : [e]), !r.length) return;
+            const u = ye.getInstance();
+            return u && u.options.triggerEl && r.indexOf(u.options.triggerEl) > -1 ? void 0 : (e && (l.startIndex = r.indexOf(e)), ye.fromNodes(r, l))
+        }
+        static fromSelector(t, e, i) {
+            let n = null,
+                s = "",
+                o = {};
+            if (he(t) ? (n = document.body, s = t, "object" == typeof e && (o = e || {})) : t instanceof HTMLElement && he(e) && (n = t, s = e, "object" == typeof i && (o = i || {})), !n || !s) return !1;
+            const a = ye.openers.get(n);
+            return !!a && (o = f({}, a.get(s) || {}, o), !!o && ye.fromNodes(Array.from(n.querySelectorAll(s)), o))
+        }
+        static fromNodes(t, e) {
+            e = f({}, at, e || {});
+            const i = [];
+            for (const n of t) {
+                const t = n.dataset || {},
+                    s = t[ce] || n.getAttribute(le) || n.getAttribute("currentSrc") || n.getAttribute(ce) || void 0;
+                let o;
+                const a = e.delegate;
+                let r;
+                a && i.length === e.startIndex && (o = a instanceof HTMLImageElement ? a : a.querySelector("img:not([aria-hidden])")), o || (o = n instanceof HTMLImageElement ? n : n.querySelector("img:not([aria-hidden])")), o && (r = o.currentSrc || o[ce] || void 0, !r && o.dataset && (r = o.dataset.lazySrc || o.dataset[ce] || void 0));
+                const l = {
+                    src: s,
+                    triggerEl: n,
+                    thumbEl: o,
+                    thumbElSrc: r,
+                    thumbSrc: r
+                };
+                for (const e in t) {
+                    let i = t[e] + "";
+                    i = "false" !== i && ("true" === i || i), l[e] = i
+                }
+                i.push(l)
+            }
+            return new ye(i, e)
+        }
+        static getInstance(t) {
+            if (t) return be.get(t);
+            return Array.from(be.values()).reverse().find((t => !t.isClosing() && t)) || null
+        }
+        static getSlide() {
+            var t;
+            return (null === (t = ye.getInstance()) || void 0 === t ? void 0 : t.getSlide()) || null
+        }
+        static show(t = [], e = {}) {
+            return new ye(t, e)
+        }
+        static next() {
+            const t = ye.getInstance();
+            t && t.next()
+        }
+        static prev() {
+            const t = ye.getInstance();
+            t && t.prev()
+        }
+        static close(t = !0, ...e) {
+            if (t)
+                for (const t of be.values()) t.close(...e);
+            else {
+                const t = ye.getInstance();
+                t && t.close(...e)
+            }
+        }
+    }
+    Object.defineProperty(ye, "version", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: "5.0.31"
+    }), Object.defineProperty(ye, "defaults", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: at
+    }), Object.defineProperty(ye, "Plugins", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: Vt
+    }), Object.defineProperty(ye, "openers", {
+        enumerable: !0,
+        configurable: !0,
+        writable: !0,
+        value: new Map
+    }), t.Carousel = Q, t.ModulaFancybox = ye, t.Panzoom = I
+}));

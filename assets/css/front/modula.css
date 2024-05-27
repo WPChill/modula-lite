@@ -597,3 +597,6 @@ html body div.modula-powered svg.modula-logo {
     height: 20px;
     margin-right: 10px;
 }
+.modula-fancybox-container button.f-button.is-close-btn{
+    display:none;
+}

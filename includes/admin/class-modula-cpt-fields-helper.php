@@ -206,14 +206,15 @@ class Modula_CPT_Fields_Helper {
 					"description" => esc_html__( 'Choose the type of gallery you want to use.', 'modula-best-grid-gallery' ),
 					'default'     => 'creative-gallery',
 					"values"      => array(
-						'creative-gallery' => esc_html__( 'Creative Gallery', 'modula-best-grid-gallery' ),
-						'custom-grid'      => esc_html__( 'Custom Grid', 'modula-best-grid-gallery' ),
+						'creative-gallery' => esc_html__( 'Creative', 'modula-best-grid-gallery' ),
+						'custom-grid'      => esc_html__( 'Custom', 'modula-best-grid-gallery' ),
 						'grid'             => esc_html__( 'Masonry', 'modula-best-grid-gallery' )
 					),
 					"disabled" => array(
 						'title'  => esc_html__( 'Gallery types with Premium license', 'modula-best-grid-gallery' ),
 						'values' => array(
 							"slider"     => esc_html__( 'Slider', 'modula-best-grid-gallery' ),
+							"video"      => esc_html__( 'Video', 'modula-best-grid-gallery' ),
 						),
 					),
 					'priority' => 10,

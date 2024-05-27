@@ -398,6 +398,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				}
 				wp.media.frames.modula.open();
 			});
+			
+			// Open WordPress Media Gallery
+			$('#modula_gallery_add_action_button').click(function (e) {
+				e.preventDefault();
+				if( $('#modula_gallery_add_action').hasClass( 'open') ){
+					$('#modula_gallery_add_action').hide().removeClass('open');
+				}else{
+					$('#modula_gallery_add_action').show().addClass('open');
+				}
+			});
+			$('#modula_gallery_add_action li').click(function (e) {
+				$('#modula_gallery_add_action').hide().removeClass('open');
+			});
 		},
 
 		// Uploader Events

@@ -114,7 +114,8 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox' . $suffix . '.js', array( 'jquery', 'modulaFancybox' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modulaFancybox', MODULA_URL . 'assets/js/front/modula-fancybox' . $suffix . '.js', array(), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
@@ -128,6 +129,8 @@ class Modula_Divi_Module extends ET_Builder_Module {
 		wp_enqueue_script( 'modula-grid-justified-gallery' );
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
+		wp_enqueue_script( 'modulaFancybox' );
+		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( Modula_Helper::render_lightbox_share_template() ) ) . "';" , 'before' );
 
 		do_action( 'modula_divi_builder_sripts_after_modula' );
 

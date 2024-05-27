@@ -47,7 +47,9 @@ class Modula_Shortcode {
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery' . $suffix . '.js', array( 'jquery', 'modula-isotope' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox' . $suffix . '.js', array( 'jquery', 'modulaFancybox' ), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modulaFancybox', MODULA_URL . 'assets/js/front/modula-fancybox' . $suffix . '.js', array( ), MODULA_LITE_VERSION, true );
+		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( Modula_Helper::render_lightbox_share_template() ) ) . "';" , 'before' );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
 		// @todo: minify all css & js for a better optimization.
@@ -146,12 +148,21 @@ class Modula_Shortcode {
 			return esc_html__( 'Gallery not found.', 'modula-best-grid-gallery' );
 		}
 
-        do_action('modula_extra_scripts', $settings, $images );
+		/**
+		 * Hook: modula_extra_scripts.
+		 *
+		 * Hook used to add extra scripts to the gallery.
+		 *
+		 * @param  array  $settings  Gallery settings.
+		 * @param  array  $images    Gallery images.
+		 *
+		 * @hooked modula_extra_scripts - 10
+		 */
+		do_action( 'modula_extra_scripts', $settings, $images );
 
 		// Main CSS & JS
 		$necessary_scripts = apply_filters( 'modula_necessary_scripts', array( 'modula' ), $settings );
 		$necessary_styles  = apply_filters( 'modula_necessary_styles', array( 'modula' ), $settings );
-
 
 		if ( ! empty( $necessary_scripts ) ) {
 			$script_manager->add_scripts( $necessary_scripts );
@@ -196,7 +207,7 @@ class Modula_Shortcode {
         }
 
 		/* Config for gallery script */
-		$js_config = $this::get_jsconfig( $settings, $type, $inView );
+		$js_config = $this->get_jsconfig( $settings, $type, $inView );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
@@ -205,11 +216,12 @@ class Modula_Shortcode {
 		 * @hooked modula_add_align_classes - 99
 		 */
 		$template_data = apply_filters( 'modula_gallery_template_data', $template_data );
+		$template_name = apply_filters( 'modula_gallery_template_name', 'gallery', $type );
 
 		echo $this->generate_gallery_css( $gallery_id, $settings );
 		do_action( 'modula_before_gallery', $settings );
 		$this->loader->set_template_data( $template_data );
-		$this->loader->get_template_part( 'modula', 'gallery' );
+		$this->loader->get_template_part( 'modula', $template_name );
 		do_action( 'modula_after_gallery', $settings );
 
     	$html = ob_get_clean();
@@ -217,9 +229,7 @@ class Modula_Shortcode {
 
 	}
 
-	public static function get_jsconfig( $settings, $type, $inView ) {
-
-		$modula_shortcode = new Modula_Shortcode;
+	public function get_jsconfig( $settings, $type, $inView ) {
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => ( isset( $settings['height'][0] ) ) ? absint( $settings[ 'height' ][0] ): false,
@@ -243,7 +253,7 @@ class Modula_Shortcode {
 			'tabletColumns'    => isset( $settings[ 'tablet_columns' ] ) ? $settings[ 'tablet_columns' ] : 2,
 			'mobileColumns'    => isset( $settings[ 'mobile_columns' ] ) ? $settings[ 'mobile_columns' ] : 1,
 			'lazyLoad'         => isset( $settings[ 'lazy_load' ] ) ? $settings[ 'lazy_load' ] : 1,
-			'lightboxOpts'     => $modula_shortcode->fancybox_options( $settings ),
+			'lightboxOpts'     => $this->fancybox_options( $settings ),
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings[ 'emailSubject' ] ) ? esc_html( $settings[ 'emailSubject' ] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
 			'email_message'    => isset( $settings[ 'emailMessage' ] ) ? esc_html( $settings[ 'emailMessage' ] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
@@ -388,30 +398,11 @@ class Modula_Shortcode {
 	 */
 	public function fancybox_options($settings){
 
-		$fancybox_options = Modula_Helper::lightbox_default_options();
-
-		if ( isset( $settings['show_navigation'] ) && '1' == $settings['show_navigation'] ) {
-			$fancybox_options['arrows'] = true;
-		}
-
-		$fancybox_options['baseTpl'] = '<div class="modula-fancybox-container modula-lightbox-' . $settings['gallery_id'] . '" role="dialog" tabindex="-1">' .
-		                               '<div class="modula-fancybox-bg"></div>' .
-		                               '<div class="modula-fancybox-inner">' .
-		                               '<div class="modula-fancybox-infobar"><span data-fancybox-index></span>&nbsp;/&nbsp;<span data-fancybox-count></span></div>' .
-		                               '<div class="modula-fancybox-toolbar">{{buttons}}</div>' .
-		                               '<div class="modula-fancybox-navigation">{{arrows}}</div>' .
-		                               '<div class="modula-fancybox-stage"></div>' .
-		                               '<div class="modula-fancybox-caption"><div class="modula-fancybox-caption__body"></div></div>' .
-		                               "</div>" .
-		                               "</div>";
-
 		/**
 		 * Hook: modula_fancybox_options.
 		 *
 		 */
-		$fancybox_options = apply_filters( 'modula_fancybox_options', $fancybox_options, $settings );
-
-		return $fancybox_options;
+		return apply_filters( 'modula_fancybox_options', Modula_Helper::lightbox_default_options(), $settings );
 	}
 
 

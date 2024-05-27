@@ -179,41 +179,57 @@ class Modula_Helper {
 
 
 	public static function lightbox_default_options() {
-
 		$fancybox_options = array(
-			'loop'            => false,
-			'arrows'          => false,
-			'toolbar'         => true,
-			'keyboard'        => true,
-			'wheel'           => false,
-			'buttons'         => array(
-				'close',
+			'animated' => true,
+			'Thumbs'  => array(
+				'type' => 'modern',
 			),
-			'hash'            => false,
-			'lang'            => 'en',
-			'touch'           => false,
-			'protect'         => false,
-			'i18n'            => array(
-				'en' => array(
-					'CLOSE'       => esc_html__( 'Close', 'modula-best-grid-gallery' ),
-					'NEXT'        => esc_html__( 'Next', 'modula-best-grid-gallery' ),
-					'PREV'        => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
-					'Error'       => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
-					'PLAY_START'  => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
-					'PLAY_STOP'   => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
-					'FULL_SCREEN' => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
-					'THUMBS'      => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
-					'DOWNLOAD'    => esc_html__( 'Download', 'modula-best-grid-gallery' ),
-					'SHARE'       => esc_html__( 'Share', 'modula-best-grid-gallery' ),
-					'ZOOM'        => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
-				)
+			'Toolbar' => array(
+				'display' => array(
+					'right' => array(),
+				),
+				'enabled' => false,
 			),
-			'clickSlide'      => false,
-			'clickOutside'    => false,
-			'dblclickContent' => false,
-			'dblclickSlide'   => false,
-			'dblclickOutside' => false,
-			'clickContent'    => false,
+			'Carousel' => array(
+				'Panzoom' => array(
+					'touch' => false,
+				),
+				'infinite' => false,
+			),
+			'keyboard' => false,
+			"touch" => false,
+			'backdropClick' => false, //The action to perform when the user clicks on the backdrop
+			'l10n' => array(
+				'CLOSE'             => esc_html__( 'Close', 'modula-best-grid-gallery' ),
+				'NEXT'              => esc_html__( 'Next', 'modula-best-grid-gallery' ),
+				'PREV'              => esc_html__( 'Previous', 'modula-best-grid-gallery' ),
+				'Error'             => esc_html__( 'The requested content cannot be loaded. Please try again later.', 'modula-best-grid-gallery' ),
+				'PLAY_START'        => esc_html__( 'Start slideshow', 'modula-best-grid-gallery' ),
+				'PLAY_STOP'         => esc_html__( 'Pause slideshow', 'modula-best-grid-gallery' ),
+				'FULL_SCREEN'       => esc_html__( 'Full screen', 'modula-best-grid-gallery' ),
+				'THUMBS'            => esc_html__( 'Thumbnails', 'modula-best-grid-gallery' ),
+				'DOWNLOAD'          => esc_html__( 'Download', 'modula-best-grid-gallery' ),
+				'SHARE'             => esc_html__( 'Share', 'modula-best-grid-gallery' ),
+				'ZOOM'              => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
+				'EMAIL'             => esc_html__( sprintf( 'Here is the link to the image : %s and this is the link to the gallery : %s', '%%image_link%%' , '%%gallery_link%%' ) ),
+				'MODAL'		        => esc_html__( 'You can close this modal content with the ESC key', 'modula-best-grid-gallery' ),
+				'ERROR'		        => esc_html__( 'Something Went Wrong, Please Try Again Later', 'modula-best-grid-gallery' ),
+				'IMAGE_ERROR'		=> esc_html__( 'Image Not Found', 'modula-best-grid-gallery' ),
+				'ELEMENT_NOT_FOUND' => esc_html__( 'HTML Element Not Found', 'modula-best-grid-gallery' ),
+				'AJAX_NOT_FOUND'	=> esc_html__( 'Error Loading AJAX : Not Found', 'modula-best-grid-gallery' ),
+				'AJAX_FORBIDDEN'    => esc_html__( 'Error Loading AJAX : Forbidden', 'modula-best-grid-gallery' ),
+				'IFRAME_ERROR'      => esc_html__( 'Error Loading Page', 'modula-best-grid-gallery' ),
+				'TOGGLE_ZOOM'       => esc_html__( 'Toggle zoom level', 'modula-best-grid-gallery' ),
+				'TOGGLE_THUMBS'     => esc_html__( 'Toggle thumbnails', 'modula-best-grid-gallery' ),
+				'TOGGLE_SLIDESHOW'  => esc_html__( 'Toggle slideshow', 'modula-best-grid-gallery' ),
+				'TOGGLE_FULLSCREEN' => esc_html__( 'Toggle full-screen mode', 'modula-best-grid-gallery' ),
+			),
+			'Images' => array(
+				'Panzoom' => array(
+					'maxScale' => 2,
+				),
+			),
+
 		);
 
 		return $fancybox_options;
@@ -408,5 +424,42 @@ class Modula_Helper {
 		);
 
 		return $json_array;
+	}
+
+	public static function render_lightbox_share_template(){
+
+		$share_buttons = array(
+			'facebook' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--fb" href="https://www.facebook.com/sharer/sharer.php?u={modulaShareUrl}">
+				<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m287 456v-299c0-21 6-35 35-35h38v-63c-7-1-29-3-55-3-54 0-91 33-91 94v306m143-254h-205v72h196" /></svg>
+				<span>Facebook</span></a>',
+
+			'twitter' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={modulaShareUrl}&text={descr}">
+				<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>
+				<span>Twitter</span></a>',
+
+			'pinterest' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--pt" href="https://www.pinterest.com/pin/create/button/?url={modulaShareUrl}&description={descr}&media={media}">
+				<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m265 56c-109 0-164 78-164 144 0 39 15 74 47 87 5 2 10 0 12-5l4-19c2-6 1-8-3-13-9-11-15-25-15-45 0-58 43-110 113-110 62 0 96 38 96 88 0 67-30 122-73 122-24 0-42-19-36-44 6-29 20-60 20-81 0-19-10-35-31-35-25 0-44 26-44 60 0 21 7 36 7 36l-30 125c-8 37-1 83 0 87 0 3 4 4 5 2 2-3 32-39 42-75l16-64c8 16 31 29 56 29 74 0 124-67 124-157 0-69-58-132-146-132z" fill="#fff"/></svg>
+				<span>Pinterest</span></a>',
+
+			'whatsapp' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--wa" href="https://api.whatsapp.com/send?text={modulaShareUrl}&review_url=true">
+				<svg aria-hidden="true" focusable="false" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1536 1600"><path d="M985 878q13 0 97.5 44t89.5 53q2 5 2 15q0 33-17 76q-16 39-71 65.5T984 1158q-57 0-190-62q-98-45-170-118T476 793q-72-107-71-194v-8q3-91 74-158q24-22 52-22q6 0 18 1.5t19 1.5q19 0 26.5 6.5T610 448q8 20 33 88t25 75q0 21-34.5 57.5T599 715q0 7 5 15q34 73 102 137q56 53 151 101q12 7 22 7q15 0 54-48.5t52-48.5zm-203 530q127 0 243.5-50t200.5-134t134-200.5t50-243.5t-50-243.5T1226 336t-200.5-134T782 152t-243.5 50T338 336T204 536.5T154 780q0 203 120 368l-79 233l242-77q158 104 345 104zm0-1382q153 0 292.5 60T1315 247t161 240.5t60 292.5t-60 292.5t-161 240.5t-240.5 161t-292.5 60q-195 0-365-94L0 1574l136-405Q28 991 28 780q0-153 60-292.5T249 247T489.5 86T782 26z" fill="currentColor"/></svg>
+				<span>WhatsApp</span></a>',
+
+			'linkedin' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--li" href="//linkedin.com/shareArticle?mini=true&url={modulaShareUrl}">
+				<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" class="svg-inline--fa fa-linkedin-in fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path></svg>
+				<span>LinkedIn</span></a>',
+
+			'email' =>
+				'<a class="modula-fancybox-share__button modula-fancybox-share__button--email" href="mailto:?subject={subject}&body={emailMessage}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" fill="currentColor"></path></svg>
+				<span>Email</span></a>',
+		);
+
+		return apply_filters( 'modula_share_buttons_template', $share_buttons );
 	}
 }
