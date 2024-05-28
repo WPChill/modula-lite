@@ -1,3 +1,6 @@
+= 2.8.3 - 28.05.2024 =
+Fixed: Close button not showing in lightbox
+
 = 2.8.2 - 27.05.2024 =
 Fixed: Fatal error in some systems because the "`" was used instead of "'"
 
