@@ -725,6 +725,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	// based on settings set the needed socials.
 	Plugin.prototype.setupSocial = function () {
+		if(this.options.enableTwitter || this.options.enableFacebook || this.options.enablePinterest || this.options.enableLinkedin || this.options.enableWhatsapp || this.options.enableEmail){
+			setupSocials(this.$items);
+		}
 		if (this.options.enableTwitter) {
 			setupTwitter(this.$items, this);
 		}
@@ -1169,6 +1172,28 @@ jQuery(window).on('elementor/frontend/init', function () {
 			return false;
 		});
 	};
+
+	// setup social button showing socials links
+	var setupSocials = function ($tiles) {
+		$tiles.find('.jtg-social-mobile').click(function (e) {		
+			e.preventDefault();
+			$('.jtg-social-mobile').not(this).removeClass('modula-show-socials');
+			$(this).toggleClass('modula-show-socials');
+			if( isElementOutOfHorizontalViewport( $(this).find('.jtg-social-mobile-icons') ) ){
+				$(this).addClass('modula-socials-right');
+			}
+		});
+	};
+
+	var  isElementOutOfHorizontalViewport = function (el) {
+		var rect = el[0].getBoundingClientRect();
+		var windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+
+		return (
+			rect.left < 0 || 
+			rect.right > windowWidth
+		);
+	}
 
 	$.fn[pluginName] = function (options) {
 		var args = arguments;
