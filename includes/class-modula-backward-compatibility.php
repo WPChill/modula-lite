@@ -370,14 +370,7 @@ class Modula_Backward_Compatibility {
 			unset( $options['transitionEffect'] );
 			$options['Carousel']['transition'] = 'slide';
 		}
-
-		if( isset( $options['toolbar'] ) && $options['toolbar'] ){
-			unset( $options['toolbar'] );
-			if( ! isset( $options['Toolbar'] ) || ! isset( $options['Toolbar']['display'] ) || ! isset( $options['Toolbar']['display']['right'] ) ){
-				$options['Toolbar']['display']['right'] = [];
-			}
-		}
-					
+			
 		if( isset( $options['infobar'] ) && $options['infobar'] ){
 			unset( $options['infobar'] );
 			$options['Toolbar']['display']['left'][] = 'infobar';
@@ -386,7 +379,9 @@ class Modula_Backward_Compatibility {
 		}
 
 		if( isset( $options['buttons'] )){
-			if( is_array( $options['buttons'] ) ){
+			// we have overruling options from addons, reset the toolbar.
+			$options['Toolbar']['display']['right'] = array();
+			if( is_array( $options['buttons'] ) && isset( $options['toolbar'] ) && $options['toolbar'] ){
 				foreach( $options['buttons'] as $button ){
 					switch ( $button ) {
 						case 'zoom':

@@ -261,6 +261,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.3 - TBD =
+Fixed: Close button not showing in lightbox
+
 = 2.8.2 - 27.05.2024 =
 Fixed: Fatal error in some systems because the "`" was used instead of "'"
 
