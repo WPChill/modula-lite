@@ -380,7 +380,10 @@ class Modula_Backward_Compatibility {
 
 		if( isset( $options['buttons'] )){
 			// we have overruling options from addons, reset the toolbar.
-			$options['Toolbar']['display']['right'] = array();
+			if( ! isset( $options['toolbar'] ) || ! $options['toolbar'] ){
+				$options['Toolbar']['display']['right'] = array();
+			}
+			
 			if( is_array( $options['buttons'] ) && isset( $options['toolbar'] ) && $options['toolbar'] ){
 				foreach( $options['buttons'] as $button ){
 					switch ( $button ) {
