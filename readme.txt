@@ -261,6 +261,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.4 - TBD =
+Fixed: Thumbnail navigation showing at the bottom of the lightbox.
+Fixed: Social settings buttons getting stuck if disabled and enabled. ( [#956](https://github.com/WPChill/modula-lite/issues/956) )
+
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox
 

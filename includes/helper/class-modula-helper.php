@@ -186,6 +186,7 @@ class Modula_Helper {
 			'animated' => true,
 			'Thumbs'  => array(
 				'type' => 'modern',
+				'showOnStart' => false,
 			),
 			'Toolbar' => array(
 				'display' => array(
