@@ -599,7 +599,9 @@ html body div.modula-powered svg.modula-logo {
 .modula-fancybox-container button.f-button.is-close-btn{
     display:none;
 }
-
+html body .modula-items .modula-item .jtg-social-mobile {
+    display: none;
+}
 @media (max-width: 992px ) {
     html body .modula-items .modula-item .jtg-social-mobile-icons {
         padding: 10px 15px;
@@ -641,6 +643,7 @@ html body div.modula-powered svg.modula-logo {
         right: 10px;
         bottom: 10px;
         z-index: 999;
+        display: block;
     }
     html body .modula .modula-items .jtg-social-mobile a.modula-icon-share {
         pointer-events: none;
