@@ -1,6 +1,7 @@
 html body .modula .modula-items .modula-item {
     position: absolute;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 html body .modula .modula-items .modula-item .modula-item-content {
