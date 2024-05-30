@@ -32,7 +32,7 @@ $sources = apply_filters('modula_importable_galleries', $sources);
                 </th>
                 <td>
                     <select name="modula_select_gallery_source" id="modula_select_gallery_source">
-                        <option value="none"><?php echo ($sources && count($sources) > 0) ? esc_html('Select gallery source', 'modula-best-grid-gallery') : esc_html('No galleries detected', 'modula-best-grid-gallery'); ?></option>
+                        <option value="none"><?php echo ($sources && count($sources) > 0) ? esc_html__('Select gallery source', 'modula-best-grid-gallery') : esc_html__('No galleries detected', 'modula-best-grid-gallery'); ?></option>
                         <?php
                         if ($sources) {
                             foreach ($sources as $source => $label) {
@@ -97,7 +97,7 @@ if ($sources) {
                     <tbody>
                     <tr valign="top">
                         <th scope="row" valign="top">
-                            <?php echo esc_html('Galleries to import', 'modula-best-grid-gallery'); ?>
+                            <?php echo esc_html__('Galleries to import', 'modula-best-grid-gallery'); ?>
                         </th>
                         <td>
                             <div class="modula-importer-checkbox-wrapper">
