@@ -4,6 +4,7 @@ Fixed: Thumbnail navigation showing at the bottom of the lightbox.
 Fixed: Social settings buttons getting stuck if disabled and enabled.
 Fixed: Removed extra comma triggering "Syntax error" on php < 7.3
 Fixed: Guttenberg galleries fatal error
+Added: fancybox-image element width and height
 
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox

@@ -267,6 +267,7 @@ Changed: Social icons buttons popup. ( [#946](https://github.com/WPChill/modula-
 Fixed: Social settings buttons getting stuck if disabled and enabled. ( [#956](https://github.com/WPChill/modula-lite/issues/956) )
 Fixed: Removed extra comma triggering "Syntax error" on php < 7.3 ( [#953](https://github.com/WPChill/modula-lite/issues/953) )
 Fixed: Guttenberg galleries fatal error ( [#958](https://github.com/WPChill/modula-lite/issues/958) )
+Added: fancybox-image element width and height ( [#955](https://github.com/WPChill/modula-lite/issues/955) )
 
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox
