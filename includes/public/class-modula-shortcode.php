@@ -209,7 +209,7 @@ class Modula_Shortcode {
         }
 
 		/* Config for gallery script */
-		$js_config = $this->get_jsconfig( $settings, $type, $inView );
+		$js_config = Modula_Shortcode::get_jsconfig( $settings, $type, $inView );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
@@ -231,7 +231,7 @@ class Modula_Shortcode {
 
 	}
 
-	public function get_jsconfig( $settings, $type, $inView ) {
+	public static function get_jsconfig( $settings, $type, $inView ) {
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => ( isset( $settings['height'][0] ) ) ? absint( $settings[ 'height' ][0] ): false,
@@ -255,7 +255,7 @@ class Modula_Shortcode {
 			'tabletColumns'    => isset( $settings[ 'tablet_columns' ] ) ? $settings[ 'tablet_columns' ] : 2,
 			'mobileColumns'    => isset( $settings[ 'mobile_columns' ] ) ? $settings[ 'mobile_columns' ] : 1,
 			'lazyLoad'         => isset( $settings[ 'lazy_load' ] ) ? $settings[ 'lazy_load' ] : 1,
-			'lightboxOpts'     => $this->fancybox_options( $settings ),
+			'lightboxOpts'     => apply_filters( 'modula_fancybox_options', Modula_Helper::lightbox_default_options(), $settings ),
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings[ 'emailSubject' ] ) ? esc_html( $settings[ 'emailSubject' ] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
 			'email_message'    => isset( $settings[ 'emailMessage' ] ) ? esc_html( $settings[ 'emailMessage' ] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),

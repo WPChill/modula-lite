@@ -263,7 +263,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 = 2.8.4 - TBD =
 Fixed: Thumbnail navigation showing at the bottom of the lightbox.
+Changed: Social icons buttons popup. ( [#946](https://github.com/WPChill/modula-lite/issues/946) )
 Fixed: Social settings buttons getting stuck if disabled and enabled. ( [#956](https://github.com/WPChill/modula-lite/issues/956) )
+Fixed: Removed extra comma triggering "Syntax error" on php < 7.3 ( [#953](https://github.com/WPChill/modula-lite/issues/953) )
+Fixed: Guttenberg galleries fatal error ( [#958](https://github.com/WPChill/modula-lite/issues/958) )
 
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox
