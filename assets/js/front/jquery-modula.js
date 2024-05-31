@@ -237,6 +237,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 									caption : link.data('caption'),
 									alt     : image.attr('alt'),
 									image_id: link.attr('data-image-id'),
+									title   : image.attr('title'),
 								},
 								current: jQuery(o).is(
 									clickedLink.parents('.modula-item')
