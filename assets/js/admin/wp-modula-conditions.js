@@ -244,10 +244,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			} else if (0 == value) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child
-					.find('input, textarea, select, button')
-					.removeAttr('disabled');
+				child.setting_state( this, 'on');
 				child.show();
 			}
 		});

@@ -112,8 +112,8 @@ function ModulaOpenShare() {
             .replace(/\%%gallery_link%%/g, window.location.href)
             .replace(/\%%image_link%%/g, url);
 
-        var text = (current.opts.$thumb.find('img').attr('title') !== undefined) ?
-            current.opts.$thumb.find('img').attr('title') :
+        var text = (current.opts.alt !== undefined) ?
+                   current.opts.alt :
             '';
 
         if (text === '' && current.caption && typeof current.caption !== 'undefined') {

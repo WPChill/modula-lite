@@ -33,6 +33,8 @@ class Modula_Shortcode {
 
 		// Add js scripts
 		add_filter( 'modula_necessary_scripts', 'modula_add_scripts', 1, 2 );
+		
+		add_action( 'modula_item_after_image', 'modula_mobile_share', 100);
 
 	}
 
@@ -207,7 +209,7 @@ class Modula_Shortcode {
         }
 
 		/* Config for gallery script */
-		$js_config = $this->get_jsconfig( $settings, $type, $inView );
+		$js_config = Modula_Shortcode::get_jsconfig( $settings, $type, $inView );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
@@ -229,7 +231,7 @@ class Modula_Shortcode {
 
 	}
 
-	public function get_jsconfig( $settings, $type, $inView ) {
+	public static function get_jsconfig( $settings, $type, $inView ) {
 
 		$js_config = apply_filters( 'modula_gallery_settings', array(
 			'height'           => ( isset( $settings['height'][0] ) ) ? absint( $settings[ 'height' ][0] ): false,
@@ -253,7 +255,7 @@ class Modula_Shortcode {
 			'tabletColumns'    => isset( $settings[ 'tablet_columns' ] ) ? $settings[ 'tablet_columns' ] : 2,
 			'mobileColumns'    => isset( $settings[ 'mobile_columns' ] ) ? $settings[ 'mobile_columns' ] : 1,
 			'lazyLoad'         => isset( $settings[ 'lazy_load' ] ) ? $settings[ 'lazy_load' ] : 1,
-			'lightboxOpts'     => $this->fancybox_options( $settings ),
+			'lightboxOpts'     => apply_filters( 'modula_fancybox_options', Modula_Helper::lightbox_default_options(), $settings ),
 			'inView'           => $inView,
 			'email_subject'    => isset( $settings[ 'emailSubject' ] ) ? esc_html( $settings[ 'emailSubject' ] ) : esc_html__( 'Check out this awesome image !!', 'modula-best-grid-gallery' ),
 			'email_message'    => isset( $settings[ 'emailMessage' ] ) ? esc_html( $settings[ 'emailMessage' ] ) : esc_html__( 'Here is the link to the image : %%image_link%% and this is the link to the gallery : %%gallery_link%% ', 'modula-best-grid-gallery' ),
@@ -286,16 +288,18 @@ class Modula_Shortcode {
 		}
 
 		if ( $settings['socialIconColor'] ) {
-			$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a{ color: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . " }";
+			$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . "; color: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . " }";
+			$css .= "#{$gallery_id} .modula-item .jtg-social-mobile a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . "; color: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . " }";
 		}
 
 		if ( $settings['socialIconSize'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social svg, .lightbox-socials.jtg-social svg { height: " . absint( $settings['socialIconSize'] ) . "px; width: " . absint( $settings['socialIconSize'] ) . "px }";
-
+			$css .= "#{$gallery_id} .modula-item .jtg-social-mobile svg { height: " . absint( $settings['socialIconSize'] ) . "px; width: " . absint( $settings['socialIconSize'] ) . "px }";
 		}
 
 		if ( $settings['socialIconPadding'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social a:not(:last-child), .lightbox-socials.jtg-social a:not(:last-child) { margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . " }";
+			$css .= "#{$gallery_id} .modula-item .jtg-social-mobile .jtg-social-mobile-icons a:not(:last-child){ margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . " }";
 		}
 
 		if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {

@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.8.3
+Stable tag: 2.8.4
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,15 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.4 - 31.05.2024 =
+Fixed: Thumbnail navigation showing at the bottom of the lightbox.
+Changed: Social icons buttons popup. ( [#946](https://github.com/WPChill/modula-lite/issues/946) )
+Fixed: Social settings buttons getting stuck if disabled and enabled. ( [#956](https://github.com/WPChill/modula-lite/issues/956) )
+Fixed: Removed extra comma triggering "Syntax error" on php < 7.3 ( [#953](https://github.com/WPChill/modula-lite/issues/953) )
+Fixed: Guttenberg galleries fatal error ( [#958](https://github.com/WPChill/modula-lite/issues/958) )
+Added: fancybox-image element width and height ( [#955](https://github.com/WPChill/modula-lite/issues/955) )
+Fixed: Divi Builder compatibility ( [#962](https://github.com/WPChill/modula-lite/issues/962) )
+
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox
 

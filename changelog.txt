@@ -1,3 +1,12 @@
+= 2.8.4 - 31.05.2024 =
+Changed: Social icons buttons popup.
+Fixed: Thumbnail navigation showing at the bottom of the lightbox.
+Fixed: Social settings buttons getting stuck if disabled and enabled.
+Fixed: Removed extra comma triggering "Syntax error" on php < 7.3
+Fixed: Guttenberg galleries fatal error
+Added: fancybox-image element width and height
+Fixed: Divi Builder compatibility
+
 = 2.8.3 - 28.05.2024 =
 Fixed: Close button not showing in lightbox
 

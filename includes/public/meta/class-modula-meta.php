@@ -145,7 +145,7 @@ class Modula_Meta {
 				'published_date' => $date_published,
 				'img_width'      => ! empty( $image_sizes[1] ) ? $image_sizes[1] : '640',
 				'img_height'     => ! empty( $image_sizes[2] ) ? $image_sizes[2] : '480',
-			),
+			)
 		);
 		include __DIR__ . '/social_meta.php';
 	}
