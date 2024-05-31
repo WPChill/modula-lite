@@ -312,7 +312,7 @@ html body .modula .modula-items .modula-item > a.modula-no-follow {
 /**
 Fix for admin bar overfloating
  */
-html body .modula-fancybox-container.modula-fancybox-is-open {
+html body .modula-fancybox-container {
     z-index: 99999999;
 }
 
