@@ -1,3 +1,7 @@
+= 2.8.5 - 03.06.2025 =
+Fixed: Lightbox swiping does not work ( compatibility with Modula PRO ) ( [#965](https://github.com/WPChill/modula-lite/issues/965) )
+Changed: Added a "Do not show this notice again" button in the tracking notice.
+
 = 2.8.4 - 31.05.2024 =
 Changed: Social icons buttons popup.
 Fixed: Thumbnail navigation showing at the bottom of the lightbox.

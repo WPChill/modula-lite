@@ -1,10 +1,10 @@
 === Customizable WordPress Gallery Plugin - Modula Image Gallery ===
-Contributors: wpchill, silkalns, giucu91
+Contributors: wpchill, silkalns
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.8.4
+Stable tag: 2.8.5
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.5 - TBD =
+Fixed: Lightbox swiping does not work ( compatibility with Modula PRO ) ( [#965](https://github.com/WPChill/modula-lite/issues/965) )
+
 = 2.8.4 - 31.05.2024 =
 Fixed: Thumbnail navigation showing at the bottom of the lightbox.
 Changed: Social icons buttons popup. ( [#946](https://github.com/WPChill/modula-lite/issues/946) )

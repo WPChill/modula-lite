@@ -19,7 +19,6 @@ class WPChill_Tracking {
 	}
 
 	public function init() {
-
 		if ( ! is_admin() ) {
 			return;
 		}
@@ -56,6 +55,12 @@ class WPChill_Tracking {
 	}
 
 	public function add_notice_if_needed( $option ) {
+		$user_meta = get_user_meta( get_current_user_id(), 'wpchill_tracking_notice_dismissed', true );
+
+		if ( $user_meta === '1' ) {
+			return;
+		}
+
 		if ( is_null( $option ) ) {
 			// Show admin notice
 			add_action( 'admin_notices', array( $this, 'show_notice' ) );
@@ -68,11 +73,12 @@ class WPChill_Tracking {
 
 	public function show_notice() {
 		?>
-		<div class="notice notice-info is-dismissible wpchill-tracking-notice">
+		<div class="notice notice-info wpchill-tracking-notice">
 			<p><?php _e( "Plugin tracking: clicking on the 'Agree' button below means you'll be allowing Modula to track, anonymously, plugin usage. This includes gallery settings, and general plugin options. NO emails or PERSONAL information is ever sent back to Modula's servers.", 'modula-best-grid-gallery' ); ?></p>
 			<p>
-				<a href="#" class="button button-primary wpchill-dismiss-notice" data-action="agree_tracking_notice"><?php _e( 'Agree', 'modula-best-grid-gallery' ); ?></a>
+				<a href="#" class="button button-primary wpchill-agree-notice" data-action="agree_tracking_notice"><?php _e( 'Agree', 'modula-best-grid-gallery' ); ?></a>
 				<a href="#" class="button wpchill-optout-notice" data-action="optout_tracking_notice"><?php _e( 'Disagree', 'modula-best-grid-gallery' ); ?></a>
+				<a href="#" class="link wpchill-dismiss-notice" data-action="dismiss_tracking_notice"><?php _e( 'Don\'t show again', 'modula-best-grid-gallery' ); ?></a>
 			</p>
 		</div>
 		<script type="text/javascript">
@@ -91,15 +97,17 @@ class WPChill_Tracking {
 						document.querySelector('.wpchill-tracking-notice').remove();
 					});
 				}
-				document.querySelector('.wpchill-dismiss-notice').addEventListener('click', wpchillNoticeHandler);
+				document.querySelector('.wpchill-agree-notice').addEventListener('click', wpchillNoticeHandler);
 				document.querySelector('.wpchill-optout-notice').addEventListener('click', wpchillNoticeHandler);
+				document.querySelector('.wpchill-dismiss-notice').addEventListener('click', wpchillNoticeHandler);
+
 			});
 		</script>
 		<?php
 	}
 
 	public function dismiss_tracking_notice() {
-		update_option( $this->optin_option_name, 'true' );
+		update_user_meta( get_current_user_id(), 'wpchill_tracking_notice_dismissed', true );
 		wp_die();
 	}
 

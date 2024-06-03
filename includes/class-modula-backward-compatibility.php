@@ -544,7 +544,7 @@ class Modula_Backward_Compatibility {
 		unset( $options['video'], $options['youtube'], $options['vimeo'] );
 		// END Video Backwards comp.
 
-		if( isset( $settings['lightbox_touch'] ) && '1' === $settings['lightbox_touch'] ){
+		if( isset( $settings['lightbox_touch'] ) && $settings['lightbox_touch'] ){
 
 			$options['Carousel']['Panzoom']['touch'] = true;
 		}
