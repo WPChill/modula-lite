@@ -676,3 +676,7 @@ html body .modula-items .modula-item .jtg-social-mobile {
     max-height: 100%;
 }
 
+html body .modula-fancybox-container button.f-button {
+    padding:0px;
+}
+
