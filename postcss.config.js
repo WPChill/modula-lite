@@ -1,3 +1,9 @@
 module.exports = {
-	plugins: [require('autoprefixer')],
+	plugins: [
+		require('autoprefixer'),
+		require('postcss-prefix-selector')({
+			prefix: '.mbgg',
+			exclude: ['html', 'body'],
+		})
+	],
 };

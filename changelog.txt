@@ -1,3 +1,6 @@
+= 2.8.7 - 06.06.2025 =
+Fixed: Reset fancybox image styles (v3 compatibility fix)
+
 = 2.8.6 - 04.06.2025 =
 Fixed: JS was not minimized in prev. version
 

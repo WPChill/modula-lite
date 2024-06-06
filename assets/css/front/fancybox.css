@@ -548,6 +548,24 @@ html.with-fancybox body.hide-scrollbar{
     filter:blur(0px);
     will-change:transform,width,height
 }
+/** Resetting this **/
+.fancybox-image {
+    background: initial;
+    border: initial;
+    height: initial;
+    left: initial;
+    margin: initial;
+    max-height: initial;
+    max-width: initial;
+    padding: initial;
+    position: initial;
+    top: initial;
+    -webkit-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+    width: initial;
+}
 .fancybox-image{
     margin:auto;
     display:block;
