@@ -2,7 +2,7 @@ module.exports = {
 	plugins: [
 		require('autoprefixer'),
 		require('postcss-prefix-selector')({
-			prefix: '.mbgg',
+			prefix: '.modula-best-grid-gallery',
 			exclude: ['html', 'body'],
 		})
 	],

@@ -1,3 +1,6 @@
+= 2.8.8 - 07.06.2025 =
+Fixed: Scoped CSS classes for modula (fixes conflicting themes/plugins for third party libs)
+
 = 2.8.7 - 06.06.2025 =
 Fixed: Reset fancybox image styles (v3 compatibility fix)
 
