@@ -655,7 +655,7 @@
 	align-self: center;
 	max-width: 100%;
 	flex-shrink: 0;
-	margin: 0 8% 0 8%;
+	margin: 0;
 	padding: 14px 0 4px 0;
 	overflow-wrap: anywhere;
 	line-height: 1.375;
@@ -1498,7 +1498,7 @@ body.admin-bar.modula-best-grid-gallery .fancybox__container {
 	top: 32px;
 }
 
-.fancybox__sidebar {
+.modula-best-grid-gallery .fancybox__sidebar {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -1506,9 +1506,17 @@ body.admin-bar.modula-best-grid-gallery .fancybox__container {
 	z-index: 19;
 }
 
-.fancybox__sidebar.right {
+.modula-best-grid-gallery .fancybox__sidebar.right {
 	right: 10px;
 }
-.fancybox__sidebar.left {
+.modula-best-grid-gallery .fancybox__sidebar.left {
 	left: 10px;
+}
+.modula-best-grid-gallery .fancybox__container.has-sidebar .fancybox__nav {
+	--f-button-prev-pos: 8rem;
+	--f-button-next-pos: 8rem;
+}
+
+.modula-best-grid-gallery .fancybox__container.has-sidebar .fancybox__caption {
+	margin: 0 8% 0 8%;
 }
