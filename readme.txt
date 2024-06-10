@@ -261,7 +261,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.9 - 10.06.2025 =
+= 2.8.9 - 11.06.2025 =
 Fixed: CSS Issues for logged in users
 Added: Support for thumbnail positions (Modula PRO)
 
