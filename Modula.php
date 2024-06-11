@@ -4,7 +4,7 @@
 * Plugin URI:               https://wp-modula.com/
 * Description:              Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.
 * Author:                   WPChill
-* Version:                  2.8.9
+* Version:                  2.8.10
 * Author URI:               https://www.wpchill.com/
 * License:                  GPLv3 or later
 * License URI:              http://www.gnu.org/licenses/gpl-3.0.html
