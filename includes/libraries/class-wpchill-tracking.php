@@ -1,5 +1,4 @@
 <?php
-
 class WPChill_Tracking {
 
 	protected $plugin_name;
@@ -15,7 +14,12 @@ class WPChill_Tracking {
 		$this->plugin_name       = $plugin_name;
 		$this->optin_option_name = $optin_option_name;
 
-		$this->init();
+		add_action(
+			"wpchill_{$this->plugin_name}_weekly_tracking_event",
+			array( $this, 'handle_weekly_event' )
+		);
+
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	public function init() {
@@ -133,8 +137,6 @@ class WPChill_Tracking {
 		if ( ! wp_next_scheduled( "wpchill_{$this->plugin_name}_weekly_tracking_event" ) ) {
 			wp_schedule_event( time(), 'weekly', "wpchill_{$this->plugin_name}_weekly_tracking_event" );
 		}
-
-		add_action( "wpchill_{$this->plugin_name}_weekly_tracking_event", array( $this, 'handle_weekly_event' ) );
 	}
 
 	public function handle_weekly_event() {

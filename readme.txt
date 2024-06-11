@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.8.8
+Stable tag: 2.8.9
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -261,6 +261,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.9 - 11.06.2025 =
+Fixed: CSS Issues for logged in users
+Added: Support for thumbnail positions (Modula PRO)
+
 = 2.8.8 - 07.06.2025 =
 Fixed: Scoped CSS classes for modula (fixes conflicting themes/plugins for third party libs)
 

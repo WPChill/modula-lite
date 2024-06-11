@@ -22,6 +22,7 @@ class Modula {
 	 * @since    2.0.0
 	 */
 	public function __construct() {
+		$this->start_tracking();
 		$this->set_offer();
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -94,10 +95,17 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
-			require_once MODULA_PATH . 'includes/libraries/class-wpchill-tracking.php';
+
 		}
 	}
+	public function start_tracking() {
+		if ( ! is_admin() ) {
+			return;
+		}
 
+		require_once MODULA_PATH . 'includes/libraries/class-wpchill-tracking.php';
+		new WPChill_Tracking( 'wp-modula', 'wp-modula-tracking-option' );
+	}
 	/**
 	 * Add Modula Gallery Divi block
 	 */
@@ -183,7 +191,7 @@ class Modula {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			return;
 		}
-		new WPChill_Tracking( 'wp-modula', 'wp-modula-tracking-option' );
+
 		new Modula_Upsells();
 
 		$upgrades = Modula_Upgrades::get_instance();
