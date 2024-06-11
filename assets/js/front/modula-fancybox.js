@@ -2,38 +2,46 @@
 // Compatibility for other modules using the jQuery type.
 if ('undefined' !== typeof jQuery) {
     jQuery.modulaFancybox = {
+        isMobile: function () {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        },
+        isPositionCustom: function (opts) {
+            return opts.Thumbs && opts.Thumbs.position !== 'bottom';
+        },
         open: function (links, opts, index) {
             opts = opts || {};
 
-            if (opts.Thumbs && opts.Thumbs.position !== 'bottom') {
-                var sidebarPosition = opts.Thumbs.position;
-
-                opts = Object.assign(opts, {
-                    tpl: {
-                        closeButton:
-                            '<button data-fancybox-close class="f-button is-close-btn" title="{{CLOSE}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg></button>',
-                        main: '<div class="fancybox__container has-sidebar" role="dialog" aria-modal="true" aria-label="{{MODAL}}" tabindex="-1"><div class= "fancybox__backdrop" ></div><div class="fancybox__carousel"></div><div class="fancybox__footer"></div><div class="fancybox__sidebar ' + sidebarPosition + '"></div></div>',
-                    },
-                    Thumbs: Object.assign(opts.Thumbs, {
-                        type: 'classic',
-                        Carousel: {
-                            axis: 'y',
-                        },
-                        parentEl: function (fb) {
-                            var sidebar = fb.instance.container.querySelector('.fancybox__sidebar');
-                            if (!sidebar) {
-                                sidebar = document.createElement('div');
-                                sidebar.className = 'fancybox__sidebar ' + sidebarPosition;
-                                fb.instance.container.appendChild(sidebar);
-                            }
-                            return sidebar;
-                        },
-                    }),
-                });
+            if (!this.isPositionCustom(opts) || this.isMobile()) {
+                return modulaFancybox.open(links, opts, index);
             }
 
-            modulaFancybox.open(links, opts, index);
+            var sidebarPosition = opts.Thumbs.position;
+            opts = Object.assign(opts, {
+                tpl: {
+                    closeButton:
+                        '<button data-fancybox-close class="f-button is-close-btn" title="{{CLOSE}}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" tabindex="-1"><path d="M20 20L4 4m16 0L4 20"/></svg></button>',
+                    main: '<div class="fancybox__container has-sidebar" role="dialog" aria-modal="true" aria-label="{{MODAL}}" tabindex="-1"><div class= "fancybox__backdrop" ></div><div class="fancybox__carousel"></div><div class="fancybox__footer"></div><div class="fancybox__sidebar ' + sidebarPosition + '"></div></div>',
+                },
+                Thumbs: Object.assign(opts.Thumbs, {
+                    type: 'classic',
+                    Carousel: {
+                        axis: 'y',
+                    },
+                    parentEl: function (fb) {
+                        var sidebar = fb.instance.container.querySelector('.fancybox__sidebar');
+                        if (!sidebar) {
+                            sidebar = document.createElement('div');
+                            sidebar.className = 'fancybox__sidebar ' + sidebarPosition;
+                            fb.instance.container.appendChild(sidebar);
+                        }
+                        return sidebar;
+                    },
+                }),
+            });
+
+            return modulaFancybox.open(links, opts, index);
         },
+
     };
 }
 
@@ -105,7 +113,7 @@ var modulaFancybox = {
     },
     getInstance: function () {
         return this;
-    }
+    },
 };
 
 function escapeHtml(string) {
