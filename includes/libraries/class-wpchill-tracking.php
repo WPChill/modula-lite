@@ -1,12 +1,4 @@
 <?php
-add_filter( 'cron_schedules', 'wpchill_add_custom_intervals' );
-function wpchill_add_custom_intervals( $schedules ) {
-	$schedules['every_minute'] = array(
-		'interval' => 60,
-		'display'  => __( 'Every Minute' ),
-	);
-	return $schedules;
-}
 class WPChill_Tracking {
 
 	protected $plugin_name;
@@ -143,7 +135,7 @@ class WPChill_Tracking {
 
 	public function schedule_weekly_event() {
 		if ( ! wp_next_scheduled( "wpchill_{$this->plugin_name}_weekly_tracking_event" ) ) {
-			wp_schedule_event( time(), 'every_minute', "wpchill_{$this->plugin_name}_weekly_tracking_event" );
+			wp_schedule_event( time(), 'weekly', "wpchill_{$this->plugin_name}_weekly_tracking_event" );
 		}
 	}
 
