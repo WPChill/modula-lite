@@ -1,5 +1,12 @@
 <?php
-
+add_filter( 'cron_schedules', 'wpchill_add_custom_intervals' );
+function wpchill_add_custom_intervals( $schedules ) {
+	$schedules['every_minute'] = array(
+		'interval' => 60,
+		'display'  => __( 'Every Minute' ),
+	);
+	return $schedules;
+}
 class WPChill_Tracking {
 
 	protected $plugin_name;
@@ -15,7 +22,12 @@ class WPChill_Tracking {
 		$this->plugin_name       = $plugin_name;
 		$this->optin_option_name = $optin_option_name;
 
-		$this->init();
+		add_action(
+			"wpchill_{$this->plugin_name}_weekly_tracking_event",
+			array( $this, 'handle_weekly_event' )
+		);
+
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	public function init() {
@@ -131,10 +143,8 @@ class WPChill_Tracking {
 
 	public function schedule_weekly_event() {
 		if ( ! wp_next_scheduled( "wpchill_{$this->plugin_name}_weekly_tracking_event" ) ) {
-			wp_schedule_event( time(), 'weekly', "wpchill_{$this->plugin_name}_weekly_tracking_event" );
+			wp_schedule_event( time(), 'every_minute', "wpchill_{$this->plugin_name}_weekly_tracking_event" );
 		}
-
-		add_action( "wpchill_{$this->plugin_name}_weekly_tracking_event", array( $this, 'handle_weekly_event' ) );
 	}
 
 	public function handle_weekly_event() {
