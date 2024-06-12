@@ -261,23 +261,26 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.11 - 11.06.2025 =
+= 2.8.13 - 13.06.2024 = 
+Added: Options to change lightbox transition and slide animation
+
+= 2.8.11 - 11.06.2024 =
 Fixed: Elements floating on top of Lightbox ( [#965]( https://github.com/WPChill/modula-lite/issues/972) )
 
-= 2.8.10 - 11.06.2025 =
+= 2.8.10 - 11.06.204 =
 Fixed: CSS Issues for logged in users
 Added: Support for thumbnail positions (Modula PRO)
 
-= 2.8.8 - 07.06.2025 =
+= 2.8.8 - 07.06.2024 =
 Fixed: Scoped CSS classes for modula (fixes conflicting themes/plugins for third party libs)
 
-= 2.8.7 - 06.06.2025 =
+= 2.8.7 - 06.06.2024 =
 Fixed: Reset fancybox image styles (v3 compatibility fix)
 
-= 2.8.6 - 04.06.2025 =
+= 2.8.6 - 04.06.2024 =
 Fixed: JS was not minimized in prev. version
 
-= 2.8.5 - 03.06.2025 =
+= 2.8.5 - 03.06.2024 =
 Fixed: Lightbox swiping does not work ( compatibility with Modula PRO ) ( [#965](https://github.com/WPChill/modula-lite/issues/965) )
 Changed: Added a "Do not show this notice again" button in the tracking notice.
 

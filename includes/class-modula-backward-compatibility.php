@@ -530,8 +530,18 @@ class Modula_Backward_Compatibility {
 		// END Video Backwards comp.
 
 		if ( isset( $settings['lightbox_touch'] ) && $settings['lightbox_touch'] ) {
-
 			$options['Carousel']['Panzoom']['touch'] = true;
+		}
+
+		if ( isset( $settings['lightbox_transitionEffect'] ) ) {
+			$options['Carousel']['transition'] = $settings['lightbox_transitionEffect'];
+		}
+
+		if ( isset( $settings['lightbox_animationEffect'] )
+			&& $settings['lightbox_animationEffect'] !== 'false' ) {
+			$options['Images']['zoom'] = false;
+			$options['showClass']      = 'm-' . $settings['lightbox_animationEffect'] . 'In';
+			$options['hideClass']      = 'm-' . $settings['lightbox_animationEffect'] . 'Out';
 		}
 
 		return $options;
