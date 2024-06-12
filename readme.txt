@@ -261,6 +261,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.12 - TBD =
+Fixed: Modula Albums compatibility function resets album js config settings. ( [#975]( https://github.com/WPChill/modula-lite/issues/975) )
+
 = 2.8.11 - 11.06.2025 =
 Fixed: Elements floating on top of Lightbox ( [#965]( https://github.com/WPChill/modula-lite/issues/972) )
 

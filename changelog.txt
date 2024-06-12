@@ -1,3 +1,6 @@
+= 2.8.12 - TBD =
+Fixed: Modula Albums compatibility function resets album js config settings.
+
 = 2.8.11 - 11.06.2025 =
 Fixed: Elements floating on top of Lightbox
 
