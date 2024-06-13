@@ -1500,10 +1500,10 @@ body.admin-bar.modula-best-grid-gallery .fancybox__container {
 
 .modula-best-grid-gallery .fancybox__sidebar {
 	position: absolute;
-	top: 0;
+	top: 45px;
 	bottom: 0;
 	width: 115px;
-	z-index: 19;
+	z-index: 20;
 }
 
 .modula-best-grid-gallery .fancybox__sidebar.right {
