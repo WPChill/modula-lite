@@ -261,6 +261,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.8.13 - TBD = 
+Changed: Optimize galleries DB count chech for onboarding display ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
+
 = 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
 Fixed: Modula Albums compatibility function resets album js config settings. ( [#975]( https://github.com/WPChill/modula-lite/issues/975) )
