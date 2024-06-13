@@ -530,8 +530,18 @@ class Modula_Backward_Compatibility {
 		// END Video Backwards comp.
 
 		if ( isset( $settings['lightbox_touch'] ) && $settings['lightbox_touch'] ) {
-
 			$options['Carousel']['Panzoom']['touch'] = true;
+		}
+
+		if ( isset( $settings['lightbox_transitionEffect'] ) ) {
+			$options['Carousel']['transition'] = $settings['lightbox_transitionEffect'];
+		}
+
+		if ( isset( $settings['lightbox_animationEffect'] )
+			&& $settings['lightbox_animationEffect'] !== 'false' ) {
+			$options['Images']['zoom'] = false;
+			$options['showClass']      = 'm-' . $settings['lightbox_animationEffect'] . 'In';
+			$options['hideClass']      = 'm-' . $settings['lightbox_animationEffect'] . 'Out';
 		}
 
 		return $options;
@@ -641,6 +651,7 @@ class Modula_Backward_Compatibility {
 
 		// Get lightbox config data.
 		$data = json_decode( $template_data['album_container']['data-config'], true );
+		$js_config = isset( $template_data['js_config'] ) ? $template_data['js_config'] : array();
 		// Set Modula's fancybox 5 default options.
 		$data['lightbox_settings'] = array_merge( Modula_Helper::lightbox_default_options(), $data['lightbox_settings'] );
 		// Convert old fancybox settings to new.

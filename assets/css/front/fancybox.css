@@ -1500,10 +1500,10 @@ body.admin-bar.modula-best-grid-gallery .fancybox__container {
 
 .modula-best-grid-gallery .fancybox__sidebar {
 	position: absolute;
-	top: 0;
+	top: 45px;
 	bottom: 0;
 	width: 115px;
-	z-index: 19;
+	z-index: 20;
 }
 
 .modula-best-grid-gallery .fancybox__sidebar.right {
@@ -1519,4 +1519,77 @@ body.admin-bar.modula-best-grid-gallery .fancybox__container {
 
 .modula-best-grid-gallery .fancybox__container.has-sidebar .fancybox__caption {
 	margin: 0 8% 0 8%;
+}
+
+.modula-best-grid-gallery .m-zoomIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomIn;
+	z-index: 2;
+}
+
+.modula-best-grid-gallery .m-zoomOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomOut;
+	z-index: 1;
+}
+
+.modula-best-grid-gallery .m-zoom-in-outIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomIn;
+}
+
+.modula-best-grid-gallery .m-zoom-in-outOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomInAndOut;
+}
+
+.modula-best-grid-gallery .m-fadeIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-fadeIn;
+}
+
+.modula-best-grid-gallery .m-fadeOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-fadeOut;
+}
+
+@keyframes m-zoomIn {
+	0% {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes m-zoomInAndOut {
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+@keyframes m-zoomOut {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+}
+
+@keyframes m-fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes m-fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
