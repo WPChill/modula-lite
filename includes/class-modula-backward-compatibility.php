@@ -651,6 +651,7 @@ class Modula_Backward_Compatibility {
 
 		// Get lightbox config data.
 		$data = json_decode( $template_data['album_container']['data-config'], true );
+		$js_config = isset( $template_data['js_config'] ) ? $template_data['js_config'] : array();
 		// Set Modula's fancybox 5 default options.
 		$data['lightbox_settings'] = array_merge( Modula_Helper::lightbox_default_options(), $data['lightbox_settings'] );
 		// Convert old fancybox settings to new.

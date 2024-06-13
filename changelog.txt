@@ -1,5 +1,6 @@
-= 2.8.13 - 13.06.2024 = 
+= 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
+Fixed: Modula Albums compatibility function resets album js config settings.
 
 = 2.8.11 - 11.06.2024 =
 Fixed: Elements floating on top of Lightbox
