@@ -372,7 +372,6 @@ class Modula_Backward_Compatibility {
 						case 'zoom':
 							$options['Toolbar']['display']['right'][] = 'zoomIn';
 							$options['Toolbar']['display']['right'][] = 'zoomOut';
-							$options['Toolbar']['display']['right'][] = 'iterateZoom';
 							break;
 						case 'share':
 							$options['Toolbar']['items']['share']['tpl'] = '<button data-fancybox-share class="f-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.55 19c1.4-8.4 9.1-9.8 11.9-9.8V5l7 7-7 6.3v-3.5c-2.8 0-10.5 2.1-11.9 4.2z"/></svg></button>';

@@ -471,15 +471,14 @@ class Modula_CPT {
 	}
 
 	public function add_extensions_tab_onboarding( $views ) {
+		global $wpdb;
 
-		$query = new WP_Query(array(
-			'post_type' => 'modula-gallery',
-			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending', 'private' ),
-		));
+		$sql = "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type = 'modula-gallery'";
+		$res = $wpdb->get_var( $sql);
 
 		$this->display_extension_tab();
 
-		if( !$query->have_posts() ){
+		if( '0' === $res ){
 			global $wp_list_table;
 			$wp_list_table = new Modula_Onboarding();
 			return array();

@@ -1,3 +1,8 @@
+= 2.8.13 - 26.06.2024 = 
+Changed: Optimize galleries DB count chech for onboarding display.
+Fixed: Removed lightbox double zoom button fancybox 5 compatibility.
+Fixed: Admin settings tooltip display over icon radio.
+
 = 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
 Fixed: Modula Albums compatibility function resets album js config settings.
