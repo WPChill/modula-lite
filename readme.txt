@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.8.12
+Stable tag: 2.8.13
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
 
@@ -262,8 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 = 2.8.13 - TBD = 
-Changed: Optimize galleries DB count chech for onboarding display ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
+Changed: Optimize galleries DB count chech for onboarding display. ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
 Fixed: Removed lightbox double zoom button fancybox 5 compatibility. ( [#982]( https://github.com/WPChill/modula-lite/issues/982) )
+Fixed: Admin settings tooltip display over icon radio. ( [#984]( https://github.com/WPChill/modula-lite/issues/984) )
 
 = 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
