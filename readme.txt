@@ -261,7 +261,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.13 - TBD = 
+= 2.8.13 - 26.06.2024 = 
 Changed: Optimize galleries DB count chech for onboarding display. ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
 Fixed: Removed lightbox double zoom button fancybox 5 compatibility. ( [#982]( https://github.com/WPChill/modula-lite/issues/982) )
 Fixed: Admin settings tooltip display over icon radio. ( [#984]( https://github.com/WPChill/modula-lite/issues/984) )
