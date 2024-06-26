@@ -263,6 +263,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 = 2.8.13 - TBD = 
 Changed: Optimize galleries DB count chech for onboarding display ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
+Fixed: Removed lightbox double zoom button fancybox 5 compatibility. ( [#982]( https://github.com/WPChill/modula-lite/issues/982) )
 
 = 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
