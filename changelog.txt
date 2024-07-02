@@ -1,3 +1,6 @@
+= 2.8.14 - tbd =
+Added: Support for Modula Image SEO addon
+
 = 2.8.12 - 13.06.2024 = 
 Added: Options to change lightbox transition and slide animation
 Fixed: Modula Albums compatibility function resets album js config settings.
