@@ -1989,7 +1989,7 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 .modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper input[type="radio"]:checked + label {
 	border: 1px solid #27be92;
 	margin-right: -1px;
-	z-index: 99;
+	z-index: 98;
 	box-shadow: 0 0 5px #27be92;
 }
 
