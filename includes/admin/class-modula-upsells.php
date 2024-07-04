@@ -71,6 +71,7 @@ class Modula_Upsells {
 		add_filter( 'modula_image_licensing_tab_content', array( $this, 'image_licensing_tab_upsell' ) );
 
 		// Modula Advanced Shortcodes settings tab upsells
+		add_action( 'modula_admin_tab_imageseo', array( $this, 'imageseo_tab_upsell' ) );
 		add_action( 'modula_admin_tab_compression', array( $this, 'render_speedup_tab' ) );
 		add_action( 'modula_admin_tab_standalone', array( $this, 'render_albums_tab' ) );
 		add_action( 'modula_admin_tab_shortcodes', array( $this, 'render_advanced_shortcodes_tab' ) );
@@ -578,6 +579,27 @@ class Modula_Upsells {
 		$tab_content .= '</div>';
 
 		return $tab_content;
+	}
+
+	public function imageseo_tab_upsell( $tab_content ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-imageseo' ) ) {
+			return;
+		}
+		?>
+			<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Image SEO', 'modula-best-grid-gallery' ); ?></h3>
+				<p><?php esc_html_e( 'Leverage the power of AI for automatic image SEO optimization. Our advanced technology intelligently analyzes and optimizes your images to improve search engine visibility and drive more organic traffic to your website.', 'modula-best-grid-gallery' ); ?></p>
+				<p>
+					<?php
+
+					$buttons  = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-imageseo_upsell-tab&utm_campaign=modula-speedup" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-imageseo' );
+					?>
+				</p>
+			</div>
+		<?php
 	}
 
 	public function download_tab_upsell( $tab_content ) {

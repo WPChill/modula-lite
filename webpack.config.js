@@ -1,9 +1,9 @@
 const path = require('path');
 //const ExtractTextPlugin       = require('extract-text-webpack-plugin');
 //const UglifyJSPlugin            = require('uglifyjs-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const CssEntryPlugin = require('css-entry-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+// const CssEntryPlugin = require('css-entry-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
@@ -20,7 +20,7 @@ const config = {
 				test: /\.scss$/,
 				/* 		use: ExtractTextPlugin.extract({
 					fallback: 'style-loader', */
-				use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'postcss-loader', 'sass-loader' ]
+				use: [MiniCssExtractPlugin.loader, 'css-loader?url=false', 'postcss-loader', 'sass-loader']
 				//}),
 			},
 			{
@@ -32,34 +32,18 @@ const config = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: '/css/admin/modula-gutenberg.css'
+			filename: './assets/css/admin/modula-gutenberg.css'
 		}),
 		//new ExtractTextPlugin('/css/[name].css'),
-		new BrowserSyncPlugin({
-			proxy: 'localhost/',
-			port: 3000,
-			files: [ '**/*.php' ],
-			ghostMode: {
-				clicks: false,
-				location: false,
-				forms: false,
-				scroll: false
-			},
-			injectChanges: true,
-			logFileChanges: true,
-			logLevel: 'debug',
-			logPrefix: 'wepback',
-			notify: false,
-			reloadDelay: 0
-		})
-	]
+	],
+	optimization: { minimizer: [] }
 };
 
 //If true JS and CSS files will be minified
 if (process.env.NODE_ENV === 'production') {
-	config.plugins.push(
+	config.optimization.minimizer.push(
 		//new UglifyJSPlugin(),
-		new OptimizeCssAssetsPlugin()
+		new CssMinimizerPlugin()
 	);
 }
 
