@@ -147,43 +147,20 @@ export const ModulaEdit = (props) => {
 		}
 	};
 
-	const modulaSlickRun = (id) => {
+	const modulaCarouselRun = (id) => {
 		id = `jtg-${id}`;
 		setAttributes({ status: 'ready' });
 		const modulaSliders = jQuery('.modula-slider');
-		if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick) {
+		if (modulaSliders.length > 0 && 'function' == typeof ModulaCarousel) {
 			let config = jQuery(`#${id}`).data('config'),
-				nav = jQuery(`#${id}`).find('.modula-slider-nav'),
 				main = jQuery(`#${id}`).find('.modula-items');
 
-			main.slick(config.slider_settings);
+				new ModulaCarousel( main[0], config.slider_settings );
+		} else if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick) {
+			let config = jQuery(`#${id}`).data('config'),
+				main = jQuery(`#${id}`).find('.modula-items');
 
-			if (nav.length) {
-				let navConfig = nav.data('config'),
-					currentSlide = main.slick('slickCurrentSlide');
-
-				nav.on('init', function (event, slick) {
-					nav.find(
-						'.slick-slide[data-slick-index="' + currentSlide + '"]'
-					).addClass('is-active');
-				});
-
-				nav.slick(navConfig);
-
-				main.on('afterChange', function (event, slick, currentSlide) {
-					nav.slick('slickGoTo', currentSlide);
-					let currrentNavSlideElem =
-						'.slick-slide[data-slick-index="' + currentSlide + '"]';
-					nav.find('.slick-slide.is-active').removeClass('is-active');
-					nav.find(currrentNavSlideElem).addClass('is-active');
-				});
-
-				nav.on('click', '.slick-slide', function (event) {
-					event.preventDefault();
-					let goToSingleSlide = jQuery(this).data('slick-index');
-					main.slick('slickGoTo', goToSingleSlide);
-				});
-			}
+				main.slick(config.slider_settings);
 		}
 	};
 
@@ -376,11 +353,12 @@ export const ModulaEdit = (props) => {
 					settings={settings}
 					jsConfig={jsConfig}
 					modulaRun={modulaRun}
-					modulaSlickRun={modulaSlickRun}
+					modulaCarouselRun={modulaCarouselRun}
 					checkHoverEffect={checkHoverEffect}
 					galleryId={galleryId}
 				/>
 			</Fragment>
+			
 		);
 	}
 

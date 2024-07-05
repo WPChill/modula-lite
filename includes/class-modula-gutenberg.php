@@ -163,18 +163,42 @@ class Modula_Gutenberg {
 		}
 
 		foreach ( $images as $key => $value ) :
-			$image_obj                     = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
-			$images[ $key ]['src']         = $image_obj[0];
-			$images[ $key ]['data-width']  = $images[ $key ]['width'];
-			$images[ $key ]['data-height'] = $images[ $key ]['height'];
-			$images[ $key ]['width']       = $image_obj[1];
-			$images[ $key ]['height']      = $image_obj[2];
+
+			if( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ){
+				$image_obj = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
+
+				if( ! $image_obj ){
+					continue;
+				}
+
+				$images[ $key ]['src']         = $image_obj[0];
+				$images[ $key ]['data-width']  = $images[ $key ]['width'];
+				$images[ $key ]['data-height'] = $images[ $key ]['height'];
+				$images[ $key ]['width']       = $image_obj[1];
+				$images[ $key ]['height']      = $image_obj[2];
+			}else{
+				$images[ $key ]['src']         = $value['video_thumbnail'];
+				$images[ $key ]['video_type']  = false;
+				if( class_exists( 'Modula_Video' ) ){
+					$images[ $key ]['src']         = Modula_Video::video_link_formatter( $value['video_url'] );
+					if ( strpos( $value['video_url'], 'youtu' ) !== false || strpos( $value['video_url'], 'vimeo' ) !== false ) {
+						$images[ $key ]['video_type'] = 'iframe';
+					} else {
+						$images[ $key ]['video_type'] = 'hosted';
+					}
+				}
+				
+				$images[ $key ]['data-width']  = $value['video_width'];
+				$images[ $key ]['data-height'] = $value['video_height'];
+				$images[ $key ]['width']       = $value['video_width'];
+				$images[ $key ]['height']      = $value['video_height'];
+			}
+
 		endforeach;
 
 		wp_send_json( $images );
 
 		die();
-
 	}
 
 	/**
