@@ -1,4 +1,4 @@
-const { Fragment, useEffect } = wp.element;
+const { Fragment, useEffect, useRef } = wp.element;
 
 import ModulaGalleryImage from './ModulaGalleryImage';
 import ModulaStyle from './ModulaStyle';
@@ -6,16 +6,21 @@ import ModulaItemsExtraComponent from './ModulaItemsExtraComponent';
 
 export const ModulaGallery = (props) => {
 	const { images, jsConfig, id } = props.attributes;
-	const { settings, checkHoverEffect, modulaRun, modulaSlickRun } = props;
+	const { settings, checkHoverEffect, modulaRun, modulaCarouselRun } = props;
+	const galleryRef = useRef(null);
 
 	useEffect(() => {
+		if (galleryRef.current) {
+			galleryRef.current = true;
+			return;
+		}
 		if (settings !== undefined) {
 			checkHoverEffect(settings.effect);
 		}
 		if ('slider' !== settings.type) {
 			modulaRun(jsConfig);
 		} else {
-			modulaSlickRun(id);
+			modulaCarouselRun(id);
 		}
 	}, []);
 
@@ -55,16 +60,14 @@ export const ModulaGallery = (props) => {
 					{images.length > 0 && (
 						<Fragment>
 							<Fragment>
-								{images.map((img, index) => {
-									return [
-										<ModulaGalleryImage
-											{...props}
-											img={img}
-											key={index}
-											index={index}
-										/>,
-									];
-								})}
+								{images.map((img, index) => (
+									<ModulaGalleryImage
+										{...props}
+										img={img}
+										key={img.id}
+										index={index}
+									/>)
+								)}
 							</Fragment>
 						</Fragment>
 					)}

@@ -1,6 +1,6 @@
 {
 	"name": "modula-best-grid-gallery",
-	"version": "2.8.13",
+	"version": "2.8.14",
 	"description": "Modula Image Gallery build tools",
 	"author": "WPChill",
 	"license": "GPL-2.0-or-later",
@@ -29,8 +29,7 @@
 		"concat:css:frontend": "concat -o \"./assets/css/front.css\" \"./assets/css/front/fancybox.min.css\" \"./assets/css/front/modula.min.css\" ",
 		"min:css": "npm run min:css:frontend && npm run min:css:backend && npm run concat:css:frontend",
 		"makepot": "wp i18n make-pot . languages/modula-best-grid-gallery.pot",
-		"wpchill": "npm run min:css && npm run makepot",
-		"reload": "browser-sync start --proxy 'http://localhost:8888' --files \"./assets/css/*/*.css\" --logLevel 'debug'"
+		"wpchill": "npm run min:css && npm run makepot"
 	},
 	"prettier": "@wordpress/prettier-config",
 	"stylelint": {
@@ -44,28 +43,28 @@
 		"*.scss": "npx stylelint --fix"
 	},
 	"devDependencies": {
-		"@wordpress/eslint-plugin": "^16.0.0",
-		"@wordpress/scripts": "^26.13.0",
+		"@babel/core": "^7.24.6",
+		"@babel/eslint-parser": "^7.24.6",
+		"@node-minify/core": "^8.0.6",
+		"@node-minify/uglify-js": "^8.0.6",
+		"@wordpress/eslint-plugin": "^18.1.0",
+		"@wordpress/scripts": "^19.2.4",
 		"@wordpress/stylelint-config": "^21.25.0",
-		"browser-sync": "^2.29.3",
-		"browser-sync-webpack-plugin": "^2.3.0",
 		"clean-css-cli": "^5.6.2",
 		"concat": "^1.0.3",
+		"css-minimizer-webpack-plugin": "^7.0.0",
 		"eslint-config-prettier": "^9.0.0",
 		"husky": "^8.0.3",
-		"imagemin-cli": "^7.0.0",
+		"imagemin-cli": "^2.1.0",
 		"lint-staged": "^14.0.1",
+		"mini-css-extract-plugin": "^2.9.0",
 		"postcss": "^8.4.31",
 		"postcss-cli": "^11.0.0",
 		"postcss-prefix-selector": "^1.16.1",
 		"sass": "^1.68.0",
 		"tinypng-cli": "^0.0.7",
 		"uglifyjs-folder": "^3.3.0",
+		"webpack-cli": "^5.1.4",
 		"webpack-remove-empty-scripts": "^1.0.4"
-	},
-	"dependencies": {
-		"@node-minify/core": "^8.0.6",
-		"@node-minify/uglify-js": "^8.0.6",
-		"latest": "^0.2.0"
 	}
 }

@@ -1,3 +1,7 @@
+= 2.8.14 - 08.07.2024 =
+Added: Support for Modula Image SEO addon
+Changed: Compatibility for Modula Slider with Fancybox Carousel & Guttenberg block
+
 = 2.8.13 - 26.06.2024 = 
 Changed: Optimize galleries DB count chech for onboarding display.
 Fixed: Removed lightbox double zoom button fancybox 5 compatibility.

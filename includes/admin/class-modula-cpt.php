@@ -22,7 +22,7 @@ class Modula_CPT {
 
 		add_action( 'init', array( $this, 'register_cpt' ) );
 		//Bring the settings in Rest
-		add_action( 'rest_api_init', array( $this, 'register_post_meta_rest') );
+		add_action( 'rest_api_init', array( $this, 'register_post_meta_rest' ) );
 
 		/* Fire our meta box setup function on the post editor screen. */
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
@@ -52,58 +52,64 @@ class Modula_CPT {
 
 		// Ajax for removing notices
 		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
-
 	}
 
 	public function register_cpt() {
 
-		$this->labels = apply_filters( 'modula_cpt_labels', array(
-			'name'                  => esc_html__( 'Modula Galleries', 'modula-best-grid-gallery' ),
-			'singular_name'         => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
-			'menu_name'             => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
-			'name_admin_bar'        => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
-			'archives'              => esc_html__( 'Item Archives', 'modula-best-grid-gallery' ),
-			'attributes'            => esc_html__( 'Item Attributes', 'modula-best-grid-gallery' ),
-			'parent_item_colon'     => esc_html__( 'Parent Item:', 'modula-best-grid-gallery' ),
-			'all_items'             => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
-			'add_new_item'          => esc_html__( 'Add New Item', 'modula-best-grid-gallery' ),
-			'add_new'               => esc_html__( 'Add New', 'modula-best-grid-gallery' ),
-			'new_item'              => esc_html__( 'New Item', 'modula-best-grid-gallery' ),
-			'edit_item'             => esc_html__( 'Edit Item', 'modula-best-grid-gallery' ),
-			'update_item'           => esc_html__( 'Update Item', 'modula-best-grid-gallery' ),
-			'view_item'             => esc_html__( 'View Item', 'modula-best-grid-gallery' ),
-			'view_items'            => esc_html__( 'View Items', 'modula-best-grid-gallery' ),
-			'search_items'          => esc_html__( 'Search Item', 'modula-best-grid-gallery' ),
-			'not_found'             => '<a href="'.admin_url('post-new.php?post_type=modula-gallery').'">'.esc_html__( 'Add your first gallery ','modula-best-grid-gallery').'</a>'.esc_html__('now or check out our ','modula-best-grid-gallery'). '<a href="'.esc_url('https://wp-modula.com/knowledge-base/').'" target="_blank">'.esc_html__('documentation ','modula-best-grid-gallery').'</a>'.esc_html__('if you need help figuring things out.', 'modula-best-grid-gallery' ),
-			'not_found_in_trash'    => esc_html__( 'Not found in Trash', 'modula-best-grid-gallery' ),
-			'featured_image'        => esc_html__( 'Featured Image', 'modula-best-grid-gallery' ),
-			'set_featured_image'    => esc_html__( 'Set featured image', 'modula-best-grid-gallery' ),
-			'remove_featured_image' => esc_html__( 'Remove featured image', 'modula-best-grid-gallery' ),
-			'use_featured_image'    => esc_html__( 'Use as featured image', 'modula-best-grid-gallery' ),
-			'insert_into_item'      => esc_html__( 'Insert into item', 'modula-best-grid-gallery' ),
-			'uploaded_to_this_item' => esc_html__( 'Uploaded to this item', 'modula-best-grid-gallery' ),
-			'items_list'            => esc_html__( 'Items list', 'modula-best-grid-gallery' ),
-			'items_list_navigation' => esc_html__( 'Items list navigation', 'modula-best-grid-gallery' ),
-			'filter_items_list'     => esc_html__( 'Filter items list', 'modula-best-grid-gallery' ),
-		), $this->labels );
+		$this->labels = apply_filters(
+			'modula_cpt_labels',
+			array(
+				'name'                  => esc_html__( 'Modula Galleries', 'modula-best-grid-gallery' ),
+				'singular_name'         => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+				'menu_name'             => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+				'name_admin_bar'        => esc_html__( 'Modula', 'modula-best-grid-gallery' ),
+				'archives'              => esc_html__( 'Item Archives', 'modula-best-grid-gallery' ),
+				'attributes'            => esc_html__( 'Item Attributes', 'modula-best-grid-gallery' ),
+				'parent_item_colon'     => esc_html__( 'Parent Item:', 'modula-best-grid-gallery' ),
+				'all_items'             => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
+				'add_new_item'          => esc_html__( 'Add New Item', 'modula-best-grid-gallery' ),
+				'add_new'               => esc_html__( 'Add New', 'modula-best-grid-gallery' ),
+				'new_item'              => esc_html__( 'New Item', 'modula-best-grid-gallery' ),
+				'edit_item'             => esc_html__( 'Edit Item', 'modula-best-grid-gallery' ),
+				'update_item'           => esc_html__( 'Update Item', 'modula-best-grid-gallery' ),
+				'view_item'             => esc_html__( 'View Item', 'modula-best-grid-gallery' ),
+				'view_items'            => esc_html__( 'View Items', 'modula-best-grid-gallery' ),
+				'search_items'          => esc_html__( 'Search Item', 'modula-best-grid-gallery' ),
+				'not_found'             => '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '">' . esc_html__( 'Add your first gallery ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'now or check out our ', 'modula-best-grid-gallery' ) . '<a href="' . esc_url( 'https://wp-modula.com/knowledge-base/' ) . '" target="_blank">' . esc_html__( 'documentation ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'if you need help figuring things out.', 'modula-best-grid-gallery' ),
+				'not_found_in_trash'    => esc_html__( 'Not found in Trash', 'modula-best-grid-gallery' ),
+				'featured_image'        => esc_html__( 'Featured Image', 'modula-best-grid-gallery' ),
+				'set_featured_image'    => esc_html__( 'Set featured image', 'modula-best-grid-gallery' ),
+				'remove_featured_image' => esc_html__( 'Remove featured image', 'modula-best-grid-gallery' ),
+				'use_featured_image'    => esc_html__( 'Use as featured image', 'modula-best-grid-gallery' ),
+				'insert_into_item'      => esc_html__( 'Insert into item', 'modula-best-grid-gallery' ),
+				'uploaded_to_this_item' => esc_html__( 'Uploaded to this item', 'modula-best-grid-gallery' ),
+				'items_list'            => esc_html__( 'Items list', 'modula-best-grid-gallery' ),
+				'items_list_navigation' => esc_html__( 'Items list navigation', 'modula-best-grid-gallery' ),
+				'filter_items_list'     => esc_html__( 'Filter items list', 'modula-best-grid-gallery' ),
+			),
+			$this->labels
+		);
 
-		$this->args = apply_filters( 'modula_cpt_args', array(
-			'label'               => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
-			'description'         => esc_html__( 'Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.', 'modula-best-grid-gallery' ),
-			'supports'            => array( 'title' ),
-			'public'              => false,
-			'show_ui'             => true,
-			'show_in_menu'        => true,
-			'menu_position'       => 25,
-			'menu_icon'           => MODULA_URL . 'assets/images/modula.png',
-			'show_in_admin_bar'   => true,
-			'show_in_nav_menus'   => false,
-			'can_export'          => true,
-			'has_archive'         => false,
-			'exclude_from_search' => true,
-			'rewrite'             => false,
-			'show_in_rest'        => true,
-		) );
+		$this->args = apply_filters(
+			'modula_cpt_args',
+			array(
+				'label'               => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
+				'description'         => esc_html__( 'Modula is the most powerful, user-friendly WordPress gallery plugin. Add galleries, masonry grids and more in a few clicks.', 'modula-best-grid-gallery' ),
+				'supports'            => array( 'title' ),
+				'public'              => false,
+				'show_ui'             => true,
+				'show_in_menu'        => true,
+				'menu_position'       => 25,
+				'menu_icon'           => MODULA_URL . 'assets/images/modula.png',
+				'show_in_admin_bar'   => true,
+				'show_in_nav_menus'   => false,
+				'can_export'          => true,
+				'has_archive'         => false,
+				'exclude_from_search' => true,
+				'rewrite'             => false,
+				'show_in_rest'        => true,
+			)
+		);
 
 		$this->metaboxes = array(
 			'modula-preview-gallery' => array(
@@ -130,7 +136,6 @@ class Modula_CPT {
 		$args['labels'] = $this->labels;
 
 		register_post_type( $this->cpt_name, $args );
-
 	}
 
 	/**
@@ -139,11 +144,15 @@ class Modula_CPT {
 	 * @since 2.5.0
 	 */
 	public function register_post_meta_rest() {
-		register_rest_field( 'modula-gallery', 'modulaSettings', array(
-			'get_callback' => function( $post_arr ) {
-				return get_post_meta( $post_arr['id'], 'modula-settings', true );
-			},
-		) );
+		register_rest_field(
+			'modula-gallery',
+			'modulaSettings',
+			array(
+				'get_callback' => function ( $post_arr ) {
+					return get_post_meta( $post_arr['id'], 'modula-settings', true );
+				},
+			)
+		);
 	}
 
 	/**
@@ -187,13 +196,12 @@ class Modula_CPT {
 			add_meta_box(
 				$metabox_id,      // Unique ID
 				$metabox['title'],    // Title
-				array( $this, $metabox['callback'] ),   // Callback function
+				is_string( $metabox['callback'] ) ? array( $this, $metabox['callback'] ) : $metabox['callback'],  // Callback function
 				'modula-gallery',         // Admin page (or post type)
 				$metabox['context'],         // Context
 				'high'         // Priority
 			);
 		}
-
 	}
 
 	public function output_gallery_images() {
@@ -214,7 +222,7 @@ class Modula_CPT {
 		$post_type = get_post_type_object( $post->post_type );
 
 		/* Check if the current user has permission to edit the post. */
-		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' != $post_type->name ) {
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' != $post_type->name ) {
 			return $post_id;
 		}
 
@@ -231,8 +239,8 @@ class Modula_CPT {
 				// We will iterate through all fields of current tab
 				foreach ( $fields as $field_id => $field ) {
 
-					if ( isset( $_POST['modula-settings'][$field_id] ) ) {
-						
+					if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
+
 						// Values for selects
 						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
 						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
@@ -240,7 +248,7 @@ class Modula_CPT {
 
 						switch ( $field_id ) {
 							case 'description':
-								$modula_settings[$field_id] = wp_filter_post_kses( $_POST['modula-settings'][$field_id] );
+								$modula_settings[ $field_id ] = wp_filter_post_kses( $_POST['modula-settings'][ $field_id ] );
 								break;
 							case 'randomFactor':
 							case 'captionFontSize':
@@ -252,113 +260,108 @@ class Modula_CPT {
 							case 'shadowSize':
 							case 'socialIconSize':
 							case 'socialIconPadding':
-								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 								break;
-							case 'lightbox' :
-								if ( in_array( $_POST['modula-settings'][$field_id], $lightbox_values ) ) {
-									$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+							case 'lightbox':
+								if ( in_array( $_POST['modula-settings'][ $field_id ], $lightbox_values ) ) {
+									$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 								} else {
-									$modula_settings[$field_id] = 'fancybox';
+									$modula_settings[ $field_id ] = 'fancybox';
 								}
 								break;
 							case 'enableSocial':
-							case 'enableTwitter' :
+							case 'enableTwitter':
 							case 'enableWhatsapp':
-							case 'enableFacebook' :
-							case 'enablePinterest' :
+							case 'enableFacebook':
+							case 'enablePinterest':
 							case 'enableEmail':
-								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 								break;
 							case 'imageMessage':
-								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 								break;
 							case 'galleryMessage':
-								$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 								break;
-							case 'shuffle' :
-								if ( isset( $_POST['modula-settings'][$field_id] ) ) {
-									$modula_settings[$field_id] = '1';
+							case 'shuffle':
+								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
+									$modula_settings[ $field_id ] = '1';
 								} else {
-									$modula_settings[$field_id] = '0';
+									$modula_settings[ $field_id ] = '0';
 								}
 								break;
 							case 'captionColor':
 							case 'socialIconColor':
 							case 'borderColor':
 							case 'shadowColor':
-								$modula_settings[$field_id] = Modula_Helper::sanitize_rgba_colour( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 								break;
-							case 'effect' :
-								if ( in_array( $_POST['modula-settings'][$field_id], $effect_values ) ) {
-									$modula_settings[$field_id] = $_POST['modula-settings'][$field_id];
+							case 'effect':
+								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
+									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
 								} else {
-									$modula_settings[$field_id] = 'pufrobo';
+									$modula_settings[ $field_id ] = 'pufrobo';
 								}
 								break;
-							case 'gutterInput' :
-								$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+							case 'gutterInput':
+								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 								break;
-							case 'height' :
-								$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
+							case 'height':
+								$modula_settings[ $field_id ] = array_map( 'absint', $_POST['modula-settings'][ $field_id ] );
 								break;
 							default:
 								$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
 								switch ( $data_type ) {
 									case 'text':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										}else{
-											$modula_settings[$field_id] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) );
+										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
+											$modula_settings[ $field_id ] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
+										} else {
+											$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
 										}
 										break;
 									case 'number':
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'absint', $_POST['modula-settings'][$field_id] );
-										}else{
+										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
+											$modula_settings[ $field_id ] = array_map( 'absint', $_POST['modula-settings'][ $field_id ] );
+										} else {
 
-											$modula_settings[$field_id] = absint( $_POST['modula-settings'][$field_id] );
+											$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
 										}
 										break;
 									case 'bool':
-
-										if( is_array( $_POST['modula-settings'][$field_id] ) ){
-											$modula_settings[$field_id] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][$field_id] );
-										}else{
-											$modula_settings[$field_id] = rest_sanitize_boolean( $_POST['modula-settings'][$field_id] );
+										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
+											$modula_settings[ $field_id ] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][ $field_id ] );
+										} else {
+											$modula_settings[ $field_id ] = rest_sanitize_boolean( $_POST['modula-settings'][ $field_id ] );
 										}
 										break;
 									default:
-									if ( is_array( $_POST['modula-settings'][$field_id] ) ) {
-										$sanitized                  = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][$field_id] ) );
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][$field_id] ), $field_id, $field );
-									} else {
-										$modula_settings[$field_id] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][$field_id] ) ), $_POST['modula-settings'][$field_id], $field_id, $field );
-									}
-									break;
+										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
+											$sanitized                    = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
+											$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][ $field_id ] ), $field_id, $field );
+										} else {
+											$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) ), $_POST['modula-settings'][ $field_id ], $field_id, $field );
+										}
+										break;
 								}
 
-							break;
+								break;
 						}
-
 					} else {
 						if ( 'toggle' == $field['type'] ) {
-							$modula_settings[$field_id] = '0';
-						} else if ( 'hidden' == $field['type'] ) {
+							$modula_settings[ $field_id ] = '0';
+						} elseif ( 'hidden' == $field['type'] ) {
 
 							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
 							if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
-								$modula_settings[$field_id] = $hidden_set['last_visited_tab'];
+								$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
 							} else {
-								$modula_settings[$field_id] = 'modula-general';
+								$modula_settings[ $field_id ] = 'modula-general';
 							}
-
 						} else {
-							$modula_settings[$field_id] = '';
+							$modula_settings[ $field_id ] = '';
 						}
 					}
-
 				}
-
 			}
 
 			// Save the value of helpergrid
@@ -374,11 +377,11 @@ class Modula_CPT {
 		}
 
 		if ( isset( $_POST['modula-images'] ) ) {
-			
+
 			$old_images = get_post_meta( $post_id, 'modula-images', true );
 			$images     = json_decode( stripslashes( $_POST['modula-images'] ), true );
 			$new_images = array();
-	
+
 			if ( is_array( $images ) ) {
 				foreach ( $images as $image ) {
 					$new_images[] = $this->sanitize_image( $image );
@@ -386,7 +389,6 @@ class Modula_CPT {
 			}
 			update_post_meta( $post_id, 'modula-images', $new_images );
 		}
-
 	}
 
 	private function sanitize_image( $image ) {
@@ -467,18 +469,17 @@ class Modula_CPT {
 		}
 
 		return $new_image;
-
 	}
 
 	public function add_extensions_tab_onboarding( $views ) {
 		global $wpdb;
 
 		$sql = "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type = 'modula-gallery'";
-		$res = $wpdb->get_var( $sql);
+		$res = $wpdb->get_var( $sql );
 
 		$this->display_extension_tab();
 
-		if( '0' === $res ){
+		if ( '0' === $res ) {
 			global $wp_list_table;
 			$wp_list_table = new Modula_Onboarding();
 			return array();
@@ -491,25 +492,25 @@ class Modula_CPT {
 		<h2 class="nav-tab-wrapper">
 			<?php
 			$tabs = array(
-					'galleries'       => array(
-							'name'     => $this->labels[ 'name' ],
-							'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
-							'priority' => '1'
-					),
-					'suggest_feature' => array(
-							'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
-							'icon'     => 'dashicons-external',
-							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
-							'target'   => '_blank',
-							'priority' => '10'
-					),
+				'galleries'       => array(
+					'name'     => $this->labels['name'],
+					'url'      => admin_url( 'edit.php?post_type=' . $this->cpt_name ),
+					'priority' => '1',
+				),
+				'suggest_feature' => array(
+					'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
+					'icon'     => 'dashicons-external',
+					'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+					'target'   => '_blank',
+					'priority' => '10',
+				),
 			);
 
 			if ( current_user_can( 'install_plugins' ) ) {
-				$tabs[ 'extensions' ] = array(
-						'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
-						'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-						'priority' => '5',
+				$tabs['extensions'] = array(
+					'name'     => esc_html__( 'Extensions', 'modula-best-grid-gallery' ),
+					'url'      => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+					'priority' => '5',
 				);
 			}
 
@@ -533,7 +534,6 @@ class Modula_CPT {
 		$columns['shortcode'] = esc_html__( 'Shortcode', 'modula-best-grid-gallery' );
 		$columns['date']      = $date;
 		return $columns;
-
 	}
 
 	public function outpu_column( $column, $post_id ) {
@@ -545,7 +545,6 @@ class Modula_CPT {
 			echo '<a href="#" title="' . esc_attr__( 'Copy shortcode', 'modula-best-grid-gallery' ) . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
 			echo '</div>';
 		}
-
 	}
 
 	public function dismiss_edit_notice() {
@@ -554,7 +553,6 @@ class Modula_CPT {
 		$modula_options['edit-notice'] = 1;
 		update_option( 'modula-checks', $modula_options );
 		die( '1' );
-
 	}
 
 	public function replace_submit_meta_box() {
@@ -562,7 +560,6 @@ class Modula_CPT {
 		$post_type = 'modula-gallery';
 		remove_meta_box( 'submitdiv', $post_type, 'side' );
 		add_meta_box( 'submitdiv', __( 'Publish', 'modula-best-grid-gallery' ), array( $this, 'post_submit_meta_box' ), $post_type, 'side', 'high' );
-
 	}
 
 	public function post_submit_meta_box() {
@@ -590,19 +587,19 @@ class Modula_CPT {
 							}
 							?>
 							<input <?php echo $private_style; ?> type="submit" name="save" id="save-post"
-							                                     value="<?php esc_attr_e( 'Save Draft', 'modula-best-grid-gallery' ); ?>"
-							                                     class="button"/>
+																value="<?php esc_attr_e( 'Save Draft', 'modula-best-grid-gallery' ); ?>"
+																class="button"/>
 							<span class="spinner"></span>
 						<?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
 							<input type="submit" name="save" id="save-post"
-							       value="<?php esc_attr_e( 'Save as Pending', 'modula-best-grid-gallery' ); ?>" class="button"/>
+									value="<?php esc_attr_e( 'Save as Pending', 'modula-best-grid-gallery' ); ?>" class="button"/>
 							<span class="spinner"></span>
 						<?php } ?>
 					</div>
 					<?php if ( is_post_type_viewable( $post_type_object ) ) : ?>
 						<div id="preview-action">
 							<?php
-							$preview_link =  get_preview_post_link( $post );
+							$preview_link = get_preview_post_link( $post );
 							if ( 'publish' == $post->post_status ) {
 								$preview_button_text = esc_html__( 'Preview Changes', 'modula-best-grid-gallery' );
 							} else {
@@ -617,8 +614,8 @@ class Modula_CPT {
 							);
 							?>
 							<a class="preview button" href="<?php echo esc_url( $preview_link ); ?>"
-							   target="wp-preview-<?php echo (int)$post->ID; ?>"
-							   id="post-preview"><?php echo wp_kses_post( $preview_button ); ?></a>
+								target="wp-preview-<?php echo (int) $post->ID; ?>"
+								id="post-preview"><?php echo wp_kses_post( $preview_button ); ?></a>
 							<input type="hidden" name="wp-preview" id="wp-preview" value=""/>
 						</div>
 					<?php endif; // public post type ?>
@@ -670,12 +667,12 @@ class Modula_CPT {
 							}
 							?>
 							<a href="#post_status" <?php echo $private_style; ?> class="edit-post-status hide-if-no-js"
-							   role="button"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span> <span
+								role="button"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'modula-best-grid-gallery' ); ?></span> <span
 										class="screen-reader-text"><?php esc_html_e( 'Edit status', 'modula-best-grid-gallery' ); ?></span></a>
 
 							<div id="post-status-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_status" id="hidden_post_status"
-								       value="<?php echo esc_attr( ('auto-draft' == $post->post_status) ? 'draft' : $post->post_status ); ?>"/>
+										value="<?php echo esc_attr( ( 'auto-draft' == $post->post_status ) ? 'draft' : $post->post_status ); ?>"/>
 								<label for="post_status" class="screen-reader-text"><?php esc_html_e( 'Set status', 'modula-best-grid-gallery' ); ?></label>
 								<select name="post_status" id="post_status">
 									<?php if ( 'publish' == $post->post_status ) : ?>
@@ -699,15 +696,15 @@ class Modula_CPT {
 									<?php endif; ?>
 								</select>
 								<a href="#post_status"
-								   class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK', 'modula-best-grid-gallery' ); ?></a>
+									class="save-post-status hide-if-no-js button"><?php esc_html_e( 'OK', 'modula-best-grid-gallery' ); ?></a>
 								<a href="#post_status"
-								   class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'modula-best-grid-gallery' ); ?></a>
+									class="cancel-post-status hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'modula-best-grid-gallery' ); ?></a>
 							</div>
 
 						<?php } ?>
 					</div><!-- .misc-pub-section -->
 					<?php
-					if ( !empty( $args['args']['revisions_count'] ) ) :
+					if ( ! empty( $args['args']['revisions_count'] ) ) :
 						?>
 						<div class="misc-pub-section misc-pub-revisions">
 							<?php
@@ -715,11 +712,11 @@ class Modula_CPT {
 							printf( esc_html__( 'Revisions: %s', 'modula-best-grid-gallery' ), '<b>' . esc_html( number_format_i18n( $args['args']['revisions_count'] ) ) . '</b>' );
 							?>
 							<a class="hide-if-no-js"
-							   href="<?php echo esc_url( get_edit_post_link( $args['args']['revision_id'] ) ); ?>"><span
+								href="<?php echo esc_url( get_edit_post_link( $args['args']['revision_id'] ) ); ?>"><span
 										aria-hidden="true"><?php esc_html( _ex( 'Browse', 'revisions', 'modula-best-grid-gallery' ) ); ?></span> <span
 										class="screen-reader-text"><?php esc_html_e( 'Browse revisions', 'modula-best-grid-gallery' ); ?></span></a>
 						</div>
-					<?php
+						<?php
 					endif;
 					?>
 
@@ -727,17 +724,19 @@ class Modula_CPT {
 						<div class="notice notice-info notice-alt inline">
 							<p>
 								<?php
-								echo wp_kses_post( sprintf(
-								/* translators: %s: URL to the Customizer. */
-									__( 'This draft comes from your <a href="%s">unpublished customization changes</a>. You can edit, but there&#8217;s no need to publish now. It will be published automatically with those changes.', 'modula-best-grid-gallery' ),
-									esc_url(
-										add_query_arg(
-											'changeset_uuid',
-											rawurlencode( get_post_meta( $post->ID, '_customize_changeset_uuid', true ) ),
-											admin_url( 'customize.php' )
+								echo wp_kses_post(
+									sprintf(
+									/* translators: %s: URL to the Customizer. */
+										__( 'This draft comes from your <a href="%s">unpublished customization changes</a>. You can edit, but there&#8217;s no need to publish now. It will be published automatically with those changes.', 'modula-best-grid-gallery' ),
+										esc_url(
+											add_query_arg(
+												'changeset_uuid',
+												rawurlencode( get_post_meta( $post->ID, '_customize_changeset_uuid', true ) ),
+												admin_url( 'customize.php' )
+											)
 										)
 									)
-								) );
+								);
 								?>
 							</p>
 						</div>
@@ -758,7 +757,7 @@ class Modula_CPT {
 				</div>
 				<div class="clear"></div>
 			</div>
-			<?php do_action('modula_cpt_publish_actions'); ?>
+			<?php do_action( 'modula_cpt_publish_actions' ); ?>
 			<div class="modula-shortcuts">
 				<?php esc_html_e( 'Want a faster and easier way to save galleries? Use our Keyboard shortcut:', 'modula-best-grid-gallery' ); ?>
 				<strong>CTRL/CMD + S</strong>
@@ -780,14 +779,14 @@ class Modula_CPT {
 				<div id="delete-action">
 					<?php
 					if ( current_user_can( 'delete_post', $post->ID ) ) {
-						if ( !EMPTY_TRASH_DAYS ) {
+						if ( ! EMPTY_TRASH_DAYS ) {
 							$delete_text = __( 'Delete Permanently', 'modula-best-grid-gallery' );
 						} else {
 							$delete_text = __( 'Move to Trash', 'modula-best-grid-gallery' );
 						}
 						?>
 						<a class="submitdelete deletion"
-						   href="<?php echo esc_url( get_delete_post_link( $post->ID ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
+							href="<?php echo esc_url( get_delete_post_link( $post->ID ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
 						<?php
 					}
 					?>
@@ -796,44 +795,45 @@ class Modula_CPT {
 					<span class="spinner"></span>
 
 					<?php
-					if ( !in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
+					if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
 						if ( $can_publish ) :
-							if ( !empty( $post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) :
+							if ( ! empty( $post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) :
 								?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php echo esc_attr_x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ); ?>"/>
+										value="<?php echo esc_attr_x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ); ?>"/>
 								<?php submit_button( _x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 
 							<?php elseif ( in_array( $post->post_status, array( 'draft' ) ) || 0 == $post->ID ) : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
+										value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 								<?php submit_button( __( 'Publish Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 
 							<?php else : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
-								       value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
+										value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 								<?php submit_button( __( 'Save Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
-							<?php
+								<?php
 							endif;
 						else :
 							?>
 							<input name="original_publish" type="hidden" id="original_publish"
-							       value="<?php esc_attr_e( 'Submit for Review', 'modula-best-grid-gallery' ); ?>"/>
+									value="<?php esc_attr_e( 'Submit for Review', 'modula-best-grid-gallery' ); ?>"/>
 							<?php submit_button( __( 'Submit for Review', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
-						<?php
+							<?php
 						endif;
 					} else {
 						?>
 
 						<input name="save" type="submit" class="button button-primary button-large" id="publish"
-						       value="<?php esc_attr_e( 'Update Gallery', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
+								value="<?php esc_attr_e( 'Update Gallery', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 						<?php
 					}
 					?>
 				</div>
 				<div class="clear"></div>
 			</div>
-		</div> <?php
+		</div> 
+		<?php
 	}
 
 	/**
@@ -868,7 +868,7 @@ class Modula_CPT {
 	public function modula_remember_tab_save() {
 
 		$nonce = $_POST['nonce'];
-		if ( !wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'modula-ajax-save' ) ) {
 			wp_send_json( array( 'status' => 'failed' ) );
 		}
 
@@ -884,18 +884,17 @@ class Modula_CPT {
 
 		update_post_meta( $id, 'modula-settings', $settings );
 		die();
-
 	}
 
 	public function output_upsell_albums() {
-		$buttons = '<a target="_blank" href="' . esc_url( admin_url('edit.php?post_type=modula-gallery&page=modula-lite-vs-pro') ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons  = '<a target="_blank" href="' . esc_url( admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ) ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
 		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 		?>
 		<div class="modula-upsells-carousel-wrapper">
 			<div class="modula-upsells-carousel">
 				<div class="modula-upsell modula-upsell-item">
-					<h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ) ?></h4>
+					<h4 class="modula-upsell-description"><?php esc_html_e( 'Get the Modula Albums add-on to create wonderful albums from your galleries.', 'modula-best-grid-gallery' ); ?></h4>
 					<ul class="modula-upsells-list">
 						<li>Redirect to a gallery or a custom URL with the standalone functionality</li>
 						<li>Arrange your albums using columns or the custom grid</li>
@@ -914,5 +913,3 @@ class Modula_CPT {
 		<?php
 	}
 }
-
-

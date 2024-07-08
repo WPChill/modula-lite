@@ -128,6 +128,11 @@ class Modula_Admin {
 				'priority' => 80,
 				'badge'    => 'PRO'
         	),
+			'imageseo' => array(
+				'label'    => esc_html__('Image SEO', 'modula-best-grid-gallery'),
+				'priority' => 85,
+				'badge'    => 'PRO'
+        	),
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 
