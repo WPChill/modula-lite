@@ -262,8 +262,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.14 - tbd =
+= 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
+Changed: Compatibility for Modula Slider with Fancybox Carousel & Guttenberg block ( [#991]( https://github.com/WPChill/modula-lite/issues/991) )
 
 = 2.8.13 - 26.06.2024 = 
 Changed: Optimize galleries DB count chech for onboarding display. ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
