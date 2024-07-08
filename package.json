@@ -55,7 +55,7 @@
 		"css-minimizer-webpack-plugin": "^7.0.0",
 		"eslint-config-prettier": "^9.0.0",
 		"husky": "^8.0.3",
-		"imagemin-cli": "^2.1.0",
+		"imagemin-cli": "^8.0.0",
 		"lint-staged": "^14.0.1",
 		"mini-css-extract-plugin": "^2.9.0",
 		"postcss": "^8.4.31",
