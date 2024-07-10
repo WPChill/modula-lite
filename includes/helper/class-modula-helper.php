@@ -440,7 +440,7 @@ class Modula_Helper {
 
 			'twitter' =>
 				'<a class="modula-fancybox-share__button modula-fancybox-share__button--tw" href="https://twitter.com/intent/tweet?url={modulaShareUrl}&text={descr}">
-				<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m456 133c-14 7-31 11-47 13 17-10 30-27 37-46-15 10-34 16-52 20-61-62-157-7-141 75-68-3-129-35-169-85-22 37-11 86 26 109-13 0-26-4-37-9 0 39 28 72 65 80-12 3-25 4-37 2 10 33 41 57 77 57-42 30-77 38-122 34 170 111 378-32 359-208 16-11 30-25 41-42z" /></svg>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512px" height="512px" clip-rule="evenodd" baseProfile="basic"><polygon fill="#fff" points="437.333,64 105.245,448 66.867,448 393.955,64"/><polygon fill="#1da1f2" fill-rule="evenodd" points="332.571,448 83.804,74.667 178.804,74.667 427.571,448" clip-rule="evenodd"/><path fill="#fff" d="M168.104,96l219.628,320h-43.733L121.371,96H168.104 M184.723,64H61.538l263.542,384h121.185L184.723,64L184.723,64z"/></svg>
 				<span>Twitter</span></a>',
 
 			'pinterest' =>

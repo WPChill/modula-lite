@@ -1,3 +1,7 @@
+
+= 2.8.15 - TBD =
+Changed: Update Twitter logo in share.
+
 = 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
 Changed: Compatibility for Modula Slider with Fancybox Carousel & Guttenberg block
