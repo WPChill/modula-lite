@@ -559,10 +559,6 @@ class Modula_Backward_Compatibility {
 			$css .= '.modula-fancybox-container.modula-lightbox-' . $settings['gallery_id'] . ' .fancybox__caption {align-self:' . esc_attr( $pos ) . '}';
 		}
 
-		if ( isset( $settings['lightbox_background_color'] ) && '' != $settings['lightbox_background_color'] ) {
-			$css .= '.modula-fancybox-container.modula-lightbox-' . $settings['gallery_id'] . ' .fancybox__backdrop{background:' . $settings['lightbox_background_color'] . ';opacity:1 !important;}';
-		}
-
 		return $css;
 	}
 
