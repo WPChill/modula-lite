@@ -5,7 +5,24 @@
 	"author": "WPChill",
 	"license": "GPL-2.0-or-later",
 	"files": [
-		"/*"
+		"/*",
+		"!.wordpress-org",
+		"!.husky",
+		"!.vscode",
+		"!.github",
+		"!package.json",
+		"!package-lock.json",
+		"!.wp-env.json",
+		"!webpack.config.js",
+		"!.php-cs-fixer.cache",
+		"!.eslintignore",
+		"!.distignore",
+		"!.DS_Store",
+		"!.git/*",
+		"!.babelrc",
+		"!.gitignore",
+		"!*/.gitignore",
+		"!postcss.config.js"
 	],
 	"scripts": {
 		"build": "wp-scripts build",
