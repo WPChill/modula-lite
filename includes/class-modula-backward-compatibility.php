@@ -533,7 +533,7 @@ class Modula_Backward_Compatibility {
 		}
 
 		if ( isset( $settings['lightbox_transitionEffect'] ) ) {
-			$options['Carousel']['transition'] = $settings['lightbox_transitionEffect'];
+			$options['Carousel']['transition'] = ( 'false' ===  $settings['lightbox_transitionEffect'] ) ? 'fade' : $settings['lightbox_transitionEffect'];
 		}
 
 		if ( isset( $settings['lightbox_animationEffect'] )
