@@ -1246,7 +1246,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 jQuery(document).ready(function () {
 	var modulaGalleries = jQuery('.modula.modula-gallery');
-
+	if (!jQuery('body').hasClass('modula-best-grid-gallery')) {
+		jQuery('body').addClass('modula-best-grid-gallery');
+	}
 	jQuery.each(modulaGalleries, function () {
 		var modulaSettings = jQuery(this).data('config');
 
@@ -1259,6 +1261,9 @@ jQuery(document).on('elementor/popup/show', (event, id, instance) => {
 	var modulaGalleries = jQuery('#elementor-popup-modal-' + id).find(
 		'.modula.modula-gallery'
 	);
+	if (!jQuery('body').hasClass('modula-best-grid-gallery')) {
+		jQuery('body').addClass('modula-best-grid-gallery');
+	}
 	jQuery.each(modulaGalleries, function () {
 		var modulaSettings = jQuery(this).data('config');
 
