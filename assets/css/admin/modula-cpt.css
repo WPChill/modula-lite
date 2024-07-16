@@ -2205,6 +2205,7 @@ Some responsive fixes
 .modula-image-licensing-radio-icon img {
   margin-right: 16px;
   max-height: 70px;
+  max-width: 30%;
 }
 
 .modula_image_licensing_radio_input {
@@ -2229,21 +2230,31 @@ Some responsive fixes
   justify-content: center;
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1800px) {
   .modula-image-licensing-radio-icon {
       flex: 1 1 calc(100% / 3 - 16px);
       max-width: calc(100% / 3 - 16px);
   }
+  #modula-image_licensing.modula-tab-content .modula-image-licensing-radio-wrapper {
+    position: relative;
+    left: -80px;
+    width: calc( 100% + 80px );
+  }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
   .modula-image-licensing-radio-icon {
       flex: 1 1 calc(100% / 2 - 16px);
       max-width: calc(100% / 2 - 16px);
   }
+  #modula-image_licensing.modula-tab-content .modula-image-licensing-radio-wrapper {
+    position: relative;
+    left: -80px;
+    width: calc( 100% + 80px );
+  }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
   .modula-image-licensing-radio-icon {
       flex: 1 1 100%;
       max-width: 100%;
