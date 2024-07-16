@@ -267,6 +267,7 @@ Changed: Update Twitter logo in share.( [#996]( https://github.com/WPChill/modul
 Changed: Removed compatibility code that was creating issues in mobile lightboxes.( [#989]( https://github.com/WPChill/modula-lite/issues/989) )
 Fixed: Gallery custom CSS '>' selector was html encoded and not working on front-end.( [#924]( https://github.com/WPChill/modula-lite/issues/924) )
 Changed: Image licensing license selector design.( [#986]( https://github.com/WPChill/modula-lite/issues/986) )
+Fixed: Admin menu ordering. ( [#974]( https://github.com/WPChill/modula-lite/issues/974) )
 
 = 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
