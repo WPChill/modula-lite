@@ -3,6 +3,7 @@
 Changed: Update Twitter logo in share.
 Changed: Removed compatibility code that was creating issues in mobile lightboxes.
 Fixed: Gallery custom CSS '>' selector was html encoded and not working on front-end.
+Changed: Image licensing license selector design.
 
 = 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
