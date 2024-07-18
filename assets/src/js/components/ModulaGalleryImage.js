@@ -23,6 +23,19 @@ const ModulaGalleryImage = (props) => {
 					src={img.src}
 				/>
 			);
+		} else if (img.video_template == '1' && 'undefined' != typeof img.video_thumbnail && '' != img.video_thumbnail ) {
+			// Return image thumbnail of video
+			return (
+				<img
+					className="modula-image pic"
+					data-id={img.id}
+					data-full={img.src}
+					data-src={img.video_thumbnail}
+					data-valign="middle"
+					data-halign="center"
+					src={img.video_thumbnail}
+				/>
+			);
 		} else if (img.video_type === 'hosted') {
 			// Return video element if video_type is 'hosted'
 			return (

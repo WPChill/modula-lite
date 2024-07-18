@@ -319,6 +319,17 @@ var ModulaGalleryImage = function ModulaGalleryImage(props) {
         "data-halign": "center",
         src: img.src
       });
+    } else if (img.video_template == '1' && 'undefined' != typeof img.video_thumbnail && '' != img.video_thumbnail) {
+      // Return image thumbnail of video
+      return /*#__PURE__*/React.createElement("img", {
+        className: "modula-image pic",
+        "data-id": img.id,
+        "data-full": img.src,
+        "data-src": img.video_thumbnail,
+        "data-valign": "middle",
+        "data-halign": "center",
+        src: img.video_thumbnail
+      });
     } else if (img.video_type === 'hosted') {
       // Return video element if video_type is 'hosted'
       return /*#__PURE__*/React.createElement("div", {
@@ -474,7 +485,7 @@ var ModulaItemsExtraComponent = function ModulaItemsExtraComponent(props) {
 };
 /* harmony default export */ const components_ModulaItemsExtraComponent = (wp.components.withFilters('modula.ModulaItemsExtraComponent')(ModulaItemsExtraComponent));
 ;// CONCATENATED MODULE: ./assets/src/js/components/ModulaGallery.js
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
 var _wp$element = wp.element,
   ModulaGallery_Fragment = _wp$element.Fragment,
   ModulaGallery_useEffect = _wp$element.useEffect,
@@ -546,12 +557,12 @@ var ModulaGallery = function ModulaGallery(props) {
 };
 /* harmony default export */ const components_ModulaGallery = (wp.components.withFilters('modula.modulaGallery')(ModulaGallery));
 ;// CONCATENATED MODULE: ./assets/src/js/components/edit.js
-function edit_extends() { return edit_extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, edit_extends.apply(null, arguments); }
+function edit_extends() { return edit_extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, edit_extends.apply(null, arguments); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 /**
  * Internal dependencies
@@ -886,7 +897,7 @@ var ModulaGutenberg = /*#__PURE__*/function () {
     _classCallCheck(this, ModulaGutenberg);
     this.registerBlock();
   }
-  return _createClass(ModulaGutenberg, [{
+  _createClass(ModulaGutenberg, [{
     key: "registerBlock",
     value: function registerBlock() {
       this.blockName = 'modula/gallery';
@@ -950,6 +961,7 @@ var ModulaGutenberg = /*#__PURE__*/function () {
       });
     }
   }]);
+  return ModulaGutenberg;
 }();
 var modulaGutenberg = new ModulaGutenberg();
 /******/ })()
