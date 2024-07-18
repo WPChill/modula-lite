@@ -269,6 +269,7 @@ Fixed: Gallery custom CSS '>' selector was html encoded and not working on front
 Changed: Image licensing license selector design.( [#986]( https://github.com/WPChill/modula-lite/issues/986) )
 Fixed: Admin menu ordering. ( [#974]( https://github.com/WPChill/modula-lite/issues/974) )
 Changed: Captions "Title Color" & "Title Font Size" defaults. ( [#1004]( https://github.com/WPChill/modula-lite/issues/1004) )
+Fixed: Captions & title child settings cannot be edited after toggling parent setting ON ( [#1003]( https://github.com/WPChill/modula-lite/issues/1003) )
 
 = 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon

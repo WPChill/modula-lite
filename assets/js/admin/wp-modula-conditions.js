@@ -352,9 +352,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.css('opacity', '1');
-				child
-					.find('input, textarea, select, button')
-					.removeAttr('disabled');
+				child.setting_state(this, 'on');
 				child.show();
 			}
 		});
@@ -381,9 +379,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.css('opacity', '1');
-				child
-					.find('input, textarea, select, button')
-					.removeAttr('disabled');
+				child.setting_state(this, 'on');
 				child.show();
 			}
 		});
