@@ -2,7 +2,7 @@
 Contributors: wpchill, silkalns
 Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress gallery plugin, best gallery plugin
 Requires at least: 5.3
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 2.8.15
 
@@ -262,7 +262,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.15 - TBD =
+= 2.8.15 - 19.07.2024 =
 Changed: Update Twitter logo in share.( [#996]( https://github.com/WPChill/modula-lite/issues/996) )
 Changed: Removed compatibility code that was creating issues in mobile lightboxes.( [#989]( https://github.com/WPChill/modula-lite/issues/989) )
 Fixed: Gallery custom CSS '>' selector was html encoded and not working on front-end.( [#924]( https://github.com/WPChill/modula-lite/issues/924) )

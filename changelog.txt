@@ -1,5 +1,5 @@
 
-= 2.8.15 - TBD =
+= 2.8.15 - 19.07.2024 =
 Changed: Update Twitter logo in share.
 Changed: Removed compatibility code that was creating issues in mobile lightboxes.
 Fixed: Gallery custom CSS '>' selector was html encoded and not working on front-end.
