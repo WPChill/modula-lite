@@ -154,7 +154,7 @@ class Modula_Admin {
 			'capability' => 'manage_options',
 			'menu_slug'  => '#modula-albums',
 			'function'   => array( $this, 'modula_albums' ),
-			'priority'   => 25,
+			'priority'   => 3,
 		);
 
 		$links['moduladefaults'] = array(
@@ -163,7 +163,7 @@ class Modula_Admin {
 			'capability' => 'manage_options',
 			'menu_slug'  => '#gallery-defaults',
 			'function'   => array( $this, 'modula_gallery_defaults' ),
-			'priority'   => 22,
+			'priority'   => 1,
 		);
 
 		$links['albumsdefaults'] = array(
@@ -172,7 +172,7 @@ class Modula_Admin {
 			'capability' => 'manage_options',
 			'menu_slug'  => '#albums-defaults',
 			'function'   => array( $this, 'modula_albums_defaults' ),
-			'priority'   => 26,
+			'priority'   => 4,
 		);
 
 

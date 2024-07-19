@@ -314,8 +314,15 @@ class Modula_Debug {
 	 * @since 2.7.7
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
+		$user_id = get_current_user_id();
+		if ($user_id === 0) {
+			return $hidden;
+		}
+	
+		$user_meta = get_user_meta( $user_id, 'metaboxhidden_modula-gallery', true );
+
 		//make sure we are dealing with the correct screen
-		if ( ( 'post' === $screen->base ) && ( 'modula-gallery' === $screen->id ) ) {
+		if ( ( 'post' === $screen->base ) && ( 'modula-gallery' === $screen->id ) && in_array( 'modula-debug', $user_meta ) ) {
 			$hidden[] = 'modula-debug';
 		}
 

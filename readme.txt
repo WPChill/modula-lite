@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.8.14
+Stable tag: 2.8.15
 
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
@@ -154,7 +154,17 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.14 – 08.07.2024 =
+= 2.8.15 - 19.07.2024 =
+Changed: Update Twitter logo in share.( [#996]( https://github.com/WPChill/modula-lite/issues/996) )
+Changed: Removed compatibility code that was creating issues in mobile lightboxes.( [#989]( https://github.com/WPChill/modula-lite/issues/989) )
+Fixed: Gallery custom CSS '>' selector was html encoded and not working on front-end.( [#924]( https://github.com/WPChill/modula-lite/issues/924) )
+Changed: Image licensing license selector design.( [#986]( https://github.com/WPChill/modula-lite/issues/986) )
+Fixed: Admin menu ordering. ( [#974]( https://github.com/WPChill/modula-lite/issues/974) )
+Changed: Captions "Title Color" & "Title Font Size" defaults. ( [#1004]( https://github.com/WPChill/modula-lite/issues/1004) )
+Fixed: Captions & title child settings cannot be edited after toggling parent setting ON ( [#1003]( https://github.com/WPChill/modula-lite/issues/1003) )
+Fixed: Gallery deug metabox won't stay on. ( [#1005]( https://github.com/WPChill/modula-lite/issues/1005) )
+
+= 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
 Changed: Compatibility for Modula Slider with Fancybox Carousel & Guttenberg block ( [#991]( https://github.com/WPChill/modula-lite/issues/991) )
 

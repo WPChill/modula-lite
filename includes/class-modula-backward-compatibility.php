@@ -533,7 +533,7 @@ class Modula_Backward_Compatibility {
 		}
 
 		if ( isset( $settings['lightbox_transitionEffect'] ) ) {
-			$options['Carousel']['transition'] = $settings['lightbox_transitionEffect'];
+			$options['Carousel']['transition'] = ( 'false' ===  $settings['lightbox_transitionEffect'] ) ? 'fade' : $settings['lightbox_transitionEffect'];
 		}
 
 		if ( isset( $settings['lightbox_animationEffect'] )
@@ -557,10 +557,6 @@ class Modula_Backward_Compatibility {
 				$pos = 'flex-end';
 			}
 			$css .= '.modula-fancybox-container.modula-lightbox-' . $settings['gallery_id'] . ' .fancybox__caption {align-self:' . esc_attr( $pos ) . '}';
-		}
-
-		if ( isset( $settings['lightbox_background_color'] ) && '' != $settings['lightbox_background_color'] ) {
-			$css .= '.modula-fancybox-container.modula-lightbox-' . $settings['gallery_id'] . ' .fancybox__backdrop{background:' . $settings['lightbox_background_color'] . ';opacity:1 !important;}';
 		}
 
 		return $css;

@@ -34,7 +34,7 @@ $image_attrib_fields = array(
     'image_licensing' => array(
         'label'       => esc_html__( 'Image licensing', 'modula-best-grid-gallery' ),
         'description' => esc_html__( 'Select a license for your images that are inside a gallery', 'modula-best-grid-gallery' ),
-        'type'        => 'select',
+        'type'        => 'icon-radio', 
         'values'      => Modula_Helper::get_image_licenses(),
         'priority'    => 30,
     ),
@@ -80,15 +80,6 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                     <td>
                         <div class="wrap modula"> 
                             <div class="">
-                                <?php if ('select' == $ts_field['type']) { ?>
-                                    <select data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
-                                            id="modula_image_licensing_option<?php echo esc_attr($key); ?>"
-                                            name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]">
-                                            <?php foreach( $ts_field['values'] as $val_key => $val ): ?>
-                                                <option <?php echo ($val_key == $image_attrib_options[ $key ] ) ? 'selected="selected"': ''; ?> value="<?php echo esc_attr($val_key); ?>"><?php echo esc_html($val['name']); ?></option>
-                                            <?php endforeach; ?>
-                                    </select>
-                                <?php } ?>
                                 <!-- Checkbox Toggles -->
                                 <?php if ('toggle' == $ts_field['type']) { ?>
                                     <div class="modula-toggle">
@@ -127,6 +118,49 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                                             name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]"
                                             value="<?php echo isset( $image_attrib_options[ $key ] ) ? esc_attr( $image_attrib_options[ $key ] ) : '' ; ?> " >
                                 <?php } ?>
+
+                          <!-- Text Inputs -->
+                                <?php if ('icon-radio' == $ts_field['type']) { ?>
+                                    <?php
+
+                                    $ccs = Modula_Helper::get_image_licenses();
+
+                                    ?>
+                                    <div class="modula-image-licensing-radio-wrapper">
+                                        <?php foreach( $ts_field['values'] as $val_key => $val ) : ?>
+                                            
+                                                <input
+                                                <?php echo ($val_key == $image_attrib_options[ $key ] ) ? 'checked="checked"': ''; ?>
+                                                <?php 
+                                                    if ( ! isset( $ccs[ $val_key ] ) ) {
+                                                        continue;
+                                                    }
+
+
+                                                    $cc = $ccs[ $val_key ];
+                                                ?>
+                                                id="modula_image_licensing_license_<?php echo esc_attr($val_key); ?>"
+                                                class="modula_image_licensing_radio_input" 
+                                                type="radio" 
+                                                name="modula_image_licensing_option[<?php echo esc_attr($key); ?>]" 
+                                                data-setting="modula_image_licensing_option[<?php echo esc_attr($key); ?>]" 
+                                                value="<?php echo esc_attr($val_key); ?>">
+
+                                                <label class="modula-image-licensing-radio-icon" for="modula_image_licensing_license_<?php echo esc_attr($val_key); ?>">
+                                                    <?php if( isset( $cc['image'] ) && '' != $cc['image']  ): ?>
+                                                        <img alt="Creative Commons License" style="border-width:0" src="<?php echo esc_url( $cc['image'] ); ?>"/>
+                                                    <?php endif; ?>
+                                                    <?php if( isset( $cc['license'] ) && '' != $cc['license']  ): ?>
+                                                        <span class="modula-image-licensing-radio-name"><?php printf( __( 'This work is licensed under a %s' ), esc_html( $cc['name'] ) ); ?></span>
+                                                    <?php else: ?>
+                                                        <span class="modula-image-licensing-radio-name"><?php esc_html_e( 'None', 'modula-best-grid-gallery' )?></span>
+                                                    <?php endif; ?>
+                                                </label>
+                                          
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php } ?>
+
                             </div>
                         </div>
                     </td>
