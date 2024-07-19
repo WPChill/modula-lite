@@ -7,6 +7,7 @@ Changed: Image licensing license selector design.
 Fixed: Admin menu ordering.
 Changed: Captions "Title Color" & "Title Font Size" defaults.
 Fixed: Captions & title child settings cannot be edited after toggling parent setting ON.
+Fixed: Gallery deug metabox won't stay on.
 
 = 2.8.14 - 08.07.2024 =
 Added: Support for Modula Image SEO addon
