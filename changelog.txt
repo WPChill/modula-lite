@@ -1,3 +1,5 @@
+= 2.8.16 - 20.07.2024 =
+Fixed: Edit/New gallery was not working properly due to debug class
 
 = 2.8.15 - 19.07.2024 =
 Changed: Update Twitter logo in share.

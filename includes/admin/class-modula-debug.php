@@ -28,7 +28,7 @@ class Modula_Debug {
 		add_action( 'load-post-new.php', array( $this, 'debug_meta_box_setup' ) );
 
 		// Hide debug gallery by default
-		add_filter( 'hidden_meta_boxes' , array( $this, 'hide_meta_box' ), 10, 2 );
+		add_filter( 'hidden_meta_boxes', array( $this, 'hide_meta_box' ), 10, 2 );
 	}
 
 
@@ -41,12 +41,11 @@ class Modula_Debug {
 	 */
 	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !( self::$instance instanceof Modula_Debug ) ) {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Modula_Debug ) ) {
 			self::$instance = new Modula_Debug();
 		}
 
 		return self::$instance;
-
 	}
 
 	/**
@@ -57,27 +56,29 @@ class Modula_Debug {
 	 * @return mixed
 	 * @since 2.5.0
 	 */
-	public function modula_debug_information($info){
+	public function modula_debug_information( $info ) {
 
 		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-		$grid_type = '';
-		$lightboxes = '';
+		$grid_type        = '';
+		$lightboxes       = '';
 
-		if ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'gridtypes' ] ) && !empty( $troubleshoot_opt[ 'gridtypes' ] ) ) {
-			foreach ( $troubleshoot_opt[ 'gridtypes' ] as $type ) {
+		if ( $troubleshoot_opt && isset( $troubleshoot_opt['gridtypes'] ) && ! empty( $troubleshoot_opt['gridtypes'] ) ) {
+			foreach ( $troubleshoot_opt['gridtypes'] as $type ) {
 				$grid_type .= '{' . $type . '}';
 			}
 		}
 
-		if ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'lightboxes' ] ) && !empty( $troubleshoot_opt[ 'lightboxes' ] ) ) {
-			foreach ( $troubleshoot_opt[ 'lightboxes' ] as $lightbox ) {
+		if ( $troubleshoot_opt && isset( $troubleshoot_opt['lightboxes'] ) && ! empty( $troubleshoot_opt['lightboxes'] ) ) {
+			foreach ( $troubleshoot_opt['lightboxes'] as $lightbox ) {
 				$lightboxes .= '{' . $lightbox . '}';
 			}
 		}
 
-		$info[ 'modula' ] = array(
+		$info['modula'] = array(
 			'label'  => __( 'Modula plugin', 'modula-best-grid-gallery' ),
-			'fields' => apply_filters( 'modula_debug_information', array(
+			'fields' => apply_filters(
+				'modula_debug_information',
+				array(
 					'core_version'             => array(
 						'label' => __( 'Core Version', 'modula-best-grid-gallery' ),
 						'value' => MODULA_LITE_VERSION,
@@ -86,50 +87,50 @@ class Modula_Debug {
 					'requested_php'            => array(
 						'label' => __( 'Minimum PHP', 'modula-best-grid-gallery' ),
 						'value' => 5.6,
-						'debug' => ( (float)5.6 > (float)phpversion() ) ? 'PHP minimum version not met' : 'PHP minimum version met',
+						'debug' => ( (float) 5.6 > (float) phpversion() ) ? 'PHP minimum version not met' : 'PHP minimum version met',
 					),
 					'requested_wp'             => array(
 						'label' => __( 'Minimum WP', 'modula-best-grid-gallery' ),
 						'value' => 5.2,
-						'debug' => ( (float)get_bloginfo( 'version' ) < (float)5.2 ) ? 'WordPress minimum version not met.Current version: ' . get_bloginfo( 'version' ) : 'Wordpress minimum version met. Current version: ' . get_bloginfo( 'version' ),
+						'debug' => ( (float) get_bloginfo( 'version' ) < (float) 5.2 ) ? 'WordPress minimum version not met.Current version: ' . get_bloginfo( 'version' ) : 'Wordpress minimum version met. Current version: ' . get_bloginfo( 'version' ),
 					),
 					'galleries_number'         => array(
 						'label' => __( 'Total galleries', 'modula-best-grid-gallery' ),
 						'value' => count( Modula_Helper::get_galleries() ) - 1,
-						'debug' => 'Total number of galleries: ' . ( count( Modula_Helper::get_galleries() ) - 1 )
+						'debug' => 'Total number of galleries: ' . ( count( Modula_Helper::get_galleries() ) - 1 ),
 					),
 					'enqueue_files'            => array(
 						'label' => __( 'Enqueue Modula\'s assets everywhere', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'enqueue_files' ] ) ) ? 'Enqueue files everywhere' : 'Enqueue files disabled'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['enqueue_files'] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['enqueue_files'] ) ) ? 'Enqueue files everywhere' : 'Enqueue files disabled',
 					),
 					'grid_type'                => array(
 						'label' => __( 'General grid type enqueued', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'gridtypes' ] ) && isset( $troubleshoot_opt[ 'enqueue_files' ] ) && !empty( $troubleshoot_opt[ 'gridtypes' ] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'gridtypes' ] ) && isset( $troubleshoot_opt[ 'enqueue_files' ] ) && !empty( $troubleshoot_opt[ 'gridtypes' ] ) ) ? 'Enqueue files for: ' . $grid_type : 'No grid type selected'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['gridtypes'] ) && isset( $troubleshoot_opt['enqueue_files'] ) && ! empty( $troubleshoot_opt['gridtypes'] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['gridtypes'] ) && isset( $troubleshoot_opt['enqueue_files'] ) && ! empty( $troubleshoot_opt['gridtypes'] ) ) ? 'Enqueue files for: ' . $grid_type : 'No grid type selected',
 					),
 					'lightboxes'               => array(
 						'label' => __( 'Lightboxes everywhere', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'lightboxes' ] ) && !empty( $troubleshoot_opt[ 'lightboxes' ] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'lightboxes' ] ) && !empty( $troubleshoot_opt[ 'lightboxes' ] ) ) ? 'Enqueue files for: ' . $lightboxes : 'No lightbox selected'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['lightboxes'] ) && ! empty( $troubleshoot_opt['lightboxes'] ) ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['lightboxes'] ) && ! empty( $troubleshoot_opt['lightboxes'] ) ) ? 'Enqueue files for: ' . $lightboxes : 'No lightbox selected',
 					),
 					'modula_lazyload'          => array(
 						'label' => __( 'Enable general lazyload', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'lazy_load' ] ) && '1' == $troubleshoot_opt[ 'lazy_load' ] ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'lazy_load' ] ) && '1' == $troubleshoot_opt[ 'lazy_load' ] ) ? 'General lazyload enabled: ' : 'No general lazyload'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['lazy_load'] ) && '1' == $troubleshoot_opt['lazy_load'] ) ? __( 'Enabled', 'modula-best-grid-gallery' ) : __( 'Disabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['lazy_load'] ) && '1' == $troubleshoot_opt['lazy_load'] ) ? 'General lazyload enabled: ' : 'No general lazyload',
 					),
 					'modula_edit_gallery_link' => array(
 						'label' => __( '"Edit gallery" link', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_edit' ] ) && '1' == $troubleshoot_opt[ 'disable_edit' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_edit' ] ) && '1' == $troubleshoot_opt[ 'disable_edit' ] ) ? 'Edit gallery link disabled: ' : 'Edit gallery link enabled'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['disable_edit'] ) && '1' == $troubleshoot_opt['disable_edit'] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['disable_edit'] ) && '1' == $troubleshoot_opt['disable_edit'] ) ? 'Edit gallery link disabled: ' : 'Edit gallery link enabled',
 					),
-					'modula_disable_srcset' => array(
+					'modula_disable_srcset'    => array(
 						'label' => __( 'Disable images srcset', 'modula-best-grid-gallery' ),
-						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
-						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt[ 'disable_srcset' ] ) && '1' == $troubleshoot_opt[ 'disable_srcset' ] ) ? 'srcset is disabled: ' : 'srcset is enabled'
+						'value' => ( $troubleshoot_opt && isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) ? __( 'Disabled', 'modula-best-grid-gallery' ) : __( 'Enabled', 'modula-best-grid-gallery' ),
+						'debug' => ( $troubleshoot_opt && isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) ? 'srcset is disabled: ' : 'srcset is enabled',
 					),
 				)
-			)
+			),
 		);
 
 		return $info;
@@ -140,23 +141,23 @@ class Modula_Debug {
 	 *
 	 * @since 2.5.0
 	 */
-	public function modula_export_gallery(){
+	public function modula_export_gallery() {
 
-		if ( isset( $_GET['modula_single_download'] ) ){
+		if ( isset( $_GET['modula_single_download'] ) ) {
 
 			// WXR_VERSION is declared here
 			require_once ABSPATH . 'wp-admin/includes/export.php';
 
 			$post = get_post( absint( $_GET['modula_single_download'] ) );
 
-			if ( !$post || 'modula-gallery' != $post->post_type ){
+			if ( ! $post || 'modula-gallery' != $post->post_type ) {
 				return;
 			}
 
 			global $wpdb;
 
 			$gallery_name = sanitize_key( $post->post_name );
-			if ( !empty( $gallery_name ) ){
+			if ( ! empty( $gallery_name ) ) {
 				$gallery_name .= '.';
 			}
 			$date        = gmdate( 'Y-m-d' );
@@ -187,11 +188,11 @@ class Modula_Debug {
 			<!--    contained in this file into your site. -->
 
 			<rss version="2.0"
-				 xmlns:excerpt="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/excerpt/"
-				 xmlns:content="http://purl.org/rss/1.0/modules/content/"
-				 xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-				 xmlns:dc="http://purl.org/dc/elements/1.1/"
-				 xmlns:wp="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/"
+				xmlns:excerpt="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/excerpt/"
+				xmlns:content="http://purl.org/rss/1.0/modules/content/"
+				xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+				xmlns:dc="http://purl.org/dc/elements/1.1/"
+				xmlns:wp="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/"
 			>
 
 				<channel>
@@ -214,15 +215,15 @@ class Modula_Debug {
 						<dc:creator><?php echo $this->wxr_cdata( get_the_author_meta( 'login' ) ); ?></dc:creator>
 						<guid isPermaLink="false"><?php the_guid(); ?></guid>
 						<description></description>
-						<wp:post_id><?php echo (int)$post->ID; ?></wp:post_id>
+						<wp:post_id><?php echo (int) $post->ID; ?></wp:post_id>
 						<wp:post_date><?php echo $this->wxr_cdata( $post->post_date ); ?></wp:post_date>
 						<wp:post_date_gmt><?php echo $this->wxr_cdata( $post->post_date_gmt ); ?></wp:post_date_gmt>
 						<wp:comment_status><?php echo $this->wxr_cdata( $post->comment_status ); ?></wp:comment_status>
 						<wp:ping_status><?php echo $this->wxr_cdata( $post->ping_status ); ?></wp:ping_status>
 						<wp:post_name><?php echo $this->wxr_cdata( $post->post_name ); ?></wp:post_name>
 						<wp:status><?php echo $this->wxr_cdata( $post->post_status ); ?></wp:status>
-						<wp:post_parent><?php echo (int)$post->post_parent; ?></wp:post_parent>
-						<wp:menu_order><?php echo (int)$post->menu_order; ?></wp:menu_order>
+						<wp:post_parent><?php echo (int) $post->post_parent; ?></wp:post_parent>
+						<wp:menu_order><?php echo (int) $post->menu_order; ?></wp:menu_order>
 						<wp:post_type><?php echo $this->wxr_cdata( $post->post_type ); ?></wp:post_type>
 						<wp:post_password><?php echo $this->wxr_cdata( $post->post_password ); ?></wp:post_password>
 						<?php
@@ -241,7 +242,7 @@ class Modula_Debug {
 							 * @since 3.3.0
 							 *
 							 */
-							if ( apply_filters( 'wxr_export_skip_postmeta', false, $meta->meta_key, $meta ) ){
+							if ( apply_filters( 'wxr_export_skip_postmeta', false, $meta->meta_key, $meta ) ) {
 								continue;
 							}
 							?>
@@ -249,7 +250,7 @@ class Modula_Debug {
 								<wp:meta_key><?php echo $this->wxr_cdata( $meta->meta_key ); ?></wp:meta_key>
 								<wp:meta_value><?php echo $this->wxr_cdata( $meta->meta_value ); ?></wp:meta_value>
 							</wp:postmeta>
-						<?php
+							<?php
 						endforeach;
 						?>
 					</item>
@@ -269,8 +270,8 @@ class Modula_Debug {
 	 * @since 2.5.0
 	 *
 	 */
-	private	function wxr_cdata( $str ){
-		if ( !seems_utf8( $str ) ){
+	private function wxr_cdata( $str ) {
+		if ( ! seems_utf8( $str ) ) {
 			$str = utf8_encode( $str );
 		}
 		// $str = ent2ncr(esc_html($str));
@@ -287,8 +288,7 @@ class Modula_Debug {
 	public function debug_meta_box_setup() {
 
 		/* Add meta boxes on the 'add_meta_boxes' hook. */
-		add_action( 'add_meta_boxes', array( $this, 'add_debug_meta_box' ),10 );
-
+		add_action( 'add_meta_boxes', array( $this, 'add_debug_meta_box' ), 10 );
 	}
 
 	/**
@@ -298,14 +298,13 @@ class Modula_Debug {
 	 */
 	public function add_debug_meta_box() {
 		add_meta_box(
-				'modula-debug',      // Unique ID
-				esc_html__('Debug gallery', 'modula-best-grid-gallery'),    // Title
-				array( $this, 'output_debug_meta' ),   // Callback function
-				'modula-gallery',         // Admin page (or post type)
-				'side',         // Context
-				'low'         // Priority
+			'modula-debug',      // Unique ID
+			esc_html__( 'Debug gallery', 'modula-best-grid-gallery' ),    // Title
+			array( $this, 'output_debug_meta' ),   // Callback function
+			'modula-gallery',         // Admin page (or post type)
+			'side',         // Context
+			'low'         // Priority
 		);
-
 	}
 
 	/**
@@ -315,14 +314,15 @@ class Modula_Debug {
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
 		$user_id = get_current_user_id();
-		if ($user_id === 0) {
+		if ( $user_id === 0 ) {
 			return $hidden;
 		}
-	
-		$user_meta = get_user_meta( $user_id, 'metaboxhidden_modula-gallery', true );
 
+		$user_meta = get_user_meta( $user_id, 'metaboxhidden_modula-gallery', true );
 		//make sure we are dealing with the correct screen
-		if ( ( 'post' === $screen->base ) && ( 'modula-gallery' === $screen->id ) && in_array( 'modula-debug', $user_meta ) ) {
+		if ( ( 'post' === $screen->base ) &&
+			( 'modula-gallery' === $screen->id ) &&
+			( is_array( $user_meta ) && in_array( 'modula-debug', $user_meta ) ) ) {
 			$hidden[] = 'modula-debug';
 		}
 
@@ -334,26 +334,33 @@ class Modula_Debug {
 	 *
 	 * @since 2.4.0
 	 */
-	public function output_debug_meta(){
+	public function output_debug_meta() {
 		?>
 		<div class="modula-upsells-carousel-wrapper">
 			<div class="modula-upsells-carousel">
 				<div class="modula-upsell modula-upsell-item">
 					<p class="modula-upsell-description"><?php echo esc_html__( 'Export gallery and send it to Modula\'s support team so that we can debug your problem much easier.', 'modula-best-grid-gallery' ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( add_query_arg( array(
-								'modula_single_download' => absint( get_the_ID() ),
-						) ) ); ?>"
-						   class="button"><?php esc_html_e( 'Export gallery', 'modula-best-grid-gallery' ) ?></a>
+						<a href="
+						<?php
+						echo esc_url(
+							add_query_arg(
+								array(
+									'modula_single_download' => absint( get_the_ID() ),
+								)
+							)
+						);
+						?>
+						"
+							class="button"><?php esc_html_e( 'Export gallery', 'modula-best-grid-gallery' ); ?></a>
 
 					</p>
-					<?php do_action('modula_debug_metabox_content'); ?>
+					<?php do_action( 'modula_debug_metabox_content' ); ?>
 				</div>
 			</div>
 		</div>
 		<?php
 	}
-
 }
 
 $modula_Debug = Modula_Debug::get_instance();
