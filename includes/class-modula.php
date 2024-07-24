@@ -36,6 +36,8 @@ class Modula {
 
 		// backwards compatibility -- remove after 2 versions. curr ver 2.7.92
 		add_action( 'admin_init', array( $this, 'after_modula_update' ) );
+
+		add_action( 'wp_enqueue_media', array( $this, 'modula_enqueue_media' ) );
 	}
 
 	private function load_dependencies() {
@@ -387,6 +389,31 @@ class Modula {
 		wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit' . $suffix . '.css', null, MODULA_LITE_VERSION );
+	}
+
+	public function modula_enqueue_media(){
+
+		$args = array(
+			'post_type' => 'modula-gallery',
+			'posts_per_page' => -1,
+			'post_status' => 'publish',
+		);
+
+		$posts = get_posts($args);
+	
+		$post_data = array();
+	
+		if ($posts) {
+			foreach ($posts as $post) {
+
+				$post_data[$post->ID] = '[ #' . $post->ID . ' ] - ' . ( isset( $post->post_title ) && '' != $post->post_title ? $post->post_title : __( 'Gallery Without Name', 'modula-best-grid-gallery' ) );
+			}
+		}
+	
+		
+
+		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array('media-views', 'media-editor'), NULL, true );
+		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $post_data );
 	}
 
 	/**

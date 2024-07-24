@@ -153,3 +153,10 @@
         </div>
     </div>
 </script>
+<script type="text/html" id="tmpl-modula-gallery-selector">
+    <select name="valign" class="inline-input">
+        <# _.each(data, function(title, id) { #>
+            <option value="{{ id }}">{{ title }}</option>
+        <# }); #>
+    </select>
+</script>
