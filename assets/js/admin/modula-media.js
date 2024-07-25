@@ -1,4 +1,60 @@
+
+function ModulaMakeItem( model ) {
+	const defaults = {
+		'id':          '',
+		'title':       '',
+		'description': '',
+		'alt':         '',
+		'link':        '',
+		'halign':      'center',
+		'valign':      'middle',
+		'target':      '',
+		'togglelightbox':      '',
+		'src':         '',
+		'type':        'image',
+		'width':       2,
+		'height':      2,
+		'full' :       '',
+		'thumbnail':   '',
+		'resize':      false,
+		'index':       '',
+		'orientation': 'landscape'
+	};
+	new_item = defaults;
+	
+	new_item.id = model.attributes.id;
+	new_item.title = model.attributes.name;
+	new_item.description = model.attributes.caption;
+	new_item.alt = model.attributes.alt;
+	new_item.width = model.attributes.width;
+	new_item.width = model.attributes.height;
+	new_item.type = model.attributes.type;
+
+	return new_item;
+};
+
 jQuery(document).ready(function($) {
+	var bulkActionTop = $('#bulk-action-selector-top'),
+		bulkActionBottom = $('#bulk-action-selector-bottom'),
+		tpl = wp.template( 'modula-gallery-selector');
+		
+	if( 'undefined' != typeof bulkActionTop[0] ){
+		modulaGalleries.pos = 'top';
+		bulkActionTop.after( tpl( modulaGalleries ) );
+	}
+
+	if( 'undefined' != typeof bulkActionBottom[0] ){
+		modulaGalleries.pos = 'bottom';
+		bulkActionBottom.after( tpl( modulaGalleries ) );
+	}
+
+	$(document).on('change', '#bulk-action-selector-top, #bulk-action-selector-bottom', function(){
+		if( $(this).val() == 'modula_add_to_gallery' ){
+			$('#modula_gallery_select_top, #modula_gallery_select_bottom').show();
+		}else{
+			$('#modula_gallery_select_top, #modula_gallery_select_bottom').hide();
+		}
+	} );
 
 	var Button = wp.media.view.Button,
 	AddToGalleryBtn;
@@ -55,7 +111,7 @@ jQuery(document).ready(function($) {
 		},
 		render: function() {
 
-			this.$el.html( this.template( modulaGalleries ) );
+			this.$el.html( this.template( modulaGalleries.posts ) );
 			if ( this.controller.isModeActive( 'select' ) ) {
 				this.$el.addClass( 'view-switch wp-modula-gallery-selector' );
 
@@ -87,13 +143,14 @@ jQuery(document).ready(function($) {
 				priority: -181
 			}).render() );
 
-			toolbar.set('addToGalleryBtn', new wp.media.view.addToGallery({
+			toolbar.set('addToGalleryBtn', new wp.media.view.addToGalleryBtn({
 				filters: filters,
 				style: 'primary',
 				text: 'Add to Modula Gallery',
 				controller: this.controller,
 				priority: -180,
 				click: function() {
+					console.log('click');
 					var selected = [],
 						selection = this.controller.state().get( 'selection' ),
 						library = this.controller.state().get( 'library' );
@@ -104,18 +161,39 @@ jQuery(document).ready(function($) {
 
 					selection.each( function( model ) {
 						if ( 'trash' !== model.get( 'status' ) ) {
-							selected.push( model );
+							selected.push( ModulaMakeItem(model) );
 						}
 					} );
+					
+                    if ( selected.length ) {
+                        var galleryId = $('#modula_gallery_select').val();
+                        var nonce = modulaGalleries.nonce; 
 
-					if ( selected.length ) {
-						$.when.apply( null, selected ).then( _.bind( function() {
-							library._requery( true );
-							this.controller.trigger( 'selection:action:done' );
-						}, this ) );
-					} else {
-						this.controller.trigger( 'selection:action:done' );
-					}
+                        $.ajax({
+                            url: modulaGalleries.ajax_url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                action: 'add_images_to_gallery',
+                                selected: JSON.stringify( selected ),
+                                gallery_id: galleryId,
+                                nonce: nonce
+                            },
+                            success: function(response) {
+                                if(response.success) {
+                                    library._requery( true );
+                                    this.controller.trigger( 'selection:action:done' );
+                                } else {
+                                    alert( modulaGalleries.l10n.ajax_failed + response.data );
+                                }
+                            }.bind(this),
+                            error: function(xhr, status, error) {
+                                alert( modulaGalleries.l10n.ajax_failed + error );
+                            }
+                        });
+                    } else {
+                        this.controller.trigger( 'selection:action:done' );
+                    }
 				}
 			}).render() );
 		}

@@ -37,6 +37,14 @@ class Modula_Admin {
 
 		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
 		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
+
+		// WP Media ajax hook to add images to gallery
+		add_action( 'wp_ajax_add_images_to_gallery', array( $this, 'add_images_to_gallery_callback' ) );
+		
+		// WP Media( list view ) add images to gallery bulk action
+		add_filter( 'bulk_actions-upload', array( $this, 'modula_media_lib_bulk_actions' ), 15 );
+		add_filter( 'handle_bulk_actions-upload', array( $this, 'modula_media_handle_bulk' ), 15, 3 );
+		add_filter( 'admin_init', array( $this, 'modula_media_do_bulk' ), 15 );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -600,6 +608,207 @@ class Modula_Admin {
         }
 
         update_option( 'modula_image_licensing_option', $ia_options );
+	}
+
+	/**
+	 * Adds images to a specific gallery
+	 */
+	public function add_images_to_gallery_callback() {
+		// Verifică nonce-ul pentru securitate
+		check_ajax_referer( 'modula-ajax-save', 'nonce' );
+	
+		$post_images = isset( $_POST['selected'] ) ? json_decode( stripslashes( $_POST['selected'] ), true ) : array();
+		$gallery_id   = isset( $_POST['gallery_id'] ) ? intval( $_POST['gallery_id'] ) : 0;
+	
+		if ( empty( $post_images ) || $gallery_id <= 0 ) {
+			wp_send_json_error( 'Invalid input data.' );
+			die();
+		}
+
+		$old_images = get_post_meta( $gallery_id, 'modula-images', true );
+
+		if( ! is_array( $old_images ) ){
+			$old_images = array();
+		}
+		$current_images = array_column( $old_images, 'id' );
+
+		if ( is_array( $post_images ) ) {
+			foreach ( $post_images as $image ) {
+				if( ! isset( $image['id'] ) || in_array( $image['id'], $current_images ) ){
+					continue;
+				}
+
+				$old_images[] = Modula_Admin_Helpers::sanitize_image( $image );
+			}
+		}
+		update_post_meta( $gallery_id, 'modula-images', $old_images );
+		wp_send_json_success( 'Images added to gallery.' );
+		die();
+	}
+
+	
+	
+	/**
+	 * Add bulk actions to Media Library table
+	 *
+	 * @param $bulk_actions
+	 *
+	 * @return mixed
+	 * @since 2.8.17
+	 */
+	public function modula_media_lib_bulk_actions( $bulk_actions ) {
+		$bulk_actions['modula_add_to_gallery'] = __( 'Add Images to Modula Gallery', 'modula-best-grid-gallery' );
+
+		return $bulk_actions;
+	}
+
+	/**
+	 * Handle our bulk actions
+	 *
+	 * @param $location
+	 * @param $doaction
+	 * @param $post_ids
+	 *
+	 * @return string
+	 * @since 2.8.17
+	 */
+	public function modula_media_handle_bulk( $location, $doaction, $post_ids ) {
+
+		// Only allow admins to do this.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return $location;
+		}
+
+		if( isset( $_GET['modula_gallery_select_top'] ) && 0 !== absint( $_GET['modula_gallery_select_top'] ) ){
+			$gallery_id = absint( $_GET['modula_gallery_select_top'] );
+		}elseif( isset( $_GET['modula_gallery_select_bottom'] ) && 0 !== absint( $_GET['modula_gallery_select_bottom'] ) ){
+			$gallery_id = absint( $_GET['modula_gallery_select_bottom'] );
+		}else{
+			return $location;
+		}
+
+
+		if ( 'modula_add_to_gallery' === $doaction ) {
+			return admin_url(
+				add_query_arg(
+					array(
+						'modula_bulk_action' => $doaction,
+						'gallery_id' => $gallery_id,
+						'posts'      => $post_ids,
+					), '/upload.php' ) );
+		}
+
+		return $location;
+	}
+
+	/**
+	 * Bulk action for adding images to gallery
+	 *
+	 * @return void
+	 * @since 2.8.17
+	 */
+	public function modula_media_do_bulk() {
+		// If there's no action or posts, bail.
+		if ( ! isset( $_GET['modula_bulk_action'] ) || ! isset( $_GET['posts'] ) || ! isset( $_GET['gallery_id'] ) ) {
+			return;
+		}
+		
+		// Only allow admins to do this.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		$action     = sanitize_text_field( wp_unslash( $_GET['modula_bulk_action'] ) );
+		$posts      = array_map( 'absint', $_GET['posts'] );
+		$gallery_id = absint( $_GET['gallery_id'] );
+		$changes    = false;
+		if ( 'modula-gallery' !== get_post_type( $gallery_id ) ) {
+			return;
+		}
+
+		if ( 'modula_add_to_gallery' === $action ) {
+			
+			$old_images = get_post_meta( $gallery_id, 'modula-images', true );
+
+			if( ! is_array( $old_images ) ){
+				$old_images = array();
+			}
+			$current_images = array_column( $old_images, 'id' );
+
+			foreach ( $posts as $post_id ) {
+				// If it's not an attachment, skip it.
+				if ( 'attachment' !== get_post_type( $post_id ) ) {
+					continue;
+				}
+
+				// If it's allready in gallery, skip it.
+				if( ! isset( $post_id ) || in_array( $post_id, $current_images ) ){
+					continue;
+				}
+
+				$old_images[] = Modula_Admin_Helpers::sanitize_image( $this->get_modula_image_data( $post_id ) );
+				$changes      = true;
+			}
+
+			if( $changes ){
+				update_post_meta( $gallery_id, 'modula-images', $old_images );
+			}
+		}
+		// Redirect to the media library when finished.
+		wp_redirect( admin_url( 'upload.php' ) );
+		exit;
+	}
+
+	private function get_modula_image_data( $image_id ){
+
+		$new_image = array(
+			'id'          => '',
+			'title'       => '',
+			'description' => '',
+			'alt'         => '',
+			'link'        => '',
+			'halign'      => 'center',
+			'valign'      => 'middle',
+			'target'      => '',
+			'togglelightbox' => '',
+			'src'         => '',
+			'type'        => 'image',
+			'width'       => 2,
+			'height'      => 2,
+			'full'        => '',
+			'thumbnail'   => '',
+			'resize'      => false,
+			'index'       => '',
+			'orientation' => 'landscape'
+		);
+
+		$img_data = get_post( $image_id, ARRAY_A );
+		$img_metadata = wp_get_attachment_metadata( $image_id );
+
+		$new_image['id'] = $image_id;
+
+		if ( isset( $img_data['post_title'] ) ) {
+			$new_image['title'] = $img_data['post_title'];
+		}
+		
+		if ( isset( $img_data['post_excerpt'] ) ) {
+			$new_image['description'] = $img_data['post_excerpt'];
+		}
+		
+		if ( isset( $img_metadata['width'] ) ) {
+			$new_image['width'] = $img_metadata['width'];
+		}
+		
+		if ( isset( $img_metadata['height'] ) ) {
+			$new_image['height'] = $img_metadata['height'];
+		}
+
+		if ( isset( $img_metadata['image_meta'] ) && isset( $img_metadata['image_meta']['orientation'] ) && '0' === $img_metadata['image_meta']['orientation'] ) {
+			$new_image['orientation'] = 'portrait';
+		}
+
+		return $new_image;
+		
 	}
 
 }

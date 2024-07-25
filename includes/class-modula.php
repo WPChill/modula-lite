@@ -37,6 +37,7 @@ class Modula {
 		// backwards compatibility -- remove after 2 versions. curr ver 2.7.92
 		add_action( 'admin_init', array( $this, 'after_modula_update' ) );
 
+		add_action( 'admin_enqueue_scripts', array( $this, 'modula_enqueue_media' ) );
 		add_action( 'wp_enqueue_media', array( $this, 'modula_enqueue_media' ) );
 	}
 
@@ -392,28 +393,45 @@ class Modula {
 	}
 
 	public function modula_enqueue_media(){
+		// Get the current screen object.
+		$screen = get_current_screen();
+
+		// Check if we are on the media upload page.
+		if ( $screen->base !== 'upload' && $screen->base !== 'media_page_upload' ) {
+			return;
+		}
 
 		$args = array(
-			'post_type' => 'modula-gallery',
+			'post_type'      => 'modula-gallery',
 			'posts_per_page' => -1,
-			'post_status' => 'publish',
+			'post_status'    => array('publish', 'draft'),
+			'orderby'        => 'ID',
+			'order'          => 'DESC',
 		);
 
-		$posts = get_posts($args);
+		$posts = get_posts( $args );
 	
-		$post_data = array();
+		$data = array( 
+			'posts'    => array(),
+			'l10n'     => array(
+				'add_to_gallery' => 'Add to Modula Gallery',
+				'ajax_failed'    => 'Failed to add images to gallery: ',
+			),
+			'nonce'    => wp_create_nonce( 'modula-ajax-save' ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		);
 	
-		if ($posts) {
-			foreach ($posts as $post) {
-
-				$post_data[$post->ID] = '[ #' . $post->ID . ' ] - ' . ( isset( $post->post_title ) && '' != $post->post_title ? $post->post_title : __( 'Gallery Without Name', 'modula-best-grid-gallery' ) );
+		if ( $posts ) {
+			foreach ( $posts as $post ) {
+				$data['posts'][] = array(
+					'id'    => $post->ID,
+					'title' => '[ #' . $post->ID . ' ] - ' . ( isset( $post->post_title ) && '' != $post->post_title ? $post->post_title : __( 'Gallery Without Name', 'modula-best-grid-gallery' ) ),
+				);
 			}
 		}
-	
-		
 
 		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array('media-views', 'media-editor'), NULL, true );
-		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $post_data );
+		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $data );
 	}
 
 	/**
