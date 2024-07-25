@@ -27,7 +27,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique, and respo
 
 **Now for the Premium version:**
 
-– [Presets](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Presets extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
+– [Defaults](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
 – [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
 – [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): improve the user experience with your galleries by presenting the images in a stunning slideshow.  
 – [Slider gallery](https://wp-modula.com/kb/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
