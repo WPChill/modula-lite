@@ -37,15 +37,16 @@ jQuery(document).ready(function($) {
 	var bulkActionTop = $('#bulk-action-selector-top'),
 		bulkActionBottom = $('#bulk-action-selector-bottom'),
 		tpl = wp.template( 'modula-gallery-selector');
-		
-	if( 'undefined' != typeof bulkActionTop[0] ){
-		modulaGalleries.pos = 'top';
-		bulkActionTop.after( tpl( modulaGalleries ) );
-	}
-
-	if( 'undefined' != typeof bulkActionBottom[0] ){
-		modulaGalleries.pos = 'bottom';
-		bulkActionBottom.after( tpl( modulaGalleries ) );
+	if( 'undefined' != typeof modulaGalleries.posts && 0 != modulaGalleries.posts.length ){
+		if( 'undefined' != typeof bulkActionTop[0] ){
+			modulaGalleries.pos = 'top';
+			bulkActionTop.after( tpl( modulaGalleries ) );
+		}
+	
+		if( 'undefined' != typeof bulkActionBottom[0] ){
+			modulaGalleries.pos = 'bottom';
+			bulkActionBottom.after( tpl( modulaGalleries ) );
+		}
 	}
 
 	$(document).on('change', '#bulk-action-selector-top, #bulk-action-selector-bottom', function(){
@@ -110,7 +111,6 @@ jQuery(document).ready(function($) {
 			
 		},
 		render: function() {
-
 			this.$el.html( this.template( modulaGalleries.posts ) );
 			if ( this.controller.isModeActive( 'select' ) ) {
 				this.$el.addClass( 'view-switch wp-modula-gallery-selector' );
@@ -131,8 +131,11 @@ jQuery(document).ready(function($) {
 
 	wp.media.view.AttachmentsBrowser = originalAttachmentsBrowser.extend({
 		createToolbar: function() {
-			originalAttachmentsBrowser.prototype.createToolbar.apply(this, arguments);
 
+			originalAttachmentsBrowser.prototype.createToolbar.apply(this, arguments);
+			if( 'undefined' == typeof modulaGalleries.posts || 0 == modulaGalleries.posts.length ){
+				return;
+			}
 			var toolbar = this.toolbar,
 				filters = this.toolbar.get('filters');
 
@@ -150,7 +153,6 @@ jQuery(document).ready(function($) {
 				controller: this.controller,
 				priority: -180,
 				click: function() {
-					console.log('click');
 					var selected = [],
 						selection = this.controller.state().get( 'selection' ),
 						library = this.controller.state().get( 'library' );
@@ -182,6 +184,7 @@ jQuery(document).ready(function($) {
                             success: function(response) {
                                 if(response.success) {
                                     library._requery( true );
+									$(document).trigger( 'modula:media:insert:done', response.data );
                                     this.controller.trigger( 'selection:action:done' );
                                 } else {
                                     alert( modulaGalleries.l10n.ajax_failed + response.data );
@@ -198,4 +201,23 @@ jQuery(document).ready(function($) {
 			}).render() );
 		}
 	});
+});
+
+jQuery(document).on('modula:media:insert:done', function(event, data) {
+    var messageDiv = jQuery('<div>', {
+        text: data,
+		class: 'notice notice-success is-dismissible',
+        css: {
+            padding: '10px',
+			margin: '5px 0 0 0',
+
+        }
+    });
+    jQuery('.attachments-browser').prepend(messageDiv);
+
+    setTimeout(function() {
+        messageDiv.fadeOut(function() {
+            jQuery(this).remove();
+        });
+    }, 5000);
 });

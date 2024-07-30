@@ -65,7 +65,7 @@
 		"@node-minify/core": "^8.0.6",
 		"@node-minify/uglify-js": "^8.0.6",
 		"@wordpress/eslint-plugin": "^18.1.0",
-		"@wordpress/scripts": "^19.2.4",
+		"@wordpress/scripts": "^26.13.0",
 		"@wordpress/stylelint-config": "^21.25.0",
 		"clean-css-cli": "^5.6.2",
 		"concat": "^1.0.3",

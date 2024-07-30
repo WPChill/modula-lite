@@ -422,7 +422,7 @@ class Modula {
 			}
 		}
 
-		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array('media-views', 'media-editor'), NULL, true );
+		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array('media-views', 'media-editor','wp-data', 'wp-notices'), NULL, true );
 		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $data );
 	}
 
