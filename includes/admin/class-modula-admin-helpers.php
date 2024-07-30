@@ -185,7 +185,6 @@ class Modula_Admin_Helpers {
 						break;
 					case 'width':
 					case 'height':
-						$new_image[ $attribute ] = absint( $image[ $attribute ] );
 						break;
 					case 'title':
 					case 'description':
