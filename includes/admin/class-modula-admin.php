@@ -848,14 +848,6 @@ class Modula_Admin {
 		if ( isset( $img_data['post_excerpt'] ) ) {
 			$new_image['description'] = $img_data['post_excerpt'];
 		}
-		
-		if ( isset( $img_metadata['width'] ) ) {
-			$new_image['width'] = $img_metadata['width'];
-		}
-		
-		if ( isset( $img_metadata['height'] ) ) {
-			$new_image['height'] = $img_metadata['height'];
-		}
 
 		if ( isset( $img_metadata['image_meta'] ) && isset( $img_metadata['image_meta']['orientation'] ) && '0' === $img_metadata['image_meta']['orientation'] ) {
 			$new_image['orientation'] = 'portrait';

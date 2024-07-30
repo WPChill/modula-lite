@@ -1,3 +1,6 @@
+= 2.8.18 - 30.07.2024 =
+Fixed: Images inserted from the WordPress Media Library were not scaling correctly in the custom grid-type gallery.
+
 = 2.8.17 - 30.07.2024 =
 Added: WordPress Media library option to add selected(grid) or checked(list) images to a Modula gallery.( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
 Changed: Removed WPChill tracking option.( [#1007]( https://github.com/WPChill/modula-lite/issues/1007) )
