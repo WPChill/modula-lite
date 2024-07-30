@@ -385,6 +385,11 @@ class Modula {
 	}
 
 	public function modula_enqueue_media(){
+
+		if( ! is_admin() ){
+			return;
+		}
+
 		// Get the current screen object.
 		$screen = get_current_screen();
 
