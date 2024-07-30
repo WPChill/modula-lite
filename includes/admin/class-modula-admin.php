@@ -37,6 +37,15 @@ class Modula_Admin {
 
 		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
 		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
+
+		// WP Media ajax hook to add images to gallery
+		add_action( 'wp_ajax_add_images_to_gallery', array( $this, 'add_images_to_gallery_callback' ) );
+		
+		// WP Media( list view ) add images to gallery bulk action
+		add_filter( 'bulk_actions-upload', array( $this, 'modula_media_lib_bulk_actions' ), 15 );
+		add_filter( 'handle_bulk_actions-upload', array( $this, 'modula_media_handle_bulk' ), 15, 3 );
+		add_filter( 'admin_init', array( $this, 'modula_media_do_bulk' ), 15 );
+		add_action( 'admin_notices', array( $this, 'media_add_notice' ) );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -600,6 +609,292 @@ class Modula_Admin {
         }
 
         update_option( 'modula_image_licensing_option', $ia_options );
+	}
+
+	/**
+	 * Adds images to a specific gallery
+	 */
+	public function add_images_to_gallery_callback() {
+		// Verifică nonce-ul pentru securitate
+		check_ajax_referer( 'modula-ajax-save', 'nonce' );
+	
+		$post_images = isset( $_POST['selected'] ) ? json_decode( stripslashes( $_POST['selected'] ), true ) : array();
+		$gallery_id  = isset( $_POST['gallery_id'] ) ? intval( $_POST['gallery_id'] ) : 0;
+		$data        = array( 
+			'old_images' => array(),
+			'counter'    => array( 'added' => 0, 'skipped' => 0 ),
+		);
+
+		if ( empty( $post_images ) || $gallery_id <= 0 ) {
+			if ( empty( $post_images ) ) {
+				wp_send_json_error( esc_html__( 'No images were selected.', 'modula-best-grid-gallery' ) );
+			}
+			elseif ( $gallery_id <= 0 ) {
+				wp_send_json_error( esc_html__( 'You must select a gallery where the images should be added.', 'modula-best-grid-gallery' ) );
+			}
+
+			die();
+		}
+
+		$data['old_images'] = get_post_meta( $gallery_id, 'modula-images', true );
+
+		if( ! is_array( $data['old_images'] ) ){
+			$data['old_images'] = array();
+		}
+		$current_images = array_column( $data['old_images'], 'id' );
+		if ( is_array( $post_images ) ) {
+			foreach ( $post_images as $image ) {
+				if( ! isset( $image['id'] ) || in_array( $image['id'], $current_images ) ){
+					$data['counter']['skipped']++;
+					continue;
+				}
+
+				if( ! isset( $image['type'] ) || ( isset( $image['type'] ) && 'image' !== $image['type'] ) ){
+					$data['counter']['skipped']++;
+					continue;
+				}
+
+				$data['old_images'][] = Modula_Admin_Helpers::sanitize_image( $image );
+				$data['counter']['added']++;
+			}
+		}
+
+		// Determine singular/plural for 'image'
+		$image_text   = ( $data['counter']['added'] === 1 ) ? __( 'image was', 'modula-best-grid-gallery' ) : __( 'images were', 'modula-best-grid-gallery' );
+		$skipped_text = ( $data['counter']['skipped'] === 1 ) ? __( 'image was', 'modula-best-grid-gallery' ): __( 'images were', 'modula-best-grid-gallery' );
+
+		// Construct the response message
+		$message = apply_filters( 'modula_grid_add_images_to_gallery_message', sprintf(
+			esc_html__( '%d %s added, and %d %s skipped (already added in the gallery or incorrect extension).', 'modula-best-grid-gallery' ),
+			absint( $data['counter']['added'] ),
+			esc_html( $image_text ),
+			absint( $data['counter']['skipped'] ),
+			esc_html( $skipped_text ),
+		), $post_images, $gallery_id, $current_images ) ;
+
+		$data = apply_filters( 'modula_grid_add_images_to_gallery', $data, $post_images, $gallery_id, $current_images );
+		update_post_meta( $gallery_id, 'modula-images', $data['old_images'] );
+
+		wp_send_json_success( esc_html( $message ) );
+		die();
+	}
+
+	
+	
+	/**
+	 * Add bulk actions to Media Library table
+	 *
+	 * @param $bulk_actions
+	 *
+	 * @return mixed
+	 * @since 2.8.17
+	 */
+	public function modula_media_lib_bulk_actions( $bulk_actions ) {
+		// Check if there are any posts of the custom post type 'modula-gallery'
+		$modula_gallery_count = wp_count_posts( 'modula-gallery' );
+	
+		// If there are any published or other statuses posts, add the bulk action
+		if ( isset( $modula_gallery_count->publish ) && $modula_gallery_count->publish > 0 ) {
+			$bulk_actions['modula_add_to_gallery'] = __( 'Add Images to Modula Gallery', 'modula-best-grid-gallery' );
+		}
+	
+		return $bulk_actions;
+	}
+
+	/**
+	 * Handle our bulk actions
+	 *
+	 * @param $location
+	 * @param $doaction
+	 * @param $post_ids
+	 *
+	 * @return string
+	 * @since 2.8.17
+	 */
+	public function modula_media_handle_bulk( $location, $doaction, $post_ids ) {
+
+		// Only allow admins to do this.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return $location;
+		}
+
+		if( isset( $_GET['modula_gallery_select_top'] ) && 0 !== absint( $_GET['modula_gallery_select_top'] ) ){
+			$gallery_id = absint( $_GET['modula_gallery_select_top'] );
+		}elseif( isset( $_GET['modula_gallery_select_bottom'] ) && 0 !== absint( $_GET['modula_gallery_select_bottom'] ) ){
+			$gallery_id = absint( $_GET['modula_gallery_select_bottom'] );
+		}else{
+			return $location;
+		}
+
+
+		if ( 'modula_add_to_gallery' === $doaction ) {
+			return admin_url(
+				add_query_arg(
+					array(
+						'modula_bulk_action' => $doaction,
+						'gallery_id' => $gallery_id,
+						'posts'      => $post_ids,
+					), '/upload.php' ) );
+		}
+
+		return $location;
+	}
+
+	/**
+	 * Bulk action for adding images to gallery
+	 *
+	 * @return void
+	 * @since 2.8.17
+	 */
+	public function modula_media_do_bulk() {
+		// If there's no action or posts, bail.
+		if ( ! isset( $_GET['modula_bulk_action'] ) || ! isset( $_GET['posts'] ) || ! isset( $_GET['gallery_id'] ) ) {
+			return;
+		}
+		
+		// Only allow admins to do this.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		$action       = sanitize_text_field( wp_unslash( $_GET['modula_bulk_action'] ) );
+		$posts        = array_map( 'absint', $_GET['posts'] );
+		$gallery_id   = absint( $_GET['gallery_id'] );
+		$redirect_url = admin_url('upload.php');
+		$data         = array( 
+			'old_images' => array(),
+			'counter'    => array( 'added' => 0, 'skipped' => 0 ),
+		);
+
+		if ( 'modula-gallery' !== get_post_type( $gallery_id ) ) {
+			return;
+		}
+
+		if ( 'modula_add_to_gallery' === $action ) {
+			
+			$data['old_images'] = get_post_meta( $gallery_id, 'modula-images', true );
+
+			if( ! is_array( $data['old_images'] ) ){
+				$data['old_images'] = array();
+			}
+			$current_images = array_column( $data['old_images'], 'id' );
+
+			foreach ( $posts as $post_id ) {
+
+				// If it's allready in gallery, skip it.
+				if( ! isset( $post_id ) || in_array( $post_id, $current_images ) ){
+					$data['counter']['skipped']++;
+					continue;
+				}
+
+				$post = get_post( $post_id, ARRAY_A );
+				// If it's not an image
+				if ( ! isset( $post ) || ! isset( $post['post_mime_type'] ) || false === strpos( $post['post_mime_type'], 'image') ) {
+					$data['counter']['skipped']++;
+					continue;
+				}
+
+				$data['old_images'][] = Modula_Admin_Helpers::sanitize_image( $this->get_modula_image_data( $post ) );
+				$data['counter']['added']++;
+			}
+
+			$data = apply_filters( 'modula_bulk_add_images_to_gallery', $data, $posts, $gallery_id, $current_images );
+			update_post_meta( $gallery_id, 'modula-images', $data['old_images'] );
+
+			$redirect_url = add_query_arg(
+				array(
+					'modula_media_added' => absint( $data['counter']['added'] ),
+					'modula_media_skipped' => absint( $data['counter']['skipped'] ),
+				),
+				admin_url('upload.php')
+			);
+		}
+
+		wp_redirect( $redirect_url );
+		exit;
+	}
+
+	private function get_modula_image_data( $img_data ){
+
+		$new_image = array(
+			'id'          => '',
+			'title'       => '',
+			'description' => '',
+			'alt'         => '',
+			'link'        => '',
+			'halign'      => 'center',
+			'valign'      => 'middle',
+			'target'      => '',
+			'togglelightbox' => '',
+			'src'         => '',
+			'type'        => 'image',
+			'width'       => 2,
+			'height'      => 2,
+			'full'        => '',
+			'thumbnail'   => '',
+			'resize'      => false,
+			'index'       => '',
+			'orientation' => 'landscape'
+		);
+
+		$img_metadata = wp_get_attachment_metadata( $img_data['ID'] );
+
+		$new_image['id'] = $img_data['ID'];
+
+		if ( isset( $img_data['post_title'] ) ) {
+			$new_image['title'] = $img_data['post_title'];
+		}
+		
+		if ( isset( $img_data['post_excerpt'] ) ) {
+			$new_image['description'] = $img_data['post_excerpt'];
+		}
+		
+		if ( isset( $img_metadata['width'] ) ) {
+			$new_image['width'] = $img_metadata['width'];
+		}
+		
+		if ( isset( $img_metadata['height'] ) ) {
+			$new_image['height'] = $img_metadata['height'];
+		}
+
+		if ( isset( $img_metadata['image_meta'] ) && isset( $img_metadata['image_meta']['orientation'] ) && '0' === $img_metadata['image_meta']['orientation'] ) {
+			$new_image['orientation'] = 'portrait';
+		}
+
+		return $new_image;
+		
+	}
+
+	public function media_add_notice() {
+		$screen = get_current_screen();
+	
+		if ( $screen->base !== 'upload' && $screen->base !== 'media_page_upload' ) {
+			return;
+		}
+	
+		if( isset( $_GET['modula_media_added'] ) && isset( $_GET['modula_media_skipped'] ) ){
+			$added   = absint( $_GET['modula_media_added'] );
+			$skipped = absint( $_GET['modula_media_skipped'] );
+		}else{
+			return;
+		}
+	
+		$added_text = _n('image was', 'images were', $added, 'modula-best-grid-gallery');
+		$skipped_text = _n('image was', 'images were', $skipped, 'modula-best-grid-gallery');
+	
+		$message = apply_filters( 'modula_bulk_add_images_to_gallery_message', sprintf(
+			esc_html__( '%d %s added, and %d %s skipped (already added in the gallery or incorrect extension)', 'modula-best-grid-gallery' ),
+			$added,
+			$added_text,
+			$skipped,
+			$skipped_text,
+		) );
+	
+		?>
+		<div class="notice notice-success is-dismissible">
+			<p><?php echo $message; ?></p>
+		</div>
+		<?php
 	}
 
 }

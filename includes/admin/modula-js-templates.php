@@ -153,3 +153,26 @@
         </div>
     </div>
 </script>
+<script type="text/html" id="tmpl-modula-gallery-selector">
+    <# if ( 'undefined' != typeof data.pos && data.pos != '' && 'top' == data.pos ) { #>
+        <select id="modula_gallery_select_top" name="modula_gallery_select_top" style="display:none;">
+            <# _.each(data.posts, function(post) { #>
+                <option value="{{ post.id }}">{{ post.title }}</option>
+            <# }); #>
+        </select>
+    <# }  #>
+    <# if ( 'undefined' != typeof data.pos && data.pos != '' && 'bottom' == data.pos ) { #>
+        <select id="modula_gallery_select_bottom" name="modula_gallery_select_bottom" style="display:none;">
+            <# _.each(data.posts, function(post) { #>
+                <option value="{{ post.id }}">{{ post.title }}</option>
+            <# }); #>
+        </select>
+    <# }  #>
+    <# if ( 'undefined' == typeof data.pos || data.pos == '' ) { #>
+        <select id="modula_gallery_select" name="modula_gallery_select">
+            <# _.each(data, function(post) { #>
+                <option value="{{ post.id }}">{{ post.title }}</option>
+            <# }); #>
+        </select>
+    <# }  #>
+</script>
