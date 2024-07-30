@@ -154,7 +154,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.8.17 - 29.07.2024 =
+= 2.8.17 - 30.07.2024 =
 Added: WordPress Media library option to add selected(grid) or checked(list) images to a Modula gallery.( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
 Changed: Removed WPChill tracking option.( [#1007]( https://github.com/WPChill/modula-lite/issues/1007) )
 

@@ -659,7 +659,7 @@ class Modula_Admin {
 
 		// Construct the response message
 		$message = sprintf(
-			esc_html__( '%d %s added, and %d %s skipped (already existing).', 'modula-best-grid-gallery' ),
+			esc_html__( '%d %s added, and %d %s skipped (already added to the gallery).', 'modula-best-grid-gallery' ),
 			absint( $counter['added'] ),
 			esc_html( $image_text ),
 			absint( $counter['skipped'] ),
@@ -868,7 +868,7 @@ class Modula_Admin {
 		$skipped_text = _n('image was', 'images were', $skipped, 'modula-best-grid-gallery');
 	
 		$message = sprintf(
-			esc_html__( '%d %s added, and %d %s skipped (already existing)', 'modula-best-grid-gallery' ),
+			esc_html__( '%d %s added, and %d %s skipped (already added to the gallery)', 'modula-best-grid-gallery' ),
 			$added,
 			$added_text,
 			$skipped,
