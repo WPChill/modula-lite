@@ -84,14 +84,16 @@ export const ModulaGallery = (props) => {
 									</div>
 								</Fragment>
 							) : (
-								images.map((img, index) => (
-									<ModulaGalleryImage
-										{...props}
-										img={img}
-										key={img.id}
-										index={index}
-									/>
-								))
+								images.map((img, index) =>
+									img.id ? (
+										<ModulaGalleryImage
+											{...props}
+											img={img}
+											key={img.id}
+											index={index}
+										/>
+									) : null
+								)
 							)}
 						</Fragment>
 					)}

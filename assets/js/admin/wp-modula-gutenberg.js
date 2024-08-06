@@ -568,11 +568,11 @@ var ModulaGallery = function ModulaGallery(props) {
       index: index + 1
     }));
   }))) : images.map(function (img, index) {
-    return /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
+    return img.id ? /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
       img: img,
       key: img.id,
       index: index
-    }));
+    })) : null;
   }))), /*#__PURE__*/React.createElement(components_ModulaItemsExtraComponent, _extends({}, props, {
     position: 'bottom'
   }))));

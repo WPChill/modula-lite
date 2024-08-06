@@ -453,7 +453,7 @@ class Modula_Field_Builder {
 					$icon  = apply_filters( 'modula_radio_icon_url', esc_url( MODULA_URL . 'assets/images/settings/' . $key . '.png' ), $key, $name );
 					$html .= '<input id="modula-icon-' . esc_attr( $key ) . '" type="radio" name="modula-settings[type]"  data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
 					$html .= '<label class="modula-radio-icon" for="modula-icon-' . esc_attr( $key ) . '"><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
-
+					$html .= '</div>';
 				}
 
 				foreach ( $field['disabled']['values'] as $key => $name ) {
