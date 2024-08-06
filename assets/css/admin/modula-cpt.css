@@ -1961,12 +1961,12 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 	flex-flow: row;
 	align-items: center;
 }
-.modula-settings-container .modula-tabs-content .modula-radio-icon:last-child {
+.modula-settings-container .modula-tabs-content .modula-icons-radio-item:last-child .modula-radio-icon{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-right: 1px solid #ccd0d4;
 }
-.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper .modula-radio-icon:first-of-type {
+.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper .modula-icons-radio-item:first-of-type .modula-radio-icon{
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -2034,10 +2034,7 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
   letter-spacing: 1px;
 }
 
-@media screen and (max-width: 1360px) {
-	.modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
-		display: block;
-	}
+@media screen and (min-width: 1000px) and (max-width: 1680px) {
 	html body .modula-settings-container .modula-tabs-content .modula-radio-icon,
 	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-disabled,
 	html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install{
@@ -2048,6 +2045,38 @@ html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect 
 	.modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after{
 		border-top-right-radius: 0;
 	}
+
+  .modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    left: unset;
+  }
+  
+  html body .modula-settings-container .modula-tabs-content .modula-radio-icon.modula-radio-icon-install::after{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  html body .modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper .modula-radio-icon{
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 1680px) {
+
+  .modula-icons-radio-wrapper .modula-icons-radio-item{
+    width: calc( 33.33% - 10px );
+  }
+}
+@media screen and (max-width: 1366px) {
+
+  .modula-icons-radio-wrapper .modula-icons-radio-item{
+    width: calc( 50% - 10px );
+  }
+  .modula-settings-container .modula-tabs-content .modula-icons-radio-wrapper {
+    left: -85px;
+  }
 }
 
 html body .modula .modula-radio-item {
