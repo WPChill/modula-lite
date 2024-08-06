@@ -103,7 +103,7 @@ const ModulaStyle = (props) => {
 				height: 100px;
 			}`;
 		} else {
-			if ('grid' != settings.type && 'slider' != settings.type && 'airbnb' != settings.type) {
+			if ('grid' != settings.type && 'slider' != settings.type && 'bnb' != settings.type) {
 				style += `#jtg-${id} .modula-items {
 				height: ${settings.height[0]}px;
 			}`;
@@ -226,9 +226,9 @@ const ModulaStyle = (props) => {
 		}`;
 	}
 
-	if ('airbnb' == settings['type']) {
-		style += `#jtg-${id}.modula.modula-gallery-airbnb .modula_airbnb_main_wrapper{flex-basis: calc( 50% - `+ ( settings.gutter / 2 ) +`px );}`;
-		style += `#jtg-${id}.modula.modula-gallery-airbnb .modula_airbnb_items_wrapper{flex-basis: calc( 50% - `+ ( settings.gutter / 2 ) +`px );gap: `+ settings.gutter +`px;}`;
+	if ('bnb' == settings['type']) {
+		style += `#jtg-${id}.modula.modula-gallery-bnb .modula_bnb_main_wrapper{flex-basis: calc( 50% - `+ ( settings.gutter / 2 ) +`px );}`;
+		style += `#jtg-${id}.modula.modula-gallery-bnb .modula_bnb_items_wrapper{flex-basis: calc( 50% - `+ ( settings.gutter / 2 ) +`px );gap: `+ settings.gutter +`px;}`;
 	}
 	style += `#jtg-${id}.modula.modula-gallery.modula-gallery-initialized .modula-item-content{opacity:1;}`;
 	

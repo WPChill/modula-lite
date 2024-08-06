@@ -457,7 +457,7 @@ class Modula_Field_Builder {
 				}
 
 				foreach ( $field['disabled']['values'] as $key => $name ) {
-					$addon = 'airbnb' == $key ? 'modula' : 'modula-' . $key;
+					$addon = 'bnb' == $key ? 'modula' : 'modula-' . $key;
 					if ( $wpchill_upsell && ! $wpchill_upsell->is_upgradable_addon( $addon ) ) {
 						$class = 'modula-radio-icon-install';
 					} else {

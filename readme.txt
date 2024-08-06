@@ -155,7 +155,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 = 2.9.0 - 06.08.2024 =
-Added: airbnb like gallery layout upsell setting. ( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
+Added: bnb like gallery layout upsell setting. ( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
 Fixed: Error with Elementor theme builder. ( [#1014]( https://github.com/WPChill/modula-lite/issues/1014) )
 Fixed: No gallery preview in gutenberg editor. ( [#1013]( https://github.com/WPChill/modula-lite/issues/1013) )
 Changed: Move body_class filter to a higher priority. ( [#1012]( https://github.com/WPChill/modula-lite/issues/1012) )

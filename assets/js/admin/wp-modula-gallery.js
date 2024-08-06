@@ -407,7 +407,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		},
 
 		checkGalleryType: function (type) {
-			if ('creative-gallery' == type || 'grid' == type || 'airbnb' == type) {
+			if ('creative-gallery' == type || 'grid' == type || 'bnb' == type) {
 				this.$el.hide();
 			} else if ('custom-grid' == type) {
 				if (!wp.Modula.Settings.get('helpergrid')) {

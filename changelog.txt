@@ -1,5 +1,5 @@
 = 2.9.0 - 06.08.2024 =
-Added: airbnb like gallery layout upsell setting.
+Added: bnb like gallery layout upsell setting.
 Fixed: Error with Elementor theme builder.
 Fixed: No gallery preview in gutenberg editor.
 Changed: Move body_class filter to a higher priority

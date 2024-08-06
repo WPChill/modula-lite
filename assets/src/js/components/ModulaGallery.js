@@ -32,8 +32,8 @@ export const ModulaGallery = (props) => {
 		galleryClassNames += 'modula-custom-grid';
 	} else if (settings.type == 'slider') {
 		galleryClassNames = 'modula-slider';
-	} else if (settings.type == 'airbnb') {
-		galleryClassNames += 'modula-gallery-airbnb';
+	} else if (settings.type == 'bnb') {
+		galleryClassNames += 'modula-gallery-bnb';
 	} else {
 		galleryClassNames += 'modula-columns';
 		itemsClassNames += ' grid-gallery';
@@ -62,9 +62,9 @@ export const ModulaGallery = (props) => {
 				<div className={itemsClassNames}>
 					{images.length > 0 && (
 						<Fragment>
-							{settings.type === 'airbnb' ? (
+							{settings.type === 'bnb' ? (
 								<Fragment>
-									<div className="modula_airbnb_main_wrapper">
+									<div className="modula_bnb_main_wrapper">
 										<ModulaGalleryImage
 											{...props}
 											img={images[0]}
@@ -72,7 +72,7 @@ export const ModulaGallery = (props) => {
 											index={0}
 										/>
 									</div>
-									<div className="modula_airbnb_items_wrapper">
+									<div className="modula_bnb_items_wrapper">
 										{images.slice(1).map((img, index) => (
 											<ModulaGalleryImage
 												{...props}

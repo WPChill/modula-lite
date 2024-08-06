@@ -423,7 +423,7 @@ var ModulaStyle = function ModulaStyle(props) {
     if (props.imagesCount == 0) {
       style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: 100px;\n\t\t\t}");
     } else {
-      if ('grid' != settings.type && 'slider' != settings.type && 'airbnb' != settings.type) {
+      if ('grid' != settings.type && 'slider' != settings.type && 'bnb' != settings.type) {
         style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: ").concat(settings.height[0], "px;\n\t\t\t}");
       } else if ('slider' == settings.type) {
         style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: auto;\n\t\t\t}");
@@ -473,9 +473,9 @@ var ModulaStyle = function ModulaStyle(props) {
   if (undefined != settings['filters'] && settings['filters'].length > 1) {
     style += "#jtg-".concat(id, ".modula-gallery .filters {\n\t\t\ttext-align: ").concat(settings['filterTextAlignment'], ";\n\t\t}");
   }
-  if ('airbnb' == settings['type']) {
-    style += "#jtg-".concat(id, ".modula.modula-gallery-airbnb .modula_airbnb_main_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );}";
-    style += "#jtg-".concat(id, ".modula.modula-gallery-airbnb .modula_airbnb_items_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );gap: " + settings.gutter + "px;}";
+  if ('bnb' == settings['type']) {
+    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_main_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );}";
+    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_items_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );gap: " + settings.gutter + "px;}";
   }
   style += "#jtg-".concat(id, ".modula.modula-gallery.modula-gallery-initialized .modula-item-content{opacity:1;}");
   return /*#__PURE__*/React.createElement("style", {
@@ -531,8 +531,8 @@ var ModulaGallery = function ModulaGallery(props) {
     galleryClassNames += 'modula-custom-grid';
   } else if (settings.type == 'slider') {
     galleryClassNames = 'modula-slider';
-  } else if (settings.type == 'airbnb') {
-    galleryClassNames += 'modula-gallery-airbnb';
+  } else if (settings.type == 'bnb') {
+    galleryClassNames += 'modula-gallery-bnb';
   } else {
     galleryClassNames += 'modula-columns';
     itemsClassNames += ' grid-gallery';
@@ -553,14 +553,14 @@ var ModulaGallery = function ModulaGallery(props) {
     position: 'top'
   })), /*#__PURE__*/React.createElement("div", {
     className: itemsClassNames
-  }, images.length > 0 && /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, settings.type === 'airbnb' ? /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "modula_airbnb_main_wrapper"
+  }, images.length > 0 && /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, settings.type === 'bnb' ? /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "modula_bnb_main_wrapper"
   }, /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
     img: images[0],
     key: images[0].id,
     index: 0
   }))), /*#__PURE__*/React.createElement("div", {
-    className: "modula_airbnb_items_wrapper"
+    className: "modula_bnb_items_wrapper"
   }, images.slice(1).map(function (img, index) {
     return /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
       img: img,
