@@ -410,6 +410,7 @@ class Modula_CPT {
 				'width',
 				'height',
 				'togglelightbox',
+				'hide_title',
 			)
 		);
 
@@ -439,6 +440,7 @@ class Modula_CPT {
 						}
 						break;
 					case 'togglelightbox':
+					case 'hide_title':
 						if ( isset( $image[ $attribute ] ) ) {
 							$new_image[ $attribute ] = absint( $image[ $attribute ] );
 						} else {

@@ -49,6 +49,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             'valign':      '',
             'target':      '',
             'togglelightbox':      '',
+            'hide_title':  '',
             'src':         '',
             'type':        'image',
             'width':       2,

@@ -159,6 +159,7 @@ Added: bnb like gallery layout upsell setting. ( [#1002]( https://github.com/WPC
 Fixed: Error with Elementor theme builder. ( [#1014]( https://github.com/WPChill/modula-lite/issues/1014) )
 Fixed: No gallery preview in gutenberg editor. ( [#1013]( https://github.com/WPChill/modula-lite/issues/1013) )
 Changed: Move body_class filter to a higher priority. ( [#1012]( https://github.com/WPChill/modula-lite/issues/1012) )
+Added: Image option to hide the title. ( [#941]( https://github.com/WPChill/modula-lite/issues/941) )
 
 = 2.8.19 - 30.07.2024 =
 Fixed: Error with Divi builder.

@@ -832,6 +832,7 @@ class Modula_Admin {
 			'valign'      => 'middle',
 			'target'      => '',
 			'togglelightbox' => '',
+			'hide_title'  => '',
 			'src'         => '',
 			'type'        => 'image',
 			'width'       => 2,

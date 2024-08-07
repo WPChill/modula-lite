@@ -10,6 +10,7 @@ function ModulaMakeItem( model ) {
 		'valign':      'middle',
 		'target':      '',
 		'togglelightbox':      '',
+		'hide_title':  '',
 		'src':         '',
 		'type':        'image',
 		'width':       2,
