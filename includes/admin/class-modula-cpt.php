@@ -52,6 +52,8 @@ class Modula_CPT {
 
 		// Ajax for removing notices
 		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
+
+		add_filter('pre_get_posts', array( $this, 'search_by_gallery_id' ) );
 	}
 
 	public function register_cpt() {
@@ -913,5 +915,23 @@ class Modula_CPT {
 			</div>
 		</div>
 		<?php
+	}
+
+	public function search_by_gallery_id( $query ) {
+		global $pagenow;
+		
+		// Verificăm dacă suntem în zona de administrare și pe pagina de listare a postărilor
+		if ( is_admin() && $pagenow == 'edit.php' && isset( $query->query_vars['s'] ) && $query->query_vars['post_type'] == 'modula-gallery' ) {
+			$search_term = $query->query_vars['s'];
+			
+			// Verificăm dacă termenul de căutare este numeric
+			if ( is_numeric( $search_term ) ) {
+				// Golim termenul de căutare pentru a preveni căutarea implicită
+				$query->query_vars['s'] = '';
+				
+				// Adăugăm meta_query pentru a căuta după ID-ul postării
+				$query->set( 'post__in', array( $search_term ) );
+			}
+		}
 	}
 }
