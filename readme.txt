@@ -160,6 +160,8 @@ Fixed: Error with Elementor theme builder. ( [#1014]( https://github.com/WPChill
 Fixed: No gallery preview in gutenberg editor. ( [#1013]( https://github.com/WPChill/modula-lite/issues/1013) )
 Changed: Move body_class filter to a higher priority. ( [#1012]( https://github.com/WPChill/modula-lite/issues/1012) )
 Added: Image option to hide the title. ( [#941]( https://github.com/WPChill/modula-lite/issues/941) )
+Added: Search gallery by id. ( [#1001]( https://github.com/WPChill/modula-lite/issues/1001) )
+Added: Filter galleries admin list table by gallery type. ( [#980]( https://github.com/WPChill/modula-lite/issues/980) )
 
 = 2.8.19 - 30.07.2024 =
 Fixed: Error with Divi builder.

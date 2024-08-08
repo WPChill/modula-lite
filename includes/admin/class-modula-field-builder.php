@@ -434,6 +434,11 @@ class Modula_Field_Builder {
 				break;
 
 			case 'icon-radio':
+
+				if ( empty( $value ) ) {
+					$value = 'creative-gallery';
+				} 
+
 				$wpchill_upsell = false;
 				if ( class_exists( 'WPChill_Upsells' ) ) {
 					// Initialize WPChill upsell class
