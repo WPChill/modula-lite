@@ -1,4 +1,4 @@
-= 2.9.0 - 06.08.2024 =
+= 2.9.0 - 12.08.2024 =
 Added: bnb like gallery layout upsell setting.
 Fixed: Error with Elementor theme builder.
 Fixed: No gallery preview in gutenberg editor.

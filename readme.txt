@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.8.19
+Stable tag: 2.9.0
 
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
@@ -154,7 +154,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.9.0 - 06.08.2024 =
+= 2.9.0 - 12.08.2024 =
 Added: bnb like gallery layout upsell setting. ( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
 Fixed: Error with Elementor theme builder. ( [#1014]( https://github.com/WPChill/modula-lite/issues/1014) )
 Fixed: No gallery preview in gutenberg editor. ( [#1013]( https://github.com/WPChill/modula-lite/issues/1013) )
