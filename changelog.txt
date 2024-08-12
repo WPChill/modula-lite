@@ -1,3 +1,12 @@
+= 2.9.0 - 12.08.2024 =
+Added: bnb like gallery layout upsell setting.
+Fixed: Error with Elementor theme builder.
+Fixed: No gallery preview in gutenberg editor.
+Changed: Move body_class filter to a higher priority
+Added: Image option to hide the title
+Added: Search gallery by id
+Added: Filter galleries admin list table by gallery type.
+
 = 2.8.19 - 30.07.2024 =
 Fixed: Error with Divi builder.
 

@@ -37,7 +37,7 @@ class Modula_Shortcode {
 		add_action( 'modula_item_after_image', 'modula_mobile_share', 100 );
 
 		// Add custom body class (helps with stronger selectors for conflicting themes)
-		add_filter( 'body_class', array( $this, 'add_modula_body_class' ) );
+		add_filter( 'body_class', array( $this, 'add_modula_body_class' ), 100 );
 	}
 
 	public function add_gallery_scripts() {

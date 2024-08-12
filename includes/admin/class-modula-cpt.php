@@ -9,9 +9,10 @@
  */
 class Modula_CPT {
 
-	private $labels    = array();
-	private $args      = array();
-	private $metaboxes = array();
+	private $labels        = array();
+	private $args          = array();
+	private $metaboxes     = array();
+	private $gallery_types = array();
 	private $cpt_name;
 	private $builder;
 	private $resizer;
@@ -52,6 +53,11 @@ class Modula_CPT {
 
 		// Ajax for removing notices
 		add_action( 'wp_ajax_modula-edit-notice', array( $this, 'dismiss_edit_notice' ) );
+
+		add_filter( 'query_vars', array( $this, 'add_gallery_type_query_var' ) );
+		add_filter( 'pre_get_posts', array( $this, 'search_by_gallery_id' ) );
+		add_action( 'views_edit-modula-gallery', array( $this, 'filter_by_gallery_type' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'add_gallery_type_hidden_field' ) );
 	}
 
 	public function register_cpt() {
@@ -410,6 +416,7 @@ class Modula_CPT {
 				'width',
 				'height',
 				'togglelightbox',
+				'hide_title',
 			)
 		);
 
@@ -439,6 +446,7 @@ class Modula_CPT {
 						}
 						break;
 					case 'togglelightbox':
+					case 'hide_title':
 						if ( isset( $image[ $attribute ] ) ) {
 							$new_image[ $attribute ] = absint( $image[ $attribute ] );
 						} else {
@@ -911,5 +919,153 @@ class Modula_CPT {
 			</div>
 		</div>
 		<?php
+	}
+
+	public function add_gallery_type_query_var( $vars ) {
+		$vars[] = 'gallery_type';
+		return $vars;
+	}
+
+	private function get_gallery_types(){
+		global $wpdb;
+		
+		if( empty( $this->gallery_types ) ){
+			$query = $wpdb->prepare(
+				"SELECT p.ID AS post_id, pm.meta_value 
+				FROM {$wpdb->prefix}posts p
+				LEFT JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id AND pm.meta_key = %s
+				WHERE p.post_type = %s 
+				AND p.post_status IN ('publish', 'draft', 'pending')",
+				'modula-settings', 'modula-gallery'
+			);
+			
+			$this->gallery_types = $wpdb->get_results($query, ARRAY_A);
+		}
+
+		$types = array();
+		
+		foreach ( $this->gallery_types as $row ) {
+			if( ! isset( $row['meta_value'] ) || ! is_string( $row['meta_value'] ) ){
+
+				// No settings for gallery? set default to "Creative"
+				$types['creative-gallery'][] = absint( $row['post_id'] );
+				continue;
+			}
+
+			$values = unserialize( $row['meta_value'] );
+			if( isset( $values['type'] ) ){
+				$types[$values['type']][] = absint( $row['post_id'] );
+			}
+		}
+
+		return $types;
+	}
+
+	/**
+	 * Search gallery by ID or gallery type
+	 *
+	 * @param $query
+	 *
+	 * @return void
+	 * @since 2.9.0
+	*/
+	public function search_by_gallery_id( $query ) {
+		global $pagenow;
+		
+		if ( is_admin() && $pagenow == 'edit.php' && $query->query_vars['post_type'] == 'modula-gallery' ) {
+
+			
+			// search by ID
+			if( isset( $query->query_vars['s'] ) ){
+				$search_term = $query->query_vars['s'];
+			
+				if ( is_numeric( $search_term ) ) {
+					$query->query_vars['s'] = '';
+					$query->set( 'post__in', array( $search_term ) );
+					return;
+					
+				}
+			}
+			
+			// search by gallery type
+			if( isset( $query->query_vars['gallery_type'] ) ){
+				$gallery_type  = $query->query_vars['gallery_type'];
+				$gallery_types = $this->get_gallery_types();
+
+				if( isset( $gallery_types[$gallery_type] ) && ! empty( $gallery_types[$gallery_type] ) ){
+					$query->query_vars['gallery_type'] = '';
+					$query->set( 'post__in', $gallery_types[$gallery_type] );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds gallery type filters to admin list table
+	 *
+	 * @param $views
+	 *
+	 * @return array
+	 * @since 2.9.0
+	*/
+	public function filter_by_gallery_type( $views ) {
+		$fields = Modula_CPT_Fields_Helper::get_fields( 'general' );
+
+		if( ! isset( $fields['type'] ) || ! isset( $fields['type']['values'] ) || ! is_array( $fields['type']['values'] ) || empty( $fields['type']['values'] ) ){
+			return $views;
+		}
+
+		$gallery_types = $this->get_gallery_types();
+
+		$args = array(
+			'post_status'  => isset( $_GET['post_status'] ) ? sanitize_text_field( $_GET['post_status'] ) : 'all',
+			'gallery_type' => '%s', // to be repalced later in sprintf
+			'post_type'    => $this->cpt_name,
+		);
+
+		if ( isset( $_GET['s'] ) ){
+			$args['s'] = sanitize_text_field( $_GET['s'] );
+		}
+
+		$type_url = add_query_arg(
+			$args,
+			admin_url( 'edit.php' )
+		);
+
+		$fields = array_merge( $fields['type']['values'], isset( $fields['type']['disabled']['values'] ) ? $fields['type']['disabled']['values'] : array() );
+
+		foreach( $fields as $type => $text ){
+			if( ! isset( $gallery_types[$type] ) ){
+				continue;
+			}
+			$count = count( $gallery_types[$type] );
+			$views[$type] = sprintf( 
+				'<a href="'. esc_url( $type_url ) .'" %s > %s (%s) </a>',
+				$type,
+				isset( $_GET['gallery_type'] ) && $type === $_GET['gallery_type'] ? 'class="current" aria-current="page"' : '',
+				$text,
+				$count
+			);
+		}
+
+		return $views;
+	}
+
+	/**
+	 * Adds gallery type hidden field to admin list table so the filtered value persists
+	 *
+	 * @param $views
+	 *
+	 * @return array
+	 * @since 2.9.0
+	*/
+	public function add_gallery_type_hidden_field() {
+		global $typenow;
+	
+		if ( $typenow == 'modula-gallery') {
+			?>
+			<input type="hidden" name="gallery_type" class="post_gallery_type_page" value="<?php echo isset( $_GET['gallery_type'] ) ? esc_attr( $_GET['gallery_type'] ) : 'all'; ?>" />
+			<?php
+		}
 	}
 }

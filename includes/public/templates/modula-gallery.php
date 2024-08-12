@@ -18,6 +18,9 @@
 			}
 			$full_img_src = esc_url( wp_get_original_image_url( $image['id'] ) );
 
+			// Check per gallery & per image if we should show title.
+			$should_hide_title = ( boolval( $data->settings['hide_title'] ) || ( isset( $image['hide_title'] ) && boolval( $image['hide_title'] ) ) );
+
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
@@ -26,7 +29,7 @@
 				'lightbox'         => $data->settings['lightbox'],
 
 				/* What to show from elements */
-				'hide_title'       => boolval( $data->settings['hide_title'] ) ? true : false,
+				'hide_title'       => $should_hide_title,
 				'hide_description' => boolval( $data->settings['hide_description'] ) ? true : false,
 				'hide_socials'     => ! boolval( $data->settings['enableSocial'] ),
 				"enableTwitter"    => boolval( $data->settings['enableTwitter'] ),

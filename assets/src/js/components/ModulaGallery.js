@@ -32,6 +32,8 @@ export const ModulaGallery = (props) => {
 		galleryClassNames += 'modula-custom-grid';
 	} else if (settings.type == 'slider') {
 		galleryClassNames = 'modula-slider';
+	} else if (settings.type == 'bnb') {
+		galleryClassNames += 'modula-gallery-bnb';
 	} else {
 		galleryClassNames += 'modula-columns';
 		itemsClassNames += ' grid-gallery';
@@ -39,7 +41,8 @@ export const ModulaGallery = (props) => {
 			itemsClassNames += ' justified-gallery';
 		}
 	}
-	return [
+
+	return (
 		<Fragment>
 			<ModulaStyle id={id} settings={settings} />
 			<div
@@ -59,23 +62,46 @@ export const ModulaGallery = (props) => {
 				<div className={itemsClassNames}>
 					{images.length > 0 && (
 						<Fragment>
-							<Fragment>
-								{images.map((img, index) => (
-									<ModulaGalleryImage
-										{...props}
-										img={img}
-										key={img.id}
-										index={index}
-									/>)
-								)}
-							</Fragment>
+							{settings.type === 'bnb' ? (
+								<Fragment>
+									<div className="modula_bnb_main_wrapper">
+										<ModulaGalleryImage
+											{...props}
+											img={images[0]}
+											key={images[0].id}
+											index={0}
+										/>
+									</div>
+									<div className="modula_bnb_items_wrapper">
+										{images.slice(1).map((img, index) => (
+											<ModulaGalleryImage
+												{...props}
+												img={img}
+												key={img.id}
+												index={index + 1}
+											/>
+										))}
+									</div>
+								</Fragment>
+							) : (
+								images.map((img, index) =>
+									img.id ? (
+										<ModulaGalleryImage
+											{...props}
+											img={img}
+											key={img.id}
+											index={index}
+										/>
+									) : null
+								)
+							)}
 						</Fragment>
 					)}
 				</div>
 				<ModulaItemsExtraComponent {...props} position={'bottom'} />
 			</div>
-		</Fragment>,
-	];
+		</Fragment>
+	);
 };
 
 export default wp.components.withFilters('modula.modulaGallery')(ModulaGallery);

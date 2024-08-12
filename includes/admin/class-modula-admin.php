@@ -664,13 +664,19 @@ class Modula_Admin {
 		$skipped_text = ( $data['counter']['skipped'] === 1 ) ? __( 'image was', 'modula-best-grid-gallery' ): __( 'images were', 'modula-best-grid-gallery' );
 
 		// Construct the response message
-		$message = apply_filters( 'modula_grid_add_images_to_gallery_message', sprintf(
-			esc_html__( '%d %s added, and %d %s skipped (already added in the gallery or incorrect extension).', 'modula-best-grid-gallery' ),
-			absint( $data['counter']['added'] ),
-			esc_html( $image_text ),
-			absint( $data['counter']['skipped'] ),
-			esc_html( $skipped_text ),
-		), $post_images, $gallery_id, $current_images ) ;
+		$message = apply_filters( 
+			'modula_grid_add_images_to_gallery_message', 
+			sprintf(
+				esc_html__( '%d %s added, and %d %s skipped (already added in the gallery or incorrect extension).', 'modula-best-grid-gallery' ),
+				absint( $data['counter']['added'] ),
+				esc_html( $image_text ),
+				absint( $data['counter']['skipped'] ),
+				esc_html( $skipped_text ),
+			),
+			$post_images,
+			$gallery_id,
+			$current_images
+		);
 
 		$data = apply_filters( 'modula_grid_add_images_to_gallery', $data, $post_images, $gallery_id, $current_images );
 		update_post_meta( $gallery_id, 'modula-images', $data['old_images'] );
@@ -826,6 +832,7 @@ class Modula_Admin {
 			'valign'      => 'middle',
 			'target'      => '',
 			'togglelightbox' => '',
+			'hide_title'  => '',
 			'src'         => '',
 			'type'        => 'image',
 			'width'       => 2,

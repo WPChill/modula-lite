@@ -511,6 +511,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				link: '',
 				target: '',
 				togglelightbox: '',
+				hideTitle: '',
 			};
 
 			if ('undefined' !== typeof attachment['sizes']) {

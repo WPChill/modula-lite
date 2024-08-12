@@ -1,6 +1,5 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-var __webpack_exports__ = {};
 
 ;// CONCATENATED MODULE: ./assets/src/js/components/ModulaGallerySearch.js
 var useEffect = wp.element.useEffect;
@@ -353,7 +352,9 @@ var ModulaGalleryImage = function ModulaGalleryImage(props) {
     }
   };
   return /*#__PURE__*/React.createElement("div", {
-    className: itemClassNames
+    className: itemClassNames,
+    "data-width": img['data-width'] ? img['data-width'] : '2',
+    "data-height": img['data-height'] ? img['data-height'] : '2'
   }, /*#__PURE__*/React.createElement("div", {
     className: "modula-item-overlay"
   }), /*#__PURE__*/React.createElement("div", {
@@ -422,8 +423,8 @@ var ModulaStyle = function ModulaStyle(props) {
     if (props.imagesCount == 0) {
       style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: 100px;\n\t\t\t}");
     } else {
-      if ('grid' != settings.type && 'slider' != settings.type) {
-        style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: ").concat(settings.height, "px;\n\t\t\t}");
+      if ('grid' != settings.type && 'slider' != settings.type && 'bnb' != settings.type) {
+        style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: ").concat(settings.height[0], "px;\n\t\t\t}");
       } else if ('slider' == settings.type) {
         style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: auto;\n\t\t\t}");
       }
@@ -472,6 +473,11 @@ var ModulaStyle = function ModulaStyle(props) {
   if (undefined != settings['filters'] && settings['filters'].length > 1) {
     style += "#jtg-".concat(id, ".modula-gallery .filters {\n\t\t\ttext-align: ").concat(settings['filterTextAlignment'], ";\n\t\t}");
   }
+  if ('bnb' == settings['type']) {
+    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_main_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );}";
+    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_items_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );gap: " + settings.gutter + "px;}";
+  }
+  style += "#jtg-".concat(id, ".modula.modula-gallery.modula-gallery-initialized .modula-item-content{opacity:1;}");
   return /*#__PURE__*/React.createElement("style", {
     dangerouslySetInnerHTML: {
       __html: "\n      \t\t\t\t".concat(style, "\n    \t\t\t\t")
@@ -485,7 +491,7 @@ var ModulaItemsExtraComponent = function ModulaItemsExtraComponent(props) {
 };
 /* harmony default export */ const components_ModulaItemsExtraComponent = (wp.components.withFilters('modula.ModulaItemsExtraComponent')(ModulaItemsExtraComponent));
 ;// CONCATENATED MODULE: ./assets/src/js/components/ModulaGallery.js
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, _extends.apply(null, arguments); }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var _wp$element = wp.element,
   ModulaGallery_Fragment = _wp$element.Fragment,
   ModulaGallery_useEffect = _wp$element.useEffect,
@@ -525,6 +531,8 @@ var ModulaGallery = function ModulaGallery(props) {
     galleryClassNames += 'modula-custom-grid';
   } else if (settings.type == 'slider') {
     galleryClassNames = 'modula-slider';
+  } else if (settings.type == 'bnb') {
+    galleryClassNames += 'modula-gallery-bnb';
   } else {
     galleryClassNames += 'modula-columns';
     itemsClassNames += ' grid-gallery';
@@ -532,7 +540,7 @@ var ModulaGallery = function ModulaGallery(props) {
       itemsClassNames += ' justified-gallery';
     }
   }
-  return [/*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement(components_ModulaStyle, {
+  return /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement(components_ModulaStyle, {
     id: id,
     settings: settings
   }), /*#__PURE__*/React.createElement("div", {
@@ -545,24 +553,38 @@ var ModulaGallery = function ModulaGallery(props) {
     position: 'top'
   })), /*#__PURE__*/React.createElement("div", {
     className: itemsClassNames
-  }, images.length > 0 && /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, images.map(function (img, index) {
+  }, images.length > 0 && /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, settings.type === 'bnb' ? /*#__PURE__*/React.createElement(ModulaGallery_Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "modula_bnb_main_wrapper"
+  }, /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
+    img: images[0],
+    key: images[0].id,
+    index: 0
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "modula_bnb_items_wrapper"
+  }, images.slice(1).map(function (img, index) {
     return /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
       img: img,
       key: img.id,
-      index: index
+      index: index + 1
     }));
-  })))), /*#__PURE__*/React.createElement(components_ModulaItemsExtraComponent, _extends({}, props, {
+  }))) : images.map(function (img, index) {
+    return img.id ? /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
+      img: img,
+      key: img.id,
+      index: index
+    })) : null;
+  }))), /*#__PURE__*/React.createElement(components_ModulaItemsExtraComponent, _extends({}, props, {
     position: 'bottom'
-  }))))];
+  }))));
 };
 /* harmony default export */ const components_ModulaGallery = (wp.components.withFilters('modula.modulaGallery')(ModulaGallery));
 ;// CONCATENATED MODULE: ./assets/src/js/components/edit.js
-function edit_extends() { return edit_extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) { ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } } return n; }, edit_extends.apply(null, arguments); }
+function edit_extends() { return edit_extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, edit_extends.apply(null, arguments); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 /**
  * Internal dependencies
@@ -897,7 +919,7 @@ var ModulaGutenberg = /*#__PURE__*/function () {
     _classCallCheck(this, ModulaGutenberg);
     this.registerBlock();
   }
-  _createClass(ModulaGutenberg, [{
+  return _createClass(ModulaGutenberg, [{
     key: "registerBlock",
     value: function registerBlock() {
       this.blockName = 'modula/gallery';
@@ -961,7 +983,6 @@ var ModulaGutenberg = /*#__PURE__*/function () {
       });
     }
   }]);
-  return ModulaGutenberg;
 }();
 var modulaGutenberg = new ModulaGutenberg();
 /******/ })()

@@ -434,6 +434,11 @@ class Modula_Field_Builder {
 				break;
 
 			case 'icon-radio':
+
+				if ( empty( $value ) ) {
+					$value = 'creative-gallery';
+				} 
+
 				$wpchill_upsell = false;
 				if ( class_exists( 'WPChill_Upsells' ) ) {
 					// Initialize WPChill upsell class
@@ -449,22 +454,24 @@ class Modula_Field_Builder {
 				}
 				$html .= '<div class="modula-icons-radio-wrapper">';
 				foreach ( $field['values'] as $key => $name ) {
-					$icon  = esc_url( MODULA_URL . 'assets/images/settings/' . $key . '.png' );
+					$html .= '<div class="modula-icons-radio-item">';
+					$icon  = apply_filters( 'modula_radio_icon_url', esc_url( MODULA_URL . 'assets/images/settings/' . $key . '.png' ), $key, $name );
 					$html .= '<input id="modula-icon-' . esc_attr( $key ) . '" type="radio" name="modula-settings[type]"  data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $key ) . '" ' . checked( $key, $value, false ) . '>';
 					$html .= '<label class="modula-radio-icon" for="modula-icon-' . esc_attr( $key ) . '"><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
-
+					$html .= '</div>';
 				}
 
 				foreach ( $field['disabled']['values'] as $key => $name ) {
-
-					if ( $wpchill_upsell && ! $wpchill_upsell->is_upgradable_addon( 'modula-' . $key ) ) {
+					$addon = 'bnb' == $key ? 'modula' : 'modula-' . $key;
+					if ( $wpchill_upsell && ! $wpchill_upsell->is_upgradable_addon( $addon ) ) {
 						$class = 'modula-radio-icon-install';
 					} else {
 						$class = 'modula-radio-icon-disabled';
 					}
-
-					$icon  = esc_url( MODULA_URL . 'assets/images/settings/' . $key . '-disabled.png' );
+					$html .= '<div class="modula-icons-radio-item">';
+					$icon  = apply_filters( 'modula_radio_icon_url_disabled', esc_url( MODULA_URL . 'assets/images/settings/' . $key . '-disabled.png' ), $key, $name );
 					$html .= '<label class="modula-radio-icon ' . esc_attr( $class ) . '" ><img src="' . esc_url( $icon ) . '" alt="' . esc_attr( $name ) . '" title="' . esc_attr( $name ) . '" class="modula-icon-radio" /><span class="modula-icon-radio-name">' . esc_html( $name ) . '</span></label>';
+					$html .= '</div>';
 				}
 
 				$html .= '</div>';

@@ -215,6 +215,7 @@ class Modula_CPT_Fields_Helper {
 						'values' => array(
 							"slider"     => esc_html__( 'Slider', 'modula-best-grid-gallery' ),
 							"video"      => esc_html__( 'Video', 'modula-best-grid-gallery' ),
+							"bnb"     => esc_html__( 'BnB', 'modula-best-grid-gallery' ),
 						),
 					),
 					'priority' => 10,
