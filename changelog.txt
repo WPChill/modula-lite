@@ -1,3 +1,6 @@
+= 2.9.1 - 13.08.2024 =
+Fixed: PHP warning: undefined key. 
+
 = 2.9.0 - 12.08.2024 =
 Added: bnb like gallery layout upsell setting.
 Fixed: Error with Elementor theme builder.

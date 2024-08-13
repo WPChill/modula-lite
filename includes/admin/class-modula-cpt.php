@@ -971,10 +971,9 @@ class Modula_CPT {
 	*/
 	public function search_by_gallery_id( $query ) {
 		global $pagenow;
-		
-		if ( is_admin() && $pagenow == 'edit.php' && $query->query_vars['post_type'] == 'modula-gallery' ) {
 
-			
+		if ( is_admin() && $pagenow == 'edit.php' && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] == 'modula-gallery' ) {
+
 			// search by ID
 			if( isset( $query->query_vars['s'] ) ){
 				$search_term = $query->query_vars['s'];

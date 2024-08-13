@@ -154,6 +154,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.9.1 - 13.08.2024 =
+Fixed: PHP warning: undefined key.  ( [#1018]( https://github.com/WPChill/modula-lite/issues/1018) )
+
 = 2.9.0 - 12.08.2024 =
 Added: bnb like gallery layout upsell setting. ( [#1002]( https://github.com/WPChill/modula-lite/issues/1002) )
 Fixed: Error with Elementor theme builder. ( [#1014]( https://github.com/WPChill/modula-lite/issues/1014) )
