@@ -56,6 +56,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 			lightbox       : 'fancybox',
 			lightboxOpts   : {},
 			inView         : false,
+			originLeft     : true,
 		};
 
 	// The actual plugin constructor
@@ -360,6 +361,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 		var packery_args = {
 			itemSelector: '.modula-item',
 			layoutMode  : 'packery',
+			originLeft  : plugin.options.originLeft,
 			packery     : {
 				gutter: parseInt(plugin.options.gutter),
 			},
@@ -433,6 +435,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				resizesContainer: false,
 				itemSelector    : '.modula-item',
 				layoutMode      : 'packery',
+				originLeft      : instance.options.originLeft,
 				packery         : {
 					gutter: parseInt(instance.options.gutter),
 				},
@@ -468,6 +471,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 										 itemSelector: '.modula-item',
 										 // percentPosition: true,
 										 layoutMode: 'packery',
+										 originLeft: this.options.originLeft,
 										 packery   : {
 											 // use element for option
 											 gutter: parseInt(this.options.gutter),
@@ -610,6 +614,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 				instance.$itemsCnt
 						.modulaisotope({
 										   packery: {
+											   originLeft: instance.options.originLeft,
 											   gutter: parseInt(instance.options.gutter),
 										   },
 									   })
