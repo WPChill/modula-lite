@@ -154,6 +154,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.10.0 - TBD =
+Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )
+Fixed: Not importing sourge-gallery captions for existing media images. ( [#904]( https://github.com/WPChill/modula-lite/issues/904) )
+
 = 2.9.1 - 14.08.2024 =
 Fixed: PHP warning: undefined key. ( [#1018]( https://github.com/WPChill/modula-lite/issues/1018) )
 Added: RTL elements orientation option added to isotope script. ( [#987]( https://github.com/WPChill/modula-lite/issues/987) )
