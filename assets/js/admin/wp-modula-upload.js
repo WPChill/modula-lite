@@ -360,27 +360,36 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			// Insert into Gallery Button Clicked
 			wp.media.frames.modula.on('insert', function (selection) {
 				// Get state
-				var state = wp.media.frames.modula.state();
-				var oldItemsCollection = wp.Modula.Items;
+				var state              = wp.media.frames.modula.state(),
+					oldItemsCollection = wp.Modula.Items,
+					sorting;
+
+				if (oldItemsCollection.length) {
+
+					sorting = selection.slice(oldItemsCollection.length, selection.length);
+
+					if (sorting && sorting.length > 1) {
+						jQuery.each(sorting, function (index, model) {
+							selection.remove(model);
+							selection.add(model, {at: 0});
+						});
+					} else {
+						selection.remove(sorting);
+						selection.add(sorting, {at: 0});
+					}
+				}
 
 				modula.Items = new modula.items['collection']();
-
 				// Iterate through selected images, building an images array
 				selection.each(function (attachment) {
 					var attachmentAtts = attachment.toJSON(),
-						currentModel = oldItemsCollection.get(
-							attachmentAtts['id']
-						);
+						currentModel   = oldItemsCollection.get(attachmentAtts['id']);
 
-					if (currentModel) {
-						wp.Modula.Items.addItem(currentModel);
-						oldItemsCollection.remove(currentModel);
-					} else {
-						modulaGalleryObject.generateSingleImage(attachmentAtts);
-					}
+					modulaGalleryObject.generateSingleImage(attachmentAtts, currentModel);
+
 				}, this);
 
-				while ((model = oldItemsCollection.first())) {
+				while (model = oldItemsCollection.first()) {
 					model.delete();
 				}
 			});
@@ -459,9 +468,16 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 		// File Uploaded - add images to the screen
 		fileupload: function (up, file, info) {
-			var modulaGalleryObject = this;
-			var response = JSON.parse(info.response);
+			var modulaGalleryObject = this,
+				response = JSON.parse(info.response);
+
 			modulaGalleryObject.generateSingleImage(response['data']);
+			// Get the last model
+			var model  = modula.Items.last();
+			// Move the last model to the first position
+			modula.Items.moveItem(model, 1);
+			modula.GalleryView.updateItemsIndex();
+			new wp.Modula.previewer['view']({ el: model });
 		},
 
 		// Files Uploaded - hide progress bar

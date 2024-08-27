@@ -357,6 +357,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				packaryOptions.options[option] = value;
 			}
 		},
+													 removeView: function() {
+														 // Remove the view from the DOM and unbind events
+														 this.remove();
+														 this.unbind();
+														 // Optionally remove any custom events associated with the view
+														 this.off();
+													 },
+
+													 reinitialize: function(options) {
+														 // Reinitialize the view with new options
+														 this.removeView();  // Clean up the view first
+														 this.initialize(options);  // Reinitialize with new options
+													 }
 	});
 
 	var modulaGalleryGrid = Backbone.View.extend({
