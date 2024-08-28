@@ -52,19 +52,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				size;
 
 			/* 
-        	   We will calculate the size ( width and height, because every item is a square ) of an item.
-    		   The formula is : from the container size we will subtract gutter * number of columns and then we will dived by number of columns
-        	 */
+			   We will calculate the size ( width and height, because every item is a square ) of an item.
+			   The formula is : from the container size we will subtract gutter * number of columns and then we will dived by number of columns
+			 */
 			size = Math.floor(
 				(containerWidth - gutter * (columns - 1)) / columns
 			);
 			this.set('size', size);
 		},
 		/* 
-           Here we will calculate the new size of the item.
-           This will be called after resize event, that means the item is resized and we need to check it.
-           currentSize is the new size of the item after we resized it.
-         */
+		   Here we will calculate the new size of the item.
+		   This will be called after resize event, that means the item is resized and we need to check it.
+		   currentSize is the new size of the item after we resized it.
+		 */
 		calculateSize: function (currentSize) {
 			var size = this.get('size'),
 				columns = Math.round(currentSize / size),
@@ -357,19 +357,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				packaryOptions.options[option] = value;
 			}
 		},
-													 removeView: function() {
-														 // Remove the view from the DOM and unbind events
-														 this.remove();
-														 this.unbind();
-														 // Optionally remove any custom events associated with the view
-														 this.off();
-													 },
+		removeView: function () {
+			// Remove the view from the DOM and unbind events
+			this.remove();
+			this.unbind();
+			// Optionally remove any custom events associated with the view
+			this.off();
+		},
 
-													 reinitialize: function(options) {
-														 // Reinitialize the view with new options
-														 this.removeView();  // Clean up the view first
-														 this.initialize(options);  // Reinitialize with new options
-													 }
+		reinitialize: function (options) {
+			// Reinitialize the view with new options
+			this.removeView();  // Clean up the view first
+			this.initialize(options);  // Reinitialize with new options
+		}
 	});
 
 	var modulaGalleryGrid = Backbone.View.extend({

@@ -302,10 +302,10 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				// Show message
 				modulaGalleryObject.errorContainer.html(
 					'<div class="error fade"><p>' +
-						err.file.name +
-						': ' +
-						err.message +
-						'</p></div>'
+					err.file.name +
+					': ' +
+					err.message +
+					'</p></div>'
 				);
 				up.refresh();
 			});
@@ -360,7 +360,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			// Insert into Gallery Button Clicked
 			wp.media.frames.modula.on('insert', function (selection) {
 				// Get state
-				var state              = wp.media.frames.modula.state(),
+				var state = wp.media.frames.modula.state(),
 					oldItemsCollection = wp.Modula.Items,
 					sorting;
 
@@ -371,11 +371,11 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					if (sorting && sorting.length > 1) {
 						jQuery.each(sorting, function (index, model) {
 							selection.remove(model);
-							selection.add(model, {at: 0});
+							selection.add(model, { at: 0 });
 						});
 					} else {
 						selection.remove(sorting);
-						selection.add(sorting, {at: 0});
+						selection.add(sorting, { at: 0 });
 					}
 				}
 
@@ -383,7 +383,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				// Iterate through selected images, building an images array
 				selection.each(function (attachment) {
 					var attachmentAtts = attachment.toJSON(),
-						currentModel   = oldItemsCollection.get(attachmentAtts['id']);
+						currentModel = oldItemsCollection.get(attachmentAtts['id']);
 
 					modulaGalleryObject.generateSingleImage(attachmentAtts, currentModel);
 
@@ -407,13 +407,13 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				}
 				wp.media.frames.modula.open();
 			});
-			
+
 			// Open WordPress Media Gallery
 			$('#modula_gallery_add_action_button').click(function (e) {
 				e.preventDefault();
-				if( $('#modula_gallery_add_action').hasClass( 'open') ){
+				if ($('#modula_gallery_add_action').hasClass('open')) {
 					$('#modula_gallery_add_action').hide().removeClass('open');
-				}else{
+				} else {
 					$('#modula_gallery_add_action').show().addClass('open');
 				}
 			});
@@ -450,7 +450,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		// File Uploading - update progress bar
 		fileuploading: function (up, file) {
 			var modulaGalleryObject = this;
-
 			// Update the status text
 			$(
 				'.modula-upload-numbers .modula-current',
@@ -471,19 +470,15 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			var modulaGalleryObject = this,
 				response = JSON.parse(info.response);
 
-			modulaGalleryObject.generateSingleImage(response['data']);
-			// Get the last model
-			var model  = modula.Items.last();
-			// Move the last model to the first position
-			modula.Items.moveItem(model, 1);
-			modula.GalleryView.updateItemsIndex();
-			new wp.Modula.previewer['view']({ el: model });
+			var newModel = modulaGalleryObject.generateSingleImage(response['data']);
+			modula.Items.add(newModel, { at: 0 });
+			modula.Items.trigger('newItemAdded', newModel);
+			modula.GalleryView.render();
 		},
 
 		// Files Uploaded - hide progress bar
 		filesuploaded: function () {
 			var modulaGalleryObject = this;
-
 			setTimeout(function () {
 				modulaGalleryObject.containerUploader.removeClass(
 					'show-progress'
@@ -548,7 +543,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			data['title'] = attachment['title'];
 			data['description'] = attachment['caption'];
 
-			new modula.items['model'](data);
+			return new modula.items['model'](data);
 		},
 	});
 
