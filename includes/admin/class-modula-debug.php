@@ -142,6 +142,18 @@ class Modula_Debug {
 	 * @since 2.5.0
 	 */
 	public function modula_export_gallery() {
+		// Check if nonce is set.
+		if ( ! isset( $_GET['nonce'] ) ) {
+			return;
+		}
+		// Check if nonce is valid.
+		if ( ! wp_verify_nonce( $_GET['nonce'], 'download_single_gallery' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			return;
+		}
+		// Check if user has edit permissions.
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
 
 		if ( isset( $_GET['modula_single_download'] ) ) {
 
@@ -347,6 +359,7 @@ class Modula_Debug {
 							add_query_arg(
 								array(
 									'modula_single_download' => absint( get_the_ID() ),
+									'nonce'                  => wp_create_nonce( 'download_single_gallery' ),
 								)
 							)
 						);
