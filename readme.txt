@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
@@ -154,6 +154,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.9.2 - 29.08.2024 =
+Fixed: Security fix for Gallery CPT export
+
 = 2.9.1 - 14.08.2024 =
 Fixed: PHP warning: undefined key. ( [#1018]( https://github.com/WPChill/modula-lite/issues/1018) )
 Added: RTL elements orientation option added to isotope script. ( [#987]( https://github.com/WPChill/modula-lite/issues/987) )
