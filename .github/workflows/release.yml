@@ -50,3 +50,8 @@ jobs:
                   SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
                   SLUG: modula-best-grid-gallery
                   VERSION: ${{ steps.package-version.outputs.current-version }}
+
+            - name: Notify Slack on Releases
+              uses: amendx/slackbot-release@1.0.0
+              with:
+                  slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
