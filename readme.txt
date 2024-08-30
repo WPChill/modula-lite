@@ -154,8 +154,11 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.9.2 - tbd =
+= 2.9.3 - 30.08.2024 =
 Added: Added rest fields for metafields.
+
+= 2.9.2 - 29.08.2024 =
+Fixed: Security fix for Gallery CPT export
 
 = 2.9.1 - 14.08.2024 =
 Fixed: PHP warning: undefined key. ( [#1018]( https://github.com/WPChill/modula-lite/issues/1018) )
