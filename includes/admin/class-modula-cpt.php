@@ -136,6 +136,12 @@ class Modula_CPT {
 				'context'  => 'side',
 				'priority' => 10,
 			),
+			'modula-upload-position' => array(
+				'title'    => esc_html__( 'Add new images at', 'modula-best-grid-gallery' ),
+				'callback' => 'output_gallery_upload_position',
+				'context'  => 'side',
+				'priority' => 10,
+			),
 		);
 
 		$args           = $this->args;
@@ -220,6 +226,10 @@ class Modula_CPT {
 
 	public function output_gallery_shortcode( $post ) {
 		$this->builder->render( 'shortcode', $post );
+	}
+
+	public function output_gallery_upload_position( $post ) {
+		$this->builder->render( 'upload-position', $post );
 	}
 
 	public function save_meta_boxes( $post_id, $post ) {
@@ -375,6 +385,13 @@ class Modula_CPT {
 				$modula_settings['helpergrid'] = 1;
 			} else {
 				$modula_settings['helpergrid'] = 0;
+			}
+
+			// Save the value of upload_position.
+			if ( isset( $_POST['modula-settings']['upload_position'] ) ) {
+				$modula_settings['upload_position'] = sanitize_text_field( wp_unslash( $_POST['modula-settings']['upload_position'] ) );
+			} else {
+				$modula_settings['upload_position'] = 'end';
 			}
 
 			// Add settings to gallery meta

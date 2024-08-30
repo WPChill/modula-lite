@@ -78,6 +78,9 @@ class Modula_Field_Builder {
 			case 'shortcode':
 				$this->_render_shortcode_metabox( $post );
 				break;
+			case 'upload-position':
+				$this->render_upload_position_metabox( $post );
+				break;
 			default:
 				do_action( "modula_metabox_fields_{$metabox}" );
 				break;
@@ -236,6 +239,39 @@ class Modula_Field_Builder {
 		echo '</div>';
 
 		do_action( 'modula_admin_after_shortcode_metabox', $post );
+	}
+
+	/**
+	 * Render the upload position metabox.
+	 *
+	 * @param  object  $post  The current post object.
+	 *
+	 * @since 2.9.3
+	 */
+	private function render_upload_position_metabox( $post ) {
+		$modula_settings = get_post_meta( $post->ID, 'modula-settings', true );
+		// Check if we have a position saved.
+		if ( ! empty( $modula_settings['upload_position'] ) ) {
+			$option = $modula_settings['upload_position'];
+		} else {
+			$option = 'end';
+		}
+		/**
+		 * Fires before the upload position metabox content.
+		 *
+		 * @param  object  $post  The current post object.
+		 * @since 2.9.3
+		 */
+		do_action( 'modula_admin_before_upload_position_metabox', $post );
+
+		echo '<div class="modula-upload-position">';
+		echo '<ul>';
+		echo '<li><input type="radio" name="modula-settings[upload_position]" value="start" ' . checked( $option, 'start', false ) . '>' . esc_html__( 'Start of gallery', 'modula-best-grid-gallery' ) . '</li>';
+		echo '<li><input type="radio" name="modula-settings[upload_position]" value="end" ' . checked( $option, 'end', false ) . '>' . esc_html__( 'End of gallery', 'modula-best-grid-gallery' ) . '</li>';
+		echo '</ul>';
+		echo '</div>';
+
+		do_action( 'modula_admin_after_upload_position_metabox', $post );
 	}
 
 	/* Create HMTL for a tab */

@@ -363,19 +363,21 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				var state = wp.media.frames.modula.state(),
 					oldItemsCollection = wp.Modula.Items,
 					sorting;
+				// Get the upload position this way, as the user may have changed it
+				// and we need to respect the position without saving the settings
+				const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
 
-				if (oldItemsCollection.length) {
+				if ( 'start' === uploadPosition ) {
+					if (oldItemsCollection.length) {
 
-					sorting = selection.slice(oldItemsCollection.length, selection.length);
+						sorting = selection.slice(oldItemsCollection.length, selection.length);
 
-					if (sorting && sorting.length > 1) {
-						jQuery.each(sorting, function (index, model) {
-							selection.remove(model);
-							selection.add(model, { at: 0 });
-						});
-					} else {
-						selection.remove(sorting);
-						selection.add(sorting, { at: 0 });
+						if (sorting ) {
+							jQuery.each(sorting, function (index, model) {
+								selection.remove(model);
+								selection.add(model, { at: 0 });
+							});
+						}
 					}
 				}
 
@@ -384,14 +386,23 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				selection.each(function (attachment) {
 					var attachmentAtts = attachment.toJSON(),
 						currentModel = oldItemsCollection.get(attachmentAtts['id']);
-
-					modulaGalleryObject.generateSingleImage(attachmentAtts, currentModel);
-
+					if (currentModel) {
+						wp.Modula.Items.addItem(currentModel);
+						oldItemsCollection.remove(currentModel);
+						modula.Items.trigger('collectionUpdated', currentModel);
+					} else {
+						const newModel = modulaGalleryObject.generateSingleImage(attachmentAtts);
+						if ( 'start' === uploadPosition ) {
+							modula.Items.add(newModel, { at: 0 });
+							modula.Items.trigger('newItemAdded', newModel);
+						}
+					}
 				}, this);
 
 				while (model = oldItemsCollection.first()) {
 					model.delete();
 				}
+				modula.GalleryView.render();
 			});
 
 			// Open WordPress Media Gallery
@@ -471,9 +482,14 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				response = JSON.parse(info.response);
 
 			var newModel = modulaGalleryObject.generateSingleImage(response['data']);
-			modula.Items.add(newModel, { at: 0 });
-			modula.Items.trigger('newItemAdded', newModel);
-			modula.GalleryView.render();
+			// Get the upload position this way, as the user may have changed it
+			// and we need to respect the position without saving the settings
+			const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
+			if ( 'start' === uploadPosition ) {
+				modula.Items.add(newModel, { at: 0 });
+				modula.Items.trigger('newItemAdded', newModel);
+				modula.GalleryView.render();
+			}
 		},
 
 		// Files Uploaded - hide progress bar
