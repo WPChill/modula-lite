@@ -154,6 +154,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.9.4 - 30.08.2024 =
+Removed: Build files from repository.
+
 = 2.9.3 - 30.08.2024 =
 Added: Added rest fields for metafields.
 
