@@ -1051,6 +1051,7 @@ tr[data-container="effect"] > td {
 
 .ui-draggable.ui-resizable.modula-single-image {
   padding: 0;
+	z-index:99;
 }
 
 .packery-drop-placeholder {
