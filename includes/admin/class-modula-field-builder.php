@@ -70,16 +70,13 @@ class Modula_Field_Builder {
 
 		switch ( $metabox ) {
 			case 'gallery':
-				$this->_render_gallery_metabox();
+				$this->_render_gallery_metabox( $post );
 				break;
 			case 'settings':
 				$this->_render_settings_metabox();
 				break;
 			case 'shortcode':
 				$this->_render_shortcode_metabox( $post );
-				break;
-			case 'upload-position':
-				$this->render_upload_position_metabox( $post );
 				break;
 			default:
 				do_action( "modula_metabox_fields_{$metabox}" );
@@ -88,26 +85,26 @@ class Modula_Field_Builder {
 	}
 
 	/* Create HMTL for gallery metabox */
-	private function _render_gallery_metabox() {
+	private function _render_gallery_metabox( $post = false ) {
 
-		$images            = get_post_meta( $this->get_id(), 'modula-images', true );
-		$helper_guidelines = $this->get_setting( 'helpergrid' );
 		$max_upload_size   = wp_max_upload_size();
 
 		if ( ! $max_upload_size ) {
 			$max_upload_size = 0;
+		}
+		// Check if $post is set, if not, get the post object.
+		if ( ! $post ) {
+			$post = get_post( $this->get_id() );
 		}
 
 		echo '<div class="modula-uploader-container">';
 		echo '<div class="modula-upload-actions">';
 		echo '<div class="upload-info-container">';
 		echo '<div class="upload-info">';
-		if ( current_user_can( 'upload_files' ) ) {
-			echo sprintf( wp_kses_post( __( '<b>Drag and drop</b> files here (max %s per file), or <b>drag images around to change their order</b>', 'modula-best-grid-gallery' ) ), esc_html( size_format( $max_upload_size ) ) );
-			echo '</div>';
-			echo '<div class="upload-progress">';
-			echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
-			echo '<div class="modula-progress-bar"><div class="modula-progress-bar-inner"></div></div>';
+		// Display the upload position option.
+		$this->render_upload_position_metabox( $post );
+		$can_upload = current_user_can( 'upload_files' );
+		if ( $can_upload ) {
 			echo '</div>';
 			echo '</div>';
 			echo '<div class="buttons">';
@@ -119,7 +116,6 @@ class Modula_Field_Builder {
 			echo '</ul>';
 			do_action( 'modula_gallery_media_button' );
 		} else {
-			echo '<b>' . esc_html__( 'Drag images around to change their order', 'modula-best-grid-gallery' ) . '</b>';
 			echo '</div>';
 		}
 		echo '</div>';
@@ -134,25 +130,26 @@ class Modula_Field_Builder {
 			echo '<input type="hidden" id="modula-editor-images" value="" name="modula-images" />';
 		echo '</div>';
 
-		// Helper Guildelines Toggle
-		echo '<div class="modula-helper-guidelines-container">';
+		if ( $can_upload ) {
+			// Helper Guildelines Toggle.
+			echo '<div class="modula-uploading-info">';
 
+			/**
+			 * Fires before the helper grid ( now removed ).
+			 *
+			 * @since 2.9.3
+			 */
 			do_action( 'modula_before_helper_grid' );
 
-			echo '<div class="modula-toggle modula-helper-guidelines-wrapper">';
-				echo '<input class="modula-toggle__input" type="checkbox" id="modula-helper-guidelines" name="modula-settings[helpergrid]" data-setting="modula-helper-guidelines" value="1" ' . checked( 1, $helper_guidelines, false ) . '>';
-				echo '<div class="modula-toggle__items">';
-					echo '<span class="modula-toggle__track"></span>';
-					echo '<span class="modula-toggle__thumb"></span>';
-					echo '<svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>';
-					echo '<svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg>';
-				echo '</div>';
-				echo '<strong class="modula-helper-guidelines-label">' . esc_html__( 'Disable Helper Grid', 'modula-best-grid-gallery' ) . '</strong>';
+			echo '<div class="upload-progress">';
+			echo '<p class="modula-upload-numbers">' . esc_html__( 'Uploading image', 'modula-best-grid-gallery' ) . ' <span class="modula-current"></span> ' . esc_html__( 'of', 'modula-best-grid-gallery' ) . ' <span class="modula-total"></span>';
+			echo '<div class="modula-progress-bar"><div class="modula-progress-bar-inner"></div></div>';
 			echo '</div>';
 
-		do_action( 'modula_after_helper_grid' );
+			do_action( 'modula_after_helper_grid' );
 
-		echo '</div>';
+			echo '</div>';
+		}
 
 		echo '</div>';
 	}
@@ -254,8 +251,9 @@ class Modula_Field_Builder {
 		if ( ! empty( $modula_settings['upload_position'] ) ) {
 			$option = $modula_settings['upload_position'];
 		} else {
-			$option = 'end';
+			$option = '0';
 		}
+		echo '<div class="modula-upload-position">';
 		/**
 		 * Fires before the upload position metabox content.
 		 *
@@ -263,15 +261,16 @@ class Modula_Field_Builder {
 		 * @since 2.9.3
 		 */
 		do_action( 'modula_admin_before_upload_position_metabox', $post );
-
-		echo '<div class="modula-upload-position">';
-		echo '<ul>';
-		echo '<li><input type="radio" name="modula-settings[upload_position]" value="start" ' . checked( $option, 'start', false ) . '>' . esc_html__( 'Start of gallery', 'modula-best-grid-gallery' ) . '</li>';
-		echo '<li><input type="radio" name="modula-settings[upload_position]" value="end" ' . checked( $option, 'end', false ) . '>' . esc_html__( 'End of gallery', 'modula-best-grid-gallery' ) . '</li>';
-		echo '</ul>';
-		echo '</div>';
-
+		echo '<span style="margin-right:20px;">' . esc_html__( 'Add new images to start of gallery ', 'modula-best-grid-gallery' ) . '</span>';
+		echo '<div class="modula-toggle"><input class="modula-toggle__input modula-no-pointer" type="checkbox"  name="modula-settings[upload_position]" value="1" ' . checked( $option, '1', false ) . '><div class="modula-toggle__items"><span class="modula-toggle__track"></span><span class="modula-toggle__thumb"></span><svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg><svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg></div></div>';
+		/**
+		 * Fires after the upload position metabox content.
+		 *
+		 * @param  object  $post  The current post object.
+		 * @since 2.9.3
+		 */
 		do_action( 'modula_admin_after_upload_position_metabox', $post );
+		echo '</div>';
 	}
 
 	/* Create HMTL for a tab */

@@ -643,6 +643,10 @@ tr[data-container="effect"] > td {
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
+	position: -webkit-sticky;
+	position: sticky;
+	top:30px;
+	z-index:9999;
 }
 .modula-upload-actions .buttons {
     flex-shrink: 0;
@@ -808,7 +812,6 @@ tr[data-container="effect"] > td {
 }
 .modula-progress-bar {
     width: 100%;
-    max-width: 400px;
     position: relative;
     height: 2px;
     margin: 8px 0 0;
@@ -823,20 +826,20 @@ tr[data-container="effect"] > td {
 .upload-info-container .upload-info {
   padding: 5px 0;
 }
-.upload-info-container .upload-progress {
-    position: absolute;
+.modula-uploading-info .upload-progress {
+    position: relative;
     background-color: #f8fcfd;
     height: 100%;
     display: flex;
-    top: 0;
-    left: 0;
     width: 100%;
     flex-direction: column;
     transition: transform 0.5s;
     transform: translateY( 100% );
+	padding:5px;
+	text-align:center;
 }
 
-.modula-upload-actions.show-progress .upload-info-container .upload-progress {
+.modula-uploading-info.show-progress .upload-progress {
   transform: translateY( 0 );
 }
 
@@ -1051,7 +1054,7 @@ tr[data-container="effect"] > td {
 
 .ui-draggable.ui-resizable.modula-single-image {
   padding: 0;
-	z-index:99;
+	z-index:99 !important;
 }
 
 .packery-drop-placeholder {
@@ -1241,8 +1244,8 @@ a.modula-tab-link {
 }
 
 
-/* Modula Helper Grid */
-.modula-helper-guidelines-container {
+/* Modula Uploading Info */
+.modula-uploading-info {
 	padding: 15px 20px;
 	background-color: #f8fcfd;
 	display: flex;
@@ -1250,19 +1253,14 @@ a.modula-tab-link {
 	border-top: 1px solid #ecf6f9;
 	z-index: 999;
 	position: relative;
-}
-.modula-helper-guidelines-container .onoffswitch {
-  margin-top: 0;
-}
-.modula-helper-guidelines-wrapper .modula-helper-guidelines-label {
-  margin-left: 5px;
+	opacity:0;
 }
 
-.modula-helper-guidelines-container.modula-guidelines-display {
-  display: none;
+.modula-uploading-info.show-progress {
+	opacity:1;
 }
 
-/* Creative Grid */
+	/* Creative Grid */
 .modula-creative-gallery.modula-uploader-inline-content .modula-single-image .modula-single-image-content {
   background: #eee !important;
   position: relative;
@@ -2291,4 +2289,9 @@ Some responsive fixes
   }
 }
 
-
+.modula-upload-position {
+	display:inline-block;
+	width:auto;
+	align-content: center;
+	margin-right: 15px;
+}

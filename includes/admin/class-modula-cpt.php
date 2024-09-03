@@ -136,12 +136,6 @@ class Modula_CPT {
 				'context'  => 'side',
 				'priority' => 10,
 			),
-			'modula-upload-position' => array(
-				'title'    => esc_html__( 'Add new images at', 'modula-best-grid-gallery' ),
-				'callback' => 'output_gallery_upload_position',
-				'context'  => 'side',
-				'priority' => 10,
-			),
 		);
 
 		$args           = $this->args;
@@ -229,17 +223,6 @@ class Modula_CPT {
 		remove_submenu_page( 'edit.php?post_type=modula-gallery', 'post-new.php?post_type=modula-gallery' );
 
 		return $submenu_file;
-	}
-
-	/**
-	 * Output the sorting position for the gallery
-	 *
-	 * @param object $post The post object.
-	 *
-	 * @since 2.9.3
-	 */
-	public function output_gallery_upload_position( $post ) {
-		$this->builder->render( 'upload-position', $post );
 	}
 
 
@@ -446,13 +429,6 @@ class Modula_CPT {
 					}
 				}
 			}
-		}
-
-		// Save the value of helpergrid
-		if ( isset( $settings['helpergrid'] ) ) {
-			$modula_settings['helpergrid'] = 1;
-		} else {
-			$modula_settings['helpergrid'] = 0;
 		}
 
 		// Save the value of upload_position.

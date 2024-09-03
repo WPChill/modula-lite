@@ -351,7 +351,6 @@ class Modula_Upgrades {
 				'style'             => '',
 				'columns'           => 6,
 				'gutter'            => 10,
-				'helpergrid'        => 0,
 			);
 
 			if ( isset( $modula_settings['filters'] ) ) {

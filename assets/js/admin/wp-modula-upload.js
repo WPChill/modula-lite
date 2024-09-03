@@ -254,7 +254,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		},
 		dropzone: $('#modula-dropzone-container'),
 		progressBar: $('.modula-progress-bar'),
-		containerUploader: $('.modula-upload-actions'),
+		containerUploader: $('.modula-uploading-info'),
 		errorContainer: $('.modula-error-container'),
 		galleryCotainer: $(
 			'#modula-uploader-container .modula-uploader-inline-content'
@@ -365,9 +365,9 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					sorting;
 				// Get the upload position this way, as the user may have changed it
 				// and we need to respect the position without saving the settings
-				const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
+				const uploadPosition = $('[name="modula-settings[upload_position]"]').is(':checked');
 
-				if ( 'start' === uploadPosition ) {
+				if ( uploadPosition ) {
 					if (oldItemsCollection.length) {
 
 						sorting = selection.slice(oldItemsCollection.length, selection.length);
@@ -392,7 +392,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 						modula.Items.trigger('collectionUpdated', currentModel);
 					} else {
 						const newModel = modulaGalleryObject.generateSingleImage(attachmentAtts);
-						if ( 'start' === uploadPosition ) {
+						if ( uploadPosition ) {
 							modula.Items.add(newModel, { at: 0 });
 							modula.Items.trigger('newItemAdded', newModel);
 						}
@@ -422,14 +422,22 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			// Open WordPress Media Gallery
 			$('#modula_gallery_add_action_button').click(function (e) {
 				e.preventDefault();
+				e.stopPropagation();
 				if ($('#modula_gallery_add_action').hasClass('open')) {
 					$('#modula_gallery_add_action').hide().removeClass('open');
 				} else {
 					$('#modula_gallery_add_action').show().addClass('open');
 				}
 			});
+
 			$('#modula_gallery_add_action li').click(function (e) {
 				$('#modula_gallery_add_action').hide().removeClass('open');
+			});
+			// Close the Add New info box on click outside
+			$(document).on('click', function (e) {
+				if (!$(e.target).closest('#modula_gallery_add_action').length) {
+					$('#modula_gallery_add_action').hide().removeClass('open');
+				}
 			});
 		},
 
@@ -484,8 +492,9 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			var newModel = modulaGalleryObject.generateSingleImage(response['data']);
 			// Get the upload position this way, as the user may have changed it
 			// and we need to respect the position without saving the settings
-			const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
-			if ( 'start' === uploadPosition ) {
+			const uploadPosition = $('[name="modula-settings[upload_position]"]').is(':checked');
+
+			if ( uploadPosition ) {
 				modula.Items.add(newModel, { at: 0 });
 				modula.Items.trigger('newItemAdded', newModel);
 				modula.GalleryView.render();

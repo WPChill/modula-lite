@@ -166,18 +166,8 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			// This is the container where the gallery items are.
 			this.container = this.$el.find('.modula-uploader-inline-content');
 
-			// Helper Grid container
-			this.helperGridContainer = this.$el
-				.parent()
-				.find('.modula-helper-guidelines-container');
 			this.helperGrid = this.$el.find('#modula-grid');
-
-			// Listen to grid toggle
-			this.helperGridContainer.on(
-				'change',
-				'input',
-				$.proxy(this.updateSettings, this)
-			);
+			this.helperGrid.show();
 
 			// Listent when gallery type is changing.
 			this.listenTo(
@@ -196,21 +186,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			});
 		},
 
-		updateSettings: function (event) {
-			var value,
-				setting = event.target.dataset.setting;
-
-			value = event.target.checked ? 1 : 0;
-
-			wp.Modula.Settings.set('helpergrid', value);
-
-			if (value) {
-				this.helperGrid.hide();
-			} else {
-				this.helperGrid.show();
-			}
-		},
-
 		checkSettingsType: function (model, value) {
 			this.checkGalleryType(value);
 		},
@@ -227,10 +202,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					this.enableSortable();
 				}
 
-				this.helperGridContainer.addClass('modula-guidelines-display');
-				this.helperGridContainer
-					.find('.modula-helper-guidelines-wrapper')
-					.hide();
 				this.container
 					.removeClass('modula-custom-grid')
 					.addClass('modula-creative-gallery');
@@ -245,15 +216,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					this.enableResizeble();
 				}
 
-				this.helperGridContainer
-					.find('.modula-helper-guidelines-wrapper')
-					.show();
-				this.helperGridContainer.removeClass(
-					'modula-guidelines-display'
-				);
-				if (!wp.Modula.Settings.get('helpergrid')) {
-					this.helperGrid.show();
-				}
+				this.helperGrid.show();
 
 				this.container
 					.removeClass('modula-creative-gallery')
@@ -423,9 +386,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			if ('creative-gallery' == type || 'grid' == type || 'bnb' == type) {
 				this.$el.hide();
 			} else if ('custom-grid' == type) {
-				if (!wp.Modula.Settings.get('helpergrid')) {
-					this.$el.show();
-				}
+				this.$el.show();
 
 				// Generate grid
 				this.generateGrid();
