@@ -108,11 +108,11 @@ class Modula_Field_Builder {
 			echo '</div>';
 			echo '</div>';
 			echo '<div class="buttons">';
-			echo '<button class="button" id="modula_gallery_add_action_button" >' . esc_html__( 'Add New', 'modula-best-grid-gallery' ) . ' </button>';
+			echo '<button class="button button-primary" id="modula_gallery_add_action_button" ><span class="dashicons dashicons-plus"></span>' . esc_html__( 'Add New', 'modula-best-grid-gallery' ) . ' <span class="dashicons dashicons-arrow-down"></span></button>';
 			echo '<ul id="modula_gallery_add_action" style="display:none;">';
-				echo '<li id="modula-uploader-browser">' . esc_html__( 'Upload Image', 'modula-best-grid-gallery' ) . '</li>';
-				echo '<li id="modula-wp-gallery">' . esc_html__( 'Image from Library', 'modula-best-grid-gallery' ) . '</li>';
-				do_action( 'modula_gallery_media_select_option' );
+			echo '<li id="modula-uploader-browser">' . esc_html__( 'Upload Image', 'modula-best-grid-gallery' ) . '</li>';
+			echo '<li id="modula-wp-gallery">' . esc_html__( 'Image from Library', 'modula-best-grid-gallery' ) . '</li>';
+			do_action( 'modula_gallery_media_select_option' );
 			echo '</ul>';
 			do_action( 'modula_gallery_media_button' );
 		} else {

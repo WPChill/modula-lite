@@ -102,6 +102,10 @@ class Modula_Upsells {
 		// GO PRO admim menu link
 		add_filter( 'modula_admin_page_link', array( $this, 'add_go_pro_menu_item' ) );
 		add_action( 'admin_init', array( $this, 'go_pro_redirect' ) );
+		// Add New button upsells.
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_upsells' ), 15, 1 );
+		// Add bulk editor upsell.
+		add_action( 'modula_gallery_media_button', array( $this, 'bulk_editor_upsell' ), 15, 1 );
 	}
 
 	public function generate_upsell_box( $title, $description, $tab, $features = array() ) {
@@ -1097,5 +1101,31 @@ class Modula_Upsells {
 			wp_redirect( $url );
 			exit();
 		}
+	}
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.9.3
+	 */
+	public function add_new_button_upsells() {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
+			return;
+		}
+		echo '<li id="modula-video-upsell" class="disabled">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
+		echo '<li id="modula-video-playlist-upsell" class="disabled">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
+	}
+
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.9.3
+	 */
+	public function bulk_editor_upsell() {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-pro' ) ) {
+			return;
+		}
+		echo '<div id="modula-pro-bulk-editor" class="disabled" data-gallery-id="' . esc_attr( get_the_ID() ) . '"><a href="#" class="button modula-pro-bulk-editor-button">' . esc_html__( 'Bulk Editor', 'modula-pro' ) . '</a></div>';
 	}
 }

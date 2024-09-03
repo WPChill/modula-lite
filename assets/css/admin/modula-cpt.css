@@ -2295,3 +2295,14 @@ Some responsive fixes
 	align-content: center;
 	margin-right: 15px;
 }
+
+#modula_gallery_add_action_button {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+
+#modula_gallery_add_action_button .dashicons-plus {
+	font-size:14px;
+	line-height:22px;
+}
