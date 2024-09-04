@@ -78,15 +78,13 @@ wp.Modula = 'undefined' === typeof (wp.Modula) ? {} : wp.Modula;
 
             // Check if wp.Modula.Items exist
             modula.Items = 'undefined' === typeof (modula.Items) ? new modula.items['collection']() : modula.Items;
-
             // Add this model to items
             modula.Items.addItem(this);
-
+            modula.Items.trigger('collectionUpdated');
             // Set collection index to this model
             this.set('index', modula.Items.indexOf(this));
-
             // Create item HTML
-            var view = new modula.items['view']({ model: this, 'id': 'modula-item-' + this.get('id') });
+            var view = new modula.items['view']({ model: this, 'id': 'modula-item-' + this.get('id'), 'className' : 'modula-single-image modula-index-' + wp.Modula.Items.indexOf(this) });
             this.set('view', view);
 
             if ('custom-grid' == modula.Settings.get('type')) {
@@ -184,7 +182,6 @@ wp.Modula = 'undefined' === typeof (wp.Modula) ? {} : wp.Modula;
         },
 
         initialize: function (args) {
-
             // append element to DOM
             modula.GalleryView.container.append(this.render().$el);
 
