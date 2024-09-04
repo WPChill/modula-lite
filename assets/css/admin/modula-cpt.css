@@ -2307,20 +2307,22 @@ html body ul#modula_gallery_add_action {
     position: absolute;
     z-index: 999;
     background-color: #fff;
-    border: 1px solid #8c8f94;
+    border: 1px solid #DDD;
     border-radius: 3px;
     margin-top:0;
     top: 35px;
-    right: 0px;
+    right: 0;
     width:calc(100% - 2px);
 }
 
 html body ul#modula_gallery_add_action li:not(:last-child) {
-    border-bottom: 1px solid #8c8f94;
+    border-bottom: 1px solid #DDD;
 }
 
 html body ul#modula_gallery_add_action li {
-    padding: 5px 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.5;
     cursor: pointer;
     margin: 0;
 }
@@ -2545,6 +2547,7 @@ Some responsive fixes
 * Modula Andrei toggle example
 */
 .modula-andrei-ex-toggle {
+    margin-left: 10px;
     position: relative;
     user-select: none;
     display: inline-block;
@@ -2610,7 +2613,8 @@ Some responsive fixes
 }
 
 #modula-pro-bulk-editor-upsell .button {
-    margin: 0 10px;
+    margin-left: 10px;
+    padding: 0 25px;
     color:grey;
     border-color:grey;
     position:relative;
@@ -2625,7 +2629,7 @@ Some responsive fixes
     top: -1px;
     background-color: #9c9c9c;
     padding: 2px;
-    font-size: 5px;
+    font-size: 8px;
     border-bottom-left-radius: 5px;
     color: #fff;
     border-top-right-radius: 5px;
@@ -2634,8 +2638,8 @@ Some responsive fixes
 #modula-video-upsell,
 #modula-video-playlist-upsell {
     pointer-events: none;
-    background: rgba(0, 0, 0, 0.1);
     position:relative;
+    background-color: #f6f7f7;
 }
 
 .modula-add-new-wrapper {
