@@ -1113,8 +1113,8 @@ class Modula_Upsells {
 		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
 			return;
 		}
-		echo '<li id="modula-video-upsell" class="disabled">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
-		echo '<li id="modula-video-playlist-upsell" class="disabled">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
+		echo '<li id="modula-video-upsell">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
+		echo '<li id="modula-video-playlist-upsell">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
 	}
 
 

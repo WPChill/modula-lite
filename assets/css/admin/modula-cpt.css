@@ -2309,8 +2309,10 @@ html body ul#modula_gallery_add_action {
     background-color: #fff;
     border: 1px solid #8c8f94;
     border-radius: 3px;
+    margin-top:0;
     top: 35px;
-    right: 20px;
+    right: 0px;
+    width:calc(100% - 2px);
 }
 
 html body ul#modula_gallery_add_action li:not(:last-child) {
@@ -2614,7 +2616,9 @@ Some responsive fixes
     position:relative;
 }
 
-#modula-pro-bulk-editor-upsell .button:after {
+#modula-pro-bulk-editor-upsell .button:after,
+#modula-video-upsell:after,
+#modula-video-playlist-upsell:after {
     content: 'PRO';
     position: absolute;
     right: -1px;
@@ -2625,4 +2629,15 @@ Some responsive fixes
     border-bottom-left-radius: 5px;
     color: #fff;
     border-top-right-radius: 5px;
+}
+
+#modula-video-upsell,
+#modula-video-playlist-upsell {
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.1);
+    position:relative;
+}
+
+.modula-add-new-wrapper {
+    position:relative;
 }
