@@ -44,6 +44,7 @@ class Modula_Upsells {
 
 		// Modula albums modal
 		add_action( 'wp_ajax_modula_modal-albums_upgrade', array( $this, 'get_modal_albums_upgrade' ) );
+		add_action( 'wp_ajax_modula_modal-bulk-editor_upgrade', array( $this, 'get_modal_bulk_editor_upgrade' ) );
 
 		// Albums Defaults modal
 		add_action( 'wp_ajax_modula_modal-albums-defaults_upgrade', array( $this, 'get_modal_albums_defaults_upgrade' ) );
@@ -1123,9 +1124,25 @@ class Modula_Upsells {
 	 * @since 2.9.3
 	 */
 	public function bulk_editor_upsell() {
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-pro' ) ) {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula' ) ) {
 			return;
 		}
-		echo '<div id="modula-pro-bulk-editor" class="disabled" data-gallery-id="' . esc_attr( get_the_ID() ) . '"><a href="#" class="button modula-pro-bulk-editor-button">' . esc_html__( 'Bulk Editor', 'modula-pro' ) . '</a></div>';
+		echo '<div id="modula-pro-bulk-editor-upsell" data-gallery-id="' . esc_attr( get_the_ID() ) . '"><a href="#" class="button modula-pro-bulk-editor-button">' . esc_html__( 'Bulk Editor', 'modula-best-grid-gallery' ) . '</a></div>';
+	}
+
+	/**
+	 * Show the bulk editor modal to upgrade
+	 *
+	 * @since 2.9.3
+	 */
+	public function get_modal_bulk_editor_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula' ) ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-bulk-editor-upgrade.php';
+		wp_die();
 	}
 }

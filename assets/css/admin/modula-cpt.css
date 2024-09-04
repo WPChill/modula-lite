@@ -707,7 +707,7 @@ tr[data-container="effect"] > td {
     position: -webkit-sticky;
     position: sticky;
     top: 32px; /* account for admin bar height */
-    z-index: 9999;
+    z-index: 100;
 }
 
 .modula-upload-actions .buttons {
@@ -2537,4 +2537,92 @@ Some responsive fixes
     border-left: 2px solid rgba(0, 0, 0, .15);
     padding-left: 8px;
     margin-left: 8px;
+}
+
+/*
+* Modula Andrei toggle example
+*/
+.modula-andrei-ex-toggle {
+    position: relative;
+    user-select: none;
+    display: inline-block;
+}
+
+.modula-andrei-ex-toggle .modula-andrei-ex-toggle__input {
+    display:inline-block;
+    position:relative;
+}
+
+.modula-andrei-ex-toggle input {
+    border-radius: 2px;
+    border: 2px solid #6c7781;
+    margin-right: 12px;
+    transition: none;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    border-color:red;
+}
+
+.modula-andrei-ex-toggle label {
+    background: white;
+    color: #135e96;
+    border: 1px solid #135e96;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    display:inline-block;
+}
+
+.modula-andrei-ex-toggle .modula-andrei-ex-toggle__input:first-child label {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-right: 0;
+}
+
+.modula-andrei-ex-toggle .modula-andrei-ex-toggle__input:last-child label {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.modula-andrei-ex-toggle input:checked + label {
+    background: #135e96;
+    border-color:#135e96;
+    color: white;
+}
+
+#modula-pro-bulk-editor-upsell {
+    position: relative;
+}
+
+#modula-pro-bulk-editor-upsell .button {
+    margin: 0 10px;
+    color:grey;
+    border-color:grey;
+    position:relative;
+}
+
+#modula-pro-bulk-editor-upsell .button:after {
+    content: 'PRO';
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    background-color: #9c9c9c;
+    padding: 2px;
+    font-size: 5px;
+    border-bottom-left-radius: 5px;
+    color: #fff;
+    border-top-right-radius: 5px;
 }

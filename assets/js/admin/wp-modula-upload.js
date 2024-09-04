@@ -365,9 +365,9 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					sorting;
 				// Get the upload position this way, as the user may have changed it
 				// and we need to respect the position without saving the settings
-				const uploadPosition = $('[name="modula-settings[upload_position]"]').is(':checked');
+				const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
 
-				if ( uploadPosition ) {
+				if ( 'start' === uploadPosition ) {
 					if (oldItemsCollection.length) {
 
 						sorting = selection.slice(oldItemsCollection.length, selection.length);
@@ -392,7 +392,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 						modula.Items.trigger('collectionUpdated', currentModel);
 					} else {
 						const newModel = modulaGalleryObject.generateSingleImage(attachmentAtts);
-						if ( uploadPosition ) {
+						if ( 'start' === uploadPosition ) {
 							modula.Items.add(newModel, { at: 0 });
 							modula.Items.trigger('newItemAdded', newModel);
 						}
@@ -492,9 +492,9 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			var newModel = modulaGalleryObject.generateSingleImage(response['data']);
 			// Get the upload position this way, as the user may have changed it
 			// and we need to respect the position without saving the settings
-			const uploadPosition = $('[name="modula-settings[upload_position]"]').is(':checked');
+			const uploadPosition = $('[name="modula-settings[upload_position]"]:checked').val();
 
-			if ( uploadPosition ) {
+			if ( 'start' === uploadPosition ) {
 				modula.Items.add(newModel, { at: 0 });
 				modula.Items.trigger('newItemAdded', newModel);
 				modula.GalleryView.render();

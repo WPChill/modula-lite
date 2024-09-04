@@ -251,7 +251,7 @@ class Modula_Field_Builder {
 		if ( ! empty( $modula_settings['upload_position'] ) ) {
 			$option = $modula_settings['upload_position'];
 		} else {
-			$option = '0';
+			$option = 'end';
 		}
 		echo '<div class="modula-upload-position">';
 		/**
@@ -261,8 +261,16 @@ class Modula_Field_Builder {
 		 * @since 2.9.3
 		 */
 		do_action( 'modula_admin_before_upload_position_metabox', $post );
-		echo '<span style="margin-right:20px;">' . esc_html__( 'Add new images to start of gallery ', 'modula-best-grid-gallery' ) . '</span>';
-		echo '<div class="modula-toggle"><input class="modula-toggle__input modula-no-pointer" type="checkbox"  name="modula-settings[upload_position]" value="1" ' . checked( $option, '1', false ) . '><div class="modula-toggle__items"><span class="modula-toggle__track"></span><span class="modula-toggle__thumb"></span><svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg><svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg></div></div>';
+		/*echo '<div class="modula-toggle"><input class="modula-toggle__input modula-no-pointer" type="checkbox"  name="modula-settings[upload_position]" value="1" ' . checked( $option, '1', false ) . '><div class="modula-toggle__items"><span class="modula-toggle__track"></span><span class="modula-toggle__thumb"></span><svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg><svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg></div></div>';*/
+		echo '<span>' . esc_html__( 'Add new images to gallery at ', 'modula-best-grid-gallery' ) . ' </span>';
+		echo '<div class="modula-andrei-ex-toggle">';
+		echo '<div class="modula-andrei-ex-toggle__input">';
+		echo '<input type="radio" id="modula-upload-position-start" name="modula-settings[upload_position]" value="start" ' . checked( $option, 'start', false ) . '>';
+		echo '<label for="modula-upload-position-start">' . esc_html__( 'Start', 'modula-best-grid-gallery' ) . '</label>';
+		echo '</div><div class="modula-andrei-ex-toggle__input">';
+		echo '<input type="radio" id="modula-upload-position-end" name="modula-settings[upload_position]" value="end" ' . checked( $option, 'end', false ) . '>';
+		echo '<label for="modula-upload-position-end">' . esc_html__( 'End', 'modula-best-grid-gallery' ) . '</label>';
+		echo '</div></div>';
 		/**
 		 * Fires after the upload position metabox content.
 		 *
