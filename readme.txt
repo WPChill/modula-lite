@@ -143,7 +143,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 * Give us 5 stars on [Wordpress](https://wordpress.org/support/plugin/modula-best-grid-gallery/reviews/)
 * Just recommend our plugin to your friends! or
-* Follow us on [Twitter](https://twitter.com/wpchillhq "Twitter") 
+* Follow us on [X](https://x.com/wpcontentforge "X")
 
 
 == Screenshots ==
