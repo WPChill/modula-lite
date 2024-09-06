@@ -80,11 +80,11 @@ wp.Modula = 'undefined' === typeof (wp.Modula) ? {} : wp.Modula;
             modula.Items = 'undefined' === typeof (modula.Items) ? new modula.items['collection']() : modula.Items;
             // Add this model to items
             modula.Items.addItem(this);
-            modula.Items.trigger('collectionUpdated');
+           // modula.Items.trigger('collectionUpdated');
             // Set collection index to this model
             this.set('index', modula.Items.indexOf(this));
             // Create item HTML
-            var view = new modula.items['view']({ model: this, 'id': 'modula-item-' + this.get('id'), 'className' : 'modula-single-image modula-index-' + wp.Modula.Items.indexOf(this) });
+            var view = new modula.items['view']({ model: this, 'id': 'modula-item-' + this.get('id') });
             this.set('view', view);
 
             if ('custom-grid' == modula.Settings.get('type')) {
@@ -182,8 +182,8 @@ wp.Modula = 'undefined' === typeof (wp.Modula) ? {} : wp.Modula;
         },
 
         initialize: function (args) {
-            // append element to DOM
-            modula.GalleryView.container.append(this.render().$el);
+            // append element to DOM, but before the grid container
+            modula.GalleryView.container.find('#modula-grid').before(this.render().$el);
 
             // Listen if we need to enable/disable resize.
             this.listenTo(modula.Settings, 'change:type', this.checkSettingsType);

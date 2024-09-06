@@ -123,8 +123,8 @@ class Modula_Field_Builder {
 		echo '<div id="modula-uploader-container" class="modula-uploader-inline">';
 			echo '<div class="modula-error-container"></div>';
 			echo '<div class="modula-uploader-inline-content">';
-				echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>' . esc_html__( 'Drag & Drop files here!', 'modula-best-grid-gallery' ) . '</h2>';
-				echo '<div id="modula-grid" style="display:none"></div>';
+			echo '<div id="modula-grid" style="display:none"></div>';
+			echo '<h2 class="modula-upload-message"><span class="dashicons dashicons-upload"></span>' . esc_html__( 'Drag & Drop files here!', 'modula-best-grid-gallery' ) . '</h2>';
 			echo '</div>';
 			echo '<div id="modula-dropzone-container"><div class="modula-uploader-window-content"><h1>' . esc_html__( 'Drop files to upload', 'modula-best-grid-gallery' ) . '</h1></div></div>';
 			echo '<input type="hidden" id="modula-editor-images" value="" name="modula-images" />';
