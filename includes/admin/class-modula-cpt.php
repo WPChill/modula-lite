@@ -154,10 +154,59 @@ class Modula_CPT {
 			'modula-gallery',
 			'modulaSettings',
 			array(
-				'get_callback' => function ( $post_arr ) {
-					return get_post_meta( $post_arr['id'], 'modula-settings', true );
-				},
+				'get_callback' => array( $this, 'get_gallery_settings' ),
+				'update_callback' => array( $this, 'update_gallery_settings' ),
 			)
+		);
+
+		register_rest_field(
+			'modula-gallery',
+			'modulaImages',
+			array(
+				'get_callback' => array( $this, 'get_gallery_images' ),
+				'update_callback' => array( $this, 'update_gallery_images' ),
+			)
+		);
+	}
+
+	public function get_gallery_settings( $post_arr ) {
+		return get_post_meta( $post_arr['id'], 'modula-settings', true );
+	}
+
+	public function get_gallery_images( $post_arr ) {
+		$gallery = get_post_meta( $post_arr['id'], 'modula-images', true );
+		if ( ! $gallery ) {
+			return array();
+		}
+
+		foreach ( $gallery as $k => $image ) {
+			$gallery[ $k ]['url'] = wp_get_attachment_url( $image['id'] );
+		}
+
+		return $gallery;
+	}
+
+	public function update_gallery_settings( $value, $object ) {
+		if(!current_user_can('edit_post', $object->ID)){
+			return;
+		}
+
+		update_post_meta( 
+			$object->ID,
+			'modula-settings',
+			$this->sanitize_settings( $object->ID, $value )
+		);
+	}
+
+	public function update_gallery_images( $value, $object ) {
+		if(!current_user_can('edit_post',  $object->ID)){
+			return;
+		}
+
+		update_post_meta( 
+			$object->ID,
+			'modula-images',
+			$this->sanitize_images( $value )
 		);
 	}
 
@@ -233,170 +282,179 @@ class Modula_CPT {
 		}
 
 		if ( isset( $_POST['modula-settings'] ) ) {
-
-			$fields_with_tabs = Modula_CPT_Fields_Helper::get_fields( 'all' );
-
-			// Here we will save all our settings
-			$modula_settings = array();
-
-			// We will save only our settings.
-			foreach ( $fields_with_tabs as $tab => $fields ) {
-
-				// We will iterate through all fields of current tab
-				foreach ( $fields as $field_id => $field ) {
-
-					if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
-
-						// Values for selects
-						$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
-						$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
-						$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
-
-						switch ( $field_id ) {
-							case 'description':
-								$modula_settings[ $field_id ] = wp_filter_post_kses( $_POST['modula-settings'][ $field_id ] );
-								break;
-							case 'randomFactor':
-							case 'captionFontSize':
-							case 'titleFontSize':
-							case 'loadedScale':
-							case 'inView':
-							case 'borderSize':
-							case 'borderRadius':
-							case 'shadowSize':
-							case 'socialIconSize':
-							case 'socialIconPadding':
-								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
-								break;
-							case 'lightbox':
-								if ( in_array( $_POST['modula-settings'][ $field_id ], $lightbox_values ) ) {
-									$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-								} else {
-									$modula_settings[ $field_id ] = 'fancybox';
-								}
-								break;
-							case 'enableSocial':
-							case 'enableTwitter':
-							case 'enableWhatsapp':
-							case 'enableFacebook':
-							case 'enablePinterest':
-							case 'enableEmail':
-								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-								break;
-							case 'imageMessage':
-								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-								break;
-							case 'galleryMessage':
-								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-								break;
-							case 'shuffle':
-								if ( isset( $_POST['modula-settings'][ $field_id ] ) ) {
-									$modula_settings[ $field_id ] = '1';
-								} else {
-									$modula_settings[ $field_id ] = '0';
-								}
-								break;
-							case 'captionColor':
-							case 'socialIconColor':
-							case 'borderColor':
-							case 'shadowColor':
-								$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-								break;
-							case 'effect':
-								if ( in_array( $_POST['modula-settings'][ $field_id ], $effect_values ) ) {
-									$modula_settings[ $field_id ] = $_POST['modula-settings'][ $field_id ];
-								} else {
-									$modula_settings[ $field_id ] = 'pufrobo';
-								}
-								break;
-							case 'gutterInput':
-								$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
-								break;
-							case 'height':
-								$modula_settings[ $field_id ] = array_map( 'absint', $_POST['modula-settings'][ $field_id ] );
-								break;
-							default:
-								$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
-								switch ( $data_type ) {
-									case 'text':
-										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
-											$modula_settings[ $field_id ] = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-										} else {
-											$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-										}
-										break;
-									case 'number':
-										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
-											$modula_settings[ $field_id ] = array_map( 'absint', $_POST['modula-settings'][ $field_id ] );
-										} else {
-
-											$modula_settings[ $field_id ] = absint( $_POST['modula-settings'][ $field_id ] );
-										}
-										break;
-									case 'bool':
-										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
-											$modula_settings[ $field_id ] = array_map( 'rest_sanitize_boolean', $_POST['modula-settings'][ $field_id ] );
-										} else {
-											$modula_settings[ $field_id ] = rest_sanitize_boolean( $_POST['modula-settings'][ $field_id ] );
-										}
-										break;
-									default:
-										if ( is_array( $_POST['modula-settings'][ $field_id ] ) ) {
-											$sanitized                    = array_map( 'sanitize_text_field', wp_unslash( $_POST['modula-settings'][ $field_id ] ) );
-											$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $_POST['modula-settings'][ $field_id ] ), $field_id, $field );
-										} else {
-											$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $_POST['modula-settings'][ $field_id ] ) ), $_POST['modula-settings'][ $field_id ], $field_id, $field );
-										}
-										break;
-								}
-
-								break;
-						}
-					} else {
-						if ( 'toggle' == $field['type'] ) {
-							$modula_settings[ $field_id ] = '0';
-						} elseif ( 'hidden' == $field['type'] ) {
-
-							$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
-							if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
-								$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
-							} else {
-								$modula_settings[ $field_id ] = 'modula-general';
-							}
-						} else {
-							$modula_settings[ $field_id ] = '';
-						}
-					}
-				}
-			}
-
-			// Save the value of helpergrid
-			if ( isset( $_POST['modula-settings']['helpergrid'] ) ) {
-				$modula_settings['helpergrid'] = 1;
-			} else {
-				$modula_settings['helpergrid'] = 0;
-			}
-
-			// Add settings to gallery meta
+			$modula_settings = $this->sanitize_settings( $post_id, $_POST['modula-settings'] );
+			// Add settings to gallery meta			
 			update_post_meta( $post_id, 'modula-settings', $modula_settings );
 
 		}
 
 		if ( isset( $_POST['modula-images'] ) ) {
-
-			$old_images = get_post_meta( $post_id, 'modula-images', true );
-			$images     = json_decode( stripslashes( $_POST['modula-images'] ), true );
-			$new_images = array();
-
-			if ( is_array( $images ) ) {
-				foreach ( $images as $image ) {
-					$new_images[] = $this->sanitize_image( $image );
-				}
-			}
-			update_post_meta( $post_id, 'modula-images', $new_images );
+			$modula_images = $this->sanitize_images( $_POST['modula-images'] );
+			update_post_meta( $post_id, 'modula-images', $modula_images );
 		}
 	}
 
+
+	private function sanitize_settings( $post_id, $settings ) {
+		$fields_with_tabs = Modula_CPT_Fields_Helper::get_fields( 'all' );
+		// Here we will save all our settings
+		$modula_settings = array();
+
+		// We will save only our settings.
+		foreach ( $fields_with_tabs as $tab => $fields ) {
+
+			// We will iterate through all fields of current tab
+			foreach ( $fields as $field_id => $field ) {
+				if ( isset( $settings[ $field_id ] ) ) {
+
+					// Values for selects
+					$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
+					$effect_values   = apply_filters( 'modula_effect_values', array( 'none', 'pufrobo' ) );
+					$cursor_value    = apply_filters( 'modula_cursor_values', array( 'pointer', 'zoom-in' ) );
+
+					switch ( $field_id ) {
+						case 'description':
+							$modula_settings[ $field_id ] = wp_filter_post_kses( $settings[ $field_id ] );
+							break;
+						case 'randomFactor':
+						case 'captionFontSize':
+						case 'titleFontSize':
+						case 'loadedScale':
+						case 'inView':
+						case 'borderSize':
+						case 'borderRadius':
+						case 'shadowSize':
+						case 'socialIconSize':
+						case 'socialIconPadding':
+							$modula_settings[ $field_id ] = absint( $settings[ $field_id ] );
+							break;
+						case 'lightbox':
+							if ( in_array( $settings[ $field_id ], $lightbox_values ) ) {
+								$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
+							} else {
+								$modula_settings[ $field_id ] = 'fancybox';
+							}
+							break;
+						case 'enableSocial':
+						case 'enableTwitter':
+						case 'enableWhatsapp':
+						case 'enableFacebook':
+						case 'enablePinterest':
+						case 'enableEmail':
+							$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
+							break;
+						case 'imageMessage':
+							$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
+							break;
+						case 'galleryMessage':
+							$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
+							break;
+						case 'shuffle':
+							if ( isset( $settings[ $field_id ] ) ) {
+								$modula_settings[ $field_id ] = '1';
+							} else {
+								$modula_settings[ $field_id ] = '0';
+							}
+							break;
+						case 'captionColor':
+						case 'socialIconColor':
+						case 'borderColor':
+						case 'shadowColor':
+							$modula_settings[ $field_id ] = Modula_Helper::sanitize_rgba_colour( wp_unslash( $settings[ $field_id ] ) );
+							break;
+						case 'effect':
+							if ( in_array( $settings[ $field_id ], $effect_values ) ) {
+								$modula_settings[ $field_id ] = $settings[ $field_id ];
+							} else {
+								$modula_settings[ $field_id ] = 'pufrobo';
+							}
+							break;
+						case 'gutterInput':
+							$modula_settings[ $field_id ] = absint( $settings[ $field_id ] );
+							break;
+						case 'height':
+							$modula_settings[ $field_id ] = array_map( 'absint', $settings[ $field_id ] );
+							break;
+						default:
+							$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
+							switch ( $data_type ) {
+								case 'text':
+									if ( is_array( $settings[ $field_id ] ) ) {
+										$modula_settings[ $field_id ] = array_map( 'sanitize_text_field', wp_unslash( $settings[ $field_id ] ) );
+									} else {
+										$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
+									}
+									break;
+								case 'number':
+									if ( is_array( $settings[ $field_id ] ) ) {
+										$modula_settings[ $field_id ] = array_map( 'absint', $settings[ $field_id ] );
+									} else {
+
+										$modula_settings[ $field_id ] = absint( $settings[ $field_id ] );
+									}
+									break;
+								case 'bool':
+									if ( is_array( $settings[ $field_id ] ) ) {
+										$modula_settings[ $field_id ] = array_map( 'rest_sanitize_boolean', $settings[ $field_id ] );
+									} else {
+										$modula_settings[ $field_id ] = rest_sanitize_boolean( $settings[ $field_id ] );
+									}
+									break;
+								default:
+									if ( is_array( $settings[ $field_id ] ) ) {
+										$sanitized                    = array_map( 'sanitize_text_field', wp_unslash( $settings[ $field_id ] ) );
+										$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', $sanitized, wp_unslash( $settings[ $field_id ] ), $field_id, $field );
+									} else {
+										$modula_settings[ $field_id ] = apply_filters( 'modula_settings_field_sanitization', sanitize_text_field( wp_unslash( $settings[ $field_id ] ) ), $settings[ $field_id ], $field_id, $field );
+									}
+									break;
+							}
+
+							break;
+					}
+				} else {
+					if ( 'toggle' == $field['type'] ) {
+						$modula_settings[ $field_id ] = '0';
+					} elseif ( 'hidden' == $field['type'] ) {
+
+						$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
+						if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
+							$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
+						} else {
+							$modula_settings[ $field_id ] = 'modula-general';
+						}
+					} else {
+						$modula_settings[ $field_id ] = '';
+					}
+				}
+			}
+		}
+
+
+		// Save the value of helpergrid
+		if ( isset( $settings['helpergrid'] ) ) {
+			$modula_settings['helpergrid'] = 1;
+		} else {
+			$modula_settings['helpergrid'] = 0;
+		}
+
+		return $modula_settings;
+	}
+	private function sanitize_images($images){
+		$sane_images     = is_string( $images ) ? json_decode( stripslashes( $images ), true ) : $images;
+		$new_images = array();
+
+		if ( !is_array( $sane_images ) ) {
+			return array();
+		}
+
+		foreach ( $sane_images as $image ) {
+			$new_images[] = $this->sanitize_image( $image );
+		}
+
+		return $new_images;
+
+	}
 	private function sanitize_image( $image ) {
 
 		$new_image = array();
