@@ -96,7 +96,7 @@ class Modula_Ajax_Migrator {
 		global $wpdb;
 		$sql = $wpdb->prepare(
 			"SELECT * FROM $wpdb->posts WHERE guid LIKE %s",
-			'%/' . $source_file
+			'%/' . str_replace( '-scaled', '', $source_file )
 		);
 
 		$queried = $wpdb->get_results( $sql );
@@ -106,7 +106,7 @@ class Modula_Ajax_Migrator {
 				'ID'      => $queried[0]->ID,
 				'title'   => $queried[0]->post_title,
 				'alt'     => get_post_meta( $queried[0]->ID, '_wp_attachment_image_alt', true ),
-				'caption' => $queried[0]->post_content
+				'caption' => ! empty( $description ) ? $description : $queried[0]->post_content,
 			);
 		}
 
