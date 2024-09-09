@@ -1,6 +1,7 @@
 = 2.10.0 - TBD =
 Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )
 Fixed: Not importing sourge-gallery captions for existing media images. ( [#904]( https://github.com/WPChill/modula-lite/issues/904) )
+Fixed: Admin table listing error when searching for string containing %s. ( [#1036]( https://github.com/WPChill/modula-lite/issues/1036) )
 
 = 2.9.1 - 14.08.2024 =
 Fixed: PHP warning: undefined key. ( [#1018]( https://github.com/WPChill/modula-lite/issues/1018) )
