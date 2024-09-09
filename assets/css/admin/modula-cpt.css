@@ -1662,7 +1662,7 @@ Scaling Effect Preview
 
 /* Autocomplete z-index fix */
 
-.ui-autocomplete {
+html body.post-type-modula-gallery .ui-autocomplete {
   z-index: 160000;
   background: white;
   font-family: inherit;

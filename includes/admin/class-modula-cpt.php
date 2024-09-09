@@ -1080,29 +1080,36 @@ class Modula_CPT {
 			'post_type'    => $this->cpt_name,
 		);
 
+		$search = false;
 		if ( isset( $_GET['s'] ) ){
-			$args['s'] = sanitize_text_field( $_GET['s'] );
+			$search = sanitize_text_field( $_GET['s'] );
 		}
-
-		$type_url = add_query_arg(
-			$args,
-			admin_url( 'edit.php' )
-		);
 
 		$fields = array_merge( $fields['type']['values'], isset( $fields['type']['disabled']['values'] ) ? $fields['type']['disabled']['values'] : array() );
 
 		foreach( $fields as $type => $text ){
+			
+			$type_url = add_query_arg(
+				$args,
+				admin_url( 'edit.php' )
+			);
+			
 			if( ! isset( $gallery_types[$type] ) ){
 				continue;
 			}
+
 			$count = count( $gallery_types[$type] );
-			$views[$type] = sprintf( 
-				'<a href="'. esc_url( $type_url ) .'" %s > %s (%s) </a>',
-				$type,
-				isset( $_GET['gallery_type'] ) && $type === $_GET['gallery_type'] ? 'class="current" aria-current="page"' : '',
-				$text,
-				$count
-			);
+
+			$type_url = sprintf( $type_url, $type );
+
+			if( $search ) {
+				$type_url = add_query_arg( array( 's' => $search ), $type_url );
+			}
+
+			$attributes = isset( $_GET['gallery_type'] ) && $type === $_GET['gallery_type'] ? 'class="current" aria-current="page"' : '';
+
+			$views[$type] = '<a href="'. esc_url( $type_url ) .'" '. $attributes .' > ' . esc_html( $text ) . ' (' . esc_html( $count) . ') </a>';
+
 		}
 
 		return $views;
