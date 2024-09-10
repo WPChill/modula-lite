@@ -225,6 +225,7 @@ class Modula_CPT {
 		return $submenu_file;
 	}
 
+
 	public function meta_boxes_setup() {
 
 		/* Add meta boxes on the 'add_meta_boxes' hook. */
@@ -430,12 +431,11 @@ class Modula_CPT {
 			}
 		}
 
-
-		// Save the value of helpergrid
-		if ( isset( $settings['helpergrid'] ) ) {
-			$modula_settings['helpergrid'] = 1;
+		// Save the value of upload_position.
+		if ( isset( $_POST['modula-settings']['upload_position'] ) ) {
+			$modula_settings['upload_position'] = sanitize_text_field( wp_unslash( $_POST['modula-settings']['upload_position'] ) );
 		} else {
-			$modula_settings['helpergrid'] = 0;
+			$modula_settings['upload_position'] = 'end';
 		}
 
 		return $modula_settings;

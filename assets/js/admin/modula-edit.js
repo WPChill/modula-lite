@@ -140,6 +140,15 @@
 		modulaOpenModal
 	);
 
+	$('body').on(
+		'click',
+		'#modula-pro-bulk-editor-upsell .button',
+		{
+			upsell: 'bulk-editor',
+		},
+		modulaOpenModal
+	);
+
 	jQuery(window).on('load', function () {
 		let searchParams = new URLSearchParams(window.location.search);
 		if (

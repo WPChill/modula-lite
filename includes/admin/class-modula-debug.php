@@ -18,7 +18,7 @@ class Modula_Debug {
 	 * @since 2.5.0
 	 */
 	function __construct() {
-		// Add Modula's debug information
+		// Add Modula's debug information.
 		add_filter( 'debug_information', array( $this, 'modula_debug_information' ), 60, 1 );
 
 		add_action( 'admin_init', array( $this, 'modula_export_gallery' ) );
@@ -27,8 +27,10 @@ class Modula_Debug {
 		add_action( 'load-post.php', array( $this, 'debug_meta_box_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'debug_meta_box_setup' ) );
 
-		// Hide debug gallery by default
+		// Hide debug gallery by default.
 		add_filter( 'hidden_meta_boxes', array( $this, 'hide_meta_box' ), 10, 2 );
+		// Default hidden meta boxes.
+		add_filter( 'default_hidden_meta_boxes', array( $this, 'hide_debug_box' ), 15, 2 );
 	}
 
 
@@ -326,15 +328,19 @@ class Modula_Debug {
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
 		$user_id = get_current_user_id();
-		if ( $user_id === 0 ) {
+		if ( 0 === $user_id ) {
 			return $hidden;
 		}
 
 		$user_meta = get_user_meta( $user_id, 'metaboxhidden_modula-gallery', true );
-		//make sure we are dealing with the correct screen
+		// If there is not data in the user meta, return meta boxes.
+		if ( empty( $user_meta ) ) {
+			return $hidden;
+		}
+		// make sure we are dealing with the correct screen.
 		if ( ( 'post' === $screen->base ) &&
-			( 'modula-gallery' === $screen->id ) &&
-			( is_array( $user_meta ) && in_array( 'modula-debug', $user_meta ) ) ) {
+		     ( 'modula-gallery' === $screen->id ) &&
+		     ( is_array( $user_meta ) && in_array( 'modula-debug', $user_meta ) ) ) {
 			$hidden[] = 'modula-debug';
 		}
 
@@ -373,6 +379,23 @@ class Modula_Debug {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Default hidden debug meta box
+	 *
+	 * @param  array   $hidden  The hidden meta boxes.
+	 * @param  object  $screen  The current screen.
+	 *
+	 * @return array
+	 * @since 2.10.0
+	 */
+	public function hide_debug_box( $hidden, $screen ) {
+		if ( 'post' === $screen->base && 'modula-gallery' === $screen->id ) {
+			$hidden[] = 'modula-debug';
+		}
+
+		return $hidden;
 	}
 }
 

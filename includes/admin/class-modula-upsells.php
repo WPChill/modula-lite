@@ -44,6 +44,7 @@ class Modula_Upsells {
 
 		// Modula albums modal
 		add_action( 'wp_ajax_modula_modal-albums_upgrade', array( $this, 'get_modal_albums_upgrade' ) );
+		add_action( 'wp_ajax_modula_modal-bulk-editor_upgrade', array( $this, 'get_modal_bulk_editor_upgrade' ) );
 
 		// Albums Defaults modal
 		add_action( 'wp_ajax_modula_modal-albums-defaults_upgrade', array( $this, 'get_modal_albums_defaults_upgrade' ) );
@@ -102,6 +103,10 @@ class Modula_Upsells {
 		// GO PRO admim menu link
 		add_filter( 'modula_admin_page_link', array( $this, 'add_go_pro_menu_item' ) );
 		add_action( 'admin_init', array( $this, 'go_pro_redirect' ) );
+		// Add New button upsells.
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_upsells' ), 15, 1 );
+		// Add bulk editor upsell.
+		add_action( 'modula_gallery_media_button', array( $this, 'bulk_editor_upsell' ), 15, 1 );
 	}
 
 	public function generate_upsell_box( $title, $description, $tab, $features = array() ) {
@@ -1097,5 +1102,47 @@ class Modula_Upsells {
 			wp_redirect( $url );
 			exit();
 		}
+	}
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.10.0
+	 */
+	public function add_new_button_upsells() {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
+			return;
+		}
+		echo '<li id="modula-video-upsell">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
+		echo '<li id="modula-video-playlist-upsell">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
+	}
+
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.10.0
+	 */
+	public function bulk_editor_upsell() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula' ) ) {
+			return;
+		}
+		echo '<div id="modula-pro-bulk-editor-upsell" data-gallery-id="' . esc_attr( get_the_ID() ) . '"><a href="#" class="button modula-pro-bulk-editor-button">' . esc_html__( 'Bulk Editor', 'modula-best-grid-gallery' ) . '</a></div>';
+	}
+
+	/**
+	 * Show the bulk editor modal to upgrade
+	 *
+	 * @since 2.9.3
+	 */
+	public function get_modal_bulk_editor_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula' ) ) {
+			wp_die();
+		}
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-bulk-editor-upgrade.php';
+		wp_die();
 	}
 }

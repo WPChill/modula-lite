@@ -4,7 +4,7 @@ Tags: best gallery plugin, image gallery, video gallery, free gallery, wordpress
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.9.5
+Stable tag: 2.10.0
 
 License: GNU General Public License v3.0 or later
 The WordPress gallery plugin that's highly customizable & you can use to impress your clients. Create beautiful image galleries in minutes.
@@ -143,7 +143,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 * Give us 5 stars on [Wordpress](https://wordpress.org/support/plugin/modula-best-grid-gallery/reviews/)
 * Just recommend our plugin to your friends! or
-* Follow us on [Twitter](https://twitter.com/wpchillhq "Twitter") 
+* Follow us on [X](https://x.com/wpcontentforge "X")
 
 
 == Screenshots ==
@@ -154,6 +154,11 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+
+= 2.10.0 - 10.09.2024 =
+Fixed: Debug metabox default to off ( [#1035]( https://github.com/WPChill/modula-lite/issues/1035) )
+Added: Image upload position choice, users can now choose where to upload images in the gallery. ( [#1015](https://github.com/WPChill/modula-lite/issues/1015) )
+Changed: UI improvements for the gallery edit page. ( [#1034](https://github.com/WPChill/modula-lite/issues/1034) )
 
 = 2.9.5 - 09.09.2024 =
 Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )
