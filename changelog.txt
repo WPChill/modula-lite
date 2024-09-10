@@ -1,3 +1,6 @@
+= 2.10.1 - TBD =
+Changed: Hide instead of disable admin settings on parent change. ( [#1031]( https://github.com/WPChill/modula-lite/issues/1031) )
+
 = 2.9.5 - 09.09.2024 =
 Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )
 Fixed: Not importing sourge-gallery captions for existing media images. ( [#904]( https://github.com/WPChill/modula-lite/issues/904) )
