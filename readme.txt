@@ -23,13 +23,15 @@ Modula is the best WordPress gallery plugin for adding custom, unique, and respo
 – Social buttons for image sharing are Twitter, Facebook, WhatsApp, LinkedIn, Pinterest, and Email. See the demo for social sharing.
 – Import/Export tool: great for moving your galleries to another site without jumping through hoops.
 – Custom CSS personalization
+- Upload positioning control, set if new images are added at the start or end of your gallery
 – Social buttons for image sharing: Twitter, Facebook, Whatsapp, LinkedIn, Pinterest, Email. [See demo for social sharing](https://demo.wp-modula.com/demo/social-effect/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
 
 **Now for the Premium version:**
 
+- [Bulk Edit](https://wp-modula.com/kb/how-to-bulk-edit-your-images?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Easily edit multiple images at once, saving up precious development time.
 – [Defaults](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
 – [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
-– [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): improve the user experience with your galleries by presenting the images in a stunning slideshow.  
+– [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): improve the user experience with your galleries by presenting the images in a stunning slideshow.
 – [Slider gallery](https://wp-modula.com/kb/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
 – [Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Apply one or more filters to your images to allow your website’s visitors to easily sort through your gallery.
 – [Albums](https://wp-modula.com/kb/modula-albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Let’s say you are going on a holiday trip and wish to document each day in a separate gallery. The Albums extension will allow you to group up all your holiday galleries in a single listing, enabling easy access to your precious memories.
@@ -45,7 +47,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique, and respo
 
 https://www.youtube.com/watch?v=NxrTXQNExh4
 
-To insert a gallery onto a WordPress post/page all you need to do is copy the shortcode from your Modula gallery edit page. 
+To insert a gallery onto a WordPress post/page all you need to do is copy the shortcode from your Modula gallery edit page.
 
 Your shortcode will look just like this:
 
@@ -128,8 +130,8 @@ YES! Whether you have galleries created with NextGEN, FooGallery, Envira Gallery
 
 = The layout doesn't look correct =
 
-Check the console of the browser and look if you see any error like: "Uncaught TypeError: undefined is not a function" 
-This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin. 
+Check the console of the browser and look if you see any error like: "Uncaught TypeError: undefined is not a function"
+This errors means that the browser doesn't know the Modula JavaScript plugin, most of the time the problem is caused by a wrong jQuery inclusion by the theme or another plugin.
 
 = Why does some image look blurry ? =
 
@@ -214,12 +216,12 @@ Fixed: Gallery deug metabox won't stay on. ( [#1005]( https://github.com/WPChill
 Added: Support for Modula Image SEO addon
 Changed: Compatibility for Modula Slider with Fancybox Carousel & Guttenberg block ( [#991]( https://github.com/WPChill/modula-lite/issues/991) )
 
-= 2.8.13 – 26.06.2024 = 
+= 2.8.13 – 26.06.2024 =
 Changed: Optimize galleries DB count chech for onboarding display. ( [#978]( https://github.com/WPChill/modula-lite/issues/978) )
 Fixed: Removed lightbox double zoom button fancybox 5 compatibility. ( [#982]( https://github.com/WPChill/modula-lite/issues/982) )
 Fixed: Admin settings tooltip display over icon radio. ( [#984]( https://github.com/WPChill/modula-lite/issues/984) )
 
-= 2.8.12 – 13.06.2024 = 
+= 2.8.12 – 13.06.2024 =
 Added: Options to change lightbox transition and slide animation
 Fixed: Modula Albums compatibility function resets album js config settings. ( [#975]( https://github.com/WPChill/modula-lite/issues/975) )
 
@@ -307,5 +309,5 @@ You can read the complete changelog [here](https://github.com/WPChill/modula-lit
 
 == Upgrade Notice ==
 
-= 2.8.14 =
-* This update indroduces an integration with ImageSEO for an easy to use image optimization functionality and improvements to the Modula Slider.
+= 2.10.0 =
+* This update indroduces the control for upload position of new gallery images and several edit gallery layout improvements.
