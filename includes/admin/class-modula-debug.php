@@ -384,11 +384,11 @@ class Modula_Debug {
 	/**
 	 * Default hidden debug meta box
 	 *
-	 * @param  array   $hidden  The hidden meta boxes
-	 * @param  object  $screen  The current screen
+	 * @param  array   $hidden  The hidden meta boxes.
+	 * @param  object  $screen  The current screen.
 	 *
 	 * @return array
-	 * @since 2.9.3
+	 * @since 2.10.0
 	 */
 	public function hide_debug_box( $hidden, $screen ) {
 		if ( 'post' === $screen->base && 'modula-gallery' === $screen->id ) {
