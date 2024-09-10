@@ -28,7 +28,7 @@ Modula is the best WordPress gallery plugin for adding custom, unique, and respo
 
 **Now for the Premium version:**
 
-- [Bulk Edit](https://wp-modula.com/kb/how-to-bulk-edit-your-images?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Easily edit multiple images at once, saving up precious development time.
+- [Bulk Edit](https://wp-modula.com/kb/how-to-bulk-edit-your-images?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Easily edit multiple images at once, saving up precious configuration time.
 – [Defaults](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
 – [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
 – [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): improve the user experience with your galleries by presenting the images in a stunning slideshow.
