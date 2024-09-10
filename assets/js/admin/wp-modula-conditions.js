@@ -345,21 +345,12 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
 
-			if (1 == value && currentRow.hasClass('modula_accordion_open')) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (1 == value) {
+			if (1 == value) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child.setting_state(this, 'on');
 				child.show();
 			}
 		});
-
-		if (1 != value) {
-			currentRow.addClass('modula_accordion_open');
-		}
 	},
 
 	hideCaption: function (settings, value) {
