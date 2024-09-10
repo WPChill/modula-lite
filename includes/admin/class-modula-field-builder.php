@@ -243,7 +243,7 @@ class Modula_Field_Builder {
 	 *
 	 * @param  object  $post  The current post object.
 	 *
-	 * @since 2.9.3
+	 * @since 2.10.0
 	 */
 	private function render_upload_position_metabox( $post ) {
 		$modula_settings = get_post_meta( $post->ID, 'modula-settings', true );
@@ -258,7 +258,7 @@ class Modula_Field_Builder {
 		 * Fires before the upload position metabox content.
 		 *
 		 * @param  object  $post  The current post object.
-		 * @since 2.9.3
+		 * @since 2.10.0
 		 */
 		do_action( 'modula_admin_before_upload_position_metabox', $post );
 		/*echo '<div class="modula-toggle"><input class="modula-toggle__input modula-no-pointer" type="checkbox"  name="modula-settings[upload_position]" value="1" ' . checked( $option, '1', false ) . '><div class="modula-toggle__items"><span class="modula-toggle__track"></span><span class="modula-toggle__thumb"></span><svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg><svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg></div></div>';*/

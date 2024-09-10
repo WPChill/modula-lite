@@ -1107,7 +1107,7 @@ class Modula_Upsells {
 	/**
 	 * Add upsells to the Add New image button when editing a gallery
 	 *
-	 * @since 2.9.3
+	 * @since 2.10.0
 	 */
 	public function add_new_button_upsells() {
 		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
@@ -1121,7 +1121,7 @@ class Modula_Upsells {
 	/**
 	 * Add upsells to the Add New image button when editing a gallery
 	 *
-	 * @since 2.9.3
+	 * @since 2.10.0
 	 */
 	public function bulk_editor_upsell() {
 
