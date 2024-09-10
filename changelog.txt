@@ -1,3 +1,8 @@
+= 2.9.5 - 09.09.2024 =
+Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )
+Fixed: Not importing sourge-gallery captions for existing media images. ( [#904]( https://github.com/WPChill/modula-lite/issues/904) )
+Fixed: Admin table listing error when searching for string containing %s. ( [#1036]( https://github.com/WPChill/modula-lite/issues/1036) )
+
 = 2.9.4 - 30.08.2024 =
 Removed: Build files from repository.
 
