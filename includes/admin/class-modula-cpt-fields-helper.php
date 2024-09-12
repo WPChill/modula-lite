@@ -841,7 +841,6 @@ class Modula_CPT_Fields_Helper {
 			'gutter'                => 10,
 			'mobile_gutter'         => 10,
 			'tablet_gutter'         => 10,
-			'helpergrid'            => 0,
 			'lazy_load'             => 1,
 			'grid_type'             => 'automatic',
 			'grid_image_size'       => 'medium',

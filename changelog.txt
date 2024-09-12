@@ -1,5 +1,9 @@
 = 2.10.1 - TBD =
 Changed: Hide instead of disable admin settings on parent change. ( [#1031]( https://github.com/WPChill/modula-lite/issues/1031) )
+= 2.10.0 - 10.09.2024 =
+Fixed: Debug metabox default to off ( [#1035]( https://github.com/WPChill/modula-lite/issues/1035) )
+Added: Image upload position choice, users can now choose where to upload images in the gallery. ( [#1015](https://github.com/WPChill/modula-lite/issues/1015) )
+Changed: UI improvements for the gallery edit page. ( [#1034](https://github.com/WPChill/modula-lite/issues/1034) )
 
 = 2.9.5 - 09.09.2024 =
 Fixed: Compatibility with ACF Pro ( [#937]( https://github.com/WPChill/modula-lite/issues/937) )

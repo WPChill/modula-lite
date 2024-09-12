@@ -217,7 +217,7 @@ class Modula_Dashboard {
                         </div>
                         <div class="wpchill_dashboard_item_content">
                             <p class="wpchill_dashboard_item_text"> <?php esc_html_e( 'Create your amazing gallery using Modula.', 'modula-best-grid-gallery' ); ?> </p>
-                            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt . '&page=modula-addons' ) ); ?>"
+                            <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=' . $this->plugin_cpt ) ); ?>"
                                class="wpchill_dashboard_item_button">
 								<?php esc_html_e( 'View Extensions', 'modula-best-grid-gallery' ); ?> <span
                                         class="dashicons dashicons-arrow-right-alt"></span>

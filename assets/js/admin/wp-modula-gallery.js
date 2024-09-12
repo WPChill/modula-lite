@@ -52,19 +52,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				size;
 
 			/* 
-        	   We will calculate the size ( width and height, because every item is a square ) of an item.
-    		   The formula is : from the container size we will subtract gutter * number of columns and then we will dived by number of columns
-        	 */
+			   We will calculate the size ( width and height, because every item is a square ) of an item.
+			   The formula is : from the container size we will subtract gutter * number of columns and then we will dived by number of columns
+			 */
 			size = Math.floor(
 				(containerWidth - gutter * (columns - 1)) / columns
 			);
 			this.set('size', size);
 		},
 		/* 
-           Here we will calculate the new size of the item.
-           This will be called after resize event, that means the item is resized and we need to check it.
-           currentSize is the new size of the item after we resized it.
-         */
+		   Here we will calculate the new size of the item.
+		   This will be called after resize event, that means the item is resized and we need to check it.
+		   currentSize is the new size of the item after we resized it.
+		 */
 		calculateSize: function (currentSize) {
 			var size = this.get('size'),
 				columns = Math.round(currentSize / size),
@@ -166,18 +166,8 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			// This is the container where the gallery items are.
 			this.container = this.$el.find('.modula-uploader-inline-content');
 
-			// Helper Grid container
-			this.helperGridContainer = this.$el
-				.parent()
-				.find('.modula-helper-guidelines-container');
 			this.helperGrid = this.$el.find('#modula-grid');
-
-			// Listen to grid toggle
-			this.helperGridContainer.on(
-				'change',
-				'input',
-				$.proxy(this.updateSettings, this)
-			);
+			this.helperGrid.show();
 
 			// Listent when gallery type is changing.
 			this.listenTo(
@@ -196,21 +186,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			});
 		},
 
-		updateSettings: function (event) {
-			var value,
-				setting = event.target.dataset.setting;
-
-			value = event.target.checked ? 1 : 0;
-
-			wp.Modula.Settings.set('helpergrid', value);
-
-			if (value) {
-				this.helperGrid.hide();
-			} else {
-				this.helperGrid.show();
-			}
-		},
-
 		checkSettingsType: function (model, value) {
 			this.checkGalleryType(value);
 		},
@@ -227,10 +202,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					this.enableSortable();
 				}
 
-				this.helperGridContainer.addClass('modula-guidelines-display');
-				this.helperGridContainer
-					.find('.modula-helper-guidelines-wrapper')
-					.hide();
 				this.container
 					.removeClass('modula-custom-grid')
 					.addClass('modula-creative-gallery');
@@ -245,15 +216,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 					this.enableResizeble();
 				}
 
-				this.helperGridContainer
-					.find('.modula-helper-guidelines-wrapper')
-					.show();
-				this.helperGridContainer.removeClass(
-					'modula-guidelines-display'
-				);
-				if (!wp.Modula.Settings.get('helpergrid')) {
-					this.helperGrid.show();
-				}
+				this.helperGrid.show();
 
 				this.container
 					.removeClass('modula-creative-gallery')
@@ -357,6 +320,19 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 				packaryOptions.options[option] = value;
 			}
 		},
+		removeView: function () {
+			// Remove the view from the DOM and unbind events
+			this.remove();
+			this.unbind();
+			// Optionally remove any custom events associated with the view
+			this.off();
+		},
+
+		reinitialize: function (options) {
+			// Reinitialize the view with new options
+			this.removeView();  // Clean up the view first
+			this.initialize(options);  // Reinitialize with new options
+		}
 	});
 
 	var modulaGalleryGrid = Backbone.View.extend({
@@ -410,9 +386,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 			if ('creative-gallery' == type || 'grid' == type || 'bnb' == type) {
 				this.$el.hide();
 			} else if ('custom-grid' == type) {
-				if (!wp.Modula.Settings.get('helpergrid')) {
-					this.$el.show();
-				}
+				this.$el.show();
 
 				// Generate grid
 				this.generateGrid();
