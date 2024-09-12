@@ -159,6 +159,8 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 = 2.10.1 - TBD =
 Changed: Hide instead of disable admin settings on parent change. ( [#1031]( https://github.com/WPChill/modula-lite/issues/1031) )
+Fixed: PHP warning: undefined value.( [#1041]( https://github.com/WPChill/modula-lite/issues/1041) )
+
 = 2.10.0 - 10.09.2024 =
 Fixed: Debug metabox default to off ( [#1035]( https://github.com/WPChill/modula-lite/issues/1035) )
 Added: Image upload position choice, users can now choose where to upload images in the gallery. ( [#1015](https://github.com/WPChill/modula-lite/issues/1015) )
