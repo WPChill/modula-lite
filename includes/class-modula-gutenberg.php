@@ -50,7 +50,6 @@ class Modula_Gutenberg {
 				'editor_style'    => 'modula-gutenberg',
 			)
 		);
-
 	}
 
 	/**
@@ -94,6 +93,15 @@ class Modula_Gutenberg {
 	 * @since 2.5.0
 	 */
 	public function generate_js_vars() {
+		// Initialize WPChill upsell class
+		$args           = apply_filters(
+			'modula_upsells_args',
+			array(
+				'shop_url' => 'https://wp-modula.com',
+				'slug'     => 'modula',
+			)
+		);
+		$wpchill_upsell = WPChill_Upsells::get_instance( $args );
 
 		wp_localize_script(
 			'modula-gutenberg',
@@ -106,10 +114,10 @@ class Modula_Gutenberg {
 					'nonce'          => wp_create_nonce( 'modula_nonce' ),
 					'gutenbergTitle' => esc_html__( 'Modula Gallery', 'modula-best-grid-gallery' ),
 					'restURL'        => get_rest_url(),
+					'proInstalled'   => $wpchill_upsell && $wpchill_upsell->is_upgradable_addon( 'modula-defaults' ) ? 'false' : 'true',
 				)
 			)
 		);
-
 	}
 
 	/**
@@ -129,14 +137,11 @@ class Modula_Gutenberg {
 		}
 
 		if ( isset( $atts['galleryType'] ) && 'gallery' !== $atts['galleryType'] ) {
-
 			$html = apply_filters( 'modula_render_defaults_block', 'An error occurred', $atts );
 
 			return $html;
 		} else {
-
 			return '[modula id=' . absint( $atts['id'] ) . ' align=' . esc_attr( $atts['align'] ) . ']';
-
 		}
 	}
 
@@ -163,11 +168,10 @@ class Modula_Gutenberg {
 		}
 
 		foreach ( $images as $key => $value ) :
-
-			if( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ){
+			if ( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ) {
 				$image_obj = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
 
-				if( ! $image_obj ){
+				if ( ! $image_obj ) {
 					continue;
 				}
 
@@ -176,24 +180,23 @@ class Modula_Gutenberg {
 				$images[ $key ]['data-height'] = $images[ $key ]['height'];
 				$images[ $key ]['width']       = $image_obj[1];
 				$images[ $key ]['height']      = $image_obj[2];
-			}else{
-				$images[ $key ]['src']         = $value['video_thumbnail'];
-				$images[ $key ]['video_type']  = false;
-				if( class_exists( 'Modula_Video' ) ){
-					$images[ $key ]['src']         = Modula_Video::video_link_formatter( $value['video_url'] );
+			} else {
+				$images[ $key ]['src']        = $value['video_thumbnail'];
+				$images[ $key ]['video_type'] = false;
+				if ( class_exists( 'Modula_Video' ) ) {
+					$images[ $key ]['src'] = Modula_Video::video_link_formatter( $value['video_url'] );
 					if ( strpos( $value['video_url'], 'youtu' ) !== false || strpos( $value['video_url'], 'vimeo' ) !== false ) {
 						$images[ $key ]['video_type'] = 'iframe';
 					} else {
 						$images[ $key ]['video_type'] = 'hosted';
 					}
 				}
-				
+
 				$images[ $key ]['data-width']  = $value['video_width'];
 				$images[ $key ]['data-height'] = $value['video_height'];
 				$images[ $key ]['width']       = $value['video_width'];
 				$images[ $key ]['height']      = $value['video_height'];
 			}
-
 		endforeach;
 
 		wp_send_json( $images );
@@ -207,7 +210,7 @@ class Modula_Gutenberg {
 	 * @since 2.5.0
 	 */
 	public function get_jsconfig() {
-		if( !isset( $_POST['nonce'] ) ) {
+		if ( ! isset( $_POST['nonce'] ) ) {
 			wp_send_json_error( 'no nonce' );
 			die();
 		}
@@ -246,7 +249,7 @@ class Modula_Gutenberg {
 	 * @param string $effect Selected effect so we can check if we add title and caption to it.
 	 */
 	public function check_hover_effect( $effect ) {
-		if( !isset( $_POST['nonce'] ) ) {
+		if ( ! isset( $_POST['nonce'] ) ) {
 			wp_send_json_error( 'no nonce' );
 			die();
 		}
@@ -265,13 +268,12 @@ class Modula_Gutenberg {
 		wp_send_json( $effect_check );
 
 		die();
-
 	}
 
 	public function get_gallery() {
 
 		$nonce = '';
-		if( isset( $_GET['nonce'] ) ){
+		if ( isset( $_GET['nonce'] ) ) {
 			$nonce = $_GET['nonce'];
 		}
 
@@ -297,11 +299,7 @@ class Modula_Gutenberg {
 		}
 
 		wp_send_json( $suggestions );
-
 	}
-
 }
 
 new Modula_Gutenberg();
-
-

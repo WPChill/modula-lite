@@ -826,7 +826,7 @@ var ModulaEdit = function ModulaEdit(props) {
           galleryType: 'gallery'
         });
       }
-    }, edit_('Display An Existing Gallery', 'modula-best-grid-gallery'), utils_icons.chevronRightFancy), undefined == props.attributes.proInstalled && galleries.length > 0 && /*#__PURE__*/React.createElement(edit_Button, {
+    }, edit_('Display An Existing Gallery', 'modula-best-grid-gallery'), utils_icons.chevronRightFancy), !attributes.proInstalled && galleries.length > 0 && /*#__PURE__*/React.createElement(edit_Button, {
       href: "https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell",
       className: "modula-button-upsell",
       isSecondary: true,
@@ -962,6 +962,10 @@ var ModulaGutenberg = /*#__PURE__*/function () {
         currentSelectize: {
           type: 'array',
           "default": []
+        },
+        proInstalled: {
+          type: 'boolean',
+          "default": 'true' === modulaVars.proInstalled
         }
       };
       registerBlockType(this.blockName, {

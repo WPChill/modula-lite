@@ -54,6 +54,10 @@ class ModulaGutenberg {
 				type: 'array',
 				default: [],
 			},
+			proInstalled: {
+				type: 'boolean',
+				default: 'true' === modulaVars.proInstalled,
+			},
 		};
 
 		registerBlockType(this.blockName, {
