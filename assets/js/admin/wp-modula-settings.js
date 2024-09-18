@@ -156,9 +156,6 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 						.removeAttr('disabled');
 				} else {
 					child.css('opacity', '0.5');
-					child
-						.find('input, textarea, select, button')
-						.attr('disabled', 'disabled');
 				}
 
 				if (row.hasClass('modula_accordion_open')) {
