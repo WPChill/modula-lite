@@ -1163,8 +1163,8 @@ class Modula_Upsells {
 		}
 		?>
 		<div class="modula-settings-tab-upsell">
-				<h3><?php esc_html_e( 'Modula Video Integrations', 'modula-best-grid-gallery' ); ?></h3>
-				<p><?php esc_html_e( 'In order to use this tab please make sure to install Modula Video from here.', 'modula-best-grid-gallery' ); ?></p>
+				<h3><?php esc_html_e( 'Modula Video', 'modula-best-grid-gallery' ); ?></h3>
+				<p><?php esc_html_e( 'Adding a video gallery with self-hosted videos or videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ); ?></p>
 				<p>
 					<?php
 
