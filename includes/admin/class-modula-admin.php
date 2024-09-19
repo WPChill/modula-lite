@@ -144,7 +144,7 @@ class Modula_Admin {
         	),
 			'video' => array(
 				'label'    => esc_html__('Video', 'modula-best-grid-gallery'),
-				'priority' => 90,
+				'priority' => 110,
 				'badge'    => 'PRO'
 			),
 		);
