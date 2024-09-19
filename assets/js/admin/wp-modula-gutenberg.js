@@ -251,12 +251,15 @@ var ModulaGalleryImageInner = function ModulaGalleryImageInner(props) {
     img = props.img,
     hideTitle = props.hideTitle,
     hideDescription = props.hideDescription,
-    hideSocial = props.hideSocial;
+    hideSocial = props.hideSocial,
+    index = props.index;
   var effectArray = ['tilt_1', 'tilt_3', 'tilt_7'],
     overlayArray = ['tilt_3', 'tilt_7'],
     svgArray = ['tilt_1', 'tilt_7'],
     jtgBody = ['lily', 'centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming'];
-  return [/*#__PURE__*/React.createElement(ModulaGalleryImageInner_Fragment, null, effectArray.includes(settings.effect) && /*#__PURE__*/React.createElement("div", {
+  return [/*#__PURE__*/React.createElement(ModulaGalleryImageInner_Fragment, {
+    key: index
+  }, effectArray.includes(settings.effect) && /*#__PURE__*/React.createElement("div", {
     className: "tilter__deco tilter__deco--shine"
   }, /*#__PURE__*/React.createElement("div", null)), overlayArray.includes(settings.effect) && /*#__PURE__*/React.createElement("div", {
     className: "tilter__deco tilter__deco--overlay"
@@ -364,6 +367,7 @@ var ModulaGalleryImage = function ModulaGalleryImage(props) {
     settings: settings,
     img: img,
     index: index,
+    key: index,
     hideTitle: effectCheck && effectCheck.title ? false : true,
     hideDescription: effectCheck && effectCheck.description ? false : true,
     hideSocial: effectCheck && effectCheck.social ? false : true,
@@ -822,7 +826,7 @@ var ModulaEdit = function ModulaEdit(props) {
           galleryType: 'gallery'
         });
       }
-    }, edit_('Display An Existing Gallery', 'modula-best-grid-gallery'), utils_icons.chevronRightFancy), undefined == props.attributes.proInstalled && galleries.length > 0 && /*#__PURE__*/React.createElement(edit_Button, {
+    }, edit_('Display An Existing Gallery', 'modula-best-grid-gallery'), utils_icons.chevronRightFancy), !attributes.proInstalled && galleries.length > 0 && /*#__PURE__*/React.createElement(edit_Button, {
       href: "https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell",
       className: "modula-button-upsell",
       isSecondary: true,
@@ -958,6 +962,10 @@ var ModulaGutenberg = /*#__PURE__*/function () {
         currentSelectize: {
           type: 'array',
           "default": []
+        },
+        proInstalled: {
+          type: 'boolean',
+          "default": 'true' === modulaVars.proInstalled
         }
       };
       registerBlockType(this.blockName, {

@@ -394,7 +394,7 @@ class Modula {
 		$screen = get_current_screen();
 
 		// Check if we are on the media upload page.
-		if ( $screen->base !== 'upload' && $screen->base !== 'media_page_upload' ) {
+		if ( ! isset( $screen->base ) || ( 'upload' !== $screen->base && 'media_page_upload' !== $screen->base ) ) {
 			return;
 		}
 

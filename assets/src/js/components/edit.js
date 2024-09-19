@@ -262,7 +262,7 @@ export const ModulaEdit = (props) => {
 									{icons.chevronRightFancy}
 								</Button>
 							)}
-							{undefined == props.attributes.proInstalled &&
+							{!attributes.proInstalled &&
 								galleries.length > 0 && (
 									<Button
 										href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_campaign=upsell"

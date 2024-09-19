@@ -75,6 +75,7 @@ const ModulaGalleryImage = (props) => {
 						settings={settings}
 						img={img}
 						index={index}
+						key={index}
 						hideTitle={
 							effectCheck && effectCheck.title ? false : true
 						}

@@ -79,6 +79,8 @@ class Modula_Upsells {
 		add_action( 'modula_admin_tab_watermark', array( $this, 'render_watermark_tab' ) );
 		add_action( 'modula_admin_tab_roles', array( $this, 'render_roles_tab' ) );
 		add_action( 'modula_admin_tab_whitelabel', array( $this, 'render_whitelabel_tab' ) );
+		// Add upsell for the Video tab.
+		add_filter( 'modula_admin_tab_video', array( $this, 'video_settings_tab_upsell' ) );
 
 		// Remove upsells badge if user's license includes the addon
 		add_filter( 'modula_admin_page_tabs', array( $this, 'remove_upsells_badge' ), 999 );
@@ -1144,5 +1146,35 @@ class Modula_Upsells {
 
 		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-bulk-editor-upgrade.php';
 		wp_die();
+	}
+
+	/**
+	 * Video tab upsell
+	 *
+	 * @param string $tab_content The tab content.
+	 * @return string
+	 *
+	 * @since 2.10.1
+	 */
+	public function video_settings_tab_upsell( $tab_content ) {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
+			return;
+		}
+		?>
+		<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Video', 'modula-best-grid-gallery' ); ?></h3>
+				<p><?php esc_html_e( 'Adding a video gallery with self-hosted videos or videos from sources like YouTube and Vimeo to your website has never been easier.', 'modula-best-grid-gallery' ); ?></p>
+				<p>
+					<?php
+
+					$buttons  = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-video_tab_upsell-tab&utm_campaign=modula-video" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-video' );
+					?>
+				</p>
+			</div>
+		<?php
 	}
 }

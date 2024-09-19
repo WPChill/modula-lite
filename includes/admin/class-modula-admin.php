@@ -142,6 +142,11 @@ class Modula_Admin {
 				'priority' => 85,
 				'badge'    => 'PRO'
         	),
+			'video' => array(
+				'label'    => esc_html__('Video', 'modula-best-grid-gallery'),
+				'priority' => 125,
+				'badge'    => 'PRO'
+			),
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 

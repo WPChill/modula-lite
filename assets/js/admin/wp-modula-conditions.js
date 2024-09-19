@@ -4,10 +4,12 @@ jQuery.fn.setting_state = function (el, state) {
 	if (state == 'off') {
 		this.css('opacity', '0.5');
 		this.find('input, textarea, select, button').addClass('modula-no-pointer');
+		this.hide();
 	}
 	if (state == 'on') {
 		this.css('opacity', '1');
 		this.find('input, textarea, select, button').removeClass('modula-no-pointer');
+		this.show();
 	}
 };
 
@@ -238,10 +240,7 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
 
-			if (0 == value && currentRow.hasClass('modula_accordion_open')) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (0 == value) {
+			if (0 == value) {
 				child.hide();
 			} else {
 				child.setting_state( this, 'on');
@@ -251,6 +250,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		if (0 != value) {
 			currentRow.addClass('modula_accordion_open');
+		} else {
+			currentRow.removeClass('modula_accordion_open');
 		}
 
 		this.enableEmail(false, wp.Modula.Settings.get('enableEmail'));
@@ -282,29 +283,21 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
-
+			
 			if (
-				(0 == value || 0 == wp.Modula.Settings.get('enableSocial')) &&
-				currentRow.hasClass('modula_accordion_open')
-			) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (
 				0 == value ||
 				0 == wp.Modula.Settings.get('enableSocial')
 			) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child
-					.find('input, textarea, select, button')
-					.removeAttr('disabled');
 				child.show();
 			}
 		});
 
 		if (1 == value && 1 == wp.Modula.Settings.get('enableSocial')) {
 			currentRow.addClass('modula_accordion_open');
+		} else {
+			currentRow.removeClass('modula_accordion_open');
 		}
 	},
 
@@ -316,22 +309,17 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
 
-			if (0 == value && currentRow.hasClass('modula_accordion_open')) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (0 == value) {
+			if (0 == value) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child
-					.find('input, textarea, select, button')
-					.removeAttr('disabled');
 				child.show();
 			}
 		});
 
 		if (1 == value) {
 			currentRow.addClass('modula_accordion_open');
+		} else {
+			currentRow.removeClass('modula_accordion_open');
 		}
 	},
 
@@ -345,24 +333,23 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
 
-			if (1 == value && currentRow.hasClass('modula_accordion_open')) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (1 == value) {
+			if (1 == value) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child.setting_state(this, 'on');
 				child.show();
+				child.setting_state(this, 'on');
 			}
 		});
 
 		if (1 != value) {
 			currentRow.addClass('modula_accordion_open');
+		}else{
+			currentRow.removeClass('modula_accordion_open');
 		}
 	},
 
 	hideCaption: function (settings, value) {
+
 		var rows = this.get('rows'),
 			currentRow = rows.filter('[data-container="hide_description"]'),
 			children = currentRow.data('children');
@@ -372,20 +359,18 @@ var modulaGalleryConditions = Backbone.Model.extend({
 		jQuery.each(children, function (index, item) {
 			var child = jQuery('[data-container="' + item + '"]');
 
-			if (1 == value && currentRow.hasClass('modula_accordion_open')) {
-				child.setting_state(this, 'off');
-				child.show();
-			} else if (1 == value) {
+			 if (1 == value) {
 				child.hide();
 			} else {
-				child.css('opacity', '1');
-				child.setting_state(this, 'on');
 				child.show();
+				child.setting_state(this, 'on');
 			}
 		});
 
 		if (1 != value) {
 			currentRow.addClass('modula_accordion_open');
+		}else{
+			currentRow.removeClass('modula_accordion_open');
 		}
 	},
 
