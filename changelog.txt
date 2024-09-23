@@ -1,3 +1,6 @@
+= 2.10.2 - TBA =
+Added: Multiple columns for the Masonry gallery type
+
 = 2.10.1 - 19.09.2024 =
 Changed: Hide instead of disable admin settings on parent change. ( [#1031]( https://github.com/WPChill/modula-lite/issues/1031) )
 Fixed: PHP warning: undefined value.( [#1041]( https://github.com/WPChill/modula-lite/issues/1041) )
