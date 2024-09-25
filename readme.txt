@@ -159,6 +159,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 = 2.10.2 - TBA =
 Added: Multiple columns for the Masonry gallery type
+Fixed: Sanitize captions for fancybox (security fix)
 
 = 2.10.1 - 19.09.2024 =
 Changed: Hide instead of disable admin settings on parent change. ( [#1031]( https://github.com/WPChill/modula-lite/issues/1031) )

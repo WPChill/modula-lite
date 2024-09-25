@@ -48,9 +48,10 @@ if ('undefined' !== typeof jQuery) {
 // Main lightbox object.
 var modulaFancybox = {
     open: function (links, opts, index) {
+        console.log(DOMPurify);
         links.forEach(function (value, index) {
             if (typeof value.opts.caption !== 'undefined') {
-                links[index]['caption'] = value.opts.caption;
+                links[index]['caption'] = DOMPurify.sanitize(value.opts.caption);
             }
             if (typeof value.opts.thumb !== 'undefined') {
                 links[index]['thumb'] = value.opts.thumb;
@@ -194,3 +195,4 @@ String.prototype.template = function (d) {
         return o;
     });
 };
+
