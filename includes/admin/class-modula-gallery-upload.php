@@ -36,6 +36,7 @@ class Modula_Gallery_Upload {
 	 * @since 2.10.3
 	 */
 	private function __construct() {
+		add_action( 'admin_init', array( $this, 'set_default_browser_dir' ), 15 );
 	}
 
 	/**
@@ -68,6 +69,16 @@ class Modula_Gallery_Upload {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Set the default directory for the media browser. By default, it's the uploads directory.
+	 *
+	 * @return void
+	 */
+	public function set_default_browser_dir() {
+		$uploads           = wp_upload_dir();
+		$this->default_dir = apply_filters( 'modula_gallery_upload_default_dir', $uploads['basedir'] );
 	}
 }
 
