@@ -53,22 +53,6 @@ class Modula_Gallery_Upload {
 
 		return self::$instance;
 	}
-
-	/**
-	 * Check if the user has the rights to upload files
-	 *
-	 * @return bool
-	 *
-	 * @since 2.10.3
-	 */
-	public function check_user_upload_rights() {
-		// Check if the user has the rights to upload files and edit posts.
-		if ( ! current_user_can( 'upload_files' ) || ! current_user_can( 'edit_posts' ) ) {
-			return false;
-		}
-
-		return true;
-	}
 }
 
 Modula_Gallery_Upload::get_instance();
