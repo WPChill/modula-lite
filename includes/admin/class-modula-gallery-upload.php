@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles the fast gallery creation from uploaded .zip file
  * or from a choosen folder with images that reside on the server
  *
- * @since 2.10.3
+ * @since 2.11.0
  */
 
 class Modula_Gallery_Upload {
@@ -19,7 +19,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @var Modula_Gallery_Upload
 	 *
-	 * @since 2.10.3
+	 * @since 2.11.0
 	 */
 	public static $instance = null;
 
@@ -33,10 +33,13 @@ class Modula_Gallery_Upload {
 	/**
 	 * Class constructor
 	 *
-	 * @since 2.10.3
+	 * @since 2.11.0
 	 */
 	private function __construct() {
+		// Set the default directory for the media browser
 		add_action( 'admin_init', array( $this, 'set_default_browser_dir' ), 15 );
+		// Add the Browser button
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_folder_browser_button' ), 15 );
 	}
 
 	/**
@@ -44,7 +47,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @return Modula_Gallery_Upload
 	 *
-	 * @since 2.10.3
+	 * @since 2.11.0
 	 */
 	public static function get_instance() {
 
@@ -60,7 +63,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @return bool
 	 *
-	 * @since 2.10.3
+	 * @since 2.11.0
 	 */
 	public function check_user_upload_rights() {
 		// Check if the user has the rights to upload files and edit posts.
@@ -79,6 +82,21 @@ class Modula_Gallery_Upload {
 	public function set_default_browser_dir() {
 		$uploads           = wp_upload_dir();
 		$this->default_dir = apply_filters( 'modula_gallery_upload_default_dir', $uploads['basedir'] );
+	}
+
+	/**
+	 * Output the Upload from folder button
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function add_folder_browser_button() {
+		?>
+		<li id="modula-uploader-folder-browser">
+			<?php esc_html_e( 'Upload from folder', 'modula-best-grid-gallery' ); ?>
+		</li>
+		<?php
 	}
 }
 
