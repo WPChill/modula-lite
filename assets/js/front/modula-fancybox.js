@@ -48,7 +48,6 @@ if ('undefined' !== typeof jQuery) {
 // Main lightbox object.
 var modulaFancybox = {
     open: function (links, opts, index) {
-        console.log(DOMPurify);
         links.forEach(function (value, index) {
             if (typeof value.opts.caption !== 'undefined') {
                 links[index]['caption'] = DOMPurify.sanitize(value.opts.caption);

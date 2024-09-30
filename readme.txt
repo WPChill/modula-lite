@@ -157,7 +157,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
-= 2.10.2 - TBA =
+= 2.10.2 - 30.09.2024 =
 Added: Multiple columns for the Masonry gallery type
 Fixed: Sanitize captions for fancybox (security fix)
 
