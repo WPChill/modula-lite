@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles the fast gallery creation from uploaded .zip file
  * or from a choosen folder with images that reside on the server
  *
- * @since 2.10.2
+ * @since 2.10.3
  */
 
 class Modula_Gallery_Upload {
@@ -19,7 +19,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @var Modula_Gallery_Upload
 	 *
-	 * @since 2.10.2
+	 * @since 2.10.3
 	 */
 	public static $instance = null;
 
@@ -33,7 +33,7 @@ class Modula_Gallery_Upload {
 	/**
 	 * Class constructor
 	 *
-	 * @since 2.10.2
+	 * @since 2.10.3
 	 */
 	private function __construct() {
 		add_action( 'admin_init', array( $this, 'set_default_browser_dir' ), 15 );
@@ -44,7 +44,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @return Modula_Gallery_Upload
 	 *
-	 * @since 2.10.2
+	 * @since 2.10.3
 	 */
 	public static function get_instance() {
 
@@ -60,7 +60,7 @@ class Modula_Gallery_Upload {
 	 *
 	 * @return bool
 	 *
-	 * @since 2.10.2
+	 * @since 2.10.3
 	 */
 	public function check_user_upload_rights() {
 		// Check if the user has the rights to upload files and edit posts.
