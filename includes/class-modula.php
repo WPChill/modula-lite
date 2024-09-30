@@ -97,8 +97,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
-			// Modula Upload Class.
-			require_once MODULA_PATH . 'includes/admin/class-modula-gallery-upload.php';
+
 		}
 	}
 
