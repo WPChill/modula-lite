@@ -1,0 +1,30 @@
+ul.modula_file_browser {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+    padding:15px;
+}
+
+ul.modula_file_browser li {
+    list-style-type: none;
+}
+
+ul.modula_file_browser li a{
+    text-decoration: none;
+    color:#2271b1;
+}
+
+ul.modula_file_browser li a::before {
+    content: "\f139";
+    font-family: dashicons;
+    margin-right: 5px;
+}
+
+ul.modula_file_browser li.folder_open > a::before {
+    content: "\f140";
+}
+
+#modula_create_gallery {
+   margin-top:30px;
+}
