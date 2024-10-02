@@ -204,6 +204,10 @@ class Modula_Gallery_Upload {
 		if ( ! isset( $_POST['path'] ) ) {
 			die();
 		}
+		$checked = false;
+		if ( ! empty( $_POST['input-checked'] ) && 'true' === $_POST['input-checked'] ) {
+			$checked = true;
+		}
 
 		$path = sanitize_text_field( wp_unslash( $_POST['path'] ) );
 		// List all files
@@ -211,7 +215,7 @@ class Modula_Gallery_Upload {
 		foreach ( $files as $found_file ) {
 			// Multi-byte-safe pathinfo
 			$file = $this->mb_pathinfo( $found_file['path'] );
-			echo '<li><input type="checkbox" value="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '"><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
+			echo '<li><input type="checkbox" value="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '" ' . checked( $checked, true, false ) . '><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
 		}
 
 		die();
@@ -257,7 +261,7 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>new ModulaBrowseForFile();</script>';
+			echo '<script>const modulaBrowser = new ModulaBrowseForFile();modulaBrowser.fileBrowser(); </script>';
 			echo '</body></html>';
 		}
 	}
@@ -317,6 +321,7 @@ class Modula_Gallery_Upload {
 				'browseFolder' => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
 				'noSubfolders' => __( 'No subfolders found', 'modula-best-grid-gallery' ),
 				'security'     => wp_create_nonce( 'list-files' ),
+				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 			)
 		);
 	}
