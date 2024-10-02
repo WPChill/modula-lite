@@ -43,9 +43,11 @@ class Modula_Gallery_Upload {
 		// Create the media browser.
 		add_action( 'media_upload_modula_file_browser', array( $this, 'media_browser' ) );
 		// AJAX list files.
-		add_action( 'wp_ajax_modula_list_files', array( $this, 'ajax_list_files' ) );
+		add_action( 'wp_ajax_modula_list_files', array( $this, 'ajax_list_folders' ) );
 		// Add required scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// AJAX check paths.
+		add_action( 'wp_ajax_modula_check_paths', array( $this, 'ajax_check_paths' ) );
 	}
 
 	/**
@@ -102,14 +104,13 @@ class Modula_Gallery_Upload {
 	public function add_folder_browser_button() {
 		?>
 		<li id="modula-uploader-folder-browser">
-			<?php esc_html_e( 'Upload from folder', 'modula-best-grid-gallery' ); ?>
+		<?php esc_html_e( 'Upload from folder', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
 	}
 
 	/**
-	* Returns a listing of all files in the specified folder and all subdirectories up to 100 levels deep.
-	* The depth of the recursiveness can be controlled by the $levels param.
+	* Returns a listing of all folders in the specified folder.
 	*
 	* @access public
 	*
@@ -119,18 +120,9 @@ class Modula_Gallery_Upload {
 
 	* @since 2.11.0
 	*/
-	public function list_files( $folder = '' ) {
+	public function list_folders( $folder = '' ) {
 		// If no folder is specified, return false
-		if ( empty( $folder ) ) {
-			return false;
-		}
-		// If not dir, return false
-		if ( ! is_dir( $folder ) ) {
-			return false;
-		}
-		// If the folder does not exist, return false
-		$files_folders = scandir( $folder );
-		if ( ! $files_folders ) {
+		if ( ! $this->check_folder( $folder ) ) {
 			return false;
 		}
 
@@ -138,18 +130,18 @@ class Modula_Gallery_Upload {
 		// By default, the sorted order is alphabetical in ascending order
 		$files = array_diff( scandir( $folder ), array( '..', '.' ) );
 
-		$dlm_files = array();
+		$modula_folders = array();
 
 		foreach ( $files as $file ) {
 			if ( ! is_dir( $folder . '/' . $file ) ) {
 				continue;
 			}
-			$dlm_files[] = array(
+			$modula_folders[] = array(
 				'path' => $folder . '/' . $file,
 			);
 		}
 
-		return $dlm_files;
+		return $modula_folders;
 	}
 
 	/**
@@ -185,14 +177,14 @@ class Modula_Gallery_Upload {
 	}
 
 	/**
-	 * List browser files
+	 * List browser folders
 	 *
 	 * @access public
 	 * @return void
 	 *
 	 * @since 2.11.0
 	 */
-	public function ajax_list_files() {
+	public function ajax_list_folders() {
 		// Check Nonce
 		check_ajax_referer( 'list-files', 'security' );
 
@@ -211,7 +203,7 @@ class Modula_Gallery_Upload {
 
 		$path = sanitize_text_field( wp_unslash( $_POST['path'] ) );
 		// List all files
-		$files = $this->list_files( $path );
+		$files = $this->list_folders( $path );
 		foreach ( $files as $found_file ) {
 			// Multi-byte-safe pathinfo
 			$file = $this->mb_pathinfo( $found_file['path'] );
@@ -248,7 +240,7 @@ class Modula_Gallery_Upload {
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
 			// Get files based on path.
-			$files = $this->list_files( $this->default_dir, 1 );
+			$files = $this->list_folders( $this->default_dir, 1 );
 			if ( ! empty( $files ) ) {
 				// Cycle through files.
 				foreach ( $files as $found_file ) {
@@ -324,6 +316,75 @@ class Modula_Gallery_Upload {
 				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 			)
 		);
+	}
+
+	/**
+	 * Paths validation
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_check_paths() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		// Check user rights
+		if ( ! $this->check_user_upload_rights() ) {
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! isset( $_POST['paths'] ) ) {
+			wp_send_json_error( __( 'No paths were provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$paths   = wp_unslash( $_POST['paths'] );
+		$folders = array();
+		if ( is_array( $paths ) ) {
+			$paths = array_map( 'sanitize_text_field', $paths );
+			foreach ( $paths as $path ) {
+				if ( $this->check_folder( $path ) ) {
+					// Retrieve the files here.
+					$files[] = $path;
+				}
+			}
+		} else {
+			$paths = sanitize_text_field( $paths );
+			if ( $this->check_folder( $paths ) ) {
+				// Retrieve the files here.
+				$folders[] = $paths;
+			}
+		}
+
+		// If no valid paths were provided, return an error
+		if ( empty( $folders ) ) {
+			wp_send_json_error( __( 'No valid paths were provided.', 'modula-best-grid-gallery' ) );
+		}
+		// Return the files
+		wp_send_json_success( $folders );
+	}
+
+	/**
+	 * Check for empty or non folders
+	 *
+	 * @param string $folder
+	 * @return void
+	 */
+	public function check_folder( $folder ) {
+		// If no folder is specified, return false
+		if ( empty( $folder ) ) {
+			return false;
+		}
+		// If not dir, return false
+		if ( ! is_dir( $folder ) ) {
+			return false;
+		}
+		// If the folder does not exist, return false
+		$files_folders = scandir( $folder );
+		if ( ! $files_folders ) {
+			return false;
+		}
+		return true;
 	}
 }
 
