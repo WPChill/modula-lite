@@ -232,7 +232,10 @@ class Modula_Gallery_Upload {
 	public function media_browser() {
 		// If we have paths, show them in the file browser
 		if ( ! empty( $this->default_dir ) ) {
-			echo '<!DOCTYPE html><html lang="en"><head><title>' . esc_html__( 'Modula folder browser', 'modula-best-grid-gallery' ) . '</title>';
+			$this->enqueue_browser_scripts();
+			echo '<!DOCTYPE html><html lang="en">';
+			echo '<head><title>' . esc_html__( 'Modula folder browser', 'modula-best-grid-gallery' ) . '</title>';
+			echo '<meta charset="utf-8" />';
 			// print_emoji_styles is deprecated and triggers a PHP warning.
 			remove_action( 'admin_print_styles', 'print_emoji_styles' );
 			do_action( 'admin_print_styles' ); // phpcs:ignore
@@ -240,9 +243,8 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_head' ); // phpcs:ignore
 			// re-add print_emoji_styles.
 			add_action( 'admin_print_styles', 'print_emoji_styles' );
-
-			echo '<meta charset="utf-8" /></head><body>';
-
+			echo '</head><body class="wp-core-ui">';
+			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
 			// Get files based on path.
@@ -251,7 +253,7 @@ class Modula_Gallery_Upload {
 				// Cycle through files.
 				foreach ( $files as $found_file ) {
 					$file = pathinfo( $found_file['path'] );
-					echo '<li><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
+					echo '<li><input type="checkbox" value="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '"><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
 				}
 			}
 			echo '</ul>';
@@ -286,6 +288,9 @@ class Modula_Gallery_Upload {
 			'modulaGalleryUpload',
 			array(
 				'browseFolder' => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
+				'noSubfolders' => __( 'No subfolders found', 'modula-best-grid-gallery' ),
+				'security'     => wp_create_nonce( 'list-files' ),
+				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 			)
 		);
 		wp_enqueue_style( 'media-upload' );
