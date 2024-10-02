@@ -204,6 +204,10 @@ class Modula_Gallery_Upload {
 		if ( ! isset( $_POST['path'] ) ) {
 			die();
 		}
+		$checked = false;
+		if ( ! empty( $_POST['input-checked'] ) && 'true' === $_POST['input-checked'] ) {
+			$checked = true;
+		}
 
 		$path = sanitize_text_field( wp_unslash( $_POST['path'] ) );
 		// List all files
@@ -211,7 +215,7 @@ class Modula_Gallery_Upload {
 		foreach ( $files as $found_file ) {
 			// Multi-byte-safe pathinfo
 			$file = $this->mb_pathinfo( $found_file['path'] );
-			echo '<li><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
+			echo '<li><input type="checkbox" value="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '" ' . checked( $checked, true, false ) . '><a href="#" class="folder" data-path="' . esc_attr( trailingslashit( $file['dirname'] ) ) . esc_attr( $file['basename'] ) . '">' . esc_html( $file['basename'] ) . '</a></li>';
 		}
 
 		die();
@@ -251,43 +255,11 @@ class Modula_Gallery_Upload {
 				}
 			}
 			echo '</ul>';
-			?>
-			<script type="text/javascript">
-				jQuery(function () {
-					jQuery('.modula_file_browser').on('click', 'a', function () {
-
-						var $link   = jQuery(this);
-						var $parent = $link.closest('li');
-						if ($link.is('.folder_open')) {
-							$parent.find('ul').remove();
-							$link.removeClass('folder_open');
-						} else {
-							$link.after('<ul class="load_tree loading"></ul>');
-
-							var data = {
-								action  : 'modula_list_files',
-								path    : jQuery(this).attr('data-path'),
-								security: '<?php echo esc_js( wp_create_nonce( 'list-files' ) ); ?>'
-							};
-
-							jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function (response) {
-
-								$link.addClass('folder_open');
-
-								if (response) {
-									$parent.find('.load_tree').html(response);
-								} else {
-									$parent.find('.load_tree').html('<li class="nofiles"><?php echo esc_html__( 'No files found', 'modula-best-grid-gallery' ); ?></li>');
-								}
-								$parent.find('.load_tree').removeClass('load_tree loading');
-
-							});
-						}
-						return false;
-					});
-				});
-			</script>
-			<?php
+			echo '<a href="#" class="button button-primary" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
+			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
+			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
+			do_action( 'admin_footer' ); // phpcs:ignore
+			echo '<script>const modulaBrowser = new ModulaBrowseForFile();modulaBrowser.fileBrowser(); </script>';
 			echo '</body></html>';
 		}
 	}
@@ -318,6 +290,35 @@ class Modula_Gallery_Upload {
 		);
 		wp_enqueue_style( 'media-upload' );
 		wp_enqueue_style( 'thickbox' );
+	}
+
+	/**
+	 * Enqueue browser scripts
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function enqueue_browser_scripts() {
+		// Enqueue Modula browser styles.
+		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
+		// Enqueue Dashicons.
+		wp_enqueue_style( 'dashicons' );
+		// Enqueue buttons styles.
+		wp_enqueue_style( 'buttons' );
+		// Enqueue the Modula Gallery Upload script.
+		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
+		// Localize the script
+		wp_localize_script(
+			'modula-gallery-upload',
+			'modulaGalleryUpload',
+			array(
+				'browseFolder' => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
+				'noSubfolders' => __( 'No subfolders found', 'modula-best-grid-gallery' ),
+				'security'     => wp_create_nonce( 'list-files' ),
+				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
+			)
+		);
 	}
 }
 
