@@ -58,6 +58,7 @@ class ModulaBrowseForFile {
 				instance.addFolderClick( e.target );
 			}
 		} );
+		instance.foldersValidation();
 	}
 	/**
 	 * Add folder click
@@ -106,6 +107,84 @@ class ModulaBrowseForFile {
 			);
 		}
 		return false;
+	}
+	/**
+	 *  Validate folders
+	 *
+	 * @since 2.11.0
+	 */
+	foldersValidation() {
+		const instance = this,
+			modulaSendFoldersButton = document.getElementById(
+				'modula_create_gallery'
+			);
+
+		modulaSendFoldersButton.addEventListener( 'click', function ( e ) {
+			e.preventDefault();
+			const checkedInputsEl = document.querySelectorAll(
+					'input[type="checkbox"]:checked'
+				),
+				checkedInputs = Array.from( checkedInputsEl ),
+				paths = checkedInputs.map( ( input ) => input.value );
+			const response = instance.checkPaths( paths );
+			if ( ! response ) {
+				// Sed error message
+			}
+			// Send the images folders paths to be added to be validated
+		} );
+	}
+	/**
+	 * Check paths
+	 *
+	 * @param {*} paths
+	 * @returns
+	 *
+	 * @since 2.11.0
+	 */
+	checkPaths( paths ) {
+		const instance = this;
+		let ajaxResponse = false;
+		if ( paths.length === 0 ) {
+			return false;
+		}
+		var xhr = new XMLHttpRequest();
+		var params = new URLSearchParams();
+		// Set the request parameters.
+		params.append( 'action', 'modula_check_paths' );
+		params.append( 'paths', paths );
+		params.append( 'security', modulaGalleryUpload.security );
+		// Set request to admin-ajax.php.
+		xhr.open( 'POST', modulaGalleryUpload.ajaxUrl, true );
+		// Set the content type for a POST request.
+		xhr.setRequestHeader(
+			'Content-Type',
+			'application/x-www-form-urlencoded'
+		);
+		// Define what happens on successful data submission.
+		xhr.onload = function () {
+			if ( xhr.status >= 200 && xhr.status < 400 ) {
+				ajaxResponse = JSON.parse( xhr.response );
+				if ( ajaxResponse.success ) {
+					// Send success message and number of valid paths found.
+
+				} else {
+					// Send error message
+				}
+			} else {
+				// Send error message
+			}
+		};
+
+		// Define what happens in case of an error.
+		xhr.onerror = function () {
+			console.error( 'Request failed' );
+			// Send error message
+		};
+
+		// Send the request with parameters.
+		xhr.send( params.toString() );
+		// Return the response.
+		return xhr.response;
 	}
 }
 
