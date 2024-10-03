@@ -43,7 +43,7 @@ class Modula_Gallery_Upload {
 		// Create the media browser.
 		add_action( 'media_upload_modula_file_browser', array( $this, 'media_browser' ) );
 		// AJAX list files.
-		add_action( 'wp_ajax_modula_list_files', array( $this, 'ajax_list_folders' ) );
+		add_action( 'wp_ajax_modula_list_folders', array( $this, 'ajax_list_folders' ) );
 		// Add required scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		// AJAX check paths.
@@ -52,6 +52,8 @@ class Modula_Gallery_Upload {
 		add_action( 'wp_ajax_modula_check_files', array( $this, 'ajax_check_files' ) );
 		// AJAX function to import images from a folder.
 		add_action( 'wp_ajax_modula_import_file', array( $this, 'ajax_import_file' ) );
+		// AJAX function to update the gallery modula-images post meta.
+		add_action( 'wp_ajax_modula_add_images_ids', array( $this, 'ajax_modula_add_images_ids' ) );
 	}
 
 	/**
@@ -240,6 +242,7 @@ class Modula_Gallery_Upload {
 			// re-add print_emoji_styles.
 			add_action( 'admin_print_styles', 'print_emoji_styles' );
 			echo '</head><body class="wp-core-ui">';
+			echo '<input type="hidden" value="' . absint( $_GET['post_id'] ) . '" name="post_ID" id="post_ID">';
 			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
@@ -567,6 +570,150 @@ class Modula_Gallery_Upload {
 		}
 		// Return the attachment ID.
 		return $attachment_id;
+	}
+
+	/**
+	 * Update the gallery modula-images post meta
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_modula_add_images_ids() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		// Check user rights
+		if ( ! $this->check_user_upload_rights() ) {
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! isset( $_POST['galleryID'] ) || empty( $_POST['galleryID'] ) ) {
+			wp_send_json_error( __( 'No gallery ID was provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! isset( $_POST['ids'] ) || empty( $_POST['ids'] ) ) {
+			wp_send_json_error( __( 'No images were provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$gallery_id    = absint( $_POST['galleryID'] );
+		$images        = wp_unslash( $_POST['ids'] );
+		$images        = explode( ',', $images );
+		$modula_images = array();
+
+		// Cycle through images and sanitize them
+		foreach ( $images as $image_id ) {
+			$attachment                 = get_post( $image_id );
+			$image                      = array(
+				'id'          => absint( $image_id ),
+				'alt'         => sanitize_text_field( get_post_meta( $image_id, '_wp_attachment_image_alt', true ) ),
+				'title'       => sanitize_text_field( $attachment->post_title ),
+				'description' => wp_filter_post_kses( $attachment->post_content ),
+				'halign'      => 'center',
+				'valign'      => 'middle',
+				'link'        => '',
+				'target'      => '',
+				'width'       => 2,
+				'height'      => 2,
+				'filters'     => '',
+			);
+			$modula_images[ $image_id ] = $this->sanitize_image( $image );
+		}
+
+		// Update the gallery modula-images post meta
+		update_post_meta( $gallery_id, 'modula-images', $modula_images );
+
+		// Return the image ID
+		wp_send_json_success( __( 'Images added successfully.', 'modula-best-grid-gallery' ) );
+	}
+
+	/**
+	 * Image sanitization function
+	 *
+	 * @param array $image
+	 * @return array
+	 *
+	 * @since 2.11.0
+	 */
+	private function sanitize_image( $image ) {
+
+		$new_image = array();
+
+		// This list will not contain id because we save our images based on image id.
+		$image_attributes = apply_filters(
+			'modula_gallery_image_attributes',
+			array(
+				'id',
+				'alt',
+				'title',
+				'description',
+				'halign',
+				'valign',
+				'link',
+				'target',
+				'width',
+				'height',
+				'togglelightbox',
+				'hide_title',
+			)
+		);
+
+		foreach ( $image_attributes as $attribute ) {
+			if ( isset( $image[ $attribute ] ) ) {
+				switch ( $attribute ) {
+					case 'alt':
+						$new_image[ $attribute ] = sanitize_text_field( $image[ $attribute ] );
+						break;
+					case 'width':
+					case 'height':
+						$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						break;
+					case 'title':
+					case 'description':
+						$new_image[ $attribute ] = wp_filter_post_kses( $image[ $attribute ] );
+						break;
+					case 'link':
+						$new_image[ $attribute ] = esc_url_raw( $image[ $attribute ] );
+						break;
+					case 'target':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'togglelightbox':
+					case 'hide_title':
+						if ( isset( $image[ $attribute ] ) ) {
+							$new_image[ $attribute ] = absint( $image[ $attribute ] );
+						} else {
+							$new_image[ $attribute ] = 0;
+						}
+						break;
+					case 'halign':
+						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ) ) ) {
+							$new_image[ $attribute ] = $image[ $attribute ];
+						} else {
+							$new_image[ $attribute ] = 'center';
+						}
+						break;
+					case 'valign':
+						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ) ) ) {
+							$new_image[ $attribute ] = $image[ $attribute ];
+						} else {
+							$new_image[ $attribute ] = 'middle';
+						}
+						break;
+					default:
+						$new_image[ $attribute ] = apply_filters( 'modula_image_field_sanitization', sanitize_text_field( $image[ $attribute ] ), $image[ $attribute ], $attribute );
+						break;
+				}
+			} else {
+				$new_image[ $attribute ] = '';
+			}
+		}
+
+		return $new_image;
 	}
 }
 
