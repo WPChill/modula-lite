@@ -143,6 +143,7 @@ class ModulaBrowseForFile {
 					return;
 				}
 				// Import the files in the Media Library
+				instance.importFiles( responseFiles.data );
 			}
 		);
 	}
@@ -250,6 +251,42 @@ class ModulaBrowseForFile {
 			xhr.send( params.toString() );
 		} );
 	}
+	/**
+	 * Import files
+	 *
+	 * @param {*} files
+	 * @since 2.11.0
+	 */
+	async importFiles( files ) {
+		const instance = this;
+		let filesArray = [];
+
+		// Cycle through the files and import them
+		for( let i = 0; i < files.length; i++ ) {
+			const file = files[ i ];
+			const $params = {
+				action: 'modula_import_file',
+				file: file,
+				security: modulaGalleryUpload.security,
+			};
+			const instance = this;
+			const ajaxResponse = await instance.ajaxCall( $params ),
+				response = await JSON.parse( ajaxResponse );
+			if ( response.success ) {
+				filesArray.push( response.data );
+			} else {
+				// Send error message
+				
+			}
+		}
+
+		// Check if there are files to import
+		if ( filesArray.length > 0 ) {
+			// Update the gallery
+			//instance.updateGallery( filesArray );
+		}
+	}
+	
 }
 
 document.addEventListener( 'DOMContentLoaded', function () {

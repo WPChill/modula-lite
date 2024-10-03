@@ -50,6 +50,8 @@ class Modula_Gallery_Upload {
 		add_action( 'wp_ajax_modula_check_paths', array( $this, 'ajax_check_paths' ) );
 		// AJAX check files from paths.
 		add_action( 'wp_ajax_modula_check_files', array( $this, 'ajax_check_files' ) );
+		// AJAX function to import images from a folder.
+		add_action( 'wp_ajax_modula_import_file', array( $this, 'ajax_import_file' ) );
 	}
 
 	/**
@@ -507,6 +509,64 @@ class Modula_Gallery_Upload {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Import file from a folder to the media library
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_import_file() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		// Check user rights
+		if ( ! $this->check_user_upload_rights() ) {
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! isset( $_POST['file'] ) || empty( $_POST['file'] ) ) {
+			wp_send_json_error( __( 'No files were provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$file          = wp_unslash( $_POST['file'] );
+		$attachment_id = $this->upload_image( $file );
+		if ( ! $attachment_id ) {
+			wp_send_json_error( __( 'The file could not be uploaded.', 'modula-best-grid-gallery' ) );
+		}
+		// Return the image ID
+		wp_send_json_success( $attachment_id );
+	}
+
+	/**
+	 * Upload image to the media library
+	 *
+	 * @param string $file_path The path to the file
+	 * @return int The attachment ID
+	 *
+	 * @since 2.11.0
+	 */
+	public function upload_image( $file_path ) {
+		// Include the media functions file.
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		// Add the file to the media library.
+		$attachment_id = media_handle_sideload(
+			array(
+				'name'     => basename( $file_path ),
+				'tmp_name' => $file_path,
+			),
+			0
+		);
+		// If the file was added successfully, return the attachment ID.
+		if ( is_wp_error( $attachment_id ) ) {
+			return false;
+		}
+		// Return the attachment ID.
+		return $attachment_id;
 	}
 }
 
