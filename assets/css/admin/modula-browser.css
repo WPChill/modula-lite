@@ -28,3 +28,26 @@ ul.modula_file_browser li.folder_open > a::before {
 #modula_create_gallery {
    margin-top:30px;
 }
+
+#modula-progress {
+    display:block;
+    width:100%;
+    margin-top:30px;
+}
+
+#modula-progress .modula-progress-text {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+}
+
+#modula-progress .modula-progress-bar {
+    width: 0px;
+    height: 20px;
+    background-color: blue;
+    margin-top: 30px;
+    position: relative;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
