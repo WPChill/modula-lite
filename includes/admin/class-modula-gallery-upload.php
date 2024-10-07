@@ -262,7 +262,7 @@ class Modula_Gallery_Upload {
 			// re-add print_emoji_styles.
 			add_action( 'admin_print_styles', 'print_emoji_styles' );
 			echo '</head><body class="wp-core-ui">';
-			echo '<input type="hidden" value="' . absint( $_GET['post_id'] ) . '" name="post_ID" id="post_ID">';
+			echo '<input type="hidden" value="' . absint( $_GET['post_id'] ) . '" name="post_ID" id="post_ID">'; // phpcs:ignore 
 			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
@@ -343,11 +343,10 @@ class Modula_Gallery_Upload {
 		if ( isset( $_POST['post_ID'] ) ) {
 			$this->uploaded_files = $this->get_uploaded_files( absint( $_POST['post_ID'] ) );
 		}
-
-		$paths   = wp_unslash( $_POST['paths'] );
+		// Sanitize the paths.
+		$paths   = is_array( $_POST['paths'] ) ? wp_unslash( array_map( 'sanitize_text_field', $_POST['paths'] ) ) : sanitize_text_field( wp_unslash( $_POST['paths'] ) );
 		$folders = array();
 		if ( is_array( $paths ) ) {
-			$paths = array_map( 'sanitize_text_field', $paths );
 			foreach ( $paths as $path ) {
 				if ( $this->check_folder( $path ) ) {
 					// Add folder path to the array
@@ -357,7 +356,6 @@ class Modula_Gallery_Upload {
 				}
 			}
 		} else {
-			$paths = sanitize_text_field( $paths );
 			if ( $this->check_folder( $paths ) ) {
 				// Add folder path to the array
 				$folders[] = $paths;
@@ -622,15 +620,14 @@ class Modula_Gallery_Upload {
 				'width'       => 2,
 				'height'      => 2,
 				'filters'     => '',
+				'url'         => wp_get_attachment_image_url( $image_id, 'full' ),
 			);
 			$modula_images[ $image_id ] = $this->sanitize_image( $image );
 		}
 
-		// Update the gallery modula-images post meta
-		update_post_meta( $gallery_id, 'modula-images', $modula_images );
 		$this->update_uploaded_files( $gallery_id, $this->uploaded_files );
 		// Return the image ID
-		wp_send_json_success( __( 'Images added successfully.', 'modula-best-grid-gallery' ) );
+		wp_send_json_success( $modula_images );
 	}
 
 	/**
@@ -661,6 +658,7 @@ class Modula_Gallery_Upload {
 				'height',
 				'togglelightbox',
 				'hide_title',
+				'url',
 			)
 		);
 
@@ -730,12 +728,13 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function required_scripts() {
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		// Enqueue Modula browser styles.
 		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
 		// Load the wp.i18n script.
 		wp_enqueue_script( 'wp-i18n' );
 		// Enqueue the gallery upload script
-		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
+		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload' . $suffix . '.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
 		// Localize the script
 		wp_localize_script(
 			'modula-gallery-upload',
@@ -747,7 +746,7 @@ class Modula_Gallery_Upload {
 				'ajaxUrl'               => admin_url( 'admin-ajax.php' ),
 				'noFoldersSelected'     => __( 'No folder(s) selected', 'modula-best-grid-gallery' ),
 				'updatingGallery'       => __( 'Updating gallery. Please wait...', 'modula-best-grid-gallery' ),
-				'galleryUpdated'        => __( 'Gallery updated. Reloading page in 2 seconds...', 'modula-best-grid-gallery' ),
+				'galleryUpdated'        => __( 'Gallery updated. Syncronizing gallery view...', 'modula-best-grid-gallery' ),
 				'startFolderValidation' => __( 'Validating folder(s). Please wait...', 'modula-best-grid-gallery' ),
 			)
 		);

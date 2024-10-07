@@ -1,5 +1,7 @@
 // Load the translations
 const { __ } = wp.i18n;
+// Load the Modula objects
+wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 /**
  * Modula browse for file
@@ -59,6 +61,7 @@ class ModulaBrowseForFile {
 
 				return false;
 			} );
+			instance.readIframeData();
 		}
 	}
 	/**
@@ -350,7 +353,6 @@ class ModulaBrowseForFile {
 			instance.progressClass.hideBar();
 		}
 	}
-
 	/**
 	 * Update gallery
 	 *
@@ -363,21 +365,128 @@ class ModulaBrowseForFile {
 
 		const $params = {
 			action: 'modula_add_images_ids',
-			ids: JSON.stringify( $ids ),
+			ids: $ids,
 			galleryID: instance.postID,
 			security: modulaGalleryUpload.security,
 		};
 
 		const ajaxResponse = await instance.ajaxCall( $params ),
 			response = await JSON.parse( ajaxResponse );
-
 		if ( response.success ) {
 			// Update the gallery
-			instance.updateGalleryView( response.data );
 			instance.progressClass.changeText(
 				modulaGalleryUpload.galleryUpdated
 			);
+			// Set data to send to the parent.
+			const parentData = {
+				action: 'modula_gallery_updated',
+				postID: instance.postID,
+				images: response.data,
+				security: modulaGalleryUpload.security,
+			};
+			// Send data to the parent
+			instance.sendDataToParent( parentData );
 		}
+	}
+	/**
+	 * Send data to parent
+	 *
+	 * @param {*} data
+	 * @since 2.11.0
+	 */
+	sendDataToParent( data ) {
+		window.parent.postMessage( data, '*' );
+	}
+	/**
+	 * Read iframe data
+	 *
+	 * @since 2.11.0
+	 */
+	readIframeData() {
+		const instance = this;
+		window.addEventListener( 'message', function ( e ) {
+			if ( e.data ) {
+				// Return if action or security is undefined
+				if (
+					'undefined' === typeof e.data.action ||
+					'undefined' === e.data.security
+				) {
+					return;
+				}
+				// Return if security does not match
+				if ( modulaGalleryUpload.security !== e.data.security ) {
+					return;
+				}
+				// Check if the action is modula_gallery_updated
+				if ( e.data.action === 'modula_gallery_updated' ) {
+					// Close the modal
+					tb_remove();
+					// Add files to the gallery
+					instance.addFilesToGallery( e.data.images );
+				}
+			}
+		} );
+	}
+	/**
+	 * Add files to gallery
+	 *
+	 * @param {*} images
+	 * @since 2.11.0
+	 */
+	addFilesToGallery( images ) {
+		const instance = this;
+		// Get the images
+		const imagesArray = Object.values( images );
+		for ( let i = 0; i < imagesArray.length; i++ ) {
+			const newModel = instance.generateSingleImage( imagesArray[ i ] );
+			// Get checked input modula-settings[upload_position] value
+			const uploadPosition = document.querySelector(
+				'input[name="modula-settings[upload_position]"]:checked'
+			).value;
+			if ( 'start' === uploadPosition ) {
+				wp.Modula.Items.add( newModel, { at: 0 } );
+				wp.Modula.Items.trigger( 'newItemAdded', newModel );
+			}
+			wp.Modula.GalleryView.render();
+		}
+	}
+	/**
+	 * Generate single image
+	 *
+	 * @param {*} data
+	 * @returns
+	 *
+	 * @since 2.11.0
+	 */
+	generateSingleImage( attachment ) {
+		var data = {
+			halign: 'center',
+			valign: 'middle',
+			link: '',
+			target: '',
+			togglelightbox: '',
+			hideTitle: '',
+		};
+
+		if ( 'undefined' !== typeof attachment[ 'sizes' ] ) {
+			data[ 'full' ] = attachment[ 'sizes' ][ 'full' ][ 'url' ];
+			if ( 'undefined' != typeof attachment[ 'sizes' ][ 'large' ] ) {
+				data[ 'thumbnail' ] = attachment[ 'sizes' ][ 'large' ][ 'url' ];
+			} else {
+				data[ 'thumbnail' ] = data[ 'full' ];
+			}
+		} else {
+			data[ 'full' ] = attachment[ 'url' ];
+			data[ 'thumbnail' ] = data[ 'full' ];
+		}
+
+		data[ 'id' ] = attachment[ 'id' ];
+		data[ 'alt' ] = attachment[ 'alt' ];
+		data[ 'orientation' ] = attachment[ 'orientation' ];
+		data[ 'title' ] = attachment[ 'title' ];
+		data[ 'description' ] = attachment[ 'caption' ];
+
+		return new wp.Modula.items[ 'model' ]( data );
 	}
 }
 
