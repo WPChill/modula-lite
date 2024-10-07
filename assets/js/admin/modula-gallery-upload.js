@@ -1,6 +1,22 @@
+// Load the translations
+const { __ } = wp.i18n;
+
 // Browse for file class
 class ModulaBrowseForFile {
+	/**
+	 * Post ID
+	 *
+	 * @since 2.11.0
+	 */
 	postID = 0;
+
+	/**
+	 * The progress class
+	 *
+	 * @since 2.11.0
+	 */
+	progressClass = false;
+
 	/**
 	 * Constructor
 	 *
@@ -124,25 +140,46 @@ class ModulaBrowseForFile {
 			'click',
 			async function ( e ) {
 				e.preventDefault();
+				instance.progressClass.changeText(
+					modulaGalleryUpload.startFolderValidation
+				);
 				const checkedInputsEl = document.querySelectorAll(
 						'input[type="checkbox"]:checked'
 					),
 					checkedInputs = Array.from( checkedInputsEl ),
 					paths = checkedInputs.map( ( input ) => input.value );
 				const responsePaths = await instance.checkPaths( paths );
-				if ( ! responsePaths ) {
+				if ( ! responsePaths.success ) {
 					// Send error message
-
+					instance.progressClass.changeText( responsePaths.data );
 					return;
 				}
-				const responseFiles =
-					await instance.filesValidation( responsePaths );
+				instance.progressClass.changeText(
+					__( 'Found ', 'modula-best-grid-gallery' ) +
+						responsePaths.data.length +
+						__(
+							' folders. Starting files validation...',
+							'modula-best-grid-gallery'
+						)
+				);
+				const responseFiles = await instance.filesValidation(
+					responsePaths.data
+				);
 
-				if ( ! responseFiles ) {
+				if ( ! responseFiles.success ) {
 					// Send error message
-
+					instance.progressClass.changeText( responseFiles.data );
 					return;
 				}
+				instance.progressClass.changeText(
+					__( 'Found ', 'modula-best-grid-gallery' ) +
+						responseFiles.data.length +
+						__(
+							' valid files. Starting importing the files...',
+							'modula-best-grid-gallery'
+						)
+				);
+
 				// Import the files in the Media Library
 				instance.importFiles( responseFiles.data );
 			}
@@ -158,7 +195,10 @@ class ModulaBrowseForFile {
 	 */
 	async checkPaths( paths ) {
 		if ( paths.length === 0 ) {
-			return false;
+			return {
+				success: false,
+				data: modulaGalleryUpload.noFoldersSelected,
+			};
 		}
 
 		const $params = {
@@ -169,11 +209,7 @@ class ModulaBrowseForFile {
 			instance = this;
 		const ajaxResponse = await instance.ajaxCall( $params ),
 			response = await JSON.parse( ajaxResponse );
-		if ( response.success ) {
-			return response.data;
-		} else {
-			return false;
-		}
+		return response;
 	}
 	/**
 	 * Files validation
@@ -183,9 +219,6 @@ class ModulaBrowseForFile {
 	 * @since 2.11.0
 	 */
 	async filesValidation( paths ) {
-		if ( 0 === paths.length ) {
-			return false;
-		}
 		const $params = {
 				action: 'modula_check_files',
 				paths: paths,
@@ -261,19 +294,25 @@ class ModulaBrowseForFile {
 	async importFiles( files ) {
 		const instance = this;
 		let filesIDs = [];
-
+		instance.progressClass.update( 0.3, files.length );
 		// Cycle through the files and import them
 		for ( let i = 0; i < files.length; i++ ) {
+			instance.progressClass.changeText(
+				__( 'Importing file ', 'modula-best-grid-gallery' ) +
+					( i + 1 ) +
+					__( ' of ', 'modula-best-grid-gallery' ) +
+					files.length
+			);
 			const file = files[ i ];
 			const $params = {
 				action: 'modula_import_file',
 				file: file,
 				security: modulaGalleryUpload.security,
 			};
-			const instance = this;
 			const ajaxResponse = await instance.ajaxCall( $params ),
 				response = await JSON.parse( ajaxResponse );
 			if ( response.success ) {
+				instance.progressClass.update( i + 1, files.length );
 				filesIDs.push( response.data );
 			} else {
 				// Send error message
@@ -282,8 +321,20 @@ class ModulaBrowseForFile {
 
 		// Check if there are files to import
 		if ( filesIDs.length > 0 ) {
-			// Update the gallery
-			instance.updateGallery( filesIDs );
+			instance.progressClass.changeText(
+				__( 'Imported ', 'modula-best-grid-gallery' ) +
+					filesIDs.length +
+					__( ' files.', 'modula-best-grid-gallery' )
+			);
+			// Wait for 2 seconds before updating the gallery.
+			setTimeout( function () {
+				instance.progressClass.hideBar();
+				instance.progressClass.changeText(
+					modulaGalleryUpload.updatingGallery
+				);
+				// Update the gallery
+				instance.updateGallery( filesIDs );
+			}, 2000 );
 		}
 	}
 
@@ -310,7 +361,105 @@ class ModulaBrowseForFile {
 		if ( response.success ) {
 			// Update the gallery
 			//instance.updateGalleryView( response.data );
+			instance.progressClass.changeText(
+				modulaGalleryUpload.galleryUpdated
+			);
 		}
+	}
+}
+
+class ModulaProgressBar {
+	/**
+	 * Progress bar wrapper
+	 *
+	 * @since 2.11.0
+	 */
+	wrapper = null;
+
+	/**
+	 * Progress bar element
+	 *
+	 * @since 2.11.0
+	 */
+	progressBar = 0;
+
+	/**
+	 * Progress bar text
+	 * Place where the info about the progress is displayed
+	 *
+	 * @since 2.11.0
+	 */
+	progressText = '';
+
+	/**
+	 * Progress bar progress
+	 *
+	 * @since 2.11.0
+	 */
+	progress = 0;
+
+	/**
+	 * Progress bar total
+	 *
+	 * @since 2.11.0
+	 */
+	total = 0;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 2.11.0
+	 */
+	constructor( el ) {
+		const instance = this;
+		instance.wrapper = document.getElementById( el );
+		// Create the progress bar element
+		instance.progressBar = document.createElement( 'div' );
+		instance.progressBar.className = 'modula-progress-bar';
+		// Create the progress text element
+		instance.progressText = document.createElement( 'div' );
+		instance.progressText.className = 'modula-progress-text';
+	}
+	/**
+	 * Progress display
+	 *
+	 * @since 2.11.0
+	 */
+	display() {
+		const instance = this;
+		instance.wrapper.appendChild( instance.progressText );
+		instance.wrapper.appendChild( instance.progressBar );
+	}
+	/**
+	 * Update progress bar
+	 *
+	 * @since 2.11.0
+	 */
+	update( progress, total ) {
+		const instance = this;
+		instance.progress = progress;
+		instance.total = total;
+		instance.progressBar.style.width = ( progress / total ) * 100 + '%';
+	}
+	/**
+	 * Change text
+	 *
+	 * @param {*} text
+	 *
+	 * @since 2.11.0
+	 */
+	changeText( text ) {
+		const instance = this;
+		instance.progressText.innerHTML = text;
+	}
+	/**
+	 * Hide bar
+	 *
+	 * @since 2.11.0
+	 */
+	hideBar() {
+		const instance = this;
+		instance.progressBar.style.display = 'none';
 	}
 }
 

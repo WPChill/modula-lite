@@ -257,10 +257,11 @@ class Modula_Gallery_Upload {
 			}
 			echo '</ul>';
 			echo '<a href="#" class="button button-primary" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
+			echo '<div id="modula-progress"></div>';
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaBrowseForFile();modulaBrowser.fileBrowser(); </script>';
+			echo '<script>const modulaBrowser = new ModulaBrowseForFile();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgressBar("modula-progress"); modulaBrowser.progressClass.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -279,19 +280,7 @@ class Modula_Gallery_Upload {
 		if ( 'modula-gallery' !== $current_screen->post_type ) {
 			return;
 		}
-		// Enqueue the gallery upload script
-		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
-		// Localize the script
-		wp_localize_script(
-			'modula-gallery-upload',
-			'modulaGalleryUpload',
-			array(
-				'browseFolder' => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
-				'noSubfolders' => __( 'No subfolders found', 'modula-best-grid-gallery' ),
-				'security'     => wp_create_nonce( 'list-files' ),
-				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
-			)
-		);
+		$this->required_scripts();
 		wp_enqueue_style( 'media-upload' );
 		wp_enqueue_style( 'thickbox' );
 	}
@@ -304,25 +293,12 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function enqueue_browser_scripts() {
-		// Enqueue Modula browser styles.
-		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
 		// Enqueue Dashicons.
 		wp_enqueue_style( 'dashicons' );
 		// Enqueue buttons styles.
 		wp_enqueue_style( 'buttons' );
 		// Enqueue the Modula Gallery Upload script.
-		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
-		// Localize the script
-		wp_localize_script(
-			'modula-gallery-upload',
-			'modulaGalleryUpload',
-			array(
-				'browseFolder' => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
-				'noSubfolders' => __( 'No subfolders found', 'modula-best-grid-gallery' ),
-				'security'     => wp_create_nonce( 'list-files' ),
-				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
-			)
-		);
+		$this->required_scripts();
 	}
 
 	/**
@@ -714,6 +690,37 @@ class Modula_Gallery_Upload {
 		}
 
 		return $new_image;
+	}
+
+	/**
+	 * Enqueue modula browser specific required scripts
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function required_scripts() {
+		// Enqueue Modula browser styles.
+		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
+		// Load the wp.i18n script.
+		wp_enqueue_script( 'wp-i18n' );
+		// Enqueue the gallery upload script
+		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
+		// Localize the script
+		wp_localize_script(
+			'modula-gallery-upload',
+			'modulaGalleryUpload',
+			array(
+				'browseFolder'          => __( 'Browse for a folder', 'modula-best-grid-gallery' ),
+				'noSubfolders'          => __( 'No subfolders found', 'modula-best-grid-gallery' ),
+				'security'              => wp_create_nonce( 'list-files' ),
+				'ajaxUrl'               => admin_url( 'admin-ajax.php' ),
+				'noFoldersSelected'     => __( 'No folder(s) selected', 'modula-best-grid-gallery' ),
+				'updatingGallery'       => __( 'Updating gallery. Please wait...', 'modula-best-grid-gallery' ),
+				'galleryUpdated'        => __( 'Gallery updated. Reloading page in 2 seconds...', 'modula-best-grid-gallery' ),
+				'startFolderValidation' => __( 'Validating folder(s). Please wait...', 'modula-best-grid-gallery' ),
+			)
+		);
 	}
 }
 
