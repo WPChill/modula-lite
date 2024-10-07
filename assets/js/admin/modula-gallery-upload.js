@@ -423,6 +423,14 @@ class ModulaBrowseForFile {
 					tb_remove();
 					// Add files to the gallery
 					instance.addFilesToGallery( e.data.images );
+					// Add success notice
+					const noticeWrapper =
+							document.getElementsByClassName( 'wrap' )[ 0 ],
+						text = __(
+							'Import process completed.',
+							'modula-best-grid-gallery'
+						);
+					instance.addNotice( noticeWrapper, text, 'success' );
 				}
 			}
 		} );
@@ -487,6 +495,19 @@ class ModulaBrowseForFile {
 		data[ 'description' ] = attachment[ 'caption' ];
 
 		return new wp.Modula.items[ 'model' ]( data );
+	}
+	/**
+	 * Add success notice
+	 *
+	 * @since 2.11.0
+	 */
+	addNotice( wrapper, text, type ) {
+		const instance = this;
+		const notice = document.createElement( 'div' );
+		notice.className = 'notice notice-' + type + ' is-dismissible';
+		notice.innerHTML = '<p>' + text + '</p>';
+		// Prepend the notice to the wrapper
+		wrapper.insertBefore( notice, wrapper.firstChild );
 	}
 }
 

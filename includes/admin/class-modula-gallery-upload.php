@@ -355,13 +355,11 @@ class Modula_Gallery_Upload {
 					$this->uploaded_files['folders'][] = $path;
 				}
 			}
-		} else {
-			if ( $this->check_folder( $paths ) ) {
+		} elseif ( $this->check_folder( $paths ) ) {
 				// Add folder path to the array
 				$folders[] = $paths;
-			} else {
-				$this->uploaded_files['folders'][] = $paths;
-			}
+		} else {
+			$this->uploaded_files['folders'][] = $paths;
 		}
 
 		$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
