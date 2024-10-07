@@ -31,6 +31,24 @@ class Modula_Gallery_Upload {
 	public $default_dir = null;
 
 	/**
+	 * Holds the uploaded files.
+	 *
+	 * @var array
+	 *
+	 * @since 2.11.0
+	 */
+	public $uploaded_files = array();
+
+	/**
+	 * Holds the uploaded files meta key.
+	 *
+	 * @var string
+	 *
+	 * @since 2.11.0
+	 */
+	public $uploaded_files_meta = 'modula_uploaded_files';
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 2.11.0
@@ -54,6 +72,8 @@ class Modula_Gallery_Upload {
 		add_action( 'wp_ajax_modula_import_file', array( $this, 'ajax_import_file' ) );
 		// AJAX function to update the gallery modula-images post meta.
 		add_action( 'wp_ajax_modula_add_images_ids', array( $this, 'ajax_modula_add_images_ids' ) );
+		// Add notice if something has gone wrong in the upload process.
+		add_action( 'admin_notices', array( $this, 'upload_error_notice' ) );
 	}
 
 	/**
@@ -320,6 +340,9 @@ class Modula_Gallery_Upload {
 		if ( ! isset( $_POST['paths'] ) ) {
 			wp_send_json_error( __( 'No paths were provided.', 'modula-best-grid-gallery' ) );
 		}
+		if ( isset( $_POST['post_ID'] ) ) {
+			$this->uploaded_files = $this->get_uploaded_files( absint( $_POST['post_ID'] ) );
+		}
 
 		$paths   = wp_unslash( $_POST['paths'] );
 		$folders = array();
@@ -329,6 +352,8 @@ class Modula_Gallery_Upload {
 				if ( $this->check_folder( $path ) ) {
 					// Add folder path to the array
 					$folders[] = $path;
+				} else {
+					$this->uploaded_files['folders'][] = $path;
 				}
 			}
 		} else {
@@ -336,9 +361,12 @@ class Modula_Gallery_Upload {
 			if ( $this->check_folder( $paths ) ) {
 				// Add folder path to the array
 				$folders[] = $paths;
+			} else {
+				$this->uploaded_files['folders'][] = $paths;
 			}
 		}
 
+		$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
 		// If no valid paths were provided, return an error
 		if ( empty( $folders ) ) {
 			wp_send_json_error( __( 'No valid paths were provided.', 'modula-best-grid-gallery' ) );
@@ -513,6 +541,7 @@ class Modula_Gallery_Upload {
 		$file          = wp_unslash( $_POST['file'] );
 		$attachment_id = $this->upload_image( $file );
 		if ( ! $attachment_id ) {
+			$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
 			wp_send_json_error( __( 'The file could not be uploaded.', 'modula-best-grid-gallery' ) );
 		}
 		// Return the image ID
@@ -542,6 +571,7 @@ class Modula_Gallery_Upload {
 		);
 		// If the file was added successfully, return the attachment ID.
 		if ( is_wp_error( $attachment_id ) ) {
+			$this->uploaded_files['files'][] = $file_path;
 			return false;
 		}
 		// Return the attachment ID.
@@ -598,7 +628,7 @@ class Modula_Gallery_Upload {
 
 		// Update the gallery modula-images post meta
 		update_post_meta( $gallery_id, 'modula-images', $modula_images );
-
+		$this->update_uploaded_files( $gallery_id, $this->uploaded_files );
 		// Return the image ID
 		wp_send_json_success( __( 'Images added successfully.', 'modula-best-grid-gallery' ) );
 	}
@@ -721,6 +751,67 @@ class Modula_Gallery_Upload {
 				'startFolderValidation' => __( 'Validating folder(s). Please wait...', 'modula-best-grid-gallery' ),
 			)
 		);
+	}
+
+	/**
+	 * Get the uploaded files for a gallery
+	 *
+	 * @param int $post_id The gallery ID
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function get_uploaded_files( $post_id ) {
+		return get_post_meta( $post_id, $this->uploaded_files_meta, true );
+	}
+
+	/**
+	 * Update the uploaded files for a gallery
+	 *
+	 * @param int $post_id The gallery ID
+	 * @param array $files The uploaded files
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function update_uploaded_files( $post_id, $files ) {
+		update_post_meta( $post_id, $this->uploaded_files_meta, $files );
+	}
+
+	/**
+	 * Add the required scripts for the media browser
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function upload_error_notice() {
+		$screen = get_current_screen();
+		if ( 'modula-gallery' !== $screen->post_type ) {
+			return;
+		}
+		$uploaded_files = $this->get_uploaded_files( get_the_ID() );
+		if ( ! empty( $uploaded_files ) ) {
+			?>
+			<div class="modula-notice notice notice-error is-dismissible" target-type="post_meta" notice-target="<?php echo esc_attr( $this->uploaded_files_meta ); ?>">
+				<p><?php esc_html_e( 'Some files could not be uploaded. Please check the following paths:', 'modula-best-grid-gallery' ); ?></p>
+				<ul>
+					<?php
+					if ( ! empty( $uploaded_files['folders'] ) ) {
+						foreach ( $uploaded_files['folders'] as $folder ) {
+							echo '<li>' . esc_html( $folder ) . '</li>';
+						}
+					}
+					if ( ! empty( $uploaded_files['files'] ) ) {
+						foreach ( $uploaded_files['files'] as $file ) {
+							echo '<li>' . esc_html( $file ) . '</li>';
+						}
+					}
+					?>
+				</ul>
+			</div>
+			<?php
+		}
 	}
 }
 

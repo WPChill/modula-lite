@@ -1,7 +1,9 @@
 // Load the translations
 const { __ } = wp.i18n;
 
-// Browse for file class
+/**
+ * Modula browse for file
+ */
 class ModulaBrowseForFile {
 	/**
 	 * Post ID
@@ -201,12 +203,16 @@ class ModulaBrowseForFile {
 			};
 		}
 
+		const instance = this;
+		if ( ! instance.postID ) {
+			instance.postID = document.getElementById( 'post_ID' ).value;
+		}
 		const $params = {
-				action: 'modula_check_paths',
-				paths: paths,
-				security: modulaGalleryUpload.security,
-			},
-			instance = this;
+			action: 'modula_check_paths',
+			paths: paths,
+			security: modulaGalleryUpload.security,
+			post_ID: instance.postID,
+		};
 		const ajaxResponse = await instance.ajaxCall( $params ),
 			response = await JSON.parse( ajaxResponse );
 		return response;
@@ -293,6 +299,9 @@ class ModulaBrowseForFile {
 	 */
 	async importFiles( files ) {
 		const instance = this;
+		if ( instance.postID === 0 ) {
+			instance.postID = document.getElementById( 'post_ID' ).value;
+		}
 		let filesIDs = [];
 		instance.progressClass.update( 0.3, files.length );
 		// Cycle through the files and import them
@@ -307,6 +316,7 @@ class ModulaBrowseForFile {
 			const $params = {
 				action: 'modula_import_file',
 				file: file,
+				post_ID: instance.postID,
 				security: modulaGalleryUpload.security,
 			};
 			const ajaxResponse = await instance.ajaxCall( $params ),
@@ -316,6 +326,7 @@ class ModulaBrowseForFile {
 				filesIDs.push( response.data );
 			} else {
 				// Send error message
+				instance.progressClass.changeText( response.data );
 			}
 		}
 
@@ -335,6 +346,8 @@ class ModulaBrowseForFile {
 				// Update the gallery
 				instance.updateGallery( filesIDs );
 			}, 2000 );
+		} else {
+			instance.progressClass.hideBar();
 		}
 	}
 
@@ -360,7 +373,7 @@ class ModulaBrowseForFile {
 
 		if ( response.success ) {
 			// Update the gallery
-			//instance.updateGalleryView( response.data );
+			instance.updateGalleryView( response.data );
 			instance.progressClass.changeText(
 				modulaGalleryUpload.galleryUpdated
 			);
@@ -368,6 +381,9 @@ class ModulaBrowseForFile {
 	}
 }
 
+/**
+ * Modula progress bar class
+ */
 class ModulaProgressBar {
 	/**
 	 * Progress bar wrapper
