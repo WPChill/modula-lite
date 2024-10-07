@@ -48,6 +48,8 @@ class Modula_Gallery_Upload {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		// AJAX check paths.
 		add_action( 'wp_ajax_modula_check_paths', array( $this, 'ajax_check_paths' ) );
+		// AJAX check files from paths.
+		add_action( 'wp_ajax_modula_check_files', array( $this, 'ajax_check_files' ) );
 	}
 
 	/**
@@ -239,7 +241,7 @@ class Modula_Gallery_Upload {
 			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
-			// Get files based on path.
+			// Get folders based on path.
 			$files = $this->list_folders( $this->default_dir, 1 );
 			if ( ! empty( $files ) ) {
 				// Cycle through files.
@@ -344,14 +346,14 @@ class Modula_Gallery_Upload {
 			$paths = array_map( 'sanitize_text_field', $paths );
 			foreach ( $paths as $path ) {
 				if ( $this->check_folder( $path ) ) {
-					// Retrieve the files here.
-					$files[] = $path;
+					// Add folder path to the array
+					$folders[] = $path;
 				}
 			}
 		} else {
 			$paths = sanitize_text_field( $paths );
 			if ( $this->check_folder( $paths ) ) {
-				// Retrieve the files here.
+				// Add folder path to the array
 				$folders[] = $paths;
 			}
 		}
@@ -382,6 +384,126 @@ class Modula_Gallery_Upload {
 		// If the folder does not exist, return false
 		$files_folders = scandir( $folder );
 		if ( ! $files_folders ) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Returns a listing of all files in the specified folder.
+	 *
+	 * @param string $folder
+	 * @return array|bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function get_files( $folder ) {
+
+		// A listing of all files and dirs in $folder, excepting . and ..
+		// By default, the sorted order is alphabetical in ascending order
+		$files = array_diff( scandir( $folder ), array( '..', '.' ) );
+
+		$modula_files = array();
+		foreach ( $files as $file ) {
+			if ( is_dir( $folder . '/' . $file ) ) {
+				continue;
+			}
+			$file_path = $folder . '/' . $file;
+			if ( ! $this->check_file( $file_path ) ) {
+				continue;
+			}
+			$modula_files[] = $file_path;
+		}
+
+		return $modula_files;
+	}
+
+	/**
+	 * Define allowed mime types for the gallery upload
+	 *
+	 * @return array
+	 *
+	 * @since 2.11.0
+	 */
+	public function define_allowed_mime_types() {
+		// Define the allowed mime types.
+		$allowed_mime_types = array(
+			'jpg|jpeg|jpe' => 'image/jpeg',
+			'png'          => 'image/png',
+			'gif'          => 'image/gif',
+			'bmp'          => 'image/bmp',
+			'tiff'         => 'image/tiff',
+			'tif'          => 'image/tiff',
+			'webp'         => 'image/webp',
+		);
+
+		// Get WP's default allowed mime types.
+		$wp_allowed_mime_types = get_allowed_mime_types();
+		// Get mime types that are present in the default allowed mime types and the ones we defined.
+		$allowed_mime_types = array_intersect_key( $allowed_mime_types, $wp_allowed_mime_types );
+
+		return apply_filters( 'modula_gallery_upload_allowed_mime_types', $allowed_mime_types );
+	}
+
+	/**
+	 * File validation
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_check_files() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		// Check user rights
+		if ( ! $this->check_user_upload_rights() ) {
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! isset( $_POST['paths'] ) || empty( $_POST['paths'] ) ) {
+			wp_send_json_error( __( 'No paths were provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$paths = wp_unslash( $_POST['paths'] );
+		$files = array();
+
+		if ( is_array( $paths ) ) {
+			$paths = array_map( 'sanitize_text_field', $paths );
+			// Cycle through paths and get files.
+			foreach ( $paths as $path ) {
+				$files = array_merge( $files, $this->get_files( $path ) );
+			}
+		} else {
+			$paths = sanitize_text_field( $paths );
+			$files = $this->get_files( $paths );
+		}
+
+		// If no valid paths were provided, return an error
+		if ( empty( $files ) ) {
+			wp_send_json_error( __( 'No valid files were provided.', 'modula-best-grid-gallery' ) );
+		}
+		// Return the files
+		wp_send_json_success( $files );
+	}
+
+	/**
+	 * File validation
+	 *
+	 * @param string $file
+	 * @return bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function check_file( $file ) {
+		// Check if the file exists
+		if ( ! file_exists( $file ) ) {
+			return false;
+		}
+		// Check file mime type
+		$allowed_mime_types = $this->define_allowed_mime_types();
+		$file_info          = wp_check_filetype( $file, $allowed_mime_types );
+		if ( ! $file_info || ! $file_info['ext'] || ! $file_info['type'] ) {
 			return false;
 		}
 		return true;

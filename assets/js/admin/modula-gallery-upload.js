@@ -58,7 +58,7 @@ class ModulaBrowseForFile {
 				instance.addFolderClick( e.target );
 			}
 		} );
-		instance.foldersValidation();
+		instance.foldersFilesValidation();
 	}
 	/**
 	 * Add folder click
@@ -113,25 +113,38 @@ class ModulaBrowseForFile {
 	 *
 	 * @since 2.11.0
 	 */
-	foldersValidation() {
+	foldersFilesValidation() {
 		const instance = this,
 			modulaSendFoldersButton = document.getElementById(
 				'modula_create_gallery'
 			);
 
-		modulaSendFoldersButton.addEventListener( 'click', function ( e ) {
-			e.preventDefault();
-			const checkedInputsEl = document.querySelectorAll(
-					'input[type="checkbox"]:checked'
-				),
-				checkedInputs = Array.from( checkedInputsEl ),
-				paths = checkedInputs.map( ( input ) => input.value );
-			const response = instance.checkPaths( paths );
-			if ( ! response ) {
-				// Sed error message
+		modulaSendFoldersButton.addEventListener(
+			'click',
+			async function ( e ) {
+				e.preventDefault();
+				const checkedInputsEl = document.querySelectorAll(
+						'input[type="checkbox"]:checked'
+					),
+					checkedInputs = Array.from( checkedInputsEl ),
+					paths = checkedInputs.map( ( input ) => input.value );
+				const responsePaths = await instance.checkPaths( paths );
+				if ( ! responsePaths ) {
+					// Send error message
+
+					return;
+				}
+				const responseFiles =
+					await instance.filesValidation( responsePaths );
+
+				if ( ! responseFiles ) {
+					// Send error message
+
+					return;
+				}
+				// Import the files in the Media Library
 			}
-			// Send the images folders paths to be added to be validated
-		} );
+		);
 	}
 	/**
 	 * Check paths
@@ -141,50 +154,101 @@ class ModulaBrowseForFile {
 	 *
 	 * @since 2.11.0
 	 */
-	checkPaths( paths ) {
-		const instance = this;
-		let ajaxResponse = false;
+	async checkPaths( paths ) {
 		if ( paths.length === 0 ) {
 			return false;
 		}
-		var xhr = new XMLHttpRequest();
-		var params = new URLSearchParams();
-		// Set the request parameters.
-		params.append( 'action', 'modula_check_paths' );
-		params.append( 'paths', paths );
-		params.append( 'security', modulaGalleryUpload.security );
-		// Set request to admin-ajax.php.
-		xhr.open( 'POST', modulaGalleryUpload.ajaxUrl, true );
-		// Set the content type for a POST request.
-		xhr.setRequestHeader(
-			'Content-Type',
-			'application/x-www-form-urlencoded'
-		);
-		// Define what happens on successful data submission.
-		xhr.onload = function () {
-			if ( xhr.status >= 200 && xhr.status < 400 ) {
-				ajaxResponse = JSON.parse( xhr.response );
-				if ( ajaxResponse.success ) {
-					// Send success message and number of valid paths found.
 
-				} else {
-					// Send error message
+		const $params = {
+				action: 'modula_check_paths',
+				paths: paths,
+				security: modulaGalleryUpload.security,
+			},
+			instance = this;
+		const ajaxResponse = await instance.ajaxCall( $params ),
+			response = await JSON.parse( ajaxResponse );
+		if ( response.success ) {
+			return response.data;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Files validation
+	 *
+	 * @param {*} paths
+	 *
+	 * @since 2.11.0
+	 */
+	async filesValidation( paths ) {
+		if ( 0 === paths.length ) {
+			return false;
+		}
+		const $params = {
+				action: 'modula_check_files',
+				paths: paths,
+				security: modulaGalleryUpload.security,
+			},
+			instance = this;
+
+		const ajaxResponse = await instance.ajaxCall( $params ),
+			response = await JSON.parse( ajaxResponse );
+
+		return response;
+	}
+	/**
+	 * AJAX request
+	 * @param {*} $params
+	 * @param {*} $callback
+	 * @returns
+	 *
+	 * @since 2.11.0
+	 */
+	async ajaxCall( $params ) {
+		return new Promise( ( resolve, reject ) => {
+			// Create a new XMLHttpRequest object.
+			var xhr = new XMLHttpRequest();
+			var params = new URLSearchParams();
+			// Set the request parameters.
+			if ( $params ) {
+				// Loop through the parameters and append them to the URLSearchParams object.
+				for ( let key in $params ) {
+					if ( ! $params.hasOwnProperty( key ) ) {
+						continue;
+					}
+					params.append( key, $params[ key ] );
 				}
-			} else {
-				// Send error message
 			}
-		};
+			// Set request to admin-ajax.php.
+			xhr.open( 'POST', modulaGalleryUpload.ajaxUrl, true );
+			// Set the content type for a POST request.
+			xhr.setRequestHeader(
+				'Content-Type',
+				'application/x-www-form-urlencoded'
+			);
+			// Detect when the request is complete
+			xhr.onreadystatechange = function () {
+				if ( xhr.readyState === 4 ) {
+					// 4 means request is done
+					if ( xhr.status === 200 ) {
+						// 200 is a successful status
+						resolve( xhr.response );
+					} else {
+						// Handle error if necessary
+						reject( xhr.response );
+					}
+				}
+			};
 
-		// Define what happens in case of an error.
-		xhr.onerror = function () {
-			console.error( 'Request failed' );
-			// Send error message
-		};
+			// Define what happens in case of an error.
+			xhr.onerror = function () {
+				console.error( 'Request failed' );
+				// Send error message
+			};
 
-		// Send the request with parameters.
-		xhr.send( params.toString() );
-		// Return the response.
-		return xhr.response;
+			// Send the request with parameters.
+			xhr.send( params.toString() );
+		} );
 	}
 }
 
