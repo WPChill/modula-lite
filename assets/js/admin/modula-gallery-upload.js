@@ -81,8 +81,9 @@ class ModulaBrowseForFile {
 		} else {
 			$link.after( '<ul class="load_tree loading"></ul>' );
 			var data = {
-				action: 'modula_list_files',
+				action: 'modula_list_folders',
 				path: $link.attr( 'data-path' ),
+				postID: instance.postID,
 				security: modulaGalleryUpload.security,
 				'input-checked': $inputChecked,
 			};
@@ -259,10 +260,10 @@ class ModulaBrowseForFile {
 	 */
 	async importFiles( files ) {
 		const instance = this;
-		let filesArray = [];
+		let filesIDs = [];
 
 		// Cycle through the files and import them
-		for( let i = 0; i < files.length; i++ ) {
+		for ( let i = 0; i < files.length; i++ ) {
 			const file = files[ i ];
 			const $params = {
 				action: 'modula_import_file',
@@ -273,20 +274,44 @@ class ModulaBrowseForFile {
 			const ajaxResponse = await instance.ajaxCall( $params ),
 				response = await JSON.parse( ajaxResponse );
 			if ( response.success ) {
-				filesArray.push( response.data );
+				filesIDs.push( response.data );
 			} else {
 				// Send error message
-				
 			}
 		}
 
 		// Check if there are files to import
-		if ( filesArray.length > 0 ) {
+		if ( filesIDs.length > 0 ) {
 			// Update the gallery
-			//instance.updateGallery( filesArray );
+			instance.updateGallery( filesIDs );
 		}
 	}
-	
+
+	/**
+	 * Update gallery
+	 *
+	 * @param {*} ids
+	 * @since 2.11.0
+	 */
+	async updateGallery( $ids ) {
+		const instance = this;
+		instance.postID = document.getElementById( 'post_ID' ).value;
+
+		const $params = {
+			action: 'modula_add_images_ids',
+			ids: JSON.stringify( $ids ),
+			galleryID: instance.postID,
+			security: modulaGalleryUpload.security,
+		};
+
+		const ajaxResponse = await instance.ajaxCall( $params ),
+			response = await JSON.parse( ajaxResponse );
+
+		if ( response.success ) {
+			// Update the gallery
+			//instance.updateGalleryView( response.data );
+		}
+	}
 }
 
 document.addEventListener( 'DOMContentLoaded', function () {
