@@ -6,9 +6,13 @@ ul.modula_file_browser {
     padding:15px;
     margin-bottom:100px;
 }
+#modula_browser > ul > li {
+    padding-left: 0;
+}
 
 ul.modula_file_browser li {
     list-style-type: none;
+    padding-left:20px;
 }
 
 ul.modula_file_browser li a{
@@ -85,7 +89,7 @@ html body #TB_window #TB_closeWindowButton .tb-close-icon {
 }
 html body#modula_browser {
     padding:15px;
-    height:100%;
+    height:calc(100% - 30px);
     background-color: #fff;
 }
 
