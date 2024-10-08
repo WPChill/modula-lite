@@ -321,6 +321,7 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function enqueue_browser_scripts() {
+		wp_enqueue_style( 'common' );
 		// Enqueue Dashicons.
 		wp_enqueue_style( 'dashicons' );
 		// Enqueue buttons styles.
