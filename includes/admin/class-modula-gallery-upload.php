@@ -875,7 +875,7 @@ class Modula_Gallery_Upload {
 	 */
 	public function add_upload_zip_button() {
 		?>
-		<li id="modula-uploader-folder-browser">
+		<li id="modula-upload-zip-browser">
 		<?php esc_html_e( 'Upload zip', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
