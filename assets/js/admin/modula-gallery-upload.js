@@ -54,7 +54,7 @@ class ModulaBrowseForFile {
 			),
 			modulaSendFoldersButton = document.getElementById(
 				'modula_create_gallery'
-			);;
+			);
 		if ( modulaFileBrowserButton ) {
 			modulaFileBrowserButton.addEventListener( 'click', function ( e ) {
 				// Prevent default action
@@ -66,7 +66,7 @@ class ModulaBrowseForFile {
 					'<h1>' + modulaGalleryUpload.browseFolder + '</h1>',
 					'media-upload.php?post_id=' +
 						instance.postID +
-						'&amp;type=modula_file_browser&amp;from=wpdlm01&amp;TB_iframe=true&amp;width=800&amp;height=600'				
+						'&amp;type=modula_file_browser&amp;from=wpdlm01&amp;TB_iframe=true&amp;width=800&amp;height=600'
 				);
 
 				return false;
@@ -174,7 +174,8 @@ class ModulaBrowseForFile {
 			'click',
 			async function ( e ) {
 				e.preventDefault();
-				instance.deleteFiles = document.getElementById( 'delete_files' ).checked;
+				instance.deleteFiles =
+					document.getElementById( 'delete_files' ).checked;
 				instance.progressClass.changeText(
 					modulaGalleryUpload.startFolderValidation
 				);
@@ -639,6 +640,93 @@ class ModulaProgressBar {
 		instance.progressBar.style.display = 'none';
 	}
 }
+var $ = jQuery;
+var modulaZipUploadHandler = Backbone.Model.extend( {
+	uploaderOptions: {
+		container: $( '#modula-uploader-container' ),
+		browser: $( '#modula-upload-zip-browser' ),
+		dropzone: $( '#modula-uploader-container' ),
+		params   : {
+			type: 'modula-gallery',
+			action: 'modula_upload_zip',
+		},
+	},
+	dropzone: $( '#modula-dropzone-container' ),
+	progressBar: $( '.modula-progress-bar' ),
+	containerUploader: $( '.modula-uploading-info' ),
+	errorContainer: $( '.modula-error-container' ),
+	galleryCotainer: $(
+		'#modula-uploader-container .modula-uploader-inline-content'
+	),
+	modula_files_count: 0,
+	limitExceeded: false,
+
+	initialize: function () {
+		var modulaGalleryObject = this,
+			uploader,
+			dropzone,
+			attachments,
+			limitExceeded = false,
+			modula_files_count = 0;
+
+		uploader = new wp.Uploader( modulaGalleryObject.uploaderOptions );
+
+		// Uploader events
+		// Files Added for Uploading - show progress bar
+		uploader.uploader.bind(
+			'FilesAdded',
+			$.proxy( modulaGalleryObject.filesadded, modulaGalleryObject )
+		);
+
+		// File Uploading - update progress bar
+		uploader.uploader.bind(
+			'UploadProgress',
+			$.proxy( modulaGalleryObject.fileuploading, modulaGalleryObject )
+		);
+
+		// File Uploaded - add images to the screen
+		uploader.uploader.bind(
+			'FileUploaded',
+			$.proxy( modulaGalleryObject.fileupload, modulaGalleryObject )
+		);
+
+		// Files Uploaded - hide progress bar
+		uploader.uploader.bind(
+			'UploadComplete',
+			$.proxy( modulaGalleryObject.filesuploaded, modulaGalleryObject )
+		);
+
+		// File Upload Error - show errors
+		uploader.uploader.bind( 'Error', function ( up, err ) {
+			// Show message
+			modulaGalleryObject.errorContainer.html(
+				'<div class="error fade"><p>' +
+					err.file.name +
+					': ' +
+					err.message +
+					'</p></div>'
+			);
+			up.refresh();
+		} );
+	},
+
+	// Uploader Events
+	// Files Added for Uploading - show progress bar
+	filesadded: function ( up, files ) {},
+
+	// File Uploading - update progress bar
+	fileuploading: function ( up, file ) {},
+
+	// File Uploaded - add images to the screen
+	fileupload: function ( up, file, info ) {
+		// File has been uploaded, now we need to unzip it
+		
+	},
+
+	// Files Uploaded - hide progress bar
+	filesuploaded: function () {
+	},
+} );
 
 document.addEventListener( 'DOMContentLoaded', function () {
 	window.send_to_browse_file_url = function ( html ) {
@@ -646,4 +734,5 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		window.send_to_editor = window.send_to_editor_default;
 	};
 	new ModulaBrowseForFile();
+	new modulaZipUploadHandler();
 } );
