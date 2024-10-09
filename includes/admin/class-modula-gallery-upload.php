@@ -902,7 +902,10 @@ class Modula_Gallery_Upload {
 		if ( ! $this->check_user_upload_rights() ) {
 			return $pathdata;
 		}
-		
+		// Check if the file is a zip file.
+		if ( 'zip' !== wp_check_filetype( $pathdata['name'] ) ) {
+			return false;
+		}
 		// Now, let's modify the path.
 		if ( empty( $pathdata['subdir'] ) ) {
 			$pathdata['path']   = $pathdata['path'] . '/modula_zip_upload';
