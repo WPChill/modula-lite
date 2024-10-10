@@ -48,8 +48,6 @@ class ModulaGalleryUpload {
 		if ( instance.postObject ) {
 			instance.postID = instance.postObject.value;
 		}
-		instance.setUploaders();
-		instance.initializeUploaders();
 	}
 	/**
 	 * Add actions
@@ -81,6 +79,8 @@ class ModulaGalleryUpload {
 				return false;
 			} );
 			instance.readIframeData();
+			instance.setUploaders();
+			instance.initializeUploaders();
 		}
 		// Path input wrapper
 		const modulaFileBrowser = document.querySelector(
@@ -90,7 +90,10 @@ class ModulaGalleryUpload {
 		if ( modulaFileBrowser ) {
 			modulaFileBrowser.addEventListener( 'change', function ( event ) {
 				if ( event.target.matches( 'input[type="checkbox"]' ) ) {
-					instance.updateSendButtonState( modulaFileBrowser, modulaSendFoldersButton );
+					instance.updateSendButtonState(
+						modulaFileBrowser,
+						modulaSendFoldersButton
+					);
 				}
 			} );
 		}
