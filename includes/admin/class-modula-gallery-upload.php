@@ -595,6 +595,10 @@ class Modula_Gallery_Upload {
 					'tmp_name' => $file_path,
 				)
 			);
+			if ( is_wp_error( $attachment_id ) ) {
+				$this->uploaded_files['files'][] = $file_path;
+				return false;
+			}
 		}
 		// Return the attachment ID.
 		return $attachment_id;
