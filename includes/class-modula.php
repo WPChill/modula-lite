@@ -80,6 +80,9 @@ class Modula {
 		// The meta handling class
 		require_once MODULA_PATH . 'includes/public/meta/class-modula-meta.php';
 
+		require_once MODULA_PATH . 'includes/admin/class-modula-rest-api.php';
+		require_once MODULA_PATH . 'includes/admin/class-modula-notifications.php';
+
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -158,6 +161,9 @@ class Modula {
 
 		// Initiate modula cpts
 		new Modula_CPT();
+
+		// Initiate Modula REST Api
+		new Modula_Rest_Api();
 	}
 
 	public function dashboard_start() {
