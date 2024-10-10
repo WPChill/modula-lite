@@ -74,6 +74,8 @@ class Modula_Gallery_Upload {
 		add_action( 'wp_ajax_modula_add_images_ids', array( $this, 'ajax_modula_add_images_ids' ) );
 		// Add notice if something has gone wrong in the upload process.
 		add_action( 'admin_notices', array( $this, 'upload_error_notice' ) );
+		// Add the Upload zip button.
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_upload_zip_button' ), 15 );
 	}
 
 	/**
@@ -862,6 +864,21 @@ class Modula_Gallery_Upload {
 		}
 
 		return $attachment_id;
+	}
+
+	/**
+	 * Output the Upload from folder button.
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function add_upload_zip_button() {
+		?>
+		<li id="modula-upload-zip-browser">
+		<?php esc_html_e( 'Upload zip', 'modula-best-grid-gallery' ); ?>
+		</li>
+		<?php
 	}
 }
 
