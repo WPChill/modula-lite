@@ -76,6 +76,8 @@ class Modula_Gallery_Upload {
 		add_action( 'admin_notices', array( $this, 'upload_error_notice' ) );
 		// Add the Upload zip button.
 		add_action( 'modula_gallery_media_select_option', array( $this, 'add_upload_zip_button' ), 15 );
+		// Change the upload dir for the zip file.
+		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
 	}
 
 	/**
@@ -754,7 +756,7 @@ class Modula_Gallery_Upload {
 		// Load the wp.i18n script.
 		wp_enqueue_script( 'wp-i18n' );
 		// Enqueue the gallery upload script
-		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload' . $suffix . '.js', array( 'jquery', 'media-upload' ), MODULA_LITE_VERSION, true );
+		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload' . $suffix . '.js', array( 'jquery', 'media-upload', 'backbone' ), MODULA_LITE_VERSION, true );
 		// Localize the script
 		wp_localize_script(
 			'modula-gallery-upload',
@@ -879,6 +881,42 @@ class Modula_Gallery_Upload {
 		<?php esc_html_e( 'Upload zip', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
+	}
+
+	/**
+	 * upload_dir function.
+	 *
+	 * @access public
+	 *
+	 * @param mixed $pathdata
+	 *
+	 * @return array
+	 */
+	public function zip_upload_dir( $pathdata ) {
+		// We don't process form we just modify the upload path for our custom post type.
+		// phpcs:ignore
+		if ( ! isset( $_POST['type'] ) || ! isset( $_POST['action'] ) || 'modula-gallery' !== $_POST['type'] || 'modula_upload_zip' !== $_POST['action'] ) {
+			return $pathdata;
+		}
+		// Check if the user has the rights to upload files.
+		if ( ! $this->check_user_upload_rights() ) {
+			return $pathdata;
+		}
+		
+		// Now, let's modify the path.
+		if ( empty( $pathdata['subdir'] ) ) {
+			$pathdata['path']   = $pathdata['path'] . '/modula_zip_upload';
+			$pathdata['url']    = $pathdata['url'] . '/modula_zip_upload';
+			$pathdata['subdir'] = '/modula_zip_upload';
+		} else {
+			$new_subdir = '/modula_zip_upload' . $pathdata['subdir'];
+
+			$pathdata['path']   = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['path'] );
+			$pathdata['url']    = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['url'] );
+			$pathdata['subdir'] = str_replace( $pathdata['subdir'], $new_subdir, $pathdata['subdir'] );
+		}
+
+		return $pathdata;
 	}
 }
 
