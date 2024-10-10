@@ -276,12 +276,16 @@ class Modula_Gallery_Upload {
 				}
 			}
 			echo '</ul>';
+			echo '<div id="modula-progress"></div>';
+			echo '<div class="modula-browser-footer">';
 			// Add input checkbox to keep or delete the files from the folders.
-			echo '<div>';
+			echo '<div class="modula-browser-footer__column text-left">';
 			echo '<label for="keep_files"><input type="checkbox" id="delete_files" value="true">' . esc_html__( 'Delete files from folder after upload', 'modula-best-grid-gallery' ) . '</label>';
 			echo '</div>';
-			echo '<a href="#" class="button button-primary" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
-			echo '<div id="modula-progress"></div>';
+			echo '<div class="modula-browser-footer__column text-right">';
+			echo '<a href="#" class="button button-primary disabled" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
+			echo '</div>';
+			echo '</div>';
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
@@ -317,6 +321,7 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function enqueue_browser_scripts() {
+		wp_enqueue_style( 'common' );
 		// Enqueue Dashicons.
 		wp_enqueue_style( 'dashicons' );
 		// Enqueue buttons styles.
@@ -842,7 +847,7 @@ class Modula_Gallery_Upload {
 		}
 
 		if ( ! copy( $file_array['tmp_name'], $temp_file ) ) {
-			return new WP_Error( 'file_copy_failed', __( 'Could not copy file to temporary location.', ' modula-best-grid-gallery' ) );
+			return new WP_Error( 'file_copy_failed', __( 'Could not copy file to temporary location.', 'modula-best-grid-gallery' ) );
 		}
 
 		// Step 2: Update the file array to point to the temporary file

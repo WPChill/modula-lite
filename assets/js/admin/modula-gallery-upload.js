@@ -51,7 +51,10 @@ class ModulaBrowseForFile {
 		const instance = this,
 			modulaFileBrowserButton = document.getElementById(
 				'modula-uploader-folder-browser'
-			);
+			),
+			modulaSendFoldersButton = document.getElementById(
+				'modula_create_gallery'
+			);;
 		if ( modulaFileBrowserButton ) {
 			modulaFileBrowserButton.addEventListener( 'click', function ( e ) {
 				// Prevent default action
@@ -60,15 +63,34 @@ class ModulaBrowseForFile {
 				window.send_to_editor = window.send_to_browse_file_url;
 
 				tb_show(
-					modulaGalleryUpload.browseFolder,
+					'<h1>' + modulaGalleryUpload.browseFolder + '</h1>',
 					'media-upload.php?post_id=' +
 						instance.postID +
-						'&amp;type=modula_file_browser&amp;from=wpdlm01&amp;TB_iframe=true'
+						'&amp;type=modula_file_browser&amp;from=wpdlm01&amp;TB_iframe=true&amp;width=800&amp;height=600'				
 				);
 
 				return false;
 			} );
 			instance.readIframeData();
+		}
+		const foldersCheckboxes = document.querySelectorAll(
+			'.modula_file_browser input[type="checkbox"]'
+		);
+		// Check if there are checkboxes
+		if ( foldersCheckboxes.length > 0 ) {
+			// Check if there are checked checkboxes on checkbox click
+			foldersCheckboxes.forEach( function ( checkbox ) {
+				checkbox.addEventListener( 'click', function () {
+					const checkedCheckboxes = document.querySelectorAll(
+						'.modula_file_browser input[type="checkbox"]:checked'
+					);
+					if ( checkedCheckboxes.length > 0 ) {
+						modulaSendFoldersButton.classList.remove( 'disabled' );
+					} else {
+						modulaSendFoldersButton.classList.add( 'disabled' );
+					}
+				} );
+			} );
 		}
 	}
 	/**
