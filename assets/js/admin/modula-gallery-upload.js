@@ -82,23 +82,16 @@ class ModulaGalleryUpload {
 			} );
 			instance.readIframeData();
 		}
-		const foldersCheckboxes = document.querySelectorAll(
-			'.modula_file_browser input[type="checkbox"]'
+		// Path input wrapper
+		const modulaFileBrowser = document.querySelector(
+			'.modula_file_browser'
 		);
-		// Check if there are checkboxes
-		if ( foldersCheckboxes.length > 0 ) {
-			// Check if there are checked checkboxes on checkbox click
-			foldersCheckboxes.forEach( function ( checkbox ) {
-				checkbox.addEventListener( 'click', function () {
-					const checkedCheckboxes = document.querySelectorAll(
-						'.modula_file_browser input[type="checkbox"]:checked'
-					);
-					if ( checkedCheckboxes.length > 0 ) {
-						modulaSendFoldersButton.classList.remove( 'disabled' );
-					} else {
-						modulaSendFoldersButton.classList.add( 'disabled' );
-					}
-				} );
+		// Toggle the send button state
+		if ( modulaFileBrowser ) {
+			modulaFileBrowser.addEventListener( 'change', function ( event ) {
+				if ( event.target.matches( 'input[type="checkbox"]' ) ) {
+					instance.updateSendButtonState( modulaFileBrowser, modulaSendFoldersButton );
+				}
 			} );
 		}
 	}
@@ -465,7 +458,9 @@ class ModulaGalleryUpload {
 					// Add files to the gallery
 					instance.addFilesToGallery( e.data.images );
 					// Add success notice
-					const noticeWrapper = document.querySelector('#wpbody-content > .wrap'),
+					const noticeWrapper = document.querySelector(
+							'#wpbody-content > .wrap'
+						),
 						text = __(
 							'Import process completed.',
 							'modula-best-grid-gallery'
@@ -672,8 +667,10 @@ class ModulaGalleryUpload {
 				// Check if the response is successful
 				if ( response.success ) {
 					// Send the folder path to the folder uploader
-					const responsePaths = await instance.checkPaths( response.data );
-					console.log(responsePaths);
+					const responsePaths = await instance.checkPaths(
+						response.data
+					);
+					console.log( responsePaths );
 					if ( ! responsePaths.success ) {
 						// Send error message
 						instance.progressClass.changeText( responsePaths.data );
@@ -725,6 +722,16 @@ class ModulaGalleryUpload {
 	initializeUploaders() {
 		const instance = this,
 			modulaZipUpload = new instance.zipUploadHandler();
+	}
+	/**
+	 * Update send button state
+	 * @since 2.11.0
+	 */
+	updateSendButtonState( wrapper, button ) {
+		const checkedCheckboxes = wrapper.querySelectorAll(
+			'input[type="checkbox"]:checked'
+		);
+		button.classList.toggle( 'disabled', checkedCheckboxes.length === 0 );
 	}
 }
 
