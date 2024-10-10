@@ -78,6 +78,8 @@ class Modula_Gallery_Upload {
 		add_action( 'modula_gallery_media_select_option', array( $this, 'add_upload_zip_button' ), 15 );
 		// Change the upload dir for the zip file.
 		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
+		// AJAX to unzip the uploaded zip file.
+		add_action( 'wp_ajax_modula_unzip_file', array( $this, 'ajax_unzip_file' ) );
 	}
 
 	/**
@@ -900,11 +902,41 @@ class Modula_Gallery_Upload {
 		}
 		// Check if the user has the rights to upload files.
 		if ( ! $this->check_user_upload_rights() ) {
-			return $pathdata;
+			// Send an error response
+			echo json_encode(
+				array(
+					'error'   => true,
+					'message' => __( 'You do not have the rights to upload files or edit galleries.', 'modula-best-grid-gallery' ),
+				)
+			);
+			http_response_code( 403 ); // Set HTTP status code to 403 (Forbidden)
+			exit;
 		}
+
+		// Check if the file was provided.
+		if ( empty( $_POST['name'] ) ) {
+			// Send an error response
+			echo json_encode(
+				array(
+					'error'   => true,
+					'message' => __( 'No file was provided.', 'modula-best-grid-gallery' ),
+				)
+			);
+			http_response_code( 400 ); // Set HTTP status code to 400 (Bad Request)
+			exit;
+		}
+		$file_type = wp_check_filetype( $_POST['name'] );
 		// Check if the file is a zip file.
-		if ( 'zip' !== wp_check_filetype( $pathdata['name'] ) ) {
-			return false;
+		if ( empty( $file_type['type'] ) || 'application/zip' !== $file_type['type'] ) {
+			// Send an error response
+			echo json_encode(
+				array(
+					'error'   => true,
+					'message' => __( 'The file is not a zip file.', 'modula-best-grid-gallery' ),
+				)
+			);
+			http_response_code( 400 ); // Set HTTP status code to 400 (Bad Request)
+			exit;
 		}
 		// Now, let's modify the path.
 		if ( empty( $pathdata['subdir'] ) ) {
@@ -920,6 +952,47 @@ class Modula_Gallery_Upload {
 		}
 
 		return $pathdata;
+	}
+
+	/**
+	 * Handle the file unzip process
+	 *
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_unzip_file() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		// Check user rights.
+		if ( ! $this->check_user_upload_rights() ) {
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
+		}
+		if ( empty( $_POST['fileID'] ) ) {
+			wp_send_json_error( __( 'No file was provided.', 'modula-best-grid-gallery' ) );
+		}
+		// Get the file ID.
+		$file_id = absint( $_POST['fileID'] );
+		// Get the file path.
+		$file = get_attached_file( $file_id );
+		// Get the base path.
+		$base       = pathinfo( $file, PATHINFO_DIRNAME );
+		$file_name  = pathinfo( $file, PATHINFO_FILENAME );
+		$unzip_path = $base . '/' . $file_name;
+		// Set the WP_Filesystem.
+		global $wp_filesystem;
+		require_once ABSPATH . '/wp-admin/includes/file.php';
+		WP_Filesystem();
+		// Unzip the file.
+		$response = unzip_file( $file, $unzip_path );
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error( $response->get_error_message() );
+		}
+		// Delete the original file.
+		wp_delete_attachment( $file_id, true );
+		// Send the unzip path.
+		wp_send_json_success( $unzip_path );
 	}
 }
 
