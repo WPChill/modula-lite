@@ -22,6 +22,13 @@ class ModulaBrowseForFile {
 	progressClass = false;
 
 	/**
+	 * Delete files checkbox
+	 *
+	 * @since 2.11.0
+	 */
+	deleteFiles = true;
+
+	/**
 	 * Constructor
 	 *
 	 * @since 2.11.0
@@ -145,11 +152,12 @@ class ModulaBrowseForFile {
 			'click',
 			async function ( e ) {
 				e.preventDefault();
+				instance.deleteFiles = document.getElementById( 'delete_files' ).checked;
 				instance.progressClass.changeText(
 					modulaGalleryUpload.startFolderValidation
 				);
 				const checkedInputsEl = document.querySelectorAll(
-						'input[type="checkbox"]:checked'
+						'.modula_file_browser input[type="checkbox"]:checked'
 					),
 					checkedInputs = Array.from( checkedInputsEl ),
 					paths = checkedInputs.map( ( input ) => input.value );
@@ -321,6 +329,7 @@ class ModulaBrowseForFile {
 				file: file,
 				post_ID: instance.postID,
 				security: modulaGalleryUpload.security,
+				delete_files: instance.deleteFiles,
 			};
 			const ajaxResponse = await instance.ajaxCall( $params ),
 				response = await JSON.parse( ajaxResponse );

@@ -261,7 +261,7 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_head' ); // phpcs:ignore
 			// re-add print_emoji_styles.
 			add_action( 'admin_print_styles', 'print_emoji_styles' );
-			echo '</head><body class="wp-core-ui">';
+			echo '</head><body class="wp-core-ui" id="modula_browser">';
 			echo '<input type="hidden" value="' . absint( $_GET['post_id'] ) . '" name="post_ID" id="post_ID">'; // phpcs:ignore 
 			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
@@ -276,6 +276,10 @@ class Modula_Gallery_Upload {
 				}
 			}
 			echo '</ul>';
+			// Add input checkbox to keep or delete the files from the folders.
+			echo '<div>';
+			echo '<label for="keep_files"><input type="checkbox" id="delete_files" value="true">' . esc_html__( 'Delete files from folder after upload', 'modula-best-grid-gallery' ) . '</label>';
+			echo '</div>';
 			echo '<a href="#" class="button button-primary" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
 			echo '<div id="modula-progress"></div>';
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
@@ -535,7 +539,8 @@ class Modula_Gallery_Upload {
 		}
 
 		$file          = wp_unslash( $_POST['file'] );
-		$attachment_id = $this->upload_image( $file );
+		$delete_file   = sanitize_text_field( wp_unslash( $_POST['delete_files'] ) );
+		$attachment_id = $this->upload_image( $file, $delete_file );
 		if ( ! $attachment_id ) {
 			$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
 			wp_send_json_error( __( 'The file could not be uploaded.', 'modula-best-grid-gallery' ) );
@@ -552,23 +557,33 @@ class Modula_Gallery_Upload {
 	 *
 	 * @since 2.11.0
 	 */
-	public function upload_image( $file_path ) {
+	public function upload_image( $file_path, $delete_file ) {
 		// Include the media functions file.
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/media.php';
-		// Add the file to the media library.
-		$attachment_id = media_handle_sideload(
-			array(
-				'name'     => basename( $file_path ),
-				'tmp_name' => $file_path,
-			),
-			0
-		);
-		// If the file was added successfully, return the attachment ID.
-		if ( is_wp_error( $attachment_id ) ) {
-			$this->uploaded_files['files'][] = $file_path;
-			return false;
+		$attachment_id = false;
+		if ( $delete_file ) {
+			// Add the file to the media library.
+			$attachment_id = media_handle_sideload(
+				array(
+					'name'     => basename( $file_path ),
+					'tmp_name' => $file_path,
+				),
+				0
+			);
+			// If the file was added successfully, return the attachment ID.
+			if ( is_wp_error( $attachment_id ) ) {
+				$this->uploaded_files['files'][] = $file_path;
+				return false;
+			}
+		} else {
+			$attachment_id = $this->handle_sideload_without_deleting(
+				array(
+					'name'     => basename( $file_path ),
+					'tmp_name' => $file_path,
+				)
+			);
 		}
 		// Return the attachment ID.
 		return $attachment_id;
@@ -809,6 +824,39 @@ class Modula_Gallery_Upload {
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Handle sideload without deleting the original file
+	 *
+	 * @param array $file_array The file array
+	 * @return int|WP_Error The attachment ID or a WP_Error object
+	 *
+	 * @since 2.11.0
+	 */
+	public function handle_sideload_without_deleting( $file_array ) {
+		// Step 1: Copy the original file to a temporary location
+		$temp_file = wp_tempnam( $file_array['name'] );
+		if ( ! $temp_file ) {
+			return new WP_Error( 'temp_file_creation_failed', __( 'Could not create temporary file.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! copy( $file_array['tmp_name'], $temp_file ) ) {
+			return new WP_Error( 'file_copy_failed', __( 'Could not copy file to temporary location.', ' modula-best-grid-gallery' ) );
+		}
+
+		// Step 2: Update the file array to point to the temporary file
+		$file_array['tmp_name'] = $temp_file;
+
+		// Step 3: Use media_handle_sideload to handle the copied file
+		$attachment_id = media_handle_sideload( $file_array, 0 );
+
+		// Step 4: Ensure the original file remains intact
+		if ( is_wp_error( $attachment_id ) ) {
+			@unlink( $temp_file ); // Clean up the temporary file if there was an error
+		}
+
+		return $attachment_id;
 	}
 }
 
