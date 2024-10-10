@@ -465,8 +465,7 @@ class ModulaGalleryUpload {
 					// Add files to the gallery
 					instance.addFilesToGallery( e.data.images );
 					// Add success notice
-					const noticeWrapper =
-							document.getElementsByClassName( 'wrap' )[ 0 ],
+					const noticeWrapper = document.querySelector('#wpbody-content > .wrap'),
 						text = __(
 							'Import process completed.',
 							'modula-best-grid-gallery'
