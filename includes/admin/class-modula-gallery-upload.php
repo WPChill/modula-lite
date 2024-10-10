@@ -295,7 +295,7 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaBrowseForFile();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgressBar("modula-progress"); modulaBrowser.progressClass.display();</script>';
+			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgressBar("modula-progress"); modulaBrowser.progressClass.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -595,6 +595,10 @@ class Modula_Gallery_Upload {
 					'tmp_name' => $file_path,
 				)
 			);
+			if ( is_wp_error( $attachment_id ) ) {
+				$this->uploaded_files['files'][] = $file_path;
+				return false;
+			}
 		}
 		// Return the attachment ID.
 		return $attachment_id;
