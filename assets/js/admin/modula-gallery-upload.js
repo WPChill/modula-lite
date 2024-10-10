@@ -662,11 +662,52 @@ class ModulaGalleryUpload {
 					fileID: $fileID,
 					security: modulaGalleryUpload.security,
 				};
+				if ( ! instance.progressClass ) {
+					instance.progressClass = new ModulaProgressBar(
+						'modula-uploader-container'
+					);
+					instance.progressClass.display();
+				}
 				const ajaxResponse = await instance.ajaxCall( data ),
-				response = await JSON.parse( ajaxResponse );
+					response = await JSON.parse( ajaxResponse );
 				// Check if the response is successful
 				if ( response.success ) {
 					// Send the folder path to the folder uploader
+					const responsePaths = await instance.checkPaths( response.data );
+					console.log(responsePaths);
+					if ( ! responsePaths.success ) {
+						// Send error message
+						instance.progressClass.changeText( responsePaths.data );
+						return;
+					}
+					instance.progressClass.changeText(
+						__( 'Found ', 'modula-best-grid-gallery' ) +
+							responsePaths.data.length +
+							__(
+								' folders. Starting files validation...',
+								'modula-best-grid-gallery'
+							)
+					);
+					const responseFiles = await instance.filesValidation(
+						responsePaths.data
+					);
+
+					if ( ! responseFiles.success ) {
+						// Send error message
+						instance.progressClass.changeText( responseFiles.data );
+						return;
+					}
+					instance.progressClass.changeText(
+						__( 'Found ', 'modula-best-grid-gallery' ) +
+							responseFiles.data.length +
+							__(
+								' valid files. Starting importing the files...',
+								'modula-best-grid-gallery'
+							)
+					);
+
+					// Import the files in the Media Library
+					instance.importFiles( responseFiles.data );
 				} else {
 					// Send error message
 				}
