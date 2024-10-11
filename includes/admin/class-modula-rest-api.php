@@ -27,14 +27,14 @@ class Modula_Rest_Api {
 			'/clear-notifications',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'clear_all_notifications' ),
+				'callback'            => array( $this, 'clear_notifications' ),
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
 
 		register_rest_route(
 			$this->namespace,
-			'/clear-notification/(?P<id>\d+)',
+			'/clear-notification/(?P<id>[\w-]+)',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'clear_notification' ),
@@ -47,7 +47,15 @@ class Modula_Rest_Api {
 		$manager       = Modula_Notifications::get_instance();
 		$notifications = $manager->get_notifications();
 
-		if ( ! empty( $notifications ) ) {
+		$is_empty = array_reduce(
+			$notifications,
+			function ( $carry, $item ) {
+				return $carry && empty( $item );
+			},
+			true
+		);
+
+		if ( ! $is_empty ) {
 			return rest_ensure_response( $notifications );
 		}
 
@@ -63,7 +71,7 @@ class Modula_Rest_Api {
 
 	public function clear_notifications() {
 		$manager = Modula_Notifications::get_instance();
-		$manager->clear_all_notifications();
+		$manager->clear_notifications();
 		return rest_ensure_response( true );
 	}
 

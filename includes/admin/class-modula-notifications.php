@@ -24,12 +24,15 @@ class Modula_Notifications {
 	}
 
 	public function get_notifications() {
-		return apply_filters( 'modula_notifications', $this->_get_notifications() );
-	}
+		$notifications = array(
+			'error'   => array(),
+			'warning' => array(),
+			'success' => array(),
+			'info'    => array(),
+		);
 
-	private function _get_notifications() {
-		$notifications = array();
-		$options       = $this->_get_options_wildcard( self::$notification_prefix . '%' );
+		$options = $this->_get_options_wildcard( self::$notification_prefix . '%' );
+		$options = apply_filters( 'modula_notifications', $options );
 
 		foreach ( $options as $option ) {
 			$id = explode( '_', $option['option_name'] );
@@ -48,10 +51,11 @@ class Modula_Notifications {
 			$status = isset( $current_notifications['status'] ) ? $current_notifications['status'] : 'info';
 
 			$notifications[ $status ][] = array(
-				'id'      => $id,
-				'title'   => isset( $current_notifications['title'] ) ? $current_notifications['title'] : __( 'Notification', 'modula-best-grid-gallery' ),
-				'status'  => $status,
-				'message' => $current_notifications['message'],
+				'id'          => $id,
+				'title'       => isset( $current_notifications['title'] ) ? $current_notifications['title'] : __( 'Notification', 'modula-best-grid-gallery' ),
+				'status'      => $status,
+				'message'     => $current_notifications['message'],
+				'dismissible' => isset( $current_notifications['dismissible'] ) ? $current_notifications['dismissible'] : true,
 			);
 		}
 		return $notifications;
