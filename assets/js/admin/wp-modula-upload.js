@@ -261,6 +261,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		),
 		modula_files_count: 0,
 		limitExceeded: false,
+		progressClass: false,
 
 		initialize: function () {
 			var modulaGalleryObject = this,
@@ -451,37 +452,15 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 			// Get the number of files to be uploaded
 			modulaGalleryObject.modula_files_count = files.length;
-
-			// Set the status text, to tell the user what's happening
-			$(
-				'.modula-upload-numbers .modula-current',
-				modulaGalleryObject.containerUploader
-			).text('1');
-			$(
-				'.modula-upload-numbers .modula-total',
-				modulaGalleryObject.containerUploader
-			).text(modulaGalleryObject.modula_files_count);
-
-			// Show progress bar
-			modulaGalleryObject.containerUploader.addClass('show-progress');
+			modulaGalleryObject.progressClass = new ModulaProgressBar( false, true );
+			modulaGalleryObject.progressClass.initNoModal( files );
+			modulaGalleryObject.progressClass.noModalShowBar();
 		},
 
 		// File Uploading - update progress bar
 		fileuploading: function (up, file) {
 			var modulaGalleryObject = this;
-			// Update the status text
-			$(
-				'.modula-upload-numbers .modula-current',
-				modulaGalleryObject.containerUploader
-			).text(
-				modulaGalleryObject.modula_files_count - up.total.queued + 1
-			);
-
-			// Update the progress bar
-			$(
-				'.modula-progress-bar-inner',
-				modulaGalleryObject.progressBar
-			).css({ width: up.total.percent + '%' });
+			modulaGalleryObject.progressClass.noModalProgress( modulaGalleryObject.modula_files_count - up.total.queued + 1 );
 		},
 
 		// File Uploaded - add images to the screen
@@ -505,9 +484,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		filesuploaded: function () {
 			var modulaGalleryObject = this;
 			setTimeout(function () {
-				modulaGalleryObject.containerUploader.removeClass(
-					'show-progress'
-				);
+				modulaGalleryObject.progressClass.noModalHideBar();
 			}, 1000);
 		},
 
