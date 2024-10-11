@@ -171,6 +171,10 @@ class Modula_Gallery_Upload {
 			$modula_folders[] = array(
 				'path' => $folder . '/' . $file,
 			);
+			$subfolders       = $this->list_folders( $folder . '/' . $file );
+			if ( ! empty( $subfolders ) ) {
+				$modula_folders = array_merge( $modula_folders, $subfolders );
+			}
 		}
 
 		return $modula_folders;
@@ -359,7 +363,7 @@ class Modula_Gallery_Upload {
 			$this->uploaded_files = $this->get_uploaded_files( absint( $_POST['post_ID'] ) );
 		}
 		// Sanitize the paths.
-		$paths   = is_array( $_POST['paths'] ) ? wp_unslash( array_map( 'sanitize_text_field', $_POST['paths'] ) ) : sanitize_text_field( wp_unslash( $_POST['paths'] ) );
+		$paths   = json_decode( wp_unslash( $_POST['paths'] ), true );
 		$folders = array();
 		if ( is_array( $paths ) ) {
 			foreach ( $paths as $path ) {
@@ -485,9 +489,8 @@ class Modula_Gallery_Upload {
 			wp_send_json_error( __( 'No paths were provided.', 'modula-best-grid-gallery' ) );
 		}
 
-		$paths = wp_unslash( $_POST['paths'] );
+		$paths = json_decode( wp_unslash( $_POST['paths'] ) );
 		$files = array();
-
 		if ( is_array( $paths ) ) {
 			$paths = array_map( 'sanitize_text_field', $paths );
 			// Cycle through paths and get files.
@@ -996,8 +999,17 @@ class Modula_Gallery_Upload {
 		}
 		// Delete the original file.
 		wp_delete_attachment( $file_id, true );
+		$folders = array( $unzip_path );
+		// Check if the folder has subfolders.
+		$subfolders = $this->list_folders( $unzip_path );
+		if ( ! empty( $subfolders ) ) {
+			foreach ( $subfolders as $subfolder ) {
+				// Add the subfolder path to the folders array.
+				$folders[] = $subfolder['path'];
+			}
+		}
 		// Send the unzip path.
-		wp_send_json_success( $unzip_path );
+		wp_send_json_success( $folders );
 	}
 }
 
