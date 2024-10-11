@@ -13,9 +13,11 @@ export function NotificationIcon( { notifications } ) {
 		<div className="notification-icon" onClick={handleClick}>
 			<img src={modulaIcon} className="notification-icon-img"/>
 			{Object.entries(notifications).map(([type, notification]) => (
-				<span key={type} className={`counter ${type}`}>
-					{notification.length}
-				</span>
+				notification.length > 0 && (
+					<span key={type} className={`counter ${type}`}>
+						{notification.length}
+					</span>
+				)
 			))}
 		</div>
 	);

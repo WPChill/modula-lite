@@ -73,7 +73,7 @@ function NotificationIcon(_ref) {
     var _ref3 = _slicedToArray(_ref2, 2),
       type = _ref3[0],
       notification = _ref3[1];
-    return /*#__PURE__*/React.createElement("span", {
+    return notification.length > 0 && /*#__PURE__*/React.createElement("span", {
       key: type,
       className: "counter ".concat(type)
     }, notification.length);
@@ -366,8 +366,8 @@ var dismissNotice = /*#__PURE__*/function () {
         case 0:
           _context.next = 2;
           return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-            path: '/modula-api/v1/clear-notification/' + id,
-            method: 'GET'
+            path: '/modula-api/v1/notifications/' + id,
+            method: 'DELETE'
           });
         case 2:
           response = _context.sent;
@@ -459,8 +459,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var dismissNotices = function dismissNotices() {
   var response = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-    path: '/modula-api/v1/clear-notifications',
-    method: 'GET'
+    path: '/modula-api/v1/notifications',
+    method: 'DELETE'
   });
   return response;
 };
