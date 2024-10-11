@@ -1,0 +1,95 @@
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/notification-system/index.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+.modula-best-grid-gallery #modula-notifications-root {
+  position: fixed;
+  right: 120px;
+  bottom: 20px;
+  z-index: 1000;
+  text-align: center;
+  padding: 20px;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-container {
+  position: absolute;
+  width: 500px;
+  right: 0;
+  bottom: 60px;
+  max-height: 300px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #27be92;
+  box-shadow: 0 0 5px #27be92;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 4px;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter {
+  position: absolute;
+  top: -5px;
+  left: -16px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter.error {
+  background-color: #d63638;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter.warning {
+  background-color: #dba617;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter.info {
+  background-color: #2271b1;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter.success {
+  background-color: #00a32a;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter:nth-of-type(2) {
+  top: 15px;
+  left: -22px;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter:nth-of-type(3) {
+  top: 36px;
+  left: -17px;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .counter:nth-of-type(4) {
+  top: 48px;
+  left: 10px;
+}
+.modula-best-grid-gallery #modula-notifications-root .notification-icon .notification-icon-img {
+  width: 100%;
+}
+.modula-best-grid-gallery #modula-notifications-root .bullet.close {
+  position: absolute;
+  top: 15px;
+  right: 3px;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  color: #000;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.modula-best-grid-gallery #modula-notifications-root:hover .bullet.close {
+  display: flex;
+}
+
+/*# sourceMappingURL=notification-system.css.map*/

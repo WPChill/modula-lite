@@ -389,6 +389,30 @@ class Modula {
 		wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit' . $suffix . '.css', null, MODULA_LITE_VERSION );
+
+		$asset_file = require MODULA_PATH . '/assets/js/admin/notification-system/notification-system.asset.php';
+		$enqueue    = array(
+			'handle'       => 'modula-notification-system',
+			'dependencies' => $asset_file['dependencies'],
+			'version'      => $asset_file['version'],
+			'script'       => MODULA_URL . '/assets/js/admin/notification-system/notification-system.js',
+			'style'        => MODULA_URL . '/assets/js/admin/notification-system/notification-system.css',
+		);
+
+		wp_enqueue_script(
+			$enqueue['handle'],
+			$enqueue['script'],
+			$enqueue['dependencies'],
+			$enqueue['version'],
+			true
+		);
+
+		wp_enqueue_style(
+			$enqueue['handle'],
+			$enqueue['style'],
+			array( 'wp-components' ),
+			$enqueue['version']
+		);
 	}
 
 	public function modula_enqueue_media(){

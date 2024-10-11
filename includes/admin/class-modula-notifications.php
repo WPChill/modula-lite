@@ -45,11 +45,13 @@ class Modula_Notifications {
 				continue;
 			}
 
-			$notifications[] = array(
-				'id'       => $id,
-				'title'    => isset( $current_notifications['title'] ) ? $current_notifications['title'] : __( 'Notification', 'modula-best-grid-gallery' ),
-				'severity' => isset( $current_notifications['severity'] ) ? $current_notifications['severity'] : 4,
-				'message'  => $current_notifications['message'],
+			$status = isset( $current_notifications['status'] ) ? $current_notifications['status'] : 'info';
+
+			$notifications[ $status ][] = array(
+				'id'      => $id,
+				'title'   => isset( $current_notifications['title'] ) ? $current_notifications['title'] : __( 'Notification', 'modula-best-grid-gallery' ),
+				'status'  => $status,
+				'message' => $current_notifications['message'],
 			);
 		}
 		return $notifications;
