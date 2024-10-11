@@ -189,7 +189,9 @@ class ModulaGalleryUpload {
 					),
 					checkedInputs = Array.from( checkedInputsEl ),
 					paths = checkedInputs.map( ( input ) => input.value );
-				const responsePaths = await instance.checkPaths( paths );
+				const responsePaths = await instance.checkPaths(
+					JSON.stringify( paths )
+				);
 				if ( ! responsePaths.success ) {
 					// Send error message
 					instance.progressClass.changeText( responsePaths.data );
@@ -204,7 +206,7 @@ class ModulaGalleryUpload {
 						)
 				);
 				const responseFiles = await instance.filesValidation(
-					responsePaths.data
+					JSON.stringify( responsePaths.data )
 				);
 
 				if ( ! responseFiles.success ) {
@@ -668,7 +670,7 @@ class ModulaGalleryUpload {
 			// Uploader Events
 			// Files Added for Uploading - show progress bar
 			filesadded: function ( up, files ) {
-				instance.progressClass = new ModulaProgressBar(
+				instance.progressClass = new ModulaProgressClass(
 					'modula-uploader-container'
 				);
 				instance.progressClass.display();
@@ -707,7 +709,7 @@ class ModulaGalleryUpload {
 					);
 					// Send the folder path to the folder uploader
 					const responsePaths = await instance.checkPaths(
-						response.data
+						JSON.stringify( response.data )
 					);
 					// Check if the response is successful
 					if ( ! responsePaths.success ) {
@@ -724,7 +726,7 @@ class ModulaGalleryUpload {
 							)
 					);
 					const responseFiles = await instance.filesValidation(
-						responsePaths.data
+						JSON.stringify( responsePaths.data )
 					);
 
 					if ( ! responseFiles.success ) {
@@ -775,7 +777,7 @@ class ModulaGalleryUpload {
 /**
  * Modula progress bar class
  */
-class ModulaProgressBar {
+class ModulaProgressClass {
 	/**
 	 * Progress bar wrapper
 	 *
