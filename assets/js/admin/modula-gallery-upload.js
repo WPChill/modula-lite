@@ -670,7 +670,7 @@ class ModulaGalleryUpload {
 			// Uploader Events
 			// Files Added for Uploading - show progress bar
 			filesadded: function ( up, files ) {
-				instance.progressClass = new ModulaProgressBar(
+				instance.progressClass = new ModulaProgressClass(
 					'modula-uploader-container'
 				);
 				instance.progressClass.display();
@@ -777,7 +777,7 @@ class ModulaGalleryUpload {
 /**
  * Modula progress bar class
  */
-class ModulaProgressBar {
+class ModulaProgressClass {
 	/**
 	 * Progress bar wrapper
 	 *
