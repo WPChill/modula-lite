@@ -983,7 +983,8 @@ class Modula_Gallery_Upload {
 		// Get the base path.
 		$base       = pathinfo( $file, PATHINFO_DIRNAME );
 		$file_name  = pathinfo( $file, PATHINFO_FILENAME );
-		$unzip_path = $base . '/' . $file_name;
+		$timestamp  = time();
+		$unzip_path = $base . '/' . $file_name . $timestamp;
 		// Set the WP_Filesystem.
 		global $wp_filesystem;
 		require_once ABSPATH . '/wp-admin/includes/file.php';
