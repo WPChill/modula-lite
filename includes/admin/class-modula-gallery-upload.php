@@ -80,6 +80,8 @@ class Modula_Gallery_Upload {
 		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
 		// AJAX to unzip the uploaded zip file.
 		add_action( 'wp_ajax_modula_unzip_file', array( $this, 'ajax_unzip_file' ) );
+		// AJAX request to dismiss the upload error notice.
+		add_action( 'wp_ajax_modula_dismiss_upload_error_notice', array( $this, 'ajax_dismiss_upload_error_notice' ) );
 	}
 
 	/**
@@ -1010,6 +1012,27 @@ class Modula_Gallery_Upload {
 		}
 		// Send the unzip path.
 		wp_send_json_success( $folders );
+	}
+
+	/**
+	 * Dismiss the upload error notice
+	 *
+	 * @return bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_dismiss_upload_error_notice() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		if ( ! isset( $_POST['post_ID'] ) ) {
+			wp_send_json_error( __( 'No gallery ID was provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$post_id = absint( $_POST['post_ID'] );
+		$this->update_uploaded_files( $post_id, array() );
+
+		wp_send_json_success();
 	}
 }
 

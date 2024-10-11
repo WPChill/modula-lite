@@ -97,6 +97,17 @@ class ModulaGalleryUpload {
 				}
 			} );
 		}
+		const uploadErrorNotice = document.querySelector( 'div[notice-target="modula_uploaded_files"]');
+		if ( uploadErrorNotice ) {
+			uploadErrorNotice.addEventListener( 'click', function ( e ) {
+				const data = {
+					action: 'modula_dismiss_upload_error_notice',
+					post_ID: instance.postID,
+					security: modulaGalleryUpload.security,
+				};
+				instance.ajaxCall( data );
+			} );
+		}
 	}
 	/**
 	 * File browser
@@ -383,8 +394,10 @@ class ModulaGalleryUpload {
 
 				filesIDs.push( response.data );
 			} else {
-				// Send error message
-				instance.progressClass.changeText( response.data );
+				if ( noModal ) {
+					// Send error message
+					instance.progressClass.changeText( response.data );
+				}
 			}
 		}
 
@@ -814,13 +827,34 @@ class ModulaProgressClass {
 	 */
 	total = 0;
 
+	/**
+	 * No Modal progress
+	 * 
+	 * @since 2.11.0
+	 */
 	noModal = false;
 
+	/**
+	 * No Modal container
+	 * 
+	 * @since 2.11.0
+	 */
 	noModalContainer = null;
 
+	/**
+	 * No Modal files count
+	 * 
+	 * @since 2.11.0
+	 */
 	noModalFilesCount = 0;
 
+	/**
+	 * No Modal progress bar
+	 * 
+	 * @since 2.11.0
+	 */
 	noModalProgressBar = 0;
+
 	/**
 	 * Constructor
 	 *
