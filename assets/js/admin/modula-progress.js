@@ -43,7 +43,7 @@ class ModulaProgress {
 	 * 
 	 * @since 2.11.0
 	 */
-	noModal = false;
+	modal = false;
 
 	/**
 	 * No Modal container
@@ -71,15 +71,17 @@ class ModulaProgress {
 	 *
 	 * @since 2.11.0
 	 */
-	constructor( el, noModal = false ) {
+	constructor( el, modal = true ) {
 		const instance = this;
-		instance.noModal = noModal;
-		if ( ! instance.noModal ) {
-			instance.wrapper = document.getElementById( el );
+		instance.modal = modal;
+		instance.wrapper = document.getElementById( el );
+		if ( instance.modal ) {
 			// Create the progress bar element
 			instance.progressBar = document.createElement( 'div' );
 			instance.progressBar.className = 'modula-progress-bar';
 			// Create the progress text element
+			instance.progressText = document.getElementById('modula-progress-text');
+		} else {
 			instance.progressText = document.createElement( 'div' );
 			instance.progressText.className = 'modula-progress-text';
 		}
@@ -91,8 +93,11 @@ class ModulaProgress {
 	 */
 	display() {
 		const instance = this;
-		instance.wrapper.appendChild( instance.progressText );
-		instance.wrapper.appendChild( instance.progressBar );
+		if ( instance.modal ) {
+			instance.wrapper.appendChild( instance.progressBar );
+		} else {
+			instance.wrapper.appendChild( instance.progressText );
+		}
 	}
 	/**
 	 * Update progress bar
