@@ -560,8 +560,9 @@ class Modula_Gallery_Upload {
 			wp_send_json_error( __( 'No files were provided.', 'modula-best-grid-gallery' ) );
 		}
 
-		$file          = wp_unslash( $_POST['file'] );
-		$delete_file   = sanitize_text_field( wp_unslash( $_POST['delete_files'] ) );
+		$file        = wp_unslash( $_POST['file'] );
+		$delete_file = 'false' === sanitize_text_field( wp_unslash( $_POST['delete_files'] ) ) ? false : true;
+
 		$attachment_id = $this->upload_image( $file, $delete_file );
 		if ( ! $attachment_id ) {
 			$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
