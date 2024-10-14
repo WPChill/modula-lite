@@ -10,10 +10,14 @@ export function NotificationsHead() {
 		dispatch( setShowContainer( false ) );
 	};
 
-	return  <>
-				<h2>{__('Modula Notification Center', 'modula-best-grid-gallery')}</h2>
-				<Button onClick={closePanel}>
-					<span className="dashicons dashicons-no-alt" ></span>
-				</Button>
-			</>;
+	return (
+		<>
+			<h2>
+				{ __( 'Modula Notification Center', 'modula-best-grid-gallery' ) }
+			</h2>
+			<Button onClick={ closePanel }>
+				<span className="dashicons dashicons-no-alt"></span>
+			</Button>
+		</>
+	);
 }

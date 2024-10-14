@@ -82,6 +82,7 @@
   position: relative;
   cursor: pointer;
   padding: 4px;
+  box-sizing: content-box;
 }
 .modula-best-grid-gallery #modula-notifications-root .notification-icon .counter {
   position: absolute;
@@ -124,8 +125,8 @@
 }
 .modula-best-grid-gallery #modula-notifications-root .bullet.close {
   position: absolute;
-  top: 2px;
-  right: 1px;
+  top: 0;
+  right: -2px;
   display: none;
   justify-content: center;
   align-items: flex-start;
@@ -143,6 +144,8 @@
   height: 19px;
   font-size: 19px;
   margin: 0;
+  position: relative;
+  top: -1px;
 }
 .modula-best-grid-gallery #modula-notifications-root:hover .bullet.close {
   display: flex;

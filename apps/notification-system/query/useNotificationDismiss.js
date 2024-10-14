@@ -10,7 +10,6 @@ const dismissNotice = async ( id ) => {
 };
 
 export const useNotificationDismiss = () => {
-
 	return useMutation( {
 		mutationFn: dismissNotice,
 	} );
