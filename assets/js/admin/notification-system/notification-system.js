@@ -4482,7 +4482,10 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
           this
         );
       }
-      this.scheduleGc();
+      if (!this.isFetchingOptimistic) {
+        this.scheduleGc();
+      }
+      this.isFetchingOptimistic = false;
     };
     this.#retryer = (0,_retryer_js__WEBPACK_IMPORTED_MODULE_2__.createRetryer)({
       initialPromise: fetchOptions?.initialPromise,
@@ -4510,7 +4513,10 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
           this.state.error,
           this
         );
-        this.scheduleGc();
+        if (!this.isFetchingOptimistic) {
+          this.scheduleGc();
+        }
+        this.isFetchingOptimistic = false;
       },
       onError,
       onFail: (failureCount, error) => {
@@ -5229,6 +5235,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
   fetchOptimistic(options) {
     const defaultedOptions = this.#client.defaultQueryOptions(options);
     const query = this.#client.getQueryCache().build(this.#client, defaultedOptions);
+    query.isFetchingOptimistic = true;
     return query.fetch().then(() => this.createResult(query, defaultedOptions));
   }
   fetch(fetchOptions) {
@@ -5409,7 +5416,19 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
       refetch: this.refetch,
       promise: this.#currentThenable
     };
-    const nextResult = result;
+    return result;
+  }
+  updateResult(notifyOptions) {
+    const prevResult = this.#currentResult;
+    const nextResult = this.createResult(this.#currentQuery, this.options);
+    this.#currentResultState = this.#currentQuery.state;
+    this.#currentResultOptions = this.options;
+    if (this.#currentResultState.data !== void 0) {
+      this.#lastQueryWithDefinedData = this.#currentQuery;
+    }
+    if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.shallowEqualObjects)(nextResult, prevResult)) {
+      return;
+    }
     if (this.options.experimental_prefetchInRender) {
       const finalizeThenableIfPossible = (thenable) => {
         if (nextResult.status === "error") {
@@ -5425,9 +5444,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
       const prevThenable = this.#currentThenable;
       switch (prevThenable.status) {
         case "pending":
-          if (query.queryHash === prevQuery.queryHash) {
-            finalizeThenableIfPossible(prevThenable);
-          }
+          finalizeThenableIfPossible(prevThenable);
           break;
         case "fulfilled":
           if (nextResult.status === "error" || nextResult.data !== prevThenable.value) {
@@ -5440,19 +5457,6 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
           }
           break;
       }
-    }
-    return nextResult;
-  }
-  updateResult(notifyOptions) {
-    const prevResult = this.#currentResult;
-    const nextResult = this.createResult(this.#currentQuery, this.options);
-    this.#currentResultState = this.#currentQuery.state;
-    this.#currentResultOptions = this.options;
-    if (this.#currentResultState.data !== void 0) {
-      this.#lastQueryWithDefinedData = this.#currentQuery;
-    }
-    if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.shallowEqualObjects)(nextResult, prevResult)) {
-      return;
     }
     this.#currentResult = nextResult;
     const defaultNotifyOptions = {};

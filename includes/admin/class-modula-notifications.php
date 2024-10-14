@@ -9,6 +9,16 @@ class Modula_Notifications {
 	public static $instance;
 
 	private static $notification_prefix = 'modula_notification_';
+	private $hook_name                  = 'modula_notifications_remote';
+
+	public function __construct() {
+
+		if ( ! wp_next_scheduled( $this->hook_name ) ) {
+			wp_schedule_event( time(), 'daily', $this->hook_name );
+		}
+
+		add_action( $this->hook_name, array( $this, 'get_remote_notices' ) );
+	}
 
 	public static function get_instance() {
 
@@ -87,6 +97,30 @@ class Modula_Notifications {
 			if ( isset( $option['option_name'] ) ) {
 				delete_option( $option['option_name'] );
 			}
+		}
+	}
+
+	public function get_remote_notices() {
+		$response = wp_remote_get( 'https://dev.tamewp.com/wp-json/custom/v1/notifications' );
+
+		if ( is_wp_error( $response ) ) {
+			return;
+		}
+
+		$status_code = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $status_code ) {
+			return;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$notifications = json_decode( $body, true );
+
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
+			return;
+		}
+
+		foreach ( $notifications as $key => $notification ) {
+			$this->add_notification( $key, $notification );
 		}
 	}
 }

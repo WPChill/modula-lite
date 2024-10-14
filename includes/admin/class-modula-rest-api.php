@@ -73,8 +73,6 @@ class Modula_Rest_Api {
 	}
 
 	public function _permissions_check() {
-		// TODO: remove return true;
-		return true;
 		return current_user_can( 'manage_options' );
 	}
 }
