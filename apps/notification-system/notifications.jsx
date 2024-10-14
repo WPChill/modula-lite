@@ -17,17 +17,17 @@ export function Notifications() {
 		return data || [];
 	}, [ data, isLoading ] );
 
-	if ( 0 === notifications.length || closedBubble ) {
+	if ( 0 == notifications.length || closedBubble ) {
 		return null;
 	}
 
 	return (
 		<>
-			<NotificationIcon notifications={ notifications } />
+			<NotificationIcon
+				notifications={ notifications }
+			/>
 			<NotificationClose />
-			{ showContainer && (
-				<NotificationsContainer notifications={ notifications } />
-			) }
+			{showContainer && <NotificationsContainer notifications={ notifications } />}
 		</>
 	);
 }

@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import { NotificationsList } from './notification/notifications-list';
 import { NotificationsHead } from './notification/notifications-head';
 import { NotificationsFooter } from './notification/notifications-footer';

@@ -11,9 +11,9 @@ export function NotificationsFooter() {
 		mutation.mutate();
 	};
 
-	return (
-		<Button className="dismiss_all_notifications" onClick={ closePanel }>
-			{ __( ' Dismiss All Notifications', 'modula-best-grid-gallery' ) }
-		</Button>
-	);
+	return(
+			<Button className="dismiss_all_notifications" onClick={closePanel}>
+				{__(' Dismiss All Notifications', 'modula-best-grid-gallery')}
+			</Button>
+		);
 }
