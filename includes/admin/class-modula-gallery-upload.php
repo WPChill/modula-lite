@@ -149,12 +149,13 @@ class Modula_Gallery_Upload {
 	* @access public
 	*
 	* @param  string  $folder  (default: '')
+	* @param  boolean $recursive  (default: false)
 	*
 	* @return array|bool
 
 	* @since 2.11.0
 	*/
-	public function list_folders( $folder = '' ) {
+	public function list_folders( $folder = '', $recursive = false ) {
 		// If no folder is specified, return false
 		if ( ! $this->check_folder( $folder ) ) {
 			return false;
@@ -173,9 +174,11 @@ class Modula_Gallery_Upload {
 			$modula_folders[] = array(
 				'path' => $folder . '/' . $file,
 			);
-			$subfolders       = $this->list_folders( $folder . '/' . $file );
-			if ( ! empty( $subfolders ) ) {
-				$modula_folders = array_merge( $modula_folders, $subfolders );
+			if ( $recursive ) {
+				$subfolders = $this->list_folders( $folder . '/' . $file );
+				if ( ! empty( $subfolders ) ) {
+					$modula_folders = array_merge( $modula_folders, $subfolders );
+				}
 			}
 		}
 
@@ -228,11 +231,11 @@ class Modula_Gallery_Upload {
 
 		// Check user rights
 		if ( ! $this->check_user_upload_rights() ) {
-			die();
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
 		}
 
 		if ( ! isset( $_POST['path'] ) ) {
-			die();
+			wp_send_json_error( __( 'No path was provided.', 'modula-best-grid-gallery' ) );
 		}
 		$checked = false;
 		if ( ! empty( $_POST['input-checked'] ) && 'true' === $_POST['input-checked'] ) {
@@ -279,7 +282,7 @@ class Modula_Gallery_Upload {
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
 			// Get folders based on path.
-			$files = $this->list_folders( $this->default_dir, 1 );
+			$files = $this->list_folders( $this->default_dir );
 			if ( ! empty( $files ) ) {
 				// Cycle through files.
 				foreach ( $files as $found_file ) {
@@ -288,8 +291,8 @@ class Modula_Gallery_Upload {
 				}
 			}
 			echo '</ul>';
-			echo '<div id="modula-progress"></div>';
 			echo '<div class="modula-browser-footer">';
+			echo '<div class="modula-browser-footer__actions">';
 			// Add input checkbox to keep or delete the files from the folders.
 			echo '<div class="modula-browser-footer__column text-left">';
 			echo '<label for="keep_files"><input type="checkbox" id="delete_files" value="true">' . esc_html__( 'Delete files from folder after upload', 'modula-best-grid-gallery' ) . '</label>';
@@ -298,10 +301,13 @@ class Modula_Gallery_Upload {
 			echo '<a href="#" class="button button-primary disabled" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</div>';
 			echo '</div>';
+			echo '<div class="modula-browser-footer__progress">';
+			echo '<div id="modula-progress"><div id="modula-progress-text">' . esc_html__( 'Import files from a folder', 'modula-best-grid-gallery' ) . '</div></div>';
+			echo '</div>';
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgress("modula-progress"); modulaBrowser.progressClass.display();</script>';
+			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgress("modula-progress", true); modulaBrowser.progressClass.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -1005,7 +1011,7 @@ class Modula_Gallery_Upload {
 		wp_delete_attachment( $file_id, true );
 		$folders = array( $unzip_path );
 		// Check if the folder has subfolders.
-		$subfolders = $this->list_folders( $unzip_path );
+		$subfolders = $this->list_folders( $unzip_path, true );
 		if ( ! empty( $subfolders ) ) {
 			foreach ( $subfolders as $subfolder ) {
 				// Add the subfolder path to the folders array.
