@@ -56,6 +56,7 @@ class Modula_Notifications {
 				'status'      => $status,
 				'message'     => $current_notifications['message'],
 				'dismissible' => isset( $current_notifications['dismissible'] ) ? $current_notifications['dismissible'] : true,
+				'actions'     => isset( $current_notifications['actions'] ) ? $current_notifications['actions'] : array(),
 			);
 		}
 		return $notifications;

@@ -66,6 +66,9 @@
   max-height: 250px;
   overflow: auto;
 }
+.modula-best-grid-gallery #modula-notifications-root .notification-container .components-panel .notification-row .notification-actions-wrapp a, .modula-best-grid-gallery #modula-notifications-root .notification-container .components-panel .notification-row .notification-actions-wrapp button {
+  margin-right: 10px;
+}
 .modula-best-grid-gallery #modula-notifications-root .notification-icon {
   width: 45px;
   height: 45px;
