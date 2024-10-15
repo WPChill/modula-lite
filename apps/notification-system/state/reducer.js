@@ -4,6 +4,8 @@ export default function reducer( state, action ) {
 			return { ...state, closedBubble: action.payload };
 		case 'SET_SHOW_CONTAINER':
 			return { ...state, showContainer: action.payload };
+		case 'SET_OPEN_PANELS':
+			return { ...state, openPanels: action.payload };
 		default:
 			return state;
 	}
