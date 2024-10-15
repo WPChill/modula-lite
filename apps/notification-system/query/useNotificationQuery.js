@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 export const useNotificationQuery = () => {
 	return useQuery({
 		queryKey: ['notifications'],

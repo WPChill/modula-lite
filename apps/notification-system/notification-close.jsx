@@ -9,7 +9,7 @@ export function NotificationClose() {
 
 	return (
         <span className="bullet close" onClick={handleCloseClick}>
-            <span class="dashicons dashicons-no-alt"></span>
+            <span className="dashicons dashicons-no-alt"></span>
         </span>
 	);
 }

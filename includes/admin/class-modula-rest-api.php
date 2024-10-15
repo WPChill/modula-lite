@@ -17,60 +17,62 @@ class Modula_Rest_Api {
 			'/notifications',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_notifications' ),
+				'callback'            => array( $this, 'process_request' ),
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
 
 		register_rest_route(
 			$this->namespace,
-			'/clear-notifications',
+			'/notifications',
 			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'clear_all_notifications' ),
+				'methods'             => 'DELETE',
+				'callback'            => array( $this, 'process_request' ),
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
 
 		register_rest_route(
 			$this->namespace,
-			'/clear-notification/(?P<id>\d+)',
+			'/notifications/(?P<id>[\w-]+)',
 			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'clear_notification' ),
+				'methods'             => 'DELETE',
+				'callback'            => array( $this, 'process_request' ),
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
 	}
 
-	public function get_notifications() {
-		$manager       = Modula_Notifications::get_instance();
+	public function process_request( $request ) {
+		$manager = Modula_Notifications::get_instance();
+		if ( 'DELETE' === $request->get_method() ) {
+			$post_id = $request->get_param( 'id' );
+			if ( $post_id ) {
+				$manager->clear_notification( $post_id );
+				return rest_ensure_response( true );
+			}
+			$manager->clear_notifications();
+			return rest_ensure_response( true );
+		}
+
 		$notifications = $manager->get_notifications();
 
-		if ( ! empty( $notifications ) ) {
+		$is_empty = array_reduce(
+			$notifications,
+			function ( $carry, $item ) {
+				return $carry && empty( $item );
+			},
+			true
+		);
+
+		if ( ! $is_empty ) {
 			return rest_ensure_response( $notifications );
 		}
 
 		return rest_ensure_response( false );
 	}
 
-	public function clear_notification( $request ) {
-		$post_id = $request->get_param( 'id' );
-		$manager = Modula_Notifications::get_instance();
-		$manager->clear_notification( $post_id );
-		return rest_ensure_response( true );
-	}
-
-	public function clear_notifications() {
-		$manager = Modula_Notifications::get_instance();
-		$manager->clear_all_notifications();
-		return rest_ensure_response( true );
-	}
-
-
 	public function _permissions_check() {
-		// TODO: remove return true;
-		return true;
 		return current_user_can( 'manage_options' );
 	}
 }

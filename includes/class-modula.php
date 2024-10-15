@@ -162,6 +162,9 @@ class Modula {
 		// Initiate modula cpts
 		new Modula_CPT();
 
+		// Initiate Modula Notifications
+		Modula_Notifications::get_instance();
+
 		// Initiate Modula REST Api
 		new Modula_Rest_Api();
 	}
