@@ -4,8 +4,7 @@ import { Markup } from 'interweave';
 import { __ } from '@wordpress/i18n';
 import { useNotificationDismiss } from '../query/useNotificationDismiss';
 import { useQueryClient } from '@tanstack/react-query';
-
-// import { ClearAllNotifications } from './clear-all-notifications';
+import { NotificationActions } from './notification-actions';
 
 export function NotificationsList( { notifications } ) {
 	const allNotifications = Object.values(notifications).flat();
@@ -50,12 +49,13 @@ export function NotificationsList( { notifications } ) {
 							<Button className="notification_dismiss_button" onClick={() => dismissNotification(notification.id)}>
 								{__('Dismiss', 'modula-best-grid-gallery')}
 							</Button>}
-							<div className="notification-actions"></div>
-							{/* <ClearNotifications id={id} /> */}
 						</PanelRow>
+						{(notification?.actions !== undefined && notification.actions.length > 0) && 
+						<PanelRow className='notification-row'>
+							<NotificationActions actions={notification.actions} />
+						</PanelRow>}
 					</PanelBody>
 				))}
-			{/* {notifications?.length > 0 && <ClearAllNotifications />} */}
 		</Panel>
 	);
 }

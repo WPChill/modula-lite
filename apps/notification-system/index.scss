@@ -64,6 +64,13 @@
 		.components-panel {
 			max-height: 250px;
 			overflow: auto;
+			.notification-row{
+				.notification-actions-wrapp{
+					a, button{
+						margin-right: 10px;
+					}
+				}
+			}
 		}
 	}
 	.notification-icon {
