@@ -15,11 +15,9 @@ export function Notifications() {
 
 	useEffect(() => {
 		if (typeof window.modulaEventBus === 'undefined') {
-			console.log('event bus is not available');
 			return;
 		  }
 		const handleNotificationUpdate = () => {
-			console.error('handleNotificationUpdate');
 			queryClient.invalidateQueries(['notifications']);
 		};
 
