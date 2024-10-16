@@ -10,5 +10,6 @@ export const useNotificationQuery = () => {
 			});
 			return data;
 		},
+		refetchInterval: 5000,
 	});
 };
