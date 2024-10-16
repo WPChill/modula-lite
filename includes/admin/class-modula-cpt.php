@@ -58,9 +58,6 @@ class Modula_CPT {
 		add_filter( 'pre_get_posts', array( $this, 'search_by_gallery_id' ) );
 		add_action( 'views_edit-modula-gallery', array( $this, 'filter_by_gallery_type' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'add_gallery_type_hidden_field' ) );
-
-		add_filter( 'post_updated_messages', array( $this, 'custom_post_updated_messages' ) );
-		add_action( 'save_post', array( $this, 'add_custom_notification' ), 10, 3 );
 	}
 
 	public function register_cpt() {
@@ -1133,57 +1130,6 @@ class Modula_CPT {
 			?>
 			<input type="hidden" name="gallery_type" class="post_gallery_type_page" value="<?php echo isset( $_GET['gallery_type'] ) ? esc_attr( $_GET['gallery_type'] ) : 'all'; ?>" />
 			<?php
-		}
-	}
-
-	public function custom_post_updated_messages( $messages ) {
-		global $post;
-		if ( isset( $post->post_type ) && $post->post_type === 'modula-gallery' ) {
-			foreach ( $messages as $post_type => $message_array ) {
-				foreach ( $message_array as $key => $message ) {
-					unset( $messages[ $post_type ][ $key ] );
-				}
-			}
-		}
-		return $messages;
-	}
-
-	public function add_custom_notification( $post_id, $post, $update ) {
-		if ( 'modula-gallery' !== $post->post_type || wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || 'auto-draft' === $post->post_status ) {
-			return;
-		}
-
-		if ( $update ) {
-			$notice = array(
-				'title'   => esc_html__( 'Modula Gallery Updated', 'modula-best-grid-gallery' ),
-				// translators: %s is the gallery name.
-				'message' => sprintf( __( 'The gallery "%s" has been successfully updated.', 'modula-best-grid-gallery' ), $post->post_title ),
-				'status'  => 'success',
-				'timed'   => 5000,
-			);
-			Modula_Notifications::add_notification( 'cpt-updated' . $post_id, $notice );
-		}
-
-		if ( 'publish' === $post->post_status && ! $update ) {
-			$notice = array(
-				'title'   => esc_html__( 'Modula Gallery Published', 'modula-best-grid-gallery' ),
-				// translators: %s is the gallery name.
-				'message' => sprintf( __( 'The gallery "%s" has been successfully published.', 'modula-best-grid-gallery' ), $post->post_title ),
-				'status'  => 'success',
-				'timed'   => 5000,
-			);
-			Modula_Notifications::add_notification( 'cpt-updated' . $post_id, $notice );
-		}
-
-		if ( 'trash' === $post->post_status ) {
-			$notice = array(
-				'title'   => esc_html__( 'Modula Gallery Trashed', 'modula-best-grid-gallery' ),
-				// translators: %s is the gallery name.
-				'message' => sprintf( __( 'The gallery "%s" has been moved to trash.', 'modula-best-grid-gallery' ), $post->post_title ),
-				'status'  => 'warning',
-				'timed'   => 5000,
-			);
-			Modula_Notifications::add_notification( 'cpt-updated' . $post_id, $notice );
 		}
 	}
 }
