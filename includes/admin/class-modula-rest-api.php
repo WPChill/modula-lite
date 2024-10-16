@@ -69,7 +69,7 @@ class Modula_Rest_Api {
 			return rest_ensure_response( $notifications );
 		}
 
-		return rest_ensure_response( false );
+		return rest_ensure_response( array() );
 	}
 
 	public function _permissions_check() {

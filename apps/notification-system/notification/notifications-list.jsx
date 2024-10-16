@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { Panel, PanelBody, PanelRow, __experimentalText as Text, Button } from '@wordpress/components';
 import { Markup } from 'interweave';
 import { __ } from '@wordpress/i18n';
@@ -6,15 +6,13 @@ import { useNotificationDismiss } from '../query/useNotificationDismiss';
 import { useQueryClient } from '@tanstack/react-query';
 import { NotificationActions } from './notification-actions';
 import { useModulaState } from '../state/use-modula-state';
-import { setOpenPanels } from '../state/actions';
+import { setOpenPanels, setVisibleNotifications } from '../state/actions';
 
-export function NotificationsList( { notifications } ) {
-	const allNotifications = Object.values(notifications).flat();
+export function NotificationsList() {
 	const mutation = useNotificationDismiss();
 	const queryClient = useQueryClient();
 	const { state, dispatch } = useModulaState();
-	const [visibleNotifications, setVisibleNotifications] = useState(allNotifications);
-	const {openPanels} = state;
+	const {visibleNotifications, openPanels} = state;
 
 	const dismissNotification = (id) => {
 		mutation.mutate( id, {
@@ -28,7 +26,7 @@ export function NotificationsList( { notifications } ) {
     };
 
 	useEffect(() => {
-		const timers = visibleNotifications.map(notification => {
+		visibleNotifications.map(notification => {
 			if (notification.timed && openPanels[notification.id] ) {
 				const timer = setTimeout(() => {
 					dismissNotification(notification.id);

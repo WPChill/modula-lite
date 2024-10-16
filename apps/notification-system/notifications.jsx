@@ -3,20 +3,20 @@ import { NotificationClose } from './notification-close';
 import { NotificationsContainer } from './notifications-container';
 import { useModulaState } from './state/use-modula-state';
 import { useNotificationQuery } from './query/useNotificationQuery';
-import { useMemo } from '@wordpress/element';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from '@wordpress/element';
+import { useQueryClient } from '@tanstack/react-query';
+import { setVisibleNotifications } from './state/actions';
 
 export function Notifications() {
 	const { data, isLoading } = useNotificationQuery();
-	const { state } = useModulaState();
+	const { state, dispatch } = useModulaState();
 	const { closedBubble, showContainer } = state;
 	const queryClient = useQueryClient();
 
 	useEffect(() => {
 		if (typeof window.modulaEventBus === 'undefined') {
 			return;
-		  }
+		}
 		const handleNotificationUpdate = () => {
 			queryClient.invalidateQueries(['notifications']);
 		};
@@ -26,27 +26,24 @@ export function Notifications() {
 		return () => {
 			window.modulaEventBus.off('modula_notifications_updated', handleNotificationUpdate);
 		};
-	}, [queryClient] );
+	}, [queryClient]);
 
-	const notifications = useMemo( () => {
-		if ( isLoading || ! data ) {
-			return [];
+	useEffect(() => {
+		if (!isLoading && data) {
+			const allNotifications = Object.values(data).flat();
+			dispatch(setVisibleNotifications(allNotifications));
 		}
+	}, [data, isLoading, dispatch]);
 
-		return data || [];
-	}, [ data, isLoading ] );
-
-	if ( 0 == notifications.length || closedBubble ) {
+	if (0 === state.visibleNotifications.length || closedBubble) {
 		return null;
 	}
 
 	return (
 		<>
-			<NotificationIcon
-				notifications={ notifications }
-			/>
+			<NotificationIcon />
 			<NotificationClose />
-			{showContainer && <NotificationsContainer notifications={ notifications } />}
+			{showContainer && <NotificationsContainer />}
 		</>
 	);
 }

@@ -6,6 +6,8 @@ export default function reducer( state, action ) {
 			return { ...state, showContainer: action.payload };
 		case 'SET_OPEN_PANELS':
 			return { ...state, openPanels: action.payload };
+		case 'SET_VISIBLE_NOTIFICATIONS':
+			return { ...state, visibleNotifications: action.payload };
 		default:
 			return state;
 	}

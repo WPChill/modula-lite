@@ -4,8 +4,7 @@ import { setShowContainer } from './state/actions';
 
 export function NotificationIcon( { notifications } ) {
 	const { state, dispatch } = useModulaState();
-	const { showContainer } = state;
-	const totalNotifications = Object.values(notifications).reduce((acc, arr) => acc + arr.length, 0);
+	const { showContainer, visibleNotifications } = state;
 	const handleClick = () => {
 		dispatch( setShowContainer( showContainer? false: true ) );
 	};
@@ -14,7 +13,7 @@ export function NotificationIcon( { notifications } ) {
 		<div className="notification-icon" onClick={handleClick}>
 			<img src={modulaIcon} className="notification-icon-img"/>
 			<span className="warn-icon">
-				{totalNotifications}
+				{visibleNotifications.length}
 			</span>
 		</div>
 	);

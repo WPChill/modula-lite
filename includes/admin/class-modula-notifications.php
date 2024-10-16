@@ -8,8 +8,8 @@ class Modula_Notifications {
 
 	public static $instance;
 
-	private static $notification_prefix = 'modula_notification_';
-	private $hook_name                  = 'modula_notifications_remote';
+	public static $notification_prefix = 'modula_notification_';
+	private $hook_name                 = 'modula_notifications_remote';
 
 	public function __construct() {
 
@@ -71,7 +71,7 @@ class Modula_Notifications {
 		}
 
 		$notifications = apply_filters( 'modula_notifications', $notifications );
-		
+
 		return $notifications;
 	}
 
@@ -93,8 +93,9 @@ class Modula_Notifications {
 		delete_option( self::$notification_prefix . $key );
 	}
 
-	public function clear_notifications() {
-		$options = $this->_get_options_wildcard( self::$notification_prefix . '%' );
+	public function clear_notifications( $prefix = false ) {
+		$slug    = $prefix ? $prefix : self::$notification_prefix;
+		$options = $this->_get_options_wildcard( $slug . '%' );
 
 		foreach ( $options as $option ) {
 			if ( isset( $option['option_name'] ) ) {
