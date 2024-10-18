@@ -190,6 +190,8 @@ class ModulaGalleryUpload {
 			'click',
 			async function ( e ) {
 				e.preventDefault();
+				// Add the disabled class to the button
+				e.target.classList.add( 'disabled' );
 				instance.deleteFiles =
 					document.getElementById( 'delete_files' ).checked;
 				instance.progressClass.changeText(
@@ -235,7 +237,7 @@ class ModulaGalleryUpload {
 				);
 
 				// Import the files in the Media Library
-				instance.importFiles( responseFiles.data );
+				instance.importFiles( responseFiles.data, true );
 			}
 		);
 	}
@@ -347,17 +349,16 @@ class ModulaGalleryUpload {
 	 * Import files
 	 *
 	 * @param {*} files
-	 * @param {*} noModal
+	 * @param {*} modal
 	 * @since 2.11.0
 	 */
-	async importFiles( files, noModal = false ) {
+	async importFiles( files, modal = false ) {
 		const instance = this;
 		if ( instance.postID === 0 ) {
 			instance.postID = document.getElementById( 'post_ID' ).value;
 		}
 		let filesIDs = [];
-		if ( noModal ) {
-			instance.progressClass.hideBar();
+		if ( ! modal ) {
 			instance.progressClass.initNoModal( files );
 			instance.progressClass.noModalShowBar();
 		} else {
@@ -366,7 +367,7 @@ class ModulaGalleryUpload {
 
 		// Cycle through the files and import them
 		for ( let i = 0; i < files.length; i++ ) {
-			if ( ! noModal ) {
+			if ( modal ) {
 				instance.progressClass.changeText(
 					__( 'Importing file ', 'modula-best-grid-gallery' ) +
 						( i + 1 ) +
@@ -388,13 +389,13 @@ class ModulaGalleryUpload {
 			const ajaxResponse = await instance.ajaxCall( $params ),
 				response = await JSON.parse( ajaxResponse );
 			if ( response.success ) {
-				if ( ! noModal ) {
+				if ( modal ) {
 					instance.progressClass.update( i + 1, files.length );
 				}
 
 				filesIDs.push( response.data );
 			} else {
-				if ( noModal ) {
+				if ( ! modal ) {
 					// Send error message
 					instance.progressClass.changeText( response.data );
 				}
@@ -408,11 +409,11 @@ class ModulaGalleryUpload {
 					filesIDs.length +
 					__( ' files.', 'modula-best-grid-gallery' )
 			);
-			if ( ! noModal ) {
+			if ( modal ) {
 				// Wait for 2 seconds before updating the gallery.
 				setTimeout( function () {
 					instance.progressClass.hideBar();
-					if ( ! noModal ) {
+					if ( modal ) {
 						instance.progressClass.changeText(
 							modulaGalleryUpload.updatingGallery
 						);
@@ -422,13 +423,14 @@ class ModulaGalleryUpload {
 				}, 2000 );
 			} else {
 				instance.progressClass.changeText( '' );
-				instance.progressClass.hideBar();
 				instance.progressClass.noModalHideBar();
 				// Update the gallery
-				instance.updateGallery( filesIDs, true );
+				instance.updateGallery( filesIDs, false );
 			}
 		} else {
-			instance.progressClass.hideBar();
+			if ( modal ) {
+				instance.progressClass.hideBar();
+			}
 		}
 	}
 	/**
@@ -437,7 +439,7 @@ class ModulaGalleryUpload {
 	 * @param {*} ids
 	 * @since 2.11.0
 	 */
-	async updateGallery( $ids, noModal = false ) {
+	async updateGallery( $ids, modal = true ) {
 		const instance = this;
 		instance.postID = document.getElementById( 'post_ID' ).value;
 
@@ -451,7 +453,7 @@ class ModulaGalleryUpload {
 		const ajaxResponse = await instance.ajaxCall( $params ),
 			response = await JSON.parse( ajaxResponse );
 		if ( response.success ) {
-			if ( ! noModal ) {
+			if ( modal ) {
 				// Update the gallery
 				instance.progressClass.changeText(
 					modulaGalleryUpload.galleryUpdated
@@ -597,6 +599,11 @@ class ModulaGalleryUpload {
 	 */
 	setUploaders() {
 		const instance = this;
+		instance.progressClass = new ModulaProgress(
+			'modula-uploader-container', false
+		);
+		instance.progressClass.display();
+
 		instance.zipUploadHandler = Backbone.Model.extend( {
 			uploaderOptions: {
 				container: jQuery( '#modula-uploader-container' ),
@@ -683,10 +690,6 @@ class ModulaGalleryUpload {
 			// Uploader Events
 			// Files Added for Uploading - show progress bar
 			filesadded: function ( up, files ) {
-				instance.progressClass = new ModulaProgress(
-					'modula-uploader-container'
-				);
-				instance.progressClass.display();
 			},
 
 			// File Uploading - update progress bar
@@ -757,13 +760,14 @@ class ModulaGalleryUpload {
 					);
 
 					// Import the files in the Media Library
-					instance.importFiles( responseFiles.data, true );
+					instance.importFiles( responseFiles.data, false );
 				} else {
 					// Send error message
 				}
 			},
 			// Files Uploaded - hide progress bar
-			filesuploaded: function () {},
+			filesuploaded: function () {
+			},
 		} );
 	}
 	/**
