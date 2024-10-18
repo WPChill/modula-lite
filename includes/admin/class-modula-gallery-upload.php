@@ -108,6 +108,11 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function check_user_upload_rights() {
+		// Include the pluggable file if it's not already included. Seems to be a problem
+		// when checking the current user capabilities.
+		if ( ! function_exists( 'wp_get_current_user' ) ) {
+			include_once ABSPATH . 'wp-includes/pluggable.php';
+		}
 		// Check if the user has the rights to upload files and edit posts.
 		if ( ! current_user_can( 'upload_files' ) || ! current_user_can( 'edit_posts' ) ) {
 			return false;
