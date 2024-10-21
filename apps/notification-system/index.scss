@@ -79,8 +79,8 @@
 		width: 45px;
 		height: 45px;
 		border-radius: 50%;
-		border: 1px solid #27be92;
-		box-shadow: 0 0 5px #27be92;
+		border: 1px solid #222222;
+		box-shadow: 0 0 5px #222222 ;
 		background: #fff;
 		display: flex;
 		justify-content: center;
@@ -105,30 +105,5 @@
 		.notification-icon-img {
 			width: 100%;
 		}
-	}
-	.bullet.close {
-		position: absolute;
-		top: 5px;
-		right: 3px;
-		display: none;
-		justify-content: center;
-		align-items: flex-start;
-		width: 20px;
-		height: 20px;
-		border-radius: 50%;
-		border: 1px solid #000;
-		color: #000;
-		background-color: #fff;
-		cursor: pointer;
-		box-sizing: border-box;
-		.dashicons {
-			width: 19px;
-			height: 19px;
-			font-size: 19px;
-			margin: 0;
-		}
-	}
-	&:hover .bullet.close {
-		display: flex;
 	}
 }

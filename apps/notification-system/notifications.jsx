@@ -1,5 +1,4 @@
 import { NotificationIcon } from './notification-icon';
-import { NotificationClose } from './notification-close';
 import { NotificationsContainer } from './notifications-container';
 import { useModulaState } from './state/use-modula-state';
 import { useNotificationQuery } from './query/useNotificationQuery';
@@ -42,7 +41,6 @@ export function Notifications() {
 	return (
 		<>
 			<NotificationIcon />
-			<NotificationClose />
 			{showContainer && <NotificationsContainer />}
 		</>
 	);

@@ -1,4 +1,4 @@
-import modulaIcon from '../../assets/images/logo-dark.png';
+import modulaIcon from './images/modula-logo-black.png';
 import { useModulaState } from './state/use-modula-state';
 import { setShowContainer } from './state/actions';
 
