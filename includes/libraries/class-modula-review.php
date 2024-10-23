@@ -21,7 +21,6 @@ class Modula_Review {
 		}
 
 		add_action( 'init', array( $this, 'init' ) );
-
 	}
 
 	public function init() {
@@ -62,26 +61,51 @@ class Modula_Review {
 		update_option( 'modula-rate-time', $value );
 
 		return $value;
-
 	}
 
 	public function five_star_wp_rate_notice() {
 
-		$url = sprintf( $this->link, $this->slug );
-		$url = apply_filters( 'modula_review_link', $url );
+		$url            = sprintf( $this->link, $this->slug );
+		$url            = apply_filters( 'modula_review_link', $url );
 		$this->messages = apply_filters( 'modula_review_messages', $this->messages );
-		?>
-		<div id="<?php echo esc_attr($this->slug) ?>-epsilon-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_html( $this->value ) ) ; ?></p>
-			<p class="actions">
-				<a id="epsilon-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary epsilon-review-button">
-					<?php echo esc_html( $this->messages['rate'] ); ?>
-				</a>
-				<a id="epsilon-later" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
-				<a id="epsilon-no-rate" href="#" style="margin-left:10px" class="epsilon-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
-			</p>
-		</div>
-		<?php
+
+		$notice = array(
+			'title'   	  => 'Rate Us',
+			'message' 	  => sprintf( esc_html( $this->messages['notice'] ), esc_html( $this->value ) ),
+			'status'  	  => 'success',
+			'dismissible' => false,
+			'actions'     => array(
+				array(
+					'label'   => esc_html( $this->messages['rated'] ),
+					'id'     => 'epsilon-later',
+					'class'   => 'epsilon-review-button',
+					'dismiss' => true,
+					'callback' => 'handleButtonClick',
+				),
+				array(
+					'label'   => esc_html( $this->messages['no_rate'] ),
+					'id'     => 'epsilon-no-rate',
+					'class'   => 'epsilon-review-button',
+					'dismiss' => true,
+					'callback' => 'handleButtonClick',
+				),
+				array(
+					'label'   => esc_html( $this->messages['rate'] ),
+					'url'     => esc_url( $url ),
+					'class'   => 'epsilon-review-button',
+					'variant' => 'primary',
+					'target'  => '_BLANK',
+					'dismiss' => true,
+					'callback' => 'handleButtonClick',
+				),
+			),
+		);
+
+		Modula_Notifications::add_notification( 'five-star-rate', $notice );
+	}
+
+	public function enqueue() {
+		wp_enqueue_script( 'jquery' );
 	}
 
 	public function ajax() {
@@ -94,61 +118,33 @@ class Modula_Review {
 
 		$time = get_option( 'modula-rate-time' );
 
-		if ( 'epsilon-rate' == $_POST['check'] ) {
+		if ( 'epsilon-rate' === $_POST['check'] || 'epsilon-no-rate' === $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
-		}elseif ( 'epsilon-later' == $_POST['check'] ) {
+		} else {
 			$time = time() + WEEK_IN_SECONDS;
-		}elseif ( 'epsilon-no-rate' == $_POST['check'] ) {
-			$time = time() + YEAR_IN_SECONDS * 5;
 		}
 
 		update_option( 'modula-rate-time', $time );
 		wp_die( 'ok' );
-
-	}
-
-	public function enqueue() {
-		wp_enqueue_script( 'jquery' );
 	}
 
 	public function ajax_script() {
-
 		$ajax_nonce = wp_create_nonce( "epsilon-modula-review" );
-
 		?>
-
+	
 		<script type="text/javascript">
-			jQuery( document ).ready( function( $ ){
 
-				$( '.epsilon-review-button' ).click( function( evt ){
-					var href = $(this).attr('href'),
-						id = $(this).attr('id');
-
-					if ( 'epsilon-rate' != id ) {
-						evt.preventDefault();
-					}
-
-					var data = {
-						action: 'epsilon_modula_review',
-						security: '<?php echo $ajax_nonce; ?>',
-						check: id
-					};
-
-					if ( 'epsilon-rated' === id ) {
-						data['epsilon-review'] = 1;
-					}
-
-					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>', data, function( response ) {
-						$( '#<?php echo esc_attr( $this->slug ) ?>-epsilon-review-notice' ).slideUp( 'fast', function() {
-							$( this ).remove();
-						} );
-					});
-
-				} );
-
-			});
+			function handleButtonClick( element ) {
+				var data = {
+					action: 'epsilon_modula_review',
+					security: '<?php echo $ajax_nonce; ?>',
+					check: element.url ? 'epsilon-rate' : element.id
+				};
+	
+				jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data );
+			}
 		</script>
-
+	
 		<?php
 	}
 }

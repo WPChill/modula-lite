@@ -8,8 +8,8 @@ class Modula_Notifications {
 
 	public static $instance;
 
-	private static $notification_prefix = 'modula_notification_';
-	private $hook_name                  = 'modula_notifications_remote';
+	public static $notification_prefix = 'modula_notification_';
+	private $hook_name                 = 'modula_notifications_remote';
 
 	public function __construct() {
 
@@ -42,7 +42,6 @@ class Modula_Notifications {
 		);
 
 		$options = $this->_get_options_wildcard( self::$notification_prefix . '%' );
-		$options = apply_filters( 'modula_notifications', $options );
 
 		foreach ( $options as $option ) {
 			$id = explode( '_', $option['option_name'] );
@@ -67,8 +66,12 @@ class Modula_Notifications {
 				'message'     => $current_notifications['message'],
 				'dismissible' => isset( $current_notifications['dismissible'] ) ? $current_notifications['dismissible'] : true,
 				'actions'     => isset( $current_notifications['actions'] ) ? $current_notifications['actions'] : array(),
+				'timed'       => isset( $current_notifications['timed'] ) ? $current_notifications['timed'] : false,
 			);
 		}
+
+		$notifications = apply_filters( 'modula_notifications', $notifications );
+
 		return $notifications;
 	}
 
@@ -90,8 +93,9 @@ class Modula_Notifications {
 		delete_option( self::$notification_prefix . $key );
 	}
 
-	public function clear_notifications() {
-		$options = $this->_get_options_wildcard( self::$notification_prefix . '%' );
+	public function clear_notifications( $prefix = false ) {
+		$slug    = $prefix ? $prefix : self::$notification_prefix;
+		$options = $this->_get_options_wildcard( $slug . '%' );
 
 		foreach ( $options as $option ) {
 			if ( isset( $option['option_name'] ) ) {
@@ -101,7 +105,7 @@ class Modula_Notifications {
 	}
 
 	public function get_remote_notices() {
-		$response = wp_remote_get( 'https://dev.tamewp.com/wp-json/custom/v1/notifications' );
+		$response = wp_remote_get( MODULA_REMOTE_NOTIFICATIONS_URL );
 
 		if ( is_wp_error( $response ) ) {
 			return;

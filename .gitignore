@@ -8,3 +8,4 @@ vendor
 assets/.DS_Store
 .php-cs-fixer.cache
 .wp-env.json
+assets/js/admin/notification-system/*

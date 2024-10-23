@@ -4,7 +4,9 @@
 	bottom: 25px;
 	z-index: 9999;
 	padding: 10px;
-
+	.notification-log-empty{
+		padding: 5px;
+	}
 	.notification-container {
 		position: absolute;
 		width: 500px;
@@ -77,8 +79,8 @@
 		width: 45px;
 		height: 45px;
 		border-radius: 50%;
-		border: 1px solid #27be92;
-		box-shadow: 0 0 5px #27be92;
+		border: 1px solid #222222;
+		box-shadow: 0 0 5px #222222 ;
 		background: #fff;
 		display: flex;
 		justify-content: center;
@@ -86,10 +88,10 @@
 		position: relative;
 		cursor: pointer;
 		padding: 4px;
-		.counter {
+		.warn-icon {
 			position: absolute;
-			top: -11px;
-			left: -12px;
+			top: -6px;
+			left: -8px;
 			color: #fff;
 			display: flex;
 			justify-content: center;
@@ -97,58 +99,11 @@
 			width: 20px;
 			height: 20px;
 			border-radius: 50%;
-		}
-		.counter.error{
 			background-color: #d63638;
 		}
-		.counter.warning{
-			background-color: #dba617;
-		}
-		.counter.info{
-			background-color: #2271b1;
-		}
-		.counter.success{
-			background-color: #00a32a;
-		}
-		.counter:nth-of-type(2) {
-			top: 8px;
-			left: -22px;
-		}
-		.counter:nth-of-type(3) {
-			top: 29px;
-   	 		left: -21px;
-		}
-		.counter:nth-of-type(4) {
-			top: 47px;
-			left: -9px;
-		}
+		
 		.notification-icon-img {
 			width: 100%;
 		}
-	}
-	.bullet.close {
-		position: absolute;
-		top: 2px;
-		right: 1px;
-		display: none;
-		justify-content: center;
-		align-items: flex-start;
-		width: 20px;
-		height: 20px;
-		border-radius: 50%;
-		border: 1px solid #000;
-		color: #000;
-		background-color: #fff;
-		cursor: pointer;
-		box-sizing: border-box;
-		.dashicons {
-			width: 19px;
-			height: 19px;
-			font-size: 19px;
-			margin: 0;
-		}
-	}
-	&:hover .bullet.close {
-		display: flex;
 	}
 }

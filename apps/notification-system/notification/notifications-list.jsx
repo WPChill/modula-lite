@@ -1,17 +1,19 @@
-import { useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { Panel, PanelBody, PanelRow, __experimentalText as Text, Button } from '@wordpress/components';
 import { Markup } from 'interweave';
 import { __ } from '@wordpress/i18n';
 import { useNotificationDismiss } from '../query/useNotificationDismiss';
 import { useQueryClient } from '@tanstack/react-query';
 import { NotificationActions } from './notification-actions';
+import { useModulaState } from '../state/use-modula-state';
+import { setOpenPanels, setVisibleNotifications } from '../state/actions';
 
-export function NotificationsList( { notifications } ) {
-	const allNotifications = Object.values(notifications).flat();
+export function NotificationsList() {
 	const mutation = useNotificationDismiss();
 	const queryClient = useQueryClient();
-	const [visibleNotifications, setVisibleNotifications] = useState(allNotifications);
-	
+	const { state, dispatch } = useModulaState();
+	const {visibleNotifications, openPanels} = state;
+
 	const dismissNotification = (id) => {
 		mutation.mutate( id, {
 			onSettled: () => {
@@ -22,6 +24,23 @@ export function NotificationsList( { notifications } ) {
 			prevNotifications.filter(notification => notification.id !== id)
 		);
     };
+
+	useEffect(() => {
+
+		visibleNotifications.forEach( (notification) => {
+			if (notification.timed && openPanels.includes( notification.id ) ) {
+				setTimeout(() => {
+					dismissNotification(notification.id);
+				}, notification.timed);
+			}
+		});
+
+	}, [visibleNotifications, openPanels] );
+
+	const handleTogglePanel = (id) => {
+		dispatch(setOpenPanels( [ ...openPanels, id ]));
+	};
+
 	return (
 		<Panel>
 			{visibleNotifications?.length === 0 && (
@@ -40,6 +59,8 @@ export function NotificationsList( { notifications } ) {
 						}
 						key={notification?.id}
 						initialOpen={false}
+						isOpen={openPanels.includes( notification.id )}
+						onToggle={() => handleTogglePanel(notification.id)}
 					>
 						<PanelRow className='notification-row'>
 							<Text variant="muted">
@@ -52,7 +73,7 @@ export function NotificationsList( { notifications } ) {
 						</PanelRow>
 						{(notification?.actions !== undefined && notification.actions.length > 0) && 
 						<PanelRow className='notification-row'>
-							<NotificationActions actions={notification.actions} />
+							<NotificationActions actions={notification.actions} id={notification.id} onDismiss={dismissNotification} />
 						</PanelRow>}
 					</PanelBody>
 				))}
