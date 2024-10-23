@@ -147,6 +147,11 @@ class Modula_Admin {
 				'priority' => 125,
 				'badge'    => 'PRO'
 			),
+			'instagram' => array(
+				'label'    => esc_html__( 'Instagram', 'modula-best-grid-gallery' ),
+				'priority' => 130,
+				'badge'    => 'PRO'
+			),
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 

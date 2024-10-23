@@ -80,7 +80,9 @@ class Modula_Upsells {
 		add_action( 'modula_admin_tab_roles', array( $this, 'render_roles_tab' ) );
 		add_action( 'modula_admin_tab_whitelabel', array( $this, 'render_whitelabel_tab' ) );
 		// Add upsell for the Video tab.
-		add_filter( 'modula_admin_tab_video', array( $this, 'video_settings_tab_upsell' ) );
+		add_action( 'modula_admin_tab_video', array( $this, 'video_settings_tab_upsell' ) );
+		// Add upsell for the Instagram tab.
+		add_action( 'modula_admin_tab_instagram', array( $this, 'instagram_settings_tab_upsell' ) );
 
 		// Remove upsells badge if user's license includes the addon
 		add_filter( 'modula_admin_page_tabs', array( $this, 'remove_upsells_badge' ), 999 );
@@ -106,7 +108,9 @@ class Modula_Upsells {
 		add_filter( 'modula_admin_page_link', array( $this, 'add_go_pro_menu_item' ) );
 		add_action( 'admin_init', array( $this, 'go_pro_redirect' ) );
 		// Add New button upsells.
-		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_upsells' ), 15, 1 );
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_instagram_upsells' ), 80, 1 );
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_video_upsells' ), 100, 1 );
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_new_button_content_galleries_upsells' ), 60, 1 );
 		// Add bulk editor upsell.
 		add_action( 'modula_gallery_media_button', array( $this, 'bulk_editor_upsell' ), 15, 1 );
 	}
@@ -1109,16 +1113,40 @@ class Modula_Upsells {
 	/**
 	 * Add upsells to the Add New image button when editing a gallery
 	 *
-	 * @since 2.10.0
+	 * @since 2.11.0
 	 */
-	public function add_new_button_upsells() {
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
-			return;
+	public function add_new_button_instagram_upsells() {
+
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
+			echo '<li id="modula-instagram-upsell">' . esc_html__( 'Instagram', 'modula-best-grid-gallery' ) . '</li>';
 		}
-		echo '<li id="modula-video-upsell">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
-		echo '<li id="modula-video-playlist-upsell">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
 	}
 
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.11.0
+	 */
+	public function add_new_button_video_upsells() {
+
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
+			echo '<li id="modula-video-upsell">' . esc_html__( 'Video', 'modula-best-grid-gallery' ) . '</li>';
+			echo '<li id="modula-video-playlist-upsell">' . esc_html__( 'Video Playlist', 'modula-best-grid-gallery' ) . '</li>';
+		}
+	}
+
+	/**
+	 * Add upsells to the Add New image button when editing a gallery
+	 *
+	 * @since 2.11.0
+	 */
+	public function add_new_button_content_galleries_upsells() {
+
+		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-content-galleries' ) ) {
+			echo '<li id="modula-content-galleries-upsell">' . esc_html__( 'Content Galleries', 'modula-best-grid-gallery' ) . '</li>';
+		}
+	}
 
 	/**
 	 * Add upsells to the Add New image button when editing a gallery
@@ -1172,6 +1200,36 @@ class Modula_Upsells {
 					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-video_tab_upsell-tab&utm_campaign=modula-video" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-video' );
+					?>
+				</p>
+			</div>
+		<?php
+	}
+
+	/**
+	 * Instagram tab upsell
+	 *
+	 * @param string $tab_content The tab content.
+	 * @return string
+	 *
+	 * @since 2.11
+	 */
+	public function instagram_settings_tab_upsell( $tab_content ) {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
+			return;
+		}
+		?>
+		<div class="modula-settings-tab-upsell">
+				<h3><?php esc_html_e( 'Modula Instagram', 'modula-best-grid-gallery' ); ?></h3>
+				<p><?php esc_html_e( 'You can easily connect your Instagram account and import images into Modula galleries.', 'modula-best-grid-gallery' ); ?></p>
+				<p>
+					<?php
+
+					$buttons  = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-instagram_tab_upsell-tab&utm_campaign=modula-instagram" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-instagram' );
 					?>
 				</p>
 			</div>
