@@ -452,7 +452,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 			// Get the number of files to be uploaded
 			modulaGalleryObject.modula_files_count = files.length;
-			modulaGalleryObject.progressClass = new ModulaProgressClass( false, true );
+			modulaGalleryObject.progressClass = new ModulaProgress( false, true );
 			modulaGalleryObject.progressClass.initNoModal( files );
 			modulaGalleryObject.progressClass.noModalShowBar();
 		},

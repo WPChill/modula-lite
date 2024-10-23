@@ -301,7 +301,7 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgressClass("modula-progress"); modulaBrowser.progressClass.display();</script>';
+			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgress("modula-progress"); modulaBrowser.progressClass.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -766,6 +766,8 @@ class Modula_Gallery_Upload {
 		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
 		// Load the wp.i18n script.
 		wp_enqueue_script( 'wp-i18n' );
+		// Enqueue the progress class script.
+		wp_enqueue_script( 'modula-progress', MODULA_URL . 'assets/js/admin/modula-progress' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		// Enqueue the gallery upload script
 		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload' . $suffix . '.js', array( 'jquery', 'media-upload', 'backbone' ), MODULA_LITE_VERSION, true );
 		// Localize the script
