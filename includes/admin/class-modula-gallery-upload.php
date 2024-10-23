@@ -80,6 +80,8 @@ class Modula_Gallery_Upload {
 		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
 		// AJAX to unzip the uploaded zip file.
 		add_action( 'wp_ajax_modula_unzip_file', array( $this, 'ajax_unzip_file' ) );
+		// AJAX request to dismiss the upload error notice.
+		add_action( 'wp_ajax_modula_dismiss_upload_error_notice', array( $this, 'ajax_dismiss_upload_error_notice' ) );
 	}
 
 	/**
@@ -106,6 +108,11 @@ class Modula_Gallery_Upload {
 	 * @since 2.11.0
 	 */
 	public function check_user_upload_rights() {
+		// Include the pluggable file if it's not already included. Seems to be a problem
+		// when checking the current user capabilities.
+		if ( ! function_exists( 'wp_get_current_user' ) ) {
+			include_once ABSPATH . 'wp-includes/pluggable.php';
+		}
 		// Check if the user has the rights to upload files and edit posts.
 		if ( ! current_user_can( 'upload_files' ) || ! current_user_can( 'edit_posts' ) ) {
 			return false;
@@ -147,12 +154,13 @@ class Modula_Gallery_Upload {
 	* @access public
 	*
 	* @param  string  $folder  (default: '')
+	* @param  boolean $recursive  (default: false)
 	*
 	* @return array|bool
 
 	* @since 2.11.0
 	*/
-	public function list_folders( $folder = '' ) {
+	public function list_folders( $folder = '', $recursive = false ) {
 		// If no folder is specified, return false
 		if ( ! $this->check_folder( $folder ) ) {
 			return false;
@@ -171,6 +179,12 @@ class Modula_Gallery_Upload {
 			$modula_folders[] = array(
 				'path' => $folder . '/' . $file,
 			);
+			if ( $recursive ) {
+				$subfolders = $this->list_folders( $folder . '/' . $file );
+				if ( ! empty( $subfolders ) ) {
+					$modula_folders = array_merge( $modula_folders, $subfolders );
+				}
+			}
 		}
 
 		return $modula_folders;
@@ -222,11 +236,11 @@ class Modula_Gallery_Upload {
 
 		// Check user rights
 		if ( ! $this->check_user_upload_rights() ) {
-			die();
+			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
 		}
 
 		if ( ! isset( $_POST['path'] ) ) {
-			die();
+			wp_send_json_error( __( 'No path was provided.', 'modula-best-grid-gallery' ) );
 		}
 		$checked = false;
 		if ( ! empty( $_POST['input-checked'] ) && 'true' === $_POST['input-checked'] ) {
@@ -273,7 +287,7 @@ class Modula_Gallery_Upload {
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
 			// Get folders based on path.
-			$files = $this->list_folders( $this->default_dir, 1 );
+			$files = $this->list_folders( $this->default_dir );
 			if ( ! empty( $files ) ) {
 				// Cycle through files.
 				foreach ( $files as $found_file ) {
@@ -282,8 +296,8 @@ class Modula_Gallery_Upload {
 				}
 			}
 			echo '</ul>';
-			echo '<div id="modula-progress"></div>';
 			echo '<div class="modula-browser-footer">';
+			echo '<div class="modula-browser-footer__actions">';
 			// Add input checkbox to keep or delete the files from the folders.
 			echo '<div class="modula-browser-footer__column text-left">';
 			echo '<label for="keep_files"><input type="checkbox" id="delete_files" value="true">' . esc_html__( 'Delete files from folder after upload', 'modula-best-grid-gallery' ) . '</label>';
@@ -292,10 +306,13 @@ class Modula_Gallery_Upload {
 			echo '<a href="#" class="button button-primary disabled" id="modula_create_gallery">' . esc_html__( 'Create gallery from folders', 'modula-best-grid-gallery' ) . '</a>';
 			echo '</div>';
 			echo '</div>';
+			echo '<div class="modula-browser-footer__progress">';
+			echo '<div id="modula-progress"><div id="modula-progress-text">' . esc_html__( 'Import files from a folder', 'modula-best-grid-gallery' ) . '</div></div>';
+			echo '</div>';
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgressBar("modula-progress"); modulaBrowser.progressClass.display();</script>';
+			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressMode = new ModulaProgress("modula-progress", true); modulaBrowser.progressMode.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -359,7 +376,7 @@ class Modula_Gallery_Upload {
 			$this->uploaded_files = $this->get_uploaded_files( absint( $_POST['post_ID'] ) );
 		}
 		// Sanitize the paths.
-		$paths   = is_array( $_POST['paths'] ) ? wp_unslash( array_map( 'sanitize_text_field', $_POST['paths'] ) ) : sanitize_text_field( wp_unslash( $_POST['paths'] ) );
+		$paths   = json_decode( wp_unslash( $_POST['paths'] ), true );
 		$folders = array();
 		if ( is_array( $paths ) ) {
 			foreach ( $paths as $path ) {
@@ -485,9 +502,8 @@ class Modula_Gallery_Upload {
 			wp_send_json_error( __( 'No paths were provided.', 'modula-best-grid-gallery' ) );
 		}
 
-		$paths = wp_unslash( $_POST['paths'] );
+		$paths = json_decode( wp_unslash( $_POST['paths'] ) );
 		$files = array();
-
 		if ( is_array( $paths ) ) {
 			$paths = array_map( 'sanitize_text_field', $paths );
 			// Cycle through paths and get files.
@@ -549,8 +565,9 @@ class Modula_Gallery_Upload {
 			wp_send_json_error( __( 'No files were provided.', 'modula-best-grid-gallery' ) );
 		}
 
-		$file          = wp_unslash( $_POST['file'] );
-		$delete_file   = sanitize_text_field( wp_unslash( $_POST['delete_files'] ) );
+		$file        = wp_unslash( $_POST['file'] );
+		$delete_file = 'false' === sanitize_text_field( wp_unslash( $_POST['delete_files'] ) ) ? false : true;
+
 		$attachment_id = $this->upload_image( $file, $delete_file );
 		if ( ! $attachment_id ) {
 			$this->update_uploaded_files( absint( $_POST['post_ID'] ), $this->uploaded_files );
@@ -761,6 +778,8 @@ class Modula_Gallery_Upload {
 		wp_enqueue_style( 'modula-browser', MODULA_URL . 'assets/css/admin/modula-browser.css', array(), MODULA_LITE_VERSION );
 		// Load the wp.i18n script.
 		wp_enqueue_script( 'wp-i18n' );
+		// Enqueue the progress class script.
+		wp_enqueue_script( 'modula-progress', MODULA_URL . 'assets/js/admin/modula-progress' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		// Enqueue the gallery upload script
 		wp_enqueue_script( 'modula-gallery-upload', MODULA_URL . 'assets/js/admin/modula-gallery-upload' . $suffix . '.js', array( 'jquery', 'media-upload', 'backbone' ), MODULA_LITE_VERSION, true );
 		// Localize the script
@@ -983,9 +1002,10 @@ class Modula_Gallery_Upload {
 		// Get the base path.
 		$base       = pathinfo( $file, PATHINFO_DIRNAME );
 		$file_name  = pathinfo( $file, PATHINFO_FILENAME );
-		$unzip_path = $base . '/' . $file_name;
+		$timestamp  = time();
+		$unzip_path = $base . '/' . $file_name . $timestamp;
 		// Set the WP_Filesystem.
-		global $wp_filesystem;
+		//global $wp_filesystem;
 		require_once ABSPATH . '/wp-admin/includes/file.php';
 		WP_Filesystem();
 		// Unzip the file.
@@ -995,8 +1015,38 @@ class Modula_Gallery_Upload {
 		}
 		// Delete the original file.
 		wp_delete_attachment( $file_id, true );
+		$folders = array( $unzip_path );
+		// Check if the folder has subfolders.
+		$subfolders = $this->list_folders( $unzip_path, true );
+		if ( ! empty( $subfolders ) ) {
+			foreach ( $subfolders as $subfolder ) {
+				// Add the subfolder path to the folders array.
+				$folders[] = $subfolder['path'];
+			}
+		}
 		// Send the unzip path.
-		wp_send_json_success( $unzip_path );
+		wp_send_json_success( $folders );
+	}
+
+	/**
+	 * Dismiss the upload error notice
+	 *
+	 * @return bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function ajax_dismiss_upload_error_notice() {
+		// Check Nonce
+		check_ajax_referer( 'list-files', 'security' );
+
+		if ( ! isset( $_POST['post_ID'] ) ) {
+			wp_send_json_error( __( 'No gallery ID was provided.', 'modula-best-grid-gallery' ) );
+		}
+
+		$post_id = absint( $_POST['post_ID'] );
+		$this->update_uploaded_files( $post_id, array() );
+
+		wp_send_json_success();
 	}
 }
 

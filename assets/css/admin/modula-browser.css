@@ -33,11 +33,9 @@ ul.modula_file_browser li.folder_open > a::before {
 #modula-progress {
     display:block;
     width:100%;
-    margin-top:30px;
 }
 
-#modula-progress .modula-progress-text {
-    margin-top: 30px;
+#modula-progress #modula-progress-text {
     font-size: 14px;
     color: #555;
     font-style: italic;
@@ -47,7 +45,6 @@ ul.modula_file_browser li.folder_open > a::before {
     width: 0px;
     height: 20px;
     background-color: blue;
-    margin-top: 30px;
     position: relative;
     border-radius: 3px;
     transition: width 0.3s ease;
@@ -102,8 +99,6 @@ html body #TB_window #TB_ajaxWindowTitle h1 {
 }
 
 html body#modula_browser .modula-browser-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     max-width:100%;
     width: auto;
     position:fixed;
@@ -115,6 +110,15 @@ html body#modula_browser .modula-browser-footer {
     z-index: 9999;
     background-color: #fff;
 }
+
+html body#modula_browser .modula-browser-footer .modula-browser-footer__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+html body#modula_browser .modula-browser-footer .modula-browser-footer__progress {
+    display: block;
+    width:100%;
+} 
 
 html body#modula_browser .modula-browser-footer .text-right {
     text-align: right;
