@@ -19,7 +19,7 @@ class ModulaGalleryUpload {
 	 *
 	 * @since 2.11.0
 	 */
-	progressClass = false;
+	progressMode = false;
 
 	/**
 	 * Delete files checkbox
@@ -194,7 +194,7 @@ class ModulaGalleryUpload {
 				e.target.classList.add( 'disabled' );
 				instance.deleteFiles =
 					document.getElementById( 'delete_files' ).checked;
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					modulaGalleryUpload.startFolderValidation
 				);
 				const checkedInputsEl = document.querySelectorAll(
@@ -207,10 +207,10 @@ class ModulaGalleryUpload {
 				);
 				if ( ! responsePaths.success ) {
 					// Send error message
-					instance.progressClass.changeText( responsePaths.data );
+					instance.progressMode.changeText( responsePaths.data );
 					return;
 				}
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					__( 'Found ', 'modula-best-grid-gallery' ) +
 						responsePaths.data.length +
 						__(
@@ -224,10 +224,10 @@ class ModulaGalleryUpload {
 
 				if ( ! responseFiles.success ) {
 					// Send error message
-					instance.progressClass.changeText( responseFiles.data );
+					instance.progressMode.changeText( responseFiles.data );
 					return;
 				}
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					__( 'Found ', 'modula-best-grid-gallery' ) +
 						responseFiles.data.length +
 						__(
@@ -359,24 +359,24 @@ class ModulaGalleryUpload {
 		}
 		let filesIDs = [];
 		if ( ! modal ) {
-			instance.progressClass.initNoModal( files );
-			instance.progressClass.noModalShowBar();
+			instance.progressMode.initNoModal( files );
+			instance.progressMode.noModalShowBar();
 		} else {
-			instance.progressClass.update( 0.3, files.length );
+			instance.progressMode.update( 0.3, files.length );
 		}
 
 		// Cycle through the files and import them
 		for ( let i = 0; i < files.length; i++ ) {
 			if ( modal ) {
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					__( 'Importing file ', 'modula-best-grid-gallery' ) +
 						( i + 1 ) +
 						__( ' of ', 'modula-best-grid-gallery' ) +
 						files.length
 				);
 			} else {
-				instance.progressClass.changeText( '' );
-				instance.progressClass.noModalProgress( i + 1 );
+				instance.progressMode.changeText( '' );
+				instance.progressMode.noModalProgress( i + 1 );
 			}
 			const file = files[ i ];
 			const $params = {
@@ -390,21 +390,21 @@ class ModulaGalleryUpload {
 				response = await JSON.parse( ajaxResponse );
 			if ( response.success ) {
 				if ( modal ) {
-					instance.progressClass.update( i + 1, files.length );
+					instance.progressMode.update( i + 1, files.length );
 				}
 
 				filesIDs.push( response.data );
 			} else {
 				if ( ! modal ) {
 					// Send error message
-					instance.progressClass.changeText( response.data );
+					instance.progressMode.changeText( response.data );
 				}
 			}
 		}
 
 		// Check if there are files to import
 		if ( filesIDs.length > 0 ) {
-			instance.progressClass.changeText(
+			instance.progressMode.changeText(
 				__( 'Imported ', 'modula-best-grid-gallery' ) +
 					filesIDs.length +
 					__( ' files.', 'modula-best-grid-gallery' )
@@ -412,9 +412,9 @@ class ModulaGalleryUpload {
 			if ( modal ) {
 				// Wait for 2 seconds before updating the gallery.
 				setTimeout( function () {
-					instance.progressClass.hideBar();
+					instance.progressMode.hideBar();
 					if ( modal ) {
-						instance.progressClass.changeText(
+						instance.progressMode.changeText(
 							modulaGalleryUpload.updatingGallery
 						);
 					}
@@ -422,14 +422,14 @@ class ModulaGalleryUpload {
 					instance.updateGallery( filesIDs );
 				}, 2000 );
 			} else {
-				instance.progressClass.changeText( '' );
-				instance.progressClass.noModalHideBar();
+				instance.progressMode.changeText( '' );
+				instance.progressMode.noModalHideBar();
 				// Update the gallery
 				instance.updateGallery( filesIDs, false );
 			}
 		} else {
 			if ( modal ) {
-				instance.progressClass.hideBar();
+				instance.progressMode.hideBar();
 			}
 		}
 	}
@@ -455,7 +455,7 @@ class ModulaGalleryUpload {
 		if ( response.success ) {
 			if ( modal ) {
 				// Update the gallery
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					modulaGalleryUpload.galleryUpdated
 				);
 			}
@@ -599,10 +599,10 @@ class ModulaGalleryUpload {
 	 */
 	setUploaders() {
 		const instance = this;
-		instance.progressClass = new ModulaProgress(
+		instance.progressMode = new ModulaProgress(
 			'modula-uploader-container', false
 		);
-		instance.progressClass.display();
+		instance.progressMode.display();
 
 		instance.zipUploadHandler = Backbone.Model.extend( {
 			uploaderOptions: {
@@ -697,7 +697,7 @@ class ModulaGalleryUpload {
 
 			// File Uploaded - add images to the screen
 			fileupload: async function ( up, file, info ) {
-				instance.progressClass.changeText(
+				instance.progressMode.changeText(
 					__(
 						'File uploaded, extracting zip...',
 						'modula-best-grid-gallery'
@@ -717,7 +717,7 @@ class ModulaGalleryUpload {
 					response = await JSON.parse( ajaxResponse );
 				// Check if the response is successful
 				if ( response.success ) {
-					instance.progressClass.changeText(
+					instance.progressMode.changeText(
 						__(
 							'.zip extracted, checking files...',
 							'modula-best-grid-gallery'
@@ -730,10 +730,10 @@ class ModulaGalleryUpload {
 					// Check if the response is successful
 					if ( ! responsePaths.success ) {
 						// Send error message
-						instance.progressClass.changeText( responsePaths.data );
+						instance.progressMode.changeText( responsePaths.data );
 						return;
 					}
-					instance.progressClass.changeText(
+					instance.progressMode.changeText(
 						__( 'Found ', 'modula-best-grid-gallery' ) +
 							responsePaths.data.length +
 							__(
@@ -747,10 +747,10 @@ class ModulaGalleryUpload {
 
 					if ( ! responseFiles.success ) {
 						// Send error message
-						instance.progressClass.changeText( responseFiles.data );
+						instance.progressMode.changeText( responseFiles.data );
 						return;
 					}
-					instance.progressClass.changeText(
+					instance.progressMode.changeText(
 						__( 'Found ', 'modula-best-grid-gallery' ) +
 							responseFiles.data.length +
 							__(

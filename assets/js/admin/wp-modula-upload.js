@@ -261,7 +261,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		),
 		modula_files_count: 0,
 		limitExceeded: false,
-		progressClass: false,
+		progressMode: false,
 
 		initialize: function () {
 			var modulaGalleryObject = this,
@@ -452,15 +452,15 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 			// Get the number of files to be uploaded
 			modulaGalleryObject.modula_files_count = files.length;
-			modulaGalleryObject.progressClass = new ModulaProgress( false, false );
-			modulaGalleryObject.progressClass.initNoModal( files );
-			modulaGalleryObject.progressClass.noModalShowBar();
+			modulaGalleryObject.progressMode = new ModulaProgress( false, false );
+			modulaGalleryObject.progressMode.initNoModal( files );
+			modulaGalleryObject.progressMode.noModalShowBar();
 		},
 
 		// File Uploading - update progress bar
 		fileuploading: function (up, file) {
 			var modulaGalleryObject = this;
-			modulaGalleryObject.progressClass.noModalProgress( modulaGalleryObject.modula_files_count - up.total.queued + 1 );
+			modulaGalleryObject.progressMode.noModalProgress( modulaGalleryObject.modula_files_count - up.total.queued + 1 );
 		},
 
 		// File Uploaded - add images to the screen
@@ -484,7 +484,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 		filesuploaded: function () {
 			var modulaGalleryObject = this;
 			setTimeout(function () {
-				modulaGalleryObject.progressClass.noModalHideBar();
+				modulaGalleryObject.progressMode.noModalHideBar();
 			}, 1000);
 		},
 
