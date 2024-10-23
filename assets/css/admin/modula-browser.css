@@ -33,11 +33,9 @@ ul.modula_file_browser li.folder_open > a::before {
 #modula-progress {
     display:block;
     width:100%;
-    /* margin-top:30px; */
 }
 
 #modula-progress #modula-progress-text {
-    /* margin-top: 30px; */
     font-size: 14px;
     color: #555;
     font-style: italic;
