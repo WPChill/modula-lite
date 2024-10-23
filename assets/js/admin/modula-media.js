@@ -185,7 +185,6 @@ jQuery(document).ready(function($) {
                             success: function(response) {
                                 if(response.success) {
                                     library._requery( true );
-									//document.dispatchEvent(new CustomEvent('modula_notifications_updated'));
 									window.modulaEventBus.emit('modula_notifications_updated');
 									$(document).trigger( 'modula:media:insert:done', response.data );
                                     this.controller.trigger( 'selection:action:done' );

@@ -118,7 +118,7 @@ class Modula_Review {
 
 		$time = get_option( 'modula-rate-time' );
 
-		if ( '#epsilon-rate' === $_POST['check'] || '#epsilon-no-rate' === $_POST['check'] ) {
+		if ( 'epsilon-rate' === $_POST['check'] || 'epsilon-no-rate' === $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 5;
 		} else {
 			$time = time() + WEEK_IN_SECONDS;
@@ -134,12 +134,11 @@ class Modula_Review {
 	
 		<script type="text/javascript">
 
-			function handleButtonClick(href, id) {
-
+			function handleButtonClick( element ) {
 				var data = {
 					action: 'epsilon_modula_review',
 					security: '<?php echo $ajax_nonce; ?>',
-					check: href ? 'epsilon-rate' : id
+					check: element.url ? 'epsilon-rate' : element.id
 				};
 	
 				jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data );

@@ -26,26 +26,19 @@ export function NotificationsList() {
     };
 
 	useEffect(() => {
-		visibleNotifications.map(notification => {
-			if (notification.timed && openPanels[notification.id] ) {
-				const timer = setTimeout(() => {
+
+		visibleNotifications.forEach( (notification) => {
+			if (notification.timed && openPanels.includes( notification.id ) ) {
+				setTimeout(() => {
 					dismissNotification(notification.id);
 				}, notification.timed);
-
-				return timer;
 			}
-			return null;
 		});
-
-
-		return () => {};
 
 	}, [visibleNotifications, openPanels] );
 
 	const handleTogglePanel = (id) => {
-		dispatch(setOpenPanels({
-			[id]: true
-		}));
+		dispatch(setOpenPanels( [ ...openPanels, id ]));
 	};
 
 	return (
@@ -66,7 +59,7 @@ export function NotificationsList() {
 						}
 						key={notification?.id}
 						initialOpen={false}
-						isOpen={openPanels[notification.id]}
+						isOpen={openPanels.includes( notification.id )}
 						onToggle={() => handleTogglePanel(notification.id)}
 					>
 						<PanelRow className='notification-row'>
