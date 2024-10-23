@@ -2621,7 +2621,9 @@ Some responsive fixes
 
 #modula-pro-bulk-editor-upsell .button:after,
 #modula-video-upsell:after,
-#modula-video-playlist-upsell:after {
+#modula-video-playlist-upsell:after,
+#modula-instagram-upsell:after,
+#modula-content-galleries-upsell:after {
     content: 'PRO';
     position: absolute;
     right: -1px;
@@ -2635,7 +2637,9 @@ Some responsive fixes
 }
 
 #modula-video-upsell,
-#modula-video-playlist-upsell {
+#modula-video-playlist-upsell,
+#modula-instagram-upsell,
+#modula-content-galleries-upsell {
     pointer-events: none;
     position:relative;
     background-color: #f6f7f7;

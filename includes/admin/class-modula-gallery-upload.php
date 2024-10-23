@@ -57,7 +57,7 @@ class Modula_Gallery_Upload {
 		// Set the default directory for the media browser.
 		add_action( 'admin_init', array( $this, 'set_default_browser_dir' ), 15 );
 		// Add the Browser button.
-		add_action( 'modula_gallery_media_select_option', array( $this, 'add_folder_browser_button' ), 15 );
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_folder_browser_button' ), 20 );
 		// Create the media browser.
 		add_action( 'media_upload_modula_file_browser', array( $this, 'media_browser' ) );
 		// AJAX list files.
@@ -75,7 +75,7 @@ class Modula_Gallery_Upload {
 		// Add notice if something has gone wrong in the upload process.
 		add_action( 'admin_notices', array( $this, 'upload_error_notice' ) );
 		// Add the Upload zip button.
-		add_action( 'modula_gallery_media_select_option', array( $this, 'add_upload_zip_button' ), 15 );
+		add_action( 'modula_gallery_media_select_option', array( $this, 'add_upload_zip_button' ), 40 );
 		// Change the upload dir for the zip file.
 		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
 		// AJAX to unzip the uploaded zip file.
@@ -143,7 +143,7 @@ class Modula_Gallery_Upload {
 	public function add_folder_browser_button() {
 		?>
 		<li id="modula-uploader-folder-browser">
-		<?php esc_html_e( 'Upload from folder', 'modula-best-grid-gallery' ); ?>
+		<?php esc_html_e( 'From Folder', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
 	}
@@ -312,7 +312,7 @@ class Modula_Gallery_Upload {
 			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
 			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
 			do_action( 'admin_footer' ); // phpcs:ignore
-			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressClass = new ModulaProgress("modula-progress", true); modulaBrowser.progressClass.display();</script>';
+			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressMode = new ModulaProgress("modula-progress", true); modulaBrowser.progressMode.display();</script>';
 			echo '</body></html>';
 		}
 	}
@@ -903,7 +903,7 @@ class Modula_Gallery_Upload {
 	public function add_upload_zip_button() {
 		?>
 		<li id="modula-upload-zip-browser">
-		<?php esc_html_e( 'Upload zip', 'modula-best-grid-gallery' ); ?>
+		<?php esc_html_e( 'From ZIP', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
 	}
