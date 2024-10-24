@@ -671,6 +671,16 @@ class Modula_Gallery_Upload {
 		}
 
 		$this->update_uploaded_files( $gallery_id, $this->uploaded_files );
+
+		$notice = array(
+			'title'   => esc_html__( 'Import process completed.', 'modula-best-grid-gallery' ),
+			'message' => sprintf( _n( 'Finished importing %d image.', 'Finished importing %d images.', count( $modula_images ), 'modula-best-grid-gallery' ), count( $modula_images ) ),
+			'status'  => 'success',
+			'timed'   => 5000,
+		);
+ 
+		Modula_Notifications::add_notification( 'zip-import', $notice );
+
 		// Return the image ID
 		wp_send_json_success( $modula_images );
 	}
