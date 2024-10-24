@@ -1060,7 +1060,7 @@ class Modula_Gallery_Upload {
 		$uploaded_files = $this->get_uploaded_error_files( $gallery_id );
 
 		// Return if there are no errors
-		if ( ! $uploaded_files || empty( $uploaded_files ) ) {
+		if ( ! $uploaded_files || ( empty( $uploaded_files['folders'] ) && empty( $uploaded_files['files'] ) ) ) {
 			return;
 		}
 		ob_start();
