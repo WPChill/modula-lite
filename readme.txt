@@ -157,6 +157,11 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 
+= 2.11.0 - 24.10.2024 =
+Added: Upload images from folder functionality
+Added: Upload images from zip file functionality
+Added: New notifications system
+
 = 2.10.2 - 30.09.2024 =
 Added: Multiple columns for the Masonry gallery type
 Fixed: Sanitize captions for fancybox (security fix)
