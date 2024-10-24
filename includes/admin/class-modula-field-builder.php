@@ -110,8 +110,8 @@ class Modula_Field_Builder {
 			echo '<div class="buttons">';
 			echo '<div class="modula-add-new-wrapper"><button class="button button-primary" id="modula_gallery_add_action_button" ><span class="dashicons dashicons-plus"></span>' . esc_html__( 'Add New', 'modula-best-grid-gallery' ) . ' <span class="dashicons dashicons-arrow-down"></span></button>';
 			echo '<ul id="modula_gallery_add_action" style="display:none;">';
-			echo '<li id="modula-uploader-browser">' . esc_html__( 'Upload Image', 'modula-best-grid-gallery' ) . '</li>';
-			echo '<li id="modula-wp-gallery">' . esc_html__( 'Image from Library', 'modula-best-grid-gallery' ) . '</li>';
+			echo '<li id="modula-uploader-browser">' . esc_html__( 'Upload', 'modula-best-grid-gallery' ) . '</li>';
+			echo '<li id="modula-wp-gallery">' . esc_html__( 'From Library', 'modula-best-grid-gallery' ) . '</li>';
 			do_action( 'modula_gallery_media_select_option' );
 			echo '</ul></div>';
 			do_action( 'modula_gallery_media_button' );

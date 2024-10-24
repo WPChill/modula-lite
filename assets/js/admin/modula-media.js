@@ -178,13 +178,14 @@ jQuery(document).ready(function($) {
                             dataType: 'json',
                             data: {
                                 action: 'add_images_to_gallery',
-                                selected: JSON.stringify( selected ),
+                                selected: JSON.stringify( selected ), 
                                 gallery_id: galleryId,
                                 nonce: nonce
                             },
                             success: function(response) {
                                 if(response.success) {
                                     library._requery( true );
+									window.modulaEventBus.emit('modula_notifications_updated');
 									$(document).trigger( 'modula:media:insert:done', response.data );
                                     this.controller.trigger( 'selection:action:done' );
                                 } else {
@@ -202,23 +203,4 @@ jQuery(document).ready(function($) {
 			}).render() );
 		}
 	});
-});
-
-jQuery(document).on('modula:media:insert:done', function(event, data) {
-    var messageDiv = jQuery('<div>', {
-        text: data,
-		class: 'notice notice-success is-dismissible',
-        css: {
-            padding: '10px',
-			margin: '5px 0 0 0',
-
-        }
-    });
-    jQuery('.attachments-browser').prepend(messageDiv);
-
-    setTimeout(function() {
-        messageDiv.fadeOut(function() {
-            jQuery(this).remove();
-        });
-    }, 5000);
 });

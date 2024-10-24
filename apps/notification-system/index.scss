@@ -1,0 +1,109 @@
+#modula-notifications-root {
+	position: fixed;
+	right: 20px;
+	bottom: 25px;
+	z-index: 9999;
+	padding: 10px;
+	.notification-log-empty{
+		padding: 5px;
+	}
+	.notification-container {
+		position: absolute;
+		width: 500px;
+		right: 0;
+		bottom: 80px;
+		background: #fff;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		.notification-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px;
+			background-color: #f9f9f9;
+			border-bottom: 0;
+			h2 {
+				font-size: 1.1em;
+				margin: 8px;
+			}
+			button{
+				.dashicons{
+					margin: 0;
+				}
+			}
+		}
+		.notification-footer {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #f9f9f9;
+		}
+		.notification-state {
+			width: 10px;
+			height: 10px;
+			margin-right: 10px;
+			border-radius: 50%;
+			position: relative;
+			top: 1px;
+
+		}
+		.notification-state.error{
+			background-color: #d63638;
+		}
+		.notification-state.warning{
+			background-color: #dba617;
+		}
+		.notification-state.info{
+			background-color: #2271b1;
+		}
+		.notification-state.success{
+			background-color: #00a32a;
+		}
+		.notification_dismiss_button{
+			margin-left: auto;
+			padding: 0;
+			height: auto;
+		}
+		.components-panel {
+			max-height: 250px;
+			overflow: auto;
+			.notification-row{
+				.notification-actions-wrapp{
+					a, button{
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+	}
+	.notification-icon {
+		width: 45px;
+		height: 45px;
+		border-radius: 50%;
+		border: 1px solid #222222;
+		box-shadow: 0 0 5px #222222 ;
+		background: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		cursor: pointer;
+		padding: 4px;
+		.warn-icon {
+			position: absolute;
+			top: -6px;
+			left: -8px;
+			color: #fff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background-color: #d63638;
+		}
+		
+		.notification-icon-img {
+			width: 100%;
+		}
+	}
+}

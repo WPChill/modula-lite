@@ -1,6 +1,6 @@
 {
 	"name": "modula-best-grid-gallery",
-	"version": "2.10.3",
+	"version": "2.11.0",
 	"description": "Modula Image Gallery build tools",
 	"author": "WPChill",
 	"license": "GPL-2.0-or-later",
@@ -25,12 +25,16 @@
 		"!postcss.config.js"
 	],
 	"scripts": {
-		"build": "wp-scripts build",
+		"start:notification-system": "wp-scripts start --config webpack.config.notification-system.js",
+		"build:notification-system": "wp-scripts build --config webpack.config.notification-system.js",
+		"build": "npm run build:notification-system && wp-scripts build",
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
+		"lint:js-apps": "wp-scripts lint-js apps/**/*.js*",
+		"lint:js-apps-fix": "wp-scripts lint-js apps/**/*.js* --fix",
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
@@ -62,18 +66,34 @@
 		],
 		"*.scss": "npx stylelint --fix"
 	},
+	"dependencies": {
+		"@tanstack/react-query": "^5.52.0",
+		"@wordpress/api-fetch": "^7.5.0",
+		"@wordpress/block-editor": "^14.0.0",
+		"@wordpress/blocks": "^13.5.0",
+		"@wordpress/components": "^28.5.0",
+		"@wordpress/data": "^10.5.0",
+		"@wordpress/element": "^6.5.0",
+		"@wordpress/i18n": "^5.7.0",
+		"he": "^1.2.0",
+		"interweave": "^13.1.0"
+	},
 	"devDependencies": {
 		"@babel/core": "^7.24.6",
 		"@babel/eslint-parser": "^7.24.6",
 		"@node-minify/core": "^8.0.6",
 		"@node-minify/uglify-js": "^8.0.6",
+		"@tanstack/eslint-plugin-query": "^5.59.7",
 		"@wordpress/eslint-plugin": "^18.1.0",
 		"@wordpress/scripts": "^26.13.0",
 		"@wordpress/stylelint-config": "^21.25.0",
+		"archiver": "^5.3.1",
 		"clean-css-cli": "^5.6.2",
 		"concat": "^1.0.3",
 		"css-minimizer-webpack-plugin": "^7.0.0",
 		"eslint-config-prettier": "^9.0.0",
+		"fs-extra": "^11.2.0",
+		"glob": "^10.3.3",
 		"husky": "^8.0.3",
 		"imagemin-cli": "^2.1.0",
 		"lint-staged": "^14.0.1",
@@ -81,14 +101,11 @@
 		"postcss": "^8.4.31",
 		"postcss-cli": "^11.0.0",
 		"postcss-prefix-selector": "^1.16.1",
+		"rimraf": "^5.0.1",
 		"sass": "^1.68.0",
 		"tinypng-cli": "^0.0.7",
 		"uglifyjs-folder": "^3.3.0",
 		"webpack-cli": "^5.1.4",
-		"webpack-remove-empty-scripts": "^1.0.4",
-		"archiver": "^5.3.1",
-		"fs-extra": "^11.2.0",
-		"glob": "^10.3.3",
-		"rimraf": "^5.0.1"
+		"webpack-remove-empty-scripts": "^1.0.4"
 	}
 }

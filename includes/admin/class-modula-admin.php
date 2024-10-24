@@ -46,6 +46,7 @@ class Modula_Admin {
 		add_filter( 'handle_bulk_actions-upload', array( $this, 'modula_media_handle_bulk' ), 15, 3 );
 		add_filter( 'admin_init', array( $this, 'modula_media_do_bulk' ), 15 );
 		add_action( 'admin_notices', array( $this, 'media_add_notice' ) );
+		
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -145,6 +146,11 @@ class Modula_Admin {
 			'video' => array(
 				'label'    => esc_html__('Video', 'modula-best-grid-gallery'),
 				'priority' => 125,
+				'badge'    => 'PRO'
+			),
+			'instagram' => array(
+				'label'    => esc_html__( 'Instagram', 'modula-best-grid-gallery' ),
+				'priority' => 130,
 				'badge'    => 'PRO'
 			),
 		);
@@ -686,6 +692,15 @@ class Modula_Admin {
 		$data = apply_filters( 'modula_grid_add_images_to_gallery', $data, $post_images, $gallery_id, $current_images );
 		update_post_meta( $gallery_id, 'modula-images', $data['old_images'] );
 
+		$notice = array(
+			'title'   => esc_html__( 'Images added to Modula Gallery', 'modula-best-grid-gallery' ),
+			'message' => $message,
+			'status'  => 'success',
+			'timed'   => 5000,
+		);
+
+		Modula_Notifications::add_notification( 'media-add-notice', $notice );
+
 		wp_send_json_success( esc_html( $message ) );
 		die();
 	}
@@ -894,13 +909,18 @@ class Modula_Admin {
 			$skipped_text,
 		) );
 	
-		?>
-		<div class="notice notice-success is-dismissible">
-			<p><?php echo $message; ?></p>
-		</div>
-		<?php
-	}
+		$notice = array(
+			'title'   => esc_html__( 'Images added to Modula Gallery', 'modula-best-grid-gallery' ),
+			'message' => $message,
+			'status'  => 'success',
+			'timed'   => 5000,
+		);
 
+		Modula_Notifications::add_notification( 'media-add-notice', $notice );
+
+		wp_safe_redirect( remove_query_arg( array( 'modula_media_added', 'modula_media_skipped' ) ) );
+		exit;
+	}
 }
 
 new Modula_Admin();

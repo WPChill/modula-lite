@@ -1,0 +1,133 @@
+ul.modula_file_browser {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+    padding:15px;
+    margin-bottom:100px;
+}
+#modula_browser > ul > li {
+    padding-left: 0;
+}
+
+ul.modula_file_browser li {
+    list-style-type: none;
+    padding-left:20px;
+}
+
+ul.modula_file_browser li a{
+    text-decoration: none;
+    color:#2271b1;
+}
+
+ul.modula_file_browser li a::before {
+    content: "\f139";
+    font-family: dashicons;
+    margin-right: 5px;
+}
+
+ul.modula_file_browser li.folder_open > a::before {
+    content: "\f140";
+}
+
+#modula-progress {
+    display:block;
+    width:100%;
+}
+
+#modula-progress #modula-progress-text {
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+}
+
+#modula-progress .modula-progress-bar {
+    width: 0px;
+    height: 20px;
+    background-color: blue;
+    position: relative;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+#modula_browser label {
+    display: block;
+    position: relative;
+}
+
+#modula_browser label input {
+    margin-right:10px;
+}
+
+/*
+ TB Iframe Style
+*/
+html body #TB_window {
+    max-height: 50%;
+    top:25% !important;
+}
+
+html body #TB_ajaxWindowTitle {
+    padding:5px 15px;
+    border-bottom: 1px solid #e5e5e5;
+     width: calc(100% - 30px);
+}
+
+html body #TB_window #TB_closeWindowButton {
+    right:15px;
+    top:15px;
+    outline:none;
+}
+html body #TB_window #TB_closeWindowButton .tb-close-icon {
+    box-shadow: none;
+}
+#TB_window iframe {
+    max-height: calc(100% - 30px);
+}
+html body#modula_browser {
+    padding:15px;
+    height:calc(100% - 30px);
+    background-color: #fff;
+}
+
+html body #TB_window #TB_ajaxWindowTitle {
+    background-color: #fff;
+}
+
+html body #TB_window #TB_ajaxWindowTitle h1 {
+    margin:10px auto;
+}
+
+html body#modula_browser .modula-browser-footer {
+    max-width:100%;
+    width: auto;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:15px;
+    border-top:1px solid #e5e5e5;
+    z-index: 9999;
+    background-color: #fff;
+}
+
+html body#modula_browser .modula-browser-footer .modula-browser-footer__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+html body#modula_browser .modula-browser-footer .modula-browser-footer__progress {
+    display: block;
+    width:100%;
+} 
+
+html body#modula_browser .modula-browser-footer .text-right {
+    text-align: right;
+}
+
+html body#modula_browser .modula-browser-footer .text-left {
+    text-align: left;
+}
+
+html body#modula_browser #modula_create_gallery.disabled {
+    pointer-events: none;
+}

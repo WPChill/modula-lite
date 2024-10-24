@@ -80,6 +80,9 @@ class Modula {
 		// The meta handling class
 		require_once MODULA_PATH . 'includes/public/meta/class-modula-meta.php';
 
+		require_once MODULA_PATH . 'includes/admin/class-modula-rest-api.php';
+		require_once MODULA_PATH . 'includes/admin/class-modula-notifications.php';
+
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -97,7 +100,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
 
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
-
+			// Modula Upload Class.
+			require_once MODULA_PATH . 'includes/admin/class-modula-gallery-upload.php';
 		}
 	}
 
@@ -138,6 +142,7 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'notification_system_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
@@ -157,6 +162,12 @@ class Modula {
 
 		// Initiate modula cpts
 		new Modula_CPT();
+
+		// Initiate Modula Notifications
+		Modula_Notifications::get_instance();
+
+		// Initiate Modula REST Api
+		new Modula_Rest_Api();
 	}
 
 	public function dashboard_start() {
@@ -759,5 +770,58 @@ class Modula {
 		}
 
 		update_option( 'wpmodulaupdate', true );
+	}
+
+	/**
+	 * Enqueue the notification system scripts
+	 *
+	 * @since 2.11.0
+	 */
+	public function notification_system_scripts( ) {
+
+		if ( ! $this->is_modula_admin_page() ) {
+			return;
+		}
+
+		$asset_file = require MODULA_PATH . '/assets/js/admin/notification-system/notification-system.asset.php';
+		$enqueue    = array(
+			'handle'       => 'modula-notification-system',
+			'dependencies' => $asset_file['dependencies'],
+			'version'      => $asset_file['version'],
+			'script'       => MODULA_URL . '/assets/js/admin/notification-system/notification-system.js',
+			'style'        => MODULA_URL . '/assets/js/admin/notification-system/notification-system.css',
+		);
+
+		wp_enqueue_script(
+			$enqueue['handle'],
+			$enqueue['script'],
+			$enqueue['dependencies'],
+			$enqueue['version'],
+			true
+		);
+
+		wp_enqueue_style(
+			$enqueue['handle'],
+			$enqueue['style'],
+			array( 'wp-components' ),
+			$enqueue['version']
+		);
+	}
+
+	/**
+	 * Check if we are on the Modula admin page
+	 *
+	 * @return bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function is_modula_admin_page() {
+		$screen = get_current_screen();
+
+		if ( false !== strpos( $screen->id, 'modula-gallery' ) || false !== strpos( $screen->id, 'modula-albums' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 }
