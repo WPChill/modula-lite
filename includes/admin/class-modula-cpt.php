@@ -432,8 +432,19 @@ class Modula_CPT {
 		}
 
 		// Save the value of upload_position.
-		if ( isset( $_POST['modula-settings']['upload_position'] ) ) {
-			$modula_settings['upload_position'] = sanitize_text_field( wp_unslash( $_POST['modula-settings']['upload_position'] ) );
+		if ( 
+			isset( $_POST['modula-settings']['upload_position'] ) 
+			|| isset($settings['upload_position'])
+		) {
+			$upload_position = isset( $_POST['modula-settings']['upload_position'] ) 
+				? $_POST['modula-settings']['upload_position'] 
+				: $settings['upload_position'];
+
+			$upload_position = '1' === $upload_position || 'start' === $upload_position 
+					? 'start' 
+					: 'end';
+
+			$modula_settings['upload_position'] = $upload_position;
 		} else {
 			$modula_settings['upload_position'] = 'end';
 		}

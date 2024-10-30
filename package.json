@@ -75,6 +75,7 @@
 		"@wordpress/data": "^10.5.0",
 		"@wordpress/element": "^6.5.0",
 		"@wordpress/i18n": "^5.7.0",
+		"he": "^1.2.0",
 		"interweave": "^13.1.0"
 	},
 	"devDependencies": {

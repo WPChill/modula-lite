@@ -142,6 +142,7 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'notification_system_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
@@ -392,30 +393,6 @@ class Modula {
 		wp_localize_script( 'modula-edit-screen', 'modulaHelper', $modula_helper );
 		wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit' . $suffix . '.css', null, MODULA_LITE_VERSION );
-
-		$asset_file = require MODULA_PATH . '/assets/js/admin/notification-system/notification-system.asset.php';
-		$enqueue    = array(
-			'handle'       => 'modula-notification-system',
-			'dependencies' => $asset_file['dependencies'],
-			'version'      => $asset_file['version'],
-			'script'       => MODULA_URL . '/assets/js/admin/notification-system/notification-system.js',
-			'style'        => MODULA_URL . '/assets/js/admin/notification-system/notification-system.css',
-		);
-
-		wp_enqueue_script(
-			$enqueue['handle'],
-			$enqueue['script'],
-			$enqueue['dependencies'],
-			$enqueue['version'],
-			true
-		);
-
-		wp_enqueue_style(
-			$enqueue['handle'],
-			$enqueue['style'],
-			array( 'wp-components' ),
-			$enqueue['version']
-		);
 	}
 
 	public function modula_enqueue_media(){
@@ -793,5 +770,58 @@ class Modula {
 		}
 
 		update_option( 'wpmodulaupdate', true );
+	}
+
+	/**
+	 * Enqueue the notification system scripts
+	 *
+	 * @since 2.11.0
+	 */
+	public function notification_system_scripts( ) {
+
+		if ( ! $this->is_modula_admin_page() ) {
+			return;
+		}
+
+		$asset_file = require MODULA_PATH . '/assets/js/admin/notification-system/notification-system.asset.php';
+		$enqueue    = array(
+			'handle'       => 'modula-notification-system',
+			'dependencies' => $asset_file['dependencies'],
+			'version'      => $asset_file['version'],
+			'script'       => MODULA_URL . '/assets/js/admin/notification-system/notification-system.js',
+			'style'        => MODULA_URL . '/assets/js/admin/notification-system/notification-system.css',
+		);
+
+		wp_enqueue_script(
+			$enqueue['handle'],
+			$enqueue['script'],
+			$enqueue['dependencies'],
+			$enqueue['version'],
+			true
+		);
+
+		wp_enqueue_style(
+			$enqueue['handle'],
+			$enqueue['style'],
+			array( 'wp-components' ),
+			$enqueue['version']
+		);
+	}
+
+	/**
+	 * Check if we are on the Modula admin page
+	 *
+	 * @return bool
+	 *
+	 * @since 2.11.0
+	 */
+	public function is_modula_admin_page() {
+		$screen = get_current_screen();
+
+		if ( false !== strpos( $screen->id, 'modula-gallery' ) || false !== strpos( $screen->id, 'modula-albums' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 }

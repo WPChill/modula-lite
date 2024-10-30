@@ -24,22 +24,24 @@ Modula is the best WordPress gallery plugin for adding custom, unique, and respo
 – Import/Export tool: great for moving your galleries to another site without jumping through hoops.
 – Custom CSS personalization
 - Upload positioning control, set if new images are added at the start or end of your gallery
-– Social buttons for image sharing: Twitter, Facebook, Whatsapp, LinkedIn, Pinterest, Email. [See demo for social sharing](https://demo.wp-modula.com/demo/social-effect/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+– Social buttons for image sharing: Twitter, Facebook, Whatsapp, LinkedIn, Pinterest, Email. [See demo for social sharing](https://demo.wp-modula.com/demo/social-effect/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=social+sharing)
 
 **Now for the Premium version:**
 
-– [Defaults](https://wp-modula.com/kb/modula-defaults?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
-- [Bulk Edit](https://wp-modula.com/kb/how-to-bulk-edit-your-images?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Easily edit multiple images at once, saving up precious configuration time.
-– [Video gallery](https://wp-modula.com/kb/modula-video?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
-– [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): improve the user experience with your galleries by presenting the images in a stunning slideshow.
-– [Slider gallery](https://wp-modula.com/kb/modula-slider?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
-– [Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Apply one or more filters to your images to allow your website’s visitors to easily sort through your gallery.
-– [Albums](https://wp-modula.com/kb/modula-albums?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Let’s say you are going on a holiday trip and wish to document each day in a separate gallery. The Albums extension will allow you to group up all your holiday galleries in a single listing, enabling easy access to your precious memories.
-– Multiple dynamic effects: [Loading Effects](https://wp-modula.com/kb/modula-loading-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro), [Hover effects](https://wp-modula.com/kb/modula-hover-effects?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro) and [Zoom effects](https://wp-modula.com/kb/modula-zoom/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-– [Watermark images](https://wp-modula.com/kb/modula-watermark?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): protect your photos by adding custom watermarks.
-– [Right-Click Protection](https://wp-modula.com/kb/right-click-protection?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): use it to prevent visitors from downloading your images with right-click protection. It also turns off keyboard shortcuts for downloading images.
-– [Speed UP](https://wp-modula.com/kb/modula-speed-up?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): Using this extension, you can optimize your images by reducing their file sizes, resizing them through ShortPixel’s image optimization algorithms, and serving them from StackPath’s CDN (content delivery network). The result? A fast website without the high costs associated with it.
-– [Whitelabel](https://wp-modula.com/kb/modula-whitelabel?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro): This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
+– [Instagram](https://wp-modula.com/modula-instagram/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Instagram): Easily link your Instagram account to your Modula Gallery. With this connection you will then be able to import Instagram images directly in your gallery, enriching your website with your Instagram content.
+– [Defaults](https://wp-modula.com/modula-defaults/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Defaults): Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
+– [Content Galleries](https://wp-modula.com/modula-content-galleries/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Content+Galleries): Take your gallery creation to the next level, with this add-on you will be able to generate a new gallery from your current posts, pages or custom post types. Even more, each gallery is synched with the original source, changes to the original content will also be reflected in the gallery.
+- [Bulk Edit](https://wp-modula.com/kb/how-to-bulk-edit-your-images/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Bulk+edit): Easily edit multiple images at once, saving up precious configuration time.
+– [Video gallery](https://wp-modula.com/kb/modula-video/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Video+gallery): Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
+– [Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Lightbox+slideshow): improve the user experience with your galleries by presenting the images in a stunning slideshow.
+– [Slider gallery](https://wp-modula.com/kb/modula-slider/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Slider+gallery): This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
+– [Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Gallery+filters): Apply one or more filters to your images to allow your website’s visitors to easily sort through your gallery.
+– [Albums](https://wp-modula.com/kb/modula-albums/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Albums): Let’s say you are going on a holiday trip and wish to document each day in a separate gallery. The Albums extension will allow you to group up all your holiday galleries in a single listing, enabling easy access to your precious memories.
+– Multiple dynamic effects: [Loading Effects](https://wp-modula.com/kb/modula-loading-effects/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Loading+effects), [Hover effects](https://wp-modula.com/kb/modula-hover-effects/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Hover+effects) and [Zoom effects](https://wp-modula.com/kb/modula-zoom/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Zoom+effects)
+– [Watermark images](https://wp-modula.com/kb/modula-watermark/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Watermark+images): protect your photos by adding custom watermarks.
+– [Right-Click Protection](https://wp-modula.com/kb/right-click-protection/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Right+click+protection): use it to prevent visitors from downloading your images with right-click protection. It also turns off keyboard shortcuts for downloading images.
+– [Speed UP](https://wp-modula.com/kb/modula-speed-up/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Speed+up): Using this extension, you can optimize your images by reducing their file sizes, resizing them through ShortPixel’s image optimization algorithms, and serving them from StackPath’s CDN (content delivery network). The result? A fast website without the high costs associated with it.
+– [Whitelabel](https://wp-modula.com/kb/modula-whitelabel/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Whitelabel): This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
 – Support and updates are included with each purchase for one year.
 
 
@@ -55,33 +57,33 @@ Your shortcode will look just like this:
 
 **Here are a couple of quick tutorials on how to create your dream gallery using the free version:**
 
-[WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
-[Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite)
+[WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=wordpress+image+gallery)
+[Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=custom+grid+gallery)
+[Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=masonry+image+gallery)
+[Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=mobile+responsive+gallery)
+[Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=beaver+builder+gallery)
+[Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=elementor+image+gallery)
+[Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=divi+builder+gallery)
 
 **When using the premium version, you can also create:**
-[Video Gallery in WordPress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-[Gallery Slider in WordPress](https://wp-modula.com/wordpress-image-carousel/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-[Gallery with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-[Gallery Album](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
+[Video Gallery in WordPress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Video+gallery)
+[Gallery Slider in WordPress](https://wp-modula.com/wordpress-image-carousel/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Slider+gallery)
+[Gallery with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Hover+effects)
+[Gallery Album](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Albums)
 
 == NEED HELP USING MODULA? ==
 
-– Search our extensive [knowledge base](https://wp-modula.com/knowledge-base/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) for documentation about installing the plugin/the extensions, available settings and how to use them.
+– Search our extensive [knowledge base](https://wp-modula.com/knowledge-base/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=knowledge+base) for documentation about installing the plugin/the extensions, available settings and how to use them.
 – Browse [Modula's WordPress forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/) to find answers to your queries or create a new topic.
-– [Contact us](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Lite) directly for support.
+– [Contact us](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=contact+us) directly for support.
 
 **Do you have galleries already created in NextGen, Envira, Final Tiles Grid Gallery or FooGallery and want to migrate them to Modula?**
 Use our dedicated tools:
-– [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-– [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-– [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-– [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
-– [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=Modula%20Pro)
+– [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+nextgen)
+– [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+foogallery)
+– [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+envira)
+– [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+final+tiles)
+– [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+photoblocks)
 
 **_Already love Modula?_ Rate us on [Wordpress](https://wordpress.org/support/plugin/modula-best-grid-gallery/reviews/)!**
 
@@ -156,6 +158,14 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+
+= 2.11.0 - 24.10.2024 =
+Added: Upload images from folder functionality
+Added: Upload images from zip file functionality
+Added: New notifications system
+
+= 2.10.3 - 10.10.2024 =
+Fixed: Upload position setting not being saved.
 
 = 2.10.2 - 30.09.2024 =
 Added: Multiple columns for the Masonry gallery type
