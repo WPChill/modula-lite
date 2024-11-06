@@ -1,3 +1,6 @@
+= 2.11.1 - 06.11.2024 =
+Changed: Notification action option to permanently dissmiss a notice.
+
 = 2.11.0 - 24.10.2024 =
 Added: Upload images from folder functionality
 Added: Upload images from zip file functionality
