@@ -8,8 +8,9 @@ class Modula_Notifications {
 
 	public static $instance;
 
-	public static $notification_prefix = 'modula_notification_';
-	private $hook_name                 = 'modula_notifications_remote';
+	public static $notification_prefix   = 'modula_notification_';
+	public static $blocked_notifications = 'modula_blocked_notifications';
+	private $hook_name                   = 'modula_notifications_remote';
 
 	public function __construct() {
 
@@ -30,6 +31,11 @@ class Modula_Notifications {
 	}
 
 	public static function add_notification( $key, $notification ) {
+		$blocked = get_option( self::$blocked_notifications, array() );
+		if ( in_array( $key, $blocked, true ) ) {
+			return;
+		}
+
 		update_option( self::$notification_prefix . $key, $notification );
 	}
 
@@ -89,7 +95,13 @@ class Modula_Notifications {
 		return $options;
 	}
 
-	public function clear_notification( $key ) {
+	public function clear_notification( $key, $permanent = false ) {
+		if ( $permanent ) {
+			$blocked   = get_option( self::$blocked_notifications, array() );
+			$blocked[] = $key;
+			update_option( self::$blocked_notifications, $blocked );
+		}
+
 		delete_option( self::$notification_prefix . $key );
 	}
 

@@ -46,9 +46,11 @@ class Modula_Rest_Api {
 	public function process_request( $request ) {
 		$manager = Modula_Notifications::get_instance();
 		if ( 'DELETE' === $request->get_method() ) {
-			$post_id = $request->get_param( 'id' );
+			$body    = $request->get_json_params();
+			$post_id = isset( $body['id'] ) ? $body['id'] : false;
 			if ( $post_id ) {
-				$manager->clear_notification( $post_id );
+				$permanent = isset( $body['permanent'] ) ? $body['permanent'] : false;
+				$manager->clear_notification( $post_id, $permanent );
 				return rest_ensure_response( true );
 			}
 			$manager->clear_notifications();

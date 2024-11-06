@@ -14,8 +14,8 @@ export function NotificationsList() {
 	const { state, dispatch } = useModulaState();
 	const {visibleNotifications, openPanels} = state;
 
-	const dismissNotification = (id) => {
-		mutation.mutate( id, {
+	const dismissNotification = (id, permanent = false ) => {
+		mutation.mutate( {id, permanent}, {
 			onSettled: () => {
 				queryClient.invalidateQueries(['notifications']);
 			},

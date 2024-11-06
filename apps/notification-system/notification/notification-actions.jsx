@@ -10,7 +10,7 @@ export function NotificationActions( { actions, id, onDismiss } ) {
 		}
 
 		if (action.dismiss) {
-			onDismiss(id);
+			onDismiss(id, action.permanent);
 		}
 	};
 

@@ -1171,6 +1171,11 @@ class Modula_Upsells {
 		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula' ) ) {
 			wp_die();
 		}
+		$settings = array(
+			'classes'     => '',
+			'dismissible' => true,
+			'id'          => 'modula-modal-bulk-editor-upgrade-' . get_the_ID(),
+		);
 
 		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-bulk-editor-upgrade.php';
 		wp_die();
