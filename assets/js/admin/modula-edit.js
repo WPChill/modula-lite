@@ -4,7 +4,7 @@
 	$(document).ready(function () {
 		//prevents the modula metaboxes from being dragged.
 		$(
-			'.modula-no-drag #normal-sortables, .modula-no-drag #side-sortables'
+			'.modula-no-drag #normal-sortables'
 		).off();
 
 		$('.modula-feedback-notice .notice-dismiss').click(function (evt) {

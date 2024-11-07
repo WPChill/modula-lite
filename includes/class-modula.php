@@ -241,7 +241,7 @@ class Modula {
 			if ( apply_filters( 'modula_disable_drag_cpt_box', true ) ) {
 
 				//returns modula CPT metaboxes to the default position.
-				add_filter( 'get_user_option_meta-box-order_modula-gallery', '__return_empty_string' );
+				add_filter( 'get_user_option_meta-box-order_modula-gallery', array( $this, 'metabox_prevent_sorting' ) );
 				add_filter( 'get_user_option_closedpostboxes_modula-gallery', '__return_empty_string' );
 				add_filter( 'admin_body_class', array( $this, 'no_drag_classes' ), 15, 1 );
 
@@ -823,5 +823,19 @@ class Modula {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Prevent reorder of non side metaboxes
+	 *
+	 * @return bool
+	 *
+	 * @since 2.11.2
+	 */
+	public function metabox_prevent_sorting( $order ) {
+
+		$order['normal'] = 'modula-albums-upsell,modula-preview-gallery,modula-settings,slugdiv';
+
+		return $order;
 	}
 }
