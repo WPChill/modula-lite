@@ -4,7 +4,7 @@
 	$(document).ready(function () {
 		//prevents the modula metaboxes from being dragged.
 		$(
-			'.modula-no-drag #normal-sortables'
+			'.modula-no-drag #normal-sortables, .modula-no-drag #side-sortables'
 		).off();
 
 		$('.modula-feedback-notice .notice-dismiss').click(function (evt) {
@@ -167,6 +167,21 @@
 			);
 		}
 	});
+
+	const majorPublishingActions = document.getElementById('major-publishing-actions');
+    const offsetTop = majorPublishingActions.offsetTop;
+    const stickyClass = 'is-sticky';
+	const checkSticky = () => {
+		if (window.scrollY >= offsetTop) {
+            majorPublishingActions.classList.add(stickyClass);
+        } else {
+            majorPublishingActions.classList.remove(stickyClass);
+        }
+	};
+
+	window.addEventListener('scroll', checkSticky);
+
+    checkSticky();
 })(jQuery);
 
 (function (global) {
