@@ -168,14 +168,14 @@
 		}
 	});
 
-	const majorPublishingActions = document.getElementById('major-publishing-actions');
-    const offsetTop = majorPublishingActions.offsetTop;
+	const sideSortables = document.getElementById('side-sortables');
+    const offsetTop = sideSortables.offsetTop;
     const stickyClass = 'is-sticky';
 	const checkSticky = () => {
 		if (window.scrollY >= offsetTop) {
-            majorPublishingActions.classList.add(stickyClass);
+            sideSortables.classList.add(stickyClass);
         } else {
-            majorPublishingActions.classList.remove(stickyClass);
+            sideSortables.classList.remove(stickyClass);
         }
 	};
 

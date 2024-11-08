@@ -512,17 +512,20 @@ html body .modula.modula-gallery .modula-items .jtg-social {
     cursor: pointer;
 }
 
-#side-sortables #submitdiv .inside #submitpost #major-publishing-actions.is-sticky {
+#side-sortables.is-sticky #submitdiv {
     position: fixed;
     top: 32px;
     z-index: 1000;
     width: 280px;
     right: 20px;
-    padding: 6px 10px;
-    border: 1px solid #c3c4c7;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
     background: #fff;
     box-sizing: border-box;
+}
+#side-sortables.is-sticky::before {
+    content: '';
+    width: 100%;
+    height: 200px;
+    display: block;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie .jtg-title {
