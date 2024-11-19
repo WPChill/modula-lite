@@ -160,6 +160,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 = 2.11.2 - TBD =
 Fixed: Search for galleries with numeric title. ( [#1135]( https://github.com/WPChill/modula-lite/issues/1135) )
+Fixed: Incompatibility with "Multisite Shared Media Library" plugin ( [#1143]( https://github.com/WPChill/modula-lite/issues/1143) )
 
 = 2.11.1 - 06.11.2024 =
 Changed: Notification action option to permanently dissmiss a notice.

@@ -33,6 +33,7 @@ wp.Modula = 'undefined' === typeof wp.Modula ? {} : wp.Modula;
 
 		createStates: function () {
 			var options = this.options;
+			options.library = options.library ? options.library : {};
 			options.library.type = 'image';
 			if (this.options.states) {
 				return;
