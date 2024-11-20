@@ -154,7 +154,7 @@ class Modula_CPT {
 			'modula-gallery',
 			'modulaSettings',
 			array(
-				'get_callback' => array( $this, 'get_gallery_settings' ),
+				'get_callback'    => array( $this, 'get_gallery_settings' ),
 				'update_callback' => array( $this, 'update_gallery_settings' ),
 			)
 		);
@@ -163,7 +163,7 @@ class Modula_CPT {
 			'modula-gallery',
 			'modulaImages',
 			array(
-				'get_callback' => array( $this, 'get_gallery_images' ),
+				'get_callback'    => array( $this, 'get_gallery_images' ),
 				'update_callback' => array( $this, 'update_gallery_images' ),
 			)
 		);
@@ -187,11 +187,11 @@ class Modula_CPT {
 	}
 
 	public function update_gallery_settings( $value, $object ) {
-		if(!current_user_can('edit_post', $object->ID)){
+		if ( ! current_user_can( 'edit_post', $object->ID ) ) {
 			return;
 		}
 
-		update_post_meta( 
+		update_post_meta(
 			$object->ID,
 			'modula-settings',
 			$this->sanitize_settings( $object->ID, $value )
@@ -199,11 +199,11 @@ class Modula_CPT {
 	}
 
 	public function update_gallery_images( $value, $object ) {
-		if(!current_user_can('edit_post',  $object->ID)){
+		if ( ! current_user_can( 'edit_post', $object->ID ) ) {
 			return;
 		}
 
-		update_post_meta( 
+		update_post_meta(
 			$object->ID,
 			'modula-images',
 			$this->sanitize_images( $value )
@@ -244,7 +244,6 @@ class Modula_CPT {
 		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
-
 			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {
 				continue;
 			}
@@ -284,9 +283,8 @@ class Modula_CPT {
 
 		if ( isset( $_POST['modula-settings'] ) ) {
 			$modula_settings = $this->sanitize_settings( $post_id, $_POST['modula-settings'] );
-			// Add settings to gallery meta			
+			// Add settings to gallery meta
 			update_post_meta( $post_id, 'modula-settings', $modula_settings );
-
 		}
 
 		if ( isset( $_POST['modula-images'] ) ) {
@@ -307,6 +305,10 @@ class Modula_CPT {
 			// We will iterate through all fields of current tab
 			foreach ( $fields as $field_id => $field ) {
 				if ( isset( $settings[ $field_id ] ) ) {
+					if ( isset( $field['sanitization'] ) && is_callable( $field['sanitization'] ) ) {
+						$modula_settings[ $field_id ] = $field['sanitization']( $settings[ $field_id ] );
+						continue;
+					}
 
 					// Values for selects
 					$lightbox_values = apply_filters( 'modula_lightbox_values', array( 'no-link', 'direct', 'fancybox', 'external-url' ) );
@@ -374,7 +376,7 @@ class Modula_CPT {
 							$modula_settings[ $field_id ] = absint( $settings[ $field_id ] );
 							break;
 						case 'height':
-							$modula_settings[ $field_id ] = array_map( 'absint', $settings[ $field_id ] );
+							$modula_settings[ $field_id ] = is_array( $settings[ $field_id ] ) ? array_map( 'absint', $settings[ $field_id ] ) : absint( $settings[ $field_id ] );
 							break;
 						default:
 							$data_type = isset( $field['data_type'] ) ? $field['data_type'] : 'default';
@@ -390,7 +392,6 @@ class Modula_CPT {
 									if ( is_array( $settings[ $field_id ] ) ) {
 										$modula_settings[ $field_id ] = array_map( 'absint', $settings[ $field_id ] );
 									} else {
-
 										$modula_settings[ $field_id ] = absint( $settings[ $field_id ] );
 									}
 									break;
@@ -413,35 +414,31 @@ class Modula_CPT {
 
 							break;
 					}
-				} else {
-					if ( 'toggle' == $field['type'] ) {
+				} elseif ( 'toggle' == $field['type'] ) {
 						$modula_settings[ $field_id ] = '0';
-					} elseif ( 'hidden' == $field['type'] ) {
-
-						$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
-						if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
-							$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
-						} else {
-							$modula_settings[ $field_id ] = 'modula-general';
-						}
+				} elseif ( 'hidden' == $field['type'] ) {
+					$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
+					if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
+						$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
 					} else {
-						$modula_settings[ $field_id ] = '';
+						$modula_settings[ $field_id ] = 'modula-general';
 					}
+				} else {
+					$modula_settings[ $field_id ] = '';
 				}
 			}
 		}
 
 		// Save the value of upload_position.
-		if ( 
-			isset( $_POST['modula-settings']['upload_position'] ) 
-			|| isset($settings['upload_position'])
+		if ( isset( $_POST['modula-settings']['upload_position'] )
+			|| isset( $settings['upload_position'] )
 		) {
-			$upload_position = isset( $_POST['modula-settings']['upload_position'] ) 
-				? $_POST['modula-settings']['upload_position'] 
+			$upload_position = isset( $_POST['modula-settings']['upload_position'] )
+				? $_POST['modula-settings']['upload_position']
 				: $settings['upload_position'];
 
-			$upload_position = '1' === $upload_position || 'start' === $upload_position 
-					? 'start' 
+			$upload_position = '1' === $upload_position || 'start' === $upload_position
+					? 'start'
 					: 'end';
 
 			$modula_settings['upload_position'] = $upload_position;
@@ -451,11 +448,11 @@ class Modula_CPT {
 
 		return $modula_settings;
 	}
-	private function sanitize_images($images){
-		$sane_images     = is_string( $images ) ? json_decode( stripslashes( $images ), true ) : $images;
-		$new_images = array();
+	private function sanitize_images( $images ) {
+		$sane_images = is_string( $images ) ? json_decode( stripslashes( $images ), true ) : $images;
+		$new_images  = array();
 
-		if ( !is_array( $sane_images ) ) {
+		if ( ! is_array( $sane_images ) ) {
 			return array();
 		}
 
@@ -464,7 +461,6 @@ class Modula_CPT {
 		}
 
 		return $new_images;
-
 	}
 	private function sanitize_image( $image ) {
 
@@ -491,7 +487,6 @@ class Modula_CPT {
 
 		foreach ( $image_attributes as $attribute ) {
 			if ( isset( $image[ $attribute ] ) ) {
-
 				switch ( $attribute ) {
 					case 'alt':
 						$new_image[ $attribute ] = sanitize_text_field( $image[ $attribute ] );
@@ -995,26 +990,27 @@ class Modula_CPT {
 		return $vars;
 	}
 
-	private function get_gallery_types(){
+	private function get_gallery_types() {
 		global $wpdb;
-		
-		if( empty( $this->gallery_types ) ){
+
+		if ( empty( $this->gallery_types ) ) {
 			$query = $wpdb->prepare(
 				"SELECT p.ID AS post_id, pm.meta_value 
 				FROM {$wpdb->prefix}posts p
 				LEFT JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id AND pm.meta_key = %s
 				WHERE p.post_type = %s 
 				AND p.post_status IN ('publish', 'draft', 'pending')",
-				'modula-settings', 'modula-gallery'
+				'modula-settings',
+				'modula-gallery'
 			);
-			
-			$this->gallery_types = $wpdb->get_results($query, ARRAY_A);
+
+			$this->gallery_types = $wpdb->get_results( $query, ARRAY_A );
 		}
 
 		$types = array();
-		
+
 		foreach ( $this->gallery_types as $row ) {
-			if( ! isset( $row['meta_value'] ) || ! is_string( $row['meta_value'] ) ){
+			if ( ! isset( $row['meta_value'] ) || ! is_string( $row['meta_value'] ) ) {
 
 				// No settings for gallery? set default to "Creative"
 				$types['creative-gallery'][] = absint( $row['post_id'] );
@@ -1022,8 +1018,8 @@ class Modula_CPT {
 			}
 
 			$values = unserialize( $row['meta_value'] );
-			if( isset( $values['type'] ) ){
-				$types[$values['type']][] = absint( $row['post_id'] );
+			if ( isset( $values['type'] ) ) {
+				$types[ $values['type'] ][] = absint( $row['post_id'] );
 			}
 		}
 
@@ -1044,25 +1040,24 @@ class Modula_CPT {
 		if ( is_admin() && $pagenow == 'edit.php' && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] == 'modula-gallery' ) {
 
 			// search by ID
-			if( isset( $query->query_vars['s'] ) ){
+			if ( isset( $query->query_vars['s'] ) ) {
 				$search_term = $query->query_vars['s'];
-			
+
 				if ( is_numeric( $search_term ) ) {
 					$query->query_vars['s'] = '';
 					$query->set( 'post__in', array( $search_term ) );
 					return;
-					
 				}
 			}
-			
+
 			// search by gallery type
-			if( isset( $query->query_vars['gallery_type'] ) ){
+			if ( isset( $query->query_vars['gallery_type'] ) ) {
 				$gallery_type  = $query->query_vars['gallery_type'];
 				$gallery_types = $this->get_gallery_types();
 
-				if( isset( $gallery_types[$gallery_type] ) && ! empty( $gallery_types[$gallery_type] ) ){
+				if ( isset( $gallery_types[ $gallery_type ] ) && ! empty( $gallery_types[ $gallery_type ] ) ) {
 					$query->query_vars['gallery_type'] = '';
-					$query->set( 'post__in', $gallery_types[$gallery_type] );
+					$query->set( 'post__in', $gallery_types[ $gallery_type ] );
 				}
 			}
 		}
@@ -1079,7 +1074,7 @@ class Modula_CPT {
 	public function filter_by_gallery_type( $views ) {
 		$fields = Modula_CPT_Fields_Helper::get_fields( 'general' );
 
-		if( ! isset( $fields['type'] ) || ! isset( $fields['type']['values'] ) || ! is_array( $fields['type']['values'] ) || empty( $fields['type']['values'] ) ){
+		if ( ! isset( $fields['type'] ) || ! isset( $fields['type']['values'] ) || ! is_array( $fields['type']['values'] ) || empty( $fields['type']['values'] ) ) {
 			return $views;
 		}
 
@@ -1092,35 +1087,33 @@ class Modula_CPT {
 		);
 
 		$search = false;
-		if ( isset( $_GET['s'] ) ){
+		if ( isset( $_GET['s'] ) ) {
 			$search = sanitize_text_field( $_GET['s'] );
 		}
 
 		$fields = array_merge( $fields['type']['values'], isset( $fields['type']['disabled']['values'] ) ? $fields['type']['disabled']['values'] : array() );
 
-		foreach( $fields as $type => $text ){
-			
+		foreach ( $fields as $type => $text ) {
 			$type_url = add_query_arg(
 				$args,
 				admin_url( 'edit.php' )
 			);
-			
-			if( ! isset( $gallery_types[$type] ) ){
+
+			if ( ! isset( $gallery_types[ $type ] ) ) {
 				continue;
 			}
 
-			$count = count( $gallery_types[$type] );
+			$count = count( $gallery_types[ $type ] );
 
 			$type_url = sprintf( $type_url, $type );
 
-			if( $search ) {
+			if ( $search ) {
 				$type_url = add_query_arg( array( 's' => $search ), $type_url );
 			}
 
 			$attributes = isset( $_GET['gallery_type'] ) && $type === $_GET['gallery_type'] ? 'class="current" aria-current="page"' : '';
 
-			$views[$type] = '<a href="'. esc_url( $type_url ) .'" '. $attributes .' > ' . esc_html( $text ) . ' (' . esc_html( $count) . ') </a>';
-
+			$views[ $type ] = '<a href="' . esc_url( $type_url ) . '" ' . $attributes . ' > ' . esc_html( $text ) . ' (' . esc_html( $count ) . ') </a>';
 		}
 
 		return $views;
@@ -1136,8 +1129,8 @@ class Modula_CPT {
 	*/
 	public function add_gallery_type_hidden_field() {
 		global $typenow;
-	
-		if ( $typenow == 'modula-gallery') {
+
+		if ( $typenow == 'modula-gallery' ) {
 			?>
 			<input type="hidden" name="gallery_type" class="post_gallery_type_page" value="<?php echo isset( $_GET['gallery_type'] ) ? esc_attr( $_GET['gallery_type'] ) : 'all'; ?>" />
 			<?php
