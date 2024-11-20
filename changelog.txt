@@ -1,3 +1,7 @@
+== Changelog ==
+= 2.11.2 - 20.11.2024 =
+Added: Increased functionality for sanitization of gallery settings.
+
 = 2.11.1 - 06.11.2024 =
 Changed: Notification action option to permanently dissmiss a notice.
 
