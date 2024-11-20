@@ -78,6 +78,9 @@ var modulaFancybox = {
         opts.on['*'] = function (fancybox, eventName) {
             // replace . from event name with _ and set custom event.
             jQuery(document).trigger('modula_fancybox_' + eventName.replace(/\./g, '_'), [fancybox, this]);
+            // Create custom event for vanilla JS
+            var event = new CustomEvent('modula_fancybox_' + eventName.replace(/\./g, '_'), { detail: { fancybox: fancybox, instance: this } });
+            document.dispatchEvent(event);
         };
 
         // Slide pause on hover event

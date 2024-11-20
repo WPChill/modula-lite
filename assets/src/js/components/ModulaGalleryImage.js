@@ -64,8 +64,8 @@ const ModulaGalleryImage = (props) => {
 	return (
 		<div
 			className={itemClassNames}
-			data-width={img['data-width'] ? img['data-width'] : '2'}
-			data-height={img['data-height'] ? img['data-height'] : '2'}
+			data-width={settings.type !== 'slider' ? (img['data-width'] ? img['data-width'] : '2') : undefined}
+			data-height={settings.type !== 'slider' ? (img['data-height'] ? img['data-height'] : '2') : undefined}
 		>
 			<div className="modula-item-overlay" />
 			<div className="modula-item-content">
