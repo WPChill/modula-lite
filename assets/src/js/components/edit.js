@@ -74,17 +74,10 @@ export const ModulaEdit = (props) => {
 					},
 				],
 			});
-
-			jQuery.ajax({
-				type: 'POST',
-				data: {
-					action: 'modula_get_gallery_meta',
-					id: id,
-					nonce: modulaVars.nonce,
-				},
-				url: modulaVars.ajaxURL,
-				success: (result) => onGalleryLoaded(id, result),
-			});
+			setAttributes({ id: id, images: res.modulaImages });
+			if (idCheck != id || undefined == settings) {
+				getSettings(id);
+			}
 		});
 	};
 	function escapeHtml(text) {
@@ -94,16 +87,6 @@ export const ModulaEdit = (props) => {
 			.replace('&#8216;', "'");
 	}
 
-	const onGalleryLoaded = (id, result) => {
-		if (result.success === false) {
-			setAttributes({ id: id, status: 'ready' });
-			return;
-		}
-		if (idCheck != id || undefined == settings) {
-			getSettings(id);
-		}
-		setAttributes({ id: id, images: result, status: 'ready' });
-	};
 	const getSettings = (id) => {
 		fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`)
 			.then((res) => res.json())

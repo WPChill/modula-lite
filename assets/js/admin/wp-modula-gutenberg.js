@@ -356,8 +356,8 @@ var ModulaGalleryImage = function ModulaGalleryImage(props) {
   };
   return /*#__PURE__*/React.createElement("div", {
     className: itemClassNames,
-    "data-width": settings.type !== 'slider' ? img['data-width'] ? img['data-width'] : '2' : undefined,
-    "data-height": settings.type !== 'slider' ? img['data-height'] ? img['data-height'] : '2' : undefined
+    "data-width": img['data-width'] ? img['data-width'] : '2',
+    "data-height": img['data-height'] ? img['data-height'] : '2'
   }, /*#__PURE__*/React.createElement("div", {
     className: "modula-item-overlay"
   }), /*#__PURE__*/React.createElement("div", {
@@ -670,40 +670,18 @@ var ModulaEdit = function ModulaEdit(props) {
           label: '' === res.title.rendered ? "Unnamed" : escapeHtml(res.title.rendered)
         }]
       });
-      jQuery.ajax({
-        type: 'POST',
-        data: {
-          action: 'modula_get_gallery_meta',
-          id: id,
-          nonce: modulaVars.nonce
-        },
-        url: modulaVars.ajaxURL,
-        success: function success(result) {
-          return onGalleryLoaded(id, result);
-        }
+      setAttributes({
+        id: id,
+        images: res.modulaImages
       });
+      if (idCheck != id || undefined == settings) {
+        getSettings(id);
+      }
     });
   };
   function escapeHtml(text) {
     return text.replace('&#8217;', "'").replace('&#8220;', '"').replace('&#8216;', "'");
   }
-  var onGalleryLoaded = function onGalleryLoaded(id, result) {
-    if (result.success === false) {
-      setAttributes({
-        id: id,
-        status: 'ready'
-      });
-      return;
-    }
-    if (idCheck != id || undefined == settings) {
-      getSettings(id);
-    }
-    setAttributes({
-      id: id,
-      images: result,
-      status: 'ready'
-    });
-  };
   var getSettings = function getSettings(id) {
     fetch("".concat(modulaVars.restURL, "wp/v2/modula-gallery/").concat(id)).then(function (res) {
       return res.json();
