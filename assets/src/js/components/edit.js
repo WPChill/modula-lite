@@ -4,6 +4,7 @@
 import Inspector from './inspector';
 import ModulaGallery from './ModulaGallery';
 import ModulaGallerySearch from './ModulaGallerySearch';
+import {withFilters} from '@wordpress/components';
 import icons from '../utils/icons';
 /**
  * WordPress dependencies
@@ -74,6 +75,7 @@ export const ModulaEdit = (props) => {
 					},
 				],
 			});
+
 			setAttributes({ id: id, images: res.modulaImages });
 			if (idCheck != id || undefined == settings) {
 				getSettings(id);
@@ -360,6 +362,6 @@ const applyWithSelect = withSelect((select, props) => {
 	};
 });
 
-const applyWithFilters = wp.components.withFilters('modula.ModulaEdit');
+const applyWithFilters = withFilters('modula.ModulaEdit')(ModulaEdit);
 
-export default compose(applyWithSelect, applyWithFilters)(ModulaEdit);
+export default compose(applyWithSelect)(ModulaEdit);

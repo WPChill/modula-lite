@@ -254,10 +254,6 @@ class Modula_Gutenberg {
 	*/
 	public function rest_api_filter_data( $response, $post, $request ) {
 		$data = $response->get_data();
-		$modula_settings = $data['modulaSettings'];
-		if ( 'slider' !== $modula_settings['type'] ) {
-			return $response;
-		}
 		$images = $data['modulaImages'];
 
 		foreach ( $images as $key => $image ) {
