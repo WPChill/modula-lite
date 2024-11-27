@@ -54,7 +54,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 			lazyLoad       : 0,
 			initLightbox   : false,
 			lightbox       : 'fancybox',
-			lightboxOpts   : {},
+			lightboxOpts   : {
+				Toolbar: {
+					parentEl: function(toolbar){
+						return toolbar.instance.container.querySelector(".fancybox__col");
+					}
+				}
+			},
 			inView         : false,
 			originLeft     : true,
 		};
@@ -251,7 +257,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 							return myIndex;
 						}
 					})[0];
-
+					
 				jQuery.modulaFancybox.open(
 					links,
 					self.options.lightboxOpts,
@@ -1256,7 +1262,6 @@ jQuery(document).ready(function () {
 	}
 	jQuery.each(modulaGalleries, function () {
 		var modulaSettings = jQuery(this).data('config');
-
 		jQuery(this).modulaGallery(modulaSettings);
 	});
 });

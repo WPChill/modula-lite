@@ -25,10 +25,12 @@ class Modula_Gutenberg {
 		add_action( 'init', array( $this, 'register_block_type' ) );
 		add_action( 'init', array( $this, 'generate_js_vars' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_block_assets' ), 1 );
-		add_action( 'wp_ajax_modula_get_gallery_meta', array( $this, 'get_gallery_meta' ) );
 		add_action( 'wp_ajax_modula_get_gallery', array( $this, 'get_gallery' ) );
 		add_action( 'wp_ajax_modula_get_jsconfig', array( $this, 'get_jsconfig' ) );
 		add_action( 'wp_ajax_modula_check_hover_effect', array( $this, 'check_hover_effect' ) );
+		// Filter the gallery data for the REST API. Used for the Gutenberg editor, to remove the
+		// image data-width and data-height attributes.
+		add_filter( 'rest_prepare_modula-gallery', array( $this, 'rest_api_filter_data' ), 15, 3 );
 	}
 
 	/**
@@ -146,65 +148,6 @@ class Modula_Gutenberg {
 	}
 
 	/**
-	 * Gallery meta ajax callback
-	 *
-	 * @since 2.5.0
-	 */
-	public function get_gallery_meta() {
-
-		$id    = $_POST['id']; //phpcs:ignore
-		$nonce = $_POST['nonce']; //phpcs:ignore
-
-		if ( ! wp_verify_nonce( $nonce, 'modula_nonce' ) ) {
-			wp_send_json_error( 'no nonce' );
-			die();
-		}
-
-		$images = get_post_meta( $id, 'modula-images', true );
-
-		if ( ! is_array( $images ) || empty( $images ) ) {
-			wp_send_json_error( 'no images' );
-			die();
-		}
-
-		foreach ( $images as $key => $value ) :
-			if ( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ) {
-				$image_obj = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
-
-				if ( ! $image_obj ) {
-					continue;
-				}
-
-				$images[ $key ]['src']         = $image_obj[0];
-				$images[ $key ]['data-width']  = $images[ $key ]['width'];
-				$images[ $key ]['data-height'] = $images[ $key ]['height'];
-				$images[ $key ]['width']       = $image_obj[1];
-				$images[ $key ]['height']      = $image_obj[2];
-			} else {
-				$images[ $key ]['src']        = $value['video_thumbnail'];
-				$images[ $key ]['video_type'] = false;
-				if ( class_exists( 'Modula_Video' ) ) {
-					$images[ $key ]['src'] = Modula_Video::video_link_formatter( $value['video_url'] );
-					if ( strpos( $value['video_url'], 'youtu' ) !== false || strpos( $value['video_url'], 'vimeo' ) !== false ) {
-						$images[ $key ]['video_type'] = 'iframe';
-					} else {
-						$images[ $key ]['video_type'] = 'hosted';
-					}
-				}
-
-				$images[ $key ]['data-width']  = $value['video_width'];
-				$images[ $key ]['data-height'] = $value['video_height'];
-				$images[ $key ]['width']       = $value['video_width'];
-				$images[ $key ]['height']      = $value['video_height'];
-			}
-		endforeach;
-
-		wp_send_json( $images );
-
-		die();
-	}
-
-	/**
 	 * Get js config ajax callback
 	 *
 	 * @since 2.5.0
@@ -299,6 +242,54 @@ class Modula_Gutenberg {
 		}
 
 		wp_send_json( $suggestions );
+	}
+
+	/**
+	 * Filter the REST API response
+	 *
+	 * @param $settings
+	 *
+	 * @return array
+	 * @since 2.11.3
+	*/
+	public function rest_api_filter_data( $response, $post, $request ) {
+		$data = $response->get_data();
+		$images = $data['modulaImages'];
+
+		foreach ( $images as $key => $image ) {
+			if ( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ) {
+				$image_obj = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
+
+				if ( ! $image_obj ) {
+					continue;
+				}
+
+				$data['modulaImages'][ $key ]['src']         = $image_obj[0];
+				$data['modulaImages'][ $key ]['data-width']  = $images[ $key ]['width'];
+				$data['modulaImages'][ $key ]['data-height'] = $images[ $key ]['height'];
+				$data['modulaImages'][ $key ]['width']       = $image_obj[1];
+				$data['modulaImages'][ $key ]['height']      = $image_obj[2];
+			} else {
+				$data['modulaImages'][ $key ]['src']        = $value['video_thumbnail'];
+				$data['modulaImages'][ $key ]['video_type'] = false;
+				if ( class_exists( 'Modula_Video' ) ) {
+					$data['modulaImages'][ $key ]['src'] = Modula_Video::video_link_formatter( $value['video_url'] );
+					if ( strpos( $value['video_url'], 'youtu' ) !== false || strpos( $value['video_url'], 'vimeo' ) !== false ) {
+						$data['modulaImages'][ $key ]['video_type'] = 'iframe';
+					} else {
+						$data['modulaImages'][ $key ]['video_type'] = 'hosted';
+					}
+				}
+
+				$data['modulaImages'][ $key ]['data-width']  = $value['video_width'];
+				$data['modulaImages'][ $key ]['data-height'] = $value['video_height'];
+				$data['modulaImages'][ $key ]['width']       = $value['video_width'];
+				$data['modulaImages'][ $key ]['height']      = $value['video_height'];
+			}
+		}
+		// Set the new data
+		$response->set_data( $data );
+		return $response;
 	}
 }
 

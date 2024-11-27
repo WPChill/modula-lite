@@ -339,7 +339,7 @@ class Modula_Backward_Compatibility {
 
 	public function modula_fancybox_5_settings_matcher( $options, $settings ) {
 
-		if ( ! isset( $options['mainClass'] ) ) {
+		if ( ! isset( $options['mainClass'] ) && isset( $settings['gallery_id'] ) ) {
 			$options['mainClass'] = 'modula-fancybox-container modula-lightbox-' . $settings['gallery_id'];
 		}
 

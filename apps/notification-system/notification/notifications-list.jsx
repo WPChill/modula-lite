@@ -26,7 +26,6 @@ export function NotificationsList() {
     };
 
 	useEffect(() => {
-
 		visibleNotifications.forEach( (notification) => {
 			if (notification.timed && openPanels.includes( notification.id ) ) {
 				setTimeout(() => {
