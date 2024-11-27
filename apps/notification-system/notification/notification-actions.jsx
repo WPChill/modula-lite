@@ -4,7 +4,6 @@ import he from 'he';
 
 export function NotificationActions( { actions, id, onDismiss } ) {
 	const handleClick = (action, id) => {
-		console.log(action);
 		if (action.callback && typeof window[action.callback] === 'function') {
 			window[action.callback](action, id);
 		}
