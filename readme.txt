@@ -158,7 +158,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.11.3 - TBA =
+= 2.11.3 - 27.11.2024 =
 Fixed: PHP Warning
 Fixed: Gallery item has data-width and data-height on non-required gallery types
 
