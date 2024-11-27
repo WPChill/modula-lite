@@ -159,6 +159,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 
 == Changelog ==
 = 2.11.3 - 27.11.2024 =
+Fixed: Notification action URL encoding
 Fixed: PHP Warning
 Fixed: Gallery item has data-width and data-height on non-required gallery types
 

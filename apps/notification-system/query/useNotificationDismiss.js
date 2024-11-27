@@ -1,12 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import apiFetch from '@wordpress/api-fetch';
 
-const dismissNotice = async ( data ) => {
-	console.error(data);
+const dismissNotice = async ( {id, permanent} ) => {
 	const response = await apiFetch( {
-		path: '/modula-api/v1/notifications/',
+		path: `/modula/v1/notifications/${id || ''}`,
 		method: 'DELETE',
-		data: data,
+		data: { permanent },
 	} );
 	return response;
 };
