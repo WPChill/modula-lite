@@ -4,7 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 const dismissNotice = async ( data ) => {
 	console.error(data);
 	const response = await apiFetch( {
-		path: '/modula-api/v1/notifications/',
+		path: '/modula/v1/notifications/',
 		method: 'DELETE',
 		data: data,
 	} );

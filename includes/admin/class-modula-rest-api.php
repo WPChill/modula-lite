@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Modula_Rest_Api {
-	protected $namespace = 'modula-api/v1';
+	protected $namespace = 'modula/v1';
 
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );

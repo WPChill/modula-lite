@@ -3,8 +3,8 @@ import { Button } from '@wordpress/components';
 import he from 'he';
 
 export function NotificationActions( { actions, id, onDismiss } ) {
-
 	const handleClick = (action, id) => {
+		console.log(action);
 		if (action.callback && typeof window[action.callback] === 'function') {
 			window[action.callback](action, id);
 		}
@@ -20,7 +20,7 @@ export function NotificationActions( { actions, id, onDismiss } ) {
 				<Button
 					key={index}
 					className={action.class || 'notification-action'}
-					{...(action.url ? { href: action.url } : {})}
+					{...(action.url ? { href: he.decode(action.url) } : {})}
 					{...(action.id ? { id: action.id } : {})}
 					target={action.target || ''}
 					text={he.decode(action.label || __('Action', 'modula-best-grid-gallery'))}

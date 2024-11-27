@@ -5,7 +5,7 @@ export const useNotificationQuery = () => {
 		queryKey: ['notifications'],
 		queryFn: async () => {
 			const data = await apiFetch({
-				path: `/modula-api/v1/notifications`,
+				path: `/modula/v1/notifications`,
 				method: 'GET',
 			});
 			return data;
