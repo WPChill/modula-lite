@@ -158,6 +158,10 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.11.5 - TBD =
+Fixed: Search for galleries with numeric title. ( [#1135]( https://github.com/WPChill/modula-lite/issues/1135) )
+Fixed: Incompatibility with "Multisite Shared Media Library" plugin ( [#1143]( https://github.com/WPChill/modula-lite/issues/1143) )
+
 = 2.11.3 - 27.11.2024 =
 Fixed: Notification action URL encoding
 Fixed: PHP Warning

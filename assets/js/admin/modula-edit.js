@@ -167,6 +167,21 @@
 			);
 		}
 	});
+
+	const sideSortables = document.getElementById('side-sortables');
+    const offsetTop = sideSortables.offsetTop;
+    const stickyClass = 'is-sticky';
+	const checkSticky = () => {
+		if (window.scrollY >= offsetTop) {
+            sideSortables.classList.add(stickyClass);
+        } else {
+            sideSortables.classList.remove(stickyClass);
+        }
+	};
+
+	window.addEventListener('scroll', checkSticky);
+
+    checkSticky();
 })(jQuery);
 
 (function (global) {
