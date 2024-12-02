@@ -833,9 +833,11 @@ class Modula {
 	 * @since 2.11.2
 	 */
 	public function metabox_prevent_sorting( $order ) {
+		if ( ! is_array( $order ) ) {
+			$order = array();
+		}
 
 		$order['normal'] = 'modula-albums-upsell,modula-preview-gallery,modula-settings,slugdiv';
-
 		return $order;
 	}
 
@@ -847,6 +849,9 @@ class Modula {
 	 * @since 2.11.2
 	 */
 	public function metabox_prevent_closing( $closed ) {
+		if ( ! is_array( $closed ) ) {
+			$closed = array();
+		}
 		$should_be_open = array( 'modula-albums-upsell', 'modula-settings' );
 
 		return array_filter(
