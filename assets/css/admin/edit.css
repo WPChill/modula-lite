@@ -349,7 +349,7 @@ p.modula-onboarding-doc > a {
     pointer-events: none;
 }
 
-#side-sortables .postbox:last-of-type .handle-order-lower {
+.post-type-modula-gallery #side-sortables .postbox:last-of-type .handle-order-lower {
     cursor: default;
     color: #a7aaad;
     pointer-events: none;
