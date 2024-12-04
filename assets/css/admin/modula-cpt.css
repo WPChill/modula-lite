@@ -503,8 +503,29 @@ html body .modula.modula-gallery .modula-items .jtg-social {
     transform: translate3d(0, 0, 0);
 }
 
-.single-modula-gallery.post-type-modula-gallery.modula-no-drag #poststuff .postbox .handle-actions {
+.single-modula-gallery.post-type-modula-gallery.modula-no-drag #poststuff #normal-sortables .postbox .handle-actions .handle-order-higher,
+.single-modula-gallery.post-type-modula-gallery.modula-no-drag #poststuff #normal-sortables .postbox .handle-actions .handle-order-lower {
     display: none;
+}
+
+.single-modula-gallery.post-type-modula-gallery.modula-no-drag #poststuff .postbox .hndle {
+    cursor: pointer;
+}
+
+#side-sortables.is-sticky #submitdiv {
+    position: fixed;
+    top: 32px;
+    z-index: 1000;
+    width: 280px;
+    right: 20px;
+    background: #fff;
+    box-sizing: border-box;
+}
+#side-sortables.is-sticky::before {
+    content: '';
+    width: 100%;
+    height: 200px;
+    display: block;
 }
 
 html body #wpbody #poststuff #post-body .postbox-container #modula-hover-effect .modula.modula-gallery .modula-items .modula-item.effect-sadie .jtg-title {
