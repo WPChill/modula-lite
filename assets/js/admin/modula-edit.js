@@ -169,7 +169,8 @@
 	});
 
 	const sideSortables = document.getElementById('side-sortables');
-    const offsetTop = sideSortables.offsetTop;
+	const submitDiv = document.getElementById('submitdiv');
+    const offsetTop = submitDiv.offsetTop + 100;
     const stickyClass = 'is-sticky';
 	const checkSticky = () => {
 		if (window.scrollY >= offsetTop) {
