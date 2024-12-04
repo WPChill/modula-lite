@@ -1,7 +1,10 @@
 == Changelog ==
-= 2.11.5 - TBD =
+= 2.11.4 - 04.12.2024 =
 Fixed: Search for galleries with numeric title. ( [#1135]( https://github.com/WPChill/modula-lite/issues/1135) )
 Fixed: Incompatibility with "Multisite Shared Media Library" plugin ( [#1143]( https://github.com/WPChill/modula-lite/issues/1143) )
+Changed: Sticky save/update metabox in edit gallery screen. ( [#1141]( https://github.com/WPChill/modula-lite/issues/1141) )
+Changed: Side metaboxes reorder functionality in edit gallery screen. ( [#1140]( https://github.com/WPChill/modula-lite/issues/1140) )
+Changed: Collapse functionality for metaboxes in edit gallery screen. ( [#1139]( https://github.com/WPChill/modula-lite/issues/1139) )
 
 = 2.11.3 - 27.11.2024 =
 Fixed: PHP Warning
