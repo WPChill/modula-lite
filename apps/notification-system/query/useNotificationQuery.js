@@ -10,6 +10,6 @@ export const useNotificationQuery = () => {
 			});
 			return data;
 		},
-		refetchInterval: 5000,
+		refetchInterval: ( query ) => query?.state?.fetchFailureCount < 5 ? 5000 : false,
 	});
 };
