@@ -779,7 +779,7 @@ class Modula {
 	 */
 	public function notification_system_scripts( ) {
 
-		if ( ! $this->is_modula_admin_page() ) {
+		if ( ! $this->is_modula_admin_page() || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 

@@ -168,11 +168,16 @@
 		}
 	});
 
-	const sideSortables = document.getElementById('side-sortables');
-	const submitDiv = document.getElementById('submitdiv');
-    const offsetTop = submitDiv.offsetTop + 100;
-    const stickyClass = 'is-sticky';
 	const checkSticky = () => {
+		const sideSortables = document.getElementById('side-sortables');
+		const submitDiv = document.getElementById('submitdiv');
+
+		if ( ! submitDiv || ! sideSortables ) {
+			return;
+		}
+		
+		const offsetTop = submitDiv.offsetTop + 100;
+		const stickyClass = 'is-sticky';
 		if (window.scrollY >= offsetTop) {
             sideSortables.classList.add(stickyClass);
         } else {

@@ -1,4 +1,8 @@
 == Changelog ==
+= 2.11.5 - 05.12.2024 =
+Fixed: Resolved infinite REST notification retries when the user lacks the manage_options capability.
+Fixed: Addressed an undefined JavaScript error that occurred outside the Modula edit screen.
+
 = 2.11.4 - 04.12.2024 =
 Fixed: Search for galleries with numeric title. ( [#1135]( https://github.com/WPChill/modula-lite/issues/1135) )
 Fixed: Incompatibility with "Multisite Shared Media Library" plugin ( [#1143]( https://github.com/WPChill/modula-lite/issues/1143) )
