@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.6 - 06.12.2024 =
+Changed: Adjustments to the promotion notices for Modula
+
 = 2.11.5 - 05.12.2024 =
 Fixed: Resolved infinite REST notification retries when the user lacks the manage_options capability.
 Fixed: Addressed an undefined JavaScript error that occurred outside the Modula edit screen.
