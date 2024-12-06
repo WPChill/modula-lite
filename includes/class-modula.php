@@ -603,15 +603,25 @@ class Modula {
 	 * @since 2.7.9
 	 */
 	private function set_offer() {
-		$month = date( 'm' );
+		$timezone_string = get_option( 'timezone_string' );
+		$timezone        = $timezone_string ? new DateTimeZone( $timezone_string ) : new DateTimeZone( 'UTC' );
 
-		if ( 11 == $month ) {
+		$now = new DateTime( 'now', $timezone );
+
+		$bf_start = new DateTime( '2024-11-01 00:00:00', $timezone );
+		$bf_end   = new DateTime( '2024-12-09 10:00:00', $timezone );
+
+		$cym_start = new DateTime( '2024-12-09 10:01:00', $timezone );
+		$cym_end   = new DateTime( '2024-12-13 16:00:00', $timezone );
+
+		if ( $now >= $bf_start && $now <= $bf_end ) {
 			add_filter( 'modula_upsell_buttons', array( $this, 'bf_buttons' ), 15, 2 );
 			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
 		}
-		if ( 12 == $month ) {
-			add_filter( 'modula_upsell_buttons', array( $this, 'xmas_buttons' ), 15, 2 );
-			add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
+
+		if ( $now >= $cym_start && $now <= $cym_end ) {
+			add_filter( 'modula_upsell_buttons', array( $this, 'cyber_m_buttons' ), 15, 2 );
+			add_action( 'admin_print_styles', array( $this, 'footer_cyber_m_styles' ), 999 );
 		}
 	}
 
@@ -638,6 +648,19 @@ class Modula {
 
 		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
 		$buttons .= '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-xmas-upsell button">' . esc_html__( '25% OFF for Christmas', 'modula-best-grid-gallery' ) . '</a>';
+		return $buttons;
+	}
+
+	/**
+	 * Replaces upsells button with Cyber Monday text buttons
+	 *
+	 * @since 2.11.6
+	 */
+	public function cyber_m_buttons( $buttons, $campaign ) {
+		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
+
+		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons .= '<a target="_blank" href="' . esc_url( $matches[2][1] ) . '" style="margin-top:10px;" class="wpchill-cyber-m-upsell button">' . esc_html__( '25% OFF for Cyber Monday', 'modula-best-grid-gallery' ) . '</a>';
 		return $buttons;
 	}
 
@@ -670,6 +693,51 @@ class Modula {
 			font-weight: 600;
 		}
 		.wpchill-bf-upsell.button:hover {
+			background-color: red;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.modula-tooltip .modula-tooltip-content{
+			background-color: #fff;
+			color: #000;
+		}
+		.modula-settings-tab-upsell{
+			margin-top: 10px;
+		}
+		</style>';
+		echo $css;
+	}
+
+	/**
+	 * Echoes Cyber Monday script to footer
+	 *
+	 * @since 2.11.6
+	 */
+	public function footer_cyber_m_styles() {
+
+		$css = '<style>
+		.modula-upsell,
+		#poststuff .modula-upsell h2,
+		.modula-modal__overlay .modula-modal__frame,
+		.modula-settings-tab-upsell {
+			color: #fff;
+			background-color: #000;
+		}
+		.modula-upsell p,
+		.modula-upsell p.modula-upsell-description,
+		.modula-modal__overlay .modula-modal__frame h2,
+		.modula-settings-tab-upsell h3,
+		.modula-settings-tab-upsell p {
+			color: #fff;
+		}
+		.wpchill-cyber-m-upsell.button {
+			background-color: #2271b1;
+			border: none;
+			color: #fff;
+			font-weight: 600;
+		}
+		.wpchill-cyber-m-upsell.button:hover {
 			background-color: red;
 			border: none;
 			color: #fff;
