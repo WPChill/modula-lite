@@ -30,6 +30,16 @@ class Client {
 	 */
 	public function __construct() {
 		$this->image_descriptor = new Image_Descriptor();
-		$this->rest_api         = new Rest_Api();
+
+		$this->include_action_scheduler();
+	}
+
+	/**
+	 * Include Action Scheduler.
+	 *
+	 * @return void
+	 */
+	public function include_action_scheduler() {
+		require_once MODULA_PATH . 'includes/libraries/action-scheduler/action-scheduler.php';
 	}
 }
