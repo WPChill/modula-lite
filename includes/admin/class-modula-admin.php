@@ -6,9 +6,11 @@
 class Modula_Admin {
 
 	private $tabs;
+	private $subtabs;
 	private $menu_links;
 	private $version     = '2.0.0';
 	private $current_tab = 'general';
+	private $current_subtab;
 
 	function __construct() {
 
@@ -108,14 +110,14 @@ class Modula_Admin {
 		* 100 - Migrate galleries
 		* 110 - Import/Export
 		*/
-		$tabs =  array(
+		$subtabs =  array(
 			'standalone' => array(
 				'label'    => esc_html__('Standalone', 'modula-best-grid-gallery'),
 				'priority' => 20,
 				'badge'    => 'PRO'
         	),
         	'compression' => array(
-				'label'    => esc_html__('SpeedUp Settings', 'modula-best-grid-gallery'),
+				'label'    => esc_html__('Performance', 'modula-best-grid-gallery'),
 				'priority' => 30,
 				'badge'    => 'PRO'
         	),
@@ -154,7 +156,40 @@ class Modula_Admin {
 				'badge'    => 'PRO'
 			),
 		);
-		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
+		$this->subtabs = apply_filters( 'modula_admin_page_tabs', $subtabs );
+
+		$tabs =  array(
+			'display' => array(
+				'label'    => esc_html__('Display', 'modula-best-grid-gallery'),
+				'subtabs'  => array( 'standalone' => $this->subtabs['standalone'], 'shortcodes' => $this->subtabs['shortcodes'], 'image_licensing' => $this->subtabs['image_licensing'] ),
+				'priority' => 10,
+        	),
+			'optimization' => array(
+				'label'    => esc_html__('Optimization', 'modula-best-grid-gallery'),
+				'subtabs'  => array( 'compression' => $this->subtabs['compression'], 'imageseo' => $this->subtabs['imageseo'] ),
+				'priority' => 20,
+        	),
+			'protection' => array(
+				'label'    => esc_html__('Protection', 'modula-best-grid-gallery'),
+				'subtabs'  => array( 'watermark' => $this->subtabs['watermark'], 'roles' => $this->subtabs['roles'] ),
+				'priority' => 30,
+        	),
+			'social_media' => array(
+				'label'    => esc_html__('Social Media', 'modula-best-grid-gallery'),
+				'subtabs'  => array( 'instagram' => $this->subtabs['instagram'], 'video' => $this->subtabs['video'] ),
+				'priority' => 40,
+        	),
+			'migrate' => array(
+				'label'    => esc_html__('Migrate', 'modula-best-grid-gallery'),
+				'priority' => 50,
+        	),
+			'support' => array(
+				'label'    => esc_html__('Support ', 'modula-best-grid-gallery'),
+				'priority' => 60,
+        	),
+
+		);
+		$this->tabs = apply_filters( 'modula_admin_page_main_tabs', $tabs );
 
 		$links = array(
 			'freevspro' => array(
@@ -262,10 +297,16 @@ class Modula_Admin {
 		if ( isset( $_GET['modula-tab'] ) && isset( $this->tabs[ $_GET['modula-tab'] ] ) ) {
 			$this->current_tab = sanitize_text_field( wp_unslash( $_GET['modula-tab'] ) );
 		} else {
-
-			$tabs              = array_keys( $this->tabs );
+			$tabs              = array_keys( $this->tabs ); 
 			$this->current_tab = $tabs[0];
+		}
 
+
+		if ( isset( $_GET['modula-subtab'] ) && isset( $this->tabs[ $this->current_tab ][ 'subtabs' ][ $_GET['modula-subtab'] ] ) ) {
+			$this->current_subtab = sanitize_text_field( wp_unslash( $_GET['modula-subtab'] ) );
+		} else if( isset( $this->tabs[ $this->current_tab ][ 'subtabs' ] ) ) {
+			$subtabs             = array_keys( $this->tabs[ $this->current_tab ][ 'subtabs' ] ); 
+			$this->current_subtab = $subtabs[0];
 		}
 
 		include 'tabs/modula.php';

@@ -57,9 +57,6 @@ class Modula_Admin_Helpers {
 	 */
 	public function load_admin_hooks() {
 
-		add_action( 'in_admin_header', array( $this, 'modula_page_header' ) );
-
-		add_filter( 'modula_page_header', array( $this, 'page_header_locations' ) );
 	}
 
 	/**
@@ -70,7 +67,7 @@ class Modula_Admin_Helpers {
 	public static function modula_page_header($extra_class = '') {
 
 		// Only display the header on pages that belong to Modula
-		if ( ! apply_filters( 'modula_page_header', false ) ) {
+		if ( ! self::page_header_locations( false ) ) {
 			return;
 		}
 		?>
@@ -91,10 +88,9 @@ class Modula_Admin_Helpers {
 	 * @return bool|mixed
 	 * @since 2.5.3
 	 */
-	public function page_header_locations( $return ) {
+	public static function page_header_locations( $return ) {
 
 		$current_screen = get_current_screen();
-
 		if ( 'modula-gallery' === $current_screen->post_type ) {
 			return true;
 		}
@@ -108,49 +104,86 @@ class Modula_Admin_Helpers {
 	 * @param $tabs
 	 * @param $active_tab
 	 */
-	public static function modula_tab_navigation( $tabs, $active_tab ) {
-
+	public static function modula_tab_navigation( $tabs, $active_tab, $active_subtab = false ) {
+		echo '<div class="modula-nav-wrapper">';
+			echo '<div class="modula-nav-tab-wrapper wp-clearfix">';
 		if ( $tabs ) {
-
 			$i = count( $tabs );
 			$j = 1;
 
 			foreach ( $tabs as $tab_id => $tab ) {
-
 				$last_tab = ( $i == $j ) ? ' last_tab' : '';
-				$active   = ( $active_tab == $tab_id ? ' nav-tab-active' : '' );
-				$j++;
+				$active   = ( $active_tab == $tab_id ? ' modula-nav-tab-active' : '' );
+				++$j;
 
-				if ( isset( $tab[ 'url' ] ) ) {
+				if ( isset( $tab['url'] ) ) {
 					// For Extensions and Gallery list tabs
-					$url = $tab[ 'url' ];
+					$url = $tab['url'];
 				} else {
 					// For Settings tabs
 					$url = admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=' . $tab_id );
 				}
 
-				echo '<a href="' . esc_url( $url ) . '" class="nav-tab' . esc_attr($active) . esc_attr($last_tab) . '" ' . ( isset( $tab[ 'target' ] ) ? 'target="' . esc_attr($tab[ 'target' ]) . '"' : '' ) . '>';
+				echo '<a href="' . esc_url( $url ) . '" class="modula-nav-tab' . esc_attr( $active ) . esc_attr( $last_tab ) . '" ' . ( isset( $tab['target'] ) ? 'target="' . esc_attr( $tab['target'] ) . '"' : '' ) . '>';
 
-				if ( isset( $tab[ 'icon' ] ) ) {
-					echo '<span class="dashicons ' . esc_attr( $tab[ 'icon' ] ) . '"></span>';
+				if ( isset( $tab['icon'] ) ) {
+					echo '<span class="dashicons ' . esc_attr( $tab['icon'] ) . '"></span>';
 				}
 
 				// For Extensions and Gallery list tabs
-				if ( isset( $tab[ 'name' ] ) ) {
-					echo esc_html( $tab[ 'name' ] );
+				if ( isset( $tab['name'] ) ) {
+					echo esc_html( $tab['name'] );
 				}
 
 				// For Settings tabs
-				if ( isset( $tab[ 'label' ] ) ) {
-					echo esc_html( $tab[ 'label' ] );
+				if ( isset( $tab['label'] ) ) {
+					echo esc_html( $tab['label'] );
 				}
 
-				if ( isset( $tab[ 'badge' ] ) ) {
-					echo '<span class="modula-badge">' . esc_html($tab[ 'badge' ]) . '</span>';
+				if ( isset( $tab['badge'] ) ) {
+					echo '<span class="modula-badge">' . esc_html( $tab['badge'] ) . '</span>';
 				}
 
 				echo '</a>';
 			}
+			echo '</div>';
+			echo '<div class="modula-nav-subtab-wrapper wp-clearfix">';
+			if ( empty( $tabs[ $active_tab ]['subtabs'] ) ) {
+				return;
+			}
+
+			foreach ( $tabs[ $active_tab ]['subtabs'] as $tab_id => $tab ) {
+				$last_tab = ( $i == $j ) ? ' last_tab' : '';
+				$active   = ( $active_subtab == $tab_id ? ' modula-nav-subtab-active' : '' );
+				++$j;
+
+				if ( isset( $tab['url'] ) ) {
+					$url = $tab['url'];
+				} else {
+					$url = add_query_arg(
+						array(
+							'modula-tab'    => $active_tab,
+							'modula-subtab' => $tab_id,
+						),
+						admin_url( 'edit.php?post_type=modula-gallery&page=modula' )
+					);
+				}
+
+				echo '<a href="' . esc_url( $url ) . '" class="modula-nav-subtab' . esc_attr( $active ) . esc_attr( $last_tab ) . '" ' . ( isset( $tab['target'] ) ? 'target="' . esc_attr( $tab['target'] ) . '"' : '' ) . '>';
+
+				if ( isset( $tab['label'] ) ) {
+					echo esc_html( $tab['label'] );
+				}
+
+				if ( isset( $tab['badge'] ) ) {
+					echo '<span class="modula-badge">' . esc_html( $tab['badge'] ) . '</span>';
+				}
+
+				echo '</a>';
+			}
+
+			echo '</div>';
+			echo '</div>';
 		}
 	}
 

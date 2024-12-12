@@ -140,7 +140,13 @@ class Modula_Shortcode {
 		}
 
 		/* Get gallery images */
-		$images = apply_filters( 'modula_gallery_before_shuffle_images', get_post_meta( $atts['id'], 'modula-images', true ), $settings );
+		$meta_images = get_post_meta( $atts['id'], 'modula-images', true );
+
+		if ( empty( $meta_images ) || ! is_array( $meta_images ) ) {
+			$meta_images = array();
+		}
+
+		$images = apply_filters( 'modula_gallery_before_shuffle_images', $meta_images, $settings );
 
 		$shuffle_permitted = apply_filters( 'modula_shuffle_grid_types', array( 'creative-gallery', 'grid' ), $settings );
 

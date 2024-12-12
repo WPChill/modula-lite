@@ -354,3 +354,79 @@ p.modula-onboarding-doc > a {
     color: #a7aaad;
     pointer-events: none;
 }
+
+
+
+.modula-nav-wrapper {
+    border-bottom: 0 !important;
+    background-color: #fff;
+    height: 50px;
+    margin: 0 0 0 -20px;
+    display: table;
+    width: calc( 100% + 20px );
+}
+
+.modula-nav-tab-wrapper .modula-nav-tab {
+    float: left;
+    border-left: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
+    border-top: 0;
+    color: #6b6e72;
+    background: none;
+    line-height: 50px;
+    font-size: 13px;
+    padding: 0 15px;
+    margin: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.modula-nav-tab-wrapper .modula-nav-tab.modula-nav-tab-active {
+    background-color: #f1f1f1;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    color: #000;
+}
+
+.modula-nav-subtab {
+    position: relative;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    padding: 10px 5px;
+    display: inline-block;
+}
+.modula-nav-subtab-wrapper.wp-clearfix {
+    border-top: 2px solid #f1f1f1;
+}
+
+.modula-nav-subtab.modula-nav-subtab-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 3px;
+    width: 100%;
+    border-bottom: 3px solid #33a370;
+}
+
+.modula-header-logo {
+    margin: 0 auto;
+    flex: 0 0 40%;
+    text-align: center;
+}
+.modula-page-header {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    width: calc( 100% + 20px );
+    border-bottom: 2px solid #f1f1f1;
+    padding: 30px 0;
+    margin-left: -20px;
+}
+.modula-page-header img {
+    max-width: 150px;
+}

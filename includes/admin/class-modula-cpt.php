@@ -244,9 +244,6 @@ class Modula_CPT {
 		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
-			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {
-				continue;
-			}
 
 			add_meta_box(
 				$metabox_id,      // Unique ID

@@ -229,6 +229,7 @@ class Modula {
 			'id'       => $post_id,
 			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'admin_url' => admin_url(),
 		);
 
 		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {

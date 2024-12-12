@@ -168,21 +168,26 @@
 		}
 	});
 
-	const sideSortables = document.getElementById('side-sortables');
-	const submitDiv = document.getElementById('submitdiv');
-    const offsetTop = submitDiv.offsetTop + 100;
-    const stickyClass = 'is-sticky';
 	const checkSticky = () => {
+		const sideSortables = document.getElementById('side-sortables');
+		const submitDiv = document.getElementById('submitdiv');
+
+		if (!submitDiv || !sideSortables) {
+			return;
+		}
+
+		const offsetTop = submitDiv.offsetTop + 100;
+		const stickyClass = 'is-sticky';
 		if (window.scrollY >= offsetTop) {
-            sideSortables.classList.add(stickyClass);
-        } else {
-            sideSortables.classList.remove(stickyClass);
-        }
+			sideSortables.classList.add(stickyClass);
+		} else {
+			sideSortables.classList.remove(stickyClass);
+		}
 	};
 
 	window.addEventListener('scroll', checkSticky);
 
-    checkSticky();
+	checkSticky();
 })(jQuery);
 
 (function (global) {
@@ -190,25 +195,87 @@
 	var events = {};
 
 	eventBus.on = function (eventName, listener) {
-	  if (!events[eventName]) {
-		events[eventName] = [];
-	  }
-	  events[eventName].push(listener);
+		if (!events[eventName]) {
+			events[eventName] = [];
+		}
+		events[eventName].push(listener);
 	};
-  
+
 	eventBus.off = function (eventName, listener) {
-	  if (!events[eventName]) return;
-	  events[eventName] = events[eventName].filter(function (l) {
-		return l !== listener;
-	  });
+		if (!events[eventName]) return;
+		events[eventName] = events[eventName].filter(function (l) {
+			return l !== listener;
+		});
 	};
-  
+
 	eventBus.emit = function (eventName, data) {
-	  if (!events[eventName]) return;
-	  events[eventName].forEach(function (listener) {
-		listener(data);
-	  });
+		if (!events[eventName]) return;
+		events[eventName].forEach(function (listener) {
+			listener(data);
+		});
 	};
-  
+
 	global.modulaEventBus = eventBus;
 })(this);
+
+document.addEventListener( 'DOMContentLoaded', () => {
+	const button = document.querySelector( '#publish' );
+	if ( ! button ) {
+		return;
+	}
+
+	button.addEventListener( 'click', async ( event ) => {
+		const spinner = document.querySelector( '#publishing-action .spinner' );
+		const form = document.querySelector( '#post' );
+		const postStatus = document.querySelector( '#post_status' );
+		const hiddenPostStatus = document.querySelector( '#hidden_post_status' );
+		const originalPostStatus = document.querySelector( '#original_post_status' );
+		const postIdField = document.querySelector( '#post_ID' );
+
+		button.classList.add( 'disabled' );
+		spinner.classList.add( 'is-active' );
+		event.preventDefault();
+
+		let postStatusValue = 'publish';
+		if ( postStatus.value !== hiddenPostStatus.value ) {
+			postStatusValue = postStatus.value;
+			hiddenPostStatus.value = postStatus.value;
+		}
+
+		const formData = new FormData( form );
+		formData.append( 'post_status', postStatusValue );
+
+		try {
+			const response = await fetch( 'post.php', {
+				method: 'POST',
+				body: formData,
+			} );
+
+			if ( ! response.ok ) {
+				button.classList.remove( 'disabled' );
+				spinner.classList.remove( 'is-active' );
+			}
+
+			button.classList.remove( 'disabled' );
+			spinner.classList.remove( 'is-active' );
+
+			// Prevents unsaved changes alert.
+			jQuery( window ).off( 'beforeunload.edit-post' );
+
+			// Change the URL history so the user can refresh/link the post.
+			if ( undefined !== originalPostStatus && 'auto-draft' === originalPostStatus.value && undefined !== postIdField && undefined !== postIdField.value ) {
+				const newUrl = modulaHelper.admin_url + 'post.php?action=edit&post=' + postIdField.value;
+				history.replaceState( null, '', newUrl );
+				originalPostStatus.value = postStatusValue;
+			}
+
+			// If Watermark addon is used
+			if ( undefined !== wp.Modula.watermark && undefined !== wp.Modula.watermark.Conditions ) {
+				wp.Modula.watermark.Conditions.removeSaveNotice();
+			}
+		} catch ( error ) {
+			button.classList.remove( 'disabled' );
+			spinner.classList.remove( 'is-active' );
+		}
+	} );
+} );
