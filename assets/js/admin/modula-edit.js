@@ -167,6 +167,27 @@
 			);
 		}
 	});
+
+	const checkSticky = () => {
+		const sideSortables = document.getElementById('side-sortables');
+		const submitDiv = document.getElementById('submitdiv');
+
+		if ( ! submitDiv || ! sideSortables ) {
+			return;
+		}
+		
+		const offsetTop = submitDiv.offsetTop + 100;
+		const stickyClass = 'is-sticky';
+		if (window.scrollY >= offsetTop) {
+            sideSortables.classList.add(stickyClass);
+        } else {
+            sideSortables.classList.remove(stickyClass);
+        }
+	};
+
+	window.addEventListener('scroll', checkSticky);
+
+    checkSticky();
 })(jQuery);
 
 (function (global) {

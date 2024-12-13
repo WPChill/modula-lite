@@ -1031,7 +1031,7 @@ class Modula_CPT {
 	}
 
 	/**
-	 * Search gallery by ID or gallery type
+	 * Search gallery by ID & title or gallery type
 	 *
 	 * @param $query
 	 *
@@ -1039,17 +1039,37 @@ class Modula_CPT {
 	 * @since 2.9.0
 	*/
 	public function search_by_gallery_id( $query ) {
-		global $pagenow;
+		global $pagenow, $wpdb;
 
-		if ( is_admin() && $pagenow == 'edit.php' && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && $query->query_vars['post_type'] == 'modula-gallery' ) {
-
-			// search by ID
+		if ( is_admin() && 'edit.php' === $pagenow && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && 'modula-gallery' === $query->query_vars['post_type'] ) {
 			if ( isset( $query->query_vars['s'] ) ) {
 				$search_term = $query->query_vars['s'];
-
+				
 				if ( is_numeric( $search_term ) ) {
 					$query->query_vars['s'] = '';
-					$query->set( 'post__in', array( $search_term ) );
+					$post_ids               = array( 0 );
+					$post_type              = 'modula-gallery';
+					$like_term              = '%' . $wpdb->esc_like( $search_term ) . '%';
+
+					$sql = $wpdb->prepare(
+						"SELECT ID FROM {$wpdb->posts} 
+						WHERE post_type = 'modula-gallery' 
+						AND (ID = %d OR post_title LIKE %s)",
+						absint( $search_term ),
+						$like_term
+					);
+
+					$post_ids = $wpdb->get_col(
+						$wpdb->prepare(
+							"SELECT ID FROM {$wpdb->posts} 
+						WHERE post_type = 'modula-gallery' 
+						AND (ID = %d OR post_title LIKE %s)",
+							absint( $search_term ),
+							$like_term
+						),
+					);
+
+					$query->set( 'post__in', $post_ids );
 					return;
 				}
 			}
