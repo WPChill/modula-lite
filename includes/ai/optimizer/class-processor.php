@@ -13,12 +13,18 @@ class Processor {
 	use Debug;
 	use Lock;
 
-	public $debug      = true;
+	/** @var bool */
+	public $debug = true;
+	/** @var int */
 	public $batch_size = 10;
+	/** @var string */
 	public $lock_name;
+	/** @var string */
 	public $data_option;
+	/** @var string */
 	public $status_option;
 
+	/** @var array */
 	public $default_report = array(
 		'total'     => 0,
 		'optimized' => 0,
@@ -27,11 +33,22 @@ class Processor {
 		'skipped'   => 0,
 	);
 
+	/** @var array */
 	protected static $instances = array();
+	/** @var int */
 	protected $post_id;
 
+	/** @var Ai_Helper */
 	protected $ai_helper;
+	/** @var Gallery_Helper */
 	protected $gallery_helper;
+
+	/**
+	 * Retrieves the singleton instance of the Processor class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 * @return Processor The singleton instance.
+	 */
 	public static function get_instance( $post_id ) {
 		if ( ! isset( self::$instances[ $post_id ] ) ||
 		! ( self::$instances[ $post_id ] instanceof Processor ) ) {
@@ -41,6 +58,11 @@ class Processor {
 		return self::$instances[ $post_id ];
 	}
 
+	/**
+	 * Constructor for the Processor class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 */
 	public function __construct( $post_id ) {
 		$this->post_id       = $post_id;
 		$this->debug_option  = 'modula_ai_optimizer_debug_' . $post_id;
@@ -53,6 +75,12 @@ class Processor {
 		$this->gallery_helper = Gallery_Helper::get_instance();
 	}
 
+	/**
+	 * Processes a single image.
+	 *
+	 * @param int $image_id The ID of the image.
+	 * @return string|null The batch ID if successful, null otherwise.
+	 */
 	public function process_image( $image_id ) {
 		$images = array( $this->ai_helper->create_api_image( $image_id ) );
 		$result = $this->ai_helper->send_request_to_api( $images, true );
@@ -68,6 +96,9 @@ class Processor {
 		return $result['batchId'];
 	}
 
+	/**
+	 * Stops the optimizer manually.
+	 */
 	public function stop_manually() {
 		update_option( $this->status_option, 'idle' );
 		delete_option( $this->data_option );
@@ -83,6 +114,12 @@ class Processor {
 		$this->write_debug( __( 'Bulk optimizer stopped manually', 'modula-best-grid-gallery' ) );
 	}
 
+	/**
+	 * Creates initial data for the optimizer.
+	 *
+	 * @param string $action The action to perform.
+	 * @return array The initial data.
+	 */
 	public function create_initial_data( $action ) {
 		// Get gallery images
 		$images = $this->gallery_helper->get_gallery_report( $this->post_id );
@@ -102,6 +139,12 @@ class Processor {
 		return $data;
 	}
 
+	/**
+	 * Creates initial report for the optimizer.
+	 *
+	 * @param array $data The initial data.
+	 * @return array The initial report.
+	 */
 	public function create_initial_report( $data ) {
 		$report = array(
 			'total'     => count( $data['ids'] ),
@@ -120,11 +163,19 @@ class Processor {
 		return $report;
 	}
 
+	/**
+	 * Writes initial data to the database.
+	 *
+	 * @param array $data The initial data.
+	 */
 	public function write_initial_data( $data ) {
 		update_option( $this->data_option, $data );
 		update_option( $this->status_option, 'running' );
 	}
 
+	/**
+	 * Schedules the first batch.
+	 */
 	public function schedule_first_batch() {
 		\as_schedule_single_action(
 			time(),
@@ -136,6 +187,12 @@ class Processor {
 		);
 	}
 
+	/**
+	 * Processes a batch of images.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @param int $timestamp The timestamp.
+	 */
 	public function process_image_batch( $batch_number, $timestamp ) {
 		// Check if the batch can be processed
 		if ( ! $this->acquire_lock( $this->lock_name ) ) {
@@ -191,6 +248,9 @@ class Processor {
 		$this->release_lock( $this->lock_name );
 	}
 
+	/**
+	 * Handles the limit reached error.
+	 */
 	public function handle_limit_reached() {
 		$notice = array(
 			'title'   => __( 'Limit reached', 'modula-best-grid-gallery' ),
@@ -204,6 +264,12 @@ class Processor {
 		$this->write_debug( __( 'Limit exceeded, processing stopped.', 'modula-best-grid-gallery' ) );
 	}
 
+	/**
+	 * Prepares the batch data.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return array The batch data.
+	 */
 	private function prepare_batch_data( $batch_number ) {
 		$image_data = get_option( $this->data_option );
 		if ( ! isset( $image_data['ids'] ) ) {
@@ -245,6 +311,12 @@ class Processor {
 		);
 	}
 
+	/**
+	 * Checks if the image type is valid.
+	 *
+	 * @param int $id The ID of the image.
+	 * @return bool True if the image type is valid, false otherwise.
+	 */
 	private function is_valid_image_type( $id ) {
 		$url       = wp_get_attachment_url( $id );
 		$extension = pathinfo( wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION );
@@ -256,6 +328,12 @@ class Processor {
 		return true;
 	}
 
+	/**
+	 * Sends a batch of images to the API.
+	 *
+	 * @param array $batch_data The batch data.
+	 * @return array The result from the API.
+	 */
 	private function send_batch_to_api( $batch_data ) {
 		$images = array_map(
 			function ( $id ) {
@@ -267,6 +345,12 @@ class Processor {
 		return $this->ai_helper->send_request_to_api( $images );
 	}
 
+	/**
+	 * Schedules the next batch.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @param int $timestamp The timestamp.
+	 */
 	private function schedule_next_batch( $batch_number, $timestamp ) {
 		$data  = get_option( $this->data_option );
 		$total = count( $data['ids'] );
@@ -293,6 +377,11 @@ class Processor {
 		}
 	}
 
+	/**
+	 * Logs an API error.
+	 *
+	 * @param \Exception $exception The exception.
+	 */
 	private function log_api_error( $exception ) {
 		$notice = array(
 			'title'   => __( 'Something went wrong, processing stopped.', 'modula-best-grid-gallery' ),
@@ -307,6 +396,12 @@ class Processor {
 		$this->write_debug( __( 'API Error: ', 'modula-best-grid-gallery' ) . $exception->getMessage() );
 	}
 
+	/**
+	 * Updates the batch status.
+	 *
+	 * @param array $result The result from the API.
+	 * @param int $batch_number The batch number.
+	 */
 	private function update_batch_status( $result, $batch_number ) {
 		$data = get_option( $this->data_option );
 
@@ -317,6 +412,12 @@ class Processor {
 		$this->write_debug( __( 'Batch', 'modula-best-grid-gallery' ) . ' ' . $batch_number . __( ' updated with ID ', 'modula-best-grid-gallery' ) . $result[0]['batchId'] );
 	}
 
+	/**
+	 * Reschedules the batch.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @param int $timestamp The timestamp.
+	 */
 	private function reschedule_batch( $batch_number, $timestamp ) {
 		return \as_schedule_single_action(
 			time() + 10,

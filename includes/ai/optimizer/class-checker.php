@@ -13,14 +13,21 @@ class Checker {
 	use Debug;
 	use Lock;
 
+	/** @var string */
 	const REPORT = '_modula_ai_report';
 
+	/** @var bool */
 	public $debug = true;
+	/** @var string */
 	public $lock_name;
+	/** @var string */
 	public $data_option;
+	/** @var string */
 	public $status_option;
+	/** @var string */
 	public $report_option;
 
+	/** @var array */
 	public $default_report = array(
 		'total'     => 0,
 		'optimized' => 0,
@@ -29,11 +36,24 @@ class Checker {
 		'skipped'   => 0,
 	);
 
+	/** @var array */
 	protected static $instances = array();
+
+	/** @var int */
 	protected $post_id;
 
+	/** @var Ai_Helper */
 	protected $ai_helper;
 
+	/** @var Files_Helper */
+	protected $files_helper;
+
+	/**
+	 * Retrieves the singleton instance of the Checker class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 * @return Checker The singleton instance.
+	 */
 	public static function get_instance( $post_id ) {
 		if ( ! isset( self::$instances[ $post_id ] ) ||
 		! ( self::$instances[ $post_id ] instanceof Checker ) ) {
@@ -43,6 +63,11 @@ class Checker {
 		return self::$instances[ $post_id ];
 	}
 
+	/**
+	 * Constructor for the Checker class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 */
 	public function __construct( $post_id ) {
 		$this->post_id       = $post_id;
 		$this->debug_option  = 'modula_ai_optimizer_debug_' . $post_id;
@@ -52,9 +77,16 @@ class Checker {
 		$this->status_option = 'modula_ai_optimizer_status_' . $post_id;
 		$this->report_option = 'modula_ai_optimizer_report_' . $post_id;
 
-		$this->ai_helper = Ai_Helper::get_instance();
+		$this->ai_helper    = Ai_Helper::get_instance();
+		$this->files_helper = Files_Helper::get_instance();
 	}
 
+	/**
+	 * Checks a single image.
+	 *
+	 * @param string $batch_id The batch ID.
+	 * @return bool True if the image was checked successfully, false otherwise.
+	 */
 	public function check_single_image( $batch_id ) {
 		$items = $this->ai_helper->get_items_by_batch_id( $batch_id );
 		if ( $items instanceof Exception ) {
@@ -66,18 +98,28 @@ class Checker {
 		$image         = $items[0];
 		$attachment_id = $image['internalId'];
 
-		// $this->get_service( 'Alt' )->updateAlt( $attachment_id, $image['altText'] );
+		$this->update_alt_for_attachment( $attachment_id, $image['altText'] );
 		update_post_meta( $attachment_id, self::REPORT, $image );
 
 		return true;
 	}
 
+	/**
+	 * Retrieves the report for the current batch.
+	 *
+	 * @return array The report data.
+	 */
 	public function get_report() {
 		$report = get_option( $this->report_option, $this->default_report );
 
 		return $report;
 	}
 
+	/**
+	 * Retrieves the status of the current batch.
+	 *
+	 * @return array The status data.
+	 */
 	public function get_status() {
 		$data   = get_option( $this->data_option, false );
 		$report = $this->get_report();
@@ -101,6 +143,12 @@ class Checker {
 		);
 	}
 
+	/**
+	 * Checks a batch of images.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return void
+	 */
 	public function check_image_batch( $batch_number ) {
 		if ( ! $this->acquire_lock( $this->lock_name ) ) {
 			$this->write_debug( __( 'Lock already acquired', 'modula-best-grid-gallery' ) );
@@ -168,6 +216,11 @@ class Checker {
 		);
 	}
 
+	/**
+	 * Checks if all batches have been processed.
+	 *
+	 * @return void
+	 */
 	public function check_optimizer_finished() {
 		if ( ! $this->has_processed_all() ) {
 			\as_schedule_single_action(
@@ -190,6 +243,12 @@ class Checker {
 		$this->finalize_processing();
 	}
 
+	/**
+	 * Reschedules a batch of images.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return void
+	 */
 	private function reschedule_batch( $batch_number ) {
 		$this->write_debug( __( 'Rescheduling batch number:', 'modula-best-grid-gallery' ) . ' ' . $batch_number );
 		\as_schedule_single_action(
@@ -201,20 +260,43 @@ class Checker {
 		);
 	}
 
+	/**
+	 * Checks if image data is available.
+	 *
+	 * @return bool True if image data is available, false otherwise.
+	 */
 	private function is_image_data_available() {
 		return get_option( $this->data_option, false ) !== false;
 	}
 
+	/**
+	 * Checks if a batch has been sent to processing.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return bool True if the batch has been sent to processing, false otherwise.
+	 */
 	private function is_batch_sent_to_processing( $batch_number ) {
 		$data = get_option( $this->data_option );
 		return in_array( $batch_number, $data['batch_sent_to_processing'], true );
 	}
 
+	/**
+	 * Retrieves the batch ID for a given batch number.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return string|null The batch ID or null if not found.
+	 */
 	private function get_batch_id( $batch_number ) {
 		$data = get_option( $this->data_option );
 		return $data['batch_ids'][ $batch_number ] ?? null;
 	}
 
+	/**
+	 * Handles the case where a batch ID is missing.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return void
+	 */
 	private function handle_missing_batch_id( $batch_number ) {
 		$notice = array(
 			'title'   => __( 'Batch ID not found', 'modula-best-grid-gallery' ),
@@ -228,6 +310,13 @@ class Checker {
 		$this->write_debug( __( 'Batch ID not found for batch number: ', 'modula-best-grid-gallery' ) . $batch_number );
 	}
 
+	/**
+	 * Handles the case where a batch data error occurs.
+	 *
+	 * @param \Exception $exception The exception object.
+	 * @param int $batch_number The batch number.
+	 * @return void
+	 */
 	private function handle_batch_data_error( $exception, $batch_number ) {
 		$notice = array(
 			'title'   => __( 'Batch Data Error', 'modula-best-grid-gallery' ),
@@ -241,6 +330,12 @@ class Checker {
 		update_option( $this->status_option, 'idle' );
 	}
 
+	/**
+	 * Checks if all images in a batch have been processed.
+	 *
+	 * @param array $batch_data The batch data.
+	 * @return bool True if all images have been processed, false otherwise.
+	 */
 	private function all_images_processed( $batch_data ) {
 		foreach ( $batch_data as $image ) {
 			if ( ! $image['resolved'] && ! $image['failed'] ) {
@@ -250,6 +345,13 @@ class Checker {
 		return true;
 	}
 
+	/**
+	 * Updates the statuses of images in a batch.
+	 *
+	 * @param array $batch_data The batch data.
+	 * @param int $batch_number The batch number.
+	 * @return void
+	 */
 	private function update_image_statuses( $batch_data, $batch_number ) {
 		$optimize_filename = false;
 		$optimized         = array();
@@ -298,6 +400,14 @@ class Checker {
 		update_option( $this->report_option, $report );
 	}
 
+	/**
+	 * Handles a resolved image.
+	 *
+	 * @param array $image The image data.
+	 * @param bool $optimize_filename Whether to optimize the filename.
+	 * @param array $optimized The array of optimized images.
+	 * @return void
+	 */
 	private function handle_resolved_image( $image, $optimize_filename, &$optimized ) {
 		$attachment_id = $image['internalId'];
 
@@ -321,30 +431,39 @@ class Checker {
 		}
 
 		update_post_meta( $attachment_id, self::REPORT, $image );
-		$this->update_in_gallery(
+		$this->update_alt_for_gallery(
 			$attachment_id,
 			$image['altText'],
 			$image['caption'],
 			$image['title']
 		);
 		if ( ! $skip_alt ) {
-			// $this->get_service( 'Alt' )->updateAlt( $image['internalId'], $image['altText'] );
-			$this->write_debug( $image['internalId'] . ': ' . $image['altText'] );
+			$this->update_alt_for_attachment( $attachment_id, $image['altText'] );
+			$this->write_debug( $attachment_id . ': ' . $image['altText'] );
 		}
 
 		if ( $optimize_filename && ! $skip_filename ) {
 			$extension = $this->extract_extension( $image['imageUrl'] );
 
-			// $this->get_service( 'UpdateFile' )->updateFilename(
-			//  $image['internalId'],
-			//  sprintf( '%s.%s', $image['filename'], $extension )
-			// );
-			$this->write_debug( $image['internalId'] . ': ' . $image['filename'] . '.' . $extension );
+			$this->files_helper->update_filename(
+				$attachment_id,
+				sprintf( '%s.%s', $image['filename'], $extension )
+			);
+
+			$this->write_debug( $attachment_id . ': ' . $image['filename'] . '.' . $extension );
 		}
 
-		$optimized[] = $image['internalId'];
+		$optimized[] = $attachment_id;
 	}
 
+	/**
+	 * Handles a failed image.
+	 *
+	 * @param array $image The image data.
+	 * @param array $report The report data.
+	 * @param array $failed The array of failed images.
+	 * @return void
+	 */
 	private function handle_failed_image( $image, &$report, &$failed ) {
 		$notice = array(
 			'title'   => __( 'Failed image update', 'modula-best-grid-gallery' ),
@@ -363,7 +482,16 @@ class Checker {
 		$failed[] = $image['internalId'];
 	}
 
-	private function update_in_gallery( $attachment_id, $alt_text, $caption, $title ) {
+	/**
+	 * Updates the alt text for the gallery.
+	 *
+	 * @param int $attachment_id The attachment ID.
+	 * @param string $alt_text The alt text.
+	 * @param string $caption The caption.
+	 * @param string $title The title.
+	 * @return void
+	 */
+	private function update_alt_for_gallery( $attachment_id, $alt_text, $caption, $title ) {
 		$gallery = get_post_meta( $this->post_id, 'modula-images', true );
 		if ( ! $gallery ) {
 			return;
@@ -381,15 +509,46 @@ class Checker {
 		update_post_meta( $this->post_id, 'modula-images', $gallery );
 	}
 
+	/**
+	 * Updates the alt text for an attachment.
+	 *
+	 * @param int $attachment_id The attachment ID.
+	 * @param string $alt_text The alt text.
+	 * @return void
+	 */
+	private function update_alt_for_attachment( $attachment_id, $alt_text ) {
+		update_post_meta(
+			$attachment_id,
+			'_wp_attachment_image_alt',
+			apply_filters( 'modula_ai_update_alt', $alt_text, $attachment_id )
+		);
+	}
+
+	/**
+	 * Extracts the extension from a URL.
+	 *
+	 * @param string $url The URL.
+	 * @return string The extension.
+	 */
 	public function extract_extension( $url ): string {
 		return pathinfo( wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION );
 	}
 
+	/**
+	 * Checks if all images have been processed.
+	 *
+	 * @return bool True if all images have been processed, false otherwise.
+	 */
 	public function has_processed_all() {
 		$image_data = get_option( $this->data_option );
 		return count( $image_data['processed_and_received'] ) >= $image_data['total_batches'];
 	}
 
+	/**
+	 * Finalizes the processing of the batch.
+	 *
+	 * @return void
+	 */
 	private function finalize_processing() {
 		update_option( $this->status_option, 'idle' );
 		$this->write_debug( __( 'Finalizing entire batch processing.', 'modula-best-grid-gallery' ) );

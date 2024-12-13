@@ -1021,6 +1021,10 @@ class Modula_CPT {
 			if ( isset( $values['type'] ) ) {
 				$types[ $values['type'] ][] = absint( $row['post_id'] );
 			}
+
+			if ( isset( $values['image_proofing'] ) && 1 === $values['image_proofing'] ) {
+				$types['image-proofing'][] = absint( $row['post_id'] );
+			}
 		}
 
 		return $types;
@@ -1091,7 +1095,13 @@ class Modula_CPT {
 			$search = sanitize_text_field( $_GET['s'] );
 		}
 
-		$fields = array_merge( $fields['type']['values'], isset( $fields['type']['disabled']['values'] ) ? $fields['type']['disabled']['values'] : array() );
+		$fields = array_merge(
+			$fields['type']['values'],
+			isset( $fields['type']['disabled']['values'] )
+			? $fields['type']['disabled']['values']
+			: array(),
+			array( 'image-proofing' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ) )
+		);
 
 		foreach ( $fields as $type => $text ) {
 			$type_url = add_query_arg(

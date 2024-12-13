@@ -9,20 +9,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Optimizer {
 
+	/** @var Checker */
 	protected $checker;
+	/** @var Processor */
 	protected $processor;
+	/** @var int */
 	protected $post_id;
 
+	/** @var bool */
 	public $debug = true;
+	/** @var string */
 	public $debug_option;
+	/** @var string */
 	public $lock_name;
+	/** @var string */
 	public $data_option;
+	/** @var string */
 	public $status_option;
 
+	/** @var array */
 	protected static $instances = array();
+	/** @var Ai_Helper */
 	protected $ai_helper;
+	/** @var Gallery_Helper */
 	protected $gallery_helper;
 
+	/**
+	 * Retrieves the singleton instance of the Optimizer class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 * @return Optimizer The singleton instance.
+	 */
 	public static function get_instance( $post_id ) {
 		if ( ! isset( self::$instances[ $post_id ] ) ||
 		! ( self::$instances[ $post_id ] instanceof Optimizer ) ) {
@@ -32,6 +49,11 @@ class Optimizer {
 		return self::$instances[ $post_id ];
 	}
 
+	/**
+	 * Constructs the Optimizer class.
+	 *
+	 * @param int $post_id The ID of the post.
+	 */
 	public function __construct( $post_id ) {
 		$this->post_id = $post_id;
 
@@ -49,6 +71,9 @@ class Optimizer {
 		add_action( 'init', array( $this, 'add_process_hooks' ) );
 	}
 
+	/**
+	 * Adds the process hooks.
+	 */
 	public function add_process_hooks() {
 		$process_image_batch_hook      = 'process_image_batch_' . $this->post_id;
 		$check_image_batch_hook        = 'check_image_batch_' . $this->post_id;
@@ -67,6 +92,12 @@ class Optimizer {
 		}
 	}
 
+	/**
+	 * Starts the optimizer.
+	 *
+	 * @param string $action The action to perform.
+	 * @return array The status and report.
+	 */
 	public function start( $action = 'without' ) {
 		// Reset debug log
 		$this->processor->reset_debug();
@@ -111,6 +142,11 @@ class Optimizer {
 		);
 	}
 
+	/**
+	 * Stops the optimizer.
+	 *
+	 * @return array The status and report.
+	 */
 	public function stop() {
 		$this->processor->stop_manually();
 
@@ -126,10 +162,20 @@ class Optimizer {
 		);
 	}
 
+	/**
+	 * Retrieves the debug data.
+	 *
+	 * @return array The debug data.
+	 */
 	public function get_debug() {
 		return get_option( $this->debug_option, array() );
 	}
 
+	/**
+	 * Retrieves the status.
+	 *
+	 * @return array The status.
+	 */
 	public function status() {
 		return array_merge(
 			$this->checker->get_status(),
@@ -139,6 +185,12 @@ class Optimizer {
 		);
 	}
 
+	/**
+	 * Optimizes a single image.
+	 *
+	 * @param int $image_id The ID of the image.
+	 * @return array The result.
+	 */
 	public function optimize_single( $image_id ) {
 		$batch_id = $this->processor->process_image( $image_id );
 		if ( ! $batch_id ) {
@@ -148,14 +200,32 @@ class Optimizer {
 		return $this->checker->check_single_image( $batch_id );
 	}
 
+	/**
+	 * Processes a batch of images.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @param int $timestamp The timestamp.
+	 * @return array The result.
+	 */
 	public function process_image_batch( $batch_number, $timestamp ) {
 		return $this->processor->process_image_batch( $batch_number, $timestamp );
 	}
 
+	/**
+	 * Checks a batch of images.
+	 *
+	 * @param int $batch_number The batch number.
+	 * @return array The result.
+	 */
 	public function check_image_batch( $batch_number ) {
 		return $this->checker->check_image_batch( $batch_number );
 	}
 
+	/**
+	 * Checks if the optimizer has finished.
+	 *
+	 * @return array The result.
+	 */
 	public function check_optimizer_finished() {
 		return $this->checker->check_optimizer_finished();
 	}
