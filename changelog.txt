@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.7 - 14.12.2024 =
+Fixed: PHP Throwing warning in certain cases
+
 = 2.11.6 - 06.12.2024 =
 Changed: Adjustments to the promotion notices for Modula
 
