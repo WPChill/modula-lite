@@ -228,6 +228,28 @@ class Modula_Admin {
 			);
 		}
 
+		$args = apply_filters(
+			'modula_upsells_args',
+			array(
+				'shop_url' => 'https://wp-modula.com',
+				'slug'     => 'modula',
+			)
+		);
+
+		$wpchill_upsells = WPChill_Upsells::get_instance( $args );
+
+		// TODO: update 'modula-roles' to 'modula-image-proofing' when the product is included in a package.
+		if ( ! $wpchill_upsells || $wpchill_upsells->is_upgradable_addon( 'modula-roles' ) ) {
+			$links['image-proofing-upsell'] = array(
+				'page_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug'  => '#image-proofing-upsell',
+				'function'   => array( $this, 'modula_image_proofing' ),
+				'priority'   => 29,
+			);
+		}
+
 		$this->menu_links = apply_filters( 'modula_admin_page_link', $links );
 
 		// Sort tabs based on priority.
@@ -565,6 +587,10 @@ class Modula_Admin {
 	}
 
 	public function modula_albums_defaults() {
+		return;
+	}
+
+	public function modula_image_proofing() {
 		return;
 	}
 
