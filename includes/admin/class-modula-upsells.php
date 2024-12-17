@@ -99,7 +99,7 @@ class Modula_Upsells {
 		add_action( 'load-post.php', array( $this, 'meta_boxes_setup' ) );
 		add_action( 'load-post-new.php', array( $this, 'meta_boxes_setup' ) );
 
-		$this->free_vs_pro_link = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
+		$this->free_vs_pro_link = 'https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro';
 
 		// Upgrade to PRO plugin action link
 		add_filter( 'plugin_action_links_' . MODULA_FILE, array( $this, 'filter_action_links' ), 60 );
