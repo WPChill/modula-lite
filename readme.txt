@@ -160,7 +160,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 
 = 2.11.8 - 17.12.2024 =
-Update: Seasonal promotions notifications
+Update: Seasonal promotions notifications.
 
 = 2.11.7 - 14.12.2024 =
 Fixed: PHP Throwing warning in certain cases
