@@ -10,13 +10,13 @@
 				<div class="modula-upsells-carousel-modal">
 					<div class="modula-upsell-modal modula-upsell-item-modal">
 						<h2><?php esc_html_e( 'Modula Image Proofing', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Streamline licensing, protect your work, and monetize effortlessly with our extension.', 'modula-best-grid-gallery' ); ?></h4>
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Make client collaboration a breeze with Modula Image Proofing add-on.', 'modula-best-grid-gallery' ); ?></h4>
 						<ul class="modula-upsells-list-modal">
-							<li>You simplify your image licensing process, saving time and effort, perfect for your regular licensing needs</li>
-							<li>You ensure proper attribution for all your images, protecting against copyright infringement and upholding your rights.</li>
-							<li>You enjoy the flexibility to set different licensing terms for your images, catering to your unique needs and scenarios.</li>
-							<li>You add a layer of professionalism to your portfolio, demonstrating your serious approach to copyright and image management.</li>
-							<li>You open new revenue streams by monetizing your work directly through your portfolio, enhancing your earning potential.</li>
+							<li>Allow clients to review and approve images directly from your galleries.</li>
+							<li>Interactive Image selection for clients.</li>
+							<li>Clients can leave a message along with their selection for additional information.</li>
+							<li>Easy to understand and set up.</li>
+							<li>View a summary of the user selections.</li>
 						</ul>
 						<p>
 							<?php
