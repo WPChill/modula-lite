@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.8 - 17.12.2024 =
+Update: Seasonal promotions notifications
+
 = 2.11.7 - 14.12.2024 =
 Fixed: PHP Throwing warning in certain cases
 

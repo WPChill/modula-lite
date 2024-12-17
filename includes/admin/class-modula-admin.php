@@ -18,9 +18,6 @@ class Modula_Admin {
 		// Show general tab
 		add_action( 'modula_admin_tab_general', array( $this, 'show_general_tab' ) );
 
-		// Add CSS to admin menu
-		add_action( 'admin_head', array( $this, 'admin_custom_css' ) );
-
 		add_action( 'modula_scripts_before_wp_modula', array( $this, 'add_autosuggest_scripts' ) );
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url' ) );
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
@@ -156,17 +153,7 @@ class Modula_Admin {
 		);
 		$this->tabs = apply_filters( 'modula_admin_page_tabs', $tabs );
 
-		$links = array(
-			'freevspro' => array(
-				'page_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ),
-				'capability' => 'manage_options',
-				'menu_slug'  => 'modula-lite-vs-pro',
-				'function'   => array( $this, 'lite_vs_pro' ),
-				'priority'   => 100,
-				'hidden'     => true,
-			),
-		);
+		$links = array();
 
 		$links['modulaalbums'] = array(
 			'page_title' => esc_html__( 'Albums', 'modula-best-grid-gallery' ),
@@ -391,16 +378,6 @@ class Modula_Admin {
 		include 'tabs/general.php';
 	}
 
-	public function admin_custom_css() {
-		?>
-		<style type="text/css">
-			li#menu-posts-modula-gallery .wp-submenu li a[href$="modula-lite-vs-pro"] {color: gold;}
-		</style>
-
-		<?php
-	}
-
-
 	/**
 	 *  Add Import/Export tutorial
 	 *
@@ -516,40 +493,6 @@ class Modula_Admin {
 
 		echo json_encode( $suggestions );
 		exit();
-	}
-
-	/**
-	 *  Add LITE vs PRO page
-	 *
-	 * @since 2.5.0
-	 */
-	public function lite_vs_pro() {
-
-	$pro_features = array(
-			'gallery-filters' => array(
-				'title'       => esc_html__( 'Gallery Filters', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Let visitors filter your gallery items with a single click', 'modula-best-grid-gallery' ),
-			),
-			'gallery-sorting' => array(
-				'title'       => esc_html__( 'Gallery Sorting', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Multiple choices for sorting out images from your gallery: manual, date created, date modified, alphabetically, reverse or random', 'modula-best-grid-gallery' ),
-			),
-			'hover-effects' => array(
-				'title'       => esc_html__( 'Hover Effects', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Choose from 42 different hover effects.', 'modula-best-grid-gallery' ),
-			),
-			'loadng-effects' => array(
-				'title'       => esc_html__( 'Loading Effects', 'modula-best-grid-gallery' ),
-				'description' => esc_html__( 'Build your own effects with these new customizations', 'modula-best-grid-gallery' ),
-			),
-		);
-
-		echo '<div class="modula wrap lite-vs-pro-section about-wrap">';
-
-		do_action( 'modula_lite_vs_premium_page', $pro_features );
-
-		echo '</div>';
-
 	}
 
 	public function modula_albums() {
