@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.9 - 19.12.2024 =
+Fixed: Text domain loading
+
 = 2.11.8 - 17.12.2024 =
 Update: Seasonal promotions notifications
 
