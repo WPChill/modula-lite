@@ -10,20 +10,24 @@
 				<div class="modula-upsells-carousel-modal">
 					<div class="modula-upsell-modal modula-upsell-item-modal">
 						<h2><?php esc_html_e( 'Modula Image Proofing', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Make client collaboration a breeze with Modula Image Proofing add-on.', 'modula-best-grid-gallery' ); ?></h4>
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Getting your clients to select images is now simple and easy. Modula Image Proofing gives you everything you need to make the process quick and hassle-free.', 'modula-best-grid-gallery' ); ?></h4>
+						<p>Why Use Modula Image Proofing?</p>
 						<ul class="modula-upsells-list-modal">
-							<li>Allow clients to review and approve images directly from your galleries.</li>
-							<li>Interactive Image selection for clients.</li>
-							<li>Clients can leave a message along with their selection for additional information.</li>
-							<li>Easy to understand and set up.</li>
-							<li>View a summary of the user selections.</li>
+							<li><strong>Easy to Create Galleries:</strong> Build professional proofing galleries in just a few clicks.</li>
+							<li><strong>Simple Invitations:</strong> Share a unique invite link or send an email to your clients.</li>
+							<li><strong>Quick Notifications:</strong> Get an email as soon as your client submits their selections.</li>
+							<li><strong>Clear Communication:</strong> Clients can add notes to explain exactly what they need.</li>
+							<li><strong>Work Together Easily:</strong> Let one or more clients select images from your gallery.</li>
+							<li><strong>Stay in Control:</strong> Set a limit on how many images clients can choose.</li>
+							<li><strong>Protect Your Work:</strong> Use watermarks, right-click protection, or password protection to keep your images safe.</li>
 						</ul>
-						<p>
+						<p>With Modula Image Proofing, getting client approvals has never been easier!</p>
+						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 
 							$lite_vs_pro_url = admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' );
 							$buttons = '<a target="_blank" href="' . esc_url( $lite_vs_pro_url ) . '"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-image-licensing" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-image-licensing" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 							echo apply_filters( 'modula_upsell_buttons', $buttons, 'image-licensing' );
 

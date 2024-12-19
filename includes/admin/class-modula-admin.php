@@ -192,7 +192,7 @@ class Modula_Admin {
 			'capability' => 'manage_options',
 			'menu_slug'  => '#albums-defaults',
 			'function'   => array( $this, 'modula_albums_defaults' ),
-			'priority'   => 4,
+			'priority'   => 15,
 		);
 
 
@@ -242,11 +242,11 @@ class Modula_Admin {
 		if ( ! $wpchill_upsells || $wpchill_upsells->is_upgradable_addon( 'modula-roles' ) ) {
 			$links['image-proofing-upsell'] = array(
 				'page_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Proofing', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
 				'menu_slug'  => '#image-proofing-upsell',
 				'function'   => array( $this, 'modula_image_proofing' ),
-				'priority'   => 29,
+				'priority'   => 3,
 			);
 		}
 

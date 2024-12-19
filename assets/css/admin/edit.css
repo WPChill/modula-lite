@@ -76,6 +76,14 @@ tbody#the-list .no-items {
     box-shadow: 0 3px 30px rgb(0 0 0 / 20%);
 }
 
+.image-proofing .modula-modal__frame {
+    width: 550px;
+}
+.modula-upsell-modal-buttons-wrap{
+    width: 100%;
+    text-align: center;
+}
+
 @media screen and (max-width: 800px) {
     .modula-modal__frame {
         width: auto;
@@ -214,6 +222,10 @@ tbody#the-list .no-items {
     padding-left: 40px;
 }
 
+.modula-upsell-modal.modula-upsell-item-modal p {
+    text-align: left;
+}
+
 /**
  Onboarding CSS
  */
@@ -327,7 +339,8 @@ p.modula-onboarding-doc > a {
 }
 
 #menu-posts-modula-gallery .wp-submenu li a[href$="#albums-defaults"]::before,
-#menu-posts-modula-gallery .wp-submenu li a[href$="#gallery-defaults"]::before {
+#menu-posts-modula-gallery .wp-submenu li a[href$="#gallery-defaults"]::before,
+#menu-posts-modula-gallery .wp-submenu li a[href$="#image-proofing-upsell"]::before {
     display: inline-block;
     color: rgba(240, 246, 252, 0.7);
     font-family: 'dashicons';
@@ -337,7 +350,7 @@ p.modula-onboarding-doc > a {
 }
 
 #menu-posts-modula-gallery .wp-submenu li a[href$="#albums-defaults"],
-#menu-posts-modula-gallery .wp-submenu li a[href$="#gallery-defaults"] {
+#menu-posts-modula-gallery .wp-submenu li a[href$="#image-proofing-upsell"] {
     border-bottom: 1px solid hsla(0, 0%, 100%, .2);
 }
 
