@@ -340,7 +340,7 @@ class Modula_Admin {
 
 		if ( 'extensions' == $active_tab ) {
 
-			$addons = new Modula_Addons();
+			$addons = Modula_Addons::get_instance();
 			$pro_ext = false;
 
 			if(!isset($_GET['extensions']) || 'pro' === $_GET['extensions']){
