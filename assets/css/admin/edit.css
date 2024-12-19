@@ -77,7 +77,8 @@ tbody#the-list .no-items {
 }
 
 .image-proofing .modula-modal__frame {
-    width: 550px;
+    width: 750px;
+    max-width: 100%;
 }
 .modula-upsell-modal-buttons-wrap{
     width: 100%;
