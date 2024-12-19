@@ -31,7 +31,7 @@
 							echo apply_filters( 'modula_upsell_buttons', $buttons, 'image-licensing' );
 
 							?>
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
