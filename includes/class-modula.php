@@ -177,9 +177,10 @@ class Modula {
 			'documentation' => 'https://wp-modula.com/knowledge-base/',
 			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			'lite_vs_pro'   => admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ),
+			'lite_vs_pro'   => 'https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro',
 			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
 			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/',
+			'changelog'     => 'https://wp-modula.com/changelog/?utm_source=modula-lite&utm_medium=link&utm_campaign=settings&utm_term=changelog',
 
 		);
 
@@ -378,10 +379,6 @@ class Modula {
 				)
 			);
 
-		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
-
-			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header' . $suffix . '.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		} else {
 
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header' . $suffix . '.css', null, MODULA_LITE_VERSION );
