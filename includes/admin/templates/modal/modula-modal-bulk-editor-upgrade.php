@@ -47,15 +47,15 @@
 								?>
 							</li>
 						</ul>
-						<p>
+						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 							$buttons         = '<a target="_blank" href="https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-							$buttons         .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=bulk-editor" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons         .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=bulk-editor" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 							echo wp_kses_post( apply_filters( 'modula_upsell_buttons', $buttons, 'bulk_editor' ) );
 
 							?>
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-<div class="modula-modal__overlay image-licensing">
+<div class="modula-modal__overlay image-proofing">
 	<div class="modula-modal__frame <?php echo esc_attr($settings['classes']); ?>" <?php if ( $settings['dismissible'] ) : ?>data-modula-modal-dismissible data-modula-modal-id="<?php echo esc_attr($id); ?>"<?php endif; ?>>
 		<div class="modula-modal__header">
 			<button class="modula-modal__dismiss">
@@ -9,15 +9,19 @@
 			<div class="modula-upsells-carousel-wrapper-modal">
 				<div class="modula-upsells-carousel-modal">
 					<div class="modula-upsell-modal modula-upsell-item-modal">
-						<h2><?php esc_html_e( 'Modula Image Licensing', 'modula-best-grid-gallery' ); ?></h2>
-						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Streamline licensing, protect your work, and monetize effortlessly with our extension.', 'modula-best-grid-gallery' ); ?></h4>
+						<h2><?php esc_html_e( 'Modula Image Proofing', 'modula-best-grid-gallery' ); ?></h2>
+						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Getting your clients to select images is now simple and easy. Modula Image Proofing gives you everything you need to make the process quick and hassle-free.', 'modula-best-grid-gallery' ); ?></h4>
+						<p>Why Use Modula Image Proofing?</p>
 						<ul class="modula-upsells-list-modal">
-							<li>You simplify your image licensing process, saving time and effort, perfect for your regular licensing needs</li>
-							<li>You ensure proper attribution for all your images, protecting against copyright infringement and upholding your rights.</li>
-							<li>You enjoy the flexibility to set different licensing terms for your images, catering to your unique needs and scenarios.</li>
-							<li>You add a layer of professionalism to your portfolio, demonstrating your serious approach to copyright and image management.</li>
-							<li>You open new revenue streams by monetizing your work directly through your portfolio, enhancing your earning potential.</li>
+							<li><strong>Easy to Create Galleries:</strong> Build professional proofing galleries in just a few clicks.</li>
+							<li><strong>Simple Invitations:</strong> Share a unique invite link or send an email to your clients.</li>
+							<li><strong>Quick Notifications:</strong> Get an email as soon as your client submits their selections.</li>
+							<li><strong>Clear Communication:</strong> Clients can add notes to explain exactly what they need.</li>
+							<li><strong>Work Together Easily:</strong> Let one or more clients select images from your gallery.</li>
+							<li><strong>Stay in Control:</strong> Set a limit on how many images clients can choose.</li>
+							<li><strong>Protect Your Work:</strong> Use watermarks, right-click protection, or password protection to keep your images safe.</li>
 						</ul>
+						<p>With Modula Image Proofing, getting client approvals has never been easier!</p>
 						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 

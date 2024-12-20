@@ -55,6 +55,9 @@ class Modula_Upsells {
 		// Modula licenses modal
 		add_action( 'wp_ajax_modula_modal-image-licensing_upgrade', array( $this, 'get_modal_licenses_upgrade' ) );
 
+		// Modula image proofing modal
+		add_action( 'wp_ajax_modula_modal-image-proofing_upgrade', array( $this, 'get_modal_proofing_upgrade' ) );
+
 		/* Hooks */
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
@@ -831,6 +834,17 @@ class Modula_Upsells {
 		}
 
 		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-image-licensing-upgrade.php';
+		wp_die();
+	}
+
+	/**
+	 * Show the image proofing modal to upgrade
+	 *
+	 * @since 2.11.10
+	 */
+	public function get_modal_proofing_upgrade() {
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-image-proofing-upgrade.php';
 		wp_die();
 	}
 

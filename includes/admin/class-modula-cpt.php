@@ -1021,13 +1021,17 @@ class Modula_CPT {
 			if ( isset( $values['type'] ) ) {
 				$types[ $values['type'] ][] = absint( $row['post_id'] );
 			}
+
+			if ( isset( $values['image_proofing'] ) && 1 === $values['image_proofing'] ) {
+				$types['image-proofing'][] = absint( $row['post_id'] );
+			}
 		}
 
 		return $types;
 	}
 
 	/**
-	 * Search gallery by ID & title or gallery type
+	 * Search gallery by ID or gallery type
 	 *
 	 * @param $query
 	 *
@@ -1035,37 +1039,17 @@ class Modula_CPT {
 	 * @since 2.9.0
 	*/
 	public function search_by_gallery_id( $query ) {
-		global $pagenow, $wpdb;
+		global $pagenow;
 
 		if ( is_admin() && 'edit.php' === $pagenow && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && 'modula-gallery' === $query->query_vars['post_type'] ) {
+
+			// search by ID
 			if ( isset( $query->query_vars['s'] ) ) {
 				$search_term = $query->query_vars['s'];
-				
+
 				if ( is_numeric( $search_term ) ) {
 					$query->query_vars['s'] = '';
-					$post_ids               = array( 0 );
-					$post_type              = 'modula-gallery';
-					$like_term              = '%' . $wpdb->esc_like( $search_term ) . '%';
-
-					$sql = $wpdb->prepare(
-						"SELECT ID FROM {$wpdb->posts} 
-						WHERE post_type = 'modula-gallery' 
-						AND (ID = %d OR post_title LIKE %s)",
-						absint( $search_term ),
-						$like_term
-					);
-
-					$post_ids = $wpdb->get_col(
-						$wpdb->prepare(
-							"SELECT ID FROM {$wpdb->posts} 
-						WHERE post_type = 'modula-gallery' 
-						AND (ID = %d OR post_title LIKE %s)",
-							absint( $search_term ),
-							$like_term
-						),
-					);
-
-					$query->set( 'post__in', $post_ids );
+					$query->set( 'post__in', array( $search_term ) );
 					return;
 				}
 			}
@@ -1111,7 +1095,13 @@ class Modula_CPT {
 			$search = sanitize_text_field( $_GET['s'] );
 		}
 
-		$fields = array_merge( $fields['type']['values'], isset( $fields['type']['disabled']['values'] ) ? $fields['type']['disabled']['values'] : array() );
+		$fields = array_merge(
+			$fields['type']['values'],
+			isset( $fields['type']['disabled']['values'] )
+			? $fields['type']['disabled']['values']
+			: array(),
+			array( 'image-proofing' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ) )
+		);
 
 		foreach ( $fields as $type => $text ) {
 			$type_url = add_query_arg(

@@ -121,6 +121,15 @@
 
 	$('body').on(
 		'click',
+		'#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=#image-proofing-upsell"]',
+		{
+			upsell: 'image-proofing',
+		},
+		modulaOpenModal
+	);
+
+	$('body').on(
+		'click',
 		'#adminmenu #menu-posts-modula-gallery ul li a[href="edit.php?post_type=modula-gallery&page=go-pro"]',
 		function (e) {
 			e.preventDefault();

@@ -16,16 +16,16 @@
 							<li><?php esc_html_e( 'Add a new gallery and select a default preset previously created. Then add your images.', 'modula-best-grid-gallery' ); ?></li>
 							<li><?php esc_html_e( 'Save your galleries', 'modula-best-grid-gallery' ); ?></li>
 						</ul>
-						<p>
+						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 
 							$buttons = '<a target="_blank" href="https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro"  class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-gallery-defaults" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+							$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=popup&utm_campaign=modula-gallery-defaults" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 							echo apply_filters( 'modula_upsell_buttons', $buttons, 'albums' );
 
 							?>
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>

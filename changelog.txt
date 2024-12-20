@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.10 - 20.12.2024 =
+Update: Extended the upsells notifications system to include Image Proofing extension.
+
 = 2.11.9 - 19.12.2024 =
 Fixed: Text domain loading
 
@@ -287,13 +290,13 @@ Changed: Active hover effect on top of list.
 -Added: Metabox accordions.
 -Changed: WCAG compliance.
 
-= 2.6.7 - 08.06.2020 =
+= 2.6.7 - 08.06.2022 =
 -Fixed: Sanitization & escapes.
 -Fixed: Medicare WP theme compatibility.
 -Fixed: Gallery titles with messy display names in Gutenberg.
 -Added: Possibility to exclude certain images from the lightbox.
 
-= 2.6.6 - 02.05.2020 =
+= 2.6.6 - 02.05.2022 =
 -Fixed: Sanitization not showing quotation marks in image title.
 -Changed: Last image arrow in lightbox is now hidden.
 
