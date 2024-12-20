@@ -6,44 +6,20 @@ class Modula_Addons {
 
 	public $free_addons = array();
 
-	function __construct() {
+	/**
+	 * Holds the class object.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @var object
+	 */
+	public static $instance;
+
+	private function __construct() {
 		// Add ajax action to reload extensions
 		add_action( 'wp_ajax_modula_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 		add_filter( 'modula_free_extensions', array( $this, 'check_for_release' ), 999 );
-
-		// Add free
-		$this->free_addons = apply_filters( 'modula_free_extensions', array(
-			'modula-foo-migrator' => array(
-				'slug' => 'modula-foo-migrator',
-				'name' => __( 'Migrate away from FooGallery', 'modula-best-grid-gallery' ),
-				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
-			),
-			'modula-nextgen-migrator' => array(
-				'slug' => 'modula-nextgen-migrator',
-				'name' => __( 'Migrate away from NextGEN', 'modula-best-grid-gallery' ),
-				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
-			),
-			'modula-envira-migrator' => array(
-				'slug' => 'modula-envira-migrator',
-				'name' => __( 'Migrate away from Envira', 'modula-best-grid-gallery' ),
-				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
-			),
-			'modula-photoblocks-gallery-migrator' => array(
-				'slug' => 'modula-photoblocks-gallery-migrator',
-				'name' => __( 'Migrate away from PhotoBlocks', 'modula-best-grid-gallery' ),
-				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
-			),
-			'modula-final-tiles-migrator' => array(
-				'slug' => 'modula-final-tiles-migrator',
-				'name' => __( 'Migrate away from Final Tiles', 'modula-best-grid-gallery' ),
-				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
-				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
-			)
-		) );
+		add_action( 'init', array( $this, 'set_free_addons' ) );
 	}
 
 	private function check_for_addons() {
@@ -109,7 +85,6 @@ class Modula_Addons {
 	 * @since 2.5.5
 	 */
 	public function render_free_addons() {
-
 		if ( ! empty( $this->free_addons ) ) {
 
 			foreach ( $this->free_addons as $addon ) {
@@ -213,7 +188,6 @@ class Modula_Addons {
 	 * @since 2.5.5
 	 */
 	public function check_free_addons() {
-
 		return !empty( $this->free_addons );
 	}
 
@@ -261,6 +235,57 @@ class Modula_Addons {
 	public function check_for_release( $addons ) {
 		return $addons;
 	}
+
+	public function set_free_addons() {
+		// Add free
+		$this->free_addons = apply_filters( 'modula_free_extensions', array(
+			'modula-foo-migrator' => array(
+				'slug' => 'modula-foo-migrator',
+				'name' => __( 'Migrate away from FooGallery', 'modula-best-grid-gallery' ),
+				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
+			),
+			'modula-nextgen-migrator' => array(
+				'slug' => 'modula-nextgen-migrator',
+				'name' => __( 'Migrate away from NextGEN', 'modula-best-grid-gallery' ),
+				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
+			),
+			'modula-envira-migrator' => array(
+				'slug' => 'modula-envira-migrator',
+				'name' => __( 'Migrate away from Envira', 'modula-best-grid-gallery' ),
+				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
+			),
+			'modula-photoblocks-gallery-migrator' => array(
+				'slug' => 'modula-photoblocks-gallery-migrator',
+				'name' => __( 'Migrate away from PhotoBlocks', 'modula-best-grid-gallery' ),
+				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
+			),
+			'modula-final-tiles-migrator' => array(
+				'slug' => 'modula-final-tiles-migrator',
+				'name' => __( 'Migrate away from Final Tiles', 'modula-best-grid-gallery' ),
+				'image' => 'https://wp-modula.com/wp-content/uploads/edd/2021/04/069-refresh.png',
+				'description'   => esc_html__('Want to change your gallery plugin and impress your potential clients with a fully customizable WordPress gallery plugin that\'s fully mobile responsive', 'modula-best-grid-gallery')
+			)
+		) );
+	}
+
+	/**
+	 * Returns the singleton instance of the class.
+	 *
+	 * @return object The Modula_Addons object.
+	 * @since 2.11.19
+	 */
+	public static function get_instance() {
+
+		if ( !isset( self::$instance ) || !( self::$instance instanceof Modula_Addons ) ) {
+			self::$instance = new Modula_Addons();
+		}
+
+		return self::$instance;
+	}
 }
 
-$addons = new Modula_Addons();
+$addons = Modula_Addons::get_instance();

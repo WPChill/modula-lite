@@ -8,6 +8,13 @@ class Modula_Review {
 	private $slug = 'modula-best-grid-gallery';
 	
 	function __construct() {
+		add_action( 'init', array( $this, 'init' ) );
+	}
+
+	public function init() {
+		if ( ! is_admin() ) {
+			return;
+		}
 
 		$this->messages = array(
 			'notice'  => esc_html__( "Hi there! Stoked to see you're using Modula for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'modula-best-grid-gallery' ),
@@ -18,14 +25,6 @@ class Modula_Review {
 
 		if ( isset( $args['messages'] ) ) {
 			$this->messages = wp_parse_args( $args['messages'], $this->messages );
-		}
-
-		add_action( 'init', array( $this, 'init' ) );
-	}
-
-	public function init() {
-		if ( ! is_admin() ) {
-			return;
 		}
 
 		$this->value = $this->value();
