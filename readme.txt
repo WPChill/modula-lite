@@ -158,6 +158,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.11.10 - 20.12.2024 =
+Update: Extended the upsells notifications system to include Image Proofing extension.
+
 = 2.11.9 - 19.12.2024 =
 Fixed: Text domain loading
 

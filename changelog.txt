@@ -1,4 +1,7 @@
 == Changelog ==
+= 2.11.10 - 20.12.2024 =
+Update: Extended the upsells notifications system to include Image Proofing extension.
+
 = 2.11.9 - 19.12.2024 =
 Fixed: Text domain loading
 

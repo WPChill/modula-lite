@@ -840,7 +840,7 @@ class Modula_Upsells {
 	/**
 	 * Show the image proofing modal to upgrade
 	 *
-	 * @since 2.11.8
+	 * @since 2.11.10
 	 */
 	public function get_modal_proofing_upgrade() {
 
