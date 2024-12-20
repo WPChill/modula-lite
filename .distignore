@@ -26,3 +26,5 @@ SECURITY.md
 /scripts
 .babelrc
 phpcs.xml
+/apps
+webpack.config.notification-system.js
