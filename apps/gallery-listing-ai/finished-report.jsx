@@ -17,7 +17,7 @@ export function FinishedReport() {
 			<div className="image-seo-item">
 				<p>
 					<span className="dashicons dashicons-yes icon-success"></span>{' '}
-					{__('Optimized images: ', 'modula-imageseo')}
+					{__('Optimized images: ', 'modula-best-grid-gallery')}
 					<span className="highlight">{data.imagesWithAlt}</span>
 				</p>
 			</div>
@@ -25,10 +25,13 @@ export function FinishedReport() {
 				<p>
 					{__(
 						'Since last optimization, you have added ',
-						'modula-imageseo'
+						'modula-best-grid-gallery'
 					)}
 					<span className="highlight">{data.imagesWithoutAlt}</span>
-					{__(' images without alt text.', 'modula-imageseo')}
+					{__(
+						' images without alt text.',
+						'modula-best-grid-gallery'
+					)}
 				</p>
 			</div>
 		</>

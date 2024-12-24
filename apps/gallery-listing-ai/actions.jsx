@@ -33,12 +33,12 @@ export function Actions() {
 				<small>
 					{__(
 						'Oops! There was an error connecting to the API. Please make sure you have configured your API key correctly in the Image SEO settings.',
-						'modula-imageseo'
+						'modula-best-grid-gallery'
 					)}
 				</small>
 				<div className="image-seo-actions">
 					<Button variant="secondary" onClick={goToImageseo}>
-						{__('Configure Image SEO', 'modula-imageseo')}
+						{__('Configure Image SEO', 'modula-best-grid-gallery')}
 					</Button>
 				</div>
 			</>
@@ -48,10 +48,10 @@ export function Actions() {
 	return (
 		<div className="image-seo-actions">
 			<Button variant="secondary" onClick={optimizeAll}>
-				{__('Optimize all', 'modula-imageseo')}
+				{__('Optimize all', 'modula-best-grid-gallery')}
 			</Button>
 			<Button variant="secondary" onClick={optimizeMissing}>
-				{__('Only missings', 'modula-imageseo')}
+				{__('Only missings', 'modula-best-grid-gallery')}
 			</Button>
 		</div>
 	);

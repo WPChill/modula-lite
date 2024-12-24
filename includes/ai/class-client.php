@@ -5,6 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once __DIR__ . '/autoload.php';
+
 class Client {
 	/**
 	 * Instance of the Image_Descriptor class.

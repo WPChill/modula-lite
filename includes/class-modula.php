@@ -83,6 +83,9 @@ class Modula {
 		require_once MODULA_PATH . 'includes/admin/class-modula-rest-api.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-notifications.php';
 
+		require_once MODULA_PATH . 'includes/class-scripts.php';
+		require_once MODULA_PATH . 'includes/ai/class-client.php';
+
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -117,7 +120,6 @@ class Modula {
 		$modula_lang = dirname( MODULA_FILE ) . '/languages/';
 
 		if ( get_user_locale() !== get_locale() ) {
-
 			unload_textdomain( 'modula-best-grid-gallery' );
 			$locale = apply_filters( 'plugin_locale', get_user_locale(), 'modula-best-grid-gallery' );
 
@@ -127,10 +129,8 @@ class Modula {
 
 			if ( file_exists( $lang_ext1 ) ) {
 				load_textdomain( 'modula-best-grid-gallery', $lang_ext1 );
-
 			} elseif ( file_exists( $lang_ext2 ) ) {
 				load_textdomain( 'modula-best-grid-gallery', $lang_ext2 );
-
 			} else {
 				load_plugin_textdomain( 'modula-best-grid-gallery', false, $modula_lang );
 			}
@@ -168,6 +168,8 @@ class Modula {
 
 		// Initiate Modula REST Api
 		new Modula_Rest_Api();
+
+		new Modula\Ai\Client();
 	}
 
 	public function dashboard_start() {
@@ -244,7 +246,6 @@ class Modula {
 				add_filter( 'get_user_option_meta-box-order_modula-gallery', array( $this, 'metabox_prevent_sorting' ) );
 				add_filter( 'get_user_option_closedpostboxes_modula-gallery', array( $this, 'metabox_prevent_closing' ) );
 				add_filter( 'admin_body_class', array( $this, 'no_drag_classes' ), 15, 1 );
-
 			}
 
 			/*
@@ -274,7 +275,6 @@ class Modula {
 					$image['orientation'] = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';
 
 					$modula_helper['items'][] = apply_filters( 'modula_image_properties', $image );
-
 				}
 			}
 
@@ -337,7 +337,6 @@ class Modula {
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
-
 		} elseif ( 'modula-gallery_page_modula' == $hook ) {
 			// Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
@@ -377,16 +376,12 @@ class Modula {
 					'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' ),
 				)
 			);
-
 		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
-
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		} else {
-
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
-
 		}
 
 		wp_enqueue_script( 'modula-edit-screen', MODULA_URL . 'assets/js/admin/modula-edit' . $suffix . '.js', array(), MODULA_LITE_VERSION, true );
@@ -395,9 +390,9 @@ class Modula {
 		wp_enqueue_style( 'modula-edit-style', MODULA_URL . 'assets/css/admin/edit' . $suffix . '.css', null, MODULA_LITE_VERSION );
 	}
 
-	public function modula_enqueue_media(){
+	public function modula_enqueue_media() {
 
-		if( ! is_admin() || ! function_exists( 'get_current_screen' ) ){
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
 			return;
 		}
 
@@ -412,14 +407,14 @@ class Modula {
 		$args = array(
 			'post_type'      => 'modula-gallery',
 			'posts_per_page' => -1,
-			'post_status'    => array('publish', 'draft'),
+			'post_status'    => array( 'publish', 'draft' ),
 			'orderby'        => 'ID',
 			'order'          => 'DESC',
 		);
 
 		$posts = get_posts( $args );
-	
-		$data = array( 
+
+		$data = array(
 			'posts'    => array(),
 			'l10n'     => array(
 				'add_to_gallery' => 'Add to Modula Gallery',
@@ -428,7 +423,7 @@ class Modula {
 			'nonce'    => wp_create_nonce( 'modula-ajax-save' ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		);
-	
+
 		if ( $posts ) {
 			foreach ( $posts as $post ) {
 				$data['posts'][] = array(
@@ -438,7 +433,7 @@ class Modula {
 			}
 		}
 
-		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array( 'media-views', 'media-editor' ), NULL, true );
+		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array( 'media-views', 'media-editor' ), null, true );
 		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $data );
 	}
 
@@ -817,7 +812,6 @@ class Modula {
 		}
 
 		if ( defined( 'MODULA_PRO_PATH' ) ) {
-
 			if ( ! class_exists( 'Wpchill_License_Checker' ) ) {
 				require_once MODULA_PRO_PATH . 'includes/license-checker/class-wpchill-license-checker.php';
 			}
@@ -834,7 +828,6 @@ class Modula {
 
 			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'modula', $args );
 			$wpchill_license_checker->check_license_valability();
-
 		}
 
 		update_option( 'wpmodulaupdate', true );
@@ -845,34 +838,23 @@ class Modula {
 	 *
 	 * @since 2.11.0
 	 */
-	public function notification_system_scripts( ) {
-
+	public function notification_system_scripts() {
 		if ( ! $this->is_modula_admin_page() || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
-		$asset_file = require MODULA_PATH . '/assets/js/admin/notification-system/notification-system.asset.php';
-		$enqueue    = array(
-			'handle'       => 'modula-notification-system',
-			'dependencies' => $asset_file['dependencies'],
-			'version'      => $asset_file['version'],
-			'script'       => MODULA_URL . '/assets/js/admin/notification-system/notification-system.js',
-			'style'        => MODULA_URL . '/assets/js/admin/notification-system/notification-system.css',
+		$scripts = Modula\Scripts::get_instance();
+
+		// Load notification system script and styles
+		$scripts->load_js_asset(
+			'modula-notification-system',
+			'assets/js/admin/notification-system'
 		);
 
-		wp_enqueue_script(
-			$enqueue['handle'],
-			$enqueue['script'],
-			$enqueue['dependencies'],
-			$enqueue['version'],
-			true
-		);
-
-		wp_enqueue_style(
-			$enqueue['handle'],
-			$enqueue['style'],
-			array( 'wp-components' ),
-			$enqueue['version']
+		$scripts->load_css_asset(
+			'modula-notification-system',
+			'assets/js/admin/notification-system',
+			array( 'wp-components' )
 		);
 	}
 

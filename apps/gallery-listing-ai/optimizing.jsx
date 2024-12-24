@@ -12,16 +12,16 @@ export function Optimizing() {
 
 	return (
 		<div className="image-seo-list">
-			<p>{__('Optimizing images…', 'modula-imageseo')}</p>
+			<p>{__('Optimizing images…', 'modula-best-grid-gallery')}</p>
 			<small>
 				{__(
 					'This may take a while depending on the number of images. Feel free to navigate away from this page. We will notify you when the process is finished.',
-					'modula-imageseo'
+					'modula-best-grid-gallery'
 				)}
 			</small>
 			<div className="image-seo-actions">
 				<Button variant="secondary" onClick={stop}>
-					{__('Stop', 'modula-imageseo')}
+					{__('Stop', 'modula-best-grid-gallery')}
 				</Button>
 			</div>
 		</div>
