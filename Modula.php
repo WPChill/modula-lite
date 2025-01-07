@@ -87,7 +87,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-modula.php';
  * @since    2.0.0
  */
 function modula_run() {
-	// Our core class
 	$plugin = new Modula();
 }
 
