@@ -185,7 +185,7 @@ jQuery(document).ready(function($) {
                             success: function(response) {
                                 if(response.success) {
                                     library._requery( true );
-									window.modulaEventBus.emit('modula_notifications_updated');
+									window.modulaEventBus.emit('modula:media:insert:done');
 									$(document).trigger( 'modula:media:insert:done', response.data );
                                     this.controller.trigger( 'selection:action:done' );
                                 } else {

@@ -677,10 +677,14 @@ class Modula_Gallery_Upload {
 			'title'   => esc_html__( 'Import process completed.', 'modula-best-grid-gallery' ),
 			'message' => sprintf( _n( 'Finished importing %d image.', 'Finished importing %d images.', count( $modula_images ), 'modula-best-grid-gallery' ), count( $modula_images ) ),
 			'status'  => 'success',
+			'source'  => array(
+				'slug' => 'modula',
+				'name' => 'Modula',
+			),
 			'timed'   => 5000,
 		);
 
-		Modula_Notifications::add_notification( 'zip-import', $notice );
+		WPChill_Notifications::add_notification( 'zip-import', $notice );
 
 		// Return the image ID
 		wp_send_json_success( $modula_images );
@@ -1136,9 +1140,13 @@ class Modula_Gallery_Upload {
 			'title'   => esc_html__( 'Error importing images', 'modula-best-grid-gallery' ),
 			'message' => $message,
 			'status'  => 'error',
+			'source'  => array(
+				'slug' => 'modula',
+				'name' => 'Modula',
+			),
 		);
 
-		Modula_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
+		WPChill_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
 		// Clear the uploaded files, since the notification was added.
 		$this->update_uploaded_error_files( $gallery_id, array() );
 	}

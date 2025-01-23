@@ -1,3 +1,6 @@
+= 2.11.12 - TBD -
+Update: Notification system to WPChill Notification System.
+
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.
 

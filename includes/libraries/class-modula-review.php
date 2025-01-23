@@ -72,6 +72,10 @@ class Modula_Review {
 			'title'   	  => 'Rate Us',
 			'message' 	  => sprintf( esc_html( $this->messages['notice'] ), esc_html( $this->value ) ),
 			'status'  	  => 'success',
+			'source'  => array(
+				'slug' => 'modula',
+				'name' => 'Modula',
+			),
 			'dismissible' => false,
 			'actions'     => array(
 				array(
@@ -100,7 +104,7 @@ class Modula_Review {
 			),
 		);
 
-		Modula_Notifications::add_notification( 'five-star-rate', $notice );
+		WPChill_Notifications::add_notification( 'five-star-rate', $notice );
 	}
 
 	public function enqueue() {
