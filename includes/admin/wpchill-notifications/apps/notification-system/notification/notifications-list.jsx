@@ -57,7 +57,7 @@ export function NotificationsList() {
 								{ notification?.source?.name && (
 									<span className="notification-source-name">{ notification.source.name }</span>
 								) }
-								<span className="notification-title">{ notification?.title }</span>
+								<span className="notification-title"><Markup content={ notification.title } /></span>
 							</>
 						}
 						key={ notification?.id }
