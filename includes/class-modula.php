@@ -81,7 +81,10 @@ class Modula {
 		require_once MODULA_PATH . 'includes/public/meta/class-modula-meta.php';
 
 		require_once MODULA_PATH . 'includes/admin/class-modula-notifications.php';
-		require_once MODULA_PATH . 'includes/admin/wpchill-notifications/class-wpchill-notifications.php';
+		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-notifications.php';
+
+		// WPChill About Us Class.
+		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-about-us.php';
 
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
@@ -162,11 +165,14 @@ class Modula {
 		// Initiate modula cpts
 		new Modula_CPT();
 
-		// Initiate Modula Notifications
+		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
+
+		// Initiate WPChill About Us
+		new WPChill_About_Us( 'modula-gallery' );
 	}
 
-	public function dashboard_start() {
+	public function dashboard_start( ) {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',

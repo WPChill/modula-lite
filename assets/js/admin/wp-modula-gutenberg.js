@@ -107,17 +107,35 @@ if (true) {
 /************************************************************************/
 var __webpack_exports__ = {};
 
+;// ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(540);
 ;// ./assets/src/js/components/ModulaGallerySearch.js
-var useEffect = wp.element.useEffect;
-var ModulaGallerySearch = function ModulaGallerySearch(props) {
-  var onIdChange = props.onIdChange,
-    id = props.id,
-    options = props.options,
-    galleries = props.galleries;
-  useEffect(function () {
-    var galleriesArray = [];
+
+const {
+  useEffect
+} = wp.element;
+const ModulaGallerySearch = props => {
+  const {
+    onIdChange,
+    id,
+    options,
+    galleries
+  } = props;
+  useEffect(() => {
+    let galleriesArray = [];
     if (galleries != undefined && 0 == galleriesArray.length) {
-      galleries.forEach(function (gallery) {
+      galleries.forEach(gallery => {
         galleriesArray.push({
           value: gallery.id,
           label: gallery.title.rendered
@@ -136,11 +154,11 @@ var ModulaGallerySearch = function ModulaGallerySearch(props) {
       closeAfterSelect: true,
       options: options.concat(galleriesArray),
       render: {
-        option: function option(item, escape) {
+        option: function (item, escape) {
           return '<div>' + '<span className="title">' + item.label + '<span className="name"> (#' + escape(item.value) + ')</span>' + '</div>';
         }
       },
-      load: function load(query, callback) {
+      load: function (query, callback) {
         if (!query.length) {
           return callback();
         }
@@ -152,12 +170,12 @@ var ModulaGallerySearch = function ModulaGallerySearch(props) {
             nonce: modulaVars.nonce,
             term: query
           },
-          success: function success(res) {
+          success: res => {
             callback(res);
           }
         });
       },
-      onChange: function onChange(value) {
+      onChange: value => {
         onIdChange(value);
       }
     });
@@ -171,25 +189,37 @@ var ModulaGallerySearch = function ModulaGallerySearch(props) {
 ;// ./assets/src/js/components/inspector.js
 
 
+
 /**
  * WordPress dependencies
  */
-var __ = wp.i18n.__;
-var Fragment = wp.element.Fragment;
-var InspectorControls = wp.blockEditor.InspectorControls;
-var _wp$components = wp.components,
-  Button = _wp$components.Button,
-  PanelBody = _wp$components.PanelBody;
+const {
+  __
+} = wp.i18n;
+const {
+  Fragment
+} = wp.element;
+const {
+  InspectorControls
+} = wp.blockEditor;
+const {
+  Button,
+  PanelBody
+} = wp.components;
 
 /**
  * Inspector controls
  */
-var Inspector = function Inspector(props) {
-  var attributes = props.attributes,
-    galleries = props.galleries,
-    onIdChange = props.onIdChange;
-  var id = attributes.id,
-    currentSelectize = attributes.currentSelectize;
+const Inspector = props => {
+  const {
+    attributes,
+    galleries,
+    onIdChange
+  } = props;
+  const {
+    id,
+    currentSelectize
+  } = attributes;
   return /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Gallery Settings', 'modula-best-grid-gallery'),
     initialOpen: true
@@ -208,7 +238,8 @@ var Inspector = function Inspector(props) {
 };
 /* harmony default export */ const inspector = (wp.components.withFilters('modula.ModulaInspector')(Inspector));
 ;// ./assets/src/js/utils/icons.js
-var icons = {};
+
+const icons = {};
 icons.modula = /*#__PURE__*/React.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   x: "0px",
@@ -350,15 +381,20 @@ icons.chevronRightFancy = /*#__PURE__*/React.createElement("svg", {
 /* harmony default export */ const utils_icons = (icons);
 ;// ./assets/src/js/components/ModulaGalleryImageInner.js
 
-var ModulaGalleryImageInner_Fragment = wp.element.Fragment;
-var ModulaGalleryImageInner = function ModulaGalleryImageInner(props) {
-  var settings = props.settings,
-    img = props.img,
-    hideTitle = props.hideTitle,
-    hideDescription = props.hideDescription,
-    hideSocial = props.hideSocial,
-    index = props.index;
-  var effectArray = ['tilt_1', 'tilt_3', 'tilt_7'],
+
+const {
+  Fragment: ModulaGalleryImageInner_Fragment
+} = wp.element;
+const ModulaGalleryImageInner = props => {
+  const {
+    settings,
+    img,
+    hideTitle,
+    hideDescription,
+    hideSocial,
+    index
+  } = props;
+  let effectArray = ['tilt_1', 'tilt_3', 'tilt_7'],
     overlayArray = ['tilt_3', 'tilt_7'],
     svgArray = ['tilt_1', 'tilt_7'],
     jtgBody = ['lily', 'centered-bottom', 'sadie', 'ruby', 'bubba', 'dexter', 'chico', 'ming'];
@@ -405,17 +441,21 @@ var ModulaGalleryImageInner = function ModulaGalleryImageInner(props) {
 /* harmony default export */ const components_ModulaGalleryImageInner = (ModulaGalleryImageInner);
 ;// ./assets/src/js/components/ModulaGalleryImage.js
 
-var ModulaGalleryImage = function ModulaGalleryImage(props) {
-  var _props$attributes = props.attributes,
-    settings = _props$attributes.settings,
-    effectCheck = _props$attributes.effectCheck;
-  var img = props.img,
-    index = props.index;
-  var itemClassNames = "modula-item effect-".concat(settings.effect);
+
+const ModulaGalleryImage = props => {
+  const {
+    settings,
+    effectCheck
+  } = props.attributes;
+  const {
+    img,
+    index
+  } = props;
+  let itemClassNames = `modula-item effect-${settings.effect}`;
   if (settings.type === 'slider') {
     itemClassNames = 'modula-item f-carousel__slide';
   }
-  var renderMedia = function renderMedia() {
+  const renderMedia = () => {
     if (!img.video_template || img.video_template !== '1' || !img.video_type) {
       // Return image element if video_template is not defined or is not '1'
       return /*#__PURE__*/React.createElement("img", {
@@ -481,145 +521,241 @@ var ModulaGalleryImage = function ModulaGalleryImage(props) {
 };
 /* harmony default export */ const components_ModulaGalleryImage = (wp.components.withFilters('modula.ModulaGalleryImage')(ModulaGalleryImage));
 ;// ./assets/src/js/components/ModulaStyle.js
-var ModulaStyle = function ModulaStyle(props) {
-  var id = props.id,
-    settings = props.settings;
-  var style = "";
+
+const ModulaStyle = props => {
+  const {
+    id,
+    settings
+  } = props;
+  let style = ``;
   if ('grid' == settings.type) {
     if ('automatic' != settings.grid_type) {
-      style += "#jtg-".concat(id, ".modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(").concat(100 / settings.grid_type, "% - ").concat(settings.gutter - settings.gutter / settings.grid_type, "px) !important}");
+      style += `#jtg-${id}.modula-gallery .modula-item, .modula-gallery .modula-grid-sizer { width: calc(${100 / settings.grid_type}% - ${settings.gutter - settings.gutter / settings.grid_type}px) !important}`;
     }
   }
   if ('0' != settings.borderSize) {
-    style += "#jtg-".concat(id, " .modula-item {\n\t\t\tborder: ").concat(settings.borderSize, "px solid ").concat(settings.borderColor, ";\n\t\t}");
+    style += `#jtg-${id} .modula-item {
+			border: ${settings.borderSize}px solid ${settings.borderColor};
+		}`;
   }
   if ('0' != settings.borderRadius) {
-    style += "#jtg-".concat(id, " .modula-item {\n\t\t\tborder-radius: ").concat(settings.borderRadius, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item {
+			border-radius: ${settings.borderRadius}px;
+		}`;
   }
   if ('0' != settings.shadowSize) {
-    style += "#jtg-".concat(id, " .modula-item {\n\t\t\tbox-shadow: ").concat(settings.shadowColor, " 0px 0px ").concat(settings.shadowSize, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item {
+			box-shadow: ${settings.shadowColor} 0px 0px ${settings.shadowSize}px;
+		}`;
   }
   if ('#ffffff' != settings.socialIconColor) {
-    style += "#jtg-".concat(id, " .modula-item .jtg-social a {\n\t\t\tcolor: ").concat(settings.socialIconColor, ";\n\t\t}");
+    style += `#jtg-${id} .modula-item .jtg-social a {
+			color: ${settings.socialIconColor};
+		}`;
   }
   if ('16' != settings.socialIconSize) {
-    style += "#jtg-".concat(id, " .modula-item .jtg-social svg {\n\t\t\theight: ").concat(settings.socialIconSize, "px;\n\t\t\twidth: ").concat(settings.socialIconSize, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item .jtg-social svg {
+			height: ${settings.socialIconSize}px;
+			width: ${settings.socialIconSize}px;
+		}`;
   }
   if ('10' != settings.socialIconPadding) {
-    style += "#jtg-".concat(id, " .modula-item .jtg-social a:not(:last-child) {\n\t\t\tmargin-right: ").concat(settings.socialIconPadding, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item .jtg-social a:not(:last-child) {
+			margin-right: ${settings.socialIconPadding}px;
+		}`;
   }
-  style += "#jtg-".concat(id, " .modula-item .caption {\n\t\tbackground-color: ").concat(settings.captionColor, ";\n\t}");
+  style += `#jtg-${id} .modula-item .caption {
+		background-color: ${settings.captionColor};
+	}`;
   if ('' != settings.captionColor) {
-    style += "#jtg-".concat(id, " .modula-item .figc {\n\t\t\tcolor: ").concat(settings.captionColor, ";\n\t\t}");
+    style += `#jtg-${id} .modula-item .figc {
+			color: ${settings.captionColor};
+		}`;
   }
   if ('' != settings.titleFontSize && '0' != settings.titleFontSize) {
-    style += "#jtg-".concat(id, " .modula-item .figc .jtg-title {\n\t\t\tfont-size: ").concat(settings.titleFontSize, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item .figc .jtg-title {
+			font-size: ${settings.titleFontSize}px;
+		}`;
   }
   if ('' != settings.captionFontSize && '0' != settings.captionFontSize) {
-    style += "#jtg-".concat(id, " .modula-item .figc p.description {\n\t\t\tfont-size: ").concat(settings.captionFontSize, "px;\n\t\t}");
+    style += `#jtg-${id} .modula-item .figc p.description {
+			font-size: ${settings.captionFontSize}px;
+		}`;
   }
-  style += "#jtg-".concat(id, " .modula-items .figc p.description {\n\t\t\tcolor: ").concat(settings.captionColor, ";\n\t}");
+  style += `#jtg-${id} .modula-items .figc p.description {
+			color: ${settings.captionColor};
+	}`;
   if ('' != settings.titleColor) {
-    style += "#jtg-".concat(id, " .modula-items .figc .jtg-title {\n\t\t\tcolor: ").concat(settings.titleColor, ";\n\t\t}");
+    style += `#jtg-${id} .modula-items .figc .jtg-title {
+			color: ${settings.titleColor};
+		}`;
   } else {
-    style += "#jtg-".concat(id, " .modula-items .figc .jtg-title {\n\t\t\tcolor: ").concat(settings.captionColor, ";\n\t\t}");
+    style += `#jtg-${id} .modula-items .figc .jtg-title {
+			color: ${settings.captionColor};
+		}`;
   }
-  style += "#jtg-".concat(id, ".modula-gallery .modula-item > a, #jtg-").concat(id, ".modula-gallery .modula-item, #jtg-").concat(id, ".modula-gallery .modula-item-content > a:not(.modula-no-follow){\n\t\tcursor: ").concat(settings.cursor, ";\n\t}");
+  style += `#jtg-${id}.modula-gallery .modula-item > a, #jtg-${id}.modula-gallery .modula-item, #jtg-${id}.modula-gallery .modula-item-content > a:not(.modula-no-follow){
+		cursor: ${settings.cursor};
+	}`;
 
   // SEE ABOUT LOADED EFFECT IF WE NEED TO ADD OR NOTTTTTTTTTTTTTT #REMINDER
 
   if ('custom-grid' != settings.type || 'slider' != settings.type) {
-    style += "#jtg-".concat(id, " {\n\t\twidth: ").concat(settings.width, ";\n\t\tmargin : 0 auto;\n\t\t}");
+    style += `#jtg-${id} {
+		width: ${settings.width};
+		margin : 0 auto;
+		}`;
     if (props.imagesCount == 0) {
-      style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: 100px;\n\t\t\t}");
+      style += `#jtg-${id} .modula-items {
+				height: 100px;
+			}`;
     } else {
       if ('grid' != settings.type && 'slider' != settings.type && 'bnb' != settings.type) {
-        style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: ").concat(settings.height[0], "px;\n\t\t\t}");
+        style += `#jtg-${id} .modula-items {
+				height: ${settings.height[0]}px;
+			}`;
       } else if ('slider' == settings.type) {
-        style += "#jtg-".concat(id, " .modula-items {\n\t\t\t\theight: auto;\n\t\t\t}");
+        style += `#jtg-${id} .modula-items {
+				height: auto;
+			}`;
       }
     }
   }
   if (undefined != settings.style && 0 != settings.style.length) {
-    style += "".concat(settings.style);
+    style += `${settings.style}`;
   }
 
   //RESPONSIVE FIXES
-  var mobileStyle = "";
+  let mobileStyle = ``;
   if ('' != settings.mobileTitleFontSize && 0 != settings.mobileTitleFontSize) {
-    mobileStyle += "#jtg-".concat(id, " .modula-item .figc .jtg-title {\n\t\t\tfont-size: ").concat(settings.mobileTitleFontSize, "px\n\t\t}");
+    mobileStyle += `#jtg-${id} .modula-item .figc .jtg-title {
+			font-size: ${settings.mobileTitleFontSize}px
+		}`;
   }
-  mobileStyle += "#jtg-".concat(id, " .modula-items .figc p.description {\n\t\tcolor: ").concat(settings.captionColor, ";\n\t\tfont-size: ").concat(settings.mobileCaptionFontSize, "px;\n\t}");
-  style += "@media screen and (max-width:480px){\n\t\t".concat(mobileStyle, "\n\t\t}");
+  mobileStyle += `#jtg-${id} .modula-items .figc p.description {
+		color: ${settings.captionColor};
+		font-size: ${settings.mobileCaptionFontSize}px;
+	}`;
+  style += `@media screen and (max-width:480px){
+		${mobileStyle}
+		}`;
   if ('none' == settings.effect) {
-    style += "#jtg-".concat(id, " .modula-items .modula-item:hover img {\n\t\t\topacity: 1;\n\t\t}");
+    style += `#jtg-${id} .modula-items .modula-item:hover img {
+			opacity: 1;
+		}`;
   }
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item .modula-item-overlay,   #jtg-").concat(id, ".modula .modula-items .modula-item.effect-layla,   #jtg-").concat(id, ".modula .modula-items .modula-item.effect-ruby,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-bubba,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-sarah,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-milo,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-julia,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-hera,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-winston,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-selena,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-terry,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-phoebe,  #jtg-").concat(id, ".modula .modula-items} .modula-item.effect-apollo,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-steve,  #jtg-").concat(id, ".modula .modula-items .modula-item.effect-ming{ \n\t\tbackground-color: ").concat(settings.hoverColor, ";\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-oscar {\n\t\tbackground: -webkit-linear-gradient(45deg, ").concat(settings.hoverColor, " 0, #9b4a1b 40%, ").concat(settings.hoverColor, " 100%);\n\t\tbackground: linear-gradient(45deg, ").concat(settings.hoverColor, " 0, #9b4a1b 40%, ").concat(settings.hoverColor, " 100%);\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-roxy {\n\t\tbackground: -webkit-linear-gradient(45deg, ").concat(settings.hoverColor, " 0, #05abe0 100%);\n\t\tbackground: linear-gradient(45deg, ").concat(settings.hoverColor, " 0, #05abe0 100%);\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-dexter {\n\t\tbackground: -webkit-linear-gradient(top, ").concat(settings.hoverColor, " 0, rgba(104,60,19,1) 100%);\n\t\tbackground: linear-gradient(top, ").concat(settings.hoverColor, " 0, rgba(104,60,19,1) 100%);\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-jazz {\n\t\tbackground: -webkit-linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #f33f58 100%);\n\t\tbackground: linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #f33f58 100%);\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-lexi {\n\t\tbackground: -webkit-linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #fff 100%);\n\t\tbackground: linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #fff 100%);\n\t}");
-  style += "#jtg-".concat(id, ".modula .modula-items .modula-item.effect-duke {\n\t\tbackground: -webkit-linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #cc6055 100%);\n\t\tbackground: linear-gradient(-45deg, ").concat(settings.hoverColor, " 0, #cc6055 100%);\n\t}");
+  style += `#jtg-${id}.modula .modula-items .modula-item .modula-item-overlay,   #jtg-${id}.modula .modula-items .modula-item.effect-layla,   #jtg-${id}.modula .modula-items .modula-item.effect-ruby,  #jtg-${id}.modula .modula-items .modula-item.effect-bubba,  #jtg-${id}.modula .modula-items .modula-item.effect-sarah,  #jtg-${id}.modula .modula-items .modula-item.effect-milo,  #jtg-${id}.modula .modula-items .modula-item.effect-julia,  #jtg-${id}.modula .modula-items .modula-item.effect-hera,  #jtg-${id}.modula .modula-items .modula-item.effect-winston,  #jtg-${id}.modula .modula-items .modula-item.effect-selena,  #jtg-${id}.modula .modula-items .modula-item.effect-terry,  #jtg-${id}.modula .modula-items .modula-item.effect-phoebe,  #jtg-${id}.modula .modula-items} .modula-item.effect-apollo,  #jtg-${id}.modula .modula-items .modula-item.effect-steve,  #jtg-${id}.modula .modula-items .modula-item.effect-ming{ 
+		background-color: ${settings.hoverColor};
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-oscar {
+		background: -webkit-linear-gradient(45deg, ${settings.hoverColor} 0, #9b4a1b 40%, ${settings.hoverColor} 100%);
+		background: linear-gradient(45deg, ${settings.hoverColor} 0, #9b4a1b 40%, ${settings.hoverColor} 100%);
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-roxy {
+		background: -webkit-linear-gradient(45deg, ${settings.hoverColor} 0, #05abe0 100%);
+		background: linear-gradient(45deg, ${settings.hoverColor} 0, #05abe0 100%);
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-dexter {
+		background: -webkit-linear-gradient(top, ${settings.hoverColor} 0, rgba(104,60,19,1) 100%);
+		background: linear-gradient(top, ${settings.hoverColor} 0, rgba(104,60,19,1) 100%);
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-jazz {
+		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #f33f58 100%);
+		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #f33f58 100%);
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-lexi {
+		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #fff 100%);
+		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #fff 100%);
+	}`;
+  style += `#jtg-${id}.modula .modula-items .modula-item.effect-duke {
+		background: -webkit-linear-gradient(-45deg, ${settings.hoverColor} 0, #cc6055 100%);
+		background: linear-gradient(-45deg, ${settings.hoverColor} 0, #cc6055 100%);
+	}`;
   if (settings.hoverOpacity <= 100 && 'none' != settings.effect) {
-    style += "#jtg-".concat(id, ".modula .modula-items .modula-item:hover img {\n\t\t\topacity: ").concat(1 - settings.hoverOpacity / 100, " ;\n\t\t}");
+    style += `#jtg-${id}.modula .modula-items .modula-item:hover img {
+			opacity: ${1 - settings.hoverOpacity / 100} ;
+		}`;
   }
   if ('default' != settings.titleFontWeight) {
-    style += "#jtg-".concat(id, ".modula .modula-items .modula-item .jtg-title {\n\t\t\tfont-weight : ").concat(settings.titleFontWeight, ";\n\t\t}");
+    style += `#jtg-${id}.modula .modula-items .modula-item .jtg-title {
+			font-weight : ${settings.titleFontWeight};
+		}`;
   }
   if ('default' != settings.captionFontWeight) {
-    style += "#jtg-".concat(id, ".modula .modula-items .modula-item p.description {\n\t\t\tfont-weight : ").concat(settings.captionFontWeight, ";\n\t\t}");
+    style += `#jtg-${id}.modula .modula-items .modula-item p.description {
+			font-weight : ${settings.captionFontWeight};
+		}`;
   }
-  style += "#jtg-".concat(id, ".modula-gallery .modula-item.effect-terry .jtg-social a:not(:last-child) {\n\t\tmargin-bottom: ").concat(settings.socialIconPadding, "px;\n\t}");
+  style += `#jtg-${id}.modula-gallery .modula-item.effect-terry .jtg-social a:not(:last-child) {
+		margin-bottom: ${settings.socialIconPadding}px;
+	}`;
   if ('slider' == settings['type']) {
     if ('true' == jQuery('[aria-label=Settings]').attr('aria-expanded')) {
-      style += "#jtg-".concat(id, " {\n\t\t\t\t\twidth: 800px;\n\t\t\t\t\t}");
+      style += `#jtg-${id} {
+					width: 800px;
+					}`;
     } else {
-      style += "#jtg-".concat(id, " {\n\t\t\twidth: 1100px;\n\t\t\t}");
+      style += `#jtg-${id} {
+			width: 1100px;
+			}`;
     }
-    style += "#jtg-".concat(id, " .modula-items {\n\t\theight: auto;\n\t\t}");
-    style += "#jtg-".concat(id, " .modula-item {\n\t\tbackground-color: transparent;\n\t\ttransform: none;\n\t\t}");
+    style += `#jtg-${id} .modula-items {
+		height: auto;
+		}`;
+    style += `#jtg-${id} .modula-item {
+		background-color: transparent;
+		transform: none;
+		}`;
   }
   if (undefined != settings['filters'] && settings['filters'].length > 1) {
-    style += "#jtg-".concat(id, ".modula-gallery .filters {\n\t\t\ttext-align: ").concat(settings['filterTextAlignment'], ";\n\t\t}");
+    style += `#jtg-${id}.modula-gallery .filters {
+			text-align: ${settings['filterTextAlignment']};
+		}`;
   }
   if ('bnb' == settings['type']) {
-    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_main_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );}";
-    style += "#jtg-".concat(id, ".modula.modula-gallery-bnb .modula_bnb_items_wrapper{flex-basis: calc( 50% - ") + settings.gutter / 2 + "px );gap: " + settings.gutter + "px;}";
+    style += `#jtg-${id}.modula.modula-gallery-bnb .modula_bnb_main_wrapper{flex-basis: calc( 50% - ` + settings.gutter / 2 + `px );}`;
+    style += `#jtg-${id}.modula.modula-gallery-bnb .modula_bnb_items_wrapper{flex-basis: calc( 50% - ` + settings.gutter / 2 + `px );gap: ` + settings.gutter + `px;}`;
   }
-  style += "#jtg-".concat(id, ".modula.modula-gallery.modula-gallery-initialized .modula-item-content{opacity:1;}");
+  style += `#jtg-${id}.modula.modula-gallery.modula-gallery-initialized .modula-item-content{opacity:1;}`;
   return /*#__PURE__*/React.createElement("style", {
     dangerouslySetInnerHTML: {
-      __html: "\n      \t\t\t\t".concat(style, "\n    \t\t\t\t")
+      __html: `
+      				${style}
+    				`
     }
   });
 };
 /* harmony default export */ const components_ModulaStyle = (ModulaStyle);
 ;// ./assets/src/js/components/ModulaItemsExtraComponent.js
-var ModulaItemsExtraComponent = function ModulaItemsExtraComponent(props) {
+const ModulaItemsExtraComponent = props => {
   return null;
 };
 /* harmony default export */ const components_ModulaItemsExtraComponent = (wp.components.withFilters('modula.ModulaItemsExtraComponent')(ModulaItemsExtraComponent));
 ;// ./assets/src/js/components/ModulaGallery.js
-function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
-var _wp$element = wp.element,
-  ModulaGallery_Fragment = _wp$element.Fragment,
-  ModulaGallery_useEffect = _wp$element.useEffect,
-  useRef = _wp$element.useRef;
+
+
+const {
+  Fragment: ModulaGallery_Fragment,
+  useEffect: ModulaGallery_useEffect,
+  useRef
+} = wp.element;
 
 
 
-var ModulaGallery = function ModulaGallery(props) {
-  var _props$attributes = props.attributes,
-    images = _props$attributes.images,
-    jsConfig = _props$attributes.jsConfig,
-    id = _props$attributes.id;
-  var settings = props.settings,
-    checkHoverEffect = props.checkHoverEffect,
-    modulaRun = props.modulaRun,
-    modulaCarouselRun = props.modulaCarouselRun;
-  var galleryRef = useRef(null);
-  ModulaGallery_useEffect(function () {
+const ModulaGallery = props => {
+  const {
+    images,
+    jsConfig,
+    id
+  } = props.attributes;
+  const {
+    settings,
+    checkHoverEffect,
+    modulaRun,
+    modulaCarouselRun
+  } = props;
+  const galleryRef = useRef(null);
+  ModulaGallery_useEffect(() => {
     if (galleryRef.current) {
       galleryRef.current = true;
       return;
@@ -633,8 +769,8 @@ var ModulaGallery = function ModulaGallery(props) {
       modulaCarouselRun(id);
     }
   }, []);
-  var galleryClassNames = 'modula modula-gallery ';
-  var itemsClassNames = 'modula-items';
+  let galleryClassNames = 'modula modula-gallery ';
+  let itemsClassNames = 'modula-items';
   if (settings.type == 'creative-gallery') {
     galleryClassNames += 'modula-creative-gallery';
   } else if (settings.type == 'custom-grid') {
@@ -654,8 +790,8 @@ var ModulaGallery = function ModulaGallery(props) {
     id: id,
     settings: settings
   }), /*#__PURE__*/React.createElement("div", {
-    id: "jtg-".concat(id),
-    className: "".concat(galleryClassNames, " ").concat(props.attributes.modulaDivClassName != undefined ? props.attributes.modulaDivClassName : ''),
+    id: `jtg-${id}`,
+    className: `${galleryClassNames} ${props.attributes.modulaDivClassName != undefined ? props.attributes.modulaDivClassName : ''}`,
     "data-config": JSON.stringify(jsConfig)
   }, settings.type == 'grid' && 'automatic' != settings.grid_type && /*#__PURE__*/React.createElement("div", {
     className: "modula-grid-sizer"
@@ -671,25 +807,19 @@ var ModulaGallery = function ModulaGallery(props) {
     index: 0
   }))), /*#__PURE__*/React.createElement("div", {
     className: "modula_bnb_items_wrapper"
-  }, images.slice(1).map(function (img, index) {
-    return /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
-      img: img,
-      key: img.id,
-      index: index + 1
-    }));
-  }))) : images.map(function (img, index) {
-    return img.id ? /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
-      img: img,
-      key: img.id,
-      index: index
-    })) : null;
-  }))), /*#__PURE__*/React.createElement(components_ModulaItemsExtraComponent, _extends({}, props, {
+  }, images.slice(1).map((img, index) => /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
+    img: img,
+    key: img.id,
+    index: index + 1
+  }))))) : images.map((img, index) => img.id ? /*#__PURE__*/React.createElement(components_ModulaGalleryImage, _extends({}, props, {
+    img: img,
+    key: img.id,
+    index: index
+  })) : null))), /*#__PURE__*/React.createElement(components_ModulaItemsExtraComponent, _extends({}, props, {
     position: 'bottom'
   }))));
 };
 /* harmony default export */ const components_ModulaGallery = (wp.components.withFilters('modula.modulaGallery')(ModulaGallery));
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(540);
 ;// ./node_modules/@wordpress/hooks/build-module/validateNamespace.js
 /**
  * Validate a namespace string.
@@ -959,15 +1089,15 @@ function createHasHook(hooks, storeKey) {
  * registered to a hook of the specified type, optionally returning the final
  * value of the call chain.
  *
- * @param {import('.').Hooks}    hooks          Hooks instance.
+ * @param {import('.').Hooks}    hooks                  Hooks instance.
  * @param {import('.').StoreKey} storeKey
- * @param {boolean}              returnFirstArg Whether each hook callback is expected to return its first argument.
- * @param {boolean}              async          Whether the hook callback should be run asynchronously
+ * @param {boolean}              [returnFirstArg=false] Whether each hook callback is expected to
+ *                                                      return its first argument.
  *
  * @return {(hookName:string, ...args: unknown[]) => undefined|unknown} Function that runs hook callbacks.
  */
-function createRunHook(hooks, storeKey, returnFirstArg, async) {
-  return function runHook(hookName, ...args) {
+function createRunHook(hooks, storeKey, returnFirstArg = false) {
+  return function runHooks(hookName, ...args) {
     const hooksStore = hooks[storeKey];
     if (!hooksStore[hookName]) {
       hooksStore[hookName] = {
@@ -987,41 +1117,20 @@ function createRunHook(hooks, storeKey, returnFirstArg, async) {
       name: hookName,
       currentIndex: 0
     };
-    async function asyncRunner() {
-      try {
-        hooksStore.__current.add(hookInfo);
-        let result = returnFirstArg ? args[0] : undefined;
-        while (hookInfo.currentIndex < handlers.length) {
-          const handler = handlers[hookInfo.currentIndex];
-          result = await handler.callback.apply(null, args);
-          if (returnFirstArg) {
-            args[0] = result;
-          }
-          hookInfo.currentIndex++;
-        }
-        return returnFirstArg ? result : undefined;
-      } finally {
-        hooksStore.__current.delete(hookInfo);
+    hooksStore.__current.push(hookInfo);
+    while (hookInfo.currentIndex < handlers.length) {
+      const handler = handlers[hookInfo.currentIndex];
+      const result = handler.callback.apply(null, args);
+      if (returnFirstArg) {
+        args[0] = result;
       }
+      hookInfo.currentIndex++;
     }
-    function syncRunner() {
-      try {
-        hooksStore.__current.add(hookInfo);
-        let result = returnFirstArg ? args[0] : undefined;
-        while (hookInfo.currentIndex < handlers.length) {
-          const handler = handlers[hookInfo.currentIndex];
-          result = handler.callback.apply(null, args);
-          if (returnFirstArg) {
-            args[0] = result;
-          }
-          hookInfo.currentIndex++;
-        }
-        return returnFirstArg ? result : undefined;
-      } finally {
-        hooksStore.__current.delete(hookInfo);
-      }
+    hooksStore.__current.pop();
+    if (returnFirstArg) {
+      return args[0];
     }
-    return (async ? asyncRunner : syncRunner)();
+    return undefined;
   };
 }
 /* harmony default export */ const build_module_createRunHook = (createRunHook);
@@ -1039,10 +1148,9 @@ function createRunHook(hooks, storeKey, returnFirstArg, async) {
  */
 function createCurrentHook(hooks, storeKey) {
   return function currentHook() {
-    var _currentArray$at$name;
+    var _hooksStore$__current;
     const hooksStore = hooks[storeKey];
-    const currentArray = Array.from(hooksStore.__current);
-    return (_currentArray$at$name = currentArray.at(-1)?.name) !== null && _currentArray$at$name !== void 0 ? _currentArray$at$name : null;
+    return (_hooksStore$__current = hooksStore.__current[hooksStore.__current.length - 1]?.name) !== null && _hooksStore$__current !== void 0 ? _hooksStore$__current : null;
   };
 }
 /* harmony default export */ const build_module_createCurrentHook = (createCurrentHook);
@@ -1074,11 +1182,11 @@ function createDoingHook(hooks, storeKey) {
 
     // If the hookName was not passed, check for any current hook.
     if ('undefined' === typeof hookName) {
-      return hooksStore.__current.size > 0;
+      return 'undefined' !== typeof hooksStore.__current[0];
     }
 
-    // Find if the `hookName` hook is in `__current`.
-    return Array.from(hooksStore.__current).some(hook => hook.name === hookName);
+    // Return the __current hook.
+    return hooksStore.__current[0] ? hookName === hooksStore.__current[0].name : false;
   };
 }
 /* harmony default export */ const build_module_createDoingHook = (createDoingHook);
@@ -1120,7 +1228,6 @@ function createDidHook(hooks, storeKey) {
 /* harmony default export */ const build_module_createDidHook = (createDidHook);
 //# sourceMappingURL=createDidHook.js.map
 ;// ./node_modules/@wordpress/hooks/build-module/createHooks.js
-/* wp:polyfill */
 /**
  * Internal dependencies
  */
@@ -1143,11 +1250,11 @@ class _Hooks {
   constructor() {
     /** @type {import('.').Store} actions */
     this.actions = Object.create(null);
-    this.actions.__current = new Set();
+    this.actions.__current = [];
 
     /** @type {import('.').Store} filters */
     this.filters = Object.create(null);
-    this.filters.__current = new Set();
+    this.filters.__current = [];
     this.addAction = build_module_createAddHook(this, 'actions');
     this.addFilter = build_module_createAddHook(this, 'filters');
     this.removeAction = build_module_createRemoveHook(this, 'actions');
@@ -1156,10 +1263,8 @@ class _Hooks {
     this.hasFilter = build_module_createHasHook(this, 'filters');
     this.removeAllActions = build_module_createRemoveHook(this, 'actions', true);
     this.removeAllFilters = build_module_createRemoveHook(this, 'filters', true);
-    this.doAction = build_module_createRunHook(this, 'actions', false, false);
-    this.doActionAsync = build_module_createRunHook(this, 'actions', false, true);
-    this.applyFilters = build_module_createRunHook(this, 'filters', true, false);
-    this.applyFiltersAsync = build_module_createRunHook(this, 'filters', true, true);
+    this.doAction = build_module_createRunHook(this, 'actions');
+    this.applyFilters = build_module_createRunHook(this, 'filters', true);
     this.currentAction = build_module_createCurrentHook(this, 'actions');
     this.currentFilter = build_module_createCurrentHook(this, 'filters');
     this.doingAction = build_module_createDoingHook(this, 'actions');
@@ -1209,7 +1314,7 @@ function createHooks() {
  */
 
 /**
- * @typedef {Record<string, Hook> & {__current: Set<Current>}} Store
+ * @typedef {Record<string, Hook> & {__current: Current[]}} Store
  */
 
 /**
@@ -1231,9 +1336,7 @@ const {
   removeAllActions,
   removeAllFilters,
   doAction,
-  doActionAsync,
   applyFilters,
-  applyFiltersAsync,
   currentAction,
   currentFilter,
   doingAction,
@@ -1511,10 +1614,19 @@ var __setModuleDefault = Object.create ? (function(o, v) {
   o["default"] = v;
 };
 
+var ownKeys = function(o) {
+  ownKeys = Object.getOwnPropertyNames || function (o) {
+    var ar = [];
+    for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+    return ar;
+  };
+  return ownKeys(o);
+};
+
 function __importStar(mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
   __setModuleDefault(result, mod);
   return result;
 }
@@ -2105,13 +2217,8 @@ function withFilters(hookName) {
 }
 //# sourceMappingURL=index.js.map
 ;// ./assets/src/js/components/edit.js
-function edit_extends() { return edit_extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, edit_extends.apply(null, arguments); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
 /**
  * Internal dependencies
  */
@@ -2123,49 +2230,57 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 /**
  * WordPress dependencies
  */
-var edit_ = wp.i18n.__;
-var edit_wp$element = wp.element,
-  edit_Fragment = edit_wp$element.Fragment,
-  edit_useEffect = edit_wp$element.useEffect,
-  useState = edit_wp$element.useState;
-var withSelect = wp.data.withSelect;
-var edit_wp$components = wp.components,
-  edit_Button = edit_wp$components.Button,
-  Spinner = edit_wp$components.Spinner,
-  ToolbarGroup = edit_wp$components.ToolbarGroup,
-  ToolbarItem = edit_wp$components.ToolbarItem;
-var BlockControls = wp.blockEditor.BlockControls;
-var compose = wp.compose.compose;
-var ModulaEdit = function ModulaEdit(props) {
-  var attributes = props.attributes,
-    galleries = props.galleries,
-    setAttributes = props.setAttributes;
-  var id = attributes.id,
-    images = attributes.images,
-    status = attributes.status,
-    settings = attributes.settings,
-    jsConfig = attributes.jsConfig,
-    galleryId = attributes.galleryId,
-    currentGallery = attributes.currentGallery,
-    currentSelectize = attributes.currentSelectize;
+const {
+  __: edit_
+} = wp.i18n;
+const {
+  Fragment: edit_Fragment,
+  useEffect: edit_useEffect,
+  useState
+} = wp.element;
+const {
+  withSelect
+} = wp.data;
+const {
+  Button: edit_Button,
+  Spinner,
+  ToolbarGroup,
+  ToolbarItem
+} = wp.components;
+const {
+  BlockControls
+} = wp.blockEditor;
+const {
+  compose
+} = wp.compose;
+const ModulaEdit = props => {
+  const {
+    attributes,
+    galleries,
+    setAttributes
+  } = props;
+  const {
+    id,
+    images,
+    status,
+    settings,
+    jsConfig,
+    galleryId,
+    currentGallery,
+    currentSelectize
+  } = attributes;
 
   // Check when the alignmnent is changed so we can resize the instance
-  var _useState = useState(props.attributes.align),
-    _useState2 = _slicedToArray(_useState, 2),
-    alignmentCheck = _useState2[0],
-    setAlignment = _useState2[1];
+  const [alignmentCheck, setAlignment] = useState(props.attributes.align);
 
   // Check when id is changed and it is not a component rerender . Saves unnecessary fetch requests
-  var _useState3 = useState(id),
-    _useState4 = _slicedToArray(_useState3, 2),
-    idCheck = _useState4[0],
-    setIdCheck = _useState4[1];
-  edit_useEffect(function () {
+  const [idCheck, setIdCheck] = useState(id);
+  edit_useEffect(() => {
     if (id !== 0) {
-      _onIdChange(id);
+      onIdChange(id);
     }
   }, []);
-  edit_useEffect(function () {
+  edit_useEffect(() => {
     //Grab the instance and set it as atribute to access it when we want
     jQuery(document).on('modula_api_after_init', function (event, inst) {
       props.setAttributes({
@@ -2176,21 +2291,21 @@ var ModulaEdit = function ModulaEdit(props) {
       props.attributes.instance.reset(props.attributes.instance);
     }
   });
-  var _onIdChange = function onIdChange(id) {
+  const onIdChange = id => {
     if (isNaN(id) || '' == id) {
       return;
     }
     id = parseInt(id);
     wp.apiFetch({
-      path: "wp/v2/modula-gallery/".concat(id)
-    }).then(function (res) {
+      path: `wp/v2/modula-gallery/${id}`
+    }).then(res => {
       setAttributes({
         currentGallery: res
       });
       setAttributes({
         currentSelectize: [{
           value: id,
-          label: '' === res.title.rendered ? "Unnamed" : escapeHtml(res.title.rendered)
+          label: '' === res.title.rendered ? `Unnamed` : escapeHtml(res.title.rendered)
         }]
       });
       setAttributes({
@@ -2205,11 +2320,9 @@ var ModulaEdit = function ModulaEdit(props) {
   function escapeHtml(text) {
     return text.replace('&#8217;', "'").replace('&#8220;', '"').replace('&#8216;', "'");
   }
-  var getSettings = function getSettings(id) {
-    fetch("".concat(modulaVars.restURL, "wp/v2/modula-gallery/").concat(id)).then(function (res) {
-      return res.json();
-    }).then(function (result) {
-      var settings = result;
+  const getSettings = id => {
+    fetch(`${modulaVars.restURL}wp/v2/modula-gallery/${id}`).then(res => res.json()).then(result => {
+      let settings = result;
       setAttributes({
         status: 'loading'
       });
@@ -2221,8 +2334,8 @@ var ModulaEdit = function ModulaEdit(props) {
           settings: settings.modulaSettings
         },
         url: modulaVars.ajaxURL,
-        success: function success(result) {
-          var galleryId = Math.floor(Math.random() * 999);
+        success: result => {
+          let galleryId = Math.floor(Math.random() * 999);
           setAttributes({
             galleryId: galleryId,
             settings: settings.modulaSettings,
@@ -2233,7 +2346,7 @@ var ModulaEdit = function ModulaEdit(props) {
       });
     });
   };
-  var modulaRun = function modulaRun(checker) {
+  const modulaRun = checker => {
     if (checker != undefined) {
       setAttributes({
         status: 'ready'
@@ -2247,23 +2360,23 @@ var ModulaEdit = function ModulaEdit(props) {
       });
     }
   };
-  var modulaCarouselRun = function modulaCarouselRun(id) {
-    id = "jtg-".concat(id);
+  const modulaCarouselRun = id => {
+    id = `jtg-${id}`;
     setAttributes({
       status: 'ready'
     });
-    var modulaSliders = jQuery('.modula-slider');
+    const modulaSliders = jQuery('.modula-slider');
     if (modulaSliders.length > 0 && 'function' == typeof ModulaCarousel) {
-      var config = jQuery("#".concat(id)).data('config'),
-        main = jQuery("#".concat(id)).find('.modula-items');
+      let config = jQuery(`#${id}`).data('config'),
+        main = jQuery(`#${id}`).find('.modula-items');
       new ModulaCarousel(main[0], config.slider_settings);
     } else if (modulaSliders.length > 0 && 'undefined' != typeof jQuery.fn.slick) {
-      var _config = jQuery("#".concat(id)).data('config'),
-        _main = jQuery("#".concat(id)).find('.modula-items');
-      _main.slick(_config.slider_settings);
+      let config = jQuery(`#${id}`).data('config'),
+        main = jQuery(`#${id}`).find('.modula-items');
+      main.slick(config.slider_settings);
     }
   };
-  var checkHoverEffect = function checkHoverEffect(effect) {
+  const checkHoverEffect = effect => {
     jQuery.ajax({
       type: 'POST',
       data: {
@@ -2272,21 +2385,22 @@ var ModulaEdit = function ModulaEdit(props) {
         effect: effect
       },
       url: modulaVars.ajaxURL,
-      success: function success(result) {
+      success: result => {
         setAttributes({
           effectCheck: result
         });
       }
     });
   };
-  var selectOptions = function selectOptions() {
-    var options = [{
+  const selectOptions = () => {
+    let options = [{
       value: 0,
       label: edit_('select a gallery', 'modula-best-grid-gallery')
     }];
-    galleries.forEach(function (_ref) {
-      var title = _ref.title,
-        id = _ref.id;
+    galleries.forEach(function ({
+      title,
+      id
+    }) {
       if (title.rendered.length == 0) {
         options.push({
           value: id,
@@ -2301,7 +2415,7 @@ var ModulaEdit = function ModulaEdit(props) {
     });
     return options;
   };
-  var blockControls = /*#__PURE__*/React.createElement(BlockControls, null, images && images.length > 0 && /*#__PURE__*/React.createElement(ToolbarGroup, null, /*#__PURE__*/React.createElement(ToolbarItem, null, /*#__PURE__*/React.createElement(edit_Button, {
+  const blockControls = /*#__PURE__*/React.createElement(BlockControls, null, images && images.length > 0 && /*#__PURE__*/React.createElement(ToolbarGroup, null, /*#__PURE__*/React.createElement(ToolbarItem, null, /*#__PURE__*/React.createElement(edit_Button, {
     label: edit_('Edit gallery', 'modula-best-grid-gallery'),
     icon: "edit",
     href: modulaVars.adminURL + 'post.php?post=' + id + '&action=edit',
@@ -2319,7 +2433,7 @@ var ModulaEdit = function ModulaEdit(props) {
     }, galleries.length == 0 && /*#__PURE__*/React.createElement("p", null, ' ', edit_('Sorry no galleries found', 'modula-best-grid-gallery'), ' '), galleries.length > 0 && /*#__PURE__*/React.createElement(edit_Button, {
       className: "modula-button",
       target: "_blank",
-      onClick: function onClick(e) {
+      onClick: e => {
         setAttributes({
           status: 'ready',
           id: 0,
@@ -2345,10 +2459,8 @@ var ModulaEdit = function ModulaEdit(props) {
   if (id == 0 || images.length === 0) {
     return /*#__PURE__*/React.createElement(edit_Fragment, {
       key: "233"
-    }, /*#__PURE__*/React.createElement(inspector, edit_extends({
-      onIdChange: function onIdChange(id) {
-        return _onIdChange(id);
-      },
+    }, /*#__PURE__*/React.createElement(inspector, _extends({
+      onIdChange: id => onIdChange(id),
       selectOptions: selectOptions
     }, props)), /*#__PURE__*/React.createElement("div", {
       className: "modula-block-preview"
@@ -2361,7 +2473,7 @@ var ModulaEdit = function ModulaEdit(props) {
       key: id,
       value: id,
       options: currentSelectize,
-      onIdChange: _onIdChange,
+      onIdChange: onIdChange,
       galleries: galleries
     }), id != 0 && /*#__PURE__*/React.createElement(edit_Button, {
       target: "_blank",
@@ -2372,11 +2484,11 @@ var ModulaEdit = function ModulaEdit(props) {
   if (settings) {
     return /*#__PURE__*/React.createElement(edit_Fragment, {
       key: "1"
-    }, blockControls, /*#__PURE__*/React.createElement(inspector, edit_extends({
-      onIdChange: function onIdChange(id) {
-        _onIdChange(id);
+    }, blockControls, /*#__PURE__*/React.createElement(inspector, _extends({
+      onIdChange: id => {
+        onIdChange(id);
       }
-    }, props)), /*#__PURE__*/React.createElement(components_ModulaGallery, edit_extends({}, props, {
+    }, props)), /*#__PURE__*/React.createElement(components_ModulaGallery, _extends({}, props, {
       settings: settings,
       jsConfig: jsConfig,
       modulaRun: modulaRun,
@@ -2387,10 +2499,11 @@ var ModulaEdit = function ModulaEdit(props) {
   }
   return null;
 };
-var applyWithSelect = withSelect(function (select, props) {
-  var _select = select('core'),
-    getEntityRecords = _select.getEntityRecords;
-  var query = {
+const applyWithSelect = withSelect((select, props) => {
+  const {
+    getEntityRecords
+  } = select('core');
+  const query = {
     post_status: 'publish',
     per_page: 5
   };
@@ -2398,15 +2511,9 @@ var applyWithSelect = withSelect(function (select, props) {
     galleries: getEntityRecords('postType', 'modula-gallery', query) || []
   };
 });
-var applyWithFilters = withFilters('modula.ModulaEdit')(ModulaEdit);
+const applyWithFilters = withFilters('modula.ModulaEdit')(ModulaEdit);
 /* harmony default export */ const edit = (compose(applyWithSelect)(ModulaEdit));
 ;// ./assets/src/js/wp-modula-gutenberg.js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
  * Internal dependencies
  */
@@ -2417,82 +2524,82 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /**
  * WordPress dependencies
  */
-var wp_modula_gutenberg_ = wp.i18n.__;
-var registerBlockType = wp.blocks.registerBlockType;
-var ModulaGutenberg = /*#__PURE__*/function () {
-  function ModulaGutenberg() {
-    _classCallCheck(this, ModulaGutenberg);
+const {
+  __: wp_modula_gutenberg_
+} = wp.i18n;
+const {
+  registerBlockType
+} = wp.blocks;
+class ModulaGutenberg {
+  constructor() {
     this.registerBlock();
   }
-  return _createClass(ModulaGutenberg, [{
-    key: "registerBlock",
-    value: function registerBlock() {
-      this.blockName = 'modula/gallery';
-      this.blockAttributes = {
-        id: {
-          type: 'number',
-          "default": 0
-        },
-        images: {
-          type: 'array',
-          "default": []
-        },
-        status: {
-          type: 'string',
-          "default": 'ready'
-        },
-        galleryId: {
-          type: 'number',
-          "default": 0
-        },
-        defaultSettings: {
-          type: 'object',
-          "default": []
-        },
-        galleryType: {
-          type: 'string',
-          "default": 'none'
-        },
-        // Attribute for current gallery
-        currentGallery: {
-          type: 'object',
-          "default": {}
-        },
-        // Attribute for current gallery option in selectize
-        currentSelectize: {
-          type: 'array',
-          "default": []
-        },
-        proInstalled: {
-          type: 'boolean',
-          "default": 'true' === modulaVars.proInstalled
-        }
-      };
-      registerBlockType(this.blockName, {
-        title: modulaVars.gutenbergTitle,
-        icon: utils_icons.modula,
-        description: wp_modula_gutenberg_('Make your galleries stand out.', 'modula-best-grid-gallery'),
-        keywords: [wp_modula_gutenberg_('gallery'), wp_modula_gutenberg_('modula'), wp_modula_gutenberg_('images')],
-        category: 'common',
-        supports: {
-          align: true,
-          customClassName: false
-        },
-        attributes: this.blockAttributes,
-        // getEditWrapperProps() {
-        // 	return {
-        // 		'data-align': 'full'
-        // 	};
-        // },
-        edit: edit,
-        save: function save() {
-          // Rendering in PHP
-          return null;
-        }
-      });
-    }
-  }]);
-}();
-var modulaGutenberg = new ModulaGutenberg();
+  registerBlock() {
+    this.blockName = 'modula/gallery';
+    this.blockAttributes = {
+      id: {
+        type: 'number',
+        default: 0
+      },
+      images: {
+        type: 'array',
+        default: []
+      },
+      status: {
+        type: 'string',
+        default: 'ready'
+      },
+      galleryId: {
+        type: 'number',
+        default: 0
+      },
+      defaultSettings: {
+        type: 'object',
+        default: []
+      },
+      galleryType: {
+        type: 'string',
+        default: 'none'
+      },
+      // Attribute for current gallery
+      currentGallery: {
+        type: 'object',
+        default: {}
+      },
+      // Attribute for current gallery option in selectize
+      currentSelectize: {
+        type: 'array',
+        default: []
+      },
+      proInstalled: {
+        type: 'boolean',
+        default: 'true' === modulaVars.proInstalled
+      }
+    };
+    registerBlockType(this.blockName, {
+      title: modulaVars.gutenbergTitle,
+      icon: utils_icons.modula,
+      description: wp_modula_gutenberg_('Make your galleries stand out.', 'modula-best-grid-gallery'),
+      keywords: [wp_modula_gutenberg_('gallery'), wp_modula_gutenberg_('modula'), wp_modula_gutenberg_('images')],
+      category: 'common',
+      supports: {
+        align: true,
+        customClassName: false
+      },
+      attributes: this.blockAttributes,
+      // getEditWrapperProps() {
+      // 	return {
+      // 		'data-align': 'full'
+      // 	};
+      // },
+      edit: edit,
+      save() {
+        // Rendering in PHP
+        return null;
+      }
+    });
+  }
+}
+let modulaGutenberg = new ModulaGutenberg();
 /******/ })()
 ;

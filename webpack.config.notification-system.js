@@ -5,7 +5,7 @@ const glob = require( 'glob' );
 const isProduction = process.env.NODE_ENV === 'production';
 
 const reactAppEntries = glob
-	.sync( './includes/admin/wpchill-notifications/apps/notification-system/index.js' )
+	.sync( './includes/admin/wpchill/apps/notification-system/index.js' )
 	.reduce( ( acc, file ) => {
 		const folderName = path.basename( path.dirname( file ) );
 		acc[ folderName ] = `./${ file }`;
@@ -16,7 +16,7 @@ module.exports = {
 	...defaultConfig,
 	entry: reactAppEntries,
 	output: {
-		path: path.resolve( __dirname, 'includes/admin/wpchill-notifications/scripts/notification-system' ),
+		path: path.resolve( __dirname, 'includes/admin/wpchill/scripts/notification-system' ),
 	},
 	mode: isProduction ? 'production' : 'development',
 };

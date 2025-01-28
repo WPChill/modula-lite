@@ -9,4 +9,4 @@ assets/.DS_Store
 .php-cs-fixer.cache
 .wp-env.json
 assets/js/admin/notification-system/*
-includes/admin/wpchill-notifications/scripts/*
+includes/admin/wpchill/scripts/*
