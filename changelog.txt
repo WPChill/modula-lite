@@ -1,6 +1,7 @@
 = 2.11.12 - TBD =
 Update: Admin settings labels.
 Update: Gallery type & captions default values.
+Fixed: Custom galleries preview images wrong scaling after image/bulk edit.
 
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.

@@ -127,7 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 = 2.11.11 – 07.01.2025 =
-Fixed: ZIP file vulnerability fix.
+Update: Admin settings labels.
+Update: Gallery type & captions default values.
+Fixed: Custom galleries preview images wrong scaling after image/bulk edit.
 
 See the full changelog [here](https://github.com/WPChill/modula-lite/blob/master/changelog.txt).
 
