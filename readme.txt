@@ -161,6 +161,7 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 == Changelog ==
 = 2.11.12 - TBD -
 Update: Notification system to WPChill Notification System.
+Fixed: Custom galleries preview images wrong scaling after image/bulk edit.
 
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.
