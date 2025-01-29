@@ -257,34 +257,33 @@ class Modula_Gutenberg {
 		$images = $data['modulaImages'];
 
 		foreach ( $images as $key => $image ) {
-			if ( ! isset( $value['video_template'] ) || '1' !== $value['video_template'] ) {
+			if ( ! isset( $image['video_template'] ) || '1' !== $image['video_template'] ) {
 				$image_obj = wp_get_attachment_image_src( $images[ $key ]['id'], 'large' );
 
 				if ( ! $image_obj ) {
 					continue;
 				}
 
-				$data['modulaImages'][ $key ]['src']         = $image_obj[0];
-				$data['modulaImages'][ $key ]['data-width']  = $images[ $key ]['width'];
-				$data['modulaImages'][ $key ]['data-height'] = $images[ $key ]['height'];
-				$data['modulaImages'][ $key ]['width']       = $image_obj[1];
-				$data['modulaImages'][ $key ]['height']      = $image_obj[2];
+				$data['modulaImages'][ $key ]['src']    = $image_obj[0];
+				$data['modulaImages'][ $key ]['width']  = isset( $image['width'] ) ? $image['width'] : $image_obj[1];
+				$data['modulaImages'][ $key ]['height'] = isset( $image['height'] ) ? $image['height'] : $image_obj[2];
+
 			} else {
-				$data['modulaImages'][ $key ]['src']        = $value['video_thumbnail'];
+				$data['modulaImages'][ $key ]['src']        = $image['video_thumbnail'];
 				$data['modulaImages'][ $key ]['video_type'] = false;
 				if ( class_exists( 'Modula_Video' ) ) {
-					$data['modulaImages'][ $key ]['src'] = Modula_Video::video_link_formatter( $value['video_url'] );
-					if ( strpos( $value['video_url'], 'youtu' ) !== false || strpos( $value['video_url'], 'vimeo' ) !== false ) {
+					$data['modulaImages'][ $key ]['src'] = Modula_Video::video_link_formatter( $image['video_url'] );
+					if ( strpos( $image['video_url'], 'youtu' ) !== false || strpos( $image['video_url'], 'vimeo' ) !== false ) {
 						$data['modulaImages'][ $key ]['video_type'] = 'iframe';
 					} else {
 						$data['modulaImages'][ $key ]['video_type'] = 'hosted';
 					}
 				}
 
-				$data['modulaImages'][ $key ]['data-width']  = $value['video_width'];
-				$data['modulaImages'][ $key ]['data-height'] = $value['video_height'];
-				$data['modulaImages'][ $key ]['width']       = $value['video_width'];
-				$data['modulaImages'][ $key ]['height']      = $value['video_height'];
+				$data['modulaImages'][ $key ]['data-width']  = $image['video_width'];
+				$data['modulaImages'][ $key ]['data-height'] = $image['video_height'];
+				$data['modulaImages'][ $key ]['width']       = $image['video_width'];
+				$data['modulaImages'][ $key ]['height']      = $image['video_height'];
 			}
 		}
 		// Set the new data
