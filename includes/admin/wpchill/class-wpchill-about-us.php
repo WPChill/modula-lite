@@ -3,10 +3,12 @@
 class WPChill_About_Us {
 
 	private $plugin_cpt;
+	private $plugin_term;
 
-	public function __construct( $plugin_cpt ) {
+	public function __construct( $plugin_cpt, $plugin_term = '' ) {
 
 		$this->plugin_cpt = $plugin_cpt;
+		$this->plugin_term = $plugin_term;
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
@@ -81,85 +83,64 @@ class WPChill_About_Us {
 				'name'        => 'Modula',
 				'slug'        => 'modula',
 				'path'        => 'modula-best-grid-gallery/Modula.php',
-				'description' => 'Photo gallery plugin',
-				'url'         => 'https://wordpress.org/plugins/modula-best-grid-gallery/',
+				'description' => 'Easily create stunning, customizable photo galleries and albums with Modula’s powerful features.',
+				'url'         => 'https://wp-modula.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Download Monitor',
 				'slug'        => 'download-monitor',
 				'path'        => 'download-monitor/download-monitor.php',
-				'description' => 'File manager plugin',
-				'url'         => 'https://wordpress.org/plugins/download-monitor/',
+				'description' => 'Manage, track, and control file downloads on your WordPress site with ease.',
+				'url'         => 'https://download-monitor.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Strong Testimonials',
 				'slug'        => 'strong-testimonials',
 				'path'        => 'strong-testimonials/strong-testimonials.php',
-				'description' => 'Testimonial plugin',
-				'url'         => 'https://wordpress.org/plugins/strong-testimonials/',
+				'description' => 'Collect, manage, and showcase customer reviews beautifully with this flexible testimonial plugin.',
+				'url'         => 'https://strongtestimonials.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Kali Forms',
 				'slug'        => 'kali-forms',
 				'path'        => 'kali-forms/kali-forms.php',
-				'description' => 'Form builder plugin',
-				'url'         => 'https://wordpress.org/plugins/kali-forms/',
+				'description' => 'Build powerful and user-friendly forms quickly with Kali Forms’ intuitive drag-and-drop builder.',
+				'url'         => 'https://kaliforms.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Passster',
 				'slug'        => 'content-protector',
 				'path'        => 'content-protector/content-protector.php',
-				'description' => 'Password protection plugin',
-				'url'         => 'https://wordpress.org/plugins/content-protector/',
+				'description' => 'Increase website and content protection with easy-to-use features like password, CAPTCHA, and user role restrictions.',
+				'url'         => 'https://passster.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Filr',
 				'slug'        => 'filr-protection',
 				'path'        => 'filr-protection/filr-protection.php',
-				'description' => 'Image SEO plugin',
-				'url'         => 'https://wordpress.org/plugins/filr-protection/',
+				'description' => 'Easily build and manage a document library with secure file sharing and advanced access controls.',
+				'url'         => 'https://wpdocumentlibrary.com//?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'ImageSEO',
 				'slug'        => 'imageseo',
 				'path'        => 'imageseo/imageseo.php',
-				'description' => 'SEO plugin for images',
-				'url'         => 'https://wordpress.org/plugins/imageseo/',
-			),
-			array(
-				'name'        => 'Revive.so',
-				'slug'        => 'revive-so',
-				'path'        => 'revive-so/revive-so.php',
-				'description' => 'Revive.so is the ultimate WordPress plugin for content rejuvenation.',
-				'url'         => 'https://wordpress.org/plugins/revive-so/',
+				'description' => 'Optimize images automatically for better SEO and accessibility with AI-powered metadata and alt text generation.',
+				'url'         => 'https://imageseo.io/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'RSVP and Event Management',
 				'slug'        => 'rsvp',
 				'path'        => 'rsvp/wp-rsvp.php',
-				'description' => 'The RSVP Plugin offers a comprehensive solution for event registration and management, providing an easy way for users to RSVP to your events.',
-				'url'         => 'https://wordpress.org/plugins/rsvp/',
-			),
-			array(
-				'name'        => 'Gallery PhotoBlocks',
-				'slug'        => 'photoblocks-grid-gallery',
-				'path'        => 'photoblocks-grid-gallery/photoblocks.php',
-				'description' => 'This is an image and photo gallery plugin perfect to make galleries with justified edges!',
-				'url'         => 'https://wordpress.org/plugins/photoblocks-grid-gallery/',
+				'description' => 'Easily create and manage RSVPs, events, and guest lists with this event management solution.',
+				'url'         => 'https://rsvpproplugin.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 			array(
 				'name'        => 'Htaccess File Editor',
 				'slug'        => 'htaccess-file-editor',
 				'path'        => 'htaccess-file-editor/htaccess-file-editor.php',
-				'description' => 'Htaccess File Editor is a fast, safe and simple yet perfect to edit the WordPress site\'s <i>.htaccess</i> file from admin panel. ',
-				'url'         => 'https://wordpress.org/plugins/htaccess-file-editor/',
-			),
-			array(
-				'name'        => 'Image Photo Gallery Final Tiles Grid',
-				'slug'        => 'final-tiles-grid-gallery-lite',
-				'path'        => 'final-tiles-grid-gallery-lite/FinalTilesGalleryLite.php',
-				'description' => 'mage Gallery + Photo Gallery + Portfolio Gallery + Tiled Gallery in 1 plugin.',
-				'url'         => 'https://wordpress.org/plugins/final-tiles-grid-gallery-lite/',
+				'description' => 'Safely edit your .htaccess file directly from WordPress to improve site performance and security.',
+				'url'         => 'https://wpchill.com/?utm_source=' . $this->plugin_cpt . '&utm_medium=link&utm_campaign=about-us&utm_term=' . $this->plugin_term . '+website+link',
 			),
 		);
 
