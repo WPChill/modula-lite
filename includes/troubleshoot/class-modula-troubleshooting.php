@@ -66,18 +66,21 @@ class Modula_Troubleshooting {
 		$defaults = apply_filters(
 			'modula_troubleshooting_defaults',
 			array(
-				'enqueue_files' => apply_filters( 'modula_troubleshooting_enqueue_files', false ),
-				'gridtypes'     => apply_filters( 'modula_troubleshooting_gridtypes', array() ),
-				'lightboxes'    => apply_filters( 'modula_troubleshooting_lightboxes', array() ),
-				'lazy_load'     => apply_filters( 'modula_troubleshooting_lazy_load', false ),
+				'enqueue_files' => false ,
+				'gridtypes'     => array(),
+				'lightboxes'    => array(),
+				'lazy_load'     => false,
 			)
 		);
 
 		$ts_opt = get_option( 'modula_troubleshooting_option', array() );
 		$ts_opt = wp_parse_args( $ts_opt, $defaults );
 
-		if ( $ts_opt['enqueue_files'] ) {
+		foreach ( $ts_opt as $key => $option ) {
+			$ts_opt[ $key ] = apply_filters( 'modula_troubleshooting_' . $key, $option );
+		}
 
+		if ( $ts_opt['enqueue_files'] ) {
 			$handles = array(
 				'scripts' => array(),
 				'styles'  => array(),
