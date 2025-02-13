@@ -239,9 +239,9 @@ function modula_show_schemaorg() {
 }
 
 function modula_edit_gallery( $settings ) {
-
+	$defaults                = array( 'disable_edit' => apply_filters( 'modula_troubleshooting_disable_edit', false ) );
 	$troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
-	$troubleshooting_options = wp_parse_args( $troubleshooting_options, array( 'disable_edit' => false ) );
+	$troubleshooting_options = wp_parse_args( $troubleshooting_options, $defaults );
 
 	if ( $troubleshooting_options['disable_edit'] ) {
 		return;

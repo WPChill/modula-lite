@@ -43,8 +43,6 @@ class Modula_Troubleshooting {
 	 */
 	public function define_troubleshooting_admin_hooks() {
 
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_misc_tab' ) );
-		add_action( 'modula_admin_tab_misc', array( $this, 'show_misc_tab' ) );
 		add_action( 'admin_init', array( $this, 'update_troubleshooting_options' ), 99 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
@@ -57,7 +55,6 @@ class Modula_Troubleshooting {
 		$current_screen = get_current_screen();
 
 		if ( 'modula-gallery_page_modula' == $current_screen->base ) {
-			wp_enqueue_script( 'modula-troubleshoot-conditions', MODULA_URL . 'assets/js/admin/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt.css', null, MODULA_LITE_VERSION );
 		}
 	}
@@ -69,10 +66,10 @@ class Modula_Troubleshooting {
 		$defaults = apply_filters(
 			'modula_troubleshooting_defaults',
 			array(
-				'enqueue_files' => false,
-				'gridtypes'     => array(),
-				'lightboxes'    => array(),
-				'lazy_load'     => false,
+				'enqueue_files' => apply_filters( 'modula_troubleshooting_enqueue_files', false ),
+				'gridtypes'     => apply_filters( 'modula_troubleshooting_gridtypes', array() ),
+				'lightboxes'    => apply_filters( 'modula_troubleshooting_lightboxes', array() ),
+				'lazy_load'     => apply_filters( 'modula_troubleshooting_lazy_load', false ),
 			)
 		);
 
@@ -108,20 +105,6 @@ class Modula_Troubleshooting {
 			}
 		}
 	}
-
-	public function add_misc_tab( $tabs ) {
-
-		$tabs['misc'] = array(
-			'label'    => esc_html__( 'Misc', 'modula-best-grid-gallery' ),
-			'priority' => 80,
-		);
-		return $tabs;
-	}
-
-	public function show_misc_tab() {
-		include MODULA_PATH . 'includes/admin/tabs/troubleshooting-options.php';
-	}
-
 
 	/**
 	 * Update troubleshooting options

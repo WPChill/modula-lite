@@ -2597,8 +2597,8 @@ Some responsive fixes
 
 .modula-andrei-ex-toggle label {
     background: white;
-    color: #135e96;
-    border: 1px solid #135e96;
+    color: #2271b1;
+    border: 1px solid #2271b1;
     font-size: 13px;
     line-height: 2.15384615;
     min-height: 30px;
@@ -2623,8 +2623,8 @@ Some responsive fixes
 }
 
 .modula-andrei-ex-toggle input:checked + label {
-    background: #135e96;
-    border-color:#135e96;
+    background: #2271b1;
+    border-color:#2271b1;
     color: white;
 }
 

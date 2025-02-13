@@ -101,7 +101,6 @@ class Modula_Admin {
 		*  60 - SpeedUp Settings
 		*  70 - Image Licensing
 		*  80 - Roles
-		*  90 - Misc
 		* 100 - Migrate galleries
 		* 110 - Import/Export
 		*/

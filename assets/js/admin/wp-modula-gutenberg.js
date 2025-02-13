@@ -959,15 +959,15 @@ function createHasHook(hooks, storeKey) {
  * registered to a hook of the specified type, optionally returning the final
  * value of the call chain.
  *
- * @param {import('.').Hooks}    hooks          Hooks instance.
+ * @param {import('.').Hooks}    hooks                  Hooks instance.
  * @param {import('.').StoreKey} storeKey
- * @param {boolean}              returnFirstArg Whether each hook callback is expected to return its first argument.
- * @param {boolean}              async          Whether the hook callback should be run asynchronously
+ * @param {boolean}              [returnFirstArg=false] Whether each hook callback is expected to
+ *                                                      return its first argument.
  *
  * @return {(hookName:string, ...args: unknown[]) => undefined|unknown} Function that runs hook callbacks.
  */
-function createRunHook(hooks, storeKey, returnFirstArg, async) {
-  return function runHook(hookName, ...args) {
+function createRunHook(hooks, storeKey, returnFirstArg = false) {
+  return function runHooks(hookName, ...args) {
     const hooksStore = hooks[storeKey];
     if (!hooksStore[hookName]) {
       hooksStore[hookName] = {
@@ -987,41 +987,20 @@ function createRunHook(hooks, storeKey, returnFirstArg, async) {
       name: hookName,
       currentIndex: 0
     };
-    async function asyncRunner() {
-      try {
-        hooksStore.__current.add(hookInfo);
-        let result = returnFirstArg ? args[0] : undefined;
-        while (hookInfo.currentIndex < handlers.length) {
-          const handler = handlers[hookInfo.currentIndex];
-          result = await handler.callback.apply(null, args);
-          if (returnFirstArg) {
-            args[0] = result;
-          }
-          hookInfo.currentIndex++;
-        }
-        return returnFirstArg ? result : undefined;
-      } finally {
-        hooksStore.__current.delete(hookInfo);
+    hooksStore.__current.push(hookInfo);
+    while (hookInfo.currentIndex < handlers.length) {
+      const handler = handlers[hookInfo.currentIndex];
+      const result = handler.callback.apply(null, args);
+      if (returnFirstArg) {
+        args[0] = result;
       }
+      hookInfo.currentIndex++;
     }
-    function syncRunner() {
-      try {
-        hooksStore.__current.add(hookInfo);
-        let result = returnFirstArg ? args[0] : undefined;
-        while (hookInfo.currentIndex < handlers.length) {
-          const handler = handlers[hookInfo.currentIndex];
-          result = handler.callback.apply(null, args);
-          if (returnFirstArg) {
-            args[0] = result;
-          }
-          hookInfo.currentIndex++;
-        }
-        return returnFirstArg ? result : undefined;
-      } finally {
-        hooksStore.__current.delete(hookInfo);
-      }
+    hooksStore.__current.pop();
+    if (returnFirstArg) {
+      return args[0];
     }
-    return (async ? asyncRunner : syncRunner)();
+    return undefined;
   };
 }
 /* harmony default export */ const build_module_createRunHook = (createRunHook);
@@ -1039,10 +1018,9 @@ function createRunHook(hooks, storeKey, returnFirstArg, async) {
  */
 function createCurrentHook(hooks, storeKey) {
   return function currentHook() {
-    var _currentArray$at$name;
+    var _hooksStore$__current;
     const hooksStore = hooks[storeKey];
-    const currentArray = Array.from(hooksStore.__current);
-    return (_currentArray$at$name = currentArray.at(-1)?.name) !== null && _currentArray$at$name !== void 0 ? _currentArray$at$name : null;
+    return (_hooksStore$__current = hooksStore.__current[hooksStore.__current.length - 1]?.name) !== null && _hooksStore$__current !== void 0 ? _hooksStore$__current : null;
   };
 }
 /* harmony default export */ const build_module_createCurrentHook = (createCurrentHook);
@@ -1074,11 +1052,11 @@ function createDoingHook(hooks, storeKey) {
 
     // If the hookName was not passed, check for any current hook.
     if ('undefined' === typeof hookName) {
-      return hooksStore.__current.size > 0;
+      return 'undefined' !== typeof hooksStore.__current[0];
     }
 
-    // Find if the `hookName` hook is in `__current`.
-    return Array.from(hooksStore.__current).some(hook => hook.name === hookName);
+    // Return the __current hook.
+    return hooksStore.__current[0] ? hookName === hooksStore.__current[0].name : false;
   };
 }
 /* harmony default export */ const build_module_createDoingHook = (createDoingHook);
@@ -1120,7 +1098,6 @@ function createDidHook(hooks, storeKey) {
 /* harmony default export */ const build_module_createDidHook = (createDidHook);
 //# sourceMappingURL=createDidHook.js.map
 ;// ./node_modules/@wordpress/hooks/build-module/createHooks.js
-/* wp:polyfill */
 /**
  * Internal dependencies
  */
@@ -1143,11 +1120,11 @@ class _Hooks {
   constructor() {
     /** @type {import('.').Store} actions */
     this.actions = Object.create(null);
-    this.actions.__current = new Set();
+    this.actions.__current = [];
 
     /** @type {import('.').Store} filters */
     this.filters = Object.create(null);
-    this.filters.__current = new Set();
+    this.filters.__current = [];
     this.addAction = build_module_createAddHook(this, 'actions');
     this.addFilter = build_module_createAddHook(this, 'filters');
     this.removeAction = build_module_createRemoveHook(this, 'actions');
@@ -1156,10 +1133,8 @@ class _Hooks {
     this.hasFilter = build_module_createHasHook(this, 'filters');
     this.removeAllActions = build_module_createRemoveHook(this, 'actions', true);
     this.removeAllFilters = build_module_createRemoveHook(this, 'filters', true);
-    this.doAction = build_module_createRunHook(this, 'actions', false, false);
-    this.doActionAsync = build_module_createRunHook(this, 'actions', false, true);
-    this.applyFilters = build_module_createRunHook(this, 'filters', true, false);
-    this.applyFiltersAsync = build_module_createRunHook(this, 'filters', true, true);
+    this.doAction = build_module_createRunHook(this, 'actions');
+    this.applyFilters = build_module_createRunHook(this, 'filters', true);
     this.currentAction = build_module_createCurrentHook(this, 'actions');
     this.currentFilter = build_module_createCurrentHook(this, 'filters');
     this.doingAction = build_module_createDoingHook(this, 'actions');
@@ -1209,7 +1184,7 @@ function createHooks() {
  */
 
 /**
- * @typedef {Record<string, Hook> & {__current: Set<Current>}} Store
+ * @typedef {Record<string, Hook> & {__current: Current[]}} Store
  */
 
 /**
@@ -1231,9 +1206,7 @@ const {
   removeAllActions,
   removeAllFilters,
   doAction,
-  doActionAsync,
   applyFilters,
-  applyFiltersAsync,
   currentAction,
   currentFilter,
   doingAction,
@@ -1511,10 +1484,19 @@ var __setModuleDefault = Object.create ? (function(o, v) {
   o["default"] = v;
 };
 
+var ownKeys = function(o) {
+  ownKeys = Object.getOwnPropertyNames || function (o) {
+    var ar = [];
+    for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+    return ar;
+  };
+  return ownKeys(o);
+};
+
 function __importStar(mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
   __setModuleDefault(result, mod);
   return result;
 }
