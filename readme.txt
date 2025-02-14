@@ -7,20 +7,19 @@ Requires PHP: 5.6
 Stable tag: 2.11.11  
 
 License: GNU General Public License v3.0 or later  
-The most user-friendly gallery plugin to quickly create stunning, fast, and unique galleries in WordPress!
 
 == Description ==
 ## The Best Gallery Plugin for Beautiful Image & Video Galleries in WordPress
 
-Modula gallery plugin makes it **super simple** to create **stunning galleries** in just a few clicks. You don’t need to be a tech expert, just add your images, choose a gallery type, and **you’re done!**
+**Modula gallery plugin** makes creating stunning galleries easy. Just add images, pick a gallery type, and publish—effortless for everyone!
 
-### **Why Use Modula?**
+### Why Use Modula?
 – **Super easy** – No coding or confusing settings.
 – **Works on any device** – Your galleries will look great everywhere.
 – **Fast & smooth** – No waiting for slow pages to load.
 – **Works with page builders** – Like Elementor, Beaver Builder, and Divi.
 
-## **What You Get for Free in Modula:**
+## What You Get for Free in Modula:
 – **Different gallery types** – Creative, Custom Grid, Masonry
 – **Control upload positioning** – Choose if new images are added at the start or end of your gallery
 – **Compatibility with WordPress blocks (Gutenberg)**
@@ -29,7 +28,7 @@ Modula gallery plugin makes it **super simple** to create **stunning galleries**
 – **Easily move galleries between websites**
 – **Add custom colors & styles**
 
-## **Want More? Get Modula Pro!**
+## Want More? Get Modula Pro!
 – **[Image proofing](https://wp-modula.com/image-proofing?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Image+Proofing)**: Make it easy for customers to choose the photos they want edited with proofing galleries on your website. They can pick their favorites and send their choices directly through the site. No more long email chains or back-and-forth—everything is handled in one place!
 – **[Instagram](https://wp-modula.com/modula-instagram/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Instagram)**: Easily link your Instagram account to your Modula Gallery. With this connection you will then be able to import Instagram images directly in your gallery, enriching your website with your Instagram content.
 – **[Defaults](https://wp-modula.com/modula-defaults/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Defaults)**: Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
@@ -47,7 +46,7 @@ Modula gallery plugin makes it **super simple** to create **stunning galleries**
 – **[Whitelabel](https://wp-modula.com/kb/modula-whitelabel/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Whitelabel)**: This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
 – Support and updates are included with each purchase for one year.
 
-== **How to Create a Gallery with Modula** ==
+== How to Create a Gallery with Modula ==
 
 ### **It’s This Easy:**
 1. **Go to Modula & click Add New.**
@@ -56,7 +55,7 @@ Modula gallery plugin makes it **super simple** to create **stunning galleries**
 
 https://www.youtube.com/watch?v=Ah1vHSTEW-c
 
-## **How-to Guides:**
+## How-to Guides:
 Here are a couple of quick tutorials on how to create your dream gallery using the free version:
 – [WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=wordpress+image+gallery)
 – [Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=custom+grid+gallery)
@@ -72,7 +71,7 @@ When using the Pro version, you can also create:
 [Galleries with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Hover+effects)
 [Albums](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Albums)
 
-## **Help & Support** 
+## Help & Support
 – **Guides & Help Articles:** [Read documentation](https://wp-modula.com/kb/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=knowledge+base)
 – **Ask a Question:** [Support forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/)
 – **Need Extra Help?** [Contact Us](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=contact+us)
@@ -84,7 +83,7 @@ Use our dedicated tools:
 [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+final+tiles)
 [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+photoblocks)
 
-== **3rd party or external service disclaimer** ==
+== 3rd party or external service disclaimer ==
 
 The plugin connects to our website through an API call (https://wp-modula.com/wp-json/mt/v1/get-all-extensions) in order to request a list of available extensions.
 
@@ -94,10 +93,10 @@ Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy
 
 == Frequently Asked Questions ==
 
-= **How do I show a Modula gallery** =
+= How do I show a Modula gallery =
 Follow [this easy guide](https://wp-modula.com/how-to-add-modula-to-page/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=add+to+page).
 
-= **Can I move my old galleries to Modula?** =
+= Can I move my old galleries to Modula? =
 Yes! If you use NextGEN, FooGallery, Envira, Final Tiles, or Photoblocks, you can **switch to Modula easily**.
 [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/)
 [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/)
@@ -105,10 +104,10 @@ Yes! If you use NextGEN, FooGallery, Envira, Final Tiles, or Photoblocks, you ca
 [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/)
 [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/)
 
-= **Why do some images look blurry?** =
+= Why do some images look blurry? =
 If photos don’t look clear, try increasing the **Minimum Image Width** in the settings, General section.
 
-= **How can I get help?** =
+= How can I get help? =
 – Free users: [Ask in our forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/)
 – Pro users: [Get priority help](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=contact+us)
 
