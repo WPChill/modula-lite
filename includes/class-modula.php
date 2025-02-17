@@ -473,12 +473,10 @@ class Modula {
 	 *
 	 */
 	public function disable_wp_srcset( $settings ) {
-		$troubleshoot_opt = get_option( 'modula_troubleshooting_option', false );
-
-		$disable_srcset = isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'];
-		$disable_srcset = apply_filters( 'modula_troubleshooting_disable_srcset', $disable_srcset );
-
-		if ( $disable_srcset ) {
+		$troubleshoot_opt = get_option( 'modula_troubleshooting_option', array() );
+		$disable_srcset   = isset( $troubleshoot_opt['disable_srcset'] ) ? boolval( $troubleshoot_opt['disable_srcset'] ) : false;
+	
+		if ( true === apply_filters( 'modula_troubleshooting_disable_srcset', $disable_srcset ) ) {
 			add_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
 
