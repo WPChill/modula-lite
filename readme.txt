@@ -13,22 +13,16 @@ License: GNU General Public License v3.0 or later
 
 **Modula gallery plugin** makes creating stunning galleries easy. Just add images, pick a gallery type, and publish—effortless for everyone!
 
-### Why Use Modula?
-* **Super easy** – No coding or confusing settings.
-* **Works on any device** – Your galleries will look great everywhere.
-* **Fast & smooth** – No waiting for slow pages to load.
-* **Works with page builders** – Like Elementor, Beaver Builder, and Divi.
+## How to Create a Gallery with Modula
 
-## What You Get for Free in Modula:
-* **Different gallery types** – Creative, Custom Grid, Masonry
-* **Control upload positioning** – Choose if new images are added at the start or end of your gallery
-* **Compatibility with WordPress blocks (Gutenberg)**
-* **Click-to-view images (Lightbox effect)**
-* **Share to Facebook, X, WhatsApp & more** – [See demo for social sharing](https://demo.wp-modula.com/demo/social-effect/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=social+sharing)
-* **Easily move galleries between websites**
-* **Add custom colors & styles**
+### **It’s This Easy:**
+1. **Go to Modula & click Add New.**
+2. **Add your images & customize.**
+3. **Copy the shortcode & paste it** where you want it. Example shortcode: `[modula id="1192"]`.
 
-## Want More? Get Modula Pro!
+https://www.youtube.com/watch?v=Ah1vHSTEW-c
+
+## What you get extra in Modula Pro when making a purchase:
 * **[Image proofing](https://wp-modula.com/image-proofing?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Image+Proofing)**: Make it easy for customers to choose the photos they want edited with proofing galleries on your website. They can pick their favorites and send their choices directly through the site. No more long email chains or back-and-forth—everything is handled in one place!
 * **[Instagram](https://wp-modula.com/modula-instagram/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Instagram)**: Easily link your Instagram account to your Modula Gallery. With this connection you will then be able to import Instagram images directly in your gallery, enriching your website with your Instagram content.
 * **[Defaults](https://wp-modula.com/modula-defaults/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Defaults)**: Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
@@ -46,30 +40,21 @@ License: GNU General Public License v3.0 or later
 * **[Whitelabel](https://wp-modula.com/kb/modula-whitelabel/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Whitelabel)**: This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
 * Support and updates are included with each purchase for one year.
 
-== How to Create a Gallery with Modula ==
-
-### **It’s This Easy:**
-1. **Go to Modula & click Add New.**
-2. **Add your images & customize.**
-3. **Copy the shortcode & paste it** where you want it. Example shortcode: `[modula id="1192"]`.
-
-https://www.youtube.com/watch?v=Ah1vHSTEW-c
-
 ## How-to Guides:
 Here are a couple of quick tutorials on how to create your dream gallery using the free version:
-[WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=wordpress+image+gallery)
-[Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=custom+grid+gallery)
-[Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=masonry+image+gallery)
-[Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=mobile+responsive+gallery)
-[Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=beaver+builder+gallery)
-[Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=elementor+image+gallery)
-[Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=divi+builder+gallery)
+* [WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=wordpress+image+gallery)
+* [Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=custom+grid+gallery)
+* [Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=masonry+image+gallery)
+* [Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=mobile+responsive+gallery)
+* [Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=beaver+builder+gallery)
+* [Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=elementor+image+gallery)
+* [Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=divi+builder+gallery)
 
 When using the Pro version, you can also create:
-[Video Galleries in WordPress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Video+gallery)
-[Gallery Sliders in WordPress](https://wp-modula.com/wordpress-image-carousel/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Slider+gallery)
-[Galleries with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Hover+effects)
-[Albums](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Albums)
+* [Video Galleries in WordPress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Video+gallery)
+* [Gallery Sliders in WordPress](https://wp-modula.com/wordpress-image-carousel/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Slider+gallery)
+* [Galleries with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Hover+effects)
+* [Albums](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Albums)
 
 ## Help & Support
 * **Guides & Help Articles:** [Read documentation](https://wp-modula.com/kb/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=knowledge+base)
@@ -77,11 +62,11 @@ When using the Pro version, you can also create:
 * **Need Extra Help?** [Contact Us](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=contact+us)
 * Do you have galleries already created in **NextGen**, **Envira**, **Final Tiles Grid Gallery** or **FooGallery** and want to migrate them to **Modula**?
 Use our dedicated tools:
-[Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+nextgen)
-[Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+foogallery)
-[Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+envira)
-[Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+final+tiles)
-[Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+photoblocks)
+* [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+nextgen)
+* [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+foogallery)
+* [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+envira)
+* [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+final+tiles)
+* [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+photoblocks)
 
 == 3rd party or external service disclaimer ==
 
