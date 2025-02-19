@@ -1006,7 +1006,7 @@ class Modula_CPT {
 	}
 
 	public function output_upsell_albums() {
-		$buttons  = '<a target="_blank" href="' . esc_url( admin_url( 'edit.php?post_type=modula-gallery&page=modula-lite-vs-pro' ) ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
+		$buttons  = '<a target="_blank" href="https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
 		$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=albums-metabox&utm_campaign=modula-albums" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
 		?>
@@ -1078,7 +1078,7 @@ class Modula_CPT {
 	}
 
 	/**
-	 * Search gallery by ID & title or gallery type
+	 * Search gallery by ID or gallery type
 	 *
 	 * @param $query
 	 *
@@ -1086,37 +1086,17 @@ class Modula_CPT {
 	 * @since 2.9.0
 	*/
 	public function search_by_gallery_id( $query ) {
-		global $pagenow, $wpdb;
+		global $pagenow;
 
 		if ( is_admin() && 'edit.php' === $pagenow && isset( $query->query_vars ) && isset( $query->query_vars['post_type'] ) && 'modula-gallery' === $query->query_vars['post_type'] ) {
+
+			// search by ID
 			if ( isset( $query->query_vars['s'] ) ) {
 				$search_term = $query->query_vars['s'];
 
 				if ( is_numeric( $search_term ) ) {
 					$query->query_vars['s'] = '';
-					$post_ids               = array( 0 );
-					$post_type              = 'modula-gallery';
-					$like_term              = '%' . $wpdb->esc_like( $search_term ) . '%';
-
-					$sql = $wpdb->prepare(
-						"SELECT ID FROM {$wpdb->posts} 
-						WHERE post_type = 'modula-gallery' 
-						AND (ID = %d OR post_title LIKE %s)",
-						absint( $search_term ),
-						$like_term
-					);
-
-					$post_ids = $wpdb->get_col(
-						$wpdb->prepare(
-							"SELECT ID FROM {$wpdb->posts} 
-						WHERE post_type = 'modula-gallery' 
-						AND (ID = %d OR post_title LIKE %s)",
-							absint( $search_term ),
-							$like_term
-						),
-					);
-
-					$query->set( 'post__in', $post_ids );
+					$query->set( 'post__in', array( $search_term ) );
 					return;
 				}
 			}

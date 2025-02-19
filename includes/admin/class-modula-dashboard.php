@@ -42,12 +42,14 @@ class Modula_Dashboard {
 					'url'  => $this->plugin_link['extensions']
 				),
 				'lite_vs_pro' => array(
-					'name' => __( 'Free vs. Premium', 'modula-best-grid-gallery' ),
-					'url'  => $this->plugin_link['lite_vs_pro']
+					'name'   => __( 'Free vs. Premium', 'modula-best-grid-gallery' ),
+					'url'    => $this->plugin_link['lite_vs_pro'],
+					'target' => '_BLANK',
 				),
 				'changelog'   => array(
-					'name' => __( 'Changelog', 'modula-best-grid-gallery' ),
-					'url'  => false,
+					'name'   => __( 'Changelog', 'modula-best-grid-gallery' ),
+					'url'    => $this->plugin_link['changelog'],
+					'target' => '_BLANK',
 				),
 			)
 		);
@@ -63,9 +65,6 @@ class Modula_Dashboard {
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
-
-
-
 	}
 
 
@@ -118,16 +117,11 @@ class Modula_Dashboard {
 		?>
         <div id="wpchill_dashboard_header">
             <div class="wpchill_dashboard_header_tabs nosearch">
-
 				<?php foreach ( $this->tabs as $slug => $tab ): ?>
-                    <a href="<?php echo esc_url( $this->generate_tab_url( $slug ) ); ?>"
+                    <a <?php echo isset( $tab['target'] ) ? 'target="_BLANK"' : ''; ?> href="<?php echo esc_url( $this->generate_tab_url( $slug ) ); ?>"
                        class="wpchill_dashboard_header_tab wpchill_dashboard_header_tab_<?= $slug ?> <?php echo( ( $active === $slug ) ? 'tab_active' : '' ); ?>"> <?= $tab['name']; ?> </a>
 				<?php endforeach; ?>
-
             </div>
-
-			<?php //$this->_render_search_bar();
-			?>
         </div>
 		<?php
 
@@ -158,9 +152,6 @@ class Modula_Dashboard {
 				break;
 			case 'partners':
 				$this->_render_partners_content();
-				break;
-			case 'changelog':
-				$this->render_changelog( $this->readme_parser );
 				break;
 			default:
 				do_action( "wpchill_dashboard_tab_{$active}" );

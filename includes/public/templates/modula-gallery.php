@@ -85,12 +85,12 @@
 				// Custom grid has a different setting name for the image crop.
 				if ( 'custom-grid' !== $data->settings['type'] ) {
 					// Specify if the image is cropped.
-					if ( '1' === $data->settings['grid_image_crop'] ) {
+					if ( isset( $data->settings['grid_image_crop'] ) && '1' === $data->settings['grid_image_crop'] ) {
 						$item_data['crop'] = true;
 					}
 				} else {
 					// Specify if the image is cropped.
-					if ( '1' === $data->settings['img_crop'] ) {
+					if ( isset( $data->settings['img_crop'] ) && '1' === $data->settings['img_crop'] ) {
 						$item_data['crop'] = true;
 					}
 				}

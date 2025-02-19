@@ -10,17 +10,7 @@ class Modula_Upgrades {
 	private $completed_upgrades = array();
 
 	function __construct() {
-		$upgrades       = array(
-			'modula_v2' => array(
-				'notice'   => esc_html__( 'Modula needs to upgrade the database, click %shere%s to start the upgrade.', 'modula-best-grid-gallery' ),
-				'id'       => 'modula-upgrade-v2',
-				'version'  => '2.0.0',
-				'compare'  => '<',
-				'title'    => esc_html__( 'Modula V2 Upgrade', 'modula-best-grid-gallery' ),
-				'callback' => 'modula_upgrade_v2',
-			),
-		);
-		$this->upgrades = apply_filters( 'modula_upgrades', $upgrades );
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	/**
@@ -476,5 +466,22 @@ class Modula_Upgrades {
             </script>
 			<?php
 		}
+	}
+
+	/**
+	 * Set upgrades
+	 */
+	public function init() {
+		$upgrades       = array(
+			'modula_v2' => array(
+				'notice'   => esc_html__( 'Modula needs to upgrade the database, click %shere%s to start the upgrade.', 'modula-best-grid-gallery' ),
+				'id'       => 'modula-upgrade-v2',
+				'version'  => '2.0.0',
+				'compare'  => '<',
+				'title'    => esc_html__( 'Modula V2 Upgrade', 'modula-best-grid-gallery' ),
+				'callback' => 'modula_upgrade_v2',
+			),
+		);
+		$this->upgrades = apply_filters( 'modula_upgrades', $upgrades );
 	}
 }

@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Modula_Gallery_Upload {
 
+
 	/**
 	 * Holds the class object.
 	 *
@@ -139,23 +140,23 @@ class Modula_Gallery_Upload {
 	public function add_folder_browser_button() {
 		?>
 		<li id="modula-uploader-folder-browser">
-		<?php esc_html_e( 'From Folder', 'modula-best-grid-gallery' ); ?>
+			<?php esc_html_e( 'From Folder', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
 	}
 
 	/**
-	* Returns a listing of all folders in the specified folder.
-	*
-	* @access public
-	*
-	* @param  string  $folder  (default: '')
-	* @param  boolean $recursive  (default: false)
-	*
-	* @return array|bool
+	 * Returns a listing of all folders in the specified folder.
+	 *
+	 * @access public
+	 *
+	 * @param  string  $folder  (default: '')
+	 * @param  boolean $recursive  (default: false)
+	 *
+	 * @return array|bool
 
-	* @since 2.11.0
-	*/
+	 * @since 2.11.0
+	 */
 	public function list_folders( $folder = '', $recursive = false ) {
 		// If no folder is specified, return false
 		if ( ! $this->check_folder( $folder ) ) {
@@ -272,13 +273,13 @@ class Modula_Gallery_Upload {
 			echo '<meta charset="utf-8" />';
 			// print_emoji_styles is deprecated and triggers a PHP warning.
 			remove_action( 'admin_print_styles', 'print_emoji_styles' );
-			do_action( 'admin_print_styles' ); // phpcs:ignore
-			do_action( 'admin_print_scripts' ); // phpcs:ignore
-			do_action( 'admin_head' ); // phpcs:ignore
+			do_action('admin_print_styles'); // phpcs:ignore
+			do_action('admin_print_scripts'); // phpcs:ignore
+			do_action('admin_head'); // phpcs:ignore
 			// re-add print_emoji_styles.
 			add_action( 'admin_print_styles', 'print_emoji_styles' );
 			echo '</head><body class="wp-core-ui" id="modula_browser">';
-			echo '<input type="hidden" value="' . absint( $_GET['post_id'] ) . '" name="post_ID" id="post_ID">'; // phpcs:ignore 
+			echo '<input type="hidden" value="' . absint($_GET['post_id']) . '" name="post_ID" id="post_ID">'; // phpcs:ignore 
 			echo '<p>' . esc_html__( 'Select a folder to upload images from', 'modula-best-grid-gallery' ) . '</p>';
 			echo '<ul class="modula_file_browser">';
 			// Cycle through paths and list files.
@@ -305,9 +306,9 @@ class Modula_Gallery_Upload {
 			echo '<div class="modula-browser-footer__progress">';
 			echo '<div id="modula-progress"><div id="modula-progress-text">' . esc_html__( 'Import files from a folder', 'modula-best-grid-gallery' ) . '</div></div>';
 			echo '</div>';
-			do_action( 'admin_print_footer_styles' ); // phpcs:ignore 
-			do_action( 'admin_print_footer_scripts' ); // phpcs:ignore
-			do_action( 'admin_footer' ); // phpcs:ignore
+			do_action('admin_print_footer_styles'); // phpcs:ignore 
+			do_action('admin_print_footer_scripts'); // phpcs:ignore
+			do_action('admin_footer'); // phpcs:ignore
 			echo '<script>const modulaBrowser = new ModulaGalleryUpload();modulaBrowser.fileBrowser(); modulaBrowser.progressMode = new ModulaProgress("modula-progress", true); modulaBrowser.progressMode.display();</script>';
 			echo '</body></html>';
 		}
@@ -384,8 +385,8 @@ class Modula_Gallery_Upload {
 				}
 			}
 		} elseif ( $this->check_folder( $paths ) ) {
-				// Add folder path to the array
-				$folders[] = $paths;
+			// Add folder path to the array
+			$folders[] = $paths;
 		} else {
 			$this->uploaded_error_files['folders'][] = $paths;
 		}
@@ -920,7 +921,7 @@ class Modula_Gallery_Upload {
 	public function add_upload_zip_button() {
 		?>
 		<li id="modula-upload-zip-browser">
-		<?php esc_html_e( 'From ZIP', 'modula-best-grid-gallery' ); ?>
+			<?php esc_html_e( 'From ZIP', 'modula-best-grid-gallery' ); ?>
 		</li>
 		<?php
 	}
@@ -937,7 +938,7 @@ class Modula_Gallery_Upload {
 	public function zip_upload_dir( $pathdata ) {
 		// We don't process form we just modify the upload path for our custom post type.
 		// phpcs:ignore
-		if ( ! isset( $_POST['type'] ) || ! isset( $_POST['action'] ) || 'modula-gallery' !== $_POST['type'] || 'modula_upload_zip' !== $_POST['action'] ) {
+		if (! isset($_POST['type']) || ! isset($_POST['action']) || 'modula-gallery' !== $_POST['type'] || 'modula_upload_zip' !== $_POST['action']) {
 			return $pathdata;
 		}
 		// Check if the user has the rights to upload files.
@@ -1012,26 +1013,74 @@ class Modula_Gallery_Upload {
 		if ( empty( $_POST['fileID'] ) ) {
 			wp_send_json_error( __( 'No file was provided.', 'modula-best-grid-gallery' ) );
 		}
+
 		// Get the file ID.
 		$file_id = absint( $_POST['fileID'] );
 		// Get the file path.
 		$file = get_attached_file( $file_id );
+
+		// Validate that this is actually a zip file
+		if ( ! class_exists( 'ZipArchive' ) ) {
+			wp_delete_attachment( $file_id, true );
+			wp_send_json_error( __( 'ZIP extension is not installed on the server.', 'modula-best-grid-gallery' ) );
+		}
+
+		$zip        = new ZipArchive();
+		$zip_opened = $zip->open( $file );
+		if ( $zip_opened !== true ) {
+			wp_delete_attachment( $file_id, true );
+			wp_send_json_error( __( 'Could not open ZIP file.', 'modula-best-grid-gallery' ) );
+		}
+
+		// Get allowed mime types
+		$allowed_mime_types = $this->define_allowed_mime_types();
+
+		// Check each file in the zip
+		$valid_files = true;
+		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+			$stat      = $zip->statIndex( $i );
+			$file_name = basename( $stat['name'] );
+
+			// Skip directories
+			if ( substr( $file_name, -1 ) === '/' ) {
+				continue;
+			}
+
+			// Check file extension against allowed mime types
+			$file_type = wp_check_filetype( $file_name, $allowed_mime_types );
+			if ( empty( $file_type['type'] ) ) {
+				$valid_files = false;
+				break;
+			}
+		}
+
+		$zip->close();
+
+		if ( ! $valid_files ) {
+			wp_delete_attachment( $file_id, true );
+			wp_send_json_error( __( 'ZIP file contains invalid or disallowed file types. Only image files are permitted.', 'modula-best-grid-gallery' ) );
+		}
+
 		// Get the base path.
 		$base       = pathinfo( $file, PATHINFO_DIRNAME );
 		$file_name  = pathinfo( $file, PATHINFO_FILENAME );
 		$timestamp  = time();
 		$unzip_path = $base . '/' . $file_name . $timestamp;
+
 		// Set the WP_Filesystem.
-		//global $wp_filesystem;
 		require_once ABSPATH . '/wp-admin/includes/file.php';
 		WP_Filesystem();
+
 		// Unzip the file.
 		$response = unzip_file( $file, $unzip_path );
 		if ( is_wp_error( $response ) ) {
+			wp_delete_attachment( $file_id, true );
 			wp_send_json_error( $response->get_error_message() );
 		}
-		// Delete the original file.
+
+		// Delete the original zip file
 		wp_delete_attachment( $file_id, true );
+
 		$folders = array( $unzip_path );
 		// Check if the folder has subfolders.
 		$subfolders = $this->list_folders( $unzip_path, true );
@@ -1041,6 +1090,7 @@ class Modula_Gallery_Upload {
 				$folders[] = $subfolder['path'];
 			}
 		}
+
 		// Send the unzip path.
 		wp_send_json_success( $folders );
 	}
@@ -1065,32 +1115,32 @@ class Modula_Gallery_Upload {
 		}
 		ob_start();
 		?>
-				<p><?php echo wp_kses_post( sprintf( __( 'Some files could not be uploaded in <a href="%1$s" target="_blank">gallery ID %2$s</a>. Please check the following paths:', 'modula-best-grid-gallery' ), esc_url( admin_url( 'post.php?post=' . absint( $gallery_id ) . '&action=edit#!modula-general' ) ), $gallery_id ) ); ?></p>
-				<ul>
-					<?php
-					if ( ! empty( $uploaded_files['folders'] ) ) {
-						foreach ( $uploaded_files['folders'] as $folder ) {
-							echo '<li>' . esc_html( $folder ) . '</li>';
-						}
-					}
-					if ( ! empty( $uploaded_files['files'] ) ) {
-						foreach ( $uploaded_files['files'] as $file ) {
-							echo '<li>' . esc_html( $file ) . '</li>';
-						}
-					}
-					?>
-				</ul>
+		<p><?php echo wp_kses_post( sprintf( __( 'Some files could not be uploaded in <a href="%1$s" target="_blank">gallery ID %2$s</a>. Please check the following paths:', 'modula-best-grid-gallery' ), esc_url( admin_url( 'post.php?post=' . absint( $gallery_id ) . '&action=edit#!modula-general' ) ), $gallery_id ) ); ?></p>
+		<ul>
 			<?php
-			$message = ob_get_clean();
-			$notice  = array(
-				'title'   => esc_html__( 'Error importing images', 'modula-best-grid-gallery' ),
-				'message' => $message,
-				'status'  => 'error',
-			);
+			if ( ! empty( $uploaded_files['folders'] ) ) {
+				foreach ( $uploaded_files['folders'] as $folder ) {
+					echo '<li>' . esc_html( $folder ) . '</li>';
+				}
+			}
+			if ( ! empty( $uploaded_files['files'] ) ) {
+				foreach ( $uploaded_files['files'] as $file ) {
+					echo '<li>' . esc_html( $file ) . '</li>';
+				}
+			}
+			?>
+		</ul>
+		<?php
+		$message = ob_get_clean();
+		$notice  = array(
+			'title'   => esc_html__( 'Error importing images', 'modula-best-grid-gallery' ),
+			'message' => $message,
+			'status'  => 'error',
+		);
 
-			Modula_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
-			// Clear the uploaded files, since the notification was added.
-			$this->update_uploaded_error_files( $gallery_id, array() );
+		Modula_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
+		// Clear the uploaded files, since the notification was added.
+		$this->update_uploaded_error_files( $gallery_id, array() );
 	}
 }
 
