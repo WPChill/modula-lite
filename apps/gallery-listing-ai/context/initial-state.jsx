@@ -8,8 +8,8 @@ export const initialState = (id) => {
 		allImageIds: [],
 		status: 'running',
 		timestamp: new Date().toLocaleDateString(),
-		imageseoSettings: '',
-		imageseoApp: '',
+		modulaAiSettings: '',
+		modulaAiApp: '',
 		id,
 	};
 
@@ -17,7 +17,7 @@ export const initialState = (id) => {
 		return defaultVal;
 	}
 
-	const windowVariableName = `modulaImageseoGalleryListing${id}`;
+	const windowVariableName = `modulaAiGalleryListing${id}`;
 	const windowVariableValue = window[windowVariableName];
 
 	if (!windowVariableValue) {

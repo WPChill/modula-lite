@@ -7,8 +7,7 @@ class Modula_Field_Builder {
 
 	private $settings = array();
 
-	function __construct() {
-
+	public function __construct() {
 		/* Add templates for our plugin */
 		add_action( 'admin_footer', array( $this, 'print_modula_templates' ) );
 	}
@@ -49,7 +48,7 @@ class Modula_Field_Builder {
 	 * @param string $default A default value to use.
 	 * @return string         Key value on success, empty string on failure.
 	 */
-	public function get_setting( $key, $default = false ) {
+	public function get_setting( $key, $default_value = false ) {
 
 		// Get config
 		if ( empty( $this->settings ) ) {
@@ -60,7 +59,7 @@ class Modula_Field_Builder {
 		if ( isset( $this->settings[ $key ] ) ) {
 			$value = $this->settings[ $key ];
 		} else {
-			$value = $default ? $default : '';
+			$value = $default_value ? $default_value : '';
 		}
 
 		return apply_filters( 'modula_admin_field_value', $value, $key, $this->settings );
@@ -87,7 +86,7 @@ class Modula_Field_Builder {
 	/* Create HMTL for gallery metabox */
 	private function _render_gallery_metabox( $post = false ) {
 
-		$max_upload_size   = wp_max_upload_size();
+		$max_upload_size = wp_max_upload_size();
 
 		if ( ! $max_upload_size ) {
 			$max_upload_size = 0;
@@ -181,10 +180,10 @@ class Modula_Field_Builder {
 			if ( isset( $tab['title'] ) || isset( $tab['description'] ) ) {
 				$current_tab_content .= '<div class="tab-content-header">';
 				$current_tab_content .= '<div class="tab-content-header-title">';
-				if ( isset( $tab['title'] ) && '' != $tab['title'] ) {
+				if ( isset( $tab['title'] ) && '' !== $tab['title'] ) {
 					$current_tab_content .= '<h2>' . esc_html( $tab['title'] ) . '</h2>';
 				}
-				if ( isset( $tab['description'] ) && '' != $tab['description'] ) {
+				if ( isset( $tab['description'] ) && '' !== $tab['description'] ) {
 					$current_tab_content .= '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>';
 					$current_tab_content .= '<div class="tab-header-description modula-tooltip-content">' . wp_kses_post( $tab['description'] ) . '</div>';
 					$current_tab_content .= '</div>';
@@ -197,7 +196,6 @@ class Modula_Field_Builder {
 				$current_tab_content .= '</div>';
 
 				$current_tab_content .= '</div>';
-
 			}
 
 			// Generate all fields for current tab
@@ -220,6 +218,7 @@ class Modula_Field_Builder {
 		}
 
 		$html = '<div class="modula-settings-container"><div class="modula-tabs">%s</div><div class="modula-tabs-content">%s</div>';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		printf( $html, $tabs_html, $tabs_content_html );
 	}
 
@@ -232,7 +231,12 @@ class Modula_Field_Builder {
 		echo '<div class="modula-copy-shortcode">';
 		echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
 		echo '<a href="#" title="' . esc_attr__( 'Copy shortcode', 'modula-best-grid-gallery' ) . '" class="copy-modula-shortcode button button-primary dashicons dashicons-format-gallery" style="width:40px;"></a><span></span>';
-		echo '<p class="shortcode-description">' . sprintf( esc_html__( 'You can use this to display your newly created gallery inside a %1$s post or a page %2$s', 'modula-best-grid-gallery' ), '<u>', '</u>' ) . '</p>';
+		echo '<p class="shortcode-description">' . sprintf(
+			// Translators: %1$s: opening <u> tag, %2$s: closing </u> tag
+			esc_html__( 'You can use this to display your newly created gallery inside a %1$s post or a page %2$s', 'modula-best-grid-gallery' ),
+			'<u>',
+			'</u>'
+		) . '</p>';
 		echo '</div>';
 
 		do_action( 'modula_admin_after_shortcode_metabox', $post );
@@ -261,7 +265,6 @@ class Modula_Field_Builder {
 		 * @since 2.10.0
 		 */
 		do_action( 'modula_admin_before_upload_position_metabox', $post );
-		/*echo '<div class="modula-toggle"><input class="modula-toggle__input modula-no-pointer" type="checkbox"  name="modula-settings[upload_position]" value="1" ' . checked( $option, '1', false ) . '><div class="modula-toggle__items"><span class="modula-toggle__track"></span><span class="modula-toggle__thumb"></span><svg class="modula-toggle__off" width="6" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 6 6"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg><svg class="modula-toggle__on" width="2" height="6" aria-hidden="true" role="img" focusable="false" viewBox="0 0 2 6"><path d="M0 0h2v6H0z"></path></svg></div></div>';*/
 		echo '<span>' . esc_html__( 'Add new images to gallery at ', 'modula-best-grid-gallery' ) . ' </span>';
 		echo '<div class="modula-andrei-ex-toggle">';
 		echo '<div class="modula-andrei-ex-toggle__input">';
@@ -305,7 +308,7 @@ class Modula_Field_Builder {
 
 		// Generate tooltip
 		$tooltip = '';
-		if ( isset( $field['description'] ) && '' != $field['description'] ) {
+		if ( isset( $field['description'] ) && '' !== $field['description'] ) {
 			$tooltip .= '<div class="modula-tooltip"><span>[?]</span>';
 			$tooltip .= '<div class="modula-tooltip-content">' . wp_kses_post( $field['description'] ) . '</div>';
 			$tooltip .= '</div>';
@@ -322,30 +325,28 @@ class Modula_Field_Builder {
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
-
-			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
+			$children = htmlspecialchars( wp_json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
 
 			$parent = '';
-			if ( isset( $field['parent'] ) && '' != $field['parent'] ) {
+			if ( isset( $field['parent'] ) && '' !== $field['parent'] ) {
 				$parent = 'data-parent="' . $field['parent'] . '"';
 			}
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '" data-children=\'' . $children . '\' ' . $parent . '><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 		}
 
 		// Formats for General Gutter
-		if ( 'gutterInput' == $field['type'] ) {
-
-			if ( 'desktop' == $field['media'] ) {
+		if ( 'gutterInput' === $field['type'] ) {
+			if ( 'desktop' === $field['media'] ) {
 				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
 			}
 
-			if ( 'tablet' == $field['media'] ) {
+			if ( 'tablet' === $field['media'] ) {
 				$field_name = '<span class="dashicons dashicons-tablet"></span>';
 				$tooltip    = '';
 				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td>';
 			}
 
-			if ( 'mobile' == $field['media'] ) {
+			if ( 'mobile' === $field['media'] ) {
 				$field_name = '<span class="dashicons dashicons-smartphone"></span>';
 				$tooltip    = '';
 				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td></tr>';
@@ -353,7 +354,7 @@ class Modula_Field_Builder {
 		}
 		// End formats for General Gutter
 
-		if ( 'textarea' == $field['type'] || 'custom_code' == $field['type'] || 'hover-effect' == $field['type'] ) {
+		if ( 'textarea' === $field['type'] || 'custom_code' === $field['type'] || 'hover-effect' === $field['type'] ) {
 			$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><td colspan="2" class="' . esc_attr( $child ) . '"><label class="th-label">%s</label>%s<div>%s</div></td></tr>';
 		}
 
@@ -383,7 +384,6 @@ class Modula_Field_Builder {
 		}
 
 		switch ( $field['type'] ) {
-
 			case 'image-size':
 				$placeholder           = array();
 				$placeholder['width']  = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['width'] ) ) ? $field['placeholder']['width'] : '';
@@ -443,10 +443,8 @@ class Modula_Field_Builder {
 				foreach ( $field['values'] as $key => $option ) {
 
 					// Fix for single lightbox after Modula update
-					if ( 'lightbox' == $field['id'] ) {
-
+					if ( 'lightbox' === $field['id'] ) {
 						if ( is_array( $option ) && ! isset( $option[ $value ] ) ) {
-
 							$value = 'fancybox';
 						}
 					}
@@ -477,10 +475,9 @@ class Modula_Field_Builder {
 				break;
 
 			case 'icon-radio':
-
 				if ( empty( $value ) ) {
 					$value = 'creative-gallery';
-				} 
+				}
 
 				$wpchill_upsell = false;
 				if ( class_exists( 'WPChill_Upsells' ) ) {
@@ -505,7 +502,7 @@ class Modula_Field_Builder {
 				}
 
 				foreach ( $field['disabled']['values'] as $key => $name ) {
-					$addon = 'bnb' == $key ? 'modula' : 'modula-' . $key;
+					$addon = 'bnb' === $key ? 'modula' : 'modula-' . $key;
 					if ( $wpchill_upsell && ! $wpchill_upsell->is_upgradable_addon( $addon ) ) {
 						$class = 'modula-radio-icon-install';
 					} else {
@@ -667,7 +664,6 @@ class Modula_Field_Builder {
 				$effects_html  = '';
 
 				foreach ( $hovers as $key => $name ) {
-
 					$class   = array( 'modula-item' );
 					$class[] = 'effect-' . $key;
 					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
@@ -692,31 +688,30 @@ class Modula_Field_Builder {
 					}
 					$effect .= '<div class="' . esc_attr( implode( ' ', $class ) ) . '">';
 
-					if ( 'under' == $key ) {
+					if ( 'under' === $key ) {
 						$effect .= '<div class="modula-item-image-continer"><img src="' . esc_url( MODULA_URL . '/assets/images/effect.jpg' ) . '" class="pic"></div>';
 					} else {
 						$effect .= '<img src="' . esc_url( MODULA_URL . '/assets/images/effect.jpg' ) . '" class="pic">';
 					}
 
-					if ( in_array( $key, $effect_array ) ) {
+					if ( in_array( $key, $effect_array, true ) ) {
 						$effect .= '<div class="tilter__deco tilter__deco--shine"><div></div></div>';
-						if ( in_array( $key, $overlay_array ) ) {
+						if ( in_array( $key, $overlay_array, true ) ) {
 							$effect .= '<div class="tilter__deco tilter__deco--overlay"></div>';
 						}
-						if ( in_array( $key, $svg_array ) ) {
+						if ( in_array( $key, $svg_array, true ) ) {
 							$effect .= '<div class="tilter__deco tilter__deco--lines"></div>';
 						}
 					}
 
-					if ( 'none' != $key ) {
-
+					if ( 'none' !== $key ) {
 						$effect .= '<div class="figc"><div class="figc-inner">';
 
 						if ( $effect_elements['title'] ) {
 							$effect .= '<div class="jtg-title">Lorem ipsum</div>';
 						}
 
-						if ( in_array( $key, $jtg_body ) ) {
+						if ( in_array( $key, $jtg_body, true ) ) {
 							$effect .= '<div class="jtg-body">';
 						}
 
@@ -735,7 +730,7 @@ class Modula_Field_Builder {
 							$effect .= '</div>';
 						}
 
-						if ( in_array( $key, $jtg_body ) ) {
+						if ( in_array( $key, $jtg_body, true ) ) {
 							$effect .= '</div>';
 						}
 
@@ -746,7 +741,6 @@ class Modula_Field_Builder {
 					$effect .= '<div class="modula-preview-item-content">';
 					$effect .= '<h4>' . $name . '</h4>';
 					if ( $effect_elements['title'] || $effect_elements['description'] || $effect_elements['social'] || $effect_elements['scripts'] ) {
-
 						$effect .= '<div class="effect-compatibility">';
 						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 
@@ -770,7 +764,6 @@ class Modula_Field_Builder {
 						}
 
 						$effect .= '</div>';
-
 					}
 
 					$effect .= '</div>';
@@ -799,7 +792,6 @@ class Modula_Field_Builder {
 				$infos = '';
 
 				foreach ( $sizes as $key => $size ) {
-
 					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( ucfirst( str_replace( '-', ' ', $key ) ) ) . '</option>';
 
 					$infos .= '<div class="modula-imagesize-info" data-size="' . esc_attr( $key ) . '"><span>' . esc_html__( 'Image Size', 'modula-best-grid-gallery' ) . '</span>: ' . $size['width'] . 'x' . $size['height'];
@@ -809,7 +801,7 @@ class Modula_Field_Builder {
 				$html .= '<option value="full" ' . selected( 'full', $value, false ) . '>' . __( 'Full', 'modula-best-grid-gallery' ) . '</option>';
 				$html .= '<option value="custom" ' . selected( 'custom', $value, false ) . '>' . __( 'Custom', 'modula-best-grid-gallery' ) . '</option>';
 				$html .= '</select>';
-				if ( '' != $infos ) {
+				if ( '' !== $infos ) {
 					$html .= '<div class="modula-imagesizes-infos">' . $infos . '</div>';
 				}
 				break;
@@ -819,9 +811,8 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				$html .= '<div class="modula-placeholders">';
 				foreach ( $field['values'] as $key => $value ) {
-
 					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
-					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
+					$html .= esc_html( $value );
 					$html .= '</span>';
 				}
 				$html .= '</div>';
@@ -833,9 +824,8 @@ class Modula_Field_Builder {
 				$html  = '<input class="modula-placeholder-input" type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				$html .= '<div class="modula-placeholders">';
 				foreach ( $field['values'] as $key => $value ) {
-
 					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
-					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
+					$html .= esc_html( $value );
 					$html .= '</span>';
 				}
 				$html .= '</div>';
@@ -855,9 +845,6 @@ class Modula_Field_Builder {
 		}
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
-
-			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
-
 			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__( ' other settings', 'modula-best-grid-gallery' ) . ' </span>';
 		}
 

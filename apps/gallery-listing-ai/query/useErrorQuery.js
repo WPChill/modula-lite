@@ -7,7 +7,7 @@ export const useErrorQuery = () => {
 		queryKey: ['errors'],
 		queryFn: async () => {
 			const data = await apiFetch({
-				path: `/modula-imageseo/v1/errors`,
+				path: `/modula-ai-image-descriptor/v1/errors`,
 				method: 'GET',
 			});
 			return data;
@@ -21,7 +21,7 @@ export const useClearErrorsMutation = () => {
 	const queryClient = useQueryClient();
 	const mutationFn = useCallback(() => {
 		return apiFetch({
-			path: `/modula-imageseo/v1/clear-errors`,
+			path: `/modula-ai-image-descriptor/v1/clear-errors`,
 			method: 'GET',
 		});
 	}, []);

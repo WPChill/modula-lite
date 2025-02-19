@@ -11,7 +11,7 @@ export function Optimizing() {
 	};
 
 	return (
-		<div className="image-seo-list">
+		<div className="modula-ai-list">
 			<p>{__('Optimizing images…', 'modula-best-grid-gallery')}</p>
 			<small>
 				{__(
@@ -19,7 +19,7 @@ export function Optimizing() {
 					'modula-best-grid-gallery'
 				)}
 			</small>
-			<div className="image-seo-actions">
+			<div className="modula-ai-actions">
 				<Button variant="secondary" onClick={stop}>
 					{__('Stop', 'modula-best-grid-gallery')}
 				</Button>

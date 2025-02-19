@@ -34,7 +34,7 @@ export function Optimizer() {
 
 	return (
 		<>
-			<div className="image-seo-list">
+			<div className="modula-ai-list">
 				<Report />
 				<Actions />
 			</div>

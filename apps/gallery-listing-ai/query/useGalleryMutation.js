@@ -14,7 +14,7 @@ export const useGalleryMutation = () => {
 					: 'stop-optimizing-gallery';
 
 			return apiFetch({
-				path: `/modula-imageseo/v1/${endpoint}`,
+				path: `/modula-ai-image-descriptor/v1/${endpoint}`,
 				method: 'POST',
 				data: {
 					id: vars.id || state.id,

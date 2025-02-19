@@ -45,7 +45,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
     } );
 
     var modulaModalView = Backbone.View.extend( {
-
         /**
         * The Tag Name and Tag's Class(es)
         */
@@ -79,6 +78,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             'keyup input#link-search':                      'searchLinks',
             'click div.query-results li':                   'insertLink',
 
+            'click #modula-ai-report-generate-button':      'generateReport',
+            'click #modula-alt-button-apply':               'applyReport',
+            'click #modula-caption-button-apply':           'applyReport',
+            'click #modula-title-button-apply':             'applyReport',
         },
 
         /**
@@ -98,11 +101,17 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             // Child Views
             this.childViews = args.childViews;
 
+
             // Set some flags
             this.is_loading = false;
             this.search_timer = '';
             this.item = false;
 
+
+            // Add event listeners for AI report generation
+            this.on('ai:report:loading', this.onReportLoading, this);
+            this.on('ai:report:success', this.onReportSuccess, this);
+            this.on('ai:report:error', this.onReportError, this);
         },
 
         changeItem: function(){
@@ -160,7 +169,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
             // Return
             return this;
-
         },
 
         /**
@@ -218,7 +226,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         * Load the previous model in the collection
         */
         loadPreviousItem: function() {
-
             var item;
 
             // Decrement the index
@@ -230,14 +237,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
             // Re-render the view
             this.render();
-
         },
 
         /**
         * Load the next model in the collection
         */
         loadNextItem: function() {
-
             var item;
 
             // Increment the index
@@ -249,7 +254,6 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             
             // Re-render the view
             this.render();
-
         },
 
         /**
@@ -331,6 +335,83 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         * Inserts the clicked link into the URL field
         */
         insertLink: function( event ) {
+        },
+
+        /**
+        * Generates the alt text for the image
+        */
+        generateReport: async function( event ) {
+            event.preventDefault();
+
+            var action = event.target.dataset.action || 'generate';
+            if( 'undefined' === typeof wp.apiFetch){
+                return;
+            }
+
+            // Trigger loading event
+            this.trigger('ai:report:loading');
+
+            try {
+                var result = await wp.apiFetch({
+                    path: '/modula-ai-image-descriptor/v1/generate-alt-text/',
+                    method: 'POST',
+                    data: {
+                        id: 'single',
+                        attachment_id: this.item.get( 'id' ),
+                        action: action
+                    }
+                });
+
+                // Trigger success event with the result
+                this.trigger('ai:report:success', result);
+            } catch (error) {
+                // Trigger error event if the request fails
+                this.trigger('ai:report:error', error);
+            }
+        },
+
+        // Add these new methods after initialize
+        onReportLoading: function() {
+            // Add loading state to the button
+            var $button = this.$el.find('#modula-ai-report-generate-button');
+            $button.addClass('loading').prop('disabled', true);
+            $button.text(modulaHelper.strings.generating_alt_text);
+
+            this.item.set('report', {});
+        },
+
+        onReportSuccess: function(result) {
+            var $button = this.$el.find('#modula-ai-report-generate-button');
+            $button.removeClass('loading').prop('disabled', false);
+            $button.text(modulaHelper.strings.alt_text_generated);
+
+            // Update the report
+            this.item.set('report', result);
+
+            // Update the alt text
+            this.item.set('alt', result.altText);
+            this.$el.find('input[name="alt"]').val(result.altText);
+
+            // Update the caption
+            this.item.set('description', result.caption);
+            this.$el.find('textarea[name="description"]').val(result.caption);
+
+            // Update the title
+            this.item.set('title', result.title);
+            this.$el.find('input[name="title"]').val(result.title);
+
+            
+        },
+
+        onReportError: function(error) {
+            var $button = this.$el.find('#modula-ai-report-generate-button');
+            $button.removeClass('loading').prop('disabled', false);
+
+            // Handle error state
+            console.error('AI Report generation failed:', error);
+
+            // Update the report
+            this.item.set('report', {});
         },
 
     } );

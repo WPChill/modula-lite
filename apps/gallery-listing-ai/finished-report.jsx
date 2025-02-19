@@ -11,17 +11,17 @@ export function FinishedReport() {
 
 	return (
 		<>
-			<div className="image-seo-item">
+			<div className="modula-ai-item">
 				<p>{__('Last optimization was on: ') + data.timestamp}</p>
 			</div>
-			<div className="image-seo-item">
+			<div className="modula-ai-item">
 				<p>
 					<span className="dashicons dashicons-yes icon-success"></span>{' '}
 					{__('Optimized images: ', 'modula-best-grid-gallery')}
 					<span className="highlight">{data.imagesWithAlt}</span>
 				</p>
 			</div>
-			<div className="image-seo-item">
+			<div className="modula-ai-item">
 				<p>
 					{__(
 						'Since last optimization, you have added ',

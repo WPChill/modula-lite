@@ -1,9 +1,10 @@
 <?php
 namespace Modula\Ai\Optimizer;
 
+use Modula\Ai\Ai_Helper;
 use Modula\Ai\Debug;
+use Modula\Ai\Files_Helper;
 use Modula\Ai\Lock;
-use Modula_Notification;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -98,7 +99,7 @@ class Checker {
 		$image         = $items[0];
 		$attachment_id = $image['internalId'];
 
-		$this->update_alt_for_attachment( $attachment_id, $image['altText'] );
+		$this->update_attachment_info( $attachment_id, $image );
 		update_post_meta( $attachment_id, self::REPORT, $image );
 
 		return true;
@@ -206,12 +207,12 @@ class Checker {
 			'status'  => 'warning',
 		);
 
-		Modula_Notification::add_notice( 'modula-batch-processed-' . ( $batch_number + 1 ), $notice );
+		Modula_Notifications::add_notification( 'modula-batch-processed-' . $this->post_id . '-' . ( $batch_number + 1 ), $notice );
 		$this->release_lock( $this->lock_name );
 
 		\as_schedule_single_action(
 			time() + 10,
-			'check_optimizer_finished_' . $this->post_id,
+			'mai_check_optimizer_finished_' . $this->post_id,
 			array()
 		);
 	}
@@ -222,10 +223,13 @@ class Checker {
 	 * @return void
 	 */
 	public function check_optimizer_finished() {
+		$this->write_debug( __( 'Checking if optimizer is finished...', 'modula-best-grid-gallery' ) );
+
 		if ( ! $this->has_processed_all() ) {
+			$this->write_debug( __( 'Not all batches processed yet, rescheduling check...', 'modula-best-grid-gallery' ) );
 			\as_schedule_single_action(
 				time() + 10,
-				'check_optimizer_finished_' . $this->post_id,
+				'mai_check_optimizer_finished_' . $this->post_id,
 				array()
 			);
 			return;
@@ -239,7 +243,7 @@ class Checker {
 			'status'  => 'success',
 		);
 
-		Modula_Notification::add_notice( 'modula-all-batches-processed', $notice );
+		\Modula_Notifications::add_notification( 'modula-all-batches-processed-' . $this->post_id, $notice );
 		$this->finalize_processing();
 	}
 
@@ -253,7 +257,7 @@ class Checker {
 		$this->write_debug( __( 'Rescheduling batch number:', 'modula-best-grid-gallery' ) . ' ' . $batch_number );
 		\as_schedule_single_action(
 			time() + 5,
-			'check_image_batch_' . $this->post_id,
+			'mai_check_image_batch_' . $this->post_id,
 			array(
 				'batch_number' => $batch_number,
 			)
@@ -304,7 +308,7 @@ class Checker {
 			'status'  => 'danger',
 		);
 
-		Modula_Notification::add_notice( 'modula-batch-id-missing-' . $batch_number, $notice );
+		\Modula_Notifications::add_notification( 'modula-batch-id-missing-' . $this->post_id . '-' . $batch_number, $notice );
 		update_option( $this->status_option, 'idle' );
 
 		$this->write_debug( __( 'Batch ID not found for batch number: ', 'modula-best-grid-gallery' ) . $batch_number );
@@ -324,7 +328,7 @@ class Checker {
 			'status'  => 'danger',
 		);
 
-		Modula_Notification::add_notice( 'modula-batch-data-error-' . $batch_number, $notice );
+		\Modula_Notifications::add_notification( 'modula-batch-data-error-' . $this->post_id . '-' . $batch_number, $notice );
 
 		$this->write_debug( $exception->getMessage() );
 		update_option( $this->status_option, 'idle' );
@@ -398,6 +402,14 @@ class Checker {
 
 		update_option( $this->data_option, $data );
 		update_option( $this->report_option, $report );
+
+		if ( $this->has_processed_all() ) {
+			\as_schedule_single_action(
+				time() + 10,
+				'mai_check_optimizer_finished_' . $this->post_id,
+				array()
+			);
+		}
 	}
 
 	/**
@@ -431,15 +443,9 @@ class Checker {
 		}
 
 		update_post_meta( $attachment_id, self::REPORT, $image );
-		$this->update_alt_for_gallery(
-			$attachment_id,
-			$image['altText'],
-			$image['caption'],
-			$image['title']
-		);
+
 		if ( ! $skip_alt ) {
-			$this->update_alt_for_attachment( $attachment_id, $image['altText'] );
-			$this->write_debug( $attachment_id . ': ' . $image['altText'] );
+			$this->update_attachment_info( $attachment_id, $image );
 		}
 
 		if ( $optimize_filename && ! $skip_filename ) {
@@ -471,7 +477,7 @@ class Checker {
 			'status'  => 'error',
 		);
 
-		Modula_Notification::add_notice( $this->report_option, $notice );
+		\Modula_Notifications::add_notification( 'modula-failed-image-update-' . $this->post_id, $notice );
 
 		$this->write_debug(
 			array(
@@ -483,45 +489,49 @@ class Checker {
 	}
 
 	/**
-	 * Updates the alt text for the gallery.
+	 * Updates the alt text and info for an attachment.
 	 *
 	 * @param int $attachment_id The attachment ID.
-	 * @param string $alt_text The alt text.
-	 * @param string $caption The caption.
-	 * @param string $title The title.
+	 * @param array $report The report.
 	 * @return void
 	 */
-	private function update_alt_for_gallery( $attachment_id, $alt_text, $caption, $title ) {
-		$gallery = get_post_meta( $this->post_id, 'modula-images', true );
-		if ( ! $gallery ) {
-			return;
-		}
+	private function update_attachment_info( $attachment_id, $report ) {
+		$alt      = $report['altText'];
+		$metadata = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
 
-		foreach ( $gallery as $key => $image ) {
-			if ( (int) $image['id'] === (int) $attachment_id ) {
-				$gallery[ $key ]['alt']         = $alt_text;
-				$gallery[ $key ]['description'] = $caption;
-				$gallery[ $key ]['title']       = $title;
-				break;
-			}
-		}
-
-		update_post_meta( $this->post_id, 'modula-images', $gallery );
-	}
-
-	/**
-	 * Updates the alt text for an attachment.
-	 *
-	 * @param int $attachment_id The attachment ID.
-	 * @param string $alt_text The alt text.
-	 * @return void
-	 */
-	private function update_alt_for_attachment( $attachment_id, $alt_text ) {
+		// Update alt text
 		update_post_meta(
 			$attachment_id,
 			'_wp_attachment_image_alt',
-			apply_filters( 'modula_ai_update_alt', $alt_text, $attachment_id )
+			apply_filters( 'modula_ai_update_alt', $alt, $attachment_id )
 		);
+		$this->write_debug( $attachment_id . ': ' . $alt );
+
+		// Update metadata if it exists
+		if ( is_array( $metadata ) && isset( $metadata['image_meta'] ) ) {
+			$metadata['image_meta']['caption'] = $report['caption'] ?? $alt;
+			$metadata['image_meta']['title']   = $report['title'] ?? $alt;
+
+			update_post_meta( $attachment_id, '_wp_attachment_metadata', $metadata );
+
+			$post_data = array(
+				'ID'           => $attachment_id,
+				'post_title'   => $report['title'] ?? $alt,
+				'post_name'    => sanitize_title( $report['title'] ?? $alt ),
+				'post_excerpt' => $report['caption'] ?? $alt,
+			);
+			wp_update_post( $post_data );
+
+			$this->write_debug(
+				sprintf(
+					/* translators: %1$d is the attachment ID, %2$s is the title, %3$s is the caption */
+					__( 'Updated metadata for image %1$d - Title: %2$s, Caption: %3$s', 'modula-best-grid-gallery' ),
+					$attachment_id,
+					$metadata['image_meta']['title'],
+					$metadata['image_meta']['caption']
+				)
+			);
+		}
 	}
 
 	/**
@@ -541,7 +551,10 @@ class Checker {
 	 */
 	public function has_processed_all() {
 		$image_data = get_option( $this->data_option );
-		return count( $image_data['processed_and_received'] ) >= $image_data['total_batches'];
+		if ( ! $image_data || ! isset( $image_data['processed_and_received'] ) || ! isset( $image_data['total_batches'] ) ) {
+			return false;
+		}
+		return count( array_unique( $image_data['processed_and_received'] ) ) >= $image_data['total_batches'];
 	}
 
 	/**

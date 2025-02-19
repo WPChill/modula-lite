@@ -1,5 +1,7 @@
 <?php
 
+use Modula\Ai\Optimizer\Optimizer;
+
 /**
  * The core plugin class.
  *
@@ -38,6 +40,8 @@ class Modula {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'modula_enqueue_media' ) );
 		add_action( 'wp_enqueue_media', array( $this, 'modula_enqueue_media' ) );
+
+		$this->compatibility_check();
 	}
 
 	private function load_dependencies() {
@@ -85,6 +89,7 @@ class Modula {
 
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
+		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
 
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
@@ -105,6 +110,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-dashboard.php';
 			// Modula Upload Class.
 			require_once MODULA_PATH . 'includes/admin/class-modula-gallery-upload.php';
+
+			require_once MODULA_PATH . 'includes/class-ai-compatibility.php';
 		}
 	}
 
@@ -143,6 +150,7 @@ class Modula {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'notification_system_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'settings_page_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
@@ -170,6 +178,8 @@ class Modula {
 		new Modula_Rest_Api();
 
 		new Modula\Ai\Client();
+
+		new Modula\Gallery_Listing_Output();
 	}
 
 	public function dashboard_start() {
@@ -233,7 +243,7 @@ class Modula {
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		);
 
-		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
+		if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 
 			// Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
@@ -270,10 +280,14 @@ class Modula {
 					$image_url  = wp_get_attachment_image_src( $image['id'], 'large' );
 					$image_full = wp_get_attachment_image_src( $image['id'], 'full' );
 
-					$image['full']        = $image_full[0];
-					$image['thumbnail']   = $image_url[0];
-					$image['orientation'] = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';
-
+					$image['full']            = $image_full[0];
+					$image['thumbnail']       = $image_url[0];
+					$image['orientation']     = ( isset( $attachment['orientation'] ) ) ? $attachment['orientation'] : '';
+					$image['alt']             = get_post_meta( $image['id'], '_wp_attachment_image_alt', true );
+					$image['title']           = get_the_title( $image['id'] );
+					$image['caption']         = get_post_field( 'post_excerpt', $image['id'] );
+					$image['description']     = get_post_field( 'post_excerpt', $image['id'] );
+					$image['report']          = get_post_meta( $image['id'], Optimizer::REPORT, true );
 					$modula_helper['items'][] = apply_filters( 'modula_image_properties', $image );
 				}
 			}
@@ -337,14 +351,14 @@ class Modula {
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
 
 			do_action( 'modula_scripts_after_wp_modula' );
-		} elseif ( 'modula-gallery_page_modula' == $hook ) {
+		} elseif ( 'modula-gallery_page_modula' === $hook ) {
 			// Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
 				return;
 			}
 
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome' . $suffix . '.css', null, MODULA_LITE_VERSION );
-		} elseif ( 'modula-gallery_page_modula-addons' == $hook ) {
+		} elseif ( 'modula-gallery_page_modula-addons' === $hook ) {
 			// Check if is modula custom post type
 			if ( 'modula-gallery' !== $screen->post_type ) {
 				return;
@@ -376,7 +390,7 @@ class Modula {
 					'deactivating_text' => esc_html__( 'Deactivating addon...', 'modula-best-grid-gallery' ),
 				)
 			);
-		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' == $hook ) {
+		} elseif ( 'modula-gallery_page_modula-lite-vs-pro' === $hook ) {
 			wp_enqueue_style( 'modula-header-style', MODULA_URL . 'assets/css/admin/modula-header' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/welcome' . $suffix . '.css', null, MODULA_LITE_VERSION );
 		} else {
@@ -428,12 +442,13 @@ class Modula {
 			foreach ( $posts as $post ) {
 				$data['posts'][] = array(
 					'id'    => $post->ID,
-					'title' => '[ #' . $post->ID . ' ] - ' . ( isset( $post->post_title ) && '' != $post->post_title ? $post->post_title : __( 'Gallery Without Name', 'modula-best-grid-gallery' ) ),
+					'title' => '[ #' . $post->ID . ' ] - ' . ( isset( $post->post_title ) && '' !== $post->post_title ? $post->post_title : __( 'Gallery Without Name', 'modula-best-grid-gallery' ) ),
 				);
 			}
 		}
 
-		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array( 'media-views', 'media-editor' ), null, true );
+		wp_enqueue_script( 'modula-media-screen', MODULA_URL . 'assets/js/admin/modula-media.js', array( 'media-views', 'media-editor' ), MODULA_LITE_VERSION, true );
+
 		wp_localize_script( 'modula-media-screen', 'modulaGalleries', $data );
 	}
 
@@ -450,16 +465,16 @@ class Modula {
 	/**
 	 * Disables the srcset when lazy loading is enabled.
 	 *
-	 * @return bool
+	 * @return_flag bool
 	 * @since 2.7.5
 	 */
-	public function disable_lazy_srcset( $return, $image, $context, $attachment_id ) {
+	public function disable_lazy_srcset( $return_flag, $image ) {
 
 		if ( preg_match( '/data-source="modula"/i', $image ) ) {
 			return false;
 		}
 
-		return $return;
+		return $return_flag;
 	}
 
 	/**
@@ -472,7 +487,7 @@ class Modula {
 	 */
 	public function disable_wp_srcset( $settings ) {
 		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-		if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) {
+		if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' === $troubleshoot_opt['disable_srcset'] ) {
 			add_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
 
@@ -484,12 +499,10 @@ class Modula {
 	/**
 	 * Allows WP to add srcsets to other content after the gallery was created.
 	 *
-	 * @param $settings
-	 *
 	 * @return void
 	 *
 	 */
-	public function enable_wp_srcset( $settings ) {
+	public function enable_wp_srcset() {
 		remove_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 	}
 
@@ -559,14 +572,14 @@ class Modula {
 	 * @since 2.2.4
 	 * Enable thumbnail/preview for WebP image types.
 	 */
-	function modula_webp_display( $result, $path ) {
+	public function modula_webp_display( $result, $path ) {
 		if ( $result === false && IMAGETYPE_WEBP ) {
 			$displayable_image_types = array( IMAGETYPE_WEBP );
 			$info                    = @getimagesize( $path );
 
 			if ( empty( $info ) ) {
 				$result = false;
-			} elseif ( ! in_array( $info[2], $displayable_image_types ) ) {
+			} elseif ( ! in_array( $info[2], $displayable_image_types, true ) ) {
 				$result = false;
 			} else {
 				$result = true;
@@ -625,7 +638,7 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function bf_buttons( $buttons, $campaign ) {
+	public function bf_buttons( $buttons ) {
 		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
 
 		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
@@ -638,7 +651,7 @@ class Modula {
 	 *
 	 * @since 2.7.9
 	 */
-	public function xmas_buttons( $buttons, $campaign ) {
+	public function xmas_buttons( $buttons ) {
 		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
 
 		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
@@ -651,7 +664,7 @@ class Modula {
 	 *
 	 * @since 2.11.6
 	 */
-	public function cyber_m_buttons( $buttons, $campaign ) {
+	public function cyber_m_buttons( $buttons ) {
 		preg_match_all( '~<a(.*?)href="([^"]+)"(.*?)>~', $buttons, $matches );
 
 		$buttons  = '<a target="_blank" href="' . esc_url( $matches[2][0] ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
@@ -836,7 +849,7 @@ class Modula {
 	/**
 	 * Enqueue the notification system scripts
 	 *
-	 * @since 2.11.0
+	 * @since 2.12.0
 	 */
 	public function notification_system_scripts() {
 		if ( ! $this->is_modula_admin_page() || ! current_user_can( 'manage_options' ) ) {
@@ -854,6 +867,31 @@ class Modula {
 		$scripts->load_css_asset(
 			'modula-notification-system',
 			'assets/js/admin/notification-system',
+			array( 'wp-components' )
+		);
+	}
+
+	public function settings_page_scripts() {
+		$screen = get_current_screen();
+
+		if ( 'modula-gallery' !== $screen->post_type ) {
+			return;
+		}
+
+		if ( 'modula-gallery_page_modula' !== $screen->base ) {
+			return;
+		}
+
+		$scripts = Modula\Scripts::get_instance();
+
+		$scripts->load_js_asset(
+			'modula-settings',
+			'assets/js/admin/settings',
+		);
+
+		$scripts->load_css_asset(
+			'modula-settings',
+			'assets/js/admin/settings',
 			array( 'wp-components' )
 		);
 	}
@@ -910,5 +948,18 @@ class Modula {
 				return ! in_array( $val, $should_be_open, true );
 			}
 		);
+	}
+
+	/**
+	 * Check for compatibility issues
+	 *
+	 * @since 2.11.0
+	 */
+	public function compatibility_check() {
+		if ( ! is_admin() || ! class_exists( 'Modula\Ai_Compatibility' ) ) {
+			return;
+		}
+
+		new Modula\Ai_Compatibility();
 	}
 }

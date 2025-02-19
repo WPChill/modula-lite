@@ -2,12 +2,17 @@
 namespace Modula\Ai\Optimizer;
 
 use Modula\Ai\Ai_Helper;
+use Modula\Ai\Gallery_Helper;
+use Modula\Ai\Optimizer\Processor;
+use Modula\Ai\Optimizer\Checker;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Optimizer {
+	/** @var string */
+	const REPORT = '_modula_ai_report';
 
 	/** @var Checker */
 	protected $checker;
@@ -75,20 +80,20 @@ class Optimizer {
 	 * Adds the process hooks.
 	 */
 	public function add_process_hooks() {
-		$process_image_batch_hook      = 'process_image_batch_' . $this->post_id;
-		$check_image_batch_hook        = 'check_image_batch_' . $this->post_id;
-		$check_optimizer_finished_hook = 'check_optimizer_finished_' . $this->post_id;
+		$process_image_batch_hook      = 'mai_process_image_batch_' . $this->post_id;
+		$check_image_batch_hook        = 'mai_check_image_batch_' . $this->post_id;
+		$check_optimizer_finished_hook = 'mai_check_optimizer_finished_' . $this->post_id;
 
-		if ( ! has_action( $process_image_batch_hook, array( $this, 'process_image_batch' ) ) ) {
-			add_action( $process_image_batch_hook, array( $this, 'process_image_batch' ), 10, 2 );
+		if ( ! has_action( $process_image_batch_hook, array( $this->processor, 'process_image_batch' ) ) ) {
+			add_action( $process_image_batch_hook, array( $this->processor, 'process_image_batch' ), 10, 2 );
 		}
 
-		if ( ! has_action( $check_image_batch_hook, array( $this, 'check_image_batch' ) ) ) {
-			add_action( $check_image_batch_hook, array( $this, 'check_image_batch' ), 10, 1 );
+		if ( ! has_action( $check_image_batch_hook, array( $this->checker, 'check_image_batch' ) ) ) {
+			add_action( $check_image_batch_hook, array( $this->checker, 'check_image_batch' ), 10, 1 );
 		}
 
-		if ( ! has_action( $check_optimizer_finished_hook, array( $this, 'check_optimizer_finished' ) ) ) {
-			add_action( $check_optimizer_finished_hook, array( $this, 'check_optimizer_finished' ), 10, 0 );
+		if ( ! has_action( $check_optimizer_finished_hook, array( $this->checker, 'check_optimizer_finished' ) ) ) {
+			add_action( $check_optimizer_finished_hook, array( $this->checker, 'check_optimizer_finished' ), 10, 0 );
 		}
 	}
 
@@ -101,12 +106,11 @@ class Optimizer {
 	public function start( $action = 'without' ) {
 		// Reset debug log
 		$this->processor->reset_debug();
-		Imageseo_Helper::reset_notices();
 
 		// Unschedule everything that was running
-		\as_unschedule_all_actions( 'process_image_batch_' . $this->post_id );
-		\as_unschedule_all_actions( 'check_image_batch_' . $this->post_id );
-		\as_unschedule_all_actions( 'check_optimizer_finished_' . $this->post_id );
+		\as_unschedule_all_actions( 'mai_process_image_batch_' . $this->post_id );
+		\as_unschedule_all_actions( 'mai_check_image_batch_' . $this->post_id );
+		\as_unschedule_all_actions( 'mai_check_optimizer_finished_' . $this->post_id );
 
 		$data   = $this->processor->create_initial_data( $action );
 		$report = $this->processor->create_initial_report( $data );
@@ -118,7 +122,7 @@ class Optimizer {
 				'status'  => 'warning',
 			);
 
-			Modula_Notification::add_notice( 'modula-no-images-to-optimize', $notice );
+			\Modula_Notifications::add_notification( 'modula-no-images-to-optimize-' . $this->post_id, $notice );
 			return array(
 				'status' => 'idle',
 				'report' => $report,
@@ -134,7 +138,7 @@ class Optimizer {
 			'status'  => 'info',
 		);
 
-		Modula_Notification::add_notice( 'modula-optimizer-started', $notice );
+		\Modula_Notifications::add_notification( 'modula-optimizer-started-' . $this->post_id, $notice );
 
 		return array(
 			'status' => 'running',
@@ -155,7 +159,7 @@ class Optimizer {
 			'message' => __( 'Optimizer stopped manually', 'modula-best-grid-gallery' ),
 			'status'  => 'warning',
 		);
-		Modula_Notification::add_notice( 'modula-optimizer-stopped', $notice );
+		\Modula_Notifications::add_notification( 'modula-optimizer-stopped-' . $this->post_id, $notice );
 		return array(
 			'status' => 'idle',
 			'report' => $this->checker->get_report(),
@@ -192,41 +196,6 @@ class Optimizer {
 	 * @return array The result.
 	 */
 	public function optimize_single( $image_id ) {
-		$batch_id = $this->processor->process_image( $image_id );
-		if ( ! $batch_id ) {
-			return;
-		}
-
-		return $this->checker->check_single_image( $batch_id );
-	}
-
-	/**
-	 * Processes a batch of images.
-	 *
-	 * @param int $batch_number The batch number.
-	 * @param int $timestamp The timestamp.
-	 * @return array The result.
-	 */
-	public function process_image_batch( $batch_number, $timestamp ) {
-		return $this->processor->process_image_batch( $batch_number, $timestamp );
-	}
-
-	/**
-	 * Checks a batch of images.
-	 *
-	 * @param int $batch_number The batch number.
-	 * @return array The result.
-	 */
-	public function check_image_batch( $batch_number ) {
-		return $this->checker->check_image_batch( $batch_number );
-	}
-
-	/**
-	 * Checks if the optimizer has finished.
-	 *
-	 * @return array The result.
-	 */
-	public function check_optimizer_finished() {
-		return $this->checker->check_optimizer_finished();
+		return $this->processor->process_image( $image_id );
 	}
 }

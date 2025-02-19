@@ -59,6 +59,7 @@ define( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/lang
 
 define( 'MODULA_CPT_NAME', 'modula-gallery' );
 define( 'MODULA_AI_ENDPOINT', 'https://api.imageseo.com' );
+// define( 'MODULA_AI_ENDPOINT', 'http://host.docker.internal:3000' );
 
 /**
  * The code that runs during plugin activation.

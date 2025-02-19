@@ -6,7 +6,7 @@ export const useGalleryQuery = (id) => {
 		queryKey: ['gallery-status', id],
 		queryFn: async () => {
 			const data = await apiFetch({
-				path: `/modula-imageseo/v1/gallery-status/${id}`,
+				path: `/modula-ai-image-descriptor/v1/gallery-status/${id}`,
 				method: 'GET',
 			});
 			return data;

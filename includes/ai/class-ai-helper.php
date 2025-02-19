@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Ai_Helper {
+	/** @var string */
+	const REPORT = '_modula_ai_report';
+
 	/**
 	 * Class Ai_Helper
 	 *
@@ -45,12 +48,8 @@ class Ai_Helper {
 	 * @return void
 	 */
 	public function get_api_key() {
-		$options = get_option( 'modula_ai_api_settings' );
-		if ( isset( $options['apiKey'] ) && ! empty( $options['apiKey'] ) ) {
-			return $options['apiKey'];
-		}
-
-		return false;
+		$user = Cloud_User::get_instance();
+		return $user->get_api_key();
 	}
 
 	/**
@@ -171,5 +170,111 @@ class Ai_Helper {
 		}
 
 		return $camel_cased;
+	}
+
+	public static function add_notice( $id, $notice ) {
+		if ( ! class_exists( '\Modula_Notifications' ) ) {
+			return;
+		}
+		\Modula_Notifications::add_notification( $id, $notice );
+	}
+
+	public static function reset_notices() {
+		if ( ! class_exists( '\Modula_Notifications' ) ) {
+			return;
+		}
+		$modula_notifications = \Modula_Notifications::get_instance();
+		$modula_notifications->clear_notifications(
+			$modula_notifications::$notification_prefix . 'imageseo'
+		);
+	}
+
+	public function error_translation( $err ) {
+		if ( strpos( $err, 'ECONNREFUSED' ) !== false ) {
+			return array(
+				'error' => __( 'Connection refused', 'modula-best-grid-gallery' ),
+				'code'  => 'ECONNREFUSED',
+			);
+		}
+
+		if ( strpos( $err, 'ETIMEDOUT' ) !== false ) {
+			return array(
+				'error' => __( 'Connection timed out', 'modula-best-grid-gallery' ),
+				'code'  => 'ETIMEDOUT',
+			);
+		}
+
+		if ( 'You have reached the limit of images to optimize' === $err ) {
+			return array(
+				'error' => __( 'You have reached the limit of images to optimize', 'modula-best-grid-gallery' ),
+				'code'  => 'limit_reached',
+			);
+		}
+
+		return array(
+			'error' => $err,
+			'code'  => 'unknown',
+		);
+	}
+
+	public function get_all_errors() {
+		$options = $this->_get_options_wildcard( 'modula_ai_optimizer_report_%' );
+		$errors  = array();
+
+		foreach ( $options as $option ) {
+			$id = explode( '_', $option['option_name'] );
+			$id = end( $id );
+
+			if ( ! isset( $option['option_value'] ) ) {
+				continue;
+			}
+
+			$current_errors = maybe_unserialize( $option['option_value'] );
+
+			if ( ! is_array( $errors ) ) {
+				continue;
+			}
+
+			if ( empty( $current_errors['errors'] ) ) {
+				continue;
+			}
+
+			$errors[] = array(
+				'id'     => $id,
+				'title'  => get_the_title( $id ),
+				'errors' => array_map(
+					array( $this, 'error_translation' ),
+					$current_errors['errors']
+				),
+			);
+		}
+
+		return $errors;
+	}
+
+	private function _get_options_wildcard( $option_pattern ) {
+		global $wpdb;
+
+		$options = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT option_name, option_value FROM $wpdb->options WHERE option_name LIKE %s",
+				$option_pattern
+			),
+			ARRAY_A
+		);
+
+		return $options;
+	}
+
+	/**
+	 * Checks if the image has been optimized.
+	 *
+	 * @param int $id The ID of the image.
+	 * @return bool True if the image has been optimized, false otherwise.
+	 */
+	public function check_if_optimized( $id ) {
+		$optimized = get_post_meta( $id, self::REPORT, true );
+
+		return $optimized;
 	}
 }

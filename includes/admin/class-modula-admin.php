@@ -134,11 +134,6 @@ class Modula_Admin {
 				'priority' => 80,
 				'badge'    => 'PRO',
 			),
-			'imageseo'        => array(
-				'label'    => esc_html__( 'Image SEO', 'modula-best-grid-gallery' ),
-				'priority' => 85,
-				'badge'    => 'PRO',
-			),
 			'video'           => array(
 				'label'    => esc_html__( 'Video', 'modula-best-grid-gallery' ),
 				'priority' => 125,

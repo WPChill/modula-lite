@@ -4,6 +4,7 @@ module.exports = {
 		require('postcss-prefix-selector')({
 			prefix: '.modula-best-grid-gallery',
 			exclude: ['html', 'body'],
-		})
+			ignoreFiles: [/apps\/.*/],
+		}),
 	],
 };

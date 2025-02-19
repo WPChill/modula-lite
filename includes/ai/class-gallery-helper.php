@@ -67,7 +67,7 @@ class Gallery_Helper {
 	 *     @type int      $total_images           Total number of valid images in gallery
 	 *     @type int      $images_with_alt        Number of images that have alt text
 	 *     @type int      $images_without_alt     Number of images missing alt text
-	 *     @type int      $images_with_imageseo   Number of images processed by ImageSEO
+	 *     @type int      $images_with_ai   Number of images processed by ImageSEO
 	 *     @type array    $images_without_alt_ids IDs of images missing alt text
 	 *     @type array    $all_image_ids         Array of all valid image IDs
 	 *     @type string   $status                Current ImageSEO optimization status
@@ -80,19 +80,19 @@ class Gallery_Helper {
 		$images_with_alt        = 0;
 		$images_without_alt     = 0;
 		$images_without_alt_ids = array();
-		$images_with_imageseo   = 0;
-		$status                 = get_option( 'modula_imageseo_optimizer_status_' . $post_id, 'idle' );
+		$images_with_ai         = 0;
+		$status                 = get_option( 'modula_ai_optimizer_status_' . $post_id, 'idle' );
 		foreach ( $images as $id ) {
 			if ( empty( $id ) ) {
 				continue;
 			}
 			$alt_text        = get_post_meta( $id, '_wp_attachment_image_alt', true );
-			$imageseo_report = get_post_meta( $id, '_imageseo_report', true );
+			$imageseo_report = get_post_meta( $id, '_modula_ai_report', true );
 
 			if ( ! empty( $alt_text ) ) {
 				++$images_with_alt;
 				if ( ! empty( $imageseo_report ) ) {
-					++$images_with_imageseo;
+					++$images_with_ai;
 				}
 			} else {
 				++$images_without_alt;
@@ -104,7 +104,7 @@ class Gallery_Helper {
 			'total_images'           => $total_images,
 			'images_with_alt'        => $images_with_alt,
 			'images_without_alt'     => $images_without_alt,
-			'images_with_imageseo'   => $images_with_imageseo,
+			'images_with_ai'         => $images_with_ai,
 			'images_without_alt_ids' => $images_without_alt_ids,
 			'all_image_ids'          => array_filter( $images ),
 			'status'                 => $status,

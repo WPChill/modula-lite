@@ -3,7 +3,7 @@ import { Actions } from './actions';
 
 export function Optimized() {
 	return (
-		<div className="image-seo-list">
+		<div className="modula-ai-list">
 			<FinishedReport />
 			<Actions />
 		</div>

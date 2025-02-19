@@ -18,7 +18,7 @@ const Debug = () => {
 		queryKey: ['gallery-debug', state.id],
 		queryFn: async () => {
 			const dataF = await apiFetch({
-				path: `/modula-imageseo/v1/gallery-debug/${state.id}`,
+				path: `/modula-ai-image-descriptor/v1/gallery-debug/${state.id}`,
 				method: 'GET',
 			});
 			return dataF;

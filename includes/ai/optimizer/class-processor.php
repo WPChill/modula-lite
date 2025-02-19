@@ -1,8 +1,9 @@
 <?php
-namespace Modula\ImageSEO\Optimizer;
+namespace Modula\Ai\Optimizer;
 
 use Modula\Ai\Ai_Helper;
 use Modula\Ai\Debug;
+use Modula\Ai\Gallery_Helper;
 use Modula\Ai\Lock;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Processor {
 	use Debug;
 	use Lock;
+
+	/** @var string */
+	const REPORT = '_modula_ai_report';
 
 	/** @var bool */
 	public $debug = true;
@@ -93,7 +97,9 @@ class Processor {
 			return;
 		}
 
-		return $result['batchId'];
+		update_post_meta( $image_id, self::REPORT, $result );
+
+		return $result;
 	}
 
 	/**
@@ -109,7 +115,7 @@ class Processor {
 			'status'  => 'info',
 		);
 
-		Modula_Notification::add_notice( 'modula-bulk-optimizer-stopped', $notice );
+		\Modula_Notifications::add_notification( 'modula-bulk-optimizer-stopped-' . $this->post_id, $notice );
 
 		$this->write_debug( __( 'Bulk optimizer stopped manually', 'modula-best-grid-gallery' ) );
 	}
@@ -179,7 +185,7 @@ class Processor {
 	public function schedule_first_batch() {
 		\as_schedule_single_action(
 			time(),
-			'process_image_batch_' . $this->post_id,
+			'mai_process_image_batch_' . $this->post_id,
 			array(
 				'batchNumber' => 0,
 				'timestamp'   => time(),
@@ -211,7 +217,7 @@ class Processor {
 				'status'  => 'warning',
 			);
 
-			Modula_Notification::add_notice( 'modula-api-limit-reached', $notice );
+			Modula_Notifications::add_notification( 'modula-api-limit-reached-' . $this->post_id, $notice );
 			$this->handle_limit_reached();
 			$this->release_lock( $this->lock_name );
 			return;
@@ -227,11 +233,16 @@ class Processor {
 				'status'  => 'warning',
 			);
 
-			Modula_Notification::add_notice( 'modula-no-images-to-optimize', $notice );
+			\Modula_Notifications::add_notification( 'modula-no-images-to-optimize-' . $this->post_id, $notice );
 			update_option( $this->status_option, 'idle' );
 			$this->release_lock( $this->lock_name );
 			return;
 		}
+
+		// Check the images if they have been optimized
+		$optimized_images = $this->check_optimized_images( $data );
+
+		$this->write_debug( __( 'Optimized images: ', 'modula-best-grid-gallery' ) . implode( ', ', $optimized_images ) );
 
 		// Send the batch to the API
 		$result = $this->send_batch_to_api( $data );
@@ -249,8 +260,29 @@ class Processor {
 	}
 
 	/**
-	 * Handles the limit reached error.
+	 * Checks if the images have been optimized.
+	 *
+	 * @param array $data The data.
+	 * @return array The optimized images.
 	 */
+	private function check_optimized_images( $data ) {
+		$optimized_images = array();
+
+		foreach ( $data as $id ) {
+			$optimized = $this->ai_helper->check_if_optimized( $id );
+			$this->write_debug( $id . ': ' . ( is_array( $optimized ) ? wp_json_encode( $optimized ) : $optimized ) );
+
+			if ( $optimized ) {
+				$optimized_images[] = $id;
+			}
+		}
+
+		return $optimized_images;
+	}
+
+		/**
+		 * Handles the limit reached error.
+		 */
 	public function handle_limit_reached() {
 		$notice = array(
 			'title'   => __( 'Limit reached', 'modula-best-grid-gallery' ),
@@ -258,18 +290,18 @@ class Processor {
 			'status'  => 'warning',
 		);
 
-		Modula_Notification::add_notice( 'modula-image-limit-reached', $notice );
+		\Modula_Notifications::add_notification( 'modula-image-limit-reached-' . $this->post_id, $notice );
 
 		update_option( $this->status_option, 'idle' );
 		$this->write_debug( __( 'Limit exceeded, processing stopped.', 'modula-best-grid-gallery' ) );
 	}
 
-	/**
-	 * Prepares the batch data.
-	 *
-	 * @param int $batch_number The batch number.
-	 * @return array The batch data.
-	 */
+		/**
+		 * Prepares the batch data.
+		 *
+		 * @param int $batch_number The batch number.
+		 * @return array The batch data.
+		 */
 	private function prepare_batch_data( $batch_number ) {
 		$image_data = get_option( $this->data_option );
 		if ( ! isset( $image_data['ids'] ) ) {
@@ -301,7 +333,7 @@ class Processor {
 			'status'  => 'info',
 		);
 
-		Modula_Notification::add_notice( 'modula-processing-batch-' . ( $batch_number + 1 ), $notice );
+		\Modula_Notifications::add_notification( 'modula-processing-batch-' . $this->post_id . '-' . ( $batch_number + 1 ), $notice );
 
 		return array_filter(
 			$batch_ids,
@@ -311,12 +343,12 @@ class Processor {
 		);
 	}
 
-	/**
-	 * Checks if the image type is valid.
-	 *
-	 * @param int $id The ID of the image.
-	 * @return bool True if the image type is valid, false otherwise.
-	 */
+		/**
+		 * Checks if the image type is valid.
+		 *
+		 * @param int $id The ID of the image.
+		 * @return bool True if the image type is valid, false otherwise.
+		 */
 	private function is_valid_image_type( $id ) {
 		$url       = wp_get_attachment_url( $id );
 		$extension = pathinfo( wp_parse_url( $url, PHP_URL_PATH ), PATHINFO_EXTENSION );
@@ -328,12 +360,12 @@ class Processor {
 		return true;
 	}
 
-	/**
-	 * Sends a batch of images to the API.
-	 *
-	 * @param array $batch_data The batch data.
-	 * @return array The result from the API.
-	 */
+		/**
+		 * Sends a batch of images to the API.
+		 *
+		 * @param array $batch_data The batch data.
+		 * @return array The result from the API.
+		 */
 	private function send_batch_to_api( $batch_data ) {
 		$images = array_map(
 			function ( $id ) {
@@ -345,43 +377,52 @@ class Processor {
 		return $this->ai_helper->send_request_to_api( $images );
 	}
 
-	/**
-	 * Schedules the next batch.
-	 *
-	 * @param int $batch_number The batch number.
-	 * @param int $timestamp The timestamp.
-	 */
+		/**
+		 * Schedules the next batch.
+		 *
+		 * @param int $batch_number The batch number.
+		 * @param int $timestamp The timestamp.
+		 */
 	private function schedule_next_batch( $batch_number, $timestamp ) {
 		$data  = get_option( $this->data_option );
 		$total = count( $data['ids'] );
 		$end   = min( ( $batch_number + 1 ) * $this->batch_size, $total ) - 1;
-		$this->write_debug( __( 'Schedule check image batch with index 0', 'modula-best-grid-gallery' ) );
+
+		$this->write_debug( __( 'Schedule check image batch with number: ', 'modula-best-grid-gallery' ) . $batch_number );
 
 		\as_schedule_single_action(
 			time() + 5,
-			'check_image_batch_' . $this->post_id,
+			'mai_check_image_batch_' . $this->post_id,
 			array( 'batch_number' => $batch_number )
 		);
 
 		if ( $end < $total - 1 ) {
-			$this->write_debug( __( 'Schedule next batch with index:', 'modula-best-grid-gallery' ) . ' ' . ( $batch_number + 1 ) );
+			$this->write_debug( __( 'Schedule next batch with number: ', 'modula-best-grid-gallery' ) . ( $batch_number + 1 ) );
 
 			\as_schedule_single_action(
 				time() + 10,
-				'process_image_batch_' . $this->post_id,
+				'mai_process_image_batch_' . $this->post_id,
 				array(
 					'batch_number' => $batch_number + 1,
 					'timestamp'    => $timestamp,
 				)
 			);
+		} else {
+			// This is the last batch, schedule the final check
+			$this->write_debug( __( 'Last batch processed, scheduling final check', 'modula-best-grid-gallery' ) );
+			\as_schedule_single_action(
+				time() + 15,
+				'mai_check_optimizer_finished_' . $this->post_id,
+				array()
+			);
 		}
 	}
 
-	/**
-	 * Logs an API error.
-	 *
-	 * @param \Exception $exception The exception.
-	 */
+		/**
+		 * Logs an API error.
+		 *
+		 * @param \Exception $exception The exception.
+		 */
 	private function log_api_error( $exception ) {
 		$notice = array(
 			'title'   => __( 'Something went wrong, processing stopped.', 'modula-best-grid-gallery' ),
@@ -389,19 +430,19 @@ class Processor {
 			'status'  => 'danger',
 		);
 
-		Modula_Notification::add_notice( 'modula-log-api-error-' . $this->post_id, $notice );
+		\Modula_Notifications::add_notification( 'modula-log-api-error-' . $this->post_id, $notice );
 
 		update_option( $this->status_option, 'idle' );
 
 		$this->write_debug( __( 'API Error: ', 'modula-best-grid-gallery' ) . $exception->getMessage() );
 	}
 
-	/**
-	 * Updates the batch status.
-	 *
-	 * @param array $result The result from the API.
-	 * @param int $batch_number The batch number.
-	 */
+		/**
+		 * Updates the batch status.
+		 *
+		 * @param array $result The result from the API.
+		 * @param int $batch_number The batch number.
+		 */
 	private function update_batch_status( $result, $batch_number ) {
 		$data = get_option( $this->data_option );
 
@@ -412,16 +453,16 @@ class Processor {
 		$this->write_debug( __( 'Batch', 'modula-best-grid-gallery' ) . ' ' . $batch_number . __( ' updated with ID ', 'modula-best-grid-gallery' ) . $result[0]['batchId'] );
 	}
 
-	/**
-	 * Reschedules the batch.
-	 *
-	 * @param int $batch_number The batch number.
-	 * @param int $timestamp The timestamp.
-	 */
+		/**
+		 * Reschedules the batch.
+		 *
+		 * @param int $batch_number The batch number.
+		 * @param int $timestamp The timestamp.
+		 */
 	private function reschedule_batch( $batch_number, $timestamp ) {
 		return \as_schedule_single_action(
 			time() + 10,
-			'process_image_batch_' . $this->post_id,
+			'mai_process_image_batch_' . $this->post_id,
 			array(
 				'batch_number' => $batch_number,
 				'timestamp'    => $timestamp,
