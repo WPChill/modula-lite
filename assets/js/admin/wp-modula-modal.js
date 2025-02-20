@@ -25,6 +25,9 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.set( 'wpMediaView', wpMediaView );
             this.set( 'modulaModal', modalView );
 
+            // Add flag for API status
+            this.isApiConfigured = false;
+
         },
 
         open: function( $item ) {
@@ -129,6 +132,8 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                 this.item = this.model.get( 'item' );
             }
 
+            this.checkApiStatus();
+
             // Get current Index.
             this.attachment_index = modula.Items.indexOf( this.item );
 
@@ -136,6 +141,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             if ( this.item ) {
                 this.$el.html( this.template( this.item.toJSON() ) );
 
+                // Check API status when modal opens
 
                 // Generate Child Views
                 if ( this.childViews.length > 0 ) {
@@ -343,8 +349,14 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         generateReport: async function( event ) {
             event.preventDefault();
 
+            // If API is not configured, redirect to settings
+            if (!this.isApiConfigured) {
+                window.location.href = modulaHelper.settings_url;
+                return;
+            }
+
             var action = event.target.dataset.action || 'generate';
-            if( 'undefined' === typeof wp.apiFetch){
+            if ('undefined' === typeof wp.apiFetch) {
                 return;
             }
 
@@ -357,7 +369,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
                     method: 'POST',
                     data: {
                         id: 'single',
-                        attachment_id: this.item.get( 'id' ),
+                        attachment_id: this.item.get('id'),
                         action: action
                     }
                 });
@@ -414,7 +426,35 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             this.item.set('report', {});
         },
 
+        checkApiStatus: async function() {
+            const self = this;
+            try {
+                const response = await wp.apiFetch({
+                    path: '/modula-ai-image-descriptor/v1/ai-settings',
+                    method: 'GET'
+                });
+        
+                const $button = this.$el.find('#modula-ai-report-generate-button');
+                const isKeyValid = response?.readonly?.valid_key ?? false;
+                console.log(isKeyValid);
+                if (!isKeyValid) {
+                    $button.text(modulaHelper.strings.configure_api_key || 'Configure API Key');
+                    $button.addClass('configure-api');
+                    self.isApiConfigured = false;
+                } else {
+                    self.isApiConfigured = true;
+                    $button.removeClass('configure-api');
+                }
+            } catch (error) {
+                console.error('API check failed:', error);
+                const $button = self.$el.find('#modula-ai-report-generate-button');
+                $button.text(modulaHelper.strings.configure_api_key || 'Configure API Key');
+                $button.addClass('configure-api');
+                self.isApiConfigured = false;
+            }
+        }
     } );
+
 
     modula.modal = {
         'model' : modulaModal,

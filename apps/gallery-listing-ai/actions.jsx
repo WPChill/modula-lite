@@ -7,7 +7,7 @@ import { useCallback } from '@wordpress/element';
 
 export function Actions() {
 	const mutation = useGalleryMutation();
-	const { isLoading, isError, error } = useModulaAiQuery();
+	const { data, isLoading, isError, error } = useModulaAiQuery();
 
 	const { state } = useStateContext();
 
@@ -35,7 +35,7 @@ export function Actions() {
 		return <Spinner />;
 	}
 
-	if (isError && error) {
+	if ((isError && error) || !data?.readonly?.valid_key) {
 		return (
 			<>
 				<small>
