@@ -125,7 +125,6 @@ class Modula_Upsells {
 		if ( ! empty( $features ) ) {
 			$upsell_box .= '<ul class="modula-upsell-features">';
 			foreach ( $features as $feature ) {
-
 				$upsell_box .= '<li>';
 				if ( isset( $feature['tooltip'] ) && '' != $feature['tooltip'] ) {
 					$upsell_box .= '<div class="modula-tooltip"><span>[?]</span>';
@@ -137,7 +136,6 @@ class Modula_Upsells {
 				}
 
 				$upsell_box .= '</li>';
-
 			}
 			$upsell_box .= '</ul>';
 		}
@@ -397,20 +395,14 @@ class Modula_Upsells {
 		}
 
 		if ( $this->wpchill_upsells->is_upgradable_addon( 'modula-deeplink' ) && $this->wpchill_upsells->is_upgradable_addon( 'modula-protection' ) ) {
-
 			$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox or protect your images from stealing?', 'modula-best-grid-gallery' );
 			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and Modula Deeplink add-ons and increase the functionality and copyright your images.', 'modula-best-grid-gallery' );
-
 		} elseif ( $this->wpchill_upsells->is_upgradable_addon( 'modula-deeplink' ) && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-protection' ) ) {
-
 			$upsell_title       = esc_html__( 'Looking to add deeplink functionality to your lightbox?', 'modula-best-grid-gallery' );
 			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Deeplink add-ons and increase the functionality of your images.', 'modula-best-grid-gallery' );
-
 		} else {
-
 			$upsell_title       = esc_html__( 'Looking to  protect your images from stealing?', 'modula-best-grid-gallery' );
 			$upsell_description = esc_html__( 'Ugrade to Modula Premium today and get access to Modula Protection and copyright your images.', 'modula-best-grid-gallery' );
-
 		}
 
 		$tab_content .= '<div class="modula-upsell">';
@@ -596,7 +588,7 @@ class Modula_Upsells {
 	}
 
 	public function imageseo_tab_upsell( $tab_content ) {
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-imageseo' ) ) {
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-best-grid-gallery' ) ) {
 			return;
 		}
 		?>
@@ -609,7 +601,7 @@ class Modula_Upsells {
 					$buttons  = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
 					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-imageseo_upsell-tab&utm_campaign=modula-speedup" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
 
-					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-imageseo' );
+					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-best-grid-gallery' );
 					?>
 				</p>
 			</div>

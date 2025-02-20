@@ -1,0 +1,13 @@
+.container {
+}
+
+.description {
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    color: #757575;
+    max-width: 500px;
+}
+
+.buttonContainer {
+    margin-top: 1.5rem;
+} 

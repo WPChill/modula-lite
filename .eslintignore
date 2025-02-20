@@ -4,3 +4,6 @@ build-module
 build-types
 node_modules
 vendor
+/node_modules
+/public
+/assets/js
