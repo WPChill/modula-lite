@@ -1,5 +1,5 @@
 = 2.11.12 - TBD =
-Fixed: Admin settings update.
+Update: Admin settings labels.
 
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.
