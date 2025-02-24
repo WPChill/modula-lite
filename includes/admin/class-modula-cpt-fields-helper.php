@@ -18,7 +18,7 @@ class Modula_CPT_Fields_Helper {
 					'priority' => 10,
 				),
 				'lightboxes'           => array(
-					'label'    => esc_html__( 'Lightbox & Links', 'modula-best-grid-gallery' ),
+					'label'    => esc_html__( 'Image click behavior', 'modula-best-grid-gallery' ),
 					'title'    => esc_html__( 'Lightbox & Links settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-layout',
 					'docs_url' => 'https://wp-modula.com/kb/lightbox-links/',
@@ -367,7 +367,7 @@ class Modula_CPT_Fields_Helper {
 						'data_type' => 'text',
 					),
 					'show_navigation' => array(
-						'name'      => esc_html__( 'Navigation arrows', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'Show arrows navigation', 'modula-best-grid-gallery' ),
 						'type'      => 'toggle',
 						'default'   => 1,
 						'priority'  => 2,
@@ -435,7 +435,7 @@ class Modula_CPT_Fields_Helper {
 						'data_type' => 'number',
 					),
 					'mobileCaptionFontSize' => array(
-						'name'      => esc_html__( 'Mobile Caption Font Size', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'Caption font size on mobile', 'modula-best-grid-gallery' ),
 						'type'      => 'number',
 						'after'     => 'px',
 						'default'   => 10,
