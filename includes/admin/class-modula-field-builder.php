@@ -180,22 +180,10 @@ class Modula_Field_Builder {
 			// Check if our tab have title & description
 			if ( isset( $tab['title'] ) || isset( $tab['description'] ) ) {
 				$current_tab_content .= '<div class="tab-content-header">';
-				$current_tab_content .= '<div class="tab-content-header-title">';
-				if ( isset( $tab['title'] ) && '' != $tab['title'] ) {
-					$current_tab_content .= '<h2>' . esc_html( $tab['title'] ) . '</h2>';
-				}
-				if ( isset( $tab['description'] ) && '' != $tab['description'] ) {
-					$current_tab_content .= '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>';
-					$current_tab_content .= '<div class="tab-header-description modula-tooltip-content">' . wp_kses_post( $tab['description'] ) . '</div>';
+					$current_tab_content .= '<div class="tab-content-header-actions">';
+						$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
+						$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
 					$current_tab_content .= '</div>';
-				}
-				$current_tab_content .= '</div>';
-
-				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
-				$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
-				$current_tab_content .= '</div>';
-
 				$current_tab_content .= '</div>';
 
 			}

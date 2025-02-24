@@ -159,6 +159,9 @@ Free support is included only with a PRO license: [Buy Modula PRO](https://wp-mo
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.11.12 - TBD =
+Fixed: Admin settings update.
+
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.
 
