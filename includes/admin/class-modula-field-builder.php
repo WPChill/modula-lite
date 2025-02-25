@@ -731,7 +731,7 @@ class Modula_Field_Builder {
 						}
 
 						if ( $effect_elements['description'] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-best-grid-gallery' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Caption', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements['social'] ) {

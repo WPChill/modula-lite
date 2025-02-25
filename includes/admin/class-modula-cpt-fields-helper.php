@@ -181,7 +181,7 @@ class Modula_CPT_Fields_Helper {
 					'type'                  => array(
 						'name'      => esc_html__( 'Gallery Type', 'modula-best-grid-gallery' ),
 						'type'      => 'icon-radio',
-						'default'   => 'creative-gallery',
+						'default'   => 'grid',
 						'values'    => array(
 							'creative-gallery' => esc_html__( 'Creative', 'modula-best-grid-gallery' ),
 							'custom-grid'      => esc_html__( 'Custom', 'modula-best-grid-gallery' ),
@@ -395,7 +395,7 @@ class Modula_CPT_Fields_Helper {
 						'name'      => esc_html__( 'Title Font Size', 'modula-best-grid-gallery' ),
 						'type'      => 'number',
 						'after'     => 'px',
-						'default'   => 16,
+						'default'   => 24,
 						'is_child'  => true,
 						'priority'  => 40,
 						'data_type' => 'number',
@@ -429,7 +429,7 @@ class Modula_CPT_Fields_Helper {
 						'name'      => esc_html__( 'Caption Font Size', 'modula-best-grid-gallery' ),
 						'type'      => 'number',
 						'after'     => 'px',
-						'default'   => 14,
+						'default'   => 16,
 						'is_child'  => true,
 						'priority'  => 80,
 						'data_type' => 'number',
