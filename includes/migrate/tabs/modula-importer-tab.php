@@ -23,12 +23,6 @@ $sources = apply_filters('modula_importable_galleries', $sources);
             <tr valign="top">
                 <th scope="row" valign="top">
                     <?php esc_html_e('Gallery source', 'modula-best-grid-gallery'); ?>
-                    <div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
-                        <div class="tab-header-description modula-tooltip-content">
-                            <?php esc_html_e('Select from which source would you like to migrate the gallery.', 'modula-best-grid-gallery') ?>
-                            <?php esc_html_e('Migrating galleries will also replace the shortcode of the gallery with the new Modula shortcode in pages and posts.', 'modula-best-grid-gallery') ?>
-                        </div>
-                    </div>
                 </th>
                 <td>
                     <select name="modula_select_gallery_source" id="modula_select_gallery_source">
@@ -53,11 +47,6 @@ $sources = apply_filters('modula_importable_galleries', $sources);
             <tr valign="top">
                 <th scope="row" valign="top">
                     <?php echo esc_html__('Gallery database entries.', 'modula-best-grid-gallery'); ?>
-                    <div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>
-                        <div class="tab-header-description modula-tooltip-content">
-                            <?php esc_html_e('Check this if you want to delete remnants or data entries in the database from the migrated galleries.', 'modula-best-grid-gallery') ?>
-                        </div>
-                    </div>
                 </th>
                 <td>
                     <div>

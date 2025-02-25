@@ -18,7 +18,7 @@ class Modula_CPT_Fields_Helper {
 					'priority' => 10,
 				),
 				'lightboxes'           => array(
-					'label'    => esc_html__( 'Image click behavior', 'modula-best-grid-gallery' ),
+					'label'    => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
 					'title'    => esc_html__( 'Lightbox & Links settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-layout',
 					'docs_url' => 'https://wp-modula.com/kb/lightbox-links/',
@@ -353,7 +353,7 @@ class Modula_CPT_Fields_Helper {
 				),
 				'lightboxes'           => array(
 					'lightbox'        => array(
-						'name'      => esc_html__( 'Lightbox &amp; Links', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'Image click behavior', 'modula-best-grid-gallery' ),
 						'type'      => 'select',
 						'default'   => 'fancybox',
 						'values'    => array(
@@ -454,7 +454,7 @@ class Modula_CPT_Fields_Helper {
 						'data_type' => 'bool',
 					),
 					'enableTwitter'     => array(
-						'name'      => esc_html__( 'Twitter', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'X', 'modula-best-grid-gallery' ),
 						'type'      => 'toggle',
 						'default'   => 0,
 						'is_child'  => true,

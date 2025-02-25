@@ -65,14 +65,8 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
                         <?php
 						echo ( 'heading' == $ts_field['type'] ) ? '<h2>' . esc_html( $ts_field['label'] ) . '</h2>' : esc_html( $ts_field['label'] ) ;
 
-                        if ( isset( $ts_field['description'] )  ) {
-                        	if('heading' != $ts_field['type']){
-								echo '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span><div class="tab-header-description modula-tooltip-content">';
-								echo wp_kses_post( $ts_field['description'] );
-								echo '</div></div>';
-							} else {
-								echo '<p style="font-weight:normal;">' . esc_html( $ts_field['description'] ) . '</p>';
-							}
+                        if ( isset( $ts_field['description'] ) & 'heading' === $ts_field['type'] ) {
+                            echo '<p style="font-weight:normal;">' . esc_html( $ts_field['description'] ) . '</p>';
                         }
                         ?>
                     </th>

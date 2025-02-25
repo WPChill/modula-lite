@@ -87,7 +87,7 @@ class Modula_Field_Builder {
 	/* Create HMTL for gallery metabox */
 	private function _render_gallery_metabox( $post = false ) {
 
-		$max_upload_size   = wp_max_upload_size();
+		$max_upload_size = wp_max_upload_size();
 
 		if ( ! $max_upload_size ) {
 			$max_upload_size = 0;
@@ -178,15 +178,12 @@ class Modula_Field_Builder {
 			$current_tab_content = '<div id="modula-' . esc_attr( $tab['id'] ) . '" class="modula-tab-content' . ( $first ? ' active-tab' : '' ) . '">';
 
 			// Check if our tab have title & description
-			if ( isset( $tab['title'] ) || isset( $tab['description'] ) ) {
-				$current_tab_content .= '<div class="tab-content-header">';
-					$current_tab_content .= '<div class="tab-content-header-actions">';
-						$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
-						$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
-					$current_tab_content .= '</div>';
-				$current_tab_content .= '</div>';
-
-			}
+			$current_tab_content         .= '<div class="tab-content-header">';
+				$current_tab_content     .= '<div class="tab-content-header-actions">';
+					$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
+					$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
+				$current_tab_content     .= '</div>';
+			$current_tab_content         .= '</div>';
 
 			// Generate all fields for current tab
 			$current_tab_content .= '<div class="form-table-wrapper">';
@@ -310,7 +307,6 @@ class Modula_Field_Builder {
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
-
 			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
 
 			$parent = '';
@@ -322,7 +318,6 @@ class Modula_Field_Builder {
 
 		// Formats for General Gutter
 		if ( 'gutterInput' == $field['type'] ) {
-
 			if ( 'desktop' == $field['media'] ) {
 				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
 			}
@@ -371,7 +366,6 @@ class Modula_Field_Builder {
 		}
 
 		switch ( $field['type'] ) {
-
 			case 'image-size':
 				$placeholder           = array();
 				$placeholder['width']  = ( isset( $field['placeholder'] ) && isset( $field['placeholder']['width'] ) ) ? $field['placeholder']['width'] : '';
@@ -432,9 +426,7 @@ class Modula_Field_Builder {
 
 					// Fix for single lightbox after Modula update
 					if ( 'lightbox' == $field['id'] ) {
-
 						if ( is_array( $option ) && ! isset( $option[ $value ] ) ) {
-
 							$value = 'fancybox';
 						}
 					}
@@ -465,10 +457,9 @@ class Modula_Field_Builder {
 				break;
 
 			case 'icon-radio':
-
 				if ( empty( $value ) ) {
 					$value = 'creative-gallery';
-				} 
+				}
 
 				$wpchill_upsell = false;
 				if ( class_exists( 'WPChill_Upsells' ) ) {
@@ -655,7 +646,6 @@ class Modula_Field_Builder {
 				$effects_html  = '';
 
 				foreach ( $hovers as $key => $name ) {
-
 					$class   = array( 'modula-item' );
 					$class[] = 'effect-' . $key;
 					if ( $pro_hovers && array_key_exists( $key, $pro_hovers ) ) {
@@ -697,7 +687,6 @@ class Modula_Field_Builder {
 					}
 
 					if ( 'none' != $key ) {
-
 						$effect .= '<div class="figc"><div class="figc-inner">';
 
 						if ( $effect_elements['title'] ) {
@@ -734,7 +723,6 @@ class Modula_Field_Builder {
 					$effect .= '<div class="modula-preview-item-content">';
 					$effect .= '<h4>' . $name . '</h4>';
 					if ( $effect_elements['title'] || $effect_elements['description'] || $effect_elements['social'] || $effect_elements['scripts'] ) {
-
 						$effect .= '<div class="effect-compatibility">';
 						$effect .= '<p class="description">' . esc_html__( 'This effect is compatible with:', 'modula-best-grid-gallery' );
 
@@ -758,7 +746,6 @@ class Modula_Field_Builder {
 						}
 
 						$effect .= '</div>';
-
 					}
 
 					$effect .= '</div>';
@@ -787,7 +774,6 @@ class Modula_Field_Builder {
 				$infos = '';
 
 				foreach ( $sizes as $key => $size ) {
-
 					$html .= '<option value="' . esc_attr( $key ) . '" ' . selected( $key, $value, false ) . '>' . esc_html( ucfirst( str_replace( '-', ' ', $key ) ) ) . '</option>';
 
 					$infos .= '<div class="modula-imagesize-info" data-size="' . esc_attr( $key ) . '"><span>' . esc_html__( 'Image Size', 'modula-best-grid-gallery' ) . '</span>: ' . $size['width'] . 'x' . $size['height'];
@@ -807,7 +793,6 @@ class Modula_Field_Builder {
 				$html .= '</div>';
 				$html .= '<div class="modula-placeholders">';
 				foreach ( $field['values'] as $key => $value ) {
-
 					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
 					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
 					$html .= '</span>';
@@ -821,7 +806,6 @@ class Modula_Field_Builder {
 				$html  = '<input class="modula-placeholder-input" type="text" name="modula-settings[' . esc_attr( $field['id'] ) . ']" data-setting="' . esc_attr( $field['id'] ) . '" value="' . esc_attr( $value ) . '">';
 				$html .= '<div class="modula-placeholders">';
 				foreach ( $field['values'] as $key => $value ) {
-
 					$html .= "<span data-placeholder='" . esc_attr( $key ) . "' class='modula-placeholder-value'>";
 					$html .= esc_html__( $value, 'modula-best-grid-gallery' );
 					$html .= '</span>';
@@ -843,7 +827,6 @@ class Modula_Field_Builder {
 		}
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
-
 			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
 
 			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__( ' other settings', 'modula-best-grid-gallery' ) . ' </span>';
