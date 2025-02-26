@@ -1864,6 +1864,10 @@
             return "x" === this.option("axis")
         }
         constructor(t, e = {}, i = {}) {
+            console.log(Object.getPrototypeOf(t)); // Ar trebui să fie HTMLDivElement.prototype
+            console.log(Reflect.ownKeys(t)); // Vezi proprietățile sale
+            
+
             if (super(), Object.defineProperty(this, "bp", {
                 enumerable: !0,
                 configurable: !0,
