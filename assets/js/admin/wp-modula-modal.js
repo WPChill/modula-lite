@@ -397,6 +397,10 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
             $button.removeClass('loading').prop('disabled', false);
             $button.text(modulaHelper.strings.alt_text_generated);
 
+            setTimeout(() => {
+                $button.text(modulaHelper.strings.refresh_report);
+            }, 2500)
+
             // Update the report
             this.item.set('report', result);
 
@@ -436,7 +440,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
         
                 const $button = this.$el.find('#modula-ai-report-generate-button');
                 const isKeyValid = response?.readonly?.valid_key ?? false;
-                console.log(isKeyValid);
+                
                 if (!isKeyValid) {
                     $button.text(modulaHelper.strings.configure_api_key || 'Configure API Key');
                     $button.addClass('configure-api');

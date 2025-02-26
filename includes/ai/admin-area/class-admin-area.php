@@ -32,6 +32,7 @@ class Admin_Area {
 				'alt_text_generation_failed' => esc_html__( 'Failed to generate report', 'modula-best-grid-gallery' ),
 				'generate_report'            => esc_html__( 'Generate AI Report', 'modula-best-grid-gallery' ),
 				'configure_api_key'          => esc_html__( 'Configure API Key', 'modula-best-grid-gallery' ),
+				'refresh_report'             => esc_html__( 'Refresh AI Report', 'modula-best-grid-gallery' ),
 			)
 		);
 

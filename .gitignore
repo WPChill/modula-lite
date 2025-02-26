@@ -9,4 +9,6 @@ assets/.DS_Store
 .php-cs-fixer.cache
 .wp-env.json
 assets/js/admin/notification-system/*
+assets/js/admin/gallery-listing-ai/*
+assets/js/admin/settings/*
 stubs
