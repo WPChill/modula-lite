@@ -49,7 +49,7 @@ class Gallery_Listing_Output {
 	public function add_columns( $columns ) {
 		$date = $columns['date'];
 		unset( $columns['date'] );
-		$columns['modula_ai_optimizer'] = __( 'AI Optimizer', 'modula-best-grid-gallery' );
+		$columns['modula_ai_optimizer'] = __( 'Modula AI', 'modula-best-grid-gallery' );
 
 		$columns['date'] = $date;
 

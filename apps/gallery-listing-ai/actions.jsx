@@ -57,7 +57,7 @@ export function Actions() {
 		return (
 			<div className="modula-ai-actions">
 				<Button variant="secondary" onClick={optimizeAll}>
-					{__('Refresh alts', 'modula-best-grid-gallery')}
+					{__('Refresh reports', 'modula-best-grid-gallery')}
 				</Button>
 			</div>
 		);

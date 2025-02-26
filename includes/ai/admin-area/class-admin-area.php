@@ -14,7 +14,7 @@ class Admin_Area {
 
 	public function add_modula_ai_tab( $tabs ) {
 		$tabs['modula_ai'] = array(
-			'label' => esc_html__( 'AI Optimizer', 'modula-best-grid-gallery' ),
+			'label' => esc_html__( 'Modula AI', 'modula-best-grid-gallery' ),
 		);
 		return $tabs;
 	}

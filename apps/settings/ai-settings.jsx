@@ -13,7 +13,7 @@ export default function AiSettings() {
 			<Spacer marginTop={4} marginBottom={4} />
 			<Card>
 				<CardHeader>
-					<h2>{__('AI Optimizer', 'modula-best-grid-gallery')}</h2>
+					<h2>{__('Modula AI', 'modula-best-grid-gallery')}</h2>
 				</CardHeader>
 				<CardBody>
 					<SettingsForm />
