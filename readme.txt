@@ -12,6 +12,7 @@ License: GNU General Public License v3.0 or later
 ## The Best Gallery Plugin for Beautiful Image & Video Galleries in WordPress
 
 **Modula gallery plugin** makes creating stunning galleries easy. Just add images, pick a gallery type, and publish—effortless for everyone!
+**Modula AI** helps you quickly improve your gallery images by optimizing **titles**, **captions**, and **ALT text** in just a few clicks. Manual edits for each image are a thing of the past—save time and let **AI** do the work for you.
 
 ## How to Create a Gallery with Modula
 
