@@ -751,14 +751,14 @@ class Modula_Gallery_Upload {
 						}
 						break;
 					case 'halign':
-						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ) ) ) {
+						if ( in_array( $image[ $attribute ], array( 'left', 'right', 'center' ), true ) ) {
 							$new_image[ $attribute ] = $image[ $attribute ];
 						} else {
 							$new_image[ $attribute ] = 'center';
 						}
 						break;
 					case 'valign':
-						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ) ) ) {
+						if ( in_array( $image[ $attribute ], array( 'top', 'bottom', 'middle' ), true ) ) {
 							$new_image[ $attribute ] = $image[ $attribute ];
 						} else {
 							$new_image[ $attribute ] = 'middle';
