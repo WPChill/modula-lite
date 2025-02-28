@@ -169,7 +169,7 @@ class Modula_Field_Builder {
 		foreach ( $tabs as $tab_id => $tab ) {
 			$tab['id']  = $tab_id;
 			$tabs_html .= $this->_render_tab( $tab, $first );
-			$doc_url    = isset( $tab['docs_url'] ) ? $tab['docs_url'] : 'https://wp-modula.com/knowledge-base/';
+			$doc_url    = isset( $tab['docs_url'] ) ? $tab['docs_url'] : 'https://wp-modula.com/kb/';
 
 			$fields = Modula_CPT_Fields_Helper::get_fields( $tab_id );
 			// Sort fields based on priority.
@@ -178,12 +178,22 @@ class Modula_Field_Builder {
 			$current_tab_content = '<div id="modula-' . esc_attr( $tab['id'] ) . '" class="modula-tab-content' . ( $first ? ' active-tab' : '' ) . '">';
 
 			// Check if our tab have title & description
-			$current_tab_content         .= '<div class="tab-content-header">';
-				$current_tab_content     .= '<div class="tab-content-header-actions">';
-					$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
-					$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
-				$current_tab_content     .= '</div>';
-			$current_tab_content         .= '</div>';
+			$current_tab_content             .= '<div class="tab-content-header">';
+				$current_tab_content         .= '<div class="tab-content-header-actions">';
+					$current_tab_content     .= '<p class="tab-content-header-text">';
+						$current_tab_content .= apply_filters(
+							'modula_admin_documentation_link',
+							sprintf(
+								// Translators: %s is replaced with a link to the online documentation.
+								esc_html__( 'Need extra help? Read our %1$s online documentation%2$s.', 'modula-best-grid-gallery' ),
+								'<a href="' . $doc_url . '" target="_blank">',
+								'</a>'
+							)
+						);
+					$current_tab_content     .= '</p>';
+					$current_tab_content     .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
+				$current_tab_content         .= '</div>';
+			$current_tab_content             .= '</div>';
 
 			// Generate all fields for current tab
 			$current_tab_content .= '<div class="form-table-wrapper">';

@@ -243,7 +243,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			if (0 == value) {
 				child.hide();
 			} else {
-				child.setting_state( this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 				child.show();
 			}
 		});
@@ -291,6 +292,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -313,6 +316,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -337,7 +342,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
-				child.setting_state(this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -363,7 +369,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
-				child.setting_state(this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 

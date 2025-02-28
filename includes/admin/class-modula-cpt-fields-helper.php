@@ -96,7 +96,7 @@ class Modula_CPT_Fields_Helper {
 					'title'    => esc_html__( 'Exif Settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-camera-alt',
 					'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
-					'docs_url' => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/ ',
+					'docs_url' => 'https://wp-modula.com/kb/modula-exif/ ',
 					'priority' => 85,
 				),
 				'download'             => array(
@@ -104,7 +104,7 @@ class Modula_CPT_Fields_Helper {
 					'title'    => esc_html__( 'Download Settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-download',
 					'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
-					'docs_url' => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/',
+					'docs_url' => 'https://wp-modula.com/kb/modula-download/',
 					'priority' => 86,
 				),
 				'zoom'                 => array(
@@ -112,13 +112,14 @@ class Modula_CPT_Fields_Helper {
 					'title'    => esc_html__( 'Zoom Settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-search',
 					'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
-					'docs_url' => 'https://wp-modula.com/kb/modula-zoom-download-and-exif-extensions/',
+					'docs_url' => 'https://wp-modula.com/kb/modula-zoom/',
 					'priority' => 87,
 				),
 				'responsive'           => array(
 					'label'    => esc_html__( 'Responsive', 'modula-best-grid-gallery' ),
 					'title'    => esc_html__( 'Responsive Settings', 'modula-best-grid-gallery' ),
 					'icon'     => 'dashicons dashicons-smartphone',
+					'docs_url' => 'https://wp-modula.com/kb/optimize-galleries-for-mobile-tablet-devices/',
 					'priority' => 90,
 				),
 				'misc'                 => array(
@@ -270,7 +271,6 @@ class Modula_CPT_Fields_Helper {
 					'img_size'              => array(
 						'name'      => esc_html__( ' Block size', 'modula-best-grid-gallery' ),
 						'type'      => 'text',
-						'afterrow'  => esc_html__( '👋 Block size setting allows you to choose how big one individual square(block) from the custom grid should be. For example, if you were to set the block size to 300 px and resize images in the custom grid to be as large as 4 x 4 squares, the image will be of size 1200 x 1200 px in size.', 'modula-best-grid-gallery' ),
 						'default'   => 200,
 						'is_child'  => true,
 						'priority'  => 38,
@@ -728,7 +728,7 @@ class Modula_CPT_Fields_Helper {
 		return apply_filters(
 			'modula_lite_default_settings',
 			array(
-				'type'                  => 'creative-gallery',
+				'type'                  => 'grid',
 				'width'                 => '100%',
 				'height'                => 800,
 				'randomFactor'          => 50,

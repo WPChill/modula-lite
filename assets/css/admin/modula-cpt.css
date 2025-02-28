@@ -152,6 +152,11 @@ tr label.th-label {
     margin-right: 10px;
 }
 
+.modula-settings-container .modula-tabs-content .tab-content-header .tab-content-header-text {
+    margin: 0;
+    line-height: unset;
+}
+
 #poststuff .modula-settings-container .modula-tabs-content .tab-content-header .tab-content-header-title > h2 {
     font-weight: 700;
     padding: 0;
