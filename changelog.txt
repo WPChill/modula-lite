@@ -1,3 +1,6 @@
+= 2.12.0 – 28.02.2025 =
+Added: AI Image Optimizer.
+
 = 2.11.11 - 07.01.2025 =
 Fixed: ZIP file vulnerability fix.
 

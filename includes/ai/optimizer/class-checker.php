@@ -125,16 +125,16 @@ class Checker {
 		$data   = get_option( $this->data_option, false );
 		$report = $this->get_report();
 
-		if ( ! $data ) {
+		if ( ! $data || ! is_array( $data ) ) {
 			return array(
 				'status' => 'idle',
 				'report' => $report,
 			);
 		}
 
-		$report['total']     = count( $data['ids'] );
-		$report['optimized'] = count( $data['optimized_ids'] );
-		$report['failed']    = count( $data['failed_ids'] ?? array() );
+		$report['total']     = isset( $data['ids'] ) && is_array( $data['ids'] ) ? count( $data['ids'] ) : 0;
+		$report['optimized'] = isset( $data['optimized_ids'] ) && is_array( $data['optimized_ids'] ) ? count( $data['optimized_ids'] ) : 0;
+		$report['failed']    = isset( $data['failed_ids'] ) && is_array( $data['failed_ids'] ) ? count( $data['failed_ids'] ) : 0;
 		$report['remaining'] = $report['total'] - $report['optimized'] - $report['failed'];
 		$report['skipped']   = $report['failed'];
 
@@ -238,8 +238,8 @@ class Checker {
 		$this->write_debug( __( 'All batches processed', 'modula-best-grid-gallery' ) );
 
 		$notice = array(
-			'title'   => __( 'All batches processed', 'modula-best-grid-gallery' ),
-			'message' => __( 'All images have been optimized', 'modula-best-grid-gallery' ),
+			'title'   => __( 'Modula AI optimization completed', 'modula-best-grid-gallery' ),
+			'message' => __( 'Generated reports for all images.', 'modula-best-grid-gallery' ),
 			'status'  => 'success',
 		);
 

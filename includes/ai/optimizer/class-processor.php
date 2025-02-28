@@ -286,7 +286,7 @@ class Processor {
 	public function handle_limit_reached() {
 		$notice = array(
 			'title'   => __( 'Limit reached', 'modula-best-grid-gallery' ),
-			'message' => __( 'You have reached the limit of images to optimize', 'modula-best-grid-gallery' ),
+			'message' => __( 'You have reached the limit of images to create reports.', 'modula-best-grid-gallery' ),
 			'status'  => 'warning',
 		);
 

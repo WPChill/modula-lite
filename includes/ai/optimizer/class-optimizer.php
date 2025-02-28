@@ -133,8 +133,8 @@ class Optimizer {
 		$this->processor->schedule_first_batch();
 
 		$notice = array(
-			'title'   => __( 'Optimizer started', 'modula-best-grid-gallery' ),
-			'message' => __( 'Optimizer started', 'modula-best-grid-gallery' ),
+			'title'   => __( 'Modula AI optimization started', 'modula-best-grid-gallery' ),
+			'message' => __( 'Modula AI optimization started', 'modula-best-grid-gallery' ),
 			'status'  => 'info',
 		);
 
@@ -155,8 +155,8 @@ class Optimizer {
 		$this->processor->stop_manually();
 
 		$notice = array(
-			'title'   => __( 'Optimizer stopped', 'modula-best-grid-gallery' ),
-			'message' => __( 'Optimizer stopped manually', 'modula-best-grid-gallery' ),
+			'title'   => __( 'Modula AI optimization stopped', 'modula-best-grid-gallery' ),
+			'message' => __( 'The process was stopped manually', 'modula-best-grid-gallery' ),
 			'status'  => 'warning',
 		);
 		\Modula_Notifications::add_notification( 'modula-optimizer-stopped-' . $this->post_id, $notice );
