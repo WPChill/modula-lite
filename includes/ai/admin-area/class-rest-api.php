@@ -343,22 +343,44 @@ class Rest_Api {
 	}
 
 	/**
-	 * Handle the cleanup of trash and draft galleries
+	 * Handle the cleanup of galleries with empty titles
 	 *
 	 * @return WP_REST_Response The response object
 	 */
 	public function handle_cleanup_galleries() {
 		global $wpdb;
 
-		// First delete postmeta entries
+		// First get the IDs of galleries with empty titles
+		$gallery_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts}
+				WHERE post_type = %s
+				AND (post_title = '' OR post_title IS NULL)",
+				'modula-gallery'
+			)
+		);
+
+		if ( empty( $gallery_ids ) ) {
+			return rest_ensure_response(
+				array(
+					'success' => true,
+					'message' => __( 'No galleries with empty titles found.', 'modula-best-grid-gallery' ),
+					'data'    => array(
+						'deleted_meta'  => 0,
+						'deleted_posts' => 0,
+					),
+				)
+			);
+		}
+
+		$ids_placeholders = implode( ',', array_fill( 0, count( $gallery_ids ), '%d' ) );
+
+		// Delete postmeta entries for these galleries
 		$deleted_meta = $wpdb->query(
 			$wpdb->prepare(
-				"DELETE pm 
-				FROM {$wpdb->postmeta} pm
-				JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-				WHERE p.post_type = %s
-				AND p.post_status IN ('trash', 'draft')",
-				'modula-gallery'
+				"DELETE FROM {$wpdb->postmeta}
+				WHERE post_id IN ($ids_placeholders)",
+				$gallery_ids
 			)
 		);
 
@@ -366,9 +388,8 @@ class Rest_Api {
 		$deleted_posts = $wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM {$wpdb->posts}
-				WHERE post_type = %s
-				AND post_status IN ('trash', 'draft')",
-				'modula-gallery'
+				WHERE ID IN ($ids_placeholders)",
+				$gallery_ids
 			)
 		);
 
@@ -376,13 +397,14 @@ class Rest_Api {
 			'success' => true,
 			'message' => sprintf(
 				/* translators: 1: number of meta entries deleted, 2: number of posts deleted */
-				__( 'Successfully deleted %1$d meta entries and %2$d galleries', 'modula-best-grid-gallery' ),
+				__( 'Successfully deleted %1$d meta entries and %2$d galleries with empty titles', 'modula-best-grid-gallery' ),
 				$deleted_meta,
 				$deleted_posts
 			),
 			'data'    => array(
 				'deleted_meta'  => $deleted_meta,
 				'deleted_posts' => $deleted_posts,
+				'gallery_ids'   => $gallery_ids,
 			),
 		);
 

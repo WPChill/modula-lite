@@ -144,7 +144,7 @@ export default function ButtonAction() {
 			<div className="modula-cleanup-section">
 				<p className="modula-description">
 					{__(
-						'Clean up your database by removing all trash and draft galleries. This will permanently delete these galleries and cannot be undone.',
+						'Clean up your database by removing all wrongfully created galleries.',
 						'modula-best-grid-gallery'
 					)}
 				</p>
@@ -156,10 +156,7 @@ export default function ButtonAction() {
 				>
 					{isCleaning
 						? __('Cleaning up…', 'modula-best-grid-gallery')
-						: __(
-								'Cleanup Trash & Draft Galleries',
-								'modula-best-grid-gallery'
-							)}
+						: __('Cleanup database', 'modula-best-grid-gallery')}
 				</Button>
 			</div>
 		</div>
