@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.1 – 03.03.2025 =
+Fixed: AI Image Optimizer update method.
+
 = 2.12.0 – 28.02.2025 =
 Added: AI Image Optimizer.
 

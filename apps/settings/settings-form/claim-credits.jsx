@@ -5,6 +5,7 @@ import {
 	Icon,
 	Spinner,
 	TextControl,
+	SelectControl,
 	__experimentalSpacer as Spacer,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -14,6 +15,7 @@ import { useState } from '@wordpress/element';
 import { useSettingsQuery } from '../query/useSettingsQuery';
 import { check, close } from '@wordpress/icons';
 import { useSettingsMutation } from '../query/useSettingsMutation';
+import { LANGUAGES } from './languages';
 
 export default function ClaimCredits() {
 	const [loading, setLoading] = useState(false);
@@ -24,6 +26,7 @@ export default function ClaimCredits() {
 	const form = useForm({
 		defaultValues: {
 			apiKey: data?.api_key || '',
+			language: data?.language || 'en',
 			email: data?.readonly?.email,
 			first_name: data?.readonly?.first_name,
 			last_name: data?.readonly?.last_name,
@@ -33,6 +36,7 @@ export default function ClaimCredits() {
 			setLoading(true);
 			updateSettings({
 				api_key: value.apiKey,
+				language: value.language,
 			});
 			setLoading(false);
 			setSaved(true);
@@ -44,6 +48,27 @@ export default function ClaimCredits() {
 	};
 
 	const validKey = data?.readonly?.valid_key;
+
+	const getButtonIcon = () => {
+		if (loading) {
+			return <Spinner />;
+		}
+		if (saved) {
+			return check;
+		}
+		return null;
+	};
+
+	const getButtonText = () => {
+		if (loading) {
+			return __('… saving', 'modula-best-grid-gallery');
+		}
+		if (saved) {
+			return __('Saved', 'modula-best-grid-gallery');
+		}
+		return __('Save Settings', 'modula-best-grid-gallery');
+	};
+
 	return (
 		<div className={styles.container}>
 			{!validKey && (
@@ -69,67 +94,103 @@ export default function ClaimCredits() {
 					form.handleSubmit();
 				}}
 			>
-				<form.Field
-					name="apiKey"
-					children={(field) => (
-						<TextControl
-							__nextHasNoMarginBottom
-							__next40pxDefaultSize
-							label={
-								<Flex justify="space-between">
-									<FlexItem>
-										<Flex justify="flex-start" gap={2}>
+				<Flex gap={4} align="flex-start">
+					<FlexItem style={{ flex: 2 }}>
+						<form.Field
+							name="apiKey"
+							children={(field) => (
+								<TextControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={
+										<Flex justify="space-between">
 											<FlexItem>
-												{__(
-													'API Key',
-													'modula-best-grid-gallery'
-												)}
-											</FlexItem>
+												<Flex
+													justify="flex-start"
+													gap={2}
+												>
+													<FlexItem>
+														{__(
+															'API Key',
+															'modula-best-grid-gallery'
+														)}
+													</FlexItem>
 
+													<FlexItem>
+														<Icon
+															style={{
+																fill: validKey
+																	? 'green'
+																	: 'red',
+															}}
+															size={
+																validKey
+																	? 18
+																	: 14
+															}
+															icon={
+																validKey
+																	? check
+																	: close
+															}
+															className="modula-settings-form-valid-key"
+														/>
+													</FlexItem>
+												</Flex>
+											</FlexItem>
 											<FlexItem>
-												<Icon
-													style={{
-														fill: validKey
-															? 'green'
-															: 'red',
-													}}
-													size={validKey ? 18 : 14}
-													icon={
-														validKey ? check : close
-													}
-													className="modula-settings-form-valid-key"
-												/>
+												{validKey && (
+													<>
+														{
+															data?.readonly
+																?.credits
+														}{' '}
+														{__(
+															'Credits remaining',
+															'modula-best-grid-gallery'
+														)}
+													</>
+												)}
+												{!validKey && (
+													<>
+														{__(
+															'Invalid API Key',
+															'modula-best-grid-gallery'
+														)}
+													</>
+												)}
 											</FlexItem>
 										</Flex>
-									</FlexItem>
-									<FlexItem>
-										{validKey && (
-											<>
-												{data?.readonly?.credits}{' '}
-												{__(
-													'Credits remaining',
-													'modula-best-grid-gallery'
-												)}
-											</>
-										)}
-										{!validKey && (
-											<>
-												{__(
-													'Invalid API Key',
-													'modula-best-grid-gallery'
-												)}
-											</>
-										)}
-									</FlexItem>
-								</Flex>
-							}
-							value={field.state.value}
-							onChange={(e) => {
-								field.handleChange(e);
-							}}
+									}
+									value={field.state.value}
+									onChange={(e) => {
+										field.handleChange(e);
+									}}
+								/>
+							)}
 						/>
-					)}
-				/>
+					</FlexItem>
+					<FlexItem style={{ flex: 1 }}>
+						<form.Field
+							name="language"
+							children={(field) => (
+								<SelectControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={__(
+										'Language used to generate reports',
+										'modula-best-grid-gallery'
+									)}
+									value={field.state.value}
+									options={LANGUAGES}
+									onChange={(value) => {
+										field.handleChange(value);
+									}}
+								/>
+							)}
+						/>
+					</FlexItem>
+				</Flex>
 				<Spacer marginTop={4} marginBottom={4} />
 				<Flex
 					justify="flex-start"
@@ -143,22 +204,10 @@ export default function ClaimCredits() {
 								variant="primary"
 								type="submit"
 								iconPosition="right"
-								icon={
-									loading ? <Spinner /> : saved ? check : null
-								}
+								icon={getButtonIcon()}
 								isDisabled={!canSubmit}
 							>
-								{loading
-									? __('… saving', 'modula-best-grid-gallery')
-									: saved
-										? __(
-												'Saved',
-												'modula-best-grid-gallery'
-											)
-										: __(
-												'Save API Key',
-												'modula-best-grid-gallery'
-											)}
+								{getButtonText()}
 							</Button>
 						)}
 					/>

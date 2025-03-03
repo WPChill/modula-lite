@@ -11,6 +11,7 @@ export const useSettingsMutation = ({ onSuccess } = {}) => {
 			method: 'POST',
 			data: {
 				api_key: vars.api_key,
+				language: vars.language,
 			},
 		});
 	}, []);

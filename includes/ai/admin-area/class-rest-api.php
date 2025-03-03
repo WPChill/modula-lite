@@ -108,6 +108,26 @@ class Rest_Api {
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/update-alts-from-image-array',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'handle_update_alts_from_image_array' ),
+				'permission_callback' => array( $this, '_permissions_check' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/cleanup-galleries',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'handle_cleanup_galleries' ),
+				'permission_callback' => array( $this, '_permissions_check' ),
+			)
+		);
 	}
 
 	/**
@@ -172,13 +192,15 @@ class Rest_Api {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function ai_settings() {
-		$api_key = get_option( 'modula_ai_api_key' );
-		$data    = $this->get_user();
+		$api_key  = get_option( 'modula_ai_api_key' );
+		$language = get_option( 'modula_ai_language', get_locale() );
+		$data     = $this->get_user();
 
 		if ( ! $data['success'] ) {
 			return rest_ensure_response(
 				array(
 					'api_key'  => $api_key,
+					'language' => $language,
 					'readonly' => array(
 						'valid_key' => false,
 					),
@@ -192,6 +214,7 @@ class Rest_Api {
 
 		$output = array(
 			'api_key'  => $api_key,
+			'language' => $language,
 			'readonly' => array(
 				'credits'    => $credits,
 				'email'      => $data['data']['user']['email'],
@@ -206,7 +229,8 @@ class Rest_Api {
 
 	public function update_ai_settings( $request ) {
 		$body = $request->get_json_params();
-		update_option( 'modula_ai_api_key', $body['api_key'] );
+		update_option( 'modula_ai_api_key', sanitize_text_field( $body['api_key'] ) );
+		update_option( 'modula_ai_language', sanitize_text_field( $body['language'] ) );
 
 		return $this->ai_settings();
 	}
@@ -259,7 +283,109 @@ class Rest_Api {
 	 * @return bool True if the user has the necessary permissions, false otherwise.
 	 */
 	public function _permissions_check() {
-		return true;
 		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Handle the button action request to update all gallery images
+	 *
+	 * @return WP_REST_Response The response object
+	 */
+	public function handle_update_alts_from_image_array() {
+		global $wpdb;
+
+		// Get all Modula galleries
+		$galleries = get_posts(
+			array(
+				'post_type'      => 'modula-gallery',
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
+			)
+		);
+
+		$updated_count = 0;
+		$total_images  = 0;
+
+		foreach ( $galleries as $gallery ) {
+			// Get gallery images
+			$images = get_post_meta( $gallery->ID, 'modula-images', true );
+			if ( ! empty( $images ) ) {
+				$total_images += count( $images );
+				// Use the helper class to update media library entries
+				\Modula\Ai\Helpers\Image_Helper::batch_update_images( $images, $gallery->ID );
+
+				$valid_images   = array_filter(
+					$images,
+					function ( $image ) {
+						return isset( $image['id'] );
+					}
+				);
+				$updated_count += count( $valid_images );
+			}
+		}
+
+		$response = array(
+			'success' => true,
+			'message' => sprintf(
+				/* translators: 1: number of images, 2: number of galleries */
+				__( 'Successfully updated %1$d media library entries from %2$d galleries', 'modula-best-grid-gallery' ),
+				$updated_count,
+				count( $galleries )
+			),
+			'data'    => array(
+				'total_galleries' => count( $galleries ),
+				'total_images'    => $total_images,
+				'updated_images'  => $updated_count,
+			),
+		);
+
+		return rest_ensure_response( $response );
+	}
+
+	/**
+	 * Handle the cleanup of trash and draft galleries
+	 *
+	 * @return WP_REST_Response The response object
+	 */
+	public function handle_cleanup_galleries() {
+		global $wpdb;
+
+		// First delete postmeta entries
+		$deleted_meta = $wpdb->query(
+			$wpdb->prepare(
+				"DELETE pm 
+				FROM {$wpdb->postmeta} pm
+				JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+				WHERE p.post_type = %s
+				AND p.post_status IN ('trash', 'draft')",
+				'modula-gallery'
+			)
+		);
+
+		// Then delete the posts
+		$deleted_posts = $wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->posts}
+				WHERE post_type = %s
+				AND post_status IN ('trash', 'draft')",
+				'modula-gallery'
+			)
+		);
+
+		$response = array(
+			'success' => true,
+			'message' => sprintf(
+				/* translators: 1: number of meta entries deleted, 2: number of posts deleted */
+				__( 'Successfully deleted %1$d meta entries and %2$d galleries', 'modula-best-grid-gallery' ),
+				$deleted_meta,
+				$deleted_posts
+			),
+			'data'    => array(
+				'deleted_meta'  => $deleted_meta,
+				'deleted_posts' => $deleted_posts,
+			),
+		);
+
+		return rest_ensure_response( $response );
 	}
 }
