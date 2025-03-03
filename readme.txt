@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.7  
 Requires PHP: 5.6  
-Stable tag: 2.12.0 
+Stable tag: 2.12.1
 
 License: GNU General Public License v3.0 or later  
 
@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.1 – 03.03.2025 =
+Fixed: AI Image Optimizer update method.
+
 = 2.12.0 – 28.02.2025 =
 Added: AI Image Optimizer.
 

@@ -212,25 +212,7 @@ class Modula_CPT {
 
 		$modula_images = $this->sanitize_images( $value );
 
-		foreach ( $modula_images as $image ) {
-			// Check if optimizer is running for this gallery
-			$optimizer_status = get_option( 'modula_ai_optimizer_status_' . $obj->ID );
-
-			// Only update alt if optimizer is not running
-			if ( 'running' !== $optimizer_status ) {
-				update_post_meta( $image['id'], '_wp_attachment_image_alt', $image['alt'] );
-			}
-
-			// Update attachment post title
-			wp_update_post(
-				array(
-					'ID'           => $image['id'],
-					'post_title'   => $image['title'],
-					'post_excerpt' => $image['description'],
-					'post_content' => $image['description'],
-				)
-			);
-		}
+		$this->batch_update_images( $modula_images, $obj->ID );
 
 		update_post_meta(
 			$obj->ID,
@@ -238,6 +220,204 @@ class Modula_CPT {
 			$modula_images
 		);
 	}
+
+	/**
+	 * Batch update images in bulk with direct SQL (bypassing wp_update_post()).
+	 *
+	 * @param array $images  Array of image data. Each element should have keys:
+	 *                       ['id', 'title', 'description', 'alt'] (some may be optional).
+	 * @param int   $post_id The parent post (gallery) ID.
+	 */
+	private function batch_update_images( $images, $post_id ) {
+		// Safety checks
+		if ( empty( $images ) ) {
+			return;
+		}
+
+		$optimizer_status = get_option( 'modula_ai_optimizer_status_' . $post_id );
+		if ( 'running' === $optimizer_status ) {
+			return;
+		}
+
+		// We’ll process in chunks to avoid overly large queries
+		$batch_size = 200; // or whatever size you prefer
+		$chunks     = array_chunk( $images, $batch_size );
+
+		foreach ( $chunks as $chunk ) {
+			$this->process_chunk( $chunk );
+		}
+	}
+
+	/**
+	 * Process a single chunk of images (each up to $batch_size in length).
+	 */
+	private function process_chunk( $images_chunk ) {
+		global $wpdb;
+
+		// 1) Collect all relevant attachment IDs
+		$attachment_ids = array();
+		foreach ( $images_chunk as $image ) {
+			if ( ! empty( $image['id'] ) ) {
+				$attachment_ids[] = absint( $image['id'] );
+			}
+		}
+		$attachment_ids = array_filter( $attachment_ids );
+		$attachment_ids = array_unique( $attachment_ids );
+
+		if ( empty( $attachment_ids ) ) {
+			return; // nothing to process
+		}
+
+		// 2) Fetch the existing posts data in one query
+		$ids_placeholder = implode( ',', $attachment_ids );
+		$sql_posts       = "
+        SELECT ID, post_title, post_excerpt, post_content
+        FROM {$wpdb->posts}
+        WHERE ID IN ( $ids_placeholder )
+    	";
+
+		//phpcs:ignore WordPress.DB.DirectQuery
+		$results_posts = $wpdb->get_results( $sql_posts );
+
+		// Put them in an associative array keyed by ID
+		$existing_posts = array();
+		if ( $results_posts ) {
+			foreach ( $results_posts as $row ) {
+				$existing_posts[ $row->ID ] = $row;
+			}
+		}
+
+		// 3) Fetch existing alt meta for these IDs in one query
+		$sql_meta = "
+        SELECT post_id, meta_value
+        FROM {$wpdb->postmeta}
+        WHERE post_id IN ( $ids_placeholder )
+          AND meta_key = '_wp_attachment_image_alt'
+    	";
+		//phpcs:ignore WordPress.DB.DirectQuery
+		$results_meta = $wpdb->get_results( $sql_meta );
+
+		// Store alt text keyed by attachment ID
+		$existing_alts = array();
+		if ( $results_meta ) {
+			foreach ( $results_meta as $mrow ) {
+				$existing_alts[ $mrow->post_id ] = $mrow->meta_value;
+			}
+		}
+
+		// Prepare arrays for the final batch updates
+		$post_sql_values = array();  // For post_title, post_excerpt, post_content
+		$meta_delete_ids = array();  // We'll delete old alt rows in one go
+		$meta_inserts    = array();  // We'll insert the new alt rows
+
+		// 4) Loop through images and build the final updates only if needed
+		foreach ( $images_chunk as $image ) {
+			$attachment_id = isset( $image['id'] ) ? absint( $image['id'] ) : 0;
+			if ( ! $attachment_id ) {
+				continue;
+			}
+
+			// If no existing post row, skip (don't create new posts!)
+			if ( ! isset( $existing_posts[ $attachment_id ] ) ) {
+				continue;
+			}
+			$existing_post = $existing_posts[ $attachment_id ];
+
+			// Potential new fields
+			$new_title       = isset( $image['title'] ) ? sanitize_text_field( $image['title'] ) : null;
+			$new_description = isset( $image['description'] ) ? sanitize_textarea_field( $image['description'] ) : null;
+			$new_alt         = isset( $image['alt'] ) ? sanitize_text_field( $image['alt'] ) : null;
+
+			// Compare posts fields
+			$needs_post_update = false;
+
+			// Default to existing
+			$updated_title   = $existing_post->post_title;
+			$updated_excerpt = $existing_post->post_excerpt;
+			$updated_content = $existing_post->post_content;
+
+			if ( null !== $new_title && $new_title !== $existing_post->post_title ) {
+				$updated_title     = $new_title;
+				$needs_post_update = true;
+			}
+
+			if ( null !== $new_description ) {
+				// If the new desc is different from existing excerpt OR content, update both
+				if (
+				$new_description !== $existing_post->post_excerpt
+				|| $new_description !== $existing_post->post_content
+				) {
+					$updated_excerpt   = $new_description;
+					$updated_content   = $new_description;
+					$needs_post_update = true;
+				}
+			}
+
+			if ( $needs_post_update ) {
+				// We'll add one row for the bulk "INSERT ... ON DUPLICATE KEY UPDATE"
+				$post_sql_values[] = $wpdb->prepare(
+					'(%d, %s, %s, %s)',
+					$attachment_id,
+					$updated_title,
+					$updated_excerpt,
+					$updated_content
+				);
+			}
+
+			// Compare alt
+			if ( null !== $new_alt ) {
+				$existing_alt = isset( $existing_alts[ $attachment_id ] ) ? $existing_alts[ $attachment_id ] : '';
+				if ( $new_alt !== $existing_alt ) {
+					$meta_delete_ids[] = $attachment_id;
+
+					// We'll insert new alt in one batch
+					$meta_inserts[] = $wpdb->prepare(
+						"(%d, '_wp_attachment_image_alt', %s)",
+						$attachment_id,
+						$new_alt
+					);
+				}
+			}
+
+			clean_post_cache( $attachment_id );
+		}
+
+		// 5) Perform the actual queries:
+
+		// (A) Update posts
+		if ( ! empty( $post_sql_values ) ) {
+			$sql_posts = "
+            INSERT INTO {$wpdb->posts} (ID, post_title, post_excerpt, post_content)
+            VALUES " . implode( ',', $post_sql_values ) . '
+            ON DUPLICATE KEY UPDATE 
+                post_title   = VALUES(post_title),
+                post_excerpt = VALUES(post_excerpt),
+                post_content = VALUES(post_content)
+        ';
+			// Prepared at line 361
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_posts );
+		}
+
+		// (B) Update alt meta (delete, then insert)
+		if ( ! empty( $meta_delete_ids ) && ! empty( $meta_inserts ) ) {
+			$ids_str = implode( ',', array_map( 'absint', $meta_delete_ids ) );
+			$sql_del = "
+            DELETE FROM {$wpdb->postmeta}
+            WHERE post_id IN ($ids_str)
+              AND meta_key = '_wp_attachment_image_alt'
+        	";
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_del );
+
+			$sql_meta = "
+            INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
+            VALUES " . implode( ',', $meta_inserts );
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_meta );
+		}
+	}
+
 
 	/**
 	 * Remove Add New link from menu item
@@ -318,24 +498,10 @@ class Modula_CPT {
 
 		if ( isset( $_POST['modula-images'] ) ) {
 			$modula_images = $this->sanitize_images( $_POST['modula-images'] );
-			foreach ( $modula_images as $image ) {
-				// Check if optimizer is running for this gallery
-				$optimizer_status = get_option( 'modula_ai_optimizer_status_' . $post_id );
 
-				// Only update alt if optimizer is not running
-				if ( 'running' !== $optimizer_status ) {
-					update_post_meta( $image['id'], '_wp_attachment_image_alt', $image['alt'] );
-				}
+			// Use the batch update method instead of individual updates
+			$this->batch_update_images( $modula_images, $post_id );
 
-				wp_update_post(
-					array(
-						'ID'           => $image['id'],
-						'post_title'   => $image['title'],
-						'post_excerpt' => $image['description'],
-						'post_content' => $image['description'],
-					)
-				);
-			}
 			update_post_meta( $post_id, 'modula-images', $modula_images );
 		}
 	}

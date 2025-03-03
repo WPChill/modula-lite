@@ -106,7 +106,7 @@ class Ai_Helper {
 	 * @return array|Exception The API response as an array on success, Exception on failure.
 	 */
 	public function send_request_to_api( $images, $single = false ) {
-		$locale = get_locale();
+		$locale = get_option( 'modula_ai_language', get_locale() );
 		if ( empty( $locale ) ) {
 			$locale = 'en_US';
 		}
