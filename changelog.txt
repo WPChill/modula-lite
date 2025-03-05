@@ -1,3 +1,6 @@
+= 2.12.2 - 05.03.2025 =
+Fixed: Plugin loading order.
+
 = 2.12.1 – 03.03.2025 =
 Fixed: AI Image Optimizer update method.
 
