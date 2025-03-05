@@ -324,9 +324,9 @@ class Modula_CPT {
 			$existing_post = $existing_posts[ $attachment_id ];
 
 			// Potential new fields
-			$new_title       = isset( $image['title'] ) ? sanitize_text_field( $image['title'] ) : null;
-			$new_description = isset( $image['description'] ) ? sanitize_textarea_field( $image['description'] ) : null;
-			$new_alt         = isset( $image['alt'] ) ? sanitize_text_field( $image['alt'] ) : null;
+			$new_title       = isset( $image['title'] ) ? wp_filter_post_kses( $image['title'] ) : null;
+			$new_description = isset( $image['description'] ) ? wp_filter_post_kses( $image['description'] ) : null;
+			$new_alt         = isset( $image['alt'] ) ? wp_filter_post_kses( $image['alt'] ) : null;
 
 			// Compare posts fields
 			$needs_post_update = false;
