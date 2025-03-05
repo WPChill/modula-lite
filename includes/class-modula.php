@@ -41,6 +41,7 @@ class Modula {
 		add_action( 'admin_enqueue_scripts', array( $this, 'modula_enqueue_media' ) );
 		add_action( 'wp_enqueue_media', array( $this, 'modula_enqueue_media' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'start_ai_hooks' ) );
 		$this->compatibility_check();
 	}
 
@@ -177,9 +178,11 @@ class Modula {
 		// Initiate Modula REST Api
 		new Modula_Rest_Api();
 
-		new Modula\Ai\Client();
-
 		new Modula\Gallery_Listing_Output();
+	}
+
+	public function start_ai_hooks() {
+		new Modula\Ai\Client();
 	}
 
 	public function dashboard_start() {
