@@ -1,3 +1,7 @@
+= 2.12.4 - 06.03.2025 =
+Fixed: Not displaying image metadata properly
+Fixed: Saving image metadata on gallery edit
+
 = 2.12.3 - 05.03.2025 =
 Fixed: Do not strip image's title & caption html tags on image edit.
 

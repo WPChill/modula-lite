@@ -240,7 +240,7 @@ class Modula_CPT {
 		}
 
 		// We’ll process in chunks to avoid overly large queries
-		$batch_size = 200; // or whatever size you prefer
+		$batch_size = 200;
 		$chunks     = array_chunk( $images, $batch_size );
 
 		foreach ( $chunks as $chunk ) {
@@ -501,6 +501,18 @@ class Modula_CPT {
 
 			// Use the batch update method instead of individual updates
 			$this->batch_update_images( $modula_images, $post_id );
+
+			foreach ( $modula_images as &$image ) {
+				if ( isset( $image['alt'] ) ) {
+					unset( $image['alt'] );
+				}
+				if ( isset( $image['title'] ) ) {
+					unset( $image['title'] );
+				}
+				if ( isset( $image['description'] ) ) {
+					unset( $image['description'] );
+				}
+			}
 
 			update_post_meta( $post_id, 'modula-images', $modula_images );
 		}
