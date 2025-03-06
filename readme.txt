@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.7  
 Requires PHP: 5.6  
-Stable tag: 2.12.3
+Stable tag: 2.12.4
 
 License: GNU General Public License v3.0 or later  
 
@@ -126,6 +126,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.4 - 06.03.2025 =
+Fixed: Not displaying image metadata properly
+Fixed: Saving image metadata on gallery edit
 
 = 2.12.3 - 05.03.2025 =
 Fixed: Do not strip image's title & caption html tags on image edit.
