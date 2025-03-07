@@ -77,6 +77,7 @@ class Modula_Review {
 				'name' => 'Modula',
 			),
 			'dismissible' => false,
+			'timestamp'   => false,
 			'actions'     => array(
 				array(
 					'label'   => esc_html( $this->messages['rated'] ),
