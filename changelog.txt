@@ -1,3 +1,6 @@
+= 2.12.5 - 07.03.2025 =
+Fixed: Escaping of links in image's title & caption.
+
 = 2.12.4 - 06.03.2025 =
 Fixed: Not displaying image metadata properly
 Fixed: Saving image metadata on gallery edit
