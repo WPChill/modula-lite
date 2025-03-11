@@ -167,9 +167,6 @@ class Modula {
 
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
-
-		// Initiate WPChill About Us
-		new WPChill_About_Us( 'modula-gallery', 'modula' );
 	}
 
 	public function dashboard_start( ) {

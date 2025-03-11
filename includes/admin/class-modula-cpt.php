@@ -12,6 +12,7 @@ class Modula_CPT {
 	private $labels        = array();
 	private $args          = array();
 	private $metaboxes     = array();
+	private $removable_metaboxes     = array();
 	private $gallery_types = array();
 	private $cpt_name;
 	private $builder;
@@ -138,6 +139,17 @@ class Modula_CPT {
 			),
 		);
 
+		$this->removable_metaboxes = array(
+			array(
+				'slug'    => 'commentstatusdiv',
+				'context' => 'normal',
+			),
+			array(
+				'slug'    => 'commentsdiv',
+				'context' => 'normal',
+			),
+		);
+
 		$args           = $this->args;
 		$args['labels'] = $this->labels;
 
@@ -238,7 +250,8 @@ class Modula_CPT {
 	public function add_meta_boxes() {
 
 		global $post;
-		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', $this->metaboxes );
+		$this->metaboxes           = apply_filters( 'modula_cpt_metaboxes', $this->metaboxes );
+		$this->removable_metaboxes = apply_filters( 'modula_cpt_removable_metaboxes', $this->removable_metaboxes );
 
 		// Sort tabs based on priority.
 		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
@@ -256,6 +269,10 @@ class Modula_CPT {
 				$metabox['context'],         // Context
 				'high'         // Priority
 			);
+		}
+		
+		foreach ( $this->removable_metaboxes as $metabox ) {
+			remove_meta_box( $metabox['slug'], 'modula-gallery', $metabox['context'] );
 		}
 	}
 

@@ -647,7 +647,8 @@ tr[data-container="effect"] > td {
     width: 50%;
 }
 
-#modula-image_licensing .modula-upsell .modula-upsell-features li {
+#modula-image_licensing .modula-upsell .modula-upsell-features li,
+#modula-comments .modula-upsell .modula-upsell-features li {
     width: 100%;
 }
 
