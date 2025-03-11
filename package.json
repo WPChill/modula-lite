@@ -25,8 +25,8 @@
 		"!postcss.config.js"
 	],
 	"scripts": {
-		"start:notification-system": "wp-scripts start apps/notification-system/index.js --output-path=./assets/js/admin/notification-system --config webpack.config.react-apps.js",
-		"build:notification-system": "wp-scripts build apps/notification-system/index.js --output-path=./assets/js/admin/notification-system --config webpack.config.react-apps.js",
+		"start:notification-system": "wp-scripts start --config webpack.config.notification-system.js",
+		"build:notification-system": "wp-scripts build --config webpack.config.notification-system.js",
 		"start:gallery-listing-ai": "wp-scripts start apps/gallery-listing-ai/index.js --output-path=./assets/js/admin/gallery-listing-ai --config webpack.config.react-apps.js",
 		"build:gallery-listing-ai": "wp-scripts build apps/gallery-listing-ai/index.js --output-path=./assets/js/admin/gallery-listing-ai --config webpack.config.react-apps.js",
 		"start:settings": "wp-scripts start apps/settings/index.js --output-path=./assets/js/admin/settings --config webpack.config.react-apps.js",
