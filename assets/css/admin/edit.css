@@ -368,3 +368,22 @@ p.modula-onboarding-doc > a {
     color: #a7aaad;
     pointer-events: none;
 }
+
+.modula-ai-report {
+    position: absolute;
+    right: 175px;
+    top: 9px;
+}
+
+.modula-ai-report-button {
+    cursor: pointer;
+    padding: 0 15px;
+    text-align: center;
+    border: 0;
+    border-left: 1px solid #dcdcde;
+    transition: color .1s ease-in-out, background .1s ease-in-out;
+}
+
+.media-frame-title {
+    right: 280px !important;
+}

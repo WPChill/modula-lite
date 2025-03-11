@@ -48,12 +48,12 @@ class Modula_Shortcode {
 		wp_register_style( 'modula', MODULA_URL . 'assets/css/front.css', null, MODULA_LITE_VERSION );
 
 		// Scripts necessary for some galleries
-		wp_register_script('dompurify', MODULA_URL . 'assets/js/front/purify.min.js', array(), MODULA_LITE_VERSION, true );
+		wp_register_script( 'dompurify', MODULA_URL . 'assets/js/front/purify.min.js', array(), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope', MODULA_URL . 'assets/js/front/isotope' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-isotope-packery', MODULA_URL . 'assets/js/front/isotope-packery' . $suffix . '.js', array( 'jquery', 'modula-isotope' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-grid-justified-gallery', MODULA_URL . 'assets/js/front/justifiedGallery' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 		wp_register_script( 'modula-fancybox', MODULA_URL . 'assets/js/front/fancybox' . $suffix . '.js', array( 'jquery', 'modulaFancybox' ), MODULA_LITE_VERSION, true );
-		wp_register_script( 'modulaFancybox', MODULA_URL . 'assets/js/front/modula-fancybox' . $suffix . '.js', array('dompurify'), MODULA_LITE_VERSION, true );
+		wp_register_script( 'modulaFancybox', MODULA_URL . 'assets/js/front/modula-fancybox' . $suffix . '.js', array( 'dompurify' ), MODULA_LITE_VERSION, true );
 		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( Modula_Helper::render_lightbox_share_template() ) ) . "';", 'before' );
 		wp_register_script( 'modula-lazysizes', MODULA_URL . 'assets/js/front/lazysizes' . $suffix . '.js', array( 'jquery' ), MODULA_LITE_VERSION, true );
 
@@ -107,7 +107,6 @@ class Modula_Shortcode {
 			}
 
 			$atts['id'] = $gallery_posts[0]->ID;
-
 		}
 
 		/* Get gallery settings */
@@ -136,7 +135,6 @@ class Modula_Shortcode {
 			// If there is HTML, then we stop trying to display the gallery and return THAT HTML.
 			$pre_output = apply_filters( 'modula_pre_output_filter', '', $settings, $gallery );
 			return $pre_output;
-
 		}
 
 		/* Get gallery images */
@@ -147,7 +145,7 @@ class Modula_Shortcode {
 		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && in_array( $type, $shuffle_permitted ) ) {
 			shuffle( $images );
 		}
-
+		$images = $this->apply_reports( $images );
 		$images = apply_filters( 'modula_gallery_images', $images, $settings );
 
 		if ( empty( $settings ) || empty( $images ) ) {
@@ -212,7 +210,7 @@ class Modula_Shortcode {
 		}
 
 		/* Config for gallery script */
-		$js_config = Modula_Shortcode::get_jsconfig( $settings, $type, $inView );
+		$js_config = self::get_jsconfig( $settings, $type, $inView );
 
 		$template_data['gallery_container']['data-config'] = json_encode( $js_config );
 		/**
@@ -323,7 +321,6 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all;opacity: 1; }";
 
 			$css .= '@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(' . absint( $settings['loadedScale'] ) / 100 . ')}100%{transform:scale(1)}}';
-
 		} else {
 			$css .= "#{$gallery_id} .modula-item .modula-item-content { transform: scale(" . absint( $settings['loadedScale'] ) / 100 . ') }';
 		}
@@ -374,7 +371,6 @@ class Modula_Shortcode {
 		$css .= '@media screen and (max-width:480px){';
 
 		if ( '' != $settings['mobileTitleFontSize'] && 0 != $settings['mobileTitleFontSize'] ) {
-
 			$css .= "#{$gallery_id} .modula-item .figc .jtg-title {  font-size: " . absint( $settings['mobileTitleFontSize'] ) . 'px; }';
 		}
 
@@ -419,6 +415,65 @@ class Modula_Shortcode {
 	public function add_modula_body_class( $classes ) {
 		$classes[] = 'modula-best-grid-gallery';
 		return $classes;
+	}
+
+	public function apply_reports( $images ) {
+		global $wpdb;
+
+		if ( empty( $images ) ) {
+			return $images;
+		}
+
+		$image_ids = array();
+		foreach ( $images as $image ) {
+			if ( isset( $image['id'] ) ) {
+				$image_ids[] = $image['id'];
+			}
+		}
+
+		if ( empty( $image_ids ) ) {
+			return $images;
+		}
+
+		//phpcs:ignore WordPress.DB
+		$alt_texts = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta} 
+				WHERE post_id IN (" . implode( ',', array_fill( 0, count( $image_ids ), '%d' ) ) . ") 
+				AND meta_key = '_wp_attachment_image_alt'",
+				$image_ids
+			),
+			OBJECT_K
+		);
+
+		//phpcs:ignore WordPress.DB
+		$post_data = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT ID, post_title, post_excerpt, post_content FROM {$wpdb->posts} 
+				WHERE ID IN (" . implode( ',', array_fill( 0, count( $image_ids ), '%d' ) ) . ')',
+				$image_ids
+			),
+			OBJECT_K
+		);
+
+		foreach ( $images as &$image ) {
+			if ( ! isset( $image['id'] ) ) {
+				continue;
+			}
+
+			if ( isset( $alt_texts[ $image['id'] ] ) ) {
+				$image['alt'] = $alt_texts[ $image['id'] ]->meta_value;
+			}
+
+			if ( isset( $post_data[ $image['id'] ] ) ) {
+				$post                 = $post_data[ $image['id'] ];
+				$image['title']       = $post->post_title;
+				$image['description'] = $post->post_excerpt;
+				$image['caption']     = $post->post_excerpt;
+			}
+		}
+
+		return $images;
 	}
 }
 

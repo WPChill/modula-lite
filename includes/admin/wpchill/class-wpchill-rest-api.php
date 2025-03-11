@@ -42,7 +42,7 @@ class WPChill_Rest_Api {
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
-		
+
 		register_rest_route(
 			$this->namespace,
 			'/activate-plugin',
@@ -52,6 +52,8 @@ class WPChill_Rest_Api {
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
+
+		do_action( 'modula_rest_api_register_routes', $this );
 	}
 
 	public function process_request( $request ) {
