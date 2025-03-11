@@ -52,7 +52,6 @@ define( 'MODULA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MODULA_URL', plugin_dir_url( __FILE__ ) );
 defined( 'MODULA_PRO_STORE_URL' ) || define( 'MODULA_PRO_STORE_URL', 'https://wp-modula.com' );
 defined( 'MODULA_PRO_STORE_UPGRADE_URL' ) || define( 'MODULA_PRO_STORE_UPGRADE_URL', 'https://wp-modula.com/pricing' );
-define( 'MODULA_REMOTE_NOTIFICATIONS_URL', 'https://wp-modula.com/wp-json/notifications/v1/get' );
 define( 'MODULA_FILE', plugin_basename( __FILE__ ) );
 
 define( 'MODULA_LITE_TRANSLATE', dirname( plugin_basename( __FILE__ ) ) . '/languages' );

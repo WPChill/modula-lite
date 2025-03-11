@@ -654,16 +654,17 @@ class Modula_Admin {
 			'title'   => esc_html__( 'Images added to Modula Gallery', 'modula-best-grid-gallery' ),
 			'message' => $message,
 			'status'  => 'success',
+			'source'  => array(
+				'slug' => 'modula',
+				'name' => 'Modula',
+			),
 			'timed'   => 5000,
 		);
-
-		Modula_Notifications::add_notification( 'media-add-notice', $notice );
+		WPChill_Notifications::add_notification( 'media-add-notice', $notice );
 
 		wp_send_json_success( esc_html( $message ) );
 		die();
 	}
-
-
 
 	/**
 	 * Add bulk actions to Media Library table
@@ -877,10 +878,14 @@ class Modula_Admin {
 			'title'   => esc_html__( 'Images added to Modula Gallery', 'modula-best-grid-gallery' ),
 			'message' => $message,
 			'status'  => 'success',
+			'source'  => array(
+				'slug' => 'modula',
+				'name' => 'Modula',
+			),
 			'timed'   => 5000,
 		);
 
-		Modula_Notifications::add_notification( 'media-add-notice', $notice );
+		WPChill_Notifications::add_notification( 'media-add-notice', $notice );
 
 		wp_safe_redirect( remove_query_arg( array( 'modula_media_added', 'modula_media_skipped' ) ) );
 		exit;

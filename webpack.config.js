@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require( 'path' );
 //const ExtractTextPlugin       = require('extract-text-webpack-plugin');
 //const UglifyJSPlugin            = require('uglifyjs-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
 // const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 // const CssEntryPlugin = require('css-entry-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 const config = {
 	entry: {
@@ -12,7 +12,7 @@ const config = {
 	},
 	output: {
 		filename: 'js/admin/wp-modula-gutenberg.js',
-		path: path.resolve(__dirname, 'assets'),
+		path: path.resolve( __dirname, 'assets' ),
 	},
 	module: {
 		rules: [
@@ -20,12 +20,7 @@ const config = {
 				test: /\.scss$/,
 				/* 		use: ExtractTextPlugin.extract({
 					fallback: 'style-loader', */
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader?url=false',
-					'postcss-loader',
-					'sass-loader',
-				],
+				use: [ MiniCssExtractPlugin.loader, 'css-loader?url=false', 'postcss-loader', 'sass-loader' ],
 				//}),
 			},
 			{
@@ -36,19 +31,19 @@ const config = {
 		],
 	},
 	plugins: [
-		new MiniCssExtractPlugin({
+		new MiniCssExtractPlugin( {
 			filename: './assets/css/admin/modula-gutenberg.css',
-		}),
+		} ),
 		//new ExtractTextPlugin('/css/[name].css'),
 	],
 	optimization: { minimizer: [] },
 };
 
 //If true JS and CSS files will be minified
-if (process.env.NODE_ENV === 'production') {
+if ( process.env.NODE_ENV === 'production' ) {
 	config.optimization.minimizer.push(
 		//new UglifyJSPlugin(),
-		new CssMinimizerPlugin()
+		new CssMinimizerPlugin(),
 	);
 }
 

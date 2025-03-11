@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 = 2.12.6 - 11.03.2025 =
+Update: Notification system to WPChill Notification System.
+Fixed: Custom galleries preview images wrong scaling after image/bulk edit.
+Added: Upsells for Modula Comments.
 Fixed: Fixed: PHP Warning
 
 = 2.12.5 - 07.03.2025 =

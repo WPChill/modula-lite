@@ -112,6 +112,14 @@ class Modula_CPT_Fields_Helper {
 					'docs_url' => 'https://wp-modula.com/kb/modula-speed-up/ ',
 					'priority' => 80,
 				),
+				'comments'             => array(
+					'label'    => esc_html__( 'Comments', 'modula-best-grid-gallery' ),
+					'title'    => esc_html__( 'Comments', 'modula-best-grid-gallery' ),
+					'icon'     => 'dashicons dashicons-admin-comments',
+					'badge'    => esc_html__( 'PRO', 'modula-best-grid-gallery' ),
+					'docs_url' => 'https://wp-modula.com/kb/modula-comments/',
+					'priority' => 80,
+				),
 				'exif'                 => array(
 					'label'       => esc_html__( 'EXIF', 'modula-best-grid-gallery' ),
 					'title'       => esc_html__( 'Exif Settings', 'modula-best-grid-gallery' ),

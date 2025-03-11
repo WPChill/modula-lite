@@ -1,10 +1,10 @@
 module.exports = {
 	plugins: [
-		require('autoprefixer'),
-		require('postcss-prefix-selector')({
+		require( 'autoprefixer' ),
+		require( 'postcss-prefix-selector' )( {
 			prefix: '.modula-best-grid-gallery',
-			exclude: ['html', 'body'],
-			ignoreFiles: [/apps\/.*/],
-		}),
+			exclude: [ 'html', 'body', /^#wpchill-notifications-root/ ],
+			ignoreFiles: [ /apps\/.*/ ],
+		} ),
 	],
 };

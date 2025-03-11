@@ -85,8 +85,11 @@ class Modula {
 		// The meta handling class
 		require_once MODULA_PATH . 'includes/public/meta/class-modula-meta.php';
 
-		require_once MODULA_PATH . 'includes/admin/class-modula-rest-api.php';
 		require_once MODULA_PATH . 'includes/admin/class-modula-notifications.php';
+		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-notifications.php';
+
+		// WPChill About Us Class.
+		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-about-us.php';
 
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
@@ -150,7 +153,6 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'notification_system_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'settings_page_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
@@ -172,11 +174,8 @@ class Modula {
 		// Initiate modula cpts
 		new Modula_CPT();
 
-		// Initiate Modula Notifications
-		Modula_Notifications::get_instance();
-
-		// Initiate Modula REST Api
-		new Modula_Rest_Api();
+		// Initiate WPChill Notifications
+		WPChill_Notifications::get_instance();
 
 		new Modula\Gallery_Listing_Output();
 	}
@@ -185,7 +184,7 @@ class Modula {
 		new Modula\Ai\Client();
 	}
 
-	public function dashboard_start() {
+	public function dashboard_start( ) {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
@@ -845,31 +844,6 @@ class Modula {
 		}
 
 		update_option( 'wpmodulaupdate', true );
-	}
-
-	/**
-	 * Enqueue the notification system scripts
-	 *
-	 * @since 2.12.0
-	 */
-	public function notification_system_scripts() {
-		if ( ! $this->is_modula_admin_page() || ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		$scripts = Modula\Scripts::get_instance();
-
-		// Load notification system script and styles
-		$scripts->load_js_asset(
-			'modula-notification-system',
-			'assets/js/admin/notification-system'
-		);
-
-		$scripts->load_css_asset(
-			'modula-notification-system',
-			'assets/js/admin/notification-system',
-			array( 'wp-components' )
-		);
 	}
 
 	public function settings_page_scripts() {

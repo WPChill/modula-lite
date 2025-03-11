@@ -85,6 +85,11 @@ var modulaFancybox = {
             document.dispatchEvent(event);
         };
 
+        opts.on['Carousel.selectSlide'] = function (fancybox, eventName, slideIndex) {
+            var event = new CustomEvent('modula_fancybox_custom_Carousel_selectSlide', { detail: { fancybox: fancybox, instance: this, index: slideIndex.index, opts: opts } });
+            document.dispatchEvent(event);
+        };
+
         // Slide pause on hover event
         opts.on['Carousel.ready Carousel.change'] = function (fancybox, eventName) {
 
