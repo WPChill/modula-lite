@@ -177,9 +177,6 @@ class Modula {
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
 
-		// Initiate Modula REST Api
-		new Modula_Rest_Api();
-
 		new Modula\Gallery_Listing_Output();
 	}
 
