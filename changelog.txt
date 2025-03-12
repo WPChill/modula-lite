@@ -1,3 +1,6 @@
+= 2.12.7 - 12.03.2025 =
+Fixed: Fixes a PHP error occurring in certain scenarios
+
 = 2.12.6 - 11.03.2025 =
 Update: Notification system to WPChill Notification System.
 Fixed: Custom galleries preview images wrong scaling after image/bulk edit.

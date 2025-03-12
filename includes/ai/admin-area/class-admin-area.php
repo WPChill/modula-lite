@@ -24,6 +24,10 @@ class Admin_Area {
 	}
 
 	public function add_modula_ai_helper_properties( $helper ) {
+		if ( ! isset( $helper['strings'] ) ) {
+			$helper['strings'] = array();
+		}
+
 		$helper['strings'] = array_merge(
 			$helper['strings'],
 			array(
