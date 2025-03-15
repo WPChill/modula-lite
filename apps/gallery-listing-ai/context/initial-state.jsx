@@ -1,4 +1,4 @@
-export const initialState = (id) => {
+export const initialState = ( id ) => {
 	const defaultVal = {
 		totalImages: 0,
 		imagesWithAlt: 0,
@@ -10,25 +10,26 @@ export const initialState = (id) => {
 		timestamp: new Date().toLocaleDateString(),
 		modulaAiSettings: '',
 		modulaAiApp: '',
+		isStarted: false,
 		id,
 	};
 
-	if (typeof id === 'undefined') {
+	if ( typeof id === 'undefined' ) {
 		return defaultVal;
 	}
 
-	const windowVariableName = `modulaAiGalleryListing${id}`;
-	const windowVariableValue = window[windowVariableName];
+	const windowVariableName = `modulaAiGalleryListing${ id }`;
+	const windowVariableValue = window[ windowVariableName ];
 
-	if (!windowVariableValue) {
+	if ( ! windowVariableValue ) {
 		return defaultVal;
 	}
 
-	if (windowVariableValue.timestamp) {
+	if ( windowVariableValue.timestamp ) {
 		windowVariableValue.timestamp = new Date(
-			windowVariableValue.timestamp * 1000
+			windowVariableValue.timestamp * 1000,
 		).toLocaleDateString();
 	}
 
-	return { ...windowVariableValue, id };
+	return { ...windowVariableValue, isStarted: false, id };
 };

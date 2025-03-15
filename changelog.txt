@@ -1,3 +1,6 @@
+= 2.12.8 - 15.03.2025 =
+Added: Performance improvements in gallery listing page.
+
 = 2.12.7 - 12.03.2025 =
 Fixed: Fixes a PHP error occurring in certain scenarios
 
