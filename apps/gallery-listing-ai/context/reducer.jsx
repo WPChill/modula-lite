@@ -5,10 +5,11 @@ export const actionTypes = {
 	UPDATE_IMAGES_WITHOUT_ALT_IDS: 'UPDATE_IMAGES_WITHOUT_ALT_IDS',
 	UPDATE_ALL_IMAGE_IDS: 'UPDATE_ALL_IMAGE_IDS',
 	UPDATE_STATUS: 'UPDATE_STATUS',
+	SET_STARTED: 'SET_STARTED',
 };
 
-export const reducer = (state, action) => {
-	switch (action.type) {
+export const reducer = ( state, action ) => {
+	switch ( action.type ) {
 		case actionTypes.UPDATE_TOTAL_IMAGES:
 			return {
 				...state,
@@ -38,6 +39,11 @@ export const reducer = (state, action) => {
 			return {
 				...state,
 				status: action.payload,
+			};
+		case actionTypes.SET_STARTED:
+			return {
+				...state,
+				isStarted: action.payload,
 			};
 		default:
 			return state;
