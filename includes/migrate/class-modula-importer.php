@@ -336,4 +336,4 @@ class Modula_Importer {
 	}
 }
 
-$modula_importer = Modula_Importer::get_instance();
+add_action( 'plugins_loaded', array( 'Modula_Importer', 'get_instance' ) );

@@ -655,7 +655,7 @@ class Modula_CPT_Fields_Helper {
 				),
 				'responsive'           => array(
 					'enable_responsive' => array(
-						'name'      => esc_html__( 'Custom responsiveness', 'modula-best-grid-gallery' ),
+						'name'      => wp_kses_post( __( 'Custom responsiveness <br> (nr. of columns)', 'modula-best-grid-gallery' ) ),
 						'type'      => 'toggle',
 						'default'   => 0,
 						'priority'  => 10,
@@ -663,7 +663,7 @@ class Modula_CPT_Fields_Helper {
 						'data_type' => 'bool',
 					),
 					'tablet_columns'    => array(
-						'name'      => esc_html__( 'Tablet Columns', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'On tablet', 'modula-best-grid-gallery' ),
 						'type'      => 'ui-slider',
 						'min'       => 1,
 						'max'       => 6,
@@ -673,7 +673,7 @@ class Modula_CPT_Fields_Helper {
 						'data_type' => 'number',
 					),
 					'mobile_columns'    => array(
-						'name'      => esc_html__( 'Mobile Columns', 'modula-best-grid-gallery' ),
+						'name'      => esc_html__( 'On mobile', 'modula-best-grid-gallery' ),
 						'type'      => 'ui-slider',
 						'min'       => 1,
 						'max'       => 6,
