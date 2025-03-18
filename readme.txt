@@ -128,8 +128,11 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 = 2.12.9 – 18.03.2025 =
-Update: Admin settings labels.
-Update: Gallery type & captions default values.
+Changed: Removed tooltips.
+Update: Links to online knowledge base.
+Update: Default gallery type set to Masonry.
+Update: Title and Caption default size values.
+Update: Removed Misc tab from general settings.
 
 = 2.12.8 - 15.03.2025 =
 Added: Performance improvements in gallery listing page.
