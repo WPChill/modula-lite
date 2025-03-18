@@ -188,7 +188,7 @@ class Modula {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
-			'documentation' => 'https://wp-modula.com/knowledge-base/',
+			'documentation' => 'https://wp-modula.com/kb/',
 			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			'lite_vs_pro'   => 'https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro',
