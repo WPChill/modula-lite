@@ -56,9 +56,9 @@
 				'img_attributes'    => array(
 					'data-valign'   => esc_attr( $image['valign'] ),
 					'data-halign'   => esc_attr( $image['halign'] ),
-					'alt'           => $image['alt'],
+					'alt'           => isset( $image['alt'] ) ? $image['alt'] : '',
 					'data-full'     => $full_img_src,
-					'title'         => $image[ 'title' ],
+					'title'         => isset( $image['title'] ) ? $image['title'] : '',
 				),
 				'social_attributes' => array(
 					'data-modula-gallery-id' => preg_replace( '/[^0-9]/', '', $data->gallery_id ),

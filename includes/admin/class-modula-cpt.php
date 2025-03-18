@@ -1,5 +1,7 @@
 <?php
 
+use Modula\Ai\Optimizer\Optimizer;
+
 /**
  * The cpt plugin class.
  *
@@ -12,6 +14,7 @@ class Modula_CPT {
 	private $labels        = array();
 	private $args          = array();
 	private $metaboxes     = array();
+	private $removable_metaboxes     = array();
 	private $gallery_types = array();
 	private $cpt_name;
 	private $builder;
@@ -138,6 +141,17 @@ class Modula_CPT {
 			),
 		);
 
+		$this->removable_metaboxes = array(
+			array(
+				'slug'    => 'commentstatusdiv',
+				'context' => 'normal',
+			),
+			array(
+				'slug'    => 'commentsdiv',
+				'context' => 'normal',
+			),
+		);
+
 		$args           = $this->args;
 		$args['labels'] = $this->labels;
 
@@ -180,35 +194,242 @@ class Modula_CPT {
 		}
 
 		foreach ( $gallery as $k => $image ) {
-			$gallery[ $k ]['url'] = wp_get_attachment_url( $image['id'] );
+			$gallery[ $k ]['url']         = wp_get_attachment_url( $image['id'] );
+			$gallery[ $k ]['alt']         = get_post_meta( $image['id'], '_wp_attachment_image_alt', true );
+			$gallery[ $k ]['title']       = get_the_title( $image['id'] );
+			$gallery[ $k ]['caption']     = get_post_field( 'post_excerpt', $image['id'] );
+			$gallery[ $k ]['description'] = get_post_field( 'post_excerpt', $image['id'] );
+			$gallery[ $k ]['report']      = get_post_meta( $image['id'], Optimizer::REPORT, true );
 		}
 
 		return $gallery;
 	}
 
-	public function update_gallery_settings( $value, $object ) {
-		if ( ! current_user_can( 'edit_post', $object->ID ) ) {
+	public function update_gallery_settings( $value, $obj ) {
+		if ( ! current_user_can( 'edit_post', $obj->ID ) ) {
 			return;
 		}
 
 		update_post_meta(
-			$object->ID,
+			$obj->ID,
 			'modula-settings',
-			$this->sanitize_settings( $object->ID, $value )
+			$this->sanitize_settings( $obj->ID, $value )
 		);
 	}
 
-	public function update_gallery_images( $value, $object ) {
-		if ( ! current_user_can( 'edit_post', $object->ID ) ) {
+	public function update_gallery_images( $value, $obj ) {
+		if ( ! current_user_can( 'edit_post', $obj->ID ) ) {
 			return;
 		}
 
+		$modula_images = $this->sanitize_images( $value );
+
+		$this->batch_update_images( $modula_images, $obj->ID );
+
 		update_post_meta(
-			$object->ID,
+			$obj->ID,
 			'modula-images',
-			$this->sanitize_images( $value )
+			$modula_images
 		);
 	}
+
+	/**
+	 * Batch update images in bulk with direct SQL (bypassing wp_update_post()).
+	 *
+	 * @param array $images  Array of image data. Each element should have keys:
+	 *                       ['id', 'title', 'description', 'alt'] (some may be optional).
+	 * @param int   $post_id The parent post (gallery) ID.
+	 */
+	private function batch_update_images( $images, $post_id ) {
+		// Safety checks
+		if ( empty( $images ) ) {
+			return;
+		}
+
+		$optimizer_status = get_option( 'modula_ai_optimizer_status_' . $post_id );
+		if ( 'running' === $optimizer_status ) {
+			return;
+		}
+
+		// We’ll process in chunks to avoid overly large queries
+		$batch_size = 200;
+		$chunks     = array_chunk( $images, $batch_size );
+
+		foreach ( $chunks as $chunk ) {
+			$this->process_chunk( $chunk );
+		}
+	}
+
+	/**
+	 * Process a single chunk of images (each up to $batch_size in length).
+	 */
+	private function process_chunk( $images_chunk ) {
+		global $wpdb;
+
+		// 1) Collect all relevant attachment IDs
+		$attachment_ids = array();
+		foreach ( $images_chunk as $image ) {
+			if ( ! empty( $image['id'] ) ) {
+				$attachment_ids[] = absint( $image['id'] );
+			}
+		}
+		$attachment_ids = array_filter( $attachment_ids );
+		$attachment_ids = array_unique( $attachment_ids );
+
+		if ( empty( $attachment_ids ) ) {
+			return; // nothing to process
+		}
+
+		// 2) Fetch the existing posts data in one query
+		$ids_placeholder = implode( ',', $attachment_ids );
+		$sql_posts       = "
+        SELECT ID, post_title, post_excerpt, post_content
+        FROM {$wpdb->posts}
+        WHERE ID IN ( $ids_placeholder )
+    	";
+
+		//phpcs:ignore WordPress.DB.DirectQuery
+		$results_posts = $wpdb->get_results( $sql_posts );
+
+		// Put them in an associative array keyed by ID
+		$existing_posts = array();
+		if ( $results_posts ) {
+			foreach ( $results_posts as $row ) {
+				$existing_posts[ $row->ID ] = $row;
+			}
+		}
+
+		// 3) Fetch existing alt meta for these IDs in one query
+		$sql_meta = "
+        SELECT post_id, meta_value
+        FROM {$wpdb->postmeta}
+        WHERE post_id IN ( $ids_placeholder )
+          AND meta_key = '_wp_attachment_image_alt'
+    	";
+		//phpcs:ignore WordPress.DB.DirectQuery
+		$results_meta = $wpdb->get_results( $sql_meta );
+
+		// Store alt text keyed by attachment ID
+		$existing_alts = array();
+		if ( $results_meta ) {
+			foreach ( $results_meta as $mrow ) {
+				$existing_alts[ $mrow->post_id ] = $mrow->meta_value;
+			}
+		}
+
+		// Prepare arrays for the final batch updates
+		$post_sql_values = array();  // For post_title, post_excerpt, post_content
+		$meta_delete_ids = array();  // We'll delete old alt rows in one go
+		$meta_inserts    = array();  // We'll insert the new alt rows
+
+		// 4) Loop through images and build the final updates only if needed
+		foreach ( $images_chunk as $image ) {
+			$attachment_id = isset( $image['id'] ) ? absint( $image['id'] ) : 0;
+			if ( ! $attachment_id ) {
+				continue;
+			}
+
+			// If no existing post row, skip (don't create new posts!)
+			if ( ! isset( $existing_posts[ $attachment_id ] ) ) {
+				continue;
+			}
+			$existing_post = $existing_posts[ $attachment_id ];
+
+			// Potential new fields
+			$new_title       = isset( $image['title'] ) ? wp_kses_post( stripslashes( $image['title'] ) ) : null;
+			$new_description = isset( $image['description'] ) ? wp_kses_post( stripslashes( $image['description'] ) ) : null;
+			$new_alt         = isset( $image['alt'] ) ? sanitize_text_field( wp_unslash( $image['alt'] ) ) : null;
+
+			// Compare posts fields
+			$needs_post_update = false;
+
+			// Default to existing
+			$updated_title   = $existing_post->post_title;
+			$updated_excerpt = $existing_post->post_excerpt;
+			$updated_content = $existing_post->post_content;
+
+			if ( null !== $new_title && $new_title !== $existing_post->post_title ) {
+				$updated_title     = $new_title;
+				$needs_post_update = true;
+			}
+
+			if ( null !== $new_description ) {
+				// If the new desc is different from existing excerpt OR content, update both
+				if (
+				$new_description !== $existing_post->post_excerpt
+				|| $new_description !== $existing_post->post_content
+				) {
+					$updated_excerpt   = $new_description;
+					$updated_content   = $new_description;
+					$needs_post_update = true;
+				}
+			}
+
+			if ( $needs_post_update ) {
+				// We'll add one row for the bulk "INSERT ... ON DUPLICATE KEY UPDATE"
+				$post_sql_values[] = $wpdb->prepare(
+					'(%d, %s, %s, %s)',
+					$attachment_id,
+					$updated_title,
+					$updated_excerpt,
+					$updated_content
+				);
+			}
+
+			// Compare alt
+			if ( null !== $new_alt ) {
+				$existing_alt = isset( $existing_alts[ $attachment_id ] ) ? $existing_alts[ $attachment_id ] : '';
+				if ( $new_alt !== $existing_alt ) {
+					$meta_delete_ids[] = $attachment_id;
+
+					// We'll insert new alt in one batch
+					$meta_inserts[] = $wpdb->prepare(
+						"(%d, '_wp_attachment_image_alt', %s)",
+						$attachment_id,
+						$new_alt
+					);
+				}
+			}
+
+			clean_post_cache( $attachment_id );
+		}
+
+		// 5) Perform the actual queries:
+
+		// (A) Update posts
+		if ( ! empty( $post_sql_values ) ) {
+			$sql_posts = "
+            INSERT INTO {$wpdb->posts} (ID, post_title, post_excerpt, post_content)
+            VALUES " . implode( ',', $post_sql_values ) . '
+            ON DUPLICATE KEY UPDATE 
+                post_title   = VALUES(post_title),
+                post_excerpt = VALUES(post_excerpt),
+                post_content = VALUES(post_content)
+        ';
+			// Prepared at line 361
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_posts );
+		}
+
+		// (B) Update alt meta (delete, then insert)
+		if ( ! empty( $meta_delete_ids ) && ! empty( $meta_inserts ) ) {
+			$ids_str = implode( ',', array_map( 'absint', $meta_delete_ids ) );
+			$sql_del = "
+            DELETE FROM {$wpdb->postmeta}
+            WHERE post_id IN ($ids_str)
+              AND meta_key = '_wp_attachment_image_alt'
+        	";
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_del );
+
+			$sql_meta = "
+            INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
+            VALUES " . implode( ',', $meta_inserts );
+			//phpcs:ignore WordPress.DB
+			$wpdb->query( $sql_meta );
+		}
+	}
+
 
 	/**
 	 * Remove Add New link from menu item
@@ -238,13 +459,14 @@ class Modula_CPT {
 	public function add_meta_boxes() {
 
 		global $post;
-		$this->metaboxes = apply_filters( 'modula_cpt_metaboxes', $this->metaboxes );
+		$this->metaboxes           = apply_filters( 'modula_cpt_metaboxes', $this->metaboxes );
+		$this->removable_metaboxes = apply_filters( 'modula_cpt_removable_metaboxes', $this->removable_metaboxes );
 
 		// Sort tabs based on priority.
 		uasort( $this->metaboxes, array( 'Modula_Helper', 'sort_data_by_priority' ) );
 
 		foreach ( $this->metaboxes as $metabox_id => $metabox ) {
-			if ( 'modula-shortcode' == $metabox_id && 'auto-draft' == $post->post_status ) {
+			if ( 'modula-shortcode' === $metabox_id && 'auto-draft' === $post->post_status ) {
 				continue;
 			}
 
@@ -256,6 +478,10 @@ class Modula_CPT {
 				$metabox['context'],         // Context
 				'high'         // Priority
 			);
+		}
+		
+		foreach ( $this->removable_metaboxes as $metabox ) {
+			remove_meta_box( $metabox['slug'], 'modula-gallery', $metabox['context'] );
 		}
 	}
 
@@ -277,7 +503,7 @@ class Modula_CPT {
 		$post_type = get_post_type_object( $post->post_type );
 
 		/* Check if the current user has permission to edit the post. */
-		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' != $post_type->name ) {
+		if ( ! current_user_can( $post_type->cap->edit_post, $post_id ) || 'modula-gallery' !== $post_type->name ) {
 			return $post_id;
 		}
 
@@ -289,6 +515,22 @@ class Modula_CPT {
 
 		if ( isset( $_POST['modula-images'] ) ) {
 			$modula_images = $this->sanitize_images( $_POST['modula-images'] );
+
+			// Use the batch update method instead of individual updates
+			$this->batch_update_images( $modula_images, $post_id );
+
+			foreach ( $modula_images as &$image ) {
+				if ( isset( $image['alt'] ) ) {
+					unset( $image['alt'] );
+				}
+				if ( isset( $image['title'] ) ) {
+					unset( $image['title'] );
+				}
+				if ( isset( $image['description'] ) ) {
+					unset( $image['description'] );
+				}
+			}
+
 			update_post_meta( $post_id, 'modula-images', $modula_images );
 		}
 	}
@@ -414,11 +656,11 @@ class Modula_CPT {
 
 							break;
 					}
-				} elseif ( 'toggle' == $field['type'] ) {
-						$modula_settings[ $field_id ] = '0';
-				} elseif ( 'hidden' == $field['type'] ) {
+				} elseif ( 'toggle' === $field['type'] ) {
+					$modula_settings[ $field_id ] = '0';
+				} elseif ( 'hidden' === $field['type'] ) {
 					$hidden_set = get_post_meta( $post_id, 'modula-settings', true );
-					if ( isset( $hidden_set['last_visited_tab'] ) && '' != $hidden_set['last_visited_tab'] ) {
+					if ( isset( $hidden_set['last_visited_tab'] ) && '' !== $hidden_set['last_visited_tab'] ) {
 						$modula_settings[ $field_id ] = $hidden_set['last_visited_tab'];
 					} else {
 						$modula_settings[ $field_id ] = 'modula-general';
@@ -610,7 +852,7 @@ class Modula_CPT {
 
 	public function outpu_column( $column, $post_id ) {
 
-		if ( 'shortcode' == $column ) {
+		if ( 'shortcode' === $column ) {
 			$shortcode = '[modula id="' . $post_id . '"]';
 			echo '<div class="modula-copy-shortcode">';
 			echo '<input type="text" value="' . esc_attr( $shortcode ) . '"  onclick="select()" readonly>';
@@ -652,9 +894,9 @@ class Modula_CPT {
 				<div id="minor-publishing-actions">
 					<div id="save-action">
 						<?php
-						if ( 'publish' != $post->post_status && 'future' != $post->post_status && 'pending' != $post->post_status ) {
+						if ( 'publish' !== $post->post_status && 'future' !== $post->post_status && 'pending' !== $post->post_status ) {
 							$private_style = '';
-							if ( 'private' == $post->post_status ) {
+							if ( 'private' === $post->post_status ) {
 								$private_style = 'style="display:none"';
 							}
 							?>
@@ -662,7 +904,7 @@ class Modula_CPT {
 																value="<?php esc_attr_e( 'Save Draft', 'modula-best-grid-gallery' ); ?>"
 																class="button"/>
 							<span class="spinner"></span>
-						<?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
+						<?php } elseif ( 'pending' === $post->post_status && $can_publish ) { ?>
 							<input type="submit" name="save" id="save-post"
 									value="<?php esc_attr_e( 'Save as Pending', 'modula-best-grid-gallery' ); ?>" class="button"/>
 							<span class="spinner"></span>
@@ -672,7 +914,7 @@ class Modula_CPT {
 						<div id="preview-action">
 							<?php
 							$preview_link = get_preview_post_link( $post );
-							if ( 'publish' == $post->post_status ) {
+							if ( 'publish' === $post->post_status ) {
 								$preview_button_text = esc_html__( 'Preview Changes', 'modula-best-grid-gallery' );
 							} else {
 								$preview_button_text = esc_html__( 'Preview', 'modula-best-grid-gallery' );
@@ -732,9 +974,9 @@ class Modula_CPT {
 			?>
 </span>
 						<?php
-						if ( 'publish' == $post->post_status || 'private' == $post->post_status || $can_publish ) {
+						if ( 'publish' === $post->post_status || 'private' === $post->post_status || $can_publish ) {
 							$private_style = '';
-							if ( 'private' == $post->post_status ) {
+							if ( 'private' === $post->post_status ) {
 								$private_style = 'style="display:none"';
 							}
 							?>
@@ -744,22 +986,22 @@ class Modula_CPT {
 
 							<div id="post-status-select" class="hide-if-js">
 								<input type="hidden" name="hidden_post_status" id="hidden_post_status"
-										value="<?php echo esc_attr( ( 'auto-draft' == $post->post_status ) ? 'draft' : $post->post_status ); ?>"/>
+										value="<?php echo esc_attr( ( 'auto-draft' === $post->post_status ) ? 'draft' : $post->post_status ); ?>"/>
 								<label for="post_status" class="screen-reader-text"><?php esc_html_e( 'Set status', 'modula-best-grid-gallery' ); ?></label>
 								<select name="post_status" id="post_status">
-									<?php if ( 'publish' == $post->post_status ) : ?>
+									<?php if ( 'publish' === $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'publish' ); ?>
 												value='publish'><?php esc_html_e( 'Published', 'modula-best-grid-gallery' ); ?></option>
-									<?php elseif ( 'private' == $post->post_status ) : ?>
+									<?php elseif ( 'private' === $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'private' ); ?>
 												value='publish'><?php esc_html_e( 'Privately Published', 'modula-best-grid-gallery' ); ?></option>
-									<?php elseif ( 'future' == $post->post_status ) : ?>
+									<?php elseif ( 'future' === $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'future' ); ?>
 												value='future'><?php esc_html_e( 'Scheduled', 'modula-best-grid-gallery' ); ?></option>
 									<?php endif; ?>
 									<option<?php selected( $post->post_status, 'pending' ); ?>
 											value='pending'><?php esc_html_e( 'Pending Review', 'modula-best-grid-gallery' ); ?></option>
-									<?php if ( 'auto-draft' == $post->post_status ) : ?>
+									<?php if ( 'auto-draft' === $post->post_status ) : ?>
 										<option<?php selected( $post->post_status, 'auto-draft' ); ?>
 												value='draft'><?php esc_html_e( 'Draft', 'modula-best-grid-gallery' ); ?></option>
 									<?php else : ?>
@@ -867,7 +1109,7 @@ class Modula_CPT {
 					<span class="spinner"></span>
 
 					<?php
-					if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ) ) || 0 == $post->ID ) {
+					if ( ! in_array( $post->post_status, array( 'publish', 'future', 'private' ), true ) || 0 === $post->ID ) {
 						if ( $can_publish ) :
 							if ( ! empty( $post->post_date_gmt ) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) :
 								?>
@@ -875,7 +1117,7 @@ class Modula_CPT {
 										value="<?php echo esc_attr_x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ); ?>"/>
 								<?php submit_button( _x( 'Schedule', 'post action/button label', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
 
-							<?php elseif ( in_array( $post->post_status, array( 'draft' ) ) || 0 == $post->ID ) : ?>
+							<?php elseif ( in_array( $post->post_status, array( 'draft' ), true ) || 0 === $post->ID ) : ?>
 								<input name="original_publish" type="hidden" id="original_publish"
 										value="<?php esc_attr_e( 'Update ', 'modula-best-grid-gallery' ) . 'modula-gallery'; ?>"/>
 								<?php submit_button( __( 'Publish Gallery', 'modula-best-grid-gallery' ), 'primary large', 'publish', false ); ?>
@@ -919,13 +1161,13 @@ class Modula_CPT {
 	 */
 	public function modula_remember_tab( $link, $id ) {
 
-		if ( 'modula-gallery' != get_post_type( $id ) ) {
+		if ( 'modula-gallery' !== get_post_type( $id ) ) {
 			return $link;
 		}
 
 		$settings = get_post_meta( $id, 'modula-settings', true );
 
-		if ( isset( $settings['last_visited_tab'] ) && '' != $settings['last_visited_tab'] ) {
+		if ( isset( $settings['last_visited_tab'] ) && '' !== $settings['last_visited_tab'] ) {
 			$link = $link . '#!' . $settings['last_visited_tab'];
 		} else {
 			$link = $link . '#!modula-general';
@@ -1140,7 +1382,7 @@ class Modula_CPT {
 	public function add_gallery_type_hidden_field() {
 		global $typenow;
 
-		if ( $typenow == 'modula-gallery' ) {
+		if ( 'modula-gallery' === $typenow ) {
 			?>
 			<input type="hidden" name="gallery_type" class="post_gallery_type_page" value="<?php echo isset( $_GET['gallery_type'] ) ? esc_attr( $_GET['gallery_type'] ) : 'all'; ?>" />
 			<?php
