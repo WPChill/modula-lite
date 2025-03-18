@@ -127,7 +127,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.12.9 – TBD =
+= 2.12.9 – 18.03.2025 =
 Update: Admin settings labels.
 Update: Gallery type & captions default values.
 
