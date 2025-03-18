@@ -31,7 +31,7 @@ class Modula_Onboarding extends WP_Posts_List_Table {
                    class="modula-onboarding-button"><?php esc_html_e( 'Create your first gallery', 'modula-best-grid-gallery' ); ?></a>
             </div>
             <div class="modula-onboarding-doc-wrap">
-                <p class="modula-onboarding-doc"><?php echo sprintf( esc_html__( 'Need help? Check out %s our documentation%s.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/knowledge-base/" target="_blank">', '</a>' ); ?></p>
+                <p class="modula-onboarding-doc"><?php echo sprintf( esc_html__( 'Need help? Check out %s our documentation%s.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/" target="_blank">', '</a>' ); ?></p>
             </div>
         </div>
 		<?php

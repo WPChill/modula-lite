@@ -188,7 +188,7 @@ class Modula {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
-			'documentation' => 'https://wp-modula.com/knowledge-base/',
+			'documentation' => 'https://wp-modula.com/kb/',
 			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			'lite_vs_pro'   => 'https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro',
@@ -486,8 +486,10 @@ class Modula {
 	 *
 	 */
 	public function disable_wp_srcset( $settings ) {
-		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-		if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' === $troubleshoot_opt['disable_srcset'] ) {
+		$troubleshoot_opt = get_option( 'modula_troubleshooting_option', array() );
+		$disable_srcset   = isset( $troubleshoot_opt['disable_srcset'] ) ? boolval( $troubleshoot_opt['disable_srcset'] ) : false;
+
+		if ( true === apply_filters( 'modula_troubleshooting_disable_srcset', $disable_srcset ) ) {
 			add_filter( 'max_srcset_image_width', array( $this, 'disable_wp_responsive_images' ), 999 );
 		}
 

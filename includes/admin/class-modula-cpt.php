@@ -84,7 +84,7 @@ class Modula_CPT {
 				'view_item'             => esc_html__( 'View Item', 'modula-best-grid-gallery' ),
 				'view_items'            => esc_html__( 'View Items', 'modula-best-grid-gallery' ),
 				'search_items'          => esc_html__( 'Search Item', 'modula-best-grid-gallery' ),
-				'not_found'             => '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '">' . esc_html__( 'Add your first gallery ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'now or check out our ', 'modula-best-grid-gallery' ) . '<a href="' . esc_url( 'https://wp-modula.com/knowledge-base/' ) . '" target="_blank">' . esc_html__( 'documentation ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'if you need help figuring things out.', 'modula-best-grid-gallery' ),
+				'not_found'             => '<a href="' . admin_url( 'post-new.php?post_type=modula-gallery' ) . '">' . esc_html__( 'Add your first gallery ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'now or check out our ', 'modula-best-grid-gallery' ) . '<a href="' . esc_url( 'https://wp-modula.com/kb/' ) . '" target="_blank">' . esc_html__( 'documentation ', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( 'if you need help figuring things out.', 'modula-best-grid-gallery' ),
 				'not_found_in_trash'    => esc_html__( 'Not found in Trash', 'modula-best-grid-gallery' ),
 				'featured_image'        => esc_html__( 'Featured Image', 'modula-best-grid-gallery' ),
 				'set_featured_image'    => esc_html__( 'Set featured image', 'modula-best-grid-gallery' ),

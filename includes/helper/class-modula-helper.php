@@ -331,16 +331,48 @@ class Modula_Helper {
 		return str_replace( $values['setting'], $values['front'], $value);
 	}
 
-	public static function get_default_image_licenses(){
+	public static function get_default_image_licenses() {
 		return array(
-            'none'     => array( 'name' => __( 'None', 'modula-best-grid-gallery' ), 'image' => '', 'license' => ''),
-            'by'       => array( 'name' => __( 'Attribution 4.0 International License (CC BY 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by/4.0/' ),
-            'by-sa'    => array( 'name' => __( 'Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-sa/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-sa/4.0/' ),
-            'by-nc'    => array( 'name' => __( 'Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc/4.0/' ),
-            'by-nc-sa' => array( 'name' => __( 'Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/' ),
-            'by-nc-nd' => array( 'name' => __( 'Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nc-nd/4.0/' ),
-            'by-nd'    => array( 'name' => __( 'Attribution-NoDerivatives 4.0 International License (CC BY-ND 4.0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/by-nd/4.0/88x31.png', 'license' => 'http://creativecommons.org/licenses/by-nd/4.0/' ),
-            'cc0'      => array( 'name' => __( 'CC0 Universal Public Domain Dedication license (CC0)', 'modula-best-grid-gallery' ), 'image' => 'https://i.creativecommons.org/l/zero/1.0/88x31.png', 'license' => 'https://creativecommons.org/publicdomain/zero/1.0/' ),
+			'none'     => array(
+				'name'    => __( 'None', 'modula-best-grid-gallery' ),
+				'image'   => '',
+				'license' => '',
+			),
+			'by'       => array(
+				'name'    => __( 'Attribution 4.0 International License (CC BY 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by.png' ),
+				'license' => 'http://creativecommons.org/licenses/by/4.0/',
+			),
+			'by-sa'    => array(
+				'name'    => __( 'Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by-sa.png' ),
+				'license' => 'http://creativecommons.org/licenses/by-sa/4.0/',
+			),
+			'by-nc'    => array(
+				'name'    => __( 'Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by-nc.png' ),
+				'license' => 'http://creativecommons.org/licenses/by-nc/4.0/',
+			),
+			'by-nc-sa' => array(
+				'name'    => __( 'Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by-nc-sa.png' ),
+				'license' => 'http://creativecommons.org/licenses/by-nc-sa/4.0/',
+			),
+			'by-nc-nd' => array(
+				'name'    => __( 'Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by-nc-nd.png' ),
+				'license' => 'http://creativecommons.org/licenses/by-nc-nd/4.0/',
+			),
+			'by-nd'    => array(
+				'name'    => __( 'Attribution-NoDerivatives 4.0 International License (CC BY-ND 4.0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/by-nd.png' ),
+				'license' => 'http://creativecommons.org/licenses/by-nd/4.0/',
+			),
+			'cc0'      => array(
+				'name'    => __( 'CC0 Universal Public Domain Dedication license (CC0)', 'modula-best-grid-gallery' ),
+				'image'   => esc_url( MODULA_URL . 'assets/images/licensing/zero.png' ),
+				'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+			),
 		);
 	}
 

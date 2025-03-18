@@ -168,7 +168,7 @@ class Modula_Field_Builder {
 		foreach ( $tabs as $tab_id => $tab ) {
 			$tab['id']  = $tab_id;
 			$tabs_html .= $this->_render_tab( $tab, $first );
-			$doc_url    = isset( $tab['docs_url'] ) ? $tab['docs_url'] : 'https://wp-modula.com/knowledge-base/';
+			$doc_url    = isset( $tab['docs_url'] ) ? $tab['docs_url'] : 'https://wp-modula.com/kb/';
 
 			$fields = Modula_CPT_Fields_Helper::get_fields( $tab_id );
 			// Sort fields based on priority.
@@ -177,26 +177,22 @@ class Modula_Field_Builder {
 			$current_tab_content = '<div id="modula-' . esc_attr( $tab['id'] ) . '" class="modula-tab-content' . ( $first ? ' active-tab' : '' ) . '">';
 
 			// Check if our tab have title & description
-			if ( isset( $tab['title'] ) || isset( $tab['description'] ) ) {
-				$current_tab_content .= '<div class="tab-content-header">';
-				$current_tab_content .= '<div class="tab-content-header-title">';
-				if ( isset( $tab['title'] ) && '' !== $tab['title'] ) {
-					$current_tab_content .= '<h2>' . esc_html( $tab['title'] ) . '</h2>';
-				}
-				if ( isset( $tab['description'] ) && '' !== $tab['description'] ) {
-					$current_tab_content .= '<div class="tab-header-tooltip-container modula-tooltip"><span>[?]</span>';
-					$current_tab_content .= '<div class="tab-header-description modula-tooltip-content">' . wp_kses_post( $tab['description'] ) . '</div>';
-					$current_tab_content .= '</div>';
-				}
-				$current_tab_content .= '</div>';
-
-				$current_tab_content .= '<div class="tab-content-header-actions">';
-				$current_tab_content .= apply_filters( 'modula_admin_documentation_link', '<a href="' . $doc_url . '" target="_blank" class="">' . esc_html__( 'Documentation', 'modula-best-grid-gallery' ) . '</a>' );
-				$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
-				$current_tab_content .= '</div>';
-
-				$current_tab_content .= '</div>';
-			}
+			$current_tab_content             .= '<div class="tab-content-header">';
+				$current_tab_content         .= '<div class="tab-content-header-actions">';
+					$current_tab_content     .= '<p class="tab-content-header-text">';
+						$current_tab_content .= apply_filters(
+							'modula_admin_documentation_link',
+							sprintf(
+								// Translators: %s is replaced with a link to the online documentation.
+								esc_html__( 'Need extra help? Read our %1$s online documentation%2$s.', 'modula-best-grid-gallery' ),
+								'<a href="' . $doc_url . '" target="_blank">',
+								'</a>'
+							)
+						);
+					$current_tab_content .= '</p>';
+					$current_tab_content .= apply_filters( 'modula_tab_content_header_actions', '', $tab );
+				$current_tab_content     .= '</div>';
+			$current_tab_content         .= '</div>';
 
 			// Generate all fields for current tab
 			$current_tab_content .= '<div class="form-table-wrapper">';
@@ -306,14 +302,6 @@ class Modula_Field_Builder {
 		$child      = '';
 		$field_name = wp_kses_post( $field['name'] );
 
-		// Generate tooltip
-		$tooltip = '';
-		if ( isset( $field['description'] ) && '' !== $field['description'] ) {
-			$tooltip .= '<div class="modula-tooltip"><span>[?]</span>';
-			$tooltip .= '<div class="modula-tooltip-content">' . wp_kses_post( $field['description'] ) . '</div>';
-			$tooltip .= '</div>';
-		}
-
 		if ( isset( $field['is_child'] ) && $field['is_child'] && is_bool( $field['is_child'] ) ) {
 			$child = 'child_setting';
 		}
@@ -325,7 +313,7 @@ class Modula_Field_Builder {
 		$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td>%s</td></tr>';
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
-			$children = htmlspecialchars( wp_json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
+			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
 
 			$parent = '';
 			if ( isset( $field['parent'] ) && '' !== $field['parent'] ) {
@@ -335,20 +323,18 @@ class Modula_Field_Builder {
 		}
 
 		// Formats for General Gutter
-		if ( 'gutterInput' === $field['type'] ) {
-			if ( 'desktop' === $field['media'] ) {
+		if ( 'gutterInput' == $field['type'] ) {
+			if ( 'desktop' == $field['media'] ) {
 				$format = '<tr data-container="' . esc_attr( $field['id'] ) . '"><th scope="row" class="' . esc_attr( $child ) . '"><label>%s</label>%s</th><td><span class="dashicons dashicons-desktop"></span>%s<span class="modula_input_suffix">px</span></td>';
 			}
 
 			if ( 'tablet' === $field['media'] ) {
 				$field_name = '<span class="dashicons dashicons-tablet"></span>';
-				$tooltip    = '';
 				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td>';
 			}
 
 			if ( 'mobile' === $field['media'] ) {
 				$field_name = '<span class="dashicons dashicons-smartphone"></span>';
-				$tooltip    = '';
 				$format     = '<td>%s%s%s<span class="modula_input_suffix">px</span></td></tr>';
 			}
 		}
@@ -370,7 +356,7 @@ class Modula_Field_Builder {
 		// Get the current value of the field
 		$value = $this->get_setting( $field['id'], $default );
 
-		return sprintf( $format, $tooltip, $field_name, $this->_render_field( $field, $value ) );
+		return sprintf( $format, '', $field_name, $this->_render_field( $field, $value ) );
 	}
 
 	/* Create HMTL for a field */
@@ -749,7 +735,7 @@ class Modula_Field_Builder {
 						}
 
 						if ( $effect_elements['description'] ) {
-							$effect .= '<span><strong> ' . esc_html__( 'Description', 'modula-best-grid-gallery' ) . '</strong></span>,';
+							$effect .= '<span><strong> ' . esc_html__( 'Caption', 'modula-best-grid-gallery' ) . '</strong></span>,';
 						}
 
 						if ( $effect_elements['social'] ) {
@@ -845,6 +831,8 @@ class Modula_Field_Builder {
 		}
 
 		if ( isset( $field['children'] ) && is_array( $field['children'] ) && 0 < count( $field['children'] ) ) {
+			$children = htmlspecialchars( json_encode( $field['children'] ), ENT_QUOTES, 'UTF-8' );
+
 			$html .= '<span class="modula_settings_accordion">' . absint( count( $field['children'] ) ) . esc_html__( ' other settings', 'modula-best-grid-gallery' ) . ' </span>';
 		}
 

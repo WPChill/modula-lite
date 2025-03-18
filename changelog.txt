@@ -1,3 +1,10 @@
+= 2.12.9 - 18.03.2025 =
+Changed: Removed tooltips.
+Update: Links to online knowledge base.
+Update: Default gallery type set to Masonry.
+Update: Title and Caption default size values.
+Update: Removed Misc tab from general settings.
+
 = 2.12.8 - 15.03.2025 =
 Added: Performance improvements in gallery listing page.
 

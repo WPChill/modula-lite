@@ -22,7 +22,7 @@ This repository exists for opening up new issues, reporting existing bugs, and a
 
 * [WP.org Support Forums](https://wordpress.org/support/plugin/modula-best-grid-gallery) - for all **free** users.
 * [Priority Support](https://wp-modula.com/contact-us/) - exclusively for our **customers**.
-* [Modula Documentation](https://wp-modula.com/knowledge-base/) - for everyone
+* [Modula Documentation](https://wp-modula.com/kb/) - for everyone
 
 ## 🌱 Getting Started
 

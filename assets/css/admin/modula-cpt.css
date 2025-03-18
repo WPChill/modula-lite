@@ -133,6 +133,7 @@ tr label.th-label {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    line-height: 20px;
 }
 
 .modula-settings-container .modula-tabs-content .tab-content-header .tab-content-header-actions {
@@ -149,6 +150,11 @@ tr label.th-label {
     height: auto;
     line-height: 26px;
     margin-right: 10px;
+}
+
+.modula-settings-container .modula-tabs-content .tab-content-header .tab-content-header-text {
+    margin: 0;
+    line-height: unset;
 }
 
 #poststuff .modula-settings-container .modula-tabs-content .tab-content-header .tab-content-header-title > h2 {
@@ -2056,6 +2062,11 @@ html body .modula-settings-container .modula-tab-content tr[data-container="heig
     display: inline-block;
 }
 
+html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td .dashicons,
+html body .modula-settings-container .modula-tab-content tr[data-container="height"] > td .dashicons{
+    margin-right: 0;
+}
+
 html body .modula-settings-container .modula-tab-content tr[data-container] input.modula-gutter-input {
     border-radius: 0;
     border-right: 0;
@@ -2598,8 +2609,8 @@ Some responsive fixes
 
 .modula-andrei-ex-toggle label {
     background: white;
-    color: #135e96;
-    border: 1px solid #135e96;
+    color: #2271b1;
+    border: 1px solid #2271b1;
     font-size: 13px;
     line-height: 2.15384615;
     min-height: 30px;
@@ -2624,8 +2635,8 @@ Some responsive fixes
 }
 
 .modula-andrei-ex-toggle input:checked + label {
-    background: #135e96;
-    border-color:#135e96;
+    background: #2271b1;
+    border-color:#2271b1;
     color: white;
 }
 

@@ -26,12 +26,6 @@ class Modula_Admin {
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
-		// Add Importer Tab.
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_imp_exp_tab' ) );
-
-		// Render Importer tab.
-		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
-
 		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
 		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
 
@@ -97,7 +91,6 @@ class Modula_Admin {
 		*  60 - SpeedUp Settings
 		*  70 - Image Licensing
 		*  80 - Roles
-		*  90 - Misc
 		* 100 - Migrate galleries
 		* 110 - Import/Export
 		*/
@@ -392,60 +385,6 @@ class Modula_Admin {
 	public function show_general_tab() {
 		include 'tabs/general.php';
 	}
-
-	/**
-	 *  Add Import/Export tutorial
-	 *
-	 * @since 2.2.7
-	 */
-	public function import_export_doc() {
-		?>
-		<div class="wrap">
-			<div class="card">
-				<h3><?php esc_html_e( 'Import Galleries', 'modula-best-grid-gallery' ); ?></h3>
-				<p><?php esc_html_e( 'In order to import exported galleries head over to "Tools -> Import" or click', 'modula-best-grid-gallery' ); ?>
-					<a href="<?php echo esc_url( admin_url( 'import.php' ) ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
-				</p>
-				<p><?php echo '<a href="' . esc_url( 'https://wordpress.org/plugins/wordpress-importer/' ) . '" target="_blank">' . esc_html__( 'Install WordPress Importer', 'modula-best-grid-gallery' ) . '</a>' . esc_html__( '( if not installed ). If installed, click on WordPress "Run importer". After that select the export file you desire and click "Upload file and import".', 'modula-best-grid-gallery' ); ?></p>
-			</div>
-			<div class="card">
-				<h3><?php esc_html_e( 'Export Galleries', 'modula-best-grid-gallery' ); ?></h3>
-				<p><?php esc_html_e( 'In order to export Modula galleries head over to "Tools -> Export" or click', 'modula-best-grid-gallery' ); ?>
-					<a href="<?php echo esc_url( admin_url( 'export.php' ) ); ?>"><?php esc_html_e( 'here.', 'modula-best-grid-gallery' ); ?></a>
-				</p>
-				<p><?php echo esc_html__( 'Select "Galleries" and click "Download Export File". An export file will be created and downloaded, which will be used to import the galleries somewhere else.', 'modula-best-grid-gallery' ); ?></p>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Add Importer tab
-	 *
-	 * @param $tabs
-	 * @return mixed
-	 *
-	 * @since 2.2.7
-	 */
-	public function add_imp_exp_tab( $tabs ) {
-		$tabs['imp_exp'] = array(
-			'label'    => esc_html__( 'Import/Export', 'modula-best-grid-gallery' ),
-			'priority' => 100,
-		);
-
-		return $tabs;
-	}
-
-
-	/**
-	 * Render Importer tab
-	 *
-	 * @since 2.2.7
-	 */
-	public function render_imp_exp_tab() {
-		$this->import_export_doc();
-	}
-
 
 	/**
 	 * Update modula-checks option for lightbox upgrade notice 1

@@ -43,8 +43,6 @@ class Modula_Troubleshooting {
 	 */
 	public function define_troubleshooting_admin_hooks() {
 
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_misc_tab' ) );
-		add_action( 'modula_admin_tab_misc', array( $this, 'show_misc_tab' ) );
 		add_action( 'admin_init', array( $this, 'update_troubleshooting_options' ), 99 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
@@ -57,7 +55,6 @@ class Modula_Troubleshooting {
 		$current_screen = get_current_screen();
 
 		if ( 'modula-gallery_page_modula' == $current_screen->base ) {
-			wp_enqueue_script( 'modula-troubleshoot-conditions', MODULA_URL . 'assets/js/admin/modula-troubleshoot-conditions.js', array(), MODULA_LITE_VERSION, true );
 			wp_enqueue_style( 'modula-cpt-style', MODULA_URL . 'assets/css/admin/modula-cpt.css', null, MODULA_LITE_VERSION );
 		}
 	}
@@ -69,7 +66,7 @@ class Modula_Troubleshooting {
 		$defaults = apply_filters(
 			'modula_troubleshooting_defaults',
 			array(
-				'enqueue_files' => false,
+				'enqueue_files' => false ,
 				'gridtypes'     => array(),
 				'lightboxes'    => array(),
 				'lazy_load'     => false,
@@ -79,8 +76,11 @@ class Modula_Troubleshooting {
 		$ts_opt = get_option( 'modula_troubleshooting_option', array() );
 		$ts_opt = wp_parse_args( $ts_opt, $defaults );
 
-		if ( $ts_opt['enqueue_files'] ) {
+		foreach ( $ts_opt as $key => $option ) {
+			$ts_opt[ $key ] = apply_filters( 'modula_troubleshooting_' . $key, $option );
+		}
 
+		if ( $ts_opt['enqueue_files'] ) {
 			$handles = array(
 				'scripts' => array(),
 				'styles'  => array(),
@@ -108,20 +108,6 @@ class Modula_Troubleshooting {
 			}
 		}
 	}
-
-	public function add_misc_tab( $tabs ) {
-
-		$tabs['misc'] = array(
-			'label'    => esc_html__( 'Misc', 'modula-best-grid-gallery' ),
-			'priority' => 80,
-		);
-		return $tabs;
-	}
-
-	public function show_misc_tab() {
-		include MODULA_PATH . 'includes/admin/tabs/troubleshooting-options.php';
-	}
-
 
 	/**
 	 * Update troubleshooting options

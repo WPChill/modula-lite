@@ -112,9 +112,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			rows.filter(
 				'[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]'
-			).setting_state(this, 'off');
-			rows.filter(
-				'[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]'
 			).hide();
 
 			rows.filter('[data-container="maxImagesCount"]').setting_state(
@@ -126,21 +123,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter(
 				'[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
 			).hide();
-			rows.filter(
-				'[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
-			).setting_state(this, 'off');
+
 		} else if ('creative-gallery' == value) {
 			// Hide Responsive tab
 			tabs.filter('[data-tab="modula-responsive"]').hide();
 
-			rows.filter('[data-container="columns"]').setting_state(
-				this,
-				'off'
-			);
-
-			rows.filter(
-				'[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]'
-			).setting_state(this, 'on');
 			rows.filter(
 				'[data-container="width"], [data-container="height"], [data-container="randomFactor"], [data-container="shuffle"]'
 			).show();
@@ -153,16 +140,11 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			rows.filter(
 				'[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
 			).hide();
-			rows.filter(
-				'[data-container="grid_type"], [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
-			).setting_state(this, 'off');
+
 		} else if ('grid' == value) {
 			rows.filter(
 				'[data-container="grid_type"], [data-container="width"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"],[data-container="maxImagesCount"],[data-container="shuffle"]'
 			).show();
-			rows.filter(
-				'[data-container="grid_type"], [data-container="width"],[data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"], [data-container="gutter"],[data-container="maxImagesCount"],[data-container="shuffle"]'
-			).setting_state(this, 'on');
 
 			rows.filter(
 				'[data-container="height"], [data-container="randomFactor"]'
@@ -175,9 +157,6 @@ var modulaGalleryConditions = Backbone.Model.extend({
 
 			this.changedGridType(false, wp.Modula.Settings.get('grid_type'));
 		} else {
-			rows.filter(
-				'[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
-			).setting_state(this, 'off');
 			rows.filter(
 				'[data-container="grid_type"],  [data-container="grid_row_height"], [data-container="grid_max_row_height"], [data-container="grid_row_height"], [data-container="grid_justify_last_row"]'
 			).hide();
@@ -243,7 +222,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 			if (0 == value) {
 				child.hide();
 			} else {
-				child.setting_state( this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 				child.show();
 			}
 		});
@@ -291,6 +271,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -313,6 +295,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -337,7 +321,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
-				child.setting_state(this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 
@@ -363,7 +348,8 @@ var modulaGalleryConditions = Backbone.Model.extend({
 				child.hide();
 			} else {
 				child.show();
-				child.setting_state(this, 'on');
+				child.css('opacity', '1');
+				child.find('input, textarea, select, button').removeAttr('disabled');
 			}
 		});
 

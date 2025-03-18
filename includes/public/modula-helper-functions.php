@@ -239,11 +239,9 @@ function modula_show_schemaorg() {
 }
 
 function modula_edit_gallery( $settings ) {
-
 	$troubleshooting_options = get_option( 'modula_troubleshooting_option', array() );
-	$troubleshooting_options = wp_parse_args( $troubleshooting_options, array( 'disable_edit' => false ) );
-
-	if ( $troubleshooting_options['disable_edit'] ) {
+	$disable_edit = isset( $troubleshooting_options['disable_edit'] ) ? $troubleshooting_options['disable_edit'] : false;
+	if ( apply_filters( 'modula_troubleshooting_disable_edit', $disable_edit ) ) {
 		return;
 	}
 
@@ -301,8 +299,10 @@ function modula_sources_and_sizes( $data ) {
 	$image = '<img class="' . esc_attr( implode( ' ', $data->img_classes ) ) . '" ' . Modula_Helper::generate_attributes( $data->img_attributes ) . '/>';
 
 	// Check if srcset is disabled for an early return.
-	$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-	if ( isset( $troubleshoot_opt['disable_srcset'] ) && '1' == $troubleshoot_opt['disable_srcset'] ) {
+	$troubleshoot_opt = get_option( 'modula_troubleshooting_option', array() );
+	$disable_srcset   = isset( $troubleshoot_opt['disable_srcset'] ) ? boolval( $troubleshoot_opt['disable_srcset'] ) : false;
+
+	if ( true === apply_filters( 'modula_troubleshooting_disable_srcset', $disable_srcset ) ) {
 		echo $image;
 		return;
 	}

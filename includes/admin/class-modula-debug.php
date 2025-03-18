@@ -60,9 +60,24 @@ class Modula_Debug {
 	 */
 	public function modula_debug_information( $info ) {
 
-		$troubleshoot_opt = get_option( 'modula_troubleshooting_option' );
-		$grid_type        = '';
-		$lightboxes       = '';
+		$grid_type  = '';
+		$lightboxes = '';
+		$defaults   = apply_filters(
+			'modula_troubleshooting_defaults',
+			array(
+				'enqueue_files' => false,
+				'gridtypes'     => array(),
+				'lightboxes'    => array(),
+				'lazy_load'     => false,
+			)
+		);
+
+		$troubleshoot_opt = get_option( 'modula_troubleshooting_option', array() );
+		$troubleshoot_opt = wp_parse_args( $troubleshoot_opt, $defaults );
+
+		foreach ( $troubleshoot_opt as $key => $option ) {
+			$troubleshoot_opt[ $key ] = apply_filters( 'modula_troubleshooting_' . $key, $option );
+		}
 
 		if ( $troubleshoot_opt && isset( $troubleshoot_opt['gridtypes'] ) && ! empty( $troubleshoot_opt['gridtypes'] ) ) {
 			foreach ( $troubleshoot_opt['gridtypes'] as $type ) {
