@@ -2062,6 +2062,11 @@ html body .modula-settings-container .modula-tab-content tr[data-container="heig
     display: inline-block;
 }
 
+html body .modula-settings-container .modula-tab-content tr[data-container="gutter"] > td .dashicons,
+html body .modula-settings-container .modula-tab-content tr[data-container="height"] > td .dashicons{
+    margin-right: 0;
+}
+
 html body .modula-settings-container .modula-tab-content tr[data-container] input.modula-gutter-input {
     border-radius: 0;
     border-right: 0;
