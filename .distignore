@@ -28,3 +28,4 @@ SECURITY.md
 phpcs.xml
 /apps
 webpack.config.notification-system.js
+!/includes/admin/wpchill/scripts/

@@ -158,6 +158,33 @@
 		modulaOpenModal
 	);
 
+	$('body').on(
+		'click',
+		'#modula-content-galleries-upsell',
+		{
+			upsell: 'content-galleries',
+		},
+		modulaOpenModal
+	);
+
+	$('body').on(
+		'click',
+		'#modula-instagram-upsell',
+		{
+			upsell: 'instagram',
+		},
+		modulaOpenModal
+	);
+	
+	$('body').on(
+		'click',
+		'#modula-video-upsell, #modula-video-playlist-upsell',
+		{
+			upsell: 'video',
+		},
+		modulaOpenModal
+	);
+
 	jQuery(window).on('load', function () {
 		let searchParams = new URLSearchParams(window.location.search);
 		if (
