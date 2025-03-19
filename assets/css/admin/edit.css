@@ -158,11 +158,18 @@ tbody#the-list .no-items {
     margin-top: 0;
 
 }
-
+.modula-instagram-upsell-youtube-embed {
+    border-radius: 10px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+}
 .modula-instagram-upsell-youtube-embed iframe {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
+    border-radius: 10px;
 }
 
 .modula-upsells-carousel-modal .modula-upsell-item-modal {

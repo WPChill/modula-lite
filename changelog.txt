@@ -1,4 +1,4 @@
-= 2.12.10 - TBD =
+= 2.12.10 - 19.03.2025 =
 Updated: Twitter icon to X icon.
 Added: Upsells in gallery edit screen.
 

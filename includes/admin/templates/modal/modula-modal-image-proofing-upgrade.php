@@ -11,6 +11,9 @@
 					<div class="modula-upsell-modal modula-upsell-item-modal">
 						<h2><?php esc_html_e( 'Modula Image Proofing', 'modula-best-grid-gallery' ); ?></h2>
 						<h4 class="modula-upsell-description-modal"><?php esc_html_e( 'Getting your clients to select images is now simple and easy. Modula Image Proofing gives you everything you need to make the process quick and hassle-free.', 'modula-best-grid-gallery' ); ?></h4>
+						<div class="modula-instagram-upsell-youtube-embed">
+							<iframe width="100%" height="315" src="https://www.youtube.com/embed/ryAoetJaYbs" frameborder="0" allowfullscreen></iframe>
+						</div>
 						<p>Why Use Modula Image Proofing?</p>
 						<ul class="modula-upsells-list-modal">
 							<li><strong>Easy to Create Galleries:</strong> Build professional proofing galleries in just a few clicks.</li>
@@ -23,9 +26,7 @@
 						</ul>
 						<p>With Modula Image Proofing, getting client approvals has never been easier!</p>
 
-						<div class="modula-instagram-upsell-youtube-embed">
-							<iframe width="100%" height="315" src="https://www.youtube.com/embed/ryAoetJaYbs" frameborder="0" allowfullscreen></iframe>
-						</div>
+
 						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 
