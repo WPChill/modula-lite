@@ -22,6 +22,10 @@
 							<li><strong>Protect Your Work:</strong> Use watermarks, right-click protection, or password protection to keep your images safe.</li>
 						</ul>
 						<p>With Modula Image Proofing, getting client approvals has never been easier!</p>
+
+						<div class="modula-instagram-upsell-youtube-embed">
+							<iframe width="100%" height="315" src="https://www.youtube.com/embed/ryAoetJaYbs" frameborder="0" allowfullscreen></iframe>
+						</div>
 						<div class="modula-upsell-modal-buttons-wrap">
 							<?php
 

@@ -159,6 +159,12 @@ tbody#the-list .no-items {
 
 }
 
+.modula-instagram-upsell-youtube-embed iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
+
 .modula-upsells-carousel-modal .modula-upsell-item-modal {
     text-align: center;
 }
