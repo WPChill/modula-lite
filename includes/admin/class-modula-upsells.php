@@ -58,6 +58,15 @@ class Modula_Upsells {
 		// Modula image proofing modal
 		add_action( 'wp_ajax_modula_modal-image-proofing_upgrade', array( $this, 'get_modal_proofing_upgrade' ) );
 
+		// Modula Content Galleries modal
+		add_action( 'wp_ajax_modula_modal-content-galleries_upgrade', array( $this, 'get_modal_content_galleries_upgrade' ) );
+
+		// Modula Instagram modal
+		add_action( 'wp_ajax_modula_modal-instagram_upgrade', array( $this, 'get_modal_instagram_upgrade' ) );
+
+		// Modula Video modal
+		add_action( 'wp_ajax_modula_modal-video_upgrade', array( $this, 'get_modal_video_upgrade' ) );
+
 		/* Hooks */
 		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
 		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
@@ -1286,5 +1295,65 @@ class Modula_Upsells {
 		$tab_content .= '</div>';
 
 		return $tab_content;
+	}
+
+	/**
+	 * Show the Content Editor modal to upgrade
+	 *
+	 * @since 2.12.10
+	 */
+	public function get_modal_content_galleries_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-content-galleries' ) ) {
+			wp_die();
+		}
+		$settings = array(
+			'classes'     => '',
+			'dismissible' => true,
+			'id'          => 'modula-modal-content-galleries-upgrade-' . get_the_ID(),
+		);
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-content-galleries-upgrade.php';
+		wp_die();
+	}
+
+	/**
+	 * Show the Instagram modal to upgrade
+	 *
+	 * @since 2.12.10
+	 */
+	public function get_modal_instagram_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
+			wp_die();
+		}
+		$settings = array(
+			'classes'     => '',
+			'dismissible' => true,
+			'id'          => 'modula-modal-instagram-upgrade-' . get_the_ID(),
+		);
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-instagram-upgrade.php';
+		wp_die();
+	}
+
+	/**
+	 * Show the Video modal to upgrade
+	 *
+	 * @since 2.12.10
+	 */
+	public function get_modal_video_upgrade() {
+
+		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-video' ) ) {
+			wp_die();
+		}
+		$settings = array(
+			'classes'     => '',
+			'dismissible' => true,
+			'id'          => 'modula-modal-video-upgrade-' . get_the_ID(),
+		);
+
+		require MODULA_PATH . '/includes/admin/templates/modal/modula-modal-video-upgrade.php';
+		wp_die();
 	}
 }

@@ -127,6 +127,10 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.10 - TBD =
+Updated: Twitter icon to X icon.
+Added: Upsells in gallery edit screen.
+
 = 2.12.9 – 18.03.2025 =
 Changed: Removed tooltips.
 Update: Links to online knowledge base.

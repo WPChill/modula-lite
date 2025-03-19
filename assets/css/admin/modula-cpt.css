@@ -2337,7 +2337,7 @@ html body .modula .modula-radio-item {
 
 html body ul#modula_gallery_add_action {
     position: absolute;
-    z-index: 999;
+    z-index: 998;
     background-color: #fff;
     border: 1px solid #DDD;
     border-radius: 3px;
@@ -2357,6 +2357,7 @@ html body ul#modula_gallery_add_action li {
     line-height: 1.5;
     cursor: pointer;
     margin: 0;
+    z-index: 999;
 }
 
 html body ul#modula_gallery_add_action li:hover {
@@ -2673,9 +2674,9 @@ Some responsive fixes
 #modula-video-playlist-upsell,
 #modula-instagram-upsell,
 #modula-content-galleries-upsell {
-    pointer-events: none;
     position:relative;
     background-color: #f6f7f7;
+    cursor: pointer;
 }
 
 .modula-add-new-wrapper {

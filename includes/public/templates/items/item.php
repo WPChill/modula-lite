@@ -39,7 +39,7 @@
 				<?php if ( ! $data->hide_socials ): ?>
 					<div class="jtg-social">
 						<?php if ( $data->enableTwitter ): ?>
-							<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on Twitter', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
+							<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on X', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
 						<?php endif ?>
 						<?php if ( $data->enableFacebook ): ?>
 							<a class="modula-icon-facebook" aria-label="<?php echo esc_html__( 'Share on Facebook', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?>
