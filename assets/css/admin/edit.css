@@ -158,14 +158,25 @@ tbody#the-list .no-items {
     margin-top: 0;
 
 }
-.modula-instagram-upsell-youtube-embed {
+
+.modula-instagram-upsell-youtube-wrap {
     border-radius: 10px;
     padding-left: 3%;
     padding-right: 3%;
     padding-bottom: 3%;
     padding-top: 3%;
 }
-.modula-instagram-upsell-youtube-embed iframe {
+
+.modula-instagram-upsell-youtube-wrap .modula-instagram-upsell-youtube-link{
+    display: block;
+}
+
+.modula-upsell-modal.modula-upsell-item-modal .modula-instagram-upsell-youtube-notice {
+    text-align: center;
+    font-size: 10px;
+}
+
+.modula-instagram-upsell-youtube-link .modula-instagram-upsell-youtube-img {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;

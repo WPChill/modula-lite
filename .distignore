@@ -29,3 +29,11 @@ phpcs.xml
 /apps
 webpack.config.notification-system.js
 !/includes/admin/wpchill/scripts/
+webpack.config.notification-system.js
+.eslintrc.json
+babel.config.js
+phpcs.xml
+.eslintrc
+.gitattributes
+jsconfig.json
+webpack.config.react-apps.js
