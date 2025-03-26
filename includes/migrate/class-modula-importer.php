@@ -17,22 +17,11 @@ class Modula_Importer {
 	public static $instance;
 
 	/**
-	 * Holds the class object.
-	 *
-	 * @since 2.2.7
-	 *
-	 * @var object
-	 */
-	public $sources;
-
-	/**
-	 * Primary class constructor.
-	 *
-	 * @since 2.2.7
-	 */
+	* Primary class constructor.
+	*
+	* @since 2.2.7
+	*/
 	public function __construct() {
-
-		$this->sources = $this->find_sources();
 
 		// Add Importer Tab
 		add_filter( 'modula_admin_page_tabs', array( $this, 'add_importer_tab' ) );
@@ -105,7 +94,11 @@ class Modula_Importer {
 	 */
 	public function add_importer_tab( $tabs ) {
 
-		if ( empty( $this->sources ) ) {
+		if ( ! isset( $_GET['post_type'] ) || ! isset( $_GET['page'] ) || 'modula-gallery' !== $_GET['post_type'] || 'modula' !== $_GET['page'] ) {
+			return $tabs;
+		}
+
+		if ( empty( $this->get_sources() ) ) {
 			return $tabs;
 		}
 
@@ -143,29 +136,13 @@ class Modula_Importer {
 	}
 
 	/**
-	 * Get gallery sources
-	 *
-	 * @return mixed
-	 *
-	 * @since 2.12.1
-	 */
-	public function get_sources() {
-
-		if ( ! empty( $this->sources ) ) {
-			return $this->sources;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Find gallery sources
 	 *
 	 * @return mixed
 	 *
 	 * @since 2.2.7
 	 */
-	public function find_sources() {
+	public function get_sources() {
 
 		global $wpdb;
 		$sources = array();
@@ -336,4 +313,4 @@ class Modula_Importer {
 	}
 }
 
-add_action( 'plugins_loaded', array( 'Modula_Importer', 'get_instance' ) );
+$modula_importer = Modula_Importer::get_instance();
