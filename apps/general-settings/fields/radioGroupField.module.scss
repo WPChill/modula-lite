@@ -1,0 +1,34 @@
+.modulaImageRadioGroup{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 10px 0;
+    .modulaImageRadioGroupOption{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .modulaImageRadioGroupInput{
+           position: absolute;
+           opacity: 0;
+           pointer-events: none;
+        }
+        .modulaImageRadioGroupLabel{
+            padding: 30px 25px;
+            background-color: #F0F0F1;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+            justify-content: center;
+            text-align: center;
+        }
+        .modulaImageRadioGroupLabelChecked{
+            border: 1px solid #27be92;
+            box-shadow: 0 0 5px #27be92;
+        }
+    }
+}

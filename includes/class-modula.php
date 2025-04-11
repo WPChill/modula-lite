@@ -94,6 +94,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
+		require_once MODULA_PATH . 'includes/admin/rest-api/class-modula-rest-api.php';
 
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
@@ -154,6 +155,7 @@ class Modula {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'settings_page_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'general_settings_page_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
@@ -182,6 +184,7 @@ class Modula {
 
 	public function start_ai_hooks() {
 		new Modula\Ai\Client();
+		new Modula_Upsells();
 	}
 
 	public function dashboard_start( ) {
@@ -213,13 +216,13 @@ class Modula {
 			return;
 		}
 
-		new Modula_Upsells();
-
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
 	}
 
 	private function define_public_hooks() {
+		
+		new Modula_Rest_Api();
 	}
 
 	/* Enqueue Admin Scripts */
@@ -871,6 +874,42 @@ class Modula {
 			'assets/js/admin/settings',
 			array( 'wp-components' )
 		);
+	}
+
+
+	public function general_settings_page_scripts() {
+		$screen = get_current_screen();
+
+		if ( 'modula-gallery' !== $screen->post_type ) {
+			return;
+		}
+
+		if ( 'modula-gallery_page_modula-settings' !== $screen->base ) {
+			return;
+		}
+
+		wp_enqueue_media();
+
+		$scripts = Modula\Scripts::get_instance();
+
+		$scripts->load_js_asset(
+			'modula-settings',
+			'assets/js/admin/general-settings',
+		);
+
+		$scripts->load_css_asset(
+			'modula-settings',
+			'assets/js/admin/general-settings',
+			array( 'wp-components' )
+		);
+
+		wp_add_inline_script(
+			'modula-settings',
+			'const modulaUrl = ' . wp_json_encode( MODULA_URL ),
+			'before'
+		);
+
+		
 	}
 
 	/**

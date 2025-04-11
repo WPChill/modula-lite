@@ -1,0 +1,22 @@
+import { TextControl } from '@wordpress/components';
+
+export default function NumberField( { fieldState, field, handleChange, className } ) {
+	return (
+		<>
+			<label className="modula_input_label" htmlFor={ field.name }>
+				{ field.label }
+			</label>
+			<TextControl
+				type="number"
+				className={ `modula_input_text ${ className || '' }` }
+				min={ field.min }
+				max={ field.max }
+				value={ fieldState.state.value }
+				onChange={ ( val ) => handleChange( val ) }
+			/>
+			{ field.description && (
+				<p className="modula_input_description" dangerouslySetInnerHTML={ { __html: field.description } } />
+			) }
+		</>
+	);
+}

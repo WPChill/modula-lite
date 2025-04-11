@@ -1,0 +1,156 @@
+#wpcontent{
+    padding-left: 0;
+}
+#modula-settings-app {
+    .modula-page-header {
+        display: flex;
+        justify-content: center;
+        background: #fff;
+        width: 100%;
+        border-top: 1px solid #DDD;
+        border-bottom: 1px solid #DDD;
+        padding: 30px 0;
+        .modula-header-logo{
+            margin: 0 auto;
+            flex: 0 0 40%;
+            text-align: center;
+            .modula-logo{
+                max-width: 150px;
+            }
+        }
+    }
+    .modula-page-navigation {
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        .modula-header-button {
+            padding: 11px 3px;
+            font-size: 16px;
+            line-height: 16px;
+            box-sizing: content-box;
+            font-weight: 400;
+            color: #333333;
+            box-shadow: none;
+        }
+        .modula-header-button-active {
+            font-weight: 500;
+            border-bottom: 4px solid #39A271;
+        }
+    }
+
+    .modula-page-content{
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 0;
+        .modula-pro-badge {
+            background-color: #d63638;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 6px;
+            text-transform: uppercase;
+        }
+        .modula-accordion-pannel{
+            button{
+                box-shadow: none;
+            }
+            .components-panel__body-toggle{
+                background-color: #f0f0f1;
+            }
+            .modula-triangle-icon {
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-bottom: 10px solid #007cba;
+                display: inline-block;
+                margin-right: 8px;
+                transition: transform 0.2s ease-in-out;
+            }
+            .components-panel__arrow {
+                display: none !important;
+            }
+            &.is-opened{
+                padding-bottom: 0;
+                .modula-triangle-icon{
+                    transform: rotate(180deg);
+                }
+                .components-panel__body-title{
+                    margin-bottom: 0;
+                }
+            }
+            .modula_options_form{
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .modula_no_settings{
+                padding: 2rem;
+                text-align: center;
+                color: #1e1e1e;
+            }
+            .modula_modula_roles_form{
+                flex-wrap: initial;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                align-items: stretch;
+                gap: 20px;
+                padding: 20px 0;
+            }
+        }
+        .modula_field_wrapper {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            min-height: 70px;
+            margin: 0 -16px;
+            padding: 10px 16px;
+            border-left: 5px solid #00A4F3;
+            border-top: 1px solid #DEDEDE;
+            box-sizing: border-box;
+            width: 100%;
+            justify-content: space-between;
+            .modula_field_wrapp {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                .components-base-control__field {
+                    margin-bottom: 0;
+                }
+                .modula_input_label {
+                    font-size: 16px;
+                    font-weight: 400;
+                    min-width: 150px;
+                }
+                .modula_input_select, .modula_input_text, .modula_input_range {
+                    min-width: 300px;
+                }
+                .modula_image_holder {
+                    position: relative;
+                    .modula_image_buttons {
+                        position: absolute;
+                        bottom: 0;
+                        display: flex;
+                        width: 100%;
+                        justify-content: center;
+                        gap: 25px;
+                        margin-bottom: 10px;
+                        button{
+                            padding: 10px 15px;
+                            background-color: #ffffffbf;
+                        }
+    
+                    }
+                }
+
+            }
+            &.modula_field_inline{
+                width: auto;
+                flex-grow: 1;
+            }
+        }
+    }
+}

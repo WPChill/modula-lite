@@ -26,7 +26,7 @@ class Modula_Admin {
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
-		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
+		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) ); // TODO: REMOVE 
 		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
 
 		// WP Media ajax hook to add images to gallery
@@ -195,6 +195,14 @@ class Modula_Admin {
 				'menu_slug'  => 'modula',
 				'function'   => array( $this, 'show_submenu' ),
 				'priority'   => 30,
+			);
+			$links[] = array(
+				'page_title' => esc_html__( 'ReSettings', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'ReSettings', 'modula-best-grid-gallery' ),
+				'capability' => 'manage_options',
+				'menu_slug'  => 'modula-settings',
+				'function'   => array( $this, 'add_settings_react_root' ),
+				'priority'   => 31,
 			);
 		}
 
@@ -480,7 +488,7 @@ class Modula_Admin {
 		return $classes;
 	}
 
-	public function render_image_licensing_tab() {
+	public function render_image_licensing_tab() { // TODO: REMOVE 
 		include MODULA_PATH . 'includes/admin/tabs/image-licensing.php';
 	}
 
@@ -828,6 +836,10 @@ class Modula_Admin {
 
 		wp_safe_redirect( remove_query_arg( array( 'modula_media_added', 'modula_media_skipped' ) ) );
 		exit;
+	}
+
+	public function add_settings_react_root(){
+		echo '<div id="modula-settings-app"></div>';
 	}
 }
 

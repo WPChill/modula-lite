@@ -95,17 +95,17 @@ class Modula_Upsells {
 		// Add upsell for the Video tab.
 		add_action( 'modula_admin_tab_video', array( $this, 'video_settings_tab_upsell' ) );
 		// Add upsell for the Instagram tab.
-		add_action( 'modula_admin_tab_instagram', array( $this, 'instagram_settings_tab_upsell' ) );
+		add_action( 'modula_instagram_settings_tab', array( $this, 'instagram_settings_tab_upsell' ) );
 
 		// Remove upsells badge if user's license includes the addon
-		add_filter( 'modula_admin_page_tabs', array( $this, 'remove_upsells_badge' ), 999 );
+		add_filter( 'modula_admin_page_subtabs', array( $this, 'remove_upsells_badge' ), 999 );
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
 			add_filter( 'modula_cpt_metaboxes', array( $this, 'albums_upsell_meta' ) );
 		}
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
-			add_filter( 'modula_admin_page_tabs', array( $this, 'add_whitelabel_tab' ), 140 );
+			add_filter( 'modula_admin_page_subtabs', array( $this, 'add_whitelabel_tab' ), 140 );
 		}
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -1082,6 +1082,8 @@ class Modula_Upsells {
 			'compression' => 'modula-speedup',
 			'roles'       => 'modula-roles',
 			'whitelabel'  => 'modula-whitelabel',
+			'instagram'   => 'modula-instagram',
+			'video'       => 'modula-video',
 		);
 
 		foreach ( $tabs as $key => $tab ) {
@@ -1237,24 +1239,51 @@ class Modula_Upsells {
 	 */
 	public function instagram_settings_tab_upsell( $tab_content ) {
 
-		if ( $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
-			return;
+		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
+			return $this->generate_upsell_config(
+				__( 'Modula Instagram', 'modula-best-grid-gallery' ),
+				__( 'You can easily connect your Instagram account and import images into Modula galleries.', 'modula-best-grid-gallery' ),
+				apply_filters(
+					'modula_settings_upsell_buttons',
+					array(
+						array(
+							'href'  => esc_url( $this->free_vs_pro_link ),
+							'label' => esc_html__( 'yyy', 'modula-best-grid-gallery' ),
+						),
+						array(
+							'href'  => 'https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-instagram_tab_upsell-tab&utm_campaign=modula-instagram',
+							'label' => esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ),
+						),
+					),
+					'modula-instagram'
+				),
+			);
+		} elseif ( ! class_exists( '\Modula\Instagram\Modula_Instagram' ) && $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-instagram' ) ) {
+			return $this->generate_upsell_config(
+				__( 'Modula Instagram', 'modula-best-grid-gallery' ),
+				sprintf(
+					/* translators: %1$s and %2$s are opening and closing anchor tags */
+					esc_html__( 'In order to use Modula Watermark addon you need to install it from %1$shere%2$s.', 'modula-pro' ),
+					'<a href="' . esc_url( admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ) ) . '" target="blank">',
+					'</a>'
+				),
+			);
 		}
-		?>
-		<div class="modula-settings-tab-upsell">
-				<h3><?php esc_html_e( 'Modula Instagram', 'modula-best-grid-gallery' ); ?></h3>
-				<p><?php esc_html_e( 'You can easily connect your Instagram account and import images into Modula galleries.', 'modula-best-grid-gallery' ); ?></p>
-				<p>
-					<?php
 
-					$buttons  = '<a target="_blank" href="' . esc_url( $this->free_vs_pro_link ) . '" class="button">' . esc_html__( 'Free vs Premium', 'modula-best-grid-gallery' ) . '</a>';
-					$buttons .= '<a target="_blank" href="https://wp-modula.com/pricing/?utm_source=upsell&utm_medium=modula-instagram_tab_upsell-tab&utm_campaign=modula-instagram" style="margin-top:10px;" class="button-primary button">' . esc_html__( 'Get Premium!', 'modula-best-grid-gallery' ) . '</a>';
+		return $tab_content;
+	}
 
-					echo apply_filters( 'modula_upsell_buttons', $buttons, 'modula-instagram' );
-					?>
-				</p>
-			</div>
-		<?php
+	private function generate_upsell_config( $label = '', $desc = '', $buttons = array() ) {
+		return array(
+			'fields' => array(
+				array(
+					'type'    => 'upsell',
+					'label'   => $label,
+					'desc'    => $desc,
+					'buttons' => $buttons,
+				),
+			),
+		);
 	}
 
 	public function comments_tab_upsell( $tab_content ) {

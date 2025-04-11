@@ -1,0 +1,336 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/general-settings/fields/toggleField.module.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
+.ayHyBmgI1XDhnl1heGk8 {
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  display: inline-block;
+}
+.ayHyBmgI1XDhnl1heGk8 .jwF1q6xwR3gX7xymuDjs {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+}
+.ayHyBmgI1XDhnl1heGk8 .jwF1q6xwR3gX7xymuDjs > * {
+  box-sizing: inherit;
+}
+.ayHyBmgI1XDhnl1heGk8 .JzFje6adbcI1Uf6oZNtX {
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 15px;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez {
+  border-radius: 2px;
+  border: 2px solid #6c7781;
+  margin-right: 12px;
+  transition: none;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:disabled {
+  border: none;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:disabled:checked:before {
+  opacity: 0;
+}
+.ayHyBmgI1XDhnl1heGk8 .ymwGun3xUsypmF3_dP8W {
+  background-color: #fff;
+  border: 2px solid #6c7781;
+  border-radius: 9px;
+  display: inline-block;
+  height: 18px;
+  width: 36px;
+  vertical-align: top;
+  transition: background 0.2s ease;
+}
+.ayHyBmgI1XDhnl1heGk8 .K99mNKZv0YyHfD1xnZVR {
+  background-color: #6c7781;
+  border: 5px solid #6c7781;
+  border-radius: 50%;
+  display: block;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  transition: transform 0.2s ease;
+}
+.ayHyBmgI1XDhnl1heGk8 .wKYFix8m95ObH9dRYsi8 {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  color: #6c7781;
+  fill: currentColor;
+}
+.ayHyBmgI1XDhnl1heGk8 .Nisw6vcFV43jSBVD42eB {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  border: 1px solid #fff;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  display: none;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:checked + .jwF1q6xwR3gX7xymuDjs .ymwGun3xUsypmF3_dP8W {
+  background-color: #11a0d2;
+  border: 9px solid transparent;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:checked + .jwF1q6xwR3gX7xymuDjs .K99mNKZv0YyHfD1xnZVR {
+  background-color: #fff;
+  border-width: 0;
+  transform: translateX(18px);
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:checked + .jwF1q6xwR3gX7xymuDjs .wKYFix8m95ObH9dRYsi8 {
+  display: none;
+}
+.ayHyBmgI1XDhnl1heGk8 .Ju3CWaetLeVOIM4vnCez:checked + .jwF1q6xwR3gX7xymuDjs .Nisw6vcFV43jSBVD42eB {
+  display: inline-block;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/general-settings/fields/radioGroupField.module.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+.qHFQ_sMuRCESwqNiQ3H4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 10px 0;
+}
+.qHFQ_sMuRCESwqNiQ3H4 .BldaZoqoOO8Ltl6oiD7a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qHFQ_sMuRCESwqNiQ3H4 .BldaZoqoOO8Ltl6oiD7a .FR6T4lX8aHa3wJv74boX {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.qHFQ_sMuRCESwqNiQ3H4 .BldaZoqoOO8Ltl6oiD7a .WecsCrgF1I2MiXOSQ8tg {
+  padding: 30px 25px;
+  background-color: #F0F0F1;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  justify-content: center;
+  text-align: center;
+}
+.qHFQ_sMuRCESwqNiQ3H4 .BldaZoqoOO8Ltl6oiD7a .sncYWGhQxuTrdFEDBJQv {
+  border: 1px solid #27be92;
+  box-shadow: 0 0 5px #27be92;
+}
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./apps/settings/settings-form/claim-credits.module.css ***!
+  \**********************************************************************************************************************************************************************************************************/
+.FFNXVHInKlU8eCHfGJCK .ZrVV_oVUUXei2_m9bGmy {
+}
+
+.FFNXVHInKlU8eCHfGJCK .bTcx1n2y8X8R4LPk3TCL {
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    color: #757575;
+    max-width: 500px;
+}
+
+.FFNXVHInKlU8eCHfGJCK .tcyly_pF221L4i3gxM3j {
+    margin-top: 1.5rem;
+} 
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./apps/settings/index.css ***!
+  \*****************************************************************************************************************************************************************************/
+.modula-best-grid-gallery #tab-panel-0-register {
+    padding-left: 0 !important;
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/general-settings/fields/RoleField.module.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+.Lm1A08wPHM8GclLe7ph0 {
+  height: 100%;
+}
+.Lm1A08wPHM8GclLe7ph0 .Gw7t03RR8QEoNJUYqT6N {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0;
+}
+.Lm1A08wPHM8GclLe7ph0 .Gw7t03RR8QEoNJUYqT6N .W7HbF5OVv_JVIMby349Q {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.Lm1A08wPHM8GclLe7ph0 .T7OEHZLL87xK0wy3BWIx {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+}
+.Lm1A08wPHM8GclLe7ph0 .T7OEHZLL87xK0wy3BWIx .SBWqcPmdFFcRVweI3OSD {
+  display: flex;
+  justify-content: space-between;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/general-settings/index.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+#wpcontent {
+  padding-left: 0;
+}
+
+#modula-settings-app .modula-page-header {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  width: 100%;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  padding: 30px 0;
+}
+#modula-settings-app .modula-page-header .modula-header-logo {
+  margin: 0 auto;
+  flex: 0 0 40%;
+  text-align: center;
+}
+#modula-settings-app .modula-page-header .modula-header-logo .modula-logo {
+  max-width: 150px;
+}
+#modula-settings-app .modula-page-navigation {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+#modula-settings-app .modula-page-navigation .modula-header-button {
+  padding: 11px 3px;
+  font-size: 16px;
+  line-height: 16px;
+  box-sizing: content-box;
+  font-weight: 400;
+  color: #333333;
+  box-shadow: none;
+}
+#modula-settings-app .modula-page-navigation .modula-header-button-active {
+  font-weight: 500;
+  border-bottom: 4px solid #39A271;
+}
+#modula-settings-app .modula-page-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+#modula-settings-app .modula-page-content .modula-pro-badge {
+  background-color: #d63638;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel button {
+  box-shadow: none;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .components-panel__body-toggle {
+  background-color: #f0f0f1;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula-triangle-icon {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid #007cba;
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .components-panel__arrow {
+  display: none !important;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel.is-opened {
+  padding-bottom: 0;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel.is-opened .modula-triangle-icon {
+  transform: rotate(180deg);
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel.is-opened .components-panel__body-title {
+  margin-bottom: 0;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula_options_form {
+  display: flex;
+  flex-wrap: wrap;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula_no_settings {
+  padding: 2rem;
+  text-align: center;
+  color: #1e1e1e;
+}
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula_modula_roles_form {
+  flex-wrap: initial;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: stretch;
+  gap: 20px;
+  padding: 20px 0;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  min-height: 70px;
+  margin: 0 -16px;
+  padding: 10px 16px;
+  border-left: 5px solid #00A4F3;
+  border-top: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: space-between;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .components-base-control__field {
+  margin-bottom: 0;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_input_label {
+  font-size: 16px;
+  font-weight: 400;
+  min-width: 150px;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_input_select, #modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_input_text, #modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_input_range {
+  min-width: 300px;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_image_holder {
+  position: relative;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_image_holder .modula_image_buttons {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 10px;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp .modula_image_holder .modula_image_buttons button {
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.7490196078);
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper.modula_field_inline {
+  width: auto;
+  flex-grow: 1;
+}
+
+/*# sourceMappingURL=index.css.map*/

@@ -24,7 +24,7 @@ class Modula_Importer {
 	public function __construct() {
 
 		// Add Importer Tab
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_importer_tab' ) );
+		add_filter( 'modula_admin_page_subtabs', array( $this, 'add_importer_tab' ) );
 
 		// Render Importer tab
 		add_action( 'modula_admin_tab_importer', array( $this, 'render_importer_tab' ) );
