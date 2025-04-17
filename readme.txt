@@ -2,7 +2,7 @@
 Contributors: wpchill, silkalns  
 Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPress gallery plugin  
 Requires at least: 5.3  
-Tested up to: 6.7  
+Tested up to: 6.8
 Requires PHP: 5.6  
 Stable tag: 2.12.11
 
