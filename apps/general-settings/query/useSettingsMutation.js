@@ -19,7 +19,7 @@ export const useSettingsMutation = () => {
 		},
 		onSuccess: async () => {
 			await queryClient.invalidateQueries( {
-				queryKey: [ 'settinga-tabs-query' ],
+				queryKey: [ 'settings-tabs-query' ],
 			} );
 		},
 	},

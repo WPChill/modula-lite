@@ -19,6 +19,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_useStateContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context/useStateContext */ "./apps/general-settings/context/useStateContext.js");
 /* harmony import */ var _query_useTabsQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./query/useTabsQuery */ "./apps/general-settings/query/useTabsQuery.js");
 /* harmony import */ var _SettingsForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SettingsForm */ "./apps/general-settings/SettingsForm.jsx");
+/* harmony import */ var _SaveButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SaveButton */ "./apps/general-settings/SaveButton.jsx");
+
 
 
 
@@ -54,10 +56,10 @@ function Content() {
     }), /*#__PURE__*/React.createElement("span", null, subtabData.label), subtabData.badge && /*#__PURE__*/React.createElement("span", {
       className: "modula-pro-badge"
     }, " ", subtabData.badge, " ")),
-    initialOpen: false
+    initialOpen: true
   }, /*#__PURE__*/React.createElement(_SettingsForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
     config: subtabData?.config || {}
-  })))));
+  }))), ('undefined' === typeof activeTab.save || false !== activeTab.save) && /*#__PURE__*/React.createElement(_SaveButton__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
 }
 
 /***/ }),
@@ -81,10 +83,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_NumberField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./fields/NumberField */ "./apps/general-settings/fields/NumberField.jsx");
 /* harmony import */ var _fields_RadioField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fields/RadioField */ "./apps/general-settings/fields/RadioField.jsx");
 /* harmony import */ var _fields_TextareaField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./fields/TextareaField */ "./apps/general-settings/fields/TextareaField.jsx");
-/* harmony import */ var _fields_ButtonField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fields/ButtonField */ "./apps/general-settings/fields/ButtonField.jsx");
-/* harmony import */ var _fields_RadioGroupField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./fields/RadioGroupField */ "./apps/general-settings/fields/RadioGroupField.jsx");
-/* harmony import */ var _fields_RangeSelect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./fields/RangeSelect */ "./apps/general-settings/fields/RangeSelect.jsx");
-/* harmony import */ var _fields_ImageSelectField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./fields/ImageSelectField */ "./apps/general-settings/fields/ImageSelectField.jsx");
+/* harmony import */ var _fields_RadioGroupField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fields/RadioGroupField */ "./apps/general-settings/fields/RadioGroupField.jsx");
+/* harmony import */ var _fields_RangeSelect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./fields/RangeSelect */ "./apps/general-settings/fields/RangeSelect.jsx");
+/* harmony import */ var _fields_ImageSelectField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./fields/ImageSelectField */ "./apps/general-settings/fields/ImageSelectField.jsx");
+/* harmony import */ var _fields_CheckboxGroupField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./fields/CheckboxGroupField */ "./apps/general-settings/fields/CheckboxGroupField.jsx");
 
 
 
@@ -148,33 +150,143 @@ const FieldRenderer = ({
         handleChange: val => handleChange(fieldState, field.name, val)
       });
     case 'ia_radio':
-      return /*#__PURE__*/React.createElement(_fields_RadioGroupField__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/React.createElement(_fields_RadioGroupField__WEBPACK_IMPORTED_MODULE_8__["default"], {
         fieldState: fieldState,
         field: field,
         handleChange: val => handleChange(fieldState, field.name, val)
       });
     case 'range_select':
-      return /*#__PURE__*/React.createElement(_fields_RangeSelect__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      return /*#__PURE__*/React.createElement(_fields_RangeSelect__WEBPACK_IMPORTED_MODULE_9__["default"], {
         fieldState: fieldState,
         field: field,
         handleChange: val => handleChange(fieldState, field.name, val)
       });
     case 'image_select':
-      return /*#__PURE__*/React.createElement(_fields_ImageSelectField__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      return /*#__PURE__*/React.createElement(_fields_ImageSelectField__WEBPACK_IMPORTED_MODULE_10__["default"], {
         fieldState: fieldState,
         field: field,
         handleChange: val => handleChange(fieldState, field.name, val)
       });
-    case 'button':
-      return /*#__PURE__*/React.createElement(_fields_ButtonField__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        field: field
+    case 'checkbox_group':
+      return /*#__PURE__*/React.createElement(_fields_CheckboxGroupField__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        fieldState: fieldState,
+        field: field,
+        handleChange: val => handleChange(fieldState, field.name, val)
       });
     default:
       return null;
-    // dacă nu există tip valid
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FieldRenderer);
+
+/***/ }),
+
+/***/ "./apps/general-settings/RolesToggle.jsx":
+/*!***********************************************!*\
+  !*** ./apps/general-settings/RolesToggle.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RolesToggle)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+function RolesToggle({
+  submenu,
+  form
+}) {
+  const [active, setActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(submenu.options[0]?.value);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    form.setFieldValue('activeToggle', active);
+  }, [active, form]);
+  const handleClick = key => {
+    setActive(key);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: `modula_submenu_toggle_wrapper ${submenu.class || ''}`
+  }, submenu.options.map(({
+    label,
+    value
+  }) => /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    key: value,
+    variant: active === value ? 'primary' : 'secondary',
+    onClick: () => handleClick(value)
+  }, label)));
+}
+
+/***/ }),
+
+/***/ "./apps/general-settings/SaveButton.jsx":
+/*!**********************************************!*\
+  !*** ./apps/general-settings/SaveButton.jsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SaveButton)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_useStateContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./context/useStateContext */ "./apps/general-settings/context/useStateContext.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _query_useSettingsMutation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./query/useSettingsMutation */ "./apps/general-settings/query/useSettingsMutation.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _context_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./context/actions */ "./apps/general-settings/context/actions.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+function SaveButton() {
+  const {
+    state,
+    dispatch
+  } = (0,_context_useStateContext__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  const settingsMutation = (0,_query_useSettingsMutation__WEBPACK_IMPORTED_MODULE_3__.useSettingsMutation)();
+  const [showNotice, setShowNotice] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)(false);
+  const isEmpty = Object.keys(state.options || {}).length === 0;
+  const handleClick = () => {
+    settingsMutation.mutate(state.options, {
+      onSuccess: () => {
+        // Reset updated but not saved settings.
+        dispatch((0,_context_actions__WEBPACK_IMPORTED_MODULE_5__.setOptions)({}));
+        setShowNotice(true);
+      }
+    });
+  };
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    if (showNotice) {
+      const timer = setTimeout(() => setShowNotice(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showNotice]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "modula_save_settings_wrap"
+  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    className: "modula_save_settings_button",
+    onClick: handleClick,
+    disabled: settingsMutation.isLoading || isEmpty,
+    variant: "primary"
+  }, settingsMutation.isLoading ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Saving…', 'modula-best-grid-gallery') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Save Changes', 'modula-best-grid-gallery')), showNotice && /*#__PURE__*/React.createElement("div", {
+    className: "modula_save_notice slide-in"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Settings saved successfully!', 'modula-best-grid-gallery')));
+}
 
 /***/ }),
 
@@ -190,18 +302,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _tanstack_react_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @tanstack/react-form */ "./node_modules/@tanstack/react-form/dist/esm/useForm.js");
-/* harmony import */ var _tanstack_react_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @tanstack/react-form */ "./node_modules/@tanstack/react-form/node_modules/@tanstack/react-store/dist/esm/index.js");
-/* harmony import */ var _query_useSettingsMutation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./query/useSettingsMutation */ "./apps/general-settings/query/useSettingsMutation.js");
-/* harmony import */ var _FieldRenderer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FieldRenderer */ "./apps/general-settings/FieldRenderer.jsx");
-/* harmony import */ var _settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../settings/ai-settings-app */ "./apps/settings/ai-settings-app.jsx");
-/* harmony import */ var _fields_ButtonField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fields/ButtonField */ "./apps/general-settings/fields/ButtonField.jsx");
+/* harmony import */ var _tanstack_react_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @tanstack/react-form */ "./node_modules/@tanstack/react-form/dist/esm/useForm.js");
+/* harmony import */ var _tanstack_react_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @tanstack/react-form */ "./node_modules/@tanstack/react-form/node_modules/@tanstack/react-store/dist/esm/index.js");
+/* harmony import */ var _FieldRenderer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldRenderer */ "./apps/general-settings/FieldRenderer.jsx");
+/* harmony import */ var _settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../settings/ai-settings-app */ "./apps/settings/ai-settings-app.jsx");
+/* harmony import */ var _fields_ButtonField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fields/ButtonField */ "./apps/general-settings/fields/ButtonField.jsx");
+/* harmony import */ var _fields_Paragraph__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fields/Paragraph */ "./apps/general-settings/fields/Paragraph.jsx");
 /* harmony import */ var _fields_ComboField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./fields/ComboField */ "./apps/general-settings/fields/ComboField.jsx");
 /* harmony import */ var _fields_RoleField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fields/RoleField */ "./apps/general-settings/fields/RoleField.jsx");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _RolesToggle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./RolesToggle */ "./apps/general-settings/RolesToggle.jsx");
+/* harmony import */ var _context_useStateContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./context/useStateContext */ "./apps/general-settings/context/useStateContext.js");
+/* harmony import */ var _context_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./context/actions */ "./apps/general-settings/context/actions.js");
+
 
 
 
@@ -215,12 +327,24 @@ __webpack_require__.r(__webpack_exports__);
 function SettingsForm({
   config
 }) {
+  const {
+    state,
+    dispatch
+  } = (0,_context_useStateContext__WEBPACK_IMPORTED_MODULE_8__["default"])();
   function setDefaultValue(acc, option, name, defaultValue) {
+    if (!name) {
+      return acc;
+    }
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
-      acc[option] = acc[option] || {};
-      acc[option][parent] = acc[option][parent] || {};
-      acc[option][parent][child] = defaultValue !== null && defaultValue !== void 0 ? defaultValue : '';
+      if (option) {
+        acc[option] = acc[option] || {};
+        acc[option][parent] = acc[option][parent] || {};
+        acc[option][parent][child] = defaultValue !== null && defaultValue !== void 0 ? defaultValue : '';
+      } else {
+        acc[parent] = acc[parent] || {};
+        acc[parent][child] = defaultValue !== null && defaultValue !== void 0 ? defaultValue : '';
+      }
     } else if (option) {
       acc[option] = acc[option] || {};
       acc[option][name] = defaultValue !== null && defaultValue !== void 0 ? defaultValue : '';
@@ -228,48 +352,47 @@ function SettingsForm({
       acc[name] = defaultValue !== null && defaultValue !== void 0 ? defaultValue : '';
     }
   }
-  const settingsMutation = (0,_query_useSettingsMutation__WEBPACK_IMPORTED_MODULE_1__.useSettingsMutation)();
-  const mutationRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.useRef)(settingsMutation);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
-    mutationRef.current = settingsMutation;
-  }, [settingsMutation]);
   const {
     option,
     fields = []
   } = config;
-  const form = (0,_tanstack_react_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
+  const form = (0,_tanstack_react_form__WEBPACK_IMPORTED_MODULE_10__.useForm)({
     defaultValues: fields.reduce((acc, field) => {
-      if (field.type === 'react_root' || 'undefined' === typeof field.name) {
-        return acc;
-      } else if (field.type === 'combo' || field.type === 'role') {
-        if ('undefined' !== typeof field.name && 'undefined' !== typeof field.default) {
+      switch (field.type) {
+        case 'combo':
+          field.fields.forEach(comboField => {
+            setDefaultValue(acc, option, comboField.name, comboField.default);
+          });
+          break;
+        case 'role':
+          // Enable role field
           setDefaultValue(acc, option, field.name, field.default);
-        }
-        field.fields.forEach(comboField => {
-          setDefaultValue(acc, option, comboField.name, comboField.default);
-        });
-      } else {
-        setDefaultValue(acc, option, field.name, field.default);
+          // Capabilities
+          field.fields.forEach(comboField => {
+            setDefaultValue(acc, option, comboField.name, comboField.default);
+          });
+          break;
+        case 'react_root':
+        case 'button':
+        case 'paragraph':
+          // We skip these
+          break;
+        default:
+          setDefaultValue(acc, option, field.name, field.default);
+          break;
       }
       return acc;
     }, {})
   });
-  const storedValues = (0,_tanstack_react_form__WEBPACK_IMPORTED_MODULE_10__.useStore)(form.store, state => state.values);
-  const formValues = option ? storedValues[option] || {} : storedValues;
-  const debouncedSave = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.useMemo)(() => {
-    const fn = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.debounce)((opt, val) => {
-      mutationRef.current.mutate({
-        option: opt,
-        value: val
-      });
-    }, 500);
-    return fn;
-  }, []);
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
-    return () => {
-      debouncedSave.cancel();
-    };
-  }, [debouncedSave]);
+  const values = form.store.state.values;
+  const formValues = option ? values[option] || {} : values;
+  const handleSave = (opt, val) => {
+    dispatch((0,_context_actions__WEBPACK_IMPORTED_MODULE_9__.setOptions)({
+      ...state.options,
+      [opt]: val
+    }));
+    console.error(state.options);
+  };
   const operators = {
     '===': (a, b) => a === b,
     '!==': (a, b) => a !== b,
@@ -298,7 +421,11 @@ function SettingsForm({
   const handleChange = (fieldState, fieldName, newValue) => {
     fieldState.handleChange(newValue);
     const allValues = form.store.state.values;
-    const updatedFormValues = option ? allValues[option] : allValues;
+    const updatedFormValues = option ? {
+      ...allValues[option]
+    } : {
+      ...allValues
+    };
     if (fieldName.includes('.')) {
       const [parent, child] = fieldName.split('.');
       updatedFormValues[parent] = updatedFormValues[parent] || {};
@@ -307,13 +434,17 @@ function SettingsForm({
       updatedFormValues[fieldName] = newValue;
     }
     if (option) {
-      debouncedSave(option, updatedFormValues);
+      handleSave(option, updatedFormValues);
+    } else if (fieldName.includes('.')) {
+      const [parent] = fieldName.split('.');
+      handleSave(parent, updatedFormValues[parent]);
     } else {
-      debouncedSave(fieldName, newValue);
+      handleSave(fieldName, newValue);
     }
   };
+  const activeToggle = (0,_tanstack_react_form__WEBPACK_IMPORTED_MODULE_11__.useStore)(form.store, statex => statex.values.activeToggle) || '';
   if ('modula_ai' === config) {
-    return /*#__PURE__*/React.createElement(_settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+    return /*#__PURE__*/React.createElement(_settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_2__["default"], null);
   }
   if (!config || !fields) {
     return /*#__PURE__*/React.createElement("p", null, "Loading settings...");
@@ -324,14 +455,29 @@ function SettingsForm({
     }, "\u2699\uFE0F No settings found.");
   }
   const optionValue = option ? option : 'default';
-  return /*#__PURE__*/React.createElement("form", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", {
     className: `modula_options_form modula_${optionValue}_form`
-  }, fields.map((field, index) => {
+  }, config.submenu && /*#__PURE__*/React.createElement(_RolesToggle__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    form: form,
+    submenu: config.submenu
+  }), fields.map((field, index) => {
     if (!evaluateConditions(field.conditions)) {
       return null;
     }
+    if (field.type === 'role') {
+      return /*#__PURE__*/React.createElement(_fields_RoleField__WEBPACK_IMPORTED_MODULE_6__.RoleField, {
+        key: index,
+        option: option,
+        mainField: field,
+        form: form,
+        handleChange: handleChange
+      });
+    }
+    if (field.group && field.group !== activeToggle) {
+      return null;
+    }
     if (field.type === 'react_root') {
-      return /*#__PURE__*/React.createElement(_settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      return /*#__PURE__*/React.createElement(_settings_ai_settings_app__WEBPACK_IMPORTED_MODULE_2__["default"], {
         key: index
       });
     }
@@ -341,18 +487,7 @@ function SettingsForm({
         className: "modula_field_wrapper"
       }, /*#__PURE__*/React.createElement(_fields_ComboField__WEBPACK_IMPORTED_MODULE_5__.ComboField, {
         option: option,
-        fields: field.fields,
-        form: form,
-        handleChange: handleChange
-      }));
-    }
-    if (field.type === 'role') {
-      return /*#__PURE__*/React.createElement("div", {
-        key: index,
-        className: "modula_roles_field_wrapper"
-      }, /*#__PURE__*/React.createElement(_fields_RoleField__WEBPACK_IMPORTED_MODULE_6__.RoleField, {
-        option: option,
-        mainField: field,
+        field: field,
         form: form,
         handleChange: handleChange
       }));
@@ -360,15 +495,23 @@ function SettingsForm({
     if (field.type === 'button') {
       return /*#__PURE__*/React.createElement("div", {
         key: index,
-        className: "modula_roles_field_wrapper"
-      }, /*#__PURE__*/React.createElement(_fields_ButtonField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "modula_field_wrapper"
+      }, /*#__PURE__*/React.createElement(_fields_ButtonField__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        field: field
+      }));
+    }
+    if (field.type === 'paragraph') {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index,
+        className: "modula_field_wrapper"
+      }, /*#__PURE__*/React.createElement(_fields_Paragraph__WEBPACK_IMPORTED_MODULE_4__["default"], {
         field: field
       }));
     }
     if (field.type === 'upsell') {
       return /*#__PURE__*/React.createElement("div", {
         key: index,
-        className: "modula_roles_field_wrapper"
+        className: "modula_upsell_field_wrapper"
       }, "grrr");
     }
     return /*#__PURE__*/React.createElement("div", {
@@ -378,12 +521,12 @@ function SettingsForm({
       className: "modula_field_wrapp"
     }, /*#__PURE__*/React.createElement(form.Field, {
       name: option ? `${option}.${field.name}` : field.name
-    }, fieldState => /*#__PURE__*/React.createElement(_FieldRenderer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }, fieldState => /*#__PURE__*/React.createElement(_FieldRenderer__WEBPACK_IMPORTED_MODULE_1__["default"], {
       field: field,
       fieldState: fieldState,
       handleChange: handleChange
     }))));
-  }));
+  })));
 }
 
 /***/ }),
@@ -396,12 +539,17 @@ function SettingsForm({
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   setActiveTab: () => (/* binding */ setActiveTab)
+/* harmony export */   setActiveTab: () => (/* binding */ setActiveTab),
+/* harmony export */   setOptions: () => (/* binding */ setOptions)
 /* harmony export */ });
-/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reducer */ "./apps/general-settings/context/reducer.jsx");
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reducer */ "./apps/general-settings/context/reducer.js");
 
 const setActiveTab = value => ({
   type: _reducer__WEBPACK_IMPORTED_MODULE_0__.actionTypes.SET_ACTIVE_TAB,
+  payload: value
+});
+const setOptions = value => ({
+  type: _reducer__WEBPACK_IMPORTED_MODULE_0__.actionTypes.SET_OPTIONS,
   payload: value
 });
 
@@ -418,15 +566,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initialState: () => (/* binding */ initialState)
 /* harmony export */ });
 const initialState = {
-  activeTab: false
+  activeTab: false,
+  options: {}
 };
 
 /***/ }),
 
-/***/ "./apps/general-settings/context/reducer.jsx":
-/*!***************************************************!*\
-  !*** ./apps/general-settings/context/reducer.jsx ***!
-  \***************************************************/
+/***/ "./apps/general-settings/context/reducer.js":
+/*!**************************************************!*\
+  !*** ./apps/general-settings/context/reducer.js ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -435,7 +584,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   reducer: () => (/* binding */ reducer)
 /* harmony export */ });
 const actionTypes = {
-  SET_ACTIVE_TAB: 'SET_ACTIVE_TAB'
+  SET_ACTIVE_TAB: 'SET_ACTIVE_TAB',
+  SET_OPTIONS: 'SET_OPTIONS'
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -443,6 +593,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         activeTab: action.payload
+      };
+    case actionTypes.SET_OPTIONS:
+      return {
+        ...state,
+        options: action.payload
       };
     default:
       return state;
@@ -466,7 +621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reducer */ "./apps/general-settings/context/reducer.jsx");
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reducer */ "./apps/general-settings/context/reducer.js");
 /* harmony import */ var _initial_state__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./initial-state */ "./apps/general-settings/context/initial-state.js");
 
 
@@ -528,6 +683,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _query_useApiCall__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../query/useApiCall */ "./apps/general-settings/query/useApiCall.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 function ButtonField({
@@ -535,18 +695,114 @@ function ButtonField({
   className,
   variant = 'primary'
 }) {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+  const [loading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
+  const doApiCall = (0,_query_useApiCall__WEBPACK_IMPORTED_MODULE_2__.useApiCall)();
+  const handleClick = async () => {
+    setLoading(true);
+    if (field.api && field.api?.path) {
+      await doApiCall(field.api.path, field.api.method || 'POST', field.api.data || {});
+    }
+    setLoading(false);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: `modula_field_wrapp ${className || ''}`
+  }, /*#__PURE__*/React.createElement("span", {
     className: "modula_input_label"
   }, field.label), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    id: field.id || '',
     href: field.href,
     variant: variant,
-    className: `modula_field_wrapp ${className || ''}`
+    className: `modula_field_button ${className || ''}`,
+    onClick: handleClick,
+    disabled: loading
   }, field.text), field.description && /*#__PURE__*/React.createElement("p", {
     className: "modula_input_description",
     dangerouslySetInnerHTML: {
       __html: field.description
     }
   }));
+}
+
+/***/ }),
+
+/***/ "./apps/general-settings/fields/CheckboxGroupField.jsx":
+/*!*************************************************************!*\
+  !*** ./apps/general-settings/fields/CheckboxGroupField.jsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CheckboxGroupField)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checkboxGroupField.module.scss */ "./apps/general-settings/fields/checkboxGroupField.module.scss");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+function CheckboxGroupField({
+  fieldState,
+  field,
+  handleChange,
+  className
+}) {
+  const {
+    options,
+    name
+  } = field;
+  const selectedValues = fieldState.state.value || [];
+  const isSelected = value => selectedValues.includes(value);
+  const toggleCheckbox = value => {
+    if (isSelected(value)) {
+      handleChange(selectedValues.filter(v => v !== value));
+    } else {
+      handleChange([...selectedValues, value]);
+    }
+  };
+  const selectAll = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
+    const allValues = options.map(opt => opt.value);
+    handleChange(allValues);
+  }, [options, handleChange]);
+  const deselectAll = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
+    handleChange([]);
+  }, [handleChange]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: `${_checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].modulaCheckboxGroup} ${className || ''}`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].modulaCheckboxGroupControls
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: selectAll,
+    className: _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].controlButton
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Select All', 'modula-best-grid-gallery')), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: deselectAll,
+    className: _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].controlButton
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Deselect All', 'modula-best-grid-gallery'))), /*#__PURE__*/React.createElement("div", {
+    className: _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].modulaCheckboxGroupOptions
+  }, options.map(option =>
+  /*#__PURE__*/
+  /* eslint-disable jsx-a11y/label-has-associated-control */
+  React.createElement("label", {
+    key: option.value,
+    className: _checkboxGroupField_module_scss__WEBPACK_IMPORTED_MODULE_2__["default"].checkboxOption
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    name: `${name}[]`,
+    value: option.value,
+    checked: isSelected(option.value),
+    onChange: () => toggleCheckbox(option.value)
+  }), /*#__PURE__*/React.createElement("span", {
+    dangerouslySetInnerHTML: {
+      __html: option.label
+    }
+  })))));
 }
 
 /***/ }),
@@ -564,26 +820,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldRenderer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../FieldRenderer */ "./apps/general-settings/FieldRenderer.jsx");
+/* harmony import */ var _ButtonField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ButtonField */ "./apps/general-settings/fields/ButtonField.jsx");
+
 
 
 function ComboField({
   option,
-  fields,
+  field,
   form,
   handleChange,
   className
 }) {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, fields.map(field => /*#__PURE__*/React.createElement("div", {
-    key: `${field.name}-wrapper`,
-    className: `modula_field_wrapp ${className || ''}`
-  }, /*#__PURE__*/React.createElement(form.Field, {
-    key: `${field.name}-field`,
-    name: option ? `${option}.${field.name}` : field.name
-  }, fieldState => /*#__PURE__*/React.createElement(_FieldRenderer__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    field: field,
-    fieldState: fieldState,
-    handleChange: handleChange
-  })))));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, field.fields.map((item, index) => {
+    if (item.type === 'button') {
+      return /*#__PURE__*/React.createElement(_ButtonField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        key: index,
+        field: item
+      });
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      key: `${item.name}-wrapper`,
+      className: `modula_field_wrapp ${className || ''}`
+    }, /*#__PURE__*/React.createElement(form.Field, {
+      name: option ? `${option}.${item.name}` : item.name
+    }, fieldState => /*#__PURE__*/React.createElement(_FieldRenderer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      field: item,
+      fieldState: fieldState,
+      handleChange: handleChange
+    })));
+  }), field.description && /*#__PURE__*/React.createElement("p", {
+    className: "modula_input_description",
+    dangerouslySetInnerHTML: {
+      __html: field.description
+    }
+  }));
 }
 
 /***/ }),
@@ -702,6 +972,37 @@ function NumberField({
     className: "modula_input_description",
     dangerouslySetInnerHTML: {
       __html: field.description
+    }
+  }));
+}
+
+/***/ }),
+
+/***/ "./apps/general-settings/fields/Paragraph.jsx":
+/*!****************************************************!*\
+  !*** ./apps/general-settings/fields/Paragraph.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Paragraph)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function Paragraph({
+  field,
+  className
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `modula_field_wrapp ${className || ''}`
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "modula_input_label"
+  }, field.label), field.value && /*#__PURE__*/React.createElement("p", {
+    className: "modula_input_description",
+    dangerouslySetInnerHTML: {
+      __html: field.value
     }
   }));
 }
@@ -875,6 +1176,7 @@ function RoleField({
   handleChange
 }) {
   const [enabled, setEnabled] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(mainField.default);
+  const activeToggle = form.store.state.values?.activeToggle || 'gallery';
   const onMainToggleChange = (fieldState, fieldName, val) => {
     setEnabled(val);
 
@@ -885,7 +1187,12 @@ function RoleField({
     });
     handleChange(fieldState, fieldName, val);
   };
-  return /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Card, {
+  if (mainField.group && mainField.group !== activeToggle) {
+    return null;
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "modula_roles_field_wrapper"
+  }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Card, {
     className: `static-class ${_RoleField_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].modulaRoleFieldCard}`
   }, /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CardHeader, {
     className: `static-class-head ${_RoleField_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].modulaRoleFieldCardHead}`
@@ -899,19 +1206,21 @@ function RoleField({
     handleChange: val => onMainToggleChange(fieldState, mainField.name, val)
   }))), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.CardBody, {
     className: `static-class-body ${_RoleField_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].modulaRoleFieldCardBody}`
-  }, mainField.fields.map(field => /*#__PURE__*/React.createElement("div", {
-    key: `${field.name}-wrapper`,
-    className: "modula_role_field_wrapp"
-  }, /*#__PURE__*/React.createElement(form.Field, {
-    key: `${field.name}-field`,
-    name: option ? `${option}.${field.name}` : field.name
-  }, fieldState => /*#__PURE__*/React.createElement(_ToggleField__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    fieldState: fieldState,
-    field: field,
-    className: _RoleField_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].modulaRoleBodyToggle,
-    handleChange: val => handleChange(fieldState, field.name, val),
-    disabled: !enabled
-  }))))));
+  }, mainField.fields.map(field => {
+    return /*#__PURE__*/React.createElement("div", {
+      key: `${field.name}-wrapper`,
+      className: "modula_role_field_wrapp"
+    }, /*#__PURE__*/React.createElement(form.Field, {
+      key: `${field.name}-field`,
+      name: option ? `${option}.${field.name}` : field.name
+    }, fieldState => /*#__PURE__*/React.createElement(_ToggleField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      fieldState: fieldState,
+      field: field,
+      className: _RoleField_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].modulaRoleBodyToggle,
+      handleChange: val => handleChange(fieldState, field.name, val),
+      disabled: !enabled
+    })));
+  }))));
 }
 
 /***/ }),
@@ -1002,7 +1311,7 @@ function TextField({
   }, field.label), /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     type: field.inputType || 'text',
     className: `modula_input_text ${className || ''}`,
-    value: fieldState.state.value,
+    value: fieldState.state.value || '',
     placeholder: field.placeholder,
     onChange: val => handleChange(val)
   }), field.description && /*#__PURE__*/React.createElement("p", {
@@ -1204,6 +1513,21 @@ function ToggleOptionsField({
 
 /***/ }),
 
+/***/ "./apps/general-settings/fields/checkboxGroupField.module.scss":
+/*!*********************************************************************!*\
+  !*** ./apps/general-settings/fields/checkboxGroupField.module.scss ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaCheckboxGroup":"EnCStfRdcF9f_2mpX59F","modulaCheckboxGroupControls":"Kz0tx2_zHTvJR0wE4f9e","controlButton":"rm6nbLQcyHP7unX9J934","modulaCheckboxGroupOptions":"tgP2adOVcJXpOOSofwHm","checkboxOption":"AJUHYTrul9_1pBuGRGSM"});
+
+/***/ }),
+
 /***/ "./apps/general-settings/fields/radioGroupField.module.scss":
 /*!******************************************************************!*\
   !*** ./apps/general-settings/fields/radioGroupField.module.scss ***!
@@ -1358,6 +1682,46 @@ const queryClient = new _tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.Query
 
 /***/ }),
 
+/***/ "./apps/general-settings/query/useApiCall.js":
+/*!***************************************************!*\
+  !*** ./apps/general-settings/query/useApiCall.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useApiCall: () => (/* binding */ useApiCall)
+/* harmony export */ });
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tanstack/react-query */ "./node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js");
+
+
+const useApiCall = () => {
+  const queryClient = (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__.useQueryClient)();
+  const doApiCall = async (path, method, data = false) => {
+    try {
+      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+        path,
+        method,
+        data: {
+          ...data
+        }
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ['settings-tabs-query']
+      });
+      return response;
+    } catch (error) {
+      console.error('Error on api call:', error);
+      throw error;
+    }
+  };
+  return doApiCall;
+};
+
+/***/ }),
+
 /***/ "./apps/general-settings/query/useSettingsMutation.js":
 /*!************************************************************!*\
   !*** ./apps/general-settings/query/useSettingsMutation.js ***!
@@ -1390,7 +1754,7 @@ const useSettingsMutation = () => {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ['settinga-tabs-query']
+        queryKey: ['settings-tabs-query']
       });
     }
   });
@@ -1416,7 +1780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const useTabsQuery = () => {
   const settings = (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__.useQuery)({
-    queryKey: ['settinga-tabs-query'],
+    queryKey: ['settings-tabs-query'],
     retry: 1,
     queryFn: async () => {
       const data = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -1446,9 +1810,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./apps/general-settings/header.jsx");
 /* harmony import */ var _navigation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navigation */ "./apps/general-settings/navigation.jsx");
 /* harmony import */ var _Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Content */ "./apps/general-settings/Content.jsx");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
-
 
 
 
@@ -2001,7 +2362,7 @@ function ClaimCredits() {
       type: "submit",
       iconPosition: "right",
       icon: getButtonIcon(),
-      isDisabled: !canSubmit
+      disabled: !canSubmit
     }, getButtonText())
   }), !validKey && /*#__PURE__*/React.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: "link",
@@ -8393,16 +8754,6 @@ module.exports = window["wp"]["i18n"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["primitives"];
-
-/***/ }),
-
-/***/ "lodash":
-/*!*************************!*\
-  !*** external "lodash" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = window["lodash"];
 
 /***/ }),
 

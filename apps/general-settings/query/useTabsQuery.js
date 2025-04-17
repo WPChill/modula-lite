@@ -3,7 +3,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 export const useTabsQuery = () => {
 	const settings = useQuery( {
-		queryKey: [ 'settinga-tabs-query' ],
+		queryKey: [ 'settings-tabs-query' ],
 		retry: 1,
 		queryFn: async () => {
 			const data = await apiFetch( {

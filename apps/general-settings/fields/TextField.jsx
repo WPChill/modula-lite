@@ -9,7 +9,7 @@ export default function TextField( { fieldState, field, handleChange, className 
 			<TextControl
 				type={ field.inputType || 'text' }
 				className={ `modula_input_text ${ className || '' }` }
-				value={ fieldState.state.value }
+				value={ fieldState.state.value || '' }
 				placeholder={ field.placeholder }
 				onChange={ ( val ) => handleChange( val ) }
 			/>

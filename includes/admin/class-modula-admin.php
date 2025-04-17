@@ -192,7 +192,7 @@ class Modula_Admin {
 				'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'menu_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
-				'menu_slug'  => 'modula',
+				'menu_slug'  => 'modula_settings',
 				'function'   => array( $this, 'show_submenu' ),
 				'priority'   => 30,
 			);
@@ -200,7 +200,7 @@ class Modula_Admin {
 				'page_title' => esc_html__( 'ReSettings', 'modula-best-grid-gallery' ),
 				'menu_title' => esc_html__( 'ReSettings', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
-				'menu_slug'  => 'modula-settings',
+				'menu_slug'  => 'modula',
 				'function'   => array( $this, 'add_settings_react_root' ),
 				'priority'   => 31,
 			);

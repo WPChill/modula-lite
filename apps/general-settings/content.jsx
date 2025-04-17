@@ -2,6 +2,7 @@ import { Panel, PanelBody } from '@wordpress/components';
 import useStateContext from './context/useStateContext';
 import { useTabsQuery } from './query/useTabsQuery';
 import SettingsForm from './SettingsForm';
+import SaveButton from './SaveButton';
 
 export default function Content() {
 	const { state } = useStateContext();
@@ -33,11 +34,14 @@ export default function Content() {
 								) }
 							</span>
 						}
-						initialOpen={ false }
+						initialOpen={ true }
 					>
 						<SettingsForm config={ subtabData?.config || {} } />
 					</PanelBody>
 				) ) }
+				{ ( 'undefined' === typeof activeTab.save || false !== activeTab.save ) && (
+					<SaveButton />
+				) }
 			</Panel>
 		</div>
 	);

@@ -37,6 +37,26 @@ class Modula_Rest_Api {
 				'permission_callback' => array( $this, 'settings_permissions_check' ),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/video/youtube',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'youtube_action' ),
+				'permission_callback' => array( $this, 'settings_permissions_check' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/video/vimeo',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'vimeo_action' ),
+				'permission_callback' => array( $this, 'settings_permissions_check' ),
+			)
+		);
 	}
 
 	public function get_settings() {
@@ -81,8 +101,9 @@ class Modula_Rest_Api {
 				'badge' => 'PRO',
 			),
 			'video'           => array(
-				'label' => esc_html__( 'Video', 'modula-best-grid-gallery' ),
-				'badge' => 'PRO',
+				'label'  => esc_html__( 'Video', 'modula-best-grid-gallery' ),
+				'badge'  => 'PRO',
+				'config' => $this->get_config( 'video' ),
 			),
 			'instagram'       => array(
 				'label'  => esc_html__( 'Instagram', 'modula-best-grid-gallery' ),
@@ -127,15 +148,56 @@ class Modula_Rest_Api {
 					'video'     => $subtabs['video'],
 				),
 			),
-			array(
-				'label' => esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
-				'slug'  => 'migrate',
-			),
-
 		);
 		$tabs = apply_filters( 'modula_admin_page_main_tabs', $tabs );
 
 		return new \WP_REST_Response( $tabs, 200 );
+	}
+
+	public function youtube_action( $request ) {
+		$data = $request->get_json_params();
+
+		if ( empty( $data ) || empty( $data['action'] ) ) {
+			return new \WP_REST_Response( 'No action to take.', 400 );
+		}
+
+		if ( class_exists( 'Modula_Video' ) && ! class_exists( 'Modula_Video_Google_Auth' ) ) {
+			require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-google-auth.php';
+		}
+
+		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
+			$youtube_oauth = Modula_Video_Google_Auth::get_instance();
+			if ( 'refresh' === $data['action'] ) {
+				$youtube_oauth->refresh_token( false );
+			} elseif ( 'disconnect' === $data['action'] ) {
+				delete_option( Modula_Video_Google_Auth::$accessToken );
+				delete_option( Modula_Video_Google_Auth::$refreshToken );
+				delete_option( Modula_Video_Google_Auth::$expiryDate );
+			}
+		}
+
+		return new \WP_REST_Response( true, 200 );
+	}
+
+	public function vimeo_action( $request ) {
+		$data = $request->get_json_params();
+
+		if ( empty( $data ) || empty( $data['action'] ) ) {
+			return new \WP_REST_Response( 'No action to take.', 400 );
+		}
+
+		if ( class_exists( 'Modula_Video' ) && ! class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
+			require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-vimeo-auth.php';
+		}
+
+		if ( class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
+			$youtube_oauth = Modula_Video_Vimeo_Auth::get_instance();
+			if ( 'disconnect' === $data['action'] ) {
+				delete_option( Modula_Video_Vimeo_Auth::$accessToken );
+			}
+		}
+
+		return new \WP_REST_Response( true, 200 );
 	}
 
 	private function get_config( $subtab = false ) {
@@ -160,6 +222,116 @@ class Modula_Rest_Api {
 		$licensing   = get_option( 'modula_image_licensing_option', array() );
 		$compression = get_option( 'modula_speedup', array() );
 		$watermark   = get_option( 'modula_watermark', array() );
+		$vimeo_creds = get_option( 'modula_video_vimeo_creds', array() );
+
+		$youtube = array();
+		$vimeo   = array();
+		if ( class_exists( 'Modula_Video' ) ) {
+			if ( ! class_exists( 'Modula_Video_Google_Auth' ) ) {
+				require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-google-auth.php';
+			}
+			if ( ! class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
+				require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-vimeo-auth.php';
+			}
+		}
+
+		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
+			$youtube_oauth = Modula_Video_Google_Auth::get_instance();
+			$youtube       = array(
+				'type'        => 'combo',
+				'fields'      => array(),
+				'group'       => 'yt',
+				// translators: %s placeholders are for the opening and closing anchor tags.
+				'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-youtube-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
+
+			);
+			if ( ! $youtube_oauth->get_access_token() ) {
+				$youtube['fields'][] = array(
+					'type'    => 'button',
+					'variant' => 'primary',
+					'name'    => 'connect',
+					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+					'text'    => esc_html__( 'Sign in with Google', 'modula-best-grid-gallery' ),
+					'href'    => esc_url( $youtube_oauth->create_request_url() ),
+				);
+			} elseif ( $youtube_oauth->is_token_expired() ) {
+				$youtube['fields'][] = array(
+					'type'    => 'button',
+					'variant' => 'primary',
+					'name'    => 'connect',
+					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+					'text'    => esc_html__( 'Refresh token', 'modula-best-grid-gallery' ),
+					'api'     => array(
+						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+						'method' => 'POST',
+						'data'   => array( 'action' => 'refresh' ),
+					),
+				);
+				$youtube['fields'][] = array(
+					'type'    => 'button',
+					'variant' => 'primary',
+					'name'    => 'connect',
+					'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+					'api'     => array(
+						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+						'method' => 'POST',
+						'data'   => array( 'action' => 'disconnect' ),
+					),
+				);
+			} else {
+				$youtube['fields'][] = array(
+					'type'    => 'button',
+					'variant' => 'primary',
+					'name'    => 'connect',
+					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+					'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+					'api'     => array(
+						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+						'method' => 'POST',
+						'data'   => array( 'action' => 'disconnect' ),
+					),
+				);
+			}
+		}
+
+		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
+			$vimeo_oauth = Modula_Video_Vimeo_Auth::get_instance();
+
+			if ( ! $vimeo_oauth->get_access_token() ) {
+				$redirect_uri = admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' );
+				$client       = ! empty( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : false;
+				$vimeo        = array(
+					'type'        => 'button',
+					'variant'     => 'primary',
+					'name'        => 'connect',
+					'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+					'text'        => $client ? esc_html__( 'Connect to Vimeo', 'modula-best-grid-gallery' ) : esc_html__( 'Save your credentials', 'modula-best-grid-gallery' ),
+					'href'        => 'https://api.vimeo.com/oauth/authorize?response_type=code&client_id=' . $client . '&redirect_uri=' . rawurlencode( $redirect_uri ) . '&scope=public',
+					'disabled'    => ! $client,
+					'group'       => 'vi',
+					// translators: %s placeholders are for the opening and closing anchor tags.
+					'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
+
+				);
+			} else {
+				$vimeo = array(
+					'type'        => 'button',
+					'variant'     => 'primary',
+					'name'        => 'connect',
+					'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+					'text'        => esc_html__( 'Disconnect from Vimeo', 'modula-best-grid-gallery' ),
+					'api'         => array(
+						'path'   => '/modula-best-grid-gallery/v1/video/vimeo/',
+						'method' => 'POST',
+						'data'   => array( 'action' => 'disconnect' ),
+					),
+					'group'       => 'vi',
+					// translators: %s placeholders are for the opening and closing anchor tags.
+					'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
+
+				);
+			}
+		}
 
 		$compression_values = array(
 			array(
@@ -218,10 +390,12 @@ class Modula_Rest_Api {
 				'option' => 'modula_standalone',
 				'fields' => array(
 					array(
-						'type'    => 'toggle',
-						'name'    => 'gallery.enable_rewrite',
-						'label'   => 'Enable Galleries Link',
-						'default' => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['enable_rewrite'] ) && 'enabled' === $standalone['gallery']['enable_rewrite'] ),
+						'type'       => 'options_toggle',
+						'name'       => 'gallery.enable_rewrite',
+						'label'      => 'Enable Galleries Link',
+						'default'    => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['enable_rewrite'] ) ) ? $standalone['gallery']['enable_rewrite'] : 'disabled',
+						'trueValue'  => 'enabled',
+						'falseValue' => 'disabled',
 					),
 					array(
 						'type'       => 'text',
@@ -232,15 +406,17 @@ class Modula_Rest_Api {
 							array(
 								'field'      => 'gallery.enable_rewrite',
 								'comparison' => '===',
-								'value'      => true,
+								'value'      => 'enabled',
 							),
 						),
 					),
 					array(
-						'type'    => 'toggle',
-						'name'    => 'album.enable_rewrite',
-						'label'   => 'Enable Albums Link',
-						'default' => ( isset( $standalone['album'] ) && isset( $standalone['album']['enable_rewrite'] ) && 'enabled' === $standalone['album']['enable_rewrite'] ),
+						'type'       => 'options_toggle',
+						'name'       => 'album.enable_rewrite',
+						'label'      => 'Enable Albums Link',
+						'default'    => ( isset( $standalone['album'] ) && isset( $standalone['album']['enable_rewrite'] ) ) ? $standalone['album']['enable_rewrite'] : 'disabled',
+						'trueValue'  => 'enabled',
+						'falseValue' => 'disabled',
 					),
 					array(
 						'type'       => 'text',
@@ -251,7 +427,7 @@ class Modula_Rest_Api {
 							array(
 								'field'      => 'album.enable_rewrite',
 								'comparison' => '===',
-								'value'      => true,
+								'value'      => 'enabled',
 							),
 						),
 					),
@@ -344,14 +520,14 @@ class Modula_Rest_Api {
 						'type'    => 'select',
 						'name'    => 'watermark_position',
 						'label'   => 'Watermark Position',
-						'default' => isset( $compression['watermark_position'] ) ? $compression['watermark_position'] : 'bottom_right',
+						'default' => isset( $watermark['watermark_position'] ) ? $watermark['watermark_position'] : 'bottom_right',
 						'options' => $watermark_values,
 					),
 					array(
 						'type'    => 'range_select',
 						'name'    => 'watermark_margin',
 						'label'   => 'Watermark Margin',
-						'default' => isset( $compression['watermark_margin'] ) ? $compression['watermark_margin'] : 10,
+						'default' => isset( $watermark['watermark_margin'] ) ? $watermark['watermark_margin'] : 10,
 						'min'     => 0,
 						'max'     => 50,
 					),
@@ -362,13 +538,13 @@ class Modula_Rest_Api {
 								'type'    => 'number',
 								'name'    => 'watermark_image_dimension_width',
 								'label'   => 'Width',
-								'default' => isset( $compression['watermark_image_dimension_width'] ) ? $compression['watermark_image_dimension_width'] : 0,
+								'default' => isset( $watermark['watermark_image_dimension_width'] ) ? $watermark['watermark_image_dimension_width'] : 0,
 							),
 							array(
 								'type'    => 'number',
 								'name'    => 'watermark_image_dimension_height',
 								'label'   => 'Height',
-								'default' => isset( $compression['watermark_image_dimension_height'] ) ? $compression['watermark_image_dimension_height'] : 0,
+								'default' => isset( $watermark['watermark_image_dimension_height'] ) ? $watermark['watermark_image_dimension_height'] : 0,
 							),
 						),
 					),
@@ -376,25 +552,87 @@ class Modula_Rest_Api {
 						'type'    => 'toggle',
 						'name'    => 'watermark_enable_backup',
 						'label'   => 'Enable image backup',
-						'default' => isset( $licensing['watermark_enable_backup'] ) ? $licensing['watermark_enable_backup'] : '',
+						'default' => isset( $watermark['watermark_enable_backup'] ) ? $watermark['watermark_enable_backup'] : '',
 					),
 				),
 			),
 			'roles'           => array(
 				'option' => 'modula_roles',
-				'fields' => $this->get_roles(),
+				'fields' => array_merge( $this->get_roles(), $this->get_album_roles() ),
 			),
 			'instagram'       => array(
 				'fields' => array(
 					array(
 						'type'  => 'button',
-						'text'  => 'Connect your account',
-						'label' => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+						'label' => 'Connect your account',
+						'text'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
 						'href'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_url( Modula\Instagram\OAuth::get_instance()->create_request_url() ) : '#',
+						'api'   => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? false : array(
+							'path'   => '/modula-instagram/v1/token/disconnect/',
+							'method' => 'POST',
+							'data'   => array(),
+						),
 					),
 				),
 			),
+			'video'           => array(
+				'submenu' => array(
+					'class'   => 'modula_video_submenu',
+					'options' => array(
+						array(
+							'label' => esc_html__( 'YouTube', 'modula-best-grid-gallery' ),
+							'value' => 'yt',
+						),
+						array(
+							'label' => esc_html__( 'Vimeo', 'modula-best-grid-gallery' ),
+							'value' => 'vi',
+						),
+					),
+				),
+				'fields'  => array(
+					$youtube,
+					array(
+						'type'    => 'text',
+						'name'    => 'modula_video_vimeo_creds.client_id',
+						'label'   => esc_html__( 'Vimeo Client ID', 'modula-best-grid-gallery' ),
+						'default' => isset( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : '',
+						'group'   => 'vi',
+					),
+					array(
+						'type'    => 'text',
+						'name'    => 'modula_video_vimeo_creds.client_secret',
+						'label'   => esc_html__( 'Vimeo Client Secret', 'modula-best-grid-gallery' ),
+						'default' => isset( $vimeo_creds['client_secret'] ) ? $vimeo_creds['client_secret'] : '',
+						'group'   => 'vi',
+					),
+					array(
+						'type'     => 'text',
+						'name'     => 'vimeo_redirect_uri',
+						'label'    => esc_html__( 'Vimeo RedirectURI', 'modula-best-grid-gallery' ),
+						'default'  => admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' ),
+						'readonly' => true,
+						'group'    => 'vi',
+					),
+					$vimeo,
+				),
+			),
 		);
+
+		if ( class_exists( 'Modula_Albums' ) ) {
+			$configs['roles']['submenu'] = array(
+				'class'   => 'modula_roles_submenu',
+				'options' => array(
+					array(
+						'label' => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+						'value' => 'gallery',
+					),
+					array(
+						'label' => esc_html__( 'Album', 'modula-best-grid-gallery' ),
+						'value' => 'album',
+					),
+				),
+			);
+		}
 
 		if ( $subtab ) {
 			if ( isset( $configs[ $subtab ] ) ) {
@@ -408,6 +646,7 @@ class Modula_Rest_Api {
 	}
 
 	private function get_roles() {
+
 		global $wp_roles;
 		$options      = get_option( 'modula_roles' );
 		$roles_array  = array();
@@ -431,12 +670,67 @@ class Modula_Rest_Api {
 				'label'   => translate_user_role( $wp_role['name'] ),
 				'default' => $this->is_role_enabled( $key, $options, $capabilities ),
 				'fields'  => array(),
+				'group'   => 'gallery',
 			);
 
 			foreach ( $capabilities as $capability => $capability_name ) {
-				if ( 'edit_gallery' === $capability ) {
-					continue;
-				}
+				$role_array['fields'][] = array(
+					'type'    => 'toggle',
+					'name'    => $key . '.' . $capability,
+					'label'   => $capability_name,
+					'default' => $role->has_cap( $capability ),
+				);
+			}
+
+			if ( ! in_array( $key, array( 'editor', 'author' ), true ) ) {
+				$role_array['fields'][] = array(
+					'type'    => 'toggle',
+					'name'    => $key . '.upload_files',
+					'label'   => __( 'Upload Files', 'modula-best-grid-gallery' ),
+					'default' => $role->has_cap( 'upload_files' ),
+				);
+			}
+
+			$roles_array[] = $role_array;
+		}
+
+		return $roles_array;
+	}
+
+	private function get_album_roles() {
+
+		if ( ! class_exists( 'Modula_Albums' ) ) {
+			return array();
+		}
+
+		global $wp_roles;
+		$options     = get_option( 'modula_roles' );
+		$roles_array = array();
+
+		$album_capabilities = array(
+			'edit_albums'          => __( 'View & Edit Own Albums', 'modula-best-grid-gallery' ),
+			'edit_others_albums'   => __( 'Edit Others Albums', 'modula-best-grid-gallery' ),
+			'publish_albums'       => __( 'Publish Albums', 'modula-best-grid-gallery' ),
+			'delete_albums'        => __( 'Delete Own Albums', 'modula-best-grid-gallery' ),
+			'delete_others_albums' => __( 'Delete Others Albums', 'modula-best-grid-gallery' ),
+			'read_private_albums'  => __( 'Edit Private Albums', 'modula-best-grid-gallery' ),
+		);
+
+		foreach ( $wp_roles->roles as $key => $wp_role ) {
+			if ( 'administrator' === $key ) {
+				continue;
+			}
+			$role       = get_role( $key );
+			$role_array = array(
+				'type'    => 'role',
+				'name'    => $key . '_album.enabled',
+				'label'   => translate_user_role( $wp_role['name'] ),
+				'default' => $this->is_role_enabled( $key . '_album', $options, $album_capabilities ),
+				'fields'  => array(),
+				'group'   => 'album',
+			);
+
+			foreach ( $album_capabilities as $capability => $capability_name ) {
 				$role_array['fields'][] = array(
 					'type'    => 'toggle',
 					'name'    => $key . '.' . $capability,
@@ -477,25 +771,27 @@ class Modula_Rest_Api {
 
 	public function set_capabilities( $settings ) {
 		$roles = new Modula_Roles();
-		$roles->sanitize_option( $settings['value'] );
+		$roles->sanitize_option( $settings );
 	}
 
 	public function update_settings( $request ) {
-		// Update settings
 		$settings = $request->get_json_params();
 
-		if ( ! isset( $settings['option'] ) ) {
-			return new \WP_REST_Response( 'missing option name', 400 );
+		if ( empty( $settings ) || ! is_array( $settings ) ) {
+			return new \WP_REST_Response( 'No settings to save.', 400 );
 		}
 
-		do_action( 'modula_settings_api_update_' . $settings['option'], $settings );
+		foreach ( $settings as $option => $value ) {
+			update_option( $option, $value );
 
-		update_option( $settings['option'], $settings['value'] );
+			do_action( 'modula_settings_api_update_' . $option, $value );
+		}
+
 		return new \WP_REST_Response( $settings, 200 );
 	}
 
 	public function settings_permissions_check() {
-		return true;
+
 		// Check if the user has the capability to manage options
 		return current_user_can( 'manage_options' );
 	}

@@ -1,0 +1,37 @@
+.modulaCheckboxGroup {
+	margin: 1rem 0;
+}
+
+.modulaCheckboxGroupControls {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.controlButton {
+	background: none;
+	color: #007cba;
+	border: none;
+	padding: 0;
+	font: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.controlButton:hover {
+	color: #005a9e;
+	text-decoration: none;
+}
+
+
+.modulaCheckboxGroupOptions {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.checkboxOption {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}

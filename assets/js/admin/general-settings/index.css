@@ -132,6 +132,45 @@
   border: 1px solid #27be92;
   box-shadow: 0 0 5px #27be92;
 }
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./apps/general-settings/fields/checkboxGroupField.module.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
+.EnCStfRdcF9f_2mpX59F {
+  margin: 1rem 0;
+}
+
+.Kz0tx2_zHTvJR0wE4f9e {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rm6nbLQcyHP7unX9J934 {
+  background: none;
+  color: #007cba;
+  border: none;
+  padding: 0;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rm6nbLQcyHP7unX9J934:hover {
+  color: #005a9e;
+  text-decoration: none;
+}
+
+.tgP2adOVcJXpOOSofwHm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.AJUHYTrul9_1pBuGRGSM {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 /*!**********************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./apps/settings/settings-form/claim-credits.module.css ***!
   \**********************************************************************************************************************************************************************************************************/
@@ -242,7 +281,7 @@
   box-shadow: none;
 }
 #modula-settings-app .modula-page-content .modula-accordion-pannel .components-panel__body-toggle {
-  background-color: #f0f0f1;
+  background-color: #FAFAFA;
 }
 #modula-settings-app .modula-page-content .modula-accordion-pannel .modula-triangle-icon {
   width: 0;
@@ -270,6 +309,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula_options_form .modula_video_submenu {
+  padding: 20px 0;
+}
 #modula-settings-app .modula-page-content .modula-accordion-pannel .modula_no_settings {
   padding: 2rem;
   text-align: center;
@@ -283,6 +325,9 @@
   gap: 20px;
   padding: 20px 0;
 }
+#modula-settings-app .modula-page-content .modula-accordion-pannel .modula_modula_roles_form .modula_submenu_toggle_wrapper {
+  grid-column: span 2;
+}
 #modula-settings-app .modula-page-content .modula_field_wrapper {
   display: flex;
   gap: 15px;
@@ -294,7 +339,6 @@
   border-top: 1px solid #DEDEDE;
   box-sizing: border-box;
   width: 100%;
-  justify-content: space-between;
 }
 #modula-settings-app .modula-page-content .modula_field_wrapper .modula_field_wrapp {
   display: flex;
@@ -331,6 +375,70 @@
 #modula-settings-app .modula-page-content .modula_field_wrapper.modula_field_inline {
   width: auto;
   flex-grow: 1;
+}
+#modula-settings-app .modula-page-content .modula_field_wrapper.modula_roles_field_wrapper {
+  justify-content: left;
+}
+#modula-settings-app .modula-page-content .modula_save_settings_button,
+#modula-settings-app .modula-page-content .modula_field_button {
+  background-color: #0073AA;
+  color: #fff;
+  padding: 10px 35px;
+  border-radius: 4px;
+}
+#modula-settings-app .modula-page-content .modula_save_settings_button:disabled,
+#modula-settings-app .modula-page-content .modula_field_button:disabled {
+  background-color: #D5D5D5;
+}
+#modula-settings-app .modula-page-content .modula_save_settings_wrap {
+  box-shadow: none;
+  color: #1e1e1e;
+  font-weight: 500;
+  height: auto;
+  outline: none;
+  padding: 20px 25px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  background-color: #FAFAFA;
+  box-sizing: border-box;
+  position: relative;
+}
+#modula-settings-app .modula-page-content .modula_save_settings_wrap .modula_save_notice {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #46b450;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+#modula-settings-app .modula-page-content .modula_save_settings_wrap .modula_save_notice.slide-in {
+  opacity: 1;
+  right: 25px;
+  animation: slideInRight 0.3s ease-out, slideOutLeft 0.3s ease-in 2.7s forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translate(100%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, -50%);
+    opacity: 1;
+  }
+}
+@keyframes slideOutLeft {
+  to {
+    transform: translate(100%, -50%);
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=index.css.map*/

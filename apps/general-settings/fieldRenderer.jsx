@@ -8,6 +8,7 @@ import TextareaField from './fields/TextareaField';
 import RadioGroupField from './fields/RadioGroupField';
 import RangeSelect from './fields/RangeSelect';
 import ImageField from './fields/ImageSelectField';
+import CheckboxGroupField from './fields/CheckboxGroupField';
 
 const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 	switch ( field.type ) {
@@ -93,6 +94,15 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
 				/>
 			);
+		case 'checkbox_group':
+			return (
+				<CheckboxGroupField
+					fieldState={ fieldState }
+					field={ field }
+					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+				/>
+			);
+
 		default:
 			return null;
 	}

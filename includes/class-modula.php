@@ -95,6 +95,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
 		require_once MODULA_PATH . 'includes/admin/rest-api/class-modula-rest-api.php';
+		require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
@@ -102,7 +103,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 			require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
-			require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
+
 			require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 			// Admin Helpers
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
@@ -858,7 +859,7 @@ class Modula {
 			return;
 		}
 
-		if ( 'modula-gallery_page_modula' !== $screen->base ) {
+		if ( 'modula-gallery_page_modula_settings' !== $screen->base ) {
 			return;
 		}
 
@@ -884,7 +885,7 @@ class Modula {
 			return;
 		}
 
-		if ( 'modula-gallery_page_modula-settings' !== $screen->base ) {
+		if ( 'modula-gallery_page_modula' !== $screen->base ) {
 			return;
 		}
 

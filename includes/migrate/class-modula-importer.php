@@ -24,7 +24,7 @@ class Modula_Importer {
 	public function __construct() {
 
 		// Add Importer Tab
-		add_filter( 'modula_admin_page_subtabs', array( $this, 'add_importer_tab' ) );
+		add_filter( 'modula_admin_page_main_tabs', array( $this, 'add_importer_tab' ) );
 
 		// Render Importer tab
 		add_action( 'modula_admin_tab_importer', array( $this, 'render_importer_tab' ) );
@@ -94,17 +94,96 @@ class Modula_Importer {
 	 */
 	public function add_importer_tab( $tabs ) {
 
-		if ( ! isset( $_GET['post_type'] ) || ! isset( $_GET['page'] ) || 'modula-gallery' !== $_GET['post_type'] || 'modula' !== $_GET['page'] ) {
+		$sources = $this->get_sources();
+
+		if ( empty( $sources ) ) {
 			return $tabs;
 		}
 
-		if ( empty( $this->get_sources() ) ) {
-			return $tabs;
+		$formatted_sources = array(
+			array(
+				'label' => esc_html__( 'Select gallery source', 'modula-best-grid-gallery' ),
+				'value' => '',
+			),
+		);
+
+		$galleries_fields = array();
+		foreach ( $sources as $slug => $label ) {
+			$formatted_sources[] = array(
+				'label' => $label,
+				'value' => $slug,
+			);
+
+			$gallery = $this->get_galleries_by_source( $slug );
+
+			if ( ! $gallery['success'] ) {
+				$galleries_fields[] = array(
+					'type'       => 'paragraph',
+					'label'      => esc_html__( 'Galleries to import', 'modula-best-grid-gallery' ),
+					'value'      => $gallery['error'],
+					'conditions' => array(
+						array(
+							'field'      => 'gallery_source',
+							'comparison' => '===',
+							'value'      => $slug,
+						),
+					),
+				);
+			}
+
+			$galleries_fields[] = array(
+				'type'       => 'checkbox_group',
+				'name'       => 'galleries_to_import',
+				'label'      => esc_html__( 'Galleries to import', 'modula-best-grid-gallery' ),
+				'options'    => $gallery['data'],
+				'conditions' => array(
+					array(
+						'field'      => 'gallery_source',
+						'comparison' => '===',
+						'value'      => $slug,
+					),
+				),
+			);
 		}
 
-		$tabs['importer'] = array(
-			'label'    => esc_html__( 'Migrate galleries', 'modula-best-grid-gallery' ),
-			'priority' => 100,
+		$config = array(
+			'fields' => array(
+				array(
+					'type'    => 'select',
+					'name'    => 'gallery_source',
+					'label'   => esc_html__( 'Gallery source', 'modula-best-grid-gallery' ),
+					'default' => '',
+					'options' => $formatted_sources,
+				),
+				array(
+					'type'        => 'toggle',
+					'name'        => 'gallery_delete_source',
+					'label'       => esc_html__( 'Gallery database entries', 'modula-best-grid-gallery' ),
+					'default'     => false,
+					'conditions'  => array(
+						array(
+							'field'      => 'gallery_source',
+							'comparison' => '!==',
+							'value'      => '',
+						),
+					),
+					'description' => esc_html__( 'Delete old gallery entries.', 'modula-best-grid-gallery' ),
+				),
+			),
+		);
+
+		$config['fields'] = array_merge( $config['fields'], $galleries_fields );
+
+		$tabs[] = array(
+			'label'   => esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
+			'slug'    => 'migrate',
+			'subtabs' => array(
+				'migrate' => array(
+					'label'  => esc_html__( 'Migrate', 'modula-best-grid-gallery' ),
+					'config' => $config,
+				),
+			),
+			'save'    => false,
 		);
 
 		return $tabs;
@@ -262,6 +341,78 @@ class Modula_Importer {
 
 		echo $html;
 		wp_die();
+	}
+
+	public function get_galleries_by_source( $source = false ) {
+
+		if ( ! $source || 'none' == $source ) {
+				return array(
+					'success' => false,
+					'error'   => esc_html__( 'There is no source selected', 'modula-best-grid-gallery' ),
+				);
+		}
+
+		$import_settings = get_option( 'modula_importer' );
+		$import_settings = wp_parse_args( $import_settings, array( 'galleries' => array() ) );
+		$galleries       = array();
+		$html            = '';
+
+		switch ( $source ) {
+			case 'wp_core':
+				$gal_source = Modula_WP_Core_Gallery_Importer::get_instance();
+				$galleries  = $gal_source->get_galleries();
+				break;
+			default:
+				$galleries = apply_filters( 'modula_source_galleries_' . $source, array() );
+				break;
+		}
+
+		// Although this isn't necessary, sources have been checked before in tab
+		// it is best if we do another check, just to be sure.
+		if ( ! isset( $galleries['valid_galleries'] ) && isset( $galleries['empty_galleries'] ) && count( $galleries['empty_galleries'] ) > 0 ) {
+			return array(
+				'success' => false,
+				'error'   => srintf( esc_html__( 'While we\'ve found %s gallery(ies) we could import , we were unable to find any images associated with it(them). There\'s no content for us to import .', 'modula-best-grid-gallery' ), count( $galleries['empty_galleries'] ) ),
+			);
+		}
+
+		$data = array();
+		foreach ( $galleries['valid_galleries'] as $key => $gallery ) {
+			$imported         = false;
+			$importing_status = '';
+			switch ( $source ) {
+				case 'wp_core':
+					$value     = wp_json_encode(
+						array(
+							'id'        => $gallery['page_id'],
+							'shortcode' => $gallery['shortcode'],
+						)
+					);
+					$g_gallery = array(
+						'id'       => $gallery['page_id'] . '-' . $gallery['gal_nr'],
+						'imported' => ( isset( $import_settings['galleries'][ $source ] ) && 'modula-gallery' == $modula_gallery ),
+						'title'    => '<a href="' . admin_url( '/post.php?post=' . absint( $gallery['page_id'] ) . '&action=edit' ) . '" target="_blank">' . esc_html( $gallery['title'] ) . '</a>',
+						'count'    => $gallery['images'],
+					);
+					break;
+				default:
+					$g_gallery = apply_filters( 'modula_g_gallery_' . $source, array(), $gallery, $import_settings );
+					break;
+			}
+
+			$id  = absint( $g_gallery['id'] );
+			$val = ( $value ) ? $value : $id;
+
+			$data[] = array(
+				'label' => $g_gallery['title'],
+				'value' => $val,
+			);
+		}
+
+		return array(
+			'success' => true,
+			'data'    => $data,
+		);
 	}
 
 

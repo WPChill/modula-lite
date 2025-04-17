@@ -9,7 +9,7 @@ import styles from './RoleField.module.scss';
 
 export function RoleField( { option, mainField, form, handleChange } ) {
 	const [ enabled, setEnabled ] = useState( mainField.default );
-
+	const activeToggle = form.store.state.values?.activeToggle || 'gallery';
 	const onMainToggleChange = ( fieldState, fieldName, val ) => {
 		setEnabled( val );
 
@@ -22,39 +22,47 @@ export function RoleField( { option, mainField, form, handleChange } ) {
 		handleChange( fieldState, fieldName, val );
 	};
 
+	if ( mainField.group && mainField.group !== activeToggle ) {
+		return null;
+	}
+
 	return (
-		<Card className={ `static-class ${ styles.modulaRoleFieldCard }` }>
-			<CardHeader className={ `static-class-head ${ styles.modulaRoleFieldCardHead }` }>
-				<form.Field key={ `${ mainField.name }-field` } name={ option ? `${ option }.${ mainField.name }` : mainField.name }>
-					{ ( fieldState ) => (
-						<ToggleField
-							fieldState={ fieldState }
-							field={ mainField }
-							className={ styles.modulaRoleHeadToggle }
-							handleChange={ ( val ) =>
-								onMainToggleChange( fieldState, mainField.name, val )
-							}
-						/>
-					) }
-				</form.Field>
-			</CardHeader>
-			<CardBody className={ `static-class-body ${ styles.modulaRoleFieldCardBody }` }>
-				{ mainField.fields.map( ( field ) => (
-					<div key={ `${ field.name }-wrapper` } className="modula_role_field_wrapp">
-						<form.Field key={ `${ field.name }-field` } name={ option ? `${ option }.${ field.name }` : field.name }>
-							{ ( fieldState ) => (
-								<ToggleField
-									fieldState={ fieldState }
-									field={ field }
-									className={ styles.modulaRoleBodyToggle }
-									handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
-									disabled={ ! enabled }
-								/>
-							) }
-						</form.Field>
-					</div>
-				) ) }
-			</CardBody>
-		</Card>
+		<div className="modula_roles_field_wrapper">
+			<Card className={ `static-class ${ styles.modulaRoleFieldCard }` }>
+				<CardHeader className={ `static-class-head ${ styles.modulaRoleFieldCardHead }` }>
+					<form.Field key={ `${ mainField.name }-field` } name={ option ? `${ option }.${ mainField.name }` : mainField.name }>
+						{ ( fieldState ) => (
+							<ToggleField
+								fieldState={ fieldState }
+								field={ mainField }
+								className={ styles.modulaRoleHeadToggle }
+								handleChange={ ( val ) =>
+									onMainToggleChange( fieldState, mainField.name, val )
+								}
+							/>
+						) }
+					</form.Field>
+				</CardHeader>
+				<CardBody className={ `static-class-body ${ styles.modulaRoleFieldCardBody }` }>
+					{ mainField.fields.map( ( field ) => {
+						return (
+							<div key={ `${ field.name }-wrapper` } className="modula_role_field_wrapp">
+								<form.Field key={ `${ field.name }-field` } name={ option ? `${ option }.${ field.name }` : field.name }>
+									{ ( fieldState ) => (
+										<ToggleField
+											fieldState={ fieldState }
+											field={ field }
+											className={ styles.modulaRoleBodyToggle }
+											handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+											disabled={ ! enabled }
+										/>
+									) }
+								</form.Field>
+							</div>
+						);
+					} ) }
+				</CardBody>
+			</Card>
+		</div>
 	);
 }

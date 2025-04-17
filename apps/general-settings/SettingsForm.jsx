@@ -1,20 +1,32 @@
 import { useForm, useStore } from '@tanstack/react-form';
-import { useSettingsMutation } from './query/useSettingsMutation';
 import FieldRenderer from './FieldRenderer';
 import AiSettingsApp from '../settings/ai-settings-app';
 import ButtonField from './fields/ButtonField';
+import Paragraph from './fields/Paragraph';
 import { ComboField } from './fields/ComboField';
 import { RoleField } from './fields/RoleField';
-import { useEffect, useMemo, useRef } from '@wordpress/element';
-import { debounce } from 'lodash';
+import RolesToggle from './RolesToggle';
+import useStateContext from './context/useStateContext';
+import { setOptions } from './context/actions';
 
 export default function SettingsForm( { config } ) {
+	const { state, dispatch } = useStateContext();
+
 	function setDefaultValue( acc, option, name, defaultValue ) {
+		if ( ! name ) {
+			return acc;
+		}
+
 		if ( name.includes( '.' ) ) {
 			const [ parent, child ] = name.split( '.' );
-			acc[ option ] = acc[ option ] || {};
-			acc[ option ][ parent ] = acc[ option ][ parent ] || {};
-			acc[ option ][ parent ][ child ] = defaultValue ?? '';
+			if ( option ) {
+				acc[ option ] = acc[ option ] || {};
+				acc[ option ][ parent ] = acc[ option ][ parent ] || {};
+				acc[ option ][ parent ][ child ] = defaultValue ?? '';
+			} else {
+				acc[ parent ] = acc[ parent ] || {};
+				acc[ parent ][ child ] = defaultValue ?? '';
+			}
 		} else if ( option ) {
 			acc[ option ] = acc[ option ] || {};
 			acc[ option ][ name ] = defaultValue ?? '';
@@ -23,49 +35,52 @@ export default function SettingsForm( { config } ) {
 		}
 	}
 
-	const settingsMutation = useSettingsMutation();
-	const mutationRef = useRef( settingsMutation );
-
-	useEffect( () => {
-		mutationRef.current = settingsMutation;
-	}, [ settingsMutation ] );
-
 	const { option, fields = [] } = config;
 
 	const form = useForm( {
 		defaultValues: fields.reduce( ( acc, field ) => {
-			if ( field.type === 'react_root' || 'undefined' === typeof field.name ) {
-				return acc;
-			} else if ( ( field.type === 'combo' ) || ( field.type === 'role' ) ) {
-				if ( 'undefined' !== typeof field.name && 'undefined' !== typeof field.default ) {
+			switch ( field.type ) {
+				case 'combo':
+					field.fields.forEach( ( comboField ) => {
+						setDefaultValue( acc, option, comboField.name, comboField.default );
+					} );
+					break;
+				case 'role':
+					// Enable role field
 					setDefaultValue( acc, option, field.name, field.default );
-				}
-				field.fields.forEach( ( comboField ) => {
-					setDefaultValue( acc, option, comboField.name, comboField.default );
-				} );
-			} else {
-				setDefaultValue( acc, option, field.name, field.default );
+					// Capabilities
+					field.fields.forEach( ( comboField ) => {
+						setDefaultValue( acc, option, comboField.name, comboField.default );
+					} );
+					break;
+
+				case 'react_root':
+				case 'button':
+				case 'paragraph':
+					// We skip these
+					break;
+
+				default:
+					setDefaultValue( acc, option, field.name, field.default );
+					break;
 			}
+
 			return acc;
 		}, {} ),
 	} );
 
-	const storedValues = useStore( form.store, ( state ) => state.values );
-	const formValues = option ? storedValues[ option ] || {} : storedValues;
+	const values = form.store.state.values;
+	const formValues = option ? values[ option ] || {} : values;
 
-	const debouncedSave = useMemo( () => {
-		const fn = debounce( ( opt, val ) => {
-			mutationRef.current.mutate( { option: opt, value: val } );
-		}, 500 );
-
-		return fn;
-	}, [] );
-
-	useEffect( () => {
-		return () => {
-			debouncedSave.cancel();
-		};
-	}, [ debouncedSave ] );
+	const handleSave = ( opt, val ) => {
+		dispatch(
+			setOptions( {
+				...state.options,
+				[ opt ]: val,
+			} ),
+		);
+		console.error( state.options );
+	};
 
 	const operators = {
 		'===': ( a, b ) => a === b,
@@ -96,7 +111,7 @@ export default function SettingsForm( { config } ) {
 		fieldState.handleChange( newValue );
 
 		const allValues = form.store.state.values;
-		const updatedFormValues = option ? allValues[ option ] : allValues;
+		const updatedFormValues = option ? { ...allValues[ option ] } : { ...allValues };
 
 		if ( fieldName.includes( '.' ) ) {
 			const [ parent, child ] = fieldName.split( '.' );
@@ -107,11 +122,16 @@ export default function SettingsForm( { config } ) {
 		}
 
 		if ( option ) {
-			debouncedSave( option, updatedFormValues );
+			handleSave( option, updatedFormValues );
+		} else if ( fieldName.includes( '.' ) ) {
+			const [ parent ] = fieldName.split( '.' );
+			handleSave( parent, updatedFormValues[ parent ] );
 		} else {
-			debouncedSave( fieldName, newValue );
+			handleSave( fieldName, newValue );
 		}
 	};
+
+	const activeToggle = useStore( form.store, ( statex ) => statex.values.activeToggle ) || '';
 
 	if ( 'modula_ai' === config ) {
 		return (
@@ -126,77 +146,92 @@ export default function SettingsForm( { config } ) {
 	if ( fields.length === 0 ) {
 		return <div className="modula_no_settings">⚙️ No settings found.</div>;
 	}
+
 	const optionValue = option ? option : 'default';
 	return (
-		<form className={ `modula_options_form modula_${ optionValue }_form` }>
-			{ fields.map( ( field, index ) => {
-				if ( ! evaluateConditions( field.conditions ) ) {
-					return null;
-				}
+		<>
+			<form className={ `modula_options_form modula_${ optionValue }_form` }>
+				{ config.submenu && <RolesToggle form={ form } submenu={ config.submenu } /> }
+				{ fields.map( ( field, index ) => {
+					if ( ! evaluateConditions( field.conditions ) ) {
+						return null;
+					}
 
-				if ( field.type === 'react_root' ) {
-					return (
-						<AiSettingsApp key={ index } />
-					);
-				}
-
-				if ( field.type === 'combo' ) {
-					return (
-						<div key={ index } className="modula_field_wrapper">
-							<ComboField
-								option={ option }
-								fields={ field.fields }
-								form={ form }
-								handleChange={ handleChange }
-							/>
-						</div>
-					);
-				}
-
-				if ( field.type === 'role' ) {
-					return (
-						<div key={ index } className="modula_roles_field_wrapper">
+					if ( field.type === 'role' ) {
+						return (
 							<RoleField
+								key={ index }
 								option={ option }
 								mainField={ field }
 								form={ form }
 								handleChange={ handleChange }
 							/>
-						</div>
-					);
-				}
+						);
+					}
 
-				if ( field.type === 'button' ) {
-					return (
-						<div key={ index } className="modula_roles_field_wrapper">
-							<ButtonField field={ field } />
-						</div>
-					);
-				}
+					if ( field.group && field.group !== activeToggle ) {
+						return null;
+					}
 
-				if ( field.type === 'upsell' ) {
+					if ( field.type === 'react_root' ) {
+						return (
+							<AiSettingsApp key={ index } />
+						);
+					}
+
+					if ( field.type === 'combo' ) {
+						return (
+							<div key={ index } className="modula_field_wrapper">
+								<ComboField
+									option={ option }
+									field={ field }
+									form={ form }
+									handleChange={ handleChange }
+								/>
+							</div>
+						);
+					}
+
+					if ( field.type === 'button' ) {
+						return (
+							<div key={ index } className="modula_field_wrapper">
+								<ButtonField field={ field } />
+							</div>
+						);
+					}
+
+					if ( field.type === 'paragraph' ) {
+						return (
+							<div key={ index } className="modula_field_wrapper">
+								<Paragraph field={ field } />
+							</div>
+						);
+					}
+
+					if ( field.type === 'upsell' ) {
+						return (
+							<div key={ index } className="modula_upsell_field_wrapper">
+								grrr
+							</div>
+						);
+					}
 					return (
-						<div key={ index } className="modula_roles_field_wrapper">
-							grrr
+						<div key={ field.name } className="modula_field_wrapper">
+							<div className="modula_field_wrapp">
+								<form.Field name={ option ? `${ option }.${ field.name }` : field.name }>
+									{ ( fieldState ) => (
+										<FieldRenderer
+											field={ field }
+											fieldState={ fieldState }
+											handleChange={ handleChange }
+										/>
+									) }
+								</form.Field>
+							</div>
 						</div>
 					);
-				}
-				return (
-					<div key={ field.name } className="modula_field_wrapper">
-						<div className="modula_field_wrapp">
-							<form.Field name={ option ? `${ option }.${ field.name }` : field.name }>
-								{ ( fieldState ) => (
-									<FieldRenderer
-										field={ field }
-										fieldState={ fieldState }
-										handleChange={ handleChange }
-									/>
-								) }
-							</form.Field>
-						</div>
-					</div>
-				);
-			} ) }
-		</form>
+				} ) }
+			</form>
+		</>
 	);
 }

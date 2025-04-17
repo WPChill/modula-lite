@@ -205,7 +205,7 @@ export default function ClaimCredits() {
 								type="submit"
 								iconPosition="right"
 								icon={ getButtonIcon() }
-								isDisabled={ ! canSubmit }
+								disabled={ ! canSubmit }
 							>
 								{ getButtonText() }
 							</Button>
