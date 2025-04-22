@@ -95,6 +95,7 @@ class Modula {
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
 		require_once MODULA_PATH . 'includes/admin/rest-api/class-modula-rest-api.php';
+		require_once MODULA_PATH . 'includes/admin/settings/class-modula-settings.php';
 		require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 
 		if ( is_admin() ) {
@@ -155,7 +156,6 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'settings_page_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'general_settings_page_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
@@ -851,32 +851,6 @@ class Modula {
 
 		update_option( 'wpmodulaupdate', true );
 	}
-
-	public function settings_page_scripts() {
-		$screen = get_current_screen();
-
-		if ( 'modula-gallery' !== $screen->post_type ) {
-			return;
-		}
-
-		if ( 'modula-gallery_page_modula_settings' !== $screen->base ) {
-			return;
-		}
-
-		$scripts = Modula\Scripts::get_instance();
-
-		$scripts->load_js_asset(
-			'modula-settings',
-			'assets/js/admin/settings',
-		);
-
-		$scripts->load_css_asset(
-			'modula-settings',
-			'assets/js/admin/settings',
-			array( 'wp-components' )
-		);
-	}
-
 
 	public function general_settings_page_scripts() {
 		$screen = get_current_screen();

@@ -106,6 +106,20 @@
                     grid-column: span 2;
                 }
             }
+            .modula_upsell_field_wrapper {
+                align-items: center;
+                min-height: 70px;
+                margin: 0 -16px;
+                padding: 10px 16px;
+                border-left: 5px solid #00A4F3;
+                border-top: 1px solid #DEDEDE;
+                box-sizing: border-box;
+                width: 100%;
+                .modula_upsell_buttons_wrapper{
+                    display: flex;
+                    gap: 15px;
+                }
+            }
         }
         .modula_field_wrapper {
             display: flex;
@@ -151,6 +165,9 @@
                     }
                 }
 
+            }
+            .modula_input_description{
+                margin: 0;
             }
             &.modula_field_inline{
                 width: auto;

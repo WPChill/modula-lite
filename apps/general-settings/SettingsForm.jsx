@@ -1,10 +1,11 @@
 import { useForm, useStore } from '@tanstack/react-form';
 import FieldRenderer from './FieldRenderer';
-import AiSettingsApp from '../settings/ai-settings-app';
+import AiSettingsForm from './ai-settings/ai-settings-form';
 import ButtonField from './fields/ButtonField';
 import Paragraph from './fields/Paragraph';
 import { ComboField } from './fields/ComboField';
 import { RoleField } from './fields/RoleField';
+import UpsellBlock from './UpsellBlock';
 import RolesToggle from './RolesToggle';
 import useStateContext from './context/useStateContext';
 import { setOptions } from './context/actions';
@@ -54,7 +55,6 @@ export default function SettingsForm( { config } ) {
 					} );
 					break;
 
-				case 'react_root':
 				case 'button':
 				case 'paragraph':
 					// We skip these
@@ -79,7 +79,6 @@ export default function SettingsForm( { config } ) {
 				[ opt ]: val,
 			} ),
 		);
-		console.error( state.options );
 	};
 
 	const operators = {
@@ -133,12 +132,6 @@ export default function SettingsForm( { config } ) {
 
 	const activeToggle = useStore( form.store, ( statex ) => statex.values.activeToggle ) || '';
 
-	if ( 'modula_ai' === config ) {
-		return (
-			<AiSettingsApp />
-		);
-	}
-
 	if ( ! config || ! fields ) {
 		return <p>Loading settings...</p>;
 	}
@@ -173,9 +166,9 @@ export default function SettingsForm( { config } ) {
 						return null;
 					}
 
-					if ( field.type === 'react_root' ) {
+					if ( field.type === 'modula_ai' ) {
 						return (
-							<AiSettingsApp key={ index } />
+							<AiSettingsForm key={ index } />
 						);
 					}
 
@@ -210,9 +203,7 @@ export default function SettingsForm( { config } ) {
 
 					if ( field.type === 'upsell' ) {
 						return (
-							<div key={ index } className="modula_upsell_field_wrapper">
-								grrr
-							</div>
+							<UpsellBlock key={ index } field={ field } />
 						);
 					}
 					return (

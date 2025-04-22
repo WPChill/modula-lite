@@ -8,7 +8,7 @@ import TextareaField from './fields/TextareaField';
 import RadioGroupField from './fields/RadioGroupField';
 import RangeSelect from './fields/RangeSelect';
 import ImageField from './fields/ImageSelectField';
-import CheckboxGroupField from './fields/CheckboxGroupField';
+import ImportCheckboxGroupField from './fields/ImportCheckboxGroupField';
 
 const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 	switch ( field.type ) {
@@ -96,7 +96,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 			);
 		case 'checkbox_group':
 			return (
-				<CheckboxGroupField
+				<ImportCheckboxGroupField
 					fieldState={ fieldState }
 					field={ field }
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }

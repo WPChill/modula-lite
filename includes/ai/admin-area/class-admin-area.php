@@ -15,12 +15,19 @@ class Admin_Area {
 	public function add_modula_ai_tab( $tabs ) {
 		$tabs['modula_ai'] = array(
 			'label'  => esc_html__( 'Modula AI', 'modula-best-grid-gallery' ),
-			'config' => 'modula_ai',
+			'config' => array(
+				'fields' => array(
+					array(
+						'type' => 'modula_ai',
+					),
+				),
+			),
 		);
 		return $tabs;
 	}
 
 	public function add_modula_ai_tab_content() {
+		// TODO: REMOVE
 		echo '<div id="modula-ai-settings"></div>';
 	}
 

@@ -18,9 +18,10 @@ export const useSettingsMutation = () => {
 			return result;
 		},
 		onSuccess: async () => {
-			await queryClient.invalidateQueries( {
-				queryKey: [ 'settings-tabs-query' ],
-			} );
+			await Promise.all( [
+				queryClient.invalidateQueries( { queryKey: [ 'settings-tabs-query' ] } ),
+				queryClient.invalidateQueries( { queryKey: [ 'ai-settings-query' ] } ),
+			] );
 		},
 	},
 	);
