@@ -33,51 +33,41 @@ class Modula_Settings {
 			'standalone'      => array(
 				'label'  => esc_html__( 'Standalone', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => $this->get_config( 'standalone' ),
-				'config' => apply_filters( 'modula_standalone_settings_tab', $this->get_config( 'standalone' ) ),
+				'config' => apply_filters( 'modula_standalone_settings_tab', $this->get_standalone() ),
 			),
 			'compression'     => array(
 				'label'  => esc_html__( 'Performance', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => $this->get_config( 'compression' ),
-				'config' => apply_filters( 'modula_compression_settings_tab', $this->get_config( 'compression' ) ),
+				'config' => apply_filters( 'modula_compression_settings_tab', $this->get_compression() ),
 			),
 			'shortcodes'      => array(
 				'label'  => esc_html__( 'Advanced Shortcodes', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => $this->get_config( 'shortcodes' ),
-				'config' => apply_filters( 'modula_shortcodes_settings_tab', $this->get_config( 'shortcodes' ) ),
+				'config' => apply_filters( 'modula_shortcodes_settings_tab', $this->get_shortcodes() ),
 			),
 			'watermark'       => array(
 				'label'  => esc_html__( 'Watermark', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => $this->get_config( 'watermark' ),
-				'config' => apply_filters( 'modula_watermark_settings_tab', $this->get_config( 'watermark' ) ),
+				'config' => apply_filters( 'modula_watermark_settings_tab', $this->get_watermark() ),
 			),
 			'image_licensing' => array(
 				'label'  => esc_html__( 'Image Licensing', 'modula-best-grid-gallery' ),
-				'config' => $this->get_config( 'image_licensing' ),
-				'config' => apply_filters( 'modula_image_licensing_settings_tab', $this->get_config( 'image_licensing' ) ),
+				'config' => apply_filters( 'modula_image_licensing_settings_tab', $this->get_image_licensing() ),
 			),
 			'roles'           => array(
 				'label'  => esc_html__( 'Roles', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => apply_filters( 'modula_roles_settings_tab', $this->get_config( 'roles' ) ),
-			),
-			'imageseo'        => array(
-				'label'  => esc_html__( 'Image SEO', 'modula-best-grid-gallery' ),
-				'badge'  => 'PRO',
-				'config' => apply_filters( 'modula_imageseo_settings_tab', $this->get_config( 'imageseo' ) ),
+				'config' => apply_filters( 'modula_roles_settings_tab', $this->get_roles() ),
 			),
 			'video'           => array(
 				'label'  => esc_html__( 'Video', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => apply_filters( 'modula_video_settings_tab', $this->get_config( 'video' ) ),
+				'config' => apply_filters( 'modula_video_settings_tab', $this->get_video() ),
 			),
 			'instagram'       => array(
 				'label'  => esc_html__( 'Instagram', 'modula-best-grid-gallery' ),
 				'badge'  => 'PRO',
-				'config' => apply_filters( 'modula_instagram_settings_tab', $this->get_config( 'instagram' ) ),
+				'config' => apply_filters( 'modula_instagram_settings_tab', $this->get_instagram() ),
 			),
 		);
 
@@ -121,28 +111,317 @@ class Modula_Settings {
 		return apply_filters( 'modula_admin_page_main_tabs', $tabs );
 	}
 
-	private function get_config( $subtab = false ) {
-		$wpchill_upsell = false;
-		if ( class_exists( 'WPChill_Upsells' ) ) {
-
-			// Initialize WPChill upsell class
-			$args = apply_filters(
-				'modula_upsells_args',
-				array(
-					'shop_url' => 'https://wp-modula.com',
-					'slug'     => 'modula',
-				)
-			);
-
-			$wpchill_upsell = WPChill_Upsells::get_instance( $args );
+	private function get_standalone() {
+		if ( ! class_exists( 'Modula_Albums' ) ) {
+			return array();
 		}
 
-		// Get saved values
-		$standalone  = get_option( 'modula_standalone', array() );
-		$shortcodes  = get_option( 'mas_gallery_link', 'gallery_id' );
-		$licensing   = get_option( 'modula_image_licensing_option', array() );
-		$compression = get_option( 'modula_speedup', array() );
-		$watermark   = get_option( 'modula_watermark', array() );
+		$standalone = get_option( 'modula_standalone', array() );
+
+		return array(
+			'option' => 'modula_standalone',
+			'fields' => array(
+				array(
+					'type'       => 'options_toggle',
+					'name'       => 'gallery.enable_rewrite',
+					'label'      => 'Enable Galleries Link',
+					'default'    => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['enable_rewrite'] ) ) ? $standalone['gallery']['enable_rewrite'] : 'disabled',
+					'trueValue'  => 'enabled',
+					'falseValue' => 'disabled',
+				),
+				array(
+					'type'       => 'text',
+					'name'       => 'gallery.slug',
+					'label'      => 'Gallery Slug',
+					'default'    => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['slug'] ) ) ? $standalone['gallery']['slug'] : 'modula-gallery',
+					'conditions' => array(
+						array(
+							'field'      => 'gallery.enable_rewrite',
+							'comparison' => '===',
+							'value'      => 'enabled',
+						),
+					),
+				),
+				array(
+					'type'       => 'options_toggle',
+					'name'       => 'album.enable_rewrite',
+					'label'      => 'Enable Albums Link',
+					'default'    => ( isset( $standalone['album'] ) && isset( $standalone['album']['enable_rewrite'] ) ) ? $standalone['album']['enable_rewrite'] : 'disabled',
+					'trueValue'  => 'enabled',
+					'falseValue' => 'disabled',
+				),
+				array(
+					'type'       => 'text',
+					'name'       => 'album.slug',
+					'label'      => 'Album Slug',
+					'default'    => ( isset( $standalone['album'] ) && isset( $standalone['album']['slug'] ) ) ? $standalone['album']['slug'] : 'modula-gallery',
+					'conditions' => array(
+						array(
+							'field'      => 'album.enable_rewrite',
+							'comparison' => '===',
+							'value'      => 'enabled',
+						),
+					),
+				),
+			),
+		);
+	}
+
+	private function get_compression() {
+		if ( ! class_exists( 'Modula_SpeedUp' ) ) {
+			return array();
+		}
+
+		$compression        = get_option( 'modula_speedup', array() );
+		$compression_values = array(
+			array(
+				'label' => esc_html__( 'Lossless Compresion', 'modula-best-grid-gallery' ),
+				'value' => 'lossless',
+			),
+			array(
+				'label' => esc_html__( 'Lossy Compresion', 'modula-best-grid-gallery' ),
+				'value' => 'lossy',
+			),
+			array(
+				'label' => esc_html__( 'Glossy Compresion', 'modula-best-grid-gallery' ),
+				'value' => 'glossy',
+			),
+			array(
+				'label' => esc_html__( 'Disable Compresion', 'modula-best-grid-gallery' ),
+				'value' => 'disabled',
+			),
+		);
+		return array(
+			'option' => 'modula_speedup',
+			'fields' => array(
+				array(
+					'type'       => 'options_toggle',
+					'name'       => 'enable_optimization',
+					'label'      => 'Compression',
+					'default'    => isset( $compression['enable_optimization'] ) ? $compression['enable_optimization'] : 'enabled',
+					'trueValue'  => 'enabled',
+					'falseValue' => 'disabled',
+				),
+				array(
+					'type'    => 'select',
+					'name'    => 'thumbnail_optimization',
+					'label'   => 'Thumbnail Compression',
+					'default' => isset( $compression['thumbnail_optimization'] ) ? $compression['thumbnail_optimization'] : 'lossy',
+					'options' => $compression_values,
+				),
+				array(
+					'type'    => 'select',
+					'name'    => 'lightbox_optimization',
+					'label'   => 'Lightbox Compression',
+					'default' => isset( $compression['lightbox_optimization'] ) ? $compression['lightbox_optimization'] : 'lossless',
+					'options' => $compression_values,
+				),
+			),
+		);
+	}
+
+	private function get_shortcodes() {
+		if ( ! class_exists( 'Modula_Advanced_Shortcodes' ) ) {
+			return array();
+		}
+		$shortcodes = get_option( 'mas_gallery_link', 'gallery_id' );
+		return array(
+			'fields' => array(
+				array(
+					'type'        => 'text',
+					'name'        => 'mas_gallery_link',
+					'label'       => 'Gallery link attribute',
+					'default'     => $shortcodes,
+					'description' => sprintf( 'Add this shortcode <input type="text" readonly="" value="[modula_all_galleries]"> on the page/post/product you want to display your galleries.  Then add at the end of that url :<i> ?%s=[gallery_id], where [gallery_id] is the ID of the gallery. </i>', $shortcodes ),
+				),
+			),
+		);
+	}
+
+	private function get_watermark() {
+		if ( ! class_exists( 'Modula_Watermark' ) ) {
+			return array();
+		}
+		$watermark        = get_option( 'modula_watermark', array() );
+		$watermark_values = array(
+			array(
+				'label' => esc_html__( 'Top left', 'modula-best-grid-gallery' ),
+				'value' => 'top_left',
+			),
+			array(
+				'label' => esc_html__( 'Top right', 'modula-best-grid-gallery' ),
+				'value' => 'top_right',
+			),
+			array(
+				'label' => esc_html__( 'Bottom right', 'modula-best-grid-gallery' ),
+				'value' => 'bottom_right',
+			),
+			array(
+				'label' => esc_html__( 'Bottom left', 'modula-best-grid-gallery' ),
+				'value' => 'bottom_left',
+			),
+			array(
+				'label' => esc_html__( 'Center', 'modula-best-grid-gallery' ),
+				'value' => 'center',
+			),
+		);
+
+		return array(
+			'option' => 'modula_watermark',
+			'fields' => array(
+				array(
+					'type'    => 'image_select',
+					'name'    => 'watermark_image',
+					'label'   => 'Watermark Image',
+					'default' => isset( $watermark['watermark_image'] ) ? $watermark['watermark_image'] : null,
+					'src'     => isset( $watermark['watermark_image'] ) ? wp_get_attachment_image_url( absint( $watermark['watermark_image'] ) ) : null,
+				),
+				array(
+					'type'    => 'select',
+					'name'    => 'watermark_position',
+					'label'   => 'Watermark Position',
+					'default' => isset( $watermark['watermark_position'] ) ? $watermark['watermark_position'] : 'bottom_right',
+					'options' => $watermark_values,
+				),
+				array(
+					'type'    => 'range_select',
+					'name'    => 'watermark_margin',
+					'label'   => 'Watermark Margin',
+					'default' => isset( $watermark['watermark_margin'] ) ? $watermark['watermark_margin'] : 10,
+					'min'     => 0,
+					'max'     => 50,
+				),
+				array(
+					'type'   => 'combo',
+					'fields' => array(
+						array(
+							'type'    => 'number',
+							'name'    => 'watermark_image_dimension_width',
+							'label'   => 'Width',
+							'default' => isset( $watermark['watermark_image_dimension_width'] ) ? $watermark['watermark_image_dimension_width'] : 0,
+						),
+						array(
+							'type'    => 'number',
+							'name'    => 'watermark_image_dimension_height',
+							'label'   => 'Height',
+							'default' => isset( $watermark['watermark_image_dimension_height'] ) ? $watermark['watermark_image_dimension_height'] : 0,
+						),
+					),
+				),
+				array(
+					'type'    => 'toggle',
+					'name'    => 'watermark_enable_backup',
+					'label'   => 'Enable image backup',
+					'default' => isset( $watermark['watermark_enable_backup'] ) ? $watermark['watermark_enable_backup'] : '',
+				),
+			),
+		);
+	}
+
+	private function get_image_licensing() {
+		$licensing = get_option( 'modula_image_licensing_option', array() );
+
+		$licenses = array();
+
+		foreach ( Modula_Helper::get_image_licenses() as $slug => $license ) {
+			$licenses[] = array(
+				'value' => $slug,
+				'image' => $license['image'],
+				'label' => $license['license'],
+				'name'  => $license['name'],
+			);
+		}
+
+		return array(
+			'option' => 'modula_image_licensing_option',
+			'fields' => array(
+				array(
+					'type'   => 'combo',
+					'fields' => array(
+						array(
+							'type'    => 'text',
+							'name'    => 'image_licensing_author',
+							'label'   => 'Author',
+							'default' => isset( $licensing['image_licensing_author'] ) ? $licensing['image_licensing_author'] : '',
+						),
+						array(
+							'type'    => 'text',
+							'name'    => 'image_licensing_company',
+							'label'   => 'Company',
+							'default' => isset( $licensing['image_licensing_company'] ) ? $licensing['image_licensing_company'] : '',
+						),
+					),
+				),
+				array(
+					'type'    => 'ia_radio',
+					'name'    => 'image_licensing',
+					'label'   => 'Choose license type',
+					'default' => isset( $licensing['image_licensing'] ) ? $licensing['image_licensing'] : 'none',
+					'options' => $licenses,
+				),
+				array(
+					'type'    => 'toggle',
+					'name'    => 'display_with_description',
+					'label'   => 'Display licensing under gallery',
+					'default' => isset( $licensing['display_with_description'] ) ? $licensing['display_with_description'] : '',
+				),
+			),
+		);
+	}
+
+	private function get_roles() {
+		if ( ! class_exists( 'Modula_Roles' ) ) {
+			return array();
+		}
+		$roles = array(
+			'option' => 'modula_roles',
+			'fields' => array_merge( $this->get_gallery_roles(), $this->get_album_roles() ),
+		);
+
+		if ( class_exists( 'Modula_Albums' ) ) {
+			$roles['submenu'] = array(
+				'class'   => 'modula_roles_submenu',
+				'options' => array(
+					array(
+						'label' => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
+						'value' => 'gallery',
+					),
+					array(
+						'label' => esc_html__( 'Album', 'modula-best-grid-gallery' ),
+						'value' => 'album',
+					),
+				),
+			);
+		}
+
+		return $roles;
+	}
+	private function get_instagram() {
+		if ( ! class_exists( '\Modula\Instagram\Modula_Instagram' ) ) {
+			return array();
+		}
+		return array(
+			'fields' => array(
+				array(
+					'type'  => 'button',
+					'label' => 'Connect your account',
+					'text'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+					'href'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_url( Modula\Instagram\OAuth::get_instance()->create_request_url() ) : '#',
+					'api'   => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? false : array(
+						'path'   => '/modula-instagram/v1/token/disconnect/',
+						'method' => 'POST',
+						'data'   => array(),
+					),
+				),
+			),
+		);
+	}
+
+
+	private function get_video() {
+		if ( ! class_exists( 'Modula_Video' ) ) {
+			return array();
+		}
 		$vimeo_creds = get_option( 'modula_video_vimeo_creds', array() );
 
 		$youtube = array();
@@ -254,319 +533,50 @@ class Modula_Settings {
 			}
 		}
 
-		$compression_values = array(
-			array(
-				'label' => esc_html__( 'Lossless Compresion', 'modula-best-grid-gallery' ),
-				'value' => 'lossless',
-			),
-			array(
-				'label' => esc_html__( 'Lossy Compresion', 'modula-best-grid-gallery' ),
-				'value' => 'lossy',
-			),
-			array(
-				'label' => esc_html__( 'Glossy Compresion', 'modula-best-grid-gallery' ),
-				'value' => 'glossy',
-			),
-			array(
-				'label' => esc_html__( 'Disable Compresion', 'modula-best-grid-gallery' ),
-				'value' => 'disabled',
-			),
-		);
-
-		$watermark_values = array(
-			array(
-				'label' => esc_html__( 'Top left', 'modula-best-grid-gallery' ),
-				'value' => 'top_left',
-			),
-			array(
-				'label' => esc_html__( 'Top right', 'modula-best-grid-gallery' ),
-				'value' => 'top_right',
-			),
-			array(
-				'label' => esc_html__( 'Bottom right', 'modula-best-grid-gallery' ),
-				'value' => 'bottom_right',
-			),
-			array(
-				'label' => esc_html__( 'Bottom left', 'modula-best-grid-gallery' ),
-				'value' => 'bottom_left',
-			),
-			array(
-				'label' => esc_html__( 'Center', 'modula-best-grid-gallery' ),
-				'value' => 'center',
-			),
-		);
-		$licenses         = array();
-
-		foreach ( Modula_Helper::get_image_licenses() as $slug => $license ) {
-			$licenses[] = array(
-				'value' => $slug,
-				'image' => $license['image'],
-				'label' => $license['license'],
-				'name'  => $license['name'],
-			);
-		}
-
-		$configs = array(
-			'standalone'      => array(
-				'option' => 'modula_standalone',
-				'fields' => array(
-					array(
-						'type'       => 'options_toggle',
-						'name'       => 'gallery.enable_rewrite',
-						'label'      => 'Enable Galleries Link',
-						'default'    => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['enable_rewrite'] ) ) ? $standalone['gallery']['enable_rewrite'] : 'disabled',
-						'trueValue'  => 'enabled',
-						'falseValue' => 'disabled',
-					),
-					array(
-						'type'       => 'text',
-						'name'       => 'gallery.slug',
-						'label'      => 'Gallery Slug',
-						'default'    => ( isset( $standalone['gallery'] ) && isset( $standalone['gallery']['slug'] ) ) ? $standalone['gallery']['slug'] : 'modula-gallery',
-						'conditions' => array(
-							array(
-								'field'      => 'gallery.enable_rewrite',
-								'comparison' => '===',
-								'value'      => 'enabled',
-							),
-						),
-					),
-					array(
-						'type'       => 'options_toggle',
-						'name'       => 'album.enable_rewrite',
-						'label'      => 'Enable Albums Link',
-						'default'    => ( isset( $standalone['album'] ) && isset( $standalone['album']['enable_rewrite'] ) ) ? $standalone['album']['enable_rewrite'] : 'disabled',
-						'trueValue'  => 'enabled',
-						'falseValue' => 'disabled',
-					),
-					array(
-						'type'       => 'text',
-						'name'       => 'album.slug',
-						'label'      => 'Album Slug',
-						'default'    => ( isset( $standalone['album'] ) && isset( $standalone['album']['slug'] ) ) ? $standalone['album']['slug'] : 'modula-gallery',
-						'conditions' => array(
-							array(
-								'field'      => 'album.enable_rewrite',
-								'comparison' => '===',
-								'value'      => 'enabled',
-							),
-						),
-					),
-				),
-			),
-			'shortcodes'      => array(
-				'fields' => array(
-					array(
-						'type'        => 'text',
-						'name'        => 'mas_gallery_link',
-						'label'       => 'Gallery link attribute',
-						'default'     => $shortcodes,
-						'description' => sprintf( 'Add this shortcode <input type="text" readonly="" value="[modula_all_galleries]"> on the page/post/product you want to display your galleries.  Then add at the end of that url :<i> ?%s=[gallery_id], where [gallery_id] is the ID of the gallery. </i>', $shortcodes ),
-					),
-				),
-			),
-			'image_licensing' => array(
-				'option' => 'modula_image_licensing_option',
-				'fields' => array(
-					array(
-						'type'   => 'combo',
-						'fields' => array(
-							array(
-								'type'    => 'text',
-								'name'    => 'image_licensing_author',
-								'label'   => 'Author',
-								'default' => isset( $licensing['image_licensing_author'] ) ? $licensing['image_licensing_author'] : '',
-							),
-							array(
-								'type'    => 'text',
-								'name'    => 'image_licensing_company',
-								'label'   => 'Company',
-								'default' => isset( $licensing['image_licensing_company'] ) ? $licensing['image_licensing_company'] : '',
-							),
-						),
-					),
-					array(
-						'type'    => 'ia_radio',
-						'name'    => 'image_licensing',
-						'label'   => 'Choose license type',
-						'default' => isset( $licensing['image_licensing'] ) ? $licensing['image_licensing'] : 'none',
-						'options' => $licenses,
-					),
-					array(
-						'type'    => 'toggle',
-						'name'    => 'display_with_description',
-						'label'   => 'Display licensing under gallery',
-						'default' => isset( $licensing['display_with_description'] ) ? $licensing['display_with_description'] : '',
-					),
-				),
-			),
-			'compression'     => array(
-				'option' => 'modula_speedup',
-				'fields' => array(
-					array(
-						'type'       => 'options_toggle',
-						'name'       => 'enable_optimization',
-						'label'      => 'Compression',
-						'default'    => isset( $compression['enable_optimization'] ) ? $compression['enable_optimization'] : 'enabled',
-						'trueValue'  => 'enabled',
-						'falseValue' => 'disabled',
-					),
-					array(
-						'type'    => 'select',
-						'name'    => 'thumbnail_optimization',
-						'label'   => 'Thumbnail Compression',
-						'default' => isset( $compression['thumbnail_optimization'] ) ? $compression['thumbnail_optimization'] : 'lossy',
-						'options' => $compression_values,
-					),
-					array(
-						'type'    => 'select',
-						'name'    => 'lightbox_optimization',
-						'label'   => 'Lightbox Compression',
-						'default' => isset( $compression['lightbox_optimization'] ) ? $compression['lightbox_optimization'] : 'lossless',
-						'options' => $compression_values,
-					),
-				),
-			),
-			'watermark'       => array(
-				'option' => 'modula_watermark',
-				'fields' => array(
-					array(
-						'type'    => 'image_select',
-						'name'    => 'watermark_image',
-						'label'   => 'Watermark Image',
-						'default' => isset( $watermark['watermark_image'] ) ? $watermark['watermark_image'] : null,
-						'src'     => isset( $watermark['watermark_image'] ) ? wp_get_attachment_image_url( absint( $watermark['watermark_image'] ) ) : null,
-					),
-					array(
-						'type'    => 'select',
-						'name'    => 'watermark_position',
-						'label'   => 'Watermark Position',
-						'default' => isset( $watermark['watermark_position'] ) ? $watermark['watermark_position'] : 'bottom_right',
-						'options' => $watermark_values,
-					),
-					array(
-						'type'    => 'range_select',
-						'name'    => 'watermark_margin',
-						'label'   => 'Watermark Margin',
-						'default' => isset( $watermark['watermark_margin'] ) ? $watermark['watermark_margin'] : 10,
-						'min'     => 0,
-						'max'     => 50,
-					),
-					array(
-						'type'   => 'combo',
-						'fields' => array(
-							array(
-								'type'    => 'number',
-								'name'    => 'watermark_image_dimension_width',
-								'label'   => 'Width',
-								'default' => isset( $watermark['watermark_image_dimension_width'] ) ? $watermark['watermark_image_dimension_width'] : 0,
-							),
-							array(
-								'type'    => 'number',
-								'name'    => 'watermark_image_dimension_height',
-								'label'   => 'Height',
-								'default' => isset( $watermark['watermark_image_dimension_height'] ) ? $watermark['watermark_image_dimension_height'] : 0,
-							),
-						),
-					),
-					array(
-						'type'    => 'toggle',
-						'name'    => 'watermark_enable_backup',
-						'label'   => 'Enable image backup',
-						'default' => isset( $watermark['watermark_enable_backup'] ) ? $watermark['watermark_enable_backup'] : '',
-					),
-				),
-			),
-			'roles'           => array(
-				'option' => 'modula_roles',
-				'fields' => array_merge( $this->get_roles(), $this->get_album_roles() ),
-			),
-			'instagram'       => array(
-				'fields' => array(
-					array(
-						'type'  => 'button',
-						'label' => 'Connect your account',
-						'text'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
-						'href'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_url( Modula\Instagram\OAuth::get_instance()->create_request_url() ) : '#',
-						'api'   => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? false : array(
-							'path'   => '/modula-instagram/v1/token/disconnect/',
-							'method' => 'POST',
-							'data'   => array(),
-						),
-					),
-				),
-			),
-			'video'           => array(
-				'submenu' => array(
-					'class'   => 'modula_video_submenu',
-					'options' => array(
-						array(
-							'label' => esc_html__( 'YouTube', 'modula-best-grid-gallery' ),
-							'value' => 'yt',
-						),
-						array(
-							'label' => esc_html__( 'Vimeo', 'modula-best-grid-gallery' ),
-							'value' => 'vi',
-						),
-					),
-				),
-				'fields'  => array(
-					$youtube,
-					array(
-						'type'    => 'text',
-						'name'    => 'modula_video_vimeo_creds.client_id',
-						'label'   => esc_html__( 'Vimeo Client ID', 'modula-best-grid-gallery' ),
-						'default' => isset( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : '',
-						'group'   => 'vi',
-					),
-					array(
-						'type'    => 'text',
-						'name'    => 'modula_video_vimeo_creds.client_secret',
-						'label'   => esc_html__( 'Vimeo Client Secret', 'modula-best-grid-gallery' ),
-						'default' => isset( $vimeo_creds['client_secret'] ) ? $vimeo_creds['client_secret'] : '',
-						'group'   => 'vi',
-					),
-					array(
-						'type'     => 'text',
-						'name'     => 'vimeo_redirect_uri',
-						'label'    => esc_html__( 'Vimeo RedirectURI', 'modula-best-grid-gallery' ),
-						'default'  => admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' ),
-						'readonly' => true,
-						'group'    => 'vi',
-					),
-					$vimeo,
-				),
-			),
-		);
-
-		if ( class_exists( 'Modula_Albums' ) ) {
-			$configs['roles']['submenu'] = array(
-				'class'   => 'modula_roles_submenu',
+		return array(
+			'submenu' => array(
+				'class'   => 'modula_video_submenu',
 				'options' => array(
 					array(
-						'label' => esc_html__( 'Gallery', 'modula-best-grid-gallery' ),
-						'value' => 'gallery',
+						'label' => esc_html__( 'YouTube', 'modula-best-grid-gallery' ),
+						'value' => 'yt',
 					),
 					array(
-						'label' => esc_html__( 'Album', 'modula-best-grid-gallery' ),
-						'value' => 'album',
+						'label' => esc_html__( 'Vimeo', 'modula-best-grid-gallery' ),
+						'value' => 'vi',
 					),
 				),
-			);
-		}
-
-		if ( $subtab ) {
-			if ( isset( $configs[ $subtab ] ) ) {
-				return $configs[ $subtab ];
-			} else {
-				return array();
-			}
-		}
-
-		return $configs;
+			),
+			'fields'  => array(
+				$youtube,
+				array(
+					'type'    => 'text',
+					'name'    => 'modula_video_vimeo_creds.client_id',
+					'label'   => esc_html__( 'Vimeo Client ID', 'modula-best-grid-gallery' ),
+					'default' => isset( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : '',
+					'group'   => 'vi',
+				),
+				array(
+					'type'    => 'text',
+					'name'    => 'modula_video_vimeo_creds.client_secret',
+					'label'   => esc_html__( 'Vimeo Client Secret', 'modula-best-grid-gallery' ),
+					'default' => isset( $vimeo_creds['client_secret'] ) ? $vimeo_creds['client_secret'] : '',
+					'group'   => 'vi',
+				),
+				array(
+					'type'     => 'text',
+					'name'     => 'vimeo_redirect_uri',
+					'label'    => esc_html__( 'Vimeo RedirectURI', 'modula-best-grid-gallery' ),
+					'default'  => admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' ),
+					'readonly' => true,
+					'group'    => 'vi',
+				),
+				$vimeo,
+			),
+		);
 	}
 
-	private function get_roles() {
+	private function get_gallery_roles() {
 
 		global $wp_roles;
 		$options      = get_option( 'modula_roles' );
