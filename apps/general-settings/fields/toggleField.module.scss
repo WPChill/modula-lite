@@ -4,7 +4,7 @@ $toggle-active-color: #11a0d2;
 .modulaToggle {
     position: relative;
     user-select: none;
-    display: inline-block;
+    display: flex;
     .modulaToggleItems {
         box-sizing: border-box;
         display: inline-block;
@@ -18,6 +18,8 @@ $toggle-active-color: #11a0d2;
         font-size: 16px;
         font-weight: 400;
         margin-right: 15px;
+        min-width: 170px;
+        display: inline-block;
     }
     .modulaToggleInput {
         border-radius: 2px;

@@ -8,6 +8,7 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 	const { options, name } = field;
 	const selectedValues = fieldState.state.value || [];
 	const [ loading, setLoading ] = useState( false );
+	const [ importResults, setImportResults ] = useState( {} );
 	const { state } = useStateContext();
 	const doAjaxCall = useAjaxCall();
 
@@ -26,7 +27,7 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 
 	const handleClick = async () => {
 		setLoading( true );
-
+		const importedGalleries = [];
 		for ( const id of selectedValues ) {
 			const data = {
 				action: 'modula_ajax_import_images',
@@ -48,9 +49,31 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 				source,
 			};
 
-			await doAjaxCall( importData, true );
+			const importedGallery = await doAjaxCall( importData, true );
+
+			setImportResults( ( prev ) => ( {
+				...prev,
+				[ id ]: {
+					success: importedGallery.success,
+					message: importedGallery.message || __( 'Unknown response', 'modula-best-grid-gallery' ),
+				},
+			} ) );
+
+			if ( importedGallery.success ) {
+				importedGalleries[ id ] = importedGallery.modula_gallery_id;
+			}
 		}
 
+		if ( importedGalleries.length > 0 ) {
+			const updateData = {
+				action: 'modula_importer_' + source + '_gallery_imported_update',
+				nonce: field.nonce,
+				clean: deleteSource,
+				galleries: importedGalleries,
+				source,
+			};
+			doAjaxCall( updateData );
+		}
 		setLoading( false );
 	};
 
@@ -83,6 +106,16 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 								onChange={ () => toggleCheckbox( option.value ) }
 							/>
 							<span dangerouslySetInnerHTML={ { __html: option.label } } />
+							{ importResults[ option.value ] && (
+								<span
+									className={
+										importResults[ option.value ].success
+											? styles.modulaCheckboxGroupSuccess
+											: styles.modulaCheckboxGroupFail
+									}
+									dangerouslySetInnerHTML={ { __html: importResults[ option.value ].message } }
+								/>
+							) }
 						</label>
 					) ) }
 				</div>

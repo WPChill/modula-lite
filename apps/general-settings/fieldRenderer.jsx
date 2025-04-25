@@ -10,7 +10,7 @@ import RangeSelect from './fields/RangeSelect';
 import ImageField from './fields/ImageSelectField';
 import ImportCheckboxGroupField from './fields/ImportCheckboxGroupField';
 
-const FieldRenderer = ( { field, fieldState, handleChange } ) => {
+const FieldRenderer = ( { field, fieldState, handleChange, disabled = false } ) => {
 	switch ( field.type ) {
 		case 'toggle':
 			return (
@@ -18,6 +18,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					fieldState={ fieldState }
 					field={ field }
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+					disabled={ disabled }
 				/>
 			);
 		case 'options_toggle':
@@ -28,6 +29,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
 					trueValue={ field.trueValue }
 					falseValue={ field.falseValue }
+					disabled={ disabled }
 				/>
 			);
 		case 'select':
@@ -36,6 +38,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					fieldState={ fieldState }
 					field={ field }
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+					disabled={ disabled }
 				/>
 			);
 		case 'text':
@@ -44,6 +47,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					fieldState={ fieldState }
 					field={ field }
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+					disabled={ disabled }
 				/>
 			);
 		case 'number':
@@ -52,6 +56,7 @@ const FieldRenderer = ( { field, fieldState, handleChange } ) => {
 					fieldState={ fieldState }
 					field={ field }
 					handleChange={ ( val ) => handleChange( fieldState, field.name, val ) }
+					disabled={ disabled }
 				/>
 			);
 		case 'radio':

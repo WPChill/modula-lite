@@ -1,5 +1,5 @@
-import Header from './header';
-import Navigation from './navigation';
+import Header from './Header';
+import Navigation from './Navigation';
 import Content from './Content';
 
 export default function SettingsPage() {

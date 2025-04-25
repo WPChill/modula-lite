@@ -248,8 +248,8 @@ class Modula_Importer {
 					);
 					$g_gallery = array(
 						'id'       => $gallery['page_id'] . '-' . $gallery['gal_nr'],
-						'imported' => ( isset( $import_settings['galleries'][ $source ] ) && 'modula-gallery' == $modula_gallery ),
-						'title'    => '<a href="' . admin_url( '/post.php?post=' . absint( $gallery['page_id'] ) . '&action=edit' ) . '" target="_blank">' . esc_html( $gallery['title'] ) . '</a>',
+						'imported' => ( isset( $import_settings['galleries'][ $source ] ) && 'modula-gallery' === $modula_gallery ),
+						'title'    => esc_html( $gallery['title'] ),
 						'count'    => $gallery['images'],
 					);
 					break;
@@ -262,7 +262,7 @@ class Modula_Importer {
 			$val = ( $value ) ? $value : $id;
 
 			$data[] = array(
-				'label' => $g_gallery['title'],
+				'label' => wp_strip_all_tags( $g_gallery['title'] ),
 				'value' => $val,
 			);
 		}

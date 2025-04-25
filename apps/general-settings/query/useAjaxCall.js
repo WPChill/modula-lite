@@ -4,12 +4,18 @@ export const useAjaxCall = () => {
 	const queryClient = useQueryClient();
 
 	const appendFormData = ( formData, key, value ) => {
-		if ( Array.isArray( value ) && typeof value[ 0 ] === 'object' ) {
-			value.forEach( ( obj, index ) => {
-				Object.entries( obj ).forEach( ( [ propKey, propValue ] ) => {
-					formData.append( `${ key }[${ index }][${ propKey }]`, propValue );
+		if ( Array.isArray( value ) ) {
+			if ( typeof value[ 0 ] === 'object' ) {
+				value.forEach( ( obj, index ) => {
+					Object.entries( obj ).forEach( ( [ propKey, propValue ] ) => {
+						formData.append( `${ key }[${ index }][${ propKey }]`, propValue );
+					} );
 				} );
-			} );
+			} else {
+				value.forEach( ( item, index ) => {
+					formData.append( `${ key }[${ index }]`, item );
+				} );
+			}
 		} else {
 			formData.append( key, value );
 		}

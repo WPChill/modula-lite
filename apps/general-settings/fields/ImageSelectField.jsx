@@ -32,9 +32,11 @@ export default function ImageSelector( { fieldState, field, handleChange } ) {
 
 	return (
 		<>
-			<label className="modula_input_label" htmlFor={ field.name }>
-				{ field.label }
-			</label>
+			{ field.label && field.label.trim() !== '' && (
+				<span className="modula_input_label" htmlFor={ field.name }>
+					{ field.label }
+				</span>
+			) }
 			<div className="modula_image_holder">
 				<div className="modula_image">
 					{ imageSrc && (

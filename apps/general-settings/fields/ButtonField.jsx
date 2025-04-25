@@ -16,9 +16,11 @@ export default function ButtonField( { field, className, variant = 'primary' } )
 
 	return (
 		<div className={ `modula_field_wrapp ${ className || '' }` }>
-			<span className="modula_input_label">
-				{ field.label }
-			</span>
+			{ field.label && field.label.trim() !== '' && (
+				<span className="modula_input_label">
+					{ field.label }
+				</span>
+			) }
 			<Button
 				id={ field.id || '' }
 				href={ field.href }

@@ -144,8 +144,7 @@ class Modula_Admin {
 
 		$wpchill_upsells = WPChill_Upsells::get_instance( $args );
 
-		// TODO: update 'modula-roles' to 'modula-image-proofing' when the product is included in a package.
-		if ( ! $wpchill_upsells || $wpchill_upsells->is_upgradable_addon( 'modula-roles' ) ) {
+		if ( ! $wpchill_upsells || $wpchill_upsells->is_upgradable_addon( 'modula-image-proofing' ) ) {
 			$links['image-proofing-upsell'] = array(
 				'page_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
 				'menu_title' => esc_html__( 'Proofing', 'modula-best-grid-gallery' ),

@@ -21,25 +21,31 @@ export default function Content() {
 	return (
 		<div className="modula-page-content">
 			<Panel className="modula-accordion-wrapper" header={ activeTab.label }>
-				{ Object.entries( activeTab.subtabs ).map( ( [ subtabSlug, subtabData ] ) => (
-					<PanelBody
-						className="modula-accordion-pannel"
-						key={ subtabSlug }
-						title={
-							<span className="modula-accordion-title">
-								<span className="modula-triangle-icon" />
-								<span>{ subtabData.label }</span>
-								{ subtabData.badge && (
-									<span className="modula-pro-badge"> { subtabData.badge } </span>
-								) }
-							</span>
-						}
-						initialOpen={ true }
-					>
-						<SettingsForm config={ subtabData?.config || {} } />
-					</PanelBody>
-				) ) }
-				{ ( 'undefined' === typeof activeTab.save || false !== activeTab.save ) && (
+				{ Object.entries( activeTab.subtabs ).map( ( [ subtabSlug, subtabData ] ) => {
+					if ( ! subtabData || Object.keys( subtabData ).length === 0 ) {
+						return null;
+					}
+
+					return (
+						<PanelBody
+							className="modula-accordion-pannel"
+							key={ subtabSlug }
+							title={
+								<span className="modula-accordion-title">
+									<span className="modula-triangle-icon" />
+									<span>{ subtabData.label }</span>
+									{ subtabData.badge && (
+										<span className="modula-pro-badge"> { subtabData.badge } </span>
+									) }
+								</span>
+							}
+							initialOpen={ true }
+						>
+							<SettingsForm config={ subtabData?.config || {} } />
+						</PanelBody>
+					);
+				} ) }
+				{ ( typeof activeTab.save === 'undefined' || activeTab.save !== false ) && (
 					<SaveButton />
 				) }
 			</Panel>

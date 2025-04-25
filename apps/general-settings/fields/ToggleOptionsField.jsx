@@ -10,14 +10,13 @@ export default function ToggleOptionsField( {
 	disabled = false,
 } ) {
 	const isChecked = fieldState.state.value === trueValue;
-
 	const handleToggle = ( checked ) => {
 		handleChange( checked ? trueValue : falseValue );
 	};
 
 	return (
 		<>
-			<div className={ `${ styles.modulaToggle } ${ className || '' } ${ disabled ? styles.modulaToggleDisabled : '' }` }>
+			<div className={ `${ styles.modulaToggle } ${ className || '' }` }>
 				<label className={ styles.modulaToggleLabel } htmlFor={ field.name }>
 					{ field.label }
 				</label>

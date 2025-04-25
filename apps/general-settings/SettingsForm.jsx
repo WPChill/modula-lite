@@ -180,6 +180,7 @@ export default function SettingsForm( { config } ) {
 									field={ field }
 									form={ form }
 									handleChange={ handleChange }
+									evaluateConditions={ evaluateConditions }
 								/>
 							</div>
 						);
@@ -207,7 +208,7 @@ export default function SettingsForm( { config } ) {
 						);
 					}
 					return (
-						<div key={ field.name } className="modula_field_wrapper">
+						<div key={ field.name } className={ `modula_field_wrapper ${ field.disabled ? 'modula_disabled_field' : '' }` }>
 							<div className="modula_field_wrapp">
 								<form.Field name={ option ? `${ option }.${ field.name }` : field.name }>
 									{ ( fieldState ) => (
@@ -215,6 +216,7 @@ export default function SettingsForm( { config } ) {
 											field={ field }
 											fieldState={ fieldState }
 											handleChange={ handleChange }
+											disabled={ field.disabled || false }
 										/>
 									) }
 								</form.Field>

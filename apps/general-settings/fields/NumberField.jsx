@@ -3,9 +3,11 @@ import { TextControl } from '@wordpress/components';
 export default function NumberField( { fieldState, field, handleChange, className } ) {
 	return (
 		<>
-			<label className="modula_input_label" htmlFor={ field.name }>
-				{ field.label }
-			</label>
+			{ field.label && field.label.trim() !== '' && (
+				<span className="modula_input_label" htmlFor={ field.name }>
+					{ field.label }
+				</span>
+			) }
 			<TextControl
 				type="number"
 				className={ `modula_input_text ${ className || '' }` }

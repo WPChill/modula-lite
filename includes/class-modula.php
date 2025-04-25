@@ -180,15 +180,20 @@ class Modula {
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
 
-		new Modula\Gallery_Listing_Output();
+		if ( get_option( 'use_modula_ai', true ) ) {
+			new Modula\Gallery_Listing_Output();
+		}
 	}
 
 	public function start_ai_hooks() {
-		new Modula\Ai\Client();
+		if ( get_option( 'use_modula_ai', true ) ) {
+			new Modula\Ai\Client();
+		}
+
 		new Modula_Upsells();
 	}
 
-	public function dashboard_start( ) {
+	public function dashboard_start() {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
@@ -222,7 +227,7 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
-		
+
 		new Modula_Rest_Api();
 	}
 
@@ -883,8 +888,6 @@ class Modula {
 			'const modulaUrl = ' . wp_json_encode( MODULA_URL ),
 			'before'
 		);
-
-		
 	}
 
 	/**

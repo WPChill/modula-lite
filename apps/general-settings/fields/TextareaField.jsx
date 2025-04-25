@@ -3,9 +3,11 @@ import { TextareaControl } from '@wordpress/components';
 export default function TextareaField( { fieldState, field, handleChange, className } ) {
 	return (
 		<>
-			<label className="modula_input_label" htmlFor={ field.name }>
-				{ field.label }
-			</label>
+			{ field.label && field.label.trim() !== '' && (
+				<span className="modula_input_label" htmlFor={ field.name }>
+					{ field.label }
+				</span>
+			) }
 			<TextareaControl
 				className={ `modula_input_text ${ className || '' }` }
 				value={ fieldState.state.value }
