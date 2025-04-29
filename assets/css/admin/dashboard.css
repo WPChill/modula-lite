@@ -8,6 +8,13 @@
   background-color: #FFF;
   /* About us page */
   /* Partners page */
+  /**
+  Toggles
+  */
+  /* Toggles */
+  /**
+  End Toggles
+  */
 }
 .modula-gallery_page_wpchill-dashboard #wpcontent {
   padding-left: 0;
@@ -120,6 +127,31 @@
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_grid .wpchill_dashboard_item_content {
   padding: 0 15px;
 }
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 60px;
+  gap: 20px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card {
+  grid-column: span 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  border: 1px solid #e8d9cd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link img {
+  max-width: 100%;
+  display: block;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_description {
+  padding: 10px 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_use_cases_wrap dt {
   border-top: 1px solid #eee;
   cursor: pointer;
@@ -214,19 +246,75 @@
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content {
   max-width: 1100px;
-  margin: 0 auto;
-}
-.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_our_values {
   margin: 60px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
 }
-.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_our_values_text {
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_content {
+  padding: 20px 25px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_subtitle {
+  font-size: 18px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_text {
   font-size: 16px;
-  line-height: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333333;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_logo {
+  border-left: 1px solid #DDDDDD;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_logo img {
+  width: 100%;
+  display: block;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products {
+  display: grid;
+  justify-content: flex-start;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_content {
+  padding: 20px 20px 10px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_name {
+  color: #1d2327;
+  font-size: 1.3em;
+  margin: 15px auto;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions {
+  padding: 6px 20px;
+  background-color: #fafafa;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_button {
+  background-color: #33a370;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-decoration: none;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill-addons-container {
   display: flex;
@@ -286,23 +374,102 @@
   width: calc(100% - 40px);
   padding: 6px 200px;
 }
-
-
-.modula-gallery_page_wpchill-dashboard .modula-header-logo {
-  margin: 0 auto;
-  flex: 0 0 40%;
-  text-align: center;
-}
-.modula-gallery_page_wpchill-dashboard .modula-header-links {
-  margin-left: auto;
-  margin-right: 10px;
-  flex: 0 0 calc( 30% - 10px );
-  text-align: right;
-}
-.modula-page-header span.dashicons {
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle {
   position: relative;
-  top: 5px;
-  right: 3px;
+  user-select: none;
+  display: inline-block;
 }
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__items {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__items > * {
+  box-sizing: inherit;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox],
+.modula-gallery_page_wpchill-dashboard body .media-modal-content .attachment-details .wpchill-toggle__input[type=checkbox] {
+  border-radius: 2px;
+  border: 2px solid #6c7781;
+  margin-right: 12px;
+  transition: none;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__track,
+.modula-gallery_page_wpchill-dashboard body .media-modal-content .attachment-details .wpchill-toggle__track {
+  background-color: #fff;
+  border: 2px solid #6c7781;
+  border-radius: 9px;
+  display: inline-block;
+  height: 18px;
+  width: 36px;
+  vertical-align: top;
+  transition: background 0.2s ease;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__thumb,
+.modula-gallery_page_wpchill-dashboard body .media-modal-content .attachment-details .wpchill-toggle__thumb {
+  background-color: #6c7781;
+  border: 5px solid #6c7781;
+  border-radius: 50%;
+  display: block;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  transition: transform 0.2s ease;
+}
+.modula-gallery_page_wpchill-dashboard body .media-modal-content .attachment-details .wpchill-toggle__thumb,
+.modula-gallery_page_wpchill-dashboard body .media-modal-content .attachment-details .wpchill-toggle__track {
+  min-width: auto;
+  min-height: auto;
+  float: none;
+  padding: 0;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__off {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  color: #6c7781;
+  fill: currentColor;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__on {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  border: 1px solid #fff;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  display: none;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__track {
+  background-color: #33a370;
+  border: 9px solid transparent;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked:disabled + .wpchill-toggle__items .wpchill-toggle__track {
+  background-color: #F0F0F1;
+  border: 9px solid transparent;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__thumb {
+  background-color: #fff;
+  border-width: 0;
+  transform: translateX(18px);
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__off {
+  display: none;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__on {
+  display: inline-block;
+}
+
+
 
 /*# sourceMappingURL=dashboard.css.map */

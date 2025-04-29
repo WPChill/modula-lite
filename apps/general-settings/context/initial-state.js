@@ -1,7 +1,7 @@
-export const initialState = {
+export const initialState = ( activeTab ) => ( {
 	api_key: '',
 	isAdvancedRegistration: false,
 	isLoggedIn: false,
-	activeTab: false,
+	activeTab: activeTab || false,
 	options: {},
-};
+} );

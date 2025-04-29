@@ -3,7 +3,7 @@
 class Modula_Rest_Api {
 
 	private $namespace = 'modula-best-grid-gallery/v1';
-	private $settings = null;
+	private $settings  = null;
 
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
@@ -58,12 +58,22 @@ class Modula_Rest_Api {
 				'permission_callback' => array( $this, 'settings_permissions_check' ),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/license-data',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_license_data' ),
+				'permission_callback' => array( $this, 'settings_permissions_check' ),
+			)
+		);
 	}
 
 	public function get_settings() {
 		return new \WP_REST_Response( $this->settings->get_settings(), 200 );
 	}
-	
+
 	public function update_settings( $request ) {
 		$settings = $request->get_json_params();
 
@@ -100,9 +110,9 @@ class Modula_Rest_Api {
 			if ( 'refresh' === $data['action'] ) {
 				$youtube_oauth->refresh_token( false );
 			} elseif ( 'disconnect' === $data['action'] ) {
-				delete_option( Modula_Video_Google_Auth::$accessToken );
-				delete_option( Modula_Video_Google_Auth::$refreshToken );
-				delete_option( Modula_Video_Google_Auth::$expiryDate );
+				delete_option( Modula_Video_Google_Auth::$accessToken ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				delete_option( Modula_Video_Google_Auth::$refreshToken ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				delete_option( Modula_Video_Google_Auth::$expiryDate ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 		}
 
@@ -123,11 +133,68 @@ class Modula_Rest_Api {
 		if ( class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
 			$youtube_oauth = Modula_Video_Vimeo_Auth::get_instance();
 			if ( 'disconnect' === $data['action'] ) {
-				delete_option( Modula_Video_Vimeo_Auth::$accessToken );
+				delete_option( Modula_Video_Vimeo_Auth::$accessToken ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 		}
 
 		return new \WP_REST_Response( true, 200 );
+	}
+
+	public function get_license_data() {
+
+		$license            = get_option( 'modula_pro_license_key', '' );
+		$status             = get_option( 'modula_pro_license_status', false );
+		$alternative_server = get_option( 'modula_pro_alernative_server', false );
+		$messages           = array(
+			'no-license'       => esc_html__( 'Enter your license key.', 'modula-best-grid-gallery' ),
+			'activate-license' => esc_html__( 'Activate your license key.', 'modula-best-grid-gallery' ),
+			'all-good'         => __( 'Your license is active until <strong>%s</strong>.', 'modula-best-grid-gallery' ),
+			'lifetime'         => __( 'Your license is active <strong>forever</strong>.', 'modula-best-grid-gallery' ),
+			'expired'          => esc_html__( 'Your license has expired.', 'modula-best-grid-gallery' ),
+		);
+
+		$license_message = '';
+
+		if ( '' === $license ) {
+			$license_message = $messages['no-license'];
+		} elseif ( '' !== $license && false === $status ) {
+			$license_message = $messages['activate-license'];
+		} elseif ( 'expired' === $status->license ) {
+			$license_message = $messages['expired'];
+		} elseif ( '' !== $license && false !== $status && isset( $status->license ) && 'valid' === $status->license ) {
+			$date_format = get_option( 'date_format' );
+
+			if ( 'lifetime' === $status->expires ) {
+				$license_message = $messages['lifetime'];
+			} else {
+				$license_expire = gmdate( $date_format, strtotime( $status->expires ) );
+				$curr_time      = time();
+				// weeks till expiration
+				$weeks = (int) ( ( strtotime( $status->expires ) - $curr_time ) / ( 7 * 24 * 60 * 60 ) );
+
+				// set license status based on colors
+				if ( 4 >= $weeks ) {
+					$l_stat = 'red';
+				} else {
+					$l_stat = 'green';
+				}
+
+				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
+
+				if ( 'green' != $l_stat ) {
+					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'modula-best-grid-gallery' ), $weeks );
+				}
+			}
+		}
+
+		$data = array(
+			'license'   => $license,
+			'status'    => $status,
+			'altServer' => false,
+			'message'   => $license_message,
+		);
+
+		return new \WP_REST_Response( $data, 200 );
 	}
 
 	public function settings_permissions_check() {

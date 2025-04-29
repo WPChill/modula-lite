@@ -432,6 +432,12 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
         checkApiStatus: async function() {
             const self = this;
+            const $button = this.$el.find('#modula-ai-report-generate-button');
+
+            if ( ! $button.length ) {
+                return;
+            }
+
             try {
                 const response = await wp.apiFetch({
                     path: '/modula-ai-image-descriptor/v1/ai-settings',

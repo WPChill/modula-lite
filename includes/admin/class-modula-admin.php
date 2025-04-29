@@ -21,7 +21,6 @@ class Modula_Admin {
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
 
-
 		// WP Media ajax hook to add images to gallery
 		add_action( 'wp_ajax_add_images_to_gallery', array( $this, 'add_images_to_gallery_callback' ) );
 
@@ -30,6 +29,8 @@ class Modula_Admin {
 		add_filter( 'handle_bulk_actions-upload', array( $this, 'modula_media_handle_bulk' ), 15, 3 );
 		add_filter( 'admin_init', array( $this, 'modula_media_do_bulk' ), 15 );
 		add_action( 'admin_notices', array( $this, 'media_add_notice' ) );
+
+		add_filter( 'admin_init', array( $this, 'licenses_url_compat_redirect' ) );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -73,7 +74,6 @@ class Modula_Admin {
 	}
 
 	public function register_submenus() {
-
 
 		$links = array();
 
@@ -258,7 +258,7 @@ class Modula_Admin {
 		<?php
 
 		if ( 'extensions' == $active_tab ) {
-			$addons = Modula_Addons::get_instance();
+			$addons  = Modula_Addons::get_instance();
 			$pro_ext = false;
 
 			if ( ! isset( $_GET['extensions'] ) || 'pro' === $_GET['extensions'] ) {
@@ -702,8 +702,35 @@ class Modula_Admin {
 		exit;
 	}
 
-	public function add_settings_react_root(){
-		echo '<div id="modula-settings-app"></div>';
+	public function add_settings_react_root() {
+
+		$backward_compatible_tabs = array(
+			'modula_ai'       => 'optimization',
+			'compression'     => 'optimization',
+			'standalone'      => 'display',
+			'shortcodes'      => 'display',
+			'image_licensing' => 'display',
+			'watermark'       => 'protection',
+			'roles'           => 'protection',
+			'instagram'       => 'social_media',
+			'video'           => 'social_media',
+		);
+
+		$active_tab = isset( $_GET['modula-tab'] ) ? sanitize_text_field( wp_unslash( $_GET['modula-tab'] ) ) : false;
+
+		if ( $active_tab && isset( $backward_compatible_tabs[ $active_tab ] ) ) {
+			$active_tab = $backward_compatible_tabs[ $active_tab ];
+		}
+
+		echo '<div id="modula-settings-app" data-tab="' . esc_attr( $active_tab ) . '"></div>';
+	}
+
+	public function licenses_url_compat_redirect() {
+		// TODO: remove this when all plugins are updated with the new license link.
+		if ( isset( $_GET['page'] ) && isset( $_GET['modula-tab'] ) && 'modula' === $_GET['page'] && 'licenses' === $_GET['modula-tab'] ) {
+			wp_safe_redirect( admin_url( 'edit.php?post_type=modula-gallery&page=wpchill-dashboard' ) );
+			exit;
+		}
 	}
 }
 

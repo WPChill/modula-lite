@@ -1,48 +1,100 @@
-(function ($) {
-	function activatePlugin(url) {
-		$.ajax({
-			async: true,
-			type: 'GET',
-			dataType: 'html',
-			url: url,
-			success: function () {
-				location.reload();
-			},
-		});
+document.addEventListener('DOMContentLoaded', () => {
+	async function activatePlugin(url) {
+		try {
+			const response = await fetch(url, {
+				method: 'GET',
+				headers: { 'Content-Type': 'text/html' },
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+		} catch (error) {
+			console.error('Plugin activation error:', error);
+		}
 	}
 
-	// Install plugins actions
-	$('.wpchill_install_partener_addon').on('click', (event) => {
-		event.preventDefault();
+	// Handle single install/activate buttons
+	document.querySelectorAll('.wpchill_install_partener_addon').forEach(button => {
+		button.addEventListener('click', async (event) => {
+			event.preventDefault();
 
-		var current = $(event.currentTarget),
-			plugin_slug = current.data('slug'),
-			plugin_action = current.data('action'),
-			activate_url = current.data('activation_url');
+			const pluginSlug = button.dataset.slug;
+			const pluginAction = button.dataset.action;
+			const activateUrl = button.dataset.activation_url;
 
-		if ('install' === plugin_action) {
-			current.html(dashboardStrings.installing_plugin);
+			if (pluginAction === 'install') {
+				button.textContent = dashboardStrings.installing_plugin;
 
-			let args = {
-				slug: plugin_slug,
-				success: (response) => {
-					current.html(dashboardStrings.activating_plugin);
-
-					activatePlugin(response.activateUrl);
-				},
-				error: (response) => {
-					current.removeClass('updating-message');
-				},
-			};
-
-			wp.updates.installPlugin(args);
-		} else if ('activate' === plugin_action) {
-			current.html(dashboardStrings.activating_plugin);
-
-			activatePlugin(activate_url);
-		}
+				wp.updates.installPlugin({
+					slug: pluginSlug,
+					success: async (response) => {
+						button.textContent = dashboardStrings.activating_plugin;
+						await activatePlugin(response.activateUrl);
+					},
+					error: () => {
+						button.classList.remove('updating-message');
+					}
+				});
+			} else if (pluginAction === 'activate') {
+				button.textContent = dashboardStrings.activating_plugin;
+				await activatePlugin(activateUrl);
+			}
+		});
 	});
 
-	/* When document is ready, do */
-	$(document).ready(function ($) {});
-})(jQuery);
+	// Handle toggle switches
+	document.querySelectorAll('.wpchill_our_products .wpchill-toggle__input').forEach(input => {
+		input.addEventListener('change', async (e) => {
+			e.preventDefault();
+			input.disabled = true;
+			
+			const activateUrl = input.dataset.activateurl;
+			const deactivateUrl = input.dataset.deactivateurl;
+			const action = input.dataset.action;
+			const slug = input.dataset.slug;
+
+			const textWrapper = input
+				.closest('.wpchill_product_actions')
+				.querySelector('span.wpchill_action_status');
+
+			if (action === 'install') {
+				textWrapper.textContent = dashboardStrings.installing_text;
+
+				wp.updates.installPlugin({
+					slug: slug,
+					success: async () => {
+						textWrapper.textContent = dashboardStrings.activating_text;
+						await activatePlugin(activateUrl);
+						textWrapper.textContent = dashboardStrings.activated_status;
+						input.dataset.action = 'installed';
+						setTimeout(() => {
+							textWrapper.textContent = '';
+						}, 2000);
+						input.disabled = false;
+					}
+				});
+
+			} else if (action === 'activate') {
+				textWrapper.textContent = dashboardStrings.activating_text;
+				await activatePlugin(activateUrl);
+				textWrapper.textContent = dashboardStrings.activated_status;
+				input.dataset.action = 'installed';
+				setTimeout(() => {
+					textWrapper.textContent = '';
+				}, 2000);
+				input.disabled = false;
+
+			} else if (action === 'installed') {
+				textWrapper.textContent = dashboardStrings.deactivating_text;
+				await activatePlugin(deactivateUrl);
+				textWrapper.textContent = dashboardStrings.deactivate_status;
+				input.dataset.action = 'activate';
+				setTimeout(() => {
+					textWrapper.textContent = '';
+				}, 2000);
+				input.disabled = false;
+			}
+		});
+	});
+});

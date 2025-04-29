@@ -3,8 +3,13 @@ import { reducer } from './reducer';
 import { initialState } from './initial-state';
 
 export const SettingsContext = createContext( initialState );
-export const SettingsProvider = ( { children } ) => {
-	const [ state, dispatch ] = useReducer( reducer, initialState );
+
+export const SettingsProvider = ( { children, activeTab } ) => {
+	const [ state, dispatch ] = useReducer(
+		reducer,
+		initialState,
+		(initial) => ( { ...initial, activeTab } )
+	);
 
 	const contextValue = {
 		state,

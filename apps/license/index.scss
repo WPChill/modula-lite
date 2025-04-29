@@ -1,0 +1,137 @@
+
+#modula-license-app {
+    color: #123456;
+    .modula_license_wrapper {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        margin-bottom: 60px;
+        border: 1px solid #DDDDDD;
+        border-radius: 5px;
+        overflow: hidden;
+        .modula_license_logo_container {
+            border-right: 1px solid #D5D5D5;
+            background-color: #FEF5EF;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+            .modula_license_logo {
+                width: 100%;
+                 display: block;
+             }
+        }
+        .modula_license_button_wrapp {
+            padding: 24px 25px 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .modula_main_license_label {
+                font-size: 22px;
+                font-weight: 300;
+                color: #1E2327;
+            }
+        }
+        .modula_license_button {
+            border: 1px solid #39A271;
+            border-radius: 4px;
+            padding: 10px 35px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #39A271;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            &:hover{
+                color: #fff;
+                background-color: #39A271;
+            }
+            &:focus{
+                box-shadow: unset;
+                outline: none;
+            }
+            &:disabled{
+                background-color: #D5D5D5;
+                color: #fff;
+                border: unset;
+            }
+        }
+        .modula_forgot_license_button{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16px;
+            color: #39A271;
+            &:focus{
+                box-shadow: unset;
+                outline: none;
+            }
+        }
+        .modula_license_actions {
+            display: flex;
+            align-items: center;
+            .components-spinner {
+                margin: 0 10px;
+            }
+            span.modula_action_loading {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 16px;
+                color: #333333;
+                margin-right: 10px;
+            }
+        }
+        .modula_license_input_wrapp {
+            padding: 20px 25px;
+            border-top: 1px solid #DDDDDD;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            .modula_input_label {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 19px;
+                min-width: 85px;
+            }
+            .modula_license_input {
+                .components-base-control__field {
+                    margin: 0;
+                }
+                .components-text-control__input {
+                    width: 280px;
+                    height: 36px;
+                    border: 1px solid #8C8F94;
+                    border-radius: 4px;
+                    padding: 7px 10px;
+                    color: #333333;
+                    font-size: 19px;
+                    line-height: 0;
+                    &:disabled{
+                        background-color: #F0F0F1;
+                    }
+                }
+            }
+            .modula_input_description_wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 65%;
+            }
+            .modula_input_description {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 16px;
+                color: #333333;
+            }
+            .ibox{
+                width: 18px;
+                height: 18px;
+                border: 1px solid #8C8F94;
+                border-radius: 50%;
+                text-align: center;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 10px;
+                font-size: 10px;
+                font-weight: 400;
+                flex-shrink: 0;
+            }
+        }
+    }
+}

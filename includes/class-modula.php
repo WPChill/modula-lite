@@ -179,6 +179,7 @@ class Modula {
 
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
+		new WPChill_About_Us( 'modula-gallery' );
 
 		if ( get_option( 'use_modula_ai', true ) ) {
 			new Modula\Gallery_Listing_Output();
@@ -207,12 +208,107 @@ class Modula {
 
 		);
 
+		$videos = array(
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=NxrTXQNExh4',
+				'video_image' => 'https://i.ytimg.com/vi/NxrTXQNExh4/hq720.jpg',
+				'docu_link'   => 'https://wp-modula.com/kb/what-is-the-gutter/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=NxrTXQNExh4',
+				'video_image' => 'https://i.ytimg.com/vi/NxrTXQNExh4/hq720.jpg',
+				'docu_link'   => 'https://wp-modula.com/kb/what-is-the-gutter/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=NxrTXQNExh4',
+				'video_image' => 'https://i.ytimg.com/vi/NxrTXQNExh4/hq720.jpg',
+				'docu_link'   => 'https://wp-modula.com/kb/what-is-the-gutter/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=NxrTXQNExh4',
+				'video_image' => 'https://i.ytimg.com/vi/NxrTXQNExh4/hq720.jpg',
+				'docu_link'   => 'https://wp-modula.com/kb/what-is-the-gutter/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+			),
+		);
+
+		$products = array(
+			array(
+				'name'        => 'Modula',
+				'slug'        => 'modula',
+				'path'        => 'modula-best-grid-gallery/Modula.php',
+				'description' => 'Easily create stunning, customizable photo galleries and albums with Modula’s powerful features.',
+				'url'         => 'https://wp-modula.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Download Monitor',
+				'slug'        => 'download-monitor',
+				'path'        => 'download-monitor/download-monitor.php',
+				'description' => 'Manage, track, and control file downloads on your WordPress site with ease.',
+				'url'         => 'https://download-monitor.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Strong Testimonials',
+				'slug'        => 'strong-testimonials',
+				'path'        => 'strong-testimonials/strong-testimonials.php',
+				'description' => 'Collect, manage, and showcase customer reviews beautifully with this flexible testimonial plugin.',
+				'url'         => 'https://strongtestimonials.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Kali Forms',
+				'slug'        => 'kali-forms',
+				'path'        => 'kali-forms/kali-forms.php',
+				'description' => 'Build powerful and user-friendly forms quickly with Kali Forms’ intuitive drag-and-drop builder.',
+				'url'         => 'https://kaliforms.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Passster',
+				'slug'        => 'content-protector',
+				'path'        => 'content-protector/content-protector.php',
+				'description' => 'Increase website and content protection with easy-to-use features like password, CAPTCHA, and user role restrictions.',
+				'url'         => 'https://passster.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Filr',
+				'slug'        => 'filr-protection',
+				'path'        => 'filr-protection/filr-protection.php',
+				'description' => 'Easily build and manage a document library with secure file sharing and advanced access controls.',
+				'url'         => 'https://wpdocumentlibrary.com//?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'ImageSEO',
+				'slug'        => 'imageseo',
+				'path'        => 'imageseo/imageseo.php',
+				'description' => 'Optimize images automatically for better SEO and accessibility with AI-powered metadata and alt text generation.',
+				'url'         => 'https://imageseo.io/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'RSVP and Event Management',
+				'slug'        => 'rsvp',
+				'path'        => 'rsvp/wp-rsvp.php',
+				'description' => 'Easily create and manage RSVPs, events, and guest lists with this event management solution.',
+				'url'         => 'https://rsvpproplugin.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			array(
+				'name'        => 'Htaccess File Editor',
+				'slug'        => 'htaccess-file-editor',
+				'path'        => 'htaccess-file-editor/htaccess-file-editor.php',
+				'description' => 'Safely edit your .htaccess file directly from WordPress to improve site performance and security.',
+				'url'         => 'https://wpchill.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+		);
+
 		new Modula_Dashboard(
 			MODULA_FILE,
 			'modula-gallery',
 			MODULA_URL . 'assets/images/dashboard/',
 			$links,
-			'modula_page_header'
+			'modula_page_header',
+			$videos,
+			$products,
 		);
 	}
 

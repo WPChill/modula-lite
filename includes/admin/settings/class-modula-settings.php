@@ -612,7 +612,7 @@ class Modula_Settings {
 					'type'    => 'toggle',
 					'name'    => 'use_modula_ai',
 					'label'   => esc_html__( 'Use AI Features', 'modula-best-grid-gallery' ),
-					'default' => $enabled,
+					'default' => ( '1' === $enabled || true === $enabled ),
 				),
 				array(
 					'type'       => 'modula_ai',

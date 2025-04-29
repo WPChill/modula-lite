@@ -1,25 +1,23 @@
 import { createRoot } from '@wordpress/element';
-import SettingsPage from './SettingsPage';
+import LicenseBlock from './LicenseBlock';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './query/client';
-import { SettingsProvider } from './context/settings-context';
+import { LicenseProvider } from './context/license-context';
 import './index.scss';
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	const settings = document.getElementById( 'modula-settings-app' );
+	const settings = document.getElementById( 'modula-license-app' );
 
 	if ( ! settings ) {
 		return;
 	}
-
-	const activeTab = settings?.dataset?.tab;
 	const root = createRoot( settings );
 
 	root.render(
 		<QueryClientProvider client={ queryClient }>
-			<SettingsProvider activeTab={ activeTab }>
-				<SettingsPage />
-			</SettingsProvider>
+			<LicenseProvider>
+				<LicenseBlock />
+			</LicenseProvider>
 		</QueryClientProvider>,
 	);
 } );

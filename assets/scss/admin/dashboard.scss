@@ -25,8 +25,6 @@
     }
   }
 
-
-
   background-color: #FFF;
 
   .wpchill_dashboard_getting_started, // vertical spacing between sections
@@ -64,7 +62,7 @@
   }
 
   .wpchill_dashboard_header_tabs { // header/nav tabs
-text-align: center;
+  text-align: center;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
 
@@ -116,7 +114,6 @@ text-align: center;
     }
 
     .wpchill_dashboard_getting_started {
-
       .wpchill_dashboard_grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -143,13 +140,37 @@ text-align: center;
             }
           }
         }
-
         .wpchill_dashboard_item_content {
           padding: 0 15px;
 
         }
-
-
+      }
+      .wpchill_dashboard_video_grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 60px;
+        gap: 20px;
+        .wpchill_dashboard_video_card {
+          grid-column: span 1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          border: 1px solid #e8d9cd;
+          border-radius: 6px;
+          overflow: hidden;
+          .wpchill_dashboard_video_link {
+            img {
+              max-width: 100%;
+              display: block;
+            }
+          }
+          .wpchill_dashboard_video_description {
+            padding: 10px 10px 10px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        }
       }
     }
 
@@ -283,21 +304,76 @@ text-align: center;
 
     .wpchill_dashboard_about_content {
       max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .wpchill_dashboard_our_values {
       margin: 60px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 1rem;
-      align-items: center;
-      justify-content: center;
-    }
+      .wpchill_about_us {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        border: 1px solid #DDDDDD;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 60px;
+        .wpchill_about_us_content {
+          padding: 20px 25px;
+        }
+        .wpchill_about_us_subtitle {
+          font-size: 18px;
+        }
+        .wpchill_about_us_text {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #333333;
+        }
+        .wpchill_about_us_logo{
+          border-left: 1px solid #DDDDDD;
+          img {
+            width: 100%;
+            display: block;
+          }
+        }
+      }
 
-    .wpchill_dashboard_our_values_text {
-      font-size: 16px;
-      line-height: 1.5rem;
+      .wpchill_products {
+        display: grid;
+        justify-content: flex-start;
+        gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        .wpchill_product {
+          border-radius: 5px;
+          margin-bottom: 10px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          box-sizing: border-box;
+          position: relative;
+          text-align: center;
+          display: flex ;
+          flex-direction: column;
+          justify-content: space-between;
+          .wpchill_product_content{
+            padding: 20px 20px 10px;
+          }
+          .wpchill_product_name {
+            color: #1d2327;
+            font-size: 1.3em;
+            margin: 15px auto;
+          }
+          .wpchill_product_actions {
+            padding: 6px 20px;
+            background-color: #fafafa;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .wpchill_product_button {
+              background-color: #33a370;
+              color: #fff;
+              padding: 4px 10px;
+              border-radius: 4px;
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -374,6 +450,124 @@ text-align: center;
       padding: 6px 200px;
     }
   }
+    
+  /**
+  Toggles
+  */
+
+  /* Toggles */
+  .wpchill-toggle {
+    position    : relative;
+    user-select : none;
+    display     : inline-block;
+  }
+
+  .wpchill-toggle__items {
+    box-sizing : border-box;
+    display    : inline-block;
+    position   : relative;
+  }
+
+  .wpchill-toggle__items > * {
+    box-sizing : inherit;
+  }
+
+  .wpchill-toggle__input[type=checkbox],
+  body .media-modal-content .attachment-details .wpchill-toggle__input[type=checkbox] {
+    border-radius : 2px;
+    border        : 2px solid #6c7781;
+    margin-right  : 12px;
+    transition    : none;
+    height        : 100%;
+    left          : 0;
+    top           : 0;
+    margin        : 0;
+    padding       : 0;
+    opacity       : 0;
+    position      : absolute;
+    width         : 100%;
+    z-index       : 1;
+  }
+
+  .wpchill-toggle__track,
+  body .media-modal-content .attachment-details .wpchill-toggle__track {
+    background-color : #fff;
+    border           : 2px solid #6c7781;
+    border-radius    : 9px;
+    display          : inline-block;
+    height           : 18px;
+    width            : 36px;
+    vertical-align   : top;
+    transition       : background .2s ease;
+  }
+
+  .wpchill-toggle__thumb,
+  body .media-modal-content .attachment-details .wpchill-toggle__thumb {
+    background-color : #6c7781;
+    border           : 5px solid #6c7781;
+    border-radius    : 50%;
+    display          : block;
+    height           : 10px;
+    width            : 10px;
+    position         : absolute;
+    left             : 4px;
+    top              : 4px;
+    transition       : transform .2s ease;
+  }
+
+  body .media-modal-content .attachment-details .wpchill-toggle__thumb,
+  body .media-modal-content .attachment-details .wpchill-toggle__track {
+    min-width  : auto;
+    min-height : auto;
+    float      : none;
+    padding    : 0;
+  }
+
+  .wpchill-toggle__off {
+    position : absolute;
+    right    : 6px;
+    top      : 6px;
+    color    : #6c7781;
+    fill     : currentColor;
+  }
+
+  .wpchill-toggle__on {
+    position       : absolute;
+    top            : 6px;
+    left           : 8px;
+    border         : 1px solid #fff;
+    outline        : 1px solid transparent;
+    outline-offset : -1px;
+    display        : none;
+  }
+
+  .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__track {
+    background-color : #33a370;
+    border           : 9px solid transparent;
+  }
+
+  .wpchill-toggle__input[type=checkbox]:checked:disabled + .wpchill-toggle__items .wpchill-toggle__track {
+    background-color : #F0F0F1;
+    border           : 9px solid transparent;
+  }
+
+  .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__thumb {
+    background-color : #fff;
+    border-width     : 0;
+    transform        : translateX(18px);
+  }
+
+  .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__off {
+    display : none;
+  }
+
+  .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__on {
+    display : inline-block;
+  }
+
+  /**
+  End Toggles
+  */
 }
 
 /*# sourceMappingURL=dashboard.css.map */

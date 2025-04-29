@@ -16,6 +16,7 @@
 </script>
 
 <script type="text/html" id="tmpl-modula-image-editor">
+	<?php if ( get_option( 'use_modula_ai', true ) ) : ?>
 	<div class="modula-ai-report">
 		<button class="modula-ai-report-button button button-primary media-button button-large" id="modula-ai-report-generate-button" data-action="<# if ( data.report ) { #>refresh<# } else { #>generate<# } #>">
 			<# if ( data.report ) { #>
@@ -25,6 +26,7 @@
 			<# } #>
 		</button>
 	</div>
+	<?php endif; ?>
 	<div class="edit-media-header">
 		<button class="left dashicons"><span class="screen-reader-text"><?php esc_html_e( 'Edit previous media item', 'modula-best-grid-gallery' ); ?></span></button>
 		<button class="right dashicons"><span class="screen-reader-text"><?php esc_html_e( 'Edit next media item', 'modula-best-grid-gallery' ); ?></span></button>
