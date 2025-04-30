@@ -51,7 +51,7 @@
 		"start": "wp-scripts start",
 		"start:hot": "wp-scripts start --hot",
 		"prepare": "husky install",
-		"scss": "sass --watch assets/scss:assets/css",
+		"scss": "sass --watch includes/admin/wpchill/assets/scss:includes/admin/wpchill/assets/css",
 		"min:js": "uglifyjs-folder \"./assets/js/\" -eo \"./assets/js/\" --pattern \"**/*.js,!**/*min.js\" ",
 		"prefix-css": "postcss \"./assets/css/front/fancybox.css\" -o \"./assets/css/front/fancybox.css\"",
 		"min:css:backend": "cleancss --batch --batch-suffix \".min\" \"./assets/css/admin/*.css\" !\"./assets/css/admin/*.min.css\" ",

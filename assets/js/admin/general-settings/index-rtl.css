@@ -451,7 +451,7 @@
   flex-grow: 1;
 }
 #modula-settings-app .modula-page-content .modula_field_wrapper.modula_roles_field_wrapper {
-  justify-content: left;
+  justify-content: right;
 }
 #modula-settings-app .modula-page-content .modula_field_wrapper.modula_disabled_field .modula_input_label {
   color: #8C8F94;

@@ -1,9 +1,3 @@
-/** TODO
-* - using CSS grid we should take the number of items from a data attribute; example: <div class="grid" data-chlgrid-items="4">
- grid-template-columns: repeat(auto-fill, minmax($container/div[data-chlgrid-items], 1fr));
-* By leveraging SASS or even CSS variables, we can always fill in a grid with a number of columns w/o having to write the CSS all the time
-* in this scenario, we have a width of 1100px and we want 4 columns, that comes out as each column's width of: 1100/4 = 275px
- */
 .modula-gallery_page_wpchill-dashboard {
   background-color: #FFF;
   /* About us page */
@@ -142,9 +136,38 @@
   border-radius: 6px;
   overflow: hidden;
 }
-.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link img {
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-right: 1px solid #e8d9cd;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  position: relative;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link:hover .wpchill_dashboard_youtube_icon {
+  opacity: 0;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link .wpchill_dashboard_video_image {
   max-width: 100%;
-  display: block;
+  max-height: 30px;
+  object-fit: contain;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link .wpchill_dashboard_video_title {
+  min-height: 37px;
+  max-width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_link .wpchill_dashboard_video_title span {
+  color: #1d2327;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 14px;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_content_wrap .wpchill_dashboard_getting_started .wpchill_dashboard_video_grid .wpchill_dashboard_video_card .wpchill_dashboard_video_description {
   padding: 10px 10px 10px 0;
@@ -250,7 +273,7 @@
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 75% 25%;
   border: 1px solid #DDDDDD;
   border-radius: 5px;
   overflow: hidden;
@@ -258,6 +281,7 @@
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_content {
   padding: 20px 25px;
+  text-align: left;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_about_us .wpchill_about_us_subtitle {
   font-size: 18px;
@@ -278,23 +302,85 @@
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products {
   display: grid;
   justify-content: flex-start;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: relative;
   gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product {
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   background-color: #fff;
   border: 1px solid #ddd;
   box-sizing: border-box;
-  position: relative;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_videos {
+  display: none;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_wrap {
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 5px;
+  z-index: 5;
+  transform: translateY(-1px);
+  overflow: hidden;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_extended {
+  gap: 20px;
+  grid-template-columns: 30% calc(70% - 20px);
+  display: grid;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos {
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  padding: 20px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos a {
+  text-decoration: none;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos .wpchill_product_video {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos .wpchill_product_video .wpchill_product_video_image {
+  max-width: 100%;
+  max-height: 30px;
+  object-fit: contain;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos .wpchill_product_video:hover .wpchill_dashboard_youtube_icon {
+  opacity: 0;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos .wpchill_product_video_title {
+  padding: 0 20px;
+  min-height: 37px;
+  line-height: 1;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product.is_extended .wpchill_product_videos .wpchill_product_video_title span {
+  color: #1d2327;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 14px;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_content {
   padding: 20px 20px 10px;
+  min-height: 125px;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_name {
   color: #1d2327;
@@ -309,12 +395,37 @@
   justify-content: space-between;
   align-items: center;
 }
-.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_button {
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_buttons {
+  display: flex;
+  gap: 10px;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_buttons .wpchill_product_button {
+  transition: background-color 0.3s ease;
   background-color: #33a370;
   color: #fff;
   padding: 4px 10px;
   border-radius: 4px;
   text-decoration: none;
+  border: 1px solid #33a370;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_buttons .wpchill_product_button:hover {
+  background-color: #fff;
+  color: #33a370;
+  border: 1px solid #33a370;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_buttons .wpchill_product_learn_more {
+  transition: background-color 0.3s ease;
+  background-color: #fff;
+  color: #33a370;
+  border: 1px solid #33a370;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_about_us_wrapper .wpchill_dashboard_about_content .wpchill_products .wpchill_product .wpchill_product_actions .wpchill_product_buttons .wpchill_product_learn_more:hover {
+  background-color: #33a370;
+  color: #fff;
+  border: 1px solid #33a370;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill-addons-container {
   display: flex;
@@ -373,6 +484,27 @@
   display: inline;
   width: calc(100% - 40px);
   padding: 6px 200px;
+}
+.modula-gallery_page_wpchill-dashboard img.wpchill_dashboard_youtube_icon {
+  position: absolute;
+  max-width: 45px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.modula-gallery_page_wpchill-dashboard .wpchill_dashboard_video_watch {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: #3c434a;
+}
+.modula-gallery_page_wpchill-dashboard img.wpchill_dashboard_youtube_watch {
+  max-height: 25px;
+  border-top-right-radius: 5px;
 }
 .modula-gallery_page_wpchill-dashboard .wpchill-toggle {
   position: relative;
@@ -468,6 +600,9 @@
 }
 .modula-gallery_page_wpchill-dashboard .wpchill-toggle__input[type=checkbox]:checked + .wpchill-toggle__items .wpchill-toggle__on {
   display: inline-block;
+}
+.modula-gallery_page_wpchill-dashboard span.wpchill_action_status {
+  font-size: 11px;
 }
 
 

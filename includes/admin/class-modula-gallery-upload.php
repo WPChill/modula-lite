@@ -1025,14 +1025,14 @@ class Modula_Gallery_Upload {
 
 		// Validate that this is actually a zip file
 		if ( ! class_exists( 'ZipArchive' ) ) {
-			wp_delete_attachment( $file_id, true );
+			$this->delete_atachment( $file_id, true );
 			wp_send_json_error( __( 'ZIP extension is not installed on the server.', 'modula-best-grid-gallery' ) );
 		}
 
 		$zip        = new ZipArchive();
 		$zip_opened = $zip->open( $file );
 		if ( $zip_opened !== true ) {
-			wp_delete_attachment( $file_id, true );
+			$this->delete_atachment( $file_id, true );
 			wp_send_json_error( __( 'Could not open ZIP file.', 'modula-best-grid-gallery' ) );
 		}
 
@@ -1061,7 +1061,7 @@ class Modula_Gallery_Upload {
 		$zip->close();
 
 		if ( ! $valid_files ) {
-			wp_delete_attachment( $file_id, true );
+			$this->delete_atachment( $file_id, true );
 			wp_send_json_error( __( 'ZIP file contains invalid or disallowed file types. Only image files are permitted.', 'modula-best-grid-gallery' ) );
 		}
 
@@ -1078,12 +1078,12 @@ class Modula_Gallery_Upload {
 		// Unzip the file.
 		$response = unzip_file( $file, $unzip_path );
 		if ( is_wp_error( $response ) ) {
-			wp_delete_attachment( $file_id, true );
+			$this->delete_atachment( $file_id, true );
 			wp_send_json_error( $response->get_error_message() );
 		}
 
 		// Delete the original zip file
-		wp_delete_attachment( $file_id, true );
+		$this->delete_atachment( $file_id, true );
 
 		$folders = array( $unzip_path );
 		// Check if the folder has subfolders.
@@ -1149,6 +1149,13 @@ class Modula_Gallery_Upload {
 		WPChill_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
 		// Clear the uploaded files, since the notification was added.
 		$this->update_uploaded_error_files( $gallery_id, array() );
+	}
+
+	private function delete_atachment( $file_id, $force ){
+		if ( ! current_user_can( 'delete_post', $file_id ) ) {
+			return false;
+		}
+		return wp_delete_attachment( $file_id, $force );
 	}
 }
 

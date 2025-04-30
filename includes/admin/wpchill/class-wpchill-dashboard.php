@@ -7,12 +7,11 @@
  *
  * @since      2.0.0
  */
-class Modula_Dashboard {
+class WPChill_Dashboard {
 
 	private $menu_slug;
 	private $tabs;
 	private $version;
-	private $plugin_file;
 	private $plugin_cpt;
 	private $images_url;
 	private $plugin_link;
@@ -21,18 +20,18 @@ class Modula_Dashboard {
 	private $videos;
 	private $products;
 
-	public function __construct( $plugin_file, $plugin_cpt, $images_url, $links, $page_header_hook, $videos = array(), $products = array() ) {
+	public function __construct( $plugin_cpt, $links, $page_header_hook ) {
 
-		$this->version = '1.0.0';
+		$this->version = '1.0.1';
 
-		$this->plugin_file   = $plugin_file;
 		$this->plugin_cpt    = $plugin_cpt;
-		$this->images_url    = $images_url;
+		$this->images_url    = plugin_dir_url( __FILE__ ) . 'assets/dashboard/';
 		$this->plugin_link   = $links;
 		$this->header_hook   = $page_header_hook; // Like modula_page_header, dlm_page_header, wpmtst_page_header
 		$this->readme_parser = new WPChill_Modula_Readme_Parser( MODULA_PATH . 'readme.txt' );
-		$this->videos        = $videos;
-		$this->products      = $products;
+		$this->videos        = $this->get_videos();
+		$this->products      = $this->get_products();
+
 
 		$this->menu_slug = 'wpchill-dashboard';
 		$this->tabs      = apply_filters(
@@ -46,10 +45,10 @@ class Modula_Dashboard {
 					'name' => __( 'About us', 'modula-best-grid-gallery' ),
 					'url'  => false,
 				),
-				'partners'    => array(
-					'name' => __( 'Partners', 'modula-best-grid-gallery' ),
-					'url'  => false,
-				),
+				// 'partners'    => array(
+				//  'name' => __( 'Partners', 'modula-best-grid-gallery' ),
+				//  'url'  => false,
+				// ),
 				'extensions'  => array(
 					'name' => __( 'Extensions', 'modula-best-grid-gallery' ),
 					'url'  => $this->plugin_link['extensions'],
@@ -69,7 +68,7 @@ class Modula_Dashboard {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 20 );
 
-		add_filter( 'admin_menu', array( $this, 'add_dashboard_menu_item' ), 99, 1 );
+		add_filter( 'admin_menu', array( $this, 'add_dashboard_menu_items' ), 99, 1 );
 
 		// Clear all notices
 		add_action( 'in_admin_header', array( $this, 'clear_admin_notices' ), 99 );
@@ -88,7 +87,7 @@ class Modula_Dashboard {
 	 *
 	 * @since 2.7.5
 	 */
-	public function add_dashboard_menu_item() {
+	public function add_dashboard_menu_items() {
 		add_submenu_page(
 			'edit.php?post_type=' . $this->plugin_cpt,
 			esc_html__( 'Welcome', 'modula-best-grid-gallery' ),
@@ -100,6 +99,18 @@ class Modula_Dashboard {
 				'dashboard_view',
 			),
 			0
+		);
+		add_submenu_page(
+			'edit.php?post_type=' . $this->plugin_cpt,
+			esc_html__( 'About Us', 'modula-best-grid-gallery' ),
+			esc_html__( 'About Us', 'modula-best-grid-gallery' ),
+			'manage_options',
+			$this->menu_slug . '&tab=about',
+			array(
+				$this,
+				'dashboard_view',
+			),
+			999
 		);
 	}
 
@@ -122,11 +133,10 @@ class Modula_Dashboard {
 	}
 
 
-	public function render_header() {
+	public function render_header( $active = 'general' ) {
 
-		$active = 'general';
-		if ( isset( $_GET['tab'] ) && '' != $_GET['tab'] ) {
-			$active = $_GET['tab'];
+		if ( isset( $_GET['tab'] ) && '' !== $_GET['tab'] ) {
+			$active = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 		}
 
 		?>
@@ -151,11 +161,10 @@ class Modula_Dashboard {
 		<?php
 	}
 
-	public function render_content() {
+	public function render_content( $active = 'general' ) {
 
-		$active = 'general';
-		if ( isset( $_GET['tab'] ) && '' != $_GET['tab'] ) {
-			$active = $_GET['tab'];
+		if ( isset( $_GET['tab'] ) && '' !== $_GET['tab'] ) {
+			$active = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 		}
 		switch ( $active ) {
 			case 'general':
@@ -187,12 +196,19 @@ class Modula_Dashboard {
 				<div class="wpchill_dashboard_video_grid">
 					<?php foreach ( $this->videos as $video ) : ?>
 						<div class="wpchill_dashboard_video_card">
-							<a class="wpchill_dashboard_video_link" href="<?php echo esc_url( $video['video_link'] ); ?>">
-								<img src="<?php echo esc_url( $video['video_image'] ); ?>">		
+							<a class="wpchill_dashboard_video_link" target="_BLANK" href="<?php echo esc_url( $video['video_link'] ); ?>">
+								<img src="<?php echo esc_url( $video['video_image'] ); ?>" class="wpchill_dashboard_video_image" >
+								<div class="wpchill_dashboard_video_title">
+									<span><?php echo esc_html( $video['title'] ); ?></span>
+								</div>
+								<img src="<?php echo esc_url( $this->images_url . 'yt.png' ); ?>" class="wpchill_dashboard_youtube_icon"/>
+								<div class="wpchill_dashboard_video_watch">
+									<img src="<?php echo esc_url( $this->images_url . 'yt-long.png' ); ?>" class="wpchill_dashboard_youtube_watch"/>
+								</div>
 							</a>
 							<div class="wpchill_dashboard_video_description">
 								<p><?php echo wp_kses_post( $video['description'] ); ?></p>
-								<a href="<?php echo esc_url( $video['docu_link'] ); ?>" class="wpchill_dashboard_item_button">
+								<a href="<?php echo esc_url( $video['docu_link'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button">
 									<?php esc_html_e( 'View Documentation', 'modula-best-grid-gallery' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
 								</a>
 							</div>
@@ -275,7 +291,6 @@ class Modula_Dashboard {
 
 			<!-- Call to action/upsell -->
 			<div class="wpchill_dashboard_cta_wrap">
-
 				<h2 class="wpchill_dashboard_item_title">
 					<span class="wpchill_dashboard_icon wpchill_dashboard_icon_features"></span>
 					<?php esc_html_e( 'Need help or advice?', 'modula-best-grid-gallery' ); ?>
@@ -326,60 +341,87 @@ class Modula_Dashboard {
 					<div class="wpchill_products">
 						<?php foreach ( $this->products as $product ) : ?>
 							<div class="wpchill_product">
-								<div class="wpchill_product_content">
-									<h5 class="wpchill_product_name"><?php echo wp_kses_post( $product['name'] ); ?></h5>
-									<p class="wpchill_product_description"><?php echo wp_kses_post( $product['description'] ); ?></p>
-								</div>
-								<div class="wpchill_product_actions">
-									<a href="<?php echo esc_url( $product['url'] ); ?>" class="wpchill_product_button">
-										<?php esc_html_e( 'Visit website', 'modula-best-grid-gallery' ); ?>
-									</a>
-									<?php
-										$addon_status = $this->is_addon_installed( $product['path'] );
-										$action       = $addon_status ? $addon_status : 'installed';
-										$activate_url = add_query_arg(
-											array(
-												'action'   => 'activate',
-												'plugin'   => rawurlencode( $product['path'] ),
-												'plugin_status' => 'all',
-												'paged'    => '1',
-												'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $product['path'] ),
-											),
-											admin_url( 'plugins.php' )
-										);
+								<div class="wpchill_product_wrap">
+									<div class="wpchill_product_extended">
+										<div class="wpchill_product_content">
+											<h5 class="wpchill_product_name"><?php echo wp_kses_post( $product['name'] ); ?></h5>
+											<p class="wpchill_product_description"><?php echo wp_kses_post( $product['description'] ); ?></p>
+										</div>
+										<?php if ( isset( $product['videos'] ) ) : ?>
+										<div class="wpchill_product_videos">
+											<?php foreach ( $product['videos'] as $video ) : ?>
+												<a class="wpchill_product_video" target="_BLANK" href="<?php echo esc_url( $video['link'] ); ?>">
+													<img src="<?php echo esc_url( $video['image'] ); ?>" class="wpchill_product_video_image"/>
+													<div class="wpchill_product_video_title">
+														<span><?php echo esc_html( $video['title'] ); ?></span>
+													</div>
+													<img src="<?php echo esc_url( $this->images_url . 'yt.png' ); ?>" class="wpchill_dashboard_youtube_icon"/>
+													<div class="wpchill_dashboard_video_watch">
+														<img src="<?php echo esc_url( $this->images_url . 'yt-long.png' ); ?>" class="wpchill_dashboard_youtube_watch"/>
+													</div>
+												</a>
+											<?php endforeach; ?>
+										</div>
+										<?php endif; ?>
+									</div>
+									<div class="wpchill_product_actions">
+										<div class="wpchill_product_buttons">
+											<a href="<?php echo esc_url( $product['url'] ); ?>" target="_BLANK" class="wpchill_product_button">
+												<?php esc_html_e( 'Visit website', 'modula-best-grid-gallery' ); ?>
+											</a>
+											<?php if ( isset( $product['videos'] ) && is_array( $product['videos'] ) && count( $product['videos'] ) > 0 ) : ?>
+												<button class="wpchill_product_learn_more">
+													<?php esc_html_e( 'Learm more', 'modula-best-grid-gallery' ); ?>
+												</button>
+											<?php endif; ?>
+										</div>
+										<?php
+											$addon_status = $this->is_addon_installed( $product['path'] );
+											$action       = $addon_status ? $addon_status : 'installed';
+											$activate_url = add_query_arg(
+												array(
+													'action'   => 'activate',
+													'plugin'   => rawurlencode( $product['path'] ),
+													'plugin_status' => 'all',
+													'paged'    => '1',
+													'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $product['path'] ),
+												),
+												admin_url( 'plugins.php' )
+											);
 
-										$deactivate_url = add_query_arg(
-											array(
-												'action'   => 'deactivate',
-												'plugin'   => rawurlencode( $product['path'] ),
-												'plugin_status' => 'all',
-												'paged'    => '1',
-												'_wpnonce' => wp_create_nonce( 'deactivate-plugin_' . $product['path'] ),
-											),
-											admin_url( 'plugins.php' )
-										);
-									?>
-									<div class="wpchill-toggle">
-										<span class="wpchill_action_status"></span>
-										<label class="">
-											<input class="wpchill-toggle__input" type="checkbox" data-slug="<?php echo esc_attr( $product['slug'] ); ?>" data-action="<?php echo esc_attr( $action ); ?>" data-activateurl="<?php echo esc_url( $activate_url ); ?>" data-deactivateurl="<?php echo esc_url( $deactivate_url ); ?>" value="1" <?php checked( 'installed', $action, true ); ?>>
-											<div class="wpchill-toggle__items">
-												<span class="wpchill-toggle__track"></span>
-												<span class="wpchill-toggle__thumb"></span>
-												<svg class="wpchill-toggle__off" width="6" height="6" aria-hidden="true"
-														role="img"
-														focusable="false"
-														viewBox="0 0 6 6">
-													<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
-												</svg>
-												<svg class="wpchill-toggle__on" width="2" height="6" aria-hidden="true"
-														role="img"
-														focusable="false"
-														viewBox="0 0 2 6">
-													<path d="M0 0h2v6H0z"></path>
-												</svg>
-											</div>
-										</label>
+											$deactivate_url = add_query_arg(
+												array(
+													'action'   => 'deactivate',
+													'plugin'   => rawurlencode( $product['path'] ),
+													'plugin_status' => 'all',
+													'paged'    => '1',
+													'_wpnonce' => wp_create_nonce( 'deactivate-plugin_' . $product['path'] ),
+												),
+												admin_url( 'plugins.php' )
+											);
+										?>
+										<div class="wpchill-toggle">
+											<span class="wpchill_action_status"></span>
+											<label class="">
+												<input class="wpchill-toggle__input" type="checkbox" data-slug="<?php echo esc_attr( $product['slug'] ); ?>" data-action="<?php echo esc_attr( $action ); ?>" data-activateurl="<?php echo esc_url( $activate_url ); ?>" data-deactivateurl="<?php echo esc_url( $deactivate_url ); ?>" value="1" <?php checked( 'installed', $action, true ); ?>>
+												<div class="wpchill-toggle__items">
+													<span class="wpchill-toggle__track"></span>
+													<span class="wpchill-toggle__thumb"></span>
+													<svg class="wpchill-toggle__off" width="6" height="6" aria-hidden="true"
+															role="img"
+															focusable="false"
+															viewBox="0 0 6 6">
+														<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+													</svg>
+													<svg class="wpchill-toggle__on" width="2" height="6" aria-hidden="true"
+															role="img"
+															focusable="false"
+															viewBox="0 0 2 6">
+														<path d="M0 0h2v6H0z"></path>
+													</svg>
+												</div>
+											</label>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -502,7 +544,7 @@ class Modula_Dashboard {
 				echo '<div class="wpchill-addon-box">';
 
 				if ( ! isset( $addon['image'] ) || '' == $addon['image'] ) {
-					echo '<div class="wpchill-addon-box-image"><img src="' . esc_url( plugin_dir_url( $this->plugin_file ) . 'assets/images/dashboard/blog-default.png' ) . '"></div>';
+					echo '<div class="wpchill-addon-box-image"><img src="' . esc_url( plugin_dir_url( __FILE__ ) . 'assets/dashboard/blog-default.png' ) . '"></div>';
 				} else {
 					echo '<div class="wpchill-addon-box-image"><img src="' . esc_url( $addon['image'] ) . '"></div>';
 				}
@@ -616,11 +658,10 @@ class Modula_Dashboard {
 
 		// only load assets on dashboard pages
 		if ( $this->is_dashboard() ) {
-			wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/dashboard.css', null, $this->version );
-			wp_enqueue_style( 'modula-addons-style', plugin_dir_url( $this->plugin_file ) . 'assets/css/admin/addons.css', null, $this->version );
+			wp_enqueue_style( 'modula-dashboard-style', plugin_dir_url( __FILE__ ) . 'assets/css/dashboard.css', null, $this->version );
 			wp_enqueue_script(
 				'modula-dashboard-script',
-				plugin_dir_url( $this->plugin_file ) . 'assets/js/admin/dashboard.js',
+				plugin_dir_url( __FILE__ ) . 'assets/js/dashboard.js',
 				array(
 					'jquery',
 					'updates',
@@ -639,6 +680,8 @@ class Modula_Dashboard {
 				'deactivate_text'   => esc_html__( 'Activate', 'modula-best-grid-gallery' ),
 				'activated_status'  => esc_html__( 'Activated', 'modula-best-grid-gallery' ),
 				'deactivate_status' => esc_html__( 'Dectivated', 'modula-best-grid-gallery' ),
+				'openText'          => esc_html__( 'Learn More', 'modula-best-grid-gallery' ),
+				'closeText'         => esc_html__( 'Close', 'modula-best-grid-gallery' ),
 			);
 
 			wp_localize_script( 'modula-dashboard-script', 'dashboardStrings', $dashboard_strings );
@@ -676,25 +719,6 @@ class Modula_Dashboard {
 
 		$content = $readme->sections['faq'];
 
-		/**
-		 * change the markup to browser built-in html accordions
-		 *
-		 * starting markup
-		 * <dl>
-		 *     <dt> = title = </dt>
-		 *         <dd> <p> description </p> </dd>
-		 * </dl>
-		 *
-		 * ending markup should look like this:
-		 *  <details>
-		 *      <summary>
-		 *          <span>{title}</span>
-		 *     </summary>
-		 *      <div class="">{accordion_body}</div>
-		 * </details>
-		 *
-		 *
-		 */
 		$content = str_replace(
 			array(
 				'<dl>',
@@ -727,9 +751,201 @@ class Modula_Dashboard {
 				),
 				admin_url( 'edit.php' )
 			);
-			wp_redirect( $url_to_galleries );
+			wp_safe_redirect( $url_to_galleries );
 			die();
 		}
+	}
+
+	private function get_products() {
+		$products = array(
+			'modula-gallery'  => array(
+				'name'        => 'Modula',
+				'slug'        => 'modula',
+				'path'        => 'modula-best-grid-gallery/Modula.php',
+				'description' => 'Easily create stunning, customizable photo galleries and albums with Modula’s powerful features.',
+				'url'         => 'https://wp-modula.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+				'videos'      => array(
+					array(
+						'image' => $this->images_url . 'products/modula.png',
+						'link'  => 'https://www.youtube.com/watch?v=FrvpYeYxzpI&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=5',
+						'title' => __( 'How to install Modula (LITE & PRO)', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/modula.png',
+						'link'  => 'https://www.youtube.com/watch?v=Ah1vHSTEW-c&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=4',
+						'title' => __( 'Create Your First Gallery', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/modula.png',
+						'link'  => 'https://www.youtube.com/watch?v=PJ3my9NrOWA&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=3',
+						'title' => __( 'How to Publish a Gallery', 'modula-best-grid-gallery' ),
+					),
+				),
+			),
+			'dlm_download'    => array(
+				'name'        => 'Download Monitor',
+				'slug'        => 'download-monitor',
+				'path'        => 'download-monitor/download-monitor.php',
+				'description' => 'Manage, track, and control file downloads on your WordPress site with ease.',
+				'url'         => 'https://download-monitor.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+				'videos'      => array(
+					array(
+						'image' => $this->images_url . 'products/dlm.webp',
+						'link'  => 'https://www.youtube.com/watch?v=pYr6TctjMAk&list=PLM2tOjfhVrZfvMiJ3ib1GqvWBpYpBeQaS&index=5',
+						'title' => __( 'How to activate premium version and license', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/dlm.webp',
+						'link'  => 'https://www.youtube.com/watch?v=9F_IUwA425c&list=PLM2tOjfhVrZfvMiJ3ib1GqvWBpYpBeQaS&index=3',
+						'title' => __( 'How to create your first download', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/dlm.webp',
+						'link'  => 'https://www.youtube.com/watch?v=xEbliDziMrU&list=PLM2tOjfhVrZfvMiJ3ib1GqvWBpYpBeQaS&index=2',
+						'title' => __( 'How to list your download', 'modula-best-grid-gallery' ),
+					),
+				),
+			),
+			'wpm-testimonial' => array(
+				'name'        => 'Strong Testimonials',
+				'slug'        => 'strong-testimonials',
+				'path'        => 'strong-testimonials/strong-testimonials.php',
+				'description' => 'Collect, manage, and showcase customer reviews beautifully with this flexible testimonial plugin.',
+				'url'         => 'https://strongtestimonials.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+				'videos'      => array(
+					array(
+						'image' => $this->images_url . 'products/st.png',
+						'link'  => 'https://www.youtube.com/watch?v=klnNjtFYz_U&list=PLM2tOjfhVrZcgMyoeC_M7yUii1QJW8nfH&index=7',
+						'title' => __( 'Install Strong Testimonials Pro', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/st.png',
+						'link'  => 'https://www.youtube.com/watch?v=_DmoHH6iE4w&list=PLM2tOjfhVrZcgMyoeC_M7yUii1QJW8nfH&index=5',
+						'title' => __( 'Create your first testimonials collection Form', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/st.png',
+						'link'  => 'https://www.youtube.com/watch?v=zIb0RQv2-pY&list=PLM2tOjfhVrZcgMyoeC_M7yUii1QJW8nfH&index=4',
+						'title' => __( 'Create your first testimonials listing', 'modula-best-grid-gallery' ),
+					),
+				),
+			),
+			'kaliforms_forms' => array(
+				'name'        => 'Kali Forms',
+				'slug'        => 'kali-forms',
+				'path'        => 'kali-forms/kali-forms.php',
+				'description' => 'Build powerful and user-friendly forms quickly with Kali Forms’ intuitive drag-and-drop builder.',
+				'url'         => 'https://kaliforms.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			'passster'        => array(
+				'name'        => 'Passster',
+				'slug'        => 'content-protector',
+				'path'        => 'content-protector/content-protector.php',
+				'description' => 'Increase website and content protection with easy-to-use features like password, CAPTCHA, and user role restrictions.',
+				'url'         => 'https://passster.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+				'videos'      => array(
+					array(
+						'image' => $this->images_url . 'products/passster.png',
+						'link'  => 'https://www.youtube.com/watch?v=kK1K1WImvJc&list=PLM2tOjfhVrZdo_H26CV2I-UfdqpDWxo3D&index=4',
+						'title' => __( 'How to Install and activate Passster Pro', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/passster.png',
+						'link'  => 'https://www.youtube.com/watch?v=kjYklVLVFD8&list=PLM2tOjfhVrZdo_H26CV2I-UfdqpDWxo3D&index=2',
+						'title' => __( 'How to protect a page', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/passster.png',
+						'link'  => 'https://www.youtube.com/watch?v=tj-2vGLHN3M&list=PLM2tOjfhVrZdo_H26CV2I-UfdqpDWxo3D&index=1',
+						'title' => __( 'How to create a protected area', 'modula-best-grid-gallery' ),
+					),
+				),
+			),
+			'filr'            => array(
+				'name'        => 'Filr',
+				'slug'        => 'filr-protection',
+				'path'        => 'filr-protection/filr-protection.php',
+				'description' => 'Easily build and manage a document library with secure file sharing and advanced access controls.',
+				'url'         => 'https://wpdocumentlibrary.com//?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+				'videos'      => array(
+					array(
+						'image' => $this->images_url . 'products/filr.png',
+						'link'  => 'https://www.youtube.com/watch?v=D8F3VtlSQP4&list=PLM2tOjfhVrZd3qpZiBogLE3ii3jyDo3bP&index=5',
+						'title' => __( 'Install and activate Filr', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/filr.png',
+						'link'  => 'https://www.youtube.com/watch?v=G1D9qXmLwF0&list=PLM2tOjfhVrZd3qpZiBogLE3ii3jyDo3bP&index=1',
+						'title' => __( 'How to create files', 'modula-best-grid-gallery' ),
+					),
+					array(
+						'image' => $this->images_url . 'products/filr.png',
+						'link'  => 'https://www.youtube.com/watch?v=BlvBVbN2-2w&list=PLM2tOjfhVrZd3qpZiBogLE3ii3jyDo3bP&index=2',
+						'title' => __( 'Set up and list your first document library', 'modula-best-grid-gallery' ),
+					),
+				),
+			),
+			'imageseo'        => array(
+				'name'        => 'ImageSEO',
+				'slug'        => 'imageseo',
+				'path'        => 'imageseo/imageseo.php',
+				'description' => 'Optimize images automatically for better SEO and accessibility with AI-powered metadata and alt text generation.',
+				'url'         => 'https://imageseo.io/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			'rsvp'            => array(
+				'name'        => 'RSVP and Event Management',
+				'slug'        => 'rsvp',
+				'path'        => 'rsvp/wp-rsvp.php',
+				'description' => 'Easily create and manage RSVPs, events, and guest lists with this event management solution.',
+				'url'         => 'https://rsvpproplugin.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+			'htaccess'        => array(
+				'name'        => 'Htaccess File Editor',
+				'slug'        => 'htaccess-file-editor',
+				'path'        => 'htaccess-file-editor/htaccess-file-editor.php',
+				'description' => 'Safely edit your .htaccess file directly from WordPress to improve site performance and security.',
+				'url'         => 'https://wpchill.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
+			),
+		);
+
+		// Remove current
+		if ( isset( $products[ $this->plugin_cpt ] ) ) {
+			unset( $products[ $this->plugin_cpt ] );
+		}
+
+		return $products;
+	}
+	private function get_videos() {
+		return array(
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=FrvpYeYxzpI&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=5',
+				'video_image' => $this->images_url . 'products/modula.png',
+				'docu_link'   => 'https://wp-modula.com/kb/install-modula-wordpress-plugin/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+				'title' => __( 'How to install Modula (LITE & PRO) ', 'modula-best-grid-gallery' ),
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=Ah1vHSTEW-c&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=4',
+				'video_image' => $this->images_url . 'products/modula.png',
+				'docu_link'   => 'https://wp-modula.com/kb/create-your-first-gallery/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+				'title' => __( 'Create Your First Gallery', 'modula-best-grid-gallery' ),
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=PJ3my9NrOWA&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=3',
+				'video_image' => $this->images_url . 'products/modula.png',
+				'docu_link'   => 'https://wp-modula.com/kb/create-your-first-gallery/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+				'title' => __( 'How to Publish a Gallery', 'modula-best-grid-gallery' ),
+			),
+			array(
+				'video_link'  => 'https://www.youtube.com/watch?v=g9HU_m8xUBk&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=1',
+				'video_image' => $this->images_url . 'products/modula.png',
+				'docu_link'   => 'https://wp-modula.com/kb/how-to-create-a-gallery-from-zip/',
+				'description' => 'Become familiar with our plugin by reading the documentation.',
+				'title' => __( 'How to Create a Gallery from a ZIP File', 'modula-best-grid-gallery' ),
+			),
+		);
 	}
 }
 

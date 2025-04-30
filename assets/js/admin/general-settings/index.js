@@ -2,66 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/@wordpress/icons/build-module/library/check.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/check.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/**
- * WordPress dependencies
- */
-
-
-const check = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24",
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, {
-    d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
-  })
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (check);
-//# sourceMappingURL=check.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@wordpress/icons/build-module/library/close.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@wordpress/icons/build-module/library/close.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/**
- * WordPress dependencies
- */
-
-
-const close = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24",
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, {
-    d: "m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z"
-  })
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (close);
-//# sourceMappingURL=close.js.map
-
-/***/ }),
-
 /***/ "./apps/general-settings/Content.jsx":
 /*!*******************************************!*\
   !*** ./apps/general-settings/Content.jsx ***!
@@ -577,13 +517,12 @@ function SettingsForm({
       comparison,
       value
     }) => {
-      var _val;
       const keys = field.split('.');
       let val = formValues;
       for (const key of keys) {
         val = val?.[key];
       }
-      return operators[comparison]((_val = val) !== null && _val !== void 0 ? _val : null, value);
+      return operators[comparison](val !== null && val !== void 0 ? val : null, value);
     });
   };
   const handleChange = (fieldState, fieldName, newValue) => {
@@ -1038,6 +977,21 @@ function ClaimCredits() {
     onClick: claimCredits
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Claim Credits', 'modula-best-grid-gallery'))));
 }
+
+/***/ }),
+
+/***/ "./apps/general-settings/ai-settings/settings-form/claim-credits.module.css":
+/*!**********************************************************************************!*\
+  !*** ./apps/general-settings/ai-settings/settings-form/claim-credits.module.css ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modula-best-grid-gallery":"eUb5ii7N7uoX5Zaegq13","container":"oCQCrDElmdDm07U8O0g_","description":"sAqm0q094Cmj3Fff3kKY","buttonContainer":"Ebw3DweCDnwFHPwEje3i"});
 
 /***/ }),
 
@@ -2150,6 +2104,21 @@ function ImportCheckboxGroupField({
 
 /***/ }),
 
+/***/ "./apps/general-settings/fields/ImportCheckboxGroupField.module.scss":
+/*!***************************************************************************!*\
+  !*** ./apps/general-settings/fields/ImportCheckboxGroupField.module.scss ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaCheckboxGroupWrap":"G26WUtzESwRrAfjEdxrw","modulaCheckboxGroup":"Vh7dzBQ1lP8kfFpbtTFA","modulaCheckboxGroupControls":"SSQybBDIV8OAYj8bMjq7","controlButton":"x7O4CFe0bXBoA7IOHFIA","modulaCheckboxGroupOptions":"X9neYpywiG08remH3GVO","checkboxOption":"PURtjyCwA86PlrCJ8i45","modulaCheckboxGroupFail":"G5RwVxLhuOlxNHIqolLA"});
+
+/***/ }),
+
 /***/ "./apps/general-settings/fields/NumberField.jsx":
 /*!******************************************************!*\
   !*** ./apps/general-settings/fields/NumberField.jsx ***!
@@ -2439,6 +2408,21 @@ function RoleField({
 
 /***/ }),
 
+/***/ "./apps/general-settings/fields/RoleField.module.scss":
+/*!************************************************************!*\
+  !*** ./apps/general-settings/fields/RoleField.module.scss ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaRoleFieldCard":"Lm1A08wPHM8GclLe7ph0","modulaRoleFieldCardHead":"Gw7t03RR8QEoNJUYqT6N","modulaRoleHeadToggle":"W7HbF5OVv_JVIMby349Q","modulaRoleFieldCardBody":"T7OEHZLL87xK0wy3BWIx","modulaRoleBodyToggle":"SBWqcPmdFFcRVweI3OSD"});
+
+/***/ }),
+
 /***/ "./apps/general-settings/fields/SelectField.jsx":
 /*!******************************************************!*\
   !*** ./apps/general-settings/fields/SelectField.jsx ***!
@@ -2716,6 +2700,48 @@ function ToggleOptionsField({
 
 /***/ }),
 
+/***/ "./apps/general-settings/fields/radioGroupField.module.scss":
+/*!******************************************************************!*\
+  !*** ./apps/general-settings/fields/radioGroupField.module.scss ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaImageRadioGroup":"qHFQ_sMuRCESwqNiQ3H4","modulaImageRadioGroupOption":"BldaZoqoOO8Ltl6oiD7a","modulaImageRadioGroupInput":"FR6T4lX8aHa3wJv74boX","modulaImageRadioGroupLabel":"WecsCrgF1I2MiXOSQ8tg","modulaImageRadioGroupLabelChecked":"sncYWGhQxuTrdFEDBJQv"});
+
+/***/ }),
+
+/***/ "./apps/general-settings/fields/toggleField.module.scss":
+/*!**************************************************************!*\
+  !*** ./apps/general-settings/fields/toggleField.module.scss ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaToggle":"ayHyBmgI1XDhnl1heGk8","modulaToggleItems":"jwF1q6xwR3gX7xymuDjs","modulaToggleLabel":"JzFje6adbcI1Uf6oZNtX","modulaToggleInput":"Ju3CWaetLeVOIM4vnCez","modulaToggleTrack":"ymwGun3xUsypmF3_dP8W","modulaToggleThumb":"K99mNKZv0YyHfD1xnZVR","modulaToggleOff":"wKYFix8m95ObH9dRYsi8","modulaToggleOn":"Nisw6vcFV43jSBVD42eB"});
+
+/***/ }),
+
+/***/ "./apps/general-settings/index.scss":
+/*!******************************************!*\
+  !*** ./apps/general-settings/index.scss ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./apps/general-settings/query/client.js":
 /*!***********************************************!*\
   !*** ./apps/general-settings/query/client.js ***!
@@ -2938,1753 +2964,6 @@ const useTabsQuery = () => {
 
 /***/ }),
 
-/***/ "./apps/general-settings/ai-settings/settings-form/claim-credits.module.css":
-/*!**********************************************************************************!*\
-  !*** ./apps/general-settings/ai-settings/settings-form/claim-credits.module.css ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// extracted by mini-css-extract-plugin
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modula-best-grid-gallery":"eUb5ii7N7uoX5Zaegq13","container":"oCQCrDElmdDm07U8O0g_","description":"sAqm0q094Cmj3Fff3kKY","buttonContainer":"Ebw3DweCDnwFHPwEje3i"});
-
-/***/ }),
-
-/***/ "./apps/general-settings/fields/ImportCheckboxGroupField.module.scss":
-/*!***************************************************************************!*\
-  !*** ./apps/general-settings/fields/ImportCheckboxGroupField.module.scss ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// extracted by mini-css-extract-plugin
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaCheckboxGroupWrap":"G26WUtzESwRrAfjEdxrw","modulaCheckboxGroup":"Vh7dzBQ1lP8kfFpbtTFA","modulaCheckboxGroupControls":"SSQybBDIV8OAYj8bMjq7","controlButton":"x7O4CFe0bXBoA7IOHFIA","modulaCheckboxGroupOptions":"X9neYpywiG08remH3GVO","checkboxOption":"PURtjyCwA86PlrCJ8i45","modulaCheckboxGroupFail":"G5RwVxLhuOlxNHIqolLA"});
-
-/***/ }),
-
-/***/ "./apps/general-settings/fields/RoleField.module.scss":
-/*!************************************************************!*\
-  !*** ./apps/general-settings/fields/RoleField.module.scss ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// extracted by mini-css-extract-plugin
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaRoleFieldCard":"Lm1A08wPHM8GclLe7ph0","modulaRoleFieldCardHead":"Gw7t03RR8QEoNJUYqT6N","modulaRoleHeadToggle":"W7HbF5OVv_JVIMby349Q","modulaRoleFieldCardBody":"T7OEHZLL87xK0wy3BWIx","modulaRoleBodyToggle":"SBWqcPmdFFcRVweI3OSD"});
-
-/***/ }),
-
-/***/ "./apps/general-settings/fields/radioGroupField.module.scss":
-/*!******************************************************************!*\
-  !*** ./apps/general-settings/fields/radioGroupField.module.scss ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// extracted by mini-css-extract-plugin
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaImageRadioGroup":"qHFQ_sMuRCESwqNiQ3H4","modulaImageRadioGroupOption":"BldaZoqoOO8Ltl6oiD7a","modulaImageRadioGroupInput":"FR6T4lX8aHa3wJv74boX","modulaImageRadioGroupLabel":"WecsCrgF1I2MiXOSQ8tg","modulaImageRadioGroupLabelChecked":"sncYWGhQxuTrdFEDBJQv"});
-
-/***/ }),
-
-/***/ "./apps/general-settings/fields/toggleField.module.scss":
-/*!**************************************************************!*\
-  !*** ./apps/general-settings/fields/toggleField.module.scss ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-// extracted by mini-css-extract-plugin
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({"modulaToggle":"ayHyBmgI1XDhnl1heGk8","modulaToggleItems":"jwF1q6xwR3gX7xymuDjs","modulaToggleLabel":"JzFje6adbcI1Uf6oZNtX","modulaToggleInput":"Ju3CWaetLeVOIM4vnCez","modulaToggleTrack":"ymwGun3xUsypmF3_dP8W","modulaToggleThumb":"K99mNKZv0YyHfD1xnZVR","modulaToggleOff":"wKYFix8m95ObH9dRYsi8","modulaToggleOn":"Nisw6vcFV43jSBVD42eB"});
-
-/***/ }),
-
-/***/ "./apps/general-settings/index.scss":
-/*!******************************************!*\
-  !*** ./apps/general-settings/index.scss ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./node_modules/react/cjs/react-jsx-runtime.development.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/react/cjs/react-jsx-runtime.development.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-/**
- * @license React
- * react-jsx-runtime.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-var React = __webpack_require__(/*! react */ "react");
-
-// ATTENTION
-// When adding new symbols to this file,
-// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-// The Symbol used to tag the ReactElement-like types.
-var REACT_ELEMENT_TYPE = Symbol.for('react.element');
-var REACT_PORTAL_TYPE = Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE = Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE = Symbol.for('react.memo');
-var REACT_LAZY_TYPE = Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = '@@iterator';
-function getIteratorFn(maybeIterable) {
-  if (maybeIterable === null || typeof maybeIterable !== 'object') {
-    return null;
-  }
-
-  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-  if (typeof maybeIterator === 'function') {
-    return maybeIterator;
-  }
-
-  return null;
-}
-
-var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-function error(format) {
-  {
-    {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
-      printWarning('error', format, args);
-    }
-  }
-}
-
-function printWarning(level, format, args) {
-  // When changing this logic, you might want to also
-  // update consoleWithStackDev.www.js as well.
-  {
-    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-    var stack = ReactDebugCurrentFrame.getStackAddendum();
-
-    if (stack !== '') {
-      format += '%s';
-      args = args.concat([stack]);
-    } // eslint-disable-next-line react-internal/safe-string-coercion
-
-
-    var argsWithFormat = args.map(function (item) {
-      return String(item);
-    }); // Careful: RN currently depends on this prefix
-
-    argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
-    // breaks IE9: https://github.com/facebook/react/issues/13610
-    // eslint-disable-next-line react-internal/no-production-logging
-
-    Function.prototype.apply.call(console[level], console, argsWithFormat);
-  }
-}
-
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
-
-var REACT_MODULE_REFERENCE;
-
-{
-  REACT_MODULE_REFERENCE = Symbol.for('react.module.reference');
-}
-
-function isValidElementType(type) {
-  if (typeof type === 'string' || typeof type === 'function') {
-    return true;
-  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
-
-
-  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || enableDebugTracing  || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || enableLegacyHidden  || type === REACT_OFFSCREEN_TYPE || enableScopeAPI  || enableCacheElement  || enableTransitionTracing ) {
-    return true;
-  }
-
-  if (typeof type === 'object' && type !== null) {
-    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
-    // types supported by any Flight configuration anywhere since
-    // we don't know which Flight build this will end up being used
-    // with.
-    type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== undefined) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function getWrappedName(outerType, innerType, wrapperName) {
-  var displayName = outerType.displayName;
-
-  if (displayName) {
-    return displayName;
-  }
-
-  var functionName = innerType.displayName || innerType.name || '';
-  return functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName;
-} // Keep in sync with react-reconciler/getComponentNameFromFiber
-
-
-function getContextName(type) {
-  return type.displayName || 'Context';
-} // Note that the reconciler package should generally prefer to use getComponentNameFromFiber() instead.
-
-
-function getComponentNameFromType(type) {
-  if (type == null) {
-    // Host root, text node or just invalid type.
-    return null;
-  }
-
-  {
-    if (typeof type.tag === 'number') {
-      error('Received an unexpected object in getComponentNameFromType(). ' + 'This is likely a bug in React. Please file an issue.');
-    }
-  }
-
-  if (typeof type === 'function') {
-    return type.displayName || type.name || null;
-  }
-
-  if (typeof type === 'string') {
-    return type;
-  }
-
-  switch (type) {
-    case REACT_FRAGMENT_TYPE:
-      return 'Fragment';
-
-    case REACT_PORTAL_TYPE:
-      return 'Portal';
-
-    case REACT_PROFILER_TYPE:
-      return 'Profiler';
-
-    case REACT_STRICT_MODE_TYPE:
-      return 'StrictMode';
-
-    case REACT_SUSPENSE_TYPE:
-      return 'Suspense';
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return 'SuspenseList';
-
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_CONTEXT_TYPE:
-        var context = type;
-        return getContextName(context) + '.Consumer';
-
-      case REACT_PROVIDER_TYPE:
-        var provider = type;
-        return getContextName(provider._context) + '.Provider';
-
-      case REACT_FORWARD_REF_TYPE:
-        return getWrappedName(type, type.render, 'ForwardRef');
-
-      case REACT_MEMO_TYPE:
-        var outerName = type.displayName || null;
-
-        if (outerName !== null) {
-          return outerName;
-        }
-
-        return getComponentNameFromType(type.type) || 'Memo';
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            return getComponentNameFromType(init(payload));
-          } catch (x) {
-            return null;
-          }
-        }
-
-      // eslint-disable-next-line no-fallthrough
-    }
-  }
-
-  return null;
-}
-
-var assign = Object.assign;
-
-// Helpers to patch console.logs to avoid logging during side-effect free
-// replaying on render function. This currently only patches the object
-// lazily which won't cover if the log function was extracted eagerly.
-// We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
-
-function disabledLog() {}
-
-disabledLog.__reactDisabledLog = true;
-function disableLogs() {
-  {
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      prevLog = console.log;
-      prevInfo = console.info;
-      prevWarn = console.warn;
-      prevError = console.error;
-      prevGroup = console.group;
-      prevGroupCollapsed = console.groupCollapsed;
-      prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
-
-      var props = {
-        configurable: true,
-        enumerable: true,
-        value: disabledLog,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        info: props,
-        log: props,
-        warn: props,
-        error: props,
-        group: props,
-        groupCollapsed: props,
-        groupEnd: props
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    disabledDepth++;
-  }
-}
-function reenableLogs() {
-  {
-    disabledDepth--;
-
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      var props = {
-        configurable: true,
-        enumerable: true,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        log: assign({}, props, {
-          value: prevLog
-        }),
-        info: assign({}, props, {
-          value: prevInfo
-        }),
-        warn: assign({}, props, {
-          value: prevWarn
-        }),
-        error: assign({}, props, {
-          value: prevError
-        }),
-        group: assign({}, props, {
-          value: prevGroup
-        }),
-        groupCollapsed: assign({}, props, {
-          value: prevGroupCollapsed
-        }),
-        groupEnd: assign({}, props, {
-          value: prevGroupEnd
-        })
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    if (disabledDepth < 0) {
-      error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
-    }
-  }
-}
-
-var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
-var prefix;
-function describeBuiltInComponentFrame(name, source, ownerFn) {
-  {
-    if (prefix === undefined) {
-      // Extract the VM specific prefix used by each line.
-      try {
-        throw Error();
-      } catch (x) {
-        var match = x.stack.trim().match(/\n( *(at )?)/);
-        prefix = match && match[1] || '';
-      }
-    } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-    return '\n' + prefix + name;
-  }
-}
-var reentry = false;
-var componentFrameCache;
-
-{
-  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
-  componentFrameCache = new PossiblyWeakMap();
-}
-
-function describeNativeComponentFrame(fn, construct) {
-  // If something asked for a stack inside a fake render, it should get ignored.
-  if ( !fn || reentry) {
-    return '';
-  }
-
-  {
-    var frame = componentFrameCache.get(fn);
-
-    if (frame !== undefined) {
-      return frame;
-    }
-  }
-
-  var control;
-  reentry = true;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
-
-  Error.prepareStackTrace = undefined;
-  var previousDispatcher;
-
-  {
-    previousDispatcher = ReactCurrentDispatcher.current; // Set the dispatcher in DEV because this might be call in the render function
-    // for warnings.
-
-    ReactCurrentDispatcher.current = null;
-    disableLogs();
-  }
-
-  try {
-    // This should throw.
-    if (construct) {
-      // Something should be setting the props in the constructor.
-      var Fake = function () {
-        throw Error();
-      }; // $FlowFixMe
-
-
-      Object.defineProperty(Fake.prototype, 'props', {
-        set: function () {
-          // We use a throwing setter instead of frozen or non-writable props
-          // because that won't throw in a non-strict mode function.
-          throw Error();
-        }
-      });
-
-      if (typeof Reflect === 'object' && Reflect.construct) {
-        // We construct a different control for this case to include any extra
-        // frames added by the construct call.
-        try {
-          Reflect.construct(Fake, []);
-        } catch (x) {
-          control = x;
-        }
-
-        Reflect.construct(fn, [], Fake);
-      } else {
-        try {
-          Fake.call();
-        } catch (x) {
-          control = x;
-        }
-
-        fn.call(Fake.prototype);
-      }
-    } else {
-      try {
-        throw Error();
-      } catch (x) {
-        control = x;
-      }
-
-      fn();
-    }
-  } catch (sample) {
-    // This is inlined manually because closure doesn't do it for us.
-    if (sample && control && typeof sample.stack === 'string') {
-      // This extracts the first frame from the sample that isn't also in the control.
-      // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
-
-      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-        // We expect at least one stack frame to be shared.
-        // Typically this will be the root most one. However, stack frames may be
-        // cut off due to maximum stack limits. In this case, one maybe cut off
-        // earlier than the other. We assume that the sample is longer or the same
-        // and there for cut off earlier. So we should find the root most frame in
-        // the sample somewhere in the control.
-        c--;
-      }
-
-      for (; s >= 1 && c >= 0; s--, c--) {
-        // Next we find the first one that isn't the same which should be the
-        // frame that called our sample function and the control.
-        if (sampleLines[s] !== controlLines[c]) {
-          // In V8, the first line is describing the message but other VMs don't.
-          // If we're about to return the first line, and the control is also on the same
-          // line, that's a pretty good indicator that our sample threw at same line as
-          // the control. I.e. before we entered the sample frame. So we ignore this result.
-          // This can happen if you passed a class to function component, or non-function.
-          if (s !== 1 || c !== 1) {
-            do {
-              s--;
-              c--; // We may still have similar intermediate frames from the construct call.
-              // The next one that isn't the same should be our match though.
-
-              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at '); // If our component frame is labeled "<anonymous>"
-                // but we have a user-provided "displayName"
-                // splice it in to make the stack more readable.
-
-
-                if (fn.displayName && _frame.includes('<anonymous>')) {
-                  _frame = _frame.replace('<anonymous>', fn.displayName);
-                }
-
-                {
-                  if (typeof fn === 'function') {
-                    componentFrameCache.set(fn, _frame);
-                  }
-                } // Return the line we found.
-
-
-                return _frame;
-              }
-            } while (s >= 1 && c >= 0);
-          }
-
-          break;
-        }
-      }
-    }
-  } finally {
-    reentry = false;
-
-    {
-      ReactCurrentDispatcher.current = previousDispatcher;
-      reenableLogs();
-    }
-
-    Error.prepareStackTrace = previousPrepareStackTrace;
-  } // Fallback to just using the name if we couldn't make it throw.
-
-
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-  {
-    if (typeof fn === 'function') {
-      componentFrameCache.set(fn, syntheticFrame);
-    }
-  }
-
-  return syntheticFrame;
-}
-function describeFunctionComponentFrame(fn, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(fn, false);
-  }
-}
-
-function shouldConstruct(Component) {
-  var prototype = Component.prototype;
-  return !!(prototype && prototype.isReactComponent);
-}
-
-function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-
-  if (type == null) {
-    return '';
-  }
-
-  if (typeof type === 'function') {
-    {
-      return describeNativeComponentFrame(type, shouldConstruct(type));
-    }
-  }
-
-  if (typeof type === 'string') {
-    return describeBuiltInComponentFrame(type);
-  }
-
-  switch (type) {
-    case REACT_SUSPENSE_TYPE:
-      return describeBuiltInComponentFrame('Suspense');
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return describeBuiltInComponentFrame('SuspenseList');
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        return describeFunctionComponentFrame(type.render);
-
-      case REACT_MEMO_TYPE:
-        // Memo may contain any component type so we recursively resolve it.
-        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            // Lazy may contain any component type so we recursively resolve it.
-            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-          } catch (x) {}
-        }
-    }
-  }
-
-  return '';
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-var loggedTypeFailures = {};
-var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame.setExtraStackFrame(null);
-    }
-  }
-}
-
-function checkPropTypes(typeSpecs, values, location, componentName, element) {
-  {
-    // $FlowFixMe This is okay but Flow doesn't know it.
-    var has = Function.call.bind(hasOwnProperty);
-
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error$1 = void 0; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            // eslint-disable-next-line react-internal/prod-error-codes
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
-        } catch (ex) {
-          error$1 = ex;
-        }
-
-        if (error$1 && !(error$1 instanceof Error)) {
-          setCurrentlyValidatingElement(element);
-
-          error('%s: type specification of %s' + ' `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error$1);
-
-          setCurrentlyValidatingElement(null);
-        }
-
-        if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error$1.message] = true;
-          setCurrentlyValidatingElement(element);
-
-          error('Failed %s type: %s', location, error$1.message);
-
-          setCurrentlyValidatingElement(null);
-        }
-      }
-    }
-  }
-}
-
-var isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
-
-function isArray(a) {
-  return isArrayImpl(a);
-}
-
-/*
- * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
- * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
- *
- * The functions in this module will throw an easier-to-understand,
- * easier-to-debug exception with a clear errors message message explaining the
- * problem. (Instead of a confusing exception thrown inside the implementation
- * of the `value` object).
- */
-// $FlowFixMe only called in DEV, so void return is not possible.
-function typeName(value) {
-  {
-    // toStringTag is needed for namespaced types like Temporal.Instant
-    var hasToStringTag = typeof Symbol === 'function' && Symbol.toStringTag;
-    var type = hasToStringTag && value[Symbol.toStringTag] || value.constructor.name || 'Object';
-    return type;
-  }
-} // $FlowFixMe only called in DEV, so void return is not possible.
-
-
-function willCoercionThrow(value) {
-  {
-    try {
-      testStringCoercion(value);
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-}
-
-function testStringCoercion(value) {
-  // If you ended up here by following an exception call stack, here's what's
-  // happened: you supplied an object or symbol value to React (as a prop, key,
-  // DOM attribute, CSS property, string ref, etc.) and when React tried to
-  // coerce it to a string using `'' + value`, an exception was thrown.
-  //
-  // The most common types that will cause this exception are `Symbol` instances
-  // and Temporal objects like `Temporal.Instant`. But any object that has a
-  // `valueOf` or `[Symbol.toPrimitive]` method that throws will also cause this
-  // exception. (Library authors do this to prevent users from using built-in
-  // numeric operators like `+` or comparison operators like `>=` because custom
-  // methods are needed to perform accurate arithmetic or comparison.)
-  //
-  // To fix the problem, coerce this object or symbol value to a string before
-  // passing it to React. The most reliable way is usually `String(value)`.
-  //
-  // To find which value is throwing, check the browser or debugger console.
-  // Before this exception was thrown, there should be `console.error` output
-  // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
-  // problem and how that type was used: key, atrribute, input value prop, etc.
-  // In most cases, this console output also shows the component and its
-  // ancestor components where the exception happened.
-  //
-  // eslint-disable-next-line react-internal/safe-string-coercion
-  return '' + value;
-}
-function checkKeyStringCoercion(value) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided key is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-
-var ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
-var RESERVED_PROPS = {
-  key: true,
-  ref: true,
-  __self: true,
-  __source: true
-};
-var specialPropKeyWarningShown;
-var specialPropRefWarningShown;
-var didWarnAboutStringRefs;
-
-{
-  didWarnAboutStringRefs = {};
-}
-
-function hasValidRef(config) {
-  {
-    if (hasOwnProperty.call(config, 'ref')) {
-      var getter = Object.getOwnPropertyDescriptor(config, 'ref').get;
-
-      if (getter && getter.isReactWarning) {
-        return false;
-      }
-    }
-  }
-
-  return config.ref !== undefined;
-}
-
-function hasValidKey(config) {
-  {
-    if (hasOwnProperty.call(config, 'key')) {
-      var getter = Object.getOwnPropertyDescriptor(config, 'key').get;
-
-      if (getter && getter.isReactWarning) {
-        return false;
-      }
-    }
-  }
-
-  return config.key !== undefined;
-}
-
-function warnIfStringRefCannotBeAutoConverted(config, self) {
-  {
-    if (typeof config.ref === 'string' && ReactCurrentOwner.current && self && ReactCurrentOwner.current.stateNode !== self) {
-      var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
-
-      if (!didWarnAboutStringRefs[componentName]) {
-        error('Component "%s" contains the string ref "%s". ' + 'Support for string refs will be removed in a future major release. ' + 'This case cannot be automatically converted to an arrow function. ' + 'We ask you to manually fix this case by using useRef() or createRef() instead. ' + 'Learn more about using refs safely here: ' + 'https://reactjs.org/link/strict-mode-string-ref', getComponentNameFromType(ReactCurrentOwner.current.type), config.ref);
-
-        didWarnAboutStringRefs[componentName] = true;
-      }
-    }
-  }
-}
-
-function defineKeyPropWarningGetter(props, displayName) {
-  {
-    var warnAboutAccessingKey = function () {
-      if (!specialPropKeyWarningShown) {
-        specialPropKeyWarningShown = true;
-
-        error('%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-      }
-    };
-
-    warnAboutAccessingKey.isReactWarning = true;
-    Object.defineProperty(props, 'key', {
-      get: warnAboutAccessingKey,
-      configurable: true
-    });
-  }
-}
-
-function defineRefPropWarningGetter(props, displayName) {
-  {
-    var warnAboutAccessingRef = function () {
-      if (!specialPropRefWarningShown) {
-        specialPropRefWarningShown = true;
-
-        error('%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-      }
-    };
-
-    warnAboutAccessingRef.isReactWarning = true;
-    Object.defineProperty(props, 'ref', {
-      get: warnAboutAccessingRef,
-      configurable: true
-    });
-  }
-}
-/**
- * Factory method to create a new React element. This no longer adheres to
- * the class pattern, so do not use new to call it. Also, instanceof check
- * will not work. Instead test $$typeof field against Symbol.for('react.element') to check
- * if something is a React Element.
- *
- * @param {*} type
- * @param {*} props
- * @param {*} key
- * @param {string|object} ref
- * @param {*} owner
- * @param {*} self A *temporary* helper to detect places where `this` is
- * different from the `owner` when React.createElement is called, so that we
- * can warn. We want to get rid of owner and replace string `ref`s with arrow
- * functions, and as long as `this` and owner are the same, there will be no
- * change in behavior.
- * @param {*} source An annotation object (added by a transpiler or otherwise)
- * indicating filename, line number, and/or other information.
- * @internal
- */
-
-
-var ReactElement = function (type, key, ref, self, source, owner, props) {
-  var element = {
-    // This tag allows us to uniquely identify this as a React Element
-    $$typeof: REACT_ELEMENT_TYPE,
-    // Built-in properties that belong on the element
-    type: type,
-    key: key,
-    ref: ref,
-    props: props,
-    // Record the component responsible for creating this element.
-    _owner: owner
-  };
-
-  {
-    // The validation flag is currently mutative. We put it on
-    // an external backing store so that we can freeze the whole object.
-    // This can be replaced with a WeakMap once they are implemented in
-    // commonly used development environments.
-    element._store = {}; // To make comparing ReactElements easier for testing purposes, we make
-    // the validation flag non-enumerable (where possible, which should
-    // include every environment we run tests in), so the test framework
-    // ignores it.
-
-    Object.defineProperty(element._store, 'validated', {
-      configurable: false,
-      enumerable: false,
-      writable: true,
-      value: false
-    }); // self and source are DEV only properties.
-
-    Object.defineProperty(element, '_self', {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: self
-    }); // Two elements created in two different places should be considered
-    // equal for testing purposes and therefore we hide it from enumeration.
-
-    Object.defineProperty(element, '_source', {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: source
-    });
-
-    if (Object.freeze) {
-      Object.freeze(element.props);
-      Object.freeze(element);
-    }
-  }
-
-  return element;
-};
-/**
- * https://github.com/reactjs/rfcs/pull/107
- * @param {*} type
- * @param {object} props
- * @param {string} key
- */
-
-function jsxDEV(type, config, maybeKey, source, self) {
-  {
-    var propName; // Reserved names are extracted
-
-    var props = {};
-    var key = null;
-    var ref = null; // Currently, key can be spread in as a prop. This causes a potential
-    // issue if key is also explicitly declared (ie. <div {...props} key="Hi" />
-    // or <div key="Hi" {...props} /> ). We want to deprecate key spread,
-    // but as an intermediary step, we will use jsxDEV for everything except
-    // <div {...props} key="Hi" />, because we aren't currently able to tell if
-    // key is explicitly declared to be undefined or not.
-
-    if (maybeKey !== undefined) {
-      {
-        checkKeyStringCoercion(maybeKey);
-      }
-
-      key = '' + maybeKey;
-    }
-
-    if (hasValidKey(config)) {
-      {
-        checkKeyStringCoercion(config.key);
-      }
-
-      key = '' + config.key;
-    }
-
-    if (hasValidRef(config)) {
-      ref = config.ref;
-      warnIfStringRefCannotBeAutoConverted(config, self);
-    } // Remaining properties are added to a new props object
-
-
-    for (propName in config) {
-      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-        props[propName] = config[propName];
-      }
-    } // Resolve default props
-
-
-    if (type && type.defaultProps) {
-      var defaultProps = type.defaultProps;
-
-      for (propName in defaultProps) {
-        if (props[propName] === undefined) {
-          props[propName] = defaultProps[propName];
-        }
-      }
-    }
-
-    if (key || ref) {
-      var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
-
-      if (key) {
-        defineKeyPropWarningGetter(props, displayName);
-      }
-
-      if (ref) {
-        defineRefPropWarningGetter(props, displayName);
-      }
-    }
-
-    return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
-  }
-}
-
-var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
-var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement$1(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame$1.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame$1.setExtraStackFrame(null);
-    }
-  }
-}
-
-var propTypesMisspellWarningShown;
-
-{
-  propTypesMisspellWarningShown = false;
-}
-/**
- * Verifies the object is a ReactElement.
- * See https://reactjs.org/docs/react-api.html#isvalidelement
- * @param {?object} object
- * @return {boolean} True if `object` is a ReactElement.
- * @final
- */
-
-
-function isValidElement(object) {
-  {
-    return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-  }
-}
-
-function getDeclarationErrorAddendum() {
-  {
-    if (ReactCurrentOwner$1.current) {
-      var name = getComponentNameFromType(ReactCurrentOwner$1.current.type);
-
-      if (name) {
-        return '\n\nCheck the render method of `' + name + '`.';
-      }
-    }
-
-    return '';
-  }
-}
-
-function getSourceInfoErrorAddendum(source) {
-  {
-    if (source !== undefined) {
-      var fileName = source.fileName.replace(/^.*[\\\/]/, '');
-      var lineNumber = source.lineNumber;
-      return '\n\nCheck your code at ' + fileName + ':' + lineNumber + '.';
-    }
-
-    return '';
-  }
-}
-/**
- * Warn if there's no key explicitly set on dynamic arrays of children or
- * object keys are not valid. This allows us to keep track of children between
- * updates.
- */
-
-
-var ownerHasKeyUseWarning = {};
-
-function getCurrentComponentErrorInfo(parentType) {
-  {
-    var info = getDeclarationErrorAddendum();
-
-    if (!info) {
-      var parentName = typeof parentType === 'string' ? parentType : parentType.displayName || parentType.name;
-
-      if (parentName) {
-        info = "\n\nCheck the top-level render call using <" + parentName + ">.";
-      }
-    }
-
-    return info;
-  }
-}
-/**
- * Warn if the element doesn't have an explicit key assigned to it.
- * This element is in an array. The array could grow and shrink or be
- * reordered. All children that haven't already been validated are required to
- * have a "key" property assigned to it. Error statuses are cached so a warning
- * will only be shown once.
- *
- * @internal
- * @param {ReactElement} element Element that requires a key.
- * @param {*} parentType element's parent's type.
- */
-
-
-function validateExplicitKey(element, parentType) {
-  {
-    if (!element._store || element._store.validated || element.key != null) {
-      return;
-    }
-
-    element._store.validated = true;
-    var currentComponentErrorInfo = getCurrentComponentErrorInfo(parentType);
-
-    if (ownerHasKeyUseWarning[currentComponentErrorInfo]) {
-      return;
-    }
-
-    ownerHasKeyUseWarning[currentComponentErrorInfo] = true; // Usually the current owner is the offender, but if it accepts children as a
-    // property, it may be the creator of the child that's responsible for
-    // assigning it a key.
-
-    var childOwner = '';
-
-    if (element && element._owner && element._owner !== ReactCurrentOwner$1.current) {
-      // Give the component that originally created this child.
-      childOwner = " It was passed a child from " + getComponentNameFromType(element._owner.type) + ".";
-    }
-
-    setCurrentlyValidatingElement$1(element);
-
-    error('Each child in a list should have a unique "key" prop.' + '%s%s See https://reactjs.org/link/warning-keys for more information.', currentComponentErrorInfo, childOwner);
-
-    setCurrentlyValidatingElement$1(null);
-  }
-}
-/**
- * Ensure that every element either is passed in a static location, in an
- * array with an explicit keys property defined, or in an object literal
- * with valid key property.
- *
- * @internal
- * @param {ReactNode} node Statically passed child of any type.
- * @param {*} parentType node's parent's type.
- */
-
-
-function validateChildKeys(node, parentType) {
-  {
-    if (typeof node !== 'object') {
-      return;
-    }
-
-    if (isArray(node)) {
-      for (var i = 0; i < node.length; i++) {
-        var child = node[i];
-
-        if (isValidElement(child)) {
-          validateExplicitKey(child, parentType);
-        }
-      }
-    } else if (isValidElement(node)) {
-      // This element was passed in a valid location.
-      if (node._store) {
-        node._store.validated = true;
-      }
-    } else if (node) {
-      var iteratorFn = getIteratorFn(node);
-
-      if (typeof iteratorFn === 'function') {
-        // Entry iterators used to provide implicit keys,
-        // but now we print a separate warning for them later.
-        if (iteratorFn !== node.entries) {
-          var iterator = iteratorFn.call(node);
-          var step;
-
-          while (!(step = iterator.next()).done) {
-            if (isValidElement(step.value)) {
-              validateExplicitKey(step.value, parentType);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-/**
- * Given an element, validate that its props follow the propTypes definition,
- * provided by the type.
- *
- * @param {ReactElement} element
- */
-
-
-function validatePropTypes(element) {
-  {
-    var type = element.type;
-
-    if (type === null || type === undefined || typeof type === 'string') {
-      return;
-    }
-
-    var propTypes;
-
-    if (typeof type === 'function') {
-      propTypes = type.propTypes;
-    } else if (typeof type === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE || // Note: Memo only checks outer props here.
-    // Inner props are checked in the reconciler.
-    type.$$typeof === REACT_MEMO_TYPE)) {
-      propTypes = type.propTypes;
-    } else {
-      return;
-    }
-
-    if (propTypes) {
-      // Intentionally inside to avoid triggering lazy initializers:
-      var name = getComponentNameFromType(type);
-      checkPropTypes(propTypes, element.props, 'prop', name, element);
-    } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
-      propTypesMisspellWarningShown = true; // Intentionally inside to avoid triggering lazy initializers:
-
-      var _name = getComponentNameFromType(type);
-
-      error('Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', _name || 'Unknown');
-    }
-
-    if (typeof type.getDefaultProps === 'function' && !type.getDefaultProps.isReactClassApproved) {
-      error('getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.');
-    }
-  }
-}
-/**
- * Given a fragment, validate that it can only be provided with fragment props
- * @param {ReactElement} fragment
- */
-
-
-function validateFragmentProps(fragment) {
-  {
-    var keys = Object.keys(fragment.props);
-
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
-
-      if (key !== 'children' && key !== 'key') {
-        setCurrentlyValidatingElement$1(fragment);
-
-        error('Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.', key);
-
-        setCurrentlyValidatingElement$1(null);
-        break;
-      }
-    }
-
-    if (fragment.ref !== null) {
-      setCurrentlyValidatingElement$1(fragment);
-
-      error('Invalid attribute `ref` supplied to `React.Fragment`.');
-
-      setCurrentlyValidatingElement$1(null);
-    }
-  }
-}
-
-var didWarnAboutKeySpread = {};
-function jsxWithValidation(type, props, key, isStaticChildren, source, self) {
-  {
-    var validType = isValidElementType(type); // We warn in this case but don't throw. We expect the element creation to
-    // succeed and there will likely be errors in render.
-
-    if (!validType) {
-      var info = '';
-
-      if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-        info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and named imports.";
-      }
-
-      var sourceInfo = getSourceInfoErrorAddendum(source);
-
-      if (sourceInfo) {
-        info += sourceInfo;
-      } else {
-        info += getDeclarationErrorAddendum();
-      }
-
-      var typeString;
-
-      if (type === null) {
-        typeString = 'null';
-      } else if (isArray(type)) {
-        typeString = 'array';
-      } else if (type !== undefined && type.$$typeof === REACT_ELEMENT_TYPE) {
-        typeString = "<" + (getComponentNameFromType(type.type) || 'Unknown') + " />";
-        info = ' Did you accidentally export a JSX literal instead of a component?';
-      } else {
-        typeString = typeof type;
-      }
-
-      error('React.jsx: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
-    }
-
-    var element = jsxDEV(type, props, key, source, self); // The result can be nullish if a mock or a custom function is used.
-    // TODO: Drop this when these are no longer allowed as the type argument.
-
-    if (element == null) {
-      return element;
-    } // Skip key warning if the type isn't valid since our key validation logic
-    // doesn't expect a non-string/function type and can throw confusing errors.
-    // We don't want exception behavior to differ between dev and prod.
-    // (Rendering will throw with a helpful message and as soon as the type is
-    // fixed, the key warnings will appear.)
-
-
-    if (validType) {
-      var children = props.children;
-
-      if (children !== undefined) {
-        if (isStaticChildren) {
-          if (isArray(children)) {
-            for (var i = 0; i < children.length; i++) {
-              validateChildKeys(children[i], type);
-            }
-
-            if (Object.freeze) {
-              Object.freeze(children);
-            }
-          } else {
-            error('React.jsx: Static children should always be an array. ' + 'You are likely explicitly calling React.jsxs or React.jsxDEV. ' + 'Use the Babel transform instead.');
-          }
-        } else {
-          validateChildKeys(children, type);
-        }
-      }
-    }
-
-    {
-      if (hasOwnProperty.call(props, 'key')) {
-        var componentName = getComponentNameFromType(type);
-        var keys = Object.keys(props).filter(function (k) {
-          return k !== 'key';
-        });
-        var beforeExample = keys.length > 0 ? '{key: someKey, ' + keys.join(': ..., ') + ': ...}' : '{key: someKey}';
-
-        if (!didWarnAboutKeySpread[componentName + beforeExample]) {
-          var afterExample = keys.length > 0 ? '{' + keys.join(': ..., ') + ': ...}' : '{}';
-
-          error('A props object containing a "key" prop is being spread into JSX:\n' + '  let props = %s;\n' + '  <%s {...props} />\n' + 'React keys must be passed directly to JSX without using spread:\n' + '  let props = %s;\n' + '  <%s key={someKey} {...props} />', beforeExample, componentName, afterExample, componentName);
-
-          didWarnAboutKeySpread[componentName + beforeExample] = true;
-        }
-      }
-    }
-
-    if (type === REACT_FRAGMENT_TYPE) {
-      validateFragmentProps(element);
-    } else {
-      validatePropTypes(element);
-    }
-
-    return element;
-  }
-} // These two functions exist to still get child warnings in dev
-// even with the prod transform. This means that jsxDEV is purely
-// opt-in behavior for better messages but that we won't stop
-// giving you warnings if you use production apis.
-
-function jsxWithValidationStatic(type, props, key) {
-  {
-    return jsxWithValidation(type, props, key, true);
-  }
-}
-function jsxWithValidationDynamic(type, props, key) {
-  {
-    return jsxWithValidation(type, props, key, false);
-  }
-}
-
-var jsx =  jsxWithValidationDynamic ; // we may want to special case jsxs internally to take advantage of static children.
-// for now we can ship identical prod functions
-
-var jsxs =  jsxWithValidationStatic ;
-
-exports.Fragment = REACT_FRAGMENT_TYPE;
-exports.jsx = jsx;
-exports.jsxs = jsxs;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react/jsx-runtime.js":
-/*!*******************************************!*\
-  !*** ./node_modules/react/jsx-runtime.js ***!
-  \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ "./node_modules/react/cjs/react-jsx-runtime.development.js");
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js ***!
-  \**********************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-/**
- * @license React
- * use-sync-external-store-shim.development.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
- true &&
-  (function () {
-    function is(x, y) {
-      return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
-    }
-    function useSyncExternalStore$2(subscribe, getSnapshot) {
-      didWarnOld18Alpha ||
-        void 0 === React.startTransition ||
-        ((didWarnOld18Alpha = !0),
-        console.error(
-          "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
-        ));
-      var value = getSnapshot();
-      if (!didWarnUncachedGetSnapshot) {
-        var cachedValue = getSnapshot();
-        objectIs(value, cachedValue) ||
-          (console.error(
-            "The result of getSnapshot should be cached to avoid an infinite loop"
-          ),
-          (didWarnUncachedGetSnapshot = !0));
-      }
-      cachedValue = useState({
-        inst: { value: value, getSnapshot: getSnapshot }
-      });
-      var inst = cachedValue[0].inst,
-        forceUpdate = cachedValue[1];
-      useLayoutEffect(
-        function () {
-          inst.value = value;
-          inst.getSnapshot = getSnapshot;
-          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
-        },
-        [subscribe, value, getSnapshot]
-      );
-      useEffect(
-        function () {
-          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
-          return subscribe(function () {
-            checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
-          });
-        },
-        [subscribe]
-      );
-      useDebugValue(value);
-      return value;
-    }
-    function checkIfSnapshotChanged(inst) {
-      var latestGetSnapshot = inst.getSnapshot;
-      inst = inst.value;
-      try {
-        var nextValue = latestGetSnapshot();
-        return !objectIs(inst, nextValue);
-      } catch (error) {
-        return !0;
-      }
-    }
-    function useSyncExternalStore$1(subscribe, getSnapshot) {
-      return getSnapshot();
-    }
-    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
-      "function" ===
-        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
-      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-    var React = __webpack_require__(/*! react */ "react"),
-      objectIs = "function" === typeof Object.is ? Object.is : is,
-      useState = React.useState,
-      useEffect = React.useEffect,
-      useLayoutEffect = React.useLayoutEffect,
-      useDebugValue = React.useDebugValue,
-      didWarnOld18Alpha = !1,
-      didWarnUncachedGetSnapshot = !1,
-      shim =
-        "undefined" === typeof window ||
-        "undefined" === typeof window.document ||
-        "undefined" === typeof window.document.createElement
-          ? useSyncExternalStore$1
-          : useSyncExternalStore$2;
-    exports.useSyncExternalStore =
-      void 0 !== React.useSyncExternalStore ? React.useSyncExternalStore : shim;
-    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
-      "function" ===
-        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
-      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
-  })();
-
-
-/***/ }),
-
-/***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js ***!
-  \************************************************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-/**
- * @license React
- * use-sync-external-store-shim/with-selector.development.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
- true &&
-  (function () {
-    function is(x, y) {
-      return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
-    }
-    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
-      "function" ===
-        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
-      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-    var React = __webpack_require__(/*! react */ "react"),
-      shim = __webpack_require__(/*! use-sync-external-store/shim */ "./node_modules/use-sync-external-store/shim/index.js"),
-      objectIs = "function" === typeof Object.is ? Object.is : is,
-      useSyncExternalStore = shim.useSyncExternalStore,
-      useRef = React.useRef,
-      useEffect = React.useEffect,
-      useMemo = React.useMemo,
-      useDebugValue = React.useDebugValue;
-    exports.useSyncExternalStoreWithSelector = function (
-      subscribe,
-      getSnapshot,
-      getServerSnapshot,
-      selector,
-      isEqual
-    ) {
-      var instRef = useRef(null);
-      if (null === instRef.current) {
-        var inst = { hasValue: !1, value: null };
-        instRef.current = inst;
-      } else inst = instRef.current;
-      instRef = useMemo(
-        function () {
-          function memoizedSelector(nextSnapshot) {
-            if (!hasMemo) {
-              hasMemo = !0;
-              memoizedSnapshot = nextSnapshot;
-              nextSnapshot = selector(nextSnapshot);
-              if (void 0 !== isEqual && inst.hasValue) {
-                var currentSelection = inst.value;
-                if (isEqual(currentSelection, nextSnapshot))
-                  return (memoizedSelection = currentSelection);
-              }
-              return (memoizedSelection = nextSnapshot);
-            }
-            currentSelection = memoizedSelection;
-            if (objectIs(memoizedSnapshot, nextSnapshot))
-              return currentSelection;
-            var nextSelection = selector(nextSnapshot);
-            if (void 0 !== isEqual && isEqual(currentSelection, nextSelection))
-              return (memoizedSnapshot = nextSnapshot), currentSelection;
-            memoizedSnapshot = nextSnapshot;
-            return (memoizedSelection = nextSelection);
-          }
-          var hasMemo = !1,
-            memoizedSnapshot,
-            memoizedSelection,
-            maybeGetServerSnapshot =
-              void 0 === getServerSnapshot ? null : getServerSnapshot;
-          return [
-            function () {
-              return memoizedSelector(getSnapshot());
-            },
-            null === maybeGetServerSnapshot
-              ? void 0
-              : function () {
-                  return memoizedSelector(maybeGetServerSnapshot());
-                }
-          ];
-        },
-        [getSnapshot, getServerSnapshot, selector, isEqual]
-      );
-      var value = useSyncExternalStore(subscribe, instRef[0], instRef[1]);
-      useEffect(
-        function () {
-          inst.hasValue = !0;
-          inst.value = value;
-        },
-        [value]
-      );
-      useDebugValue(value);
-      return value;
-    };
-    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
-      "function" ===
-        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
-      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
-  })();
-
-
-/***/ }),
-
-/***/ "./node_modules/use-sync-external-store/shim/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/use-sync-external-store/shim/index.js ***!
-  \************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ../cjs/use-sync-external-store-shim.development.js */ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js");
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/use-sync-external-store/shim/with-selector.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/use-sync-external-store/shim/with-selector.js ***!
-  \********************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ../cjs/use-sync-external-store-shim/with-selector.development.js */ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js");
-}
-
-
-/***/ }),
-
-/***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
-/***/ ((module) => {
-
-module.exports = window["React"];
-
-/***/ }),
-
-/***/ "@wordpress/api-fetch":
-/*!**********************************!*\
-  !*** external ["wp","apiFetch"] ***!
-  \**********************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["apiFetch"];
-
-/***/ }),
-
-/***/ "@wordpress/components":
-/*!************************************!*\
-  !*** external ["wp","components"] ***!
-  \************************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["components"];
-
-/***/ }),
-
-/***/ "@wordpress/element":
-/*!*********************************!*\
-  !*** external ["wp","element"] ***!
-  \*********************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["element"];
-
-/***/ }),
-
-/***/ "@wordpress/i18n":
-/*!******************************!*\
-  !*** external ["wp","i18n"] ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["i18n"];
-
-/***/ }),
-
-/***/ "@wordpress/primitives":
-/*!************************************!*\
-  !*** external ["wp","primitives"] ***!
-  \************************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["primitives"];
-
-/***/ }),
-
 /***/ "./node_modules/@tanstack/form-core/dist/esm/FieldApi.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@tanstack/form-core/dist/esm/FieldApi.js ***!
@@ -4696,9 +2975,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   FieldApi: () => (/* binding */ FieldApi)
 /* harmony export */ });
 /* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/scheduler.js");
-/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/derived.js");
-/* harmony import */ var _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./standardSchemaValidator.js */ "./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js");
+/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/derived.js");
+/* harmony import */ var _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./standardSchemaValidator.js */ "./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js");
+/* harmony import */ var _metaHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./metaHelper.js */ "./node_modules/@tanstack/form-core/dist/esm/metaHelper.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/@tanstack/form-core/dist/esm/utils.js");
+
 
 
 
@@ -4711,6 +2992,11 @@ class FieldApi {
     this.mount = () => {
       var _a, _b;
       const cleanup = this.store.mount();
+      if (this.options.defaultValue !== void 0) {
+        this.form.setFieldValue(this.name, this.options.defaultValue, {
+          dontUpdateMeta: true
+        });
+      }
       const info = this.getInfo();
       info.instance = this;
       this.update(this.options);
@@ -4726,11 +3012,18 @@ class FieldApi {
           type: "validate"
         });
         if (error) {
-          this.setMeta((prev) => ({
-            ...prev,
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            errorMap: { ...prev == null ? void 0 : prev.errorMap, onMount: error }
-          }));
+          this.setMeta(
+            (prev) => ({
+              ...prev,
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              errorMap: { ...prev == null ? void 0 : prev.errorMap, onMount: error },
+              errorSourceMap: {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                ...prev == null ? void 0 : prev.errorSourceMap,
+                onMount: "field"
+              }
+            })
+          );
         }
       }
       (_b = (_a = this.options.listeners) == null ? void 0 : _a.onMount) == null ? void 0 : _b.call(_a, {
@@ -4740,14 +3033,18 @@ class FieldApi {
       return cleanup;
     };
     this.update = (opts2) => {
+      this.options = opts2;
+      const nameHasChanged = this.name !== opts2.name;
+      this.name = opts2.name;
       if (this.state.value === void 0) {
         const formDefault = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getBy)(opts2.form.options.defaultValues, opts2.name);
-        if (opts2.defaultValue !== void 0) {
-          this.setValue(opts2.defaultValue, {
+        const defaultValue = opts2.defaultValue ?? formDefault;
+        if (nameHasChanged) {
+          this.setValue((val) => val || defaultValue, {
             dontUpdateMeta: true
           });
-        } else if (formDefault !== void 0) {
-          this.setValue(formDefault, {
+        } else if (defaultValue !== void 0) {
+          this.setValue(defaultValue, {
             dontUpdateMeta: true
           });
         }
@@ -4755,30 +3052,42 @@ class FieldApi {
       if (this.form.getFieldMeta(this.name) === void 0) {
         this.setMeta(this.state.meta);
       }
-      this.options = opts2;
-      this.name = opts2.name;
     };
     this.getValue = () => {
       return this.form.getFieldValue(this.name);
     };
     this.setValue = (updater, options) => {
-      var _a, _b;
       this.form.setFieldValue(this.name, updater, options);
-      (_b = (_a = this.options.listeners) == null ? void 0 : _a.onChange) == null ? void 0 : _b.call(_a, {
-        value: this.state.value,
-        fieldApi: this
-      });
+      this.triggerOnChangeListener();
       this.validate("change");
     };
     this.getMeta = () => this.store.state.meta;
     this.setMeta = (updater) => this.form.setFieldMeta(this.name, updater);
     this.getInfo = () => this.form.getFieldInfo(this.name);
-    this.pushValue = (value, opts2) => this.form.pushFieldValue(this.name, value, opts2);
-    this.insertValue = (index, value, opts2) => this.form.insertFieldValue(this.name, index, value, opts2);
-    this.replaceValue = (index, value, opts2) => this.form.replaceFieldValue(this.name, index, value, opts2);
-    this.removeValue = (index, opts2) => this.form.removeFieldValue(this.name, index, opts2);
-    this.swapValues = (aIndex, bIndex, opts2) => this.form.swapFieldValues(this.name, aIndex, bIndex, opts2);
-    this.moveValue = (aIndex, bIndex, opts2) => this.form.moveFieldValues(this.name, aIndex, bIndex, opts2);
+    this.pushValue = (value, opts2) => {
+      this.form.pushFieldValue(this.name, value, opts2);
+      this.triggerOnChangeListener();
+    };
+    this.insertValue = (index, value, opts2) => {
+      this.form.insertFieldValue(this.name, index, value, opts2);
+      this.triggerOnChangeListener();
+    };
+    this.replaceValue = (index, value, opts2) => {
+      this.form.replaceFieldValue(this.name, index, value, opts2);
+      this.triggerOnChangeListener();
+    };
+    this.removeValue = (index, opts2) => {
+      this.form.removeFieldValue(this.name, index, opts2);
+      this.triggerOnChangeListener();
+    };
+    this.swapValues = (aIndex, bIndex, opts2) => {
+      this.form.swapFieldValues(this.name, aIndex, bIndex, opts2);
+      this.triggerOnChangeListener();
+    };
+    this.moveValue = (aIndex, bIndex, opts2) => {
+      this.form.moveFieldValues(this.name, aIndex, bIndex, opts2);
+      this.triggerOnChangeListener();
+    };
     this.getLinkedFields = (cause) => {
       const fields = Object.values(this.form.fieldInfo);
       const linkedFields = [];
@@ -4795,6 +3104,7 @@ class FieldApi {
       return linkedFields;
     };
     this.validateSync = (cause, errorFromForm) => {
+      var _a;
       const validates = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getSyncValidatorArray)(cause, this.options);
       const linkedFields = this.getLinkedFields(cause);
       const linkedFieldValidates = linkedFields.reduce(
@@ -4810,39 +3120,38 @@ class FieldApi {
       let hasErrored = false;
       (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
         const validateFieldFn = (field, validateObj) => {
+          var _a2;
           const errorMapKey = getErrorMapKey(validateObj.cause);
-          const error = (
-            /*
-              If `validateObj.validate` is `undefined`, then the field doesn't have
-              a validator for this event, but there still could be an error that
-              needs to be cleaned up related to the current event left by the
-              form's validator.
-            */
-            validateObj.validate ? normalizeError(
-              field.runValidator({
-                validate: validateObj.validate,
-                value: {
-                  value: field.store.state.value,
-                  validationSource: "field",
-                  fieldApi: field
-                },
-                type: "validate"
-              })
-            ) : errorFromForm[errorMapKey]
-          );
-          if (field.state.meta.errorMap[errorMapKey] !== error) {
+          const fieldLevelError = validateObj.validate ? normalizeError(
+            field.runValidator({
+              validate: validateObj.validate,
+              value: {
+                value: field.store.state.value,
+                validationSource: "field",
+                fieldApi: field
+              },
+              type: "validate"
+            })
+          ) : void 0;
+          const formLevelError = errorFromForm[errorMapKey];
+          const { newErrorValue, newSource } = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.determineFieldLevelErrorSourceAndValue)({
+            formLevelError,
+            fieldLevelError
+          });
+          if (((_a2 = field.state.meta.errorMap) == null ? void 0 : _a2[errorMapKey]) !== newErrorValue) {
             field.setMeta((prev) => ({
               ...prev,
               errorMap: {
                 ...prev.errorMap,
-                [getErrorMapKey(validateObj.cause)]: (
-                  // Prefer the error message from the field validators if they exist
-                  error ? error : errorFromForm[errorMapKey]
-                )
+                [errorMapKey]: newErrorValue
+              },
+              errorSourceMap: {
+                ...prev.errorSourceMap,
+                [errorMapKey]: newSource
               }
             }));
           }
-          if (error || errorFromForm[errorMapKey]) {
+          if (newErrorValue) {
             hasErrored = true;
           }
         };
@@ -4855,11 +3164,18 @@ class FieldApi {
         }
       });
       const submitErrKey = getErrorMapKey("submit");
-      if (this.state.meta.errorMap[submitErrKey] && cause !== "submit" && !hasErrored) {
+      if (
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        ((_a = this.state.meta.errorMap) == null ? void 0 : _a[submitErrKey]) && cause !== "submit" && !hasErrored
+      ) {
         this.setMeta((prev) => ({
           ...prev,
           errorMap: {
             ...prev.errorMap,
+            [submitErrKey]: void 0
+          },
+          errorSourceMap: {
+            ...prev.errorSourceMap,
             [submitErrKey]: void 0
           }
         }));
@@ -4902,47 +3218,57 @@ class FieldApi {
             let rawError;
             try {
               rawError = await new Promise((rawResolve, rawReject) => {
-                if (this.timeoutIds[validateObj.cause]) {
-                  clearTimeout(this.timeoutIds[validateObj.cause]);
+                if (this.timeoutIds.validations[validateObj.cause]) {
+                  clearTimeout(this.timeoutIds.validations[validateObj.cause]);
                 }
-                this.timeoutIds[validateObj.cause] = setTimeout(async () => {
-                  if (controller.signal.aborted) return rawResolve(void 0);
-                  try {
-                    rawResolve(
-                      await this.runValidator({
-                        validate: validateObj.validate,
-                        value: {
-                          value: field.store.state.value,
-                          fieldApi: field,
-                          signal: controller.signal,
-                          validationSource: "field"
-                        },
-                        type: "validateAsync"
-                      })
-                    );
-                  } catch (e) {
-                    rawReject(e);
-                  }
-                }, validateObj.debounceMs);
+                this.timeoutIds.validations[validateObj.cause] = setTimeout(
+                  async () => {
+                    if (controller.signal.aborted) return rawResolve(void 0);
+                    try {
+                      rawResolve(
+                        await this.runValidator({
+                          validate: validateObj.validate,
+                          value: {
+                            value: field.store.state.value,
+                            fieldApi: field,
+                            signal: controller.signal,
+                            validationSource: "field"
+                          },
+                          type: "validateAsync"
+                        })
+                      );
+                    } catch (e) {
+                      rawReject(e);
+                    }
+                  },
+                  validateObj.debounceMs
+                );
               });
             } catch (e) {
               rawError = e;
             }
             if (controller.signal.aborted) return resolve(void 0);
-            const error = normalizeError(rawError);
-            const fieldErrorFromForm = (_a = asyncFormValidationResults[this.name]) == null ? void 0 : _a[errorMapKey];
-            const fieldError = error || fieldErrorFromForm;
+            const fieldLevelError = normalizeError(rawError);
+            const formLevelError = (_a = asyncFormValidationResults[this.name]) == null ? void 0 : _a[errorMapKey];
+            const { newErrorValue, newSource } = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.determineFieldLevelErrorSourceAndValue)({
+              formLevelError,
+              fieldLevelError
+            });
             field.setMeta((prev) => {
               return {
                 ...prev,
                 errorMap: {
                   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                   ...prev == null ? void 0 : prev.errorMap,
-                  [errorMapKey]: fieldError
+                  [errorMapKey]: newErrorValue
+                },
+                errorSourceMap: {
+                  ...prev.errorSourceMap,
+                  [errorMapKey]: newSource
                 }
               };
             });
-            resolve(fieldError);
+            resolve(newErrorValue);
           })
         );
       };
@@ -4969,10 +3295,10 @@ class FieldApi {
       }
       return results.filter(Boolean);
     };
-    this.validate = (cause) => {
+    this.validate = (cause, opts2) => {
       var _a;
       if (!this.state.meta.isTouched) return [];
-      const { fieldsErrorMap } = this.form.validateSync(cause);
+      const { fieldsErrorMap } = (opts2 == null ? void 0 : opts2.skipFormValidation) ? { fieldsErrorMap: {} } : this.form.validateSync(cause);
       const { hasErrored } = this.validateSync(
         cause,
         fieldsErrorMap[this.name] ?? {}
@@ -4981,14 +3307,13 @@ class FieldApi {
         (_a = this.getInfo().validationMetaMap[getErrorMapKey(cause)]) == null ? void 0 : _a.lastAbortController.abort();
         return this.state.meta.errors;
       }
-      const formValidationResultPromise = this.form.validateAsync(cause);
+      const formValidationResultPromise = (opts2 == null ? void 0 : opts2.skipFormValidation) ? Promise.resolve({}) : this.form.validateAsync(cause);
       return this.validateAsync(cause, formValidationResultPromise);
     };
     this.handleChange = (updater) => {
       this.setValue(updater);
     };
     this.handleBlur = () => {
-      var _a, _b;
       const prevTouched = this.state.meta.isTouched;
       if (!prevTouched) {
         this.setMeta((prev) => ({ ...prev, isTouched: true }));
@@ -4998,31 +3323,33 @@ class FieldApi {
         this.setMeta((prev) => ({ ...prev, isBlurred: true }));
       }
       this.validate("blur");
-      (_b = (_a = this.options.listeners) == null ? void 0 : _a.onBlur) == null ? void 0 : _b.call(_a, {
-        value: this.state.value,
-        fieldApi: this
-      });
+      this.triggerOnBlurListener();
+    };
+    this.parseValueWithSchema = (schema) => {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_2__.standardSchemaValidators.validate(
+        { value: this.state.value, validationSource: "field" },
+        schema
+      );
+    };
+    this.parseValueWithSchemaAsync = (schema) => {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_2__.standardSchemaValidators.validateAsync(
+        { value: this.state.value, validationSource: "field" },
+        schema
+      );
     };
     this.form = opts.form;
     this.name = opts.name;
-    this.timeoutIds = {};
-    if (opts.defaultValue !== void 0) {
-      this.form.setFieldValue(this.name, opts.defaultValue, {
-        dontUpdateMeta: true
-      });
-    }
-    this.store = new _tanstack_store__WEBPACK_IMPORTED_MODULE_2__.Derived({
+    this.timeoutIds = {
+      validations: {},
+      listeners: {},
+      formListeners: {}
+    };
+    this.store = new _tanstack_store__WEBPACK_IMPORTED_MODULE_3__.Derived({
       deps: [this.form.store],
       fn: () => {
         const value = this.form.getFieldValue(this.name);
         const meta = this.form.getFieldMeta(this.name) ?? {
-          isValidating: false,
-          isTouched: false,
-          isBlurred: false,
-          isDirty: false,
-          isPristine: true,
-          errors: [],
-          errorMap: {},
+          ..._metaHelper_js__WEBPACK_IMPORTED_MODULE_4__.defaultFieldMeta,
           ...opts.defaultMeta
         };
         return {
@@ -5043,20 +3370,8 @@ class FieldApi {
    * @private
    */
   runValidator(props) {
-    const adapters = [
-      this.form.options.validatorAdapter,
-      this.options.validatorAdapter
-    ];
-    for (const adapter of adapters) {
-      if (adapter && (typeof props.validate !== "function" || "~standard" in props.validate)) {
-        return adapter()[props.type](
-          props.value,
-          props.validate
-        );
-      }
-    }
-    if ((0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.isStandardSchemaValidator)(props.validate)) {
-      return (0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.standardSchemaValidator)()()[props.type](
+    if ((0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_2__.isStandardSchemaValidator)(props.validate)) {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_2__.standardSchemaValidators[props.type](
         props.value,
         props.validate
       );
@@ -5067,20 +3382,97 @@ class FieldApi {
    * Updates the field's errorMap
    */
   setErrorMap(errorMap) {
-    this.setMeta((prev) => ({
-      ...prev,
-      errorMap: {
-        ...prev.errorMap,
-        ...errorMap
+    this.setMeta(
+      (prev) => ({
+        ...prev,
+        errorMap: {
+          ...prev.errorMap,
+          ...errorMap
+        }
+      })
+    );
+  }
+  triggerOnBlurListener() {
+    var _a, _b, _c, _d, _e, _f;
+    const formDebounceMs = (_a = this.form.options.listeners) == null ? void 0 : _a.onBlurDebounceMs;
+    if (formDebounceMs && formDebounceMs > 0) {
+      if (this.timeoutIds.formListeners.blur) {
+        clearTimeout(this.timeoutIds.formListeners.blur);
       }
-    }));
+      this.timeoutIds.formListeners.blur = setTimeout(() => {
+        var _a2, _b2;
+        (_b2 = (_a2 = this.form.options.listeners) == null ? void 0 : _a2.onBlur) == null ? void 0 : _b2.call(_a2, {
+          formApi: this.form,
+          fieldApi: this
+        });
+      }, formDebounceMs);
+    } else {
+      (_c = (_b = this.form.options.listeners) == null ? void 0 : _b.onBlur) == null ? void 0 : _c.call(_b, {
+        formApi: this.form,
+        fieldApi: this
+      });
+    }
+    const fieldDebounceMs = (_d = this.options.listeners) == null ? void 0 : _d.onBlurDebounceMs;
+    if (fieldDebounceMs && fieldDebounceMs > 0) {
+      if (this.timeoutIds.listeners.blur) {
+        clearTimeout(this.timeoutIds.listeners.blur);
+      }
+      this.timeoutIds.listeners.blur = setTimeout(() => {
+        var _a2, _b2;
+        (_b2 = (_a2 = this.options.listeners) == null ? void 0 : _a2.onBlur) == null ? void 0 : _b2.call(_a2, {
+          value: this.state.value,
+          fieldApi: this
+        });
+      }, fieldDebounceMs);
+    } else {
+      (_f = (_e = this.options.listeners) == null ? void 0 : _e.onBlur) == null ? void 0 : _f.call(_e, {
+        value: this.state.value,
+        fieldApi: this
+      });
+    }
+  }
+  triggerOnChangeListener() {
+    var _a, _b, _c, _d, _e, _f;
+    const formDebounceMs = (_a = this.form.options.listeners) == null ? void 0 : _a.onChangeDebounceMs;
+    if (formDebounceMs && formDebounceMs > 0) {
+      if (this.timeoutIds.formListeners.blur) {
+        clearTimeout(this.timeoutIds.formListeners.blur);
+      }
+      this.timeoutIds.formListeners.blur = setTimeout(() => {
+        var _a2, _b2;
+        (_b2 = (_a2 = this.form.options.listeners) == null ? void 0 : _a2.onChange) == null ? void 0 : _b2.call(_a2, {
+          formApi: this.form,
+          fieldApi: this
+        });
+      }, formDebounceMs);
+    } else {
+      (_c = (_b = this.form.options.listeners) == null ? void 0 : _b.onChange) == null ? void 0 : _c.call(_b, {
+        formApi: this.form,
+        fieldApi: this
+      });
+    }
+    const fieldDebounceMs = (_d = this.options.listeners) == null ? void 0 : _d.onChangeDebounceMs;
+    if (fieldDebounceMs && fieldDebounceMs > 0) {
+      if (this.timeoutIds.listeners.change) {
+        clearTimeout(this.timeoutIds.listeners.change);
+      }
+      this.timeoutIds.listeners.change = setTimeout(() => {
+        var _a2, _b2;
+        (_b2 = (_a2 = this.options.listeners) == null ? void 0 : _a2.onChange) == null ? void 0 : _b2.call(_a2, {
+          value: this.state.value,
+          fieldApi: this
+        });
+      }, fieldDebounceMs);
+    } else {
+      (_f = (_e = this.options.listeners) == null ? void 0 : _e.onChange) == null ? void 0 : _f.call(_e, {
+        value: this.state.value,
+        fieldApi: this
+      });
+    }
   }
 }
 function normalizeError(rawError) {
   if (rawError) {
-    if (typeof rawError !== "string") {
-      return "Invalid Form Values";
-    }
     return rawError;
   }
   return void 0;
@@ -5116,11 +3508,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   FormApi: () => (/* binding */ FormApi)
 /* harmony export */ });
-/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/scheduler.js");
-/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/store.js");
-/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/derived.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./node_modules/@tanstack/form-core/dist/esm/utils.js");
-/* harmony import */ var _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./standardSchemaValidator.js */ "./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js");
+/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/scheduler.js");
+/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/store.js");
+/* harmony import */ var _tanstack_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @tanstack/store */ "./node_modules/@tanstack/store/dist/esm/derived.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/@tanstack/form-core/dist/esm/utils.js");
+/* harmony import */ var _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./standardSchemaValidator.js */ "./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js");
+/* harmony import */ var _metaHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metaHelper.js */ "./node_modules/@tanstack/form-core/dist/esm/metaHelper.js");
+
 
 
 
@@ -5133,6 +3527,7 @@ function getDefaultFormState(defaultState) {
     isSubmitting: defaultState.isSubmitting ?? false,
     isValidating: defaultState.isValidating ?? false,
     submissionAttempts: defaultState.submissionAttempts ?? 0,
+    isSubmitSuccessful: defaultState.isSubmitSuccessful ?? false,
     validationMetaMap: defaultState.validationMetaMap ?? {
       onChange: void 0,
       onBlur: void 0,
@@ -5142,9 +3537,6 @@ function getDefaultFormState(defaultState) {
     }
   };
 }
-const isFormValidationError = (error) => {
-  return typeof error === "object";
-};
 class FormApi {
   /**
    * Constructs a new `FormApi` instance with the given form options.
@@ -5155,24 +3547,31 @@ class FormApi {
     this.fieldInfo = {};
     this.prevTransformArray = [];
     this.mount = () => {
+      var _a2, _b;
       const cleanupFieldMetaDerived = this.fieldMetaDerived.mount();
       const cleanupStoreDerived = this.store.mount();
       const cleanup = () => {
         cleanupFieldMetaDerived();
         cleanupStoreDerived();
       };
+      (_b = (_a2 = this.options.listeners) == null ? void 0 : _a2.onMount) == null ? void 0 : _b.call(_a2, { formApi: this });
       const { onMount } = this.options.validators || {};
       if (!onMount) return cleanup;
       this.validateSync("mount");
       return cleanup;
     };
     this.update = (options) => {
+      var _a2, _b;
       if (!options) return;
       const oldOptions = this.options;
       this.options = options;
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
-        const shouldUpdateValues = options.defaultValues && options.defaultValues !== oldOptions.defaultValues && !this.state.isTouched;
-        const shouldUpdateState = options.defaultState !== oldOptions.defaultState && !this.state.isTouched;
+      const shouldUpdateReeval = !!((_b = (_a2 = options.transform) == null ? void 0 : _a2.deps) == null ? void 0 : _b.some(
+        (val, i) => val !== this.prevTransformArray[i]
+      ));
+      const shouldUpdateValues = options.defaultValues && !(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.shallow)(options.defaultValues, oldOptions.defaultValues) && !this.state.isTouched;
+      const shouldUpdateState = !(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.shallow)(options.defaultState, oldOptions.defaultState) && !this.state.isTouched;
+      if (!shouldUpdateValues && !shouldUpdateState && !shouldUpdateReeval) return;
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
         this.baseStore.setState(
           () => getDefaultFormState(
             Object.assign(
@@ -5181,7 +3580,8 @@ class FormApi {
               shouldUpdateState ? options.defaultState : {},
               shouldUpdateValues ? {
                 values: options.defaultValues
-              } : {}
+              } : {},
+              shouldUpdateReeval ? { _force_re_eval: !this.state._force_re_eval } : {}
             )
           )
         );
@@ -5209,18 +3609,22 @@ class FormApi {
     };
     this.validateAllFields = async (cause) => {
       const fieldValidationPromises = [];
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
-        void Object.values(this.fieldInfo).forEach((field) => {
-          if (!field.instance) return;
-          const fieldInstance = field.instance;
-          fieldValidationPromises.push(
-            // Remember, `validate` is either a sync operation or a promise
-            Promise.resolve().then(() => fieldInstance.validate(cause))
-          );
-          if (!field.instance.state.meta.isTouched) {
-            field.instance.setMeta((prev) => ({ ...prev, isTouched: true }));
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
+        void Object.values(this.fieldInfo).forEach(
+          (field) => {
+            if (!field.instance) return;
+            const fieldInstance = field.instance;
+            fieldValidationPromises.push(
+              // Remember, `validate` is either a sync operation or a promise
+              Promise.resolve().then(
+                () => fieldInstance.validate(cause, { skipFormValidation: true })
+              )
+            );
+            if (!field.instance.state.meta.isTouched) {
+              field.instance.setMeta((prev) => ({ ...prev, isTouched: true }));
+            }
           }
-        });
+        );
       });
       const fieldErrorMapMap = await Promise.all(fieldValidationPromises);
       return fieldErrorMapMap.flat();
@@ -5236,7 +3640,7 @@ class FormApi {
         (fieldKey) => fieldKeysToValidate.some((key) => fieldKey.startsWith(key))
       );
       const fieldValidationPromises = [];
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
         fieldsToValidate.forEach((nestedField) => {
           fieldValidationPromises.push(
             Promise.resolve().then(() => this.validateField(nestedField, cause))
@@ -5256,10 +3660,11 @@ class FormApi {
       return fieldInstance.validate(cause);
     };
     this.validateSync = (cause) => {
-      const validates = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.getSyncValidatorArray)(cause, this.options);
+      const validates = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getSyncValidatorArray)(cause, this.options);
       let hasErrored = false;
-      const fieldsErrorMap = {};
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
+      const currentValidationErrorMap = {};
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
+        var _a2, _b;
         for (const validateObj of validates) {
           if (!validateObj.validate) continue;
           const rawError = this.runValidator({
@@ -5273,27 +3678,49 @@ class FormApi {
           });
           const { formError, fieldErrors } = normalizeError(rawError);
           const errorMapKey = getErrorMapKey(validateObj.cause);
-          if (fieldErrors) {
-            for (const [field, fieldError] of Object.entries(fieldErrors)) {
-              const oldErrorMap = fieldsErrorMap[field] || {};
-              const newErrorMap = {
-                ...oldErrorMap,
-                [errorMapKey]: fieldError
+          for (const field of Object.keys(
+            this.state.fieldMeta
+          )) {
+            const fieldMeta = this.getFieldMeta(field);
+            if (!fieldMeta) continue;
+            const {
+              errorMap: currentErrorMap,
+              errorSourceMap: currentErrorMapSource
+            } = fieldMeta;
+            const newFormValidatorError = fieldErrors == null ? void 0 : fieldErrors[field];
+            const { newErrorValue, newSource } = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.determineFormLevelErrorSourceAndValue)({
+              newFormValidatorError,
+              isPreviousErrorFromFormValidator: (
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                (currentErrorMapSource == null ? void 0 : currentErrorMapSource[errorMapKey]) === "form"
+              ),
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              previousErrorValue: currentErrorMap == null ? void 0 : currentErrorMap[errorMapKey]
+            });
+            if (newSource === "form") {
+              currentValidationErrorMap[field] = {
+                ...currentValidationErrorMap[field],
+                [errorMapKey]: newFormValidatorError
               };
-              fieldsErrorMap[field] = newErrorMap;
-              const fieldMeta = this.getFieldMeta(field);
-              if (fieldMeta && fieldMeta.errorMap[errorMapKey] !== fieldError) {
-                this.setFieldMeta(field, (prev) => ({
-                  ...prev,
-                  errorMap: {
-                    ...prev.errorMap,
-                    [errorMapKey]: fieldError
-                  }
-                }));
-              }
+            }
+            if (
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              (currentErrorMap == null ? void 0 : currentErrorMap[errorMapKey]) !== newErrorValue
+            ) {
+              this.setFieldMeta(field, (prev) => ({
+                ...prev,
+                errorMap: {
+                  ...prev.errorMap,
+                  [errorMapKey]: newErrorValue
+                },
+                errorSourceMap: {
+                  ...prev.errorSourceMap,
+                  [errorMapKey]: newSource
+                }
+              }));
             }
           }
-          if (this.state.errorMap[errorMapKey] !== formError) {
+          if (((_a2 = this.state.errorMap) == null ? void 0 : _a2[errorMapKey]) !== formError) {
             this.baseStore.setState((prev) => ({
               ...prev,
               errorMap: {
@@ -5306,26 +3733,29 @@ class FormApi {
             hasErrored = true;
           }
         }
+        const submitErrKey = getErrorMapKey("submit");
+        if (
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          ((_b = this.state.errorMap) == null ? void 0 : _b[submitErrKey]) && cause !== "submit" && !hasErrored
+        ) {
+          this.baseStore.setState((prev) => ({
+            ...prev,
+            errorMap: {
+              ...prev.errorMap,
+              [submitErrKey]: void 0
+            }
+          }));
+        }
       });
-      const submitErrKey = getErrorMapKey("submit");
-      if (this.state.errorMap[submitErrKey] && cause !== "submit" && !hasErrored) {
-        this.baseStore.setState((prev) => ({
-          ...prev,
-          errorMap: {
-            ...prev.errorMap,
-            [submitErrKey]: void 0
-          }
-        }));
-      }
-      return { hasErrored, fieldsErrorMap };
+      return { hasErrored, fieldsErrorMap: currentValidationErrorMap };
     };
     this.validateAsync = async (cause) => {
-      const validates = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.getAsyncValidatorArray)(cause, this.options);
+      const validates = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getAsyncValidatorArray)(cause, this.options);
       if (!this.state.isFormValidating) {
         this.baseStore.setState((prev) => ({ ...prev, isFormValidating: true }));
       }
       const promises = [];
-      let fieldErrors;
+      let fieldErrorsFromFormValidators;
       for (const validateObj of validates) {
         if (!validateObj.validate) continue;
         const key = getErrorMapKey(validateObj.cause);
@@ -5365,21 +3795,46 @@ class FormApi {
             }
             const { formError, fieldErrors: fieldErrorsFromNormalizeError } = normalizeError(rawError);
             if (fieldErrorsFromNormalizeError) {
-              fieldErrors = fieldErrors ? { ...fieldErrors, ...fieldErrorsFromNormalizeError } : fieldErrorsFromNormalizeError;
+              fieldErrorsFromFormValidators = fieldErrorsFromFormValidators ? {
+                ...fieldErrorsFromFormValidators,
+                ...fieldErrorsFromNormalizeError
+              } : fieldErrorsFromNormalizeError;
             }
             const errorMapKey = getErrorMapKey(validateObj.cause);
-            if (fieldErrors) {
-              for (const [field, fieldError] of Object.entries(fieldErrors)) {
-                const fieldMeta = this.getFieldMeta(field);
-                if (fieldMeta && fieldMeta.errorMap[errorMapKey] !== fieldError) {
-                  this.setFieldMeta(field, (prev) => ({
-                    ...prev,
-                    errorMap: {
-                      ...prev.errorMap,
-                      [errorMapKey]: fieldError
-                    }
-                  }));
-                }
+            for (const field of Object.keys(
+              this.state.fieldMeta
+            )) {
+              const fieldMeta = this.getFieldMeta(field);
+              if (!fieldMeta) continue;
+              const {
+                errorMap: currentErrorMap,
+                errorSourceMap: currentErrorMapSource
+              } = fieldMeta;
+              const newFormValidatorError = fieldErrorsFromFormValidators == null ? void 0 : fieldErrorsFromFormValidators[field];
+              const { newErrorValue, newSource } = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.determineFormLevelErrorSourceAndValue)({
+                newFormValidatorError,
+                isPreviousErrorFromFormValidator: (
+                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                  (currentErrorMapSource == null ? void 0 : currentErrorMapSource[errorMapKey]) === "form"
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                previousErrorValue: currentErrorMap == null ? void 0 : currentErrorMap[errorMapKey]
+              });
+              if (
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                (currentErrorMap == null ? void 0 : currentErrorMap[errorMapKey]) !== newErrorValue
+              ) {
+                this.setFieldMeta(field, (prev) => ({
+                  ...prev,
+                  errorMap: {
+                    ...prev.errorMap,
+                    [errorMapKey]: newErrorValue
+                  },
+                  errorSourceMap: {
+                    ...prev.errorSourceMap,
+                    [errorMapKey]: newSource
+                  }
+                }));
               }
             }
             this.baseStore.setState((prev) => ({
@@ -5389,7 +3844,9 @@ class FormApi {
                 [errorMapKey]: formError
               }
             }));
-            resolve(fieldErrors ? { fieldErrors, errorMapKey } : void 0);
+            resolve(
+              fieldErrorsFromFormValidators ? { fieldErrors: fieldErrorsFromFormValidators, errorMapKey } : void 0
+            );
           })
         );
       }
@@ -5426,50 +3883,7 @@ class FormApi {
       }
       return this.validateAsync(cause);
     };
-    this.handleSubmit = async () => {
-      var _a2, _b, _c, _d;
-      this.baseStore.setState((old) => ({
-        ...old,
-        // Submission attempts mark the form as not submitted
-        isSubmitted: false,
-        // Count submission attempts
-        submissionAttempts: old.submissionAttempts + 1
-      }));
-      if (!this.state.canSubmit) return;
-      this.baseStore.setState((d) => ({ ...d, isSubmitting: true }));
-      const done = () => {
-        this.baseStore.setState((prev) => ({ ...prev, isSubmitting: false }));
-      };
-      await this.validateAllFields("submit");
-      if (!this.state.isValid) {
-        done();
-        (_b = (_a2 = this.options).onSubmitInvalid) == null ? void 0 : _b.call(_a2, {
-          value: this.state.values,
-          formApi: this
-        });
-        return;
-      }
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
-        void Object.values(this.fieldInfo).forEach((field) => {
-          var _a3, _b2, _c2;
-          (_c2 = (_b2 = (_a3 = field.instance) == null ? void 0 : _a3.options.listeners) == null ? void 0 : _b2.onSubmit) == null ? void 0 : _c2.call(_b2, {
-            value: field.instance.state.value,
-            fieldApi: field.instance
-          });
-        });
-      });
-      try {
-        await ((_d = (_c = this.options).onSubmit) == null ? void 0 : _d.call(_c, { value: this.state.values, formApi: this }));
-        (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
-          this.baseStore.setState((prev) => ({ ...prev, isSubmitted: true }));
-          done();
-        });
-      } catch (err) {
-        done();
-        throw err;
-      }
-    };
-    this.getFieldValue = (field) => (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.getBy)(this.state.values, field);
+    this.getFieldValue = (field) => (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.getBy)(this.state.values, field);
     this.getFieldMeta = (field) => {
       return this.state.fieldMeta[field];
     };
@@ -5492,7 +3906,7 @@ class FormApi {
           ...prev,
           fieldMetaBase: {
             ...prev.fieldMetaBase,
-            [field]: (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.functionalUpdate)(
+            [field]: (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.functionalUpdate)(
               updater,
               prev.fieldMetaBase[field]
             )
@@ -5504,15 +3918,7 @@ class FormApi {
       return Object.keys(fieldMeta).reduce(
         (acc, key) => {
           const fieldKey = key;
-          acc[fieldKey] = {
-            isValidating: false,
-            isTouched: false,
-            isBlurred: false,
-            isDirty: false,
-            isPristine: true,
-            errors: [],
-            errorMap: {}
-          };
+          acc[fieldKey] = _metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.defaultFieldMeta;
           return acc;
         },
         {}
@@ -5520,7 +3926,7 @@ class FormApi {
     };
     this.setFieldValue = (field, updater, opts2) => {
       const dontUpdateMeta = (opts2 == null ? void 0 : opts2.dontUpdateMeta) ?? false;
-      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_0__.batch)(() => {
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
         if (!dontUpdateMeta) {
           this.setFieldMeta(field, (prev) => ({
             ...prev,
@@ -5536,19 +3942,26 @@ class FormApi {
         this.baseStore.setState((prev) => {
           return {
             ...prev,
-            values: (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.setBy)(prev.values, field, updater)
+            values: (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.setBy)(prev.values, field, updater)
           };
         });
       });
     };
     this.deleteField = (field) => {
+      const subFieldsToDelete = Object.keys(this.fieldInfo).filter((f) => {
+        const fieldStr = field.toString();
+        return f !== fieldStr && f.startsWith(fieldStr);
+      });
+      const fieldsToDelete = [...subFieldsToDelete, field];
       this.baseStore.setState((prev) => {
         const newState = { ...prev };
-        newState.values = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.deleteBy)(newState.values, field);
-        delete newState.fieldMetaBase[field];
+        fieldsToDelete.forEach((f) => {
+          newState.values = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.deleteBy)(newState.values, f);
+          delete this.fieldInfo[f];
+          delete newState.fieldMetaBase[f];
+        });
         return newState;
       });
-      delete this.fieldInfo[field];
     };
     this.pushFieldValue = (field, value, opts2) => {
       this.setFieldValue(
@@ -5571,6 +3984,8 @@ class FormApi {
         opts2
       );
       await this.validateField(field, "change");
+      (0,_metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.metaHelper)(this).handleArrayFieldMetaShift(field, index, "insert");
+      await this.validateArrayFieldsStartingFrom(field, index, "change");
     };
     this.replaceFieldValue = async (field, index, value, opts2) => {
       this.setFieldValue(
@@ -5597,12 +4012,10 @@ class FormApi {
         },
         opts2
       );
+      (0,_metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.metaHelper)(this).handleArrayFieldMetaShift(field, index, "remove");
       if (lastIndex !== null) {
         const start = `${field}[${lastIndex}]`;
-        const fieldsToDelete = Object.keys(this.fieldInfo).filter(
-          (f) => f.startsWith(start)
-        );
-        fieldsToDelete.forEach((f) => this.deleteField(f));
+        this.deleteField(start);
       }
       await this.validateField(field, "change");
       await this.validateArrayFieldsStartingFrom(field, index, "change");
@@ -5613,10 +4026,11 @@ class FormApi {
         (prev) => {
           const prev1 = prev[index1];
           const prev2 = prev[index2];
-          return (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.setBy)((0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.setBy)(prev, `${index1}`, prev2), `${index2}`, prev1);
+          return (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.setBy)((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.setBy)(prev, `${index1}`, prev2), `${index2}`, prev1);
         },
         opts2
       );
+      (0,_metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.metaHelper)(this).handleArrayFieldMetaShift(field, index1, "swap", index2);
       this.validateField(field, "change");
       this.validateField(`${field}[${index1}]`, "change");
       this.validateField(`${field}[${index2}]`, "change");
@@ -5630,23 +4044,72 @@ class FormApi {
         },
         opts2
       );
+      (0,_metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.metaHelper)(this).handleArrayFieldMetaShift(field, index1, "move", index2);
       this.validateField(field, "change");
       this.validateField(`${field}[${index1}]`, "change");
       this.validateField(`${field}[${index2}]`, "change");
     };
-    this.baseStore = new _tanstack_store__WEBPACK_IMPORTED_MODULE_2__.Store(
+    this.resetField = (field) => {
+      this.baseStore.setState((prev) => {
+        return {
+          ...prev,
+          fieldMetaBase: {
+            ...prev.fieldMetaBase,
+            [field]: _metaHelper_js__WEBPACK_IMPORTED_MODULE_2__.defaultFieldMeta
+          },
+          values: {
+            ...prev.values,
+            [field]: this.options.defaultValues && this.options.defaultValues[field]
+          }
+        };
+      });
+    };
+    this.getAllErrors = () => {
+      return {
+        form: {
+          errors: this.state.errors,
+          errorMap: this.state.errorMap
+        },
+        fields: Object.entries(this.state.fieldMeta).reduce(
+          (acc, [fieldName, fieldMeta]) => {
+            if (Object.keys(fieldMeta).length && fieldMeta.errors.length) {
+              acc[fieldName] = {
+                errors: fieldMeta.errors,
+                errorMap: fieldMeta.errorMap
+              };
+            }
+            return acc;
+          },
+          {}
+        )
+      };
+    };
+    this.parseValuesWithSchema = (schema) => {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.standardSchemaValidators.validate(
+        { value: this.state.values, validationSource: "form" },
+        schema
+      );
+    };
+    this.parseValuesWithSchemaAsync = (schema) => {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.standardSchemaValidators.validateAsync(
+        { value: this.state.values, validationSource: "form" },
+        schema
+      );
+    };
+    this.baseStore = new _tanstack_store__WEBPACK_IMPORTED_MODULE_4__.Store(
       getDefaultFormState({
         ...opts == null ? void 0 : opts.defaultState,
-        values: (opts == null ? void 0 : opts.defaultValues) ?? ((_a = opts == null ? void 0 : opts.defaultState) == null ? void 0 : _a.values),
-        isFormValid: true
+        values: (opts == null ? void 0 : opts.defaultValues) ?? ((_a = opts == null ? void 0 : opts.defaultState) == null ? void 0 : _a.values)
       })
     );
-    this.fieldMetaDerived = new _tanstack_store__WEBPACK_IMPORTED_MODULE_3__.Derived({
+    this.fieldMetaDerived = new _tanstack_store__WEBPACK_IMPORTED_MODULE_5__.Derived({
       deps: [this.baseStore],
       fn: ({ prevDepVals, currDepVals, prevVal: _prevVal }) => {
+        var _a2;
         const prevVal = _prevVal;
         const prevBaseStore = prevDepVals == null ? void 0 : prevDepVals[0];
         const currBaseStore = currDepVals[0];
+        let originalMetaCount = 0;
         const fieldMeta = {};
         for (const fieldName of Object.keys(
           currBaseStore.fieldMetaBase
@@ -5659,10 +4122,17 @@ class FormApi {
             fieldErrors = Object.values(currBaseVal.errorMap ?? {}).filter(
               (val) => val !== void 0
             );
+            const fieldInstance = (_a2 = this.getFieldInfo(fieldName)) == null ? void 0 : _a2.instance;
+            if (fieldInstance && !fieldInstance.options.disableErrorFlat) {
+              fieldErrors = fieldErrors == null ? void 0 : fieldErrors.flat(
+                1
+              );
+            }
           }
           const isFieldPristine = !currBaseVal.isDirty;
           if (prevFieldInfo && prevFieldInfo.isPristine === isFieldPristine && prevFieldInfo.errors === fieldErrors && currBaseVal === prevBaseVal) {
             fieldMeta[fieldName] = prevFieldInfo;
+            originalMetaCount++;
             continue;
           }
           fieldMeta[fieldName] = {
@@ -5671,10 +4141,14 @@ class FormApi {
             isPristine: isFieldPristine
           };
         }
+        if (!Object.keys(currBaseStore.fieldMetaBase).length) return fieldMeta;
+        if (prevVal && originalMetaCount === Object.keys(currBaseStore.fieldMetaBase).length) {
+          return prevVal;
+        }
         return fieldMeta;
       }
     });
-    this.store = new _tanstack_store__WEBPACK_IMPORTED_MODULE_3__.Derived({
+    this.store = new _tanstack_store__WEBPACK_IMPORTED_MODULE_5__.Derived({
       deps: [this.baseStore, this.fieldMetaDerived],
       fn: ({ prevDepVals, currDepVals, prevVal: _prevVal }) => {
         var _a2, _b, _c, _d;
@@ -5686,7 +4160,7 @@ class FormApi {
           (field) => field == null ? void 0 : field.isValidating
         );
         const isFieldsValid = !fieldMetaValues.some(
-          (field) => (field == null ? void 0 : field.errorMap) && (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.isNonEmptyArray)(Object.values(field.errorMap).filter(Boolean))
+          (field) => (field == null ? void 0 : field.errorMap) && (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isNonEmptyArray)(Object.values(field.errorMap).filter(Boolean))
         );
         const isTouched = fieldMetaValues.some((field) => field == null ? void 0 : field.isTouched);
         const isBlurred = fieldMetaValues.some((field) => field == null ? void 0 : field.isBlurred);
@@ -5707,30 +4181,29 @@ class FormApi {
         const isValidating = !!isFieldsValidating;
         let errors = (prevVal == null ? void 0 : prevVal.errors) ?? [];
         if (!prevBaseStore || currBaseStore.errorMap !== prevBaseStore.errorMap) {
-          errors = Object.values(currBaseStore.errorMap).reduce(
-            (prev, curr) => {
-              if (curr === void 0) return prev;
-              if (typeof curr === "string") {
-                prev.push(curr);
-                return prev;
-              } else if (curr && isFormValidationError(curr)) {
-                prev.push(curr.form);
-                return prev;
-              }
+          errors = Object.values(currBaseStore.errorMap).reduce((prev, curr) => {
+            if (curr === void 0) return prev;
+            if (curr && (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isGlobalFormValidationError)(curr)) {
+              prev.push(curr.form);
               return prev;
-            },
-            []
-          );
+            }
+            prev.push(curr);
+            return prev;
+          }, []);
         }
         const isFormValid = errors.length === 0;
         const isValid = isFieldsValid && isFormValid;
-        const canSubmit = currBaseStore.submissionAttempts === 0 && !isTouched && !hasOnMountError || !isValidating && !currBaseStore.isSubmitting && isValid;
+        const submitInvalid = this.options.canSubmitWhenInvalid ?? false;
+        const canSubmit = currBaseStore.submissionAttempts === 0 && !isTouched && !hasOnMountError || !isValidating && !currBaseStore.isSubmitting && isValid || submitInvalid;
         let errorMap = currBaseStore.errorMap;
         if (shouldInvalidateOnMount) {
           errors = errors.filter(
             (err) => err !== currBaseStore.errorMap.onMount
           );
           errorMap = Object.assign(errorMap, { onMount: void 0 });
+        }
+        if (prevVal && prevBaseStore && prevVal.errorMap === errorMap && prevVal.fieldMeta === this.fieldMetaDerived.state && prevVal.errors === errors && prevVal.isFieldsValidating === isFieldsValidating && prevVal.isFieldsValid === isFieldsValid && prevVal.isFormValid === isFormValid && prevVal.isValid === isValid && prevVal.canSubmit === canSubmit && prevVal.isTouched === isTouched && prevVal.isBlurred === isBlurred && prevVal.isPristine === isPristine && prevVal.isDirty === isDirty && (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.shallow)(prevBaseStore, currBaseStore)) {
+          return prevVal;
         }
         let state = {
           ...currBaseStore,
@@ -5758,6 +4231,7 @@ class FormApi {
         return state;
       }
     });
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.update(opts || {});
   }
   get state() {
@@ -5767,40 +4241,116 @@ class FormApi {
    * @private
    */
   runValidator(props) {
-    const adapter = this.options.validatorAdapter;
-    if (adapter && (typeof props.validate !== "function" || "~standard" in props.validate)) {
-      return adapter()[props.type](props.value, props.validate);
-    }
-    if ((0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_4__.isStandardSchemaValidator)(props.validate)) {
-      return (0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_4__.standardSchemaValidator)()()[props.type](
+    if ((0,_standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.isStandardSchemaValidator)(props.validate)) {
+      return _standardSchemaValidator_js__WEBPACK_IMPORTED_MODULE_3__.standardSchemaValidators[props.type](
         props.value,
         props.validate
       );
     }
     return props.validate(props.value);
   }
+  async handleSubmit(submitMeta) {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    this.baseStore.setState((old) => ({
+      ...old,
+      // Submission attempts mark the form as not submitted
+      isSubmitted: false,
+      // Count submission attempts
+      submissionAttempts: old.submissionAttempts + 1,
+      isSubmitSuccessful: false
+      // Reset isSubmitSuccessful at the start of submission
+    }));
+    (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
+      void Object.values(this.fieldInfo).forEach(
+        (field) => {
+          if (!field.instance) return;
+          if (!field.instance.state.meta.isTouched) {
+            field.instance.setMeta((prev) => ({ ...prev, isTouched: true }));
+          }
+        }
+      );
+    });
+    if (!this.state.canSubmit) return;
+    this.baseStore.setState((d) => ({ ...d, isSubmitting: true }));
+    const done = () => {
+      this.baseStore.setState((prev) => ({ ...prev, isSubmitting: false }));
+    };
+    await this.validateAllFields("submit");
+    if (!this.state.isFieldsValid) {
+      done();
+      (_b = (_a = this.options).onSubmitInvalid) == null ? void 0 : _b.call(_a, {
+        value: this.state.values,
+        formApi: this
+      });
+      return;
+    }
+    await this.validate("submit");
+    if (!this.state.isValid) {
+      done();
+      (_d = (_c = this.options).onSubmitInvalid) == null ? void 0 : _d.call(_c, {
+        value: this.state.values,
+        formApi: this
+      });
+      return;
+    }
+    (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
+      void Object.values(this.fieldInfo).forEach(
+        (field) => {
+          var _a2, _b2, _c2;
+          (_c2 = (_b2 = (_a2 = field.instance) == null ? void 0 : _a2.options.listeners) == null ? void 0 : _b2.onSubmit) == null ? void 0 : _c2.call(_b2, {
+            value: field.instance.state.value,
+            fieldApi: field.instance
+          });
+        }
+      );
+    });
+    (_f = (_e = this.options.listeners) == null ? void 0 : _e.onSubmit) == null ? void 0 : _f.call(_e, { formApi: this });
+    try {
+      await ((_h = (_g = this.options).onSubmit) == null ? void 0 : _h.call(_g, {
+        value: this.state.values,
+        formApi: this,
+        meta: submitMeta ?? this.options.onSubmitMeta
+      }));
+      (0,_tanstack_store__WEBPACK_IMPORTED_MODULE_1__.batch)(() => {
+        this.baseStore.setState((prev) => ({
+          ...prev,
+          isSubmitted: true,
+          isSubmitSuccessful: true
+          // Set isSubmitSuccessful to true on successful submission
+        }));
+        done();
+      });
+    } catch (err) {
+      this.baseStore.setState((prev) => ({
+        ...prev,
+        isSubmitSuccessful: false
+        // Ensure isSubmitSuccessful is false if an error occurs
+      }));
+      done();
+      throw err;
+    }
+  }
   /**
    * Updates the form's errorMap
    */
   setErrorMap(errorMap) {
-    this.baseStore.setState((prev) => ({
-      ...prev,
-      errorMap: {
-        ...prev.errorMap,
-        ...errorMap
-      }
-    }));
+    this.baseStore.setState(
+      (prev) => ({
+        ...prev,
+        errorMap: {
+          ...prev.errorMap,
+          ...errorMap
+        }
+      })
+    );
   }
 }
 function normalizeError(rawError) {
   if (rawError) {
-    if (typeof rawError === "object") {
+    if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isGlobalFormValidationError)(rawError)) {
       const formError = normalizeError(rawError.form).formError;
       const fieldErrors = rawError.fields;
       return { formError, fieldErrors };
-    }
-    if (typeof rawError !== "string") {
-      return { formError: "Invalid Form Values" };
     }
     return { formError: rawError };
   }
@@ -5827,6 +4377,139 @@ function getErrorMapKey(cause) {
 
 /***/ }),
 
+/***/ "./node_modules/@tanstack/form-core/dist/esm/metaHelper.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@tanstack/form-core/dist/esm/metaHelper.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   defaultFieldMeta: () => (/* binding */ defaultFieldMeta),
+/* harmony export */   metaHelper: () => (/* binding */ metaHelper)
+/* harmony export */ });
+const defaultFieldMeta = {
+  isValidating: false,
+  isTouched: false,
+  isBlurred: false,
+  isDirty: false,
+  isPristine: true,
+  errors: [],
+  errorMap: {},
+  errorSourceMap: {}
+};
+function metaHelper(formApi) {
+  function handleArrayFieldMetaShift(field, index, mode, secondIndex) {
+    const affectedFields = getAffectedFields(field, index, mode, secondIndex);
+    const handlers = {
+      insert: () => handleInsertMode(affectedFields, field, index),
+      remove: () => handleRemoveMode(affectedFields),
+      swap: () => secondIndex !== void 0 && handleSwapMode(affectedFields, field, index, secondIndex),
+      move: () => secondIndex !== void 0 && handleMoveMode(affectedFields, field, index, secondIndex)
+    };
+    handlers[mode]();
+  }
+  function getFieldPath(field, index) {
+    return `${field}[${index}]`;
+  }
+  function getAffectedFields(field, index, mode, secondIndex) {
+    const affectedFieldKeys = [getFieldPath(field, index)];
+    if (mode === "swap") {
+      affectedFieldKeys.push(getFieldPath(field, secondIndex));
+    } else if (mode === "move") {
+      const [startIndex, endIndex] = [
+        Math.min(index, secondIndex),
+        Math.max(index, secondIndex)
+      ];
+      for (let i = startIndex; i <= endIndex; i++) {
+        affectedFieldKeys.push(getFieldPath(field, i));
+      }
+    } else {
+      const currentValue = formApi.getFieldValue(field);
+      const fieldItems = Array.isArray(currentValue) ? currentValue.length : 0;
+      for (let i = index + 1; i < fieldItems; i++) {
+        affectedFieldKeys.push(getFieldPath(field, i));
+      }
+    }
+    return Object.keys(formApi.fieldInfo).filter(
+      (fieldKey) => affectedFieldKeys.some((key) => fieldKey.startsWith(key))
+    );
+  }
+  function updateIndex(fieldKey, direction) {
+    return fieldKey.replace(/\[(\d+)\]/, (_, num) => {
+      const currIndex = parseInt(num, 10);
+      const newIndex = direction === "up" ? currIndex + 1 : Math.max(0, currIndex - 1);
+      return `[${newIndex}]`;
+    });
+  }
+  function shiftMeta(fields, direction) {
+    const sortedFields = direction === "up" ? fields : [...fields].reverse();
+    sortedFields.forEach((fieldKey) => {
+      const nextFieldKey = updateIndex(fieldKey.toString(), direction);
+      const nextFieldMeta = formApi.getFieldMeta(nextFieldKey);
+      if (nextFieldMeta) {
+        formApi.setFieldMeta(fieldKey, nextFieldMeta);
+      } else {
+        formApi.setFieldMeta(fieldKey, getEmptyFieldMeta());
+      }
+    });
+  }
+  const getEmptyFieldMeta = () => defaultFieldMeta;
+  const handleInsertMode = (fields, field, insertIndex) => {
+    shiftMeta(fields, "down");
+    fields.forEach((fieldKey) => {
+      if (fieldKey.toString().startsWith(getFieldPath(field, insertIndex))) {
+        formApi.setFieldMeta(fieldKey, getEmptyFieldMeta());
+      }
+    });
+  };
+  const handleRemoveMode = (fields) => {
+    shiftMeta(fields, "up");
+  };
+  const handleMoveMode = (fields, field, fromIndex, toIndex) => {
+    const fromFields = new Map(
+      Object.keys(formApi.fieldInfo).filter(
+        (fieldKey) => fieldKey.startsWith(getFieldPath(field, fromIndex))
+      ).map((fieldKey) => [
+        fieldKey,
+        formApi.getFieldMeta(fieldKey)
+      ])
+    );
+    shiftMeta(fields, fromIndex < toIndex ? "up" : "down");
+    Object.keys(formApi.fieldInfo).filter((fieldKey) => fieldKey.startsWith(getFieldPath(field, toIndex))).forEach((fieldKey) => {
+      const fromKey = fieldKey.replace(
+        getFieldPath(field, toIndex),
+        getFieldPath(field, fromIndex)
+      );
+      const fromMeta = fromFields.get(fromKey);
+      if (fromMeta) {
+        formApi.setFieldMeta(fieldKey, fromMeta);
+      }
+    });
+  };
+  const handleSwapMode = (fields, field, index, secondIndex) => {
+    fields.forEach((fieldKey) => {
+      if (!fieldKey.toString().startsWith(getFieldPath(field, index))) return;
+      const swappedKey = fieldKey.toString().replace(
+        getFieldPath(field, index),
+        getFieldPath(field, secondIndex)
+      );
+      const [meta1, meta2] = [
+        formApi.getFieldMeta(fieldKey),
+        formApi.getFieldMeta(swappedKey)
+      ];
+      if (meta1) formApi.setFieldMeta(swappedKey, meta1);
+      if (meta2) formApi.setFieldMeta(fieldKey, meta2);
+    });
+  };
+  return { handleArrayFieldMetaShift };
+}
+
+//# sourceMappingURL=metaHelper.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js":
 /*!******************************************************************************!*\
   !*** ./node_modules/@tanstack/form-core/dist/esm/standardSchemaValidator.js ***!
@@ -5836,9 +4519,9 @@ function getErrorMapKey(cause) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   isStandardSchemaValidator: () => (/* binding */ isStandardSchemaValidator),
-/* harmony export */   standardSchemaValidator: () => (/* binding */ standardSchemaValidator)
+/* harmony export */   standardSchemaValidators: () => (/* binding */ standardSchemaValidators)
 /* harmony export */ });
-function prefixSchemaToErrors(issues, transformErrors) {
+function prefixSchemaToErrors(issues) {
   const schema = /* @__PURE__ */ new Map();
   for (const issue of issues) {
     const path = [...issue.path ?? []].map((segment) => {
@@ -5847,38 +4530,39 @@ function prefixSchemaToErrors(issues, transformErrors) {
     }).join(".").replace(/\.\[/g, "[");
     schema.set(path, (schema.get(path) ?? []).concat(issue));
   }
-  const transformedSchema = {};
-  schema.forEach((value, key) => {
-    transformedSchema[key] = transformErrors(value);
-  });
-  return transformedSchema;
+  return Object.fromEntries(schema);
 }
-function defaultFormTransformer(transformErrors) {
-  return (issues) => ({
-    form: transformErrors(issues),
-    fields: prefixSchemaToErrors(issues, transformErrors)
-  });
-}
-const standardSchemaValidator = (params = {}) => () => {
-  const transformFieldErrors = params.transformErrors ?? ((issues) => issues.map((issue) => issue.message).join(", "));
-  const getTransformStrategy = (validationSource) => validationSource === "form" ? defaultFormTransformer(transformFieldErrors) : transformFieldErrors;
+const transformFormIssues = (issues) => {
+  const schemaErrors = prefixSchemaToErrors(issues);
   return {
-    validate({ value, validationSource }, fn) {
-      const result = fn["~standard"].validate(value);
-      if (result instanceof Promise) {
-        throw new Error("async function passed to sync validator");
-      }
-      if (!result.issues) return;
-      const transformer = getTransformStrategy(validationSource);
-      return transformer(result.issues);
-    },
-    async validateAsync({ value, validationSource }, fn) {
-      const result = await fn["~standard"].validate(value);
-      if (!result.issues) return;
-      const transformer = getTransformStrategy(validationSource);
-      return transformer(result.issues);
-    }
+    form: schemaErrors,
+    fields: schemaErrors
   };
+};
+const standardSchemaValidators = {
+  validate({
+    value,
+    validationSource
+  }, schema) {
+    const result = schema["~standard"].validate(value);
+    if (result instanceof Promise) {
+      throw new Error("async function passed to sync validator");
+    }
+    if (!result.issues) return;
+    if (validationSource === "field")
+      return result.issues;
+    return transformFormIssues(result.issues);
+  },
+  async validateAsync({
+    value,
+    validationSource
+  }, schema) {
+    const result = await schema["~standard"].validate(value);
+    if (!result.issues) return;
+    if (validationSource === "field")
+      return result.issues;
+    return transformFormIssues(result.issues);
+  }
 };
 const isStandardSchemaValidator = (validator) => !!validator && "~standard" in validator;
 
@@ -5896,13 +4580,17 @@ const isStandardSchemaValidator = (validator) => !!validator && "~standard" in v
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   deleteBy: () => (/* binding */ deleteBy),
+/* harmony export */   determineFieldLevelErrorSourceAndValue: () => (/* binding */ determineFieldLevelErrorSourceAndValue),
+/* harmony export */   determineFormLevelErrorSourceAndValue: () => (/* binding */ determineFormLevelErrorSourceAndValue),
 /* harmony export */   functionalUpdate: () => (/* binding */ functionalUpdate),
 /* harmony export */   getAsyncValidatorArray: () => (/* binding */ getAsyncValidatorArray),
 /* harmony export */   getBy: () => (/* binding */ getBy),
 /* harmony export */   getSyncValidatorArray: () => (/* binding */ getSyncValidatorArray),
+/* harmony export */   isGlobalFormValidationError: () => (/* binding */ isGlobalFormValidationError),
 /* harmony export */   isNonEmptyArray: () => (/* binding */ isNonEmptyArray),
 /* harmony export */   makePathArray: () => (/* binding */ makePathArray),
-/* harmony export */   setBy: () => (/* binding */ setBy)
+/* harmony export */   setBy: () => (/* binding */ setBy),
+/* harmony export */   shallow: () => (/* binding */ shallow)
 /* harmony export */ });
 function functionalUpdate(updater, input) {
   return typeof updater === "function" ? updater(input) : updater;
@@ -6002,7 +4690,7 @@ function makePathArray(str) {
   if (typeof str !== "string") {
     throw new Error("Path must be a string.");
   }
-  return str.replaceAll("[", ".").replaceAll("]", "").replace(reFindNumbers0, intReplace).replace(reFindNumbers1, `.${intReplace}.`).replace(reFindNumbers2, `${intReplace}.`).replace(reFindNumbers3, `.${intReplace}`).replace(reFindMultiplePeriods, ".").split(".").map((d) => {
+  return str.replace(/\[/g, ".").replace(/\]/g, "").replace(reFindNumbers0, intReplace).replace(reFindNumbers1, `.${intReplace}.`).replace(reFindNumbers2, `${intReplace}.`).replace(reFindNumbers3, `.${intReplace}`).replace(reFindMultiplePeriods, ".").split(".").map((d) => {
     if (d.indexOf(intPrefix) === 0) {
       return parseInt(d.substring(intPrefix.length), 10);
     }
@@ -6083,6 +4771,69 @@ function getSyncValidatorArray(cause, options) {
       return [changeValidator, serverValidator];
   }
 }
+const isGlobalFormValidationError = (error) => {
+  return !!error && typeof error === "object" && "fields" in error;
+};
+function shallow(objA, objB) {
+  if (Object.is(objA, objB)) {
+    return true;
+  }
+  if (typeof objA !== "object" || objA === null || typeof objB !== "object" || objB === null) {
+    return false;
+  }
+  if (objA instanceof Map && objB instanceof Map) {
+    if (objA.size !== objB.size) return false;
+    for (const [k, v] of objA) {
+      if (!objB.has(k) || !Object.is(v, objB.get(k))) return false;
+    }
+    return true;
+  }
+  if (objA instanceof Set && objB instanceof Set) {
+    if (objA.size !== objB.size) return false;
+    for (const v of objA) {
+      if (!objB.has(v)) return false;
+    }
+    return true;
+  }
+  const keysA = Object.keys(objA);
+  if (keysA.length !== Object.keys(objB).length) {
+    return false;
+  }
+  for (let i = 0; i < keysA.length; i++) {
+    if (!Object.prototype.hasOwnProperty.call(objB, keysA[i]) || !Object.is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+  return true;
+}
+const determineFormLevelErrorSourceAndValue = ({
+  newFormValidatorError,
+  isPreviousErrorFromFormValidator,
+  previousErrorValue
+}) => {
+  if (newFormValidatorError) {
+    return { newErrorValue: newFormValidatorError, newSource: "form" };
+  }
+  if (isPreviousErrorFromFormValidator) {
+    return { newErrorValue: void 0, newSource: void 0 };
+  }
+  if (previousErrorValue) {
+    return { newErrorValue: previousErrorValue, newSource: "field" };
+  }
+  return { newErrorValue: void 0, newSource: void 0 };
+};
+const determineFieldLevelErrorSourceAndValue = ({
+  formLevelError,
+  fieldLevelError
+}) => {
+  if (fieldLevelError) {
+    return { newErrorValue: fieldLevelError, newSource: "field" };
+  }
+  if (formLevelError) {
+    return { newErrorValue: formLevelError, newSource: "form" };
+  }
+  return { newErrorValue: void 0, newSource: void 0 };
+};
 
 //# sourceMappingURL=utils.js.map
 
@@ -6220,6 +4971,7 @@ function infiniteQueryBehavior(pages) {
             return Promise.resolve(data);
           }
           const queryFnContext = {
+            client: context.client,
             queryKey: context.queryKey,
             pageParam: param,
             direction: previous ? "backward" : "forward",
@@ -6263,6 +5015,7 @@ function infiniteQueryBehavior(pages) {
           return context.options.persister?.(
             fetchFn,
             {
+              client: context.client,
               queryKey: context.queryKey,
               meta: context.options.meta,
               signal: context.signal
@@ -6289,13 +5042,11 @@ function getPreviousPageParam(options, { pages, pageParams }) {
   return pages.length > 0 ? options.getPreviousPageParam?.(pages[0], pages, pageParams[0], pageParams) : void 0;
 }
 function hasNextPage(options, data) {
-  if (!data)
-    return false;
+  if (!data) return false;
   return getNextPageParam(options, data) != null;
 }
 function hasPreviousPage(options, data) {
-  if (!data || !options.getPreviousPageParam)
-    return false;
+  if (!data || !options.getPreviousPageParam) return false;
   return getPreviousPageParam(options, data) != null;
 }
 
@@ -6375,6 +5126,9 @@ var Mutation = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removabl
     this.execute(this.state.variables);
   }
   async execute(variables) {
+    const onContinue = () => {
+      this.#dispatch({ type: "continue" });
+    };
     this.#retryer = (0,_retryer_js__WEBPACK_IMPORTED_MODULE_1__.createRetryer)({
       fn: () => {
         if (!this.options.mutationFn) {
@@ -6388,9 +5142,7 @@ var Mutation = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removabl
       onPause: () => {
         this.#dispatch({ type: "pause" });
       },
-      onContinue: () => {
-        this.#dispatch({ type: "continue" });
-      },
+      onContinue,
       retry: this.options.retry ?? 0,
       retryDelay: this.options.retryDelay,
       networkMode: this.options.networkMode,
@@ -6399,7 +5151,9 @@ var Mutation = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removabl
     const restored = this.state.status === "pending";
     const isPaused = !this.#retryer.canStart();
     try {
-      if (!restored) {
+      if (restored) {
+        onContinue();
+      } else {
         this.#dispatch({ type: "pending", variables, isPaused });
         await this.#mutationCache.config.onMutate?.(
           variables,
@@ -6816,9 +5570,11 @@ var MutationObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   createNotifyManager: () => (/* binding */ createNotifyManager),
+/* harmony export */   defaultScheduler: () => (/* binding */ defaultScheduler),
 /* harmony export */   notifyManager: () => (/* binding */ notifyManager)
 /* harmony export */ });
 // src/notifyManager.ts
+var defaultScheduler = (cb) => setTimeout(cb, 0);
 function createNotifyManager() {
   let queue = [];
   let transactions = 0;
@@ -6828,7 +5584,7 @@ function createNotifyManager() {
   let batchNotifyFn = (callback) => {
     callback();
   };
-  let scheduleFn = (cb) => setTimeout(cb, 0);
+  let scheduleFn = defaultScheduler;
   const schedule = (callback) => {
     if (transactions) {
       queue.push(callback);
@@ -6996,6 +5752,7 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
   #initialState;
   #revertState;
   #cache;
+  #client;
   #retryer;
   #defaultOptions;
   #abortSignalConsumed;
@@ -7005,7 +5762,8 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
     this.#defaultOptions = config.defaultOptions;
     this.setOptions(config.options);
     this.observers = [];
-    this.#cache = config.cache;
+    this.#client = config.client;
+    this.#cache = this.#client.getQueryCache();
     this.queryKey = config.queryKey;
     this.queryHash = config.queryHash;
     this.#initialState = getDefaultState(this.options);
@@ -7157,6 +5915,7 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
     const fetchFn = () => {
       const queryFn = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.ensureQueryFn)(this.options, fetchOptions);
       const queryFnContext = {
+        client: this.#client,
         queryKey: this.queryKey,
         meta: this.meta
       };
@@ -7175,6 +5934,7 @@ var Query = class extends _removable_js__WEBPACK_IMPORTED_MODULE_0__.Removable {
       fetchOptions,
       options: this.options,
       queryKey: this.queryKey,
+      client: this.#client,
       state: this.state,
       fetchFn
     };
@@ -7395,7 +6155,7 @@ var QueryCache = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.Sub
     let query = this.get(queryHash);
     if (!query) {
       query = new _query_js__WEBPACK_IMPORTED_MODULE_2__.Query({
-        cache: this,
+        client,
         queryKey,
         queryHash,
         options: client.defaultQueryOptions(options),
@@ -7519,8 +6279,7 @@ var QueryClient = class {
   }
   mount() {
     this.#mountCount++;
-    if (this.#mountCount !== 1)
-      return;
+    if (this.#mountCount !== 1) return;
     this.#unsubscribeFocus = _focusManager_js__WEBPACK_IMPORTED_MODULE_2__.focusManager.subscribe(async (focused) => {
       if (focused) {
         await this.resumePausedMutations();
@@ -7536,8 +6295,7 @@ var QueryClient = class {
   }
   unmount() {
     this.#mountCount--;
-    if (this.#mountCount !== 0)
-      return;
+    if (this.#mountCount !== 0) return;
     this.#unsubscribeFocus?.();
     this.#unsubscribeFocus = void 0;
     this.#unsubscribeOnline?.();
@@ -7549,6 +6307,13 @@ var QueryClient = class {
   isMutating(filters) {
     return this.#mutationCache.findAll({ ...filters, status: "pending" }).length;
   }
+  /**
+   * Imperative (non-reactive) way to retrieve data for a QueryKey.
+   * Should only be used in callbacks or functions where reading the latest data is necessary, e.g. for optimistic updates.
+   *
+   * Hint: Do not use this function inside a component, because it won't receive updates.
+   * Use `useQuery` to create a `QueryObserver` that subscribes to changes.
+   */
   getQueryData(queryKey) {
     const options = this.defaultQueryOptions({ queryKey });
     return this.#queryCache.get(options.queryHash)?.state.data;
@@ -7607,15 +6372,17 @@ var QueryClient = class {
   }
   resetQueries(filters, options) {
     const queryCache = this.#queryCache;
-    const refetchFilters = {
-      type: "active",
-      ...filters
-    };
     return _notifyManager_js__WEBPACK_IMPORTED_MODULE_5__.notifyManager.batch(() => {
       queryCache.findAll(filters).forEach((query) => {
         query.reset();
       });
-      return this.refetchQueries(refetchFilters, options);
+      return this.refetchQueries(
+        {
+          type: "active",
+          ...filters
+        },
+        options
+      );
     });
   }
   cancelQueries(filters, cancelOptions = {}) {
@@ -7633,11 +6400,13 @@ var QueryClient = class {
       if (filters?.refetchType === "none") {
         return Promise.resolve();
       }
-      const refetchFilters = {
-        ...filters,
-        type: filters?.refetchType ?? filters?.type ?? "active"
-      };
-      return this.refetchQueries(refetchFilters, options);
+      return this.refetchQueries(
+        {
+          ...filters,
+          type: filters?.refetchType ?? filters?.type ?? "active"
+        },
+        options
+      );
     });
   }
   refetchQueries(filters, options = {}) {
@@ -7722,10 +6491,10 @@ var QueryClient = class {
   }
   getMutationDefaults(mutationKey) {
     const defaults = [...this.#mutationDefaults.values()];
-    let result = {};
+    const result = {};
     defaults.forEach((queryDefault) => {
       if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_4__.partialMatchKey)(mutationKey, queryDefault.mutationKey)) {
-        result = { ...result, ...queryDefault.defaultOptions };
+        Object.assign(result, queryDefault.defaultOptions);
       }
     });
     return result;
@@ -7875,7 +6644,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
     this.#clearRefetchInterval();
     this.#currentQuery.removeObserver(this);
   }
-  setOptions(options, notifyOptions) {
+  setOptions(options) {
     const prevOptions = this.options;
     const prevQuery = this.#currentQuery;
     this.options = this.#client.defaultQueryOptions(options);
@@ -7902,7 +6671,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
     )) {
       this.#executeFetch();
     }
-    this.updateResult(notifyOptions);
+    this.updateResult();
     if (mounted && (this.#currentQuery !== prevQuery || (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.resolveEnabled)(this.options.enabled, this.#currentQuery) !== (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.resolveEnabled)(prevOptions.enabled, this.#currentQuery) || (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.resolveStaleTime)(this.options.staleTime, this.#currentQuery) !== (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.resolveStaleTime)(prevOptions.staleTime, this.#currentQuery))) {
       this.#updateStaleTimeout();
     }
@@ -8050,40 +6819,18 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
       }
     }
     let { error, errorUpdatedAt, status } = newState;
-    if (options.select && newState.data !== void 0) {
-      if (prevResult && newState.data === prevResultState?.data && options.select === this.#selectFn) {
-        data = this.#selectResult;
-      } else {
-        try {
-          this.#selectFn = options.select;
-          data = options.select(newState.data);
-          data = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.replaceData)(prevResult?.data, data, options);
-          this.#selectResult = data;
-          this.#selectError = null;
-        } catch (selectError) {
-          this.#selectError = selectError;
-        }
-      }
-    } else {
-      data = newState.data;
-    }
+    data = newState.data;
+    let skipSelect = false;
     if (options.placeholderData !== void 0 && data === void 0 && status === "pending") {
       let placeholderData;
       if (prevResult?.isPlaceholderData && options.placeholderData === prevResultOptions?.placeholderData) {
         placeholderData = prevResult.data;
+        skipSelect = true;
       } else {
         placeholderData = typeof options.placeholderData === "function" ? options.placeholderData(
           this.#lastQueryWithDefinedData?.state.data,
           this.#lastQueryWithDefinedData
         ) : options.placeholderData;
-        if (options.select && placeholderData !== void 0) {
-          try {
-            placeholderData = options.select(placeholderData);
-            this.#selectError = null;
-          } catch (selectError) {
-            this.#selectError = selectError;
-          }
-        }
       }
       if (placeholderData !== void 0) {
         status = "success";
@@ -8093,6 +6840,21 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
           options
         );
         isPlaceholderData = true;
+      }
+    }
+    if (options.select && data !== void 0 && !skipSelect) {
+      if (prevResult && data === prevResultState?.data && options.select === this.#selectFn) {
+        data = this.#selectResult;
+      } else {
+        try {
+          this.#selectFn = options.select;
+          data = options.select(data);
+          data = (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.replaceData)(prevResult?.data, data, options);
+          this.#selectResult = data;
+          this.#selectError = null;
+        } catch (selectError) {
+          this.#selectError = selectError;
+        }
       }
     }
     if (this.#selectError) {
@@ -8167,7 +6929,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
     }
     return nextResult;
   }
-  updateResult(notifyOptions) {
+  updateResult() {
     const prevResult = this.#currentResult;
     const nextResult = this.createResult(this.#currentQuery, this.options);
     this.#currentResultState = this.#currentQuery.state;
@@ -8179,7 +6941,6 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
       return;
     }
     this.#currentResult = nextResult;
-    const defaultNotifyOptions = {};
     const shouldNotifyListeners = () => {
       if (!prevResult) {
         return true;
@@ -8201,10 +6962,7 @@ var QueryObserver = class extends _subscribable_js__WEBPACK_IMPORTED_MODULE_0__.
         return changed && includedProps.has(typedKey);
       });
     };
-    if (notifyOptions?.listeners !== false && shouldNotifyListeners()) {
-      defaultNotifyOptions.listeners = true;
-    }
-    this.#notify({ ...defaultNotifyOptions, ...notifyOptions });
+    this.#notify({ listeners: shouldNotifyListeners() });
   }
   #updateQuery() {
     const query = this.#client.getQueryCache().build(this.#client, this.options);
@@ -8679,7 +7437,7 @@ function partialMatchKey(a, b) {
     return false;
   }
   if (a && b && typeof a === "object" && typeof b === "object") {
-    return !Object.keys(b).some((key) => !partialMatchKey(a[key], b[key]));
+    return Object.keys(b).every((key) => partialMatchKey(a[key], b[key]));
   }
   return false;
 }
@@ -8764,6 +7522,7 @@ function replaceData(prevData, data, options) {
         console.error(
           `Structural sharing requires data to be JSON serializable. To fix this, turn off structuralSharing or return JSON-serializable data from your queryFn. [${options.queryHash}]: ${error}`
         );
+        throw error;
       }
     }
     return replaceEqualDeep(prevData, data);
@@ -8814,7 +7573,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Field: () => (/* binding */ Field),
 /* harmony export */   useField: () => (/* binding */ useField)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var _tanstack_react_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tanstack/react-store */ "./node_modules/@tanstack/react-form/node_modules/@tanstack/react-store/dist/esm/index.js");
 /* harmony import */ var _tanstack_form_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tanstack/form-core */ "./node_modules/@tanstack/form-core/dist/esm/FieldApi.js");
@@ -8843,7 +7602,10 @@ function useField(opts) {
   (0,_tanstack_react_store__WEBPACK_IMPORTED_MODULE_4__.useStore)(
     fieldApi.store,
     opts.mode === "array" ? (state) => {
-      return [state.meta, Object.keys(state.value ?? []).length];
+      return [
+        state.meta,
+        Object.keys(state.value ?? []).length
+      ];
     } : void 0
   );
   return fieldApi;
@@ -8881,7 +7643,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   useForm: () => (/* binding */ useForm)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var _tanstack_form_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tanstack/form-core */ "./node_modules/@tanstack/form-core/dist/esm/utils.js");
 /* harmony import */ var _tanstack_form_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tanstack/form-core */ "./node_modules/@tanstack/form-core/dist/esm/FormApi.js");
 /* harmony import */ var _tanstack_react_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tanstack/react-store */ "./node_modules/@tanstack/react-form/node_modules/@tanstack/react-store/dist/esm/index.js");
@@ -9037,7 +7799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   useQueryClient: () => (/* binding */ useQueryClient)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 "use client";
 
 // src/QueryClientProvider.tsx
@@ -9085,7 +7847,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   useQueryErrorResetBoundary: () => (/* binding */ useQueryErrorResetBoundary)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 "use client";
 
 // src/QueryErrorResetBoundary.tsx
@@ -9153,9 +7915,10 @@ var getHasError = ({
   result,
   errorResetBoundary,
   throwOnError,
-  query
+  query,
+  suspense
 }) => {
-  return result.isError && !errorResetBoundary.isReset() && !result.isFetching && query && (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.shouldThrowError)(throwOnError, [result.error, query]);
+  return result.isError && !errorResetBoundary.isReset() && !result.isFetching && query && (suspense && result.data === void 0 || (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.shouldThrowError)(throwOnError, [result.error, query]));
 };
 
 //# sourceMappingURL=errorBoundaryUtils.js.map
@@ -9266,6 +8029,13 @@ function useBaseQuery(options, Observer, queryClient) {
   client.getDefaultOptions().queries?._experimental_beforeQuery?.(
     defaultedOptions
   );
+  if (true) {
+    if (!defaultedOptions.queryFn) {
+      console.error(
+        `[${defaultedOptions.queryHash}]: No queryFn was passed as an option, and no default queryFn was found. The queryFn parameter is only optional when using a default queryFn. More info here: https://tanstack.com/query/latest/docs/framework/react/guides/default-query-function`
+      );
+    }
+  }
   defaultedOptions._optimisticResults = isRestoring ? "isRestoring" : "optimistic";
   (0,_suspense_js__WEBPACK_IMPORTED_MODULE_4__.ensureSuspenseTimers)(defaultedOptions);
   (0,_errorBoundaryUtils_js__WEBPACK_IMPORTED_MODULE_5__.ensurePreventErrorBoundaryRetry)(defaultedOptions, errorResetBoundary);
@@ -9292,7 +8062,7 @@ function useBaseQuery(options, Observer, queryClient) {
     () => observer.getCurrentResult()
   );
   react__WEBPACK_IMPORTED_MODULE_0__.useEffect(() => {
-    observer.setOptions(defaultedOptions, { listeners: false });
+    observer.setOptions(defaultedOptions);
   }, [defaultedOptions, observer]);
   if ((0,_suspense_js__WEBPACK_IMPORTED_MODULE_4__.shouldSuspend)(defaultedOptions, result)) {
     throw (0,_suspense_js__WEBPACK_IMPORTED_MODULE_4__.fetchOptimistic)(defaultedOptions, observer, errorResetBoundary);
@@ -9301,7 +8071,8 @@ function useBaseQuery(options, Observer, queryClient) {
     result,
     errorResetBoundary,
     throwOnError: defaultedOptions.throwOnError,
-    query: client.getQueryCache().get(defaultedOptions.queryHash)
+    query: client.getQueryCache().get(defaultedOptions.queryHash),
+    suspense: defaultedOptions.suspense
   })) {
     throw result.error;
   }
@@ -9797,6 +8568,378 @@ class Store {
 //# sourceMappingURL=store.js.map
 
 
+/***/ }),
+
+/***/ "./node_modules/@wordpress/icons/build-module/library/check.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/check.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+/**
+ * WordPress dependencies
+ */
+
+const check = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path, {
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
+}));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (check);
+//# sourceMappingURL=check.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@wordpress/icons/build-module/library/close.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/close.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+/**
+ * WordPress dependencies
+ */
+
+const close = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path, {
+  d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+}));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (close);
+//# sourceMappingURL=close.js.map
+
+/***/ }),
+
+/***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+/**
+ * @license React
+ * use-sync-external-store-shim.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+ true &&
+  (function () {
+    function is(x, y) {
+      return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
+    }
+    function useSyncExternalStore$2(subscribe, getSnapshot) {
+      didWarnOld18Alpha ||
+        void 0 === React.startTransition ||
+        ((didWarnOld18Alpha = !0),
+        console.error(
+          "You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release."
+        ));
+      var value = getSnapshot();
+      if (!didWarnUncachedGetSnapshot) {
+        var cachedValue = getSnapshot();
+        objectIs(value, cachedValue) ||
+          (console.error(
+            "The result of getSnapshot should be cached to avoid an infinite loop"
+          ),
+          (didWarnUncachedGetSnapshot = !0));
+      }
+      cachedValue = useState({
+        inst: { value: value, getSnapshot: getSnapshot }
+      });
+      var inst = cachedValue[0].inst,
+        forceUpdate = cachedValue[1];
+      useLayoutEffect(
+        function () {
+          inst.value = value;
+          inst.getSnapshot = getSnapshot;
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+        },
+        [subscribe, value, getSnapshot]
+      );
+      useEffect(
+        function () {
+          checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+          return subscribe(function () {
+            checkIfSnapshotChanged(inst) && forceUpdate({ inst: inst });
+          });
+        },
+        [subscribe]
+      );
+      useDebugValue(value);
+      return value;
+    }
+    function checkIfSnapshotChanged(inst) {
+      var latestGetSnapshot = inst.getSnapshot;
+      inst = inst.value;
+      try {
+        var nextValue = latestGetSnapshot();
+        return !objectIs(inst, nextValue);
+      } catch (error) {
+        return !0;
+      }
+    }
+    function useSyncExternalStore$1(subscribe, getSnapshot) {
+      return getSnapshot();
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __webpack_require__(/*! react */ "react"),
+      objectIs = "function" === typeof Object.is ? Object.is : is,
+      useState = React.useState,
+      useEffect = React.useEffect,
+      useLayoutEffect = React.useLayoutEffect,
+      useDebugValue = React.useDebugValue,
+      didWarnOld18Alpha = !1,
+      didWarnUncachedGetSnapshot = !1,
+      shim =
+        "undefined" === typeof window ||
+        "undefined" === typeof window.document ||
+        "undefined" === typeof window.document.createElement
+          ? useSyncExternalStore$1
+          : useSyncExternalStore$2;
+    exports.useSyncExternalStore =
+      void 0 !== React.useSyncExternalStore ? React.useSyncExternalStore : shim;
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+  })();
+
+
+/***/ }),
+
+/***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+/**
+ * @license React
+ * use-sync-external-store-shim/with-selector.development.js
+ *
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+ true &&
+  (function () {
+    function is(x, y) {
+      return (x === y && (0 !== x || 1 / x === 1 / y)) || (x !== x && y !== y);
+    }
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
+    var React = __webpack_require__(/*! react */ "react"),
+      shim = __webpack_require__(/*! use-sync-external-store/shim */ "./node_modules/use-sync-external-store/shim/index.js"),
+      objectIs = "function" === typeof Object.is ? Object.is : is,
+      useSyncExternalStore = shim.useSyncExternalStore,
+      useRef = React.useRef,
+      useEffect = React.useEffect,
+      useMemo = React.useMemo,
+      useDebugValue = React.useDebugValue;
+    exports.useSyncExternalStoreWithSelector = function (
+      subscribe,
+      getSnapshot,
+      getServerSnapshot,
+      selector,
+      isEqual
+    ) {
+      var instRef = useRef(null);
+      if (null === instRef.current) {
+        var inst = { hasValue: !1, value: null };
+        instRef.current = inst;
+      } else inst = instRef.current;
+      instRef = useMemo(
+        function () {
+          function memoizedSelector(nextSnapshot) {
+            if (!hasMemo) {
+              hasMemo = !0;
+              memoizedSnapshot = nextSnapshot;
+              nextSnapshot = selector(nextSnapshot);
+              if (void 0 !== isEqual && inst.hasValue) {
+                var currentSelection = inst.value;
+                if (isEqual(currentSelection, nextSnapshot))
+                  return (memoizedSelection = currentSelection);
+              }
+              return (memoizedSelection = nextSnapshot);
+            }
+            currentSelection = memoizedSelection;
+            if (objectIs(memoizedSnapshot, nextSnapshot))
+              return currentSelection;
+            var nextSelection = selector(nextSnapshot);
+            if (void 0 !== isEqual && isEqual(currentSelection, nextSelection))
+              return (memoizedSnapshot = nextSnapshot), currentSelection;
+            memoizedSnapshot = nextSnapshot;
+            return (memoizedSelection = nextSelection);
+          }
+          var hasMemo = !1,
+            memoizedSnapshot,
+            memoizedSelection,
+            maybeGetServerSnapshot =
+              void 0 === getServerSnapshot ? null : getServerSnapshot;
+          return [
+            function () {
+              return memoizedSelector(getSnapshot());
+            },
+            null === maybeGetServerSnapshot
+              ? void 0
+              : function () {
+                  return memoizedSelector(maybeGetServerSnapshot());
+                }
+          ];
+        },
+        [getSnapshot, getServerSnapshot, selector, isEqual]
+      );
+      var value = useSyncExternalStore(subscribe, instRef[0], instRef[1]);
+      useEffect(
+        function () {
+          inst.hasValue = !0;
+          inst.value = value;
+        },
+        [value]
+      );
+      useDebugValue(value);
+      return value;
+    };
+    "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ &&
+      "function" ===
+        typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop &&
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
+  })();
+
+
+/***/ }),
+
+/***/ "./node_modules/use-sync-external-store/shim/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/use-sync-external-store/shim/index.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ../cjs/use-sync-external-store-shim.development.js */ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js");
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/use-sync-external-store/shim/with-selector.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/use-sync-external-store/shim/with-selector.js ***!
+  \********************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ../cjs/use-sync-external-store-shim/with-selector.development.js */ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js");
+}
+
+
+/***/ }),
+
+/***/ "@wordpress/api-fetch":
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "@wordpress/primitives":
+/*!************************************!*\
+  !*** external ["wp","primitives"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["primitives"];
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
+
+/***/ }),
+
+/***/ "react/jsx-runtime":
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["ReactJSXRuntime"];
+
 /***/ })
 
 /******/ 	});
@@ -9868,7 +9011,7 @@ class Store {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!****************************************!*\
   !*** ./apps/general-settings/index.js ***!
