@@ -32,7 +32,6 @@ class WPChill_Dashboard {
 		$this->videos        = $this->get_videos();
 		$this->products      = $this->get_products();
 
-
 		$this->menu_slug = 'wpchill-dashboard';
 		$this->tabs      = apply_filters(
 			$this->plugin_cpt . '_dashboard_tabs',
@@ -209,7 +208,7 @@ class WPChill_Dashboard {
 							<div class="wpchill_dashboard_video_description">
 								<p><?php echo wp_kses_post( $video['description'] ); ?></p>
 								<a href="<?php echo esc_url( $video['docu_link'] ); ?>" target="_BLANK" class="wpchill_dashboard_item_button">
-									<?php esc_html_e( 'View Documentation', 'modula-best-grid-gallery' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
+									<?php esc_html_e( 'Read online', 'modula-best-grid-gallery' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span>
 								</a>
 							</div>
 						</div>
@@ -762,7 +761,7 @@ class WPChill_Dashboard {
 				'name'        => 'Modula',
 				'slug'        => 'modula',
 				'path'        => 'modula-best-grid-gallery/Modula.php',
-				'description' => 'Easily create stunning, customizable photo galleries and albums with Modula’s powerful features.',
+				'description' => 'Easily create stunning, customizable photo galleries and albums with Modula\'s powerful features.',
 				'url'         => 'https://wp-modula.com/?utm_source=modula-gallery&utm_medium=link&utm_campaign=about-us&utm_term=about-us+website+link',
 				'videos'      => array(
 					array(
@@ -921,29 +920,29 @@ class WPChill_Dashboard {
 				'video_link'  => 'https://www.youtube.com/watch?v=FrvpYeYxzpI&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=5',
 				'video_image' => $this->images_url . 'products/modula.png',
 				'docu_link'   => 'https://wp-modula.com/kb/install-modula-wordpress-plugin/',
-				'description' => 'Become familiar with our plugin by reading the documentation.',
-				'title' => __( 'How to install Modula (LITE & PRO) ', 'modula-best-grid-gallery' ),
+				'description' => 'This video covers how to install Modula Lite and Pro.',
+				'title'       => __( 'How to install Modula (LITE & PRO) ', 'modula-best-grid-gallery' ),
 			),
 			array(
 				'video_link'  => 'https://www.youtube.com/watch?v=Ah1vHSTEW-c&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=4',
 				'video_image' => $this->images_url . 'products/modula.png',
 				'docu_link'   => 'https://wp-modula.com/kb/create-your-first-gallery/',
-				'description' => 'Become familiar with our plugin by reading the documentation.',
-				'title' => __( 'Create Your First Gallery', 'modula-best-grid-gallery' ),
+				'description' => 'See how easy it is to create your first gallery.',
+				'title'       => __( 'Create Your First Gallery', 'modula-best-grid-gallery' ),
 			),
 			array(
 				'video_link'  => 'https://www.youtube.com/watch?v=PJ3my9NrOWA&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=3',
 				'video_image' => $this->images_url . 'products/modula.png',
-				'docu_link'   => 'https://wp-modula.com/kb/create-your-first-gallery/',
-				'description' => 'Become familiar with our plugin by reading the documentation.',
-				'title' => __( 'How to Publish a Gallery', 'modula-best-grid-gallery' ),
+				'docu_link'   => 'https://wp-modula.com/kb/how-to-create-a-modula-gallery-with-captions-and-titles-under-the-images/',
+				'description' => 'Publishing your gallery is as simple as one, two, three.',
+				'title'       => __( 'How to Publish a Gallery', 'modula-best-grid-gallery' ),
 			),
 			array(
 				'video_link'  => 'https://www.youtube.com/watch?v=g9HU_m8xUBk&list=PLM2tOjfhVrZdjZldOxSqmfaGAuSo8pbzm&index=1',
 				'video_image' => $this->images_url . 'products/modula.png',
 				'docu_link'   => 'https://wp-modula.com/kb/how-to-create-a-gallery-from-zip/',
-				'description' => 'Become familiar with our plugin by reading the documentation.',
-				'title' => __( 'How to Create a Gallery from a ZIP File', 'modula-best-grid-gallery' ),
+				'description' => 'You can also create a gallery straight from a ZIP file.',
+				'title'       => __( 'How to Create a Gallery from a ZIP File', 'modula-best-grid-gallery' ),
 			),
 		);
 	}
