@@ -12,7 +12,11 @@ export default function Content() {
 		return null;
 	}
 
-	const activeTab = data.find( ( tab ) => tab.slug === state.activeTab );
+	let activeTab = data.find( ( tab ) => tab.slug === state.activeTab );
+
+	if ( ! activeTab && 'undefined' !== data[ 0 ] ) {
+		activeTab = data[ 0 ];
+	}
 
 	if ( ! activeTab || ! activeTab.subtabs ) {
 		return null;

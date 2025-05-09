@@ -31,6 +31,9 @@ class Modula_Admin {
 		add_action( 'admin_notices', array( $this, 'media_add_notice' ) );
 
 		add_filter( 'admin_init', array( $this, 'licenses_url_compat_redirect' ) );
+
+		// Remove all notices from settings page.
+		add_action( 'admin_init', array( $this, 'remove_notices_on_settings_page' ), 8 );
 	}
 
 	public function delete_resized_image( $post_id ) {
@@ -730,6 +733,15 @@ class Modula_Admin {
 		if ( isset( $_GET['page'] ) && isset( $_GET['modula-tab'] ) && 'modula' === $_GET['page'] && 'licenses' === $_GET['modula-tab'] ) {
 			wp_safe_redirect( admin_url( 'edit.php?post_type=modula-gallery&page=wpchill-dashboard' ) );
 			exit;
+		}
+	}
+
+	public function remove_notices_on_settings_page() {
+		$screen = get_current_screen();
+	
+		if ( $screen && $screen->id === 'modula-gallery_page_modula' ) {
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
 		}
 	}
 }

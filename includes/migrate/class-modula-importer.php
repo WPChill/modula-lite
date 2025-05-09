@@ -28,6 +28,7 @@ class Modula_Importer {
 
 		// Required files
 		require_once MODULA_PATH . 'includes/migrate/wp-core-gallery/class-modula-wp-core-gallery-importer.php';
+		require_once MODULA_PATH . 'includes/migrate/wp-core-gallery/class-modula-wp-gutenberg-gallery-importer.php';
 
 		// Load the plugin.
 		$this->init();
@@ -180,6 +181,7 @@ class Modula_Importer {
 
 		// Assume they are none
 		$wp_core = false;
+		$wp_gutenberg = false;
 
 		$sql     = 'SELECT COUNT(ID) FROM ' . $wpdb->prefix . "posts WHERE `post_content` LIKE '%[galler%' AND `post_status` = 'publish'";
 		$wp_core = $wpdb->get_results( $sql );
@@ -190,6 +192,17 @@ class Modula_Importer {
 		// Check to see if there are any entries and insert into array
 		if ( $wp_core && null != $wp_core && ! empty( $wp_core ) && $wp_core_return && '0' != $wp_core_return['COUNT(ID)'] ) {
 			$sources['wp_core'] = 'WP Core Galleries';
+		}
+
+		$sql = "SELECT COUNT(ID) FROM {$wpdb->prefix}posts WHERE post_content LIKE '%<!-- wp:gallery%' AND post_status = 'publish'";
+		$wp_gutenberg = $wpdb->get_results( $sql );
+		
+		// Need to get this so we can handle the object to check if mysql returned 0
+		$wp_gutenberg_return = ( null != $wp_gutenberg ) ? get_object_vars( $wp_gutenberg[0] ) : false;
+
+		// Check to see if there are any entries and insert into array
+		if ( $wp_gutenberg && null != $wp_gutenberg && ! empty( $wp_gutenberg ) && $wp_gutenberg_return && '0' != $wp_gutenberg_return['COUNT(ID)'] ) {
+			$sources['wp_gutenberg'] = 'WP Gutenberg Galleries';
 		}
 
 		$sources = apply_filters( 'modula_migrator_sources', $sources );
@@ -220,6 +233,10 @@ class Modula_Importer {
 				$gal_source = Modula_WP_Core_Gallery_Importer::get_instance();
 				$galleries  = $gal_source->get_galleries();
 				break;
+			case 'wp_gutenberg':
+				$gal_source = Modula_WP_Gutenberg_Gallery_Importer::get_instance();
+				$galleries  = $gal_source->get_gutenberg_galleries();
+				break;
 			default:
 				$galleries = apply_filters( 'modula_source_galleries_' . $source, array() );
 				break;
@@ -236,6 +253,7 @@ class Modula_Importer {
 
 		$data = array();
 		foreach ( $galleries['valid_galleries'] as $key => $gallery ) {
+			$value            = false;
 			$imported         = false;
 			$importing_status = '';
 			switch ( $source ) {
@@ -244,6 +262,20 @@ class Modula_Importer {
 						array(
 							'id'        => $gallery['page_id'],
 							'shortcode' => $gallery['shortcode'],
+						)
+					);
+					$g_gallery = array(
+						'id'       => $gallery['page_id'] . '-' . $gallery['gal_nr'],
+						'imported' => ( isset( $import_settings['galleries'][ $source ] ) && 'modula-gallery' === $modula_gallery ),
+						'title'    => esc_html( $gallery['title'] ),
+						'count'    => $gallery['images'],
+					);
+					break;
+				case 'wp_gutenberg':
+					$value     = wp_json_encode(
+						array(
+							'id'        => $gallery['page_id'],
+							'image_ids' => $gallery['image_ids'],
 						)
 					);
 					$g_gallery = array(
@@ -292,6 +324,9 @@ class Modula_Importer {
 
 		switch ( $source ) {
 			case 'wp_core':
+				$images = explode( ',', $data );
+				break;
+			case 'wp_gutenberg':
 				$images = explode( ',', $data );
 				break;
 			default:

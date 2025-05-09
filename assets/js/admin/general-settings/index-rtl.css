@@ -229,6 +229,9 @@
 #wpcontent {
   padding-right: 0;
 }
+#wpcontent #wpbody .update-nag {
+  display: none;
+}
 
 #modula-settings-app .modula-page-header {
   display: flex;

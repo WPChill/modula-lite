@@ -29,6 +29,9 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 		setLoading( true );
 		const importedGalleries = [];
 		for ( const id of selectedValues ) {
+			const option = options.find( ( opt ) => opt.value === id );
+			const galleryTitle = option ? option.label : id;
+
 			const data = {
 				action: 'modula_ajax_import_images',
 				id,
@@ -43,7 +46,7 @@ export default function ImportCheckboxGroupField( { fieldState, field, handleCha
 				id,
 				nonce: field.nonce,
 				clean: deleteSource,
-				gallery_title: id,
+				gallery_title: galleryTitle,
 				attachments:
 				response.attachments,
 				source,

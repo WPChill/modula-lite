@@ -8,7 +8,7 @@ export const SettingsProvider = ( { children, activeTab } ) => {
 	const [ state, dispatch ] = useReducer(
 		reducer,
 		initialState,
-		(initial) => ( { ...initial, activeTab } )
+		( initial ) => ( { ...initial, activeTab } ),
 	);
 
 	const contextValue = {

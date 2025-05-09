@@ -177,13 +177,13 @@ class Modula {
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
 
-		if ( get_option( 'use_modula_ai', true ) ) {
+		if ( boolval( get_option( 'use_modula_ai', true ) ) ) {
 			new Modula\Gallery_Listing_Output();
 		}
 	}
 
 	public function start_ai_hooks() {
-		if ( get_option( 'use_modula_ai', true ) ) {
+		if ( boolval( get_option( 'use_modula_ai', true ) ) ) {
 			new Modula\Ai\Client();
 		}
 
@@ -371,7 +371,7 @@ class Modula {
 			}
 
 			wp_enqueue_style( 'modula-notices-style', MODULA_URL . 'assets/css/admin/modula-notices' . $suffix . '.css', null, MODULA_LITE_VERSION );
-			wp_enqueue_style( 'modula-welcome-style', MODULA_URL . 'assets/css/admin/addons' . $suffix . '.css', null, MODULA_LITE_VERSION );
+			wp_enqueue_style( 'modula-addons-style', MODULA_URL . 'assets/css/admin/addons' . $suffix . '.css', null, MODULA_LITE_VERSION );
 			wp_enqueue_script(
 				'modula-addon',
 				MODULA_URL . 'assets/js/admin/modula-addon' . $suffix . '.js',

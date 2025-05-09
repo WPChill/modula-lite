@@ -12,7 +12,7 @@ export default function ToggleField( { fieldState, field, handleChange, classNam
 					name={ `modula-settings[${ field.name }]` }
 					value="1"
 					checked={ fieldState.state.value }
-					onChange={ ( e ) => handleChange( e.target.checked ) }
+					onChange={ ( e ) => handleChange( e.target.checked ? 1 : 0 ) }
 					disabled={ disabled ? 'disabled' : '' }
 				/>
 				<div className={ styles.modulaToggleItems }>

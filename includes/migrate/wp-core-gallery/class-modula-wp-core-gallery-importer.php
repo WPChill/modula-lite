@@ -125,11 +125,14 @@ class Modula_WP_Core_Gallery_Importer {
 			if ( ! isset( $_POST['id'] ) ) {
 				$this->modula_import_result( false, esc_html__( 'No gallery was selected', 'modula-best-grid-gallery' ) );
 			}
+
+			$post_data = json_decode( wp_unslash( $_POST['id'] ), true );
+
 			// Reinitialize as array, it may be string
 			$galery_atts = array();
 			// Need to make replace so we can search our shortcode in content
-			$galery_atts['id']        = absint( $_POST['id']['id'] );
-			$galery_atts['shortcode'] = str_replace( '\"', '"', sanitize_text_field( $_POST['id']['shortcode'] ) );
+			$galery_atts['id']        = absint( $post_data['id'] );
+			$galery_atts['shortcode'] = str_replace( '\"', '"', sanitize_text_field( $post_data['shortcode'] ) );
 		}
 
 		// Get page with gallery
@@ -137,12 +140,14 @@ class Modula_WP_Core_Gallery_Importer {
 		$content       = $post->post_content;
 		$search_string = $galery_atts['shortcode'];
 		$result        = preg_match_all( $search_string, $content, $matches );
-
+		
 		if ( $result && $result > 0 ) {
 			foreach ( $matches[0] as $sc ) {
+				
 				$modula_images     = array();
-				$pattern           = '/\s\ids\s*=\s*\"([\s\S]*?)\"/';
+				$pattern = '/ids="([^"]+)"/';
 				$result            = preg_match( $pattern, $sc, $gallery_ids );
+				
 				$image_ids         = $modula_importer->prepare_images( 'wp_core', $gallery_ids[1] );
 				$gallery_image_ids = $gallery_ids[0];
 

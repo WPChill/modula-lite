@@ -16,7 +16,7 @@
 </script>
 
 <script type="text/html" id="tmpl-modula-image-editor">
-	<?php if ( get_option( 'use_modula_ai', true ) ) : ?>
+	<?php if ( boolval( get_option( 'use_modula_ai', true ) ) ) : ?>
 	<div class="modula-ai-report">
 		<button class="modula-ai-report-button button button-primary media-button button-large" id="modula-ai-report-generate-button" data-action="<# if ( data.report ) { #>refresh<# } else { #>generate<# } #>">
 			<# if ( data.report ) { #>

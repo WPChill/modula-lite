@@ -1,5 +1,7 @@
 <?php
 
+use Modula\Ai\Cloud_User;
+
 class Modula_Rest_Api {
 
 	private $namespace = 'modula-best-grid-gallery/v1';
@@ -65,6 +67,26 @@ class Modula_Rest_Api {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_license_data' ),
+				'permission_callback' => array( $this, 'settings_permissions_check' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/ai-settings',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'ai_settings' ),
+				'permission_callback' => array( $this, 'settings_permissions_check' ),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/ai-settings',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'update_ai_settings' ),
 				'permission_callback' => array( $this, 'settings_permissions_check' ),
 			)
 		);
@@ -148,6 +170,7 @@ class Modula_Rest_Api {
 		$messages           = array(
 			'no-license'       => esc_html__( 'Enter your license key.', 'modula-best-grid-gallery' ),
 			'activate-license' => esc_html__( 'Activate your license key.', 'modula-best-grid-gallery' ),
+			// translators: %s is the expiration date of the license.
 			'all-good'         => __( 'Your license is active until <strong>%s</strong>.', 'modula-best-grid-gallery' ),
 			'lifetime'         => __( 'Your license is active <strong>forever</strong>.', 'modula-best-grid-gallery' ),
 			'expired'          => esc_html__( 'Your license has expired.', 'modula-best-grid-gallery' ),
@@ -181,7 +204,8 @@ class Modula_Rest_Api {
 
 				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
 
-				if ( 'green' != $l_stat ) {
+				if ( 'green' !== $l_stat ) {
+					// translators: %s is the number of weeks untill the expiration date of the license.
 					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'modula-best-grid-gallery' ), $weeks );
 				}
 			}
@@ -195,6 +219,57 @@ class Modula_Rest_Api {
 		);
 
 		return new \WP_REST_Response( $data, 200 );
+	}
+
+	/**
+	 * Retrieves a cloud user.
+	 *
+	 * @return array The cloud user.
+	 */
+	public function get_user() {
+		$user = Cloud_User::get_instance();
+		return $user->get_cloud_user( $user->get_api_key() );
+	}
+
+	/**
+	 * Handles the retrieval of AI settings.
+	 *
+	 * @return WP_REST_Response The response object.
+	 */
+	public function ai_settings() {
+		$api_key  = get_option( 'modula_ai_api_key' );
+		$language = get_option( 'modula_ai_language', get_locale() );
+		$data     = $this->get_user();
+
+		if ( ! $data['success'] ) {
+			return rest_ensure_response(
+				array(
+					'api_key'  => $api_key,
+					'language' => $language,
+					'readonly' => array(
+						'valid_key' => false,
+					),
+				)
+			);
+		}
+
+		$credits = $data['data']['user']['plan']['limitImages'] +
+			$data['data']['user']['bonusStockImages'] -
+			$data['data']['user']['currentRequestImages'];
+
+		$output = array(
+			'api_key'  => $api_key,
+			'language' => $language,
+			'readonly' => array(
+				'credits'    => $credits,
+				'email'      => $data['data']['user']['email'],
+				'first_name' => $data['data']['user']['firstName'] ?? '',
+				'last_name'  => $data['data']['user']['lastName'] ?? '',
+				'valid_key'  => true,
+			),
+		);
+
+		return rest_ensure_response( $output );
 	}
 
 	public function settings_permissions_check() {

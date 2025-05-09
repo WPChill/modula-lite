@@ -440,7 +440,7 @@ wp.Modula = 'undefined' === typeof( wp.Modula ) ? {} : wp.Modula;
 
             try {
                 const response = await wp.apiFetch({
-                    path: '/modula-ai-image-descriptor/v1/ai-settings',
+                    path: '/modula-best-grid-gallery/v1/ai-settings',
                     method: 'GET'
                 });
         

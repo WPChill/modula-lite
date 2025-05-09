@@ -70,24 +70,6 @@ class Rest_Api {
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
-		register_rest_route(
-			$this->namespace,
-			'/ai-settings',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'ai_settings' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			'/ai-settings',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'update_ai_settings' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-			)
-		);
 
 		register_rest_route(
 			$this->namespace,

@@ -37,7 +37,10 @@ function Content() {
   if (!data || isLoading) {
     return null;
   }
-  const activeTab = data.find(tab => tab.slug === state.activeTab);
+  let activeTab = data.find(tab => tab.slug === state.activeTab);
+  if (!activeTab && 'undefined' !== data[0]) {
+    activeTab = data[0];
+  }
   if (!activeTab || !activeTab.subtabs) {
     return null;
   }
@@ -2009,6 +2012,8 @@ function ImportCheckboxGroupField({
     setLoading(true);
     const importedGalleries = [];
     for (const id of selectedValues) {
+      const option = options.find(opt => opt.value === id);
+      const galleryTitle = option ? option.label : id;
       const data = {
         action: 'modula_ajax_import_images',
         id,
@@ -2022,7 +2027,7 @@ function ImportCheckboxGroupField({
         id,
         nonce: field.nonce,
         clean: deleteSource,
-        gallery_title: id,
+        gallery_title: galleryTitle,
         attachments: response.attachments,
         source
       };
@@ -2584,7 +2589,7 @@ function ToggleField({
     name: `modula-settings[${field.name}]`,
     value: "1",
     checked: fieldState.state.value,
-    onChange: e => handleChange(e.target.checked),
+    onChange: e => handleChange(e.target.checked ? 1 : 0),
     disabled: disabled ? 'disabled' : ''
   }), /*#__PURE__*/React.createElement("div", {
     className: _toggleField_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].modulaToggleItems
@@ -2921,7 +2926,7 @@ const useSettingsQuery = () => {
     retry: 1,
     queryFn: async () => {
       const data = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-        path: `/modula-ai-image-descriptor/v1/ai-settings`,
+        path: `/modula-best-grid-gallery/v1/ai-settings`,
         method: 'GET'
       });
       return data;

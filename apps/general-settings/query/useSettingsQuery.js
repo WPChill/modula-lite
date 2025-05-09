@@ -7,7 +7,7 @@ export const useSettingsQuery = () => {
 		retry: 1,
 		queryFn: async () => {
 			const data = await apiFetch( {
-				path: `/modula-ai-image-descriptor/v1/ai-settings`,
+				path: `/modula-best-grid-gallery/v1/ai-settings`,
 				method: 'GET',
 			} );
 
