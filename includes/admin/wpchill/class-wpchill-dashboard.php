@@ -331,7 +331,7 @@ class WPChill_Dashboard {
 						<p class="wpchill_about_us_text"><?php echo wp_kses_post( __( 'When you choose WPChill, you\'re not just purchasing a product; you\'re gaining a reliable partner.', 'modula-best-grid-gallery' ) ); ?></p>
 					</div>
 					<div class="wpchill_about_us_logo">
-						<img src="<?php echo esc_url( $this->images_url ) . 'wpchill-bear.jpg'; ?>" />
+						<img alt="<?php esc_html_e( 'Cristian Raiber holding a cat', 'modula-best-grid-gallery' ); ?>" src="<?php echo esc_url( $this->images_url ) . 'Christian-Raiber-WPChill.jpeg'; ?>" />
 					</div>
 				</div>
 
@@ -370,7 +370,7 @@ class WPChill_Dashboard {
 											</a>
 											<?php if ( isset( $product['videos'] ) && is_array( $product['videos'] ) && count( $product['videos'] ) > 0 ) : ?>
 												<button class="wpchill_product_learn_more">
-													<?php esc_html_e( 'Learm more', 'modula-best-grid-gallery' ); ?>
+													<?php esc_html_e( 'See Videos', 'modula-best-grid-gallery' ); ?>
 												</button>
 											<?php endif; ?>
 										</div>
@@ -679,7 +679,7 @@ class WPChill_Dashboard {
 				'deactivate_text'   => esc_html__( 'Activate', 'modula-best-grid-gallery' ),
 				'activated_status'  => esc_html__( 'Activated', 'modula-best-grid-gallery' ),
 				'deactivate_status' => esc_html__( 'Dectivated', 'modula-best-grid-gallery' ),
-				'openText'          => esc_html__( 'Learn More', 'modula-best-grid-gallery' ),
+				'openText'          => esc_html__( 'See Videos', 'modula-best-grid-gallery' ),
 				'closeText'         => esc_html__( 'Close', 'modula-best-grid-gallery' ),
 			);
 
