@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.13 - TBD =
+Added: Compatibility with Imagify.
+
 = 2.12.12 - 13.05.2025 =
 Fixed: Security update
 
