@@ -42,7 +42,7 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "npm run build && npm run clean && npm run copy && npm run bundle && npm run clean",
+		"plugin-zip": "npm run min:js && npm run min:css && npm run build && npm run clean && npm run copy && npm run bundle && npm run clean",
 		"clean": "rimraf build",
 		"copy": "node scripts/copy.js",
 		"bundle": "node scripts/bundle.js",

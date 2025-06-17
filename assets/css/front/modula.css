@@ -53,6 +53,14 @@ html body .modula .modula-items .modula-item img.pic {
     transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
+html body .modula .modula-items .modula-item picture.pic img {
+    max-width: 999em;
+    height: 100%;
+}
+html body .modula.modula-creative-gallery .modula-items .modula-item picture.pic img {
+    width: 100%;
+}
+
 html body .modula.modula-columns .modula-items .modula-item picture.pic,
 html body .modula.modula-columns .modula-items .modula-item img.pic {
     position: relative;
