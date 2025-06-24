@@ -1,4 +1,4 @@
-= 2.12.13 - TBD =
+= 2.12.13 - 24.06.2025 =
 Added: Compatibility with Imagify.
 
 = 2.12.12 - 13.05.2025 =
