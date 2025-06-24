@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.12
+Stable tag: 2.12.13
 
 License: GNU General Public License v3.0 or later  
 
@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.13 - 24.06.2025 =
+Added: Compatibility with Imagify.
+
 = 2.12.12 - 13.05.2025 =
 Fixed: Security update
 

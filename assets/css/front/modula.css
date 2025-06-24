@@ -43,6 +43,7 @@ html body .modula.modula-columns:not(.modula-loaded-scale).modula-gallery-initia
     opacity: 1;
 }
 
+html body .modula .modula-items .modula-item picture.pic,
 html body .modula .modula-items .modula-item img.pic {
     font-size: 12px;
     position: absolute;
@@ -52,18 +53,31 @@ html body .modula .modula-items .modula-item img.pic {
     transition: width .3s, height .3s, transform .3s linear, opacity .2s linear;
 }
 
+html body .modula .modula-items .modula-item picture.pic img {
+    max-width: 999em;
+    height: 100%;
+}
+html body .modula.modula-creative-gallery .modula-items .modula-item picture.pic img {
+    width: 100%;
+}
+
+html body .modula.modula-columns .modula-items .modula-item picture.pic,
 html body .modula.modula-columns .modula-items .modula-item img.pic {
     position: relative;
     max-width: 100%;
     margin: 0 auto;
 }
 
+html body .modula .modula-items .modula-item.tg-loaded picture.pic,
+html body .modula.modula-columns .modula-items .modula-item picture.pic,
 html body .modula .modula-items .modula-item.tg-loaded img.pic,
 html body .modula.modula-columns .modula-items .modula-item img.pic {
     display: block;
     opacity: 1;
 }
 
+html body .modula .modula-items .modula-item picture.pic.lazyloaded,
+html body .modula .modula-items .modula-item picture.pic.lazyload,
 html body .modula .modula-items .modula-item img.pic.lazyloaded,
 html body .modula .modula-items .modula-item img.pic.lazyload {
     display: block;
@@ -222,6 +236,7 @@ html body .modula .modula-item.effect-pufrobo p {
 }
 
 html body .modula.modula-gallery-initialized .modula-item:hover img,
+html body .modula.modula-gallery-initialized .modula-items .modula-item.tg-loaded:hover picture.pic,
 html body .modula.modula-gallery-initialized .modula-items .modula-item.tg-loaded:hover img.pic {
     opacity: .8
 }
@@ -342,6 +357,7 @@ html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .m
     width: 100%;
 }
 
+html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content picture.pic,
 html body .modula.modula-columns .modula-items.grid-gallery.justified-gallery .modula-item .modula-item-content img.pic {
     position: absolute;
     top: 50%;

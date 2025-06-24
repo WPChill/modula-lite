@@ -462,7 +462,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 											lastRow                : this.options.lastRow,
 											captions               : false,
 											border                 : 0,
-											imgSelector            : 'img.pic',
+											imgSelector            : 'img.pic, picture.pic img',
 											cssAnimation           : true,
 											imagesAnimationDuration: 700,
 										});
