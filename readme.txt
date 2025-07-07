@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.14 - 07.07.2025 =
+Fixed: PHP warning when image has no valign or halign.
+
 = 2.12.13 - 24.06.2025 =
 Added: Compatibility with Imagify.
 
