@@ -35,6 +35,9 @@ jobs:
             echo "version=${{ steps.package-version.outputs.current-version }}" >> $GITHUB_OUTPUT
           fi
 
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Generate Release Post
         id: generate-release-post
         env:
