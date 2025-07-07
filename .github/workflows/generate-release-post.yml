@@ -41,8 +41,8 @@ jobs:
       - name: Generate Release Post
         id: generate-release-post
         env:
-          API_URL: ${{ secrets.WPCHILL_API_URL }}
-          API_TOKEN: ${{ secrets.WPCHILL_API_TOKEN }}
+          WPCHILL_API_URL: ${{ secrets.WPCHILL_API_URL }}
+          WPCHILL_API_TOKEN: ${{ secrets.WPCHILL_API_TOKEN }}
         run: |
           # Call the API endpoint with simplified parameters
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$WPCHILL_API_URL/github/generate" \
