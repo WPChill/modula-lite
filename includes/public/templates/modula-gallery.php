@@ -51,8 +51,11 @@
 				'img_classes'       => array( 'pic', 'wp-image-' . $image['id'] ),
 
 				'img_attributes'    => array(
-					'data-valign' => esc_attr( $image['valign'] ),
-					'data-halign' => esc_attr( $image['halign'] ),
+					'data-valign' => isset( $image['valign'] )
+					? esc_attr( $image['valign'] ) : 'center',
+					'data-halign' => isset( $image['halign'] )
+					? esc_attr( $image['halign'] ) :
+					'center',
 					'alt'         => isset( $image['alt'] ) ? $image['alt'] : '',
 					'data-full'   => $full_img_src,
 					'title'       => isset( $image['title'] ) ? $image['title'] : '',
