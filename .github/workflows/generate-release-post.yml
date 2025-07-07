@@ -68,7 +68,7 @@ jobs:
           echo "release_mode=separate" >> $GITHUB_OUTPUT
 
           # Extract summary from response if successful
-          if [[ $HTTP_STATUS -eq 200 ]]; then
+          if [[ $HTTP_STATUS =~ ^2 ]]; then
               SUMMARY=$(echo "$RESPONSE_BODY" | jq -r '.summary // "No summary available"')
               echo "summary<<EOF" >> $GITHUB_OUTPUT
               echo "$SUMMARY" >> $GITHUB_OUTPUT
@@ -83,7 +83,7 @@ jobs:
       - name: Notify Release Post Generation on Slack
         if: always()
         run: |
-          if [[ "${{ steps.generate-release-post.outputs.api_status }}" == "200" ]]; then
+          if [[ "${{ steps.generate-release-post.outputs.api_status }}" =~ ^2 ]]; then
               MESSAGE="🎉 *Release Post Generated Successfully!*
 
               *Version:* ${{ steps.set-version.outputs.version }}

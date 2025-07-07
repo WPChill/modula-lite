@@ -57,8 +57,8 @@ jobs:
             - name: Generate Release Post
               id: generate-release-post
               env:
-                  API_URL: ${{ secrets.WPCHILL_API_URL }}
-                  API_TOKEN: ${{ secrets.WPCHILL_API_TOKEN }}
+                  WPCHILL_API_URL: ${{ secrets.WPCHILL_API_URL }}
+                  WPCHILL_API_TOKEN: ${{ secrets.WPCHILL_API_TOKEN }}
               run: |
                   # Call the API endpoint with simplified parameters
                   RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$WPCHILL_API_URL/github/generate" \
@@ -84,7 +84,7 @@ jobs:
                   echo "release_mode=separate" >> $GITHUB_OUTPUT
 
                   # Extract summary from response if successful
-                  if [[ $HTTP_STATUS -eq 200 ]]; then
+                  if [[ $HTTP_STATUS =~ ^2 ]]; then
                       SUMMARY=$(echo "$RESPONSE_BODY" | jq -r '.summary // "No summary available"')
                       echo "summary<<EOF" >> $GITHUB_OUTPUT
                       echo "$SUMMARY" >> $GITHUB_OUTPUT
@@ -99,7 +99,7 @@ jobs:
             - name: Notify Release Post Generation on Slack
               if: always()
               run: |
-                  if [[ "${{ steps.generate-release-post.outputs.api_status }}" == "200" ]]; then
+                  if [[ "${{ steps.generate-release-post.outputs.api_status }}" =~ ^2 ]]; then
                       MESSAGE="🎉 *Release Post Generated Successfully!*
 
                       *Version:* ${{ steps.package-version.outputs.current-version }}
