@@ -20,19 +20,31 @@ class Modula_Compatibility {
 	function __construct() {
 
 		add_filter( 'modula_speedup_tab_content', array( $this, 'modula_lazyloading_compatibilty_admin' ), 5 );
-		add_filter( 'modula_field_type_toggle_format', array(
-			$this,
-			'modula_lazyloading_compatibilty_admin_field'
-		), 99, 2 );
+		add_filter(
+			'modula_field_type_toggle_format',
+			array(
+				$this,
+				'modula_lazyloading_compatibilty_admin_field',
+			),
+			99,
+			2
+		);
 		add_filter( 'modula_gallery_settings', array( $this, 'modula_gallery_config_compatibility' ), 99 );
-		add_filter( 'modula_lazyload_compatibility_script', array(
-			$this,
-			'modula_lazyload_compatibility_script'
-		), 99 );
+		add_filter(
+			'modula_lazyload_compatibility_script',
+			array(
+				$this,
+				'modula_lazyload_compatibility_script',
+			),
+			99
+		);
 		add_filter( 'modula_lazyload_compatibility_item', array( $this, 'modula_lazyload_compatibility_item' ), 99 );
 		add_filter( 'modula_admin_field_value', array( $this, 'lazyload_admin_compatibility' ), 99, 3 );
 		add_filter( 'modula_backbone_settings', array( $this, 'lazyload_backbone_compatibility' ), 99 );
 
+		// Imagify lazy load compatibility
+		add_filter( 'imagify_picture_img_attributes', array( $this, 'imagify_prep_attributes_for_img_tags' ), 10, 2 );
+		add_filter( 'imagify_picture_attributes', array( $this, 'imagify_keep_attributes_off_picture_tags' ) );
 	}
 
 	/**
@@ -48,7 +60,6 @@ class Modula_Compatibility {
 		}
 
 		return self::$instance;
-
 	}
 
 
@@ -62,7 +73,7 @@ class Modula_Compatibility {
 	 */
 	public function generate_compatibility_box( $description ) {
 
-		$content_box = '<div class="modula-compatibility">';
+		$content_box  = '<div class="modula-compatibility">';
 		$content_box .= '<p class="modula-compatibility-description">' . esc_html( $description ) . '</p>';
 		$content_box .= '</div>';
 
@@ -80,28 +91,24 @@ class Modula_Compatibility {
 	public function modula_lazyloading_compatibilty_admin( $tab_content ) {
 
 		if ( $this->sg_optimizer_check() ) {
-
 			$compatibility_description = esc_html__( 'We detected that you are using Site Ground Optimizer lazyloading software that conflicts with ours. If you wish to use ours, please disable Site Ground\'s lazy loading. Else, our lazy loading will be disabled by default.', 'modula-best-grid-gallery' );
 
 			$tab_content .= $this->generate_compatibility_box( $compatibility_description );
 		}
 
 		if ( $this->avada_check() ) {
-
 			$compatibility_description = esc_html__( 'We detected that you are using Avada lazyloading software that conflicts with ours. If you wish to use ours, please disable Avada\'s lazy loading. Else, our lazy loading will be disabled by default.', 'modula-best-grid-gallery' );
 
 			$tab_content .= $this->generate_compatibility_box( $compatibility_description );
 		}
 
 		if ( $this->jetpack_check() ) {
-
 			$compatibility_description = esc_html__( 'We detected that you are using Jepack\'s lazyloading software that conflicts with ours. We enabled our by default so that we can overwrite Jetpack\'s one for our galleries.', 'modula-best-grid-gallery' );
 
 			$tab_content .= $this->generate_compatibility_box( $compatibility_description );
 		}
 
 		return $tab_content;
-
 	}
 
 	/**
@@ -111,7 +118,6 @@ class Modula_Compatibility {
 	 */
 	public function sg_optimizer_check() {
 		if ( class_exists( '\SiteGround_Optimizer\Options\Options' ) && \SiteGround_Optimizer\Options\Options::is_enabled( 'siteground_optimizer_lazyload_images' ) ) {
-
 			return true;
 		}
 
@@ -167,7 +173,6 @@ class Modula_Compatibility {
 	public function check_lazyloading() {
 
 		if ( $this->sg_optimizer_check() || $this->avada_check() || $this->jetpack_check() ) {
-
 			return true;
 		}
 
@@ -186,7 +191,6 @@ class Modula_Compatibility {
 	public function modula_lazyloading_compatibilty_admin_field( $format, $field ) {
 
 		if ( $this->check_lazyloading() ) {
-
 			if ( 'lazy_load' == $field['id'] ) {
 				$format .= '<div class="modula-compatibility-block"></div>';
 			}
@@ -206,7 +210,6 @@ class Modula_Compatibility {
 	public function modula_gallery_config_compatibility( $js_config ) {
 
 		if ( $this->check_lazyloading() ) {
-
 			$js_config['lazyLoad'] = 1;
 		}
 
@@ -227,7 +230,6 @@ class Modula_Compatibility {
 			} else {
 				return true;
 			}
-
 		}
 
 		return $return;
@@ -282,7 +284,6 @@ class Modula_Compatibility {
 	public function lazyload_backbone_compatibility( $settings ) {
 
 		if ( isset( $settings['lazy_load'] ) && $this->check_lazyloading() ) {
-
 			if ( ! $this->jetpack_check() ) {
 				$settings['lazy_load'] = 0;
 			} else {
@@ -293,6 +294,42 @@ class Modula_Compatibility {
 		return $settings;
 	}
 
+	/**
+	 * Imagify compatibility - Prevents the removal of class attribute on modula images.
+	 *
+	 * @param $attributes
+	 * @param $image
+	 *
+	 * @return array
+	 * @since 2.12.15
+	 */
+	public function imagify_prep_attributes_for_img_tags( $attributes, $image ) {
+
+		if ( is_array( $image ) && is_array( $image['attributes'] ) && isset( $image['attributes']['data-source'] ) && 'modula' === $image['attributes']['data-source'] ) {
+			$attributes['class'] = $image['attributes']['class'];
+		}
+
+		return $attributes;
+	}
+
+
+	/**
+	 * Imagify compatibility - Prevents the copying of class attribute of modula images onto the picture tag.
+	 *
+	 * @param $attributes
+	 * @param $image
+	 *
+	 * @return array
+	 * @since 2.12.15
+	 */
+	public function imagify_keep_attributes_off_picture_tags( $attributes ) {
+
+		if ( isset( $attributes['data-source'] ) && 'modula' === $attributes['data-source'] && isset( $attributes['class'] ) ) {
+			unset( $attributes['class'] );
+		}
+
+		return $attributes;
+	}
 }
 
 $modula_compatibility = Modula_Compatibility::get_instance();
