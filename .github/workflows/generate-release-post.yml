@@ -79,31 +79,48 @@ jobs:
               echo "Response: $RESPONSE_BODY"
               exit 1
           fi
-
       - name: Notify Release Post Generation on Slack
         if: always()
+        env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          if [[ "${{ steps.generate-release-post.outputs.api_status }}" =~ ^2 ]]; then
-              MESSAGE="🎉 *Release Post Generated Successfully!*
-
-              *Version:* ${{ steps.set-version.outputs.version }}
-              *Repository:* ${{ github.repository }}
-              $([ -n "${{ github.event.inputs.pr_number }}" ] && echo "*PR:* #${{ github.event.inputs.pr_number }} - ${{ github.event.inputs.pr_title }}" || echo "*Triggered:* Manually")
-
-              *Summary:*
-              ${{ steps.generate-release-post.outputs.summary }}
-
-              The release post has been created and is ready for review."
-          else
-              MESSAGE="❌ *Release Post Generation Failed*
-
-              *Version:* ${{ steps.set-version.outputs.version }}
-              *Repository:* ${{ github.repository }}
-              *Error:* HTTP ${{ steps.generate-release-post.outputs.api_status }}
-
-              Please check the workflow logs for more details."
-          fi
-
-          curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
-              -H "Content-type: application/json" \
-              -d "{\"text\": \"$MESSAGE\"}" 
+            set -eo pipefail    # fail fast on any error
+        
+            VERSION="${{ steps.set-version.outputs.version }}"
+            REPO="${{ github.repository }}"
+            PR_NUMBER="${{ github.event.inputs.pr_number }}"
+            PR_TITLE="${{ github.event.inputs.pr_title }}"
+            API_STATUS="${{ steps.generate-release-post.outputs.api_status }}"
+            SUMMARY="${{ steps.generate-release-post.outputs.summary }}"
+        
+            #
+            # Build the Slack message without allowing back-tick command substitution.
+            #
+            if [[ "$API_STATUS" =~ ^2 ]]; then
+              read -r -d '' MESSAGE <<'EOF'
+              EOF
+              MESSAGE+="🎉 *Release Post Generated Successfully!*"
+              MESSAGE+="\n\n*Version:* ${VERSION}"
+              MESSAGE+="\n*Repository:* ${REPO}"
+              if [[ -n "$PR_NUMBER" ]]; then
+                MESSAGE+="\n*PR:* #${PR_NUMBER} — ${PR_TITLE}"
+              else
+                MESSAGE+="\n*Triggered:* Manually"
+              fi
+              MESSAGE+="\n\n*Summary:* ${SUMMARY}"
+              MESSAGE+="\n\nThe release post has been created and is ready for review."
+            else
+              read -r -d '' MESSAGE <<'EOF'
+              EOF
+              MESSAGE+="❌ *Release Post Generation Failed*"
+              MESSAGE+="\n\n*Version:* ${VERSION}"
+              MESSAGE+="\n*Repository:* ${REPO}"
+              MESSAGE+="\n*Error:* HTTP ${API_STATUS}"
+              MESSAGE+="\n\nPlease check the workflow logs for more details."
+            fi
+        
+            jq -n --arg text "$MESSAGE" '{text:$text}' |
+              curl -X POST \
+                   -H 'Content-Type: application/json' \
+                   --data @- \
+                   "$SLACK_WEBHOOK_URL"
