@@ -87,7 +87,7 @@ class Modula_Shortcode {
 			return;
 		}
 
-		if ( 'modula-gallery' != get_post_type( $gallery ) ) {
+		if ( 'modula-gallery' !== get_post_type( $gallery ) ) {
 			$gallery_posts = get_posts(
 				array(
 					'post_type'   => 'modula-gallery',
@@ -120,6 +120,7 @@ class Modula_Shortcode {
 		}
 
 		$settings = wp_parse_args( $settings, $default );
+		$settings['gallery_id'] = $gallery_id;
 
 		$type = 'creative-gallery';
 		if ( isset( $settings['type'] ) ) {
@@ -142,7 +143,7 @@ class Modula_Shortcode {
 
 		$shuffle_permitted = apply_filters( 'modula_shuffle_grid_types', array( 'creative-gallery', 'grid' ), $settings );
 
-		if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] && in_array( $type, $shuffle_permitted ) ) {
+		if ( isset( $settings['shuffle'] ) && '1' === $settings['shuffle'] && in_array( $type, $shuffle_permitted, true ) ) {
 			shuffle( $images );
 		}
 		$images = $this->apply_reports( $images );
@@ -180,7 +181,6 @@ class Modula_Shortcode {
 			}
 		}
 
-		$settings['gallery_id'] = $gallery_id;
 		$settings['align']      = $atts['align'];
 
 		$template_data = array(
@@ -205,7 +205,7 @@ class Modula_Shortcode {
 
 		$inView           = false;
 		$inview_permitted = apply_filters( 'modula_loading_inview_grids', array( 'custom-grid', 'creative-gallery', 'grid' ), $settings );
-		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] && in_array( $type, $inview_permitted ) ) {
+		if ( isset( $settings['inView'] ) && '1' === $settings['inView'] && in_array( $type, $inview_permitted, true ) ) {
 			$inView = true;
 		}
 
