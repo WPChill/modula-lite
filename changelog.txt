@@ -1,3 +1,6 @@
+= 2.12.16 - 14.07.2025 =
+Enhancement: The `modula_gallery_images` filter now receives the `gallery_id` parameter, allowing for more context-aware modifications.
+
 = 2.12.15 - 08.07.2025 =
 Added: Compatibility with Imagify and Modula Lazy Load option.
 

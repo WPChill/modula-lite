@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.15
+Stable tag: 2.12.16
 
 License: GNU General Public License v3.0 or later  
 
@@ -127,6 +127,9 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
+= 2.12.16 - 14.07.2025 =
+Enhancement: The `modula_gallery_images` filter now receives the `gallery_id` parameter, allowing for more context-aware modifications.
+
 = 2.12.15 - 08.07.2025 =
 Added: Compatibility with Imagify and Modula Lazy Load option.
 
