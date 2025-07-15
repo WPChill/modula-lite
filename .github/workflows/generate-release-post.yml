@@ -83,39 +83,42 @@ jobs:
         if: always()
         run: |
           if [[ "${{ steps.generate-release-post.outputs.api_status }}" =~ ^2 ]]; then
+              # Create message parts
               MESSAGE_HEADER="🎉 *Release Post Generated Successfully!*"
               MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
               MESSAGE_REPO="*Repository:* ${{ github.repository }}"
               MESSAGE_PR="$([ -n "${{ github.event.inputs.pr_number }}" ] && echo "*PR:* #${{ github.event.inputs.pr_number }} - ${{ github.event.inputs.pr_title }}" || echo "*Triggered:* Manually")"
               MESSAGE_SUMMARY="*Summary:*"
               MESSAGE_FOOTER="The release post has been created and is ready for review."
-      
-              # ── grab the raw summary literally ──
-              SUMMARY=$(cat <<'EOF'
-                ${{ steps.generate-release-post.outputs.summary }}
-              EOF
-              )
-        
-                MESSAGE="$MESSAGE_HEADER
-                $MESSAGE_VERSION
-                $MESSAGE_REPO
-                $MESSAGE_PR
-                $MESSAGE_SUMMARY
-                $SUMMARY
-                $MESSAGE_FOOTER"
+              
+              # Create the full message
+              MESSAGE="$MESSAGE_HEADER
+
+              $MESSAGE_VERSION
+              $MESSAGE_REPO
+              $MESSAGE_PR
+
+              $MESSAGE_SUMMARY
+              ${{ steps.generate-release-post.outputs.summary }}
+
+              $MESSAGE_FOOTER"
           else
-                  MESSAGE_HEADER="❌ *Release Post Generation Failed*"
-                  MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
-                  MESSAGE_REPO="*Repository:* ${{ github.repository }}"
-                  MESSAGE_ERROR="*Error:* HTTP ${{ steps.generate-release-post.outputs.api_status }}"
-                  MESSAGE_FOOTER="Please check the workflow logs for more details."
-                  MESSAGE="$MESSAGE_HEADER
-                    $MESSAGE_VERSION
-                    $MESSAGE_REPO
-                    $MESSAGE_ERROR
-                  $MESSAGE_FOOTER"
-              fi
+              MESSAGE_HEADER="❌ *Release Post Generation Failed*"
+              MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
+              MESSAGE_REPO="*Repository:* ${{ github.repository }}"
+              MESSAGE_ERROR="*Error:* HTTP ${{ steps.generate-release-post.outputs.api_status }}"
+              MESSAGE_FOOTER="Please check the workflow logs for more details."
+              
+              MESSAGE="$MESSAGE_HEADER
+
+              $MESSAGE_VERSION
+              $MESSAGE_REPO
+              $MESSAGE_ERROR
+
+              $MESSAGE_FOOTER"
+          fi
           
-              printf '%s' "$MESSAGE" | jq -Rs '{"text": .}' | curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
-                  -H 'Content-type: application/json' \
-                  --data-binary @-
+          # Send to Slack using jq for proper JSON escaping
+          echo "$MESSAGE" | jq -Rs '{"text": .}' | curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+              -H 'Content-type: application/json' \
+              --data-binary @-
