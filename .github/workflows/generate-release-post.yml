@@ -91,17 +91,15 @@ jobs:
               MESSAGE_SUMMARY="*Summary:*"
               MESSAGE_FOOTER="The release post has been created and is ready for review."
               
-              # Create the full message
-              MESSAGE="$MESSAGE_HEADER
-
-              $MESSAGE_VERSION
-              $MESSAGE_REPO
-              $MESSAGE_PR
-
-              $MESSAGE_SUMMARY
-              ${{ steps.generate-release-post.outputs.summary }}
-
-              $MESSAGE_FOOTER"
+              # Create the message using printf to avoid shell interpretation
+              MESSAGE=$(printf '%s\n\n%s\n%s\n%s\n\n%s\n%s\n\n%s' \
+                "$MESSAGE_HEADER" \
+                "$MESSAGE_VERSION" \
+                "$MESSAGE_REPO" \
+                "$MESSAGE_PR" \
+                "$MESSAGE_SUMMARY" \
+                "${{ steps.generate-release-post.outputs.summary }}" \
+                "$MESSAGE_FOOTER")
           else
               MESSAGE_HEADER="❌ *Release Post Generation Failed*"
               MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
