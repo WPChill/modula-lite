@@ -83,31 +83,39 @@ jobs:
         if: always()
         run: |
           if [[ "${{ steps.generate-release-post.outputs.api_status }}" =~ ^2 ]]; then
-              # Read the summary into a variable to avoid shell interpretation
-              SUMMARY_TEXT="${{ steps.generate-release-post.outputs.summary }}"
-              
-              # Create the message with proper escaping
-              MESSAGE="🎉 *Release Post Generated Successfully!*
+              MESSAGE_HEADER="🎉 *Release Post Generated Successfully!*"
+              MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
+              MESSAGE_REPO="*Repository:* ${{ github.repository }}"
+              MESSAGE_PR="$([ -n "${{ github.event.inputs.pr_number }}" ] && echo "*PR:* #${{ github.event.inputs.pr_number }} - ${{ github.event.inputs.pr_title }}" || echo "*Triggered:* Manually")"
+              MESSAGE_SUMMARY="*Summary:*"
+              MESSAGE_FOOTER="The release post has been created and is ready for review."
 
-              *Version:* ${{ steps.set-version.outputs.version }}
-              *Repository:* ${{ github.repository }}
-              $([ -n "${{ github.event.inputs.pr_number }}" ] && echo "*PR:* #${{ github.event.inputs.pr_number }} - ${{ github.event.inputs.pr_title }}" || echo "*Triggered:* Manually")
+              MESSAGE="$MESSAGE_HEADER
 
-              *Summary:*
-              $SUMMARY_TEXT
+              $MESSAGE_VERSION
+              $MESSAGE_REPO
+              $MESSAGE_PR
 
-              The release post has been created and is ready for review."
+              $MESSAGE_SUMMARY
+              ${{ steps.generate-release-post.outputs.summary }}
+
+              $MESSAGE_FOOTER"
           else
-              MESSAGE="❌ *Release Post Generation Failed*
+              MESSAGE_HEADER="❌ *Release Post Generation Failed*"
+              MESSAGE_VERSION="*Version:* ${{ steps.set-version.outputs.version }}"
+              MESSAGE_REPO="*Repository:* ${{ github.repository }}"
+              MESSAGE_ERROR="*Error:* HTTP ${{ steps.generate-release-post.outputs.api_status }}"
+              MESSAGE_FOOTER="Please check the workflow logs for more details."
+              
+              MESSAGE="$MESSAGE_HEADER
 
-              *Version:* ${{ steps.set-version.outputs.version }}
-              *Repository:* ${{ github.repository }}
-              *Error:* HTTP ${{ steps.generate-release-post.outputs.api_status }}
+              $MESSAGE_VERSION
+              $MESSAGE_REPO
+              $MESSAGE_ERROR
 
-              Please check the workflow logs for more details."
+              $MESSAGE_FOOTER"
           fi
 
-          # Use printf to properly escape the JSON
-          printf '{"text": "%s"}' "$(echo "$MESSAGE" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')" | curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+          echo "$MESSAGE" | jq -Rs '{"text": .}' | curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
               -H "Content-type: application/json" \
               --data-binary @- 
