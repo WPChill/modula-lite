@@ -127,7 +127,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 4. Responsive galleries created with Modula
 
 == Changelog ==
-= 2.12.17 - TBD =
+= 2.12.17 - 22.07.2025 =
 Added: Compatibility with Translatepress.
 
 = 2.12.16 - 14.07.2025 =
