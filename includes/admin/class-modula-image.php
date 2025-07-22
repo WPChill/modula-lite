@@ -229,6 +229,13 @@ class Modula_Image {
 			}
 		}
 
+		if ( function_exists( 'trp_get_url_for_language' )) {
+			$current_lang = function_exists( 'trp_get_current_language' ) ? trp_get_current_language() : '';
+			if ( strpos( $site_url, '/' . $current_lang ) !== false ) {
+				$site_url = str_replace( '/' . $current_lang, '', $site_url );
+			}
+		}
+
 		if ( strpos( $url, $site_url ) === false ) {
 			return $url;
 		}

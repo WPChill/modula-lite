@@ -1,3 +1,6 @@
+= 2.12.17 - TBD =
+Added: Compatibility with Translatepress.
+
 = 2.12.16 - 14.07.2025 =
 Enhancement: The `modula_gallery_images` filter now receives the `gallery_id` parameter, allowing for more context-aware modifications.
 
