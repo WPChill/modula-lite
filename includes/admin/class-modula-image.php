@@ -237,7 +237,6 @@ class Modula_Image {
 		}
 
 		if ( strpos( $url, $site_url ) === false ) {
-			var_dump($url, $site_url, get_bloginfo( 'url' ));
 			return $url;
 		}
 
