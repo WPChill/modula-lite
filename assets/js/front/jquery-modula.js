@@ -93,15 +93,13 @@ jQuery(window).on('elementor/frontend/init', function () {
 	Plugin.prototype.init = function () {
 		var instance = this,
 			viewport = document.documentElement.clientWidth;
-
-		if (viewport <= 568) {
+		if (viewport < 768) {
 			this.options.gutter = this.options.mobileGutter;
-		} else if (viewport <= 768) {
+		} else if (viewport >= 768 && viewport <= 992) {
 			this.options.gutter = this.options.tabletGutter;
 		} else {
 			this.options.gutter = this.options.desktopGutter;
 		}
-
 		// Trigger event before init
 		$(document).trigger('modula_api_before_init', [instance]);
 
@@ -599,9 +597,9 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 		var viewport = document.documentElement.clientWidth;
 
-		if (viewport <= 568) {
-			instance.options.gutter = instance.options.mobileGutter;
-		} else if (viewport <= 768) {
+		if (viewport < 768) {
+			this.options.gutter = this.options.mobileGutter;
+		} else if (viewport >= 768 && viewport <= 992) {
 			instance.options.gutter = instance.options.tabletGutter;
 		} else {
 			instance.options.gutter = this.options.desktopGutter;

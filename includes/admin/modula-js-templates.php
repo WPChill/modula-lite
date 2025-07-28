@@ -73,6 +73,23 @@
 						<textarea name="description">{{ data.description }}</textarea>
 					</label>
 
+					<!-- Alignment -->
+					<?php if ( apply_filters( 'modula_show_alignment_options', false ) ) : ?>
+						<div class="setting">
+							<span class="name"><?php esc_html_e( 'Alignment', 'modula-best-grid-gallery' ); ?></span>
+							<select name="halign" class="inline-input">
+								<option <# if ( 'left' == data.halign ) { #> selected <# } #>><?php esc_html_e( 'left', 'modula-best-grid-gallery' ); ?></option>
+								<option <# if ( 'center' == data.halign ) { #> selected <# } #>><?php esc_html_e( 'center', 'modula-best-grid-gallery' ); ?></option>
+								<option <# if ( 'right' == data.halign ) { #> selected <# } #>><?php esc_html_e( 'right', 'modula-best-grid-gallery' ); ?></option>
+							</select>
+							<select name="valign" class="inline-input">
+								<option <# if ( 'top' == data.valign ) { #> selected <# } #>><?php esc_html_e( 'top', 'modula-best-grid-gallery' ); ?></option>
+								<option <# if ( 'middle' == data.valign ) { #> selected <# } #>><?php esc_html_e( 'middle', 'modula-best-grid-gallery' ); ?></option>
+								<option <# if ( 'bottom' == data.valign ) { #> selected <# } #>><?php esc_html_e( 'bottom', 'modula-best-grid-gallery' ); ?></option>
+							</select>
+						</div>
+					<?php endif; ?>
+
 					<!-- Link -->
 					<div class="setting modula-link">
 						<label class="">
