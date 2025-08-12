@@ -55,6 +55,16 @@ function modula_generate_image_links( $item_data, $item, $settings ) {
 
 	if ( 'full' === $grid_sizes ) {
 		$original_image = wp_get_original_image_url( $item['id'] );
+		$mime_type = get_post_mime_type( $item['id'] );
+		if ( 'image/heic' === $mime_type || 'image/heif' === $mime_type ) {
+			$original_image = wp_get_attachment_image_src( $item['id'], 'full' );
+			if ( ! $original_image || ! isset( $original_image[0] ) ) {
+				$original_image = false;
+			}
+			$original_image = $original_image[0];
+		} else {
+			$original_image = wp_get_original_image_url( $item['id'] );
+		}
 	}
 
 	$resized    = $resizer->resize_image( $sizes['url'], $sizes['width'], $sizes['height'], $crop );

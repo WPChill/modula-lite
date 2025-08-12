@@ -13,7 +13,16 @@
 			if ( apply_filters( 'modula_check_item_not_image', $item_is_not_image, $image ) ) {
 				continue;
 			}
-			$full_img_src = esc_url( wp_get_original_image_url( $image['id'] ) );
+			$mime_type = get_post_mime_type( $image['id'] );
+			if ( 'image/heic' === $mime_type || 'image/heif' === $mime_type ) {
+				$full_img_src = wp_get_attachment_image_src( $image['id'], 'full' );
+				if ( ! $full_img_src || ! isset( $full_img_src[0] ) ) {
+					continue;
+				}
+				$full_img_src = $full_img_src[0];
+			} else {
+				$full_img_src = wp_get_original_image_url( $image['id'] );
+			}
 
 			// Check per gallery & per image if we should show title.
 			$should_hide_title = ( boolval( $data->settings['hide_title'] ) || ( isset( $image['hide_title'] ) && boolval( $image['hide_title'] ) ) );

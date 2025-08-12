@@ -1,3 +1,6 @@
+= 2.12.19 - 12.08.2025 =
+Fixed: Broken lightbox images when original image type was .heic
+
 = 2.12.18 - 28.07.2025 =
 Added: Filter `modula_show_alignment_options` to allow enabling image alignment options.
 Fixed: Inconsistency between masonry script responsive breakpoints and CSS breakpoints.
