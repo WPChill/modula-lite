@@ -128,7 +128,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 
-= 2.12.19 - 11.08.2025 =
+= 2.12.19 - 12.08.2025 =
 Fixed: Broken lightbox images when original image type was .heic.
 
 = 2.12.18 - 28.07.2025 =
