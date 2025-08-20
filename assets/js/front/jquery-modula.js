@@ -161,10 +161,8 @@ jQuery(window).on('elementor/frontend/init', function () {
 					}
 				}
 
-				if ('grid' == instance.options.type) {
-					if ('automatic' == instance.options.grid_type) {
-						instance.$itemsCnt.justifiedGallery();
-					}
+				if ('grid' == instance.options.type && 'undefined' === typeof window.elementorFrontend && 'automatic' == instance.options.grid_type) {
+					instance.$itemsCnt.justifiedGallery();
 				}
 			}
 		});
