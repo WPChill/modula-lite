@@ -1,3 +1,6 @@
+= 2.12.20 - 20.08.2025 =
+Fixed: Gallery jumping/scrolling issue in Elementor due to lazy load re-rendering.
+
 = 2.12.19 - 12.08.2025 =
 Fixed: Broken lightbox images when original image type was .heic
 
