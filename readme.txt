@@ -128,6 +128,10 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 
+= 2.12.21 - TBD =
+Update: Share icons.
+Added: Collapsable social buttons for desktop and set default to be collapsed.
+
 = 2.12.20 - 20.08.2025 =
 Fixed: Gallery jumping/scrolling issue in Elementor due to lazy load re-rendering.
 

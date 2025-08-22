@@ -586,6 +586,7 @@ class Modula_CPT {
 						case 'enableFacebook':
 						case 'enablePinterest':
 						case 'enableEmail':
+						case 'socialDesktopCollapsed':
 							$modula_settings[ $field_id ] = sanitize_text_field( wp_unslash( $settings[ $field_id ] ) );
 							break;
 						case 'imageMessage':

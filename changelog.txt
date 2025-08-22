@@ -1,3 +1,7 @@
+= 2.12.21 - TBD =
+Update: Share icons.
+Added: Collapsable social buttons for desktop and set default to be collapsed.
+
 = 2.12.20 - 20.08.2025 =
 Fixed: Gallery jumping/scrolling issue in Elementor due to lazy load re-rendering.
 
