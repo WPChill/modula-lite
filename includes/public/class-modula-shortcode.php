@@ -305,10 +305,6 @@ class Modula_Shortcode {
 			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable .jtg-social-expandable-icons a:not(:last-child){ margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . ' }';
 		}
 
-		if ( $settings['socialDesktopCollapsed'] ) {
-			$css .= "#{$gallery_id} .modula-item'";
-		}
-		
 		if ( '' != $settings['captionColor'] || '' != $settings['captionFontSize'] ) {
 			$css .= "#{$gallery_id} .modula-item .figc {";
 			if ( '' != $settings['captionColor'] ) {
