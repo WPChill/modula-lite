@@ -1,3 +1,6 @@
+= 2.12.21 - 27.08.2025 =
+Fixed: Loading effect 'in view' setting not properly working.
+
 = 2.12.20 - 20.08.2025 =
 Fixed: Gallery jumping/scrolling issue in Elementor due to lazy load re-rendering.
 
