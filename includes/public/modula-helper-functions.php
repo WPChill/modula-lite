@@ -456,7 +456,7 @@ function modula_mobile_share( $data ){
 
 	$any_social = $data->enableTwitter || $data->enableFacebook || $data->enableWhatsapp || $data->enablePinterest || $data->enableLinkedin || $data->enableEmail;
 
-	if ( $data->hide_socials || ! $any_social ) {
+	if ( ! $any_social ) {
 		return;
 	}
 
