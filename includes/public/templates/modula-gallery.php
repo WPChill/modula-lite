@@ -37,7 +37,7 @@
 				/* What to show from elements */
 				'hide_title'             => $should_hide_title,
 				'hide_description'       => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'           => ! boolval( $data->settings['enableSocial'] ),
+				'hide_socials'           => ! boolval( $data->settings['enableSocial'] ) || boolval( $data->settings['socialDesktopCollapsed'] ),
 				'enableTwitter'          => boolval( $data->settings['enableTwitter'] ),
 				'enableWhatsapp'         => boolval( $data->settings['enableWhatsapp'] ),
 				'enableFacebook'         => boolval( $data->settings['enableFacebook'] ),

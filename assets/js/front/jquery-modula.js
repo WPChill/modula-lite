@@ -1183,8 +1183,7 @@ jQuery(window).on('elementor/frontend/init', function () {
 
 	// setup social button showing socials links
 	var setupSocials = function ($tiles) {
-		$tiles.find('.jtg-social-expandable').click(function (e) {		
-			e.preventDefault();
+		$tiles.find('.jtg-social-expandable').click(function (e) {
 			$('.jtg-social-expandable').not(this).removeClass('modula-show-socials');
 			$(this).toggleClass('modula-show-socials');
 			if( isElementOutOfHorizontalViewport( $(this).find('.jtg-social-expandable-icons') ) ){
