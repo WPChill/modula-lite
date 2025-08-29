@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.20
+Stable tag: 2.12.23
 
 License: GNU General Public License v3.0 or later  
 
@@ -128,9 +128,15 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 
-= 2.12.21 - TBD =
+= 2.12.23 - 29.08.2025 =
 Update: Share icons.
 Added: Collapsable social buttons for desktop and set default to be collapsed.
+
+= 2.12.22 - 28.08.2025 =
+Fixed: Social icons hover display issue.
+
+= 2.12.21 - 27.08.2025 =
+Fixed: Loading effect 'in view' setting not properly working.
 
 = 2.12.20 - 20.08.2025 =
 Fixed: Gallery jumping/scrolling issue in Elementor due to lazy load re-rendering.

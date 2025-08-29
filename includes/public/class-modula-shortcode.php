@@ -205,7 +205,7 @@ class Modula_Shortcode {
 
 		$inView           = false;
 		$inview_permitted = apply_filters( 'modula_loading_inview_grids', array( 'custom-grid', 'creative-gallery', 'grid' ), $settings );
-		if ( isset( $settings['inView'] ) && '1' === $settings['inView'] && in_array( $type, $inview_permitted, true ) ) {
+		if ( isset( $settings['inView'] ) && boolval( $settings['inView'] ) && in_array( $type, $inview_permitted, true ) ) {
 			$inView = true;
 		}
 

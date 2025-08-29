@@ -269,6 +269,11 @@ function modula_add_gallery_class( $template_data ) {
 		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
 	}
 
+	if( boolval( $template_data['settings']['lazy_load'] ) ){
+		$template_data['gallery_container']['class'][] = 'modula-is-lazy';
+	}
+
+
 	return $template_data;
 }
 
