@@ -1,3 +1,7 @@
+= 2.12.23 - 29.08.2025 =
+Update: Share icons.
+Added: Collapsable social buttons for desktop and set default to be collapsed.
+
 = 2.12.22 - 28.08.2025 =
 Fixed: Social icons hover display issue.
 

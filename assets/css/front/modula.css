@@ -616,12 +616,71 @@ html body div.modula-powered svg.modula-logo {
 .modula-fancybox-container button.f-button.is-close-btn{
     display:none;
 }
-html body .modula-items .modula-item .jtg-social-mobile{
+html body .modula-items .modula-item .jtg-social-expandable{
+    display: none;
+}
+html body .modula-items .modula-item .jtg-social-desktop-collapsed .jtg-social-expandable-icons {
+    padding: 10px 15px;
+    background-color: #000;
+    border-radius: 20px;
+    position: absolute;
+    top: calc(-100% - 15px);
+    display: flex;
+    z-index: 99;
+    right: 0;
+}
+html body .modula-items .modula-item .modula-socials-right .jtg-social-desktop-collapsed .jtg-social-expandable-icons {
+    left: 0;
+    right: unset;
+}
+
+html body .modula-items .modula-item .jtg-social-desktop-collapsed .jtg-social-expandable-icons::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000;
+    bottom: -8px;
+    right: 10px;
+}
+html body .modula-items .modula-item .modula-socials-right .jtg-social-desktop-collapsed .jtg-social-expandable-icons::before {
+    right: unset;
+    left: 10px;
+}
+
+html body .modula-items .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable {
+    padding: 10px;
+    background-color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 999;
+    display: block;
+}
+html body .modula .modula-items .jtg-social-desktop-collapsed.jtg-social-expandable a.modula-icon-share {
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
+html body .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable .jtg-social-expandable-icons a{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+html body .modula-items .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable:not(.modula-show-socials) .jtg-social-expandable-icons{
     display: none;
 }
 
 @media (max-width: 992px ) {
-    html body .modula-items .modula-item .jtg-social-mobile-icons {
+    html body .modula-items .modula-item .jtg-social-expandable-icons {
         padding: 10px 15px;
         background-color: #000;
         border-radius: 20px;
@@ -631,12 +690,12 @@ html body .modula-items .modula-item .jtg-social-mobile{
         z-index: 99;
         right: 0;
     }
-    html body .modula-items .modula-item .modula-socials-right .jtg-social-mobile-icons {
+    html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons {
         left: 0;
         right: unset;
     }
     
-    html body .modula-items .modula-item .jtg-social-mobile-icons::before {
+    html body .modula-items .modula-item .jtg-social-expandable-icons::before {
         content: '';
         position: absolute;
         width: 0;
@@ -647,12 +706,12 @@ html body .modula-items .modula-item .jtg-social-mobile{
         bottom: -8px;
         right: 10px;
     }
-    html body .modula-items .modula-item .modula-socials-right .jtg-social-mobile-icons::before {
+    html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons::before {
         right: unset;
         left: 10px;
     }
     
-    html body .modula-items .modula-item .jtg-social-mobile {
+    html body .modula-items .modula-item .jtg-social-expandable {
         padding: 10px;
         background-color: #000;
         border-radius: 50%;
@@ -663,7 +722,7 @@ html body .modula-items .modula-item .jtg-social-mobile{
         z-index: 999;
         display: block;
     }
-    html body .modula .modula-items .jtg-social-mobile a.modula-icon-share {
+    html body .modula .modula-items .jtg-social-expandable a.modula-icon-share {
         pointer-events: none;
         display: flex;
         justify-content: center;
@@ -671,13 +730,13 @@ html body .modula-items .modula-item .jtg-social-mobile{
         border-radius: 50%;
         text-decoration: none;
     }
-    html body .modula-item .jtg-social-mobile .jtg-social-mobile-icons a{
+    html body .modula-item .jtg-social-expandable .jtg-social-expandable-icons a{
         justify-content: center;
         align-items: center;
         display: flex;
     }
     
-    html body .modula-items .modula-item .jtg-social-mobile:not(.modula-show-socials) .jtg-social-mobile-icons{
+    html body .modula-items .modula-item .jtg-social-expandable:not(.modula-show-socials) .jtg-social-expandable-icons{
         display: none;
     }
     
