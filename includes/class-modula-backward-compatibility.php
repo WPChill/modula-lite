@@ -736,7 +736,7 @@ class Modula_Backward_Compatibility {
 	 * @since 2.5.0
 	 */
 	public function backward_compatibility_admin_social_icons_collapsed( $value, $key, $settings ) {
-		if ( 'socialDesktopCollapsed' !== $key ) {
+		if ( 'socialDesktopCollapsed' !== $key || isset( $settings['socialDesktopCollapsed'] ) ) {
 			return $value;
 		}
 
