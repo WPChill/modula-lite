@@ -453,15 +453,16 @@ function modula_href_required() {
 }
 
 function modula_mobile_share( $data ){
-	if ( $data->hide_socials ){
+
+	$any_social = $data->enableTwitter || $data->enableFacebook || $data->enableWhatsapp || $data->enablePinterest || $data->enableLinkedin || $data->enableEmail;
+
+	if ( $data->hide_socials || ! $any_social ) {
 		return;
 	}
 
 	?>
 	<div class="jtg-social-expandable <?php  echo $data->socialDesktopCollapsed ? esc_attr( 'jtg-social-desktop-collapsed' ) : ''; ?>">
-		<?php if( $data->enableTwitter || $data->enableFacebook || $data->enableWhatsapp || $data->enablePinterest || $data->enableLinkedin || $data->enableEmail ) : ?>
 				<a class="modula-icon-share" aria-label="<?php echo esc_html__( 'Click to share', 'modula-best-grid-gallery' ); ?>" href="#"><?php echo Modula_Helper::get_icon( 'share' ) ?></a>
-		<?php endif ?>
 		<div class="jtg-social-expandable-icons">
 			<?php if ( $data->enableTwitter ): ?>
 				<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on X', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
