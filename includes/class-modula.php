@@ -43,6 +43,9 @@ class Modula {
 
 		add_action( 'plugins_loaded', array( $this, 'start_ai_hooks' ) );
 		$this->compatibility_check();
+
+		// Initialize telemetry
+		$this->init_telemetry();
 	}
 
 	private function load_dependencies() {
@@ -94,6 +97,10 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
+
+		// Telemetry
+		require_once MODULA_PATH . 'includes/wpchill/wpchill-telemetry-loader.php';
+		require_once MODULA_PATH . 'includes/class-modula-telemetry-integration.php';
 
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
@@ -184,7 +191,7 @@ class Modula {
 		new Modula\Ai\Client();
 	}
 
-	public function dashboard_start( ) {
+	public function dashboard_start() {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
@@ -938,5 +945,14 @@ class Modula {
 		}
 
 		new Modula\Ai_Compatibility();
+	}
+
+	/**
+	 * Initialize telemetry
+	 *
+	 * @since 2.12.20
+	 */
+	private function init_telemetry() {
+		new Modula_Telemetry_Integration();
 	}
 }
