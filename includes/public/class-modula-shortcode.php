@@ -292,17 +292,19 @@ class Modula_Shortcode {
 
 		if ( $settings['socialIconColor'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . '; color: ' . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . ' }';
-			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . '; color: ' . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . ' }';
+			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable a, #{$gallery_id} .modula-item .jtg-social-expandable-icons a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . '; color: ' . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . ' }';
+			
 		}
 
 		if ( $settings['socialIconSize'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social svg, .lightbox-socials.jtg-social svg { height: " . absint( $settings['socialIconSize'] ) . 'px; width: ' . absint( $settings['socialIconSize'] ) . 'px }';
 			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable svg { height: " . absint( $settings['socialIconSize'] ) . 'px; width: ' . absint( $settings['socialIconSize'] ) . 'px }';
+			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable-icons svg { height: " . absint( $settings['socialIconSize'] ) . 'px; width: ' . absint( $settings['socialIconSize'] ) . 'px }';
 		}
 
 		if ( $settings['socialIconPadding'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social a:not(:last-child), .lightbox-socials.jtg-social a:not(:last-child) { margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . ' }';
-			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable .jtg-social-expandable-icons a:not(:last-child){ margin-right: " . absint( $settings['socialIconPadding'] ) . 'px' . ' }';
+			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable-icons { gap: " . absint( $settings['socialIconPadding'] ) . 'px' . ' }';
 		}
 
 		if ( $settings['socialDesktopCollapsed'] ){

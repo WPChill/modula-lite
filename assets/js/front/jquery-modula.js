@@ -1181,16 +1181,28 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
-	// setup social button showing socials links
 	var setupSocials = function ($tiles) {
-		$tiles.find('.jtg-social-expandable').click(function (e) {
-			$('.jtg-social-expandable').not(this).removeClass('modula-show-socials');
-			$(this).toggleClass('modula-show-socials');
-			if( isElementOutOfHorizontalViewport( $(this).find('.jtg-social-expandable-icons') ) ){
-				$(this).addClass('modula-socials-right');
+		$tiles.find('.jtg-social-expandable').on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+	
+			var $parent = $(this).parent();
+			var $icons  = $parent.children('.jtg-social-expandable-icons');
+	
+			$tiles.find('.jtg-social-expandable-icons').not($icons)
+				  .removeClass('modula-show-socials');
+	
+			$icons.toggleClass('modula-show-socials');
+
+			if ($icons.hasClass('modula-show-socials') &&
+				isElementOutOfHorizontalViewport($icons)) {
+				$icons.addClass('modula-socials-right');
+			} else {
+				$icons.removeClass('modula-socials-right');
 			}
 		});
 	};
+	
 
 	var  isElementOutOfHorizontalViewport = function (el) {
 		var rect = el[0].getBoundingClientRect();
