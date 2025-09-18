@@ -129,7 +129,7 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 == Changelog ==
 
 = 2.12.25 - 18.09.2025 =
-Update: Improved display for social icons when small images are used.
+Update: Better fit for social icons when using smaller images.
 
 = 2.12.23 - 29.08.2025 =
 Update: Share icons.
