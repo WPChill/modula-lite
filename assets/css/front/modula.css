@@ -625,6 +625,10 @@ html body .modula-items .modula-item .jtg-social-expandable {
     display: none;
 }
 
+html body .modula-items .modula-item .jtg-social-expandable-icons:not(.modula-show-socials) {
+    display: none;
+}
+
 html body .modula-items .modula-item .jtg-social-expandable-icons {
     padding: 10px 15px;
     background-color: #000;
