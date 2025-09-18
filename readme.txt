@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.24
+Stable tag: 2.12.25
 
 License: GNU General Public License v3.0 or later  
 
@@ -128,8 +128,8 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 
 == Changelog ==
 
-= 2.12.24 - 29.08.2025 =
-Fixed: Should not show expand icon if no social share buttons are enabled.
+= 2.12.25 - 18.09.2025 =
+Update: Better fit for social icons when using smaller images.
 
 = 2.12.23 - 29.08.2025 =
 Update: Share icons.
