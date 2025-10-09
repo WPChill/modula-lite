@@ -129,7 +129,8 @@ The simplest way to install is to click on \'Plugins\' then \'Add\' and type \'M
 == Changelog ==
 
 = 2.12.26 - 09.10.2025 =
-Update: Fancybox lightbox version to 5.0.36.
+Updated: Fancybox Lightbox to version 5.0.36.
+Changed: Enabled Custom Responsiveness setting by default.
 
 = 2.12.25 - 18.09.2025 =
 Update: Better fit for social icons when using smaller images.

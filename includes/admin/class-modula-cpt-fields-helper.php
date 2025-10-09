@@ -665,7 +665,7 @@ class Modula_CPT_Fields_Helper {
 					'enable_responsive' => array(
 						'name'      => wp_kses_post( __( 'Custom responsiveness <br> (nr. of columns)', 'modula-best-grid-gallery' ) ),
 						'type'      => 'toggle',
-						'default'   => 0,
+						'default'   => 1,
 						'priority'  => 10,
 						'children'  => array( 'tablet_columns', 'mobile_columns' ),
 						'data_type' => 'bool',
@@ -788,7 +788,7 @@ class Modula_CPT_Fields_Helper {
 				'img_size'               => 200,
 				'grid_row_height'        => 250,
 				'grid_justify_last_row'  => 'justify',
-				'enable_responsive'      => 0,
+				'enable_responsive'      => 1,
 				'last_visited_tab'       => 'modula-general',
 			)
 		);
