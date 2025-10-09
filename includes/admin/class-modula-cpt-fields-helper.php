@@ -766,7 +766,7 @@ class Modula_CPT_Fields_Helper {
 				'socialIconPadding'      => 10,
 				'socialDesktopCollapsed' => 1,
 				'loadedScale'            => 100,
-				'inView'                 => 100,
+				'inView'                 => 0,
 				'cursor'                 => 'zoom-in',
 				'effect'                 => 'pufrobo',
 				'borderColor'            => '#ffffff',

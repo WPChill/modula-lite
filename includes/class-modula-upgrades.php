@@ -331,7 +331,7 @@ class Modula_Upgrades {
 				'socialIconPadding'      => 20,
 				'socialDesktopCollapsed' => 1,
 				'loadedScale'            => '100',
-				'inView'                 => '100',
+				'inView'                 => '0',
 				'effect'                 => 'pufrobo',
 				'borderColor'            => '#ffffff',
 				'borderRadius'           => '0',
