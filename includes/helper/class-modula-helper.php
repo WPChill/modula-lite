@@ -252,7 +252,7 @@ class Modula_Helper {
 				'DOWNLOAD'          => esc_html__( 'Download', 'modula-best-grid-gallery' ),
 				'SHARE'             => esc_html__( 'Share', 'modula-best-grid-gallery' ),
 				'ZOOM'              => esc_html__( 'Zoom', 'modula-best-grid-gallery' ),
-				'EMAIL'             => esc_html__( sprintf( 'Here is the link to the image : %s and this is the link to the gallery : %s', '%%image_link%%' , '%%gallery_link%%' ) ),
+				'EMAIL'             => sprintf( esc_html__( 'Here is the link to the image : %s and this is the link to the gallery : %s', 'modula-best-grid-gallery' ), '%%image_link%%' , '%%gallery_link%%' ),
 				'MODAL'		        => esc_html__( 'You can close this modal content with the ESC key', 'modula-best-grid-gallery' ),
 				'ERROR'		        => esc_html__( 'Something Went Wrong, Please Try Again Later', 'modula-best-grid-gallery' ),
 				'IMAGE_ERROR'		=> esc_html__( 'Image Not Found', 'modula-best-grid-gallery' ),
@@ -464,7 +464,7 @@ class Modula_Helper {
 			echo esc_url( $cc['license'] ); ?>" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="<?php
 				echo esc_url( $cc['image'] ); ?>"/></a>
 			<span> <?php
-				printf( __( 'This work is licensed under a %s %s %s' ), '<a rel="license" href="' . esc_url( $cc['license'] ) . '" target="_blank" >', esc_html( $cc['name'] ), '</a>' ); ?></span>
+				printf( __( 'This work is licensed under a %s %s %s', 'modula-best-grid-gallery' ), '<a rel="license" href="' . esc_url( $cc['license'] ) . '" target="_blank" >', esc_html( $cc['name'] ), '</a>' ); ?></span>
 		</div>
 		<?php
 		return ob_get_clean();
