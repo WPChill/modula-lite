@@ -1,6 +1,6 @@
-=== Image Gallery - Photo Grid & Video Gallery  ===
+=== Image Gallery - Photo Grid & Video Gallery ===
 Contributors: wpchill, silkalns  
-Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPress gallery plugin
+Tags: image-gallery, photo-gallery, video-gallery, elementor, masonry
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
@@ -11,6 +11,7 @@ License: GNU General Public License v3.0 or later
 Create responsive image galleries with drag-and-drop grid builder. Custom layouts, video support, AI optimization. Works with any theme.
 
 == Description ==
+
 ## The Best WordPress Gallery Plugin for Custom Image & Video Galleries
 
 Create stunning image galleries with Modula's drag-and-drop grid builder. Build custom grid layouts, masonry galleries, and video galleries without any coding. Perfect for photographers, designers, and anyone who wants beautiful responsive galleries on their WordPress website.
@@ -22,6 +23,7 @@ Modula makes creating photo galleries effortless. Just add images, customize you
 ## How to Create a Gallery with Modula
 
 ### **It's This Easy:**
+
 1. **Go to Modula & click Add New.**
 2. **Add your images & customize your layout.**
 3. **Copy the shortcode & paste it** where you want the gallery to appear. Example shortcode: `[modula id="1192"]`.
@@ -31,30 +33,39 @@ https://www.youtube.com/watch?v=Ah1vHSTEW-c
 ## Key Features of Modula Gallery Plugin
 
 ### Drag-and-Drop Grid Builder
+
 Create custom grid layouts by dragging and resizing images. No coding required. Build unique gallery layouts that match your brand and design vision perfectly.
 
 ### Responsive Image Galleries
+
 All galleries are automatically mobile responsive. Your photo galleries will look perfect on smartphones, tablets, and desktop computers. Images resize and reflow based on screen size.
 
 ### Multiple Gallery Types
+
 Choose from Custom Grid, Masonry, and Creative Gallery layouts. Each gallery type offers unique styling options and display formats to match your needs.
 
 ### Video Gallery Support (Pro)
+
 Combine videos with images in your galleries. Works with YouTube, Vimeo, and self-hosted videos for complete multimedia gallery experiences.
 
 ### Lightbox Gallery Viewer
+
 Built-in lightbox displays your images in a beautiful full-screen overlay. Visitors can navigate through gallery images without leaving the page.
 
 ### AI-Powered Image Optimization
+
 Modula AI automatically optimizes image titles, captions, and ALT text for better SEO. Manual editing for each image is a thing of the past.
 
 ### Custom Hover Effects (Pro)
+
 Add dynamic hover effects to engage visitors. Choose from dozens of hover animations and styling options to make your galleries interactive.
 
 ### Gallery Filters (Pro)
+
 Let visitors sort and filter your image galleries by category. Perfect for portfolio galleries and large photo collections.
 
 ### Page Builder Integration
+
 Works seamlessly with Elementor, Beaver Builder, and Divi. Add galleries to any page using your favorite page builder's interface.
 
 ## How to Create a Photo Gallery in WordPress
@@ -87,9 +98,9 @@ Adjust the gutter spacing between images to control how tightly packed your maso
 
 With Modula Pro, you can create video galleries that combine videos with photos. This is perfect for event galleries, portfolio websites, and multimedia presentations.
 
-To add videos to your gallery, click the video icon when adding new items to your gallery. Paste YouTube or Vimeo URLs, or upload self-hosted video files. Videos appear inline with your images and open in the lightbox viewer when clicked.
+To add videos to your gallery, click the "Add new" button when adding new items to your gallery. Paste YouTube or Vimeo URLs, or upload self-hosted video files. Videos appear inline with your images and open in the lightbox viewer when clicked.
 
-Mix video content with photos to create engaging multimedia galleries that tell a complete story. Video thumbnails are generated automatically for a seamless viewing experience.
+Mix video content with photos to create engaging multimedia galleries that tell a complete story. Video thumbnails are generated automatically (for YouTube & Vimeo videos) for a seamless viewing experience.
 
 ## Creating Portfolio Galleries for Photography Websites
 
@@ -101,7 +112,7 @@ Enable the lightbox slideshow feature to let visitors browse your photography in
 
 ## Building Real Estate Photo Galleries
 
-Real estate agents use photo galleries to showcase property listings. Modula makes it easy to create professional real estate galleries that help properties sell faster.
+Real estate agents use photo galleries to showcase property listings. Modula makes it easy to create professional real estate galleries that help properties sell faster - especially with our dedicated BnB layout.
 
 Upload photos of each room, exterior shots, and neighborhood amenities. Use gallery filters to let visitors sort by room type or property feature. Add detailed captions describing each space and highlighting key selling points.
 
@@ -133,7 +144,7 @@ Inspect your browser console for JavaScript errors that might prevent the galler
 
 ### How do I fix blurry images in my gallery?
 
-Blurry images typically result from the Minimum Image Width setting being too low. Navigate to your gallery settings and increase the "Minimum Image Width" value in the General section.
+Blurry images typically result from the "Gallery image size" setting being too low. Navigate to your gallery settings and increase the "Minimum Image Width" value in the General section.
 
 Upload higher resolution source images to provide better quality at larger display sizes. The plugin resizes images based on your settings, so starting with high-quality originals ensures sharp results.
 
@@ -145,7 +156,7 @@ Ensure responsive breakpoints are properly configured in your gallery settings. 
 
 ### How to speed up slow gallery loading times
 
-Slow gallery loading impacts user experience and SEO. Compress images before uploading using tools like ShortPixel or TinyPNG. Enable lazy loading so images load only when visible in the viewport.
+Just use Modula SpeedUP and we'll handle everything else. We'll optimize your images through ShortPixel, and send them off to a super fast CDN. The process runs in the background seamlessly and you don't have to do anything besides activate the Modula SpeedUP extension.
 
 Reduce the number of images per gallery page or implement gallery pagination. Use a CDN to serve images faster to visitors worldwide. Optimize your WordPress hosting for better overall performance.
 
@@ -157,55 +168,58 @@ If using Masonry layout, note that image positions adjust automatically based on
 
 ## What you get extra in Modula Pro when making a purchase:
 
-* **[Comments for images](https://wp-modula.com/modula-comments/)**: Allow your site users to add comments for your gallery images, boosting your engagement and interaction with your audience.
-* **[Image proofing](https://wp-modula.com/image-proofing)**: Make it easy for customers to choose the photos they want edited with proofing galleries on your website. They can pick their favorites and send their choices directly through the site. No more long email chains or back-and-forth—everything is handled in one place!
-* **[Instagram](https://wp-modula.com/modula-instagram/)**: Easily link your Instagram account to your Modula Gallery. With this connection you will then be able to import Instagram images directly in your gallery, enriching your website with your Instagram content.
-* **[Defaults](https://wp-modula.com/modula-defaults/)**: Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
-* **[Content Galleries](https://wp-modula.com/modula-content-galleries/)**: Take your gallery creation to the next level, with this add-on you will be able to generate a new gallery from your current posts, pages or custom post types. Even more, each gallery is synched with the original source, changes to the original content will also be reflected in the gallery.
-* **[Bulk Edit](https://wp-modula.com/bulk-edit/)**: Easily edit multiple images at once, saving up precious configuration time.
-* **[Video gallery](https://wp-modula.com/modula-video/)**: Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
-* **[Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/)**: Improve the user experience with your galleries by presenting the images in a stunning slideshow.
-* **[Slider gallery](https://wp-modula.com/modula-slider/)**: This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
-* **[Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula/)**: Apply one or more filters to your images to allow your website's visitors to easily sort through your gallery.
-* **[Albums](https://wp-modula.com/modula-albums/)**: Let's say you are going on a holiday trip and wish to document each day in a separate gallery. The Albums extension will allow you to group up all your holiday galleries in a single listing, enabling easy access to your precious memories.
-* Multiple dynamic effects: [Loading Effects](https://wp-modula.com/kb/modula-loading-effects/), [Hover effects](https://wp-modula.com/kb/modula-hover-effects/) and [Zoom effects](https://wp-modula.com/kb/modula-zoom/)
-* **[Watermark images](https://wp-modula.com/kb/modula-watermark/)**: Protect your photos by adding custom watermarks.
-* **[Image Guardian](https://wp-modula.com/kb/right-click-protection/)**: Keeps your images safer. It blocks right-click "Save," hides the images URLs, and makes prints blurry.
-* **[Speed UP](https://wp-modula.com/kb/modula-speed-up/)**: Using this extension, you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms, and serving them from StackPath's CDN (content delivery network). The result? A fast website without the high costs associated with it.
-* **[Whitelabel](https://wp-modula.com/kb/modula-whitelabel/)**: This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
-* Support and updates are included with each purchase for one year.
+- **[Comments for images](https://wp-modula.com/modula-comments/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Comments)**: Allow your site users to add comments for your gallery images, boosting your engagement and interaction with your audience.
+- **[Image proofing](https://wp-modula.com/image-proofing?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Image+Proofing)**: Make it easy for customers to choose the photos they want edited with proofing galleries on your website. They can pick their favorites and send their choices directly through the site. No more long email chains or back-and-forth—everything is handled in one place!
+- **[Instagram](https://wp-modula.com/modula-instagram/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Instagram)**: Easily link your Instagram account to your Modula Gallery. With this connection you will then be able to import Instagram images directly in your gallery, enriching your website with your Instagram content.
+- **[Defaults](https://wp-modula.com/modula-defaults/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Defaults)**: Are you tired of going through each gallery and setting up the same settings repeatedly? Use the Defaults extension to define a basic set of options for your galleries, then simply add this to each new gallery you create. It saves a lot of time!
+- **[Content Galleries](https://wp-modula.com/modula-content-galleries/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Content+Galleries)**: Take your gallery creation to the next level, with this add-on you will be able to generate a new gallery from your current posts, pages or custom post types. Even more, each gallery is synched with the original source, changes to the original content will also be reflected in the gallery.
+- **[Bulk Edit](https://wp-modula.com/bulk-edit/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Bulk+edit)**: Easily edit multiple images at once, saving up precious configuration time.
+- **[Video gallery](https://wp-modula.com/modula-video/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Video+gallery)**: Use the Video extension to combine videos with images in your galleries. It works with YouTube, Vimeo, and self-hosted videos.
+- **[Lightbox slideshow](https://wp-modula.com/kb/lightbox-slideshow/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Lightbox+slideshow)**: Improve the user experience with your galleries by presenting the images in a stunning slideshow.
+- **[Slider gallery](https://wp-modula.com/modula-slider/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Slider+gallery)**: This helps display your gallery images in a new format type: slider. It can be synced with a thumbnail strip below it. You can switch it up by adding different elements to the slider: dots, arrows, a fade effect, infinite loop, center mode, and more.
+- **[Gallery Filters](https://wp-modula.com/kb/use-filters-in-modula/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Gallery+filters)**: Apply one or more filters to your images to allow your website's visitors to easily sort through your gallery.
+- **[Albums](https://wp-modula.com/modula-albums/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Albums)**: Let's say you are going on a holiday trip and wish to document each day in a separate gallery. The Albums extension will allow you to group up all your holiday galleries in a single listing, enabling easy access to your precious memories.
+- Multiple dynamic effects: [Loading Effects](https://wp-modula.com/kb/modula-loading-effects/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Loading+effects), [Hover effects](https://wp-modula.com/kb/modula-hover-effects/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Hover+effects) and [Zoom effects](https://wp-modula.com/kb/modula-zoom/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Zoom+effects)
+- **[Watermark images](https://wp-modula.com/kb/modula-watermark/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Watermark+images)**: Protect your photos by adding custom watermarks.
+- **[Image Guardian](https://wp-modula.com/kb/right-click-protection/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Right+click+protection)**: Keeps your images safer. It blocks right-click "Save," hides the images URLs, and makes prints blurry.
+- **[Speed UP](https://wp-modula.com/kb/modula-speed-up/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Speed+up)**: Using this extension, you can optimize your images by reducing their file sizes, resizing them through ShortPixel's image optimization algorithms, and serving them from StackPath's CDN (content delivery network). The result? A fast website without the high costs associated with it.
+- **[Whitelabel](https://wp-modula.com/kb/modula-whitelabel/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Whitelabel)**: This extension helps you remove all mentions of Modula from the plugin and customize it with your own brand, logo, and text.
+- Support and updates are included with each purchase for one year.
 
 ## How-to Guides:
 
 Here are a couple of quick tutorials on how to create your dream gallery using the free version:
-* [WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress)
-* [Custom grid Gallery](https://wp-modula.com/grid-gallery)
-* [Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/)
-* [Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/)
-* [Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery)
-* [Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor)
-* [Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi)
+
+- [WordPress Image Gallery](https://wp-modula.com/how-to-create-an-image-gallery-in-wordpress?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=wordpress+image+gallery)
+- [Custom grid Gallery](https://wp-modula.com/grid-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=custom+grid+gallery)
+- [Masonry Image Gallery](https://wp-modula.com/masonry-image-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=masonry+image+gallery)
+- [Mobile responsive Gallery](https://wp-modula.com/mobile-responsive-gallery/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=mobile+responsive+gallery)
+- [Beaver Builder Gallery](https://wp-modula.com/create-beaver-builder-gallery?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=beaver+builder+gallery)
+- [Elementor Image Gallery](https://wp-modula.com/add-gallery-in-elementor?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=elementor+image+gallery)
+- [Divi Builder Gallery](https://wp-modula.com/how-to-add-a-photo-gallery-in-divi?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=divi+builder+gallery)
 
 When using the Pro version, you can also create:
-* [Video Galleries in WordPress](https://wp-modula.com/add-video-wordpress-page)
-* [Gallery Sliders in WordPress](https://wp-modula.com/wordpress-image-carousel/)
-* [Galleries with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/)
-* [Albums](https://wp-modula.com/online-photo-album/)
+
+- [Video Galleries in WordPress](https://wp-modula.com/add-video-wordpress-page?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Video+gallery)
+- [Gallery Sliders in WordPress](https://wp-modula.com/wordpress-image-carousel/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Slider+gallery)
+- [Galleries with Hover Effects](https://demo.wp-modula.com/demo/hover-effects/pufrobo/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Hover+effects)
+- [Albums](https://wp-modula.com/online-photo-album/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=Albums)
 
 ## Help & Support
 
-* **Guides & Help Articles:** [Read documentation](https://wp-modula.com/kb/)
-* **Ask a Question:** [Support forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/)
-* **Need Extra Help?** [Contact Us](https://wp-modula.com/contact-us/)
+- **Guides & Help Articles:** [Read documentation](https://wp-modula.com/kb/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=knowledge+base)
+- **Ask a Question:** [Support forum](https://wordpress.org/support/plugin/modula-best-grid-gallery/)
+- **Need Extra Help?** [Contact Us](https://wp-modula.com/contact-us/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=contact+us)
 
 Do you have galleries already created in **NextGen**, **Envira**, **Final Tiles Grid Gallery** or **FooGallery** and want to migrate them to Modula?
 
 Use our dedicated migration tools:
-* [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/)
-* [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/)
-* [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/)
-* [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/)
-* [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/)
+
+- [Migrate away from NextGEN Gallery](https://wordpress.org/plugins/modula-nextgen-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+nextgen)
+- [Migrate away from FooGallery](https://wordpress.org/plugins/modula-foo-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+foogallery)
+- [Migrate away from Envira Gallery](https://wordpress.org/plugins/modula-envira-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+envira)
+- [Migrate away from Final Tiles](https://wordpress.org/plugins/modula-final-tiles-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+final+tiles)
+- [Migrate away from Photoblocks Gallery](https://wordpress.org/plugins/modula-photoblocks-gallery-migrator/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=migrate+photoblocks)
 
 == 3rd party or external service disclaimer ==
 
@@ -218,7 +232,7 @@ Our privacy policy can be found at this URL https://wp-modula.com/privacy-policy
 == Frequently Asked Questions ==
 
 = How do I show a Modula gallery? =
-Follow [this easy guide](https://wp-modula.com/how-to-add-modula-to-page/) to add your gallery to any page or post. Simply copy the shortcode from your gallery and paste it where you want the gallery to appear.
+Follow [this easy guide](https://wp-modula.com/how-to-add-modula-to-page/?utm_source=wordpress.org&utm_medium=web&utm_campaign=description&utm_term=add+to+page) to add your gallery to any page or post. Simply copy the shortcode from your gallery and paste it where you want the gallery to appear.
 
 = Can I move my old galleries to Modula? =
 Yes! If you use NextGEN, FooGallery, Envira, Final Tiles, or Photoblocks, you can switch to Modula easily with our free migration plugins.
@@ -256,13 +270,13 @@ Select "Custom Grid" as your gallery type when creating a new gallery. Then drag
 Yes! Modula integrates seamlessly with Elementor, Beaver Builder, Divi, and other popular WordPress page builders.
 
 = How do I add captions to gallery images? =
-Click any image in the gallery builder to open the image editor. Add your caption text in the caption field. Captions display as overlays on your images.
+Hover over an image in the gallery builder, click on the Pencil icon (edit) to open the image editor. Add your caption text in the caption field. Captions display as overlays on your images.
 
 = Can I create a photography website gallery? =
 Absolutely! Modula is perfect for photography portfolios. Use Custom Grid layouts, enable lightbox slideshows, and add watermark protection for your photos.
 
 = How do I add videos to my image gallery? =
-With Modula Pro, click the video icon when adding gallery items. Paste YouTube or Vimeo URLs, or upload self-hosted videos to create multimedia galleries.
+With Modula Pro, click the "Add New+" button when adding gallery items. Paste YouTube or Vimeo URLs, or upload self-hosted videos to create multimedia galleries.
 
 = Can I filter images in my gallery? =
 Yes, with the Gallery Filters extension (Pro). Add filter tags to images and let visitors sort gallery images by category or tag.
