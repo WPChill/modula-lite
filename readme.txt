@@ -1,6 +1,6 @@
 === Image Gallery - Photo Grid & Video Gallery ===
 Contributors: wpchill, silkalns  
-Tags: image-gallery, photo-gallery, video-gallery, elementor, masonry
+Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPress gallery plugin 
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
