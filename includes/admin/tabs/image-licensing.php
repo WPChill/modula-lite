@@ -158,7 +158,7 @@ uasort( $image_attrib_fields, array( 'Modula_Helper', 'sort_data_by_priority' ) 
 														<img alt="Creative Commons License" style="border-width:0" src="<?php echo esc_url( $cc['image'] ); ?>"/>
 													<?php endif; ?>
 													<?php if ( isset( $cc['license'] ) && '' != $cc['license'] ) : ?>
-														<span class="modula-image-licensing-radio-name"><?php printf( __( 'This work is licensed under a %s' ), esc_html( $cc['name'] ) ); ?></span>
+														<span class="modula-image-licensing-radio-name"><?php printf( __( 'This work is licensed under a %s', 'modula-best-grid-gallery' ), esc_html( $cc['name'] ) ); ?></span>
 													<?php else : ?>
 														<span class="modula-image-licensing-radio-name"><?php esc_html_e( 'None', 'modula-best-grid-gallery' ); ?></span>
 													<?php endif; ?>
