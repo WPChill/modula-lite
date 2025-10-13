@@ -1,0 +1,104 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+
+#wpchill-onboarding-root {
+	background: #f1f1f1;
+	min-height: 100vh;
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+
+	.wpchill-progress {
+		position: relative;
+		width: 100%;
+		padding: 20px 12%;
+		box-sizing: border-box;
+
+		/* ----- LINE ----- */
+		.wpchill-progress__line {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background-color: #e0e0e0;
+			transform: translateY(-50%);
+			border-radius: 2px;
+			overflow: hidden;
+		}
+
+		.wpchill-progress__line-fill {
+			height: 100%;
+			background-color: #4caf50;
+			transition: width 0.3s ease-in-out;
+		}
+
+		/* ----- STEPS WRAPPER ----- */
+		.wpchill-progress__steps {
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+			z-index: 2;
+		}
+
+		/* ----- STEP ITEM ----- */
+		.wpchill-progress__step {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background-color: #ccc;
+			color: #fff;
+			font-weight: 600;
+			font-size: 14px;
+			transition: all 0.3s ease;
+		}
+
+		/* Step number (inside the circle) */
+		.wpchill-progress__step-number {
+			position: relative;
+			z-index: 3;
+		}
+
+		/* Active step (green circle) */
+		.wpchill-progress__step.is-active {
+			background-color: #4caf50;
+		}
+	}
+
+
+	.wpchill-onboarding-logo {
+		padding: 25px;
+
+		.wpchill-onboarding-logo-img {
+			width: 40px;
+		}
+	}
+
+	.wpchill-onboarding-body {
+		padding: 25px;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		flex-direction: column;
+	}
+
+	.wpchill-onboarding-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 800px;
+		max-width: 80%;
+		margin: 0 auto;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

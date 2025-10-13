@@ -3,7 +3,7 @@ module.exports = {
 		require( 'autoprefixer' ),
 		require( 'postcss-prefix-selector' )( {
 			prefix: '.modula-best-grid-gallery',
-			exclude: [ 'html', 'body', /^#wpchill-notifications-root/ ],
+			exclude: [ 'html', 'body', /^#wpchill-notifications-root/, /^#wpchill-onboarding-root/ ],
 			ignoreFiles: [ /apps\/.*/ ],
 		} ),
 	],

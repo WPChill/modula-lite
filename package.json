@@ -27,6 +27,8 @@
 	"scripts": {
 		"start:notification-system": "wp-scripts start --config webpack.config.notification-system.js",
 		"build:notification-system": "wp-scripts build --config webpack.config.notification-system.js",
+		"start:onboarding": "wp-scripts start --config webpack.config.onboarding.js",
+		"build:onboarding": "wp-scripts build --config webpack.config.onboarding.js",
 		"start:gallery-listing-ai": "wp-scripts start apps/gallery-listing-ai/index.js --output-path=./assets/js/admin/gallery-listing-ai --config webpack.config.react-apps.js",
 		"build:gallery-listing-ai": "wp-scripts build apps/gallery-listing-ai/index.js --output-path=./assets/js/admin/gallery-listing-ai --config webpack.config.react-apps.js",
 		"start:settings": "wp-scripts start apps/settings/index.js --output-path=./assets/js/admin/settings --config webpack.config.react-apps.js",

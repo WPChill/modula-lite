@@ -25,7 +25,11 @@ class Modula {
 	 */
 	public function __construct() {
 		$this->set_offer();
+		// Run onboarding.
+		$this->onboarding_start();
 		$this->load_dependencies();
+
+		
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -184,7 +188,7 @@ class Modula {
 		new Modula\Ai\Client();
 	}
 
-	public function dashboard_start( ) {
+	public function dashboard_start() {
 
 		$links = array(
 			'partners'      => 'https://wp-modula.com/parteners.json',
@@ -938,5 +942,22 @@ class Modula {
 		}
 
 		new Modula\Ai_Compatibility();
+	}
+
+
+	public function onboarding_start() {
+			require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-onboarding.php';
+		$args = array(
+			'name'          => 'Modula Gallery',
+			'slug'          => 'modula-gallery',
+			'logo'          => MODULA_URL . 'assets/images/dashboard/',
+			'documentation' => 'https://wp-modula.com/kb/',
+			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
+			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
+			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
+			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/',
+		);
+
+		new Wpchill_Onboarding( $args );
 	}
 }
