@@ -124,13 +124,23 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.onResize(instance);
 		}
 
+		let resizeTimeout;
+		let resizeObserverTimeout;
+
 		$(window).resize(function () {
-			instance.onResize(instance);
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(function () {
+				instance.onResize(instance);
+			}, 150);
 		});
 
 		const resizeObserver = new ResizeObserver((entries) => {
-			instance.onResize(instance);
+			clearTimeout(resizeObserverTimeout);
+			resizeObserverTimeout = setTimeout(() => {
+				instance.onResize(instance);
+			}, 150);
 		});
+
 		resizeObserver.observe(instance.$element[0]);
 
 		$(window).on('modula-update', function () {
