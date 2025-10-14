@@ -75,6 +75,11 @@
 					'data-modula-item-id'    => absint( $image['id'] ),
 					'data-modula-image-src'  => $full_img_src,
 				),
+
+				/*Accessibility */
+				'link_attributes'        => array(
+					'role' => 'button',
+				),
 			);
 
 			if ( isset( $image['togglelightbox'] ) && 1 === $image['togglelightbox'] ) {

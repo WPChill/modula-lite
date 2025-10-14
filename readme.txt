@@ -319,9 +319,11 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 
 == Changelog ==
 
-= 2.12.26 - 09.10.2025 =
+= 2.12.26 - 14.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.
 Changed: Enabled Custom Responsiveness setting by default.
+Fixed: Texts missing textdomain.
+Added: Debounce on window resize.
 
 = 2.12.25 - 18.09.2025 =
 Update: Better fit for social icons when using smaller images.
