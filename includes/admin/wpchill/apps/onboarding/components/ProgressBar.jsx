@@ -2,8 +2,12 @@ import { useWpchillState } from '../state/use-wpchill-state';
 
 export function ProgressBar() {
 	const { state } = useWpchillState();
-	const steps = Array.from( { length: state.maxStep }, ( _, i ) => i + 1 );
 
+	if ( 0 === state.step ) {
+		return null;
+	}
+
+	const steps = Array.from( { length: state.maxStep }, ( _, i ) => i + 1 );
 	return (
 		<div className="wpchill-progress">
 			<div className="wpchill-progress__line">

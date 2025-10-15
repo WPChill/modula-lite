@@ -13,10 +13,9 @@ body {
 	.wpchill-progress {
 		position: relative;
 		width: 100%;
-		padding: 20px 12%;
+		padding: 20px 0;
 		box-sizing: border-box;
 
-		/* ----- LINE ----- */
 		.wpchill-progress__line {
 			position: absolute;
 			top: 50%;
@@ -25,7 +24,6 @@ body {
 			height: 4px;
 			background-color: #e0e0e0;
 			transform: translateY(-50%);
-			border-radius: 2px;
 			overflow: hidden;
 		}
 
@@ -35,7 +33,6 @@ body {
 			transition: width 0.3s ease-in-out;
 		}
 
-		/* ----- STEPS WRAPPER ----- */
 		.wpchill-progress__steps {
 			display: flex;
 			justify-content: space-between;
@@ -43,7 +40,6 @@ body {
 			z-index: 2;
 		}
 
-		/* ----- STEP ITEM ----- */
 		.wpchill-progress__step {
 			display: flex;
 			align-items: center;
@@ -58,13 +54,11 @@ body {
 			transition: all 0.3s ease;
 		}
 
-		/* Step number (inside the circle) */
 		.wpchill-progress__step-number {
 			position: relative;
 			z-index: 3;
 		}
 
-		/* Active step (green circle) */
 		.wpchill-progress__step.is-active {
 			background-color: #4caf50;
 		}
@@ -90,15 +84,20 @@ body {
 	}
 
 	.wpchill-onboarding-wrapper {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 800px;
-		max-width: 80%;
-		margin: 0 auto;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
+display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    max-width: 80%;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 42px;
+    border: 1px solid #cccccc;
+    border-radius: 12px;
+    background-color: #fff;
 	}
 }

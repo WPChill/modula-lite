@@ -3,6 +3,7 @@ import { useNotificationQuery } from './query/useNotificationQuery';
 import { useEffect } from '@wordpress/element';
 import { setVisibleNotifications } from './state/actions';
 import { ProgressBar } from './components/ProgressBar.jsx';
+import { Steps } from './components/Steps.jsx';
 import { Logo } from './components/Logo.jsx';
 
 export function Onboarding() {
@@ -10,12 +11,7 @@ export function Onboarding() {
 		<>
 			<div className="wpchill-onboarding-wrapper">
 				<ProgressBar />
-				<div>
-					<h2>text</h2>
-					<div>
-						content
-					</div>
-				</div>
+				<Steps />
 			</div>
 		</>
 	);
