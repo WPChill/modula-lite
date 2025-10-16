@@ -293,7 +293,6 @@ class Modula_Shortcode {
 		if ( $settings['socialIconColor'] ) {
 			$css .= "#{$gallery_id} .modula-item .jtg-social a, .lightbox-socials.jtg-social a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . '; color: ' . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . ' }';
 			$css .= "#{$gallery_id} .modula-item .jtg-social-expandable a, #{$gallery_id} .modula-item .jtg-social-expandable-icons a{ fill: " . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . '; color: ' . Modula_Helper::sanitize_rgba_colour( $settings['socialIconColor'] ) . ' }';
-			
 		}
 
 		if ( $settings['socialIconSize'] ) {
@@ -322,8 +321,8 @@ class Modula_Shortcode {
 		if ( '' != $settings['titleFontSize'] && 0 != $settings['titleFontSize'] ) {
 			$css .= "#{$gallery_id} .modula-item .figc .jtg-title {  font-size: " . absint( $settings['titleFontSize'] ) . 'px; }';
 		}
-
-		if ( isset( $settings['inView'] ) && '1' == $settings['inView'] ) {
+		$inview_permitted = apply_filters( 'modula_loading_inview_grids', array( 'custom-grid', 'creative-gallery', 'grid' ), $settings );
+		if ( isset( $settings['inView'] ) && boolval( $settings['inView'] ) && in_array( isset( $settings['type'] ) ? $settings['type'] : 'creative-gallery', $inview_permitted, true ) ) {
 			$css .= "#{$gallery_id}.modula-loaded-scale .modula-item .modula-item-content { animation:modulaScaling 1s;transition:0.5s all;opacity: 1; }";
 
 			$css .= '@keyframes modulaScaling { 0% {transform:scale(1)} 50%{transform: scale(' . absint( $settings['loadedScale'] ) / 100 . ')}100%{transform:scale(1)}}';
