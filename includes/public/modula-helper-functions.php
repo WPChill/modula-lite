@@ -191,7 +191,7 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 
 function modula_enable_lazy_load( $item_data, $item, $settings ) {
 
-	if ( '1' != $settings['lazy_load'] && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
+	if ( apply_filters( 'modula_gallery_lazyload_state', 1 !== $settings['lazy_load'], $settings ) && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
 		return $item_data;
 	}
 
@@ -269,7 +269,7 @@ function modula_add_gallery_class( $template_data ) {
 		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
 	}
 
-	if( boolval( $template_data['settings']['lazy_load'] ) ){
+	if ( apply_filters( 'modula_gallery_lazyload_state', 1 === $template_data['settings']['lazy_load'], $template_data['settings'] )  ){
 		$template_data['gallery_container']['class'][] = 'modula-is-lazy';
 	}
 
