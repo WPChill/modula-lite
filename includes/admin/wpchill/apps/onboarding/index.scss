@@ -9,18 +9,21 @@ body {
 	width: 100%;
 	box-sizing: border-box;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	.wpchill-progress {
 		position: relative;
 		width: 100%;
-		padding: 20px 0;
+		padding: 25px 50px;
 		box-sizing: border-box;
 
 		.wpchill-progress__line {
 			position: absolute;
 			top: 50%;
-			left: 0;
-			right: 0;
+			left: 52px;
+			right: 52px;
 			height: 4px;
 			background-color: #e0e0e0;
 			transform: translateY(-50%);
@@ -67,10 +70,8 @@ body {
 
 	.wpchill-onboarding-logo {
 		padding: 25px;
-
-		.wpchill-onboarding-logo-img {
-			width: 40px;
-		}
+		width: 100%;
+		max-width: 300px;
 	}
 
 	.wpchill-onboarding-body {
@@ -84,20 +85,26 @@ body {
 	}
 
 	.wpchill-onboarding-wrapper {
-display: flex
-;
-    flex-direction: column;
-    align-items: center;
-    width: 800px;
-    max-width: 80%;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 42px;
-    border: 1px solid #cccccc;
-    border-radius: 12px;
-    background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 800px;
+		max-width: 80%;
+		margin: 0 auto;
+	}
+
+	.wpchill-onboarding-content {
+		border: 1px solid #cccccc;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+		border-radius: 12px;
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 25px;
+		overflow: hidden;
+	}
+	.wpchill-section-wrapper {
+		margin-top: 20px;
 	}
 }

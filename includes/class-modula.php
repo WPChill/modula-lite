@@ -25,11 +25,7 @@ class Modula {
 	 */
 	public function __construct() {
 		$this->set_offer();
-		// Run onboarding.
-		$this->onboarding_start();
 		$this->load_dependencies();
-
-		
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -41,6 +37,9 @@ class Modula {
 
 		// backwards compatibility -- remove after 2 versions. curr ver 2.7.92
 		add_action( 'admin_init', array( $this, 'after_modula_update' ) );
+
+		// Run onboarding.
+		add_action( 'init', array( $this, 'onboarding_start' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'modula_enqueue_media' ) );
 		add_action( 'wp_enqueue_media', array( $this, 'modula_enqueue_media' ) );
@@ -946,16 +945,23 @@ class Modula {
 
 
 	public function onboarding_start() {
-			require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-onboarding.php';
+		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-onboarding.php';
+
+		$texts = array(
+			'welcome'        => esc_html__( 'Welcome to Modula Gallery!', 'modula-best-grid-gallery' ),
+			'welcomeMessage' => esc_html__( 'Create stunning responsive photo and video galleries for your website. Your first gallery is only minutes away.', 'modula-best-grid-gallery' ),
+		);
+
 		$args = array(
 			'name'          => 'Modula Gallery',
 			'slug'          => 'modula-gallery',
-			'logo'          => MODULA_URL . 'assets/images/dashboard/',
+			'logo'          => MODULA_URL . 'assets/images/block-preview-bg.svg',
 			'documentation' => 'https://wp-modula.com/kb/',
 			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
 			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
 			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
 			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/',
+			'texts'         => $texts,
 		);
 
 		new Wpchill_Onboarding( $args );

@@ -118,7 +118,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				?>
 				</title>
 			</head>
-				<body>
+				<body class="modula-best-grid-gallery">
 					<div id="wpchill-onboarding-root">
 
 					</div>
@@ -141,6 +141,9 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			) {
 				return;
 			}
+
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
 
 			$wpchill_path = plugin_dir_path( __FILE__ );
 			$wpchill_url  = plugin_dir_url( __FILE__ );
@@ -173,9 +176,14 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				$enqueue['handle'],
 				'modulaOnboarding',
 				array(
-					'logo' => plugin_dir_url( __FILE__ ) . 'icons/wpchill-logo.jpg',
+					'logo' => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
+					'welcome' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
+					'welcomeMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage']  ) ? $this->args['texts']['welcomeMessage'] : 0,
 				),
 			);
+
+			wp_enqueue_style( 'common' );
+			wp_enqueue_media();
 		}
 	}
 }

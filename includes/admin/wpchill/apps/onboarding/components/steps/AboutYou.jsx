@@ -1,11 +1,12 @@
 import { useWpchillState } from '../../state/use-wpchill-state';
 import { SaveContinueButton } from '../SaveContinueButton.jsx';
+import { GoBackButton } from '../GoBackButton.jsx';
 import { setStepsData } from '../../state/actions';
 import {
 	RadioControl,
 	TextControl,
 	CheckboxControl,
-	Button,
+	ToggleControl,
 	__experimentalSpacer as Spacer,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -13,8 +14,6 @@ import './AboutYou.scss';
 
 export function AboutYou() {
 	const { state, dispatch } = useWpchillState();
-
-	// get existing data for current step
 	const currentData = state.stepsData[ state.step ] || {};
 
 	const updateField = ( key, value ) => {
@@ -22,7 +21,8 @@ export function AboutYou() {
 			...currentData,
 			[ key ]: value,
 		};
-		dispatch( setStepsData( updated ) );
+
+		dispatch( setStepsData( { [ state.step ]: updated } ) );
 	};
 
 	return (
@@ -39,7 +39,7 @@ export function AboutYou() {
 					) }
 				</p>
 
-				<div className="wpchill-aboutyou-radios">
+				<div className="wpchill-section-wrapper">
 					<RadioControl
 						label={ __( 'Select your role', 'wpchill' ) }
 						selected={ currentData.role }
@@ -68,30 +68,30 @@ export function AboutYou() {
 					placeholder={ __( 'you@example.com', 'wpchill' ) }
 				/>
 
-				<CheckboxControl
-					label={ __(
-						'I agree to receive important communications from WPChill.',
-						'wpchill',
-					) }
-					checked={ !! currentData.agreeEmails }
-					onChange={ ( value ) => updateField( 'agreeEmails', value ) }
-				/>
-
-				<CheckboxControl
-					label={ __(
-						'Help us better understand our users and their website needs.',
-						'wpchill',
-					) }
-					checked={ !! currentData.helpUnderstand }
-					onChange={ ( value ) => updateField( 'helpUnderstand', value ) }
-				/>
+				<div className="wpchill-section-wrapper">
+					<CheckboxControl
+						label={ __(
+							'I agree to receive important communications from WPChill.',
+							'wpchill',
+						) }
+						checked={ currentData.agreeEmails ?? true }
+						onChange={ ( value ) => updateField( 'agreeEmails', value ) }
+					/>
+				</div>
+				<div className="wpchill-section-wrapper">
+					<ToggleControl
+						label={ __(
+							'Help us better understand our users and their website needs.',
+							'wpchill',
+						) }
+						checked={ !! currentData.helpUnderstand }
+						onChange={ ( value ) => updateField( 'helpUnderstand', value ) }
+					/>
+				</div>
 			</div>
 
 			<div className="wpchill-aboutyou-footer">
-				<Button variant="tertiary" className="wpchill-aboutyou-back">
-					← { __( 'Go Back', 'wpchill' ) }
-				</Button>
-
+				<GoBackButton />
 				<SaveContinueButton keyName="about-you" />
 			</div>
 		</div>

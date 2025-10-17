@@ -10,8 +10,11 @@ export function Onboarding() {
 	return (
 		<>
 			<div className="wpchill-onboarding-wrapper">
-				<ProgressBar />
-				<Steps />
+				<Logo />
+				<div className="wpchill-onboarding-content">
+					<ProgressBar />
+					<Steps />
+				</div>
 			</div>
 		</>
 	);

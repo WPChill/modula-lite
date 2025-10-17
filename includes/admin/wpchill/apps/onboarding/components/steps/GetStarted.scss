@@ -1,0 +1,35 @@
+.wpchill-getstarted {
+    position: relative;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+	padding: 50px;
+}
+.wpchill-getstarted h1 {
+    font-size: 20px;
+    margin: 0 0 16px 0;
+    padding: 0;
+    line-height: 24px;
+}
+.wpchill-getstarted p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.wpchill-getstarted-button button {
+	background-color: #2EBF91 !important;
+	border: none;
+	color: #fff;
+	border-radius: 4px;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+	padding: 0 30px;
+	font-size: 16px;
+	height: 44px;
+}

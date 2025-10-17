@@ -1366,7 +1366,7 @@ class Modula_CPT {
 
 			$attributes = isset( $_GET['gallery_type'] ) && $type === $_GET['gallery_type'] ? 'class="current" aria-current="page"' : '';
 
-			$views[ $type ] = '<a href="' . esc_url( $type_url ) . '" ' . $attributes . ' > ' . esc_html( $text ) . ' (' . esc_html( $count ) . ') </a>';
+			$views[ 'modula_' . $type ] = '<a href="' . esc_url( $type_url ) . '" ' . $attributes . ' > ' . esc_html( $text ) . ' (' . esc_html( $count ) . ') </a>';
 		}
 
 		return $views;
