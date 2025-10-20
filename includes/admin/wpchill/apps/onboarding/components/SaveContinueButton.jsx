@@ -11,12 +11,13 @@ export function SaveContinueButton( { keyName } ) {
 	const saveStep = () => {
 		mutation.mutate(
 			{
+				source: state.source || 'wpchill',
 				key: keyName,
-				data: state.stepsData[ state.step ],
+				data: state.stepsData[ keyName ],
 			},
 			{
 				onSettled: () => {
-					dispatch( setStep( state.step + 1 ) );
+					//dispatch( setStep( state.step + 1 ) );
 				},
 			},
 		);

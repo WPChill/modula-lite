@@ -114,17 +114,15 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				<title>
 				<?php
 				// translators: %s is the plugin name.
-				printf( esc_html__( '%s Onboarding Wizard', 'envira-gallery-lite' ), isset( $this->args['name'] ) ? $this->args['name'] : 'WPChill' );
+				printf( esc_html__( '%s onboarding', 'modula-best-grid-gallery' ), isset( $this->args['name'] ) ? esc_html( $this->args['name'] ) : 'WPChill' );
 				?>
 				</title>
 			</head>
 				<body class="modula-best-grid-gallery">
-					<div id="wpchill-onboarding-root">
-
-					</div>
+					<div id="wpchill-onboarding-root"></div>
 				<?php
-				do_action( 'admin_footer', '' );
-				do_action( 'admin_print_footer_scripts' );
+				do_action( 'admin_footer', '' ); //phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+				do_action( 'admin_print_footer_scripts' ); //phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				?>
 				</body>
 			</html>
@@ -176,14 +174,42 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				$enqueue['handle'],
 				'modulaOnboarding',
 				array(
-					'logo' => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
-					'welcome' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
-					'welcomeMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage']  ) ? $this->args['texts']['welcomeMessage'] : 0,
+					'logo'           => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
+					'welcome'        => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
+					'welcomeMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage'] ) ? $this->args['texts']['welcomeMessage'] : 0,
 				),
 			);
 
 			wp_enqueue_style( 'common' );
 			wp_enqueue_media();
+		}
+
+		public static function get_onboarding_data( $source ) {
+
+			$defaults = array(
+				'about-you' => array(
+					'role'           => 'photographer',
+					'email'          => get_option( 'admin_email', '' ),
+					'helpUnderstand' => true,
+					'agreeEmails'    => false,
+				),
+			);
+
+			$saved = get_option( $source . '_onboarding_data', array() );
+
+			$data = array_replace_recursive( $defaults, $saved );
+
+			return $data;
+		}
+
+		public static function save_onboarding_step( $source, $key, $data ) {
+
+			$saved = get_option( $source . '_onboarding_data', array() );
+
+			$saved[ $key ] = $data;
+
+			update_option( $source . '_onboarding_data', $saved );
+			return array( 'success' => false );
 		}
 	}
 }

@@ -14,7 +14,8 @@ import './AboutYou.scss';
 
 export function AboutYou() {
 	const { state, dispatch } = useWpchillState();
-	const currentData = state.stepsData[ state.step ] || {};
+	const stepKey = 'about-you';
+	const currentData = state.stepsData[ stepKey ] || {};
 
 	const updateField = ( key, value ) => {
 		const updated = {
@@ -22,7 +23,7 @@ export function AboutYou() {
 			[ key ]: value,
 		};
 
-		dispatch( setStepsData( { [ state.step ]: updated } ) );
+		dispatch( setStepsData( { [ stepKey ]: updated } ) );
 	};
 
 	return (
@@ -92,7 +93,7 @@ export function AboutYou() {
 
 			<div className="wpchill-aboutyou-footer">
 				<GoBackButton />
-				<SaveContinueButton keyName="about-you" />
+				<SaveContinueButton keyName={ stepKey } />
 			</div>
 		</div>
 	);

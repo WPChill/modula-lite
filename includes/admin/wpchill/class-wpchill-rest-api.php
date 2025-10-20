@@ -53,6 +53,31 @@ class WPChill_Rest_Api {
 			)
 		);
 
+		register_rest_route(
+			$this->namespace,
+			'/onboarding/data',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_onboarding_data' ),
+				'permission_callback' => array( $this, '_permissions_check' ),
+				'args'                => array(
+					'source' => array(
+						'type' => 'string',
+						'required' => false,
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/onboarding/save-step',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'save_onboarding_step' ),
+				'permission_callback' => array( $this, '_permissions_check' ),
+			)
+		);
 		do_action( 'modula_rest_api_register_routes', $this );
 	}
 
@@ -126,6 +151,24 @@ class WPChill_Rest_Api {
 		$plugin_slug = $request->get_param( 'plugin' );
 
 		return rest_ensure_response( WPChill_About_Us::activate_plugin( $plugin_slug ) );
+	}
+
+	public function get_onboarding_data( $request ) {
+		$source = $request->get_param( 'source' );
+
+		if ( ! $source ) {
+			return rest_ensure_response( false );
+		}
+
+		return rest_ensure_response( WPChill_Onboarding::get_onboarding_data( $source ) );
+	}
+
+	public function save_onboarding_step( $request ) {
+		$key = $request->get_param( 'key' );
+		$source = $request->get_param( 'source' );
+		$data = $request->get_param( 'data' );
+
+		return rest_ensure_response( WPChill_Onboarding::save_onboarding_step( $source, $key, $data ) );
 	}
 
 	public function _permissions_check() {
