@@ -1305,10 +1305,12 @@ function modulaInViewport(element) {
 	}
 
 	var elementBounds = element.getBoundingClientRect();
+	var winHeight = jQuery(window).height();
 
 	return (
-		(elementBounds.top - jQuery(window).height() <= -100 &&
-		 elementBounds.top - jQuery(window).height() >= -400) ||
-		elementBounds.bottom <= jQuery(window).height()
+		(elementBounds.top - winHeight <= -100 &&
+		 elementBounds.top - winHeight >= -400) ||
+		elementBounds.bottom <= winHeight ||
+		(elementBounds.top < winHeight && elementBounds.bottom > 0)
 	);
 }
