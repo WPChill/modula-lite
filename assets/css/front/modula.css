@@ -38,7 +38,8 @@ html body .modula .modula-items .modula-item .jtg-social {
 
 html body .modula:not(.modula-loaded-scale).modula-gallery-initialized .modula-items .modula-item.tg-loaded .modula-item-content,
 html body .modula:not(.modula-loaded-scale).modula-gallery-initialized .modula-items.justified-gallery .modula-item .modula-item-content,
-html body .modula.modula-columns:not(.modula-loaded-scale):not(.modula-is-lazy).modula-gallery-initialized .modula-items .modula-item .modula-item-content {
+html body .modula.modula-columns:not(.modula-loaded-scale):not(.modula-is-lazy).modula-gallery-initialized .modula-items .modula-item .modula-item-content,
+html body .modula.modula-gallery-bnb:not(.modula-loaded-scale):not(.modula-is-lazy).modula-gallery-initialized .modula-items .modula-item .modula-item-content {
     transform: scale(1) translate(0, 0) rotate(0deg) !important;
     opacity: 1;
 }
@@ -783,4 +784,9 @@ html body .modula-items .modula-item .jtg-social-desktop-collapsed.jtg-social-ex
 
 html body .modula-fancybox-container button.f-button {
     padding: 0px;
+}
+
+html body .modula.modula-gallery .modula-item-link:focus-visible {
+    outline: 2px solid #005fcc;
+    outline-offset: -2px;
 }
