@@ -321,9 +321,9 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 
 = 2.12.26 - 20.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.
-Changed: Enabled the Custom Responsiveness setting by default.
+Changed: Enabled the Custom Responsiveness setting by default for a better out of the box experience.
 Fixed: Missing text domains in some strings.
-Fixed: InView setting causing gallery images to remain hidden.
+Fixed: Load in view setting causing gallery images to remain hidden.
 Added: Debounce on window resize.
 Added: Interactive elements now include proper button roles and visible focus indicators, improving WCAG 2.1 compliance.
 
