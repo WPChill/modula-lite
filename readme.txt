@@ -287,6 +287,10 @@ Enable lazy loading, compress images before uploading, reduce the number of imag
 = Can I create masonry galleries? =
 Yes! Select "Masonry" as your gallery type to create Pinterest-style layouts. Images of different sizes automatically arrange in a flowing grid.
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Modula Image Gallery plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fb5a1-55d3-4ecd-b874-bb1f6f4fe026). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin."
+
 == Installation ==
 
 ### **Automatic installation:**
