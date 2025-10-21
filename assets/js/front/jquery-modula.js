@@ -5,6 +5,11 @@
  *  Author: WP Modula
  */
 
+
+if (typeof jQuery !== 'undefined' && window.ModulaIsotope && typeof jQuery.fn.modulaisotope === 'undefined') {
+    jQueryBridget('modulaisotope', window.ModulaIsotope, jQuery);
+}
+
 // Compatibility with WPBakery Page Builder( reset modula after section go full width )
 jQuery(document).on(
 	'vc-full-width-row-single vc-full-width-row',
