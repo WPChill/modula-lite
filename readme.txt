@@ -320,6 +320,7 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 == Changelog ==
 = 2.12.27 - 23.10.2025 =
 Fixed: Left/Right thumbnail navigation.
+Fixed: Custom gallery Guttenberg preview.
 
 = 2.12.26 - 20.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.

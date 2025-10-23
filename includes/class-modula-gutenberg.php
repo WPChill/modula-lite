@@ -253,7 +253,7 @@ class Modula_Gutenberg {
 	 * @since 2.11.3
 	*/
 	public function rest_api_filter_data( $response, $post, $request ) {
-		$data = $response->get_data();
+		$data   = $response->get_data();
 		$images = $data['modulaImages'];
 
 		foreach ( $images as $key => $image ) {
@@ -264,10 +264,11 @@ class Modula_Gutenberg {
 					continue;
 				}
 
-				$data['modulaImages'][ $key ]['src']    = $image_obj[0];
-				$data['modulaImages'][ $key ]['width']  = isset( $image['width'] ) ? $image['width'] : $image_obj[1];
-				$data['modulaImages'][ $key ]['height'] = isset( $image['height'] ) ? $image['height'] : $image_obj[2];
-
+				$data['modulaImages'][ $key ]['src']         = $image_obj[0];
+				$data['modulaImages'][ $key ]['width']       = isset( $image['width'] ) ? $image['width'] : $image_obj[1];
+				$data['modulaImages'][ $key ]['height']      = isset( $image['height'] ) ? $image['height'] : $image_obj[2];
+				$data['modulaImages'][ $key ]['data-width']  = $data['modulaImages'][ $key ]['width'];
+				$data['modulaImages'][ $key ]['data-height'] = $data['modulaImages'][ $key ]['height'];
 			} else {
 				$data['modulaImages'][ $key ]['src']        = $image['video_thumbnail'];
 				$data['modulaImages'][ $key ]['video_type'] = false;
