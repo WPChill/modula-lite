@@ -614,13 +614,6 @@
 	margin: auto;
 }
 
-.modula-best-grid-gallery .fancybox__backdrop:empty,
-.modula-best-grid-gallery .fancybox__viewport:empty,
-.modula-best-grid-gallery .fancybox__track:empty,
-.modula-best-grid-gallery .fancybox__slide:empty {
-	display: block;
-}
-
 .modula-best-grid-gallery .fancybox__content {
 	align-self: center;
 	display: flex;
@@ -681,9 +674,33 @@
 	max-height: 100%;
 }
 
+.modula-best-grid-gallery .is-zooming-in .fancybox__viewport:not(.is-dragging) .fancybox__slide:not(.is-selected) .fancybox__content,
+.modula-best-grid-gallery .is-zooming-out .fancybox__viewport:not(.is-dragging) .fancybox__slide:not(.is-selected) .fancybox__content {
+	visibility: hidden;
+}
+
 .modula-best-grid-gallery .is-animating .fancybox__content,
 .modula-best-grid-gallery .is-dragging .fancybox__content {
+	filter: blur(0px);
 	will-change: transform, width, height;
+}
+
+/** Resetting this **/
+.modula-best-grid-gallery .fancybox-image {
+	background: initial;
+	border: initial;
+	height: initial;
+	left: initial;
+	margin: initial;
+	max-height: initial;
+	max-width: initial;
+	padding: initial;
+	position: initial;
+	top: initial;
+	-webkit-user-select: initial;
+	-moz-user-select: initial;
+	user-select: initial;
+	width: initial;
 }
 
 .modula-best-grid-gallery .fancybox-image {
@@ -697,7 +714,6 @@
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
-	filter: blur(0px);
 }
 
 .modula-best-grid-gallery .fancybox__caption {
@@ -1382,11 +1398,11 @@
 	display: none;
 }
 
-.modula-best-grid-gallery :fullscreen [data-fancybox-toggle-fullscreen] svg g:first-child {
+.modula-best-grid-gallery:fullscreen [data-fancybox-toggle-fullscreen] svg g:first-child {
 	display: none;
 }
 
-.modula-best-grid-gallery :fullscreen [data-fancybox-toggle-fullscreen] svg g:last-child {
+.modula-best-grid-gallery:fullscreen [data-fancybox-toggle-fullscreen] svg g:last-child {
 	display: flex;
 }
 
@@ -1406,4 +1422,227 @@
 	-moz-user-select: none;
 	user-select: none;
 	pointer-events: none;
+}
+
+/* Share */
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share {
+	background: #f4f4f4;
+	border-radius: 3px;
+	max-width: 90%;
+	padding: 30px;
+	text-align: center;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share h1 {
+	color: #222;
+	font-size: 35px;
+	font-weight: 700;
+	margin: 0 0 20px 0;
+}
+
+.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share h1:before,
+.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share h1:after {
+	display: none;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share p {
+	margin: 0;
+	padding: 0;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share__button {
+	border: 0;
+	border-radius: 3px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 40px;
+	margin: 0 5px 10px 5px;
+	min-width: 130px;
+	padding: 0 15px;
+	text-decoration: none;
+	transition: all 0.2s;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share__button:visited,
+html body .modula-fancybox-container .fancybox__slide .modula-fancybox-share__button:link {
+	color: #fff;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share__button:hover {
+	text-decoration: none;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--fb {
+	background: #3b5998;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--fb:hover {
+	background: #344e86;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--pt {
+	background: #bd081d;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--pt:hover {
+	background: #aa0719;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--tw {
+	background: #1da1f2;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--tw:hover {
+	background: #0d95e8;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--email {
+	background: #99cc33;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button--email:hover {
+	background: #7aa329;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-share__button svg {
+	height: 25px;
+	margin-right: 7px;
+	position: relative;
+	top: -1px;
+	vertical-align: middle;
+	width: 25px;
+	display: inline-block;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share__button svg path {
+	fill: #fff;
+}
+
+html body.modula-best-grid-gallery .modula-fancybox-container .fancybox__slide .modula-fancybox-share .modula-fancybox-share__input {
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid #d7d7d7;
+	border-radius: 0;
+	color: #5d5b5b;
+	font-size: 14px;
+	margin: 10px 0 0 0;
+	outline: none;
+	padding: 10px 15px;
+	width: 100%;
+}
+
+body.admin-bar.modula-best-grid-gallery .fancybox__container {
+	top: 32px;
+}
+
+.modula-best-grid-gallery .fancybox__sidebar {
+	position: absolute;
+	top: 45px;
+	bottom: 0;
+	width: 115px;
+	z-index: 20;
+}
+
+.modula-best-grid-gallery .fancybox__sidebar.right {
+	right: 10px;
+}
+
+.modula-best-grid-gallery .fancybox__sidebar.left {
+	left: 10px;
+}
+
+.modula-best-grid-gallery .fancybox__container.has-sidebar .fancybox__nav {
+	--f-button-prev-pos: 8rem;
+	--f-button-next-pos: 8rem;
+}
+
+.modula-best-grid-gallery .fancybox__container.has-sidebar .fancybox__caption {
+	margin: 0 8% 0 8%;
+}
+
+.modula-best-grid-gallery .m-zoomIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomIn;
+	z-index: 2;
+}
+
+.modula-best-grid-gallery .m-zoomOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomOut;
+	z-index: 1;
+}
+
+.modula-best-grid-gallery .m-zoom-in-outIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomIn;
+}
+
+.modula-best-grid-gallery .m-zoom-in-outOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-zoomInAndOut;
+}
+
+.modula-best-grid-gallery .m-fadeIn {
+	animation: var(--f-transition-duration, 0.5s) ease both m-fadeIn;
+}
+
+.modula-best-grid-gallery .m-fadeOut {
+	animation: var(--f-transition-duration, 0.5s) ease both m-fadeOut;
+}
+
+/* Required for left/right thumbnail navi */
+.modula-best-grid-gallery .fancybox__thumbs {
+	max-height: initial !important;
+}
+
+@keyframes m-zoomIn {
+	0% {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes m-zoomInAndOut {
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+@keyframes m-zoomOut {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+}
+
+@keyframes m-fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes m-fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
 }
