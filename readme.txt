@@ -318,9 +318,11 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 4. Mobile Responsive Image Galleries - Galleries automatically adapt to smartphone and tablet screen sizes
 
 == Changelog ==
-= 2.12.27 - 23.10.2025 =
+= 2.12.27 - 24.10.2025 =
 Fixed: Left/Right thumbnail navigation.
+Fixed: Lightbox image display.
 Fixed: Custom gallery Guttenberg preview.
+Fixed: Divi builder compatibility.
 
 = 2.12.26 - 20.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.
