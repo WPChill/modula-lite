@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.26
+Stable tag: 2.12.27
 
 License: GNU General Public License v3.0 or later  
 
@@ -322,6 +322,11 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 4. Mobile Responsive Image Galleries - Galleries automatically adapt to smartphone and tablet screen sizes
 
 == Changelog ==
+= 2.12.27 - 24.10.2025 =
+Fixed: Left/Right thumbnail navigation.
+Fixed: Lightbox image display.
+Fixed: Custom gallery Guttenberg preview.
+Fixed: Divi builder compatibility.
 
 = 2.12.26 - 20.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.

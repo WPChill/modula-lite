@@ -1,3 +1,9 @@
+= 2.12.27 - 24.10.2025 =
+Fixed: Left/Right thumbnail navigation.
+Fixed: Lightbox image display.
+Fixed: Custom gallery Guttenberg preview.
+Fixed: Divi builder compatibility.
+
 = 2.12.26 - 20.10.2025 =
 Updated: Fancybox Lightbox to version 5.0.36.
 Changed: Enabled the Custom Responsiveness setting by default for a better out of the box experience.
