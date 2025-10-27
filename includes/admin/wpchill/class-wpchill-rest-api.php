@@ -71,6 +71,22 @@ class WPChill_Rest_Api {
 
 		register_rest_route(
 			$this->namespace,
+			'/onboarding/recommended',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_onboarding_recommended' ),
+				'permission_callback' => array( $this, '_permissions_check' ),
+				'args'                => array(
+					'source' => array(
+						'type' => 'string',
+						'required' => false,
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
 			'/onboarding/save-step',
 			array(
 				'methods'             => 'POST',
@@ -161,6 +177,52 @@ class WPChill_Rest_Api {
 		}
 
 		return rest_ensure_response( WPChill_Onboarding::get_onboarding_data( $source ) );
+	}
+
+	public function get_onboarding_recommended( $request ) {
+		$source = $request->get_param( 'source' );
+
+		if ( ! $source ) {
+			return rest_ensure_response( false );
+		}
+
+		$data = array(
+			'recommended' => array(
+				array(
+					'slug'        => 'aioseo',
+					'title'       => 'SEO Toolkit',
+					'description' => 'Improve your website search rankings for your gallery with AIOSEO.',
+					'status'      => 'active',
+				),
+				array(
+					'slug'        => 'wpforms-lite',
+					'title'       => 'Form Builder',
+					'description' => 'Build forms for your photography business using the fastest form builder ever WPForms.',
+					'status'      => 'installed',
+				),
+				array(
+					'slug'        => 'monsterinsights',
+					'title'       => 'Website Analytics',
+					'description' => 'Understand your customer’s interactions across your galleries with MonsterInsights.',
+					'status'      => 'not-installed',
+				),
+				array(
+					'slug'        => 'duplicator',
+					'title'       => 'Website Backups',
+					'description' => 'Backup, migrate, and secure your gallery images from getting lost with Duplicator.',
+					'status'      => 'installed',
+				),
+				array(
+					'slug'        => 'wp-mail-smtp',
+					'title'       => 'Email Deliverability',
+					'description' => 'Set up your WordPress to use a trusted email provider with WP Mail SMTP.',
+					'status'      => 'not-installed',
+				),
+			),
+		);
+
+		//return rest_ensure_response( WPChill_Onboarding::get_onboarding_data( $source ) );
+		return rest_ensure_response( $data );
 	}
 
 	public function save_onboarding_step( $request ) {

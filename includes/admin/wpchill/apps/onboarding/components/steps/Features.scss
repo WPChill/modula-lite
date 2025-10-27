@@ -1,0 +1,80 @@
+.wpchill-features {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	margin: 0 auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.wpchill-features-body {
+	padding: 0 50px;
+	flex: 1;
+	margin-bottom: 28px;
+}
+
+.wpchill-features-title {
+	font-size: 22px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+.wpchill-features-subtitle {
+	font-size: 14px;
+	color: #555;
+	margin-bottom: 20px;
+}
+
+.wpchill-features-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.wpchill-feature-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px 0;
+	border-bottom: 1px solid #e0e0e0;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.wpchill-feature-text {
+	flex: 1;
+	padding-right: 20px;
+}
+
+.wpchill-feature-label {
+	font-size: 15px;
+	font-weight: 500;
+	margin-bottom: 5px;
+}
+
+.wpchill-feature-desc {
+	font-size: 13px;
+	color: #666;
+	line-height: 1.5;
+}
+
+.wpchill-feature-checkbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 40px;
+}
+
+.wpchill-feature-item.is-disabled {
+	opacity: 0.8;
+}
+
+.wpchill-features-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 25px 50px;
+	border-top: 1px solid #e0e0e0;
+}

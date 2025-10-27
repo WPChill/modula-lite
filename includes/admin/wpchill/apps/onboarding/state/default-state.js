@@ -1,6 +1,6 @@
 export const initialState = () => ( {
 	source: 'modula',
-	step: 1,
+	step: 3,
 	maxStep: 5,
 	stepsData: {},
 } );
