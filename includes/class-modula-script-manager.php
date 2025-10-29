@@ -10,7 +10,7 @@ class Modula_Script_Manager {
 
 		add_action( 'wp_footer', array( $this, 'enqueue_scripts' ), 10 );
 
-		// Integrare WP Rocket + Autoptimize
+		// Exclude scripts from concatenation.
 		add_filter( 'rocket_exclude_js', array( $this, 'exclude_from_wp_rocket' ) );
 		add_filter( 'autoptimize_filter_js_exclude', array( $this, 'exclude_from_autoptimize' ) );
 	}
