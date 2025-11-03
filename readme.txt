@@ -322,8 +322,9 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 4. Mobile Responsive Image Galleries - Galleries automatically adapt to smartphone and tablet screen sizes
 
 == Changelog ==
-= 2.12.28 - 29.10.2025 =
+= 2.12.28 - 03.10.2025 =
 Added: Filters to exclude Modula JS files from third-party optimization plugins.
+Added: Black Friday upsells & notifications updates.
 
 = 2.12.27 - 24.10.2025 =
 Fixed: Left/Right thumbnail navigation.
