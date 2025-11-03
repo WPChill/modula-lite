@@ -954,7 +954,7 @@ class Modula {
 
 		$args = array(
 			'name'          => 'Modula Gallery',
-			'slug'          => 'modula-gallery',
+			'slug'          => 'modula-best-grid-gallery',
 			'logo'          => MODULA_URL . 'assets/images/block-preview-bg.svg',
 			'documentation' => 'https://wp-modula.com/kb/',
 			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',

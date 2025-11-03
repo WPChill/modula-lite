@@ -1,5 +1,7 @@
 export default function reducer( state, action ) {
 	switch ( action.type ) {
+		case 'SET_SOURCE':
+			return { ...state, source: action.payload };
 		case 'SET_STEP':
 			return { ...state, step: action.payload };
 		case 'SET_STEPS_DATA':

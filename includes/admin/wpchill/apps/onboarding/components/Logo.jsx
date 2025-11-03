@@ -1,14 +1,13 @@
 /* eslint-disable no-undef */
 export function Logo() {
-	console.log( modulaOnboarding.logo );
-	if ( 'undefined' === typeof modulaOnboarding || 'undefined' === typeof modulaOnboarding.logo ) {
+	if ( 'undefined' === typeof wpchillOnboarding || 'undefined' === typeof wpchillOnboarding.logo ) {
 		return;
 	}
 	return (
 		<div className="wpchill-onboarding-logo">
 			<img
 				className="wpchill-onboarding-logo-img"
-				src={ modulaOnboarding.logo }
+				src={ wpchillOnboarding.logo }
 				alt="logo"
 			/>
 		</div>

@@ -14,8 +14,8 @@ export function GetStarted() {
 
 	return (
 		<div className="wpchill-getstarted">
-			<h1>{ modulaOnboarding.welcome }</h1>
-			<p>{ modulaOnboarding.welcomeMessage }</p>
+			<h1>{ wpchillOnboarding.welcome }</h1>
+			<p>{ wpchillOnboarding.welcomeMessage }</p>
 			<div className="wpchill-getstarted-button">
 				<Button
 					variant="primary"

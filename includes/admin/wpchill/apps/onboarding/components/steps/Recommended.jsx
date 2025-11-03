@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useWpchillState } from '../../state/use-wpchill-state';
-import { SaveContinueButton } from '../SaveContinueButton.jsx';
+import { InstallContinueButton } from '../InstallContinueButton.jsx';
 import { GoBackButton } from '../GoBackButton.jsx';
 import { CheckboxControl, Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -34,7 +34,7 @@ export function Recommended() {
 					};
 				}
 				return plugin;
-			} )
+			} ),
 		);
 	};
 
@@ -56,6 +56,13 @@ export function Recommended() {
 
 	const plugins = localPlugins || [];
 
+	const selectedPluginSlugs = plugins
+		.filter(
+			( plugin ) =>
+				plugin.status === 'installed' || plugin.status === 'active',
+		)
+		.map( ( plugin ) => plugin.slug );
+
 	return (
 		<div className="wpchill-recommended">
 			<div className="wpchill-recommended-body">
@@ -66,7 +73,7 @@ export function Recommended() {
 				<p className="wpchill-recommended-subtitle">
 					{ __(
 						'We have already selected our recommended features based on your site category, but you can choose other features below.',
-						'wpchill'
+						'wpchill',
 					) }
 				</p>
 
@@ -80,7 +87,10 @@ export function Recommended() {
 
 							<div className="wpchill-recommended-checkbox">
 								<CheckboxControl
-									checked={ plugin.status === 'active' || plugin.status === 'installed' }
+									checked={
+										plugin.status === 'active' ||
+										plugin.status === 'installed'
+									}
 									disabled={ plugin.status === 'active' }
 									onChange={ () => togglePlugin( plugin.slug ) }
 								/>
@@ -92,7 +102,7 @@ export function Recommended() {
 
 			<div className="wpchill-recommended-footer">
 				<GoBackButton />
-				<SaveContinueButton keyName="recommended" />
+				<InstallContinueButton plugins={ selectedPluginSlugs } />
 			</div>
 		</div>
 	);

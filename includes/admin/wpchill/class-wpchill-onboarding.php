@@ -172,8 +172,9 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 
 			wp_localize_script(
 				$enqueue['handle'],
-				'modulaOnboarding',
+				'wpchillOnboarding',
 				array(
+					'slug'           => $this->slug,
 					'logo'           => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
 					'welcome'        => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
 					'welcomeMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage'] ) ? $this->args['texts']['welcomeMessage'] : 0,
@@ -210,6 +211,225 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 
 			update_option( $source . '_onboarding_data', $saved );
 			return array( 'success' => false );
+		}
+
+		public static function get_onboarding_recommended( $source ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+			$plugins = array(
+				array(
+					'slug'        => 'modula-best-grid-gallery',
+					'title'       => 'Modula Image Gallery',
+					'description' => 'Create beautiful, responsive photo galleries with Modula — the fastest gallery plugin for WordPress.',
+				),
+				array(
+					'slug'        => 'download-monitor',
+					'title'       => 'Download Monitor',
+					'description' => 'Easily manage and track your downloadable files with Download Monitor.',
+				),
+				array(
+					'slug'        => 'strong-testimonials',
+					'title'       => 'Strong Testimonials',
+					'description' => 'Collect and display customer testimonials beautifully on your site.',
+				),
+				array(
+					'slug'        => 'kali-forms',
+					'title'       => 'Kali Forms',
+					'description' => 'Build modern contact forms, surveys, and more — fast and easy with Kali Forms.',
+				),
+				array(
+					'slug'        => 'rsvp',
+					'title'       => 'RSVP and Event Management',
+					'description' => 'Manage event RSVPs, guest lists, and confirmations with ease using RSVP plugin.',
+				),
+				array(
+					'slug'        => 'filr',
+					'title'       => 'Filr',
+					'description' => 'Organize, protect, and share files easily on your WordPress website with Filr.',
+				),
+				array(
+					'slug'        => 'content-protector',
+					'title'       => 'Passster',
+					'description' => 'Protect your content with passwords or reCAPTCHA using Passster.',
+				),
+				array(
+					'slug'        => 'reviveso',
+					'title'       => 'Revive.so',
+					'description' => 'Use AI to automatically rewrite and enhance your content for SEO and readability.',
+				),
+			);
+
+
+			$installed_plugins = get_plugins();
+			$recommended = array();
+
+			foreach ( $plugins as $plugin ) {
+				$slug = $plugin['slug'];
+
+				if ( $slug === $source ) {
+					continue;
+				}
+
+				$status = 'not-installed';
+				$plugin_file = '';
+
+				// Check if plugin is installed
+				foreach ( $installed_plugins as $file => $data ) {
+					if ( strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '.php' ) !== false ) {
+						$plugin_file = $file;
+						break;
+					}
+				}
+
+				// Determine status
+				if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
+					$status = 'active';
+				} elseif ( $plugin_file ) {
+					$status = 'installed';
+				}
+
+				$recommended[] = array(
+					'slug'        => $slug,
+					'title'       => $plugin['title'],
+					'description' => $plugin['description'],
+					'status'      => $status,
+				);
+			}
+
+			return array(
+				'recommended' => array_values( $recommended ), // reset keys
+			);
+		}
+
+
+		public static function install_plugins( $plugins ) {
+			if ( empty( $plugins ) || ! is_array( $plugins ) ) {
+				return array(
+					'success' => false,
+					'message' => __( 'No plugins provided for installation.', 'wpchill' ),
+				);
+			}
+
+			// Load required WordPress files.
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+			include_once ABSPATH . 'wp-admin/includes/file.php';
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+			include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+
+			WP_Filesystem();
+
+			$results = array();
+
+			foreach ( $plugins as $slug ) {
+				$slug = sanitize_key( $slug );
+
+				// 1️⃣ Check if the plugin is already installed.
+				$installed_plugins = get_plugins();
+				$plugin_file       = '';
+
+				foreach ( $installed_plugins as $file => $data ) {
+					if ( strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '.php' ) !== false ) {
+						$plugin_file = $file;
+						break;
+					}
+				}
+
+				// 2️⃣ If the plugin is already active, skip it.
+				if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
+					$results[ $slug ] = array(
+						'status'  => 'already-active',
+						'message' => sprintf( __( 'Plugin %s is already active.', 'wpchill' ), $slug ),
+					);
+					continue;
+				}
+
+				// 3️⃣ If the plugin is installed but inactive, try to activate it.
+				if ( $plugin_file && ! is_plugin_active( $plugin_file ) ) {
+					$activate = activate_plugin( $plugin_file );
+
+					if ( is_wp_error( $activate ) ) {
+						$results[ $slug ] = array(
+							'status'  => 'activation-failed',
+							'message' => $activate->get_error_message(),
+						);
+						continue;
+					}
+
+					$results[ $slug ] = array(
+						'status'  => 'activated',
+						'message' => sprintf( __( 'Plugin %s activated successfully.', 'wpchill' ), $slug ),
+					);
+					continue;
+				}
+
+				// 4️⃣ If the plugin is not installed, fetch its info and install it.
+				$api = plugins_api(
+					'plugin_information',
+					array(
+						'slug'   => $slug,
+						'fields' => array( 'sections' => false ),
+					)
+				);
+
+				if ( is_wp_error( $api ) ) {
+					$results[ $slug ] = array(
+						'status'  => 'install-failed',
+						'message' => sprintf( __( 'Could not fetch information for %s.', 'wpchill' ), $slug ),
+					);
+					continue;
+				}
+
+				$upgrader  = new Plugin_Upgrader( new Automatic_Upgrader_Skin() );
+				$installed = $upgrader->install( $api->download_link );
+
+				if ( is_wp_error( $installed ) || ! $installed ) {
+					$results[ $slug ] = array(
+						'status'  => 'install-failed',
+						'message' => sprintf( __( 'Installation failed for %s.', 'wpchill' ), $slug ),
+					);
+					continue;
+				}
+
+				// Refresh plugin list and find the new file.
+				$installed_plugins = get_plugins();
+				$plugin_file       = '';
+
+				foreach ( $installed_plugins as $file => $data ) {
+					if ( strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '.php' ) !== false ) {
+						$plugin_file = $file;
+						break;
+					}
+				}
+
+				if ( ! $plugin_file ) {
+					$results[ $slug ] = array(
+						'status'  => 'not-found-after-install',
+						'message' => sprintf( __( 'Plugin file not found for %s after installation.', 'wpchill' ), $slug ),
+					);
+					continue;
+				}
+
+				// Try to activate the newly installed plugin.
+				$activate = activate_plugin( $plugin_file );
+
+				if ( is_wp_error( $activate ) ) {
+					$results[ $slug ] = array(
+						'status'  => 'activation-failed',
+						'message' => $activate->get_error_message(),
+					);
+					continue;
+				}
+
+				$results[ $slug ] = array(
+					'status'  => 'installed-and-activated',
+					'message' => sprintf( __( 'Plugin %s installed and activated successfully.', 'wpchill' ), $slug ),
+				);
+			}
+
+			return array(
+				'success' => true,
+				'results' => $results,
+			);
 		}
 	}
 }

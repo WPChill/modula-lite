@@ -1,0 +1,24 @@
+Array
+(
+    [att] => Array
+        (
+        )
+
+    [galleries] => Array
+        (
+            [66] => 210622
+        )
+
+)
+Array
+(
+    [att] => Array
+        (
+        )
+
+    [galleries] => Array
+        (
+            [66] => 210624
+        )
+
+)
