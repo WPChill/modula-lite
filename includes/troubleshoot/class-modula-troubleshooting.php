@@ -66,7 +66,7 @@ class Modula_Troubleshooting {
 		$defaults = apply_filters(
 			'modula_troubleshooting_defaults',
 			array(
-				'enqueue_files' => false ,
+				'enqueue_files' => false,
 				'gridtypes'     => array(),
 				'lightboxes'    => array(),
 				'lazy_load'     => false,
@@ -157,7 +157,6 @@ class Modula_Troubleshooting {
 
 		if ( ! empty( $options['lightboxes'] ) ) {
 			foreach ( $options['lightboxes'] as $lightbox ) {
-
 				if ( isset( $lightboxes[ $lightbox ] ) ) {
 					if ( isset( $lightboxes[ $lightbox ]['scripts'] ) ) {
 						$handles['scripts'][] = $lightboxes[ $lightbox ]['scripts'];
@@ -200,7 +199,6 @@ class Modula_Troubleshooting {
 
 		if ( ! empty( $options['gridtypes'] ) ) {
 			foreach ( $options['gridtypes'] as $gridtype ) {
-
 				if ( isset( $gridtypes[ $gridtype ] ) ) {
 					if ( isset( $gridtypes[ $gridtype ]['scripts'] ) ) {
 						if ( is_array( $gridtypes[ $gridtype ]['scripts'] ) ) {

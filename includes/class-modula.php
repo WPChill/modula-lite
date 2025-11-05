@@ -253,10 +253,12 @@ class Modula {
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		);
 
+		$allowed_post_types = apply_filters( 'modula_enqueue_for_post_types', array( 'modula-gallery' ) );
+
 		if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 
 			// Check if is modula custom post type
-			if ( 'modula-gallery' !== $screen->post_type ) {
+			if ( ! in_array( $screen->post_type, $allowed_post_types, true ) ) {
 				return;
 			}
 
@@ -359,7 +361,6 @@ class Modula {
 			wp_enqueue_script( 'modula', MODULA_URL . 'assets/js/admin/wp-modula' . $suffix . '.js', array(), MODULA_LITE_VERSION, true );
 			$modula_helper = apply_filters( 'modula_helper_properties', $modula_helper );
 			wp_localize_script( 'modula', 'modulaHelper', $modula_helper );
-
 			do_action( 'modula_scripts_after_wp_modula' );
 		} elseif ( 'modula-gallery_page_modula' === $hook ) {
 			// Check if is modula custom post type

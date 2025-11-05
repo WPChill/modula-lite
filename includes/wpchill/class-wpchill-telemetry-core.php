@@ -18,7 +18,7 @@ class WPChill_Telemetry_Core {
 	/**
 	 * Default configuration
 	 */
-	const DEFAULT_BASE_URL     = 'https://telemetry.wp-modula.com';
+	const DEFAULT_BASE_URL     = 'https://telemetry.wpchill.com';
 	const DEFAULT_SECRET       = '3c2206da5da51d31b68fe3ecf9440b996';
 	const DEFAULT_TIMEOUT      = 3;
 	const DEFAULT_BATCH_WINDOW = 10;

@@ -1,6 +1,7 @@
 <?php
 
 namespace ElementorModula;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -18,7 +19,7 @@ class Modula_Elementor_Widget_Activation {
 	}
 
 	private function include_widgets_files() {
-		require_once( MODULA_PATH . 'includes/elementor/widgets/class-modula-elementor.php' );
+		require_once MODULA_PATH . 'includes/elementor/widgets/class-modula-elementor.php';
 	}
 
 	/**
@@ -41,25 +42,28 @@ class Modula_Elementor_Widget_Activation {
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
 
 		// Enqueue needed scripts for elementor Editor
-        add_action( 'elementor/editor/before_enqueue_scripts', array($this, 'modula_elementor_enqueue_editor_scripts' ));
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'modula_elementor_enqueue_editor_scripts' ) );
 
 		// Enqueue needed scripts and styles in Elementor preview
 		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'modula_elementor_enqueue_scripts' ) );
 		add_action( 'elementor/preview/enqueue_styles', array( $this, 'modula_elementor_enqueue_styles' ) );
 
-		add_action('wp_ajax_modula_elementor_ajax_search',array($this,'modula_elementor_ajax_search'));
-
+		add_action( 'wp_ajax_modula_elementor_ajax_search', array( $this, 'modula_elementor_ajax_search' ) );
 	}
 
-    public function modula_elementor_enqueue_editor_scripts() {
-        wp_enqueue_script( 'modula-elementor-editor', MODULA_URL . 'assets/js/admin/modula-elementor-editor.js', null, MODULA_LITE_VERSION, true );
-        wp_localize_script('modula-elementor-editor','modula_elementor_ajax',array(
-            'ajax_url' => admin_url( 'admin-ajax.php' )
-        ));
+	public function modula_elementor_enqueue_editor_scripts() {
+		wp_enqueue_script( 'modula-elementor-editor', MODULA_URL . 'assets/js/admin/modula-elementor-editor.js', null, MODULA_LITE_VERSION, true );
+		wp_localize_script(
+			'modula-elementor-editor',
+			'modula_elementor_ajax',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 
-        wp_enqueue_script( 'modula-selectize', MODULA_URL . 'assets/js/admin/selectize.js', null, MODULA_LITE_VERSION, true );
-        wp_enqueue_style( 'modula-selectize', MODULA_URL . 'assets/css/admin/selectize.default.css' );
-    }
+		wp_enqueue_script( 'modula-selectize', MODULA_URL . 'assets/js/admin/selectize.js', null, MODULA_LITE_VERSION, true );
+		wp_enqueue_style( 'modula-selectize', MODULA_URL . 'assets/css/admin/selectize.default.css' );
+	}
 
 	/**
 	 * Enqueue scripts in Elementor preview
@@ -74,7 +78,7 @@ class Modula_Elementor_Widget_Activation {
 		wp_enqueue_script( 'modula-lazysizes' );
 		wp_enqueue_script( 'modula' );
 		wp_enqueue_script( 'modulaFancybox' );
-		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( \Modula_Helper::render_lightbox_share_template() ) ) . "'" , 'before' );
+		wp_add_inline_script( 'modulaFancybox', "const ModulaShareButtons = '" . addslashes( json_encode( \Modula_Helper::render_lightbox_share_template() ) ) . "'", 'before' );
 
 		do_action( 'modula_elementor_before_enqueue_elementor-preview' );
 
@@ -94,32 +98,29 @@ class Modula_Elementor_Widget_Activation {
 
 	public function modula_elementor_ajax_search() {
 
-        if ( isset( $_POST['action'] ) && 'modula_elementor_ajax_search' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'modula_elementor_ajax_search' == $_POST['action'] ) {
+			if ( isset( $_POST['s'] ) && '' != $_POST['s'] ) {
+				$args = array(
+					'post_type'      => 'modula-gallery',
+					'posts_per_page' => -1,
+					'orderby'        => 'title',
+					'order'          => 'ASC',
+					's'              => sanitize_text_field( $_POST['s'] ),
+				);
 
-            if ( isset( $_POST['s'] ) && '' != $_POST['s'] ) {
+				$query = new \WP_Query( $args );
 
-                $args = array(
-                    'post_type'      => 'modula-gallery',
-                    'posts_per_page' => -1,
-                    'orderby'        => 'title',
-                    'order'          => 'ASC',
-                    's'              => sanitize_text_field($_POST['s'])
-                );
+				if ( $query->have_posts() ) {
+					$galleries = $query->posts;
+					wp_send_json_success( $galleries );
+				}
 
-                $query = new \WP_Query($args);
+				wp_send_json_success();
+			}
+		}
 
-                if ( $query->have_posts() ) {
-                	$galleries = $query->posts;
-                    wp_send_json_success( $galleries );
-                }
-
-                wp_send_json_success();
-                
-            }
-        }
-
-        wp_send_json_error();
-    }
+		wp_send_json_error();
+	}
 }
 
 // Instantiate Plugin Class
