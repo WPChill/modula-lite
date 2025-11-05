@@ -46,7 +46,7 @@
 				'enableEmail'            => boolval( $data->settings['enableEmail'] ),
 				'socialDesktopCollapsed' => boolval( $data->settings['socialDesktopCollapsed'] ),
 				'lazyLoad'               => modula_run_lazy_load( $data->settings ),
-				
+
 				/* Item container attributes & classes */
 				'item_classes'           => array( 'modula-item' ),
 				'item_attributes'        => array(),
@@ -55,6 +55,8 @@
 				'link_classes'           => array( 'tile-inner', 'modula-item-link' ),
 				'link_attributes'        => array(
 					'data-image-id' => $image['id'],
+					/*Accessibility */
+					'role'          => 'button',
 				),
 
 				/* Item img attributes & classes */
@@ -74,11 +76,6 @@
 					'data-modula-gallery-id' => preg_replace( '/[^0-9]/', '', $data->gallery_id ),
 					'data-modula-item-id'    => absint( $image['id'] ),
 					'data-modula-image-src'  => $full_img_src,
-				),
-
-				/*Accessibility */
-				'link_attributes'        => array(
-					'role' => 'button',
 				),
 			);
 
