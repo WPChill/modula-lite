@@ -564,14 +564,30 @@ class Modula_Gallery_Upload {
 			wp_send_json_error( __( 'No files were provided.', 'modula-best-grid-gallery' ) );
 		}
 
-		$file        = wp_unslash( $_POST['file'] );
-		$delete_file = 'false' === sanitize_text_field( wp_unslash( $_POST['delete_files'] ) ) ? false : true;
+		$file = wp_unslash( $_POST['file'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$attachment_id = $this->upload_image( $file, $delete_file );
+		$real_path    = realpath( $file );
+		$uploads_dir  = wp_upload_dir();
+		$allowed_base = realpath( $uploads_dir['basedir'] );
+
+		if ( false === $real_path || false === $allowed_base || 0 !== strpos( $real_path, $allowed_base ) ) {
+			wp_send_json_error( __( 'Invalid file path.', 'modula-best-grid-gallery' ) );
+		}
+
+		if ( ! file_exists( $real_path ) || ! is_readable( $real_path ) ) {
+			wp_send_json_error( __( 'File does not exist or is not readable.', 'modula-best-grid-gallery' ) );
+		}
+
+		$delete_file = isset( $_POST['delete_files'] ) && 'false' !== sanitize_text_field( wp_unslash( $_POST['delete_files'] ) ) ? true : false;
+
+		$attachment_id = $this->upload_image( $real_path, $delete_file );
 		if ( ! $attachment_id ) {
-			$prev_uploaded_files       = $this->get_uploaded_error_files( absint( $_POST['post_ID'] ) );
-			$uploaded_files['files'][] = $_POST['file'];
-			$this->update_uploaded_error_files( absint( $_POST['post_ID'] ), array_merge( $prev_uploaded_files, $uploaded_files ) );
+			$post_id = isset( $_POST['post_ID'] ) ? absint( $_POST['post_ID'] ) : 0;
+			if ( $post_id > 0 ) {
+				$prev_uploaded_files       = $this->get_uploaded_error_files( $post_id );
+				$uploaded_files['files'][] = $file;
+				$this->update_uploaded_error_files( $post_id, array_merge( $prev_uploaded_files, $uploaded_files ) );
+			}
 			wp_send_json_error( __( 'The file could not be uploaded.', 'modula-best-grid-gallery' ) );
 		}
 		// Return the image ID
@@ -1151,7 +1167,7 @@ class Modula_Gallery_Upload {
 		$this->update_uploaded_error_files( $gallery_id, array() );
 	}
 
-	private function delete_atachment( $file_id, $force ){
+	private function delete_atachment( $file_id, $force ) {
 		if ( ! current_user_can( 'delete_post', $file_id ) ) {
 			return false;
 		}
