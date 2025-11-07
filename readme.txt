@@ -4,7 +4,7 @@ Tags: gallery plugin, image gallery, video gallery, responsive gallery, WordPres
 Requires at least: 5.3  
 Tested up to: 6.8
 Requires PHP: 5.6  
-Stable tag: 2.12.28
+Stable tag: 2.12.29
 
 License: GNU General Public License v3.0 or later  
 
