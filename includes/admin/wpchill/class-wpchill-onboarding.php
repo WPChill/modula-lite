@@ -15,6 +15,13 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 		private $page;
 
 		public function __construct( $args ) {
+			add_action( 'modula_rest_api_register_routes', array( $this, 'rest_api_register_routes' ) );
+
+			if ( ! class_exists( 'WPChill_Rest_Api' ) ) {
+				require_once plugin_dir_path( __FILE__ ) . 'class-wpchill-rest-api.php';
+			}
+
+			new WPChill_Rest_Api();
 			if ( ! is_admin() || wp_doing_cron() || wp_doing_ajax() ) {
 				return;
 			}
@@ -28,11 +35,6 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			$this->page = $this->slug . '-onboarding-page';
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-
-			if ( ! class_exists( 'WPChill_Rest_Api' ) ) {
-				require_once plugin_dir_path( __FILE__ ) . 'class-wpchill-rest-api.php';
-			}
-			new WPChill_Rest_Api();
 		}
 
 		// public static function get_instance() {
@@ -174,10 +176,13 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				$enqueue['handle'],
 				'wpchillOnboarding',
 				array(
-					'slug'           => $this->slug,
-					'logo'           => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
-					'welcome'        => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
-					'welcomeMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage'] ) ? $this->args['texts']['welcomeMessage'] : 0,
+					'slug'            => $this->slug,
+					'logo'            => isset( $this->args['logo'] ) ? $this->args['logo'] : 0,
+					'welcome'         => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcome'] ) ? $this->args['texts']['welcome'] : 0,
+					'welcomeMessage'  => isset( $this->args['texts'] ) && isset( $this->args['texts']['welcomeMessage'] ) ? $this->args['texts']['welcomeMessage'] : 0,
+					'thankYou'        => isset( $this->args['texts'] ) && isset( $this->args['texts']['thankYou'] ) ? $this->args['texts']['thankYou'] : 0,
+					'thankYouMessage' => isset( $this->args['texts'] ) && isset( $this->args['texts']['thankYouMessage'] ) ? $this->args['texts']['thankYouMessage'] : 0,
+					'thankYouLinks'   => isset( $this->args['links'] ) ? $this->args['links'] : array(),
 				),
 			);
 
@@ -185,7 +190,72 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			wp_enqueue_media();
 		}
 
-		public static function get_onboarding_data( $source ) {
+		public function rest_api_register_routes( $instance ) {
+
+			if ( ! isset( $instance->namespace ) ) {
+				$instance->namespace = 'wpchill/v1';
+			}
+
+			register_rest_route(
+				$instance->namespace,
+				'/onboarding/data',
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'get_onboarding_data' ),
+					'permission_callback' => array( $instance, '_permissions_check' ),
+					'args'                => array(
+						'source' => array(
+							'type'     => 'string',
+							'required' => false,
+						),
+					),
+				)
+			);
+
+			register_rest_route(
+				$instance->namespace,
+				'/onboarding/recommended',
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'get_onboarding_recommended' ),
+					'permission_callback' => array( $instance, '_permissions_check' ),
+					'args'                => array(
+						'source' => array(
+							'type'     => 'string',
+							'required' => false,
+						),
+					),
+				)
+			);
+
+			register_rest_route(
+				$instance->namespace,
+				'/onboarding/save-step',
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $this, 'save_onboarding_step' ),
+					'permission_callback' => array( $instance, '_permissions_check' ),
+				)
+			);
+
+			register_rest_route(
+				$instance->namespace,
+				'/onboarding/install-plugins',
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $this, 'install_plugins' ),
+					'permission_callback' => array( $instance, '_permissions_check' ),
+				)
+			);
+		}
+
+		public function get_onboarding_data( $request ) {
+
+			$source = $request->get_param( 'source' );
+
+			if ( ! $source ) {
+				return rest_ensure_response( false );
+			}
 
 			$defaults = array(
 				'about-you' => array(
@@ -200,20 +270,27 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 
 			$data = array_replace_recursive( $defaults, $saved );
 
-			return $data;
+			return rest_ensure_response( $data );
 		}
 
-		public static function save_onboarding_step( $source, $key, $data ) {
+		public function save_onboarding_step( $request ) {
+
+			$key    = $request->get_param( 'key' );
+			$source = $request->get_param( 'source' );
+			$data   = $request->get_param( 'data' );
 
 			$saved = get_option( $source . '_onboarding_data', array() );
 
 			$saved[ $key ] = $data;
 
 			update_option( $source . '_onboarding_data', $saved );
-			return array( 'success' => false );
+			return rest_ensure_response( array( 'success' => true ) );
 		}
 
-		public static function get_onboarding_recommended( $source ) {
+		public function get_onboarding_recommended( $request ) {
+
+			$source = $request->get_param( 'source' );
+
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 			$plugins = array(
@@ -259,9 +336,8 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				),
 			);
 
-
 			$installed_plugins = get_plugins();
-			$recommended = array();
+			$recommended       = array();
 
 			foreach ( $plugins as $plugin ) {
 				$slug = $plugin['slug'];
@@ -270,7 +346,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 					continue;
 				}
 
-				$status = 'not-installed';
+				$status      = 'not-installed';
 				$plugin_file = '';
 
 				// Check if plugin is installed
@@ -296,17 +372,23 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				);
 			}
 
-			return array(
-				'recommended' => array_values( $recommended ), // reset keys
+			return rest_ensure_response(
+				array(
+					'recommended' => array_values( $recommended ), // reset keys
+				)
 			);
 		}
 
 
-		public static function install_plugins( $plugins ) {
+		public function install_plugins( $request ) {
+			$plugins = $request->get_param( 'plugins' );
+
 			if ( empty( $plugins ) || ! is_array( $plugins ) ) {
-				return array(
-					'success' => false,
-					'message' => __( 'No plugins provided for installation.', 'wpchill' ),
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => __( 'No plugins provided for installation.', 'wpchill' ),
+					)
 				);
 			}
 
@@ -323,7 +405,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			foreach ( $plugins as $slug ) {
 				$slug = sanitize_key( $slug );
 
-				// 1️⃣ Check if the plugin is already installed.
+				// Check if the plugin is already installed.
 				$installed_plugins = get_plugins();
 				$plugin_file       = '';
 
@@ -334,7 +416,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 					}
 				}
 
-				// 2️⃣ If the plugin is already active, skip it.
+				// If the plugin is already active, skip it.
 				if ( $plugin_file && is_plugin_active( $plugin_file ) ) {
 					$results[ $slug ] = array(
 						'status'  => 'already-active',
@@ -343,7 +425,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 					continue;
 				}
 
-				// 3️⃣ If the plugin is installed but inactive, try to activate it.
+				// If the plugin is installed but inactive, try to activate it.
 				if ( $plugin_file && ! is_plugin_active( $plugin_file ) ) {
 					$activate = activate_plugin( $plugin_file );
 
@@ -362,7 +444,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 					continue;
 				}
 
-				// 4️⃣ If the plugin is not installed, fetch its info and install it.
+				// If the plugin is not installed, fetch its info and install it.
 				$api = plugins_api(
 					'plugin_information',
 					array(
@@ -426,9 +508,11 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 				);
 			}
 
-			return array(
-				'success' => true,
-				'results' => $results,
+			return rest_ensure_response(
+				array(
+					'success' => true,
+					'results' => $results,
+				)
 			);
 		}
 	}

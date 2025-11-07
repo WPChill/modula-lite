@@ -6,13 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 class WPChill_Rest_Api {
-	protected $namespace = 'wpchill/v1';
+	public $namespace = 'wpchill/v1';
 
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
 	public function register_routes() {
+			
 		register_rest_route(
 			$this->namespace,
 			'/notifications',
@@ -52,60 +53,9 @@ class WPChill_Rest_Api {
 				'permission_callback' => array( $this, '_permissions_check' ),
 			)
 		);
-
-		register_rest_route(
-			$this->namespace,
-			'/onboarding/data',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_onboarding_data' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-				'args'                => array(
-					'source' => array(
-						'type' => 'string',
-						'required' => false,
-					),
-				),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/onboarding/recommended',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_onboarding_recommended' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-				'args'                => array(
-					'source' => array(
-						'type' => 'string',
-						'required' => false,
-					),
-				),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/onboarding/save-step',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'save_onboarding_step' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/onboarding/install-plugins',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'install_plugins' ),
-				'permission_callback' => array( $this, '_permissions_check' ),
-			)
-		);
-
+		
 		do_action( 'modula_rest_api_register_routes', $this );
+
 	}
 
 	public function process_request( $request ) {
@@ -178,40 +128,6 @@ class WPChill_Rest_Api {
 		$plugin_slug = $request->get_param( 'plugin' );
 
 		return rest_ensure_response( WPChill_About_Us::activate_plugin( $plugin_slug ) );
-	}
-
-	public function get_onboarding_data( $request ) {
-		$source = $request->get_param( 'source' );
-
-		if ( ! $source ) {
-			return rest_ensure_response( false );
-		}
-
-		return rest_ensure_response( WPChill_Onboarding::get_onboarding_data( $source ) );
-	}
-
-	public function get_onboarding_recommended( $request ) {
-		$source = $request->get_param( 'source' );
-
-		if ( ! $source ) {
-			return rest_ensure_response( false );
-		}
-
-		return rest_ensure_response( WPChill_Onboarding::get_onboarding_recommended( $source ) );
-	}
-
-	public function save_onboarding_step( $request ) {
-		$key = $request->get_param( 'key' );
-		$source = $request->get_param( 'source' );
-		$data = $request->get_param( 'data' );
-
-		return rest_ensure_response( WPChill_Onboarding::save_onboarding_step( $source, $key, $data ) );
-	}
-
-	public function install_plugins( $request ) {
-		$plugins = $request->get_param( 'plugins' );
-
-		return rest_ensure_response( WPChill_Onboarding::install_plugins( $plugins ) );
 	}
 
 	public function _permissions_check() {

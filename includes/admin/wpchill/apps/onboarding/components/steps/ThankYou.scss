@@ -1,0 +1,77 @@
+.wpchill-thankyou {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	margin: 0 auto;
+	width: 100%;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+.wpchill-thankyou-body {
+	padding: 50px 60px;
+	flex: 1;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.wpchill-thankyou-title {
+	font-size: 22px;
+	font-weight: 600;
+	margin-bottom: 8px;
+	color: #1d2327;
+}
+
+.wpchill-thankyou-subtitle {
+	font-size: 15px;
+	color: #555d66;
+	margin-bottom: 25px;
+}
+
+.wpchill-thankyou-list {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 15px;
+}
+
+.wpchill-thankyou-link {
+	display: flex;
+	align-items: center;
+	padding: 12px 0;
+	color: #0073aa;
+	text-decoration: none;
+	border-bottom: 1px solid #e0e0e0;
+	font-size: 14px;
+	transition: color 0.2s ease;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&:hover {
+		color: #005177;
+	}
+}
+
+.wpchill-thankyou-icon {
+	font-size: 18px;
+	margin-right: 10px;
+	color: #2c3338;
+	min-width: 20px;
+}
+
+.wpchill-thankyou-text {
+	line-height: 1.5;
+}
+
+.wpchill-thankyou-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 25px 50px;
+	border-top: 1px solid #e0e0e0;
+	background: #fafafa;
+}

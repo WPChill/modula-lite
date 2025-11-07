@@ -947,21 +947,57 @@ class Modula {
 	public function onboarding_start() {
 		require_once MODULA_PATH . 'includes/admin/wpchill/class-wpchill-onboarding.php';
 
+		$links = array(
+			array(
+				'text' => esc_html__( 'Read our Step by Step Guide', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://wp-modula.com/kb/' ),
+				'icon' => esc_attr( 'dashicons-book' ),
+			),
+			array(
+				'text' => esc_html__( 'Watch Guided Tour of Modula Gallery', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://wp-modula.com/kb/' ),
+				'icon' => esc_attr( 'dashicons-video-alt3' ),
+			),
+			array(
+				'text' => esc_html__( 'Learn WordPress Tutorials', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://wp-modula.com/kb/' ),
+				'icon' => esc_attr( 'dashicons-welcome-learn-more' ),
+			),
+			array(
+				'text' => esc_html__( 'Extensions?', 'modula-best-grid-gallery' ),
+				'link' => esc_url( admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ) ),
+				'icon' => esc_attr( 'dashicons-welcome-learn-more' ),
+			),
+			array(
+				'text' => esc_html__( 'Support?', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://wordpress.org/support/plugin/modula-best-grid-gallery/' ),
+				'icon' => esc_attr( 'dashicons-welcome-learn-more' ),
+			),
+			array(
+				'text' => esc_html__( 'Facebook Comunity?', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://www.facebook.com/groups/wpmodula/' ),
+				'icon' => esc_attr( 'dashicons-facebook' ),
+			),
+			array(
+				'text' => esc_html__( 'Pricing Page?', 'modula-best-grid-gallery' ),
+				'link' => esc_url( 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell' ),
+				'icon' => esc_attr( 'dashicons-facebook' ),
+			),
+		);
+
 		$texts = array(
-			'welcome'        => esc_html__( 'Welcome to Modula Gallery!', 'modula-best-grid-gallery' ),
-			'welcomeMessage' => esc_html__( 'Create stunning responsive photo and video galleries for your website. Your first gallery is only minutes away.', 'modula-best-grid-gallery' ),
+			'welcome'         => esc_html__( 'Welcome to Modula Gallery!', 'modula-best-grid-gallery' ),
+			'welcomeMessage'  => esc_html__( 'Create stunning responsive photo and video galleries for your website. Your first gallery is only minutes away.', 'modula-best-grid-gallery' ),
+			'thankYou'        => esc_html__( 'Congratulations! Grab your photos and start uploading your beautiful gallery', 'modula-best-grid-gallery' ),
+			'thankYouMessage' => esc_html__( 'Need Help? Here\'s what to do next', 'modula-best-grid-gallery' ),
 		);
 
 		$args = array(
 			'name'          => 'Modula Gallery',
 			'slug'          => 'modula-best-grid-gallery',
 			'logo'          => MODULA_URL . 'assets/images/block-preview-bg.svg',
-			'documentation' => 'https://wp-modula.com/kb/',
-			'pricing'       => 'https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=dashboard-page&utm_campaign=upsell',
-			'extensions'    => admin_url( 'edit.php?post_type=modula-gallery&page=modula-addons' ),
-			'support'       => 'https://wordpress.org/support/plugin/modula-best-grid-gallery/',
-			'fbcommunity'   => 'https://www.facebook.com/groups/wpmodula/',
 			'texts'         => $texts,
+			'links'			=> $links,
 		);
 
 		new Wpchill_Onboarding( $args );
