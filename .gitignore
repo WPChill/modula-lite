@@ -11,6 +11,6 @@ assets/.DS_Store
 assets/js/admin/notification-system/*
 includes/admin/wpchill/scripts/*
 assets/js/admin/gallery-listing-ai/*
-assets/js/admin/settings/*
+assets/js/admin/general-settings/*
 stubs
 import_file.txt

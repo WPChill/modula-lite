@@ -37,7 +37,7 @@ class Modula_Licensing {
 		$html                 = apply_filters( 'modula_display_licensing_box', false, $image_attrib_options, $settings );
 
 		if ( false === $html ) {
-			if ( $image_attrib_options && isset( $image_attrib_options['display_with_description'] ) && '1' === $image_attrib_options['display_with_description'] && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
+			if ( $image_attrib_options && isset( $image_attrib_options['display_with_description'] ) && $image_attrib_options['display_with_description'] && isset( $image_attrib_options['image_licensing'] ) && 'none' !== $image_attrib_options['image_licensing'] ) {
 				$html = Modula_Helper::render_license_box( $image_attrib_options['image_licensing'] );
 			}
 		}

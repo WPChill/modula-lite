@@ -22,7 +22,6 @@ class Modula_Admin {
 
 		// Add CSS to admin menu
 		add_action( 'admin_head', array( $this, 'admin_custom_css' ) );
-
 		add_action( 'modula_scripts_before_wp_modula', array( $this, 'add_autosuggest_scripts' ) );
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url' ) );
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
@@ -260,31 +259,36 @@ class Modula_Admin {
 			'priority'   => 28,
 		);
 
-		if ( ! empty( $this->tabs ) ) {
-			$links[] = array(
-				'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
-				'menu_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+		$links[] = array(
+			'page_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+			'menu_title' => esc_html__( 'Settings', 'modula-best-grid-gallery' ),
+			'capability' => 'manage_options',
+			'menu_slug'  => 'modula',
+			'function'   => array( $this, 'add_settings_react_root' ),
+			'priority'   => 31,
+		);
+
+		$args = apply_filters(
+			'modula_upsells_args',
+			array(
+				'shop_url' => 'https://wp-modula.com',
+				'slug'     => 'modula',
+			)
+		);
+
+		$wpchill_upsells = WPChill_Upsells::get_instance( $args );
+
+		if ( ! $wpchill_upsells || $wpchill_upsells->is_upgradable_addon( 'modula-image-proofing' ) ) {
+			$links['image-proofing-upsell'] = array(
+				'page_title' => esc_html__( 'Image Proofing', 'modula-best-grid-gallery' ),
+				'menu_title' => esc_html__( 'Proofing', 'modula-best-grid-gallery' ),
 				'capability' => 'manage_options',
-				'menu_slug'  => 'modula',
-				'function'   => array( $this, 'show_submenu' ),
-				'priority'   => 30,
+				'menu_slug'  => '#image-proofing-upsell',
+				'function'   => array( $this, 'modula_image_proofing' ),
+				'priority'   => 3,
 			);
 		}
-
 		$this->menu_links = apply_filters( 'modula_admin_page_link', $links );
-
-		// Sort tabs based on priority.
-		uasort( $this->tabs, array( 'Modula_Helper', 'sort_data_by_priority' ) );
-
-		// move pro tabs at the end
-		$pro_tabs = array();
-		foreach ( $this->tabs as $key => $tab ) {
-			if ( isset( $tab['badge'] ) && 'PRO' == $tab['badge'] ) {
-				$pro_tabs[ $key ] = $tab;
-				unset( $this->tabs[ $key ] );
-			}
-		}
-		$this->tabs = array_merge( $this->tabs, $pro_tabs );
 
 		// Sort menu items based on priority
 		uasort( $this->menu_links, array( 'Modula_Helper', 'sort_data_by_priority' ) );
@@ -621,43 +625,6 @@ class Modula_Admin {
 		return $classes;
 	}
 
-	public function render_image_licensing_tab() {
-		include MODULA_PATH . 'includes/admin/tabs/image-licensing.php';
-	}
-
-	/**
-	 * Update troubleshooting options.
-	 */
-	public function update_image_licensing_options() {
-
-		if ( ! isset( $_POST['modula-image-licensing-submit'] ) ) {
-			return;
-		}
-
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'modula_image_licensing_option_post' ) ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		$options    = isset( $_POST['modula_image_licensing_option'] ) ? wp_unslash( $_POST['modula_image_licensing_option'] ) : false;
-		$ia_options = array();
-
-		if ( is_array( $options ) && ! empty( $options ) ) {
-			foreach ( $options as $option => $value ) {
-				if ( is_array( $value ) ) {
-					$ia_options[ $option ] = array_map( 'sanitize_text_field', $value );
-				} else {
-					$ia_options[ $option ] = sanitize_text_field( $value );
-				}
-			}
-		}
-
-		update_option( 'modula_image_licensing_option', $ia_options );
-	}
-
 	/**
 	 * Adds images to a specific gallery
 	 */
@@ -964,6 +931,10 @@ class Modula_Admin {
 
 		wp_safe_redirect( remove_query_arg( array( 'modula_media_added', 'modula_media_skipped' ) ) );
 		exit;
+	}
+
+	public function add_settings_react_root() {
+		echo '<div id="modula-settings-app"></div>';
 	}
 }
 

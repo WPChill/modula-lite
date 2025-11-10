@@ -121,7 +121,7 @@ class Modula_Admin_Helpers {
 					$url = $tab['url'];
 				} else {
 					// For Settings tabs
-					$url = admin_url( 'edit.php?post_type=modula-gallery&page=modula&modula-tab=' . $tab_id );
+					$url = admin_url( 'edit.php?post_type=modula-gallery&page=modula_settings&modula-tab=' . $tab_id );
 				}
 
 				echo '<a href="' . esc_url( $url ) . '" class="modula-nav-tab' . esc_attr( $active ) . esc_attr( $last_tab ) . '" ' . ( isset( $tab['target'] ) ? 'target="' . esc_attr( $tab['target'] ) . '"' : '' ) . '>';

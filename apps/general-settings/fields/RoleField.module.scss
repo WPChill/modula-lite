@@ -1,0 +1,22 @@
+.modulaRoleFieldCard {
+    height: 100%;
+    .modulaRoleFieldCardHead {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin: 0;
+        .modulaRoleHeadToggle {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+    .modulaRoleFieldCardBody {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 20px;
+        .modulaRoleBodyToggle {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

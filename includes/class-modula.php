@@ -97,6 +97,9 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
+		require_once MODULA_PATH . 'includes/admin/rest-api/class-modula-rest-api.php';
+		require_once MODULA_PATH . 'includes/admin/settings/class-modula-settings.php';
+		require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
 
 		// Telemetry
 		require_once MODULA_PATH . 'includes/wpchill/wpchill-telemetry-loader.php';
@@ -108,7 +111,7 @@ class Modula {
 			require_once MODULA_PATH . 'includes/class-modula-upgrades.php';
 			require_once MODULA_PATH . 'includes/libraries/class-modula-review.php';
 			require_once MODULA_PATH . 'includes/uninstall/class-modula-uninstall.php';
-			require_once MODULA_PATH . 'includes/migrate/class-modula-importer.php';
+
 			require_once MODULA_PATH . 'includes/migrate/class-modula-ajax-migrator.php';
 			// Admin Helpers
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
@@ -160,7 +163,7 @@ class Modula {
 	private function define_admin_hooks() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 20 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'settings_page_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'general_settings_page_scripts' ) );
 		add_action( 'admin_init', array( $this, 'admin_start' ), 20 );
 		add_action( 'admin_menu', array( $this, 'dashboard_start' ), 20 );
 
@@ -184,11 +187,17 @@ class Modula {
 		// Initiate WPChill Notifications
 		WPChill_Notifications::get_instance();
 
-		new Modula\Gallery_Listing_Output();
+		if ( get_option( 'use_modula_ai', true ) ) {
+			new Modula\Gallery_Listing_Output();
+		}
 	}
 
 	public function start_ai_hooks() {
-		new Modula\Ai\Client();
+		if ( get_option( 'use_modula_ai', true ) ) {
+			new Modula\Ai\Client();
+		}
+
+		new Modula_Upsells();
 	}
 
 	public function dashboard_start() {
@@ -220,13 +229,13 @@ class Modula {
 			return;
 		}
 
-		new Modula_Upsells();
-
 		$upgrades = Modula_Upgrades::get_instance();
 		$upgrades->initialize_admin();
 	}
 
 	private function define_public_hooks() {
+
+		new Modula_Rest_Api();
 	}
 
 	/* Enqueue Admin Scripts */
@@ -857,7 +866,7 @@ class Modula {
 		update_option( 'wpmodulaupdate', true );
 	}
 
-	public function settings_page_scripts() {
+	public function general_settings_page_scripts() {
 		$screen = get_current_screen();
 
 		if ( 'modula-gallery' !== $screen->post_type ) {
@@ -868,17 +877,25 @@ class Modula {
 			return;
 		}
 
+		wp_enqueue_media();
+
 		$scripts = Modula\Scripts::get_instance();
 
 		$scripts->load_js_asset(
 			'modula-settings',
-			'assets/js/admin/settings',
+			'assets/js/admin/general-settings',
 		);
 
 		$scripts->load_css_asset(
 			'modula-settings',
-			'assets/js/admin/settings',
+			'assets/js/admin/general-settings',
 			array( 'wp-components' )
+		);
+
+		wp_add_inline_script(
+			'modula-settings',
+			'const modulaUrl = ' . wp_json_encode( MODULA_URL ),
+			'before'
 		);
 	}
 

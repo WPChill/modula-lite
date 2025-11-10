@@ -7,20 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Admin_Area {
 	public function __construct() {
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_modula_ai_tab' ) );
-		add_action( 'modula_admin_tab_modula_ai', array( $this, 'add_modula_ai_tab_content' ) );
 		add_filter( 'modula_helper_properties', array( $this, 'add_modula_ai_helper_properties' ) );
-	}
-
-	public function add_modula_ai_tab( $tabs ) {
-		$tabs['modula_ai'] = array(
-			'label' => esc_html__( 'Modula AI', 'modula-best-grid-gallery' ),
-		);
-		return $tabs;
-	}
-
-	public function add_modula_ai_tab_content() {
-		echo '<div id="modula-ai-settings"></div>';
 	}
 
 	public function add_modula_ai_helper_properties( $helper ) {

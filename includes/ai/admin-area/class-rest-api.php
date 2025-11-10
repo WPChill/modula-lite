@@ -227,14 +227,6 @@ class Rest_Api {
 		return rest_ensure_response( $output );
 	}
 
-	public function update_ai_settings( $request ) {
-		$body = $request->get_json_params();
-		update_option( 'modula_ai_api_key', sanitize_text_field( $body['api_key'] ) );
-		update_option( 'modula_ai_language', sanitize_text_field( $body['language'] ) );
-
-		return $this->ai_settings();
-	}
-
 	/**
 	 * Handles user registration with the AI service.
 	 *
