@@ -13,3 +13,4 @@ includes/admin/wpchill/scripts/*
 assets/js/admin/gallery-listing-ai/*
 assets/js/admin/settings/*
 stubs
+import_file.txt

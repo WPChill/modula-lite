@@ -251,6 +251,7 @@ class Modula {
 			'id'       => $post_id,
 			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'admin_url' => admin_url(),
 		);
 
 		$allowed_post_types = apply_filters( 'modula_enqueue_for_post_types', array( 'modula-gallery' ) );

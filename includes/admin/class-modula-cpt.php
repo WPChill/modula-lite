@@ -11,11 +11,11 @@ use Modula\Ai\Optimizer\Optimizer;
  */
 class Modula_CPT {
 
-	private $labels        = array();
-	private $args          = array();
-	private $metaboxes     = array();
-	private $removable_metaboxes     = array();
-	private $gallery_types = array();
+	private $labels              = array();
+	private $args                = array();
+	private $metaboxes           = array();
+	private $removable_metaboxes = array();
+	private $gallery_types       = array();
 	private $cpt_name;
 	private $builder;
 	private $resizer;
@@ -479,7 +479,7 @@ class Modula_CPT {
 				'high'         // Priority
 			);
 		}
-		
+
 		foreach ( $this->removable_metaboxes as $metabox ) {
 			remove_meta_box( $metabox['slug'], 'modula-gallery', $metabox['context'] );
 		}

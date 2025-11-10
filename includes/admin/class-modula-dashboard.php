@@ -65,8 +65,9 @@ class Modula_Dashboard {
 		add_filter( $this->header_hook, array( $this, 'is_dashboard' ) );
 
 		add_action( 'admin_init', array( $this, 'redirect_to_list_or_dash' ) );
-	}
 
+		add_action( 'admin_enqueue_scripts', array( $this, 'license_script' ) );
+	}
 
 	/**
 	 * Adds dashboard to addon's admin menu
@@ -234,7 +235,7 @@ class Modula_Dashboard {
             </div>
 
             <!-- Common use cases -->
-
+			<?php do_action( "modula_admin_tab_licenses" ); ?>
 
             <div class="wpchill_card wpchill_dashboard_use_cases_wrap">
                 <h3 class="wpchill_dashboard_item_title">
@@ -593,7 +594,7 @@ class Modula_Dashboard {
 	 * @since 2.3.4
 	 */
 	function dashboard_view() {
-
+		Modula_Admin_Helpers::modula_page_header();
 		echo '<div id="wpchill_dashboard_container">';
 		$this->render_header();
 		$this->render_content();
@@ -721,6 +722,37 @@ class Modula_Dashboard {
 			wp_redirect( $url_to_galleries );
 			die();
 		}
+	}
+
+	public function license_script() {
+
+		if ( ! defined( 'MODULA_PRO_VERSION' ) ) {
+			return;
+		}
+
+		global $id, $post;
+
+		$screen = get_current_screen();
+
+		if ( 'modula-gallery_page_wpchill-dashboard' === $screen->base ) {
+			wp_enqueue_script( 'modula-license-protection_activation', MODULA_PRO_URL . 'assets/js/misc/license-protection_activation.js', array( 'jquery' ), MODULA_PRO_VERSION, true );
+			wp_localize_script(
+				'modula-license-protection_activation',
+				'modulaLicense',
+				array(
+					'nonce'               => wp_create_nonce( 'modula_license_save' ),
+					'ajaxURL'             => admin_url( 'admin-ajax.php' ),
+					'activatingLicense'   => esc_html__( 'Activating license. Please wait...', 'modula-best-grid-gallery' ),
+					'deactivatingLicense' => esc_html__( 'Deactivating license. Please wait...', 'modula-best-grid-gallery' ),
+					'missingEmail'        => esc_html__( 'Please enter the email address used to purchase the license.', 'modula-best-grid-gallery' ),
+					'retrievingData'      => esc_html__( 'Retrieving data...', 'modula-best-grid-gallery' ),
+					'sentEmail'           => esc_html__( 'An email containing the license key has been sent to the email address above.', 'modula-best-grid-gallery' ),
+					'responseError'       => esc_html__( 'There was a problem retrieving the data. Please try again or use alternative server.', 'modula-best-grid-gallery' ),
+				)
+			);
+		}
+
+		wp_enqueue_style( 'modula-pro-style', MODULA_PRO_URL . 'assets/js/misc/wp-modula-pro.css', array(), MODULA_PRO_VERSION );
 	}
 }
 
