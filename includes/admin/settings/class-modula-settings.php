@@ -116,7 +116,7 @@ class Modula_Settings {
 	}
 
 	private function get_standalone() {
-		if ( ! class_exists( 'Modula_Albums' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Standalone\Standalone' ) ) {
 			return array();
 		}
 
@@ -182,7 +182,7 @@ class Modula_Settings {
 	}
 
 	private function get_compression() {
-		if ( ! class_exists( 'Modula_SpeedUp' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Speedup\Speedup' ) ) {
 			return array();
 		}
 
@@ -249,7 +249,7 @@ class Modula_Settings {
 	}
 
 	private function get_shortcodes() {
-		if ( ! class_exists( 'Modula_Advanced_Shortcodes' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Advanced_Shortcodes\Advanced_Shortcodes' ) ) {
 			return array();
 		}
 		$shortcodes = get_option( 'mas_gallery_link', 'gallery_id' );
@@ -267,7 +267,7 @@ class Modula_Settings {
 	}
 
 	private function get_watermark() {
-		if ( ! class_exists( 'Modula_Watermark' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Watermark\Watermark' ) ) {
 			return array();
 		}
 		$watermark        = get_option( 'modula_watermark', array() );
@@ -398,7 +398,7 @@ class Modula_Settings {
 	}
 
 	private function get_roles() {
-		if ( ! class_exists( 'Modula_Roles' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Roles\Roles' ) ) {
 			return array();
 		}
 		$roles = array(
@@ -406,7 +406,7 @@ class Modula_Settings {
 			'fields' => array_merge( $this->get_gallery_roles(), $this->get_album_roles() ),
 		);
 
-		if ( class_exists( 'Modula_Albums' ) ) {
+		if ( class_exists( 'Modula_Pro\Extensions\Albums\Albums' ) ) {
 			$roles['submenu'] = array(
 				'class'   => 'modula_roles_submenu',
 				'options' => array(
@@ -425,7 +425,7 @@ class Modula_Settings {
 		return $roles;
 	}
 	private function get_instagram() {
-		if ( ! class_exists( '\Modula\Instagram\Modula_Instagram' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Instagram\Instagram' ) ) {
 			return array();
 		}
 		return array(
@@ -433,9 +433,9 @@ class Modula_Settings {
 				array(
 					'type'  => 'button',
 					'label' => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
-					'href'  => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? esc_url( Modula\Instagram\OAuth::get_instance()->create_request_url() ) : '#',
-					'api'   => ! Modula\Instagram\OAuth::get_instance()->get_access_token() ? false : array(
+					'text'  => ! Modula_Pro\Extensions\Instagram\OAuth::get_instance()->get_access_token() ? esc_html__( 'Start connection', 'modula-best-grid-gallery' ) : esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+					'href'  => ! Modula_Pro\Extensions\Instagram\OAuth::get_instance()->get_access_token() ? esc_url( Modula_Pro\Extensions\Instagram\OAuth::get_instance()->create_request_url() ) : '#',
+					'api'   => ! Modula_Pro\Extensions\Instagram\OAuth::get_instance()->get_access_token() ? false : array(
 						'path'   => '/modula-instagram/v1/token/disconnect/',
 						'method' => 'POST',
 						'data'   => array(),
@@ -447,118 +447,106 @@ class Modula_Settings {
 
 
 	private function get_video() {
-		if ( ! class_exists( 'Modula_Video' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Video\Video' ) || ! class_exists( 'Modula_Pro\Extensions\Video\Admin\Google_Auth' ) || ! class_exists( 'Modula_Pro\Extensions\Video\Admin\Vimeo_Auth' ) ) {
 			return array();
 		}
 		$vimeo_creds = get_option( 'modula_video_vimeo_creds', array() );
 
 		$youtube = array();
 		$vimeo   = array();
-		if ( class_exists( 'Modula_Video' ) ) {
-			if ( ! class_exists( 'Modula_Video_Google_Auth' ) ) {
-				require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-google-auth.php';
-			}
-			if ( ! class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
-				require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-vimeo-auth.php';
-			}
+
+		$youtube_oauth = Modula_Pro\Extensions\Video\Admin\Google_Auth::get_instance();
+		$youtube       = array(
+			'type'        => 'combo',
+			'fields'      => array(),
+			'group'       => 'yt',
+			// translators: %s placeholders are for the opening and closing anchor tags.
+			'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-youtube-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
+
+		);
+		if ( ! $youtube_oauth->get_access_token() ) {
+			$youtube['fields'][] = array(
+				'type'    => 'button',
+				'variant' => 'primary',
+				'name'    => 'connect',
+				'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+				'text'    => esc_html__( 'Sign in with Google', 'modula-best-grid-gallery' ),
+				'href'    => esc_url( $youtube_oauth->create_request_url() ),
+			);
+		} elseif ( $youtube_oauth->is_token_expired() ) {
+			$youtube['fields'][] = array(
+				'type'    => 'button',
+				'variant' => 'primary',
+				'name'    => 'connect',
+				'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+				'text'    => esc_html__( 'Refresh token', 'modula-best-grid-gallery' ),
+				'api'     => array(
+					'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+					'method' => 'POST',
+					'data'   => array( 'action' => 'refresh' ),
+				),
+			);
+			$youtube['fields'][] = array(
+				'type'    => 'button',
+				'variant' => 'primary',
+				'name'    => 'connect',
+				'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+				'api'     => array(
+					'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+					'method' => 'POST',
+					'data'   => array( 'action' => 'disconnect' ),
+				),
+			);
+		} else {
+			$youtube['fields'][] = array(
+				'type'    => 'button',
+				'variant' => 'primary',
+				'name'    => 'connect',
+				'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+				'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
+				'api'     => array(
+					'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
+					'method' => 'POST',
+					'data'   => array( 'action' => 'disconnect' ),
+				),
+			);
 		}
 
-		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
-			$youtube_oauth = Modula_Video_Google_Auth::get_instance();
-			$youtube       = array(
-				'type'        => 'combo',
-				'fields'      => array(),
-				'group'       => 'yt',
+		$vimeo_oauth = Modula_Pro\Extensions\Video\Admin\Vimeo_Auth::get_instance();
+
+		if ( ! $vimeo_oauth->get_access_token() ) {
+			$redirect_uri = admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' );
+			$client       = ! empty( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : false;
+			$vimeo        = array(
+				'type'        => 'button',
+				'variant'     => 'primary',
+				'name'        => 'connect',
+				'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+				'text'        => $client ? esc_html__( 'Connect to Vimeo', 'modula-best-grid-gallery' ) : esc_html__( 'Save your credentials', 'modula-best-grid-gallery' ),
+				'href'        => 'https://api.vimeo.com/oauth/authorize?response_type=code&client_id=' . $client . '&redirect_uri=' . rawurlencode( $redirect_uri ) . '&scope=public',
+				'disabled'    => ! $client,
+				'group'       => 'vi',
 				// translators: %s placeholders are for the opening and closing anchor tags.
-				'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-youtube-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
+				'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
 
 			);
-			if ( ! $youtube_oauth->get_access_token() ) {
-				$youtube['fields'][] = array(
-					'type'    => 'button',
-					'variant' => 'primary',
-					'name'    => 'connect',
-					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'    => esc_html__( 'Sign in with Google', 'modula-best-grid-gallery' ),
-					'href'    => esc_url( $youtube_oauth->create_request_url() ),
-				);
-			} elseif ( $youtube_oauth->is_token_expired() ) {
-				$youtube['fields'][] = array(
-					'type'    => 'button',
-					'variant' => 'primary',
-					'name'    => 'connect',
-					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'    => esc_html__( 'Refresh token', 'modula-best-grid-gallery' ),
-					'api'     => array(
-						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
-						'method' => 'POST',
-						'data'   => array( 'action' => 'refresh' ),
-					),
-				);
-				$youtube['fields'][] = array(
-					'type'    => 'button',
-					'variant' => 'primary',
-					'name'    => 'connect',
-					'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
-					'api'     => array(
-						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
-						'method' => 'POST',
-						'data'   => array( 'action' => 'disconnect' ),
-					),
-				);
-			} else {
-				$youtube['fields'][] = array(
-					'type'    => 'button',
-					'variant' => 'primary',
-					'name'    => 'connect',
-					'label'   => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'    => esc_html__( 'Disconnect', 'modula-best-grid-gallery' ),
-					'api'     => array(
-						'path'   => '/modula-best-grid-gallery/v1/video/youtube/',
-						'method' => 'POST',
-						'data'   => array( 'action' => 'disconnect' ),
-					),
-				);
-			}
-		}
+		} else {
+			$vimeo = array(
+				'type'        => 'button',
+				'variant'     => 'primary',
+				'name'        => 'connect',
+				'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
+				'text'        => esc_html__( 'Disconnect from Vimeo', 'modula-best-grid-gallery' ),
+				'api'         => array(
+					'path'   => '/modula-best-grid-gallery/v1/video/vimeo/',
+					'method' => 'POST',
+					'data'   => array( 'action' => 'disconnect' ),
+				),
+				'group'       => 'vi',
+				// translators: %s placeholders are for the opening and closing anchor tags.
+				'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
 
-		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
-			$vimeo_oauth = Modula_Video_Vimeo_Auth::get_instance();
-
-			if ( ! $vimeo_oauth->get_access_token() ) {
-				$redirect_uri = admin_url( '/edit.php?post_type=modula-gallery&page=modula&modula-tab=video&sub=vi&action=save_modula_video_vimeo_token' );
-				$client       = ! empty( $vimeo_creds['client_id'] ) ? $vimeo_creds['client_id'] : false;
-				$vimeo        = array(
-					'type'        => 'button',
-					'variant'     => 'primary',
-					'name'        => 'connect',
-					'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'        => $client ? esc_html__( 'Connect to Vimeo', 'modula-best-grid-gallery' ) : esc_html__( 'Save your credentials', 'modula-best-grid-gallery' ),
-					'href'        => 'https://api.vimeo.com/oauth/authorize?response_type=code&client_id=' . $client . '&redirect_uri=' . rawurlencode( $redirect_uri ) . '&scope=public',
-					'disabled'    => ! $client,
-					'group'       => 'vi',
-					// translators: %s placeholders are for the opening and closing anchor tags.
-					'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
-
-				);
-			} else {
-				$vimeo = array(
-					'type'        => 'button',
-					'variant'     => 'primary',
-					'name'        => 'connect',
-					'label'       => esc_html__( 'Connect your account', 'modula-best-grid-gallery' ),
-					'text'        => esc_html__( 'Disconnect from Vimeo', 'modula-best-grid-gallery' ),
-					'api'         => array(
-						'path'   => '/modula-best-grid-gallery/v1/video/vimeo/',
-						'method' => 'POST',
-						'data'   => array( 'action' => 'disconnect' ),
-					),
-					'group'       => 'vi',
-					// translators: %s placeholders are for the opening and closing anchor tags.
-					'description' => sprintf( esc_html__( 'If you need step by step instructions on how to connect your account, please read our online %1$sknowledgebase article%2$s on this topic.', 'modula-best-grid-gallery' ), '<a href="https://wp-modula.com/kb/how-to-connect-modula-to-vimeo-and-add-video-playlists-to-your-galleries/" target="_blank">', '</a>' ),
-
-				);
-			}
+			);
 		}
 
 		return array(
@@ -683,7 +671,7 @@ class Modula_Settings {
 
 	private function get_album_roles() {
 
-		if ( ! class_exists( 'Modula_Albums' ) ) {
+		if ( ! class_exists( 'Modula_Pro\Extensions\Albums\Albums' ) ) {
 			return array();
 		}
 
@@ -742,7 +730,7 @@ class Modula_Settings {
 
 	private function is_role_enabled( $key, $option, $capabilities ) {
 
-		if ( $option || false == $option ) {
+		if ( $option || false === $option ) {
 			$role = get_role( $key );
 			foreach ( $capabilities as $cap => $cap_name ) {
 				if ( $role->has_cap( $cap ) ) {
@@ -757,7 +745,7 @@ class Modula_Settings {
 	}
 
 	public function set_capabilities( $settings ) {
-		$roles = new Modula_Roles();
+		$roles = new Modula_Pro\Extensions\Roles\Roles();
 		$roles->sanitize_option( $settings );
 	}
 

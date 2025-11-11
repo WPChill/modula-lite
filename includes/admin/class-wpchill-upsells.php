@@ -56,9 +56,9 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @var array
 		 */
 		private $endpoints = array(
-			'checkout'      => 'checkout',
-			'pricing'       => 'pricing',
-			'base'          => 'wp-json/wpchill/v1/'
+			'checkout' => 'checkout',
+			'pricing'  => 'pricing',
+			'base'     => 'wp-json/wpchill/v1/',
 		);
 
 		private $upsell_extensions = array();
@@ -88,7 +88,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			$this->fetch_packages();
-
 		}
 
 		/**
@@ -105,7 +104,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			return self::$instance;
-
 		}
 
 		/**
@@ -113,7 +111,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function get_transient( $name ){
+		public function get_transient( $name ) {
 			return $this->slug . '_' . $name;
 		}
 
@@ -122,8 +120,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function get_route( $name ){
-			return trailingslashit($this->shop_url) . trailingslashit( $this->endpoints['base'] ) . $name;
+		public function get_route( $name ) {
+			return trailingslashit( $this->shop_url ) . trailingslashit( $this->endpoints['base'] ) . $name;
 		}
 
 		/**
@@ -132,14 +130,17 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		 * @since 2.5.2
 		 */
 		public function fetch_packages() {
-
-			$rest_calls = apply_filters( 'modula_packages', array(
+			$rest_calls = apply_filters(
+				'modula_packages',
+				array(
 					'packages' => 'all_packages',
-					'route'    => 'get-packages'
-			), $this->packages );
+					'route'    => 'get-packages',
+				),
+				$this->packages
+			);
 
 			// Lets get the transient
-			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ));
+			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ) );
 
 			// If the transient exists then we will not make another call to the main server
 			if ( $packages_transient && ! empty( $packages_transient ) ) {
@@ -160,13 +161,11 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 				if ( ! empty( $data ) && is_array( $data ) ) {
-
 					$this->packages          = $this->create_proper_packages( $data );
 					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
 					set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, 30 * DAY_IN_SECONDS );
 				}
 			}
-
 		}
 
 		/**
@@ -193,12 +192,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 		public function get_extensions_upsell( $packages ) {
 
 			$upsells = array();
-
 			if ( isset( $packages['upsell_packages'] ) ) {
-
-
 				foreach ( $packages['upsell_packages'] as $package ) {
-
 					if ( isset( $package['extensions'] ) ) {
 						$upsells = array_merge( $upsells, $package['extensions'] );
 					}
@@ -206,12 +201,10 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 				// Unset the addons we currently have in our current package if any
 				if ( isset( $packages['current_package'] ) && ! empty( $packages['current_package'] ) ) {
-
 					foreach ( $packages['current_package']['extensions'] as $key => $addon ) {
 
 						// Search and unset
 						if ( isset( $upsells[ $key ] ) ) {
-
 							unset( $upsells[ $key ] );
 						}
 					}
@@ -238,7 +231,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			if ( ! empty( $this->upsell_extensions ) ) {
-
 				if ( isset( $this->upsell_extensions[ $addon ] ) ) {
 					return true;
 				}
@@ -291,7 +283,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			$current_upsell_extensions = isset( $_GET['extension'] ) ? sanitize_text_field( wp_unslash( $_GET['extension'] ) ) : false;
 
 			$lite_plan['modula-lite'] = array(
-					'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
+				'name' => esc_html__( 'Modula - LITE', 'modula-best-grid-gallery' ),
 			);
 
 			$packages = $this->get_packages();
@@ -310,8 +302,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 				// We don't want the lifetime deals here
 				foreach ( $packages['upsell_packages'] as $key => $package ) {
-
-					if ( 'modula-grid-gallery-lifetime' !== $key && strpos( $key,'lifetime' ) > 0 ) {
+					if ( 'modula-grid-gallery-lifetime' !== $key && strpos( $key, 'lifetime' ) > 0 ) {
 						unset( $packages['upsell_packages'][ $key ] );
 					}
 				}
@@ -324,7 +315,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			// If only LITE then we do not want all the packages, only the highest one
 			if ( $pro_features && count( $pro_features ) > 0 ) {
-
 				if ( is_array( $upsell_packages ) && ! empty( $upsell_packages ) ) {
 					$first_key                             = array_key_first( $upsell_packages );
 					$upsell_packages                       = array_slice( $upsell_packages, 0, 1 );
@@ -333,24 +323,22 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					unset( $upsell_packages[ $first_key ]['excerpt'] );
 					unset( $upsell_packages[ $first_key ]['extra_features']['sites'] );
 				}
-
 			}
 
 			// Get our extensions from the heighest paid package as it has all of them
 			// Also we need to reverse the addons so that they appear in a cascade
-			if(isset(array_values($upsell_packages)[0]['extensions'])){
-
-				$addons = array_reverse(array_values($upsell_packages)[0]['extensions']);
+			if ( isset( array_values( $upsell_packages )[0]['extensions'] ) ) {
+				$addons = array_reverse( array_values( $upsell_packages )[0]['extensions'] );
 
 				// Unset the PRO from extensions
-				unset($addons['modula']);
+				unset( $addons['modula'] );
 			}
 
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
 			// Make the size of the element based on number of addons
 			if ( count( $upsell_packages ) > 0 ) {
-				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:not(.wpchill-modula-lite):last-child:before{content:"'.esc_html__('Current package','modula-best-grid-gallery').'";}</style>';
+				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:not(.wpchill-modula-lite):last-child:before{content:"' . esc_html__( 'Current package', 'modula-best-grid-gallery' ) . '";}</style>';
 			}
 
 			?>
@@ -364,7 +352,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				$sites    = '';
 				$priority = '';
 				foreach ( $all_packages as $slug => $package ) {
-
 					if ( ! empty( $package['extra_features'] ) ) {
 						foreach ( $package['extra_features'] as $key => $value ) {
 							if ( 'sites' == $key ) {
@@ -372,17 +359,16 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							} else {
 								$priority .= '<div class="wpchill-pricing-package">' . $value . '</div>';
 							}
-
 						}
 					} else {
-						$sites .= '<div class="wpchill-pricing-package">-</div>';
+						$sites    .= '<div class="wpchill-pricing-package">-</div>';
 						$priority .= '<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/modula-best-grid-gallery/" target="_blank">wp.org</a></div>';
 					}
 
-					$package_class = 'wpchill-pricing-package wpchill-title wpchill-'.$slug;
+					$package_class = 'wpchill-pricing-package wpchill-title wpchill-' . $slug;
 
 					?>
-					<div class="<?php echo esc_attr($package_class); ?>">
+					<div class="<?php echo esc_attr( $package_class ); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
 						<p class="wpchill-name"><strong><?php echo esc_html( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php echo ( isset( $package['excerpt'] ) ) ? '<p class="description">' . esc_html( $package['excerpt'] ) . '</p>' : ''; ?>
@@ -390,7 +376,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				<?php } ?>
 			</div>
 
-			<?php if ( ! $pro_features || count( $pro_features ) === 0 ) {
+			<?php
+			if ( ! $pro_features || count( $pro_features ) === 0 ) {
 				?>
 				<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
@@ -400,7 +387,6 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				</div>
 				<?php
 			}
-
 
 			// Pro features are features that are present in the PRO version of the plugin
 			// And not in extensions / addons
@@ -414,7 +400,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							// Tooltip the description if any
 							if ( isset( $pro_feature['description'] ) ) {
 								?>
-								<p class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ) ?></p>
+								<p class="tab-header-description modula-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ); ?></p>
 								<?php
 							}
 							?>
@@ -422,7 +408,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 						<?php
 						// Now let's go through our packages
-						foreach ( $all_packages as $slug => $upsell ) { ?>
+						foreach ( $all_packages as $slug => $upsell ) {
+							?>
 							<div class="wpchill-pricing-package">
 								<?php
 								// We need the LITE version because if there is no license key / current package the LITE will be a package also
@@ -435,16 +422,15 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							</div>
 						<?php } ?>
 					</div>
-				<?php }
+					<?php
+				}
 			}
 
 			// Now lets loop through each addon described in LITE version of the plugin
 			foreach ( $addons as $key => $addon ) {
-
 				$addon_class = '';
 
 				if ( $current_upsell_extensions && $key == $current_upsell_extensions ) {
-
 					$addon_class = 'wpchill-highlight';
 				}
 				?>
@@ -454,7 +440,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 						<?php
 						if ( isset( $addon['description'] ) ) {
 							?>
-							<p><?php echo wp_kses_post( $addon['description'] ) ?></p>
+							<p><?php echo wp_kses_post( $addon['description'] ); ?></p>
 							<?php
 						}
 						?>
@@ -462,7 +448,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 					<?php
 					// Need to check if each package if the addon is contained
-					foreach ( $all_packages as $slug => $upsell ) { ?>
+					foreach ( $all_packages as $slug => $upsell ) {
+						?>
 
 						<div class="wpchill-pricing-package">
 							<?php
@@ -475,14 +462,15 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 						</div>
 					<?php } ?>
 				</div>
-			<?php }
+				<?php
+			}
 
 			?>
 			<div class="wpchill-plans-table">
 				<div class="wpchill-pricing-package feature-name">
 					<h3><?php echo esc_html__( 'Support', 'modula-best-grid-gallery' ); ?></h3>
 				</div>
-				<?php echo wp_kses_post( $priority ) ; ?>
+				<?php echo wp_kses_post( $priority ); ?>
 			</div>
 			<div class="wpchill-plans-table tabled-footer">
 				<div class="wpchill-pricing-package wpchill-empty">
@@ -490,9 +478,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				</div>
 				<?php
 				foreach ( $all_packages as $slug => $package ) {
-
-
-					$package_class = 'wpchill-pricing-package wpchill-title wpchill-'.$slug;
+					$package_class = 'wpchill-pricing-package wpchill-title wpchill-' . $slug;
 
 					?>
 					<div class="<?php echo esc_attr( $package_class ); ?>">
@@ -511,22 +497,26 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 							}
 
 							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
-							$url           = add_query_arg( array(
+							$url           = add_query_arg(
+								array(
 									'edd_action'   => 'add_to_cart',
 									'download_id'  => $package['id'],
 									'utm_source'   => 'upsell',
 									'utm_medium'   => 'litevspro',
 									'utm_campaign' => $slug,
-							), $checkout_page );
+								),
+								$checkout_page
+							);
 
 							$buy_button = apply_filters(
-									'wpchill-upsells-buy-button',
-									array( 'url'   => $url ,
-										   'label' => __( 'Buy Now', 'modula-best-grid-gallery' )
-									),
-									$slug,
-									$package,
-									$this
+								'wpchill-upsells-buy-button',
+								array(
+									'url'   => $url,
+									'label' => __( 'Buy Now', 'modula-best-grid-gallery' ),
+								),
+								$slug,
+								$package,
+								$this
 							);
 							?>
 
@@ -539,24 +529,24 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 							</div>
 							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank"
-							   class="button button-primary button-hero">
+								class="button button-primary button-hero">
 								<?php echo esc_html( $buy_button['label'] ); ?>
 							</a>
 							<?php
-						} else if ( isset( $lite_plan['modula-lite'] ) && 'modula-lite' !== $slug ) {
+						} elseif ( isset( $lite_plan['modula-lite'] ) && 'modula-lite' !== $slug ) {
 							?>
 							<a href="https://wp-modula.com/pricing/?utm_source=modula-lite&utm_medium=about-page&utm_campaign=upsell" target="_blank"
-							   class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
+								class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
 								<?php echo esc_html__( 'Upgrade now!', 'modula-best-grid-gallery' ); ?>
 							</a>
 							<?php
-						} ?>
+						}
+						?>
 
 					</div>
 				<?php } ?>
 			</div>
 			<?php
-
 		}
 
 		/**
@@ -574,6 +564,5 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			return $transients;
 		}
-
 	}
 }

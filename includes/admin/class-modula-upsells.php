@@ -19,7 +19,7 @@ class Modula_Upsells {
 	 */
 	private $free_vs_pro_link = '#';
 
-	function __construct() {
+	public function __construct() {
 
 		if ( class_exists( 'WPChill_Upsells' ) ) {
 
@@ -68,43 +68,43 @@ class Modula_Upsells {
 		add_action( 'wp_ajax_modula_modal-video_upgrade', array( $this, 'get_modal_video_upgrade' ) );
 
 		/* Hooks */
-		add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
-		add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
-		add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
-		add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
-		add_filter( 'modula_filters_tab_content', array( $this, 'filters_tab_upsell' ) );
-		add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightboxes_tab_upsell' ) );
-		add_filter( 'modula_misc_tab_content', array( $this, 'misc_tab_upsell' ) );
-		add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
-		add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
-		add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
-		add_filter( 'modula_download_tab_content', array( $this, 'download_tab_upsell' ) );
-		add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
-		add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
-		add_filter( 'modula_image_licensing_tab_content', array( $this, 'image_licensing_tab_upsell' ) );
-		add_filter( 'modula_comments_tab_content', array( $this, 'comments_tab_upsell' ) );
+		// add_filter( 'modula_hover-effect_tab_content', array( $this, 'hovereffects_tab_upsell' ), 15, 1 );
+		// add_filter( 'modula_image-loaded-effects_tab_content', array( $this, 'loadingeffects_tab_upsell' ), 15, 1 );
+		// add_filter( 'modula_video_tab_content', array( $this, 'video_tab_upsell' ) );
+		// add_filter( 'modula_speedup_tab_content', array( $this, 'speedup_tab_upsell' ) );
+		// add_filter( 'modula_filters_tab_content', array( $this, 'filters_tab_upsell' ) );
+		// add_filter( 'modula_lightboxes_tab_content', array( $this, 'lightboxes_tab_upsell' ) );
+		// add_filter( 'modula_misc_tab_content', array( $this, 'misc_tab_upsell' ) );
+		// add_filter( 'modula_password_protect_tab_content', array( $this, 'password_protect_tab_upsell' ) );
+		// add_filter( 'modula_watermark_tab_content', array( $this, 'watermark_tab_upsell' ) );
+		// add_filter( 'modula_slideshow_tab_content', array( $this, 'slideshow_tab_upsell' ) );
+		// add_filter( 'modula_download_tab_content', array( $this, 'download_tab_upsell' ) );
+		// add_filter( 'modula_exif_tab_content', array( $this, 'exif_tab_upsell' ) );
+		// add_filter( 'modula_zoom_tab_content', array( $this, 'zoom_tab_upsell' ) );
+		// add_filter( 'modula_image_licensing_tab_content', array( $this, 'image_licensing_tab_upsell' ) );
+		// add_filter( 'modula_comments_tab_content', array( $this, 'comments_tab_upsell' ) );
 
 		// Modula Advanced Shortcodes settings tab upsells
-		add_action( 'modula_compression_settings_tab', array( $this, 'speedup_settings_tab_upsell' ) );
-		add_action( 'modula_standalone_settings_tab', array( $this, 'albums_settings_tab_upsell' ) );
-		add_action( 'modula_shortcodes_settings_tab', array( $this, 'advanced_shortcodes_settings_tab_upsell' ) );
-		add_action( 'modula_watermark_settings_tab', array( $this, 'watermark_settings_tab_upsell' ) );
-		add_action( 'modula_roles_settings_tab', array( $this, 'roles_settings_tab_upsell' ) );
+		// add_action( 'modula_compression_settings_tab', array( $this, 'speedup_settings_tab_upsell' ) );
+		// add_action( 'modula_standalone_settings_tab', array( $this, 'albums_settings_tab_upsell' ) );
+		// add_action( 'modula_shortcodes_settings_tab', array( $this, 'advanced_shortcodes_settings_tab_upsell' ) );
+		// add_action( 'modula_watermark_settings_tab', array( $this, 'watermark_settings_tab_upsell' ) );
+		// add_action( 'modula_roles_settings_tab', array( $this, 'roles_settings_tab_upsell' ) );
 
 		// Add upsell for the Video tab.
-		add_action( 'modula_video_settings_tab', array( $this, 'video_settings_tab_upsell' ) );
+		// add_action( 'modula_video_settings_tab', array( $this, 'video_settings_tab_upsell' ) );
 		// Add upsell for the Instagram tab.
-		add_action( 'modula_instagram_settings_tab', array( $this, 'instagram_settings_tab_upsell' ) );
+		// add_action( 'modula_instagram_settings_tab', array( $this, 'instagram_settings_tab_upsell' ) );
 
 		// Remove upsells badge if user's license includes the addon
-		add_filter( 'modula_admin_page_subtabs', array( $this, 'remove_upsells_badge' ), 999 );
+		// add_filter( 'modula_admin_page_subtabs', array( $this, 'remove_upsells_badge' ), 999 );
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
 			add_filter( 'modula_cpt_metaboxes', array( $this, 'albums_upsell_meta' ) );
 		}
 
 		if ( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( 'modula-whitelabel' ) ) {
-			add_filter( 'modula_admin_page_subtabs', array( $this, 'add_whitelabel_tab' ), 140 );
+			// add_filter( 'modula_admin_page_subtabs', array( $this, 'add_whitelabel_tab' ), 140 );
 		}
 
 		/* Fire our meta box setup function on the post editor screen. */
@@ -923,7 +923,7 @@ class Modula_Upsells {
 
 		return $tab_content;
 	}
-	
+
 	public function advanced_shortcodes_settings_tab_upsell( $tab_content ) {
 
 		if ( ! $this->wpchill_upsells || $this->wpchill_upsells->is_upgradable_addon( 'modula-advanced-shortcodes' ) ) {
@@ -985,7 +985,7 @@ class Modula_Upsells {
 					'modula-albums'
 				),
 			);
-		} elseif ( ! class_exists( 'Modula_Albums' ) && $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
+		} elseif ( ! class_exists( 'Modula_Pro\Extensions\Albums\Albums' ) && $this->wpchill_upsells && ! $this->wpchill_upsells->is_upgradable_addon( 'modula-albums' ) ) {
 			return $this->generate_upsell_config(
 				__( 'Modula Albums', 'modula-best-grid-gallery' ),
 				sprintf(

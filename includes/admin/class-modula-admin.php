@@ -8,20 +8,11 @@ class Modula_Admin {
 	private $tabs;
 	private $subtabs;
 	private $menu_links;
-	private $version     = '2.0.0';
 	private $current_tab = 'general';
-	private $current_subtab;
 
 	public function __construct() {
-
 		// Register our submenus
 		add_action( 'admin_menu', array( $this, 'register_submenus' ) );
-
-		// Show general tab
-		add_action( 'modula_admin_tab_general', array( $this, 'show_general_tab' ) );
-
-		// Add CSS to admin menu
-		add_action( 'admin_head', array( $this, 'admin_custom_css' ) );
 		add_action( 'modula_scripts_before_wp_modula', array( $this, 'add_autosuggest_scripts' ) );
 		add_action( 'wp_ajax_modula_autocomplete', array( $this, 'autocomplete_url' ) );
 		add_action( 'delete_attachment', array( $this, 'delete_resized_image' ) );
@@ -29,15 +20,6 @@ class Modula_Admin {
 		add_action( 'wp_ajax_modula_lbu_notice', array( $this, 'modula_lbu_notice' ) );
 
 		add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
-
-		// Add Importer Tab.
-		add_filter( 'modula_admin_page_tabs', array( $this, 'add_imp_exp_tab' ) );
-
-		// Render Importer tab.
-		add_action( 'modula_admin_tab_imp_exp', array( $this, 'render_imp_exp_tab' ) );
-
-		add_action( 'modula_admin_tab_image_licensing', array( $this, 'render_image_licensing_tab' ) );
-		add_action( 'admin_init', array( $this, 'update_image_licensing_options' ) );
 
 		// WP Media ajax hook to add images to gallery
 		add_action( 'wp_ajax_add_images_to_gallery', array( $this, 'add_images_to_gallery_callback' ) );
