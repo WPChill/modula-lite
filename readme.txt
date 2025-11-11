@@ -323,7 +323,7 @@ The simplest way to install is to click on 'Plugins' then 'Add' and type 'Modula
 
 == Changelog ==
 = 2.12.30 - 11.11.2025 =
-Fixed: Prevent repeated remote requests when Modula API returns an error.
+Fixed: Improved remote requests handling.
 
 = 2.12.29 - 07.11.2025 =
 Fixed: Security issue.
