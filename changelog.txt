@@ -1,3 +1,6 @@
+= 2.12.30 - 11.11.2025 =
+Fixed: Improved remote requests handling.
+
 = 2.12.29 - 07.11.2025 =
 Fixed: Security issue.
 
