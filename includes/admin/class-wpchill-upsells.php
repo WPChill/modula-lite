@@ -161,6 +161,7 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 
 			if ( is_wp_error( $response ) ) {
 				set_transient( $this->get_transient( 'fetch_packages_error_count' ), $err_count ? ++$err_count : 1, 3600 );
+				return;
 			}
 
 			delete_transient( $this->get_transient( 'fetch_packages_error_count' ) );
