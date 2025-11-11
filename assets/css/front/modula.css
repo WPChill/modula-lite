@@ -15,7 +15,7 @@ html body .modula .modula-items {
     min-height: 10px;
 }
 
-html body .modula .modula-items .modula-item .modula-item-content > a {
+html body .modula .modula-items .modula-item .modula-item-content>a {
     display: block;
     position: absolute;
     top: 0;
@@ -38,7 +38,8 @@ html body .modula .modula-items .modula-item .jtg-social {
 
 html body .modula:not(.modula-loaded-scale).modula-gallery-initialized .modula-items .modula-item.tg-loaded .modula-item-content,
 html body .modula:not(.modula-loaded-scale).modula-gallery-initialized .modula-items.justified-gallery .modula-item .modula-item-content,
-html body .modula.modula-columns:not(.modula-loaded-scale).modula-gallery-initialized .modula-items .modula-item .modula-item-content {
+html body .modula.modula-columns:not(.modula-loaded-scale):not(.modula-is-lazy).modula-gallery-initialized .modula-items .modula-item .modula-item-content,
+html body .modula.modula-gallery-bnb:not(.modula-loaded-scale):not(.modula-is-lazy).modula-gallery-initialized .modula-items .modula-item .modula-item-content {
     transform: scale(1) translate(0, 0) rotate(0deg) !important;
     opacity: 1;
 }
@@ -57,6 +58,7 @@ html body .modula .modula-items .modula-item picture.pic img {
     max-width: 999em;
     height: 100%;
 }
+
 html body .modula.modula-creative-gallery .modula-items .modula-item picture.pic img {
     width: 100%;
 }
@@ -190,19 +192,19 @@ html body .et_pb_module_inner .modula .modula-items .jtg-social {
     transition: all .3s !important;
 }
 
-html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social  a {
-    margin-right:10px;
+html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social a {
+    margin-right: 10px;
 }
 
-@media all and (max-width:480px){
+@media all and (max-width:480px) {
     html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social {
-        right:0;
-        width:100%;
-        text-align:center;
+        right: 0;
+        width: 100%;
+        text-align: center;
     }
 
-    html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social  a {
-        padding:5px;
+    html body .modula .modula-items .modula-item.effect-pufrobo .jtg-social a {
+        padding: 5px;
     }
 }
 
@@ -251,7 +253,7 @@ html body .modula .modula-item.effect-pufrobo p {
     letter-spacing: 1px;
 }
 
-html body .modula .modula-items .modula-item.effect-pufrobo .jtg-title{
+html body .modula .modula-items .modula-item.effect-pufrobo .jtg-title {
     /*top: 30px;*/
     top: 10%;
     -webkit-transition: -webkit-transform 0.35s;
@@ -265,7 +267,7 @@ html body .et_pb_module_inner .modula .modula-items .modula-item.effect-pufrobo 
     transition: transform 0.35s !important;
 }
 
-html body .modula .modula-item.effect-pufrobo:hover .jtg-title{
+html body .modula .modula-item.effect-pufrobo:hover .jtg-title {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
@@ -317,10 +319,11 @@ html body .modula .modula-items .modula-item.effect-pufrobo .figc .jtg-title:bef
     display: none;
 }
 
-html body .modula .modula-items .modula-item > a:not(.modula-no-follow) {
+html body .modula .modula-items .modula-item>a:not(.modula-no-follow) {
     cursor: zoom-in;
 }
-html body .modula .modula-items .modula-item > a.modula-no-follow {
+
+html body .modula .modula-items .modula-item>a.modula-no-follow {
     cursor: default;
 }
 
@@ -382,74 +385,74 @@ html body .modula-row {
     margin-left: -15px;
 }
 
-html body .modula-row-cols-1 > * {
+html body .modula-row-cols-1>* {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%
 }
 
-html body .modula-row-cols-2 > * {
+html body .modula-row-cols-2>* {
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%
 }
 
-html body .modula-row-cols-3 > * {
+html body .modula-row-cols-3>* {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
     max-width: 33.333333%
 }
 
-html body .modula-row-cols-4 > * {
+html body .modula-row-cols-4>* {
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%
 }
 
-html body .modula-row-cols-5 > * {
+html body .modula-row-cols-5>* {
     -ms-flex: 0 0 20%;
     flex: 0 0 20%;
     max-width: 20%
 }
 
-html body .modula-row-cols-6 > * {
+html body .modula-row-cols-6>* {
     -ms-flex: 0 0 16.666667%;
     flex: 0 0 16.666667%;
     max-width: 16.666667%
 }
 
 @media (min-width: 576px) {
-    html body .modula-row-cols-sm-1 > * {
+    html body .modula-row-cols-sm-1>* {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    html body .modula-row-cols-sm-2 > * {
+    html body .modula-row-cols-sm-2>* {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    html body .modula-row-cols-sm-3 > * {
+    html body .modula-row-cols-sm-3>* {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    html body .modula-row-cols-sm-4 > * {
+    html body .modula-row-cols-sm-4>* {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    html body  .modula-row-cols-sm-5 > * {
+    html body .modula-row-cols-sm-5>* {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    html body .modula-row-cols-sm-6 > * {
+    html body .modula-row-cols-sm-6>* {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -457,37 +460,37 @@ html body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 768px) {
-    html body .modula-row-cols-md-1 > * {
+    html body .modula-row-cols-md-1>* {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    html body .modula-row-cols-md-2 > * {
+    html body .modula-row-cols-md-2>* {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    html body .modula-row-cols-md-3 > * {
+    html body .modula-row-cols-md-3>* {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    html body .modula-row-cols-md-4 > * {
+    html body .modula-row-cols-md-4>* {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    html body  .modula-row-cols-md-5 > * {
+    html body .modula-row-cols-md-5>* {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    html body .modula-row-cols-md-6 > * {
+    html body .modula-row-cols-md-6>* {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -496,37 +499,37 @@ html body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 992px) {
-    html body .modula-row-cols-lg-1 > * {
+    html body .modula-row-cols-lg-1>* {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    html body .modula-row-cols-lg-2 > * {
+    html body .modula-row-cols-lg-2>* {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    html body .modula-row-cols-lg-3 > * {
+    html body .modula-row-cols-lg-3>* {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    html body .modula-row-cols-lg-4 > * {
+    html body .modula-row-cols-lg-4>* {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    html body .modula-row-cols-lg-5 > * {
+    html body .modula-row-cols-lg-5>* {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    html body .modula-row-cols-lg-6 > * {
+    html body .modula-row-cols-lg-6>* {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -534,37 +537,37 @@ html body .modula-row-cols-6 > * {
 }
 
 @media (min-width: 1200px) {
-    html body .modula-row-cols-xl-1 > * {
+    html body .modula-row-cols-xl-1>* {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%
     }
 
-    html body  .modula-row-cols-xl-2 > * {
+    html body .modula-row-cols-xl-2>* {
         -ms-flex: 0 0 50%;
         flex: 0 0 50%;
         max-width: 50%
     }
 
-    html body  .modula-row-cols-xl-3 > * {
+    html body .modula-row-cols-xl-3>* {
         -ms-flex: 0 0 33.333333%;
         flex: 0 0 33.333333%;
         max-width: 33.333333%
     }
 
-    html body .modula-row-cols-xl-4 > * {
+    html body .modula-row-cols-xl-4>* {
         -ms-flex: 0 0 25%;
         flex: 0 0 25%;
         max-width: 25%
     }
 
-    html body .modula-row-cols-xl-5 > * {
+    html body .modula-row-cols-xl-5>* {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
         max-width: 20%
     }
 
-    html body .modula-row-cols-xl-6 > * {
+    html body .modula-row-cols-xl-6>* {
         -ms-flex: 0 0 16.666667%;
         flex: 0 0 16.666667%;
         max-width: 16.666667%
@@ -580,7 +583,7 @@ html body div.modula-powered {
     text-align: right;
     font-size: 14px;
     margin-right: 5px;
-    clear:both;
+    clear: both;
 }
 
 html body div.modula-powered svg.modula-logo {
@@ -598,7 +601,7 @@ html body div.modula-powered svg.modula-logo {
     display: inline-block;
 }
 
-.modula-gallery:not( .modula-gallery-initialized ) > .modula-items {
+.modula-gallery:not(.modula-gallery-initialized)>.modula-items {
     visibility: hidden;
 }
 
@@ -609,33 +612,117 @@ html body div.modula-powered svg.modula-logo {
 .modula-creative-commons-wrap p {
     margin: 0;
 }
+
 .modula-creative-commons-wrap img {
     height: 20px;
     margin-right: 10px;
 }
-.modula-fancybox-container button.f-button.is-close-btn{
-    display:none;
-}
-html body .modula-items .modula-item .jtg-social-mobile {
+
+.modula-fancybox-container button.f-button.is-close-btn {
     display: none;
 }
-@media (max-width: 992px ) {
-    html body .modula-items .modula-item .jtg-social-mobile-icons {
+
+html body .modula-items .modula-item .jtg-social-expandable {
+    display: none;
+}
+
+html body .modula-items .modula-item .jtg-social-expandable-icons:not(.modula-show-socials) {
+    display: none;
+}
+
+html body .modula-items .modula-item .jtg-social-expandable-icons {
+    padding: 10px 15px;
+    background-color: #000;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 58px;
+    display: inline-flex;
+    z-index: 99;
+    right: 0;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    max-width: calc(100% - 20px);
+    justify-content: space-evenly;
+    margin-right: 8px;
+}
+
+html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons {
+    left: 0;
+    right: unset;
+}
+
+html body .modula-items .modula-item .jtg-social-expandable-icons::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000;
+    bottom: -8px;
+    right: 10px;
+}
+
+html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons::before {
+    right: unset;
+    left: 10px;
+}
+
+html body .modula-items .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable {
+    padding: 10px;
+    background-color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 999;
+    display: block;
+}
+
+html body .modula .modula-items .jtg-social-desktop-collapsed.jtg-social-expandable a.modula-icon-share {
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}
+
+html body .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable-icons a {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 0 0 16px;
+}
+
+html body .modula-items .modula-item .jtg-social-desktop-collapsed.jtg-social-expandable-icons:not(.modula-show-socials) {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    html body .modula-items .modula-item .jtg-social-expandable-icons {
         padding: 10px 15px;
         background-color: #000;
         border-radius: 20px;
         position: absolute;
-        top: calc(-100% - 15px);
-        display: flex;
+        bottom: 58px;
+        display: inline-flex;
         z-index: 99;
         right: 0;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        max-width: calc(100% - 20px);
+        justify-content: space-evenly;
+        margin-right: 8px;
     }
-    html body .modula-items .modula-item .modula-socials-right .jtg-social-mobile-icons {
+
+    html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons {
         left: 0;
         right: unset;
     }
-    
-    html body .modula-items .modula-item .jtg-social-mobile-icons::before {
+
+    html body .modula-items .modula-item .jtg-social-expandable-icons::before {
         content: '';
         position: absolute;
         width: 0;
@@ -646,12 +733,13 @@ html body .modula-items .modula-item .jtg-social-mobile {
         bottom: -8px;
         right: 10px;
     }
-    html body .modula-items .modula-item .modula-socials-right .jtg-social-mobile-icons::before {
+
+    html body .modula-items .modula-item .modula-socials-right .jtg-social-expandable-icons::before {
         right: unset;
         left: 10px;
     }
-    
-    html body .modula-items .modula-item .jtg-social-mobile {
+
+    html body .modula-items .modula-item .jtg-social-expandable {
         padding: 10px;
         background-color: #000;
         border-radius: 50%;
@@ -662,7 +750,8 @@ html body .modula-items .modula-item .jtg-social-mobile {
         z-index: 999;
         display: block;
     }
-    html body .modula .modula-items .jtg-social-mobile a.modula-icon-share {
+
+    html body .modula .modula-items .jtg-social-expandable a.modula-icon-share {
         pointer-events: none;
         display: flex;
         justify-content: center;
@@ -670,17 +759,18 @@ html body .modula-items .modula-item .jtg-social-mobile {
         border-radius: 50%;
         text-decoration: none;
     }
-    html body .modula-item .jtg-social-mobile .jtg-social-mobile-icons a{
+
+    html body .modula-item .jtg-social-expandable-icons a {
         justify-content: center;
         align-items: center;
         display: flex;
     }
-    
-    html body .modula-items .modula-item .jtg-social-mobile:not(.modula-show-socials) .jtg-social-mobile-icons{
+
+    html body .modula-items .modula-item .jtg-social-expandable-icons:not(.modula-show-socials) {
         display: none;
     }
-    
-    html body .modula-items .modula-item .jtg-social{
+
+    html body .modula-items .modula-item .jtg-social {
         display: none;
     }
 }
@@ -693,6 +783,10 @@ html body .modula-items .modula-item .jtg-social-mobile {
 }
 
 html body .modula-fancybox-container button.f-button {
-    padding:0px;
+    padding: 0px;
 }
 
+html body .modula.modula-gallery .modula-item-link:focus-visible {
+    outline: 2px solid #005fcc;
+    outline-offset: -2px;
+}

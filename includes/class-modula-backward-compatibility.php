@@ -50,6 +50,10 @@ class Modula_Backward_Compatibility {
 		add_filter( 'modula_album_lightbox_item', array( $this, 'generate_optimized_image_links' ), 110, 3 );
 		add_filter( 'modula_link_item', array( $this, 'generate_modula_link_image_url' ), 110, 4 );
 		add_filter( 'modula_template_image_srcset', array( $this, 'modula_speedup_srcset' ), 31, 3 );
+
+		// Backwards compatibility social icons collapsed
+		add_filter( 'modula_admin_field_value', array( $this, 'backward_compatibility_admin_social_icons_collapsed' ), 10, 3 );
+		add_filter( 'modula_backwards_compatibility_front', array( $this, 'backward_compatibility_front_social_icons_collapsed' ), 10 );
 	}
 
 	public function backward_compatibility_admin_margin( $value, $key, $settings ) {
@@ -533,7 +537,7 @@ class Modula_Backward_Compatibility {
 		}
 
 		if ( isset( $settings['lightbox_transitionEffect'] ) ) {
-			$options['Carousel']['transition'] = ( 'false' ===  $settings['lightbox_transitionEffect'] ) ? 'fade' : $settings['lightbox_transitionEffect'];
+			$options['Carousel']['transition'] = ( 'false' === $settings['lightbox_transitionEffect'] ) ? 'fade' : $settings['lightbox_transitionEffect'];
 		}
 
 		if ( isset( $settings['lightbox_animationEffect'] )
@@ -612,7 +616,6 @@ class Modula_Backward_Compatibility {
 			$video_url = $image['video_url'];
 			// check if it is not in simple format.
 			if ( ! strpos( $video_url, 'player' ) ) {
-
 				$image_config['src'] = esc_url( $video_url );
 				return $image_config;
 			} else {
@@ -645,7 +648,7 @@ class Modula_Backward_Compatibility {
 	public function backward_compatibility_albums_jsconfig( $template_data ) {
 
 		// Get lightbox config data.
-		$data = json_decode( $template_data['album_container']['data-config'], true );
+		$data      = json_decode( $template_data['album_container']['data-config'], true );
 		$js_config = isset( $template_data['js_config'] ) ? $template_data['js_config'] : array();
 		// Set Modula's fancybox 5 default options.
 		$data['lightbox_settings'] = array_merge( Modula_Helper::lightbox_default_options(), $data['lightbox_settings'] );
@@ -720,6 +723,45 @@ class Modula_Backward_Compatibility {
 		$srcset = str_replace( $old, $new, $srcset );
 
 		return $srcset;
+	}
+
+	/**
+	 * Backwards compatibility social icons collapsed
+	 *
+	 * @param $value
+	 * @param $key
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.5.0
+	 */
+	public function backward_compatibility_admin_social_icons_collapsed( $value, $key, $settings ) {
+		if ( 'socialDesktopCollapsed' !== $key || isset( $settings['socialDesktopCollapsed'] ) ) {
+			return $value;
+		}
+
+		if ( ! isset( $settings['socialDesktopCollapsed'] ) && ( ! isset( $settings['enableSocial'] ) || ( isset( $settings['enableSocial'] ) && ! boolval( $settings['enableSocial'] ) ) ) ) {
+			return 1;
+		} if ( ! isset( $settings['socialDesktopCollapsed'] ) && ( isset( $settings['enableSocial'] ) && boolval( $settings['enableSocial'] ) ) ) {
+			return 0;
+		}
+	}
+
+	/**
+	 *  Backwards compatibility social icons collapsed
+	 *
+	 * @param $settings
+	 *
+	 * @return mixed
+	 * @since 2.5.0
+	 */
+	public function backward_compatibility_front_social_icons_collapsed( $settings ) {
+
+		if ( ! isset( $settings['socialDesktopCollapsed'] ) ) {
+			$settings['socialDesktopCollapsed'] = 0;
+		}
+
+		return $settings;
 	}
 }
 

@@ -5,6 +5,11 @@
  *  Author: WP Modula
  */
 
+
+if (typeof jQuery !== 'undefined' && window.ModulaIsotope && typeof jQuery.fn.modulaisotope === 'undefined') {
+    jQueryBridget('modulaisotope', window.ModulaIsotope, jQuery);
+}
+
 // Compatibility with WPBakery Page Builder( reset modula after section go full width )
 jQuery(document).on(
 	'vc-full-width-row-single vc-full-width-row',
@@ -124,13 +129,23 @@ jQuery(window).on('elementor/frontend/init', function () {
 			instance.onResize(instance);
 		}
 
+		let resizeTimeout;
+		let resizeObserverTimeout;
+
 		$(window).resize(function () {
-			instance.onResize(instance);
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(function () {
+				instance.onResize(instance);
+			}, 150);
 		});
 
 		const resizeObserver = new ResizeObserver((entries) => {
-			instance.onResize(instance);
+			clearTimeout(resizeObserverTimeout);
+			resizeObserverTimeout = setTimeout(() => {
+				instance.onResize(instance);
+			}, 150);
 		});
+
 		resizeObserver.observe(instance.$element[0]);
 
 		$(window).on('modula-update', function () {
@@ -1181,17 +1196,28 @@ jQuery(window).on('elementor/frontend/init', function () {
 		});
 	};
 
-	// setup social button showing socials links
 	var setupSocials = function ($tiles) {
-		$tiles.find('.jtg-social-mobile').click(function (e) {		
+		$tiles.find('.jtg-social-expandable').on('click', function (e) {
 			e.preventDefault();
-			$('.jtg-social-mobile').not(this).removeClass('modula-show-socials');
-			$(this).toggleClass('modula-show-socials');
-			if( isElementOutOfHorizontalViewport( $(this).find('.jtg-social-mobile-icons') ) ){
-				$(this).addClass('modula-socials-right');
+			e.stopPropagation();
+	
+			var $parent = $(this).parent();
+			var $icons  = $parent.children('.jtg-social-expandable-icons');
+	
+			$tiles.find('.jtg-social-expandable-icons').not($icons)
+				  .removeClass('modula-show-socials');
+	
+			$icons.toggleClass('modula-show-socials');
+
+			if ($icons.hasClass('modula-show-socials') &&
+				isElementOutOfHorizontalViewport($icons)) {
+				$icons.addClass('modula-socials-right');
+			} else {
+				$icons.removeClass('modula-socials-right');
 			}
 		});
 	};
+	
 
 	var  isElementOutOfHorizontalViewport = function (el) {
 		var rect = el[0].getBoundingClientRect();
@@ -1284,10 +1310,12 @@ function modulaInViewport(element) {
 	}
 
 	var elementBounds = element.getBoundingClientRect();
+	var winHeight = jQuery(window).height();
 
 	return (
-		(elementBounds.top - jQuery(window).height() <= -100 &&
-		 elementBounds.top - jQuery(window).height() >= -400) ||
-		elementBounds.bottom <= jQuery(window).height()
+		(elementBounds.top - winHeight <= -100 &&
+		 elementBounds.top - winHeight >= -400) ||
+		elementBounds.bottom <= winHeight ||
+		(elementBounds.top < winHeight && elementBounds.bottom > 0)
 	);
 }

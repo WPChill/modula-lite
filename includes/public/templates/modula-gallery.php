@@ -30,36 +30,39 @@
 			// Create array with data in order to send it to image template
 			$item_data = array(
 				/* Item Elements */
-				'title'             => Modula_Helper::get_title( $image, 'title' ),
-				'description'       => Modula_Helper::get_description( $image, 'caption' ),
-				'lightbox'          => $data->settings['lightbox'],
+				'title'                  => Modula_Helper::get_title( $image, 'title' ),
+				'description'            => Modula_Helper::get_description( $image, 'caption' ),
+				'lightbox'               => $data->settings['lightbox'],
 
 				/* What to show from elements */
-				'hide_title'        => $should_hide_title,
-				'hide_description'  => boolval( $data->settings['hide_description'] ) ? true : false,
-				'hide_socials'      => ! boolval( $data->settings['enableSocial'] ),
-				'enableTwitter'     => boolval( $data->settings['enableTwitter'] ),
-				'enableWhatsapp'    => boolval( $data->settings['enableWhatsapp'] ),
-				'enableFacebook'    => boolval( $data->settings['enableFacebook'] ),
-				'enablePinterest'   => boolval( $data->settings['enablePinterest'] ),
-				'enableLinkedin'    => boolval( $data->settings['enableLinkedin'] ),
-				'enableEmail'       => boolval( $data->settings['enableEmail'] ),
-				'lazyLoad'          => boolval( $data->settings['lazy_load'] ),
+				'hide_title'             => $should_hide_title,
+				'hide_description'       => boolval( $data->settings['hide_description'] ) ? true : false,
+				'hide_socials'           => ! boolval( $data->settings['enableSocial'] ) || boolval( $data->settings['socialDesktopCollapsed'] ),
+				'enableTwitter'          => boolval( $data->settings['enableTwitter'] ),
+				'enableWhatsapp'         => boolval( $data->settings['enableWhatsapp'] ),
+				'enableFacebook'         => boolval( $data->settings['enableFacebook'] ),
+				'enablePinterest'        => boolval( $data->settings['enablePinterest'] ),
+				'enableLinkedin'         => boolval( $data->settings['enableLinkedin'] ),
+				'enableEmail'            => boolval( $data->settings['enableEmail'] ),
+				'socialDesktopCollapsed' => boolval( $data->settings['socialDesktopCollapsed'] ),
+				'lazyLoad'               => modula_run_lazy_load( $data->settings ),
 
 				/* Item container attributes & classes */
-				'item_classes'      => array( 'modula-item' ),
-				'item_attributes'   => array(),
+				'item_classes'           => array( 'modula-item' ),
+				'item_attributes'        => array(),
 
 				/* Item link attributes & classes */
-				'link_classes'      => array( 'tile-inner', 'modula-item-link' ),
-				'link_attributes'   => array(
+				'link_classes'           => array( 'tile-inner', 'modula-item-link' ),
+				'link_attributes'        => array(
 					'data-image-id' => $image['id'],
+					/*Accessibility */
+					'role'          => 'button',
 				),
 
 				/* Item img attributes & classes */
-				'img_classes'       => array( 'pic', 'wp-image-' . $image['id'] ),
+				'img_classes'            => array( 'pic', 'wp-image-' . $image['id'] ),
 
-				'img_attributes'    => array(
+				'img_attributes'         => array(
 					'data-valign' => isset( $image['valign'] )
 					? esc_attr( $image['valign'] ) : 'center',
 					'data-halign' => isset( $image['halign'] )
@@ -69,7 +72,7 @@
 					'data-full'   => $full_img_src,
 					'title'       => isset( $image['title'] ) ? $image['title'] : '',
 				),
-				'social_attributes' => array(
+				'social_attributes'      => array(
 					'data-modula-gallery-id' => preg_replace( '/[^0-9]/', '', $data->gallery_id ),
 					'data-modula-item-id'    => absint( $image['id'] ),
 					'data-modula-image-src'  => $full_img_src,

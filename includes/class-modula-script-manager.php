@@ -6,9 +6,13 @@ class Modula_Script_Manager {
 	private $scripts = array();
 	private $styles  = array();
 
-	function __construct() {
+	public function __construct() {
 
 		add_action( 'wp_footer', array( $this, 'enqueue_scripts' ), 10 );
+
+		// Exclude scripts from concatenation.
+		add_filter( 'rocket_exclude_js', array( $this, 'exclude_from_wp_rocket' ) );
+		add_filter( 'autoptimize_filter_js_exclude', array( $this, 'exclude_from_autoptimize' ) );
 	}
 
 	public static function get_instance() {
@@ -96,5 +100,44 @@ class Modula_Script_Manager {
 
 	public function add_styles( $handlers ) {
 		$this->styles = array_merge( $this->styles, $handlers );
+	}
+
+	public function exclude_from_wp_rocket( $excluded_js ) {
+		global $wp_scripts;
+
+		if ( ! isset( $wp_scripts ) || empty( $this->scripts ) ) {
+			return $excluded_js;
+		}
+
+		foreach ( $this->scripts as $handle ) {
+			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
+				$src = $wp_scripts->registered[ $handle ]->src;
+
+				// Convert the full URL into a relative path (e.g. /wp-content/plugins/...)
+				if ( ! empty( $src ) ) {
+					$path = wp_parse_url( $src, PHP_URL_PATH );
+					if ( $path ) {
+						$excluded_js[] = $path;
+					}
+				}
+			}
+		}
+
+		// jQuery is a must have.
+		$excluded_js[] = '/wp-includes/js/jquery/jquery(.min)?.js';
+
+		return array_unique( array_filter( $excluded_js ) );
+	}
+
+	public function exclude_from_autoptimize( $excluded ) {
+		$excludes = explode( ',', $excluded );
+
+		$excludes = array_merge(
+			$excludes,
+			$this->scripts,
+			array( 'jquery', 'jquery.min' ) // jQuery is a must have.
+		);
+
+		return implode( ',', array_unique( array_filter( $excludes ) ) );
 	}
 }

@@ -36,7 +36,7 @@
 				<?php if ( ! $data->hide_description && '' != $data->description ) : ?>
 					<p class="description"><?php echo wp_kses_post( $data->description ); ?></p>
 				<?php endif ?>
-				<?php if ( ! $data->hide_socials ) : ?>
+				<?php if ( ! $data->hide_socials && ! $data->socialDesktopCollapsed ) : ?>
 					<div class="jtg-social">
 						<?php if ( $data->enableTwitter ) : ?>
 							<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on X', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ? Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ); ?></a>

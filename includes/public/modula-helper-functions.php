@@ -191,7 +191,7 @@ function modula_check_custom_grid( $item_data, $item, $settings ) {
 
 function modula_enable_lazy_load( $item_data, $item, $settings ) {
 
-	if ( '1' != $settings['lazy_load'] && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
+	if ( ! modula_run_lazy_load( $settings ) && apply_filters( 'modula_lazyload_compatibility_item', true ) ) {
 		return $item_data;
 	}
 
@@ -269,6 +269,10 @@ function modula_add_gallery_class( $template_data ) {
 		$template_data['gallery_container']['class'][] = 'modula-creative-gallery';
 	}
 
+	if ( modula_run_lazy_load( $template_data['settings'] ) ) {
+		$template_data['gallery_container']['class'][] = 'modula-is-lazy';
+	}
+
 	return $template_data;
 }
 
@@ -276,7 +280,7 @@ function modula_add_scripts( $scripts, $settings ) {
 
 	$needed_scripts = array();
 
-	if ( apply_filters( 'modula_lazyload_compatibility_script', ( '1' == $settings['lazy_load'] ), $settings ) ) {
+	if ( apply_filters( 'modula_lazyload_compatibility_script', modula_run_lazy_load( $settings ), $settings ) ) {
 		$needed_scripts[] = 'modula-lazysizes';
 	}
 
@@ -448,16 +452,18 @@ function modula_href_required() {
 }
 
 function modula_mobile_share( $data ){
-	if ( $data->hide_socials ){
+
+	$any_social = $data->enableTwitter || $data->enableFacebook || $data->enableWhatsapp || $data->enablePinterest || $data->enableLinkedin || $data->enableEmail;
+
+	if ( ! $any_social ) {
 		return;
 	}
 
 	?>
-	<div class="jtg-social-mobile">
-		<?php if( $data->enableTwitter || $data->enableFacebook || $data->enableWhatsapp || $data->enablePinterest || $data->enableLinkedin || $data->enableEmail ) : ?>
-				<a class="modula-icon-share" aria-label="<?php echo esc_html__( 'Click to share', 'modula-best-grid-gallery' ); ?>" href="#"><?php echo Modula_Helper::get_icon( 'share' ) ?></a>
-		<?php endif ?>
-		<div class="jtg-social-mobile-icons">
+	<div class="jtg-social-expandable <?php  echo $data->socialDesktopCollapsed ? esc_attr( 'jtg-social-desktop-collapsed' ) : ''; ?>">
+		<a class="modula-icon-share" aria-label="<?php echo esc_html__( 'Click to share', 'modula-best-grid-gallery' ); ?>" href="#"><?php echo Modula_Helper::get_icon( 'share' ) ?></a>
+	</div>
+	<div class="jtg-social-expandable-icons <?php  echo $data->socialDesktopCollapsed ? esc_attr( 'jtg-social-desktop-collapsed' ) : ''; ?>">
 			<?php if ( $data->enableTwitter ): ?>
 				<a class="modula-icon-twitter" aria-label="<?php echo esc_html__( 'Share on X', 'modula-best-grid-gallery' ); ?>" <?php echo ( ! empty( $data->social_attributes ) ) ?  Modula_Helper::generate_attributes( $data->social_attributes ) : ''; ?> href="#"><?php echo Modula_Helper::get_icon( 'twitter' ) ?></a>
 			<?php endif ?>
@@ -482,6 +488,9 @@ function modula_mobile_share( $data ){
 			<?php endif ?>
 			<?php do_action('modula_extra_socials',$data); ?>
 		</div>
-	</div>
 	<?php
+}
+
+function modula_run_lazy_load( $settings ) {
+	return isset( $settings['lazy_load'] ) && apply_filters( 'modula_gallery_lazyload_state', 1 === $settings['lazy_load'], $settings );
 }
