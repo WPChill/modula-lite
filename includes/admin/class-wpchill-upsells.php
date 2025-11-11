@@ -163,18 +163,16 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 				set_transient( $this->get_transient( 'fetch_packages_error_count' ), $err_count ? ++$err_count : 1, 3600 );
 			}
 
-			if ( ! is_wp_error( $response ) ) {
+			delete_transient( $this->get_transient( 'fetch_packages_error_count' ) );
 
-				// Decode the data that we got.
-				$data = json_decode( wp_remote_retrieve_body( $response ), true );
+			// Decode the data that we got.
+			$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
-				if ( ! empty( $data ) && is_array( $data ) ) {
+			if ( ! empty( $data ) && is_array( $data ) ) {
 
-					$this->packages          = $this->create_proper_packages( $data );
-					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
-					set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, 30 * DAY_IN_SECONDS );
-				}
-				delete_transient( $this->get_transient( 'fetch_packages_error_count' ) );
+				$this->packages          = $this->create_proper_packages( $data );
+				$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
+				set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, 30 * DAY_IN_SECONDS );
 			}
 		}
 
