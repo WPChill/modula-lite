@@ -150,9 +150,18 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 			}
 
 			$query_var = $rest_calls['route'];
+			$err_count = get_transient( $this->get_transient( 'fetch_packages_error_count' ) );
+
+			if ( $err_count && 5 <= $err_count ) {
+				return;
+			}
 
 			// Transient doesn't exist so we make the call
 			$response = wp_remote_get( $this->get_route( $query_var ) );
+
+			if ( is_wp_error( $response ) ) {
+				set_transient( $this->get_transient( 'fetch_packages_error_count' ), $err_count ? ++$err_count : 1, 3600 );
+			}
 
 			if ( ! is_wp_error( $response ) ) {
 
@@ -165,8 +174,8 @@ if ( ! class_exists( 'WPChill_Upsells' ) ) {
 					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
 					set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, 30 * DAY_IN_SECONDS );
 				}
+				delete_transient( $this->get_transient( 'fetch_packages_error_count' ) );
 			}
-
 		}
 
 		/**
