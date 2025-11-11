@@ -25,31 +25,39 @@ class Modula_Addons {
 	private function check_for_addons() {
 
 		$data = get_transient( 'modula_all_extensions' );
-	 	if ( false !== $data ) {
-			return $data;
+		if ( false !== $data ) {
+			return apply_filters( 'modula_addons', $data );
 		}
 
-		$addons = array();
+		$err_count = get_transient( 'modula_all_extensions_error_count' );
+		$addons    = array();
+
+		if ( $err_count && 5 <= $err_count ) {
+			return apply_filters( 'modula_addons', $addons );
+		}
 
 		$url = MODULA_PRO_STORE_URL . '/wp-json/mt/v1/get-all-extensions';
 
 		// Get data from the remote URL.
 		$response = wp_remote_get( $url );
 
-		if ( ! is_wp_error( $response ) ) {
-
-			// Decode the data that we got.
-			$data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-			if ( ! empty( $data ) && is_array( $data ) ) {
-				$addons = $data;
-				// Store the data for a week.
-				set_transient( 'modula_all_extensions', $data, 30 * DAY_IN_SECONDS );
-			}
+		if ( is_wp_error( $response ) ) {
+			set_transient( 'modula_all_extensions_error_count', $err_count ? ++$err_count : 1, 3600 );
+			return apply_filters( 'modula_addons', $addons );
 		}
 
-	    return apply_filters( 'modula_addons', $addons );
+		delete_transient( 'modula_all_extensions_error_count' );
 
+		// Decode the data that we got.
+		$data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( ! empty( $data ) && is_array( $data ) ) {
+			$addons = $data;
+			// Store the data for a week.
+			set_transient( 'modula_all_extensions', $data, 30 * DAY_IN_SECONDS );
+		}
+
+		return apply_filters( 'modula_addons', $addons );
 	}
 
 	public function render_addons() {
