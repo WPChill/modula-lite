@@ -107,6 +107,8 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
 			// The Modula Addons
 			require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
+			// Yoast/Rank Math/seopress image sitemaps
+			require_once MODULA_PATH . 'includes/class-modula-image-sitemaps.php';
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
@@ -220,6 +222,7 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
+		new Modula_Image_Sitemaps();
 	}
 
 	/* Enqueue Admin Scripts */
