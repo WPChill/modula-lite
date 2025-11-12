@@ -286,48 +286,51 @@ class Modula_Image_Sitemaps {
 	 * @return string Modified XML sitemap content
 	 */
 	public function add_images_to_seopress_sitemap( $xml ) {
-		$post_id = 0;
+		if ( preg_match_all( '/<url>(.*?)<\/url>/s', $xml, $url_matches ) ) {
+			foreach ( $url_matches[0] as $url_entry ) {
+				if ( preg_match( '/<loc>(.*?)<\/loc>/', $url_entry, $loc_matches ) ) {
+					$url     = $loc_matches[1];
+					$post_id = url_to_postid( $url );
 
-		if ( preg_match( '/<loc>(.*?)<\/loc>/', $xml, $matches ) ) {
-			$url     = $matches[1];
-			$post_id = url_to_postid( $url );
-		}
-
-		if ( ! $post_id ) {
-			return $xml;
-		}
-
-		$post = get_post( $post_id );
-		if ( ! $post ) {
-			return $xml;
-		}
-
-		$gallery_ids = $this->get_gallery_ids_from_post( $post );
-
-		if ( empty( $gallery_ids ) ) {
-			return $xml;
-		}
-
-		$images_xml = '';
-		foreach ( $gallery_ids as $gallery_id ) {
-			$images_from_gallery = $this->get_gallery_images( $gallery_id );
-			if ( ! empty( $images_from_gallery ) ) {
-				foreach ( $images_from_gallery as $image ) {
-					$images_xml .= '<image:image>';
-					$images_xml .= '<image:loc>' . esc_url( $image['src'] ) . '</image:loc>';
-					if ( ! empty( $image['title'] ) ) {
-						$images_xml .= '<image:title>' . esc_html( $image['title'] ) . '</image:title>' . "\n";
+					if ( ! $post_id ) {
+						continue;
 					}
-					if ( ! empty( $image['caption'] ) ) {
-						$images_xml .= '<image:caption>' . esc_html( $image['caption'] ) . '</image:caption>' . "\n";
+
+					$post = get_post( $post_id );
+					if ( ! $post ) {
+						continue;
 					}
-					$images_xml .= '</image:image>' . "\n";
+
+					$gallery_ids = $this->get_gallery_ids_from_post( $post );
+
+					if ( empty( $gallery_ids ) ) {
+						continue;
+					}
+
+					$images_xml = '';
+					foreach ( $gallery_ids as $gallery_id ) {
+						$images_from_gallery = $this->get_gallery_images( $gallery_id );
+						if ( ! empty( $images_from_gallery ) ) {
+							foreach ( $images_from_gallery as $image ) {
+								$images_xml .= '<image:image>';
+								$images_xml .= '<image:loc>' . esc_url( $image['src'] ) . '</image:loc>';
+								if ( ! empty( $image['title'] ) ) {
+									$images_xml .= '<image:title>' . esc_html( $image['title'] ) . '</image:title>' . "\n";
+								}
+								if ( ! empty( $image['caption'] ) ) {
+									$images_xml .= '<image:caption>' . esc_html( $image['caption'] ) . '</image:caption>' . "\n";
+								}
+								$images_xml .= '</image:image>' . "\n";
+							}
+						}
+					}
+
+					if ( ! empty( $images_xml ) ) {
+						$updated_entry = str_replace( '</url>', $images_xml . '</url>', $url_entry );
+						$xml           = str_replace( $url_entry, $updated_entry, $xml );
+					}
 				}
 			}
-		}
-
-		if ( ! empty( $images_xml ) ) {
-			$xml = str_replace( '</url>', $images_xml . '</url>', $xml );
 		}
 
 		return $xml;
