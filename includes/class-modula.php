@@ -94,7 +94,8 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
-
+		// Yoast/Rank Math/seopress image sitemaps
+		require_once MODULA_PATH . 'includes/class-modula-image-sitemaps.php';
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -107,8 +108,6 @@ class Modula {
 			require_once MODULA_PATH . 'includes/admin/class-modula-admin-helpers.php';
 			// The Modula Addons
 			require_once MODULA_PATH . 'includes/admin/class-modula-addons.php';
-			// Yoast/Rank Math/seopress image sitemaps
-			require_once MODULA_PATH . 'includes/class-modula-image-sitemaps.php';
 			// Modula Debug Class
 			require_once MODULA_PATH . 'includes/admin/class-modula-debug.php';
 			require_once MODULA_PATH . 'includes/admin/class-modula-onboarding.php';
