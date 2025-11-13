@@ -94,7 +94,8 @@ class Modula {
 		require_once MODULA_PATH . 'includes/class-scripts.php';
 		require_once MODULA_PATH . 'includes/ai/class-client.php';
 		require_once MODULA_PATH . 'includes/admin/class-gallery-listing-output.php';
-
+		// Yoast/Rank Math/seopress image sitemaps
+		require_once MODULA_PATH . 'includes/class-modula-image-sitemaps.php';
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -220,6 +221,7 @@ class Modula {
 	}
 
 	private function define_public_hooks() {
+		new Modula_Image_Sitemaps();
 	}
 
 	/* Enqueue Admin Scripts */
