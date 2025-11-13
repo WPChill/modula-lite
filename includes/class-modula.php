@@ -105,6 +105,8 @@ class Modula {
 		require_once MODULA_PATH . 'includes/wpchill/wpchill-telemetry-loader.php';
 		require_once MODULA_PATH . 'includes/class-modula-telemetry-integration.php';
 
+		// Yoast/Rank Math/seopress image sitemaps
+		require_once MODULA_PATH . 'includes/class-modula-image-sitemaps.php';
 		if ( is_admin() ) {
 			require_once MODULA_PATH . 'includes/admin/class-modula-readme-parser.php'; //added by Cristi in 2.7.8
 			require_once MODULA_PATH . 'includes/admin/class-modula-importer-exporter.php';
@@ -236,6 +238,7 @@ class Modula {
 	private function define_public_hooks() {
 
 		new Modula_Rest_Api();
+		new Modula_Image_Sitemaps();
 	}
 
 	/* Enqueue Admin Scripts */
@@ -252,14 +255,14 @@ class Modula {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		$modula_helper = array(
-			'items'    => array(),
-			'settings' => array(),
-			'strings'  => array(
+			'items'     => array(),
+			'settings'  => array(),
+			'strings'   => array(
 				'limitExceeded' => '',
 			),
-			'id'       => $post_id,
-			'_wpnonce' => wp_create_nonce( 'modula-ajax-save' ),
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'id'        => $post_id,
+			'_wpnonce'  => wp_create_nonce( 'modula-ajax-save' ),
+			'ajax_url'  => admin_url( 'admin-ajax.php' ),
 			'admin_url' => admin_url(),
 		);
 
