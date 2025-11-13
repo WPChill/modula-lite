@@ -1,15 +1,12 @@
 <?php
 
 /**
- *
+ * Modula Admin class
  */
 class Modula_Admin {
-
-	private $tabs;
 	private $subtabs;
 	private $menu_links;
-	private $current_tab = 'general';
-
+	private $tabs;
 	public function __construct() {
 		// Register our submenus
 		add_action( 'admin_menu', array( $this, 'register_submenus' ) );
@@ -284,40 +281,13 @@ class Modula_Admin {
 		}
 	}
 
-	public function show_submenu() {
-
-		// Get current tab
-		if ( isset( $_GET['modula-tab'] ) && isset( $this->tabs[ $_GET['modula-tab'] ] ) ) {
-			$this->current_tab = sanitize_text_field( wp_unslash( $_GET['modula-tab'] ) );
-		} else {
-			$tabs              = array_keys( $this->tabs );
-			$this->current_tab = $tabs[0];
-		}
-
-		if ( isset( $_GET['modula-subtab'] ) && isset( $this->tabs[ $this->current_tab ]['subtabs'][ $_GET['modula-subtab'] ] ) ) {
-			$this->current_subtab = sanitize_text_field( wp_unslash( $_GET['modula-subtab'] ) );
-		} elseif ( isset( $this->tabs[ $this->current_tab ]['subtabs'] ) ) {
-			$subtabs              = array_keys( $this->tabs[ $this->current_tab ]['subtabs'] );
-			$this->current_subtab = $subtabs[0];
-		}
-
-		include 'tabs/modula.php';
-	}
-
 	public function show_extension_page_tabs() {
 
 		$tabs = array(
-			'galleries'       => array(
+			'galleries' => array(
 				'name'     => esc_html__( 'Galleries', 'modula-best-grid-gallery' ),
 				'url'      => admin_url( 'edit.php?post_type=modula-gallery' ),
 				'priority' => '1',
-			),
-			'suggest_feature' => array(
-				'name'     => esc_html__( 'Suggest a feature', 'modula-best-grid-gallery' ),
-				'icon'     => 'dashicons-external',
-				'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
-				'target'   => '_blank',
-				'priority' => '10',
 			),
 		);
 
@@ -339,78 +309,11 @@ class Modula_Admin {
 		}
 		?>
 		<div class="wrap">
-
-
-		<h2 class="nav-tab-wrapper">
-			<?php
-			Modula_Admin_Helpers::modula_tab_navigation( $tabs, $active_tab );
-			?>
-			<?php do_action( 'modula_extensions_tabs_extra_actions' ); ?>
-			<div class="reload-extensions-wrapper">
-				<?php
-				$t_ext_timeout = get_transient( 'timeout_modula_all_extensions' );
-				$timezone      = get_option( 'timezone_string' );
-				$gmt_offset    = get_option( 'gmt_offset' );
-				$offset        = 30 * DAY_IN_SECONDS;
-
-				$dt = new DateTime();
-
-				if ( $t_ext_timeout ) {
-					echo '<span class="description last-reloaded-extensions">' . esc_html__( 'Last reload: ', 'modula-best-grid-gallery' );
-
-					if ( $timezone && '' != $timezone && ( ! $gmt_offset || '' == $gmt_offset ) ) {
-						$dt->setTimezone( new DateTimeZone( $timezone ) );
-					}
-
-					if ( $gmt_offset && '' != $gmt_offset ) {
-						$offset = $offset - ( (int) $gmt_offset * 60 * 60 );
-					}
-
-					$dt->setTimestamp( $t_ext_timeout - $offset );
-
-					echo esc_html( $dt->format( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
-
-					echo '</span>';
-				}
-				?>
-				<a id="modula-reload-extensions" class="button button-secondary"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'modula-reload-extensions' ) ); ?>"><span
-							class="dashicons dashicons-update"></span><?php esc_html_e( 'Reload Extensions', 'modula-best-grid-gallery' ); ?>
-				</a>
-			</div>
-
-		</h2>
 		<?php
-
-		if ( 'extensions' == $active_tab ) {
-			$addons  = new Modula_Addons();
-			$pro_ext = false;
-
-			if ( ! isset( $_GET['extensions'] ) || 'pro' === $_GET['extensions'] ) {
-				$pro_ext = true;
-			}
-
-			if ( $addons->check_free_addons() ) {
-				?>
-				<div class="modula-subtab-navigation wp-clearfix wrap">
-					<ul class="subsubsub">
-						<li><a href="<?php echo esc_url( add_query_arg( array( 'extensions' => 'pro' ) ) ); ?>" class="<?php echo $pro_ext ? 'current' : ''; ?>"><?php esc_html_e( 'PRO', 'modula-best-grid-gallery' ); ?></a> | </li>
-						<li><a href="<?php echo esc_url( add_query_arg( array( 'extensions' => 'free' ) ) ); ?>" class="<?php echo ! $pro_ext ? 'current' : ''; ?>"><?php esc_html_e( 'Free', 'modula-best-grid-gallery' ); ?></a></li>
-					</ul>
-				</div>
-				<?php
-			}
+		if ( 'extensions' === $active_tab ) {
 			?>
-
-			<div class="modula-addons-container <?php echo ! $pro_ext ? 'hidden' : ''; ?>">
-				<?php $addons->render_addons(); ?>
-			</div>
-			<?php if ( $addons->check_free_addons() ) { ?>
-				<div class="modula-free-addons-container <?php echo $pro_ext ? 'hidden' : ''; ?>">
-					<?php $addons->render_free_addons(); ?>
-				</div>
-				<?php
-			}
+			<div class="modula-addons-container" id="modula-addons"></div>
+			<?php
 		} else {
 			do_action( "modula_exntesion_{$active_tab}_tab" );
 		}
@@ -595,11 +498,11 @@ class Modula_Admin {
 	public function add_body_class( $classes ) {
 		$screen = get_current_screen();
 
-		if ( 'modula-gallery' != $screen->post_type ) {
+		if ( 'modula-gallery' !== $screen->post_type ) {
 			return $classes;
 		}
 
-		if ( 'post' != $screen->base ) {
+		if ( 'post' !== $screen->base ) {
 			return $classes;
 		}
 
@@ -877,7 +780,7 @@ class Modula_Admin {
 	public function media_add_notice() {
 		$screen = get_current_screen();
 
-		if ( $screen->base !== 'upload' && $screen->base !== 'media_page_upload' ) {
+		if ( 'upload' !== $screen->base && 'media_page_upload' !== $screen->base ) {
 			return;
 		}
 
@@ -894,6 +797,7 @@ class Modula_Admin {
 		$message = apply_filters(
 			'modula_bulk_add_images_to_gallery_message',
 			sprintf(
+				/* translators: 1: number of images added, 2: singular/plural of image, 3: number of images skipped, 4: singular/plural of image */
 				esc_html__( '%1$d %2$s added, and %3$d %4$s skipped (already added in the gallery or incorrect extension)', 'modula-best-grid-gallery' ),
 				$added,
 				$added_text,

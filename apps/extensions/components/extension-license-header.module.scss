@@ -1,0 +1,42 @@
+.licenseHeader {
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 24px;
+	margin-bottom: 24px;
+}
+
+.licenseActive {
+	.greeting {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.5;
+		color: #374151;
+
+		strong {
+			font-weight: 600;
+			color: #111827;
+		}
+	}
+}
+
+.licenseInactive {
+	.greeting {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.5;
+		color: #374151;
+
+		.activationLink {
+			color: #0073aa;
+			text-decoration: none;
+			font-weight: 500;
+
+			&:hover {
+				color: #005177;
+				text-decoration: underline;
+			}
+		}
+	}
+}
+

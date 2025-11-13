@@ -1,0 +1,66 @@
+.tableWrapper {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.extensionTable {
+	width: 100%;
+	border-collapse: collapse;
+
+	thead {
+		background: #f6f7f7;
+		border-bottom: 1px solid #c3c4c7;
+
+		th {
+			padding: 10px 15px;
+			font-weight: 400;
+			font-size: 13px;
+			color: #646970;
+			border-right: 1px solid #dcdcde;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+
+	tbody {
+		tr {
+			border-bottom: 1px solid #dcdcde;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			&:hover {
+				background: #f6f7f7;
+			}
+		}
+	}
+}
+
+.checkboxColumn {
+	width: 40px;
+	padding: 10px 15px !important;
+	text-align: center;
+
+	input[type='checkbox'] {
+		margin: 0;
+	}
+}
+
+.extensionColumn {
+	width: 30%;
+	text-align: left;
+}
+
+.descriptionColumn {
+	width: 50%;
+	text-align: left;
+}
+
+.statusColumn {
+	width: 20%;
+	text-align: right;
+}

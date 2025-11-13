@@ -1,0 +1,29 @@
+.extensionWrapper {
+	max-width: 1400px;
+	margin: 0 auto;
+
+	@media (max-width: 768px) {
+		padding: 24px 16px;
+	}
+}
+
+.pageTitle {
+	margin: 0 0 24px 0 !important;
+	font-size: 24px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.extensionList {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+
+	@media (max-width: 1200px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}

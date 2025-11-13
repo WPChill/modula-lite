@@ -423,6 +423,10 @@ p.modula-onboarding-doc > a {
   right: 280px !important;
 }
 
+.wrap .nav-tab-wrapper.modula-extensions-page {
+  padding-bottom: 10px;
+}
+
 .modula-nav-wrapper {
   border-bottom: 0 !important;
   background-color: #fff;

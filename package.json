@@ -31,6 +31,8 @@
 		"build:gallery-listing-ai": "wp-scripts build apps/gallery-listing-ai/index.js --output-path=./assets/js/admin/gallery-listing-ai --config webpack.config.react-apps.js",
 		"start:general-settings": "wp-scripts start apps/general-settings/index.js --output-path=./assets/js/admin/general-settings --config webpack.config.react-apps.js",
 		"build:general-settings": "wp-scripts build apps/general-settings/index.js --output-path=./assets/js/admin/general-settings --config webpack.config.react-apps.js",
+		"start:extensions": "wp-scripts start apps/extensions/index.js --output-path=./assets/js/admin/extensions --config webpack.config.react-apps.js",
+		"build:extensions": "wp-scripts build apps/extensions/index.js --output-path=./assets/js/admin/extensions --config webpack.config.react-apps.js",
 		"build": "npm run build:notification-system && npm run build:gallery-listing-ai && npm run build:general-settings && wp-scripts build",
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",

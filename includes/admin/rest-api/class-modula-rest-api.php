@@ -3,7 +3,7 @@
 class Modula_Rest_Api {
 
 	private $namespace = 'modula-best-grid-gallery/v1';
-	private $settings = null;
+	private $settings  = null;
 
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
@@ -63,7 +63,7 @@ class Modula_Rest_Api {
 	public function get_settings() {
 		return new \WP_REST_Response( $this->settings->get_settings(), 200 );
 	}
-	
+
 	public function update_settings( $request ) {
 		$settings = $request->get_json_params();
 
@@ -91,18 +91,14 @@ class Modula_Rest_Api {
 			return new \WP_REST_Response( 'No action to take.', 400 );
 		}
 
-		if ( class_exists( 'Modula_Video' ) && ! class_exists( 'Modula_Video_Google_Auth' ) ) {
-			require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-google-auth.php';
-		}
-
-		if ( class_exists( 'Modula_Video_Google_Auth' ) ) {
-			$youtube_oauth = Modula_Video_Google_Auth::get_instance();
+		if ( class_exists( 'Modula_Pro\Extensions\Video\Admin\Google_Auth' ) ) {
+			$youtube_oauth = Modula_Pro\Extensions\Video\Admin\Google_Auth::get_instance();
 			if ( 'refresh' === $data['action'] ) {
 				$youtube_oauth->refresh_token( false );
 			} elseif ( 'disconnect' === $data['action'] ) {
-				delete_option( Modula_Video_Google_Auth::$accessToken );
-				delete_option( Modula_Video_Google_Auth::$refreshToken );
-				delete_option( Modula_Video_Google_Auth::$expiryDate );
+				delete_option( Modula_Pro\Extensions\Video\Admin\Google_Auth::$access_token );
+				delete_option( Modula_Pro\Extensions\Video\Admin\Google_Auth::$refresh_token );
+				delete_option( Modula_Pro\Extensions\Video\Admin\Google_Auth::$expiry_date );
 			}
 		}
 
@@ -116,14 +112,10 @@ class Modula_Rest_Api {
 			return new \WP_REST_Response( 'No action to take.', 400 );
 		}
 
-		if ( class_exists( 'Modula_Video' ) && ! class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
-			require_once WP_PLUGIN_DIR . '/modula-video/includes/admin/class-modula-video-vimeo-auth.php';
-		}
-
-		if ( class_exists( 'Modula_Video_Vimeo_Auth' ) ) {
-			$youtube_oauth = Modula_Video_Vimeo_Auth::get_instance();
+		if ( class_exists( 'Modula_Pro\Extensions\Video\Admin\Vimeo_Auth' ) ) {
+			Modula_Pro\Extensions\Video\Admin\Vimeo_Auth::get_instance();
 			if ( 'disconnect' === $data['action'] ) {
-				delete_option( Modula_Video_Vimeo_Auth::$accessToken );
+				delete_option( Modula_Pro\Extensions\Video\Admin\Vimeo_Auth::$access_token );
 			}
 		}
 

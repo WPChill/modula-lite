@@ -1,0 +1,18 @@
+.extensionCard {
+	display: flex;
+	flex-direction: column;
+	background: #ffffff;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	overflow: hidden;
+	transition: border-color 0.2s ease;
+	position: relative;
+
+	&:hover {
+		border-color: #d1d5db;
+	}
+
+	&.unavailable {
+		opacity: 0.85;
+	}
+}

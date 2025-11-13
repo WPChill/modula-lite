@@ -871,14 +871,14 @@ class Modula {
 
 	public function general_settings_page_scripts() {
 		$screen = get_current_screen();
-
 		if ( 'modula-gallery' !== $screen->post_type ) {
 			return;
 		}
 
-		if ( 'modula-gallery_page_modula' !== $screen->base ) {
-			return;
-		}
+		// @todo readd this
+		// if ( 'modula-gallery_page_modula' !== $screen->base ) {
+		//  return;
+		// }
 
 		wp_enqueue_media();
 
@@ -894,6 +894,17 @@ class Modula {
 			'assets/js/admin/general-settings',
 			array( 'wp-components' )
 		);
+
+		// $scripts->load_js_asset(
+		//  'modula-extensions',
+		//  'assets/js/admin/extensions',
+		// );
+
+		// $scripts->load_css_asset(
+		//  'modula-extensions',
+		//  'assets/js/admin/extensions',
+		//  array( 'wp-components' )
+		// );
 
 		wp_add_inline_script(
 			'modula-settings',

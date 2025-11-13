@@ -6,8 +6,8 @@ export const actionTypes = {
 	SET_LOGGED_IN: 'SET_LOGGED_IN',
 };
 
-export const reducer = ( state, action ) => {
-	switch ( action.type ) {
+export const reducer = (state, action) => {
+	switch (action.type) {
 		case actionTypes.SET_ACTIVE_TAB:
 			return {
 				...state,

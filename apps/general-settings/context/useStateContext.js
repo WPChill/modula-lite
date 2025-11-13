@@ -2,11 +2,11 @@ import { useContext } from '@wordpress/element';
 import { SettingsContext } from './settings-context';
 
 const useStateContext = () => {
-	const context = useContext( SettingsContext );
+	const context = useContext(SettingsContext);
 
-	if ( context === undefined ) {
+	if (context === undefined) {
 		throw new Error(
-			'useStateContext must be used within a SettingsProvider',
+			'useStateContext must be used within a SettingsProvider'
 		);
 	}
 
