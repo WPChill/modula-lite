@@ -79,7 +79,6 @@ class Modula_Gallery_Upload {
 		add_filter( 'upload_dir', array( $this, 'zip_upload_dir' ) );
 		// AJAX to unzip the uploaded zip file.
 		add_action( 'wp_ajax_modula_unzip_file', array( $this, 'ajax_unzip_file' ) );
-		add_action( 'wp_ajax_modula_import_cleanup', array( $this, 'ajax_import_cleanup' ) );
 	}
 
 	/**
@@ -1015,15 +1014,7 @@ class Modula_Gallery_Upload {
 
 		return $pathdata;
 	}
-	public function ajax_import_cleanup() {
-		// Check Nonce
-		check_ajax_referer( 'list-files', 'security' );
 
-		// Check user rights.
-		if ( ! $this->check_user_upload_rights() ) {
-			wp_send_json_error( __( 'You do not have the rights to upload files.', 'modula-best-grid-gallery' ) );
-		}
-	}
 	/**
 	 * Handle the file unzip process
 	 *
