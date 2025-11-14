@@ -1,4 +1,7 @@
-= 2.12.30 - 12.11.2025 =
+= 2.13.1 - 14.11.2025 =
+Added: Enhancements for zip import.
+
+= 2.13.0 - 12.11.2025 =
 Added: Yoast/Rank Math/SEOPress image sitemaps.
 
 = 2.12.29 - 07.11.2025 =
