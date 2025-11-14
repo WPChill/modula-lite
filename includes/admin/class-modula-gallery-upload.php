@@ -1055,30 +1055,39 @@ class Modula_Gallery_Upload {
 		// Get allowed mime types
 		$allowed_mime_types = $this->define_allowed_mime_types();
 
-		// Check each file in the zip
-		$valid_files = true;
+		$has_valid_files = false;
+		$invalid_files   = array();
 		for ( $i = 0; $i < $zip->numFiles; $i++ ) {
 			$stat      = $zip->statIndex( $i );
-			$file_name = basename( $stat['name'] );
-
-			// Skip directories
-			if ( substr( $file_name, -1 ) === '/' ) {
+			$full_path = $stat['name'];
+			if ( substr( $full_path, -1 ) === '/' ) {
 				continue;
 			}
 
-			// Check file extension against allowed mime types
+			$file_name = basename( $full_path );
+			if ( empty( $file_name ) ) {
+				continue;
+			}
+
+			if ( substr( $file_name, 0, 2 ) === '._' ) {
+				$invalid_files[] = $full_path;
+				continue;
+			}
+
 			$file_type = wp_check_filetype( $file_name, $allowed_mime_types );
 			if ( empty( $file_type['type'] ) ) {
-				$valid_files = false;
-				break;
+				$invalid_files[] = $full_path;
+			} else {
+				$has_valid_files = true;
 			}
 		}
 
 		$zip->close();
 
-		if ( ! $valid_files ) {
+		// If no valid image files found, reject the ZIP
+		if ( ! $has_valid_files ) {
 			$this->delete_atachment( $file_id, true );
-			wp_send_json_error( __( 'ZIP file contains invalid or disallowed file types. Only image files are permitted.', 'modula-best-grid-gallery' ) );
+			wp_send_json_error( __( 'ZIP file does not contain any valid image files. Only image files are permitted.', 'modula-best-grid-gallery' ) );
 		}
 
 		// Get the base path.
@@ -1100,6 +1109,24 @@ class Modula_Gallery_Upload {
 
 		// Delete the original zip file
 		$this->delete_atachment( $file_id, true );
+
+		// Delete invalid files after extraction
+		global $wp_filesystem;
+		if ( ! empty( $invalid_files ) && isset( $wp_filesystem ) ) {
+			foreach ( $invalid_files as $invalid_path ) {
+				$file_to_delete = $unzip_path . '/' . $invalid_path;
+				if ( $wp_filesystem->exists( $file_to_delete ) ) {
+					$wp_filesystem->delete( $file_to_delete, false, 'f' );
+				}
+			}
+
+			$macosx_root = $unzip_path . '/__MACOSX';
+			if ( $wp_filesystem->exists( $macosx_root ) && $wp_filesystem->is_dir( $macosx_root ) ) {
+				$wp_filesystem->rmdir( $macosx_root, true );
+			}
+
+			$this->remove_empty_folders( $unzip_path, $unzip_path );
+		}
 
 		$folders = array( $unzip_path );
 		// Check if the folder has subfolders.
@@ -1165,6 +1192,48 @@ class Modula_Gallery_Upload {
 		WPChill_Notifications::add_notification( 'error-uploading-images-' . get_the_ID(), $notice );
 		// Clear the uploaded files, since the notification was added.
 		$this->update_uploaded_error_files( $gallery_id, array() );
+	}
+
+	/**
+	 * Recursively remove empty folders
+	 *
+	 * @param string $dir Directory path to clean
+	 * @param string $root_dir Root directory to preserve (don't delete)
+	 * @return void
+	 *
+	 * @since 2.11.0
+	 */
+	private function remove_empty_folders( $dir, $root_dir ) {
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem->is_dir( $dir ) ) {
+			return;
+		}
+
+		$items = $wp_filesystem->dirlist( $dir, false, false );
+		if ( empty( $items ) ) {
+			if ( $dir === $root_dir ) {
+				return;
+			}
+			$wp_filesystem->rmdir( $dir, false );
+			return;
+		}
+
+		foreach ( $items as $item ) {
+			if ( isset( $item['type'] ) && 'd' === $item['type'] ) {
+				$subdir = trailingslashit( $dir ) . $item['name'];
+				$this->remove_empty_folders( $subdir, $root_dir );
+			}
+		}
+
+		$items = $wp_filesystem->dirlist( $dir, false, false );
+		if ( empty( $items ) ) {
+			if ( $dir === $root_dir ) {
+				return;
+			}
+
+			$wp_filesystem->rmdir( $dir, false );
+		}
 	}
 
 	private function delete_atachment( $file_id, $force ) {
