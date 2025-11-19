@@ -73,7 +73,11 @@ class Optimizer {
 		$this->ai_helper      = Ai_Helper::get_instance();
 		$this->gallery_helper = Gallery_Helper::get_instance();
 
-		add_action( 'init', array( $this, 'add_process_hooks' ) );
+
+		$this->add_process_hooks();
+		if ( ! did_action( 'init' ) ) {
+			add_action( 'init', array( $this, 'add_process_hooks' ) );
+		}
 	}
 
 	/**

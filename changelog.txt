@@ -1,3 +1,6 @@
+= 2.13.2 - 19.11.2025 =
+Updated: Performance improvements.
+
 = 2.13.1 - 14.11.2025 =
 Added: Enhancements for zip import.
 
