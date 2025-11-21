@@ -1,6 +1,6 @@
 export const initialState = () => ( {
 	source: 'modula-best-grid-gallery',
-	step: 5,
+	step: 0,
 	maxStep: 5,
 	stepsData: {},
 } );

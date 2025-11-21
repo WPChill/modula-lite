@@ -17,7 +17,7 @@ export function SaveContinueButton( { keyName } ) {
 			},
 			{
 				onSettled: () => {
-					//dispatch( setStep( state.step + 1 ) );
+					dispatch( setStep( state.step + 1 ) );
 				},
 			},
 		);

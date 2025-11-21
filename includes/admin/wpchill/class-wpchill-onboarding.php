@@ -192,12 +192,10 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 
 		public function rest_api_register_routes( $instance ) {
 
-			if ( ! isset( $instance->namespace ) ) {
-				$instance->namespace = 'wpchill/v1';
-			}
+			$namespace = 'wpchill/v1';
 
 			register_rest_route(
-				$instance->namespace,
+				$namespace,
 				'/onboarding/data',
 				array(
 					'methods'             => 'GET',
@@ -213,7 +211,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			);
 
 			register_rest_route(
-				$instance->namespace,
+				$namespace,
 				'/onboarding/recommended',
 				array(
 					'methods'             => 'GET',
@@ -229,7 +227,7 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			);
 
 			register_rest_route(
-				$instance->namespace,
+				$namespace,
 				'/onboarding/save-step',
 				array(
 					'methods'             => 'POST',
@@ -239,11 +237,21 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			);
 
 			register_rest_route(
-				$instance->namespace,
+				$namespace,
 				'/onboarding/install-plugins',
 				array(
 					'methods'             => 'POST',
 					'callback'            => array( $this, 'install_plugins' ),
+					'permission_callback' => array( $instance, '_permissions_check' ),
+				)
+			);
+
+			register_rest_route(
+				$namespace,
+				'/onboarding/check-license',
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $this, 'license_action' ),
 					'permission_callback' => array( $instance, '_permissions_check' ),
 				)
 			);
@@ -269,6 +277,9 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 			$saved = get_option( $source . '_onboarding_data', array() );
 
 			$data = array_replace_recursive( $defaults, $saved );
+
+			$data['license_key']    = get_option( 'modula_pro_license_key', false );
+			$data['license_status'] = get_option( 'modula_pro_license_status', false );
 
 			return rest_ensure_response( $data );
 		}
@@ -514,6 +525,123 @@ if ( ! class_exists( 'WPChill_Onboarding' ) ) {
 					'results' => $results,
 				)
 			);
+		}
+
+		public function license_action( WP_REST_Request $request ) {
+			$url         = $request->get_param( 'url' );
+			$license_key = $request->get_param( 'license_key' );
+			$site_url    = $request->get_param( 'site_url' );
+			$action      = $request->get_param( 'action' );
+
+			if ( empty( $url ) || ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => 'Invalid or missing URL parameter.',
+					)
+				);
+			}
+
+			if ( empty( $license_key ) ) {
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => 'Missing license_key parameter.',
+					)
+				);
+			}
+
+			if ( empty( $site_url ) || ! filter_var( $site_url, FILTER_VALIDATE_URL ) ) {
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => 'Invalid or missing site_url parameter.',
+					)
+				);
+			}
+
+			if ( empty( $action ) ) {
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => 'Missing action parameter.',
+					)
+				);
+			}
+
+			$transient_key = 'wpchill_license_' . md5( $license_key . '|' . $action );
+
+			$cached = get_transient( $transient_key );
+
+			if ( $cached ) {
+				$this->save_license_options_if_valid( $license_key, $cached );
+
+				return rest_ensure_response(
+					array(
+						'success' => true,
+						'results' => $cached,
+						'cached'  => true,
+					)
+				);
+			}
+
+			$body = array(
+				'license_key' => $license_key,
+				'url'         => $site_url,
+				'action'      => $action,
+			);
+
+			$args = array(
+				'headers' => array( 'Content-Type' => 'application/json' ),
+				'body'    => wp_json_encode( $body ),
+				'timeout' => 20,
+				'method'  => 'POST',
+			);
+
+			$response = wp_remote_post( $url, $args );
+
+			if ( is_wp_error( $response ) ) {
+				return rest_ensure_response(
+					array(
+						'success' => false,
+						'message' => $response->get_error_message(),
+					)
+				);
+			}
+
+			$data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+			set_transient( $transient_key, $data, DAY_IN_SECONDS );
+
+			$this->save_license_options_if_valid( $license_key, $data );
+
+			return rest_ensure_response(
+				array(
+					'success' => true,
+					'results' => $data,
+					'cached'  => false,
+				)
+			);
+		}
+		private function save_license_options_if_valid( $license_key, $data ) {
+
+			if ( ! $data || empty( $data['success'] ) ) {
+				return;
+			}
+
+			update_option( 'modula_pro_license_key', $license_key );
+
+			$save          = new stdClass();
+			$save->success = (bool) $data['success'];
+			$save->license = ( isset( $data['status'] ) && $data['status'] === 'active' )
+				? 'valid'
+				: 'invalid';
+
+			if ( isset( $data['expiration'] ) ) {
+				$save->expires = gmdate( 'Y-m-d H:i:s', (int) $data['expiration'] );
+			}
+
+			update_option( 'modula_pro_license_status', $save );
 		}
 	}
 }

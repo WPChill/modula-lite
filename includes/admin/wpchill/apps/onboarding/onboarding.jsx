@@ -1,6 +1,6 @@
 import { useWpchillState } from './state/use-wpchill-state';
 import { useGetOnboardingData } from './query/useGetOnboardingData';
-import { setStepsData, setSource } from './state/actions';
+import { setStepsData, setSource, setMaxStep } from './state/actions';
 import { useEffect } from '@wordpress/element';
 import { ProgressBar } from './components/ProgressBar.jsx';
 import { Steps } from './components/Steps.jsx';
@@ -12,13 +12,15 @@ export function Onboarding() {
 
 	useEffect( () => {
 		const slug = window?.wpchillOnboarding?.slug ?? 'wpchill';
-		console.log( slug );
 		dispatch( setSource( slug ) );
 	}, [ dispatch ] );
 
 	useEffect( () => {
 		if ( data && ! isLoading && ! error ) {
 			dispatch( setStepsData( data ) );
+			if ( data.license_status && data.license_status.license && 'valid' === data.license_status.license ) {
+				dispatch( setMaxStep( 4 ) );
+			}
 		}
 	}, [ data, isLoading, error, dispatch ] );
 

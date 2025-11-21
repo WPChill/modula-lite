@@ -7,14 +7,13 @@ import { __ } from '@wordpress/i18n';
 export function InstallContinueButton( { plugins } ) {
 	const { state, dispatch } = useWpchillState();
 	const mutation = useInstallPlugins();
-	console.log( plugins );
 
 	const saveStep = () => {
 		mutation.mutate(
 			{plugins},
 			{
 				onSettled: () => {
-					//dispatch( setStep( state.step + 1 ) );
+					dispatch( setStep( state.step + 1 ) );
 				},
 			},
 		);
